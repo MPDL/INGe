@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -42,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
@@ -62,7 +64,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 @ManagedBean(name = "PubItemBatchSessionBean")
 @SessionScoped
 @SuppressWarnings("serial")
-public class PubItemBatchSessionBean extends FacesBean {
+public class PubItemBatchSessionBean extends FacesBean implements LanguageChangeObserver {
   private static final Logger logger = LogManager.getLogger(PubItemBatchSessionBean.class);
 
   @ManagedProperty(value = "#{LoginHelper}")
@@ -75,61 +77,85 @@ public class PubItemBatchSessionBean extends FacesBean {
   private InternationalizationHelper internationalizationHelper;
   private PubItemListSessionBean pubItemListSessionBean;
 
-  private String changeExternalReferencesContentCategoryFrom;
-  private ArrayList<SelectItem> changeExternalReferencesContentCategorySelectItems;
-  private String changeExternalReferencesContentCategoryTo;
-  private ArrayList<SelectItem> changeFilesAudienceSelectItems;
-  private String changeFilesAudienceTo;
-  private String changeFilesContentCategoryFrom;
-  private ArrayList<SelectItem> changeFilesContentCategorySelectItems;
-  private String changeFilesContentCategoryTo;
-  private String changeFilesVisibilityFrom;
-  private ArrayList<SelectItem> changeFilesVisibilitySelectItems;
-  private String changeFilesVisibilityTo;
-  private String changeGenreFrom;
-  private ArrayList<SelectItem> changeGenreSelectItems;
-  private String changeGenreTo;
-  private ArrayList<SelectItem> changeGenreThesisTypeSelectItems;
-  private String changeGenreThesisType;
-  private boolean showThesisType;
-  private ArrayList<SelectItem> contextSelectItems;
-  private String changeReviewMethodFrom;
-  private String changeReviewMethodTo;
-  private ArrayList<SelectItem> changeReviewMethodSelectItems;
-  private String changeSourceGenreFrom;
-  private ArrayList<SelectItem> changeSourceGenreSelectItems;
-  private String changeSourceGenreTo;
-  private String changeSourceIdAdd;
-  private String changeSoureIdAddNumber;
-  private String changeSourceIdReplaceFrom;
-  private String changeSourceIdReplaceTo;
-  private String changeSourceIdReplaceNumber;
-  private String changeSourceIdTypeAdd;
-  private String changeSourceIdTypeReplace;
-  private List<SelectItem> changeSourceIdTypeSelectItems;
-  private String changeSoureEditionNumber;
-  private List<SelectItem> changeSourceNumberSelectItems;
-  private boolean disabledKeywordInput;
-  private String inputChangeLocalTagsReplaceFrom;
-  private String inputChangeLocalTagsReplaceTo;
-  private String inputChangeOrcidAuthor;
-  private String inputChangeOrcidAuthorId;
-  private String inputChangeOrcidReplaceTo;
-  private String inputChangeLocalTagsAdd;
-  private String inputChangeSourceEdition;
-  private List<String> ipRangeToAdd;
-  private List<String> localTagsToAdd;
-  private String changePublicationKeywordsAddInput;
-  private replaceType changePublicationKeywordsReplaceType;
-  private List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems;
-  private String changePublicationKeywordsReplaceFrom;
-  private String changePublicationKeywordsReplaceTo;
-  private String selectedContextNew;
-  private String selectedContextOld;
   private Map<String, ItemVersionRO> storedPubItems;
 
+  // Context
+  private ArrayList<SelectItem> contextSelectItems;
+  private String selectedContextOld;
+  private String selectedContextNew;
+
+  // Local tags
+  private List<String> localTagsToAdd;
+  private String inputChangeLocalTagsReplaceFrom;
+  private String inputChangeLocalTagsReplaceTo;
+
+  // Genre
+  private ArrayList<SelectItem> changeGenreSelectItems;
+  private String changeGenreFrom;
+  private String changeGenreTo;
+  private ArrayList<SelectItem> changeGenreThesisTypeSelectItems;
+  private boolean showThesisType;
+  private String changeGenreThesisType;
+
+  // Visibility
+  private ArrayList<SelectItem> changeFilesVisibilitySelectItems;
+  private String changeFilesVisibilityFrom;
+  private String changeFilesVisibilityTo;
+
+  // Content category files
+  private ArrayList<SelectItem> changeFilesContentCategorySelectItems;
+  private String changeFilesContentCategoryFrom;
+  private String changeFilesContentCategoryTo;
+
+  // IP Range
+  private ArrayList<SelectItem> changeFilesAudienceSelectItems;
+  private List<String> ipRangeToAdd;
+
+  // Content category external references
+  private ArrayList<SelectItem> changeExternalReferencesContentCategorySelectItems;
+  private String changeExternalReferencesContentCategoryFrom;
+  private String changeExternalReferencesContentCategoryTo;
+
+  // Orcid
   private SearchCriterionBase criterion;
   private String orcid;
+
+  // Review
+  private ArrayList<SelectItem> changeReviewMethodSelectItems;
+  private String changeReviewMethodFrom;
+  private String changeReviewMethodTo;
+
+  // Keywords add
+  private String changePublicationKeywordsAddInput;
+
+  // Keywords replace
+  private List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems;
+  private replaceType changePublicationKeywordsReplaceType;
+  private boolean disabledKeywordInput;
+  private String changePublicationKeywordsReplaceFrom;
+  private String changePublicationKeywordsReplaceTo;
+
+  // Genre source
+  private ArrayList<SelectItem> changeSourceGenreSelectItems;
+  private String changeSourceGenreFrom;
+  private String changeSourceGenreTo;
+
+  // Output source number
+  private List<SelectItem> changeSourceNumberSelectItems;
+  private String changeSoureEditionNumber;
+  private String inputChangeSourceEdition;
+
+  // Identifier add
+  private String changeSoureIdAddNumber;
+  private List<SelectItem> changeSourceIdTypeSelectItems;
+  private String changeSourceIdTypeAdd;
+  private String changeSourceIdAdd;
+
+  // Identifier replace
+  private String changeSourceIdReplaceNumber;
+  private String changeSourceIdTypeReplace;
+  private String changeSourceIdReplaceFrom;
+  private String changeSourceIdReplaceTo;
 
   /**
    * The number that represents the difference between the real number of items in the batch
@@ -140,14 +166,31 @@ public class PubItemBatchSessionBean extends FacesBean {
   private int diffDisplayNumber = 0;
 
   public PubItemBatchSessionBean() {
-    this.batchProcessLog = null;
+    this.init();
+    this.initFields();
+  }
+
+  public void init() {
     this.pubItemListSessionBean = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.internationalizationHelper = this.getI18nHelper();
     this.storedPubItems = new HashMap<String, ItemVersionRO>();
-    // Contexts (Collections) and depending Genres
+  }
+
+  public void initFields() {
+    // Contexts
+    this.contextSelectItems = new ArrayList<SelectItem>();
+    this.selectedContextOld = null;
+    this.selectedContextNew = null;
+
+    // Local tags
+    this.localTagsToAdd = new ArrayList<String>();
+    this.localTagsToAdd.add("");
+    this.inputChangeLocalTagsReplaceFrom = null;
+    this.inputChangeLocalTagsReplaceTo = null;
+
+    // Genres
     final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
-    this.contextSelectItems = new ArrayList<SelectItem>();
     List<Genre> allowedGenresForContext = new ArrayList<Genre>();
     List<Genre> allowedGenres = new ArrayList<Genre>();
     Genre genreToCheck = null;
@@ -172,20 +215,25 @@ public class PubItemBatchSessionBean extends FacesBean {
     } else {
       this.changeGenreSelectItems.add(new SelectItem(null, " --- "));
     }
+    this.changeGenreFrom = null;
+    this.changeGenreTo = null;
 
-    // Set degreeTypes
     this.changeGenreThesisTypeSelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsDegreeType(true)));
-    setChangeGenreThesisType(null);
-    this.setShowThesisType(false);
+    this.changeGenreThesisType = null;
+    this.showThesisType = false;
 
-    // SelectItems for file visibility
+    // Visibility
     this.changeFilesVisibilitySelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsVisibility(false)));
+    this.changeFilesVisibilityFrom = null;
+    this.changeFilesVisibilityTo = null;
 
-    // SeletItems for file content category
+    // Content category files
     this.changeFilesContentCategorySelectItems =
         new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
+    this.changeFilesContentCategoryFrom = null;
+    this.changeFilesContentCategoryTo = null;
 
-    // SelectItems for file audience
+    // IP Range
     this.changeFilesAudienceSelectItems = new ArrayList<SelectItem>();
     for (IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
       this.changeFilesAudienceSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
@@ -193,14 +241,37 @@ public class PubItemBatchSessionBean extends FacesBean {
 
     Collections.sort(this.changeFilesAudienceSelectItems, (a, b) -> a.getLabel().compareTo(b.getLabel()));
 
-    // SelectItems for external references content category
+    this.ipRangeToAdd = new ArrayList<String>();
+    this.ipRangeToAdd.add("");
+
+    // Content category external references
     this.changeExternalReferencesContentCategorySelectItems =
         new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
+    this.changeExternalReferencesContentCategoryFrom = null;
+    this.changeExternalReferencesContentCategoryTo = null;
 
-    // SelectItems for publication review methode
+    // Orcid
+    this.criterion = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
+    this.orcid = null;
+
+    // Review
     this.changeReviewMethodSelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsReviewMethod(true)));
+    this.changeReviewMethodFrom = null;
+    this.changeReviewMethodTo = null;
 
-    // SelectItems for source genre
+    // Keywords add
+    this.changePublicationKeywordsAddInput = null;
+
+    // Keywords replace
+    this.changePublicationKeywordsReplaceTypeSelectItems = new ArrayList<SelectItem>();
+    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_ALL, "ALL"));
+    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_BY_VALUE, "SPECIFIC VALUE"));
+    this.changePublicationKeywordsReplaceType = null;
+    this.changePublicationKeywordsReplaceFrom = null;
+    this.changePublicationKeywordsReplaceTo = null;
+    this.disabledKeywordInput = true;
+
+    // Genre source
     final Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
     changeSourceGenreSelectItems = new ArrayList<SelectItem>();
     changeSourceGenreSelectItems.add(new SelectItem("", this.getLabel("BatchWorkspace_lblNoItemsSet")));
@@ -220,42 +291,49 @@ public class PubItemBatchSessionBean extends FacesBean {
       }
     }
     changeSourceGenreSelectItems.toArray(new SelectItem[changeSourceGenreSelectItems.size()]);
+    this.changeSourceGenreFrom = null;
+    this.changeSourceGenreTo = null;
 
-    // Instantiate ipRangeToAdd
-    this.ipRangeToAdd = new ArrayList<String>();
-    this.ipRangeToAdd.add("");
-
-    // Instantiate localTagsToAdd
-    this.localTagsToAdd = new ArrayList<String>();
-    this.localTagsToAdd.add("");
-
-    // Instantiate and fill source selection
+    // Output source number
     this.changeSourceNumberSelectItems = new ArrayList<SelectItem>();
     this.changeSourceNumberSelectItems.add(new SelectItem("1", "1"));
     this.changeSourceNumberSelectItems.add(new SelectItem("2", "2"));
+    this.changeSoureEditionNumber = null;
+    this.inputChangeSourceEdition = null;
 
-    // Instantiate and fill source selection
+    // Identifier
     this.changeSourceIdTypeSelectItems = Arrays.asList(getIdentifierTypes());
 
-    // Instantiate and fill changePublicationKeywordsReplaceTypeSelectItems
-    this.changePublicationKeywordsReplaceTypeSelectItems = new ArrayList<SelectItem>();
-    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_ALL, "ALL"));
-    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_BY_VALUE, "SPECIFIC VALUE"));
+    // Identifier add
+    this.changeSoureIdAddNumber = null;
+    this.changeSourceIdTypeAdd = null;
+    this.changeSourceIdAdd = null;
 
-    // Instantiate and fill disableKeywordInput
-    this.disabledKeywordInput = true;
+    // Identifier replace
+    this.changeSourceIdReplaceNumber = null;
+    this.changeSourceIdTypeReplace = null;
+    this.changeSourceIdReplaceFrom = null;
+    this.changeSourceIdReplaceTo = null;
+  }
+
+  @PreDestroy
+  public void preDestroy() {
+    this.getI18nHelper().removeLanguageChangeObserver(this);
   }
 
   @PostConstruct
-  private void init() {
-    this.batchProcessLog = pubItemBatchService.getBatchProcessLogForCurrentUser(loginHelper.getAccountUser());
+  private void postConstruct() {
+    this.batchProcessLog = this.pubItemBatchService.getBatchProcessLogForCurrentUser(loginHelper.getAccountUser());
+    this.getI18nHelper().addLanguageChangeObserver(this);
+  }
 
-    this.criterion = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
-    this.orcid = null;
+  @Override
+  public void languageChanged(String oldLang, String newLang) {
+    this.initFields();
   }
 
   public BatchProcessLogDbVO getBatchProcessLog() {
-    return batchProcessLog;
+    return this.batchProcessLog;
   }
 
   public void setBatchProcessLog(BatchProcessLogDbVO batchProcessLog) {
@@ -297,14 +375,6 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public void setChangeFilesAudienceSelectItems(ArrayList<SelectItem> changeFilesAudienceSelectItems) {
     this.changeFilesAudienceSelectItems = changeFilesAudienceSelectItems;
-  }
-
-  public String getChangeFilesAudienceTo() {
-    return changeFilesAudienceTo;
-  }
-
-  public void setChangeFilesAudienceTo(String changeFilesAudienceTo) {
-    this.changeFilesAudienceTo = changeFilesAudienceTo;
   }
 
   public String getChangeFilesContentCategoryFrom() {
@@ -393,30 +463,6 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public replaceType getChangePublicationKeywordsReplaceType() {
     return changePublicationKeywordsReplaceType;
-  }
-
-  public String getInputChangeOrcidAuthor() {
-    return inputChangeOrcidAuthor;
-  }
-
-  public void setInputChangeOrcidAuthor(String inputChangeOrcidAuthor) {
-    this.inputChangeOrcidAuthor = inputChangeOrcidAuthor;
-  }
-
-  public String getInputChangeOrcidAuthorId() {
-    return inputChangeOrcidAuthorId;
-  }
-
-  public void setInputChangeOrcidAuthorId(String inputChangeOrcidAuthorId) {
-    this.inputChangeOrcidAuthorId = inputChangeOrcidAuthorId;
-  }
-
-  public String getInputChangeOrcidReplaceTo() {
-    return inputChangeOrcidReplaceTo;
-  }
-
-  public void setInputChangeOrcidReplaceTo(String inputChangeOrcidReplaceTo) {
-    this.inputChangeOrcidReplaceTo = inputChangeOrcidReplaceTo;
   }
 
   public void setChangePublicationKeywordsReplaceType(replaceType changePublicationKeywordsReplaceType) {
@@ -621,14 +667,6 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public int getDisplayNumber() {
     return this.getBatchPubItemsSize() - this.diffDisplayNumber;
-  }
-
-  public String getInputChangeLocalTagsAdd() {
-    return inputChangeLocalTagsAdd;
-  }
-
-  public void setInputChangeLocalTagsAdd(String inputChangeLocalTagsAdd) {
-    this.inputChangeLocalTagsAdd = inputChangeLocalTagsAdd;
   }
 
   public String getInputChangeLocalTagsReplaceFrom() {

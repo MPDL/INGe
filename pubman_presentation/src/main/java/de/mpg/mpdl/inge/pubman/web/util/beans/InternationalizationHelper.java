@@ -60,10 +60,7 @@ public class InternationalizationHelper implements Serializable {
 
   public static final String LABEL_BUNDLE = "Label";
   public static final String MESSAGES_BUNDLE = "Messages";
-  //  public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.jsp";
-  //  public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.jsp";
 
-  //  private String selectedHelpPage;
   private String locale = "en";
   private String homeContent = "n/a";
 
@@ -91,12 +88,6 @@ public class InternationalizationHelper implements Serializable {
       this.userLocale = new Locale("en");
     }
 
-    //    if (this.userLocale.getLanguage().equals("de")) {
-    //      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
-    //    } else {
-    //      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
-    //    }
-
     this.locale = this.userLocale.getLanguage();
 
     this.NO_ITEM_SET = new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET"));
@@ -109,10 +100,6 @@ public class InternationalizationHelper implements Serializable {
   private String getSelectedMessagesBundle() {
     return InternationalizationHelper.MESSAGES_BUNDLE + "_" + this.userLocale.getLanguage();
   }
-
-  //  public String getSelectedHelpPage() {
-  //    return this.selectedHelpPage;
-  //  }
 
   public void changeLanguage(ValueChangeEvent event) {
     final FacesContext fc = FacesTools.getCurrentInstance();
@@ -134,12 +121,6 @@ public class InternationalizationHelper implements Serializable {
       } catch (final Exception e) {
         InternationalizationHelper.logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
       }
-
-      //      if (language.equals("de")) {
-      //        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
-      //      } else {
-      //        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
-      //      }
     }
   }
 
