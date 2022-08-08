@@ -123,6 +123,7 @@
 									value="#{fileVar.file.visibility}"
 									onfocus="updateSelectionBox(this);"
 									onchange="this.form.submit()">
+									<f:ajax event="change" update="updated visibility" listener="#{fileVar.visibilityUpdateEvent}" />
 									<f:selectItems value="#{EditItem.visibilities}" />
 								</h:selectOneMenu>
 							</h:panelGroup>

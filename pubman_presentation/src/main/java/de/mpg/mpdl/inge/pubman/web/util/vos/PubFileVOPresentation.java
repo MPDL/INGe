@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
@@ -231,20 +232,22 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getOaStatus() {
-    String visibility = "";
-    if (this.file.getVisibility() != null) {
-      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
+    String oaStatus = "";
+    if (this.file.getMetadata().getOaStatus() != null) {
+      oaStatus = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
     } else {
-      this.file.setVisibility(FileDbVO.Visibility.PUBLIC);
-      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
+      this.file.getMetadata().setOaStatus(MdsFileVO.OA_STATUS.NOT_SPECIFIED);
+      oaStatus = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
     }
 
-    return visibility;
+    return oaStatus;
   }
 
   private void setOaStatus() {
-    if (this.file.getMetadata().getOaStatus() == null) {
+    if (this.file.getMetadata().getOaStatus() == null && FileDbVO.Visibility.PUBLIC.equals(this.file.getVisibility())) {
       this.file.getMetadata().setOaStatus(MdsFileVO.OA_STATUS.NOT_SPECIFIED);
+    } else if (!FileDbVO.Visibility.PUBLIC.equals(this.file.getVisibility())) {
+      this.file.getMetadata().setOaStatus(null);
     }
   }
 
@@ -449,23 +452,12 @@ public class PubFileVOPresentation extends FacesBean {
    */
 
   /**
-   * This method updates the file's visibility with the new one selected by the user
+   * This method triggers an update on the OA status after the visibility was changed
    * 
    * @param event The value change event
    */
-  public void setUpdateVisibility(ValueChangeEvent event) {
-    final Visibility newVisibility = (Visibility) event.getNewValue();
-    this.file.setVisibility(newVisibility);
-  }
-
-  /**
-   * This method updates the file's visibility with the new one selected by the user
-   * 
-   * @param event The value change event
-   */
-  public void setUpdateOaStatus(ValueChangeEvent event) {
-    final MdsFileVO.OA_STATUS newOaStatus = (MdsFileVO.OA_STATUS) event.getNewValue();
-    this.file.getMetadata().setOaStatus(newOaStatus);
+  public void visibilityUpdateEvent(AjaxBehaviorEvent event) {
+    setOaStatus();
   }
 
   //  public List<GrantVOPresentation> getGrantList() {

@@ -38,7 +38,7 @@
 								rendered="#{!locator.locatorIsLink}" /> <h:outputText
 								value=" (#{locator.contentCategoryLabel})" />
 						</span>
-						<h:panelGroup id="imgLocatorGroupOpenAcces"
+						<h:panelGroup id="imgLocatorGroupOpenAccess"
 							rendered="#{locator.file.metadata.oaStatus!=null}">
 							<img src="../resources/images/open_access_#{locator.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 									 class="xSmall_imgImg " align="left" title="#{locator.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :

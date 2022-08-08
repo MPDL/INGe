@@ -37,7 +37,7 @@
 							class="min_imgBtn xxTiny_marginRExcl"
 							align="left" />
 						<!-- Textual description and link to external resource -->
-						<h:panelGroup id="imgLocatorGroupOpenAcces"
+						<h:panelGroup id="imgLocatorGroupOpenAccess"
 							rendered="#{locator.file.metadata.oaStatus!=null}">
 							<img src="../resources/images/open_access_#{locator.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 									 class="large_imgImg xTiny_marginRExcl" align="left" title="#{locator.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
@@ -46,7 +46,7 @@
 									 	locator.file.metadata.oaStatus.name().toLowerCase() == 'miscellaneous' ? tip.ViewItem_imgOa_miscellaneous :
 									 	tip.ViewItem_imgOa_not_specified}"/>
 						</h:panelGroup>
-						<h:panelGroup id="imgLocatorGroupOpenAccesUnknown"
+						<h:panelGroup id="imgLocatorGroupOpenAccessUnknown"
 							rendered="#{locator.file.metadata.oaStatus==null}">
 							<img src="../resources/images/open_access_not_specified_31.png"
 									 class="large_imgImg xTiny_marginRExcl" align="left" />

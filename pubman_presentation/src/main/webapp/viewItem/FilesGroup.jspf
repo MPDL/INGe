@@ -77,8 +77,8 @@
 											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>
 									</div>
-									<h:panelGroup id="imgFileGroupOpenAcces"
-										rendered="#{file.file.metadata.oaStatus!=null}">
+									<h:panelGroup id="imgFileGroupOpenAccess"
+										rendered="#{file.file.metadata.oaStatus!=null and file.file.visibility == 'PUBLIC'}">
 										<img src="../resources/images/open_access_#{file.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 												 class="xSmall_imgImg " align="left" title="#{file.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
 												 	file.file.metadata.oaStatus.name().toLowerCase() == 'green' ? tip.ViewItem_imgOa_green :
@@ -86,8 +86,8 @@
 												 	file.file.metadata.oaStatus.name().toLowerCase() == 'miscellaneous' ? tip.ViewItem_imgOa_miscellaneous :
 												 	tip.ViewItem_imgOa_not_specified}"/>
 									</h:panelGroup>
-									<h:panelGroup id="imgFileGroupOpenAccesUnknown"
-										rendered="#{file.file.metadata.oaStatus==null}">
+									<h:panelGroup id="imgFileGroupOpenAccessUnknown"
+										rendered="#{file.file.metadata.oaStatus==null and file.file.visibility == 'PUBLIC'}">
 										<img src="../resources/images/open_access_not_specified_31.png"
 												 class="xSmall_imgImg " align="left" />
 									</h:panelGroup>
