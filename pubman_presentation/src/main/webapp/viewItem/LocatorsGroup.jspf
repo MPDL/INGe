@@ -50,7 +50,7 @@
 						<h:panelGroup id="imgLocatorGroupOpenAccesUnknown"
 							rendered="#{locator.file.metadata.oaStatus==null}">
 							<img src="../resources/images/open_access_not_specified_31.png"
-									 class="xSmall_imgImg " align="left" />
+									 class="xSmall_imgImg " align="left" title="#{tip.ViewItem_imgOa_not_specified }"/>
 						</h:panelGroup>
 					</h:panelGroup>
 					<!-- Locator description -->

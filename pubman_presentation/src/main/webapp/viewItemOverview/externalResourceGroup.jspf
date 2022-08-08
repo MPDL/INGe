@@ -49,7 +49,7 @@
 						<h:panelGroup id="imgLocatorGroupOpenAccessUnknown"
 							rendered="#{locator.file.metadata.oaStatus==null}">
 							<img src="../resources/images/open_access_not_specified_31.png"
-									 class="large_imgImg xTiny_marginRExcl" align="left" />
+									 class="large_imgImg xTiny_marginRExcl" align="left" title="#{tip.ViewItem_imgOa_not_specified }"/>
 						</h:panelGroup>
 						<p class="double_area0 grid-item-3">
 							<!-- Link to the external resource -->
