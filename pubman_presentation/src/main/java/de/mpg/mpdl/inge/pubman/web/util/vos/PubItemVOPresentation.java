@@ -1295,17 +1295,20 @@ public class PubItemVOPresentation extends ItemVersionVO {
    *         "postprint" / "preprint" / "publisher-version"
    */
   public List<FileBean> getPubliclyAccessibleSupplementaryMaterialFileBeanList() {
-    final List<FileBean> fulltexts = new ArrayList<FileBean>();
+    final List<FileBean> supplementaryMaterial = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && "supplementary-material".equals(file.getContentCategory())) {
-          fulltexts.add(file);
+            && ("supplementary-material".equals(file.getContentCategory())
+            || "multimedia".equals(file.getContentCategory())
+            || "research-data".equals(file.getContentCategory()) 
+            || "code".equals(file.getContentCategory()))) {
+        	supplementaryMaterial.add(file);
         }
       }
     }
 
-    return fulltexts;
+    return supplementaryMaterial;
   }
 
   public void setLocatorBeanList(List<FileBean> locatorBeanList) {
