@@ -96,7 +96,8 @@ public class QuerierTest {
 
   @Test
   public void testQueryMethod2() throws Exception {
-    List<? extends Describable> results = querier.query("ddc", "topics", PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT), ModeType.FAST, 10);
+    List<? extends Describable> results =
+        querier.query("ddc", "topics", PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT), ModeType.FAST, 10);
     assertNotNull("No results for query 'topics'", results);
     assertTrue("No results for query 'topics'", results.size() > 0);
     assertTrue("Retrieved more results than allowed (" + results.size() + " > 10)", results.size() <= 10);

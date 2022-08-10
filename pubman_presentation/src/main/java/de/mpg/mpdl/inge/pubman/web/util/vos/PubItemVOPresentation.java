@@ -1299,11 +1299,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && ("supplementary-material".equals(file.getContentCategory())
-            || "multimedia".equals(file.getContentCategory())
-            || "research-data".equals(file.getContentCategory()) 
-            || "code".equals(file.getContentCategory()))) {
-        	supplementaryMaterial.add(file);
+            && ("supplementary-material".equals(file.getContentCategory()) || "multimedia".equals(file.getContentCategory())
+                || "research-data".equals(file.getContentCategory()) || "code".equals(file.getContentCategory()))) {
+          supplementaryMaterial.add(file);
         }
       }
     }
