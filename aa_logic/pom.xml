@@ -6,17 +6,17 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.4.9</version>
+		<version>8.4.10-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>aa_logic</artifactId>
 	<name>aa_logic</name>
 
 	<scm>
-		<connection>scm:git:git@github.com:MPDL/INGe/aa_logic</connection>
-		<developerConnection>scm:git:git@github.com:MPDL/INGe/aa_logic</developerConnection>
-		<url>https://github.com/MPDL/INGe/</url>
-		<tag>INGe-8.4.9</tag>
+		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
+		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
+		<url>https://github.com/MPDL/INGe</url>
+		<tag>HEAD</tag>
 	</scm>
 
 	<build>
