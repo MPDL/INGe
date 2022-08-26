@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.4.9-SNAPSHOT</version>
+		<version>8.4.9</version>
 	</parent>
 
 	<artifactId>aa_presentation</artifactId>
@@ -18,7 +18,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/aa_presentation</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/aa_presentation</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.4.9</tag>
 	</scm>
 
 	<build>
