@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "batch_log")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "batchLog")
-public class BatchProcessLogDbVO {
+public class BatchProcessLogDbVO implements Serializable {
 
   @Id
   @Column(name = "user_account_id")
