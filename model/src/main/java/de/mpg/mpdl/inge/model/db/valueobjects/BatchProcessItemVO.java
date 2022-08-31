@@ -53,7 +53,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 @Entity
 @Table(name = "batch_process_log_item")
 @JsonInclude(value = Include.NON_EMPTY)
-
+public class BatchProcessItemVO implements Serializable {
   @Id
   @GeneratedValue
   public long objectId;

@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.pubman.web.common_presentation;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -513,7 +514,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @version $Revision$ $LastChangedDate$
    * 
    */
-  public class PaginatorPage {
+  public class PaginatorPage implements Serializable {
     /**
      * The page number of the paginator button
      */

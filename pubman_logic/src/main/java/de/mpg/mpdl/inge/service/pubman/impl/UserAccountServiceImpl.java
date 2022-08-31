@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +131,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       logger.warn("No 'inge.jwt.shared-secret' is set. Generating a random secret, which might not be secure.");
       key = UUID.randomUUID().toString();
     }
-
+    key = Base64.getEncoder().encodeToString(key.getBytes());
     jwtAlgorithmKey = Algorithm.HMAC512(key);
 
     jwtIssuer = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);

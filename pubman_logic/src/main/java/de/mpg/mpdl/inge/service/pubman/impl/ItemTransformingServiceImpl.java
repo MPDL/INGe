@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import de.mpg.mpdl.inge.transformation.transformers.CitationTransformer;
 
 @Service
 @Primary
-public class ItemTransformingServiceImpl implements ItemTransformingService {
+public class ItemTransformingServiceImpl implements ItemTransformingService, Serializable {
 
   private static final Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
 
