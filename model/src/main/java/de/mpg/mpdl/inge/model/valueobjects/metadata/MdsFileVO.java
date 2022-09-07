@@ -182,6 +182,7 @@ public class MdsFileVO extends MetadataSetVO {
     result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
     result = prime * result + ((license == null) ? 0 : license.hashCode());
     result = prime * result + ((rights == null) ? 0 : rights.hashCode());
+    result = prime * result + ((oaStatus == null) ? 0 : oaStatus.hashCode());
     result = prime * result + size;
     return result;
   }
@@ -253,6 +254,12 @@ public class MdsFileVO extends MetadataSetVO {
       if (other.rights != null)
         return false;
     } else if (!rights.equals(other.rights))
+      return false;
+
+    if (oaStatus == null) {
+      if (other.oaStatus != null)
+        return false;
+    } else if (!oaStatus.equals(other.oaStatus))
       return false;
 
     if (size != other.size)
