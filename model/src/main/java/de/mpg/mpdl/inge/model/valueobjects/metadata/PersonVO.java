@@ -195,6 +195,7 @@ public class PersonVO extends ValueObject implements Cloneable {
     for (String title : getTitles()) {
       vo.getTitles().add(title);
     }
+    vo.setOrcid(getOrcid());
     return vo;
   }
 
