@@ -210,6 +210,7 @@ public class PersonVO extends ValueObject implements Cloneable {
     result = prime * result + ((organizations == null) ? 0 : organizations.hashCode());
     result = prime * result + ((pseudonyms == null) ? 0 : pseudonyms.hashCode());
     result = prime * result + ((titles == null) ? 0 : titles.hashCode());
+    result = prime * result + ((orcid == null) ? 0 : orcid.hashCode());
     return result;
   }
 
