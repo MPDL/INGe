@@ -385,7 +385,7 @@ public class SQLQuerier implements Querier {
     String joinClause = "";
     String order1 = "";
     String order2 = "";
-    String found = "0";
+    int found = 0;
     boolean first = true;
 
     for (Pair<String> pair : searchPairs) {
@@ -447,7 +447,7 @@ public class SQLQuerier implements Querier {
             fromExtension += ", r1.value ilike '" + pair.getValue() + "%'" + ", r1.value ilike '% " + pair.getValue() + "%'"
                 + ", r1.value ilike '%" + pair.getValue() + "%'";
           }
-          found = "1";
+          found += 1;
           break;
         } else if (key.startsWith(predicate.getId())) {
           String[] subResult;
