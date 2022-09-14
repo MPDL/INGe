@@ -521,7 +521,7 @@
 			<dependency>
 				<groupId>org.jibx</groupId>
 				<artifactId>jibx-extras</artifactId>
-				<version>1.3.3</version>
+				<version>1.4.2</version>
 				<exclusions>
 					<exclusion>
 						<groupId>xml-apis</groupId>
