@@ -33,9 +33,9 @@
 	
 	<xsl:param name="ou-url" select="'http://pure.mpg.de'"/>
 	<xsl:param name="cone-url" select="'http://pure.mpg.de/cone'"/>
-	<xsl:param name="import-name" select="'TestImport'"/>
-	<xsl:param name="external-ou-id" select="'persistent:22'"/>
-	<xsl:param name="user" select="'TestUser'"/>
+	<xsl:param name="import-name" select="'Import'"/>
+	<xsl:param name="external-ou-id" select="'ou_persistent22'"/>
+	<xsl:param name="user" select="'roland'"/>
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/rest/ous/xml?from=0&amp;size=5000'))"/>
 	<xsl:variable name="cone-list" select="document(concat($cone-url, '/persons/all?format=rdf'))"/>
