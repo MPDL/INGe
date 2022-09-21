@@ -1176,7 +1176,7 @@
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.pid.handle.activated>true</inge.pid.handle.activated>
 		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
-		<inge.pid.handle.url>http://hdl.handle.net/</inge.pid.handle.url>
+		<inge.pid.handle.url>https://hdl.handle.net/</inge.pid.handle.url>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pid.service.use>true</inge.pid.service.use>
