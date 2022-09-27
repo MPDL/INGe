@@ -1291,15 +1291,15 @@ public class ViewItemFull extends FacesBean {
     this.pubItem = pubItem;
   }
 
-  public ArrayList<AbstractVO> getAbstracts() {
-    final ArrayList<AbstractVO> abstracts = new ArrayList<AbstractVO>();
-    if (this.pubItem.getMetadata().getAbstracts() != null) {
-      for (int i = 0; i < this.pubItem.getMetadata().getAbstracts().size(); i++) {
-        abstracts.add(new AbstractVO(this.pubItem.getMetadata().getAbstracts().get(i).getValue()));
-      }
-    }
-    return abstracts;
-  }
+  //    public ArrayList<AbstractVO> getAbstracts() {
+  //      final ArrayList<AbstractVO> abstracts = new ArrayList<AbstractVO>();
+  //      if (this.pubItem.getMetadata().getAbstracts() != null) {
+  //        for (int i = 0; i < this.pubItem.getMetadata().getAbstracts().size(); i++) {
+  //          abstracts.add(new AbstractVO(this.pubItem.getMetadata().getAbstracts().get(i).getValue()));
+  //        }
+  //      }
+  //      return abstracts;
+  //    }
 
   public boolean getHasAbstracts() {
     return !this.pubItem.getMetadata().getAbstracts().isEmpty() && this.pubItem.getMetadata().getAbstracts().size() > 0;

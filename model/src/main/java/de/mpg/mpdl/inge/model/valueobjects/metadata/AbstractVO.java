@@ -93,7 +93,7 @@ public class AbstractVO extends ValueObject implements Cloneable {
    * Delivers the value of the abstract.
    */
   public String getValue() {
-    return value;
+    return value.replaceAll(System.getProperty("line.separator"), "<br>");
   }
 
   /**

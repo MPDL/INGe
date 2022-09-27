@@ -50,6 +50,11 @@
 	</converter>
 
 	<converter>
+		<converter-id>HTMLSubSupBrConverter</converter-id>
+		<converter-class>de.mpg.mpdl.inge.pubman.web.util.converter.HTMLSubSupBrConverter</converter-class>
+	</converter>
+
+	<converter>
 		<converter-id>HTMLSubSupShortTitleConverter</converter-id>
 		<converter-class>de.mpg.mpdl.inge.pubman.web.util.converter.HTMLSubSupShortTitleConverter</converter-class>
 	</converter>
