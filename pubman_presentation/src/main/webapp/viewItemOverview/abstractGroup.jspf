@@ -25,8 +25,7 @@
 			value="#{ViewItemFull.pubItem.metadata.abstracts}"
 			rendered="#{ViewItemFull.hasAbstracts}">
 			<h:panelGroup layout="block" styleClass="third_area0_p6">
-				<h:outputText value="#{abstract.value}"
-					converter="HTMLSubSupConverter" escape="false" />
+				<h:outputText value="#{abstract.value}"	converter="HTMLSubSupBrConverter" escape="false" />
 			</h:panelGroup>
 		</ui:repeat>
 	</h:panelGroup>
