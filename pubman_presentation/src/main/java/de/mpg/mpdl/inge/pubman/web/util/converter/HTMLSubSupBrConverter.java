@@ -34,6 +34,8 @@ public class HTMLSubSupBrConverter implements Converter {
     unbalanced.add("br");
     unbalanced.add("BR");
 
+    snippet.replaceAll(System.lineSeparator(), "<BR>");
+
     return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags, unbalanced);
   }
 }
