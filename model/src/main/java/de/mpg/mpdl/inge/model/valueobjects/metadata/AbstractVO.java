@@ -112,6 +112,7 @@ public class AbstractVO extends ValueObject implements Cloneable {
    */
   public void setValue(String newVal) {
     value = (newVal != null ? newVal.replaceAll(System.getProperty("line.separator"), "<br>") : newVal);
+    value = (newVal != null ? newVal.replaceAll("\r", "") : newVal);
   }
 
 
