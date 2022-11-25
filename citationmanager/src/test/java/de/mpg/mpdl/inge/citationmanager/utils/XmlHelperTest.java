@@ -36,7 +36,7 @@ public class XmlHelperTest {
       logger.info("Citation Style: " + s);
       stylenames.add(s);
     }
-    assertTrue(stylenames.size() == 9);
+    assertTrue(stylenames.size() == 8);
     assertTrue(stylenames.equals(expectedStyles));
   }
 
