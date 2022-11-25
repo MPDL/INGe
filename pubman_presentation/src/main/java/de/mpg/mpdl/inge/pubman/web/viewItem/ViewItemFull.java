@@ -59,7 +59,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -180,8 +179,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowItemLog = false;
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
-
-  private boolean canSendOAMail = false;
 
   private boolean isDepositor = false;
   private boolean isLatestRelease = false;
@@ -1866,13 +1863,7 @@ public class ViewItemFull extends FacesBean {
       if (isJapanese || "ja".equalsIgnoreCase(this.getI18nHelper().getLocale())) {
         expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA_CJK.getCitationName());
       } else {
-        boolean coneCitationStyles =
-            Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CITATION_STYLE_USE));
-        if (coneCitationStyles) {
-          expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.GFZPUBLISTS.getCitationName());
-        } else {
-          expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA6.getCitationName());
-        }
+        expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA6.getCitationName());
       }
 
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
@@ -1913,7 +1904,6 @@ public class ViewItemFull extends FacesBean {
       this.canRevise = pis.checkAccess(AccessType.REVISE, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canWithdraw = pis.checkAccess(AccessType.WITHDRAW, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canDelete = pis.checkAccess(AccessType.DELETE, getLoginHelper().getPrincipal(), this.getPubItem());
-      this.canSendOAMail = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SEND_OA_MAIL_USE).equals(Boolean.TRUE.toString());
     } catch (Exception e) {
       this.error(this.getMessage("AccessInfoError"));
       logger.error("Error while getting access information", e);
@@ -2059,10 +2049,6 @@ public class ViewItemFull extends FacesBean {
 
   public boolean isCanShowLastMessage() {
     return this.canShowLastMessage;
-  }
-
-  public boolean isCanSendOAMail() {
-    return this.canSendOAMail;
   }
 
   public String getHtmlMetaTags() {
