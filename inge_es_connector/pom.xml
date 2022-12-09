@@ -51,6 +51,7 @@
 					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>com.github.alexcojocaru</groupId>
 				<artifactId>elasticsearch-maven-plugin</artifactId>
@@ -82,7 +83,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 
