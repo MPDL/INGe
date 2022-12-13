@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 public class IdentifierSuggest {
   private static final String DIGITALAUTHORID = "DigitalAuthorID";
   private static final String GND = "GND";
+  private static final String IDAT = "IDAT";
   private static final String IRIS = "IRIS";
   private static final String ISNI = "ISNI";
   private static final String MPIB = "MPIB";
@@ -61,6 +62,9 @@ public class IdentifierSuggest {
       }
       if (IdentifierSuggest.GND.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.GND);
+      }
+      if (IdentifierSuggest.IDAT.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.IDAT);
       }
       if (IdentifierSuggest.IRIS.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.IRIS);

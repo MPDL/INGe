@@ -151,6 +151,74 @@ public class HtmlUtils {
 
   }
 
+  public static String getShortenedHtmlSnippetWithBalancedTagsAndEscaping(String snippet, int length, List<String> tagsNotToBeEscaped,
+      List<String> tagsNotToBeBalanced) {
+    boolean balanced = true;
+    int removeLastCharacters = 0;
+
+    Stack<SubSupTag> s = new Stack<SubSupTag>();
+    Matcher m = Pattern.compile("\\<(\\/?)(\\S+?)\\>", Pattern.DOTALL).matcher(snippet);
+
+    List<SubSupTag> tagListToBeClosed = new ArrayList<HtmlUtils.SubSupTag>();
+
+    while (m.find()) {
+      String slash = m.group(1);
+      String tag = m.group(2);
+
+      if (tagsNotToBeEscaped.contains(tag)) {
+        TagType tagType = null;
+
+        if (slash == null || slash.isEmpty()) {
+          tagType = TagType.BEGIN;
+        } else if (slash.equals("/")) {
+          tagType = TagType.END;
+        }
+
+        SubSupTag subSupTag = new HtmlUtils().new SubSupTag(tag, tagType, m.start(), m.end());
+
+        if (TagType.BEGIN.equals(subSupTag.getTagType())) {
+          if (!tagsNotToBeBalanced.contains(tag)) {
+            s.push(subSupTag);
+          }
+        } else if (TagType.END.equals(subSupTag.getTagType())) {
+          if (s.isEmpty()) {
+            balanced = false;
+            break;
+          }
+
+          SubSupTag beginTag = s.pop();
+          if (tagsNotToBeBalanced.contains(tag)) {
+            balanced = true;
+          } else if (!TagType.BEGIN.equals(beginTag.getTagType()) || !beginTag.getTagContent().equals(subSupTag.getTagContent())) {
+            balanced = false;
+            break;
+          }
+
+          // End tag ends after desired length, start tag ends before length => Tag is completely
+          // started, but not ended
+          if (m.end() >= length && beginTag.getEndPosition() < length) {
+            tagListToBeClosed.add(subSupTag);
+          }
+        }
+
+        if (m.start() < length && m.end() >= length) {
+          removeLastCharacters = length - m.start();
+        }
+      }
+    }
+
+    if (s.isEmpty() && balanced) {
+      StringBuffer result = new StringBuffer(snippet.substring(0, length - removeLastCharacters));
+      for (SubSupTag tag : tagListToBeClosed) {
+        result.append(tag.toHtml());
+      }
+      return escapeHtmlExcept(result.toString(), tagsNotToBeEscaped);
+    }
+
+    snippet = snippet.substring(0, length);
+    return escapeHtmlExcept(snippet, null);
+  }
+
   public static String escapeHtmlExcept(String snippet, List<String> tagNameExceptions) {
 
     snippet = Pattern.compile("\\&(?!amp;)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet).replaceAll("&amp;");

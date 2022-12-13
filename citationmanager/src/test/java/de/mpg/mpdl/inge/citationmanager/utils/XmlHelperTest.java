@@ -19,7 +19,7 @@ public class XmlHelperTest {
   private static Logger logger = Logger.getLogger(CitationStyleManagerTest.class);
 
   private final Set<String> expectedStyles =
-      new HashSet<String>(Arrays.asList("APA", "APA6", "APA(CJK)", "AJP", "JUS", "CSL", "JUS_Report", "GFZPUBLISTS", "Default"));
+      new HashSet<String>(Arrays.asList("APA", "APA6", "APA(CJK)", "AJP", "JUS", "CSL", "JUS_Report", "Default"));
 
 
   /**
@@ -36,7 +36,7 @@ public class XmlHelperTest {
       logger.info("Citation Style: " + s);
       stylenames.add(s);
     }
-    assertTrue(stylenames.size() == 9);
+    assertTrue(stylenames.size() == 8);
     assertTrue(stylenames.equals(expectedStyles));
   }
 
@@ -104,11 +104,6 @@ public class XmlHelperTest {
           }
           break;
         case "JUS_Report":
-          for (String s : outputFormats.keySet()) {
-            doAssert(outputFormats, s);
-          }
-          break;
-        case "GFZPUBLISTS":
           for (String s : outputFormats.keySet()) {
             doAssert(outputFormats, s);
           }

@@ -673,6 +673,17 @@ public class XmlTransformingService {
       mctx.setOutput(sw);
       mctx.marshalDocument(itemListWrapper, "UTF-8", null, sw);
       utf8itemList = sw.toString().trim();
+      // <sub>, <sup>, <br>
+      utf8itemList = utf8itemList.replaceAll("&lt;br>", "&lt;br&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;BR>", "&lt;BR&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;sub>", "&lt;sub&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;/sub>", "&lt;/sub&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;sup>", "&lt;sup&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;/sup>", "&lt;/sup&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;SUB>", "&lt;SUB&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;/SUB>", "&lt;/SUB&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;SUP>", "&lt;SUP&gt;");
+      utf8itemList = utf8itemList.replaceAll("&lt;/SUP>", "&lt;/SUP&gt;");
     } catch (JiBXException e) {
       throw new MarshallingException(ItemVOListWrapper.class.getSimpleName(), e);
     } catch (ClassCastException e) {

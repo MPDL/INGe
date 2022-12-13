@@ -55,7 +55,7 @@
 					</span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-							value="#{abstract.value}" converter="HTMLSubSupConverter"
+							value="#{abstract.value}" converter="HTMLSubSupBrConverter"
 							escape="false" />
 					</span>
 				</h:panelGroup>
