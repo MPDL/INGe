@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.editItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,7 +46,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
  * @author Mario Wagner
  */
 @SuppressWarnings("serial")
-public class IdentifierCollection extends FacesBean {
+public class IdentifierCollection extends FacesBean implements Serializable {
   private List<IdentifierVO> parentVO;
   private IdentifierManager identifierManager;
 
@@ -99,7 +100,7 @@ public class IdentifierCollection extends FacesBean {
    * 
    * @author Mario Wagner
    */
-  public class IdentifierManager extends DataModelManager<IdentifierVO> {
+  public class IdentifierManager extends DataModelManager<IdentifierVO> implements Serializable {
     List<IdentifierVO> parentVO;
 
     public IdentifierManager(List<IdentifierVO> parentVO) {

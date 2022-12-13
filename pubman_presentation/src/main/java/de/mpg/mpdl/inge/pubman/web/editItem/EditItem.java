@@ -35,6 +35,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
@@ -75,6 +76,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.releaseItem.ReleaseItem;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -104,8 +106,12 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
 @ManagedBean(name = "EditItem")
-@SuppressWarnings("serial")
 public class EditItem extends FacesBean {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -9012774068003723744L;
+
   private static final Logger logger = Logger.getLogger(EditItem.class);
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
@@ -187,6 +193,7 @@ public class EditItem extends FacesBean {
   public String getContextName() {
     if (this.contextName == null && this.getPubItem() != null) {
       try {
+        logger.info("context ObjectID" + this.getPubItem().getObject().getContext().getObjectId());
         final ContextDbVO context =
             this.getItemControllerSessionBean().retrieveContext(this.getPubItem().getObject().getContext().getObjectId());
         return context.getName();
@@ -825,7 +832,10 @@ public class EditItem extends FacesBean {
     this.lnkSave.setRendered(false);
 
     try {
-      PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+      ApplicationBean applicationBean = (ApplicationBean) FacesTools.findBean("ApplicationBean");
+      logger.info("NULL Test Application Bean: " + applicationBean);
+      logger.info("NULL Test PubItemService: " + applicationBean.getPubItemService());
+      PubItemService pis = applicationBean.getPubItemService();
 
       boolean canEdit = pis.checkAccess(AccessType.EDIT, getLoginHelper().getPrincipal(), this.getPubItem());
       this.lnkSave.setRendered(canEdit);

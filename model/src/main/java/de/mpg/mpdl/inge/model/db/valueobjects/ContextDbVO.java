@@ -38,6 +38,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -52,6 +53,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.SubjectClassificationListJsonUserType
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Special type of container of data with specific workflow (i.e. the publication management
@@ -68,42 +70,41 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @Table(name = "context")
 @TypeDef(name = "SubjectClassificationListJsonUserType", typeClass = SubjectClassificationListJsonUserType.class)
 @TypeDef(name = "GenreListJsonUserType", typeClass = GenreListJsonUserType.class)
-public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
-  /**
-   * The possible states of a collection.
-   * 
-   * @updated 05-Sep-2007 11:14:08
-   */
-  public enum State
-  {
-    CLOSED,
-    OPENED
-  }
+public class ContextDbVO extends ContextDbRO implements Searchable {
 
+  private static final Logger logger = Logger.getLogger(ContextDbVO.class);
+
+  /**
+	 * The possible states of a collection.
+	 * 
+	 * @updated 05-Sep-2007 11:14:08
+	 */
+	public enum State
+  {
+		CLOSED, OPENED
+	}
 
   public enum Workflow
   {
-    STANDARD,
-    SIMPLE
-  }
+		STANDARD, SIMPLE
+	}
 
   @Type(type = "GenreListJsonUserType")
-  private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
+	private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
 
   @Type(type = "SubjectClassificationListJsonUserType")
-  private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
-      new ArrayList<MdsPublicationVO.SubjectClassification>();
+	private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications = new ArrayList<MdsPublicationVO.SubjectClassification>();
 
   @Enumerated(EnumType.STRING)
-  private Workflow workflow;
+	private Workflow workflow;
 
   private String contactEmail;
 
   /**
-   * The state of the PubCollection.
-   */
-  @Enumerated(EnumType.STRING)
-  private ContextDbVO.State state;
+	 * The state of the PubCollection.
+	 */
+	@Enumerated(EnumType.STRING)
+	private ContextDbVO.State state;
   /**
    * A short description of the collection and the collection policy.
    */
@@ -112,13 +113,12 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   private String description;
 
   /**
-   * The list of responsible affiliations for this collection.
-   */
-  @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
-  @JsonSerialize(contentAs=AffiliationDbRO.class)
-  private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
-
+	 * The list of responsible affiliations for this collection.
+	 */
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = AffiliationDbVO.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
+	@JsonSerialize(contentAs = AffiliationDbRO.class)
+	private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
 
   /**
    * Default constructor.

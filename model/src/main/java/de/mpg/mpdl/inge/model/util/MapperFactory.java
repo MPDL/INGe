@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.model.util;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.Mapper;
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

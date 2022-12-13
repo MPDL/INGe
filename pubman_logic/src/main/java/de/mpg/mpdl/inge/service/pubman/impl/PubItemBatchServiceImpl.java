@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,9 +50,10 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
  * @author walter
  *
  */
+@SuppressWarnings("serial")
 @Service
 @Primary
-public class PubItemBatchServiceImpl implements PubItemBatchService {
+public class PubItemBatchServiceImpl implements PubItemBatchService, Serializable {
 
   private static final Logger logger = LogManager.getLogger(PubItemBatchServiceImpl.class);
 

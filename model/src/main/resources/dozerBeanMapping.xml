@@ -2,6 +2,18 @@
 <mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+	
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation
+		</class-b>
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
+	</mapping>
+
 
 	<mapping wildcard="true">
 		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO
@@ -13,7 +25,6 @@
 			<b>object.context</b>
 			<a-hint>de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO</a-hint>
 			<b-hint>de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO</b-hint>
-		
 		</field>
 	</mapping>
 
@@ -44,6 +55,10 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
 		</class-b>
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
 	</mapping>
 
 	<mapping wildcard="true">
@@ -342,6 +357,11 @@
 			<a>adminDescriptor.contactEmail</a>
 			<b>contactEmail</b>
 		</field>
+		
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
 
 	</mapping>
 
