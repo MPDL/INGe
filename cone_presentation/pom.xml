@@ -25,6 +25,7 @@
 		<profile>
 			<id>integration-tests</id>
 			<build>
+				<finalName>cone</finalName>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
