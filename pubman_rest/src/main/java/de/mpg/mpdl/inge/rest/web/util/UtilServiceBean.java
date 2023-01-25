@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.common.xcontent.LoggingDeprecationHandler;
 import org.elasticsearch.common.xcontent.NamedXContentRegistry;
 import org.elasticsearch.common.xcontent.ToXContent;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -74,8 +75,8 @@ public class UtilServiceBean {
   public static SearchSourceBuilder parseJsonToSearchSourceBuilder(String json) throws IOException {
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     SearchModule searchModule = new SearchModule(Settings.EMPTY, false, Collections.emptyList());
-    try (XContentParser parser =
-        XContentFactory.xContent(XContentType.JSON).createParser(new NamedXContentRegistry(searchModule.getNamedXContents()), json)) {
+    try (XContentParser parser = XContentFactory.xContent(XContentType.JSON)
+        .createParser(new NamedXContentRegistry(searchModule.getNamedXContents()), LoggingDeprecationHandler.INSTANCE, json)) {
       searchSourceBuilder.parseXContent(parser);
     }
     return searchSourceBuilder;
@@ -103,7 +104,7 @@ public class UtilServiceBean {
     resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
 
 
-    return new ResponseEntity<String>(builder.string(), HttpStatus.OK);
+    return new ResponseEntity<String>(builder.toString(), HttpStatus.OK);
   }
 
 
@@ -121,7 +122,7 @@ public class UtilServiceBean {
     XContentBuilder builder = XContentFactory.jsonBuilder(httpResp.getOutputStream());
     resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
 
-    return new ResponseEntity<String>(builder.string(), HttpStatus.OK);
+    return new ResponseEntity<String>(builder.toString(), HttpStatus.OK);
   }
 
 

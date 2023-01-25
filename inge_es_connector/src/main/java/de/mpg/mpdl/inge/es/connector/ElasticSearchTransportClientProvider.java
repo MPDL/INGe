@@ -33,8 +33,8 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
       try {
         this.client.addTransportAddress(new TransportAddress(InetAddress.getByName(addr), port));
 
-        String nodeName = this.client.nodeName();
-        logger.info("Nodename <" + nodeName + ">");
+        // String nodeName = this.client.nodeName();
+        // logger.info("Nodename <" + nodeName + ">");
       } catch (UnknownHostException e) {
         e.printStackTrace();
       }

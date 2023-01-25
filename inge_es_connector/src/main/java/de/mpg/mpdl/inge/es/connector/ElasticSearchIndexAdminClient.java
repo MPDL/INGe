@@ -6,13 +6,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.elasticsearch.action.admin.indices.alias.IndicesAliasesResponse;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequestBuilder;
-import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
@@ -63,7 +61,7 @@ public enum ElasticSearchIndexAdminClient {
    */
   public boolean deleteIndex(String index) {
     Client client = getClient();
-    DeleteIndexResponse deleteIndexResponse =
+    AcknowledgedResponse deleteIndexResponse =
         client.admin().indices().prepareDelete(index).execute().actionGet();
     client.close();
     return deleteIndexResponse.isAcknowledged();
@@ -91,7 +89,7 @@ public enum ElasticSearchIndexAdminClient {
     mappingRequest.setType(type);
     mappingRequest.setSource(new String(mapping, StandardCharsets.UTF_8));
 
-    PutMappingResponse mappingResponse = mappingRequest.execute().actionGet();
+    AcknowledgedResponse mappingResponse = mappingRequest.execute().actionGet();
     client.close();
     return mappingResponse.isAcknowledged();
   }
@@ -105,7 +103,7 @@ public enum ElasticSearchIndexAdminClient {
    */
   public boolean addAlias(String index, String alias) {
     Client client = getClient();
-    IndicesAliasesResponse indicesAliasResponse =
+    AcknowledgedResponse indicesAliasResponse =
         client.admin().indices().prepareAliases().addAlias(index, alias).execute().actionGet();
     client.close();
     return indicesAliasResponse.isAcknowledged();
