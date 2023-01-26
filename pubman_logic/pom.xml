@@ -42,16 +42,16 @@
 			<plugin>
 				<groupId>com.github.alexcojocaru</groupId>
 				<artifactId>elasticsearch-maven-plugin</artifactId>
-				<version>6.19</version>
+				<version>6.23</version>
 				<configuration>
 					<clusterName>testCluster</clusterName>
 					<transportPort>9500</transportPort>
 					<httpPort>9400</httpPort>
-					<version>6.3.2</version>
+					<version>6.8.23</version>
 					<pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>
 					<skip>${maven.test.skip}</skip>
 					<environmentVariables>
-						<JAVA_HOME>${elasticsearch.plugin.java_home.dir}</JAVA_HOME>
+						<!--<JAVA_HOME>${elasticsearch.plugin.java_home.dir}</JAVA_HOME>-->
 					</environmentVariables>
 				</configuration>
 				<executions>
