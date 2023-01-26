@@ -65,19 +65,19 @@ public class RepositoryTest_ {
 
   @Test
   public void findOneAccountUserDbVO() {
-    AccountUserDbVO accountUserDbVO = userAccountRepository.findOne("user_3000056");
+    AccountUserDbVO accountUserDbVO = userAccountRepository.findById("user_3000056").get();
     assertTrue(accountUserDbVO != null);
   }
 
   @Test
   public void findOneContextDbVO() {
-    ContextDbVO contextDbVO = contextRepository.findOne("ctx_persistent3");
+    ContextDbVO contextDbVO = contextRepository.findById("ctx_persistent3").get();
     assertTrue(contextDbVO != null);
   }
 
   @Test
   public void findOneAffiliationDbVO() {
-    AffiliationDbVO affiliationDbVO = organizationRepository.findOne("ou_persistent13");
+    AffiliationDbVO affiliationDbVO = organizationRepository.findById("ou_persistent13").get();
     assertTrue(affiliationDbVO != null);
   }
 
