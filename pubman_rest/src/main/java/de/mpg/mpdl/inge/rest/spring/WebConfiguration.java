@@ -8,6 +8,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.geo.GeoModule;
@@ -34,6 +35,7 @@ import org.springframework.web.util.pattern.PathPatternParser;
 
 @Configuration
 @EnableWebMvc
+@ComponentScan(basePackages = {"de.mpg.mpdl.inge.rest"})
 public class WebConfiguration implements WebMvcConfigurer {
 
 
@@ -44,6 +46,22 @@ public class WebConfiguration implements WebMvcConfigurer {
     viewResolver.setSuffix(".jsp");
     registry.viewResolver(viewResolver);
 
+  }
+
+  @Override
+  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    //First place: A Json converter using our default Jackson object mapper
+    MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+    converter.setObjectMapper(MapperFactory.getObjectMapper());
+    converters.add(0, converter);
+
+    //Second place: A String converter which allows to return strings as json
+    StringHttpMessageConverter smc = new StringHttpMessageConverter();
+    smc.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
+    converters.add(0, smc);
+    //    System.out.println("Converters" + converters);
+
+    //WebMvcConfigurer.super.extendMessageConverters(converters);
   }
 
   @Override

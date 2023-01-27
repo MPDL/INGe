@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.rest.web.spring;
 
 import de.mpg.mpdl.inge.rest.spring.PubmanRestConfiguration;
+import de.mpg.mpdl.inge.rest.spring.WebConfiguration;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -48,7 +49,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     // Create the 'root' Spring application context
     AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-    rootContext.register(PubmanRestConfiguration.class);
+    rootContext.register(WebConfiguration.class);
     // Manage the lifecycle of the root application context
     servletContext.addListener(new CustomContextLoaderListener(rootContext));
 
