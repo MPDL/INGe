@@ -334,7 +334,7 @@
 			<dependency>
 				<groupId>commons-net</groupId>
 				<artifactId>commons-net</artifactId>
-				<version>3.6</version>
+				<version>3.9.0</version>
 			</dependency>
 
 			<!-- CSL -->
@@ -669,7 +669,7 @@
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
-				<version>42.3.3</version>
+				<version>42.5.1</version>
 			</dependency>
 
 			<!-- PrimeFaces -->
@@ -844,7 +844,7 @@
 			<dependency> <!-- HTML Parser -->
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
-				<version>1.14.2</version>
+				<version>1.15.3</version>
 			</dependency>
 			<dependency> <!-- Marc, MarcXML -->
 				<groupId>org.marc4j</groupId>
