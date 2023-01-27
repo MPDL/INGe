@@ -134,8 +134,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -199,8 +199,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -282,8 +282,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -358,8 +358,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -449,8 +449,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -526,8 +526,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -602,8 +602,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -694,8 +694,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -810,8 +810,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -912,8 +912,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -990,8 +990,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     }
     // }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1073,8 +1073,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1148,8 +1148,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1238,8 +1238,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1320,8 +1320,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1389,8 +1389,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     }
 
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1466,8 +1466,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1519,8 +1519,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1530,8 +1530,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO getBatchProcessLogForCurrentUser(AccountUserDbVO accountUser) {
     BatchProcessLogDbVO resultBatchProcessLog = null;
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      resultBatchProcessLog = batchRepository.findOne(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      resultBatchProcessLog = batchRepository.findById(accountUser.getObjectId()).orElse(null);
     }
     return resultBatchProcessLog;
   }
@@ -1607,8 +1607,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1663,8 +1663,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1721,8 +1721,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();
@@ -1777,8 +1777,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.exists(accountUser.getObjectId())) {
-      batchRepository.delete(accountUser.getObjectId());
+    if (batchRepository.existsById(accountUser.getObjectId())) {
+      batchRepository.deleteById(accountUser.getObjectId());
     }
     batchRepository.save(resultLog);
     batchRepository.flush();

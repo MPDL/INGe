@@ -137,7 +137,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     }
 
-    FileDbVO fileDbVO = fr.findOne(fileId);
+    FileDbVO fileDbVO = fr.findById(fileId).orElse(null);
 
     if (selectedFile == null || fileDbVO == null || fileDbVO.getLocalFileIdentifier() == null) {
       throw new IngeApplicationException("File with id [" + fileId + "] not found in item [ " + itemId + "].");
@@ -269,7 +269,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       //else get staged file from database
       else {
         try {
-          stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
+          stagedFileVo = stagedFileRepository.findById(Integer.parseInt(fileVO.getContent())).orElse(null);
         } catch (Exception e) {
           throw new IngeApplicationException("Given file id " + fileVO.getContent() + " is invalid!");
         }

@@ -218,7 +218,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public AffiliationDbVO addPredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
+    AffiliationDbVO affDbToBeUpdated = organizationRepository.findById(id).orElse(null);
     if (affDbToBeUpdated == null) {
       throw new IngeApplicationException("Organization with given id " + id + " not found.");
     }
@@ -265,7 +265,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public AffiliationDbVO removePredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
+    AffiliationDbVO affDbToBeUpdated = organizationRepository.findById(id).orElse(null);
     if (affDbToBeUpdated == null) {
       throw new IngeApplicationException("Organization with given id " + id + " not found.");
     }
@@ -310,7 +310,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public void delete(String id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    AffiliationDbVO ouDbTobeDeleted = organizationRepository.findOne(id);
+    AffiliationDbVO ouDbTobeDeleted = organizationRepository.findById(id).orElse(null);
     if (ouDbTobeDeleted == null) {
       throw new IngeApplicationException("Organization with given id " + id + " not found.");
     }
@@ -321,7 +321,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       // ACHTUNG: siehe Kommentar bei AffiliationDbVO @Formula
       entityManager.flush();
       entityManager.clear();
-      AffiliationDbVO parentVO = organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
+      AffiliationDbVO parentVO = organizationRepository.findById(ouDbTobeDeleted.getParentAffiliation().getObjectId()).orElse(null);
       organizationDao.createImmediately(parentVO.getObjectId(), parentVO);
     }
   }
@@ -347,7 +347,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     Principal principal = aaService.checkLoginRequired(authenticationToken);
-    AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
+    AffiliationDbVO affDbToBeUpdated = organizationRepository.findById(id).orElse(null);
     if (affDbToBeUpdated == null) {
       throw new IngeApplicationException("Organization with given id " + id + " not found.");
     }
@@ -355,7 +355,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     checkEqualModificationDate(modificationDate, affDbToBeUpdated.getLastModificationDate());
 
     if (affDbToBeUpdated.getParentAffiliation() != null && state == AffiliationDbVO.State.OPENED) {
-      AffiliationDbVO parentVo = organizationRepository.findOne(affDbToBeUpdated.getParentAffiliation().getObjectId());
+      AffiliationDbVO parentVo = organizationRepository.findById(affDbToBeUpdated.getParentAffiliation().getObjectId()).orElse(null);
       if (parentVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
         throw new IngeApplicationException("Parent organization " + parentVo.getObjectId() + " must be in state OPENED");
       }
@@ -419,7 +419,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
         reindexList.add(oldParentAffId);
       }
       if (newParentAffId != null) {
-        AffiliationDbVO newAffVo = organizationRepository.findOne(newParentAffId);
+        AffiliationDbVO newAffVo = organizationRepository.findById(newParentAffId).orElse(null);
         if (newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
           throw new IngeApplicationException(
               "Parent Affiliation " + newAffVo.getObjectId() + " has wrong state " + newAffVo.getPublicStatus().toString());
@@ -440,7 +440,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   @Transactional
   public String getOuPath(String id) throws IngeTechnicalException, IngeApplicationException {
 
-    AffiliationDbVO affVo = organizationRepository.findOne(id);
+    AffiliationDbVO affVo = organizationRepository.findById(id).orElse(null);
     if (affVo == null)
       throw new IngeApplicationException("Could not find organization with id " + id);
 
@@ -460,7 +460,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    */
   @Transactional
   public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
-    AffiliationDbVO affVo = organizationRepository.findOne(id);
+    AffiliationDbVO affVo = organizationRepository.findById(id).orElse(null);
     if (affVo == null)
       throw new IngeApplicationException("Could not find organization with id " + id);
 
