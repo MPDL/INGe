@@ -4,7 +4,7 @@ package de.mpg.mpdl.inge.model.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dozer.Mapper;
+import com.github.dozermapper.core.Mapper;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;

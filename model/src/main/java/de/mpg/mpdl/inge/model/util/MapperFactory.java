@@ -1,12 +1,11 @@
 package de.mpg.mpdl.inge.model.util;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.Mapper;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 
 public class MapperFactory {
 
