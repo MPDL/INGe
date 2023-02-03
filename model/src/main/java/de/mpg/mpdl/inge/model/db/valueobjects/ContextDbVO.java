@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +34,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -53,7 +53,6 @@ import de.mpg.mpdl.inge.model.db.hibernate.SubjectClassificationListJsonUserType
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Special type of container of data with specific workflow (i.e. the publication management
@@ -118,6 +117,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable {
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = AffiliationDbVO.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
 	@JsonSerialize(contentAs = AffiliationDbRO.class)
+    @JoinTable(name = "context_organization")
 	private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
 
   /**
