@@ -25,6 +25,7 @@ public class AppConfigIngeEsConnector {
 
   @PreDestroy
   public void closeClient() {
-    elasticSearchClientProvider().getClient().close();
+
+    //elasticSearchClientProvider().getClient().close();
   }
 }

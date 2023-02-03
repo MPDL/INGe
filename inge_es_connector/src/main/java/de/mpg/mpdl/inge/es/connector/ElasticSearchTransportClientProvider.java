@@ -1,25 +1,50 @@
 package de.mpg.mpdl.inge.es.connector;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransport;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.http.HttpHost;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
-
-import de.mpg.mpdl.inge.util.PropertyReader;
+import org.elasticsearch.client.RestClient;
 
 public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
 
-  private TransportClient client;
+  private ElasticsearchClient client;
+
+
+
+  //private RestHighLevelClient restHighLevelClient;
 
   private static final Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
+
+    logger.info("Building Elasticsearch REST client for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_HOST_PORT) + ">");
+
+    // Create the low-level client
+    RestClient restClient = RestClient.builder(
+            new HttpHost(PropertyReader.getProperty(PropertyReader.INGE_ES_HOST_PORT))).build();
+
+
+    // Create the HLRC
+    /*
+    RestHighLevelClient hlrc = new RestHighLevelClientBuilder(restClient)
+            .setApiCompatibilityMode(true)
+            .build();
+*/
+
+    // Create the transport with a Jackson mapper
+    ElasticsearchTransport transport = new RestClientTransport(
+            restClient, new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
+
+
+    client = new ElasticsearchClient(transport);
+
+    /*
     this.client = new PreBuiltTransportClient(Settings.builder()
         .put("cluster.name", PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME)).put("client.transport.sniff", true).build());
 
@@ -39,9 +64,17 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
         e.printStackTrace();
       }
     }
+    */
   }
 
-  public Client getClient() {
+  public ElasticsearchClient getClient() {
     return client;
   }
+
+  /*
+  public RestHighLevelClient getRestHighLevelClient() {
+    return restHighLevelClient;
+  }
+   */
+
 }

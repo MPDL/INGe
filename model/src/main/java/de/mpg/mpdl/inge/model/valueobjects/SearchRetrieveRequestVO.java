@@ -3,15 +3,15 @@ package de.mpg.mpdl.inge.model.valueobjects;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 
 @SuppressWarnings("serial")
 public class SearchRetrieveRequestVO extends ValueObject {
 
-  private QueryBuilder queryBuilder;
+  private Query queryBuilder;
 
-  private List<AggregationBuilder> aggregationBuilders = new ArrayList<>();
+  private List<Aggregation> aggregationBuilders = new ArrayList<>();
 
   // use -1 for default limit set by property (currently 100)
   // use -2 for max limit set by property (currently 10000)
@@ -30,14 +30,14 @@ public class SearchRetrieveRequestVO extends ValueObject {
   //    this.aggregationBuilders.add(aggBuilder);
   //  }
 
-  public SearchRetrieveRequestVO(QueryBuilder queryBuilder, int limit, int offset, SearchSortCriteria... sortKeys) {
+  public SearchRetrieveRequestVO(Query queryBuilder, int limit, int offset, SearchSortCriteria... sortKeys) {
     this.setQueryBuilder(queryBuilder);
     this.limit = limit;
     this.offset = offset;
     this.sortKeys = sortKeys;
   }
 
-  public SearchRetrieveRequestVO(QueryBuilder queryBuilder, SearchSortCriteria... sortKeys) {
+  public SearchRetrieveRequestVO(Query queryBuilder, SearchSortCriteria... sortKeys) {
     this(queryBuilder, -1, 0, sortKeys);
   }
 
@@ -65,15 +65,15 @@ public class SearchRetrieveRequestVO extends ValueObject {
     this.sortKeys = sortKeys;
   }
 
-  public QueryBuilder getQueryBuilder() {
+  public Query getQueryBuilder() {
     return this.queryBuilder;
   }
 
-  public void setQueryBuilder(QueryBuilder queryBuilder) {
+  public void setQueryBuilder(Query queryBuilder) {
     this.queryBuilder = queryBuilder;
   }
 
-  public List<AggregationBuilder> getAggregationBuilders() {
+  public List<Aggregation> getAggregationBuilders() {
     return this.aggregationBuilders;
   }
 

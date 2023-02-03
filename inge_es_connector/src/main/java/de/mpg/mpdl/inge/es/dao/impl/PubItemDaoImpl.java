@@ -1,19 +1,16 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import java.util.Base64;
-
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.springframework.stereotype.Repository;
-
+import co.elastic.clients.elasticsearch.core.IndexResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.springframework.stereotype.Repository;
+
+import java.util.Base64;
 
 @Repository
 public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> implements PubItemDaoEs {
@@ -123,14 +120,7 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
     return SOURCE_EXCLUSIONS;
   }
 
-  /**
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @param vo
-   * @return {@link String}
-   */
+
   public String createFulltext(String itemId, String fileId, byte[] file) throws IngeTechnicalException {
     try {
 
@@ -138,9 +128,21 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
       rootObject.putObject("fileData").put("itemId", itemId).put("fileId", fileId).put("data", Base64.getEncoder().encodeToString(file));
       rootObject.putObject(JOIN_FIELD_NAME).put("name", "file").put("parent", itemId);
 
-      IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setRouting(itemId)
+
+      IndexResponse indexResponse = client.getClient().index(i -> i
+              .index(indexName)
+              .routing(itemId)
+              .pipeline("attachment")
+              .id(itemId + "__" + fileId)
+              .document(rootObject));
+
+
+      /*
+              IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setRouting(itemId)
           .setPipeline("attachment").setId(itemId + "__" + fileId).setSource(mapper.writeValueAsBytes(rootObject), XContentType.JSON).get();
-      return indexResponse.getId();
+      */
+      return indexResponse.id();
+
 
     } catch (Exception e) {
       throw new IngeTechnicalException(e);

@@ -442,6 +442,7 @@
 			</dependency>
 
 			<!-- Elastic Search -->
+			<!--
 			<dependency>
 				<groupId>org.elasticsearch</groupId>
 				<artifactId>elasticsearch</artifactId>
@@ -451,6 +452,19 @@
 				<groupId>org.elasticsearch.client</groupId>
 				<artifactId>transport</artifactId>
 				<version>6.1.1</version>
+			</dependency>
+			-->
+
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>7.17.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>co.elastic.clients</groupId>
+				<artifactId>elasticsearch-java</artifactId>
+				<version>8.6.1</version>
 			</dependency>
 
 			<!-- Hibernate -->

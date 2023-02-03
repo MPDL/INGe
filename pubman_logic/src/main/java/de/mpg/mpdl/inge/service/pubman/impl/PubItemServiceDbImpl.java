@@ -1,66 +1,19 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
-import javax.persistence.PersistenceContext;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.hibernate.CacheMode;
-import org.hibernate.ScrollMode;
-import org.hibernate.ScrollableResults;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessagePostProcessor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import de.mpg.mpdl.inge.db.repository.AuditRepository;
-import de.mpg.mpdl.inge.db.repository.ContextRepository;
-import de.mpg.mpdl.inge.db.repository.FileRepository;
-import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import de.mpg.mpdl.inge.db.repository.*;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
-import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
-import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.*;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -76,15 +29,38 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.FileService;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
-import de.mpg.mpdl.inge.service.pubman.PidService;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.ReindexListener;
+import de.mpg.mpdl.inge.service.pubman.*;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.UriBuilder;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.hibernate.CacheMode;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessagePostProcessor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.PersistenceContext;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Primary
@@ -623,7 +599,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<ItemVersionVO> rec : resp.getRecords()) {
       pubItemDao.deleteImmediatly(rec.getPersistenceId());
-      pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, rec.getPersistenceId()));
+      pubItemDao.deleteByQuery(TermQuery.of(t-> t.field(INDEX_FULLTEXT_ITEM_ID).value(rec.getPersistenceId()))._toQuery());
     }
     sendEventTopic(latestPubItemDbVersion, "delete");
 
@@ -875,13 +851,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private SearchRetrieveResponseVO<ItemVersionVO> getAllVersions(String objectId) throws IngeTechnicalException {
-    QueryBuilder latestReleaseQuery = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, objectId);
+    co.elastic.clients.elasticsearch._types.query_dsl.Query latestReleaseQuery = TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).value(objectId))._toQuery();
     SearchRetrieveResponseVO<ItemVersionVO> resp = executeSearchSortByVersion(latestReleaseQuery, -2, 0); // unbegrenzte Suche
 
     return resp;
   }
 
-  private SearchRetrieveResponseVO<ItemVersionVO> executeSearchSortByVersion(QueryBuilder query, int limit, int offset)
+  private SearchRetrieveResponseVO<ItemVersionVO> executeSearchSortByVersion(co.elastic.clients.elasticsearch._types.query_dsl.Query query, int limit, int offset)
       throws IngeTechnicalException {
 
     SearchSortCriteria sortByVersion = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
@@ -940,7 +916,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     // Delete all fulltexts of old version from index
     if (includeFulltext) {
-      pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, oldVersion));
+      pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(oldVersion))._toQuery());
     }
 
 
