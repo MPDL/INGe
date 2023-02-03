@@ -1,10 +1,9 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
-import org.apache.lucene.search.join.ScoreMode;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.ChildScoreMode;
+import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
@@ -47,9 +46,9 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   //  }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
+  public Query toElasticSearchQuery() throws SearchParseException {
 
-    BoolQueryBuilder bq = QueryBuilders.boolQuery();
+    BoolQuery.Builder bq = new BoolQuery.Builder();
     switch (this.selectedAvailability) {
 
 
@@ -74,14 +73,15 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
       case NO: {
         bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, storageType.name()));
-        return bq;
+        return bq.build()._toQuery();
         //break;
       }
 
       case WHATEVER:
         return null;
     }
-    return QueryBuilders.nestedQuery("files", (QueryBuilder) bq, ScoreMode.Avg);
+    return NestedQuery.of(n -> n.path("files").query(bq.build()._toQuery()).scoreMode(ChildScoreMode.Avg))._toQuery();
+    //return QueryBuilders.nestedQuery("files", (QueryBuilder) bq, ScoreMode.Avg);
   }
 
   @Override

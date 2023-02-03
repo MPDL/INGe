@@ -25,11 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.dates;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeQueryBuilder;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
+import co.elastic.clients.json.JsonData;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
@@ -296,21 +295,21 @@ public class DateSearchCriterion extends SearchCriterionBase {
   //  }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
+  public Query toElasticSearchQuery() throws SearchParseException {
     return toElasticSearchQuery(this.getSearchCriterion(), this.getFrom(), this.getTo());
   }
 
-  public static QueryBuilder toElasticSearchQuery(SearchCriterion sc, String from, String to) throws SearchParseException {
+  public static Query toElasticSearchQuery(SearchCriterion sc, String from, String to) throws SearchParseException {
     switch (sc) {
       case ANYDATE: {
-        BoolQueryBuilder bq = QueryBuilders.boolQuery();
+        BoolQuery.Builder bq = new BoolQuery.Builder();
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED, from, to));
-        return bq;
+        return bq.build()._toQuery();
       }
       case PUBLISHED:
         return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, from, to);
@@ -341,16 +340,17 @@ public class DateSearchCriterion extends SearchCriterionBase {
   }
 
 
-  private static QueryBuilder buildDateRangeQuery(String index, String from, String to) {
+  private static Query buildDateRangeQuery(String index, String from, String to) {
 
-    RangeQueryBuilder qb = QueryBuilders.rangeQuery(index);
+    RangeQuery.Builder qb = new RangeQuery.Builder();
+    qb.field(index);
     if (from != null && !from.trim().isEmpty()) {
-      qb.gte(roundDateString(from));
+      qb.gte(JsonData.of(roundDateString(from)));
     }
     if (to != null && !to.trim().isEmpty()) {
-      qb.lte(roundDateString(to));
+      qb.lte(JsonData.of(roundDateString(to)));
     }
-    return qb;
+    return qb.build()._toQuery();
   }
 
 

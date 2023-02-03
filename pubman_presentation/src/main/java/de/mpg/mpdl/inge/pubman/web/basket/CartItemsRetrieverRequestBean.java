@@ -1,17 +1,12 @@
 package de.mpg.mpdl.inge.pubman.web.basket;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.faces.bean.ManagedBean;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.SortOptions;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
@@ -24,6 +19,12 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses
@@ -84,30 +85,33 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
       if (pssb.getStoredPubItems().size() > 0) {
 
-        List<String> ids = pssb.getStoredPubItems().values().stream().map(i -> i.getObjectIdAndVersion()).collect(Collectors.toList());
+        List<FieldValue> ids = pssb.getStoredPubItems().values().stream().map(i -> FieldValue.of(i.getObjectIdAndVersion())).collect(Collectors.toList());
 
-        QueryBuilder idQuery = QueryBuilders.termsQuery("_id", ids);
-
-
+        Query idQuery = TermsQuery.of(t-> t.field("_id").terms(te -> te.value(ids)))._toQuery();
 
         PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+        SearchRequest.Builder srb  = new SearchRequest.Builder().query(idQuery).from(offset).size(limit);
+        /*
         SearchSourceBuilder ssb = new SearchSourceBuilder();
+
         ssb.query(idQuery);
         ssb.from(offset);
         ssb.size(limit);
+         */
 
 
         for (String index : sc.getIndex()) {
           if (!index.isEmpty()) {
-            ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
-                    : org.elasticsearch.search.sort.SortOrder.DESC));
+            FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
+                    SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                            : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+            srb.sort(SortOptions.of(so -> so.field(fs)));
           }
         }
 
-        SearchResponse resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+        ResponseBody resp = pis.searchDetailed(srb.build(), getLoginHelper().getAuthenticationToken());
 
-        this.numberOfRecords = (int) resp.getHits().getTotalHits();
+        this.numberOfRecords = (int) resp.hits().total().value();
 
         List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 

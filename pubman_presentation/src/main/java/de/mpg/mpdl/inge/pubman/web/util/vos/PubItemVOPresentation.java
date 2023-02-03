@@ -26,33 +26,14 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.ResourceBundle;
-
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-
-import org.elasticsearch.common.text.Text;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
-
+import co.elastic.clients.elasticsearch.core.search.Hit;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.*;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.pubman.web.GFZConeBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -62,6 +43,11 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.FileBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
 import de.mpg.mpdl.inge.util.PropertyReader;
+
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * Wrapper class for items to be used in the presentation.
@@ -130,7 +116,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   private float score;
 
-  private SearchHit searchHit;
+  private Hit<ItemVersionVO> searchHit;
 
   private Map<String, List<String>> highlightMap = new HashMap<>();
 
@@ -138,7 +124,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this(item, null);
   }
 
-  public PubItemVOPresentation(ItemVersionVO item, SearchHit searchHit) {
+  public PubItemVOPresentation(ItemVersionVO item, Hit<ItemVersionVO> searchHit) {
     super(item);
     if (this != null && this.getVersionState() != null) {
       this.released = ItemVersionRO.State.RELEASED.equals(this.getVersionState());
@@ -171,13 +157,18 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.initFileBeans();
   }
 
-  public void initSearchHits(SearchHit hit) {
+  public void initSearchHits(Hit<ItemVersionVO> hit) {
     this.searchHit = hit;
     this.isSearchResult = true;
-    this.score = searchHit.getScore();
+    this.score = searchHit.score().floatValue();
 
-    if (searchHit != null && searchHit.getInnerHits() != null && searchHit.getInnerHits().get("file") != null) {
-      for (SearchHit innerhit : searchHit.getInnerHits().get("file")) {
+    /*
+
+    if (searchHit != null && searchHit.highlight()!=null && searchHit.highlight().get("file")!=null) {
+      String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
+
+
+      for (String highlights : searchHit.highlight().get("file")) {
         List<String> highlights = new ArrayList<>();
         for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet()) {
           if (highlight.getValue() != null && highlight.getValue().getFragments() != null) {
@@ -190,6 +181,24 @@ public class PubItemVOPresentation extends ItemVersionVO {
         getHighlightMap().put(fileId, highlights);
       }
     }
+
+    if (searchHit != null && searchHit.innerHits() != null && searchHit.innerHits().get("file") != null) {
+      for (InnerHitsResult innerhit : searchHit.innerHits().get("file").) {
+        List<String> highlights = new ArrayList<>();
+        innerhit.hits().hits().
+        for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet()) {
+          if (highlight.getValue() != null && highlight.getValue().getFragments() != null) {
+            for (Text t : highlight.getValue().getFragments()) {
+              highlights.add(t.toString());
+            }
+          }
+        }
+        String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
+        getHighlightMap().put(fileId, highlights);
+      }
+    }
+
+     */
   }
 
   public void initFileBeans() {
@@ -772,8 +781,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * This method examines the pubitem concerning its files and generates a display string for the
    * page according to the number of files detected.
-   * 
-   * @param pubitemVo the pubitem to be examined
+   *
    * @return String the formatted String to display the occurencies of files
    */
   public String getFileInfo() {
@@ -797,8 +805,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * This method examines the pubitem concerning its locators and generates a display string for the
    * page according to the number of locators detected.
-   * 
-   * @param pubitemVo the pubitem to be examined
+   *
    * @return String the formatted String to display the occurencies of locators
    */
   public String getLocatorInfo() {
@@ -1408,11 +1415,11 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.highlightMap = highlightMap;
   }
 
-  public SearchHit getSearchHit() {
+  public Hit getSearchHit() {
     return searchHit;
   }
 
-  public void setSearchHit(SearchHit searchHit) {
+  public void setSearchHit(Hit searchHit) {
     this.searchHit = searchHit;
   }
 

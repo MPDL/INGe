@@ -26,17 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.desktop;
 
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
@@ -49,6 +40,12 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean(name = "Search")
 @SuppressWarnings("serial")
@@ -80,7 +77,7 @@ public class Search extends FacesBean {
     }
 
     try {
-      final QueryBuilder qb = Search.generateElasticSearchRequest(searchString, includeFiles);
+      final Query qb = Search.generateElasticSearchRequest(searchString, includeFiles);
       FacesTools.getExternalContext()
           .redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8"));
     } catch (final Exception e) {
@@ -89,7 +86,7 @@ public class Search extends FacesBean {
     }
   }
 
-  public static QueryBuilder generateElasticSearchRequest(String searchString, boolean includeFiles) throws Exception {
+  public static Query generateElasticSearchRequest(String searchString, boolean includeFiles) throws Exception {
     final List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
 
     if (includeFiles) {
@@ -108,19 +105,19 @@ public class Search extends FacesBean {
     identifier.setSearchString(searchString);
     criteria.add(identifier);
 
-    BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+    BoolQuery.Builder bqb = new BoolQuery.Builder();
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_PUBLIC_STATE, de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State.RELEASED.name()));
     bqb.must(SearchCriterionBase.scListToElasticSearchQuery(criteria));
 
-    return bqb;
+    return bqb.build()._toQuery();
   }
 
   public String getOpenSearchRequest() {
     final String requestDummy = "dummyTermToBeReplaced";
 
     try {
-      final QueryBuilder qb = Search.generateElasticSearchRequest(requestDummy, false);
+      final Query qb = Search.generateElasticSearchRequest(requestDummy, false);
       final String openSearchRequest = "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8");
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
     } catch (final Exception e) {

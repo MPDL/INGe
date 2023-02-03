@@ -26,17 +26,11 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.beans;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.bean.ManagedBean;
-
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhrasePrefixQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -44,6 +38,11 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+
+import javax.faces.bean.ManagedBean;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author franke
@@ -64,17 +63,18 @@ public class OrganizationSuggest {
     // Perform search request
     if (query != null) {
 
-      SearchSourceBuilder ssb = new SearchSourceBuilder();
+
       OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
 
-      QueryBuilder qb =
-          QueryBuilders.boolQuery().should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_TITLE, query))
-              .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES, query));
+      Query qb =
+          BoolQuery.of(b -> b
+                  .should(MatchPhrasePrefixQuery.of(m -> m.field(OrganizationServiceDbImpl.INDEX_METADATA_TITLE).query(query))._toQuery())
+              .should(MatchPhrasePrefixQuery.of(m -> m.field(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES).query(query))._toQuery()))._toQuery();
 
       //String[] returnFields = new String[] {OrganizationServiceDbImpl.INDEX_OBJECT_ID, OrganizationServiceDbImpl.INDEX_METADATA_TITLE, OrganizationServiceDbImpl.INDEX_METADATA_CITY};
-      ssb.query(qb).size(50);
+      SearchRequest sr = SearchRequest.of(s-> s.query(qb).size(50));
 
-      SearchResponse resp = organizationService.searchDetailed(ssb, null);
+      ResponseBody resp = organizationService.searchDetailed(sr, null);
       List<AffiliationDbVO> resultList = SearchUtils.getRecordListFromElasticSearchResponse(resp, AffiliationDbVO.class);
 
       for (final AffiliationDbVO affiliationVO : resultList) {

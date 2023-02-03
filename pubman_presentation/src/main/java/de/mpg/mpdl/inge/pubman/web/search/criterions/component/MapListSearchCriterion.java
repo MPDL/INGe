@@ -25,17 +25,15 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
 public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
@@ -235,11 +233,11 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
 
     if (!this.isEmpty(QueryType.CQL)) {
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      BoolQuery.Builder bq = new BoolQuery.Builder();
       for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
 
@@ -251,7 +249,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
       }
 
 
-      return bq;
+      return bq.build()._toQuery();
 
     }
 

@@ -26,30 +26,17 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.threads;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import co.elastic.clients.elasticsearch.core.search.SourceConfig;
+import co.elastic.clients.elasticsearch.core.search.SourceFilter;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -57,6 +44,18 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.UriBuilder;
 import de.mpg.mpdl.inge.util.XmlUtilities;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Thread that creates Sitemap files.
@@ -235,10 +234,11 @@ public class SiteMapTask {
     writtenInCurrentFile = 0;
 
 
-    QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
-        .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
+    Query qb = BoolQuery.of(b->b
+            .must(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
+        .must(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value("RELEASED"))._toQuery()))._toQuery();
 
-    SearchResponse resp = null;
+    ResponseBody<ObjectNode> resp = null;
     do {
 
 
@@ -247,43 +247,51 @@ public class SiteMapTask {
         logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
 
         if (resp == null) {
-          SearchSourceBuilder ssb = new SearchSourceBuilder();
-          ssb.fetchSource(new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
+          //SearchSourceBuilder ssb = new SearchSourceBuilder();
+          SearchRequest.Builder sr = new SearchRequest.Builder();
+
+
+           String[] includes = new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
               PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, PubItemServiceDbImpl.INDEX_FILE_OBJECT_ID,
-              PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, PubItemServiceDbImpl.INDEX_FILE_STORAGE, PubItemServiceDbImpl.INDEX_FILE_NAME},
-              null).query(qb).size(this.maxItemsPerRetrieve);
-          resp = pubItemService.searchDetailed(ssb, 120000, null);
+              PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, PubItemServiceDbImpl.INDEX_FILE_STORAGE, PubItemServiceDbImpl.INDEX_FILE_NAME};
+
+          SourceFilter sf  = SourceFilter.of(s -> s.includes(Arrays.asList(includes)));
+          sr.source(SourceConfig.of(sc -> sc.filter(sf))).query(qb).size(this.maxItemsPerRetrieve);
+
+          resp = pubItemService.searchDetailed(sr.build(), 120000, null);
         } else {
-          resp = pubItemService.scrollOn(resp.getScrollId(), 120000);
+          resp = pubItemService.scrollOn(resp.scrollId(), 120000);
         }
 
 
-        totalRecords = resp.getHits().getTotalHits();
+        totalRecords = resp.hits().total().value();
 
-        for (final SearchHit result : resp.getHits().getHits()) {
+        for (final Hit<ObjectNode> result : resp.hits().hits()) {
 
-          Map<String, Object> sourceMap = result.getSourceAsMap();
+          //Map<String, Object> sourceMap = result.getSourceAsMap();
+         ObjectNode root = result.source();
           try {
 
-            String itemId = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).toString();
-            String lmd = sourceMap.get(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).toString().substring(0, 10);
+            String itemId = root.get(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).asText();
+            String lmd = root.get(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).asText().substring(0, 10);
             String loc = UriBuilder.getItemObjectLink(itemId).toString();
             //String loc = this.instanceUrl + this.contextPath + this.itemPattern.replace("$1", itemId);
-            String version = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER).toString();
+            String version = root.get(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER).toString();
 
             writeEntry(this.fileWriter, loc, lmd);
 
 
-            if (sourceMap.containsKey("files")) {
-              List<Map<String, Object>> fileList = (List<Map<String, Object>>) sourceMap.get("files");
+            if (root.get("files")!=null) {
+              ArrayNode fileList = (ArrayNode) root.get("files");
 
-              for (Map<String, Object> fileMap : fileList) {
-                String storage = fileMap.get("storage").toString();
+              for (JsonNode fileMap : fileList) {
+                ObjectNode file = (ObjectNode) fileMap;
+                String storage = file.get("storage").asText();
                 if (Storage.INTERNAL_MANAGED.name().equals(storage)) {
-                  String visibility = fileMap.get("visibility").toString();
+                  String visibility = file.get("visibility").asText();
                   if (Visibility.PUBLIC.name().equals(visibility)) {
-                    String fileId = fileMap.get("objectId").toString();
-                    String fileName = fileMap.get("name").toString();
+                    String fileId = file.get("objectId").asText();
+                    String fileName = file.get("name").asText();
                     String fileLoc = UriBuilder.getItemComponentLink(itemId, Integer.parseInt(version), fileId, fileName).toString();
                     fileLoc = XmlUtilities.escape(fileLoc);
                     writeEntry(this.fileWriter, fileLoc, lmd);
@@ -312,7 +320,7 @@ public class SiteMapTask {
       }
 
 
-    } while (resp.getHits().getHits().length != 0);
+    } while (resp.hits().hits().size() != 0);
 
     return totalRecords;
   }

@@ -42,6 +42,9 @@ import java.util.TreeSet;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import co.elastic.clients.elasticsearch._types.Time;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -244,13 +247,15 @@ public class BrowseBySessionBean extends FacesBean {
 
   private void fillDateMap(String... indexes)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    QueryBuilder queryBuilder =
+    Query queryBuilder =
         SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
             PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name());
 
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(queryBuilder, 0, 0); // Limit 0, da nur Aggregationen interessieren
 
     for (String index : indexes) {
+      Aggregation.of(a -> a.dateHistogram(dh -> dh.field(index).fixedInterval(Time.of).minDocCount(1)));
+
       AggregationBuilder aggBuilder =
           AggregationBuilders.dateHistogram(index).field(index).dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
       srr.getAggregationBuilders().add(aggBuilder);

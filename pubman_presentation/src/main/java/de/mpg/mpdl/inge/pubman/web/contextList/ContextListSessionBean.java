@@ -26,17 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.contextList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
@@ -50,6 +41,13 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -144,15 +142,15 @@ public class ContextListSessionBean extends FacesBean {
 
         // ... and transform filter to xml
         if (hasGrants) {
-          BoolQueryBuilder bq = QueryBuilders.boolQuery();
+          BoolQuery.Builder bq = new BoolQuery.Builder();
           bq.must(SearchUtils.baseElasticSearchQueryBuilder(contextService.getElasticSearchIndexFields(), ContextServiceDbImpl.INDEX_STATE,
               ContextDbVO.State.OPENED.name()));
 
           for (final String id : ctxIdList) {
-            bq.should(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_OBJECT_ID, id));
+            bq.should(TermQuery.of(t -> t.field(ContextServiceDbImpl.INDEX_OBJECT_ID).value(id))._toQuery());
           }
 
-          SearchRetrieveResponseVO<ContextDbVO> response = contextService.search(new SearchRetrieveRequestVO(bq, 1000, 0), null);
+          SearchRetrieveResponseVO<ContextDbVO> response = contextService.search(new SearchRetrieveRequestVO(bq.build()._toQuery(), 1000, 0), null);
           List<ContextDbVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 
           // ... and transform to PubCollections.

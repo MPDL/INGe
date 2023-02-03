@@ -1,23 +1,9 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import java.io.IOException;
-import java.util.Date;
-
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.QueryStringQuery;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -32,7 +18,14 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.io.IOException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/contexts")
@@ -67,7 +60,7 @@ public class ContextRestController {
       @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+    Query matchAllQuery = new MatchAllQuery.Builder().build()._toQuery();
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_CONTEXT_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<ContextDbVO> srResponse = ctxSvc.search(srRequest, token);
@@ -80,7 +73,8 @@ public class ContextRestController {
       @RequestParam(value = "q") String query, @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
+    //QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
+    Query matchQueryParam = QueryStringQuery.of(q -> q.query(query))._toQuery();
     //QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_CONTEXT_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);

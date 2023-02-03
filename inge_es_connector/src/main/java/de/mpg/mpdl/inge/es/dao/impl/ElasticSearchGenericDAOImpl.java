@@ -373,9 +373,16 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
             SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<E>();
             hitList.add(srr);
 
-            E itemVO = (E)hit.source(); //MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
+            E vo;
+            if(clazz.isAssignableFrom(JsonNode.class)) {
+                vo = MapperFactory.getObjectMapper().treeToValue((JsonNode)hit.source(), clazz);
 
-            srr.setData(itemVO);
+            }
+            else {
+                vo = (E)hit.source();
+            }
+
+            srr.setData(vo);
             srr.setPersistenceId(hit.id());
         }
 
