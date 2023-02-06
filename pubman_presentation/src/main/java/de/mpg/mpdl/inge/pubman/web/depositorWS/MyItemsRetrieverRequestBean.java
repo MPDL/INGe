@@ -158,11 +158,13 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
 
-      bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID).value(this.getLoginHelper().getAccountUser().getObjectId()))._toQuery());
+      bq.must(
+          TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID).value(this.getLoginHelper().getAccountUser().getObjectId()))
+              ._toQuery());
 
       // display only latest versions
       InlineScript is = InlineScript.of(i -> i.source("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
-              + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
+          + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
       bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.inline(is))))._toQuery());
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
@@ -174,24 +176,26 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       }
 
       else {
-        bq.must(
-                TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(ItemVersionRO.State.valueOf(this.selectedItemState).name()))._toQuery());
+        bq.must(TermQuery
+            .of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(ItemVersionRO.State.valueOf(this.selectedItemState).name()))
+            ._toQuery());
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(MatchQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()).operator(Operator.And))._toQuery());
+        bq.must(MatchQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()).operator(Operator.And))
+            ._toQuery());
       }
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-      SearchRequest.Builder srb  = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
+      SearchRequest.Builder srb = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
 
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
           FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                  SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
-                          : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+              SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                  : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
           srb.sort(SortOptions.of(so -> so.field(fs)));
         }
       }

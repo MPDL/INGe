@@ -564,7 +564,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     if (this.contextListMenu == null) {
       try {
 
-        Query qb = BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(ContextServiceDbImpl.INDEX_STATE).value("OPENED"))._toQuery()))._toQuery();
+        Query qb =
+            BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(ContextServiceDbImpl.INDEX_STATE).value("OPENED"))._toQuery()))._toQuery();
 
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 1000, 0);
         SearchRetrieveResponseVO<ContextDbVO> result = ApplicationBean.INSTANCE.getContextService().search(srr, null);

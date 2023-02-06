@@ -25,10 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.SimpleQueryStringQuery;
 
 @SuppressWarnings("serial")
 public class AnyFieldAndFulltextSearchCriterion extends FulltextSearchCriterion {
@@ -36,13 +36,13 @@ public class AnyFieldAndFulltextSearchCriterion extends FulltextSearchCriterion 
 
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
 
-    BoolQueryBuilder qb = QueryBuilders.boolQuery();
+    BoolQuery.Builder qb = new BoolQuery.Builder();
     //Use simple query for searching all fields
-    qb.should(QueryBuilders.simpleQueryStringQuery(getSearchString()).analyzeWildcard(true).defaultOperator(Operator.AND));
+    qb.should(SimpleQueryStringQuery.of(s -> s.query(getSearchString()).analyzeWildcard(true).defaultOperator(Operator.And))._toQuery());
     qb.should(super.toElasticSearchQuery());
-    return qb;
+    return qb.build()._toQuery();
   }
 
   //  @Override

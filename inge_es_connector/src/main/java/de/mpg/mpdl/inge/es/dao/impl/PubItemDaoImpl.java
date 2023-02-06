@@ -129,12 +129,8 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
       rootObject.putObject(JOIN_FIELD_NAME).put("name", "file").put("parent", itemId);
 
 
-      IndexResponse indexResponse = client.getClient().index(i -> i
-              .index(indexName)
-              .routing(itemId)
-              .pipeline("attachment")
-              .id(itemId + "__" + fileId)
-              .document(rootObject));
+      IndexResponse indexResponse = client.getClient()
+          .index(i -> i.index(indexName).routing(itemId).pipeline("attachment").id(itemId + "__" + fileId).document(rootObject));
 
 
       /*

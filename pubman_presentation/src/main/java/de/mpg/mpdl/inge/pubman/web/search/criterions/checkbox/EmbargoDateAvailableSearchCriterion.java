@@ -75,7 +75,7 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
 
   @Override
   public Query toElasticSearchQuery() throws SearchParseException {
-    return ExistsQuery.of(eq ->eq.field(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL))._toQuery();
+    return ExistsQuery.of(eq -> eq.field(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL))._toQuery();
     //return null;
   }
 

@@ -85,15 +85,16 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
       if (pssb.getStoredPubItems().size() > 0) {
 
-        List<FieldValue> ids = pssb.getStoredPubItems().values().stream().map(i -> FieldValue.of(i.getObjectIdAndVersion())).collect(Collectors.toList());
+        List<FieldValue> ids =
+            pssb.getStoredPubItems().values().stream().map(i -> FieldValue.of(i.getObjectIdAndVersion())).collect(Collectors.toList());
 
-        Query idQuery = TermsQuery.of(t-> t.field("_id").terms(te -> te.value(ids)))._toQuery();
+        Query idQuery = TermsQuery.of(t -> t.field("_id").terms(te -> te.value(ids)))._toQuery();
 
         PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-        SearchRequest.Builder srb  = new SearchRequest.Builder().query(idQuery).from(offset).size(limit);
+        SearchRequest.Builder srb = new SearchRequest.Builder().query(idQuery).from(offset).size(limit);
         /*
         SearchSourceBuilder ssb = new SearchSourceBuilder();
-
+        
         ssb.query(idQuery);
         ssb.from(offset);
         ssb.size(limit);
@@ -103,8 +104,8 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         for (String index : sc.getIndex()) {
           if (!index.isEmpty()) {
             FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                    SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
-                            : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+                SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                    : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
             srb.sort(SortOptions.of(so -> so.field(fs)));
           }
         }

@@ -48,408 +48,375 @@ import java.util.*;
  */
 public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
-    private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
+  private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
 
-    @Autowired
-    protected ElasticSearchClientProvider client;
+  @Autowired
+  protected ElasticSearchClientProvider client;
 
-    protected ObjectMapper mapper = MapperFactory.getObjectMapper();
+  protected ObjectMapper mapper = MapperFactory.getObjectMapper();
 
-    protected String indexName;
+  protected String indexName;
 
-    protected String indexType;
+  protected String indexType;
 
-    protected Class<E> typeParameterClass;
+  protected Class<E> typeParameterClass;
 
-    private static final int DEFAULT_SEARCH_SIZE = 100;
-    private static final int MAX_SEARCH_SIZE = 10000;
+  private static final int DEFAULT_SEARCH_SIZE = 100;
+  private static final int MAX_SEARCH_SIZE = 10000;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+  private ObjectMapper objectMapper = new ObjectMapper();
 
 
-    public ElasticSearchGenericDAOImpl(String indexName, String indexType, Class<E> typeParameterClass) {
-        this.indexName = indexName;
-        this.indexType = indexType;
-        this.typeParameterClass = typeParameterClass;
+  public ElasticSearchGenericDAOImpl(String indexName, String indexType, Class<E> typeParameterClass) {
+    this.indexName = indexName;
+    this.indexType = indexType;
+    this.typeParameterClass = typeParameterClass;
+  }
+
+
+  protected JsonNode applyCustomValues(E entity) {
+    JsonNode node = mapper.valueToTree(entity);
+    return node;
+  }
+
+  protected abstract String[] getSourceExclusions();
+
+
+
+  public String create(String id, E entity) throws IngeTechnicalException {
+    try {
+
+      IndexResponse indexResponse = client.getClient().index(i -> i.index(indexName).id(id).document(applyCustomValues(entity))
+
+      );
+
+      return indexResponse.id();
+
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
+    }
+
+  }
+
+
+  public String createImmediately(String id, E entity) throws IngeTechnicalException {
+    try {
+
+      IndexResponse indexResponse =
+          client.getClient().index(i -> i.index(indexName).id(id).refresh(Refresh.True).document(applyCustomValues(entity))
+
+          );
+
+      return indexResponse.id();
+
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
+    }
+
+  }
+
+
+  public E get(String id) throws IngeTechnicalException {
+
+    try {
+      GetResponse<E> getResponse = client.getClient().get(g -> g.index(indexName).id(id), typeParameterClass);
+      return getResponse.source();
+
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+  public String updateImmediately(String id, E entity) throws IngeTechnicalException {
+
+    try {
+      UpdateResponse updateResponse =
+          client.getClient().update(u -> u.index(indexName).id(id).refresh(Refresh.True).doc(applyCustomValues(entity)), typeParameterClass
+
+          );
+      return Long.toString(updateResponse.version());
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+  public String update(String id, E entity) throws IngeTechnicalException {
+
+    try {
+      UpdateResponse updateResponse =
+          client.getClient().update(u -> u.index(indexName).id(id).doc(applyCustomValues(entity)), typeParameterClass
+
+          );
+      return Long.toString(updateResponse.version());
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+
+  /**
+   * @param id
+   * @return {@link String}
+   */
+  public String deleteImmediatly(String id) throws IngeTechnicalException {
+    try {
+      DeleteResponse deleteResponse = client.getClient().delete(d -> d.index(indexName).refresh(Refresh.True).id(id));
+      return deleteResponse.id();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
     }
 
 
-    protected JsonNode applyCustomValues(E entity) {
-        JsonNode node = mapper.valueToTree(entity);
-        return node;
+  }
+
+  public String delete(String id) throws IngeTechnicalException {
+
+    try {
+      DeleteResponse deleteResponse = client.getClient().delete(d -> d.index(indexName).id(id));
+      return deleteResponse.id();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
     }
 
-    protected abstract String[] getSourceExclusions();
+  }
 
 
+  public long deleteByQuery(Query query) throws IngeTechnicalException {
 
-    public String create(String id, E entity) throws IngeTechnicalException {
-        try {
+    try {
+      DeleteByQueryResponse deleteResponse = client.getClient().deleteByQuery(d -> d.index(indexName).query(query));
+      return deleteResponse.deleted();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
 
-            IndexResponse indexResponse = client.getClient().index(i -> i
-                    .index(indexName)
-                    .id(id)
-                    .document(applyCustomValues(entity))
 
-            );
+  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException {
 
-            return indexResponse.id();
+    SearchRetrieveResponseVO<E> srrVO;
+    try {
+      SearchRequest.Builder sr = new SearchRequest.Builder();
+      sr.index(indexName);
 
-        } catch (IOException e) {
-            throw new IngeTechnicalException(e);
+      if (searchQuery.getQueryBuilder() != null) {
+        sr.query(searchQuery.getQueryBuilder());
+      }
+
+      if (searchQuery.getAggregationBuilders() != null) {
+        int i = 0;
+        for (Aggregation aggBuilder : searchQuery.getAggregationBuilders()) {
+          sr.aggregations("agg" + i, aggBuilder);
         }
+      }
 
-    }
 
+      if (searchQuery.getOffset() != 0) {
+        sr.from(searchQuery.getOffset());
+      }
 
-    public String createImmediately(String id, E entity) throws IngeTechnicalException {
-        try {
+      if (searchQuery.getLimit() == -2) {
+        sr.size(ElasticSearchGenericDAOImpl.MAX_SEARCH_SIZE);
+      } else if (searchQuery.getLimit() == -1) {
+        sr.size(ElasticSearchGenericDAOImpl.DEFAULT_SEARCH_SIZE);
+      } else {
+        sr.size(searchQuery.getLimit());
+      }
 
-            IndexResponse indexResponse = client.getClient().index(i -> i
-                    .index(indexName)
-                    .id(id)
-                    .refresh(Refresh.True)
-                    .document(applyCustomValues(entity))
-
-            );
-
-            return indexResponse.id();
-
-        } catch (IOException e) {
-            throw new IngeTechnicalException(e);
+      if (searchQuery.getSortKeys() != null) {
+        for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
+          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField()).order(SortOrder.valueOf(sc.getSortOrder().name())));
+          sr.sort(SortOptions.of(so -> so.field(fs)));
         }
+      }
 
+      if (getSourceExclusions() != null) {
+        SourceConfig sc = SourceConfig.of(s -> s.filter(SourceFilter.of(sf -> sf.excludes(Arrays.asList(getSourceExclusions())))));
+        sr.source(sc);
+      }
+
+
+      if (searchQuery.getScrollTime() != -1) {
+        sr.scroll(Time.of(i -> i.time(String.valueOf(searchQuery.getScrollTime()))));
+        //srb.setScroll(new Scroll(new TimeValue()));
+      }
+
+
+      logger.debug(sr.toString());
+      SearchRequest srr = sr.build();
+      logger.info(toJson(srr));
+      SearchResponse<E> srb = client.getClient().search(srr, typeParameterClass);
+
+      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(srb, typeParameterClass);
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e.getMessage(), e);
     }
 
 
-    public E get(String id) throws IngeTechnicalException {
+    return srrVO;
 
-        try {
-            GetResponse<E> getResponse = client.getClient().get(g -> g
-                            .index(indexName)
-                            .id(id),
-                    typeParameterClass
-            );
-            return getResponse.source();
+  }
 
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e);
-        }
-    }
-
-    public String updateImmediately(String id, E entity) throws IngeTechnicalException {
-
-        try {
-            UpdateResponse updateResponse = client.getClient().update(u -> u
-                            .index(indexName)
-                            .id(id)
-                            .refresh(Refresh.True)
-                            .doc(applyCustomValues(entity)),
-                    typeParameterClass
-
-            );
-            return Long.toString(updateResponse.version());
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e);
-        }
-    }
-
-    public String update(String id, E entity) throws IngeTechnicalException {
-
-        try {
-            UpdateResponse updateResponse = client.getClient().update(u -> u
-                            .index(indexName)
-                            .id(id)
-                            .doc(applyCustomValues(entity)),
-                    typeParameterClass
-
-            );
-            return Long.toString(updateResponse.version());
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e);
-        }
-    }
+  public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest, long scrollTime) throws IngeTechnicalException {
 
 
-    /**
-     * @param id
-     * @return {@link String}
-     */
-    public String deleteImmediatly(String id) throws IngeTechnicalException {
-        try {
-            DeleteResponse deleteResponse =
-                    client.getClient().delete(d -> d
-                            .index(indexName)
-                            .refresh(Refresh.True)
-                            .id(id));
-            return deleteResponse.id();
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e);
-        }
+    ObjectNode root = (ObjectNode) searchRequest;
+    try {
+      if (scrollTime != -1) {
+        root.put("scroll", scrollTime);
+      }
 
-
-    }
-
-    public String delete(String id) throws IngeTechnicalException {
-
-        try {
-            DeleteResponse deleteResponse =
-                    client.getClient().delete(d -> d
-                            .index(indexName)
-                            .id(id));
-            return deleteResponse.id();
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e);
-        }
-
-    }
-
-
-    public long deleteByQuery(Query query) throws IngeTechnicalException {
-
-        try {
-            DeleteByQueryResponse deleteResponse =
-                    client.getClient().deleteByQuery(d -> d
-                            .index(indexName)
-                            .query(query));
-            return deleteResponse.deleted();
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e);
-        }
-    }
-
-
-    public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException {
-
-        SearchRetrieveResponseVO<E> srrVO;
-        try {
-            SearchRequest.Builder sr = new SearchRequest.Builder();
-            sr.index(indexName);
-
-            if (searchQuery.getQueryBuilder() != null) {
-                sr.query(searchQuery.getQueryBuilder());
-            }
-
-            if (searchQuery.getAggregationBuilders() != null) {
-                int i = 0;
-                for (Aggregation aggBuilder : searchQuery.getAggregationBuilders()) {
-                    sr.aggregations("agg" + i, aggBuilder);
-                }
-            }
-
-
-            if (searchQuery.getOffset() != 0) {
-                sr.from(searchQuery.getOffset());
-            }
-
-            if (searchQuery.getLimit() == -2) {
-                sr.size(ElasticSearchGenericDAOImpl.MAX_SEARCH_SIZE);
-            } else if (searchQuery.getLimit() == -1) {
-                sr.size(ElasticSearchGenericDAOImpl.DEFAULT_SEARCH_SIZE);
+      if (getSourceExclusions() != null && getSourceExclusions().length > 0) {
+        ArrayNode sourceExclusions = objectMapper.valueToTree(getSourceExclusions());
+        JsonNode sourceNode = root.get("_source");
+        if (sourceNode == null) {
+          root.putObject("_source").putArray("excludes").addAll(sourceExclusions);
+          //SourceConfig sc = SourceConfig.of(s -> s.filter(SourceFilter.of(sf -> sf.excludes(Arrays.asList(getSourceExclusions())))));
+          //srb.source(sc);
+        } else {
+          if (sourceNode.isObject()) {
+            if (sourceNode.get("excludes") != null) {
+              ((ArrayNode) sourceNode.get("excludes")).addAll(sourceExclusions);
             } else {
-                sr.size(searchQuery.getLimit());
+              ((ObjectNode) sourceNode).putArray("excludes").addAll(sourceExclusions);
             }
-
-            if (searchQuery.getSortKeys() != null) {
-                for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-                    FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField()).order(SortOrder.valueOf(sc.getSortOrder().name())));
-                    sr.sort(SortOptions.of(so -> so.field(fs)));
-                }
+          }
+          //_source is not an object
+          else {
+            if (sourceNode.isTextual()) {
+              root.putObject("_source").putArray("includes").add(sourceNode);
+            } else if (sourceNode.isArray()) {
+              root.putObject("_source").putArray("includes").addAll((ArrayNode) sourceNode);
             }
-
-            if (getSourceExclusions() != null) {
-                SourceConfig sc = SourceConfig.of(s -> s.filter(SourceFilter.of(sf -> sf.excludes(Arrays.asList(getSourceExclusions())))));
-                sr.source(sc);
-            }
-
-
-            if (searchQuery.getScrollTime() != -1) {
-                sr.scroll(Time.of(i -> i.time(String.valueOf(searchQuery.getScrollTime()))));
-                //srb.setScroll(new Scroll(new TimeValue()));
-            }
-
-
-            logger.debug(sr.toString());
-            SearchResponse<E> srb = client.getClient().search(sr.build(), typeParameterClass);
-
-            srrVO = getSearchRetrieveResponseFromElasticSearchResponse(srb, typeParameterClass);
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e.getMessage(), e);
+            ((ObjectNode) sourceNode).putArray("excludes").addAll(sourceExclusions);
+          }
         }
 
 
-        return srrVO;
+      }
 
-    }
-
-    public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest, long scrollTime) throws IngeTechnicalException {
-
-
-        ObjectNode root = (ObjectNode) searchRequest;
-        try {
-            if (scrollTime != -1) {
-                root.put("scroll", scrollTime);
-            }
-
-            if (getSourceExclusions() != null && getSourceExclusions().length > 0) {
-                ArrayNode sourceExclusions = objectMapper.valueToTree(getSourceExclusions());
-                JsonNode sourceNode = root.get("_source");
-                if (sourceNode == null) {
-                    root.putObject("_source").putArray("excludes").addAll(sourceExclusions);
-                    //SourceConfig sc = SourceConfig.of(s -> s.filter(SourceFilter.of(sf -> sf.excludes(Arrays.asList(getSourceExclusions())))));
-                    //srb.source(sc);
-                } else {
-                    if(sourceNode.isObject()) {
-                        if(sourceNode.get("excludes") != null)
-                        {
-                            ((ArrayNode) sourceNode.get("excludes")).addAll(sourceExclusions);
-                        }
-                        else {
-                            ((ObjectNode) sourceNode).putArray("excludes").addAll(sourceExclusions);
-                        }
-                    }
-                    //_source is not an object
-                    else {
-                        if (sourceNode.isTextual()) {
-                            root.putObject("_source").putArray("includes").add(sourceNode);
-                        }
-                        else if (sourceNode.isArray())
-                        {
-                            root.putObject("_source").putArray("includes").addAll((ArrayNode) sourceNode);
-                        }
-                        ((ObjectNode) sourceNode).putArray("excludes").addAll(sourceExclusions);
-                    }
-                }
-
-
-            }
-
-            ByteArrayInputStream bis = new ByteArrayInputStream(objectMapper.writeValueAsBytes(root));
-            SearchRequest sr = SearchRequest.of(s -> s.withJson(bis));
-            logger.debug(sr.toString());
-            SearchResponse<ObjectNode> resp = client.getClient().search(sr, ObjectNode.class);
-            return resp;
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e.getMessage(), e);
-        }
-
-
-    }
-
-    public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest) throws IngeTechnicalException {
-
-        return searchDetailed(searchRequest, -1);
-
-
-    }
-
-    public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException {
-
-        try {
-            return client.getClient().scroll(i -> i
-                    .scrollId(scrollId)
-                    .scroll(Time.of(t -> t.time(String.valueOf(scrollTime))))
-                    , ObjectNode.class)
-            ;
-            //return client.getClient().prepareSearchScroll(scrollId).setScroll(new Scroll(new TimeValue(scrollTime))).get();
-        } catch (Exception e) {
-            throw new IngeTechnicalException(e.getMessage(), e);
-        }
-
-
+      ByteArrayInputStream bis = new ByteArrayInputStream(objectMapper.writeValueAsBytes(root));
+      SearchRequest sr = SearchRequest.of(s -> s.withJson(bis));
+      logger.info(toJson(sr));
+      SearchResponse<ObjectNode> resp = client.getClient().search(sr, ObjectNode.class);
+      return resp;
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e.getMessage(), e);
     }
 
 
-    public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(ResponseBody<E> sr, Class<E> clazz)
-            throws IOException {
-        SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
-        srrVO.setOriginalResponse(sr);
-        srrVO.setNumberOfRecords((int) sr.hits().total().value());
-        srrVO.setScrollId(sr.scrollId());
+  }
 
-        List<SearchRetrieveRecordVO<E>> hitList = new ArrayList<>();
-        srrVO.setRecords(hitList);
-        for (Hit hit : sr.hits().hits()) {
-            SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<E>();
-            hitList.add(srr);
+  public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest) throws IngeTechnicalException {
 
-            E vo;
-            if(clazz.isAssignableFrom(JsonNode.class)) {
-                vo = MapperFactory.getObjectMapper().treeToValue((JsonNode)hit.source(), clazz);
-
-            }
-            else {
-                vo = (E)hit.source();
-            }
-
-            srr.setData(vo);
-            srr.setPersistenceId(hit.id());
-        }
+    return searchDetailed(searchRequest, -1);
 
 
-        return srrVO;
-    }
+  }
 
-    //SP: Alias-Suche funktioniert in ES 6.1 nicht mehr wie erwartet
-    public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException {
-        //    String realIndexName = indexName;
-        //
-        //    GetAliasesResponse aliasResp = client.getClient().admin().indices().prepareGetAliases(indexName).get();
-        //    if (!aliasResp.getAliases().isEmpty()) {
-        //      realIndexName = aliasResp.getAliases().keys().iterator().next().value;
-        //    }
+  public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException {
 
-        //    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
-
-        try {
-            GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(this.indexName));
-            //GetMappingsResponse resp = this.client.getClient().admin().indices().prepareGetMappings(this.indexName).addTypes(this.indexType).get();
-
-            if (!resp.result().isEmpty()) { // SP: avoiding NullPointerException
-                Map<String, Property> resultMap = resp.result().get(this.indexName).mappings().properties();
-
-                //((MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
-
-                Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(resultMap);
-                ElasticSearchIndexField allField = new ElasticSearchIndexField();
-                allField.setIndexName("_all");
-                allField.setType(Type.TEXT);
-                map.put("_all", allField);
-                return map;
-            }
-        } catch (IOException e) {
-            throw new IngeTechnicalException(e);
-        }
-
-        return new HashMap<String, ElasticSearchIndexField>();
+    try {
+      return client.getClient().scroll(i -> i.scrollId(scrollId).scroll(Time.of(t -> t.time(String.valueOf(scrollTime)))),
+          ObjectNode.class);
+      //return client.getClient().prepareSearchScroll(scrollId).setScroll(new Scroll(new TimeValue(scrollTime))).get();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e.getMessage(), e);
     }
 
 
-    public static <T extends JsonpSerializable> String toJson(T value) {
-        StringWriter sw = new StringWriter();
-        JsonpMapper mapper = new JacksonJsonpMapper();
-        JsonProvider provider = mapper.jsonProvider();
-        JsonGenerator generator = provider.createGenerator(sw);
-        mapper.serialize(value, generator);
-        generator.close();
-        return sw.toString();
+  }
+
+
+  public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(ResponseBody<E> sr, Class<E> clazz)
+      throws IOException {
+    SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
+    srrVO.setOriginalResponse(sr);
+    srrVO.setNumberOfRecords((int) sr.hits().total().value());
+    srrVO.setScrollId(sr.scrollId());
+
+    List<SearchRetrieveRecordVO<E>> hitList = new ArrayList<>();
+    srrVO.setRecords(hitList);
+    for (Hit hit : sr.hits().hits()) {
+      SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<E>();
+      hitList.add(srr);
+
+      E vo;
+      if (clazz.isAssignableFrom(JsonNode.class)) {
+        vo = MapperFactory.getObjectMapper().treeToValue((JsonNode) hit.source(), clazz);
+
+      } else {
+        vo = (E) hit.source();
+      }
+
+      srr.setData(vo);
+      srr.setPersistenceId(hit.id());
     }
 
-    public static <T extends JsonpSerializable> JsonNode toJsonNode(T value) throws IngeTechnicalException{
-        try {
-            StringWriter sw = new StringWriter();
-            JsonpMapper mapper = new JacksonJsonpMapper();
-            JsonProvider provider = mapper.jsonProvider();
-            JsonGenerator generator = provider.createGenerator(sw);
-            mapper.serialize(value, generator);
-            generator.close();
-            ObjectMapper om = new ObjectMapper();
-            JsonNode jsonNode = om.readTree(sw.toString());
-            return jsonNode;
-        } catch (JsonProcessingException e) {
-            throw new IngeTechnicalException(e);
-        }
+
+    return srrVO;
+  }
+
+  //SP: Alias-Suche funktioniert in ES 6.1 nicht mehr wie erwartet
+  public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException {
+    //    String realIndexName = indexName;
+    //
+    //    GetAliasesResponse aliasResp = client.getClient().admin().indices().prepareGetAliases(indexName).get();
+    //    if (!aliasResp.getAliases().isEmpty()) {
+    //      realIndexName = aliasResp.getAliases().keys().iterator().next().value;
+    //    }
+
+    //    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
+
+    try {
+      GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(this.indexName));
+      //GetMappingsResponse resp = this.client.getClient().admin().indices().prepareGetMappings(this.indexName).addTypes(this.indexType).get();
+
+      if (!resp.result().isEmpty()) { // SP: avoiding NullPointerException
+        Map<String, Property> resultMap = resp.result().get(this.indexName).mappings().properties();
+
+        //((MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
+
+        Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(resultMap);
+        ElasticSearchIndexField allField = new ElasticSearchIndexField();
+        allField.setIndexName("_all");
+        allField.setType(Type.TEXT);
+        map.put("_all", allField);
+        return map;
+      }
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
     }
+
+    return new HashMap<String, ElasticSearchIndexField>();
+  }
+
+
+  public static <T extends JsonpSerializable> String toJson(T value) {
+    StringWriter sw = new StringWriter();
+    JsonpMapper mapper = new JacksonJsonpMapper();
+    JsonProvider provider = mapper.jsonProvider();
+    JsonGenerator generator = provider.createGenerator(sw);
+    mapper.serialize(value, generator);
+    generator.close();
+    return sw.toString();
+  }
+
+  public static <T extends JsonpSerializable> JsonNode toJsonNode(T value) throws IngeTechnicalException {
+    try {
+      StringWriter sw = new StringWriter();
+      JsonpMapper mapper = new JacksonJsonpMapper();
+      JsonProvider provider = mapper.jsonProvider();
+      JsonGenerator generator = provider.createGenerator(sw);
+      mapper.serialize(value, generator);
+      generator.close();
+      ObjectMapper om = new ObjectMapper();
+      JsonNode jsonNode = om.readTree(sw.toString());
+      return jsonNode;
+    } catch (JsonProcessingException e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
 
 
 

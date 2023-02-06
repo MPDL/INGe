@@ -66,13 +66,13 @@ public class OrganizationSuggest {
 
       OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
 
-      Query qb =
-          BoolQuery.of(b -> b
-                  .should(MatchPhrasePrefixQuery.of(m -> m.field(OrganizationServiceDbImpl.INDEX_METADATA_TITLE).query(query))._toQuery())
-              .should(MatchPhrasePrefixQuery.of(m -> m.field(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES).query(query))._toQuery()))._toQuery();
+      Query qb = BoolQuery.of(b -> b
+          .should(MatchPhrasePrefixQuery.of(m -> m.field(OrganizationServiceDbImpl.INDEX_METADATA_TITLE).query(query))._toQuery()).should(
+              MatchPhrasePrefixQuery.of(m -> m.field(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES).query(query))._toQuery()))
+          ._toQuery();
 
       //String[] returnFields = new String[] {OrganizationServiceDbImpl.INDEX_OBJECT_ID, OrganizationServiceDbImpl.INDEX_METADATA_TITLE, OrganizationServiceDbImpl.INDEX_METADATA_CITY};
-      SearchRequest sr = SearchRequest.of(s-> s.query(qb).size(50));
+      SearchRequest sr = SearchRequest.of(s -> s.query(qb).size(50));
 
       ResponseBody resp = organizationService.searchDetailed(sr, null);
       List<AffiliationDbVO> resultList = SearchUtils.getRecordListFromElasticSearchResponse(resp, AffiliationDbVO.class);

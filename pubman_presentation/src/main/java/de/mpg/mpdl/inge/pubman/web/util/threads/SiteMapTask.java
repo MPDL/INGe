@@ -234,9 +234,8 @@ public class SiteMapTask {
     writtenInCurrentFile = 0;
 
 
-    Query qb = BoolQuery.of(b->b
-            .must(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
-        .must(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value("RELEASED"))._toQuery()))._toQuery();
+    Query qb = BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
+        .must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value("RELEASED"))._toQuery()))._toQuery();
 
     ResponseBody<ObjectNode> resp = null;
     do {
@@ -251,11 +250,11 @@ public class SiteMapTask {
           SearchRequest.Builder sr = new SearchRequest.Builder();
 
 
-           String[] includes = new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
+          String[] includes = new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
               PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, PubItemServiceDbImpl.INDEX_FILE_OBJECT_ID,
               PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, PubItemServiceDbImpl.INDEX_FILE_STORAGE, PubItemServiceDbImpl.INDEX_FILE_NAME};
 
-          SourceFilter sf  = SourceFilter.of(s -> s.includes(Arrays.asList(includes)));
+          SourceFilter sf = SourceFilter.of(s -> s.includes(Arrays.asList(includes)));
           sr.source(SourceConfig.of(sc -> sc.filter(sf))).query(qb).size(this.maxItemsPerRetrieve);
 
           resp = pubItemService.searchDetailed(sr.build(), 120000, null);
@@ -269,7 +268,7 @@ public class SiteMapTask {
         for (final Hit<ObjectNode> result : resp.hits().hits()) {
 
           //Map<String, Object> sourceMap = result.getSourceAsMap();
-         ObjectNode root = result.source();
+          ObjectNode root = result.source();
           try {
 
             String itemId = root.get(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).asText();
@@ -281,7 +280,7 @@ public class SiteMapTask {
             writeEntry(this.fileWriter, loc, lmd);
 
 
-            if (root.get("files")!=null) {
+            if (root.get("files") != null) {
               ArrayNode fileList = (ArrayNode) root.get("files");
 
               for (JsonNode fileMap : fileList) {

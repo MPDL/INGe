@@ -25,8 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
-import org.elasticsearch.index.query.QueryBuilder;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -82,7 +81,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
     if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
       return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.hiddenId);
     } else {

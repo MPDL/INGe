@@ -113,7 +113,7 @@ public class PropertyReader {
   public static final String INGE_EMAIL_SENDER = "inge.email.sender";
   public static final String INGE_EMAIL_WITHAUTHENTICATION = "inge.email.withauthentication";
   public static final String INGE_ES_CLUSTER_NAME = "inge.es.cluster.name";
-  public static final String INGE_ES_HOST_PORT = "inge.es.host-port";
+  public static final String INGE_ES_REST_HOST_PORT = "inge.es.rest.host-port";
   public static final String INGE_ES_TRANSPORT_IPS = "inge.es.transport.ips";
   public static final String INGE_FILESTORAGE_FILESYSTEM_PATH = "inge.filestorage.filesystem_path";
   public static final String INGE_FILESTORAGE_OAI_FILESYSTEM_PATH = "inge.filestorage.oai.filesystem_path";

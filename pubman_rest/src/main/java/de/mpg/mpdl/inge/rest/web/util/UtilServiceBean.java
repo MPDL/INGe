@@ -63,7 +63,7 @@ public class UtilServiceBean {
       searchSourceBuilder.parseXContent(parser);
     }
     return searchSourceBuilder;
-
+  
   }
   */
 
@@ -87,8 +87,8 @@ public class UtilServiceBean {
     /*
     XContentBuilder builder = XContentFactory.jsonBuilder();
     resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
-
-*/
+    
+    */
 
     return new ResponseEntity<String>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
   }

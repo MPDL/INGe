@@ -163,11 +163,11 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.score = searchHit.score().floatValue();
 
     /*
-
+    
     if (searchHit != null && searchHit.highlight()!=null && searchHit.highlight().get("file")!=null) {
       String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
-
-
+    
+    
       for (String highlights : searchHit.highlight().get("file")) {
         List<String> highlights = new ArrayList<>();
         for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet()) {
@@ -181,7 +181,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
         getHighlightMap().put(fileId, highlights);
       }
     }
-
+    
     if (searchHit != null && searchHit.innerHits() != null && searchHit.innerHits().get("file") != null) {
       for (InnerHitsResult innerhit : searchHit.innerHits().get("file").) {
         List<String> highlights = new ArrayList<>();
@@ -197,7 +197,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
         getHighlightMap().put(fileId, highlights);
       }
     }
-
+    
      */
   }
 

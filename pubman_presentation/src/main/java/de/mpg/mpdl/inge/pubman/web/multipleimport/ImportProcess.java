@@ -24,16 +24,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import java.io.File;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.QueryBuilder;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -46,18 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BibtexProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BmcProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.EdocProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.EndnoteProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.EscidocProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.FormatProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.MabProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.Marc21Processor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.MarcXmlProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.RisProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.WosProcessor;
-import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ZfNProcessor;
+import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.*;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
@@ -67,6 +47,14 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
@@ -501,7 +489,7 @@ public class ImportProcess extends Thread {
         }
 
 
-        QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+        Query qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
         SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
 

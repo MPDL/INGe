@@ -95,7 +95,8 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
           final String notSpecifiedValue =
               this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(MdsFileVO.OA_STATUS.NOT_SPECIFIED.toString()));
           if (notSpecifiedValue.equals(value)) {
-            bq = bq.should(BoolQuery.of(b -> b.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_FILE_OA_STATUS))._toQuery()))._toQuery());
+            bq = bq.should(BoolQuery.of(b -> b.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_FILE_OA_STATUS))._toQuery()))
+                ._toQuery());
           }
           bq = bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(value), value));
 

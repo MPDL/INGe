@@ -86,8 +86,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final Query qb = BoolQuery.of(b1 -> b1
-            .mustNot(ExistsQuery.of(eq -> eq.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID))._toQuery()))._toQuery();
+    final Query qb =
+        BoolQuery.of(b1 -> b1.mustNot(ExistsQuery.of(eq -> eq.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID))._toQuery()))._toQuery();
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC)});
@@ -179,7 +179,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final Query qb = BoolQuery.of(b -> b.must(TermQuery.of(t-> t.field(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID).value(objectId))._toQuery()))._toQuery();
+    final Query qb = BoolQuery
+        .of(b -> b.must(TermQuery.of(t -> t.field(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID).value(objectId))._toQuery()))._toQuery();
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
@@ -188,13 +189,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException, IngeTechnicalException {
 
-    SearchRequest ssb = SearchRequest.of(sr -> sr
-            .docvalueFields(dv -> dv
-              .field(INDEX_OBJECT_ID)
-            )
-            .query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId))
-            .size(500)
-    );
+    SearchRequest ssb = SearchRequest.of(sr -> sr.docvalueFields(dv -> dv.field(INDEX_OBJECT_ID))
+        .query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId))
+        .size(500));
 
 
     ResponseBody<ObjectNode> resp = null;

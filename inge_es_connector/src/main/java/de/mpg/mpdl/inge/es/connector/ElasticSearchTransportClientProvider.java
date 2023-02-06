@@ -23,11 +23,10 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
   public ElasticSearchTransportClientProvider() {
 
-    logger.info("Building Elasticsearch REST client for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_HOST_PORT) + ">");
+    logger.info("Building Elasticsearch REST client for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT) + ">");
 
     // Create the low-level client
-    RestClient restClient = RestClient.builder(
-            new HttpHost(PropertyReader.getProperty(PropertyReader.INGE_ES_HOST_PORT))).build();
+    RestClient restClient = RestClient.builder(HttpHost.create(PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT))).build();
 
 
     // Create the HLRC
@@ -35,11 +34,10 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
     RestHighLevelClient hlrc = new RestHighLevelClientBuilder(restClient)
             .setApiCompatibilityMode(true)
             .build();
-*/
+    */
 
     // Create the transport with a Jackson mapper
-    ElasticsearchTransport transport = new RestClientTransport(
-            restClient, new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
+    ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
 
 
     client = new ElasticsearchClient(transport);
@@ -47,17 +45,17 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
     /*
     this.client = new PreBuiltTransportClient(Settings.builder()
         .put("cluster.name", PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME)).put("client.transport.sniff", true).build());
-
+    
     logger.info("Building TransportClient for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME) + ">" + " and <"
         + PropertyReader.getProperty(PropertyReader.INGE_ES_TRANSPORT_IPS) + "> ");
     String transportIps = PropertyReader.getProperty(PropertyReader.INGE_ES_TRANSPORT_IPS);
-
+    
     for (String ip : transportIps.split(" ")) {
       String addr = ip.split(":")[0];
       int port = Integer.valueOf(ip.split(":")[1]);
       try {
         this.client.addTransportAddress(new TransportAddress(InetAddress.getByName(addr), port));
-
+    
         String nodeName = this.client.nodeName();
         logger.info("Nodename <" + nodeName + ">");
       } catch (UnknownHostException e) {

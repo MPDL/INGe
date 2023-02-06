@@ -68,7 +68,7 @@ public class SearchUtils {
           } else {
             List<FieldValue> fvList = new ArrayList<>();
             Arrays.stream(value).map(i -> FieldValue.of(i)).collect(Collectors.toList());
-            return TermsQuery.of(t -> t.field(index).terms(te -> te.value(fvList)) )._toQuery();
+            return TermsQuery.of(t -> t.field(index).terms(te -> te.value(fvList)))._toQuery();
           }
 
         }
@@ -84,21 +84,16 @@ public class SearchUtils {
 
   private static Query checkMatchOrPhraseOrWildcardMatch(String index, String searchString) {
     if (searchString != null && searchString.trim().startsWith("\"") && searchString.trim().endsWith("\"")) {
-      return MatchPhraseQuery.of(mp -> mp
-              .field(index)
-              .query(searchString.trim().substring(1, searchString.length() - 1)))._toQuery();
+      return MatchPhraseQuery.of(mp -> mp.field(index).query(searchString.trim().substring(1, searchString.length() - 1)))._toQuery();
     } else if (searchString != null && searchString.contains("*")) {
-      return WildcardQuery.of(wq -> wq
-                  .field(index + ".keyword")
-                  .value(searchString))._toQuery();
+      return WildcardQuery.of(wq -> wq.field(index + ".keyword").value(searchString))._toQuery();
     } else {
-      return MatchQuery.of(i-> i.field(index).query(searchString).operator(Operator.And))._toQuery();
+      return MatchQuery.of(i -> i.field(index).query(searchString).operator(Operator.And))._toQuery();
     }
 
   }
 
-  public static FieldSort baseElasticSearchSortBuilder(Map<String, ElasticSearchIndexField> indexMap, String index,
-                                                               SortOrder order) {
+  public static FieldSort baseElasticSearchSortBuilder(Map<String, ElasticSearchIndexField> indexMap, String index, SortOrder order) {
 
     ElasticSearchIndexField field = indexMap.get(index);
     String indexField = index;

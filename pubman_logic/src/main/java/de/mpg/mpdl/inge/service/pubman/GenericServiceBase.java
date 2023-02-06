@@ -18,13 +18,13 @@ public interface GenericServiceBase<E> {
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO srr, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ResponseBody<ObjectNode> searchDetailed(SearchRequest ssb, String authenticationToken)
+  public ResponseBody searchDetailed(SearchRequest ssb, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ResponseBody<ObjectNode> searchDetailed(SearchRequest ssb, long scrollTime, String authenticationToken)
+  public ResponseBody searchDetailed(SearchRequest ssb, long scrollTime, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime)
+  public ResponseBody scrollOn(String scrollId, long scrollTime)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public Map<String, ElasticSearchIndexField> getElasticSearchIndexFields();

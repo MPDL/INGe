@@ -599,7 +599,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<ItemVersionVO> rec : resp.getRecords()) {
       pubItemDao.deleteImmediatly(rec.getPersistenceId());
-      pubItemDao.deleteByQuery(TermQuery.of(t-> t.field(INDEX_FULLTEXT_ITEM_ID).value(rec.getPersistenceId()))._toQuery());
+      pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(rec.getPersistenceId()))._toQuery());
     }
     sendEventTopic(latestPubItemDbVersion, "delete");
 
@@ -851,14 +851,15 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private SearchRetrieveResponseVO<ItemVersionVO> getAllVersions(String objectId) throws IngeTechnicalException {
-    co.elastic.clients.elasticsearch._types.query_dsl.Query latestReleaseQuery = TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).value(objectId))._toQuery();
+    co.elastic.clients.elasticsearch._types.query_dsl.Query latestReleaseQuery =
+        TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).value(objectId))._toQuery();
     SearchRetrieveResponseVO<ItemVersionVO> resp = executeSearchSortByVersion(latestReleaseQuery, -2, 0); // unbegrenzte Suche
 
     return resp;
   }
 
-  private SearchRetrieveResponseVO<ItemVersionVO> executeSearchSortByVersion(co.elastic.clients.elasticsearch._types.query_dsl.Query query, int limit, int offset)
-      throws IngeTechnicalException {
+  private SearchRetrieveResponseVO<ItemVersionVO> executeSearchSortByVersion(co.elastic.clients.elasticsearch._types.query_dsl.Query query,
+      int limit, int offset) throws IngeTechnicalException {
 
     SearchSortCriteria sortByVersion = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SortOrder.DESC);
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset, sortByVersion);

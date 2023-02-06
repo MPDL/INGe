@@ -26,8 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 
-import org.elasticsearch.index.query.QueryBuilder;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -67,7 +66,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
     return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.searchString);
   }
 }

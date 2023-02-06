@@ -101,7 +101,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       BoolQuery.Builder bq = new BoolQuery.Builder();
 
       if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
-        bq.must(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
+        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
         if (getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name())
             || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name())) {
           // filter out possible duplicates
@@ -116,8 +116,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         states.add(FieldValue.of("RELEASED"));
         states.add(FieldValue.of("IN_REVISION"));
 
-        bq.must(TermsQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).terms(TermsQueryField.of(tq -> tq.value(states))))._toQuery());
-        bq.mustNot(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
+        bq.must(TermsQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).terms(TermsQueryField.of(tq -> tq.value(states))))
+            ._toQuery());
+        bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
 
         // filter out duplicates
         bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.SUBMITTED));
@@ -125,8 +126,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       else {
-        bq.must(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(State.valueOf(getSelectedItemState()).name()))._toQuery());
-        bq.mustNot(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
+        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(State.valueOf(getSelectedItemState()).name()))
+            ._toQuery());
+        bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
@@ -136,19 +138,23 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       if (this.getSelectedContext().toLowerCase().equals("all")) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
         // menu)
-        List<FieldValue> fv = getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue())).map(x -> FieldValue.of(x.getValue().toString())).collect(Collectors.toList());
-        bq.must(TermsQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).terms(TermsQueryField.of(tf -> tf.value(fv))))._toQuery());
+        List<FieldValue> fv = getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue()))
+            .map(x -> FieldValue.of(x.getValue().toString())).collect(Collectors.toList());
+        bq.must(TermsQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).terms(TermsQueryField.of(tf -> tf.value(fv))))
+            ._toQuery());
       } else {
-        bq.must(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).value(getSelectedContext()))._toQuery());
+        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).value(getSelectedContext()))._toQuery());
       }
 
       if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
 
         BoolQuery.Builder ouQuery = new BoolQuery.Builder();
+        ouQuery.should(TermQuery
+            .of(t -> t.field(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH).value(getSelectedOrgUnit()))
+            ._toQuery());
         ouQuery.should(
-                TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH).value(getSelectedOrgUnit()))._toQuery());
-        ouQuery
-            .should(TermQuery.of(t->t.field(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH).value(getSelectedOrgUnit()))._toQuery());
+            TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH).value(getSelectedOrgUnit()))
+                ._toQuery());
         bq.must(ouQuery.build()._toQuery());
 
       }
@@ -158,14 +164,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
 
 
-      SearchRequest.Builder srb  = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
+      SearchRequest.Builder srb = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
 
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
           FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                  SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
-                          : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+              SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                  : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
           srb.sort(SortOptions.of(so -> so.field(fs)));
         }
       }

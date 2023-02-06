@@ -83,8 +83,8 @@ public class ElasticSearchIndexField {
 
 
 
-    private static void fillMap(Map<String, Property> mappingMap, Map<String, ElasticSearchIndexField> indexMap,
-        String currentPath, List<String> currentNestedPaths) {
+    private static void fillMap(Map<String, Property> mappingMap, Map<String, ElasticSearchIndexField> indexMap, String currentPath,
+        List<String> currentNestedPaths) {
 
       for (Map.Entry<String, Property> entry : mappingMap.entrySet()) {
 
@@ -101,21 +101,19 @@ public class ElasticSearchIndexField {
         }
 
 
-        if(!entry.getValue().isObject() && !entry.getValue().isNested())
-        {
-          ElasticSearchIndexField indexField = createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, entry.getValue()._kind().jsonValue());
+        if (!entry.getValue().isObject() && !entry.getValue().isNested()) {
+          ElasticSearchIndexField indexField =
+              createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, entry.getValue()._kind().jsonValue());
           indexMap.put(newCurrentPath.toString(), indexField);
           //System.out.println(newCurrentPath.toString() + " -- " + newCurrentNestedPaths + " -- " + entry.getValue()._kind().jsonValue());
         }
 
         if (entry.getValue().isObject()) {
           fillMap(entry.getValue().object().properties(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
-        }
-        else if (entry.getValue().isNested()) {
+        } else if (entry.getValue().isNested()) {
           fillMap(entry.getValue().nested().properties(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
-        }
-        else {
-          fillMap(((PropertyBase)entry.getValue()._get()).fields(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
+        } else {
+          fillMap(((PropertyBase) entry.getValue()._get()).fields(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
         }
 
 
@@ -123,38 +121,37 @@ public class ElasticSearchIndexField {
 
       /*
       for (Entry<String, Property> entry : mappingMap.entrySet()) {
-
+      
         StringBuilder newCurrentPath = new StringBuilder(currentPath);
         List<String> newCurrentNestedPaths = new ArrayList<>(currentNestedPaths);
-
+      
         if (parentKey != null && (parentKey.equals("properties") || parentKey.equals("fields"))) {
           if (newCurrentPath.length() > 0) {
             newCurrentPath.append(".");
           }
           newCurrentPath.append(entry.getKey());
         }
-
+      
         else if (mappingMap.containsKey("type")) {
           String type = (String) mappingMap.get("type");
           if (type.equals("nested")) {
             newCurrentNestedPaths.add(newCurrentPath.toString());
           }
-
+      
           else {
             ElasticSearchIndexField indexField = createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, type);
             indexMap.put(newCurrentPath.toString(), indexField);
-
+      
           }
         }
         if (entry.getValue() instanceof Map) {
           fillMap(entry.getKey(), (Map<String, Object>) entry.getValue(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
         }
-
-
-
+      
+      
+      
       }
       */
-
 
 
 

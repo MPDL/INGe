@@ -72,11 +72,11 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testZDelete() {
     try {
-    String contextId = this.contextDao.deleteImmediatly(test_context_id);
-    assertTrue("Context id differs: is <" + contextId + "> expected <" + test_context_id + ">", contextId.equals(test_context_id));
+      String contextId = this.contextDao.deleteImmediatly(test_context_id);
+      assertTrue("Context id differs: is <" + contextId + "> expected <" + test_context_id + ">", contextId.equals(test_context_id));
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
     }
-    }
+  }
 }

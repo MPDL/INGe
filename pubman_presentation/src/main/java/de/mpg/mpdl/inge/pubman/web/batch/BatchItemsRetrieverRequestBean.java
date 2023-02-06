@@ -86,27 +86,28 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
 
       if (pbsb.getStoredPubItems().size() > 0) {
 
-        List<FieldValue> ids = pbsb.getStoredPubItems().values().stream().map(i -> FieldValue.of(i.getObjectId())).collect(Collectors.toList());
+        List<FieldValue> ids =
+            pbsb.getStoredPubItems().values().stream().map(i -> FieldValue.of(i.getObjectId())).collect(Collectors.toList());
 
         BoolQuery.Builder bq = new BoolQuery.Builder();
 
-        bq.must(TermsQuery.of(t->t.field("objectId").terms(TermsQueryField.of(tq -> tq.value(ids))))._toQuery());
+        bq.must(TermsQuery.of(t -> t.field("objectId").terms(TermsQueryField.of(tq -> tq.value(ids))))._toQuery());
 
         // display only latest versions
 
         InlineScript is = InlineScript.of(i -> i.source("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
-                + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
+            + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
         bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.inline(is))))._toQuery());
 
         PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-        SearchRequest.Builder srb  = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
+        SearchRequest.Builder srb = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
 
 
         for (String index : sc.getIndex()) {
           if (!index.isEmpty()) {
             FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                    SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
-                            : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+                SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                    : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
             srb.sort(SortOptions.of(so -> so.field(fs)));
           }
         }

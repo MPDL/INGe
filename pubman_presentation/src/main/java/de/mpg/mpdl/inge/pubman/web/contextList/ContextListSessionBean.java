@@ -150,7 +150,8 @@ public class ContextListSessionBean extends FacesBean {
             bq.should(TermQuery.of(t -> t.field(ContextServiceDbImpl.INDEX_OBJECT_ID).value(id))._toQuery());
           }
 
-          SearchRetrieveResponseVO<ContextDbVO> response = contextService.search(new SearchRetrieveRequestVO(bq.build()._toQuery(), 1000, 0), null);
+          SearchRetrieveResponseVO<ContextDbVO> response =
+              contextService.search(new SearchRetrieveRequestVO(bq.build()._toQuery(), 1000, 0), null);
           List<ContextDbVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 
           // ... and transform to PubCollections.

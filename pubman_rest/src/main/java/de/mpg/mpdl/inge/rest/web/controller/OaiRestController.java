@@ -58,18 +58,14 @@ public class OaiRestController {
 
     logger.info("Es werden maximal " + (readSize * upperBorder) + " Datensätze generiert");
 
-    Query q = BoolQuery.of(b -> b
-            .must(TermQuery.of(t -> t
-                    .field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
-            .must(TermQuery.of(t -> t
-                    .field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value("RELEASED"))._toQuery())
-    )._toQuery();
+    Query q = BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
+        .must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value("RELEASED"))._toQuery()))._toQuery();
 
     //BoolQueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
-     //   .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
-    SearchRequest srr = SearchRequest.of(sr -> sr.size(readSize).query(q).scroll(Time.of(t->t.time("60000"))));
+    //   .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
+    SearchRequest srr = SearchRequest.of(sr -> sr.size(readSize).query(q).scroll(Time.of(t -> t.time("60000"))));
 
-     ResponseBody scrollResp = pubItemService.searchDetailed(srr, null);
+    ResponseBody scrollResp = pubItemService.searchDetailed(srr, null);
 
     /*
     SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME))

@@ -178,14 +178,14 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
 
-      SearchRequest.Builder srb  = new SearchRequest.Builder().from(offset).size(limit);
+      SearchRequest.Builder srb = new SearchRequest.Builder().from(offset).size(limit);
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
           if (!index.isEmpty()) {
             FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                    SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
-                            : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+                SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                    : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
             srb.sort(SortOptions.of(so -> so.field(fs)));
           }
         }
@@ -207,7 +207,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
           escQueryBuilder = bqb.build()._toQuery();
         }
       } else {
-        escQueryBuilder = Query.of(q->q.withJson(new StringReader(this.getElasticSearchQueryUrlParam())));
+        escQueryBuilder = Query.of(q -> q.withJson(new StringReader(this.getElasticSearchQueryUrlParam())));
       }
 
       this.elasticSearchQueryBuilder = escQueryBuilder;

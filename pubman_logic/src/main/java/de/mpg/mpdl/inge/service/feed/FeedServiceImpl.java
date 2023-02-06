@@ -55,7 +55,8 @@ public class FeedServiceImpl {
         PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH};
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), indexes, ouId));
 
-    SyndFeed feed = getBasicSyndFeed("Recent releases for organization " + ouId, "Recent releases for organization " + ouId, qb.build()._toQuery());
+    SyndFeed feed =
+        getBasicSyndFeed("Recent releases for organization " + ouId, "Recent releases for organization " + ouId, qb.build()._toQuery());
     return feed;
   }
 
@@ -82,21 +83,20 @@ public class FeedServiceImpl {
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_FILE_STORAGE,
         FileVO.Storage.INTERNAL_MANAGED.name()));
 
-    SyndFeed feed = getBasicSyndFeed("Recent Open Access Publications", "Feed for the Open Access Homepage of the MPG", qb.build()._toQuery());
+    SyndFeed feed =
+        getBasicSyndFeed("Recent Open Access Publications", "Feed for the Open Access Homepage of the MPG", qb.build()._toQuery());
     return feed;
   }
 
   private List<PubItemVO> search(Query qb) throws Exception {
-    SearchRequest.of(sr ->sr
-            .size(50)
-            .query(qb)
-            .sort(s -> s.field(fs -> fs.field(PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE).order(SortOrder.Desc)))
-    );
+    SearchRequest.of(sr -> sr.size(50).query(qb)
+        .sort(s -> s.field(fs -> fs.field(PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE).order(SortOrder.Desc))));
 
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO();
     srr.setLimit(50);
     srr.setQueryBuilder(qb);
-    srr.setSortKeys(new SearchSortCriteria[]{new SearchSortCriteria(PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE, SearchSortCriteria.SortOrder.DESC)});
+    srr.setSortKeys(new SearchSortCriteria[] {
+        new SearchSortCriteria(PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE, SearchSortCriteria.SortOrder.DESC)});
 
     SearchRetrieveResponseVO res = pubItemService.search(srr, null);
 

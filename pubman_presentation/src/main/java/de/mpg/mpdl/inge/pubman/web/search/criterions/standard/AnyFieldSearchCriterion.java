@@ -25,18 +25,19 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.SimpleQueryStringQuery;
 
 @SuppressWarnings("serial")
 public class AnyFieldSearchCriterion extends StandardSearchCriterion {
 
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
 
-    return QueryBuilders.simpleQueryStringQuery(getSearchString()).analyzeWildcard(true).defaultOperator(Operator.AND);
+    return SimpleQueryStringQuery.of(s -> s.query(getSearchString()).analyzeWildcard(true).defaultOperator(Operator.And))._toQuery();
+    //return QueryBuilders.simpleQueryStringQuery(getSearchString()).analyzeWildcard(true).defaultOperator(Operator.AND);
 
   }
 

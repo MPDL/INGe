@@ -169,17 +169,19 @@ public class AuthorizationService {
                         List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält auch eigene Ou
                         parents.remove(parents.size() - 1); // remove root
                         grantFieldMatchValues.addAll(parents.stream().map(i -> FieldValue.of(i)).collect(Collectors.toList()));
-                        grantQueryBuilder
-                            .should(TermsQuery.of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).terms(te -> te.value(grantFieldMatchValues)))._toQuery());
+                        grantQueryBuilder.should(TermsQuery
+                            .of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).terms(te -> te.value(grantFieldMatchValues)))
+                            ._toQuery());
                       } else {
-                        grantQueryBuilder
-                            .should(TermQuery.of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).value(grant.getObjectRef()))._toQuery());
+                        grantQueryBuilder.should(TermQuery
+                            .of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).value(grant.getObjectRef()))._toQuery());
                       }
                     } else if (userMap.get("field_ctx_ou_id_match") != null) {
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ctx")) {
                         ContextDbVO ctx = ctxService.get(grant.getObjectRef(), null);
                         String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
-                        grantQueryBuilder.should(TermQuery.of(t -> t.field(indices.get(userMap.get("field_ctx_ou_id_match"))).value(ouId))._toQuery());
+                        grantQueryBuilder
+                            .should(TermQuery.of(t -> t.field(indices.get(userMap.get("field_ctx_ou_id_match"))).value(ouId))._toQuery());
                       }
                     }
                   }
@@ -231,7 +233,7 @@ public class AuthorizationService {
       }
 
       BoolQuery subQ = subQb.build();
-      if (subQ.must()!=null && !subQ.must().isEmpty()) {
+      if (subQ.must() != null && !subQ.must().isEmpty()) {
         bqb.should(subQ._toQuery());
       }
       // User matches and no more rules -> User can see everything
@@ -241,7 +243,7 @@ public class AuthorizationService {
     }
 
     BoolQuery bq = bqb.build();
-    if (bq.should()!=null && !bq.should().isEmpty()) {
+    if (bq.should() != null && !bq.should().isEmpty()) {
       return bq._toQuery();
     }
 

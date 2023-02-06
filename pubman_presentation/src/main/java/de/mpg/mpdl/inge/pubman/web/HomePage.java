@@ -111,8 +111,8 @@ public class HomePage extends BreadcrumbPage {
     ssb.query(bqb.build()._toQuery());
     ssb.from(0);
     ssb.size(4);
-    ssb.sort(SortOptions.of (i -> i.field(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE,
-        SortOrder.Desc))));
+    ssb.sort(SortOptions.of(i -> i.field(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE, SortOrder.Desc))));
 
     ResponseBody resp = pi.searchDetailed(ssb.build(), null);
 
