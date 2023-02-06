@@ -105,7 +105,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
       }
 
       ObjectNode searchRequestNode = (ObjectNode) ElasticSearchGenericDAOImpl.toJsonNode(ssb);
-      ObjectNode queryNode = (ObjectNode) ElasticSearchGenericDAOImpl.toJsonNode(ssb);
+      ObjectNode queryNode = (ObjectNode) ElasticSearchGenericDAOImpl.toJsonNode(query);
       searchRequestNode.set("query", queryNode);
       return getElasticDao().searchDetailed(searchRequestNode, scrollTime);
     }

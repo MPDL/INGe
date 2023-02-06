@@ -184,7 +184,8 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   public long deleteByQuery(Query query) throws IngeTechnicalException {
 
     try {
-      DeleteByQueryResponse deleteResponse = client.getClient().deleteByQuery(d -> d.index(indexName).query(query));
+      DeleteByQueryResponse deleteResponse =
+          client.getClient().deleteByQuery(d -> d.index(indexName).query(query).scroll(Time.of(t -> t.time("500ms"))));
       return deleteResponse.deleted();
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
@@ -225,7 +226,8 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
       if (searchQuery.getSortKeys() != null) {
         for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField()).order(SortOrder.valueOf(sc.getSortOrder().name())));
+          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField())
+              .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
           sr.sort(SortOptions.of(so -> so.field(fs)));
         }
       }
@@ -237,7 +239,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
 
       if (searchQuery.getScrollTime() != -1) {
-        sr.scroll(Time.of(i -> i.time(String.valueOf(searchQuery.getScrollTime()))));
+        sr.scroll(Time.of(i -> i.time(searchQuery.getScrollTime() + "ms")));
         //srb.setScroll(new Scroll(new TimeValue()));
       }
 
@@ -259,12 +261,20 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
   public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest, long scrollTime) throws IngeTechnicalException {
 
+    try {
+      logger.info("After AA " + objectMapper.writeValueAsString(searchRequest));
+    } catch (Exception e) {
+
+    }
 
     ObjectNode root = (ObjectNode) searchRequest;
     try {
+      /*
       if (scrollTime != -1) {
         root.put("scroll", scrollTime);
       }
+      */
+
 
       if (getSourceExclusions() != null && getSourceExclusions().length > 0) {
         ArrayNode sourceExclusions = objectMapper.valueToTree(getSourceExclusions());
@@ -296,7 +306,11 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       }
 
       ByteArrayInputStream bis = new ByteArrayInputStream(objectMapper.writeValueAsBytes(root));
-      SearchRequest sr = SearchRequest.of(s -> s.withJson(bis));
+      SearchRequest.Builder srb = new SearchRequest.Builder().withJson(bis);
+      if (scrollTime != -1) {
+        srb.scroll(Time.of(t -> t.time(scrollTime + "ms")));
+      }
+      SearchRequest sr = srb.build();
       logger.info(toJson(sr));
       SearchResponse<ObjectNode> resp = client.getClient().search(sr, ObjectNode.class);
       return resp;
@@ -317,8 +331,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException {
 
     try {
-      return client.getClient().scroll(i -> i.scrollId(scrollId).scroll(Time.of(t -> t.time(String.valueOf(scrollTime)))),
-          ObjectNode.class);
+      return client.getClient().scroll(i -> i.scrollId(scrollId).scroll(Time.of(t -> t.time(scrollTime + "ms"))), ObjectNode.class);
       //return client.getClient().prepareSearchScroll(scrollId).setScroll(new Scroll(new TimeValue(scrollTime))).get();
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);
@@ -341,13 +354,16 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<E>();
       hitList.add(srr);
 
-      E vo;
+      E vo = getVoFromResponseObject(hit.source(), clazz);
+      /*
       if (clazz.isAssignableFrom(JsonNode.class)) {
         vo = MapperFactory.getObjectMapper().treeToValue((JsonNode) hit.source(), clazz);
-
+      
       } else {
         vo = (E) hit.source();
       }
+      
+       */
 
       srr.setData(vo);
       srr.setPersistenceId(hit.id());
@@ -355,6 +371,18 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
 
     return srrVO;
+  }
+
+  public static <E> E getVoFromResponseObject(Object object, Class<E> clazz) throws IOException {
+
+    E vo;
+    if (JsonNode.class.isAssignableFrom(object.getClass())) {
+      vo = MapperFactory.getObjectMapper().treeToValue((JsonNode) object, clazz);
+
+    } else {
+      vo = (E) object;
+    }
+    return vo;
   }
 
   //SP: Alias-Suche funktioniert in ES 6.1 nicht mehr wie erwartet

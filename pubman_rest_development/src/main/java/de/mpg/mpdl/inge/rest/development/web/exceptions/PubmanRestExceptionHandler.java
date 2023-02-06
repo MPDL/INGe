@@ -1,13 +1,9 @@
 package de.mpg.mpdl.inge.rest.development.web.exceptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.hateoas.VndErrors;
-import org.springframework.hateoas.VndErrors.VndError;
+import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ControllerAdvice
 public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -45,9 +44,9 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
     while (cause.getCause() != null) {
       cause = cause.getCause();
       if (cause.getMessage() != null) {
-        errors.add(new VndError(cause.getClass().getCanonicalName(), cause.getMessage()));
+        errors.add(new VndErrors.VndError(cause.getClass().getCanonicalName(), cause.getMessage()));
       } else {
-        errors.add(new VndError(cause.getClass().getCanonicalName(), "no message available!"));
+        errors.add(new VndErrors.VndError(cause.getClass().getCanonicalName(), "no message available!"));
       }
     }
     return errors;
@@ -57,13 +56,13 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status,
       WebRequest request) {
     Throwable mostSpecificCause = ex.getMostSpecificCause();
-    VndError errorMessage;
+    VndErrors.VndError errorMessage;
     if (mostSpecificCause != null) {
       String exceptionName = mostSpecificCause.getClass().getName();
       String message = mostSpecificCause.getMessage();
-      errorMessage = new VndError(exceptionName, message);
+      errorMessage = new VndErrors.VndError(exceptionName, message);
     } else {
-      errorMessage = new VndError("cause?", ex.getMessage());
+      errorMessage = new VndErrors.VndError("cause?", ex.getMessage());
     }
     return new ResponseEntity<Object>(errorMessage, headers, status);
   }
@@ -73,17 +72,17 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       WebRequest request) {
     List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
     List<ObjectError> globalErrors = ex.getBindingResult().getGlobalErrors();
-    List<VndError> errors = new ArrayList<VndError>(fieldErrors.size() + globalErrors.size());
-    VndError error;
+    List<VndErrors.VndError> errors = new ArrayList<VndErrors.VndError>(fieldErrors.size() + globalErrors.size());
+    VndErrors.VndError error;
     for (FieldError fieldError : fieldErrors) {
-      error = new VndError("invalid!!!", fieldError.getField() + ", " + fieldError.getDefaultMessage());
+      error = new VndErrors.VndError("invalid!!!", fieldError.getField() + ", " + fieldError.getDefaultMessage());
       errors.add(error);
     }
     for (ObjectError objectError : globalErrors) {
-      error = new VndError("invalid!!!", objectError.getObjectName() + ", " + objectError.getDefaultMessage());
+      error = new VndErrors.VndError("invalid!!!", objectError.getObjectName() + ", " + objectError.getDefaultMessage());
       errors.add(error);
     }
-    VndErrors errorMessage = new VndErrors(errors);
+    VndErrors errorMessage = new VndErrors(errors, null, null, null);
     return new ResponseEntity<Object>(errorMessage, headers, status);
   }
 

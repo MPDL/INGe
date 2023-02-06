@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.desktop;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
@@ -78,8 +79,8 @@ public class Search extends FacesBean {
 
     try {
       final Query qb = Search.generateElasticSearchRequest(searchString, includeFiles);
-      FacesTools.getExternalContext()
-          .redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8"));
+      FacesTools.getExternalContext().redirect(
+          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(JsonUtil.minifyJsonString(ElasticSearchGenericDAOImpl.toJson(qb)), "UTF-8"));
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));

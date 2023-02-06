@@ -6,11 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -21,7 +17,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
 @EnableWebMvc
-public class WebConfiguration extends RepositoryRestMvcConfiguration {
+public class WebConfiguration implements WebMvcConfigurer {
 
   @Override
   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -43,7 +39,7 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
     converter.setObjectMapper(objectMapper);
     converters.add(0, converter);
-    super.extendMessageConverters(converters);
+    //super.extendMessageConverters(converters);
   }
 
   // @Override

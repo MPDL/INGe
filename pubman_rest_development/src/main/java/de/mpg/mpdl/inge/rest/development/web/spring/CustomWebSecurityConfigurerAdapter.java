@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
- * Custom WebSecurityConfigurerAdapter for development REST interface 
+ * Custom WebSecurityConfigurerAdapter for development REST interface
  * 
  * @author walter
  *
@@ -21,7 +21,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.inMemoryAuthentication().withUser(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME))
-        .password(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).roles("ADMIN");
+        .password("{noop}" + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).roles("ADMIN");
   }
 
   @Override

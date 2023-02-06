@@ -48,6 +48,8 @@ import javax.faces.bean.ManagedBean;
 import java.util.List;
 import java.util.Map;
 
+import static de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl.toJson;
+
 /**
  * BackingBean for HomePage.jsp.
  * 
@@ -114,7 +116,9 @@ public class HomePage extends BreadcrumbPage {
     ssb.sort(SortOptions.of(i -> i.field(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE, SortOrder.Desc))));
 
-    ResponseBody resp = pi.searchDetailed(ssb.build(), null);
+    SearchRequest sr = ssb.build();
+    logger.info(toJson(sr));
+    ResponseBody resp = pi.searchDetailed(sr, null);
 
     List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 

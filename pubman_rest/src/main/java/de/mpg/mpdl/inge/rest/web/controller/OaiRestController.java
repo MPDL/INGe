@@ -63,7 +63,7 @@ public class OaiRestController {
 
     //BoolQueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
     //   .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
-    SearchRequest srr = SearchRequest.of(sr -> sr.size(readSize).query(q).scroll(Time.of(t -> t.time("60000"))));
+    SearchRequest srr = SearchRequest.of(sr -> sr.size(readSize).query(q).scroll(Time.of(t -> t.time("60000ms"))));
 
     ResponseBody scrollResp = pubItemService.searchDetailed(srr, null);
 

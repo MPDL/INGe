@@ -117,12 +117,16 @@ public class SearchUtils {
   }
 
   public static <E> List<E> getRecordListFromElasticSearchResponse(ResponseBody<E> sr, Class<E> clazz) throws IOException {
+
+
+
     List<E> hitList = new ArrayList<>();
     for (Hit<E> hit : sr.hits().hits()) {
 
-      E itemVO = hit.source();
+
+      //E itemVO = hit.source();
       //MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
-      hitList.add(itemVO);
+      hitList.add(ElasticSearchGenericDAOImpl.getVoFromResponseObject(hit.source(), clazz));
 
     }
     return hitList;
