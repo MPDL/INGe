@@ -63,10 +63,8 @@ import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
  */
 @ManagedBean(name = "PubItemBatchSessionBean")
 @SessionScoped
+@SuppressWarnings("serial")
 public class PubItemBatchSessionBean extends FacesBean implements LanguageChangeObserver {
-
-  private static final long serialVersionUID = -668280843747898396L;
-
   private static final Logger logger = LogManager.getLogger(PubItemBatchSessionBean.class);
 
   @ManagedProperty(value = "#{LoginHelper}")
@@ -687,6 +685,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.inputChangeLocalTagsReplaceTo = inputChangeLocalTagsReplaceTo;
   }
 
+
   public List<String> getIpRangeToAdd() {
     return ipRangeToAdd;
   }
@@ -751,6 +750,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     }
     return batchSuccessCount;
   }
+
 
   public int getProcessLogWarningCount() {
     int batchSuccessCount = 0;
@@ -851,6 +851,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   public void removeIpRange(int index) {
     this.ipRangeToAdd.remove(index);
   }
+
 
   /**
    * adding a local tag to the local tag presentation list
@@ -1352,26 +1353,27 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   private enum replaceType
   {
-		REPLACE_ALL, REPLACE_BY_VALUE;
-	}
+    REPLACE_ALL,
+    REPLACE_BY_VALUE;
+  }
 
   private enum BatchMessages implements Messages
   {
-		NO_VALUE_SET("batch_ProcessLog_MetadataNoNewValueSet");
+    NO_VALUE_SET("batch_ProcessLog_MetadataNoNewValueSet");
 
   /**
-		 * The message pattern. For syntax definition see {@link MessageFormat}.
-		 */
-		private String message;
+     * The message pattern. For syntax definition see {@link MessageFormat}.
+     */
+    private String message;
 
   /**
-		 * Creates a new instance with the given message template.
-		 * 
-		 * @param messageTemplate The message template
-		 */
-		BatchMessages(String messageTemplate) {
-			this.message = messageTemplate;
-		}
+     * Creates a new instance with the given message template.
+     * 
+     * @param messageTemplate The message template
+     */
+    BatchMessages(String messageTemplate) {
+      this.message = messageTemplate;
+    }
 
   @Override
   public String getMessage() {

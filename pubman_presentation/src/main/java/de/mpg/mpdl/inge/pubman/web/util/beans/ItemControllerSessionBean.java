@@ -498,7 +498,6 @@ public class ItemControllerSessionBean extends FacesBean {
     ContextDbVO context = null;
 
     try {
-      logger.info("Application Bean get Context Service" + ApplicationBean.INSTANCE.getContextService());
       context = ApplicationBean.INSTANCE.getContextService().get(contextID, null);
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.debug(e.toString());

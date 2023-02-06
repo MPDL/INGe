@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -87,10 +86,9 @@ import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.UriBuilder;
 
-@SuppressWarnings("serial")
 @Service
 @Primary
-public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener, Serializable {
+public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener {
 
   private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 

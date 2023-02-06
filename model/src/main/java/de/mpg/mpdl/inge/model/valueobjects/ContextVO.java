@@ -49,10 +49,9 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:14:08
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class ContextVO extends ValueObject implements Searchable {
-  private static final long serialVersionUID = -6973919509026891359L;
-
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc

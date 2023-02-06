@@ -21,8 +21,8 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
+@SuppressWarnings("serial")
 public class PubContextVOPresentation extends ContextDbVO implements Comparable<PubContextVOPresentation> {
-  private static final long serialVersionUID = -5604134476151835276L;
 
   private boolean selected = false;
 
