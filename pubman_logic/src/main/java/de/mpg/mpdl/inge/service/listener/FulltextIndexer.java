@@ -38,7 +38,7 @@ public class FulltextIndexer {
 
       //Delete all fulltexts for this item
       Query q = Query.of(i -> i.term(t -> t.field(PubItemServiceDbImpl.INDEX_FULLTEXT_ITEM_ID).value(item.getObjectIdAndVersion())));
-      pubItemDao.deleteByQuery(q);
+      pubItemDao.deleteByQuery(q, 1000);
 
       if (item.getFiles() != null) {
         for (FileDbVO fileVO : item.getFiles()) {

@@ -27,6 +27,10 @@
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.InnerHitsResult;
+import co.elastic.clients.json.JsonData;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
@@ -116,7 +120,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   private float score;
 
-  private Hit<ItemVersionVO> searchHit;
+  private Hit searchHit;
 
   private Map<String, List<String>> highlightMap = new HashMap<>();
 
@@ -124,7 +128,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this(item, null);
   }
 
-  public PubItemVOPresentation(ItemVersionVO item, Hit<ItemVersionVO> searchHit) {
+  public PubItemVOPresentation(ItemVersionVO item, Hit searchHit) {
     super(item);
     if (this != null && this.getVersionState() != null) {
       this.released = ItemVersionRO.State.RELEASED.equals(this.getVersionState());
@@ -157,48 +161,32 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.initFileBeans();
   }
 
-  public void initSearchHits(Hit<ItemVersionVO> hit) {
+  public void initSearchHits(Hit<Object> hit) {
     this.searchHit = hit;
     this.isSearchResult = true;
     this.score = searchHit.score().floatValue();
 
-    /*
-    
-    if (searchHit != null && searchHit.highlight()!=null && searchHit.highlight().get("file")!=null) {
-      String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
-    
-    
-      for (String highlights : searchHit.highlight().get("file")) {
-        List<String> highlights = new ArrayList<>();
-        for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet()) {
-          if (highlight.getValue() != null && highlight.getValue().getFragments() != null) {
-            for (Text t : highlight.getValue().getFragments()) {
-              highlights.add(t.toString());
-            }
-          }
-        }
-        String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
-        getHighlightMap().put(fileId, highlights);
-      }
-    }
-    
+
     if (searchHit != null && searchHit.innerHits() != null && searchHit.innerHits().get("file") != null) {
-      for (InnerHitsResult innerhit : searchHit.innerHits().get("file").) {
+
+      InnerHitsResult ihs = hit.innerHits().get("file");
+
+      for (Hit<JsonData> innerHit : hit.innerHits().get("file").hits().hits()) {
+
         List<String> highlights = new ArrayList<>();
-        innerhit.hits().hits().
-        for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet()) {
-          if (highlight.getValue() != null && highlight.getValue().getFragments() != null) {
-            for (Text t : highlight.getValue().getFragments()) {
-              highlights.add(t.toString());
-            }
+        for (Map.Entry<String, List<String>> highlight : innerHit.highlight().entrySet()) {
+          if (highlight.getValue() != null && !highlight.getValue().isEmpty()) {
+            highlights.addAll(highlight.getValue());
           }
         }
-        String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
+        String fileId = innerHit.source().toJson().asJsonObject().get("fileData").asJsonObject().getJsonString("fileId").getString();
         getHighlightMap().put(fileId, highlights);
+
       }
+
     }
-    
-     */
+
+
   }
 
   public void initFileBeans() {

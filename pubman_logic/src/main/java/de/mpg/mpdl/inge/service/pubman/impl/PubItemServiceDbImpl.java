@@ -599,7 +599,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<ItemVersionVO> rec : resp.getRecords()) {
       pubItemDao.deleteImmediatly(rec.getPersistenceId());
-      pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(rec.getPersistenceId()))._toQuery());
+      pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(rec.getPersistenceId()))._toQuery(), 1000);
     }
     sendEventTopic(latestPubItemDbVersion, "delete");
 
@@ -917,7 +917,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     // Delete all fulltexts of old version from index
     if (includeFulltext) {
-      pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(oldVersion))._toQuery());
+      pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(oldVersion))._toQuery(), 1000);
     }
 
 

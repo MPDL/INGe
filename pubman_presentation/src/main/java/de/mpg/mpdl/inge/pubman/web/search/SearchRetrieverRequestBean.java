@@ -5,9 +5,12 @@ import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
@@ -213,7 +216,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       this.elasticSearchQueryBuilder = escQueryBuilder;
       srb.query(this.elasticSearchQueryBuilder);
 
-      ResponseBody resp;
+      ResponseBody<Object> resp;
       if ("admin".equals(getSearchType())) {
         resp = pis.searchDetailed(srb.build(), getLoginHelper().getAuthenticationToken());
       } else {
@@ -221,9 +224,14 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       }
       this.numberOfRecords = (int) resp.hits().total().value();
 
-      List<ItemVersionVO> itemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
-      pubItemList.addAll(CommonUtils.convertToPubItemVOPresentationList(itemList));
+      for (Hit<Object> hit : resp.hits().hits()) {
 
+        ItemVersionVO itemVersion = ElasticSearchGenericDAOImpl.getVoFromResponseObject(hit.source(), ItemVersionVO.class);
+        PubItemVOPresentation itemVO = new PubItemVOPresentation(itemVersion, hit);
+        pubItemList.add(itemVO);
+
+
+      }
     } catch (final Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
       SearchRetrieverRequestBean.logger.error("Error in retrieving items", e);
@@ -386,7 +394,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       if (this.elasticSearchQueryUrlParam != null) {
         return JsonUtil.prettifyJsonString(this.elasticSearchQueryUrlParam);
       } else {
-        return this.elasticSearchQueryBuilder != null ? this.elasticSearchQueryBuilder.toString() : "";
+        return this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : "";
       }
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
@@ -400,7 +408,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       if (this.elasticSearchQueryUrlParam != null) {
         json = this.elasticSearchQueryUrlParam;
       } else {
-        json = this.elasticSearchQueryBuilder != null ? this.elasticSearchQueryBuilder.toString() : null;
+        json = this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : null;
       }
       return json != null ? URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName()) : "";
     } catch (Exception e) {

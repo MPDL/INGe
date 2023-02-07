@@ -184,8 +184,21 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   public long deleteByQuery(Query query) throws IngeTechnicalException {
 
     try {
+      DeleteByQueryResponse deleteResponse = client.getClient().deleteByQuery(d -> d.index(indexName).query(query));
+      return deleteResponse.deleted();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+  /**
+   * Use maxDocs <=1000 in order to disable scrolling for delete-by-query
+   */
+  public long deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException {
+
+    try {
       DeleteByQueryResponse deleteResponse =
-          client.getClient().deleteByQuery(d -> d.index(indexName).query(query).scroll(Time.of(t -> t.time("500ms"))));
+          client.getClient().deleteByQuery(d -> d.index(indexName).query(query).maxDocs(Long.valueOf(maxDocs)));
       return deleteResponse.deleted();
     } catch (Exception e) {
       throw new IngeTechnicalException(e);

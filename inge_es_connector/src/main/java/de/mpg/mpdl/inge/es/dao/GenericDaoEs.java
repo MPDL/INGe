@@ -53,6 +53,11 @@ public interface GenericDaoEs<E> {
 
   public long deleteByQuery(Query query) throws IngeTechnicalException;
 
+  /**
+   * Use maxDocs <=1000 in order to disable scrolling for delete-by-query
+   */
+  public long deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException;
+
 
   /**
    * searches in elasticsearch with a given searchQuery
