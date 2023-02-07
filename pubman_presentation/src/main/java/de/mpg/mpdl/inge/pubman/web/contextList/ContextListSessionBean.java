@@ -57,8 +57,10 @@ import java.util.stream.Collectors;
  */
 @ManagedBean(name = "ContextListSessionBean")
 @SessionScoped
-@SuppressWarnings("serial")
 public class ContextListSessionBean extends FacesBean {
+
+  private static final long serialVersionUID = -9199885374086390616L;
+
   private static final Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
   private List<PubContextVOPresentation> depositorContextList;

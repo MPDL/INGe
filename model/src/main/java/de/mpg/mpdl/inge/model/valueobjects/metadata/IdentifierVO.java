@@ -68,11 +68,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     DOI("http://purl.org/escidoc/metadata/terms/0.1/DOI"), //
     EDOC("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), //
     ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), // wegen Altdaten noch notwendig
-    GFZPOF("http://purl.org/escidoc/metadata/terms/0.1/GFZPOF"), //
-    GFZPOFWEITERE("http://purl.org/escidoc/metadata/terms/0.1/GFZPOFWEITERE"), //
-    GFZPROJECT("http://purl.org/escidoc/metadata/terms/0.1/GFZPROJECT"), //
     GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), // anderer Zusammenhang (Projektinfo)
-    IASSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/IASSPROJECT"), //
     ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
     ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
@@ -86,7 +82,6 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     PATENT_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"), //
     PATENT_PUBLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-PUBLICATION-NR"), //
     PII("http://purl.org/escidoc/metadata/terms/0.1/PII"), //
-    PIKDOMAIN("http://purl.org/escidoc/metadata/terms/0.1/PIKDOMAIN"), //
     PMC("http://purl.org/escidoc/metadata/terms/0.1/PMC"), //
     PMID("http://purl.org/escidoc/metadata/terms/0.1/PMID"), //
     PND("http://purl.org/escidoc/metadata/terms/0.1/PND"), //

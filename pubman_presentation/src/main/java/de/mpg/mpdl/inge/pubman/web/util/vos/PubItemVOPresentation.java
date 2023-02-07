@@ -39,7 +39,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.*;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
-import de.mpg.mpdl.inge.pubman.web.GFZConeBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
@@ -1410,11 +1409,4 @@ public class PubItemVOPresentation extends ItemVersionVO {
   public void setSearchHit(Hit searchHit) {
     this.searchHit = searchHit;
   }
-
-  public String getJournalMetaData() throws Exception {
-    GFZConeBean gfzConeBean = (GFZConeBean) FacesTools.findBean("GFZConeBean");
-    return gfzConeBean.getJournalMetaData(this);
-  }
-
-  public void setJournalMetaData(String value) {}
 }

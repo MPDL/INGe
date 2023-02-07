@@ -62,7 +62,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
          xsi:noNamespaceSchemaLocation="ehcache.xsd"
          updateCheck="true" monitoring="autodetect"
          dynamicConfig="true">
-
+         
     <!--
     DiskStore configuration
     =======================
@@ -688,7 +688,17 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     To indicate the cache should be clustered using synchronous-write locking level:
         <terracotta clustered="true" synchronousWrites="true"/>
     -->
+    <!-- 
+    <cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1,
+		multicastGroupPort=4446, timeToLive=32"/>
 
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="hostName=qa-pure, port=40001,
+		socketTimeoutMillis=2000"/>
+	-->
     <!--
     Default Cache configuration. These settings will be applied to caches
     created programmatically using CacheManager.add(String cacheName).
@@ -702,6 +712,12 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            eternal="false"
            timeToIdleSeconds="1200"
            timeToLiveSeconds="1200">
+           <!-- 
+           <cacheEventListenerFactory
+				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+		   -->
     </defaultCache>
     
     <cache name="item"
@@ -710,10 +726,14 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            eternal="false"
            diskSpoolBufferSizeMB="20"
            timeToIdleSeconds="3600"
-           timeToLiveSeconds="3600"
-           
-           >
+           timeToLiveSeconds="3600">
         <persistence strategy="localTempSwap"/>
+        <!-- 
+           <cacheEventListenerFactory
+				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+		   -->
     </cache>
     
     <cache name="context"
@@ -723,9 +743,14 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            diskSpoolBufferSizeMB="20"
            timeToIdleSeconds="86400"
            timeToLiveSeconds="86400"
-           memoryStoreEvictionPolicy="LFU"
-          >
+           memoryStoreEvictionPolicy="LFU">
         <persistence strategy="localTempSwap"/>
+        <!-- 
+           <cacheEventListenerFactory
+				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+		   -->
     </cache>
     
     <cache name="organization"
@@ -735,14 +760,59 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            diskSpoolBufferSizeMB="20"
            timeToIdleSeconds="86400"
            timeToLiveSeconds="86400"
-           memoryStoreEvictionPolicy="LFU"
-           >
+           memoryStoreEvictionPolicy="LFU">
         <persistence strategy="localTempSwap"/>
+        <!-- 
+           <cacheEventListenerFactory
+				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+		   -->
+    </cache>
+    
+    <cache name="user"
+           maxEntriesLocalHeap="5000"
+           maxEntriesLocalDisk="0"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="86400"
+           timeToLiveSeconds="86400"
+           memoryStoreEvictionPolicy="LFU">
+        <persistence strategy="localTempSwap"/>
+        <!-- 
+           <cacheEventListenerFactory
+				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+		   -->
+    </cache>
+    
+    <cache name="batchLog"
+           maxEntriesLocalHeap="5000"
+           maxEntriesLocalDisk="0"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="86400"
+           timeToLiveSeconds="86400"
+           memoryStoreEvictionPolicy="LFU">
+        <persistence strategy="localTempSwap"/>
+        <!-- 
+           <cacheEventListenerFactory
+				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+		   -->
     </cache>
     
     <cache name="org.hibernate.cache.internal.StandardQueryCache"
 		maxEntriesLocalHeap="100" maxEntriesLocalDisk="0" eternal="false" timeToLiveSeconds="3600">
 		<persistence strategy="localTempSwap" />
+		<!-- 
+           <cacheEventListenerFactory
+				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+		   -->
 	</cache>
 
     <!--

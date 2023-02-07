@@ -56,12 +56,6 @@ import org.apache.log4j.Logger;
 public class PropertyReader {
   private static final Logger logger = Logger.getLogger(PropertyReader.class);
 
-  public static final String GFZ_CITATION_STYLE_USE = "gfz.citation.style.use";
-  public static final String GFZ_CONE_RESET_USE = "gfz.cone.reset.use"; // used in cone_presentation -> reset.jsp
-  public static final String GFZ_OA_MAIL_ADRESS = "gfz.oa.mail.adress";
-  public static final String GFZ_OA_MAIL_DOMAIN = "gfz.oa.mail.domain";
-  public static final String GFZ_OA_MAIL_SUBJECT = "gfz.oa.mail.subject";
-  public static final String GFZ_OA_MAIL_TEMPLATE = "gfz.oa.mail.template";
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
   public static final String INGE_AA_CLIENT_FINISH_CLASS = "inge.aa.client.finish.class";
   public static final String INGE_AA_CLIENT_LOGOUT_CLASS = "inge.aa.client.logout.class";
@@ -109,7 +103,6 @@ public class PropertyReader {
   public static final String INGE_EMAIL_AUTHENTICATIONPWD = "inge.email.authenticationpwd";
   public static final String INGE_EMAIL_AUTHENTICATIONUSER = "inge.email.authenticationuser";
   public static final String INGE_EMAIL_MAILSERVERNAME = "inge.email.mailservername";
-  public static final String INGE_EMAIL_SEND_OA_MAIL_USE = "inge.email.send.oa.mail.use";
   public static final String INGE_EMAIL_SENDER = "inge.email.sender";
   public static final String INGE_EMAIL_WITHAUTHENTICATION = "inge.email.withauthentication";
   public static final String INGE_ES_CLUSTER_NAME = "inge.es.cluster.name";

@@ -69,8 +69,12 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @ManagedBean(name = "ApplicationBean")
 @ApplicationScoped
-@SuppressWarnings("serial")
 public class ApplicationBean extends FacesBean {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -3659975702163802434L;
 
   /** system type enum */
   public enum SystemType

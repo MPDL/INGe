@@ -74,7 +74,6 @@
 	                </b>
 	                <span class="xHuge_area0 xTiny_marginLExcl endline">
 	                    <h:outputText value="#{source.genre}"/>
-	                    <h:outputText value="#{GFZConeBean.journalMetaData}" converter="HTMLSubSupConverter" escape="false" rendered="#{ViewItemFull.useExtendedConeAttributes == 'true'}"/>
 	                </span>
 	            </div>
 

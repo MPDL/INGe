@@ -60,7 +60,7 @@ public class ItemRestController {
       + "," + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + ","
       + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET;
 
-  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL, GFZPUBLISTS";
+  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL";
 
   @Autowired
   private PubItemService pis;

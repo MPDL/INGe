@@ -6,7 +6,7 @@
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<name>INGe</name>
-	<version>8.4.12</version>
+	<version>8.4.13-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 
@@ -133,7 +133,7 @@
 		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
 		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
 		<url>https://github.com/MPDL/INGe</url>
-		<tag>INGe-8.4.12</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<repositories>
@@ -697,97 +697,97 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>8.4.12</version>
+				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
 
 			<!-- Saxon -->
@@ -957,6 +957,11 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.2.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.0.0-M5</version>
 					<configuration>
@@ -1060,7 +1065,22 @@
 				<configuration>
 					<preparationGoals>clean verify</preparationGoals>
 				</configuration>
+				
 			</plugin>
+			
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-source-plugin</artifactId>
+		        <executions>
+		          <execution>
+		            <id>attach-sources</id>
+		            <phase>verify</phase>
+		            <goals>
+		              <goal>jar-no-fork</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+	        </plugin>			
 		</plugins>
 
 		<extensions>
@@ -1184,7 +1204,6 @@
 		<inge.doi.service.use>true</inge.doi.service.use>
 		<inge.email.alternative.moderator>pure-support@listsrv.mpg.de</inge.email.alternative.moderator>
 		<inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
-		<inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
 		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
 		<inge.email.withauthentication>false</inge.email.withauthentication>
 		<inge.es.cluster.name.test>testCluster</inge.es.cluster.name.test>
@@ -1381,168 +1400,6 @@
 				<inge.pubman.root.authors.icon>MPG_authors</inge.pubman.root.authors.icon>
 				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
 				<inge.pubman.root.organization.name>Max Planck Society</inge.pubman.root.organization.name>
-			</properties>
-		</profile>
-
-		<!-- activate this profile for an Gfz build -->
-		<profile>
-			<id>env-gfz</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<gfz.citation.style.use>true</gfz.citation.style.use>
-				<gfz.cone.reset.use>true</gfz.cone.reset.use>
-				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
-				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
-				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
-				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
-				<inge.auth.mpg.ip.csv.url />
-				<inge.auth.mpg.ip.json.url />
-				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
-				<inge.cone.cache.use>false</inge.cone.cache.use>
-				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
-				<inge.cone.modelsxml.path>models_gfz.xml</inge.cone.modelsxml.path>
-				<inge.cone.subjectVocab />
-				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
-				<inge.doi.service.create.url />
-				<inge.doi.service.url />
-				<inge.doi.service.use>false</inge.doi.service.use>
-				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
-				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
-				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
-				<inge.es.cluster.name.test />
-				<inge.es.transport.ips.test />
-				<inge.filestorage.seaweed_master_server_ip />
-				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPOFWEITERE,GFZPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
-				<inge.pid.service.create.path />
-				<inge.pid.service.timeout>0</inge.pid.service.timeout>
-				<inge.pid.service.url />
-				<inge.pid.service.use>false</inge.pid.service.use>
-				<inge.pubman.blog.baseUrl />
-				<inge.pubman.blog.news />
-				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-				<inge.pubman.build.mode>gfz</inge.pubman.build.mode>
-				<inge.pubman.contact.url />
-				<inge.pubman.handbook.url />
-				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
-				<inge.pubman.logo.url>/resources/images/GFZ.svg</inge.pubman.logo.url>
-				<inge.pubman.policy.url>https://www.gfz-potsdam.de/de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.url>
-				<inge.pubman.root.authors.icon>GFZ_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
-				<inge.pubman.root.organization.name>GFZ</inge.pubman.root.organization.name>
-				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
-				<inge.rest.development.file_url />
-				<inge.systemtype>production</inge.systemtype>
-			</properties>
-		</profile>
-
-		<!-- activate this profile for an Iass build -->
-		<profile>
-			<id>env-iass</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<gfz.citation.style.use>true</gfz.citation.style.use>
-				<gfz.cone.reset.use>true</gfz.cone.reset.use>
-				<gfz.oa.mail.adress />
-				<gfz.oa.mail.domain />
-				<gfz.oa.mail.subject />
-				<gfz.oa.mail.template />
-				<inge.auth.mpg.ip.csv.url />
-				<inge.auth.mpg.ip.json.url />
-				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
-				<inge.cone.cache.use>false</inge.cone.cache.use>
-				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
-				<inge.cone.modelsxml.path>models_iass.xml</inge.cone.modelsxml.path>
-				<inge.cone.subjectVocab />
-				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
-				<inge.doi.service.create.url />
-				<inge.doi.service.url />
-				<inge.doi.service.use>false</inge.doi.service.use>
-				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
-				<inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
-				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
-				<inge.es.cluster.name.test />
-				<inge.es.transport.ips.test />
-				<inge.filestorage.seaweed_master_server_ip />
-				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
-				<inge.pid.service.create.path />
-				<inge.pid.service.timeout>0</inge.pid.service.timeout>
-				<inge.pid.service.url />
-				<inge.pid.service.use>false</inge.pid.service.use>
-				<inge.pubman.blog.baseUrl />
-				<inge.pubman.blog.news />
-				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-				<inge.pubman.build.mode>iass</inge.pubman.build.mode>
-				<inge.pubman.contact.url />
-				<inge.pubman.handbook.url />
-				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
-				<inge.pubman.logo.url>/resources/images/iass.svg</inge.pubman.logo.url>
-				<inge.pubman.policy.url>https://www.iass-potsdam.de/de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.url>https://www.iass-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
-				<inge.pubman.root.authors.icon>IASS_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
-				<inge.pubman.root.organization.name>IASS</inge.pubman.root.organization.name>
-				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
-				<inge.rest.development.file_url />
-				<inge.systemtype>production</inge.systemtype>
-			</properties>
-		</profile>
-
-		<!-- activate this profile for an Pik build -->
-		<profile>
-			<id>env-pik</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<gfz.citation.style.use>true</gfz.citation.style.use>
-				<gfz.cone.reset.use>true</gfz.cone.reset.use>
-				<gfz.oa.mail.adress>library@pik-potsdam.de</gfz.oa.mail.adress>
-				<gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
-				<gfz.oa.mail.subject>PIKpublic: Open Access</gfz.oa.mail.subject>
-				<gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
-				<inge.auth.mpg.ip.csv.url />
-				<inge.auth.mpg.ip.json.url />
-				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
-				<inge.cone.cache.use>false</inge.cone.cache.use>
-				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
-				<inge.cone.modelsxml.path>models_pik.xml</inge.cone.modelsxml.path>
-				<inge.cone.subjectVocab />
-				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
-				<inge.doi.service.create.url />
-				<inge.doi.service.url />
-				<inge.doi.service.use>false</inge.doi.service.use>
-				<inge.email.alternative.moderator>library@pik-potsdam.de</inge.email.alternative.moderator>
-				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
-				<inge.email.sender>library@pik-potsdam.de</inge.email.sender>
-				<inge.es.cluster.name.test />
-				<inge.es.transport.ips.test />
-				<inge.filestorage.seaweed_master_server_ip />
-				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,OATYPE,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
-				<inge.pid.service.create.path />
-				<inge.pid.service.timeout>0</inge.pid.service.timeout>
-				<inge.pid.service.url />
-				<inge.pid.service.use>false</inge.pid.service.use>
-				<inge.pubman.blog.baseUrl />
-				<inge.pubman.blog.news />
-				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-				<inge.pubman.build.mode>pik</inge.pubman.build.mode>
-				<inge.pubman.contact.url />
-				<inge.pubman.handbook.url />
-				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
-				<inge.pubman.logo.url>/resources/images/pik.svg</inge.pubman.logo.url>
-				<inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.url>
-				<inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
-				<inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
-				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
-				<inge.rest.development.file_url />
-				<inge.systemtype>production</inge.systemtype>
 			</properties>
 		</profile>
 
