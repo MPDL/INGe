@@ -241,7 +241,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     Principal principal = aaService.checkLoginRequired(authenticationToken);
 
     de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO contextNew =
-        contextRepository.findOne(pubItemVO.getObject().getContext().getObjectId());
+        contextRepository.findById(pubItemVO.getObject().getContext().getObjectId()).orElse(null);
 
 
     if (contextNew == null) {
@@ -377,12 +377,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     checkEqualModificationDate(pubItemVO.getModificationDate(), latestVersion.getModificationDate());
 
-    ContextDbVO context = contextRepository.findOne(latestVersion.getObject().getContext().getObjectId());
+    ContextDbVO context = contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
 
     checkAa("update", principal, latestVersion, context);
 
     if (pubItemVO.getObject().getContext() != null && !(pubItemVO.getObject().getContext().getObjectId().equals(context.getObjectId()))) {
-      contextNew = contextRepository.findOne(pubItemVO.getObject().getContext().getObjectId());
+      contextNew = contextRepository.findById(pubItemVO.getObject().getContext().getObjectId()).orElse(null);
       checkAa("update", principal, latestVersion, contextNew);
     }
 
@@ -474,7 +474,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         }
         // Already existing file, just update some fields
         // currentFileDbVO = currentFiles.remove(fileVo.getObjectId());
-        currentFileDbVO = fileRepository.findOne(fileVo.getObjectId());
+        currentFileDbVO = fileRepository.findById(fileVo.getObjectId()).orElse(null);
         this.setVisibility(currentFileDbVO, fileVo);
 
       } else {
@@ -587,7 +587,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
 
-    ContextDbVO context = contextRepository.findOne(latestPubItemDbVersion.getObject().getContext().getObjectId());
+    ContextDbVO context = contextRepository.findById(latestPubItemDbVersion.getObject().getContext().getObjectId()).orElse(null);
     checkAa("delete", principal, latestPubItemDbVersion, context);
 
     List<String> deletedFiles = new ArrayList<>();
@@ -595,7 +595,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
     // deleted by EntityManager.
     // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
-    ItemRootVO pubItemObjectToDelete = itemObjectRepository.findOne(latestPubItemDbVersion.getObject().getObjectId());
+    ItemRootVO pubItemObjectToDelete = itemObjectRepository.findById(latestPubItemDbVersion.getObject().getObjectId()).orElse(null);
     ((ItemVersionVO) pubItemObjectToDelete.getLatestVersion()).setObject(null);
     if (pubItemObjectToDelete.getLatestRelease() != null) {
       ((ItemVersionVO) pubItemObjectToDelete.getLatestRelease()).setObject(null);
@@ -604,7 +604,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     // Delete all files and versions
     for (int i = 1; i <= latestPubItemDbVersion.getVersionNumber(); i++) {
-      ItemVersionVO item = itemRepository.findOne(new VersionableId(latestPubItemDbVersion.getObjectId(), i));
+      ItemVersionVO item = itemRepository.findById(new VersionableId(latestPubItemDbVersion.getObjectId(), i)).orElse(null);
       for (FileDbVO file : item.getFiles()) {
         if (!deletedFiles.contains(file.getObjectId())) {
           fileRepository.delete(file);
@@ -662,7 +662,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         requestedItem = itemRepository.findLatestVersion(validId.objectId);
         if (requestedItem != null) {
 
-          ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
+          ContextDbVO context = contextRepository.findById(requestedItem.getObject().getContext().getObjectId()).orElse(null);
           try {
             checkAa("get", principal, requestedItem, context);
           } catch (AuthenticationException | AuthorizationException e) {
@@ -671,9 +671,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         }
       }
     } else {
-      requestedItem = itemRepository.findOne(new VersionableId(validId.objectId, validId.version));
+      requestedItem = itemRepository.findById(new VersionableId(validId.objectId, validId.version)).orElse(null);
       if (requestedItem != null) {
-        ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
+        ContextDbVO context = contextRepository.findById(requestedItem.getObject().getContext().getObjectId()).orElse(null);
         checkAa("get", principal, requestedItem, context);
       }
     }
@@ -760,7 +760,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     checkEqualModificationDate(modificationDate, latestVersion.getModificationDate());
 
-    ContextDbVO context = contextRepository.findOne(latestVersion.getObject().getContext().getObjectId());
+    ContextDbVO context = contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
 
     checkAa(aaMethod, principal, latestVersion, context);
 
@@ -972,7 +972,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private void reindex(String objectId, boolean immediate, boolean includeFulltexts) throws IngeTechnicalException {
-    de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO object = itemObjectRepository.findOne(objectId);
+    de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO object = itemObjectRepository.findById(objectId).orElse(null);
     reindex(object, immediate, includeFulltexts);
 
   }

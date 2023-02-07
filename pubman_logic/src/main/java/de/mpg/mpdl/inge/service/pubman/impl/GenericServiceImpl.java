@@ -84,7 +84,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   public ModelObject update(ModelObject object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = aaService.checkLoginRequired(authenticationToken);
-    ModelObject objectToBeUpdated = getDbRepository().findOne(getObjectId(object));
+    ModelObject objectToBeUpdated = getDbRepository().findById(getObjectId(object)).orElse(null);
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
@@ -115,12 +115,12 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   public void delete(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = aaService.checkLoginRequired(authenticationToken);
-    ModelObject objectToBeDeleted = getDbRepository().findOne(id);
+    ModelObject objectToBeDeleted = getDbRepository().findById(id).orElse(null);
     if (objectToBeDeleted == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
     checkAa("delete", principal, objectToBeDeleted);
-    getDbRepository().delete(id);
+    getDbRepository().deleteById(id);
     if (getElasticDao() != null) {
       getElasticDao().deleteImmediatly(getIdForElasticSearch(id));
     }
@@ -132,7 +132,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   public ModelObject get(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = null;
-    ModelObject object = getDbRepository().findOne(id);
+    ModelObject object = getDbRepository().findById(id).orElse(null);
     if (object == null) {
       return null;
     }
@@ -197,7 +197,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   protected void reindex(Id id, boolean immediate) throws IngeTechnicalException {
     // Reindex old and new Parents
     if (getElasticDao() != null) {
-      ModelObject vo = getDbRepository().findOne(id);
+      ModelObject vo = getDbRepository().findById(id).orElse(null);
       if (immediate) {
         getElasticDao().createImmediately(getIdForElasticSearch(id), vo);
       } else {

@@ -164,7 +164,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   @Override
   public void delete(String userId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException {
-    AccountUserDbVO accountUserDbVO = userAccountRepository.findOne(userId);
+    AccountUserDbVO accountUserDbVO = userAccountRepository.findById(userId).orElse(null);
 
     try {
       userLoginRepository.removeLogin(accountUserDbVO.getLoginname());
@@ -182,7 +182,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
     Principal principal = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
-    AccountUserDbVO userDbToUpdated = userAccountRepository.findOne(userId);
+    AccountUserDbVO userDbToUpdated = userAccountRepository.findById(userId).orElse(null);
 
     if (userDbToUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
@@ -211,7 +211,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public AccountUserDbVO addGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = aaService.checkLoginRequired(authenticationToken);
-    AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
+    AccountUserDbVO objectToBeUpdated = getDbRepository().findById(userId).orElse(null);
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
@@ -237,12 +237,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
       if (grantToBeAdded.getObjectRef() != null) {
         if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.CONTEXT.getPrefix())) {
-          ContextDbVO referencedContext = contextRepository.findOne(grantToBeAdded.getObjectRef());
+          ContextDbVO referencedContext = contextRepository.findById(grantToBeAdded.getObjectRef()).orElse(null);
           if (referencedContext != null) {
             referencedObject = EntityTransformer.transformToOld(referencedContext);
           }
         } else if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
-          AffiliationDbVO referencedOu = organizationRepository.findOne(grantToBeAdded.getObjectRef());
+          AffiliationDbVO referencedOu = organizationRepository.findById(grantToBeAdded.getObjectRef()).orElse(null);
           if (referencedOu != null) {
             referencedObject = EntityTransformer.transformToOld(referencedOu);
           }
@@ -274,7 +274,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public AccountUserDbVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = aaService.checkLoginRequired(authenticationToken);
-    AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
+    AccountUserDbVO objectToBeUpdated = getDbRepository().findById(userId).orElse(null);
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
@@ -592,7 +592,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   private AccountUserDbVO changeState(String id, Date modificationDate, String authenticationToken, boolean active)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = aaService.checkLoginRequired(authenticationToken);
-    AccountUserDbVO accountToBeUpdated = userAccountRepository.findOne(id);
+    AccountUserDbVO accountToBeUpdated = userAccountRepository.findById(id).orElse(null);
     if (accountToBeUpdated == null) {
       throw new IngeTechnicalException("User account with given id " + id + " not found.");
     }

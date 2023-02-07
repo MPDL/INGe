@@ -76,7 +76,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
   private ContextDbVO changeState(String id, Date modificationDate, String authenticationToken, ContextDbVO.State state)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = aaService.checkLoginRequired(authenticationToken);
-    ContextDbVO contextDbToBeUpdated = contextRepository.findOne(id);
+    ContextDbVO contextDbToBeUpdated = contextRepository.findById(id).orElse(null);
     if (contextDbToBeUpdated == null) {
       throw new IngeApplicationException("Context with given id " + id + " not found.");
     }
