@@ -8,8 +8,11 @@ import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
+import de.mpg.mpdl.inge.es.dao.impl.PubItemDaoImpl;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -18,6 +21,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.OaiFileTools;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import net.sf.saxon.om.Item;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -43,6 +47,9 @@ public class OaiRestController {
   ElasticSearchClientProvider client;
 
   @Autowired
+  PubItemDaoEs pubItemDao;
+
+  @Autowired
   PubItemService pubItemService;
 
   @RequestMapping(value = "init", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
@@ -65,7 +72,7 @@ public class OaiRestController {
     //   .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
     SearchRequest srr = SearchRequest.of(sr -> sr.size(readSize).query(q).scroll(Time.of(t -> t.time("60000ms"))));
 
-    ResponseBody scrollResp = pubItemService.searchDetailed(srr, null);
+    ResponseBody scrollResp = pubItemService.searchDetailed(srr, 60000, null);
 
     /*
     SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME))
@@ -79,10 +86,10 @@ public class OaiRestController {
 
     ObjectMapper mapper = MapperFactory.getObjectMapper();
 
-    List<PubItemVO> results = SearchUtils.getRecordListFromElasticSearchResponse(scrollResp, ItemVersionVO.class);
+    List<ItemVersionVO> results = SearchUtils.getRecordListFromElasticSearchResponse(scrollResp, ItemVersionVO.class);
 
     do {
-      for (PubItemVO pubItemVO : results) {
+      for (ItemVersionVO itemVersionVO : results) {
 
         count++;
         /*
@@ -100,7 +107,8 @@ public class OaiRestController {
         */
         String s;
         try {
-          s = XmlTransformingService.transformToItem(pubItemVO);
+          PubItemVO pubItemVO = EntityTransformer.transformToOld(itemVersionVO);
+          s = XmlTransformingService.transformToItem(new PubItemVO(pubItemVO));
           OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion().getObjectId() + ".xml");
           countSuccess++;
         } catch (Exception e) {
@@ -122,6 +130,10 @@ public class OaiRestController {
           .actionGet();
           */
     } while (results.size() != 0 && countInterval < maxIntervals);
+
+    if (scrollResp != null) {
+      pubItemDao.clearScroll(scrollResp.scrollId());
+    }
 
     String srResponse = "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
 

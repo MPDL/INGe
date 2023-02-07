@@ -117,7 +117,6 @@ public class HomePage extends BreadcrumbPage {
         PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE, SortOrder.Desc))));
 
     SearchRequest sr = ssb.build();
-    logger.info(toJson(sr));
     ResponseBody resp = pi.searchDetailed(sr, null);
 
     List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
