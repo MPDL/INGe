@@ -59,6 +59,8 @@ public interface GenericDaoEs<E> {
   public long deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException;
 
 
+  public boolean clearScroll(String scrollId) throws IngeTechnicalException;
+
   /**
    * searches in elasticsearch with a given searchQuery
    * 

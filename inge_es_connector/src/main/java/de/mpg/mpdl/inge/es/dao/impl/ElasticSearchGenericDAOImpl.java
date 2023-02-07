@@ -206,6 +206,18 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   }
 
 
+  public boolean clearScroll(String scrollId) throws IngeTechnicalException {
+
+    try {
+      ClearScrollResponse resp = client.getClient().clearScroll(ClearScrollRequest.of(cs -> cs.scrollId(scrollId)));
+
+      return resp.succeeded();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException {
 
     SearchRetrieveResponseVO<E> srrVO;
@@ -257,9 +269,9 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       }
 
 
-      logger.debug(sr.toString());
+      //logger.debug(sr.toString());
       SearchRequest srr = sr.build();
-      logger.info(toJson(srr));
+      logger.debug(toJson(srr));
       SearchResponse<E> srb = client.getClient().search(srr, typeParameterClass);
 
       srrVO = getSearchRetrieveResponseFromElasticSearchResponse(srb, typeParameterClass);
@@ -273,12 +285,6 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   }
 
   public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest, long scrollTime) throws IngeTechnicalException {
-
-    try {
-      logger.info("After AA " + objectMapper.writeValueAsString(searchRequest));
-    } catch (Exception e) {
-
-    }
 
     ObjectNode root = (ObjectNode) searchRequest;
     try {
@@ -324,7 +330,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
         srb.scroll(Time.of(t -> t.time(scrollTime + "ms")));
       }
       SearchRequest sr = srb.build();
-      logger.info(toJson(sr));
+      logger.debug(toJson(sr));
       SearchResponse<ObjectNode> resp = client.getClient().search(sr, ObjectNode.class);
       return resp;
     } catch (Exception e) {

@@ -211,6 +211,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       }
     } while (resp.hits().hits().size() != 0);
 
+    if (resp != null) {
+      getElasticDao().clearScroll(resp.scrollId());
+    }
+
+
     if (listHits.size() > 0) {
       for (Hit<ObjectNode> hit : listHits) {
         fillWithChildOus(idList, hit.source().get(INDEX_OBJECT_ID).asText());
