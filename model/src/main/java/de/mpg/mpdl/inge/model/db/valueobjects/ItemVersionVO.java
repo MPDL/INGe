@@ -35,6 +35,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -107,6 +108,7 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @OrderColumn(name = "creationDate")
+  @JoinTable(name = "item_version_file")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   private List<FileDbVO> files = new ArrayList<FileDbVO>();
 

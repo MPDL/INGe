@@ -26,7 +26,6 @@
 package de.mpg.mpdl.inge.pubman.web.export;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -43,7 +42,6 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Fragment class for item exporting. This class provides all functionality for exporting items
@@ -118,29 +116,15 @@ public class ExportItems extends FacesBean {
         new SelectItem(TransformerFactory.CitationTypes.JUS.getCitationName(), this.getLabel("Export_ExportFormat_JUS"));
     final SelectItem EXPORTFORMAT_CSL =
         new SelectItem(TransformerFactory.CitationTypes.CSL.getCitationName(), this.getLabel("Export_ExportFormat_CSL"));
-    final SelectItem EXPORTFORMAT_GFZPUBLISTS =
-        new SelectItem(TransformerFactory.CitationTypes.GFZPUBLISTS.getCitationName(), this.getLabel("Export_ExportFormat_GFZPUBLISTS"));
-
-    boolean gfzCitationStyle = Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CITATION_STYLE_USE));
 
     final SelectItem[] FILEFORMAT_OPTIONS;
 
-    if (gfzCitationStyle) {
-      FILEFORMAT_OPTIONS = new SelectItem[] { //
-          EXPORTFORMAT_APA, //
-          EXPORTFORMAT_APA_CJK, // 
-          EXPORTFORMAT_AJP, //
-          EXPORTFORMAT_JUS, //
-          EXPORTFORMAT_CSL, //
-          EXPORTFORMAT_GFZPUBLISTS};
-    } else {
-      FILEFORMAT_OPTIONS = new SelectItem[] { //
-          EXPORTFORMAT_APA, //
-          EXPORTFORMAT_APA_CJK, // 
-          EXPORTFORMAT_AJP, //
-          EXPORTFORMAT_JUS, //
-          EXPORTFORMAT_CSL};
-    }
+    FILEFORMAT_OPTIONS = new SelectItem[] { //
+        EXPORTFORMAT_APA, //
+        EXPORTFORMAT_APA_CJK, // 
+        EXPORTFORMAT_AJP, //
+        EXPORTFORMAT_JUS, //
+        EXPORTFORMAT_CSL};
 
     return FILEFORMAT_OPTIONS;
   }

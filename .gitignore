@@ -13,3 +13,4 @@ target/
 .idea/
 *.iws
 
+reindex_util/dependency-reduced-pom.xml

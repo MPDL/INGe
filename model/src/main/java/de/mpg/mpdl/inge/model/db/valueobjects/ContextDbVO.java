@@ -35,6 +35,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -117,6 +118,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   @JsonSerialize(contentAs=AffiliationDbRO.class)
+  @JoinTable(name = "context_organization")
   private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
 
 

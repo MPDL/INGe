@@ -6,49 +6,20 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.4.12</version>
+		<version>8.4.13-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>reindex_util</artifactId>
 	
-	<properties>
-		<project.finalName>reindex.jar</project.finalName>
-	</properties>
-
 	<scm>
 		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
 		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
 		<url>https://github.com/MPDL/INGe</url>
-		<tag>INGe-8.4.12</tag>
+		<tag>HEAD</tag>
 	</scm>
 	
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-to-user</id>
-						<phase>install</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<copy overwrite="true" file="${project.build.directory}/${project.finalName}" todir="${user.home}/data/reindex">
-								</copy>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>ant</groupId>
-						<artifactId>ant-trax</artifactId>
-						<version>1.6.5</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -82,7 +53,6 @@
 									</excludes>
 								</filter>
 							</filters>
-							<finalName>reindex</finalName>
 						</configuration>
 					</execution>
 				</executions>
