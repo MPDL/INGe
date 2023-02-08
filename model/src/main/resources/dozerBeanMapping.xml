@@ -6,7 +6,7 @@
 	<mapping wildcard="true">
 		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
 		</class-a>
-		<class-b is-accessible="true">de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
 		</class-b>
 		<field-exclude>
 			<a>serialVersionUID</a>
