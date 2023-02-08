@@ -26,17 +26,12 @@
 
 package de.mpg.mpdl.inge.model.referenceobjects;
 
-import java.io.Serializable;
+@SuppressWarnings("serial")
+public class AllowedRolesRO extends ReferenceObject {
 
-
-public class AllowedRolesRO extends ReferenceObject implements Serializable {
-
-  public AllowedRolesRO() {
-
-  }
+  public AllowedRolesRO() {}
 
   public AllowedRolesRO(String objid) {
     super(objid);
   }
-
 }

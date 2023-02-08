@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +23,13 @@ import de.mpg.mpdl.inge.model.db.hibernate.GrantVOListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "user_account")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 @TypeDef(name = "GrantVOListJsonUserType", typeClass = GrantVOListJsonUserType.class)
-public class AccountUserDbVO extends BasicDbRO implements Serializable {
+public class AccountUserDbVO extends BasicDbRO {
 
   private boolean active;
 

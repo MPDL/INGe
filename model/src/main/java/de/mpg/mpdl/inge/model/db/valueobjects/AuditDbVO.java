@@ -23,6 +23,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@SuppressWarnings("serial")
 @Entity(name = "audit")
 @Table(name = "audit_log")
 public class AuditDbVO implements Serializable {

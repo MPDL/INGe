@@ -59,6 +59,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * &lt;/xs:attributeGroup>
  * </pre>
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class UserGroupVO extends ValueObject {
   private Date creationDate;

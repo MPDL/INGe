@@ -622,9 +622,6 @@ public class MetadataProvider implements ItemDataProvider {
    * 
    */
   private class FileUrlPriorityComparator implements Comparator<FileVO>, Serializable {
-
-    private static final long serialVersionUID = 3836103180718219384L;
-
     @Override
     public int compare(FileVO file1, FileVO file2) {
       if (file1.equals(file2)) {
@@ -689,9 +686,6 @@ public class MetadataProvider implements ItemDataProvider {
    * 
    */
   private class IdentfierPriorityComparator implements Comparator<IdentifierVO>, Serializable {
-
-    private static final long serialVersionUID = 5445404622505912156L;
-
     @Override
     public int compare(IdentifierVO id1, IdentifierVO id2) {
       if (id1.getType().equals(id2.getType())) {

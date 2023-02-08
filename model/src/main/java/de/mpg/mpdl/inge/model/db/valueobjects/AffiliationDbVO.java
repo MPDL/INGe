@@ -25,7 +25,6 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Column;
@@ -62,11 +61,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 07-Sep-2007 13:27:29
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 @Entity
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
-public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
+public class AffiliationDbVO extends AffiliationDbRO {
 
   public enum State
   {

@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
  * @author Michael Franke (initial creation)
  * @version $Revision$ $LastChangedDate$ by $Author$
  */
+@SuppressWarnings("serial")
 public class GrantVOListWrapper implements Serializable {
   /**
    * The wrapped list of GrantVOs.

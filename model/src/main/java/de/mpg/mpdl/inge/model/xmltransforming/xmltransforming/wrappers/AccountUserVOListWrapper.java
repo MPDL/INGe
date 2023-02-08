@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
  * @author Markus Haarlaender (initial creation)
  * 
  */
+@SuppressWarnings("serial")
 public class AccountUserVOListWrapper implements Serializable {
   /**
    * The wrapped list of AccountUserVOs.

@@ -9,9 +9,6 @@ package de.mpg.mpdl.inge.model.exception;
  * 
  */
 public class IngeTechnicalException extends Exception {
-
-  private static final long serialVersionUID = -2755845075749766737L;
-
   public IngeTechnicalException() {}
 
   public IngeTechnicalException(final String message, final Throwable cause) {
@@ -25,5 +22,4 @@ public class IngeTechnicalException extends Exception {
   public IngeTechnicalException(final Throwable cause) {
     super(cause);
   }
-
 }

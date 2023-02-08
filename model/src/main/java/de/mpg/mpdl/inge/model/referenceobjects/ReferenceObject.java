@@ -37,17 +37,8 @@ import java.io.Serializable;
  * @version $Revision$ $LastChangedDate: 2007-07-09 16:4
  * @updated 04-Sep-2007 11:47:55
  */
+@SuppressWarnings("serial")
 public abstract class ReferenceObject implements Serializable {
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-  private static final long serialVersionUID = 1L;
   /**
    * Technical objectId-attribute of corresponding ValueOject.
    */

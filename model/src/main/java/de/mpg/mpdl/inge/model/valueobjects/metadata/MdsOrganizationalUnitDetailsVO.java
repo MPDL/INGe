@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import de.mpg.mpdl.inge.model.types.Coordinates;
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
 

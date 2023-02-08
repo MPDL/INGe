@@ -25,7 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search;
 
-import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,7 +87,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "AdvancedSearchBean")
 @SessionScoped
 @SuppressWarnings("serial")
-public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver {
+public class AdvancedSearchBean extends FacesBean implements LanguageChangeObserver {
   private static final Logger logger = Logger.getLogger(AdvancedSearchBean.class);
 
   private List<SearchCriterionBase> criterionList;

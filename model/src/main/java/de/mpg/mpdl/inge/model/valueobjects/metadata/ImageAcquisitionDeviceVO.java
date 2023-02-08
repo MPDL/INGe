@@ -36,14 +36,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:48:56
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class ImageAcquisitionDeviceVO extends AbstractAcquisitionDeviceVO {
-
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
-
   public enum DeviceType
   {
     SCANNER,

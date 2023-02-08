@@ -36,6 +36,7 @@ import java.util.Date;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class ResultVO extends ValueObject {
 
   private Date lastModificationDate;

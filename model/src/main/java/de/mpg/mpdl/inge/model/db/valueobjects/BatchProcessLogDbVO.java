@@ -18,6 +18,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "batch_log")
 @Cacheable
