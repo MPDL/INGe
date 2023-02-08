@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.service.spring;
 import java.io.File;
 import java.util.Arrays;
 
+import javax.annotation.PostConstruct;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 
@@ -12,8 +13,11 @@ import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -48,7 +52,7 @@ public class AppConfigPubmanLogic {
 
   private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
 
-  public static final BeanFactory PUBMAN_LOGIC_BEAN_FACTORY = new ClassPathXmlApplicationContext("beanRefContext.xml");//XmlBeanFactory(new ClassPathResource(("beanRefContext.xml")));
+  private static BeanFactory PUBMAN_LOGIC_BEAN_FACTORY;//XmlBeanFactory(new ClassPathResource(("beanRefContext.xml")));
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -132,6 +136,17 @@ public class AppConfigPubmanLogic {
     return jmsTemplate;
   }
 
+  //@PostConstruct
+  //protected void setStaticBeanFactory(){
+  //   PUBMAN_LOGIC_BEAN_FACTORY =  new ClassPathXmlApplicationContext("beanRefContext.xml");
+  //}
 
 
+
+  public static BeanFactory getRootContextBeanFactory() {
+    if (PUBMAN_LOGIC_BEAN_FACTORY == null) {
+      PUBMAN_LOGIC_BEAN_FACTORY = new ClassPathXmlApplicationContext("beanRefContext.xml");
+    }
+    return PUBMAN_LOGIC_BEAN_FACTORY;
+  }
 }
