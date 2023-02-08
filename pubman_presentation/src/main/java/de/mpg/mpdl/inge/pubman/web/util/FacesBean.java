@@ -29,10 +29,10 @@ package de.mpg.mpdl.inge.pubman.web.util;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIComponent;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.UIComponent;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;

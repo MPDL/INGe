@@ -1,10 +1,10 @@
 package de.mpg.mpdl.inge.pubman.web.spring;
 
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import org.springframework.web.WebApplicationInitializer;
@@ -43,11 +43,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
     // JSF
     servletContext.addListener(ConfigureListener.class);
     servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", "true");
-    servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
-    servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".jsp");
-    servletContext.setInitParameter("javax.faces.FACELETS_VIEW_MAPPINGS", "*.jsp");
-    servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "client");
-    servletContext.setInitParameter("javax.faces.CONFIG_FILES", "/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml");
+    servletContext.setInitParameter("jakarta.faces.PROJECT_STAGE", "Production");
+    servletContext.setInitParameter("jakarta.faces.DEFAULT_SUFFIX", ".jsp");
+    servletContext.setInitParameter("jakarta.faces.FACELETS_VIEW_MAPPINGS", "*.jsp");
+    servletContext.setInitParameter("jakarta.faces.STATE_SAVING_METHOD", "client");
+    servletContext.setInitParameter("jakarta.faces.CONFIG_FILES", "/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml");
 
     ServletRegistration.Dynamic facesServlet = servletContext.addServlet("Faces Servlet", new FacesServlet());
     facesServlet.addMapping("/faces/*");

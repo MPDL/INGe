@@ -48,8 +48,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;

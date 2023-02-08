@@ -33,10 +33,10 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.model.SelectItem;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.model.SelectItem;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;

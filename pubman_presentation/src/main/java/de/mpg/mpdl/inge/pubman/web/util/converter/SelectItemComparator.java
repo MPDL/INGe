@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.util.converter;
 
 import java.util.Comparator;
 
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Can be used to order a list of SelectItems by their names

@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.aa;
 
 import java.net.URLEncoder;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 

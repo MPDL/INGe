@@ -3,8 +3,8 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.itemLog;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 

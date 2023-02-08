@@ -32,7 +32,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 

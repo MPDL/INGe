@@ -26,9 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.html.HtmlMessages;
-import javax.faces.component.html.HtmlPanelGrid;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.html.HtmlMessages;
+import jakarta.faces.component.html.HtmlPanelGrid;
 
 import org.apache.log4j.Logger;
 

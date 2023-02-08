@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.common_presentation;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
 

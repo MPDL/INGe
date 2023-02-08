@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.aa.web.client.old;
 
-import javax.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServlet;
 
 /**
  * TODO Description

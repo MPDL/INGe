@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 

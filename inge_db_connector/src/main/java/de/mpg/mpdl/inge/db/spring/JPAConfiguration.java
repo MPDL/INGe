@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.db.spring;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.SharedCacheMode;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.SharedCacheMode;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;

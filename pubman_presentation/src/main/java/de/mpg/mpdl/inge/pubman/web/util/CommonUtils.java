@@ -47,8 +47,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.component.html.HtmlSelectOneRadio;
-import javax.faces.model.SelectItem;
+import jakarta.faces.component.html.HtmlSelectOneRadio;
+import jakarta.faces.model.SelectItem;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;

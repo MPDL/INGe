@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.itemList;
 
-import javax.faces.component.html.HtmlPanelGroup;
+import jakarta.faces.component.html.HtmlPanelGroup;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 

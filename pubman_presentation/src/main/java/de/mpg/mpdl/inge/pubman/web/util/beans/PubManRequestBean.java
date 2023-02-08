@@ -24,7 +24,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.util.beans;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 

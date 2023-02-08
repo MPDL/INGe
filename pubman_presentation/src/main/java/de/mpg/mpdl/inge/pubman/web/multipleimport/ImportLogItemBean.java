@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;

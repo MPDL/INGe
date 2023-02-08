@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import static org.junit.Assert.assertTrue;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Ignore;

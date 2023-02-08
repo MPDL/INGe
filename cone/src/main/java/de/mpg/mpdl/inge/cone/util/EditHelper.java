@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.cone.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
 

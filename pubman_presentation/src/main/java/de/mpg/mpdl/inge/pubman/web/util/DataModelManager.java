@@ -3,8 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+import jakarta.faces.model.DataModel;
+import jakarta.faces.model.ListDataModel;
 
 /**
  * DataModel and List Manager for data input managed in form of data tables. The data object input

@@ -1,6 +1,6 @@
 package de.mpg.mpdl.inge.cone.web;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import de.mpg.mpdl.inge.aa.Aa;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;

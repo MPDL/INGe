@@ -197,8 +197,8 @@
 	<!-- Fuer alle Module -->
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -225,8 +225,8 @@
 			<artifactId>jsf-impl</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
+			<groupId>jakarta.faces</groupId>
+			<artifactId>jakarta.faces-api</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -471,17 +471,17 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>5.6.14.Final</version>
+				<version>6.1.7.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>5.6.14.Final</version>
+				<version>5.6.15.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-ehcache</artifactId>
-				<version>5.6.14.Final</version>
+				<version>5.6.15.Final</version>
 			</dependency>
 
 			<!-- Jackson -->
@@ -508,15 +508,15 @@
 
 			<!-- Java EE -->
 			<dependency>
-				<groupId>javax</groupId>
-				<artifactId>javaee-api</artifactId>
-				<version>8.0</version>
+				<groupId>jakarta.platform</groupId>
+				<artifactId>jakarta.jakartaee-api</artifactId>
+				<version>9.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
-				<version>1.4</version>
+				<groupId>jakarta.mail</groupId>
+				<artifactId>jakarta.mail-api</artifactId>
+				<version>2.1.1</version>
 			</dependency>
 
 			<!-- Jasper Reports -->
@@ -573,9 +573,9 @@
 
 			<!-- JSF -->
 			<dependency>
-				<groupId>javax.faces</groupId>
-				<artifactId>javax.faces-api</artifactId>
-				<version>2.2</version>
+				<groupId>jakarta.faces</groupId>
+				<artifactId>jakarta.faces-api</artifactId>
+				<version>3.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>com.sun.faces</groupId>
@@ -642,29 +642,29 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
-				<version>5.3.25</version>
+				<version>6.0.4</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-jpa</artifactId>
-				<version>2.7.7</version>
+				<version>3.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-rest-webmvc</artifactId>
-				<version>3.7.7</version>
+				<version>4.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
-				<version>5.8.1</version>
+				<version>6.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
-				<version>5.8.1</version>
+				<version>6.0.1</version>
 			</dependency>
 
 			<!-- Passay -->
@@ -834,9 +834,9 @@
 
 			<!-- XML -->
 			<dependency>
-				<groupId>javax.xml.bind</groupId>
-				<artifactId>jaxb-api</artifactId>
-				<version>2.3.0</version>
+				<groupId>jakarta.xml.bind</groupId>
+				<artifactId>jakarta.xml.bind-api</artifactId>
+				<version>4.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>schematron</groupId>

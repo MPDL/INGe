@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.event.ValueChangeEvent;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;

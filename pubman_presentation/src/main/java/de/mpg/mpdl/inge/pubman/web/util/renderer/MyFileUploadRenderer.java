@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.pubman.web.util.renderer;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import org.primefaces.component.fileupload.FileUploadRenderer;
 

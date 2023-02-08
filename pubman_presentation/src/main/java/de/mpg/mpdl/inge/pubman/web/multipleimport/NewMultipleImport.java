@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 

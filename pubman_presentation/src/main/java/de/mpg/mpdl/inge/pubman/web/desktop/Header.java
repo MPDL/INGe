@@ -26,7 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.desktop;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.util.PropertyReader;

@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.breadcrumb;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 

@@ -28,9 +28,9 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.ConeUtils;
 import org.apache.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.model.SelectItem;
-import javax.servlet.ServletOutputStream;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.model.SelectItem;
+import jakarta.servlet.ServletOutputStream;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;

@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import org.apache.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 import java.util.List;
 import java.util.Map;
 

@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;

@@ -47,8 +47,8 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreatorOrganization;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemOrganization;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 import java.io.Serializable;
 import java.util.*;
 

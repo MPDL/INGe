@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.service.spring;
 import java.io.File;
 import java.util.Arrays;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 

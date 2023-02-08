@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.withdrawItem;
 
 import java.io.IOException;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 

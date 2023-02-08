@@ -31,10 +31,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.html.HtmlCommandLink;
-import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.model.SelectItem;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.html.HtmlCommandLink;
+import jakarta.faces.component.html.HtmlSelectOneMenu;
+import jakarta.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;

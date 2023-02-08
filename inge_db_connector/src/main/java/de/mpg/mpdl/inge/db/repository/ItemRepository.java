@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.db.repository;
 
 import java.util.List;
 
-import javax.persistence.QueryHint;
+import jakarta.persistence.QueryHint;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;

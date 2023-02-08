@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 @SuppressWarnings("serial")
 @Embeddable

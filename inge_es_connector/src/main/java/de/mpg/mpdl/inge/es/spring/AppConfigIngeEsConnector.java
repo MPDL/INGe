@@ -1,6 +1,6 @@
 package de.mpg.mpdl.inge.es.spring;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

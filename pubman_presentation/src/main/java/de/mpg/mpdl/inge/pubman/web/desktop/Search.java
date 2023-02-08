@@ -43,7 +43,7 @@ import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import org.apache.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
