@@ -83,7 +83,6 @@ import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
-import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AdvancedSearchBean")

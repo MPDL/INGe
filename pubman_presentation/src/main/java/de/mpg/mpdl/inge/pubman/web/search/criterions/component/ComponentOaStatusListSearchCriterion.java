@@ -25,12 +25,9 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.faces.model.SelectItem;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -38,10 +35,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.Index;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.QueryType;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
