@@ -3,21 +3,13 @@ package de.mpg.mpdl.inge.service.spring;
 import java.io.File;
 import java.util.Arrays;
 
-import jakarta.annotation.PostConstruct;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
-import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +17,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
@@ -39,6 +30,10 @@ import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
 import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.jms.Destination;
+
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
@@ -100,7 +95,7 @@ public class AppConfigPubmanLogic {
 
 
   @Bean
-  public DefaultJmsListenerContainerFactory topicContainerFactory(ConnectionFactory connectionFactory) {
+  public DefaultJmsListenerContainerFactory topicContainerFactory(jakarta.jms.ConnectionFactory connectionFactory) {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setPubSubDomain(true);
@@ -110,16 +105,16 @@ public class AppConfigPubmanLogic {
   }
 
   @Bean
-  public JmsTemplate topicJmsTemplate(ConnectionFactory jmsConnectionFactory) throws JMSException {
+  public JmsTemplate topicJmsTemplate(jakarta.jms.ConnectionFactory jmsConnectionFactory) throws JMSException {
     JmsTemplate jmsTemplate = new JmsTemplate(jmsConnectionFactory);
-    jmsTemplate.setDefaultDestination(new ActiveMQTopic("items-topic"));
+    jmsTemplate.setDefaultDestination((Destination) new ActiveMQTopic("items-topic"));
     jmsTemplate.setPubSubDomain(true);
     return jmsTemplate;
   }
 
 
   @Bean
-  public DefaultJmsListenerContainerFactory queueContainerFactory(ConnectionFactory connectionFactory) {
+  public DefaultJmsListenerContainerFactory queueContainerFactory(jakarta.jms.ConnectionFactory connectionFactory) {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setPubSubDomain(false);
@@ -129,9 +124,9 @@ public class AppConfigPubmanLogic {
   }
 
   @Bean
-  public JmsTemplate queueJmsTemplate(ConnectionFactory connectionFactory) throws JMSException {
+  public JmsTemplate queueJmsTemplate(jakarta.jms.ConnectionFactory connectionFactory) throws JMSException {
     JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
-    jmsTemplate.setDefaultDestination(new ActiveMQQueue("items-queue"));
+    jmsTemplate.setDefaultDestination((Destination) new ActiveMQQueue("items-queue"));
     jmsTemplate.setPubSubDomain(false);
     return jmsTemplate;
   }

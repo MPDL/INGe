@@ -54,13 +54,15 @@ public class PidServiceImpl implements PidService {
     int timeout = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_TIMEOUT));
     String serviceUrl = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_URL);
 
-    ClientConfig clientConfig = new ClientConfig();
+    //ClientConfig clientConfig = new ClientConfig();
 
     HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user, passwd).build();
 
-    clientConfig.register(feature);
+    //clientConfig.register(feature);
 
-    Client client = ClientBuilder.newClient(clientConfig);
+    //Client client = ClientBuilder.newClient(clientConfig);
+    Client client = ClientBuilder.newBuilder().register(feature).build();
+
 
     client.property(ClientProperties.CONNECT_TIMEOUT, timeout);
     client.property(ClientProperties.READ_TIMEOUT, timeout);

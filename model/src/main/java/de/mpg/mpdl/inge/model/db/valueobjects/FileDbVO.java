@@ -30,6 +30,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Cacheable;
@@ -38,19 +48,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import de.mpg.mpdl.inge.model.db.hibernate.MdsFileVOJsonUserType;
-import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * A file that is contained in an item.
@@ -65,8 +62,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
-@TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
-@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
+//@TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
+//@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class FileDbVO extends FileDbRO implements Serializable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -163,13 +160,15 @@ public class FileDbVO extends FileDbRO implements Serializable {
 
 
   @Column
-  @Type(type = "MdsFileVOJsonUserType")
+  //@Type(type = "MdsFileVOJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   private MdsFileVO metadata;
 
   @JsonIgnore
   private String localFileIdentifier;
 
-  @Type(type= "StringListJsonUserType")
+  //@Type(type= "StringListJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   private List<String> allowedAudienceIds = new ArrayList<>();
 
   /**

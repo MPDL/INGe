@@ -238,12 +238,17 @@
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-spring</artifactId>
-				<version>5.15.1</version>
+				<version>5.17.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-kahadb-store</artifactId>
-				<version>5.15.1</version>
+				<version>5.17.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-broker</artifactId>
+				<version>5.17.3</version>
 			</dependency>
 
 			<dependency>
@@ -473,15 +478,23 @@
 				<artifactId>hibernate-core</artifactId>
 				<version>6.1.7.Final</version>
 			</dependency>
+			<!--
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>5.6.15.Final</version>
 			</dependency>
+			-->
 			<dependency>
 				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-ehcache</artifactId>
-				<version>5.6.15.Final</version>
+				<artifactId>hibernate-jcache</artifactId>
+				<version>6.1.7.Final</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>3.10.8</version>
 			</dependency>
 
 			<!-- Jackson -->

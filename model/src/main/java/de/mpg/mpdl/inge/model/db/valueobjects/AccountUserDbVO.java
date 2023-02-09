@@ -4,6 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,23 +22,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import de.mpg.mpdl.inge.model.db.hibernate.GrantVOListJsonUserType;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-
 @Entity
 @Table(name = "user_account")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
-@TypeDef(name = "GrantVOListJsonUserType", typeClass = GrantVOListJsonUserType.class)
+//@TypeDef(name = "GrantVOListJsonUserType", typeClass = GrantVOListJsonUserType.class)
 public class AccountUserDbVO extends BasicDbRO implements Serializable {
 
   private boolean active;
@@ -41,7 +39,8 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
   private String loginname;
 
 
-  @Type(type = "GrantVOListJsonUserType")
+  //@Type(type = "GrantVOListJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   private List<GrantVO> grantList = new ArrayList<GrantVO>();
 
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")

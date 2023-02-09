@@ -30,6 +30,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,21 +50,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import de.mpg.mpdl.inge.model.db.hibernate.GenreListJsonUserType;
-import de.mpg.mpdl.inge.model.db.hibernate.SubjectClassificationListJsonUserType;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Special type of container of data with specific workflow (i.e. the publication management
@@ -67,8 +64,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @JsonInclude(value = Include.NON_EMPTY)
 @Entity
 @Table(name = "context")
-@TypeDef(name = "SubjectClassificationListJsonUserType", typeClass = SubjectClassificationListJsonUserType.class)
-@TypeDef(name = "GenreListJsonUserType", typeClass = GenreListJsonUserType.class)
+//@TypeDef(name = "SubjectClassificationListJsonUserType", typeClass = SubjectClassificationListJsonUserType.class)
+//@TypeDef(name = "GenreListJsonUserType", typeClass = GenreListJsonUserType.class)
 public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
   /**
    * The possible states of a collection.
@@ -88,10 +85,12 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
     SIMPLE
   }
 
-  @Type(type = "GenreListJsonUserType")
+  //@Type(type = "GenreListJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
 
-  @Type(type = "SubjectClassificationListJsonUserType")
+  //@Type(type = "SubjectClassificationListJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
       new ArrayList<MdsPublicationVO.SubjectClassification>();
 

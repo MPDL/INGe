@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Cacheable;
@@ -19,22 +26,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
-
 
 
 @Entity
 @Table(name = "item_object")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
+//@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class ItemRootVO implements Serializable {
 
   @Id
@@ -82,7 +80,8 @@ public class ItemRootVO implements Serializable {
 
 
 
-  @Type(type = "StringListJsonUserType")
+  //@Type(type = "StringListJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   private List<String> localTags = new ArrayList<String>();
 
 

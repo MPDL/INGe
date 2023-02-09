@@ -84,7 +84,6 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
 
-  @Override
   protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status,
       WebRequest request) {
     return buildExceptionResponseEntity(ex, headers, status);

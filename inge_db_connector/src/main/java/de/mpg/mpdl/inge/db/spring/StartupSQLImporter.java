@@ -4,16 +4,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-
-import jakarta.persistence.EntityManager;
+import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor;
+import org.hibernate.dialect.PostgreSQLDialect;
+import org.hibernate.tool.schema.internal.script.MultiLineSqlScriptExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityManager;
 
 @Component
 public class StartupSQLImporter {
@@ -39,7 +41,8 @@ public class StartupSQLImporter {
       InputStream sqlInitStream = JPAConfiguration.class.getClassLoader().getResourceAsStream("db_init.sql");
       try (Reader sqlScriptScanner = new InputStreamReader(sqlInitStream, StandardCharsets.UTF_8)) {
 
-        String[] sqlCommandList = new MultipleLinesSqlCommandExtractor().extractCommands(sqlScriptScanner);
+        //String[] sqlCommandList = new MultipleLinesSqlCommandExtractor().extractCommands(sqlScriptScanner);
+        List<String> sqlCommandList = new MultiLineSqlScriptExtractor().extractCommands(sqlScriptScanner, new PostgreSQLDialect());
 
         int updated = 0;
         for (String sqlStatement : sqlCommandList) {

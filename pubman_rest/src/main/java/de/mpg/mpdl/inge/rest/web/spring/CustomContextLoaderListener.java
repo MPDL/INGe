@@ -1,15 +1,10 @@
 package de.mpg.mpdl.inge.rest.web.spring;
 
-import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
+import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import jakarta.servlet.ServletContext;
 
 public class CustomContextLoaderListener extends ContextLoaderListener {

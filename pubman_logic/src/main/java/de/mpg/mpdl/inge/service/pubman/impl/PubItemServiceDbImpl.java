@@ -50,8 +50,8 @@ import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.FlushModeType;
 import jakarta.persistence.PersistenceContext;
@@ -876,13 +876,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     query.setCacheMode(CacheMode.IGNORE);
     query.setFlushMode(FlushModeType.COMMIT);
     query.setCacheable(false);
-    ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+    ScrollableResults<String> results = query.scroll(ScrollMode.FORWARD_ONLY);
 
     int count = 0;
     while (results.next()) {
       try {
         count++;
-        String id = (String) results.get(0);
+        String id = (String) results.get();
         queueJmsTemplate.convertAndSend("reindex-ItemVersionVO", id);
 
         // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur

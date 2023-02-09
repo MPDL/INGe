@@ -26,8 +26,8 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming.logging;
 
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.InvocationContext;
 
 import org.apache.log4j.Logger;
 

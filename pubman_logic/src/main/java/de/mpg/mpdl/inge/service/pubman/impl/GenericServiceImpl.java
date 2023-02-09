@@ -233,7 +233,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       query.setCacheMode(CacheMode.IGNORE);
       query.setFlushMode(FlushModeType.COMMIT);
       query.setCacheable(false);
-      ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+      ScrollableResults<Id> results = query.scroll(ScrollMode.FORWARD_ONLY);
 
       int count = 0;
       while (results.next()) {
@@ -246,7 +246,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
           }
           count++;
 
-          Id id = (Id) results.get(0);
+          Id id = (Id) results.get();
 
           queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
 

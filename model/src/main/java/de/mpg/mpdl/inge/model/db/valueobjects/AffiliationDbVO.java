@@ -28,6 +28,18 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,20 +50,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import de.mpg.mpdl.inge.model.db.hibernate.MdsOrganizationalUnitVOJsonUserType;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 
 /**
  * A MPG unit or lower level of organizational unit within an MPG unit; includes also external
@@ -65,7 +63,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 @JsonInclude(value = Include.NON_EMPTY)
 @Entity
 @Table(name = "organization")
-@TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
+//@TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
 
   public enum State
@@ -74,7 +72,8 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
     OPENED
   }
 
-  @Type(type = "MdsOrganizationalUnitVOJsonUserType")
+  //@Type(type = "MdsOrganizationalUnitVOJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   @Column
   private MdsOrganizationalUnitDetailsVO metadata = new MdsOrganizationalUnitDetailsVO();
 

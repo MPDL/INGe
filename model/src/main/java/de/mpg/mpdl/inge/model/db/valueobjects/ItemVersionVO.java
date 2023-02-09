@@ -27,6 +27,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Cacheable;
@@ -42,26 +60,6 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OrderColumn;
 import jakarta.persistence.Table;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-
-import de.mpg.mpdl.inge.model.db.hibernate.MdsPublicationVOJsonUserType;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-
 
 /**
  * Item object which consists of descriptive metadata and may have one or more files associated.
@@ -76,7 +74,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
-@TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
+//@TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
 //Ignore json joinType from elasticsearch
 @JsonIgnoreProperties({"joinType"})
 public class ItemVersionVO extends ItemVersionRO implements Serializable {
@@ -103,7 +101,8 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   ItemRootVO object = new ItemRootVO();
 
   @Column
-  @Type(type = "MdsPublicationVOJsonUserType")
+  //@Type(type = "MdsPublicationVOJsonUserType")
+  @JdbcTypeCode(SqlTypes.JSON)
   private MdsPublicationVO metadata = new MdsPublicationVO();
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

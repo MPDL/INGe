@@ -30,9 +30,9 @@ import java.io.File;
 import java.util.Date;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import jakarta.mail.Authenticator;
 import jakarta.mail.BodyPart;
 import jakarta.mail.Message;
