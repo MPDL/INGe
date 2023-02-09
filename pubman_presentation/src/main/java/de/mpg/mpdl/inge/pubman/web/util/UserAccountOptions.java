@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
  * @version $Revision$ $LastChangedDate$
  *
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "UserAccountOptions")
 public class UserAccountOptions extends FacesBean {
   public static final String BEAN_NAME = "UserAccountOptionsBean";

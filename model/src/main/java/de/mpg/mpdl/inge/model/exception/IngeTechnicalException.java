@@ -8,6 +8,7 @@ package de.mpg.mpdl.inge.model.exception;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class IngeTechnicalException extends Exception {
   public IngeTechnicalException() {}
 

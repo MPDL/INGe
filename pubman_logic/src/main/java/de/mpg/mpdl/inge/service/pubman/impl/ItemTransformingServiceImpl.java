@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 import de.mpg.mpdl.inge.transformation.transformers.CitationTransformer;
 
+@SuppressWarnings("serial")
 @Service
 @Primary
 public class ItemTransformingServiceImpl implements ItemTransformingService, Serializable {

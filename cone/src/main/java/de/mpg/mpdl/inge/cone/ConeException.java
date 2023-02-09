@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.cone;
 
+@SuppressWarnings("serial")
 public class ConeException extends Exception {
   public ConeException() {
     super();

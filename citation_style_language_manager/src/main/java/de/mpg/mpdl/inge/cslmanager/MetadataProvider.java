@@ -621,6 +621,7 @@ public class MetadataProvider implements ItemDataProvider {
    * @author walter
    * 
    */
+  @SuppressWarnings("serial")
   private class FileUrlPriorityComparator implements Comparator<FileVO>, Serializable {
     @Override
     public int compare(FileVO file1, FileVO file2) {
@@ -685,6 +686,7 @@ public class MetadataProvider implements ItemDataProvider {
    * @author walter
    * 
    */
+  @SuppressWarnings("serial")
   private class IdentfierPriorityComparator implements Comparator<IdentifierVO>, Serializable {
     @Override
     public int compare(IdentifierVO id1, IdentifierVO id2) {

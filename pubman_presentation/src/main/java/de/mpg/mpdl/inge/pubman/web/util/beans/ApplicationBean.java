@@ -67,6 +67,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @author: Thomas Diebäcker, created 09.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "ApplicationBean")
 @ApplicationScoped
 public class ApplicationBean extends FacesBean {

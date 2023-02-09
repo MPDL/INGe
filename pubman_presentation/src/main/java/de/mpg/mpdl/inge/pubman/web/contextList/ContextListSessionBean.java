@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
  * @author: Thomas Diebäcker, created 12.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "ContextListSessionBean")
 @SessionScoped
 public class ContextListSessionBean extends FacesBean {
