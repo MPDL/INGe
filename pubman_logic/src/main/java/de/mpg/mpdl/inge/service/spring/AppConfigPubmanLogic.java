@@ -46,7 +46,7 @@ public class AppConfigPubmanLogic {
 
   private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
 
-  public static final BeanFactory PUBMAN_LOGIC_BEAN_FACTORY = new ClassPathXmlApplicationContext("beanRefContext.xml");//XmlBeanFactory(new ClassPathResource(("beanRefContext.xml")));
+  private static BeanFactory PUBMAN_LOGIC_BEAN_FACTORY;//XmlBeanFactory(new ClassPathResource(("beanRefContext.xml")));
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -132,4 +132,11 @@ public class AppConfigPubmanLogic {
 
 
 
+
+  public static BeanFactory getRootContextBeanFactory() {
+    if (PUBMAN_LOGIC_BEAN_FACTORY == null) {
+      PUBMAN_LOGIC_BEAN_FACTORY = new ClassPathXmlApplicationContext("beanRefContext.xml");
+    }
+    return PUBMAN_LOGIC_BEAN_FACTORY;
+  }
 }

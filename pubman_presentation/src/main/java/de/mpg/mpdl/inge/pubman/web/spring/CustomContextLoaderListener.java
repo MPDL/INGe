@@ -30,7 +30,7 @@ public class CustomContextLoaderListener extends ContextLoaderListener {
     */
 
 
-    ApplicationContext parentContext = (ApplicationContext) AppConfigPubmanLogic.PUBMAN_LOGIC_BEAN_FACTORY.getBean("ear.context");
+    ApplicationContext parentContext = (ApplicationContext) AppConfigPubmanLogic.getRootContextBeanFactory().getBean("ear.context");
 
     /*
     AnnotationConfigWebApplicationContext parentContext = new AnnotationConfigWebApplicationContext();
