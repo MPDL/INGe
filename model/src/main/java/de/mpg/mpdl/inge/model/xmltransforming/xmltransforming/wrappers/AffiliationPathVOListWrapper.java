@@ -39,6 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
+@SuppressWarnings("serial")
 public class AffiliationPathVOListWrapper implements Serializable {
   /**
    * The wrapped list of AffiliationPathVOs.

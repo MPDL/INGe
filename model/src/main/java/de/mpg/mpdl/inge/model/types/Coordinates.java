@@ -10,6 +10,7 @@ import java.io.Serializable;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class Coordinates implements Serializable {
   private double latitude;
   private double longitude;

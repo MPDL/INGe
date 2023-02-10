@@ -37,21 +37,12 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 13.08.2007
  */
+@SuppressWarnings("serial")
 public class ItemVOListWrapper implements Serializable {
   private String numberOfRecords;
   private String limit;
   private String offset;
 
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-  private static final long serialVersionUID = 1L;
   /**
    * The wrapped list of PubItemVOs.
    */

@@ -34,12 +34,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;

@@ -23,6 +23,7 @@
  */
 package de.mpg.mpdl.inge.model.valueobjects;
 
+@SuppressWarnings("serial")
 public class TocPtrVO extends ValueObject {
 
   private String id;

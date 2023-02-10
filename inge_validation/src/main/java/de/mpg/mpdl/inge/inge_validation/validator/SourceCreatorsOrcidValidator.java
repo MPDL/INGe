@@ -10,9 +10,9 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 
 public class SourceCreatorsOrcidValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 

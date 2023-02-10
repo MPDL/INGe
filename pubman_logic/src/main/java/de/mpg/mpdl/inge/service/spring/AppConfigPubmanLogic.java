@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.service.spring;
 import java.io.File;
 import java.util.Arrays;
 
-import javax.annotation.PostConstruct;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 
@@ -13,11 +12,7 @@ import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +20,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
@@ -136,10 +130,6 @@ public class AppConfigPubmanLogic {
     return jmsTemplate;
   }
 
-  //@PostConstruct
-  //protected void setStaticBeanFactory(){
-  //   PUBMAN_LOGIC_BEAN_FACTORY =  new ClassPathXmlApplicationContext("beanRefContext.xml");
-  //}
 
 
 

@@ -39,6 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 13.08.2007
  */
+@SuppressWarnings("serial")
 public class EventVOListWrapper implements Serializable {
   /**
    * The wrapped list of EventVOs.

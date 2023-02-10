@@ -67,15 +67,10 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @author: Thomas Diebäcker, created 09.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "ApplicationBean")
 @ApplicationScoped
 public class ApplicationBean extends FacesBean {
-
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -3659975702163802434L;
-
   /** system type enum */
   public enum SystemType
   {

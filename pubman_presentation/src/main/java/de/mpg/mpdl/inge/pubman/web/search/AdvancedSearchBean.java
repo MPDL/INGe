@@ -25,7 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search;
 
-import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,13 +82,12 @@ import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
-import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AdvancedSearchBean")
 @SessionScoped
 @SuppressWarnings("serial")
-public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver {
+public class AdvancedSearchBean extends FacesBean implements LanguageChangeObserver {
   private static final Logger logger = Logger.getLogger(AdvancedSearchBean.class);
 
   private List<SearchCriterionBase> criterionList;

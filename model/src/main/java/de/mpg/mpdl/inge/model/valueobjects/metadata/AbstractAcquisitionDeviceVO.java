@@ -2,9 +2,8 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
+@SuppressWarnings("serial")
 public abstract class AbstractAcquisitionDeviceVO extends ValueObject {
-
-  private static final long serialVersionUID = 1L;
   protected String name;
   protected String productionComment;
   protected DeviceType type;
@@ -12,7 +11,6 @@ public abstract class AbstractAcquisitionDeviceVO extends ValueObject {
   protected enum DeviceType
   {
   }
-
 
   public AbstractAcquisitionDeviceVO() {
     super();

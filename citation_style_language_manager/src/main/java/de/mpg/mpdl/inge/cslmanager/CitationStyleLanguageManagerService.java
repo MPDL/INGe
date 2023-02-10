@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;

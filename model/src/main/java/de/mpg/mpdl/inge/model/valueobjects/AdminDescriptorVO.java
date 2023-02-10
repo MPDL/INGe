@@ -33,6 +33,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public abstract class AdminDescriptorVO extends ValueObject {
 
 }

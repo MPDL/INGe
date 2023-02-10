@@ -34,6 +34,7 @@ import java.util.List;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class TocDivVO extends ValueObject {
 
   private List<TocDivVO> tocDivList = new ArrayList<TocDivVO>();

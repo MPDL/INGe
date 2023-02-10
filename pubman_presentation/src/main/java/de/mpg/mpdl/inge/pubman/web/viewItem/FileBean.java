@@ -40,7 +40,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO.OA_STATUS;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
