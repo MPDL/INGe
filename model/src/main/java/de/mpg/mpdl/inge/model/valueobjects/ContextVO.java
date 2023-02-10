@@ -53,16 +53,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 @JsonInclude(value = Include.NON_EMPTY)
 public class ContextVO extends ValueObject implements Searchable {
   /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
-  /**
    * The possible states of a collection.
    * 
    * @updated 05-Sep-2007 11:14:08

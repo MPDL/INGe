@@ -40,11 +40,9 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class SubjectVO extends ValueObject implements Cloneable {
-
-  private static final long serialVersionUID = 1L;
-
   @IgnoreForCleanup
   private String language;
   private String value;

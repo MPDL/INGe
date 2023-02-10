@@ -54,16 +54,6 @@ public class FilterTaskParamVO extends ValueObject {
   private static final String OR = " or ";
   private static final String AND = " and ";
 
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
   private List<Filter> filterList = new ArrayList<Filter>();
 
   private Logger logger = Logger.getLogger(FilterTaskParamVO.class);

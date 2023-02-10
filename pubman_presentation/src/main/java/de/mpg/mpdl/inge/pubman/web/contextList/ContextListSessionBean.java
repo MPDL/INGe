@@ -55,12 +55,10 @@ import java.util.stream.Collectors;
  * @author: Thomas Diebäcker, created 12.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "ContextListSessionBean")
 @SessionScoped
 public class ContextListSessionBean extends FacesBean {
-
-  private static final long serialVersionUID = -9199885374086390616L;
-
   private static final Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
   private List<PubContextVOPresentation> depositorContextList;

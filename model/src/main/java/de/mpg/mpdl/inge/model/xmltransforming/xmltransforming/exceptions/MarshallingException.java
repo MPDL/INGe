@@ -35,6 +35,7 @@ package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
+@SuppressWarnings("serial")
 public class MarshallingException extends TransformingException {
   private String m_marshalledObjectType;
 

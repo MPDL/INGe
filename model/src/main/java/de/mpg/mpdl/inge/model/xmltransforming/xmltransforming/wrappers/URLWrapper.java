@@ -36,6 +36,7 @@ import java.io.Serializable;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
+@SuppressWarnings("serial")
 public class URLWrapper implements Serializable {
   /**
    * The wrapped URL string.

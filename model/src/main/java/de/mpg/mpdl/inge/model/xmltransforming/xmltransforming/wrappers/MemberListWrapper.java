@@ -5,11 +5,9 @@ import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
+@SuppressWarnings("serial")
 public class MemberListWrapper implements Serializable {
-  private static final long serialVersionUID = 1L;
-
   protected List<? extends ValueObject> memberList;
-
 
   public List<? extends ValueObject> getMemberList() {
     return memberList;
@@ -18,6 +16,4 @@ public class MemberListWrapper implements Serializable {
   public void setMemberList(List<? extends ValueObject> memberList) {
     this.memberList = memberList;
   }
-
-
 }

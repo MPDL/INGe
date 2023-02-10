@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "item_object")
 @Cacheable

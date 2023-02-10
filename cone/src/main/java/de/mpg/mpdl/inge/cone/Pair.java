@@ -36,11 +36,8 @@ import java.io.Serializable;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class Pair<T> implements Describable, Serializable {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
   private String key;
   private T value;
 

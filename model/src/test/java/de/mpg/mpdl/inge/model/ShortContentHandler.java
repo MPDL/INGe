@@ -87,6 +87,7 @@ public class ShortContentHandler extends DefaultHandler {
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
    */
+  @SuppressWarnings("serial")
   protected class XMLStack extends Stack<String> {
     /**
      * Returns a String representation of the Stack in an XPath like way (e.g.

@@ -51,19 +51,9 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:48:44
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-  private static final long serialVersionUID = 1L;
-
   /**
    * The possible degree types for an item.
    * 

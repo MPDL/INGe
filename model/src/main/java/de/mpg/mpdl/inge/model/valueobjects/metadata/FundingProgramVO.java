@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class FundingProgramVO extends ValueObject {
   private String title;

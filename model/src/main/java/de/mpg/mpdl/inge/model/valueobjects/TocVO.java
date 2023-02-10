@@ -31,6 +31,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
  * @version $Revision$ $LastChangedDate$
  * 
  */
+@SuppressWarnings("serial")
 public class TocVO extends ValueObject {
 
   private String tocId;

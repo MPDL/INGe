@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,17 +66,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
-public class FileDbVO extends FileDbRO implements Serializable {
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
+public class FileDbVO extends FileDbRO {
   /**
    * The possible visibility of a file.
    * 

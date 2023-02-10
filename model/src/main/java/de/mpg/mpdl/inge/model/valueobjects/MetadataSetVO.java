@@ -34,17 +34,8 @@ package de.mpg.mpdl.inge.model.valueobjects;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:10:10
  */
+@SuppressWarnings("serial")
 public class MetadataSetVO extends ValueObject {
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
   /**
    * The title of the item.
    */
