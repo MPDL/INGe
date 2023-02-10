@@ -5,10 +5,7 @@ import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
 import co.elastic.clients.elasticsearch._types.mapping.Property;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.*;
-import co.elastic.clients.elasticsearch.core.search.Hit;
-import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import co.elastic.clients.elasticsearch.core.search.SourceConfig;
-import co.elastic.clients.elasticsearch.core.search.SourceFilter;
+import co.elastic.clients.elasticsearch.core.search.*;
 import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
 import co.elastic.clients.json.JsonpMapper;
 import co.elastic.clients.json.JsonpSerializable;
@@ -223,6 +220,10 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
     SearchRetrieveResponseVO<E> srrVO;
     try {
       SearchRequest.Builder sr = new SearchRequest.Builder();
+
+      //Set track_total_hits to true in order to retrieve correct total numbers > 10000
+      sr.trackTotalHits(TrackHits.of(i -> i.enabled(true)));
+
       sr.index(indexName);
 
       if (searchQuery.getQueryBuilder() != null) {
@@ -294,6 +295,9 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       }
       */
 
+
+      //Set track_total_hits to true in order to retrieve correct total numbers > 10000
+      root.put("track_total_hits", true);
 
       if (getSourceExclusions() != null && getSourceExclusions().length > 0) {
         ArrayNode sourceExclusions = objectMapper.valueToTree(getSourceExclusions());
