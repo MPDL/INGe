@@ -333,6 +333,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       if (scrollTime != -1) {
         srb.scroll(Time.of(t -> t.time(scrollTime + "ms")));
       }
+      srb.index(indexName);
       SearchRequest sr = srb.build();
       logger.debug(toJson(sr));
       SearchResponse<ObjectNode> resp = client.getClient().search(sr, ObjectNode.class);
