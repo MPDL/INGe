@@ -36,7 +36,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
@@ -137,7 +136,6 @@ public class LoginHelper extends FacesBean {
    * 
    * @return String empty navigation string for reloading the current page
    * @throws IOException IOException
-   * @throws ServiceException ServiceException
    * @throws TechnicalException TechnicalException
    */
   public String login() {

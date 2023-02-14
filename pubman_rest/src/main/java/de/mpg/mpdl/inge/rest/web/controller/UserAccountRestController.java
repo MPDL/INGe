@@ -19,20 +19,20 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
-import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Date;
 
 @RestController
 @RequestMapping("/users")
-@Api(tags = "User Accounts")
+@Tag(name = "User Accounts")
 public class UserAccountRestController {
 
   private final String AUTHZ_HEADER = "Authorization";
@@ -62,7 +62,7 @@ public class UserAccountRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
   }
 
-  @ApiIgnore
+  @Hidden
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> filter(
       @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
@@ -159,7 +159,7 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = USER_ID_PATH + "/password", method = RequestMethod.PUT)
-  @ApiIgnore
+  @Hidden
   public ResponseEntity<AccountUserDbVO> changePassword(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String changedPassword)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {

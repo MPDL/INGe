@@ -20,21 +20,21 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
-import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/ous")
-@Api(tags = "Organizations")
+@Tag(name = "Organizations")
 public class OrganizationRestController {
 
   private final String AUTHZ_HEADER = "Authorization";
@@ -65,7 +65,7 @@ public class OrganizationRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>>(srResponse, HttpStatus.OK);
   }
 
-  @ApiIgnore
+  @Hidden
   @RequestMapping(value = "/xml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML + ";charset=UTF-8")
   public ResponseEntity<String> getAllAsXml(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
@@ -131,7 +131,7 @@ public class OrganizationRestController {
     return new ResponseEntity<String>(xml.toString(), HttpStatus.OK);
   }
 
-  @ApiIgnore
+  @Hidden
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> filter(
       @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,

@@ -15,6 +15,7 @@
 			<subsystem name="transactions"/>
 			<subsystem name="weld"/>
 			<subsystem name="jsf"/>
+			<subsystem name="messaging-activemq"/>
 		</exclude-subsystems>
 
 		<dependencies>

@@ -4,7 +4,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedOutput;
 import de.mpg.mpdl.inge.service.feed.FeedServiceImpl;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.io.StringReader;
 
 @RestController
 @RequestMapping("/feed")
-@Api(tags = "Atom Feeds")
+@Tag(name = "Atom Feeds")
 public class FeedRestController {
 
   private static final String DEFAULT_FEEDTYPE = "atom_1.0";

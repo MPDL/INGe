@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import javax.jms.ObjectMessage;
+import jakarta.jms.ObjectMessage;
 import java.io.ByteArrayOutputStream;
 
 @Component

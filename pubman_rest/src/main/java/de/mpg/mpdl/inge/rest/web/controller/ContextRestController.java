@@ -17,19 +17,19 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
 import java.util.Date;
 
 @RestController
 @RequestMapping("/contexts")
-@Api(tags = "Contexts")
+@Tag(name = "Contexts")
 public class ContextRestController {
 
   private final String AUTHZ_HEADER = "Authorization";
@@ -67,7 +67,7 @@ public class ContextRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>>(srResponse, HttpStatus.OK);
   }
 
-  @ApiIgnore
+  @Hidden
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "q") String query, @RequestParam(value = "size", required = true, defaultValue = "10") int limit,

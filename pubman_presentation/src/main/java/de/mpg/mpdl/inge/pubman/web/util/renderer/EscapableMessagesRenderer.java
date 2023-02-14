@@ -35,18 +35,14 @@ package de.mpg.mpdl.inge.pubman.web.util.renderer;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-import java.io.IOException;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.context.ResponseWriterWrapper;
-import jakarta.faces.render.FacesRenderer;
 
 import com.sun.faces.renderkit.html_basic.MessagesRenderer;
 
+import java.io.IOException;
+
 // TODO test if this is working in Versions after JSF 2.2
-// @FacesRenderer(componentFamily = "jakarta.faces.Messages", rendererType = "jakarta.faces.Messages")
+// @FacesRenderer(componentFamily = "jakarta.faces.Messages", rendererType =
+// "jakarta.faces.Messages")
 // Annotation not working correctly. For this reason it is added to the renderkit in
 // faces-config.xml
 public class EscapableMessagesRenderer extends MessagesRenderer {

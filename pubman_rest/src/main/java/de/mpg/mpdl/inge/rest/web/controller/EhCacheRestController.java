@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import org.apache.log4j.Logger;
@@ -8,14 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Arrays;
 
 // TODO: Authorization
 @RestController
 @RequestMapping("/ehCache")
-@ApiIgnore
+@Hidden
 public class EhCacheRestController {
 
   private static Logger logger = Logger.getLogger(EhCacheRestController.class);

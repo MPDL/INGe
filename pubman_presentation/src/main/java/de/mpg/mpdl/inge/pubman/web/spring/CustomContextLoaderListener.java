@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.spring;
 
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

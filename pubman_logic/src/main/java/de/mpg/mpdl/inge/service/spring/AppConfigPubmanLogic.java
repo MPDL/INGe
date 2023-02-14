@@ -1,20 +1,20 @@
 package de.mpg.mpdl.inge.service.spring;
 
-import java.io.File;
-import java.util.Arrays;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.command.ActiveMQQueue;
-import org.apache.activemq.command.ActiveMQTopic;
+import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
+import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
+import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
+import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.jms.JMSException;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
+import org.apache.activemq.artemis.jms.client.ActiveMQJMSConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
+import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jms.annotation.EnableJms;
@@ -25,15 +25,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
-import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
-import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
-import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import jakarta.jms.Destination;
-
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
+import java.io.File;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
@@ -68,28 +60,41 @@ public class AppConfigPubmanLogic {
    * @throws Exception
    */
   @Bean(initMethod = "start", destroyMethod = "stop")
-  public BrokerService brokerService() throws Exception {
-    BrokerService brokerService = new BrokerService();
-    brokerService.setPersistent(true);
+  public EmbeddedActiveMQ brokerService() throws Exception {
+    EmbeddedActiveMQ brokerService = new EmbeddedActiveMQ();
+    org.apache.activemq.artemis.core.config.Configuration config = new ConfigurationImpl();
+    config.setPersistenceEnabled(true);
+    config.addAcceptorConfiguration("in-vm", DEFAULT_BROKER_URL);
+    config.setJMXUseBrokerName(false);
+    config.setName("pubman");
+    //config.setGracefulShutdownEnabled(true);
+    config.setSecurityEnabled(false);
+
     String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
     if (jbossHomeDir != null) {
-      brokerService.setDataDirectoryFile(new File(jbossHomeDir + "/standalone/data/activemq"));
+      config.setBrokerInstance(new File(jbossHomeDir + "/standalone/data/activemq"));
     } else {
-      brokerService.setDataDirectory(System.getProperty(PropertyReader.JAVA_IO_TMPDIR));
+      config.setBrokerInstance(new File(System.getProperty(PropertyReader.JAVA_IO_TMPDIR)));
     }
+    /*
     brokerService.setUseJmx(false);
     brokerService.addConnector(DEFAULT_BROKER_URL);
     brokerService.setBrokerName("localhost");
     brokerService.setUseShutdownHook(true);
+    */
+    brokerService.setConfiguration(config);
+
     return brokerService;
   }
 
   @Bean
-  public ConnectionFactory jmsConnectionFactory() {
-    ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+  public jakarta.jms.ConnectionFactory jmsConnectionFactory() throws JMSException {
+
+    ActiveMQJMSConnectionFactory connectionFactory = new ActiveMQJMSConnectionFactory();
     connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
-    connectionFactory.setUseAsyncSend(true);
-    connectionFactory.setTrustedPackages(Arrays.asList("de.mpg.mpdl.inge.model", "java.util", "java.sql", "org.hibernate.collection"));
+    //connectionFactory.set
+    //connectionFactory.setUseAsyncSend(true);
+    //connectionFactory.setTrustedPackages(Arrays.asList("de.mpg.mpdl.inge.model", "java.util", "java.sql", "org.hibernate.collection"));
     return connectionFactory;
   }
 
@@ -107,7 +112,7 @@ public class AppConfigPubmanLogic {
   @Bean
   public JmsTemplate topicJmsTemplate(jakarta.jms.ConnectionFactory jmsConnectionFactory) throws JMSException {
     JmsTemplate jmsTemplate = new JmsTemplate(jmsConnectionFactory);
-    jmsTemplate.setDefaultDestination((Destination) new ActiveMQTopic("items-topic"));
+    jmsTemplate.setDefaultDestination(new ActiveMQTopic("items-topic"));
     jmsTemplate.setPubSubDomain(true);
     return jmsTemplate;
   }
@@ -126,7 +131,7 @@ public class AppConfigPubmanLogic {
   @Bean
   public JmsTemplate queueJmsTemplate(jakarta.jms.ConnectionFactory connectionFactory) throws JMSException {
     JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
-    jmsTemplate.setDefaultDestination((Destination) new ActiveMQQueue("items-queue"));
+    jmsTemplate.setDefaultDestination(new ActiveMQQueue("items-queue"));
     jmsTemplate.setPubSubDomain(false);
     return jmsTemplate;
   }

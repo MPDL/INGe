@@ -47,11 +47,13 @@
 							<artifactId>cone_presentation</artifactId>
 							<contextRoot>/cone</contextRoot>
 						</webModule>
+						<!--
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_presentation</artifactId>
 							<contextRoot>/pubman</contextRoot>
 						</webModule>
+						-->
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_rest</artifactId>
@@ -206,12 +208,14 @@
 			<artifactId>cone_presentation</artifactId>
 			<type>war</type>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
 			<classifier>${inge.pubman.build.mode}</classifier>
 			<type>war</type>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_rest</artifactId>
