@@ -861,6 +861,12 @@
 				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 				<version>2.0.2</version>
 			</dependency>
+			<!-- Required for Springdoc in Wildfly -->
+			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>webjars-locator-jboss-vfs</artifactId>
+				<version>0.1.0</version>
+			</dependency>
 
 			<!-- Validation -->
 			<dependency>

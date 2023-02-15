@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.rest.spring;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.springdoc.core.models.GroupedOpenApi;
@@ -22,23 +24,12 @@ public class SwaggerConfiguration {
   @Bean
   public GroupedOpenApi api() {
 
-    return GroupedOpenApi.builder().group("PubmanREST").pathsToMatch("/").build();
-    /*
-    return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build()
-        .apiInfo(apiInfo());
-    
-     */
+    return GroupedOpenApi.builder().group("public").pathsToMatch("/**").packagesToScan("de.mpg.mpdl.inge.rest.web.controller").build();
   }
 
   @Bean
   public OpenAPI springShopOpenAPI() {
-    return new OpenAPI().info(new Info().title("PubMan REST API").description(apiDescription)
-    //.version("v0.0.1")
-    //.license(new License().name("Apache 2.0").url("http://springdoc.org"))
-    );
-
+    return new OpenAPI().info(new Info().title("PubMan REST API").description(apiDescription));
   }
-
-
 
 }

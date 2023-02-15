@@ -56,13 +56,6 @@ public class ItemRestController {
 
   public final static long DEFAULT_SCROLL_TIME = 90000;
 
-  public static final String EXPORT_FORMAT_ALLOWABLE_VALUES = TransformerFactory.JSON + "," + TransformerFactory.ESCIDOC_ITEMLIST_XML + ","
-      + TransformerFactory.BIBTEX + "," + TransformerFactory.ENDNOTE + "," + TransformerFactory.MARC_XML + "," + TransformerFactory.PDF
-      + "," + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + ","
-      + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET;
-
-  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL";
-
   @Autowired
   private PubItemService pis;
 
@@ -110,9 +103,12 @@ public class ItemRestController {
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
       @RequestParam(value = "format", required = false,
-          defaultValue = "json") @Parameter(schema = @Schema(allowableValues = EXPORT_FORMAT_ALLOWABLE_VALUES)) String format, //
+          defaultValue = "json") @Parameter(schema = @Schema(allowableValues = {TransformerFactory.JSON,
+              TransformerFactory.ESCIDOC_ITEMLIST_XML, TransformerFactory.BIBTEX, TransformerFactory.ENDNOTE, TransformerFactory.MARC_XML,
+              TransformerFactory.PDF, TransformerFactory.DOCX, TransformerFactory.HTML_PLAIN, TransformerFactory.HTML_LINKED,
+              TransformerFactory.JSON_CITATION, TransformerFactory.ESCIDOC_SNIPPET})) String format, //
       @RequestParam(value = "citation", required = false,
-          defaultValue = "APA") @Parameter(schema = @Schema(allowableValues = EXPORT_CITATION_ALLOWABLE_VALUES)) String citation, //
+          defaultValue = "APA") @Parameter(schema = @Schema(allowableValues = {"APA, APA(CJK), AJP, JUS, CSL"})) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scroll", required = false) boolean scroll, //
       @RequestBody JsonNode query, //

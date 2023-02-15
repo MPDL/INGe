@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springdoc.core.properties.SwaggerUiConfigParameters;
 import org.springdoc.core.providers.ActuatorProvider;
 import org.springdoc.webmvc.ui.SwaggerConfig;
@@ -43,25 +44,9 @@ import org.springframework.web.util.pattern.PathPatternParser;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"de.mpg.mpdl.inge.rest"})
-@Import({SwaggerConfig.class})
 public class WebConfiguration implements WebMvcConfigurer {
 
 
-  /*
-  public WebConfiguration(SwaggerUiConfigParameters swaggerUiConfigParameters, SwaggerIndexTransformer swaggerIndexTransformer,
-      Optional<ActuatorProvider> actuatorProvider) {
-    super(swaggerUiConfigParameters, swaggerIndexTransformer, actuatorProvider);
-  }
-   */
-
-  public void configureViewResolvers(ViewResolverRegistry registry) {
-    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-    viewResolver.setViewClass(JstlView.class);
-    viewResolver.setPrefix("/WEB-INF/jsp/");
-    viewResolver.setSuffix(".jsp");
-    registry.viewResolver(viewResolver);
-
-  }
 
   @Override
   public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -80,32 +65,9 @@ public class WebConfiguration implements WebMvcConfigurer {
   }
 
   @Override
-  public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-    configurer.enable();
-  }
-
-  @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**").exposedHeaders("Token").allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
   }
-
-
-
-  // @Override
-  // public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-  // configurer.defaultContentType(MediaType.APPLICATION_JSON);
-  // }
-
-
-
-  /*
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-  
-    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
-  */
 
 
 }

@@ -8,6 +8,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.jms.JMSException;
 import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQJMSConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
@@ -20,6 +21,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.destination.BeanFactoryDestinationResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,8 +69,9 @@ public class AppConfigPubmanLogic {
     config.addAcceptorConfiguration("in-vm", DEFAULT_BROKER_URL);
     config.setJMXUseBrokerName(false);
     config.setName("pubman");
-    //config.setGracefulShutdownEnabled(true);
+    config.setGracefulShutdownEnabled(true);
     config.setSecurityEnabled(false);
+
 
     String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
     if (jbossHomeDir != null) {
@@ -90,11 +93,11 @@ public class AppConfigPubmanLogic {
   @Bean
   public jakarta.jms.ConnectionFactory jmsConnectionFactory() throws JMSException {
 
-    ActiveMQJMSConnectionFactory connectionFactory = new ActiveMQJMSConnectionFactory();
+    ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
     connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
     //connectionFactory.set
     //connectionFactory.setUseAsyncSend(true);
-    //connectionFactory.setTrustedPackages(Arrays.asList("de.mpg.mpdl.inge.model", "java.util", "java.sql", "org.hibernate.collection"));
+    connectionFactory.setDeserializationWhiteList("de.mpg.mpdl.inge.model,java.util,java.sql,org.hibernate.collection");
     return connectionFactory;
   }
 
@@ -104,7 +107,7 @@ public class AppConfigPubmanLogic {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setPubSubDomain(true);
-    // factory.setDestinationResolver(new BeanFactoryDestinationResolver(springContextBeanFactory));
+    //factory.setDestinationResolver(new BeanFactoryDestinationResolver(springContextBeanFactory));
     factory.setConcurrency("1");
     return factory;
   }
