@@ -40,7 +40,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
             return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
           }
         }).build();
-    ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+    ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
     // ElasticsearchClient esClient = new ElasticsearchClient(transport);
     // return esClient;
     // Create the low-level client
