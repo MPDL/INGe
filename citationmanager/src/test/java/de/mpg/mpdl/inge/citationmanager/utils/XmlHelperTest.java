@@ -16,7 +16,7 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerTest;
 
 public class XmlHelperTest {
 
-  private static Logger logger = Logger.getLogger(CitationStyleManagerTest.class);
+  private static final Logger logger = Logger.getLogger(CitationStyleManagerTest.class);
 
   private final Set<String> expectedStyles =
       new HashSet<String>(Arrays.asList("APA", "APA6", "APA(CJK)", "AJP", "JUS", "CSL", "JUS_Report", "Default"));

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -57,7 +56,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  */
 public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
-  private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
+  private static final Logger logger = Logger.getLogger(ElasticSearchGenericDAOImpl.class);
 
   @Autowired
   protected ElasticSearchClientProvider client;

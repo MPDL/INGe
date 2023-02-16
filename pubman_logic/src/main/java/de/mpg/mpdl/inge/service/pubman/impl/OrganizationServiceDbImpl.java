@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -58,7 +57,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public final static String INDEX_STATE = "publicStatus.keyword";
   public final static int OU_SEARCH_LIMIT = -2; // unbegrenzte Suche
 
-  private static final Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
+  private static final Logger logger = Logger.getLogger(OrganizationServiceDbImpl.class);
 
   private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
 

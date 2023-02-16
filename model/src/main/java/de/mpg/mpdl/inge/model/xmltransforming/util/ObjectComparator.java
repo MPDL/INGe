@@ -47,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class ObjectComparator {
 
-  private static Logger logger = Logger.getLogger(ObjectComparator.class);
+  private static final Logger logger = Logger.getLogger(ObjectComparator.class);
 
   private static final MessageFormat DIFFERENT_LIST_SIZE = new MessageFormat("Difference in field {1} ({0}): List size [{2}] [{3}]");
   private static final MessageFormat DIFFERENT_FIELD_VALUE = new MessageFormat("Difference in field {1} ({0}): [{2}] [{3}]");

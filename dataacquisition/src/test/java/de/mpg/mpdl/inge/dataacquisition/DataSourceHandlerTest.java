@@ -15,7 +15,7 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
  * @author Friederike Kleinfercher (initial creation)
  */
 public class DataSourceHandlerTest {
-  private Logger logger = Logger.getLogger(DataSourceHandlerTest.class);
+  private static final Logger logger = Logger.getLogger(DataSourceHandlerTest.class);
 
   /**
    * This method tests the retrieval of sources from the sources xml.

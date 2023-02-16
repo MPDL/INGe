@@ -47,7 +47,7 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 @ManagedBean(name = "UserAccountOptions")
 public class UserAccountOptions extends FacesBean {
   public static final String BEAN_NAME = "UserAccountOptionsBean";
-  private Logger logger = Logger.getLogger(UserAccountOptions.class);
+  private static final Logger logger = Logger.getLogger(UserAccountOptions.class);
   private LoginHelper loginHelper;
 
   private String loginName;

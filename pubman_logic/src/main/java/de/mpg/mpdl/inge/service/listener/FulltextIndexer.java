@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 
 import javax.jms.ObjectMessage;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 @Component
 public class FulltextIndexer {
 
-  private static final Logger logger = LogManager.getLogger(FulltextIndexer.class);
+  private static final Logger logger = Logger.getLogger(FulltextIndexer.class);
 
   @Autowired
   PubItemDaoEs pubItemDao;

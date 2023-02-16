@@ -43,7 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
 public class CreatorComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(CreatorComparatorTest.class);
+  private static final Logger logger = Logger.getLogger(CreatorComparatorTest.class);
 
   private String getCreatorName(PubItemVO pubItem) {
     String creatorname = null;

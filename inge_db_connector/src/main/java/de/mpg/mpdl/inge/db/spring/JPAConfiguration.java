@@ -28,7 +28,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @EnableTransactionManagement
 public class JPAConfiguration {
 
-  static private Logger logger = Logger.getLogger(JPAConfiguration.class);
+  private static final Logger logger = Logger.getLogger(JPAConfiguration.class);
 
   @Bean
   @Primary

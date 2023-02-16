@@ -38,7 +38,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 public class OaiRestController {
 
-  private static Logger logger = Logger.getLogger(OaiRestController.class);
+  private static final Logger logger = Logger.getLogger(OaiRestController.class);
 
   @Autowired
   ElasticSearchClientProvider client;

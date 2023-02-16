@@ -85,7 +85,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision: 5725 $ $LastChangedDate: 2015-10-07 14:43:23 +0200 (Wed, 07 Oct 2015) $
  */
 public class Bibtex implements BibtexInterface {
-  private final Logger logger = Logger.getLogger(Bibtex.class);
+  private static final Logger logger = Logger.getLogger(Bibtex.class);
   private Map<String, String> configuration = null;
   private Set<String> groupSet = null;
   private Set<String> projectSet = null;

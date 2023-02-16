@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.es.connector;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -17,7 +16,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
   private TransportClient client;
 
-  private static final Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
+  private static final Logger logger = Logger.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
     this.client = new PreBuiltTransportClient(Settings.builder()

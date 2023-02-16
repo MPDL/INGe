@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
  */
 public class CitationStyleManagerTest {
 
-  private static Logger logger = Logger.getLogger(CitationStyleManagerTest.class);
+  private static final Logger logger = Logger.getLogger(CitationStyleManagerTest.class);
 
 
   private CitationStyleManagerImpl csm = new CitationStyleManagerImpl();

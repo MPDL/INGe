@@ -21,7 +21,7 @@ public class StartupSQLImporter {
 
   private static boolean databaseInitialized = false;
 
-  static private Logger logger = Logger.getLogger(StartupSQLImporter.class);
+  private static final Logger logger = Logger.getLogger(StartupSQLImporter.class);
 
   @Autowired
   private EntityManager entityManager;

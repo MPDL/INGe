@@ -49,7 +49,7 @@ public class AuthorDecoder {
   private List<List<Author>> authorListList = new ArrayList<List<Author>>();
   private AuthorFormat bestFormat = null;
 
-  private static Logger logger = Logger.getLogger(AuthorDecoder.class);
+  private static final Logger logger = Logger.getLogger(AuthorDecoder.class);
 
   /**
    * @param args

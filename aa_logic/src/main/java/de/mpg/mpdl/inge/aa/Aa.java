@@ -41,7 +41,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 
  */
 public class Aa {
-  //  private static Logger logger = Logger.getLogger(Aa.class);
+  //  private static final Logger logger = Logger.getLogger(Aa.class);
 
   private AuthenticationVO authenticationVO = null;
 

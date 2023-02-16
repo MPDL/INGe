@@ -16,7 +16,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class OaiFileTools {
 
-  private static Logger logger = Logger.getLogger(OaiFileTools.class);
+  private static final Logger logger = Logger.getLogger(OaiFileTools.class);
 
   private static final String OAI_FILESYSTEM_ROOT_PATH =
       System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_OAI_FILESYSTEM_PATH);

@@ -17,11 +17,11 @@ import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
  */
 @SuppressWarnings("serial")
 public class UnapiServlet extends HttpServlet implements Unapi {
-  // private final String idTypeUri = "URI";
-  // private final String idTypeUrl = "URL";
-  // private final String idTypeEscidoc = "ESCIDOC";
-  // private final String idTypeUnknown = "UNKNOWN";
-  // private final Logger logger = Logger.getLogger(UnapiServlet.class);
+  // private static final String idTypeUri = "URI";
+  // private static final String idTypeUrl = "URL";
+  // private static final String idTypeEscidoc = "ESCIDOC";
+  // private static final String idTypeUnknown = "UNKNOWN";
+  // private static final Logger logger = Logger.getLogger(UnapiServlet.class);
   // private DataHandlerService dataHandler = new DataHandlerService();
   // private DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
   // private boolean view = false; // default option is download

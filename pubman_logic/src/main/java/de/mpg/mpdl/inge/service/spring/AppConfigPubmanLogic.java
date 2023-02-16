@@ -10,7 +10,6 @@ import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +41,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @EnableJms
 @PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
-  private static final Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
+  private static final Logger logger = Logger.getLogger(AppConfigPubmanLogic.class);
 
   private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
 
@@ -129,7 +128,6 @@ public class AppConfigPubmanLogic {
     jmsTemplate.setPubSubDomain(false);
     return jmsTemplate;
   }
-
 
 
 

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -37,7 +36,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 @Service
 public class AuthorizationService {
 
-  private final static Logger logger = LogManager.getLogger(AuthorizationService.class);
+  private static final Logger logger = Logger.getLogger(AuthorizationService.class);
 
   private Map<String, Object> aaMap;
 

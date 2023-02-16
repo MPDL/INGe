@@ -4,7 +4,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -44,7 +43,7 @@ import de.mpg.mpdl.inge.util.UriBuilder;
 public class FeedServiceImpl {
 
 
-  private static final Logger logger = LogManager.getLogger(FeedServiceImpl.class);
+  private static final Logger logger = Logger.getLogger(FeedServiceImpl.class);
 
   @Autowired
   private PubItemService pubItemService;

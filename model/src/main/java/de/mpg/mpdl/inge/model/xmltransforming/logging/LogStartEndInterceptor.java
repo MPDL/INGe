@@ -47,13 +47,14 @@ public class LogStartEndInterceptor {
    * @return The result of the intercepted method
    * @throws Exception
    */
+  private static final Logger logger = Logger.getLogger(LogStartEndInterceptor.class);
+
   @AroundInvoke
   public Object log(InvocationContext ctx) throws Exception {
     String className = ctx.getTarget().getClass().getName();
     String methodName = ctx.getMethod().getName();
     String target = className + "." + methodName + "()";
 
-    Logger logger = Logger.getLogger(className);
 
     logger.debug(MessageCreator.getMessage(CommonLogicMessages.METHOD_START, new Object[] {target}));
 

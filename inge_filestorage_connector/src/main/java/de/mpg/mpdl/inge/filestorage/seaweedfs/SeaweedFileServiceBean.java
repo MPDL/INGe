@@ -41,7 +41,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Service
 public class SeaweedFileServiceBean implements FileStorageInterface {
 
-  private static Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
+  private static final Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
 
   private static final String SEAWEED_MASTER_URL = PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_SEAWEED_MASTER_SERVER_IP);
 

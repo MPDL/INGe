@@ -41,7 +41,7 @@ import de.mpg.mpdl.inge.filestorage.spring.FileStorageConnectorConfiguration;
 @ContextConfiguration(classes = FileStorageConnectorConfiguration.class)
 public class FileServiceTests {
 
-  private static Logger logger = Logger.getLogger(FileServiceTests.class);
+  private static final Logger logger = Logger.getLogger(FileServiceTests.class);
 
   public static final String[] FILE_NAMES = {"test100k.db", "test1Mb.db"};
 

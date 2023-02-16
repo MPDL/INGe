@@ -17,7 +17,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -90,7 +89,7 @@ import de.mpg.mpdl.inge.util.UriBuilder;
 @Primary
 public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener {
 
-  private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
+  private static final Logger logger = Logger.getLogger(PubItemServiceDbImpl.class);
 
   @Autowired
   private AuthorizationService aaService;

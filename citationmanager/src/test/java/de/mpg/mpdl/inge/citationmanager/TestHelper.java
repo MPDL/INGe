@@ -53,7 +53,7 @@ public class TestHelper {
   //  private static final String OPERATION = "operation";
   //  private static final String VERSION = "version";
 
-  private static Logger logger = Logger.getLogger(TestHelper.class);
+  private static final Logger logger = Logger.getLogger(TestHelper.class);
 
   //  public static final String ITEMS_LIMIT = "50";
   //  public static final String PROPERTY_CONTENT_MODEL_PUBLICATION = "escidoc.framework_access.content-model.id.publication";

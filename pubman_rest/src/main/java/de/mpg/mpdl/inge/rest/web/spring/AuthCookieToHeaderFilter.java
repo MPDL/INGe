@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -40,7 +39,7 @@ public class AuthCookieToHeaderFilter implements Filter {
   public static final String COOKIE_NAME = "inge_auth_token";
   public static final String AUTHZ_HEADER = "Authorization";
 
-  private static final Logger logger = LogManager.getLogger(AuthCookieToHeaderFilter.class);
+  private static final Logger logger = Logger.getLogger(AuthCookieToHeaderFilter.class);
 
   private UserAccountService userAccountService;
 

@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -42,7 +41,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
   private Map<String, ElasticSearchIndexField> indexFields;
 
-  private static final Logger logger = LogManager.getLogger(GenericServiceBaseImpl.class);
+  private static final Logger logger = Logger.getLogger(GenericServiceBaseImpl.class);
 
   protected String beanName;
 
