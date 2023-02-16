@@ -55,7 +55,7 @@ public class TransformAffiliationTest extends TestBase {
   private static final String REST_AFFILIATION_FILE =
       TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit_rest.xml";
 
-  private static final Logger logger = Logger.getLogger(getClass());
+  private static final Logger logger = Logger.getLogger(TransformAffiliationTest.class);
 
   /**
    * Test of {@link XmlTransforming#transformToAffiliationList(String)}

@@ -64,7 +64,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class CitationStylesSubstantialTest {
 
-  private static final Logger logger = Logger.getLogger(getClass());
+  private static final Logger logger = Logger.getLogger(CitationStylesSubstantialTest.class);
 
   //  private static final String USER_NAME = "citman_user";
   //  private static final String USER_PASSWD = "citman_user";
