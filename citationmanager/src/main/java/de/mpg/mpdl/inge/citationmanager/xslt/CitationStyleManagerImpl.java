@@ -51,7 +51,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
 
 /**
@@ -147,7 +146,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     }
   }
 
-  public static void main(String args[]) throws IOException, CitationStyleManagerException, JRException, TechnicalException {
+  public static void main(String args[]) throws IOException, CitationStyleManagerException, TechnicalException {
     CitationStyleManagerInterface csm = new CitationStyleManagerImpl();
 
     String il = null;
@@ -194,18 +193,6 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
       List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(escidocXml);
       List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
       List<String> result = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO(task, cs));
-      /*
-      FileOutputStream fos = new FileOutputStream(outFile);
-      
-      
-      
-      for(String cit : result)
-      {
-        fos.write(cit);
-      }
-      
-      fos.close();
-      */
       System.out.println(result);
       System.out.println("OK");
     }

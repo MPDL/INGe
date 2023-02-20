@@ -43,8 +43,6 @@ public class CitationStyleExecuterServiceTest {
     }
   }
 
-
-
   @Test
   public final void testOutputs() throws Exception {
     for (String cs : CitationStyleExecuterService.getStyles()) {
@@ -54,10 +52,7 @@ public class CitationStyleExecuterServiceTest {
         testOutput(cs, null, null, itemLists.get(cs));
       }
     }
-
   }
-
-
 
   /**
    * Test service for all citation styles and all output formats
@@ -71,8 +66,7 @@ public class CitationStyleExecuterServiceTest {
    * outPrefix == null: omit output file generation outPrefix == "": generate output file, file name
    * by default outPrefix.length>0 == "": generate output file, use outPrefix as file name prefix
    */
-  public final void testOutput(String cs, String ouf, String outPrefix, String il) throws Exception {
-
+  private void testOutput(String cs, String ouf, String outPrefix, String il) throws Exception {
     long start;
     List<String> result = null;
     logger.info("Test Citation Style: " + cs);
@@ -82,8 +76,6 @@ public class CitationStyleExecuterServiceTest {
     List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(il);
     List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
     result = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO(ouf, cs));
-
-
 
     logger.info("Output to " + ouf + ", time: " + (System.currentTimeMillis() - start));
     assertTrue(ouf + " output should not be empty", result.size() > 0);
@@ -99,19 +91,5 @@ public class CitationStyleExecuterServiceTest {
       logger.info(result);
       logger.info("***********************************************************************************************");
     }
-
-    /*
-    if (outPrefix != null)
-      try {
-        TestHelper.writeToFile(
-            "target/" + (!outPrefix.equals("") ? outPrefix + "_" : "") + cs + "_" + ouf + "." + XmlHelper.getExtensionByName(ouf), result);
-      } catch (CitationStyleManagerException e) {
-        Assert.fail(e.getMessage());
-      }
-      */
-
   }
-
-
-
 }

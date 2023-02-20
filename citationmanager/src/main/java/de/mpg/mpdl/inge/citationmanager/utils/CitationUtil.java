@@ -25,10 +25,7 @@
 
 package de.mpg.mpdl.inge.citationmanager.utils;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 
@@ -50,13 +47,10 @@ public class CitationUtil {
   public static final String CITATION_STYLE_XML = "CitationStyle.xml";
   public static final String CITATION_STYLE_XSL = "CitationStyle.xsl";
   public static final String CLASS_DIRECTORY = "target/classes/";
-  public static final String DATASOURCES_DIRECTORY = "DataSources/";
   public static final String EXPLAIN_FILE = "explain-styles.xml";
-  public static final String FONTSTYLES_FILENAME = "FontStyles";
   public static final String RESOURCES_DIRECTORY_JAR = "";
   public static final String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
   public static final String SCHEMAS_DIRECTORY = "Schemas/";
-  public static final String SORTINGS_DIRECTORY = "Transformations/";
   public static final String TEST_RESOURCES_DIRECTORY_LOCAL = "target/test-classes/";
   public static final String TRANSFORMATIONS_DIRECTORY = "Transformations/";
 
@@ -77,7 +71,7 @@ public class CitationUtil {
    * @return path
    * @throws IOException
    */
-  public static String getPathToResources() throws IOException {
+  private static String getPathToResources() throws IOException {
     return getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
   }
 
@@ -146,16 +140,6 @@ public class CitationUtil {
   }
 
   /**
-   * Returns path to the Data Sources directory
-   * 
-   * @return path
-   * @throws IOException
-   */
-  public static String getPathToDataSources() throws IOException {
-    return getPathToResources() + DATASOURCES_DIRECTORY;
-  }
-
-  /**
    * Returns path to the Schemas directory
    * 
    * @return path
@@ -163,16 +147,6 @@ public class CitationUtil {
    */
   public static String getPathToSchemas() throws IOException {
     return getPathToResources() + SCHEMAS_DIRECTORY;
-  }
-
-  /**
-   * Returns path to the Transformations directory
-   * 
-   * @return path
-   * @throws IOException
-   */
-  public static String getPathToTransformations() throws IOException {
-    return getPathToClasses() + TRANSFORMATIONS_DIRECTORY;
   }
 
   /**
@@ -198,82 +172,7 @@ public class CitationUtil {
     } catch (IOException e) {
       throw new CitationStyleManagerException(e);
     }
+
     return fileString;
   }
-
-  /**
-   * Load citman properties
-   * 
-   * @param path - relative path to the prop file
-   * @param fileName - name of the prop file
-   * @return properties
-   * @throws IOException
-   * @throws FileNotFoundException
-   * @throws FileNotFoundException
-   * @throws IOException
-   */
-  public static Properties getProperties(String path, String fileName) throws FileNotFoundException, IOException {
-    InputStream is = de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(CitationUtil.getPathToResources() + path + fileName,
-        CitationUtil.class.getClassLoader());
-    Properties props = new Properties();
-    props.load(is);
-
-    return props;
-  }
-
-  //  /**
-  //   * Load citman properties
-  //   * 
-  //   * @param fileName - file name of the properties
-  //   * @return properties
-  //   * @throws FileNotFoundException
-  //   * @throws IOException
-  //   */
-  //
-  //  public static Properties getProperties(String fileName) throws FileNotFoundException, IOException {
-  //    return getProperties("", fileName);
-  //  }
-
-  //  /**
-  //   * Returns list of Citation Styles according to the content of the <code>CitaionStyles</code>
-  //   * directory
-  //   * 
-  //   * @param root
-  //   * @return list of Citation Styles
-  //   * @throws IllegalArgumentException
-  //   * @throws IOException
-  //   */
-  //  public static String[] getCitationStylesList() throws IllegalArgumentException, IOException {
-  //    // File templPath = new File(getCsPath(root).toString());
-  //    File templPath = new File(getPathToCitationStyles());
-  //
-  //    return templPath.list(new FilenameFilter() {
-  //      public boolean accept(File dir, String name) {
-  //        return (new File(dir, name)).isDirectory() && !name.startsWith(".");
-  //      }
-  //    });
-  //  }
-
-  //  /**
-  //   * Deletes CitationStyleBundle
-  //   * 
-  //   * @param path
-  //   * @param name A name of CitationStyle
-  //   * @throws CitationStyleManagerException
-  //   * @throws IOException
-  //   * @throws IOException
-  //   * @throws Exception
-  //   */
-  //  public static void deleteCitationStyleBundle(String name) throws IllegalArgumentException, CitationStyleManagerException, IOException {
-  //
-  //    Utils.checkName(name, "Empty name of CitationStyleBundle");
-  //
-  //    File path = new File(getPathToCitationStyles() + "/" + name);
-  //    if (!path.isDirectory()) {
-  //      throw new IllegalArgumentException("deleteCitationStyleBundle: cannot find directory:" + path);
-  //    }
-  //    for (String f : path.list())
-  //      new File(path, f).delete();
-  //    path.delete();
-  //  }
 }

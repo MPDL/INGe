@@ -33,18 +33,8 @@ package de.mpg.mpdl.inge.citationmanager;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
-
 @SuppressWarnings("serial")
 public class CitationStyleManagerException extends Exception {
-
-  /**
-   * Default constructor.
-   */
-  public CitationStyleManagerException() {
-    super();
-  }
-
   /**
    * Constructor with exception.
    * 

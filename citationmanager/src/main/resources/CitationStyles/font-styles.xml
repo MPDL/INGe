@@ -25,132 +25,19 @@
 	$Revision$ $LastChangedDate$
 -->
 <font-styles-collection name="Default">
-
-  <font-style name="NORMAL"
-    def="true"
-    font-name="Arial"
-    font-size="12"
-    fore-color="black"
-    back-color="white"
-    is-bold="false"
-    is-italic="false"
-    pdf-font-name="ARIAL.TTF"
-    is-underline="false"
-    is-strike-through="false"
-    css-class="Default"
-   />
-
-  <font-style name="ARIAL14"
-    font-name="Arial"
-    font-size="14"
-    fore-color="black"
-    back-color="white"
-    is-bold="false"
-    is-italic="false"
-    pdf-font-name="ARIAL.TTF"
-    is-underline="false"
-    is-strike-through="false"
-    css-class="Arial14"
-    />
-    
-  <font-style name="BLUE"
-    font-name="Arial"
-    font-size="12"
-    fore-color="blue"
-    back-color="white"
-    is-bold="false"
-    is-italic="false"
-    pdf-font-name="ARIAL.TTF"
-    is-underline="false"
-    is-strike-through="false"
-    css-class="Blue"
-   />
-
-  <font-style name="BOLD"
-    fore-color="black"
-    back-color="white"
-    is-bold="true"
-    is-italic="false"
-    pdf-font-name="ARIALBD.TTF"
-    is-underline="false"
-    is-strike-through="false"
-    css-class="Bold"
-    />
-
-  <font-style name="ITALIC"
-    fore-color="black"
-    back-color="white"
-    is-bold="false"
-    is-italic="true"
-    pdf-font-name="ARIALI.TTF"
-    is-underline="false"
-    is-strike-through="false"
-    css-class="Italic"
-    />
-
-  <font-style name="UNDERLINE_ITALIC"
-    fore-color="black"
-    back-color="white"
-    is-bold="false"
-    is-italic="true"
-    pdf-font-name="ARIALI.TTF"
-    is-underline="true"
-    is-strike-through="false"
-    css-class="UnderlineItalic"
-    />
-
-  <font-style name="BOLD_ITALIC"
-    fore-color="black"
-    back-color="white"
-    is-bold="true"
-    is-italic="true"
-    pdf-font-name="ARIALBI.TTF"
-    is-underline="true"
-    is-strike-through="false"
-    css-class="BoldItalic"
-    />
-    
-  <font-style name="DISPLAY_DATE_STATUS"
-    def="true"
-    font-name="Arial"
-    font-size="12"
-    fore-color="black"
-    back-color="white"
-    is-bold="false"
-    is-italic="false"
-    pdf-font-name="ARIAL.TTF"
-    is-underline="false"
-    is-strike-through="false"
-    css-class="DisplayDateStatus"
-    />
-    
-    <font-style name="EDITOR"
-    css-class="editor"
-    />
-    
-    <font-style name="EDITORS"
-    css-class="editors"
-    />
-    
-    <font-style name="TOGETHER_WITH"
-    css-class="togetherWith"
-    />
-    
-    <font-style name="PAGE"
-    css-class="page"
-    />
-    
-    <font-style name="INSTALMENT"
-    css-class="instalment"
-    />
-    
-    <font-style name="EDITION"
-    css-class="edition"
-    />
-    
-    <font-style name="VOLUME"
-    css-class="volume"
-    />
-   
-
+	<font-style back-color="white" css-class="Default" def="true" font-name="Arial" font-size="12" fore-color="black" is-bold="false" is-italic="false" is-strike-through="false" is-underline="false" name="NORMAL" pdf-font-name="ARIAL.TTF"></font-style>
+	<font-style back-color="white" css-class="Arial14" font-name="Arial" font-size="14" fore-color="black" is-bold="false" is-italic="false" is-strike-through="false" is-underline="false" name="ARIAL14" pdf-font-name="ARIAL.TTF"></font-style>
+	<font-style back-color="white" css-class="Blue" font-name="Arial" font-size="12" fore-color="blue" is-bold="false" is-italic="false" is-strike-through="false" is-underline="false" name="BLUE" pdf-font-name="ARIAL.TTF"></font-style>
+	<font-style back-color="white" css-class="Bold" fore-color="black" is-bold="true" is-italic="false" is-strike-through="false" is-underline="false" name="BOLD" pdf-font-name="ARIALBD.TTF"></font-style>
+	<font-style back-color="white" css-class="Italic" fore-color="black" is-bold="false" is-italic="true" is-strike-through="false" is-underline="false" name="ITALIC" pdf-font-name="ARIALI.TTF"></font-style>
+	<font-style back-color="white" css-class="UnderlineItalic" fore-color="black" is-bold="false" is-italic="true" is-strike-through="false" is-underline="true" name="UNDERLINE_ITALIC" pdf-font-name="ARIALI.TTF"></font-style>
+	<font-style back-color="white" css-class="BoldItalic" fore-color="black" is-bold="true" is-italic="true" is-strike-through="false" is-underline="true" name="BOLD_ITALIC" pdf-font-name="ARIALBI.TTF"></font-style>
+	<font-style back-color="white" css-class="DisplayDateStatus" def="true" font-name="Arial" font-size="12" fore-color="black" is-bold="false" is-italic="false" is-strike-through="false" is-underline="false" name="DISPLAY_DATE_STATUS" pdf-font-name="ARIAL.TTF"></font-style>
+	<font-style css-class="editor" name="EDITOR"></font-style>
+	<font-style css-class="editors" name="EDITORS"></font-style>
+	<font-style css-class="togetherWith" name="TOGETHER_WITH"></font-style>
+	<font-style css-class="page" name="PAGE"></font-style>
+	<font-style css-class="instalment" name="INSTALMENT"></font-style>
+	<font-style css-class="edition" name="EDITION"></font-style>
+	<font-style css-class="volume" name="VOLUME"></font-style>
 </font-styles-collection>

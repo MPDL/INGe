@@ -22,16 +22,13 @@ import de.undercouch.citeproc.script.ScriptRunnerFactory.RunnerType;
  * @author walter
  */
 public class CitationStyleLanguageManagerService {
-
   private static final Logger logger = Logger.getLogger(CitationStyleLanguageManagerService.class);
-
   private static final String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
-
-
 
   public static List<String> getOutput(String citationStyle, String itemList) throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<String>();
 
+    CSL citeproc = null;
     try {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
 
@@ -44,15 +41,14 @@ public class CitationStyleLanguageManagerService {
         ScriptRunnerFactory.setRunnerType(RunnerType.AUTO);
       }
 
-
-      CSL citeproc = null;
       if (defaultLocale != null) {
         citeproc = new CSL(itemDataProvider, citationStyle, defaultLocale);
       } else {
         citeproc = new CSL(itemDataProvider, citationStyle);
       }
-      logger.info("JavaScript Engine: " + citeproc.getJavaScriptEngineName() + " -Version: " + citeproc.getJavaScriptEngineVersion()
-          + " -JSVerison: " + citeproc.getCiteprocJsVersion());
+
+      logger.info("JavaScript Engine: " + CSL.getJavaScriptEngineName() + " -Version: " + CSL.getJavaScriptEngineVersion() + " -JSVerison: "
+          + CSL.getCiteprocJsVersion());
 
       citeproc.registerCitationItems(itemDataProvider.getIds());
       citeproc.setOutputFormat(CITATION_PROCESSOR_OUTPUT_FORMAT);
@@ -63,12 +59,9 @@ public class CitationStyleLanguageManagerService {
       // remove surrounding <div>-tags
       for (String id : itemDataProvider.getIds()) {
         String citation = "";
-
         int citationPosition = biblIds.indexOf(id);
-
         if (citationPosition != -1) {
           citation = bibl.getEntries()[citationPosition];
-
           if (citation.contains("<div class=\"csl-right-inline\">")) {
             citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
             citation = citation.substring(0, citation.lastIndexOf("</div>"));
@@ -80,22 +73,24 @@ public class CitationStyleLanguageManagerService {
             citation = citation.trim();
           }
         }
-
         citationList.add(citation);
       }
-
       return citationList;
+
     } catch (IOException e) {
       logger.error("Error creating CSL processor", e);
       throw new CitationStyleLanguageException("Error creating CSL processor", e);
     } catch (Exception e) {
       logger.error("Error getting output", e);
       throw new CitationStyleLanguageException("Error getting output", e);
+    } finally {
+      if (citeproc != null) {
+        citeproc.close();
+      }
     }
   }
 
   public static List<String> getOutput(ExportFormatVO exportFormat, String itemList) throws CitationStyleLanguageException {
-
     String citationStyle;
     try {
       citationStyle = CitationStyleLanguageUtils.loadStyleFromConeJsonUrl(exportFormat.getId());
@@ -103,6 +98,5 @@ public class CitationStyleLanguageManagerService {
       throw new CitationStyleLanguageException("Error while getting citation style from cone", e);
     }
     return getOutput(citationStyle, itemList);
-
   }
 }

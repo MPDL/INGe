@@ -26,7 +26,6 @@
 	$Revision$ $LastChangedDate$
 -->
 <variables xmlns="http://www.escidoc.de/citationstyle">
-	
 	<!-- genre labels -->
 	<variable name="l_article">'http://purl.org/escidoc/metadata/ves/publication-types/article'</variable>
 	<variable name="l_blog_post">'http://purl.org/eprint/type/blog-post'</variable>
@@ -55,7 +54,6 @@
 	<variable name="l_software">'http://purl.org/escidoc/metadata/ves/publication-types/software'</variable>
 	<variable name="l_talk-at-event">'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'</variable>
 	<variable name="l_thesis">'http://purl.org/eprint/type/Thesis'</variable>
-	
 	<variable name="l_other">'http://purl.org/escidoc/metadata/ves/publication-types/other'</variable>
 	<!-- jus genre labels -->
 	<variable name="l_monograph"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/monograph']]></variable>
@@ -75,9 +73,6 @@
 	<variable name="l_handbook"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/handbook']]></variable>
 	<variable name="l_editorial"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/editorial']]></variable>
 	<variable name="l_multi-volume"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/multi-volume']]></variable>
-	
-	
-
 	<!-- creator labels -->
 	<variable name="l_author">'http://www.loc.gov/loc.terms/relators/AUT'</variable>
 	<variable name="l_advisor">'http://www.loc.gov/loc.terms/relators/SAD'</variable>
@@ -97,9 +92,6 @@
 	<variable name="l_publisher">'http://purl.org/escidoc/metadata/ves/creator-roles/publisher'</variable>
 	<variable name="l_transcriber">'http://www.loc.gov/loc.terms/relators/TRC'</variable>
 	<variable name="l_translator">'http://www.loc.gov/loc.terms/relators/TRL'</variable>
-	
-    
-
 	<!-- degree labels -->
 	<variable name="l_master">'http://purl.org/escidoc/metadata/ves/academic-degrees/master'</variable>
 	<variable name="l_diploma">'http://purl.org/escidoc/metadata/ves/academic-degrees/diploma'</variable>
@@ -108,17 +100,6 @@
 	<variable name="l_phd">'http://purl.org/escidoc/metadata/ves/academic-degrees/phd'</variable>
 	<variable name="l_habilitation">'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation'</variable>
 	<variable name="l_bachelor">'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor'</variable>
-	
 	<variable name="v_degree">pub:publication/eterms:degree/text()</variable>
-	
-	<variable name="l_degree">
-		if ($v_degree=$l_master) then 'Master' else
-		if ($v_degree=$l_diploma) then 'Diploma' else
-		if ($v_degree=$l_magister) then 'Magister' else
-		if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else
-		if ($v_degree=$l_phd) then 'PhD' else
-		if ($v_degree=$l_habilitation) then 'Habilitation' else
-		if ($v_degree=$l_bachelor) then 'Bachelor' else ''
-	</variable>				
-		
+	<variable name="l_degree"> if ($v_degree=$l_master) then 'Master' else if ($v_degree=$l_diploma) then 'Diploma' else if ($v_degree=$l_magister) then 'Magister' else if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else if ($v_degree=$l_phd) then 'PhD' else if ($v_degree=$l_habilitation) then 'Habilitation' else if ($v_degree=$l_bachelor) then 'Bachelor' else ''</variable>
 </variables>
