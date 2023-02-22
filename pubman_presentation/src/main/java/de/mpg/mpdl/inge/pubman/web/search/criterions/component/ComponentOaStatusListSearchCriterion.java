@@ -41,13 +41,14 @@ import java.util.Map.Entry;
 @SuppressWarnings("serial")
 public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion<String> {
 
-  private static final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
+
 
   public ComponentOaStatusListSearchCriterion() {
     super(ComponentOaStatusListSearchCriterion.getOaStatusMap());
   }
 
   private static Map<String, String> getOaStatusMap() {
+    final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
     final MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
     final Map<String, String> oaMap = new LinkedHashMap<String, String>();
     final Map<String, String> newMap = new LinkedHashMap<String, String>();
