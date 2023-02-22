@@ -25,8 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.cone;
 
-import java.io.Serializable;
-
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 
@@ -37,7 +35,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "ConeSessionBean")
 @SessionScoped
 @SuppressWarnings("serial")
-public class ConeSessionBean extends FacesBean implements Serializable {
+public class ConeSessionBean extends FacesBean {
   private String suggestConeUrl;
 
   public ConeSessionBean() {}

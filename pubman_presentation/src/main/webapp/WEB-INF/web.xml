@@ -25,7 +25,7 @@
 	</welcome-file-list>
 
 	<error-page>
-		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<exception-type>jakarta.faces.application.ViewExpiredException</exception-type>
 		<location>faces/HomePage.jsp?expired=true</location>
 	</error-page>
 

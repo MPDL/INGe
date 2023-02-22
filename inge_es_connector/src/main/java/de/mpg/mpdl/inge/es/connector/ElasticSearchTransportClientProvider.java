@@ -34,7 +34,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
     final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, pass));
     RestClient restClient =
-        RestClient.builder(new HttpHost("localhost", 9200, "https")).setHttpClientConfigCallback(new HttpClientConfigCallback() {
+        RestClient.builder(new HttpHost("localhost", 9200, "http")).setHttpClientConfigCallback(new HttpClientConfigCallback() {
           @Override
           public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
             return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);

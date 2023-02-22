@@ -37,7 +37,6 @@ import jakarta.faces.bean.ApplicationScoped;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.ManagedProperty;
 import jakarta.faces.model.SelectItem;
-import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
@@ -61,21 +60,18 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
+import javax.sql.DataSource;
+
 /**
  * ApplicationBean which stores all application wide values.
  * 
  * @author: Thomas Diebäcker, created 09.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "ApplicationBean")
 @ApplicationScoped
 public class ApplicationBean extends FacesBean {
-
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -3659975702163802434L;
-
   /** system type enum */
   public enum SystemType
   {

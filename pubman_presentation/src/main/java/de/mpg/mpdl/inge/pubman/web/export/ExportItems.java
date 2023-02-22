@@ -203,10 +203,13 @@ public class ExportItems extends FacesBean {
       ExportItems.logger.error("Could not send the export formats." + "\n" + e.toString());
       // normal
       final Throwable ecc = e.getCause().getCause();
+      /*
       if (ecc != null && ecc instanceof com.sun.mail.smtp.SMTPAddressFailedException) {
         this.error(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS));
         return null;
       }
+      */
+
 
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;

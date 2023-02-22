@@ -323,7 +323,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <!--
 					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
-					--> <p:fileUpload fileUploadListener="#{EditItem.fileUploaded}"
+					--> <p:fileUpload listener="#{EditItem.fileUploaded}"
 						label="#{lbl.EditItem_btAddFile}" multiple="true" id="inpFile"
 						styleClass="quad_area1 fileInput" fileLimit="50"
 						update="files messages" process="@form" dragDropSupport="true"

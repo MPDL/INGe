@@ -43,9 +43,9 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
  * @version $Revision$ $LastChangedDate$
  *
  */
+@SuppressWarnings("serial")
 @ManagedBean(name = "UserAccountOptions")
 public class UserAccountOptions extends FacesBean {
-  private static final long serialVersionUID = 1L;
   public static final String BEAN_NAME = "UserAccountOptionsBean";
   private Logger logger = Logger.getLogger(UserAccountOptions.class);
   private LoginHelper loginHelper;

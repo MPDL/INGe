@@ -47,7 +47,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.HomePage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
-import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;

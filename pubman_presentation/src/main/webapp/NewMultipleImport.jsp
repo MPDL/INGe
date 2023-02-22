@@ -124,7 +124,7 @@
 											class="noDisplay">: </span>
 										</b>
                                         <h:panelGroup class="xHuge_area0 xTiny_marginLExcl endline fileSection" rendered="#{empty MultipleImport.uploadedImportFile}">
-                                            <p:fileUpload id="inpMultipleImportUploadedImportFile" label="#{lbl.multipleImport_uploadFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" auto="true" fileLimit="1" update="uploadFile,buttons" multiple="false" onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
+                                            <p:fileUpload id="inpMultipleImportUploadedImportFile" label="#{lbl.multipleImport_uploadFile}" styleClass="fileInput" listener="#{MultipleImport.fileUploaded}" auto="true" fileLimit="1" update="uploadFile,buttons" multiple="false" onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();" oncomplete="afterAjaxRequest();">
                                             </p:fileUpload>
                                         </h:panelGroup>
                                         <h:panelGroup class="xHuge_area0 xTiny_marginLExcl endline fileSection" rendered="#{not empty MultipleImport.uploadedImportFile}">

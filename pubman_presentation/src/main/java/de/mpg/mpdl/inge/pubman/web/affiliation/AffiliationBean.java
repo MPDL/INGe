@@ -61,7 +61,7 @@ public class AffiliationBean extends FacesBean {
 
     this.rootTreeNode = new DefaultTreeNode("Root", null);
     for (final AffiliationVOPresentation aff : this.topLevelAffs) {
-      final TreeNode affNode = new DefaultTreeNode(aff, this.rootTreeNode);
+      final TreeNode<Object> affNode = new DefaultTreeNode(aff, this.rootTreeNode);
       affNode.setSelectable(false);
 
       this.loadChildTreeNodes(affNode, false);

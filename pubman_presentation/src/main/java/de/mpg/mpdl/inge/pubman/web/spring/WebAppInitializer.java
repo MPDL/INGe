@@ -6,10 +6,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRegistration;
 
-import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 

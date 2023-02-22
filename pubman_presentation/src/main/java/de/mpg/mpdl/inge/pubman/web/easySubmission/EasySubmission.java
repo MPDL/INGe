@@ -40,7 +40,6 @@ import jakarta.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
@@ -95,6 +94,7 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving
@@ -537,7 +537,7 @@ public class EasySubmission extends FacesBean {
       try {
         String path = null;
         try {
-          StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),
+          StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputStream(), file.getFileName(),
               getLoginHelper().getAuthenticationToken());
           path = String.valueOf(stagedFile.getId());
         } catch (Exception e) {
@@ -548,7 +548,7 @@ public class EasySubmission extends FacesBean {
         String mimeType = null;
         final Tika tika = new Tika();
         try {
-          final InputStream fis = file.getInputstream();
+          final InputStream fis = file.getInputStream();
           mimeType = tika.detect(fis, file.getFileName());
           fis.close();
         } catch (final IOException e) {

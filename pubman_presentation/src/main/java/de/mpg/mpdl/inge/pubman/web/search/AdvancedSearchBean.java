@@ -73,7 +73,7 @@ import java.util.*;
 @ManagedBean(name = "AdvancedSearchBean")
 @SessionScoped
 @SuppressWarnings("serial")
-public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver {
+public class AdvancedSearchBean extends FacesBean implements LanguageChangeObserver {
   private static final Logger logger = Logger.getLogger(AdvancedSearchBean.class);
 
   private List<SearchCriterionBase> criterionList;
