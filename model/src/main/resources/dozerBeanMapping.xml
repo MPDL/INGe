@@ -12,6 +12,10 @@
 			<a>serialVersionUID</a>
 			<b>serialVersionUID</b>
 		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
+		</field-exclude>
 	</mapping>
 
 
@@ -26,6 +30,14 @@
 			<a-hint>de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO</a-hint>
 			<b-hint>de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO</b-hint>
 		</field>
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
+		</field-exclude>
 	</mapping>
 
 	<mapping wildcard="true">
@@ -36,6 +48,10 @@
 		<field-exclude>
 			<a>serialVersionUID</a>
 			<b>serialVersionUID</b>
+		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
 		</field-exclude>
 	</mapping>
 	
@@ -48,6 +64,10 @@
 			<a>serialVersionUID</a>
 			<b>serialVersionUID</b>
 		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
+		</field-exclude>
 	</mapping>
 
 	<mapping wildcard="true">
@@ -59,6 +79,10 @@
 			<a>serialVersionUID</a>
 			<b>serialVersionUID</b>
 		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
+		</field-exclude>
 	</mapping>
 
 	<mapping wildcard="true">
@@ -66,6 +90,10 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO
 		</class-b>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
+		</field-exclude>
 	</mapping>
 	
 	<mapping wildcard="true">
@@ -77,6 +105,10 @@
 			<a>serialVersionUID</a>
 			<b>serialVersionUID</b>
 		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
+		</field-exclude>
 	</mapping>
 	
 	<mapping wildcard="true">
@@ -87,6 +119,10 @@
 		<field-exclude>
 			<a>serialVersionUID</a>
 			<b>serialVersionUID</b>
+		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
 		</field-exclude>
 	</mapping>
 
@@ -215,6 +251,10 @@
 		<field-exclude>
 			<a>objectIdAndVersion</a>
 			<b>objectIdAndVersion</b>
+		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
 		</field-exclude>
 
 	</mapping>
@@ -357,10 +397,14 @@
 			<a>adminDescriptor.contactEmail</a>
 			<b>contactEmail</b>
 		</field>
-		
+
 		<field-exclude>
 			<a>serialVersionUID</a>
 			<b>serialVersionUID</b>
+		</field-exclude>
+		<field-exclude>
+			<a>logger</a>
+			<b>logger</b>
 		</field-exclude>
 
 	</mapping>

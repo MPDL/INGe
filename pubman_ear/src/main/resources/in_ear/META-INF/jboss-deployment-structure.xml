@@ -16,6 +16,7 @@
 			<subsystem name="weld"/>
 			<subsystem name="jsf"/>
 			<subsystem name="messaging-activemq"/>
+			<subsystem name="infinispan"/>
 		</exclude-subsystems>
 
 		<dependencies>

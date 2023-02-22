@@ -97,7 +97,7 @@ public class AppConfigPubmanLogic {
     connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
     //connectionFactory.set
     //connectionFactory.setUseAsyncSend(true);
-    connectionFactory.setDeserializationWhiteList("de.mpg.mpdl.inge.model,java.util,java.sql,org.hibernate.collection");
+    connectionFactory.setDeserializationWhiteList("de.mpg.mpdl.inge.model,java.util,java.sql,org.hibernate.collection,java.lang");
     return connectionFactory;
   }
 

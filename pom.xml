@@ -39,7 +39,7 @@
 		<module>model</module>
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
-		<!--<module>pubman_presentation</module>-->
+		<module>pubman_presentation</module>
 		<module>pubman_rest</module>
 		<module>reindex_util</module>
 		<module>transformationManager</module>
@@ -212,6 +212,7 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
@@ -219,14 +220,6 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -509,12 +502,31 @@
 				<artifactId>hibernate-jcache</artifactId>
 				<version>6.1.7.Final</version>
 			</dependency>
-			
+
+			<!-- Jdbc -->
+			<dependency> <!-- Jdbc -->
+				<groupId>com.mchange</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.5.5</version>
+			</dependency>
+			<!--
+			<dependency>
+
+				<groupId>org.hibernate.orm</groupId>
+				<artifactId>hibernate-c3p0</artifactId>
+				<version>6.1.7.Final</version>
+			</dependency>
+-->
 			<dependency>
 				<groupId>org.ehcache</groupId>
 				<artifactId>ehcache</artifactId>
 				<version>3.10.8</version>
-
+			</dependency>
+			<!-- PostgreSQL -->
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>42.5.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jaxb</groupId>
@@ -527,12 +539,12 @@
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-core</artifactId>
             	<version>2.14.1</version>
-			</dependency>			
+			</dependency>
 			<dependency>
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-databind</artifactId>
             	<version>2.14.1</version>
-			</dependency>			
+			</dependency>
 			<dependency>
     			<groupId>com.fasterxml.jackson.core</groupId>
     			<artifactId>jackson-annotations</artifactId>
@@ -616,15 +628,22 @@
 			</dependency>
 
 			<!-- JSF -->
+			<!--
 			<dependency>
 				<groupId>javax.faces</groupId>
 				<artifactId>javax.faces-api</artifactId>
 				<version>2.2</version>
 			</dependency>
+			-->
 			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-impl</artifactId>
-				<version>2.2.14</version>
+				<groupId>org.glassfish</groupId>
+				<artifactId>jakarta.faces</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.enterprise</groupId>
+				<artifactId>jakarta.enterprise.cdi-api</artifactId>
+				<version>3.0.1</version>
 			</dependency>
 
 			<!-- Json -->
@@ -681,6 +700,11 @@
 				<artifactId>log4j-slf4j-impl</artifactId>
 				<version>2.19.0</version>
 			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.36</version>
+			</dependency>
 
 			<!-- Spring -->
 			<dependency>
@@ -718,23 +742,14 @@
 				<version>1.6.1</version>
 			</dependency>
 
-			<!-- PostgreSQL -->
-			<dependency> <!-- Jdbc -->
-				<groupId>com.mchange</groupId>
-				<artifactId>c3p0</artifactId>
-				<version>0.9.5.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>42.5.1</version>
-			</dependency>
+
 
 			<!-- PrimeFaces -->
 			<dependency>
 				<groupId>org.primefaces</groupId>
 				<artifactId>primefaces</artifactId>
-				<version>6.0</version>
+				<version>11.0.0</version>
+				<classifier>jakarta</classifier>
 			</dependency>
 
 			<!-- Pubman Module -->
@@ -815,7 +830,6 @@
 				<artifactId>pubman_logic</artifactId>
 				<version>8.4.13-SNAPSHOT</version>
 			</dependency>
-			<!--
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
@@ -823,7 +837,6 @@
 				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
-			-->
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>

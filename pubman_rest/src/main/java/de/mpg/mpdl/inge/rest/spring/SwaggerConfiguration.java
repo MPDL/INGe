@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
 
   @Bean
   public OpenAPI springShopOpenAPI() {
-    return new OpenAPI().info(new Info().title("PubMan REST API").description(apiDescription));
+    return new OpenAPI().info(new Info().title("PubMan REST API").description(apiDescription).version("1.0"));
   }
 
 }
