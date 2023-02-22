@@ -38,7 +38,7 @@ public class TestBase {
 
 
 
-  protected static Logger logger = Logger.getLogger(TestBase.class);
+  private static final Logger logger = Logger.getLogger(TestBase.class);
 
   @Rule
   public final TestName name = new TestName();

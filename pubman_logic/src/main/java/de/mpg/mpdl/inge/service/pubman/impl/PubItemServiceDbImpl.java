@@ -66,7 +66,7 @@ import java.util.regex.Pattern;
 @Primary
 public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener {
 
-  private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
+  private static final Logger logger = Logger.getLogger(PubItemServiceDbImpl.class);
 
   @Autowired
   private AuthorizationService aaService;

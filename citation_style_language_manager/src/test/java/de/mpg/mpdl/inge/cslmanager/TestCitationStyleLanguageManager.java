@@ -35,8 +35,6 @@ import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-
 /**
  * Tests for {@link CitationStyleLanguageManagerInterface} implementations
  * 
@@ -48,10 +46,8 @@ public class TestCitationStyleLanguageManager {
   private static final Logger logger = Logger.getLogger(TestCitationStyleLanguageManager.class);
   private static final String PATH_CITATION_STYLE = "citationStyleChicago.xml";
   private static final String PATH_ESCDOC_ITEM = "escidocItemXml.xml";
-  private static final String EXPORT_FORMAT_NAME = "CSL";
 
   private String escidocItemXml = null;
-  private ExportFormatVO exportFormat;
   private String citationXml;
 
   /**
@@ -66,7 +62,6 @@ public class TestCitationStyleLanguageManager {
         IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
     this.escidocItemXml =
         IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_ESCDOC_ITEM), "UTF-8");
-    this.exportFormat = new ExportFormatVO("snippet", EXPORT_FORMAT_NAME);
   }
 
   /**

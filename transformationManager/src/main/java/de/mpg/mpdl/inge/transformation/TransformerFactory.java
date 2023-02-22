@@ -14,7 +14,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 
 public class TransformerFactory {
-  private static Logger logger = Logger.getLogger(TransformerFactory.class);
+  private static final Logger logger = Logger.getLogger(TransformerFactory.class);
 
   public static final String ARXIV = "arXiv";
   public static final String BIBTEX = "BibTeX";

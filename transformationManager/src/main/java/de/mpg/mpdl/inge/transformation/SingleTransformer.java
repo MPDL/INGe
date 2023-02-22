@@ -24,7 +24,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public abstract class SingleTransformer implements Transformer {
 
-  private static Logger logger = Logger.getLogger(SingleTransformer.class);
+  private static final Logger logger = Logger.getLogger(SingleTransformer.class);
 
   private TransformerFactory.FORMAT sourceFormat;
 

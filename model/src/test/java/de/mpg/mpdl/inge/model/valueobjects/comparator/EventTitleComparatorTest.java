@@ -45,7 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
 public class EventTitleComparatorTest extends ComparatorTestBase {
-  private static Logger logger = Logger.getLogger(EventTitleComparatorTest.class);
+  private static final Logger logger = Logger.getLogger(EventTitleComparatorTest.class);
 
   /**
    * Test for sorting ascending.

@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 @Component
 public class FulltextIndexer {
 
-  private static final Logger logger = LogManager.getLogger(FulltextIndexer.class);
+  private static final Logger logger = Logger.getLogger(FulltextIndexer.class);
 
   @Autowired
   PubItemDaoEs pubItemDao;

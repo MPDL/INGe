@@ -18,7 +18,7 @@ import java.util.Arrays;
 @ApiIgnore
 public class EhCacheRestController {
 
-  private static Logger logger = Logger.getLogger(EhCacheRestController.class);
+  private static final Logger logger = Logger.getLogger(EhCacheRestController.class);
 
   @RequestMapping(value = "info", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
   public String info(@RequestParam(value = "name", required = false) String name) {

@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
 import org.hibernate.ScrollMode;
@@ -49,7 +48,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Qualifier("queueJmsTemplate")
   private JmsTemplate queueJmsTemplate;
 
-  private static final Logger logger = LogManager.getLogger(GenericServiceImpl.class);
+  private static final Logger logger = Logger.getLogger(GenericServiceImpl.class);
 
   @Transactional(rollbackFor = Throwable.class)
   @Override

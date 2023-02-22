@@ -41,7 +41,6 @@ import javax.persistence.MapsId;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -86,7 +85,7 @@ public class ItemVersionVO extends ItemVersionRO {
    */
 
 
-  private static Logger logger = LogManager.getLogger(ItemVersionVO.class);
+  private static final Logger logger = Logger.getLogger(ItemVersionVO.class);
   /**
    * The message of the last action event of this item.
    */

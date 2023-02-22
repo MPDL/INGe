@@ -15,7 +15,7 @@ import org.jibx.runtime.impl.MarshallingContext;
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
 public class MetadataSetMarshaller implements IMarshaller, IAliasable {
-  private static Logger logger = Logger.getLogger(MetadataSetMarshaller.class);
+  private static final Logger logger = Logger.getLogger(MetadataSetMarshaller.class);
 
   private static final String NAME_ATTRIBUTE_NAME = "name";
   private static final String RECORD_ELEMENT_NAME = "md-record";

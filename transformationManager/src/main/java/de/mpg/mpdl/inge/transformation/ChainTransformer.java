@@ -15,7 +15,7 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 
 public class ChainTransformer extends SingleTransformer implements Transformer {
 
-  private static Logger logger = Logger.getLogger(ChainTransformer.class);
+  private static final Logger logger = Logger.getLogger(ChainTransformer.class);
 
   private List<ChainableTransformer> transformerChain;
 

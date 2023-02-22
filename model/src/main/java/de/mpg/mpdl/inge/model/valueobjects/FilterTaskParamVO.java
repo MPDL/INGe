@@ -56,7 +56,7 @@ public class FilterTaskParamVO extends ValueObject {
 
   private List<Filter> filterList = new ArrayList<Filter>();
 
-  private Logger logger = Logger.getLogger(FilterTaskParamVO.class);
+  private static final Logger logger = Logger.getLogger(FilterTaskParamVO.class);
 
   /**
    * @return the filter

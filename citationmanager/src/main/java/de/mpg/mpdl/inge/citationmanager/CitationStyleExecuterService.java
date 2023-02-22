@@ -73,7 +73,6 @@ public class CitationStyleExecuterService {
   }
 
   public static List<String> getOutput(List<ItemVersionVO> itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
-
     if (itemList == null || itemList.isEmpty())
       return new ArrayList<>();
 
@@ -111,7 +110,7 @@ public class CitationStyleExecuterService {
     }
   }
 
-  public static List<String> transformSnippetToCitationList(String snippet) throws CitationStyleManagerException {
+  private static List<String> transformSnippetToCitationList(String snippet) throws CitationStyleManagerException {
     try {
       List<String> citationList = new ArrayList<>();
       XPathFactory xPathFactory = XPathFactory.newInstance();
@@ -136,10 +135,6 @@ public class CitationStyleExecuterService {
     } catch (Exception e) {
       throw new CitationStyleManagerException("Error while parsing bibliographic citation from escidoc snippet", e);
     }
-  }
-
-  public static boolean isCitationStyle(String cs) throws CitationStyleManagerException {
-    return XmlHelper.isCitationStyle(cs);
   }
 
   private static String getPubManUrl() {

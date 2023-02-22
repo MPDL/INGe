@@ -7,7 +7,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 @SuppressWarnings("serial")
 public class PubItemVO extends ItemVO {
 
-  private static Logger logger = Logger.getLogger(PubItemVO.class);
+  private static final Logger logger = Logger.getLogger(PubItemVO.class);
 
   /**
    * Default constructor.

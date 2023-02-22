@@ -44,12 +44,10 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.NodeFilter;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -98,35 +96,52 @@ public class XmlHelper {
   public static HashMap<String, FontStylesCollection> fsc = new HashMap<String, FontStylesCollection>();
 
   /**
-   * Creates new org.w3c.dom.Document with Traversing possibility
+   * Load Default FontStylesCollection, singleton 1) if no citation style is given, return default
+   * {@link FontStylesCollection} 2) if citation style is given, check citation style directory. If
+   * there is a citation style specific {@link FontStylesCollection} in the citation style directory
+   * FontStylesCollection, get it; if not - get default FontStylesCollection
    * 
-   * @param is <code>InputSource</code>
-   * @return org.w3c.dom.Document
+   * @param cs - citation style
+   * @return {@link FontStylesCollection}
    * @throws CitationStyleManagerException
    */
-  public static Document parseDocumentForTraversing(InputSource is) throws CitationStyleManagerException {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setNamespaceAware(true);
-    DocumentBuilder parser;
+  private static FontStylesCollection loadFontStylesCollection(String cs) {
+    // get default FontStyleCollection from __Default__ element for empty cs
+    if (cs == null || "".equals(cs.trim()))
+      return loadFontStylesCollection("__Default__");
+    if (fsc.containsKey(cs))
+      return fsc.get(cs);
     try {
-      parser = dbf.newDocumentBuilder();
-    } catch (ParserConfigurationException e) {
-      throw new CitationStyleManagerException("Cannot create DocumentBuilder:", e);
-    }
-
-    // Check for the traversal module
-    DOMImplementation impl = parser.getDOMImplementation();
-    if (!impl.hasFeature("traversal", "2.0")) {
-      throw new CitationStyleManagerException("A DOM implementation that supports traversal is required.");
-    }
-    Document doc;
-    try {
-      doc = parser.parse(is);
+      // load __Default__ collection
+      if ("__Default__".equalsIgnoreCase(cs)) {
+        fsc.put(cs, FontStylesCollection.loadFromXml(CitationUtil.getPathToCitationStyles() + FONT_STYLES_COLLECTION_FILE));
+      } else {
+        InputStream inputStream = ResourceUtil.getResourceAsStream(CitationUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE,
+            XmlHelper.class.getClassLoader());
+        // get specific FontStyleCollection for citation style if exists
+        if (inputStream != null) {
+          fsc.put(cs, FontStylesCollection.loadFromXml(inputStream));
+        }
+        // otherwise: get __Default_ one
+        else {
+          fsc.put(cs, loadFontStylesCollection());
+        }
+      }
+      return fsc.get(cs);
     } catch (Exception e) {
-      throw new CitationStyleManagerException("Cannot parse InputSource to w3c document:", e);
+      // TODO Auto-generated catch block
+      throw new RuntimeException("Cannot loadFontStylesCollection: ", e);
     }
+  }
 
-    return doc;
+  /**
+   * Load Default FontStylesCollection
+   * 
+   * @return {@link FontStylesCollection}
+   * @throws CitationStyleManagerException
+   */
+  public static FontStylesCollection loadFontStylesCollection() {
+    return loadFontStylesCollection(null);
   }
 
   /**
@@ -153,7 +168,7 @@ public class XmlHelper {
    * @param xmlDocumentUrl is URI to XML to be validated
    * @throws CitationStyleManagerException
    */
-  public String validateSchema(final String schemaUrl, final String xmlDocumentUrl) {
+  private String validateSchema(final String schemaUrl, final String xmlDocumentUrl) {
     try {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setNamespaceAware(true);
@@ -225,57 +240,6 @@ public class XmlHelper {
   }
 
   /**
-   * Load Default FontStylesCollection, singleton 1) if no citation style is given, return default
-   * {@link FontStylesCollection} 2) if citation style is given, check citation style directory. If
-   * there is a citation style specific {@link FontStylesCollection} in the citation style directory
-   * FontStylesCollection, get it; if not - get default FontStylesCollection
-   * 
-   * @param cs - citation style
-   * @return {@link FontStylesCollection}
-   * @throws CitationStyleManagerException
-   */
-  public static FontStylesCollection loadFontStylesCollection(String cs) {
-    // get default FontStyleCollection from __Default__ element for empty cs
-    if (cs == null || "".equals(cs.trim()))
-      return loadFontStylesCollection("__Default__");
-
-    if (fsc.containsKey(cs))
-      return fsc.get(cs);
-
-    try {
-      // load __Default__ collection
-      if ("__Default__".equalsIgnoreCase(cs)) {
-        fsc.put(cs, FontStylesCollection.loadFromXml(CitationUtil.getPathToCitationStyles() + FONT_STYLES_COLLECTION_FILE));
-      } else {
-        InputStream inputStream = ResourceUtil.getResourceAsStream(CitationUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE,
-            XmlHelper.class.getClassLoader());
-        // get specific FontStyleCollection for citation style if exists
-        if (inputStream != null) {
-          fsc.put(cs, FontStylesCollection.loadFromXml(inputStream));
-        }
-        // otherwise: get __Default_ one
-        else {
-          fsc.put(cs, loadFontStylesCollection());
-        }
-      }
-      return fsc.get(cs);
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      throw new RuntimeException("Cannot loadFontStylesCollection: ", e);
-    }
-  }
-
-  /**
-   * Load Default FontStylesCollection
-   * 
-   * @return {@link FontStylesCollection}
-   * @throws CitationStyleManagerException
-   */
-  public static FontStylesCollection loadFontStylesCollection() {
-    return loadFontStylesCollection(null);
-  }
-
-  /**
    * Validator class for XML Schema validation
    */
   private class Validator extends DefaultHandler {
@@ -301,35 +265,6 @@ public class XmlHelper {
   public static String[] getListOfStyles() {
     Object[] oa = getCitationStylesHash().keySet().toArray();
     return Arrays.copyOf(oa, oa.length, String[].class);
-  }
-
-  /**
-   * Checks whether the csName is in the list of Citation Styles
-   * 
-   * @param cs - Citation Style name
-   * @return <code>true</code> or <code>false</code>
-   * @throws CitationStyleManagerException
-   */
-  public static boolean isCitationStyle(String cs) throws CitationStyleManagerException {
-    Utils.checkCondition(!Utils.checkVal(cs), "Empty name of the citation style");
-
-    return getCitationStylesHash().containsKey(cs);
-  }
-
-  /**
-   * Checks Output Format (<code>of</code>) availability for Citation Style ( <code>cs</code>)
-   * 
-   * @param cs - Citation Style name
-   * @param of - Output Format name
-   * @return <code>true</code> or <code>false</code>
-   * @throws CitationStyleManagerException
-   */
-  public static boolean citationStyleHasOutputFormat(String cs, String of) throws CitationStyleManagerException {
-    Utils.checkCondition(!Utils.checkVal(cs), "Empty name of the citation style");
-
-    Utils.checkCondition(!Utils.checkVal(of), "Empty name of the output format");
-
-    return getCitationStylesHash().get(cs).containsKey(of);
   }
 
   /**
@@ -436,7 +371,6 @@ public class XmlHelper {
     }
 
     return outputFormatsHash;
-
   }
 
   /**
@@ -507,24 +441,7 @@ public class XmlHelper {
 
   /** XPATH Utils **/
   /*****************/
-  public static String xpathString(String expr, String xml) {
-    try {
-      return xpathString(expr, DOMUtilities.createDocument(xml));
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot evaluate XPath:", e);
-    }
-  }
-
-  public static String xpathString(String expr, Document doc) {
-    try {
-      return (String) xpath.evaluate(expr, doc, XPathConstants.STRING);
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot evaluate XPath:", e);
-    }
-
-  }
-
-  public static NodeList xpathNodeList(String expr, String xml) {
+  private static NodeList xpathNodeList(String expr, String xml) {
     try {
       return xpathNodeList(expr, DOMUtilities.createDocument(xml));
     } catch (Exception e) {
@@ -532,51 +449,12 @@ public class XmlHelper {
     }
   }
 
-  public static NodeList xpathNodeList(String expr, Document doc) {
+  private static NodeList xpathNodeList(String expr, Document doc) {
     try {
       return (NodeList) xpath.evaluate(expr, doc, XPathConstants.NODESET);
     } catch (Exception e) {
       throw new RuntimeException("Cannot evaluate XPath:", e);
     }
-  }
-
-  public static Node xpathNode(String expr, String xml) {
-    try {
-      return xpathNode(expr, DOMUtilities.createDocument(xml));
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot evaluate XPath:", e);
-    }
-  }
-
-  public static Node xpathNode(String expr, Document doc) {
-    try {
-      return (Node) xpath.evaluate(expr, doc, XPathConstants.NODE);
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot evaluate XPath:", e);
-    }
-  }
-}
-
-
-class OutputFormatNodeFilter implements NodeFilter {
-  public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
-
-  public String cs;
-
-  public OutputFormatNodeFilter(String cs) {
-    super();
-    this.cs = cs;
-  }
-
-  @Override
-  public short acceptNode(Node n) {
-    Node parent = n.getParentNode();
-    if ("output-format".equals(n.getLocalName()) && parent != null && "export-format".equals(parent.getLocalName())
-        && this.cs.equals(parent.getChildNodes().item(3).getTextContent())) {
-      return FILTER_ACCEPT;
-    }
-
-    return FILTER_SKIP;
   }
 }
 

@@ -19,7 +19,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
   //private RestHighLevelClient restHighLevelClient;
 
-  private static final Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
+  private static final Logger logger = Logger.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
 

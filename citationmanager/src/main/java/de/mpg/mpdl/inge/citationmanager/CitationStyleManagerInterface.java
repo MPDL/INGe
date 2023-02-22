@@ -78,5 +78,4 @@ public interface CitationStyleManagerInterface {
    * @param newCs - new definition for Citation Style
    */
   void update(String cs, String newCs);
-
 }

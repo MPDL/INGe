@@ -12,15 +12,13 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
-import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerTest;
 
 public class XmlHelperTest {
 
-  private static Logger logger = Logger.getLogger(CitationStyleManagerTest.class);
+  private static final Logger logger = Logger.getLogger(XmlHelperTest.class);
 
   private final Set<String> expectedStyles =
       new HashSet<String>(Arrays.asList("APA", "APA6", "APA(CJK)", "AJP", "JUS", "CSL", "JUS_Report", "Default"));
-
 
   /**
    * Test list of styles
@@ -113,10 +111,7 @@ public class XmlHelperTest {
             doAssert(outputFormats, s);
           }
           break;
-
-
       }
-
     }
   }
 
@@ -152,7 +147,4 @@ public class XmlHelperTest {
   public void testGetOutputFormatsHash() {
     XmlHelper.getOutputFormatsHash();
   }
-
-
-
 }

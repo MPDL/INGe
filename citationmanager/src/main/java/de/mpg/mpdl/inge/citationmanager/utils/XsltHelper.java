@@ -26,7 +26,6 @@
 package de.mpg.mpdl.inge.citationmanager.utils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,194 +55,83 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate: 2010-02-17 16:48:14 +0100 (Mi, 17 Feb 2010) $
  * 
  */
-
 public class XsltHelper {
   private static final Logger logger = Logger.getLogger(XsltHelper.class);
 
-
-  public static final String I18N_TAG = "localized";
-  static Map<Pair, String> citationMap = new HashMap<Pair, String>();
+  private static Map<Pair, String> citationMap = new HashMap<Pair, String>();
   private static long lastCitationMapUpdate = 0;
 
-  // precompiled patterns
-
   private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
-
   private static final Pattern SPANS_WITH_CLASS = Pattern.compile("<span\\s+class=\"(\\w+)\".*?>(.*?)</span>", FLAGS);
   private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
   private static final Pattern ALL_TAGS_EXCEPT_STYLE = Pattern.compile("\\<(?!(\\/?style))", FLAGS);
   private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile("\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))", FLAGS);
-  private static final Pattern I18_TAGS = Pattern.compile("<" + I18N_TAG + "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", FLAGS);
   private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
 
-
   /**
-   * Converts snippet &lt;span&gt; tags to the appropriate JasperReport Styled Text. Note: If at
-   * least one &lt;span&gt; css class will not match FontStyle css, the snippet will be returned
-   * without any changes.
+   * Reads all CONE-entries with a citation-style field filled in. Generates a Map with citation
+   * styles and idValue-Type-Pairs.
    * 
-   * @param snippet
-   * @return converted snippet
-   * @throws CitationStyleManagerException
+   * @throws Exception
    */
-  public static String convertSnippetToJasperStyledText(String cs, String snippet) throws CitationStyleManagerException {
+  public static void getJournalsXML() throws Exception {
+    HttpClient client = new HttpClient();
 
-    // logger.info("input snippet:" + snippet);
+    String coneQuery =
+        // JUS-Testserver CoNE
+        // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
+        PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "journals/query?format=json&escidoc:citation-style=*&m=full&n=0";
+    GetMethod getMethod = new GetMethod(coneQuery);
+    client.executeMethod(getMethod);
 
-    snippet = removeI18N(snippet);
-
-    FontStylesCollection fsc = XmlHelper.loadFontStylesCollection(cs);
-
-    if (!Utils.checkVal(snippet) || fsc == null)
-      return snippet;
-
-    FontStyle fs;
-
-    StringBuffer sb = new StringBuffer();
-    Matcher m = SPANS_WITH_CLASS.matcher(snippet);
-    while (m.find()) {
-      fs = fsc.getFontStyleByCssClass(m.group(1));
-      // logger.info("fs:" + fs);
-
-      // Rigorous: if at list once no css class has been found return str
-      // as it is
-      if (fs == null) {
-        return snippet;
-      } else {
-        m.appendReplacement(sb, "<style" + fs.getStyleAttributes() + ">$2</style>");
-      }
+    BufferedReader buffer = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+    StringBuffer content = new StringBuffer();
+    String line;
+    while ((line = buffer.readLine()) != null) {
+      content.append(line);
     }
-    snippet = m.appendTail(sb).toString();
 
-    /*
-     * //escape all non-escaped & snippet = Utils.replaceAllTotal(snippet, AMPS_ALONE, "&amp;");
-     * 
-     * snippet = escapeMarkupTags(snippet);
-     */
-    // logger.info("processed snippet:" + snippet);
-
-    return snippet;
+    citationMap = getCitationStyleMap(content.toString());
   }
 
   /**
-   * Escape all xml/html tags except: style: for jasper internal styling sub/sup: will not be
-   * escaped in case of balanced presence all other - to be escaped
+   * Parses a JSON and returns a citationStyleMap for JUS citations
    * 
-   * @param str
-   * @return escaped string
+   * @return a Map<Pair, String> with citations; null if an error occurred
    */
-  public static String[] escapeMarkupTags(String[] snippet) {
-
-
-    // logger.info("Escape Markup: " + snippet);
-    if (snippet == null)
+  private static Map<Pair, String> getCitationStyleMap(String json) {
+    Map<Pair, String> citationStyleMap = new HashMap<>();
+    try {
+      JsonNode node = new ObjectMapper().readTree(json);
+      if (node.isArray()) {
+        for (JsonNode journalObject : node) {
+          String id = journalObject.get("id").asText();
+          String citation = journalObject.get("http_purl_org_escidoc_metadata_terms_0_1_citation_style").asText();
+          citationStyleMap.put(new Pair("CONE", id.substring(id.lastIndexOf("/") + 1)), citation);
+          JsonNode identifiers = journalObject.get("http_purl_org_dc_elements_1_1_identifier");
+          if (identifiers != null) {
+            if (identifiers.isArray()) {
+              for (JsonNode identifier : identifiers) {
+                String value = identifier.get("http_www_w3_org_1999_02_22_rdf_syntax_ns_value").asText();
+                String type = identifier.get("http_www_w3_org_2001_XMLSchema_instance_type").asText();
+                type = type.substring(type.lastIndexOf("/") + 1);
+                citationStyleMap.put(new Pair(type, value), citation);
+              }
+            } else {
+              String value = identifiers.get("http_www_w3_org_1999_02_22_rdf_syntax_ns_value").asText();
+              String type = identifiers.get("http_www_w3_org_2001_XMLSchema_instance_type").asText();
+              type = type.substring(type.lastIndexOf("/") + 1);
+              citationStyleMap.put(new Pair(type, value), citation);
+            }
+          }
+        }
+      }
+    } catch (JsonProcessingException e) {
+      logger.error("Error converting journal JSON", e);
       return null;
-
-    for (int i = 0; i < snippet.length; i++) {
-      if (snippet[i] != null)
-        // escape ampersands
-        snippet[i] = Utils.replaceAllTotal(snippet[i], AMPS_ALONE, "&amp;");
-
-      // escape tags except <style> and optionally <sub><sup>
-      snippet[i] =
-          Utils.replaceAllTotal(snippet[i], isBalanced(snippet[i]) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, "&lt;");
-    }
-    return snippet;
-
-
-
-  }
-
-
-
-  /**
-   * Check of the balanced tags sup/sub
-   * 
-   * @param snippet
-   * @return <code>true</code> if balanced, <code>false</code> otherwise
-   */
-  public static boolean isBalanced(String snippet) {
-    if (snippet == null)
-      return true; // ????
-
-    Stack<String> s = new Stack<String>();
-    Matcher m = SUBS_OR_SUPS.matcher(snippet);
-    while (m.find()) {
-      String tag = m.group(1);
-      if (tag.toLowerCase().startsWith("su")) {
-        s.push(tag);
-      } else {
-        if (s.empty() || !tag.equals("/" + s.pop())) {
-          return false;
-        }
-      }
     }
 
-    return s.empty();
-  }
-
-
-  /**
-   * Converts snippet &lt;span&gt; tags to the HTML formatting, i.e. <code><b>, <i>, <u>, <s></code>
-   * Text. Note: If at least one &lt;span&gt; css class will not match FontStyle css, the snippet
-   * will be returned without any changes.
-   * 
-   * @param snippet
-   * @return converted snippet
-   * @throws CitationStyleManagerException
-   */
-  public static String convertSnippetToHtml(String snippet) throws CitationStyleManagerException {
-
-    FontStyle fs;
-    // snippet = removeI18N(snippet);
-
-    FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
-
-    if (!Utils.checkVal(snippet) || fsc == null)
-      return snippet;
-
-    // logger.info("passed str:" + snippet);
-
-
-    StringBuffer sb = new StringBuffer();
-    Matcher m = SPANS_WITH_CLASS.matcher(snippet);
-    while (m.find()) {
-      String cssClass = m.group(1);
-      fs = fsc.getFontStyleByCssClass(cssClass);
-      // logger.info("fs:" + fs);
-
-      // Rigorous: if at list once no css class has been found return str
-      // as it is
-      if (fs == null) {
-        return snippet;
-      } else {
-        String str = "$2";
-        if (fs.getIsStrikeThrough()) {
-          str = "<s>" + str + "</s>";
-        }
-        if (fs.getIsUnderline()) {
-          str = "<u>" + str + "</u>";
-        }
-        if (fs.getIsItalic()) {
-          str = "<i>" + str + "</i>";
-        }
-        if (fs.getIsBold()) {
-          str = "<b>" + str + "</b>";
-        }
-        str = "<span class=\"" + cssClass + "\">" + str + "</span>";
-        m.appendReplacement(sb, str);
-
-      }
-    }
-    snippet = m.appendTail(sb).toString();
-
-    return snippet;
-  }
-
-
-
-  public static String removeI18N(String snippet) {
-    return Utils.replaceAllTotal(snippet, I18_TAGS, "$1");
+    return citationStyleMap;
   }
 
   /**
@@ -287,80 +175,102 @@ public class XsltHelper {
       }
     }
     return citationStyle;
-
   }
 
   /**
-   * Reads all CONE-entries with a citation-style field filled in. Generates a Map with citation
-   * styles and idValue-Type-Pairs.
+   * Escape all xml/html tags except: style: for jasper internal styling sub/sup: will not be
+   * escaped in case of balanced presence all other - to be escaped
    * 
-   * @throws Exception
+   * @param str
+   * @return escaped string
    */
-  public static void getJournalsXML() throws Exception {
-    HttpClient client = new HttpClient();
-
-    String coneQuery =
-        // JUS-Testserver CoNE
-        // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
-        PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "journals/query?format=json&escidoc:citation-style=*&m=full&n=0";
-    GetMethod getMethod = new GetMethod(coneQuery);
-    client.executeMethod(getMethod);
-
-    BufferedReader buffer = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
-    StringBuffer content = new StringBuffer();
-    String line;
-    while ((line = buffer.readLine()) != null) {
-      content.append(line);
+  public static String[] escapeMarkupTags(String[] snippet) {
+    if (snippet == null) {
+      return null;
     }
 
-    citationMap = getCitationStyleMap(content.toString());
+    for (int i = 0; i < snippet.length; i++) {
+      if (snippet[i] != null) {
+        // escape ampersands
+        snippet[i] = Utils.replaceAllTotal(snippet[i], AMPS_ALONE, "&amp;");
+        // escape tags except <style> and optionally <sub><sup>
+        snippet[i] =
+            Utils.replaceAllTotal(snippet[i], isBalanced(snippet[i]) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, "&lt;");
+      }
+    }
+
+    return snippet;
   }
 
   /**
-   * Parses a JSON and returns a citationStyleMap for JUS citations
+   * Check of the balanced tags sup/sub
    * 
-   * @return a Map<Pair, String> with citations; null if an error occurred
+   * @param snippet
+   * @return <code>true</code> if balanced, <code>false</code> otherwise
    */
-  private static Map<Pair, String> getCitationStyleMap(String json) {
-    Map<Pair, String> citationStyleMap = new HashMap<>();
-    try {
-      JsonNode node = new ObjectMapper().readTree(json);
-      if (node.isArray()) {
-        for (JsonNode journalObject : node) {
-          String id = journalObject.get("id").asText();
-
-
-          String citation = journalObject.get("http_purl_org_escidoc_metadata_terms_0_1_citation_style").asText();
-          citationStyleMap.put(new Pair("CONE", id.substring(id.lastIndexOf("/") + 1)), citation);
-
-          JsonNode identifiers = journalObject.get("http_purl_org_dc_elements_1_1_identifier");
-          if (identifiers != null) {
-            if (identifiers.isArray()) {
-              for (JsonNode identifier : identifiers) {
-                String value = identifier.get("http_www_w3_org_1999_02_22_rdf_syntax_ns_value").asText();
-                String type = identifier.get("http_www_w3_org_2001_XMLSchema_instance_type").asText();
-                type = type.substring(type.lastIndexOf("/") + 1);
-                citationStyleMap.put(new Pair(type, value), citation);
-              }
-            } else {
-              String value = identifiers.get("http_www_w3_org_1999_02_22_rdf_syntax_ns_value").asText();
-              String type = identifiers.get("http_www_w3_org_2001_XMLSchema_instance_type").asText();
-              type = type.substring(type.lastIndexOf("/") + 1);
-              citationStyleMap.put(new Pair(type, value), citation);
-            }
-          }
+  public static boolean isBalanced(String snippet) {
+    if (snippet == null)
+      return true; // ????
+    Stack<String> s = new Stack<String>();
+    Matcher m = SUBS_OR_SUPS.matcher(snippet);
+    while (m.find()) {
+      String tag = m.group(1);
+      if (tag.toLowerCase().startsWith("su")) {
+        s.push(tag);
+      } else {
+        if (s.empty() || !tag.equals("/" + s.pop())) {
+          return false;
         }
       }
-    } catch (JsonProcessingException e) {
-      logger.error("Error converting journal JSON", e);
-      return null;
-    } catch (IOException e) {
-      logger.error("Error converting journal JSON", e);
-      return null;
     }
-    return citationStyleMap;
+
+    return s.empty();
   }
 
+  /**
+   * Converts snippet &lt;span&gt; tags to the HTML formatting, i.e. <code><b>, <i>, <u>, <s></code>
+   * Text. Note: If at least one &lt;span&gt; css class will not match FontStyle css, the snippet
+   * will be returned without any changes.
+   * 
+   * @param snippet
+   * @return converted snippet
+   * @throws CitationStyleManagerException
+   */
+  public static String convertSnippetToHtml(String snippet) throws CitationStyleManagerException {
+    FontStyle fs;
+    FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
+    if (!Utils.checkVal(snippet) || fsc == null)
+      return snippet;
+    StringBuffer sb = new StringBuffer();
+    Matcher m = SPANS_WITH_CLASS.matcher(snippet);
+    while (m.find()) {
+      String cssClass = m.group(1);
+      fs = fsc.getFontStyleByCssClass(cssClass);
+      // Rigorous: if at list once no css class has been found return str as it is
+      if (fs == null) {
+        return snippet;
+      } else {
+        String str = "$2";
+        if (fs.getIsStrikeThrough()) {
+          str = "<s>" + str + "</s>";
+        }
+        if (fs.getIsUnderline()) {
+          str = "<u>" + str + "</u>";
+        }
+        if (fs.getIsItalic()) {
+          str = "<i>" + str + "</i>";
+        }
+        if (fs.getIsBold()) {
+          str = "<b>" + str + "</b>";
+        }
+        str = "<span class=\"" + cssClass + "\">" + str + "</span>";
+        m.appendReplacement(sb, str);
+      }
+    }
+    snippet = m.appendTail(sb).toString();
+
+    return snippet;
+  }
 
   /**
    * Check CJK codepoints in <code>str</code>.
@@ -379,6 +289,4 @@ public class XsltHelper {
     }
     return false;
   }
-
-
 }

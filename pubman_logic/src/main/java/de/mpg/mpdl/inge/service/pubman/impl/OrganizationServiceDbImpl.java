@@ -59,7 +59,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public final static String INDEX_STATE = "publicStatus.keyword";
   public final static int OU_SEARCH_LIMIT = -2; // unbegrenzte Suche
 
-  private static final Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
+  private static final Logger logger = Logger.getLogger(OrganizationServiceDbImpl.class);
 
   private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
 

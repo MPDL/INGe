@@ -65,7 +65,7 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
  * 
  */
 public class Util {
-  private static Logger logger = Logger.getLogger(Util.class);
+  private static final Logger logger = Logger.getLogger(Util.class);
   //  private static long coneSessionTimestamp = 0;
   //  private static String coneSession = null;
 

@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.spring;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +17,7 @@ import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 @Import({AppConfigPidServiceTest.class, JPAConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
 public class AppConfigPubmanLogicTest {
-  private static final Logger logger = LogManager.getLogger(AppConfigPubmanLogicTest.class);
+  private static final Logger logger = Logger.getLogger(AppConfigPubmanLogicTest.class);
 
   @Bean
   public PasswordEncoder passwordEncoder() {

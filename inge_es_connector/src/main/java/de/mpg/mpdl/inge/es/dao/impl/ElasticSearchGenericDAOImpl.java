@@ -45,7 +45,7 @@ import java.util.*;
  */
 public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
-  private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
+  private static final Logger logger = Logger.getLogger(ElasticSearchGenericDAOImpl.class);
 
   @Autowired
   protected ElasticSearchClientProvider client;

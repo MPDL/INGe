@@ -29,7 +29,6 @@ import java.awt.Color;
 
 import org.apache.log4j.Logger;
 
-
 /**
  * An instance of the class represents a font style definition
  * 
@@ -39,7 +38,6 @@ import org.apache.log4j.Logger;
  */
 
 public class FontStyle implements Cloneable {
-
   private static final Logger logger = Logger.getLogger(FontStyle.class);
 
   private boolean def; // font is default
@@ -62,7 +60,6 @@ public class FontStyle implements Cloneable {
   public static final String CSS_CLASS_REPORT_TAG = "\"[span class=\\\"%s\\\"]\"+%s+\"[/span]\"";
   public static final String CSS_CLASS_REGEXP = "\\[span class=&quot;(\\w+?)&quot;\\](.*?)\\[/span\\]";
   public static final String CSS_CLASS_SUBST = "<span class=\"$1\">$2</span>";
-
 
   /**
    * Constructor
@@ -291,7 +288,6 @@ public class FontStyle implements Cloneable {
     return backColor;
   }
 
-
   /**
    * @return the isPdfSimulatedBold
    */
@@ -320,8 +316,6 @@ public class FontStyle implements Cloneable {
     this.isPdfSimulatedItalic = isPdfSimulatedItalic;
   }
 
-
-
   public Color getBackColorAwt() {
     String bc = getBackColor().toUpperCase();
     return bc == null || "".equals(bc.trim()) || "WHITE".equals(bc) ? Color.WHITE
@@ -333,7 +327,6 @@ public class FontStyle implements Cloneable {
     return fc == null || "".equals(fc.trim()) || "BLACK".equals(fc) ? Color.BLACK
         : "WHITE".equals(fc) ? Color.WHITE : "RED".equals(fc) ? Color.RED : "BLUE".equals(fc) ? Color.BLUE : Color.BLACK; // default
   }
-
 
   /**
    * pdfEncoding setter
@@ -379,8 +372,6 @@ public class FontStyle implements Cloneable {
     this.cssClass = cssClass;
   }
 
-
-
   public Object clone() {
     Object clone = null;
     try {
@@ -400,7 +391,6 @@ public class FontStyle implements Cloneable {
         + " pdfFontName=\\\"" + pdfFontName + "\\\"" + " forecolor=\\\"" + foreColor + "\\\"" + " backcolor=\\\"" + backColor + "\\\""
         + " pdfEncoding=\\\"" + pdfEncoding + "\\\"" + " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\"" + " isPdfSimulatedBold=\\\""
         + isPdfSimulatedBold + "\\\"" + " isPdfSimulatedItalic=\\\"" + isPdfSimulatedItalic + "\\\"";
-
   }
 
   /**
@@ -410,9 +400,7 @@ public class FontStyle implements Cloneable {
    * @return String of the JasperReport font tag. String.format should be used to resolve %s
    */
   public String applyStyle(String expr) {
-    return def ? expr : "\"<style" + getStyleAttributes() +
-    // " cssClass=\\\"" + cssClass + "\\\"" +
-        ">\"+" + expr + "+\"</style>\"";
+    return def ? expr : "\"<style" + getStyleAttributes() + ">\"+" + expr + "+\"</style>\"";
   }
 
   /**
@@ -420,12 +408,7 @@ public class FontStyle implements Cloneable {
    */
 
   public String applyCssClass(String expr) {
-
     return this.cssClass == null || this.cssClass.trim().equals("") ? expr : String.format(CSS_CLASS_REPORT_TAG, this.cssClass, expr);
-    // expr :
-    // "\"&lt;span" +
-    // " class=\\\"" + cssClass + "\\\"" +
-    // "&gt;\"" + expr + "\"&lt;/span&gt;\"";
   }
 
   public String toString() {
@@ -434,9 +417,7 @@ public class FontStyle implements Cloneable {
         + isPdfSimulatedBold + "," + isPdfSimulatedItalic + "," + cssClass + "]";
   }
 
-
   public static void main(String[] args) {
-
     FontStyle fs = new FontStyle();
     logger.info("Default FontStyle:" + fs);
 
@@ -450,7 +431,5 @@ public class FontStyle implements Cloneable {
     logger.info("toStyle:" + fsclone.applyStyle("style"));
     fsclone.setCssClass("TestCssClass");
     logger.info("CssClass:" + fsclone.applyCssClass("kuku"));
-
   }
-
 }

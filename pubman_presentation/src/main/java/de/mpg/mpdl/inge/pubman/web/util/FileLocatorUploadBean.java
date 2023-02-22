@@ -52,7 +52,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
  */
 @SuppressWarnings("serial")
 public abstract class FileLocatorUploadBean extends FacesBean {
-  private final Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
+  private static final Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
 
   protected String name; // File Name
   protected String locator; // File Location
@@ -97,25 +97,25 @@ public abstract class FileLocatorUploadBean extends FacesBean {
           this.error = this.getMessage("errorLocatorServiceUnavailable");
           return false;
         case 200:
-          this.logger.debug("Source responded with 200.");
+          logger.debug("Source responded with 200.");
           break;
         case 403:
           this.error = this.getMessage("errorLocatorAccessDenied");
-          this.logger.warn("Access to url " + locator + " is restricted.");
+          logger.warn("Access to url " + locator + " is restricted.");
           return false;
         default:
           this.error = this.getMessage("errorLocatorTechnicalException");
-          this.logger.warn(
+          logger.warn(
               "An error occurred during importing from external system: " + responseCode + ": " + httpConn.getResponseMessage() + ".");
           return false;
       }
     } catch (final AccessException e) {
-      this.logger.error("Access denied.", e);
+      logger.error("Access denied.", e);
       this.error = this.getMessage("errorLocatorAccessDenied");
       return false;
     } catch (final MalformedURLException e) {
       this.error = this.getMessage("errorLocatorInvalidURL");
-      this.logger.warn("Invalid locator URL:" + locator, e);
+      logger.warn("Invalid locator URL:" + locator, e);
       return false;
     } catch (final Exception e) {
       this.error = this.getMessage("errorLocatorTechnicalException");
@@ -165,7 +165,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       final int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 200:
-          this.logger.debug("Source responded with 200.");
+          logger.debug("Source responded with 200.");
 
           // Fetch file
           final GetMethod method = new GetMethod(locator.toString());
@@ -219,7 +219,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
         fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
 
       } catch (final Exception e) {
-        this.logger.error(e);
+        logger.error(e);
         this.error = this.getMessage("errorLocatorUploadFW");
       }
     }

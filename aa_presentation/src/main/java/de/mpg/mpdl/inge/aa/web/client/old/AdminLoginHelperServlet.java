@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServlet;
 @SuppressWarnings("serial")
 public class AdminLoginHelperServlet extends HttpServlet {
 
-  //  private final static Logger logger = LogManager.getLogger(AdminLoginHelperServlet.class);
+  //  private static final Logger logger = Logger.getLogger(AdminLoginHelperServlet.class);
   //
   //  @Override
   //  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

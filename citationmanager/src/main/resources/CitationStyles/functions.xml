@@ -25,30 +25,18 @@
 	Author: Vlad Makarenko (initial creation) $Author$ (last changed)
 	$Revision$ $LastChangedDate$
 -->
-<functions 
-	xmlns="http://www.escidoc.de/citationstyle" 
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:func="http://www.escidoc.de/citationstyle/functions"
-	xmlns:functx="http://www.functx.com"
-	xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper"	
-	
-	xmlns:exslt="http://exslt.org/common"
-	>
-	
+<functions xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common" xmlns:func="http://www.escidoc.de/citationstyle/functions" xmlns:functx="http://www.functx.com" xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!-- RUNTIME FUNCTIONS -->
-	
 	<xsl:function name="func:get_year">
-		<xsl:param name="date" />
-		<xsl:value-of select="substring($date,1,4)" />
+		<xsl:param name="date"></xsl:param>
+		<xsl:value-of select="substring($date,1,4)"></xsl:value-of>
 	</xsl:function>
-	
 	<xsl:function name="func:get_month">
-		<xsl:param name="date" />
-		<xsl:value-of select="substring($date,6,2)" />
+		<xsl:param name="date"></xsl:param>
+		<xsl:value-of select="substring($date,6,2)"></xsl:value-of>
 	</xsl:function>
-	
 	<xsl:function name="func:get_month_name">
-		<xsl:param name="date" />
+		<xsl:param name="date"></xsl:param>
 		<xsl:variable name="months">
 			<m n="0?1">January</m>
 			<m n="0?2">February</m>
@@ -63,178 +51,97 @@
 			<m n="11">November</m>
 			<m n="12">December</m>
 		</xsl:variable>
-		<xsl:value-of select=" 
-			$months/m[
-				matches(
-					tokenize($date, '-')[2], @n
-				) 
-			]
-		" />
+		<xsl:value-of select="$months/m[matches(tokenize($date,'-')[2],@n)]"></xsl:value-of>
 	</xsl:function>
-	
 	<xsl:function name="func:get_initials">
-		<xsl:param name="str" />
-		<xsl:variable name="delim" select="if (contains ($str, '-')) then '-' else ' '" />
+		<xsl:param name="str"></xsl:param>
+		<xsl:variable name="delim" select="if (contains($str,'-')) then '-' else ' '"></xsl:variable>
 		<xsl:variable name="result">
-		<xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
-			<xsl:value-of
-				select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')" />
-		</xsl:for-each>
+			<xsl:for-each select="tokenize(normalize-space ($str),'\s+|\.\s+|\-\s*')">
+				<xsl:value-of select="concat(substring(.,1,1),if (position()!=last()) then concat('.', $delim) else '.')"></xsl:value-of>
+			</xsl:for-each>
 		</xsl:variable>
-		<xsl:value-of select="$result"/>
+		<xsl:value-of select="$result"></xsl:value-of>
 	</xsl:function>
-
-
 	<xsl:function name="func:fname_initials">
-		<xsl:param name="fname" />
-		<xsl:param name="gname" />
-		<xsl:param name="delim" />
-		
-		<xsl:value-of select="
-			if ( jfunc:isCJK(concat($fname, $gname) ) ) 
-			then string-join( ($fname, $gname), $delim )
-			else string-join( ($fname, func:get_initials($gname)), $delim )
-		"/>
-		
+		<xsl:param name="fname"></xsl:param>
+		<xsl:param name="gname"></xsl:param>
+		<xsl:param name="delim"></xsl:param>
+		<xsl:value-of select="if (jfunc:isCJK(concat($fname, $gname))) then string-join(($fname,$gname),$delim) else string-join(($fname,func:get_initials($gname)),$delim)"></xsl:value-of>
 	</xsl:function>
-	
 	<xsl:function name="func:initials_fname">
-		<xsl:param name="gname" />
-		<xsl:param name="fname" />
-		<xsl:param name="delim" />
-		
-		<xsl:value-of select="
-			if ( jfunc:isCJK(concat($fname, $gname) ) ) 
-			then string-join( ($fname, $gname), $delim )
-			else string-join( (func:get_initials($gname), $fname), $delim )
-		"/>
-		
+		<xsl:param name="gname"></xsl:param>
+		<xsl:param name="fname"></xsl:param>
+		<xsl:param name="delim"></xsl:param>
+		<xsl:value-of select="if (jfunc:isCJK(concat($fname, $gname))) then string-join(($fname, $gname),$delim) else string-join((func:get_initials($gname),$fname),$delim)"></xsl:value-of>
 	</xsl:function>
-
 	<xsl:function name="func:escapeMarkupTags">
-		<xsl:param name="str" />
-		<xsl:value-of select="jfunc:escapeMarkupTags($str)"/>
+		<xsl:param name="str"></xsl:param>
+		<xsl:value-of select="jfunc:escapeMarkupTags($str)"></xsl:value-of>
 	</xsl:function>
-
-	
 	<!-- Postprocessing: clean citation -->
 	<xsl:function name="func:cleanCitation">
-		<xsl:param name="str" />
-			<xsl:value-of select="
-				normalize-space (
-				functx:replace-multi (
-					$str,
-					( '([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1',	'([.,?!:;])\s*\1',	'\.&quot;\.',	'\s+([.,?!:;])',	'\s*(&lt;[/]?span&gt;)\s*([.,?!:;])',	'([?!])+\.' ),
-					( '$1$2',									'$1',				'.&quot;',		'$1', 				'$1$2',									'$1' )
-				)
-				)
-			" />
-			<!-- 																	.".=>." ??? -->
+		<xsl:param name="str"></xsl:param>
+		<xsl:value-of select="normalize-space(functx:replace-multi($str,('([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1','([.,?!:;])\s*\1','\.&quot;\.','\s+([.,?!:;])','\s*(&lt;[/]?span&gt;)\s*([.,?!:;])','([?!])+\.'),('$1$2','$1','.&quot;','$1','$1$2','$1')))"></xsl:value-of>
+		<!-- 																	.".=>." ??? -->
 	</xsl:function>
-	
-	
-	
-	
-	<xsl:function name="functx:replace-multi" as="xs:string?">
-	  <xsl:param name="arg" as="xs:string?"/> 
-	  <xsl:param name="changeFrom" as="xs:string*"/> 
-	  <xsl:param name="changeTo" as="xs:string*"/> 
-	 
-	  <xsl:sequence select=" 
-	   if (count($changeFrom) > 0)
-	   then functx:replace-multi(
-	          replace($arg, $changeFrom[1],
-	                     functx:if-absent($changeTo[1],'')),
-	          $changeFrom[position() > 1],
-	          $changeTo[position() > 1])
-	   else $arg
-	 "/>
-	   
+	<xsl:function as="xs:string?" name="functx:replace-multi">
+		<xsl:param as="xs:string?" name="arg"></xsl:param>
+		<xsl:param as="xs:string*" name="changeFrom"></xsl:param>
+		<xsl:param as="xs:string*" name="changeTo"></xsl:param>
+		<xsl:sequence select="if (count($changeFrom)>0) then functx:replace-multi(replace($arg,$changeFrom[1],functx:if-absent($changeTo[1],'')),$changeFrom[position()>1],$changeTo[position()>1]) else $arg"></xsl:sequence>
 	</xsl:function>
-
-	<xsl:function name="functx:if-absent" as="item()*">
-	  <xsl:param name="arg" as="item()*"/> 
-	  <xsl:param name="value" as="item()*"/> 
-	 
-	  <xsl:sequence select=" 
-	    if (exists($arg))
-	    then $arg
-	    else $value
-	 "/>
+	<xsl:function as="item()*" name="functx:if-absent">
+		<xsl:param as="item()*" name="arg"></xsl:param>
+		<xsl:param as="item()*" name="value"></xsl:param>
+		<xsl:sequence select="if (exists($arg)) then $arg else $value"></xsl:sequence>
 	</xsl:function>
-	
 	<!-- JUS: Get reverse date if the input is not an empty sting. 
 	The input YYYY-MM-TT is converted to TT.MM.YYYY. -->
 	<xsl:function name="func:get_reverse_date">
-		<xsl:param name="input_date" />
-		<xsl:if test="$input_date[.!=''] ">
-			<xsl:value-of select="concat(substring($input_date,9,2),'.',substring($input_date,6,2),'.',substring($input_date,1,4))" />
+		<xsl:param name="input_date"></xsl:param>
+		<xsl:if test="$input_date[.!='']">
+			<xsl:value-of select="concat(substring($input_date,9,2),'.',substring($input_date,6,2),'.',substring($input_date,1,4))"></xsl:value-of>
 		</xsl:if>
 	</xsl:function>
-	
 	<xsl:function name="func:getCitationStyleForJournal">
-		<xsl:param name="idType"/>
-		<xsl:param name="idValue"/>
-		<xsl:value-of select="jfunc:getCitationStyleForJournal($idType,$idValue)"/>
+		<xsl:param name="idType"></xsl:param>
+		<xsl:param name="idValue"></xsl:param>
+		<xsl:value-of select="jfunc:getCitationStyleForJournal($idType,$idValue)"></xsl:value-of>
 	</xsl:function>
-	
 	<!--6 ed, 179 instl. 
 	first substrings after the comma -> '179 instl.', 
 	next before the instl -> '179'
 	gives the number of instalment back -->
 	<xsl:function name="func:substringAfterEdition">
-		<xsl:param name="inputWithSpaceComma"/>
-		<xsl:value-of select="substring-before(substring-after($inputWithSpaceComma,', '), ' ')"/>
+		<xsl:param name="inputWithSpaceComma"></xsl:param>
+		<xsl:value-of select="substring-before(substring-after($inputWithSpaceComma,','),' ')"></xsl:value-of>
 	</xsl:function>
-	
 	<!--6 ed, 179 instl. 
 	first substrings before the comma -> '6 ed', 
 	next before the ed -> '6'
 	gives the number of edition back -->
 	<xsl:function name="func:substringBeforeEdition">
-		<xsl:param name="inputWithSpaceComma"/>
-		<xsl:value-of select="substring-before(substring-before($inputWithSpaceComma,', '), ' ')"/>
+		<xsl:param name="inputWithSpaceComma"></xsl:param>
+		<xsl:value-of select="substring-before(substring-before($inputWithSpaceComma,', '),' ')"></xsl:value-of>
 	</xsl:function>
-	
 	<!--179 instl. 
 	substrings befrore instalment
 	gives the number of instalment back -->
 	<xsl:function name="func:substringBeforeInstalment">
-		<xsl:param name="inputWithInstalment"/>
-		 <xsl:value-of select="
-    	if (contains($inputWithInstalment, 'instl'))
-    	then substring-before($inputWithInstalment, 'instl')  
-    	else if (contains($inputWithInstalment, 'Lf'))
-    	then substring-before($inputWithInstalment, 'Lf')  
-    	else '' 
-    "/>
+		<xsl:param name="inputWithInstalment"></xsl:param>
+		<xsl:value-of select="if (contains($inputWithInstalment,'instl')) then substring-before($inputWithInstalment,'instl') else if (contains($inputWithInstalment,'Lf')) then substring-before($inputWithInstalment,'Lf') else ''"></xsl:value-of>
 	</xsl:function>
-
 	<xsl:function name="func:substringBeforeSince">
-		<xsl:param name="inputWithSince"/>
-	    <xsl:value-of select="
-	    	if (contains($inputWithSince, 'since'))
-	    	then substring-before($inputWithSince, 'since')  
-	    	else if (contains($inputWithSince, 'seit'))
-	    	then substring-before($inputWithSince, 'seit')  
-	    	else '' 
-	    "/>
+		<xsl:param name="inputWithSince"></xsl:param>
+		<xsl:value-of select=" if (contains($inputWithSince,'since')) then substring-before($inputWithSince,'since') else if (contains($inputWithSince,'seit')) then substring-before($inputWithSince,'seit') else ''"></xsl:value-of>
 	</xsl:function>
-	
 	<xsl:function name="func:substringAfterSince">
-	<xsl:param name="inputWithSince"/>
-		  <xsl:value-of select="
-    	if (contains($inputWithSince, 'since'))
-    	then substring-after($inputWithSince, 'since')  
-    	else if (contains($inputWithSince, 'seit'))
-    	then substring-after($inputWithSince, 'seit')  
-    	else '' 
-    "/>
+		<xsl:param name="inputWithSince"></xsl:param>
+		<xsl:value-of select="if (contains($inputWithSince,'since')) then substring-after($inputWithSince,'since') else if (contains($inputWithSince,'seit')) then substring-after($inputWithSince,'seit') else ''"></xsl:value-of>
 	</xsl:function>
-	
 	<xsl:function name="func:substringAfterReviewOf">
-		<xsl:param name="inputReviewTitle"/>
-		<xsl:value-of select="substring-after($inputReviewTitle,'Review of:')"/>
+		<xsl:param name="inputReviewTitle"></xsl:param>
+		<xsl:value-of select="substring-after($inputReviewTitle,'Review of:')"></xsl:value-of>
 	</xsl:function>
-	
 </functions>

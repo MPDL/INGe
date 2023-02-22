@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 @Service
 public class UserLoginRepository {
 
-  private static Logger logger = LogManager.getLogger(UserLoginRepository.class);
+  private static final Logger logger = Logger.getLogger(UserLoginRepository.class);
 
   @PersistenceContext
   private EntityManager entityManager;
