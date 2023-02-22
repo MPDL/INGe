@@ -19,7 +19,6 @@ import jakarta.faces.bean.ManagedProperty;
 import jakarta.faces.bean.SessionScoped;
 import jakarta.faces.model.SelectItem;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
@@ -65,7 +64,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 @SessionScoped
 @SuppressWarnings("serial")
 public class PubItemBatchSessionBean extends FacesBean implements LanguageChangeObserver {
-  private static final Logger logger = LogManager.getLogger(PubItemBatchSessionBean.class);
+  private static final Logger logger = Logger.getLogger(PubItemBatchSessionBean.class);
 
   @ManagedProperty(value = "#{LoginHelper}")
   private LoginHelper loginHelper;

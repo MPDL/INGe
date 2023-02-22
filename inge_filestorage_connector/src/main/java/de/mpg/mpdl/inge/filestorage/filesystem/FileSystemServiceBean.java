@@ -34,7 +34,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Primary
 public class FileSystemServiceBean implements FileStorageInterface {
 
-  private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
+  private static final Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
   private static final String FILESYSTEM_ROOT_PATH =
       System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_FILESYSTEM_PATH);

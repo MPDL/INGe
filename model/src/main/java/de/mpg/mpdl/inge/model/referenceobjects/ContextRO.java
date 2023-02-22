@@ -34,18 +34,8 @@ package de.mpg.mpdl.inge.model.referenceobjects;
  * @version 1.0
  * @updated 21-Nov-2007 12:38:41
  */
+@SuppressWarnings("serial")
 public class ContextRO extends ReferenceObject implements Cloneable {
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-  private static final long serialVersionUID = 1L;
-
   /**
    * Creates a new instance.
    */

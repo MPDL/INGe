@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
  * @author Markus Haarlaender (initial creation)
  * 
  */
+@SuppressWarnings("serial")
 public class UserAttributesWrapper implements Serializable {
   /**
    * The wrapped list of UserAtributeVOs.

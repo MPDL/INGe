@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 
+@SuppressWarnings("serial")
 public class Principal implements Serializable {
 
   private AccountUserDbVO userAccount;

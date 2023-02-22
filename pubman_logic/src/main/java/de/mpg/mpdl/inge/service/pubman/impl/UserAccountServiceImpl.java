@@ -16,7 +16,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
@@ -70,7 +69,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Service
 public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, String> implements UserAccountService, ReindexListener {
 
-  private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
+  private static final Logger logger = Logger.getLogger(UserAccountServiceImpl.class);
 
   private static final int TOKEN_MAX_AGE_HOURS = 24;
 

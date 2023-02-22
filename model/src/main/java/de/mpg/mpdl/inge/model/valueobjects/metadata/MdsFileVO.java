@@ -14,9 +14,6 @@ import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class MdsFileVO extends MetadataSetVO {
-
-  public static final long serialVersionUID = -8509026196044603245L;
-
   private String contentCategory;
   private String description;
 

@@ -23,7 +23,6 @@
  */
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +67,7 @@ import jakarta.persistence.Table;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
  */
+@SuppressWarnings("serial")
 @Entity
 @JsonInclude(value = Include.NON_EMPTY)
 @Table(name = "item_version")
@@ -77,14 +77,14 @@ import jakarta.persistence.Table;
 //@TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
 //Ignore json joinType from elasticsearch
 @JsonIgnoreProperties({"joinType"})
-public class ItemVersionVO extends ItemVersionRO implements Serializable {
+public class ItemVersionVO extends ItemVersionRO {
 
   /**
    * The version number of the referenced item. This attribute is optional.
    */
 
 
-  private static Logger logger = LogManager.getLogger(ItemVersionVO.class);
+  private static final Logger logger = Logger.getLogger(ItemVersionVO.class);
   /**
    * The message of the last action event of this item.
    */

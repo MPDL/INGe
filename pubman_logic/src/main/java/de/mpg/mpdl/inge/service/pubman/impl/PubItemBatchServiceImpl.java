@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -53,7 +52,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 @Primary
 public class PubItemBatchServiceImpl implements PubItemBatchService {
 
-  private static final Logger logger = LogManager.getLogger(PubItemBatchServiceImpl.class);
+  private static final Logger logger = Logger.getLogger(PubItemBatchServiceImpl.class);
 
   @Autowired
   private PubItemService pubItemService;

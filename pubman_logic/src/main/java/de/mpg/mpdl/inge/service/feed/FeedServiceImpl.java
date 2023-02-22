@@ -30,7 +30,7 @@ import java.util.List;
 public class FeedServiceImpl {
 
 
-  private static final Logger logger = LogManager.getLogger(FeedServiceImpl.class);
+  private static final Logger logger = Logger.getLogger(FeedServiceImpl.class);
 
   @Autowired
   private PubItemService pubItemService;

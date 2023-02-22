@@ -30,7 +30,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 @Service
 public class PostgresDbFileServiceBean implements FileStorageInterface {
 
-  private static Logger logger = Logger.getLogger(PostgresDbFileServiceBean.class);
+  private static final Logger logger = Logger.getLogger(PostgresDbFileServiceBean.class);
 
 
   @Autowired

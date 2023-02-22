@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "staged_file")
 public class StagedFileDbVO implements Serializable {

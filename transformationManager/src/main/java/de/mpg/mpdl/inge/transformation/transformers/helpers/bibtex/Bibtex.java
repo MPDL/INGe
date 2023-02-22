@@ -85,7 +85,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision: 5725 $ $LastChangedDate: 2015-10-07 14:43:23 +0200 (Wed, 07 Oct 2015) $
  */
 public class Bibtex implements BibtexInterface {
-  private final Logger logger = Logger.getLogger(Bibtex.class);
+  private static final Logger logger = Logger.getLogger(Bibtex.class);
   private Map<String, String> configuration = null;
   private Set<String> groupSet = null;
   private Set<String> projectSet = null;
@@ -119,7 +119,7 @@ public class Bibtex implements BibtexInterface {
     try {
       parser.parse(file, new StringReader(bibtex));
     } catch (Exception e) {
-      this.logger.error("Error parsing BibTex record.");
+      logger.error("Error parsing BibTex record.");
       throw new RuntimeException(e);
     }
     PubItemVO itemVO = new PubItemVO();
@@ -128,13 +128,13 @@ public class Bibtex implements BibtexInterface {
     List<?> entries = file.getEntries();
     boolean entryFound = false;
     if (entries == null || entries.size() == 0) {
-      this.logger.warn("No entry found in BibTex record.");
+      logger.warn("No entry found in BibTex record.");
       throw new RuntimeException();
     }
     for (Object object : entries) {
       if (object instanceof BibtexEntry) {
         if (entryFound) {
-          this.logger.error("Multiple entries in BibTex record.");
+          logger.error("Multiple entries in BibTex record.");
           throw new RuntimeException();
         }
         entryFound = true;
@@ -145,7 +145,7 @@ public class Bibtex implements BibtexInterface {
           bibGenre = BibTexUtil.Genre.valueOf(entry.getEntryType());
         } catch (IllegalArgumentException iae) {
           bibGenre = BibTexUtil.Genre.misc;
-          this.logger.warn("Unrecognized genre: " + entry.getEntryType());
+          logger.warn("Unrecognized genre: " + entry.getEntryType());
         }
         MdsPublicationVO.Genre itemGenre = BibTexUtil.getGenreMapping().get(bibGenre);
         mds.setGenre(itemGenre);
@@ -388,7 +388,7 @@ public class Bibtex implements BibtexInterface {
               if (author instanceof BibtexPerson) {
                 addCreator(mds, (BibtexPerson) author, CreatorVO.CreatorRole.AUTHOR, affiliation, affiliationAddress);
               } else {
-                this.logger.warn("Entry in BibtexPersonList not a BibtexPerson: [" + author + "] in [" + author + "]");
+                logger.warn("Entry in BibtexPersonList not a BibtexPerson: [" + author + "] in [" + author + "]");
               }
             }
           } else if (fields.get("author") instanceof BibtexPerson) {
@@ -698,7 +698,7 @@ public class Bibtex implements BibtexInterface {
                 mds.getCreators().addAll(teams);
               }
             } catch (Exception e) {
-              this.logger.error("An error occured while getting field 'author'.", e);
+              logger.error("An error occured while getting field 'author'.", e);
               throw new RuntimeException(e);
             }
           }
@@ -706,14 +706,14 @@ public class Bibtex implements BibtexInterface {
         // editor
         boolean noConeEditorFound = false;
         if (fields.get("editor") != null) {
-          this.logger.debug("fields.get(\"editor\"): " + fields.get("editor").getClass());
+          logger.debug("fields.get(\"editor\"): " + fields.get("editor").getClass());
           if (fields.get("editor") instanceof BibtexPersonList) {
             BibtexPersonList editors = (BibtexPersonList) fields.get("editor");
             for (Object editor : editors.getList()) {
               if (editor instanceof BibtexPerson) {
                 addCreator(mds, (BibtexPerson) editor, CreatorVO.CreatorRole.EDITOR, affiliation, affiliationAddress);
               } else {
-                this.logger.warn("Entry in BibtexPersonList not a BibtexPerson: [" + editor + "] in [" + editors + "]");
+                logger.warn("Entry in BibtexPersonList not a BibtexPerson: [" + editor + "] in [" + editors + "]");
               }
             }
           } else if (fields.get("editor") instanceof BibtexPerson) {
@@ -1029,7 +1029,7 @@ public class Bibtex implements BibtexInterface {
                 mds.getCreators().addAll(teams);
               }
             } catch (Exception e) {
-              this.logger.error("An error occured while getting field 'editor'.", e);
+              logger.error("An error occured while getting field 'editor'.", e);
               throw new RuntimeException(e);
             }
           }
@@ -1230,18 +1230,18 @@ public class Bibtex implements BibtexInterface {
         // Cite Key
         mds.getIdentifiers().add(new IdentifierVO(IdType.BIBTEX_CITEKEY, entry.getEntryKey()));
       } else if (object instanceof BibtexToplevelComment) {
-        this.logger.debug("Comment found: " + ((BibtexToplevelComment) object).getContent());
+        logger.debug("Comment found: " + ((BibtexToplevelComment) object).getContent());
       }
     }
     try {
       if (entryFound) {
         return XmlTransformingService.transformToItem(itemVO);
       } else {
-        this.logger.warn("No entry found in BibTex record.");
+        logger.warn("No entry found in BibTex record.");
         throw new RuntimeException();
       }
     } catch (TechnicalException e) {
-      this.logger.error("An error ocurred while transforming the item.");
+      logger.error("An error ocurred while transforming the item.");
       throw new RuntimeException(e);
     }
   }

@@ -32,8 +32,8 @@
     Included configurational files:
     ../font-styles.xml - global font styles 
     ../functions.xml - global functions
-    	../variables.xml - global variables (optional)
-    	variables.xml -  local variables (optional)
+    ../variables.xml - global variables (optional)
+    variables.xml -  local variables (optional)
 -->
 
 

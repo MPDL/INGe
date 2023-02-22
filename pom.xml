@@ -569,29 +569,6 @@
 				<version>2.1.1</version>
 			</dependency>
 
-			<!-- Jasper Reports -->
-			<dependency>
-				<groupId>net.sf.jasperreports</groupId>
-				<artifactId>jasperreports</artifactId>
-				<version>6.6.0</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.codehaus.castor</groupId>
-						<artifactId>castor-xml</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>bouncycastle</groupId>
-						<artifactId>*</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<!-- JAsperreports imports itext v2.1.7.js6, which is not available via maven anymore. So use v2.1.7. here. -->
-			<dependency>
-				<groupId>com.lowagie</groupId>
-				<artifactId>itext</artifactId>
-				<version>2.1.7</version>
-			</dependency>
-
 			<!-- Jersey -->
 			<dependency>
 				<groupId>org.glassfish.jersey.core</groupId>
@@ -940,11 +917,6 @@
 				<groupId>org.reflections</groupId>
 				<artifactId>reflections</artifactId>
 				<version>0.9.10</version>
-			</dependency>
-			<dependency>
-				<groupId>xalan</groupId>
-				<artifactId>xalan</artifactId>
-				<version>2.7.2</version>
 			</dependency>
 		</dependencies>
 

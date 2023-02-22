@@ -39,6 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
+@SuppressWarnings("serial")
 public class ContextVOListWrapper implements Serializable {
   /**
    * The wrapped list of ContextVOs.

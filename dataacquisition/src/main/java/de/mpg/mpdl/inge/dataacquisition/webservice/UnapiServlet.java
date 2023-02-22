@@ -17,11 +17,11 @@ import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
  */
 @SuppressWarnings("serial")
 public class UnapiServlet extends HttpServlet implements Unapi {
-  // private final String idTypeUri = "URI";
-  // private final String idTypeUrl = "URL";
-  // private final String idTypeEscidoc = "ESCIDOC";
-  // private final String idTypeUnknown = "UNKNOWN";
-  // private final Logger logger = Logger.getLogger(UnapiServlet.class);
+  // private static final String idTypeUri = "URI";
+  // private static final String idTypeUrl = "URL";
+  // private static final String idTypeEscidoc = "ESCIDOC";
+  // private static final String idTypeUnknown = "UNKNOWN";
+  // private static final Logger logger = Logger.getLogger(UnapiServlet.class);
   // private DataHandlerService dataHandler = new DataHandlerService();
   // private DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
   // private boolean view = false; // default option is download
@@ -85,7 +85,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // }
     // } catch (DataaquisitionException e) {
     // this.resetValues();
-    // this.logger.error("Item with identifier " + identifier + " was not found.", e);
+    // logger.error("Item with identifier " + identifier + " was not found.", e);
     // response.sendError(404, "Identifier " + identifier + " not recognized");
     // }
     // }
@@ -101,10 +101,10 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // this.resetValues();
     // } catch (IOException e) {
     // this.resetValues();
-    // this.logger.error("unAPI request could not be processed due to technical problems.", e);
+    // logger.error("unAPI request could not be processed due to technical problems.", e);
     // } catch (DataaquisitionException e) {
     // this.resetValues();
-    // this.logger.error("unAPI request could not be processed due to technical problems.", e);
+    // logger.error("unAPI request could not be processed due to technical problems.", e);
     // }
   }
 
@@ -187,7 +187,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // xOpts.setSavePrettyPrintIndent(4);
     // xmlFormatsDoc.save(baos, xOpts);
     // } catch (IOException e) {
-    // this.logger.info("Error when creating output xml.", e);
+    // logger.info("Error when creating output xml.", e);
     // throw new DataaquisitionException(e);
     // }
     //
@@ -220,7 +220,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // }
     //
     // if (idType.equals(this.idTypeUnknown) || sourceId == null) {
-    // this.logger.warn("The type of the identifier (" + objectIdentifier
+    // logger.warn("The type of the identifier (" + objectIdentifier
     // + ") was not recognised.");
     // throw new DataaquisitionException("The type of the identifier (" + objectIdentifier
     // + ") was not recognised.");

@@ -39,8 +39,8 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
+@SuppressWarnings("serial")
 public class AffiliationVOListWrapper implements Serializable {
-  public static final long serialVersionUID = 1L;
 
   /**
    * The wrapped list of AffiliationVOs.

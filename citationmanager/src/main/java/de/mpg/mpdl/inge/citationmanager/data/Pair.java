@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.citationmanager.data;
 
-
-
 /**
  * A key-value pair.
  * 
@@ -94,7 +92,4 @@ public class Pair {
   public int hashCode() {
     return key.hashCode();
   }
-
-
-
 }

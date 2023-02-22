@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class SearchRetrieveRecordVO<T> extends ValueObject {
 

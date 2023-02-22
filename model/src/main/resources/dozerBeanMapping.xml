@@ -2,7 +2,8 @@
 <mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
-	
+
+	<!--
 	<mapping wildcard="true">
 		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
 		</class-a>
@@ -17,7 +18,7 @@
 			<b>logger</b>
 		</field-exclude>
 	</mapping>
-
+-->
 
 	<mapping wildcard="true">
 		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO

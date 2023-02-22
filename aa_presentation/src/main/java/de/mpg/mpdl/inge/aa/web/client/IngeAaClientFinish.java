@@ -33,7 +33,6 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 import org.apache.http.entity.ContentType;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
@@ -55,7 +54,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class IngeAaClientFinish extends FinalClient {
 
-  private static final Logger logger = LogManager.getLogger(IngeAaClientFinish.class);
+  private static final Logger logger = Logger.getLogger(IngeAaClientFinish.class);
 
   @Override
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {

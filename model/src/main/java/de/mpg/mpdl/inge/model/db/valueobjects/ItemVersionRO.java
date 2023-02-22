@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 
+@SuppressWarnings("serial")
 @MappedSuperclass
 @IdClass(VersionableId.class)
 public class ItemVersionRO implements Serializable {

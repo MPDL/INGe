@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
  * @author mfranke (initial creation)
  * @version $Revision$ $LastChangedDate$ by $Author$
  */
+@SuppressWarnings("serial")
 public class MetadataSetVOListWrapper implements Serializable {
 
   /**

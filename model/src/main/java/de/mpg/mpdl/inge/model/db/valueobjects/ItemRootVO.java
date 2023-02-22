@@ -28,6 +28,7 @@ import jakarta.persistence.Table;
 
 
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "item_object")
 @Cacheable

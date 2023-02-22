@@ -34,6 +34,7 @@ package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
+@SuppressWarnings("serial")
 public class UnmarshallingException extends TransformingException {
   /**
    * The XML that should have been unmarshalled and that caused the exception.

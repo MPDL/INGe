@@ -46,16 +46,6 @@ import de.mpg.mpdl.inge.model.referenceobjects.GrantRO;
 @JsonInclude(value = Include.NON_EMPTY)
 public class GrantVO extends ValueObject {
   /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
-  /**
    * The role that is granted. The value of this attribute matches the value the framework gives
    * back as role (e. g. "escidoc:role-depositor").
    */

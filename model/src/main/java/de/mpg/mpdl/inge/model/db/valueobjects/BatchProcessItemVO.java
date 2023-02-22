@@ -50,6 +50,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
  *
  */
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "batch_process_log_item")
 @JsonInclude(value = Include.NON_EMPTY)

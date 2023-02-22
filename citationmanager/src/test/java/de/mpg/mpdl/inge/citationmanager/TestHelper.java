@@ -31,9 +31,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -46,53 +43,10 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  */
 public class TestHelper {
-
-  //  private static final String MAX_RECORDS = "maxRecords";
-  //  private static final String QUERY = "query";
-  //  private static final String SEARCH_RETRIEVE = "searchRetrieve";
-  //  private static final String OPERATION = "operation";
-  //  private static final String VERSION = "version";
-
-  private static Logger logger = Logger.getLogger(TestHelper.class);
-
-  //  public static final String ITEMS_LIMIT = "50";
-  //  public static final String PROPERTY_CONTENT_MODEL_PUBLICATION = "escidoc.framework_access.content-model.id.publication";
-  //  public static final String USER_NAME = "citman_user";
-  //  public static final String USER_PASSWD = "citman_user";
-  //  public static final String CONTEXT = "Citation Style Testing Context";
-  //  public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22";
-
-
-  //  public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException {
-  //    HashMap<String, String[]> filter = new HashMap<String, String[]>();
-  //
-  //    filter.put(QUERY, new String[] {"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
-  //        "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=pending"});
-  //
-  //    return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
-  //  }
-
-
-
-  //  protected static void writeToFile(String fileName, byte[] content) throws IOException {
-  //    FileOutputStream fos = new FileOutputStream(fileName);
-  //    fos.write(content);
-  //    fos.close();
-  //  }
-
-
-  //  protected static int getItemsNumber(String itemListUri) throws Exception {
-  //    Document doc = JRXmlUtils.parse(itemListUri);
-  //    XPathFactory factory = XPathFactory.newInstance();
-  //    XPath xpath = factory.newXPath();
-  //    Double result = (Double) xpath.evaluate("count(/item-list/item)", doc, XPathConstants.NUMBER);
-  //    return result.intValue();
-  //  }
-
+  private static final Logger logger = Logger.getLogger(TestHelper.class);
 
   public static Properties getTestProperties(String cs) throws FileNotFoundException, IOException {
     String path_to_props = CitationUtil.getPathToCitationStyleTestResources(cs) + "test.properties";
-    // logger.info("path_to_props:" + path_to_props);
     InputStream is = ResourceUtil.getResourceAsStream(path_to_props, TestHelper.class.getClassLoader());
     Properties props = new Properties();
     props.load(is);
@@ -104,128 +58,8 @@ public class TestHelper {
     return getFileAsString(CitationUtil.CITATIONSTYLES_DIRECTORY + fileName);
   }
 
-
-  public static String getFileAsString(String fileName) throws IOException {
+  private static String getFileAsString(String fileName) throws IOException {
     logger.info("test XML" + CitationUtil.getPathToTestResources() + fileName);
     return ResourceUtil.getResourceAsString(CitationUtil.getPathToTestResources() + fileName, TestHelper.class.getClassLoader());
   }
-
-
-  //  public static String getItemListFromFrameworkBase(String USER, String PASSWD, HashMap<String, String[]> filter)
-  //      throws IOException, ServiceException, URISyntaxException {
-  //    // logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
-  //    // String userHandle = AdminHelper.loginUser(USER, PASSWD);
-  //    // logger.info("Retrieve filter:" + filter.entrySet().toString());
-  //    // // see here for filters:
-  //    // //
-  //    // https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-  //    // ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
-  //    // return ch.retrieveItems(filter);
-  //    return null;
-  //  }
-
-
-
-  //  /**
-  //   * Get itemList from the current Framework instance on hand of CONTENT_MODEL, CONTEXT, all
-  //   * released and writes to <code>DataSource/fileName</code>
-  //   * 
-  //   * @throws Exception
-  //   */
-  //  public static void getCitationStyleTestCollectionFromFramework(String fileName) throws Exception {
-  //    HashMap<String, String[]> filter = new HashMap<String, String[]>();
-  //
-  //    filter.put(VERSION, new String[] {"1.1"});
-  //    filter.put(OPERATION, new String[] {SEARCH_RETRIEVE});
-  //    filter.put(QUERY, new String[] {"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
-  //        "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=released"});
-  //
-  //    String itemList = getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
-  //
-  //    writeToFile(CitationUtil.getPathToDataSources() + fileName, itemList.getBytes());
-  //  }
-
-
-  //  /**
-  //   * Get itemList from the current Framework instance on hand of CONTENT_MODEL
-  //   * 
-  //   * @param fileName
-  //   * @throws IOException
-  //   * @throws URISyntaxException
-  //   * @throws ServiceException
-  //   */
-  //  public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException {
-  //    HashMap<String, String[]> filter = new HashMap<String, String[]>();
-  //
-  //    filter.put(VERSION, new String[] {"1.1"});
-  //    filter.put(OPERATION, new String[] {SEARCH_RETRIEVE});
-  //    filter.put(QUERY, new String[] {"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION)});
-  //    filter.put(MAX_RECORDS, new String[] {ITEMS_LIMIT});
-  //
-  //    return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
-  //  }
-
-  /**
-   * Split item-list document (passed as root element) to the the Node array
-   * 
-   * @param root - document root element
-   * @return Node[] of the items
-   */
-  public static Node[] getItemNodes(Element root) {
-
-    NodeList itemElements = root.getChildNodes();
-    int length = itemElements.getLength();
-
-    // remove all text nodes
-    int k = 0;
-    for (int i = 0; i < length; i++) {
-      Node n = itemElements.item(k);
-      if (n.getNodeType() == Node.TEXT_NODE)
-        root.removeChild(n);
-      else
-        k++;
-    }
-
-    itemElements = root.getChildNodes();
-    length = itemElements.getLength();
-    Node[] itemsArr = new Node[length];
-
-    // clean up doc and populate items array
-    for (int i = 0; i < length; i++) {
-      itemsArr[i] = root.removeChild(itemElements.item(0));
-    }
-    return itemsArr;
-  }
-
-  //  private static ArrayList<String> extractTag(String xml, String tag) {
-  //    Pattern p = Pattern.compile("<(" + tag + ")\\s.*?>(.*?)</\\1>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-  //    Matcher m = p.matcher(xml);
-  //
-  //    ArrayList<String> al = new ArrayList<String>();
-  //    while (m.find()) {
-  //      al.add(m.group(2));
-  //    }
-  //    return al;
-  //  }
-
-  //  public static ArrayList<String> extractBibliographicCitations(String xml) {
-  //    return extractTag(xml, "dcterms:bibliographicCitation");
-  //  }
-
-  //  public static String extractBibliographicCitation(String xml, String match) {
-  //    for (String cit : extractTag(xml, "dcterms:bibliographicCitation")) {
-  //      // logger.info(cit);
-  //      if (cit.indexOf(match) > 0 && cit.indexOf("span class=\"Default\"") == -1) {
-  //        return cit;
-  //      }
-  //    }
-  //    return "";
-  //  }
-
-  //  public static ArrayList<String> extractAbstract(String xml) {
-  //    return extractTag(xml, "dcterms:abstract");
-  //  }
-
-
-
 }

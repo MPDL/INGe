@@ -38,10 +38,8 @@ import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
  * @author Michael Franke (initial creation)
  * @version $Revision$ $LastChangedDate$ by $Author$
  */
+@SuppressWarnings("serial")
 public class SuccessorROListWrapper implements Serializable {
-
-  public static final long serialVersionUID = 1L;
-
   /**
    * The wrapped list of AffiliationROs.
    */

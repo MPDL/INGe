@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +21,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "user_account")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 //@TypeDef(name = "GrantVOListJsonUserType", typeClass = GrantVOListJsonUserType.class)
-public class AccountUserDbVO extends BasicDbRO implements Serializable {
+public class AccountUserDbVO extends BasicDbRO {
 
   private boolean active;
 

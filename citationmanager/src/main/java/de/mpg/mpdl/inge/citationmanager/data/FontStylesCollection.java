@@ -31,16 +31,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -64,8 +59,6 @@ public class FontStylesCollection implements Cloneable {
 
   // Hash for the quick search of Fonts with the css Name of Style
   private HashMap<String, FontStyle> cssMap = new HashMap<String, FontStyle>();
-
-
 
   public FontStylesCollection() {
     setDefault();
@@ -94,13 +87,6 @@ public class FontStylesCollection implements Cloneable {
   }
 
   public void addFontStyle(FontStyle fs) {
-    // for ( FontStyle fstemp: fontStyles ) {
-    // // do not add if there is font with same name
-    // if ( fstemp.getName().equals(fs.getName()) ) {
-    // return;
-    // }
-    // }
-
     String name = fs.getName();
     if (namesMap.containsKey(name)) {
       return;
@@ -113,7 +99,6 @@ public class FontStylesCollection implements Cloneable {
     if (StringUtils.isNotEmpty(StringUtils.strip(cssn))) {
       cssMap.put(cssn, fs);
     }
-
   }
 
   public void setDefaultFontStyle(FontStyle defaultFontStyle) {
@@ -137,23 +122,17 @@ public class FontStylesCollection implements Cloneable {
     return StringUtils.isNotEmpty(StringUtils.strip(name)) ? namesMap.get(name) : null;
   }
 
-
   public FontStyle getFontStyleByCssClass(String name) {
     return StringUtils.isNotEmpty(StringUtils.strip(name)) ? cssMap.get(name) : null;
   }
-
-
 
   public void removeCssClass() {
     for (FontStyle fs : fontStyles) {
       fs.setCssClass(null);
     }
-
   }
 
-
   public String toString() {
-
     String str = "";
     int i = 0;
     for (FontStyle fs : fontStyles) {
@@ -172,7 +151,6 @@ public class FontStylesCollection implements Cloneable {
    * @throws SAXException
    */
   public static FontStylesCollection loadFromXml(InputStream inputStream) throws IOException, SAXException {
-
     Digester digester = new Digester();
     digester.setValidating(false);
 
@@ -199,7 +177,6 @@ public class FontStylesCollection implements Cloneable {
     digester.addSetProperties(path, "is-pdf-simulated-italic", "isPdfSimulatedItalic");
     digester.addSetProperties(path, "css-class", "cssClass");
 
-
     digester.addSetNext(path, "addFontStyle");
 
     // FileInputStream input = new FileInputStream( xmlFileName );
@@ -207,7 +184,6 @@ public class FontStylesCollection implements Cloneable {
     fsc.findDefaultFontStyle();
 
     return fsc;
-
   }
 
   /**
@@ -240,61 +216,9 @@ public class FontStylesCollection implements Cloneable {
     return clone;
   }
 
-
-  /**
-   * Writes {@link FontStylesCollection} to xmlfile
-   * 
-   * @param xmlFileName
-   * @throws IOException
-   * @throws SAXException
-   * @throws CitationStyleManagerException
-   * @throws ParserConfigurationException
-   */
-  public void writeToXml(String xmlFileName) throws IOException, SAXException, CitationStyleManagerException, ParserConfigurationException {
-
-    Document doc = DOMUtilities.createDocument();
-
-    Element root = doc.createElement("font-styles-collection");
-
-    doc.appendChild(root);
-
-    // here is the loop:
-
-    for (FontStyle fs : fontStyles) {
-
-      Element element = doc.createElement("font-style");
-
-      element.setAttribute("def", "" + fs.getDef());
-      element.setAttribute("name", fs.getName());
-      element.setAttribute("font-size", "" + fs.getFontSize());
-      element.setAttribute("font-name", fs.getFontName());
-      element.setAttribute("is-bold", "" + fs.getIsBold());
-      element.setAttribute("is-italic", "" + fs.getIsItalic());
-      element.setAttribute("is-underline", "" + fs.getIsUnderline());
-      element.setAttribute("is-strike-through", "" + fs.getIsStrikeThrough());
-      element.setAttribute("pdf-font-name", fs.getPdfFontName());
-      element.setAttribute("fore-color", fs.getForeColor());
-      element.setAttribute("back-color", fs.getBackColor());
-      element.setAttribute("pdf-encoding", fs.getPdfEncoding());
-      element.setAttribute("is-pdf-embedded", "" + fs.getIsPdfEmbedded());
-      element.setAttribute("is-pdf-simulated-bold", "" + fs.getIsPdfSimulatedBold());
-      element.setAttribute("is-pdf-simulated-italic", "" + fs.getIsPdfSimulatedItalic());
-      element.setAttribute("css-class", "" + fs.getCssClass());
-
-      root.appendChild(element);
-    }
-
-    DOMUtilities.output(doc, xmlFileName);
-
-  }
-
   public static void main(String[] args) throws IOException, SAXException, CitationStyleManagerException {
-
     FontStylesCollection fsc = FontStylesCollection.loadFromXml("src/main/resources/CitationStyles/Default/FontStyles.xml");
-
     FontStylesCollection fscclone = (FontStylesCollection) fsc.clone();
-
     fscclone.fontStyles.get(0).setFontName("Name in clone!!!");
   }
-
 }

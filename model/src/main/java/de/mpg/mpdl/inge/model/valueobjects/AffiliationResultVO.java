@@ -32,6 +32,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
  * @author endres
  * 
  */
+@SuppressWarnings("serial")
 public class AffiliationResultVO extends AffiliationVO implements SearchResultElement {
 
   /**

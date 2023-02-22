@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Hidden
 public class ConeCacheRestController {
 
-  private static Logger logger = Logger.getLogger(ConeCacheRestController.class);
+  private static final Logger logger = Logger.getLogger(ConeCacheRestController.class);
 
   @RequestMapping(value = "refresh", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
   public String refresh() {

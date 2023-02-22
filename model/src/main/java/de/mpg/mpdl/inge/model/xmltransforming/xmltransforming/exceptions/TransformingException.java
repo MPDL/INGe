@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
+@SuppressWarnings("serial")
 public abstract class TransformingException extends TechnicalException {
   /**
    * Constructor forwarding a given exception message to the upper exception chain.

@@ -5,10 +5,7 @@ import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
 import co.elastic.clients.elasticsearch._types.mapping.Property;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.*;
-import co.elastic.clients.elasticsearch.core.search.Hit;
-import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import co.elastic.clients.elasticsearch.core.search.SourceConfig;
-import co.elastic.clients.elasticsearch.core.search.SourceFilter;
+import co.elastic.clients.elasticsearch.core.search.*;
 import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
 import co.elastic.clients.json.JsonpMapper;
 import co.elastic.clients.json.JsonpSerializable;
@@ -48,7 +45,7 @@ import java.util.*;
  */
 public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
-  private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
+  private static final Logger logger = Logger.getLogger(ElasticSearchGenericDAOImpl.class);
 
   @Autowired
   protected ElasticSearchClientProvider client;
@@ -223,6 +220,10 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
     SearchRetrieveResponseVO<E> srrVO;
     try {
       SearchRequest.Builder sr = new SearchRequest.Builder();
+
+      //Set track_total_hits to true in order to retrieve correct total numbers > 10000
+      sr.trackTotalHits(TrackHits.of(i -> i.enabled(true)));
+
       sr.index(indexName);
 
       if (searchQuery.getQueryBuilder() != null) {
@@ -295,6 +296,9 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       */
 
 
+      //Set track_total_hits to true in order to retrieve correct total numbers > 10000
+      root.put("track_total_hits", true);
+
       if (getSourceExclusions() != null && getSourceExclusions().length > 0) {
         ArrayNode sourceExclusions = objectMapper.valueToTree(getSourceExclusions());
         JsonNode sourceNode = root.get("_source");
@@ -329,6 +333,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       if (scrollTime != -1) {
         srb.scroll(Time.of(t -> t.time(scrollTime + "ms")));
       }
+      srb.index(indexName);
       SearchRequest sr = srb.build();
       logger.debug(toJson(sr));
       SearchResponse<ObjectNode> resp = client.getClient().search(sr, ObjectNode.class);

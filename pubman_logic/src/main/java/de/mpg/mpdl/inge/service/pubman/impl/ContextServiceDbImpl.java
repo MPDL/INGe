@@ -6,7 +6,6 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -35,7 +34,7 @@ import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 @Service
 @Primary
 public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String> implements ContextService, ReindexListener {
-  private static final Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
+  private static final Logger logger = Logger.getLogger(ContextServiceDbImpl.class);
 
   public final static String INDEX_OBJECT_ID = "objectId";
   public final static String INDEX_STATE = "state";

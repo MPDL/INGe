@@ -6,11 +6,8 @@ package de.mpg.mpdl.inge.cslmanager;
 import java.io.IOException;
 import java.net.URL;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -120,6 +117,7 @@ public class CitationStyleLanguageUtils {
     return defaultLocale;
   }
 
+
   /**
    * parses a tag value out of an xml
    * 
@@ -127,6 +125,7 @@ public class CitationStyleLanguageUtils {
    * @param tagName
    * @return
    */
+  /*
   public static String parseTagFromXml(String xml, String tagName, String namespaceUrl) {
     String tag = null;
     try {
@@ -157,4 +156,5 @@ public class CitationStyleLanguageUtils {
     }
     return tag;
   }
+  */
 }

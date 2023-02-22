@@ -43,9 +43,10 @@ import org.apache.log4j.Logger;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:54
  */
+@SuppressWarnings("serial")
 public abstract class ValueObject implements Serializable {
 
-  private static Logger logger = Logger.getLogger(ValueObject.class);
+  private static final Logger logger = Logger.getLogger(ValueObject.class);
 
   /*
    * @see java.lang.Object#equals(java.lang.Object)

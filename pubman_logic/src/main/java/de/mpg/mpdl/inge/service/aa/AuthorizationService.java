@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorizationService {
 
-  private final static Logger logger = LogManager.getLogger(AuthorizationService.class);
+  private final static Logger logger = Logger.getLogger(AuthorizationService.class);
 
   private Map<String, Object> aaMap;
 
