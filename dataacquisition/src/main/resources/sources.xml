@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Import-Sources
-	xmlns="http://dataaquisition.inge.mpdl.mpg.de/ExplainSources"
+	xmlns="http://dataacquisition.inge.mpdl.mpg.de/ExplainSources"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://dataaquisition.inge.mpdl.mpg.de/ExplainSources explain-sources.xsd">
+	xsi:schemaLocation="http://dataacquisition.inge.mpdl.mpg.de/ExplainSources explain-sources.xsd">
 
 	<Import-Source name="Crossref">
 		<dc:description>Searching for Metadata from Crossref by DOIs</dc:description>

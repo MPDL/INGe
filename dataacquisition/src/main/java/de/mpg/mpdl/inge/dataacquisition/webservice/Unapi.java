@@ -2,10 +2,10 @@ package de.mpg.mpdl.inge.dataacquisition.webservice;
 
 import java.rmi.AccessException;
 
-import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
+import de.mpg.mpdl.inge.dataacquisition.DataacquisitionException;
 
 /**
- * UNAPI Interface for the DataAquisition Service.
+ * UNAPI Interface for the DataAcquisition Service.
  * 
  * @author Friederike Kleinfercher (initial creation)
  */
@@ -16,7 +16,7 @@ public interface Unapi {
    * @return sourcesXML
    * @throws RuntimeException
    */
-  public byte[] unapi() throws DataaquisitionException;
+  public byte[] unapi() throws DataacquisitionException;
 
   /**
    * This operation gives back a description of all available formats for an identifier.
@@ -26,7 +26,7 @@ public interface Unapi {
    * @return formatsXML
    * @throws RuntimeException
    */
-  public byte[] unapi(String identifier, boolean show) throws DataaquisitionException;
+  public byte[] unapi(String identifier, boolean show) throws DataacquisitionException;
 
   /**
    * This operation fetches the format from the specified identifier.
@@ -40,6 +40,6 @@ public interface Unapi {
    * @throws FormatNotRecognisedException
    * @throws AccessException (Restricted access to the source)
    */
-  public byte[] unapi(String identifier, String format) throws DataaquisitionException;
+  public byte[] unapi(String identifier, String format) throws DataacquisitionException;
 
 }

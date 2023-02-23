@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://dataaquisition.inge.mpdl.mpg.de/ExplainSources" 
+<xs:schema xmlns="http://dataacquisition.inge.mpdl.mpg.de/ExplainSources" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
-	targetNamespace="http://dataaquisition.inge.mpdl.mpg.de/ExplainSources" 
+	targetNamespace="http://dataacquisition.inge.mpdl.mpg.de/ExplainSources" 
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>

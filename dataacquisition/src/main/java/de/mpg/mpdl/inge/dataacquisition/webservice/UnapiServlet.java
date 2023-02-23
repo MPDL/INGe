@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
+import de.mpg.mpdl.inge.dataacquisition.DataacquisitionException;
 
 // TODO: Kein Servlet mehr, sondern in Pubman REST integrieren
 // Item holen über REST Schnittstelle (Json -> Object -> escidoc xml) plus Konvertierung in
@@ -83,7 +83,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // response.setStatus(200);
     // outStream.write(data);
     // }
-    // } catch (DataaquisitionException e) {
+    // } catch (DataacquisitionException e) {
     // this.resetValues();
     // logger.error("Item with identifier " + identifier + " was not found.", e);
     // response.sendError(404, "Identifier " + identifier + " not recognized");
@@ -102,7 +102,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // } catch (IOException e) {
     // this.resetValues();
     // logger.error("unAPI request could not be processed due to technical problems.", e);
-    // } catch (DataaquisitionException e) {
+    // } catch (DataacquisitionException e) {
     // this.resetValues();
     // logger.error("unAPI request could not be processed due to technical problems.", e);
     // }
@@ -119,10 +119,10 @@ public class UnapiServlet extends HttpServlet implements Unapi {
    * as default, showing escidoc formats to fetch only when not the default identifier is set, the
    * identifier is displayed in the formats xml.
    * 
-   * @throws DataaquisitionException
+   * @throws DataacquisitionException
    */
   @Override
-  public byte[] unapi(String sourceIdentifier, boolean show) throws DataaquisitionException {
+  public byte[] unapi(String sourceIdentifier, boolean show) throws DataacquisitionException {
     // ByteArrayOutputStream baos = new ByteArrayOutputStream();
     // List<FullTextVO> fullTextV = new ArrayList<FullTextVO>();
     // List<MetadataVO> metadataV = new ArrayList<MetadataVO>();
@@ -188,7 +188,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // xmlFormatsDoc.save(baos, xOpts);
     // } catch (IOException e) {
     // logger.info("Error when creating output xml.", e);
-    // throw new DataaquisitionException(e);
+    // throw new DataacquisitionException(e);
     // }
     //
     // return baos.toByteArray();
@@ -196,7 +196,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
   }
 
   @Override
-  public byte[] unapi(String objectIdentifier, String format) throws DataaquisitionException {
+  public byte[] unapi(String objectIdentifier, String format) throws DataacquisitionException {
     // this.filename = objectIdentifier;
     //
     // try {
@@ -222,13 +222,13 @@ public class UnapiServlet extends HttpServlet implements Unapi {
     // if (idType.equals(this.idTypeUnknown) || sourceId == null) {
     // logger.warn("The type of the identifier (" + objectIdentifier
     // + ") was not recognised.");
-    // throw new DataaquisitionException("The type of the identifier (" + objectIdentifier
+    // throw new DataacquisitionException("The type of the identifier (" + objectIdentifier
     // + ") was not recognised.");
     // }
-    // } catch (DataaquisitionException e) {
-    // throw new DataaquisitionException(objectIdentifier, e);
+    // } catch (DataacquisitionException e) {
+    // throw new DataacquisitionException(objectIdentifier, e);
     // } catch (MalformedURLException e) {
-    // throw new DataaquisitionException(objectIdentifier, e);
+    // throw new DataacquisitionException(objectIdentifier, e);
     // }
     //
     return null;

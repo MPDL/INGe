@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://dataaquisition.inge.mpdl.mpg.de/UnapiFormats" 
+<xs:schema xmlns="http://dataacquisition.inge.mpdl.mpg.de/UnapiFormats" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://dataaquisition.inge.mpdl.mpg.de/UnapiFormats" 
+	targetNamespace="http://dataacquisition.inge.mpdl.mpg.de/UnapiFormats" 
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:element name="formats" type="formatsType">

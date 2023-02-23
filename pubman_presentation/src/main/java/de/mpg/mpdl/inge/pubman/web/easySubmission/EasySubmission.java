@@ -44,7 +44,7 @@ import org.primefaces.model.UploadedFile;
 
 import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
-import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
+import de.mpg.mpdl.inge.dataacquisition.DataacquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
@@ -739,7 +739,7 @@ public class EasySubmission extends FacesBean {
           fileVOs.add(fileVO);
         }
       }
-    } catch (final DataaquisitionException inre) {
+    } catch (final DataacquisitionException inre) {
       EasySubmission.logger.error(inre.getMessage(), inre);
       this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error") + this.getServiceID());
       return null;
