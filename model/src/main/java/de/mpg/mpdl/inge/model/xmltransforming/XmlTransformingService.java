@@ -26,22 +26,11 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming;
 
-import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import org.apache.log4j.Logger;
 import org.jibx.runtime.BindingDirectory;
@@ -49,56 +38,21 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.LockVO;
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
-import de.mpg.mpdl.inge.model.valueobjects.RelationVO.RelationType;
-import de.mpg.mpdl.inge.model.valueobjects.ResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
-import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
-import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.util.FileVOCreationDateComparator;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.MarshallingException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.UnmarshallingException;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.AccountUserVOListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.AffiliationPathVOListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.AffiliationROListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.AffiliationVOListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ContextVOListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.EventVOListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.GrantVOListWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.MemberListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.SuccessorROListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.URLWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.UserAttributesWrapper;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author Johannes Mueller (initial creation)
@@ -111,6 +65,7 @@ public class XmlTransformingService {
   /**
    * {@inheritDoc}
    */
+  /*
   public static AccountUserVO transformToAccountUser(String user) throws TechnicalException, UnmarshallingException {
     logger.debug("transformToAccountUser(String) - String user=" + user);
     if (user == null) {
@@ -132,10 +87,12 @@ public class XmlTransformingService {
     }
     return userVO;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<AffiliationVO> transformToAffiliationList(String organizationalUnitList)
       throws TechnicalException, UnmarshallingException {
     logger.debug("transformToAffiliationList(String) - String oranizationalUnitList=" + organizationalUnitList);
@@ -161,10 +118,12 @@ public class XmlTransformingService {
     List<AffiliationVO> affiliationList = affiliationVOListWrapper.getAffiliationVOList();
     return affiliationList;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<AffiliationRO> transformToParentAffiliationList(String parentOrganizationalUnitList)
       throws TechnicalException, UnmarshallingException {
     logger.debug("transformToParentAffiliationList(String) - String parentOrganizationalUnitList=" + parentOrganizationalUnitList);
@@ -190,10 +149,12 @@ public class XmlTransformingService {
     List<AffiliationRO> affiliationList = affiliationROListWrapper.getAffiliationROList();
     return affiliationList;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<AffiliationRO> transformToSuccessorAffiliationList(String successorOrganizationalUnitList)
       throws TechnicalException, UnmarshallingException {
     logger.debug("transformToSuccessorAffiliationList(String) - String successorOrganizationalUnitList=" + successorOrganizationalUnitList);
@@ -219,10 +180,12 @@ public class XmlTransformingService {
     List<AffiliationRO> affiliationList = successorROListWrapper.getAffiliationROList();
     return affiliationList;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<AffiliationPathVO> transformToAffiliationPathList(String pathList) throws TechnicalException, UnmarshallingException {
     logger.debug("transformToAffiliationPathList(String) - String pathList=" + pathList);
     if (pathList == null) {
@@ -247,10 +210,12 @@ public class XmlTransformingService {
     resultList = affiliationPathVOListWrapper.getAffiliationPathVOList();
     return resultList;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<GrantVO> transformToGrantVOList(String formatList) throws TechnicalException {
     logger.debug("transformToGrantVOList(String) - String formatList=" + formatList);
     if (formatList == null) {
@@ -274,18 +239,19 @@ public class XmlTransformingService {
     List<GrantVO> grantVOList = grantVOListWrapper.getGrantVOList();
     return grantVOList;
   }
-
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static String transformToFilterTaskParam(FilterTaskParamVO filterTaskParamVO) throws TechnicalException, MarshallingException {
     logger.debug("transformToFilterTaskParam(FilterTaskParamVO)");
     if (filterTaskParamVO == null) {
       throw new IllegalArgumentException(
           XmlTransformingService.class.getSimpleName() + ":transformToFilterTaskParam:filterTaskParamVO is null");
     }
-
+  
     StringWriter sw = null;
     try {
       // marshal XML from FilterTaskParamVO
@@ -300,25 +266,15 @@ public class XmlTransformingService {
     } catch (java.lang.ClassCastException e) {
       throw new TechnicalException(e);
     }
-
+  
     return sw.toString().trim();
   }
+  */
 
   /**
    * {@inheritDoc}
    */
-  public static LockVO transformToLockVO(String lockInformation) throws TechnicalException, UnmarshallingException {
-    logger.debug("transformToLockVO(String) - String lockInformation=" + lockInformation);
-    if (lockInformation == null) {
-      throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToLockVO:lockInformation is null");
-    }
-    // TODO MuJ: Implement if needed.
-    return null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
+  /*
   public static AffiliationVO transformToAffiliation(String organizationalUnit) throws TechnicalException, UnmarshallingException {
     logger.debug("transformToAffiliation(String) - String organizationalUnit=" + organizationalUnit);
     if (organizationalUnit == null) {
@@ -346,10 +302,12 @@ public class XmlTransformingService {
     }
     return affiliationVO;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static String transformToOrganizationalUnit(AffiliationVO affiliationVO) throws TechnicalException, MarshallingException {
     logger.debug("transformToOrganizationalUnit(AffiliationVO)");
     if (affiliationVO == null) {
@@ -376,6 +334,7 @@ public class XmlTransformingService {
     }
     return utf8ou;
   }
+  */
 
   /**
    * {@inheritDoc}
@@ -411,6 +370,7 @@ public class XmlTransformingService {
   /**
    * {@inheritDoc}
    */
+  /*
   public static ContextVO transformToContext(String context) throws TechnicalException {
     logger.debug("transformToPubCollection(String) - String context=" + context);
     if (context == null) {
@@ -432,19 +392,21 @@ public class XmlTransformingService {
     }
     return contextVO;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<ContextVO> transformToContextList(String contextList) throws TechnicalException {
     logger.debug("transformToPubCollectionList(String) - String contextList=" + contextList);
     if (contextList == null) {
       throw new IllegalArgumentException(
           XmlTransformingService.class.getSimpleName() + ":transformToPubCollectionList:contextList is null");
     }
-
+  
     logger.debug("transformed contextList =" + contextList);
-
+  
     SearchRetrieveResponseVO<ContextVO> response = null;
     try {
       // unmarshal ContextVOListWrapper from String
@@ -460,7 +422,7 @@ public class XmlTransformingService {
       throw new TechnicalException(e);
     }
     List<ContextVO> ctxList = new ArrayList<ContextVO>();
-
+  
     if (response.getRecords() != null) {
       for (SearchRetrieveRecordVO<ContextVO> s : response.getRecords()) {
         ctxList.add((ContextVO) s.getData());
@@ -468,6 +430,7 @@ public class XmlTransformingService {
     }
     return ctxList;
   }
+  */
 
   /**
    * {@inheritDoc}
@@ -497,7 +460,7 @@ public class XmlTransformingService {
   /**
    * {@inheritDoc}
    */
-  public static List<? extends ItemVO> transformToItemList(String itemListXml) throws TechnicalException {
+  private static List<? extends ItemVO> transformToItemList(String itemListXml) throws TechnicalException {
     logger.debug("transformToPubItemList(String) - String itemList=\n" + itemListXml);
     if (itemListXml == null) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToPubItemList:itemList is null");
@@ -526,6 +489,7 @@ public class XmlTransformingService {
   /**
    * {@inheritDoc}
    */
+  /*
   public static ItemVOListWrapper transformSearchRetrieveResponseToItemList(String itemListXml) throws TechnicalException {
     logger.debug("transformSearchRetrieveResponseToItemList(String) - String itemList=\n" + itemListXml);
     if (itemListXml == null) {
@@ -534,73 +498,79 @@ public class XmlTransformingService {
     }
     SearchRetrieveResponseVO response = transformToSearchRetrieveResponse(itemListXml);
     List<SearchRetrieveRecordVO> records = response.getRecords();
-
+  
     ItemVOListWrapper pubItemList = new ItemVOListWrapper();
-
+  
     pubItemList.setNumberOfRecords(response.getNumberOfRecords() + "");
     List<PubItemVO> list = new ArrayList<PubItemVO>();
     pubItemList.setItemVOList(list);
-
+  
     if (records == null) {
       return pubItemList;
     }
-
+  
     for (SearchRetrieveRecordVO record : records) {
       list.add((PubItemVO) record.getData());
     }
-
+  
     return pubItemList;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<ContextVO> transformSearchRetrieveResponseToContextList(String contextListXml) throws TechnicalException {
     logger.debug("transformSearchRetrieveResponseToContextList(String) - String contextList=\n" + contextListXml);
     if (contextListXml == null) {
       throw new IllegalArgumentException(
           XmlTransformingService.class.getSimpleName() + ":transformSearchRetrieveResponseToContextList:contextList is null");
     }
-
+  
     logger.debug("transformed contextList =" + contextListXml);
-
+  
     SearchRetrieveResponseVO response = transformToSearchRetrieveResponse(contextListXml);
     List<SearchRetrieveRecordVO> records = response.getRecords();
-
+  
     List<ContextVO> pubContextList = new ArrayList<ContextVO>();
-
+  
     if (records == null) {
       return pubContextList;
     }
-
+  
     for (SearchRetrieveRecordVO record : records) {
       pubContextList.add((ContextVO) record.getData());
     }
-
+  
     return pubContextList;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   @Deprecated
   public static ItemResultVO transformToItemResultVO(String searchResultItem) throws TechnicalException {
     if (searchResultItem == null) {
       throw new IllegalArgumentException(
           XmlTransformingService.class.getSimpleName() + ":transformToItemResultVO:searchResultItem is null");
     }
-
+  
     SearchResultElement searchResultElement = transformToSearchResult(searchResultItem);
     if (!(searchResultElement instanceof ItemResultVO)) {
       throw new TechnicalException("XML not in the right format");
     }
-
+  
     return (ItemResultVO) searchResultElement;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static SearchResultElement transformToSearchResult(String searchResultXml) throws TechnicalException {
     if (searchResultXml == null) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToSearchResult:searchResultXml is null");
@@ -621,6 +591,7 @@ public class XmlTransformingService {
     }
     return convertToVO(searchResultVO);
   }
+  */
 
   /**
    * Converts a {@link SearchResultVO} into an instantiation of {@link SearchResultElement}. May be
@@ -630,10 +601,11 @@ public class XmlTransformingService {
    * 
    * @return The new VO.
    */
+  /*
   private static SearchResultElement convertToVO(SearchResultVO searchResultVO) throws TechnicalException {
     Searchable searchable = searchResultVO.getResultVO();
     List<SearchHitVO> searchHits = searchResultVO.getSearchHitList();
-
+  
     if (searchable instanceof ItemVO) {
       ItemResultVO itemResultVO = new ItemResultVO((ItemVO) searchable);
       itemResultVO.getSearchHitList().addAll(searchHits);
@@ -643,11 +615,12 @@ public class XmlTransformingService {
       AffiliationResultVO affiliationResultVO = new AffiliationResultVO((AffiliationVO) searchable);
       affiliationResultVO.getSearchHitList().addAll(searchHits);
       affiliationResultVO.setScore(searchResultVO.getScore());
-
+  
       return affiliationResultVO;
     }
     throw new TechnicalException("Search result is of unknown type");
   }
+  */
 
   public static String transformToItemList(List<? extends ItemVO> itemVOList) throws TechnicalException {
     logger.debug("transformToItemList(List<ItemVO>)");
@@ -698,6 +671,7 @@ public class XmlTransformingService {
   /**
    * {@inheritDoc}
    */
+  /*
   public static String transformToTaskParam(TaskParamVO taskParamVO) throws TechnicalException, MarshallingException {
     logger.debug("transformToTaskParam(TaskParamVO)");
     if (taskParamVO == null) {
@@ -726,10 +700,12 @@ public class XmlTransformingService {
     }
     return taskParam;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static URL transformUploadResponseToFileURL(String uploadResponse)
       throws TechnicalException, UnmarshallingException, URISyntaxException {
     logger.debug("transformUploadResponseToFileURL(String) - String uploadResponse=" + uploadResponse);
@@ -746,9 +722,9 @@ public class XmlTransformingService {
       StringReader sr = new StringReader(uploadResponse);
       urlWrapper = (URLWrapper) uctx.unmarshalDocument(sr, null);
       // extract the string from the wrapper and transform it to a URL
-
+  
       // logger.debug("URL: " + PropertyReader.getFrameworkUrl() + ":" + urlWrapper.getUrlString());
-
+  
       url = new URL(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + urlWrapper.getUrlString());
     } catch (JiBXException e) {
       // throw a new UnmarshallingException, log the root cause of the JiBXException first
@@ -761,10 +737,12 @@ public class XmlTransformingService {
     }
     return url;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<VersionHistoryEntryVO> transformToEventVOList(String versionList) throws TechnicalException {
     logger.debug("transformToPubItemVersionVOList(String) - String versionList=\n" + versionList);
     if (versionList == null) {
@@ -789,6 +767,7 @@ public class XmlTransformingService {
     List<VersionHistoryEntryVO> eventList = eventVOListWrapper.getEventVOList();
     return eventList;
   }
+  */
 
   /**
    * Return the child of the node selected by the xPath.
@@ -798,6 +777,7 @@ public class XmlTransformingService {
    * @return The child of the node selected by the xPath.
    * @throws TransformerException If anything fails.
    */
+  /*
   private static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
@@ -807,6 +787,7 @@ public class XmlTransformingService {
       throw new RuntimeException(e);
     }
   }
+  */
 
   /**
    * Return the list of children of the node selected by the xPath.
@@ -816,6 +797,7 @@ public class XmlTransformingService {
    * @return The list of children of the node selected by the xPath.
    * @throws TransformerException If anything fails.
    */
+  /*
   public static NodeList selectNodeList(final Node node, final String xpathExpression) throws TransformerException {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
@@ -825,19 +807,20 @@ public class XmlTransformingService {
       throw new RuntimeException(e);
     }
   }
-
+  */
 
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<RelationVO> transformToRelationVOList(String relationsXml) throws UnmarshallingException {
     logger.debug("transformToRelationVOList(String) - String relationsXml=\n" + relationsXml);
     if (relationsXml == null) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToRelationVOList:relationsXml is null");
     }
     List<RelationVO> relations = new ArrayList<RelationVO>();
-
+  
     try {
       Document relationsDoc = getDocument(relationsXml, true);
       NodeList subjects = selectNodeList(relationsDoc,
@@ -850,7 +833,7 @@ public class XmlTransformingService {
         String subject = getAttributeValue(relationsDoc, descriptionXpath, "rdf:about");
         String subjectObjectId = subject.substring(subject.lastIndexOf('/') + 1);
         ItemRO subjectRef = new ItemRO(subjectObjectId);
-
+  
         NodeList subjectRelations = selectNodeList(relationsDoc,
             "//*[local-name() = 'Description' and namespace-uri() = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'][" + i + "]/*");
         for (int j = 1; j <= subjectRelations.getLength(); j++) {
@@ -862,7 +845,7 @@ public class XmlTransformingService {
             String predicate = relation.getAttributes().getNamedItem("rdf:resource").getTextContent();
             String predicateObjectId = predicate.substring(predicate.lastIndexOf('/') + 1);
             ItemRO predicateRef = new ItemRO(predicateObjectId);
-
+  
             // add relation to list
             logger.debug(subjectObjectId + " isRevisionOf " + predicateObjectId);
             RelationVO relationVO = new RelationVO();
@@ -876,7 +859,7 @@ public class XmlTransformingService {
             String object = relation.getAttributes().getNamedItem("rdf:resource").getTextContent();
             String objectObjectId = object.substring(object.lastIndexOf('/') + 1);
             ItemRO objectRef = new ItemRO(objectObjectId);
-
+  
             // add relation to list
             logger.debug(subjectObjectId + " hasMember " + objectObjectId);
             RelationVO relationVO = new RelationVO();
@@ -890,9 +873,10 @@ public class XmlTransformingService {
     } catch (Exception e) {
       throw new UnmarshallingException(relationsXml, e);
     }
-
+  
     return relations;
   }
+  */
 
   /**
    * Parse the given xml String into a Document.
@@ -902,6 +886,7 @@ public class XmlTransformingService {
    * @return The Document.
    * @throws Exception If anything fails.
    */
+  /*
   protected static Document getDocument(final String xml, final boolean namespaceAwareness) throws Exception {
     if (xml == null) {
       throw new IllegalArgumentException(":getDocument:xml is null");
@@ -915,6 +900,7 @@ public class XmlTransformingService {
     result.getDocumentElement().normalize();
     return result;
   }
+  */
 
   /**
    * Return the text value of the selected attribute.
@@ -925,6 +911,7 @@ public class XmlTransformingService {
    * @return The text value of the selected attribute.
    * @throws Exception If anything fails.
    */
+  /*
   public static String getAttributeValue(final Node node, final String xPath, final String attributeName) throws Exception {
     if (node == null) {
       throw new IllegalArgumentException(":getAttributeValue:node is null");
@@ -942,6 +929,7 @@ public class XmlTransformingService {
     }
     return result;
   }
+  */
 
   public static PubItemVO transformToPubItem(String itemXml) throws TechnicalException {
     ItemVO itemVO = transformToItem(itemXml);
@@ -966,6 +954,7 @@ public class XmlTransformingService {
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<? extends ValueObject> transformToMemberList(String memberList) throws TechnicalException {
     logger.debug("transformToMemberList(String) - String memberList=\n" + memberList);
     if (memberList == null) {
@@ -988,13 +977,15 @@ public class XmlTransformingService {
     }
     // unwrap the List<ContainerVO>
     List<? extends ValueObject> memList = mListWrapper.getMemberList();
-
+  
     return memList;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static ResultVO transformToResult(String resultXml) throws TechnicalException {
     logger.debug("transformToResult(String) - String result=" + resultXml);
     if (resultXml == null) {
@@ -1015,6 +1006,7 @@ public class XmlTransformingService {
     }
     return resultVO;
   }
+  */
 
   public static FileVO transformToFileVO(String fileXML) throws TechnicalException {
     logger.debug("transformToFileVO(String) - String file=\n" + fileXML);
@@ -1065,6 +1057,7 @@ public class XmlTransformingService {
     return pidServiceResponseVO;
   }
 
+  /*
   public static SearchRetrieveResponseVO transformToSearchRetrieveResponse(String searchRetrieveResponseXml) throws TechnicalException {
     logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searchRetrieveResponseXml);
     if (searchRetrieveResponseXml == null) {
@@ -1072,7 +1065,7 @@ public class XmlTransformingService {
           XmlTransformingService.class.getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
     }
     SearchRetrieveResponseVO searchRetrieveResponseVO = null;
-
+  
     try {
       // unmarshal pidServiceResponse from String
       IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", SearchRetrieveResponseVO.class);
@@ -1087,10 +1080,12 @@ public class XmlTransformingService {
     } catch (ClassCastException e) {
       throw new TechnicalException(e);
     }
-
+  
     return searchRetrieveResponseVO;
   }
+  */
 
+  /*
   public static SearchRetrieveResponseVO transformToSearchRetrieveResponseOrganizationVO(String searchRetrieveResponseXml)
       throws TechnicalException {
     logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searchRetrieveResponseXml);
@@ -1099,7 +1094,7 @@ public class XmlTransformingService {
           XmlTransformingService.class.getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
     }
     SearchRetrieveResponseVO searchRetrieveResponseVO = null;
-
+  
     try {
       // unmarshal pidServiceResponse from String
       IBindingFactory bfact = BindingDirectory.getFactory("AffiliationVO_input", SearchRetrieveResponseVO.class);
@@ -1114,15 +1109,18 @@ public class XmlTransformingService {
     } catch (ClassCastException e) {
       throw new TechnicalException(e);
     }
-
+  
     return searchRetrieveResponseVO;
   }
+  */
 
+  /*
   public static SearchRetrieveResponseVO transformToSearchRetrieveResponseUserGroup(String searchRetrieveResponseXml)
       throws TechnicalException {
     return transformToSearchRetrieveResponseGrant(searchRetrieveResponseXml);
   }
-
+  *
+  
   public static SearchRetrieveResponseVO transformToSearchRetrieveResponseGrant(String searchRetrieveResponseXml)
       throws TechnicalException {
     logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searchRetrieveResponseXml);
@@ -1131,7 +1129,7 @@ public class XmlTransformingService {
           XmlTransformingService.class.getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
     }
     SearchRetrieveResponseVO searchRetrieveResponseVO = null;
-
+  
     try {
       // unmarshal pidServiceResponse from String
       IBindingFactory bfact = BindingDirectory.getFactory("binding", SearchRetrieveResponseVO.class);
@@ -1146,10 +1144,10 @@ public class XmlTransformingService {
     } catch (ClassCastException e) {
       throw new TechnicalException(e);
     }
-
+  
     return searchRetrieveResponseVO;
   }
-
+  
   public static SearchRetrieveResponseVO transformToSearchRetrieveResponseGrantVO(String searchRetrieveResponseXml)
       throws TechnicalException {
     logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searchRetrieveResponseXml);
@@ -1158,7 +1156,7 @@ public class XmlTransformingService {
           XmlTransformingService.class.getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
     }
     SearchRetrieveResponseVO searchRetrieveResponseVO = null;
-
+  
     try {
       // unmarshal pidServiceResponse from String
       IBindingFactory bfact = BindingDirectory.getFactory("GrantVOListWrapper", SearchRetrieveResponseVO.class);
@@ -1173,10 +1171,11 @@ public class XmlTransformingService {
     } catch (ClassCastException e) {
       throw new TechnicalException(e);
     }
-
+  
     return searchRetrieveResponseVO;
   }
-
+  
+  /*
   public static SearchRetrieveResponseVO transformToSearchRetrieveResponseAccountUser(String searcRetrieveResponseXml)
       throws TechnicalException {
     logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searcRetrieveResponseXml);
@@ -1185,7 +1184,7 @@ public class XmlTransformingService {
           XmlTransformingService.class.getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
     }
     SearchRetrieveResponseVO searchRetrieveResponseVO = null;
-
+  
     try {
       // unmarshal pidServiceResponse from String
       IBindingFactory bfact = BindingDirectory.getFactory("AccountUserVO", SearchRetrieveResponseVO.class);
@@ -1200,13 +1199,15 @@ public class XmlTransformingService {
     } catch (ClassCastException e) {
       throw new TechnicalException(e);
     }
-
+  
     return searchRetrieveResponseVO;
   }
+  */
 
   /**
    * {@inheritDoc}
    */
+  /*
   public static List<UserAttributeVO> transformToUserAttributesList(String userAttributesList) throws TechnicalException {
     logger.debug("transformToUserAttributesList(String) - String userAttributesList=\n" + userAttributesList);
     if (userAttributesList == null) {
@@ -1228,7 +1229,8 @@ public class XmlTransformingService {
     } catch (ClassCastException e) {
       throw new TechnicalException(e);
     }
-
+  
     return listWrapper.getUserAttributes();
   }
+  */
 }

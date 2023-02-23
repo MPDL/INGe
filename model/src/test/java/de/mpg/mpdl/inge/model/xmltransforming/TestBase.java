@@ -26,44 +26,29 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.TransformerException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSOutput;
-import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -159,20 +144,22 @@ public class TestBase {
    * 
    * @return pubItem
    */
+  /*
   protected PubItemVO getPubItem2() {
     PubItemVO item = new PubItemVO();
-
+  
     // (1) metadata
     MdsPublicationVO mds = getMdsPublication2();
     item.setMetadata(mds);
-
+  
     // (2) pubCollection
     ContextRO collectionRef = new ContextRO();
     collectionRef.setObjectId("escidoc:persistent3");
     item.setContext(collectionRef);
-
+  
     return item;
   }
+  */
 
   /**
    * Creates a well-defined PubItemVO named "PubMan: The first of all.".
@@ -267,15 +254,16 @@ public class TestBase {
    * 
    * @return pubItem
    */
+  /*
   protected ItemResultVO getPubItemResultNamedTheFirstOfAll() {
     ItemResultVO itemResult = new ItemResultVO();
-
+  
     // properties of the item
     // PubCollectionRef
     ContextRO collectionRef = new ContextRO();
     collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     itemResult.setContext(collectionRef);
-
+  
     // item metadata
     MdsPublicationVO mds = new MdsPublicationVO();
     // title
@@ -306,9 +294,10 @@ public class TestBase {
     source.setTitle("The title of the source");
     source.setGenre(SourceVO.Genre.JOURNAL);
     itemResult.getMetadataSets().add(mds);
-
+  
     return itemResult;
   }
+  */
 
   /**
    * Creates a well-defined, complex PubItemVO without files.
@@ -563,16 +552,17 @@ public class TestBase {
    * 
    * @return The generated MdsPublicationVO.
    */
+  /*
   protected MdsPublicationVO getMdsPublication2() {
     // Metadata
     MdsPublicationVO mds = new MdsPublicationVO();
-
+  
     // Title
     mds.setTitle("The title");
-
+  
     // Genre
     mds.setGenre(Genre.BOOK);
-
+  
     // Creators
     CreatorVO creator = new CreatorVO();
     creator.setRole(CreatorRole.AUTHOR);
@@ -582,14 +572,14 @@ public class TestBase {
     person.setCompleteName("Hans Meier");
     creator.setPerson(person);
     mds.getCreators().add(creator);
-
+  
     // Dates
     mds.setDateCreated("2005-2");
     mds.setDateSubmitted("2005-8-31");
     mds.setDateAccepted("2005");
     mds.setDatePublishedInPrint("2006-2-1");
     mds.setDateModified("2007-2-29");
-
+  
     // Identifiers
     List<IdentifierVO> identifierList = mds.getIdentifiers();
     IdentifierVO identifierVO = new IdentifierVO();
@@ -598,17 +588,17 @@ public class TestBase {
     for (int i = 0; i < 2; i++) {
       identifierList.add(identifierVO);
     }
-
+  
     // Publishing info
     PublishingInfoVO publishingInfoVO = new PublishingInfoVO();
     publishingInfoVO.setEdition("Edition 123");
     publishingInfoVO.setPlace("Place 5");
     publishingInfoVO.setPublisher("Publisher XY");
     mds.setPublishingInfo(publishingInfoVO);
-
+  
     // build the List of SourceVOs...
     List<SourceVO> sourcesList = mds.getSources();
-
+  
     // build one SourceVO instance...
     SourceVO sourceVO = new SourceVO();
     sourceVO.setTitle("The title");
@@ -630,7 +620,7 @@ public class TestBase {
     for (IdentifierVO id : identifierList) {
       sourceIdentifierList.add(id);
     }
-
+  
     // build another SourceVO instance...
     SourceVO sourceVO2 = new SourceVO();
     sourceVO2.setTitle("The title");
@@ -652,18 +642,18 @@ public class TestBase {
     for (IdentifierVO id : identifierList) {
       sourceIdentifierList2.add(id);
     }
-
+  
     // add several of the "other" SourceVO instances to the first SourceVO instance
     List<SourceVO> sourceSourcesList = sourceVO.getSources();
     for (int i = 0; i < 2; i++) {
       sourceSourcesList.add(sourceVO2);
     }
-
+  
     // add SourceVO several times
     for (int i = 0; i < 2; i++) {
       sourcesList.add(sourceVO);
     }
-
+  
     // Event
     EventVO event = new EventVO();
     // Event.Title
@@ -677,9 +667,10 @@ public class TestBase {
     // Event.InvitationStatus
     event.setInvitationStatus(InvitationStatus.INVITED);
     mds.setEvent(event);
-
+  
     return mds;
   }
+  */
 
   /**
    * Searches the Java classpath for a given file name and gives back the file (or a
@@ -689,6 +680,7 @@ public class TestBase {
    * @return The file
    * @throws FileNotFoundException Thrown if the file was not found.
    */
+  /*
   public static File findFileInClasspath(String fileName) throws FileNotFoundException {
     URL url = TestBase.class.getClassLoader().getResource(fileName);
     if (url == null) {
@@ -696,6 +688,7 @@ public class TestBase {
     }
     return new File(url.getFile());
   }
+  */
 
   /**
    * Reads contents from text file and returns it as String.
@@ -735,6 +728,7 @@ public class TestBase {
    * @param item A (XML) String
    * @return The last-modification-date value
    */
+  /*
   protected static String getLastModificationDate(String item) {
     String result = "";
     String searchString = "last-modification-date=\"";
@@ -748,6 +742,7 @@ public class TestBase {
     }
     return result;
   }
+  */
 
   /**
    * Assert that the Element/Attribute selected by the xPath exists.
@@ -757,6 +752,7 @@ public class TestBase {
    * @param xPath The xPath.
    * @throws Exception If anything fails.
    */
+  /*
   public static void assertXMLExist(final String message, final Node node, final String xPath) throws Exception {
     if (message == null) {
       throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLExist:message is null");
@@ -770,6 +766,7 @@ public class TestBase {
     NodeList nodes = DOMUtilities.selectNodeList(node, xPath);
     assertTrue(message, nodes.getLength() > 0);
   }
+  */
 
   /**
    * Assert that the XML is valid to the schema.
@@ -942,34 +939,6 @@ public class TestBase {
   }
 
   /**
-   * Gets the value of the specified attribute of the root element from the document.
-   * 
-   * @param document The document to retrieve the value from.
-   * @param attributeName The name of the attribute whose value shall be retrieved.
-   * @return Returns the attribute value.
-   * @throws Exception If anything fails.
-   * @throws TransformerException
-   */
-  public static String getRootElementAttributeValue(final Document document, final String attributeName) throws Exception {
-    if (document == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getRootElementAttributeValue:document is null");
-    }
-    if (attributeName == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getRootElementAttributeValue:attributeName is null");
-    }
-    String xPath;
-    if (attributeName.startsWith("@")) {
-      xPath = "/*/" + attributeName;
-    } else {
-      xPath = "/*/@" + attributeName;
-    }
-    assertXMLExist("Attribute not found [" + attributeName + "]. ", document, xPath);
-    String value = DOMUtilities.selectSingleNode(document, xPath).getTextContent();
-    return value;
-  }
-
-
-  /**
    * Serialize the given Dom Object to a String.
    * 
    * @param xml The Xml Node to serialize.
@@ -977,14 +946,15 @@ public class TestBase {
    * @return The String representation of the Xml Node.
    * @throws Exception If anything fails.
    */
+  /*
   protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception {
     if (xml == null) {
       throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":toString:xml is null");
     }
     String result = null;
-
+  
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
+  
     // serialize
     DOMImplementation implementation = DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
     DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS", "3.0");
@@ -992,12 +962,12 @@ public class TestBase {
     LSOutput output = feature.createLSOutput();
     output.setByteStream(outputStream);
     serial.write(xml, output);
-
+  
     result = output.toString();
-
+  
     return result;
   }
-
+  */
 
 
 }

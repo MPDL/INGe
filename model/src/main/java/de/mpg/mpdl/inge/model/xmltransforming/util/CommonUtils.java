@@ -63,7 +63,7 @@ public class CommonUtils {
    * @return The properties
    * @throws IOException
    */
-  public static Properties getProperties(String propertyFileName) throws IOException {
+  private static Properties getProperties(String propertyFileName) throws IOException {
     URL url = findURLInClasspath(propertyFileName);
     Properties properties = new Properties();
     properties.load(url.openStream());
