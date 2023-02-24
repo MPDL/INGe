@@ -111,7 +111,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
   }
 
   public AffiliationDbVO(AffiliationDbVO other) {
-    MapperFactory.getDozerMapper().map(other, this);
+    MapperFactory.STRUCT_MAP_MAPPER.updateAffiliationDbVO(other, this);
   }
 
 

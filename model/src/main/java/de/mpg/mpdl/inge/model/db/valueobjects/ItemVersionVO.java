@@ -152,7 +152,7 @@ public class ItemVersionVO extends ItemVersionRO {
 
 
   public ItemVersionVO(ItemVersionVO other) {
-    MapperFactory.getDozerMapper().map(other, this);
+    MapperFactory.STRUCT_MAP_MAPPER.updateItemVersionVO(other, this);
 
   }
 

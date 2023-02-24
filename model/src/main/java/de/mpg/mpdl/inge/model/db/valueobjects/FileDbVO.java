@@ -176,7 +176,7 @@ public class FileDbVO extends FileDbRO {
    * @param other The instance to copy.
    */
   public FileDbVO(FileDbVO other) {
-    MapperFactory.getDozerMapper().map(other, this);
+    MapperFactory.STRUCT_MAP_MAPPER.updateFileDbVO(other, this);
   }
 
 

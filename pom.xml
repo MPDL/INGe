@@ -324,7 +324,7 @@
 			<dependency>
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
-				<version>1.3.3</version>
+				<version>1.5</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-httpclient</groupId>
@@ -440,17 +440,27 @@
 			</dependency>
 
 			<!-- Dozer -->
+			<!--
 			<dependency>
 				<groupId>com.github.dozermapper</groupId>
 				<artifactId>dozer-core</artifactId>
 				<version>6.5.2</version>
 			</dependency>
-			<!-- required for Dozer-->
+
+
 			<dependency>
 				<groupId>javax.el</groupId>
 				<artifactId>javax.el-api</artifactId>
 				<version>3.0.0</version>
 			</dependency>
+			-->
+
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct</artifactId>
+				<version>${org.mapstruct.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>javax.xml.bind</groupId>
 				<artifactId>jaxb-api</artifactId>
@@ -1198,6 +1208,7 @@
 				<artifactId>taglist-maven-plugin</artifactId>
 				<version>2.2</version>
 			</plugin>
+
 		</plugins>
 	</reporting>
 
@@ -1412,6 +1423,9 @@
 		<xsd.soap.useraccount.useraccountlist>http://www.escidoc.de/schemas/useraccountlist/0.7</xsd.soap.useraccount.useraccountlist>
 		<xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.6</xsd.soap.usergroup.usergroup>
 		<xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.6</xsd.soap.usergroup.usergrouplist>
+
+		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+
 	</properties>
 
 	<profiles>

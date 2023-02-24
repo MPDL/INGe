@@ -55,7 +55,8 @@ public class AccountUserDbVO extends BasicDbRO {
   public AccountUserDbVO() {}
 
   public AccountUserDbVO(AccountUserDbVO other) {
-    MapperFactory.getDozerMapper().map(other, this);
+
+    MapperFactory.STRUCT_MAP_MAPPER.updateAccountUserDbVO(other, this);
   }
 
   public boolean isActive() {

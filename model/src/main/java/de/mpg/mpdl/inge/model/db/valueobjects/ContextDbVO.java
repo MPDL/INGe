@@ -127,7 +127,8 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   public ContextDbVO() {}
 
   public ContextDbVO(ContextDbVO other) {
-    MapperFactory.getDozerMapper().map(other, this);
+
+    MapperFactory.STRUCT_MAP_MAPPER.updateContextDbVO(other, this);
   }
 
   /**

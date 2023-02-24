@@ -4,8 +4,6 @@ package de.mpg.mpdl.inge.model.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.dozermapper.core.Mapper;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
@@ -31,10 +29,11 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class EntityTransformer {
 
-  private static Mapper dozerMapper = MapperFactory.getDozerMapper();
+  private static MapStructMapper MAPPER = MapperFactory.STRUCT_MAP_MAPPER;
 
   public static ContextDbVO transformToNew(ContextVO contextVo) {
-    return dozerMapper.map(contextVo, ContextDbVO.class);
+    return MAPPER.toContextDbVO(contextVo);
+    //return dozerMapper.map(contextVo, ContextDbVO.class);
     /*
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
@@ -76,17 +75,19 @@ public class EntityTransformer {
 
 
   public static ItemVersionVO transformToNew(PubItemVO itemVo) {
-    return dozerMapper.map(itemVo, ItemVersionVO.class);
+
+    return MAPPER.toItemVersionVO(itemVo);
   }
 
 
   public static FileDbVO transformToNew(FileVO fileVo) {
-    return dozerMapper.map(fileVo, FileDbVO.class);
+
+    return MAPPER.toFileDbVO(fileVo);
   }
 
 
   public static AffiliationDbVO transformToNew(AffiliationVO affVo) {
-    return dozerMapper.map(affVo, AffiliationDbVO.class);
+    return MAPPER.toAffiliationDbVO(affVo);
     /*
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
@@ -144,7 +145,7 @@ public class EntityTransformer {
   }
 
   private static ItemRO transformToOld(ItemVersionRO newItemRo) {
-    return dozerMapper.map(newItemRo, ItemRO.class);
+    return MAPPER.toItemRO(newItemRo);
     /*
     ItemRO oldItemRo = new ItemRO();
     oldItemRo.setObjectId(newItemRo.getObjectId());
@@ -165,7 +166,7 @@ public class EntityTransformer {
   }
 
   private static FileVO transformToOld(FileDbVO newFileVo) {
-    return dozerMapper.map(newFileVo, FileVO.class);
+    return MAPPER.toFileVO(newFileVo);
 
     /*
     FileVO oldFileVo = new FileVO();
@@ -210,7 +211,7 @@ public class EntityTransformer {
       return null;
     }
 
-    return dozerMapper.map(itemVo, PubItemVO.class);
+    return MAPPER.toPubItemVO(itemVo);
 
 
     /*
@@ -270,7 +271,7 @@ public class EntityTransformer {
     if (newContextVo == null) {
       return null;
     }
-    return dozerMapper.map(newContextVo, ContextVO.class);
+    return MAPPER.toContextVO(newContextVo);
 
     /*
     ContextVO oldContextVo = new ContextVO();
@@ -313,7 +314,7 @@ public class EntityTransformer {
     if (newAffVo == null) {
       return null;
     }
-    return dozerMapper.map(newAffVo, AffiliationVO.class);
+    return MAPPER.toAffiliationVO(newAffVo);
 
     /*
     AffiliationVO oldAffVo = new AffiliationVO();

@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.dozermapper.core.DozerBeanMapperBuilder;
-import com.github.dozermapper.core.Mapper;
+import org.mapstruct.factory.Mappers;
 
 public class MapperFactory {
 
   private static final ObjectMapper jsonObjectMapper = new ObjectMapper();
 
-  private static final Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
+  public static MapStructMapper STRUCT_MAP_MAPPER = Mappers.getMapper(MapStructMapper.class);
+  //private static final Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
 
   static {
 
@@ -28,9 +28,11 @@ public class MapperFactory {
   }
 
 
+  /*
   public static Mapper getDozerMapper() {
     return dozerMapper;
   }
+   */
 
 
 
