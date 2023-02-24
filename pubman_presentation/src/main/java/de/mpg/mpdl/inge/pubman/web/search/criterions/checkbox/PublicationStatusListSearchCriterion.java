@@ -1,15 +1,14 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.MapListSearchCriterion;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.MapListSearchCriterion;
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class PublicationStatusListSearchCriterion extends MapListSearchCriterion<String> {
@@ -70,62 +69,62 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
 
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
 
     if (!this.isEmpty(QueryType.CQL)) {
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      BoolQuery.Builder bq = new BoolQuery.Builder();
       for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
 
         if (entry.getValue()) {
           final String value = this.getValueMap().get(entry.getKey());
 
-          BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+          BoolQuery.Builder bqb = new BoolQuery.Builder();
 
           switch (value) {
             case "not-specified": {
 
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED));
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT))._toQuery());
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE))._toQuery());
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED))._toQuery());
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED))._toQuery());
               break;
 
             }
             case "submitted": {
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
-              bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED));
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT))._toQuery());
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE))._toQuery());
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED))._toQuery());
+              bqb.must(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED))._toQuery());
               break;
             }
             case "accepted": {
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
-              bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT))._toQuery());
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE))._toQuery());
+              bqb.must(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED))._toQuery());
               break;
             }
             case "published-online": {
-              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
+              bqb.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT))._toQuery());
+              bqb.must(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE))._toQuery());
               break;
 
             }
             case "published-in-print": {
-              bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
+              bqb.must(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT))._toQuery());
               break;
             }
 
 
           }
-          bq.should(bqb);
+          bq.should(bqb.build()._toQuery());
         }
 
       }
 
 
-      return bq;
+      return bq.build()._toQuery();
 
     }
 

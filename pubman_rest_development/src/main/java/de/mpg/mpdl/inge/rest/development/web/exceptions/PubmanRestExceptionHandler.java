@@ -23,7 +23,7 @@ import java.util.List;
 @ControllerAdvice
 public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-  private static final Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
+  private static final Logger logger = Logger.getLogger(PubmanRestExceptionHandler.class);
 
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

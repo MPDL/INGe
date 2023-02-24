@@ -1,24 +1,12 @@
 package de.mpg.mpdl.inge.service.aa;
 
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-
+import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -32,11 +20,25 @@ import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorizationService {
 
-  private static final Logger logger = Logger.getLogger(AuthorizationService.class);
+  private final static Logger logger = Logger.getLogger(AuthorizationService.class);
 
   private Map<String, Object> aaMap;
 
@@ -91,24 +93,25 @@ public class AuthorizationService {
     }
   }
 
-  public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query, Object... objects)
+  public Query modifyQueryForAa(String serviceName, Query query, Object... objects)
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
 
-    QueryBuilder filterQuery = getAaFilterQuery(serviceName, objects);
+    Query filterQuery = getAaFilterQuery(serviceName, objects);
 
     if (filterQuery != null) {
-      BoolQueryBuilder completeQuery = QueryBuilders.boolQuery();
+      BoolQuery.Builder completeQuery = new BoolQuery.Builder();
+      //BoolQueryBuilder completeQuery = QueryBuilders.boolQuery();
       if (query != null) {
         completeQuery.must(query);
       }
       completeQuery.filter(filterQuery);
-      return completeQuery;
+      return completeQuery.build()._toQuery();
     }
 
     return query;
   }
 
-  private QueryBuilder getAaFilterQuery(String serviceName, Object... objects)
+  private Query getAaFilterQuery(String serviceName, Object... objects)
       throws AuthorizationException, IngeApplicationException, IngeTechnicalException, AuthenticationException {
 
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
@@ -124,7 +127,7 @@ public class AuthorizationService {
       userAccount = null;
     }
 
-    BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+    BoolQuery.Builder bqb = new BoolQuery.Builder();
     if (allowedMap == null) {
       throw new AuthorizationException("No rules for service " + serviceName + ", method " + "get");
     }
@@ -136,7 +139,7 @@ public class AuthorizationService {
 
     for (Map<String, Object> rules : allowedMap) {
 
-      BoolQueryBuilder subQb = QueryBuilders.boolQuery();
+      BoolQuery.Builder subQb = new BoolQuery.Builder();
       boolean userMatch = false;
 
       // Everybody is allowed to see everything
@@ -148,47 +151,51 @@ public class AuthorizationService {
 
               if (userMap.containsKey("field_user_id_match")) {
                 String value = (String) userMap.get("field_user_id_match");
-                subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getObjectId()));
+                AccountUserDbVO finalUserAccount = userAccount;
+                subQb.must(TermQuery.of(t -> t.field(indices.get(value)).value(finalUserAccount.getObjectId()))._toQuery());
                 userMatch = true;
               }
 
               if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")
                   || userMap.containsKey("field_ctx_ou_id_match")) {
-                BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
+                BoolQuery.Builder grantQueryBuilder = new BoolQuery.Builder();
                 for (GrantVO grant : userAccount.getGrantList()) {
                   if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
                       // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou")) {
-                        List<String> grantFieldMatchValues = new ArrayList<>();
+                        List<FieldValue> grantFieldMatchValues = new ArrayList<>();
                         List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält auch eigene Ou
                         parents.remove(parents.size() - 1); // remove root
-                        grantFieldMatchValues.addAll(parents);
-                        grantQueryBuilder
-                            .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grantFieldMatchValues));
+                        grantFieldMatchValues.addAll(parents.stream().map(i -> FieldValue.of(i)).collect(Collectors.toList()));
+                        grantQueryBuilder.should(TermsQuery
+                            .of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).terms(te -> te.value(grantFieldMatchValues)))
+                            ._toQuery());
                       } else {
-                        grantQueryBuilder
-                            .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
+                        grantQueryBuilder.should(TermQuery
+                            .of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).value(grant.getObjectRef()))._toQuery());
                       }
                     } else if (userMap.get("field_ctx_ou_id_match") != null) {
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ctx")) {
                         ContextDbVO ctx = ctxService.get(grant.getObjectRef(), null);
                         String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
-                        grantQueryBuilder.should(QueryBuilders.termQuery(indices.get(userMap.get("field_ctx_ou_id_match")), ouId));
+                        grantQueryBuilder
+                            .should(TermQuery.of(t -> t.field(indices.get(userMap.get("field_ctx_ou_id_match"))).value(ouId))._toQuery());
                       }
                     }
                   }
                 }
-                if (grantQueryBuilder.hasClauses()) {
-                  subQb.must(grantQueryBuilder);
+                BoolQuery grantQuery = grantQueryBuilder.build();
+                if (grantQuery.should() != null && !grantQuery.should().isEmpty()) {
+                  subQb.must(grantQuery._toQuery());
                 }
               }
             }
 
             if (!userMatch) {
               //reset queryBuilder
-              subQb = QueryBuilders.boolQuery();
+              subQb = new BoolQuery.Builder();
               break rulesLoop;
             }
 
@@ -206,18 +213,18 @@ public class AuthorizationService {
             if (rule.getValue() instanceof Collection<?>) {
               List<String> valuesToCompare = (List<String>) rule.getValue();
               if (valuesToCompare.size() > 1) {
-                BoolQueryBuilder valueQueryBuilder = QueryBuilders.boolQuery();
+                BoolQuery.Builder valueQueryBuilder = new BoolQuery.Builder();
                 for (String val : valuesToCompare) {
-                  valueQueryBuilder.should(QueryBuilders.termQuery(index, val));
+                  valueQueryBuilder.should(TermQuery.of(t -> t.field(index).value(val))._toQuery());
                 }
-                subQb.must(valueQueryBuilder);
+                subQb.must(valueQueryBuilder.build()._toQuery());
               } else {
-                subQb.must(QueryBuilders.termQuery(index, valuesToCompare.get(0)));
+                subQb.must(TermQuery.of(t -> t.field(index).value(valuesToCompare.get(0)))._toQuery());
               }
             } else {
               Object value = getFieldValueOrString(order, objects, (String) rule.getValue());
               if (value != null) {
-                subQb.must(QueryBuilders.termQuery(index, value.toString()));
+                subQb.must(TermQuery.of(t -> t.field(index).value(value.toString()))._toQuery());
               }
             }
             break;
@@ -225,8 +232,9 @@ public class AuthorizationService {
         }
       }
 
-      if (subQb.hasClauses()) {
-        bqb.should(subQb);
+      BoolQuery subQ = subQb.build();
+      if (subQ.must() != null && !subQ.must().isEmpty()) {
+        bqb.should(subQ._toQuery());
       }
       // User matches and no more rules -> User can see everything
       else if (userMatch) {
@@ -234,8 +242,9 @@ public class AuthorizationService {
       }
     }
 
-    if (bqb.hasClauses()) {
-      return bqb;
+    BoolQuery bq = bqb.build();
+    if (bq.should() != null && !bq.should().isEmpty()) {
+      return bq._toQuery();
     }
 
     throw new AuthorizationException("This search requires a login");

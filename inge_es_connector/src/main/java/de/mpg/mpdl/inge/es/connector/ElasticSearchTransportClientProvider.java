@@ -1,46 +1,78 @@
 package de.mpg.mpdl.inge.es.connector;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
-
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransport;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.http.HttpHost;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.elasticsearch.client.RestClient;
 
 public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
 
-  private TransportClient client;
+  private ElasticsearchClient client;
+
+
+
+  //private RestHighLevelClient restHighLevelClient;
 
   private static final Logger logger = Logger.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
+
+    logger.info("Building Elasticsearch REST client for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT) + ">");
+
+    // Create the low-level client
+    RestClient restClient = RestClient.builder(HttpHost.create(PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT))).build();
+
+
+    // Create the HLRC
+    /*
+    RestHighLevelClient hlrc = new RestHighLevelClientBuilder(restClient)
+            .setApiCompatibilityMode(true)
+            .build();
+    */
+
+    // Create the transport with a Jackson mapper
+    ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
+
+
+    client = new ElasticsearchClient(transport);
+
+    /*
     this.client = new PreBuiltTransportClient(Settings.builder()
         .put("cluster.name", PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME)).put("client.transport.sniff", true).build());
-
+    
     logger.info("Building TransportClient for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME) + ">" + " and <"
         + PropertyReader.getProperty(PropertyReader.INGE_ES_TRANSPORT_IPS) + "> ");
     String transportIps = PropertyReader.getProperty(PropertyReader.INGE_ES_TRANSPORT_IPS);
-
+    
     for (String ip : transportIps.split(" ")) {
       String addr = ip.split(":")[0];
       int port = Integer.valueOf(ip.split(":")[1]);
       try {
         this.client.addTransportAddress(new TransportAddress(InetAddress.getByName(addr), port));
-
+    
         String nodeName = this.client.nodeName();
         logger.info("Nodename <" + nodeName + ">");
       } catch (UnknownHostException e) {
         e.printStackTrace();
       }
     }
+    */
   }
 
-  public Client getClient() {
+  public ElasticsearchClient getClient() {
     return client;
   }
+
+  /*
+  public RestHighLevelClient getRestHighLevelClient() {
+    return restHighLevelClient;
+  }
+   */
+
 }

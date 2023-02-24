@@ -25,8 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
-import org.elasticsearch.index.query.QueryBuilder;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
@@ -74,7 +73,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
     if (this.isInvited()) {
       return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_METADATA_EVENT_INVITATION_STATUS},
           InvitationStatus.INVITED.name());

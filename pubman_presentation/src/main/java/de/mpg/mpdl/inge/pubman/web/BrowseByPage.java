@@ -23,24 +23,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.model.SelectItem;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
@@ -62,6 +46,19 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Backing Bean for Browse By
@@ -312,7 +309,7 @@ public class BrowseByPage extends BreadcrumbPage {
     dsc1.setTo(year);
     scList.add(dsc1);
 
-    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+    Query qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
     search(qb);
   }
 
@@ -328,7 +325,7 @@ public class BrowseByPage extends BreadcrumbPage {
     dsc2.setTo(year);
     scList.add(dsc2);
 
-    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+    Query qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
     search(qb);
   }
 
@@ -340,7 +337,7 @@ public class BrowseByPage extends BreadcrumbPage {
     ps.setSearchString(link.getLabel());
     scList.add(ps);
 
-    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+    Query qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
     search(qb);
   }
 
@@ -351,7 +348,7 @@ public class BrowseByPage extends BreadcrumbPage {
     sc.setSearchString(id);
     scList.add(sc);
 
-    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+    Query qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
     search(qb);
   }
 
@@ -360,8 +357,8 @@ public class BrowseByPage extends BreadcrumbPage {
   //        + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
   //  }
 
-  private void search(QueryBuilder qb) throws Exception {
-    BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+  private void search(Query qb) throws Exception {
+    BoolQuery.Builder bqb = new BoolQuery.Builder();
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),

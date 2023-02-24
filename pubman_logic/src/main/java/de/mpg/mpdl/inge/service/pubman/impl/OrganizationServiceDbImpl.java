@@ -1,31 +1,18 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
@@ -42,6 +29,21 @@ import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -84,7 +86,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final QueryBuilder qb = QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
+    final Query qb =
+        BoolQuery.of(b1 -> b1.mustNot(ExistsQuery.of(eq -> eq.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID))._toQuery()))._toQuery();
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC)});
@@ -102,20 +105,20 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchFirstLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final BoolQueryBuilder qb = QueryBuilders.boolQuery();
+    final BoolQuery.Builder qb = new BoolQuery.Builder();
     final List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
 
     if (topLevelOus.size() == 0) {
       return new ArrayList<AffiliationDbVO>();
     }
 
-    final List<String> topLevelOuIds = new ArrayList<String>();
+    final List<FieldValue> topLevelOuIds = new ArrayList<>();
     for (AffiliationDbVO affiliationDbVO : topLevelOus) {
-      topLevelOuIds.add(affiliationDbVO.getObjectId());
+      topLevelOuIds.add(FieldValue.of(affiliationDbVO.getObjectId()));
     }
-    qb.filter(QueryBuilders.termsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, topLevelOuIds));
+    qb.filter(TermsQuery.of(t -> t.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID).terms(te -> te.value(topLevelOuIds)))._toQuery());
 
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb.build()._toQuery(), OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria[] {new SearchSortCriteria(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, SearchSortCriteria.SortOrder.ASC),
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC)});
 
@@ -127,7 +130,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   /**
    * Returns next child affiliations of a given affiliation.
    * 
-   * @param parentAffiliation The parent affiliation
+   * @param parentAffiliationId The parent affiliation
    * 
    * @return next child affiliations
    * @throws Exception if framework access fails
@@ -135,7 +138,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final QueryBuilder qb = QueryBuilders.termQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, parentAffiliationId);
+    final Query qb = TermQuery.of(t -> t.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID).value(parentAffiliationId))._toQuery();
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC)});
@@ -147,7 +150,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   /**
    * Returns all child affiliations of given affiliations.
    * 
-   * @param parentAffiliations The parent affiliations
+   * @param parentAffiliationIds The parent affiliations
    * 
    * @return all child affiliations
    * @throws Exception if framework access fails
@@ -176,7 +179,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID, objectId));
+    final Query qb = BoolQuery
+        .of(b -> b.must(TermQuery.of(t -> t.field(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID).value(objectId))._toQuery()))._toQuery();
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
@@ -184,30 +188,37 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   }
 
   private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException, IngeTechnicalException {
-    SearchSourceBuilder ssb = new SearchSourceBuilder();
-    ssb.docValueField(INDEX_OBJECT_ID);
-    ssb.query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId));
-    ssb.size(500);
 
-    SearchResponse resp = null;
-    List<SearchHit> listHits = new ArrayList<SearchHit>();
+    SearchRequest ssb = SearchRequest.of(sr -> sr.docvalueFields(dv -> dv.field(INDEX_OBJECT_ID))
+        .query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId))
+        .size(500));
+
+
+    ResponseBody<ObjectNode> resp = null;
+    List<Hit> listHits = new ArrayList<Hit>();
+    JsonNode searchRequestNode = ElasticSearchGenericDAOImpl.toJsonNode(ssb);
     do {
       if (resp == null) {
-        resp = organizationDao.searchDetailed(ssb, 120000);
-        for (SearchHit searchHit : resp.getHits().getHits()) {
+        resp = organizationDao.searchDetailed(searchRequestNode, 120000);
+        for (Hit<ObjectNode> searchHit : resp.hits().hits()) {
           listHits.add(searchHit);
         }
       } else {
-        resp = organizationDao.scrollOn(resp.getScrollId(), 120000);
-        for (SearchHit searchHit : resp.getHits().getHits()) {
+        resp = organizationDao.scrollOn(resp.scrollId(), 120000);
+        for (Hit<ObjectNode> searchHit : resp.hits().hits()) {
           listHits.add(searchHit);
         }
       }
-    } while (resp.getHits().getHits().length != 0);
+    } while (resp.hits().hits().size() != 0);
+
+    if (resp != null) {
+      getElasticDao().clearScroll(resp.scrollId());
+    }
+
 
     if (listHits.size() > 0) {
-      for (SearchHit hit : listHits) {
-        fillWithChildOus(idList, hit.field(INDEX_OBJECT_ID).getValue());
+      for (Hit<ObjectNode> hit : listHits) {
+        fillWithChildOus(idList, hit.source().get(INDEX_OBJECT_ID).asText());
       }
     }
     idList.add(ouId);

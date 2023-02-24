@@ -5,7 +5,8 @@
             "attachment": {
                 "target_field": "fileData.attachment",
                 "field": "fileData.data",
-                "indexed_chars": -1
+                "indexed_chars": -1,
+                "properties": ["author", "content", "content_length", "content_type", "date", "format", "keywords", "language", "title"]
             },
             "remove": {
                 "field": "fileData.data"

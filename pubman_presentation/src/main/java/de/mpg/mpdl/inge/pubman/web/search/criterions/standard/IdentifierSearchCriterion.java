@@ -25,11 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
-import org.apache.lucene.search.join.ScoreMode;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.ChildScoreMode;
+import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
@@ -43,26 +42,37 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
 
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
 
 
     if (getSelectedIdentifierType() == null) {
       return super.toElasticSearchQuery();
     } else {
 
-      BoolQueryBuilder idQueryBuilder = QueryBuilders.boolQuery();
+      BoolQuery.Builder idQueryBuilder = new BoolQuery.Builder();
       idQueryBuilder
           .must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
       idQueryBuilder.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID, getSearchString()));
 
-      BoolQueryBuilder sourceIdQueryBuilder = QueryBuilders.boolQuery();
+      BoolQuery.Builder sourceIdQueryBuilder = new BoolQuery.Builder();
       sourceIdQueryBuilder.must(
           baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
       sourceIdQueryBuilder
           .must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_ID, getSearchString()));
 
+      return BoolQuery.of(b -> b
+          .should(NestedQuery.of(n -> n.path("metadata.identifiers").query(idQueryBuilder.build()._toQuery()).scoreMode(ChildScoreMode.Avg))
+              ._toQuery())
+          .should(NestedQuery
+              .of(n -> n.path("metadata.sources.identifiers").query(sourceIdQueryBuilder.build()._toQuery()).scoreMode(ChildScoreMode.Avg))
+              ._toQuery())
+
+      )._toQuery();
+      /*
       return QueryBuilders.boolQuery().should(QueryBuilders.nestedQuery("metadata.identifiers", idQueryBuilder, ScoreMode.Avg))
           .should(QueryBuilders.nestedQuery("metadata.sources.identifiers", sourceIdQueryBuilder, ScoreMode.Avg));
+      
+       */
 
     }
 

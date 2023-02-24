@@ -1,48 +1,16 @@
 package de.mpg.mpdl.inge.rest.web.util;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.unit.TimeValue;
-import org.elasticsearch.common.xcontent.NamedXContentRegistry;
-import org.elasticsearch.common.xcontent.ToXContent;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
-import org.elasticsearch.common.xcontent.XContentParser;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchModule;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.*;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.rest.web.controller.ItemRestController;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -52,6 +20,21 @@ import de.mpg.mpdl.inge.service.pubman.GenericService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class UtilServiceBean {
@@ -71,6 +54,7 @@ public class UtilServiceBean {
 
 
 
+  /*
   public static SearchSourceBuilder parseJsonToSearchSourceBuilder(String json) throws IOException {
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     SearchModule searchModule = new SearchModule(Settings.EMPTY, false, Collections.emptyList());
@@ -79,8 +63,10 @@ public class UtilServiceBean {
       searchSourceBuilder.parseXContent(parser);
     }
     return searchSourceBuilder;
-
+  
   }
+  */
+
 
 
   public static <T> ResponseEntity<String> searchDetailed(GenericService<T, ?> service, JsonNode searchSource, String scrollTimeValue,
@@ -91,19 +77,20 @@ public class UtilServiceBean {
 
     if (scrollTimeValue != null) {
 
-      scrollTime = TimeValue.parseTimeValue(scrollTimeValue, "test").millis();
+      scrollTime = Long.parseLong(scrollTimeValue); //TimeValue.parseTimeValue(scrollTimeValue, "test").millis();
     }
 
-    SearchSourceBuilder ssb = UtilServiceBean.parseJsonToSearchSourceBuilder(searchSourceText);
-    SearchResponse resp = service.searchDetailed(ssb, scrollTime, token);
-
-
+    SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
+    //SearchSourceBuilder ssb = UtilServiceBean.parseJsonToSearchSourceBuilder(searchSourceText);
+    ResponseBody resp = service.searchDetailed(srequ, scrollTime, token);
     httpResp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+    /*
     XContentBuilder builder = XContentFactory.jsonBuilder();
     resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
+    
+    */
 
-
-    return new ResponseEntity<String>(builder.string(), HttpStatus.OK);
+    return new ResponseEntity<String>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
   }
 
 
@@ -112,23 +99,23 @@ public class UtilServiceBean {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     String scrollTimeValue = scrollJson.get("scroll").asText();
     String scrollId = scrollJson.get("scroll_id").asText();
-    long scrollTime = TimeValue.parseTimeValue(scrollTimeValue, "test").getMillis();
+    //long scrollTime = TimeValue.parseTimeValue(scrollTimeValue, "test").getMillis();
+    long scrollTime = Long.parseLong(scrollTimeValue);
 
-
-    SearchResponse resp = service.scrollOn(scrollId, scrollTime);
+    ResponseBody resp = service.scrollOn(scrollId, scrollTime);
 
     httpResp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
-    XContentBuilder builder = XContentFactory.jsonBuilder(httpResp.getOutputStream());
-    resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
+    //XContentBuilder builder = XContentFactory.jsonBuilder(httpResp.getOutputStream());
+    //resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
 
-    return new ResponseEntity<String>(builder.string(), HttpStatus.OK);
+    return new ResponseEntity<String>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
   }
 
 
   public SearchRetrieveRequestVO query2VO(JsonNode query) throws JsonProcessingException, IngeApplicationException {
     //    SearchRetrieveRequestVO request = new SearchRetrieveRequestVO();
     ArrayList<SearchSortCriteria> sortCriterias = new ArrayList<>();
-    QueryBuilder queryBuilder = null;
+    Query queryBuilder = null;
     int limit = 10;
     int offset = 0;
 
@@ -137,7 +124,7 @@ public class UtilServiceBean {
       ObjectMapper mapper = new ObjectMapper();
       Object queryObject = mapper.treeToValue(queryNode, Object.class);
       String queryString = mapper.writeValueAsString(queryObject);
-      queryBuilder = QueryBuilders.wrapperQuery(queryString);
+      queryBuilder = Query.of(q -> q.withJson(new StringReader(queryString)));
     } else {
       throw new IngeApplicationException("The request body doesn't contain a query string.");
     }

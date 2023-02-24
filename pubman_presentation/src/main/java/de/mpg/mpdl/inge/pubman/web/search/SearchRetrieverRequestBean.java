@@ -1,23 +1,13 @@
 package de.mpg.mpdl.inge.pubman.web.search;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.bean.ManagedBean;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.SortOptions;
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
@@ -37,6 +27,17 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import javax.servlet.http.HttpServletRequest;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result
@@ -99,7 +100,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   public static final String LOAD_SEARCHRESULTLIST = "showSearchResults";
 
 
-  private QueryBuilder elasticSearchQueryBuilder;
+  private Query elasticSearchQueryBuilder;
 
   public SearchRetrieverRequestBean() {
     super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
@@ -179,54 +180,54 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-      SearchSourceBuilder ssb = new SearchSourceBuilder();
 
-      ssb.from(offset);
-      ssb.size(limit);
-
+      SearchRequest.Builder srb = new SearchRequest.Builder().from(offset).size(limit);
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
-          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-              SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
-                  : org.elasticsearch.search.sort.SortOrder.DESC));
+          if (!index.isEmpty()) {
+            FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
+                SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                    : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+            srb.sort(SortOptions.of(so -> so.field(fs)));
+          }
         }
       }
 
-      QueryBuilder escQueryBuilder = null;
+      Query escQueryBuilder = null;
       if (getElasticSearchQueryUrlParam() == null) {
         List<SearchCriterionBase> allCriterions = SearchCriterionBase.queryStringToScList(getQueryString());
         escQueryBuilder = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
 
         if (!"admin".equals(getSearchType())) {
           //Search only for released items
-          BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+          BoolQuery.Builder bqb = new BoolQuery.Builder();
           bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
               PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
           bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
               PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
           bqb.must(escQueryBuilder);
-          escQueryBuilder = bqb;
+          escQueryBuilder = bqb.build()._toQuery();
         }
       } else {
-        escQueryBuilder = QueryBuilders.wrapperQuery(this.getElasticSearchQueryUrlParam());
+        escQueryBuilder = Query.of(q -> q.withJson(new StringReader(this.getElasticSearchQueryUrlParam())));
       }
 
       this.elasticSearchQueryBuilder = escQueryBuilder;
-      ssb.query(this.elasticSearchQueryBuilder);
+      srb.query(this.elasticSearchQueryBuilder);
 
-      SearchResponse resp;
+      ResponseBody<Object> resp;
       if ("admin".equals(getSearchType())) {
-        resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+        resp = pis.searchDetailed(srb.build(), getLoginHelper().getAuthenticationToken());
       } else {
-        resp = pis.searchDetailed(ssb, null);
+        resp = pis.searchDetailed(srb.build(), null);
       }
-      this.numberOfRecords = (int) resp.getHits().getTotalHits();
+      this.numberOfRecords = (int) resp.hits().total().value();
 
-      for (SearchHit hit : resp.getHits().getHits()) {
+      for (Hit<Object> hit : resp.hits().hits()) {
 
-        PubItemVOPresentation itemVO =
-            new PubItemVOPresentation(MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), ItemVersionVO.class), hit);
+        ItemVersionVO itemVersion = ElasticSearchGenericDAOImpl.getVoFromResponseObject(hit.source(), ItemVersionVO.class);
+        PubItemVOPresentation itemVO = new PubItemVOPresentation(itemVersion, hit);
         pubItemList.add(itemVO);
 
 
@@ -393,7 +394,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       if (this.elasticSearchQueryUrlParam != null) {
         return JsonUtil.prettifyJsonString(this.elasticSearchQueryUrlParam);
       } else {
-        return this.elasticSearchQueryBuilder != null ? this.elasticSearchQueryBuilder.toString() : "";
+        return this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : "";
       }
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
@@ -407,7 +408,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       if (this.elasticSearchQueryUrlParam != null) {
         json = this.elasticSearchQueryUrlParam;
       } else {
-        json = this.elasticSearchQueryBuilder != null ? this.elasticSearchQueryBuilder.toString() : null;
+        json = this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : null;
       }
       return json != null ? URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName()) : "";
     } catch (Exception e) {

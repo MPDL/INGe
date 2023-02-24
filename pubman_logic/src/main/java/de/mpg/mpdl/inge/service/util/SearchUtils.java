@@ -1,32 +1,28 @@
 package de.mpg.mpdl.inge.service.util;
 
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.SortOrder;
+import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.sort.FieldSortBuilder;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
-
-import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
-import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 
 public class SearchUtils {
 
   private static final Logger logger = Logger.getLogger(SearchUtils.class);
 
-  public static QueryBuilder baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String[] indexFields,
+  public static Query baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String[] indexFields,
       String... searchString) {
 
 
@@ -37,18 +33,18 @@ public class SearchUtils {
 
     } else {
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      BoolQuery.Builder bq = new BoolQuery.Builder();
 
       for (String indexField : indexFields) {
         bq.should(baseElasticSearchQueryBuilder(indexMap, indexField, searchString));
       }
-      return bq;
+      return bq.build()._toQuery();
 
     }
   }
 
 
-  public static QueryBuilder baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String index, String... value) {
+  public static Query baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String index, String... value) {
 
     ElasticSearchIndexField field = indexMap.get(index);
 
@@ -58,19 +54,21 @@ public class SearchUtils {
           if (value.length == 1) {
             return checkMatchOrPhraseOrWildcardMatch(index, value[0]);
           } else {
-            BoolQueryBuilder bq = QueryBuilders.boolQuery();
+            BoolQuery.Builder bq = new BoolQuery.Builder();
             for (String searchString : value) {
               bq.should(checkMatchOrPhraseOrWildcardMatch(index, searchString));
             }
-            return bq;
+            return bq.build()._toQuery();
           }
 
         }
         default: {
           if (value.length == 1) {
-            return QueryBuilders.termQuery(index, value[0]);
+            return TermQuery.of(t -> t.field(index).value(value[0]))._toQuery();
           } else {
-            return QueryBuilders.termsQuery(index, value);
+            List<FieldValue> fvList = new ArrayList<>();
+            Arrays.stream(value).map(i -> FieldValue.of(i)).collect(Collectors.toList());
+            return TermsQuery.of(t -> t.field(index).terms(te -> te.value(fvList)))._toQuery();
           }
 
         }
@@ -84,19 +82,18 @@ public class SearchUtils {
   }
 
 
-  private static QueryBuilder checkMatchOrPhraseOrWildcardMatch(String index, String searchString) {
+  private static Query checkMatchOrPhraseOrWildcardMatch(String index, String searchString) {
     if (searchString != null && searchString.trim().startsWith("\"") && searchString.trim().endsWith("\"")) {
-      return QueryBuilders.matchPhraseQuery(index, searchString.trim().substring(1, searchString.length() - 1));
+      return MatchPhraseQuery.of(mp -> mp.field(index).query(searchString.trim().substring(1, searchString.length() - 1)))._toQuery();
     } else if (searchString != null && searchString.contains("*")) {
-      return QueryBuilders.wildcardQuery(index + ".keyword", searchString);
+      return WildcardQuery.of(wq -> wq.field(index + ".keyword").value(searchString))._toQuery();
     } else {
-      return QueryBuilders.matchQuery(index, searchString).operator(Operator.AND);
+      return MatchQuery.of(i -> i.field(index).query(searchString).operator(Operator.And))._toQuery();
     }
 
   }
 
-  public static FieldSortBuilder baseElasticSearchSortBuilder(Map<String, ElasticSearchIndexField> indexMap, String index,
-      SortOrder order) {
+  public static FieldSort baseElasticSearchSortBuilder(Map<String, ElasticSearchIndexField> indexMap, String index, SortOrder order) {
 
     ElasticSearchIndexField field = indexMap.get(index);
     String indexField = index;
@@ -114,22 +111,29 @@ public class SearchUtils {
       logger.warn("Index field " + index + " not found");
     }
 
-    return SortBuilders.fieldSort(indexField).order(order);
+    String finalIndexField = indexField;
+    FieldSort fieldSort = FieldSort.of(fs -> fs.field(finalIndexField).order(order));
+    return fieldSort;
   }
 
-  public static <E> List<E> getRecordListFromElasticSearchResponse(SearchResponse sr, Class<E> clazz) throws IOException {
-    List<E> hitList = new ArrayList<>();
-    for (SearchHit hit : sr.getHits().getHits()) {
+  public static <E> List<E> getRecordListFromElasticSearchResponse(ResponseBody<E> sr, Class<E> clazz) throws IOException {
 
-      E itemVO = MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
-      hitList.add(itemVO);
+
+
+    List<E> hitList = new ArrayList<>();
+    for (Hit<E> hit : sr.hits().hits()) {
+
+
+      //E itemVO = hit.source();
+      //MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
+      hitList.add(ElasticSearchGenericDAOImpl.getVoFromResponseObject(hit.source(), clazz));
 
     }
     return hitList;
   }
 
 
-  public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr, Class<E> clazz)
+  public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(ResponseBody sr, Class<E> clazz)
       throws IOException {
     return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse(sr, clazz);
   }

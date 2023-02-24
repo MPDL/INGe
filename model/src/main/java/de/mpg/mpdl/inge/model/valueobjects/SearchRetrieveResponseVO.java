@@ -2,8 +2,9 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.List;
 
-import org.elasticsearch.action.search.SearchResponse;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
 
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -18,7 +19,7 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
   private List<SearchRetrieveRecordVO<T>> records;
 
   @JsonIgnore
-  private SearchResponse originalResponse;
+  private ResponseBody<T> originalResponse;
 
 
 
@@ -46,11 +47,11 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
     this.records = records;
   }
 
-  public SearchResponse getOriginalResponse() {
+  public ResponseBody<T> getOriginalResponse() {
     return originalResponse;
   }
 
-  public void setOriginalResponse(SearchResponse originalResponse) {
+  public void setOriginalResponse(ResponseBody<T> originalResponse) {
     this.originalResponse = originalResponse;
   }
 

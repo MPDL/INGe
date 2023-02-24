@@ -1,23 +1,7 @@
 package de.mpg.mpdl.inge.pubman.web.affiliation;
 
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.primefaces.event.NodeExpandEvent;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
@@ -34,6 +18,19 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import org.apache.log4j.Logger;
+import org.primefaces.event.NodeExpandEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @ManagedBean(name = "AffiliationBean")
 @SessionScoped
@@ -236,16 +233,16 @@ public class AffiliationBean extends FacesBean {
       sc.setSearchString(affiliation.getName());
       scList.add(sc);
 
-      QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+      Query qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
 
-      BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+      BoolQuery.Builder bqb = new BoolQuery.Builder();
       bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
           PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
       bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
           PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
       bqb.must(qb);
 
-      qb = bqb;
+      qb = bqb.build()._toQuery();
 
       FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
           + SearchRetrieverRequestBean.parameterSearchType + "=org");

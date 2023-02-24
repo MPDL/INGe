@@ -1,10 +1,10 @@
 package de.mpg.mpdl.inge.es.connector;
 
-import org.elasticsearch.client.Client;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 
 
 public interface ElasticSearchClientProvider {
 
-  Client getClient();
+  ElasticsearchClient getClient();
 
 }

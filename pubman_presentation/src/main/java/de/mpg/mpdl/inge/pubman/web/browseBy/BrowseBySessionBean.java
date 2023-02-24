@@ -26,35 +26,16 @@
 
 package de.mpg.mpdl.inge.pubman.web.browseBy;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
-import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
-
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
+import co.elastic.clients.elasticsearch._types.aggregations.CalendarInterval;
+import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramAggregate;
+import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramBucket;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
@@ -64,6 +45,17 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.*;
 
 /**
  * 
@@ -244,31 +236,43 @@ public class BrowseBySessionBean extends FacesBean {
 
   private void fillDateMap(String... indexes)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    QueryBuilder queryBuilder =
+    Query queryBuilder =
         SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
             PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name());
 
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(queryBuilder, 0, 0); // Limit 0, da nur Aggregationen interessieren
+    //SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(queryBuilder, 0, 0); // Limit 0, da nur Aggregationen interessieren
+
+    SearchRequest.Builder sr = new SearchRequest.Builder();
+    sr.size(0);
 
     for (String index : indexes) {
+      sr.aggregations(index,
+          Aggregation.of(a -> a.dateHistogram(dh -> dh.field(index).calendarInterval(CalendarInterval.Year).minDocCount(1))));
+
+      /*
       AggregationBuilder aggBuilder =
           AggregationBuilders.dateHistogram(index).field(index).dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
       srr.getAggregationBuilders().add(aggBuilder);
+      
+       */
     }
 
-    SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+    ResponseBody<ObjectNode> resp = ApplicationBean.INSTANCE.getPubItemService().searchDetailed(sr.build(), null);
 
     yearMap.clear();
     for (String index : indexes) {
-      Histogram dh = resp.getOriginalResponse().getAggregations().get(index);
-      for (Histogram.Bucket entry : dh.getBuckets()) {
-        String year = entry.getKeyAsString().substring(0, 4);
+      DateHistogramAggregate ag = resp.aggregations().get(index).dateHistogram();
+
+      for (DateHistogramBucket entry : ag.buckets().array()) {
+
+        String year = entry.keyAsString().substring(0, 4);
         if (yearMap.containsKey(year)) {
-          yearMap.put(year, yearMap.get(year) + entry.getDocCount());
+          yearMap.put(year, yearMap.get(year) + entry.docCount());
         } else {
-          yearMap.put(year, entry.getDocCount());
+          yearMap.put(year, entry.docCount());
         }
       }
+
     }
   }
 

@@ -26,14 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -48,6 +42,11 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("serial")
 public class AffiliationVOPresentation extends AffiliationDbVO implements Comparable<AffiliationVOPresentation> {
@@ -268,12 +267,12 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
       return transformedAffs;
     }
     try {
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      BoolQuery.Builder bq = new BoolQuery.Builder();
       for (final AffiliationDbRO id : affiliations) {
-        bq.should(QueryBuilders.termQuery(OrganizationServiceDbImpl.INDEX_OBJECT_ID, id.getObjectId()));
+        bq.should(TermQuery.of(i -> i.field(OrganizationServiceDbImpl.INDEX_OBJECT_ID).value(id.getObjectId()))._toQuery());
       }
 
-      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq);
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq.build()._toQuery());
       SearchRetrieveResponseVO<AffiliationDbVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
       transformedAffs = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 

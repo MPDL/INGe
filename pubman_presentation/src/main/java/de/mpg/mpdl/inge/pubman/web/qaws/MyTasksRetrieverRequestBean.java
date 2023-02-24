@@ -1,21 +1,11 @@
 package de.mpg.mpdl.inge.pubman.web.qaws;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.model.SelectItem;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.SortOptions;
+import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
@@ -35,6 +25,17 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Quality
@@ -97,10 +98,10 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     try {
       this.checkSortCriterias(sc);
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      BoolQuery.Builder bq = new BoolQuery.Builder();
 
       if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
         if (getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name())
             || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name())) {
           // filter out possible duplicates
@@ -110,8 +111,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       else if (getSelectedItemState().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "SUBMITTED", "RELEASED", "IN_REVISION"));
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        List<FieldValue> states = new ArrayList<>();
+        states.add(FieldValue.of("SUBMITTED"));
+        states.add(FieldValue.of("RELEASED"));
+        states.add(FieldValue.of("IN_REVISION"));
+
+        bq.must(TermsQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).terms(TermsQueryField.of(tq -> tq.value(states))))
+            ._toQuery());
+        bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
 
         // filter out duplicates
         bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.SUBMITTED));
@@ -119,56 +126,59 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, State.valueOf(getSelectedItemState()).name()));
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(State.valueOf(getSelectedItemState()).name()))
+            ._toQuery());
+        bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.matchPhraseQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
+        bq.must(MatchPhraseQuery.of(m -> m.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()))._toQuery());
       }
 
       if (this.getSelectedContext().toLowerCase().equals("all")) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
         // menu)
-        bq.must(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
-            getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue())).map(i -> i.getValue()).toArray(String[]::new)));
+        List<FieldValue> fv = getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue()))
+            .map(x -> FieldValue.of(x.getValue().toString())).collect(Collectors.toList());
+        bq.must(TermsQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).terms(TermsQueryField.of(tf -> tf.value(fv))))
+            ._toQuery());
       } else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, getSelectedContext()));
+        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).value(getSelectedContext()))._toQuery());
       }
 
       if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
 
-        BoolQueryBuilder ouQuery = QueryBuilders.boolQuery();
+        BoolQuery.Builder ouQuery = new BoolQuery.Builder();
+        ouQuery.should(TermQuery
+            .of(t -> t.field(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH).value(getSelectedOrgUnit()))
+            ._toQuery());
         ouQuery.should(
-            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, getSelectedOrgUnit()));
-        ouQuery
-            .should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH, getSelectedOrgUnit()));
-        bq.must(ouQuery);
+            TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH).value(getSelectedOrgUnit()))
+                ._toQuery());
+        bq.must(ouQuery.build()._toQuery());
 
       }
 
 
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-      SearchSourceBuilder ssb = new SearchSourceBuilder();
-      ssb.query(bq);
-      ssb.from(offset);
-      ssb.size(limit);
+
+
+      SearchRequest.Builder srb = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
 
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
-          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-              SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
-                  : org.elasticsearch.search.sort.SortOrder.DESC));
+          FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
+              SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                  : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+          srb.sort(SortOptions.of(so -> so.field(fs)));
         }
       }
 
+      ResponseBody resp = pis.searchDetailed(srb.build(), getLoginHelper().getAuthenticationToken());
 
-
-      SearchResponse resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
-
-      this.numberOfRecords = (int) resp.getHits().getTotalHits();
+      this.numberOfRecords = (int) resp.hits().total().value();
 
       List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 

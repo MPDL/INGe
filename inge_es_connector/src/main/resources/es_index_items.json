@@ -15,7 +15,6 @@
             "analyzer": {
                 "html_standard_analyzer": {
                     "filter": [
-                        "standard",
                         "lowercase"
                     ],
                     "char_filter": [
@@ -33,1314 +32,1310 @@
         "number_of_replicas": "0"
     },
     "mappings": {
-        "item": {
-            "dynamic": "strict",
-            "properties": {
-                "context": {
-                    "properties": {
-                        "creationDate": {
-                            "type": "date"
-                        },
-                        "creator": {
-                            "properties": {
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
+        "dynamic": "strict",
+        "properties": {
+            "context": {
+                "properties": {
+                    "creationDate": {
+                        "type": "date"
+                    },
+                    "creator": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
                                     }
-                                },
-                                "objectId": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "lastModificationDate": {
-                            "type": "date"
-                        },
-                        "modifier": {
-                            "properties": {
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "objectId": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "name": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "objectId": {
-                            "type": "keyword"
-                        }
-                    }
-                },
-                "creationDate": {
-                    "type": "date"
-                },
-                "creator": {
-                    "properties": {
-                        "name": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "objectId": {
-                            "type": "keyword"
-                        }
-                    }
-                },
-                "fileData": {
-                    "properties": {
-                        "attachment": {
-                            "properties": {
-                                "author": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "content": {
-                                    "type": "text",
-                                    "term_vector": "with_positions_offsets"
-                                },
-                                "content_length": {
-                                    "type": "long"
-                                },
-                                "content_type": {
-                                    "type": "text"
-                                },
-                                "date": {
-                                    "type": "date"
-                                },
-                                "keywords": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "language": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "title": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "data": {
-                            "type": "binary"
-                        },
-                        "fileId": {
-                            "type": "keyword"
-                        },
-                        "itemId": {
-                            "type": "keyword"
-                        }
-                    }
-                },
-                "files": {
-                    "type": "nested",
-                    "include_in_parent": true,
-                    "properties": {
-                        "allowedAudienceIds": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "checksum": {
-                            "type": "text"
-                        },
-                        "checksumAlgorithm": {
-                            "type": "keyword"
-                        },
-                        "content": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "creationDate": {
-                            "type": "date"
-                        },
-                        "creator": {
-                            "properties": {
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "objectId": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "lastModificationDate": {
-                            "type": "date"
-                        },
-                        "metadata": {
-                            "properties": {
-                                "contentCategory": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "copyrightDate": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "description": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "embargoUntil": {
-                                    "type": "date",
-                                    "ignore_malformed": true,
-                                    "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                                },
-                                "formats": {
-                                    "properties": {
-                                        "type": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "value": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "identifiers": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "type": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "license": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "oaStatus": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "rights": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "size": {
-                                    "type": "long"
-                                },
-                                "title": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "mimeType": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "name": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "objectId": {
-                            "type": "keyword"
-                        },
-                        "pid": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "size": {
-                            "type": "long"
-                        },
-                        "storage": {
-                            "type": "keyword"
-                        },
-                        "visibility": {
-                            "type": "keyword"
-                        }
-                    }
-                },
-                "joinField": {
-                    "type": "join",
-                    "eager_global_ordinals": true,
-                    "relations": {
-                        "item": "file"
-                    }
-                },
-                "lastModificationDate": {
-                    "type": "date"
-                },
-                "latestRelease": {
-                    "properties": {
-                        "modificationDate": {
-                            "type": "date"
-                        },
-                        "modifiedBy": {
-                            "properties": {
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "objectId": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "modifier": {
-                            "properties": {
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "objectId": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "objectId": {
-                            "type": "keyword"
-                        },
-                        "versionNumber": {
-                            "type": "long"
-                        },
-                        "versionPid": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "versionState": {
-                            "type": "keyword"
-                        }
-                    }
-                },
-                "latestVersion": {
-                    "properties": {
-                        "modificationDate": {
-                            "type": "date"
-                        },
-                        "modifiedBy": {
-                            "properties": {
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "objectId": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "modifier": {
-                            "properties": {
-                                "name": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "objectId": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "objectId": {
-                            "type": "keyword"
-                        },
-                        "versionNumber": {
-                            "type": "long"
-                        },
-                        "versionPid": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "versionState": {
-                            "type": "keyword"
-                        }
-                    }
-                },
-                "localTags": {
-                    "type": "text",
-                    "fields": {
-                        "keyword": {
-                            "type": "keyword",
-                            "normalizer": "sort"
-                        }
-                    }
-                },
-                "message": {
-                    "type": "text",
-                    "fields": {
-                        "keyword": {
-                            "type": "keyword",
-                            "normalizer": "sort"
-                        }
-                    }
-                },
-                "metadata": {
-                    "properties": {
-                        "abstracts": {
-                            "type": "nested",
-                            "include_in_parent": true,
-                            "properties": {
-                                "language": {
-                                    "type": "keyword"
-                                },
-                                "value": {
-                                    "type": "text",
-                                    "analyzer": "html_standard_analyzer"
-                                }
-                            }
-                        },
-                        "alternativeTitles": {
-                            "type": "nested",
-                            "include_in_parent": true,
-                            "properties": {
-                                "language": {
-                                    "type": "keyword"
-                                },
-                                "type": {
-                                    "type": "keyword"
-                                },
-                                "value": {
-                                    "type": "text",
-                                    "boost": 1.5,
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    },
-                                    "analyzer": "html_standard_analyzer"
-                                }
-                            }
-                        },
-                        "anyDates": {
-                            "type": "date",
-                            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                        },
-                        "creators": {
-                            "type": "nested",
-                            "include_in_parent": true,
-                            "properties": {
-                                "organization": {
-                                    "properties": {
-                                        "address": {
-                                            "type": "text"
-                                        },
-                                        "identifier": {
-                                            "type": "keyword"
-                                        },
-                                        "identifierPath": {
-                                            "type": "keyword"
-                                        },
-                                        "name": {
-                                            "type": "text",
-                                            "boost": 2,
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "person": {
-                                    "properties": {
-                                        "alternativeNames": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "completeName": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "familyName": {
-                                            "type": "text",
-                                            "boost": 2,
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "givenName": {
-                                            "type": "text",
-                                            "boost": 1.5,
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "identifier": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "keyword"
-                                                },
-                                                "type": {
-                                                    "type": "keyword"
-                                                }
-                                            }
-                                        },
-                                        "orcid": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "organizations": {
-                                            "type": "nested",
-                                            "include_in_parent": true,
-                                            "properties": {
-                                                "address": {
-                                                    "type": "text"
-                                                },
-                                                "identifier": {
-                                                    "type": "keyword"
-                                                },
-                                                "identifierPath": {
-                                                    "type": "keyword"
-                                                },
-                                                "name": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "organizationsSize": {
-                                            "type": "long"
-                                        },
-                                        "pseudonyms": {
-                                            "type": "text"
-                                        },
-                                        "titles": {
-                                            "type": "text"
-                                        }
-                                    }
-                                },
-                                "role": {
-                                    "type": "keyword"
-                                },
-                                "type": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "dateAccepted": {
-                            "type": "date",
-                            "copy_to": [
-                                "metadata.anyDates"
-                            ],
-                            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                        },
-                        "dateCreated": {
-                            "type": "date",
-                            "copy_to": [
-                                "metadata.anyDates"
-                            ],
-                            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                        },
-                        "dateModified": {
-                            "type": "date",
-                            "copy_to": [
-                                "metadata.anyDates"
-                            ],
-                            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                        },
-                        "datePublishedInPrint": {
-                            "type": "date",
-                            "copy_to": [
-                                "metadata.anyDates"
-                            ],
-                            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                        },
-                        "datePublishedOnline": {
-                            "type": "date",
-                            "copy_to": [
-                                "metadata.anyDates"
-                            ],
-                            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                        },
-                        "dateSubmitted": {
-                            "type": "date",
-                            "copy_to": [
-                                "metadata.anyDates"
-                            ],
-                            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                        },
-                        "degree": {
-                            "type": "keyword"
-                        },
-                        "event": {
-                            "properties": {
-                                "alternativeTitles": {
-                                    "properties": {
-                                        "language": {
-                                            "type": "keyword"
-                                        },
-                                        "value": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "endDate": {
-                                    "type": "date",
-                                    "ignore_malformed": true,
-                                    "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                                },
-                                "invitationStatus": {
-                                    "type": "keyword"
-                                },
-                                "place": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "startDate": {
-                                    "type": "date",
-                                    "ignore_malformed": true,
-                                    "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                                },
-                                "title": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "freeKeywords": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "genre": {
-                            "type": "keyword"
-                        },
-                        "identifiers": {
-                            "type": "nested",
-                            "include_in_parent": true,
-                            "properties": {
-                                "id": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "type": {
-                                    "type": "keyword"
-                                }
-                            }
-                        },
-                        "languages": {
-                            "type": "keyword"
-                        },
-                        "legalCase": {
-                            "properties": {
-                                "courtName": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "datePublished": {
-                                    "type": "date"
-                                },
-                                "identifier": {
-                                    "type": "keyword"
-                                },
-                                "title": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "location": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "projectInfo": {
-                            "properties": {
-                                "fundingInfo": {
-                                    "properties": {
-                                        "fundingOrganization": {
-                                            "properties": {
-                                                "identifiers": {
-                                                    "properties": {
-                                                        "id": {
-                                                            "type": "keyword"
-                                                        },
-                                                        "type": {
-                                                            "type": "keyword"
-                                                        }
-                                                    }
-                                                },
-                                                "title": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "fundingProgram": {
-                                            "properties": {
-                                                "identifiers": {
-                                                    "properties": {
-                                                        "id": {
-                                                            "type": "keyword"
-                                                        },
-                                                        "type": {
-                                                            "type": "keyword"
-                                                        }
-                                                    }
-                                                },
-                                                "title": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "grantIdentifier": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "keyword"
-                                        },
-                                        "type": {
-                                            "type": "keyword"
-                                        }
-                                    }
-                                },
-                                "title": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "publishingInfo": {
-                            "properties": {
-                                "edition": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "place": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "publisher": {
-                                    "type": "text",
-                                    "boost": 1.5,
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "reviewMethod": {
-                            "type": "keyword"
-                        },
-                        "sources": {
-                            "type": "nested",
-                            "include_in_parent": true,
-                            "properties": {
-                                "alternativeTitles": {
-                                    "type": "nested",
-                                    "include_in_parent": true,
-                                    "properties": {
-                                        "language": {
-                                            "type": "keyword"
-                                        },
-                                        "type": {
-                                            "type": "keyword"
-                                        },
-                                        "value": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "creators": {
-                                    "type": "nested",
-                                    "include_in_parent": true,
-                                    "properties": {
-                                        "organization": {
-                                            "properties": {
-                                                "address": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                },
-                                                "identifier": {
-                                                    "type": "keyword"
-                                                },
-                                                "identifierPath": {
-                                                    "type": "keyword"
-                                                },
-                                                "name": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "person": {
-                                            "properties": {
-                                                "completeName": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                },
-                                                "familyName": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                },
-                                                "givenName": {
-                                                    "type": "text",
-                                                    "fields": {
-                                                        "keyword": {
-                                                            "type": "keyword",
-                                                            "normalizer": "sort"
-                                                        }
-                                                    }
-                                                },
-                                                "identifier": {
-                                                    "properties": {
-                                                        "id": {
-                                                            "type": "keyword"
-                                                        },
-                                                        "type": {
-                                                            "type": "keyword"
-                                                        }
-                                                    }
-                                                },
-		                                        "orcid": {
-		                                            "type": "text",
-		                                            "fields": {
-		                                                "keyword": {
-		                                                    "type": "keyword",
-		                                                    "normalizer": "sort"
-		                                                }
-		                                            }
-		                                        },
-                                                "organizations": {
-                                                    "type": "nested",
-                                                    "include_in_parent": true,
-                                                    "properties": {
-                                                        "address": {
-                                                            "type": "text",
-                                                            "fields": {
-                                                                "keyword": {
-                                                                    "type": "keyword",
-                                                                    "normalizer": "sort"
-                                                                }
-                                                            }
-                                                        },
-                                                        "identifier": {
-                                                            "type": "keyword"
-                                                        },
-                                                        "identifierPath": {
-                                                            "type": "keyword"
-                                                        },
-                                                        "name": {
-                                                            "type": "text",
-                                                            "fields": {
-                                                                "keyword": {
-                                                                    "type": "keyword",
-                                                                    "normalizer": "sort"
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "organizationsSize": {
-                                                    "type": "long"
-                                                }
-                                            }
-                                        },
-                                        "role": {
-                                            "type": "keyword"
-                                        },
-                                        "type": {
-                                            "type": "keyword"
-                                        }
-                                    }
-                                },
-                                "endPage": {
-                                    "type": "text"
-                                },
-                                "genre": {
-                                    "type": "keyword"
-                                },
-                                "identifiers": {
-                                    "type": "nested",
-                                    "include_in_parent": true,
-                                    "properties": {
-                                        "id": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "type": {
-                                            "type": "keyword"
-                                        }
-                                    }
-                                },
-                                "issue": {
-                                    "type": "text"
-                                },
-                                "publishingInfo": {
-                                    "properties": {
-                                        "edition": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "place": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        },
-                                        "publisher": {
-                                            "type": "text",
-                                            "fields": {
-                                                "keyword": {
-                                                    "type": "keyword",
-                                                    "normalizer": "sort"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "sequenceNumber": {
-                                    "type": "text"
-                                },
-                                "startPage": {
-                                    "type": "text"
-                                },
-                                "title": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                },
-                                "totalNumberOfPages": {
-                                    "type": "text"
-                                },
-                                "volume": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "subjects": {
-                            "type": "nested",
-                            "include_in_parent": true,
-                            "properties": {
-                                "type": {
-                                    "type": "keyword"
-                                },
-                                "value": {
-                                    "type": "text",
-                                    "fields": {
-                                        "keyword": {
-                                            "type": "keyword",
-                                            "normalizer": "sort"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "tableOfContents": {
-                            "type": "text"
-                        },
-                        "title": {
-                            "type": "text",
-                            "boost": 3,
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
                                 }
                             },
-                            "analyzer": "html_standard_analyzer"
-                        },
-                        "totalNumberOfPages": {
-                            "type": "text"
-                        }
-                    }
-                },
-                "modificationDate": {
-                    "type": "date"
-                },
-                "modifiedBy": {
-                    "properties": {
-                        "name": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "objectId": {
-                            "type": "keyword"
-                        }
-                    }
-                },
-                "modifier": {
-                    "properties": {
-                        "name": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
-                            }
-                        },
-                        "objectId": {
-                            "type": "text",
-                            "fields": {
-                                "keyword": {
-                                    "type": "keyword",
-                                    "normalizer": "sort"
-                                }
+                            "objectId": {
+                                "type": "keyword"
                             }
                         }
-                    }
-                },
-                "objectId": {
-                    "type": "keyword"
-                },
-                "objectPid": {
-                    "type": "text",
-                    "fields": {
-                        "keyword": {
-                            "type": "keyword",
-                            "normalizer": "sort"
+                    },
+                    "lastModificationDate": {
+                        "type": "date"
+                    },
+                    "modifier": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
                         }
-                    }
-                },
-                "publicState": {
-                    "type": "keyword"
-                },
-                "sort-metadata-creators-compound": {
-                    "type": "keyword",
-                    "normalizer": "sort"
-                },
-                "sort-metadata-creators-first": {
-                    "type": "keyword",
-                    "normalizer": "sort"
-                },
-                "sort-metadata-dates-by-category": {
-                    "type": "date",
-                    "format": "yyyy-MM-dd||yyyy-MM||yyyy"
-                },
-                "sort-metadata-dates-by-category-year": {
-                    "type": "date",
-                    "format": "yyyy"
-                },
-                "versionNumber": {
-                    "type": "long"
-                },
-                "versionPid": {
-                    "type": "text",
-                    "fields": {
-                        "keyword": {
-                            "type": "keyword",
-                            "normalizer": "sort"
+                    },
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
                         }
+                    },
+                    "objectId": {
+                        "type": "keyword"
                     }
-                },
-                "versionState": {
-                    "type": "keyword"
                 }
+            },
+            "creationDate": {
+                "type": "date"
+            },
+            "creator": {
+                "properties": {
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "fileData": {
+                "properties": {
+                    "attachment": {
+                        "properties": {
+                            "author": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "content": {
+                                "type": "text",
+                                "term_vector": "with_positions_offsets"
+                            },
+                            "content_length": {
+                                "type": "long"
+                            },
+                            "content_type": {
+                                "type": "text"
+                            },
+                            "date": {
+                                "type": "date"
+                            },
+                            "format": {
+                                "type": "text"
+                            },
+                            "keywords": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "language": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "title": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "data": {
+                        "type": "binary"
+                    },
+                    "fileId": {
+                        "type": "keyword"
+                    },
+                    "itemId": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "files": {
+                "type": "nested",
+                "include_in_parent": true,
+                "properties": {
+                    "allowedAudienceIds": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "checksum": {
+                        "type": "text"
+                    },
+                    "checksumAlgorithm": {
+                        "type": "keyword"
+                    },
+                    "content": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "creationDate": {
+                        "type": "date"
+                    },
+                    "creator": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "lastModificationDate": {
+                        "type": "date"
+                    },
+                    "metadata": {
+                        "properties": {
+                            "contentCategory": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "copyrightDate": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "description": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "embargoUntil": {
+                                "type": "date",
+                                "ignore_malformed": true,
+                                "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                            },
+                            "formats": {
+                                "properties": {
+                                    "type": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "value": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "identifiers": {
+                                "properties": {
+                                    "id": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "type": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "license": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "oaStatus": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "rights": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "size": {
+                                "type": "long"
+                            },
+                            "title": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "mimeType": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "keyword"
+                    },
+                    "pid": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "size": {
+                        "type": "long"
+                    },
+                    "storage": {
+                        "type": "keyword"
+                    },
+                    "visibility": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "joinField": {
+                "type": "join",
+                "eager_global_ordinals": true,
+                "relations": {
+                    "item": "file"
+                }
+            },
+            "lastModificationDate": {
+                "type": "date"
+            },
+            "latestRelease": {
+                "properties": {
+                    "modificationDate": {
+                        "type": "date"
+                    },
+                    "modifiedBy": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "modifier": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "keyword"
+                    },
+                    "versionNumber": {
+                        "type": "long"
+                    },
+                    "versionPid": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "versionState": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "latestVersion": {
+                "properties": {
+                    "modificationDate": {
+                        "type": "date"
+                    },
+                    "modifiedBy": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "modifier": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "keyword"
+                    },
+                    "versionNumber": {
+                        "type": "long"
+                    },
+                    "versionPid": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "versionState": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "localTags": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "normalizer": "sort"
+                    }
+                }
+            },
+            "message": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "normalizer": "sort"
+                    }
+                }
+            },
+            "metadata": {
+                "properties": {
+                    "abstracts": {
+                        "type": "nested",
+                        "include_in_parent": true,
+                        "properties": {
+                            "language": {
+                                "type": "keyword"
+                            },
+                            "value": {
+                                "type": "text",
+                                "analyzer": "html_standard_analyzer"
+                            }
+                        }
+                    },
+                    "alternativeTitles": {
+                        "type": "nested",
+                        "include_in_parent": true,
+                        "properties": {
+                            "language": {
+                                "type": "keyword"
+                            },
+                            "type": {
+                                "type": "keyword"
+                            },
+                            "value": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                },
+                                "analyzer": "html_standard_analyzer"
+                            }
+                        }
+                    },
+                    "anyDates": {
+                        "type": "date",
+                        "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                    },
+                    "creators": {
+                        "type": "nested",
+                        "include_in_parent": true,
+                        "properties": {
+                            "organization": {
+                                "properties": {
+                                    "address": {
+                                        "type": "text"
+                                    },
+                                    "identifier": {
+                                        "type": "keyword"
+                                    },
+                                    "identifierPath": {
+                                        "type": "keyword"
+                                    },
+                                    "name": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "person": {
+                                "properties": {
+                                    "alternativeNames": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "completeName": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "familyName": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "givenName": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "identifier": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "keyword"
+                                            },
+                                            "type": {
+                                                "type": "keyword"
+                                            }
+                                        }
+                                    },
+                                    "orcid": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "organizations": {
+                                        "type": "nested",
+                                        "include_in_parent": true,
+                                        "properties": {
+                                            "address": {
+                                                "type": "text"
+                                            },
+                                            "identifier": {
+                                                "type": "keyword"
+                                            },
+                                            "identifierPath": {
+                                                "type": "keyword"
+                                            },
+                                            "name": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "organizationsSize": {
+                                        "type": "long"
+                                    },
+                                    "pseudonyms": {
+                                        "type": "text"
+                                    },
+                                    "titles": {
+                                        "type": "text"
+                                    }
+                                }
+                            },
+                            "role": {
+                                "type": "keyword"
+                            },
+                            "type": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "dateAccepted": {
+                        "type": "date",
+                        "copy_to": [
+                            "metadata.anyDates"
+                        ],
+                        "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                    },
+                    "dateCreated": {
+                        "type": "date",
+                        "copy_to": [
+                            "metadata.anyDates"
+                        ],
+                        "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                    },
+                    "dateModified": {
+                        "type": "date",
+                        "copy_to": [
+                            "metadata.anyDates"
+                        ],
+                        "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                    },
+                    "datePublishedInPrint": {
+                        "type": "date",
+                        "copy_to": [
+                            "metadata.anyDates"
+                        ],
+                        "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                    },
+                    "datePublishedOnline": {
+                        "type": "date",
+                        "copy_to": [
+                            "metadata.anyDates"
+                        ],
+                        "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                    },
+                    "dateSubmitted": {
+                        "type": "date",
+                        "copy_to": [
+                            "metadata.anyDates"
+                        ],
+                        "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                    },
+                    "degree": {
+                        "type": "keyword"
+                    },
+                    "event": {
+                        "properties": {
+                            "alternativeTitles": {
+                                "properties": {
+                                    "language": {
+                                        "type": "keyword"
+                                    },
+                                    "value": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "endDate": {
+                                "type": "date",
+                                "ignore_malformed": true,
+                                "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                            },
+                            "invitationStatus": {
+                                "type": "keyword"
+                            },
+                            "place": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "startDate": {
+                                "type": "date",
+                                "ignore_malformed": true,
+                                "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+                            },
+                            "title": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "freeKeywords": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "genre": {
+                        "type": "keyword"
+                    },
+                    "identifiers": {
+                        "type": "nested",
+                        "include_in_parent": true,
+                        "properties": {
+                            "id": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "type": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "languages": {
+                        "type": "keyword"
+                    },
+                    "legalCase": {
+                        "properties": {
+                            "courtName": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "datePublished": {
+                                "type": "date"
+                            },
+                            "identifier": {
+                                "type": "keyword"
+                            },
+                            "title": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "location": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "projectInfo": {
+                        "properties": {
+                            "fundingInfo": {
+                                "properties": {
+                                    "fundingOrganization": {
+                                        "properties": {
+                                            "identifiers": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "keyword"
+                                                    },
+                                                    "type": {
+                                                        "type": "keyword"
+                                                    }
+                                                }
+                                            },
+                                            "title": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "fundingProgram": {
+                                        "properties": {
+                                            "identifiers": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "keyword"
+                                                    },
+                                                    "type": {
+                                                        "type": "keyword"
+                                                    }
+                                                }
+                                            },
+                                            "title": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "grantIdentifier": {
+                                "properties": {
+                                    "id": {
+                                        "type": "keyword"
+                                    },
+                                    "type": {
+                                        "type": "keyword"
+                                    }
+                                }
+                            },
+                            "title": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "publishingInfo": {
+                        "properties": {
+                            "edition": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "place": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "publisher": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "reviewMethod": {
+                        "type": "keyword"
+                    },
+                    "sources": {
+                        "type": "nested",
+                        "include_in_parent": true,
+                        "properties": {
+                            "alternativeTitles": {
+                                "type": "nested",
+                                "include_in_parent": true,
+                                "properties": {
+                                    "language": {
+                                        "type": "keyword"
+                                    },
+                                    "type": {
+                                        "type": "keyword"
+                                    },
+                                    "value": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "creators": {
+                                "type": "nested",
+                                "include_in_parent": true,
+                                "properties": {
+                                    "organization": {
+                                        "properties": {
+                                            "address": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            },
+                                            "identifier": {
+                                                "type": "keyword"
+                                            },
+                                            "identifierPath": {
+                                                "type": "keyword"
+                                            },
+                                            "name": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "person": {
+                                        "properties": {
+                                            "completeName": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            },
+                                            "familyName": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            },
+                                            "givenName": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            },
+                                            "identifier": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "keyword"
+                                                    },
+                                                    "type": {
+                                                        "type": "keyword"
+                                                    }
+                                                }
+                                            },
+                                            "orcid": {
+                                                "type": "text",
+                                                "fields": {
+                                                    "keyword": {
+                                                        "type": "keyword",
+                                                        "normalizer": "sort"
+                                                    }
+                                                }
+                                            },
+                                            "organizations": {
+                                                "type": "nested",
+                                                "include_in_parent": true,
+                                                "properties": {
+                                                    "address": {
+                                                        "type": "text",
+                                                        "fields": {
+                                                            "keyword": {
+                                                                "type": "keyword",
+                                                                "normalizer": "sort"
+                                                            }
+                                                        }
+                                                    },
+                                                    "identifier": {
+                                                        "type": "keyword"
+                                                    },
+                                                    "identifierPath": {
+                                                        "type": "keyword"
+                                                    },
+                                                    "name": {
+                                                        "type": "text",
+                                                        "fields": {
+                                                            "keyword": {
+                                                                "type": "keyword",
+                                                                "normalizer": "sort"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "organizationsSize": {
+                                                "type": "long"
+                                            }
+                                        }
+                                    },
+                                    "role": {
+                                        "type": "keyword"
+                                    },
+                                    "type": {
+                                        "type": "keyword"
+                                    }
+                                }
+                            },
+                            "endPage": {
+                                "type": "text"
+                            },
+                            "genre": {
+                                "type": "keyword"
+                            },
+                            "identifiers": {
+                                "type": "nested",
+                                "include_in_parent": true,
+                                "properties": {
+                                    "id": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "type": {
+                                        "type": "keyword"
+                                    }
+                                }
+                            },
+                            "issue": {
+                                "type": "text"
+                            },
+                            "publishingInfo": {
+                                "properties": {
+                                    "edition": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "place": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    },
+                                    "publisher": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "normalizer": "sort"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "sequenceNumber": {
+                                "type": "text"
+                            },
+                            "startPage": {
+                                "type": "text"
+                            },
+                            "title": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            },
+                            "totalNumberOfPages": {
+                                "type": "text"
+                            },
+                            "volume": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "subjects": {
+                        "type": "nested",
+                        "include_in_parent": true,
+                        "properties": {
+                            "type": {
+                                "type": "keyword"
+                            },
+                            "value": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "normalizer": "sort"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "tableOfContents": {
+                        "type": "text"
+                    },
+                    "title": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        },
+                        "analyzer": "html_standard_analyzer"
+                    },
+                    "totalNumberOfPages": {
+                        "type": "text"
+                    }
+                }
+            },
+            "modificationDate": {
+                "type": "date"
+            },
+            "modifiedBy": {
+                "properties": {
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "modifier": {
+                "properties": {
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "normalizer": "sort"
+                            }
+                        }
+                    }
+                }
+            },
+            "objectId": {
+                "type": "keyword"
+            },
+            "objectPid": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "normalizer": "sort"
+                    }
+                }
+            },
+            "publicState": {
+                "type": "keyword"
+            },
+            "sort-metadata-creators-compound": {
+                "type": "keyword",
+                "normalizer": "sort"
+            },
+            "sort-metadata-creators-first": {
+                "type": "keyword",
+                "normalizer": "sort"
+            },
+            "sort-metadata-dates-by-category": {
+                "type": "date",
+                "format": "yyyy-MM-dd||yyyy-MM||yyyy"
+            },
+            "sort-metadata-dates-by-category-year": {
+                "type": "date",
+                "format": "yyyy"
+            },
+            "versionNumber": {
+                "type": "long"
+            },
+            "versionPid": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "normalizer": "sort"
+                    }
+                }
+            },
+            "versionState": {
+                "type": "keyword"
             }
         }
+
     }
 }

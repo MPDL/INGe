@@ -25,16 +25,12 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
-import org.apache.lucene.search.join.ScoreMode;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+
+import java.util.Arrays;
 
 @SuppressWarnings("serial")
 public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
@@ -145,28 +141,36 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
     if (selectedRole == null) {
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId());
       } else {
+        return MultiMatchQuery.of(m -> m.query(this.getSearchString()).fields(Arrays.asList(this.getElasticSearchFieldForSearchString()))
+            .type(TextQueryType.CrossFields).operator(Operator.And))._toQuery();
+        /*
         return QueryBuilders.multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
             .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND);
+        
+         */
 
       }
 
     } else {
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery()
-          .must(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, selectedRole.name()));
+      BoolQuery.Builder bq = new BoolQuery.Builder();
+      bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, selectedRole.name()));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         bq = bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId()));
       } else {
-        bq = bq.must(QueryBuilders.multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
-            .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND));
+        bq = bq
+            .must(MultiMatchQuery.of(m -> m.query(this.getSearchString()).fields(Arrays.asList(this.getElasticSearchFieldForSearchString()))
+                .type(TextQueryType.CrossFields).operator(Operator.And))._toQuery());
       }
-      return QueryBuilders.nestedQuery("metadata.creators", (QueryBuilder) bq, ScoreMode.Avg);
+      BoolQuery.Builder finalBq = bq;
+      return NestedQuery.of(n -> n.path("metadata.creators").query(finalBq.build()._toQuery()).scoreMode(ChildScoreMode.Avg))._toQuery();
+      //return QueryBuilders.nestedQuery("metadata.creators", (QueryBuilder) bq, ScoreMode.Avg);
     }
 
   }

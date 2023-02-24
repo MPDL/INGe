@@ -25,28 +25,9 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search;
 
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -69,20 +50,25 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.CollectionSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.StandardSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.TitleSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.CreatedBySearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.ModifiedBySearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.*;
+import de.mpg.mpdl.inge.pubman.web.util.*;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.log4j.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
+import java.io.Serializable;
+import java.net.URLEncoder;
+import java.util.*;
 
 @ManagedBean(name = "AdvancedSearchBean")
 @SessionScoped
@@ -578,7 +564,8 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     if (this.contextListMenu == null) {
       try {
 
-        QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
+        Query qb =
+            BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(ContextServiceDbImpl.INDEX_STATE).value("OPENED"))._toQuery()))._toQuery();
 
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 1000, 0);
         SearchRetrieveResponseVO<ContextDbVO> result = ApplicationBean.INSTANCE.getContextService().search(srr, null);

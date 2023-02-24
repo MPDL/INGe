@@ -1,22 +1,12 @@
 package de.mpg.mpdl.inge.pubman.web.depositorWS;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.model.SelectItem;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.script.Script;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.InlineScript;
+import co.elastic.clients.elasticsearch._types.Script;
+import co.elastic.clients.elasticsearch._types.SortOptions;
+import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -33,6 +23,15 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import org.apache.log4j.Logger;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the My Items
@@ -157,44 +156,47 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     try {
 
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      BoolQuery.Builder bq = new BoolQuery.Builder();
 
-      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getObjectId()));
+      bq.must(
+          TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID).value(this.getLoginHelper().getAccountUser().getObjectId()))
+              ._toQuery());
 
       // display only latest versions
-      bq.must(QueryBuilders.scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
-          + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
+      InlineScript is = InlineScript.of(i -> i.source("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
+          + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
+      bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.inline(is))))._toQuery());
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
       else if (this.selectedItemState.toLowerCase().equals("all")) {
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
       else {
-        bq.must(
-            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVersionRO.State.valueOf(this.selectedItemState).name()));
-        bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        bq.must(TermQuery
+            .of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(ItemVersionRO.State.valueOf(this.selectedItemState).name()))
+            ._toQuery());
+        bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()).operator(Operator.AND));
+        bq.must(MatchQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()).operator(Operator.And))
+            ._toQuery());
       }
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-      SearchSourceBuilder ssb = new SearchSourceBuilder();
-      ssb.query(bq);
-      ssb.from(offset);
-      ssb.size(limit);
+      SearchRequest.Builder srb = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
 
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
-          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-              SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
-                  : org.elasticsearch.search.sort.SortOrder.DESC));
+          FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
+              SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                  : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
+          srb.sort(SortOptions.of(so -> so.field(fs)));
         }
       }
 
@@ -203,9 +205,9 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       // SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
       // SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq, limit, offset, ssc);
 
-      SearchResponse resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+      ResponseBody resp = pis.searchDetailed(srb.build(), getLoginHelper().getAuthenticationToken());
 
-      this.numberOfRecords = (int) resp.getHits().getTotalHits();
+      this.numberOfRecords = (int) resp.hits().total().value();
 
       List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 

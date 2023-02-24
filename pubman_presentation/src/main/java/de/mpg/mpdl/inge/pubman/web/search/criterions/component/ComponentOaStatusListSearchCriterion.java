@@ -25,19 +25,18 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
 public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion<String> {
@@ -83,11 +82,11 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
   }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
 
     if (!this.isEmpty(QueryType.CQL)) {
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      BoolQuery.Builder bq = new BoolQuery.Builder();
       for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
 
@@ -96,7 +95,8 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
           final String notSpecifiedValue =
               this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(MdsFileVO.OA_STATUS.NOT_SPECIFIED.toString()));
           if (notSpecifiedValue.equals(value)) {
-            bq = bq.should(QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_FILE_OA_STATUS)));
+            bq = bq.should(BoolQuery.of(b -> b.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_FILE_OA_STATUS))._toQuery()))
+                ._toQuery());
           }
           bq = bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(value), value));
 
@@ -106,7 +106,7 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
       }
 
 
-      return bq;
+      return bq.build()._toQuery();
 
     }
 

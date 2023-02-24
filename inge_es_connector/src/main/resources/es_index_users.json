@@ -23,7 +23,6 @@
     "number_of_replicas": "0"
   },
   "mappings": {
-    "user": {
       "properties": {
         "active": {
           "type": "boolean"
@@ -174,6 +173,6 @@
           "type": "keyword"
         }
       }
-    }
+
   }
 }

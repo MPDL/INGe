@@ -1,58 +1,47 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
-
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
-import org.elasticsearch.action.delete.DeleteResponse;
-import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
-import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.cluster.metadata.MappingMetaData;
-import org.elasticsearch.common.unit.TimeValue;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.reindex.BulkByScrollResponse;
-import org.elasticsearch.index.reindex.DeleteByQueryAction;
-import org.elasticsearch.search.Scroll;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.sort.SortOrder;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import co.elastic.clients.elasticsearch._types.*;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
+import co.elastic.clients.elasticsearch._types.mapping.Property;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.*;
+import co.elastic.clients.elasticsearch.core.search.*;
+import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
+import co.elastic.clients.json.JsonpMapper;
+import co.elastic.clients.json.JsonpSerializable;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField.Type;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
-import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.valueobjects.*;
+import jakarta.json.spi.JsonProvider;
+import jakarta.json.stream.JsonGenerator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * ElasticSearchClient enables elasticsearch accessibility
- * 
+ *
  * @author frank (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
  */
 public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
@@ -72,6 +61,8 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   private static final int DEFAULT_SEARCH_SIZE = 100;
   private static final int MAX_SEARCH_SIZE = 10000;
 
+  private ObjectMapper objectMapper = new ObjectMapper();
+
 
   public ElasticSearchGenericDAOImpl(String indexName, String indexType, Class<E> typeParameterClass) {
     this.indexName = indexName;
@@ -88,139 +79,139 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   protected abstract String[] getSourceExclusions();
 
 
-  /**
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @param vo
-   * @return {@link String}
-   */
+
   public String create(String id, E entity) throws IngeTechnicalException {
     try {
-      IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-          .setSource(mapper.writeValueAsBytes(applyCustomValues(entity)), XContentType.JSON).get();
-      return indexResponse.getId();
 
-    } catch (JsonProcessingException e) {
+      IndexResponse indexResponse = client.getClient().index(i -> i.index(indexName).id(id).document(applyCustomValues(entity))
+
+      );
+
+      return indexResponse.id();
+
+    } catch (IOException e) {
       throw new IngeTechnicalException(e);
     }
 
-
   }
 
-  /**
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @param vo
-   * @return {@link String}
-   */
+
   public String createImmediately(String id, E entity) throws IngeTechnicalException {
     try {
-      IndexResponse indexResponse =
-          client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id).setRefreshPolicy(RefreshPolicy.IMMEDIATE)
-              .setSource(mapper.writeValueAsBytes(applyCustomValues(entity)), XContentType.JSON).get();
-      return indexResponse.getId();
 
-    } catch (JsonProcessingException e) {
+      IndexResponse indexResponse =
+          client.getClient().index(i -> i.index(indexName).id(id).refresh(Refresh.True).document(applyCustomValues(entity))
+
+          );
+
+      return indexResponse.id();
+
+    } catch (IOException e) {
       throw new IngeTechnicalException(e);
     }
 
-
   }
 
-  /**
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @return {@link ValueObject}
-   */
+
   public E get(String id) throws IngeTechnicalException {
+
     try {
-      GetResponse getResponse = client.getClient().prepareGet().setIndex(indexName).setType(indexType).setId(id).get();
-      return mapper.readValue(getResponse.getSourceAsBytes(), typeParameterClass);
+      GetResponse<E> getResponse = client.getClient().get(g -> g.index(indexName).id(id), typeParameterClass);
+      return getResponse.source();
+
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
-
-
   }
 
-  /**
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @param vo
-   * @return {@link String}
-   */
   public String updateImmediately(String id, E entity) throws IngeTechnicalException {
 
     try {
-      UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(applyCustomValues(entity)), XContentType.JSON).get();
-      return Long.toString(updateResponse.getVersion());
+      UpdateResponse updateResponse =
+          client.getClient().update(u -> u.index(indexName).id(id).refresh(Refresh.True).doc(applyCustomValues(entity)), typeParameterClass
+
+          );
+      return Long.toString(updateResponse.version());
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
-
   }
 
   public String update(String id, E entity) throws IngeTechnicalException {
 
     try {
-      UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-          .setDoc(mapper.writeValueAsBytes(applyCustomValues(entity))).get();
-      return Long.toString(updateResponse.getVersion());
+      UpdateResponse updateResponse =
+          client.getClient().update(u -> u.index(indexName).id(id).doc(applyCustomValues(entity)), typeParameterClass
+
+          );
+      return Long.toString(updateResponse.version());
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+
+  /**
+   * @param id
+   * @return {@link String}
+   */
+  public String deleteImmediatly(String id) throws IngeTechnicalException {
+    try {
+      DeleteResponse deleteResponse = client.getClient().delete(d -> d.index(indexName).refresh(Refresh.True).id(id));
+      return deleteResponse.id();
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
 
-  }
-
-
-  /**
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @return {@link String}
-   */
-  public String deleteImmediatly(String id) {
-
-    DeleteResponse deleteResponse =
-        client.getClient().prepareDelete().setIndex(indexName).setType(indexType).setId(id).setRefreshPolicy(RefreshPolicy.IMMEDIATE).get();
-    return deleteResponse.getId();
 
   }
 
-  /**
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @return {@link String}
-   */
-  public String delete(String id) {
-
-    DeleteResponse deleteResponse = client.getClient().prepareDelete().setIndex(indexName).setType(indexType).setId(id).get();
-    return deleteResponse.getId();
-
-  }
-
-
-  public long deleteByQuery(QueryBuilder query) throws IngeTechnicalException {
+  public String delete(String id) throws IngeTechnicalException {
 
     try {
-      BulkByScrollResponse resp = DeleteByQueryAction.INSTANCE.newRequestBuilder(client.getClient()).filter(query).source(indexName).get();
-      return resp.getDeleted();
+      DeleteResponse deleteResponse = client.getClient().delete(d -> d.index(indexName).id(id));
+      return deleteResponse.id();
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
 
+  }
+
+
+  public long deleteByQuery(Query query) throws IngeTechnicalException {
+
+    try {
+      DeleteByQueryResponse deleteResponse = client.getClient().deleteByQuery(d -> d.index(indexName).query(query));
+      return deleteResponse.deleted();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+  /**
+   * Use maxDocs <=1000 in order to disable scrolling for delete-by-query
+   */
+  public long deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException {
+
+    try {
+      DeleteByQueryResponse deleteResponse =
+          client.getClient().deleteByQuery(d -> d.index(indexName).query(query).maxDocs(Long.valueOf(maxDocs)));
+      return deleteResponse.deleted();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+
+  public boolean clearScroll(String scrollId) throws IngeTechnicalException {
+
+    try {
+      ClearScrollResponse resp = client.getClient().clearScroll(ClearScrollRequest.of(cs -> cs.scrollId(scrollId)));
+
+      return resp.succeeded();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
   }
 
 
@@ -228,51 +219,63 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
     SearchRetrieveResponseVO<E> srrVO;
     try {
+      SearchRequest.Builder sr = new SearchRequest.Builder();
 
+      //Set track_total_hits to true in order to retrieve correct total numbers > 10000
+      sr.trackTotalHits(TrackHits.of(i -> i.enabled(true)));
 
-      SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType);
+      sr.index(indexName);
+
       if (searchQuery.getQueryBuilder() != null) {
-        srb.setQuery(searchQuery.getQueryBuilder());
+        sr.query(searchQuery.getQueryBuilder());
       }
 
       if (searchQuery.getAggregationBuilders() != null) {
-        for (AggregationBuilder aggBuilder : searchQuery.getAggregationBuilders()) {
-          srb.addAggregation(aggBuilder);
+        int i = 0;
+        for (Aggregation aggBuilder : searchQuery.getAggregationBuilders()) {
+          sr.aggregations("agg" + i, aggBuilder);
         }
       }
 
 
-
       if (searchQuery.getOffset() != 0) {
-        srb.setFrom(searchQuery.getOffset());
+        sr.from(searchQuery.getOffset());
       }
 
       if (searchQuery.getLimit() == -2) {
-        srb.setSize(ElasticSearchGenericDAOImpl.MAX_SEARCH_SIZE);
+        sr.size(ElasticSearchGenericDAOImpl.MAX_SEARCH_SIZE);
       } else if (searchQuery.getLimit() == -1) {
-        srb.setSize(ElasticSearchGenericDAOImpl.DEFAULT_SEARCH_SIZE);
+        sr.size(ElasticSearchGenericDAOImpl.DEFAULT_SEARCH_SIZE);
       } else {
-        srb.setSize(searchQuery.getLimit());
+        sr.size(searchQuery.getLimit());
       }
 
       if (searchQuery.getSortKeys() != null) {
         for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-          srb.addSort(sc.getIndexField(), SortOrder.valueOf(sc.getSortOrder().name()));
+          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField())
+              .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
+          sr.sort(SortOptions.of(so -> so.field(fs)));
         }
       }
 
       if (getSourceExclusions() != null) {
-        srb.setFetchSource(null, getSourceExclusions());
+        SourceConfig sc = SourceConfig.of(s -> s.filter(SourceFilter.of(sf -> sf.excludes(Arrays.asList(getSourceExclusions())))));
+        sr.source(sc);
       }
 
 
       if (searchQuery.getScrollTime() != -1) {
-        srb.setScroll(new Scroll(new TimeValue(searchQuery.getScrollTime())));
+        sr.scroll(Time.of(i -> i.time(searchQuery.getScrollTime() + "ms")));
+        //srb.setScroll(new Scroll(new TimeValue()));
       }
-      logger.debug(srb.toString());
-      SearchResponse response = srb.get();
 
-      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response, typeParameterClass);
+
+      //logger.debug(sr.toString());
+      SearchRequest srr = sr.build();
+      logger.debug(toJson(srr));
+      SearchResponse<E> srb = client.getClient().search(srr, typeParameterClass);
+
+      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(srb, typeParameterClass);
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);
     }
@@ -282,29 +285,59 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
   }
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime) throws IngeTechnicalException {
+  public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest, long scrollTime) throws IngeTechnicalException {
 
+    ObjectNode root = (ObjectNode) searchRequest;
     try {
-      SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType).setSource(ssb);
+      /*
       if (scrollTime != -1) {
-        srb.setScroll(new Scroll(new TimeValue(scrollTime)));
+        root.put("scroll", scrollTime);
       }
+      */
+
+
+      //Set track_total_hits to true in order to retrieve correct total numbers > 10000
+      root.put("track_total_hits", true);
 
       if (getSourceExclusions() != null && getSourceExclusions().length > 0) {
-        if (ssb.fetchSource() == null) {
-          srb.setFetchSource(null, getSourceExclusions());
-        } else if (ssb.fetchSource().fetchSource()) {
-          String[] excludes = ssb.fetchSource().excludes();
-          String[] both = Stream
-              .concat(Arrays.stream(getSourceExclusions()), (excludes != null ? Arrays.stream(excludes) : Arrays.stream(new String[0])))
-              .toArray(String[]::new);
-          ssb.fetchSource(ssb.fetchSource().includes(), both);
+        ArrayNode sourceExclusions = objectMapper.valueToTree(getSourceExclusions());
+        JsonNode sourceNode = root.get("_source");
+        if (sourceNode == null) {
+          root.putObject("_source").putArray("excludes").addAll(sourceExclusions);
+          //SourceConfig sc = SourceConfig.of(s -> s.filter(SourceFilter.of(sf -> sf.excludes(Arrays.asList(getSourceExclusions())))));
+          //srb.source(sc);
+        } else {
+          if (sourceNode.isObject()) {
+            if (sourceNode.get("excludes") != null) {
+              ((ArrayNode) sourceNode.get("excludes")).addAll(sourceExclusions);
+            } else {
+              ((ObjectNode) sourceNode).putArray("excludes").addAll(sourceExclusions);
+            }
+          }
+          //_source is not an object
+          else {
+            if (sourceNode.isTextual()) {
+              root.putObject("_source").putArray("includes").add(sourceNode);
+            } else if (sourceNode.isArray()) {
+              root.putObject("_source").putArray("includes").addAll((ArrayNode) sourceNode);
+            }
+            ((ObjectNode) sourceNode).putArray("excludes").addAll(sourceExclusions);
+          }
         }
+
+
       }
 
-
-      logger.debug(srb.toString());
-      return srb.get();
+      ByteArrayInputStream bis = new ByteArrayInputStream(objectMapper.writeValueAsBytes(root));
+      SearchRequest.Builder srb = new SearchRequest.Builder().withJson(bis);
+      if (scrollTime != -1) {
+        srb.scroll(Time.of(t -> t.time(scrollTime + "ms")));
+      }
+      srb.index(indexName);
+      SearchRequest sr = srb.build();
+      logger.debug(toJson(sr));
+      SearchResponse<ObjectNode> resp = client.getClient().search(sr, ObjectNode.class);
+      return resp;
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);
     }
@@ -312,17 +345,18 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
   }
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException {
+  public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest) throws IngeTechnicalException {
 
-    return searchDetailed(ssb, -1);
+    return searchDetailed(searchRequest, -1);
 
 
   }
 
-  public SearchResponse scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException {
+  public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException {
 
     try {
-      return client.getClient().prepareSearchScroll(scrollId).setScroll(new Scroll(new TimeValue(scrollTime))).get();
+      return client.getClient().scroll(i -> i.scrollId(scrollId).scroll(Time.of(t -> t.time(scrollTime + "ms"))), ObjectNode.class);
+      //return client.getClient().prepareSearchScroll(scrollId).setScroll(new Scroll(new TimeValue(scrollTime))).get();
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);
     }
@@ -331,27 +365,48 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   }
 
 
-  public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr, Class<E> clazz)
+  public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(ResponseBody<E> sr, Class<E> clazz)
       throws IOException {
     SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
     srrVO.setOriginalResponse(sr);
-    srrVO.setNumberOfRecords((int) sr.getHits().getTotalHits());
-    srrVO.setScrollId(sr.getScrollId());
+    srrVO.setNumberOfRecords((int) sr.hits().total().value());
+    srrVO.setScrollId(sr.scrollId());
 
     List<SearchRetrieveRecordVO<E>> hitList = new ArrayList<>();
     srrVO.setRecords(hitList);
-    for (SearchHit hit : sr.getHits().getHits()) {
+    for (Hit hit : sr.hits().hits()) {
       SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<E>();
       hitList.add(srr);
 
-      E itemVO = MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
+      E vo = getVoFromResponseObject(hit.source(), clazz);
+      /*
+      if (clazz.isAssignableFrom(JsonNode.class)) {
+        vo = MapperFactory.getObjectMapper().treeToValue((JsonNode) hit.source(), clazz);
+      
+      } else {
+        vo = (E) hit.source();
+      }
+      
+       */
 
-      srr.setData(itemVO);
-      srr.setPersistenceId(hit.getId());
+      srr.setData(vo);
+      srr.setPersistenceId(hit.id());
     }
 
 
     return srrVO;
+  }
+
+  public static <E> E getVoFromResponseObject(Object object, Class<E> clazz) throws IOException {
+
+    E vo;
+    if (JsonNode.class.isAssignableFrom(object.getClass())) {
+      vo = MapperFactory.getObjectMapper().treeToValue((JsonNode) object, clazz);
+
+    } else {
+      vo = (E) object;
+    }
+    return vo;
   }
 
   //SP: Alias-Suche funktioniert in ES 6.1 nicht mehr wie erwartet
@@ -364,20 +419,57 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
     //    }
 
     //    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
-    GetMappingsResponse resp = this.client.getClient().admin().indices().prepareGetMappings(this.indexName).addTypes(this.indexType).get();
 
-    if (resp.getMappings().isEmpty() == false) { // SP: avoiding NullPointerException
-      MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
+    try {
+      GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(this.indexName));
+      //GetMappingsResponse resp = this.client.getClient().admin().indices().prepareGetMappings(this.indexName).addTypes(this.indexType).get();
 
-      Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
-      ElasticSearchIndexField allField = new ElasticSearchIndexField();
-      allField.setIndexName("_all");
-      allField.setType(Type.TEXT);
-      map.put("_all", allField);
-      return map;
+      if (!resp.result().isEmpty()) { // SP: avoiding NullPointerException
+        Map<String, Property> resultMap = resp.result().get(this.indexName).mappings().properties();
+
+        //((MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
+
+        Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(resultMap);
+        ElasticSearchIndexField allField = new ElasticSearchIndexField();
+        allField.setIndexName("_all");
+        allField.setType(Type.TEXT);
+        map.put("_all", allField);
+        return map;
+      }
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
     }
 
     return new HashMap<String, ElasticSearchIndexField>();
   }
+
+
+  public static <T extends JsonpSerializable> String toJson(T value) {
+    StringWriter sw = new StringWriter();
+    JsonpMapper mapper = new JacksonJsonpMapper();
+    JsonProvider provider = mapper.jsonProvider();
+    JsonGenerator generator = provider.createGenerator(sw);
+    mapper.serialize(value, generator);
+    generator.close();
+    return sw.toString();
+  }
+
+  public static <T extends JsonpSerializable> JsonNode toJsonNode(T value) throws IngeTechnicalException {
+    try {
+      StringWriter sw = new StringWriter();
+      JsonpMapper mapper = new JacksonJsonpMapper();
+      JsonProvider provider = mapper.jsonProvider();
+      JsonGenerator generator = provider.createGenerator(sw);
+      mapper.serialize(value, generator);
+      generator.close();
+      ObjectMapper om = new ObjectMapper();
+      JsonNode jsonNode = om.readTree(sw.toString());
+      return jsonNode;
+    } catch (JsonProcessingException e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+
 
 }

@@ -1,16 +1,19 @@
 package de.mpg.mpdl.inge.es.dao;
 
-import java.util.Map;
-
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Map;
 
 /**
  * Generic Dao interface for elasticsearch
@@ -18,18 +21,11 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @author haarlaender
  * 
  * @param <E>
- * @param <Query>
  */
 public interface GenericDaoEs<E> {
 
   /**
    * creates a new object in elasticsearch for the entity with a specific id
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @param vo
-   * @return {@link String}
    */
   public String createImmediately(String id, E entity) throws IngeTechnicalException;
 
@@ -37,22 +33,12 @@ public interface GenericDaoEs<E> {
 
   /**
    * retrieves the object from elasticsearch for a given id
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @return {@link ValueObject}
    */
   public E get(String id) throws IngeTechnicalException;
 
   /**
    * updates the object with the given id and the new entity in elasticsearch
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @param vo
-   * @return {@link String}
+   *
    */
   public String updateImmediately(String id, E entity) throws IngeTechnicalException;
 
@@ -60,18 +46,20 @@ public interface GenericDaoEs<E> {
 
   /**
    * deletes the object with the given id in elasticsearch
-   * 
-   * @param indexName
-   * @param indexType
-   * @param id
-   * @return {@link String}
    */
-  public String deleteImmediatly(String id);
+  public String deleteImmediatly(String id) throws IngeTechnicalException;
 
-  public String delete(String id);
+  public String delete(String id) throws IngeTechnicalException;
 
-  public long deleteByQuery(QueryBuilder query) throws IngeTechnicalException;
+  public long deleteByQuery(Query query) throws IngeTechnicalException;
 
+  /**
+   * Use maxDocs <=1000 in order to disable scrolling for delete-by-query
+   */
+  public long deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException;
+
+
+  public boolean clearScroll(String scrollId) throws IngeTechnicalException;
 
   /**
    * searches in elasticsearch with a given searchQuery
@@ -83,11 +71,11 @@ public interface GenericDaoEs<E> {
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException;
 
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException;
+  public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest) throws IngeTechnicalException;
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime) throws IngeTechnicalException;
+  public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest, long scrollTime) throws IngeTechnicalException;
 
-  public SearchResponse scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException;
+  public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException;
 
 
   /**

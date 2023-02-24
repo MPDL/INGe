@@ -25,11 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
-import org.apache.lucene.search.join.ScoreMode;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.ChildScoreMode;
+import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -45,13 +44,13 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
 
   @Override
-  public QueryBuilder toElasticSearchQuery() {
+  public Query toElasticSearchQuery() {
 
 
-    BoolQueryBuilder bq = QueryBuilders.boolQuery();
+    BoolQuery.Builder bq = new BoolQuery.Builder();
     bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS_TYPE, getClassificationType()));
     bq.must(super.toElasticSearchQuery());
-    return QueryBuilders.nestedQuery("metadata.subjects", bq, ScoreMode.Avg);
+    return NestedQuery.of(n -> n.path("metadata.subjects").query(bq.build()._toQuery()).scoreMode(ChildScoreMode.Avg))._toQuery();
 
   }
 

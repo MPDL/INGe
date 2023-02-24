@@ -1,12 +1,12 @@
 package de.mpg.mpdl.inge.es.util;
 
+import co.elastic.clients.elasticsearch._types.mapping.Property;
+import co.elastic.clients.elasticsearch._types.mapping.PropertyBase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
-
-import org.elasticsearch.cluster.metadata.MappingMetaData;
 
 
 public class ElasticSearchIndexField {
@@ -73,53 +73,85 @@ public class ElasticSearchIndexField {
    */
   public static class Factory {
 
-    public static Map<String, ElasticSearchIndexField> createIndexMapFromElasticsearch(MappingMetaData mdd) {
+    public static Map<String, ElasticSearchIndexField> createIndexMapFromElasticsearch(Map<String, Property> resultMap) {
 
       Map<String, ElasticSearchIndexField> indexMap = new TreeMap<>();
-
-
-      fillMap("", mdd.getSourceAsMap(), indexMap, "", new ArrayList<>());
-
+      fillMap(resultMap, indexMap, "", new ArrayList<>());
 
       return indexMap;
     }
 
 
 
-    private static void fillMap(String parentKey, Map<String, Object> mappingMap, Map<String, ElasticSearchIndexField> indexMap,
-        String currentPath, List<String> currentNestedPaths) {
+    private static void fillMap(Map<String, Property> mappingMap, Map<String, ElasticSearchIndexField> indexMap, String currentPath,
+        List<String> currentNestedPaths) {
 
-      for (Entry<String, Object> entry : mappingMap.entrySet()) {
+      for (Map.Entry<String, Property> entry : mappingMap.entrySet()) {
 
         StringBuilder newCurrentPath = new StringBuilder(currentPath);
         List<String> newCurrentNestedPaths = new ArrayList<>(currentNestedPaths);
 
+        if (newCurrentPath.length() > 0) {
+          newCurrentPath.append(".");
+        }
+        newCurrentPath.append(entry.getKey());
+
+        if (entry.getValue().isNested()) {
+          newCurrentNestedPaths.add(newCurrentPath.toString());
+        }
+
+
+        if (!entry.getValue().isObject() && !entry.getValue().isNested()) {
+          ElasticSearchIndexField indexField =
+              createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, entry.getValue()._kind().jsonValue());
+          indexMap.put(newCurrentPath.toString(), indexField);
+          //System.out.println(newCurrentPath.toString() + " -- " + newCurrentNestedPaths + " -- " + entry.getValue()._kind().jsonValue());
+        }
+
+        if (entry.getValue().isObject()) {
+          fillMap(entry.getValue().object().properties(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
+        } else if (entry.getValue().isNested()) {
+          fillMap(entry.getValue().nested().properties(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
+        } else {
+          fillMap(((PropertyBase) entry.getValue()._get()).fields(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
+        }
+
+
+      }
+
+      /*
+      for (Entry<String, Property> entry : mappingMap.entrySet()) {
+      
+        StringBuilder newCurrentPath = new StringBuilder(currentPath);
+        List<String> newCurrentNestedPaths = new ArrayList<>(currentNestedPaths);
+      
         if (parentKey != null && (parentKey.equals("properties") || parentKey.equals("fields"))) {
           if (newCurrentPath.length() > 0) {
             newCurrentPath.append(".");
           }
           newCurrentPath.append(entry.getKey());
         }
-
+      
         else if (mappingMap.containsKey("type")) {
           String type = (String) mappingMap.get("type");
           if (type.equals("nested")) {
             newCurrentNestedPaths.add(newCurrentPath.toString());
           }
-
+      
           else {
             ElasticSearchIndexField indexField = createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, type);
             indexMap.put(newCurrentPath.toString(), indexField);
-
+      
           }
         }
         if (entry.getValue() instanceof Map) {
           fillMap(entry.getKey(), (Map<String, Object>) entry.getValue(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
         }
-
-
-
+      
+      
+      
       }
+      */
 
 
 

@@ -25,9 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-
+import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
@@ -75,9 +74,9 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public QueryBuilder toElasticSearchQuery() throws SearchParseException {
-    QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL);
-    return null;
+  public Query toElasticSearchQuery() throws SearchParseException {
+    return ExistsQuery.of(eq -> eq.field(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL))._toQuery();
+    //return null;
   }
 
   @Override

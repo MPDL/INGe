@@ -442,6 +442,7 @@
 			</dependency>
 
 			<!-- Elastic Search -->
+			<!--
 			<dependency>
 				<groupId>org.elasticsearch</groupId>
 				<artifactId>elasticsearch</artifactId>
@@ -451,6 +452,19 @@
 				<groupId>org.elasticsearch.client</groupId>
 				<artifactId>transport</artifactId>
 				<version>6.1.1</version>
+			</dependency>
+			-->
+
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>7.17.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>co.elastic.clients</groupId>
+				<artifactId>elasticsearch-java</artifactId>
+				<version>8.6.1</version>
 			</dependency>
 
 			<!-- Hibernate -->
@@ -1168,6 +1182,7 @@
 		<inge.es.cluster.name>elastic_inge</inge.es.cluster.name>
 		<inge.es.transport.ips.test>127.0.0.1:9500</inge.es.transport.ips.test>
 		<inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips>
+		<inge.es.rest.host-port>localhost:9200</inge.es.rest.host-port>
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
