@@ -1,0 +1,66 @@
+{
+  "objectId": "item_3020534",
+  "versionNumber": 1,
+  "modificationDate": "2023-02-22T15:32:58.395+00:00",
+  "versionState": "PENDING",
+  "modifier": {
+    "objectId": "user_3020504"
+  },
+  "lastModificationDate": "2023-02-22T15:32:58.395+00:00",
+  "publicState": "PENDING",
+  "objectPid": null,
+  "creator": {
+    "objectId": "user_3020504"
+  },
+  "context": {
+    "objectId": "ctx_3000659",
+    "name": "Test Context Simple Workflow",
+    "lastModificationDate": "2019-01-08T14:48:50.476+00:00",
+    "creationDate": "2019-01-08T14:47:24.776+00:00",
+    "creator": {
+      "objectId": "user_user42"
+    },
+    "modifier": {
+      "objectId": "user_user42"
+    }
+  },
+  "creationDate": "2023-02-22T15:32:58.395+00:00",
+  "latestRelease": null,
+  "latestVersion": {
+    "objectId": "item_3020534",
+    "versionNumber": 1,
+    "modificationDate": "2023-02-22T15:32:58.395+00:00",
+    "versionState": "PENDING",
+    "versionPid": null,
+    "modifier": {
+      "objectId": "user_3020504"
+    }
+  },
+  "localTags": [
+
+  ],
+  "metadata": {
+    "title": "REST Assured Test Title 1",
+    "creators": [
+      {
+        "person": {
+          "givenName": "GivenName",
+          "familyName": "FamilyName",
+          "organizations": [
+            {
+              "identifier": "ou_persistent22",
+              "name": "Test-Organization",
+              "identifierPath": [
+                "ou_persistent22"
+              ]
+            }
+          ]
+        },
+        "role": "AUTHOR",
+        "type": "PERSON"
+      }
+    ],
+    "datePublishedInPrint": "2023-02-10",
+    "genre": "REPORT"
+  }
+}

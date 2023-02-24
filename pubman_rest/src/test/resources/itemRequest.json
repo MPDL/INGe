@@ -1,0 +1,38 @@
+{
+  "context": {
+    "objectId": "ctx_3000659",
+    "name": "",
+    "lastModificationDate": "",
+    "creationDate": "",
+    "creator": {
+      "objectId": ""
+    },
+    "modifier": {
+      "objectId": ""
+    }
+  },
+  "metadata": {
+    "title": "Test Item Simple - POST 5",
+    "creators": [
+      {
+        "person": {
+          "givenName": "GivenName",
+          "familyName": "FamilyName",
+          "organizations": [
+            {
+              "identifier": "ou_persistent22",
+              "name": "Test-Organization",
+              "identifierPath": [
+                "ou_persistent22"
+              ]
+            }
+          ]
+        },
+        "role": "AUTHOR",
+        "type": "PERSON"
+      }
+    ],
+    "datePublishedInPrint": "2023-02-10",
+    "genre": "REPORT"
+  }
+}
