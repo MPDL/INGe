@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 import java.sql.Connection;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
@@ -50,7 +49,7 @@ public class SubmitProcess extends Thread {
   };
 
   private final ImportLog importLog;
-  private AccountUserVO user;
+  //  private AccountUserVO user;
   private final String authenticationToken;
   private Connection connection = null;
   private Modus modus = null;
@@ -77,8 +76,8 @@ public class SubmitProcess extends Thread {
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_release_process", connection);
           break;
       }
-      this.user = new AccountUserVO();
-      this.user.setUserid(importLog.getUser());
+      //      this.user = new AccountUserVO();
+      //      this.user.setUserid(importLog.getUser());
     } catch (final Exception e) {
       switch (modus) {
         case SUBMIT:
