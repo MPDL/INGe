@@ -159,7 +159,6 @@ public class TestBase {
     templateItem.setTitle("testTitle");
     templateItem.setVersionNumber(5);
     admin.setTemplateItem(templateItem);
-    admin.setValidationSchema("testValidationSchema");
     admin.setVisibilityOfReferences("testVisibility");
     admin.setWorkflow(Workflow.STANDARD);
     vo.setAdminDescriptor(admin);

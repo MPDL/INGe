@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.types.Validatable;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 
 /**
@@ -41,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
  * 
  */
 @SuppressWarnings("serial")
-public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements Validatable {
+public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
 
   public enum Workflow
   {
@@ -55,8 +54,6 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
       new ArrayList<MdsPublicationVO.SubjectClassification>();
 
   private ItemRO templateItem;
-
-  private String validationSchema;
 
   private String visibilityOfReferences;
 
@@ -92,15 +89,6 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
 
   public void setTemplateItem(ItemRO templateItem) {
     this.templateItem = templateItem;
-  }
-
-  @Override
-  public String getValidationSchema() {
-    return this.validationSchema;
-  }
-
-  public void setValidationSchema(String validationSchema) {
-    this.validationSchema = validationSchema;
   }
 
   public String getVisibilityOfReferences() {
@@ -141,7 +129,6 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     result = prime * result + ((this.allowedSubjectClassifications == null) ? 0 : this.allowedSubjectClassifications.hashCode());
     result = prime * result + ((this.contactEmail == null) ? 0 : this.contactEmail.hashCode());
     result = prime * result + ((this.templateItem == null) ? 0 : this.templateItem.hashCode());
-    result = prime * result + ((this.validationSchema == null) ? 0 : this.validationSchema.hashCode());
     result = prime * result + ((this.visibilityOfReferences == null) ? 0 : this.visibilityOfReferences.hashCode());
     result = prime * result + ((this.workflow == null) ? 0 : this.workflow.hashCode());
     return result;
@@ -198,14 +185,6 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
         return false;
       }
     } else if (!this.templateItem.equals(other.templateItem)) {
-      return false;
-    }
-
-    if (this.validationSchema == null) {
-      if (other.validationSchema != null) {
-        return false;
-      }
-    } else if (!this.validationSchema.equals(other.validationSchema)) {
       return false;
     }
 
