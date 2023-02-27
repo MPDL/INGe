@@ -1,40 +1,61 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import co.elastic.clients.elasticsearch._types.*;
-import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
-import co.elastic.clients.elasticsearch._types.mapping.Property;
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch.core.*;
-import co.elastic.clients.elasticsearch.core.search.*;
-import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
-import co.elastic.clients.json.JsonpMapper;
-import co.elastic.clients.json.JsonpSerializable;
-import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.Refresh;
+import co.elastic.clients.elasticsearch._types.SortOptions;
+import co.elastic.clients.elasticsearch._types.SortOrder;
+import co.elastic.clients.elasticsearch._types.Time;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
+import co.elastic.clients.elasticsearch._types.mapping.Property;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.ClearScrollRequest;
+import co.elastic.clients.elasticsearch.core.ClearScrollResponse;
+import co.elastic.clients.elasticsearch.core.DeleteByQueryResponse;
+import co.elastic.clients.elasticsearch.core.DeleteResponse;
+import co.elastic.clients.elasticsearch.core.GetResponse;
+import co.elastic.clients.elasticsearch.core.IndexResponse;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.UpdateResponse;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import co.elastic.clients.elasticsearch.core.search.SourceConfig;
+import co.elastic.clients.elasticsearch.core.search.SourceFilter;
+import co.elastic.clients.elasticsearch.core.search.TrackHits;
+import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
+import co.elastic.clients.json.JsonpMapper;
+import co.elastic.clients.json.JsonpSerializable;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField.Type;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.*;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import jakarta.json.spi.JsonProvider;
 import jakarta.json.stream.JsonGenerator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.lang.reflect.Array;
-import java.util.*;
 
 /**
  * ElasticSearchClient enables elasticsearch accessibility

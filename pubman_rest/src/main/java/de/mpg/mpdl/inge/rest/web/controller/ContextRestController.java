@@ -1,9 +1,24 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import java.io.IOException;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.QueryStringQuery;
-import com.fasterxml.jackson.databind.JsonNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -18,14 +33,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.io.IOException;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/contexts")

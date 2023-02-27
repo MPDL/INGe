@@ -26,20 +26,14 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import de.mpg.mpdl.inge.model.valueobjects.*;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
-import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
-import de.mpg.mpdl.inge.service.util.JsonUtil;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -49,14 +43,27 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
+import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
+import de.mpg.mpdl.inge.service.util.JsonUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "SearchAndExportPage")
 @SessionScoped

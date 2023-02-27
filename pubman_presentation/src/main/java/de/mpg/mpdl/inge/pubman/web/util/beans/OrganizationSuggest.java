@@ -26,6 +26,12 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.bean.ManagedBean;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhrasePrefixQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
@@ -38,11 +44,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-
-import javax.faces.bean.ManagedBean;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author franke

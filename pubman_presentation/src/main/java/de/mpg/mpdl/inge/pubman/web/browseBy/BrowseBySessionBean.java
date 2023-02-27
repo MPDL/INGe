@@ -26,6 +26,27 @@
 
 package de.mpg.mpdl.inge.pubman.web.browseBy;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
 import co.elastic.clients.elasticsearch._types.aggregations.CalendarInterval;
 import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramAggregate;
@@ -33,7 +54,6 @@ import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramBucket;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -45,17 +65,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.log4j.Logger;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.*;
 
 /**
  * 

@@ -1,16 +1,18 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import co.elastic.clients.elasticsearch.core.IndexResponse;
+import java.util.Base64;
+
+import org.springframework.stereotype.Repository;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import co.elastic.clients.elasticsearch.core.IndexResponse;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.springframework.stereotype.Repository;
-
-import java.util.Base64;
 
 @Repository
 public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> implements PubItemDaoEs {

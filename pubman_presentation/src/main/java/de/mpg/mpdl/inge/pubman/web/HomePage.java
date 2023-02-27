@@ -26,6 +26,13 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.bean.ManagedBean;
+
+import org.apache.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
@@ -42,13 +49,6 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.log4j.Logger;
-
-import javax.faces.bean.ManagedBean;
-import java.util.List;
-import java.util.Map;
-
-import static de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl.toJson;
 
 /**
  * BackingBean for HomePage.jsp.

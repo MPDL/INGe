@@ -1,6 +1,18 @@
 package de.mpg.mpdl.inge.pubman.web.batch;
 
-import co.elastic.clients.elasticsearch._types.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.faces.bean.ManagedBean;
+
+import org.apache.log4j.Logger;
+
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.InlineScript;
+import co.elastic.clients.elasticsearch._types.Script;
+import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.ScriptQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
@@ -20,12 +32,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-import org.apache.log4j.Logger;
-
-import javax.faces.bean.ManagedBean;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the batch list. It uses

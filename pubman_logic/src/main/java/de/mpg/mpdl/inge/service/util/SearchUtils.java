@@ -1,22 +1,30 @@
 package de.mpg.mpdl.inge.service.util;
 
-import co.elastic.clients.elasticsearch._types.FieldSort;
-import co.elastic.clients.elasticsearch._types.FieldValue;
-import co.elastic.clients.elasticsearch._types.SortOrder;
-import co.elastic.clients.elasticsearch._types.query_dsl.*;
-import co.elastic.clients.elasticsearch.core.search.Hit;
-import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
-import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.log4j.Logger;
+
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.SortOrder;
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhraseQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.WildcardQuery;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 
 public class SearchUtils {
 

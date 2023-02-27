@@ -1,15 +1,15 @@
 package de.mpg.mpdl.inge.es.connector;
 
+import org.apache.http.HttpHost;
+import org.apache.log4j.Logger;
+import org.elasticsearch.client.RestClient;
+
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.http.HttpHost;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.elasticsearch.client.RestClient;
 
 public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
 

@@ -1,12 +1,34 @@
 package de.mpg.mpdl.inge.service.feed;
 
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.rometools.rome.feed.synd.SyndCategory;
+import com.rometools.rome.feed.synd.SyndCategoryImpl;
+import com.rometools.rome.feed.synd.SyndContent;
+import com.rometools.rome.feed.synd.SyndContentImpl;
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndEntryImpl;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndFeedImpl;
+import com.rometools.rome.feed.synd.SyndPerson;
+import com.rometools.rome.feed.synd.SyndPersonImpl;
+
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
-import com.rometools.rome.feed.synd.*;
-import de.mpg.mpdl.inge.model.valueobjects.*;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -16,14 +38,6 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.UriBuilder;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service

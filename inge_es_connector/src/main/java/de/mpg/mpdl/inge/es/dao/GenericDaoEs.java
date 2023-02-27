@@ -1,19 +1,16 @@
 package de.mpg.mpdl.inge.es.dao;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch.core.SearchRequest;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
-import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.Map;
 
 /**
  * Generic Dao interface for elasticsearch

@@ -25,12 +25,18 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import java.util.Arrays;
+
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.ChildScoreMode;
+import co.elastic.clients.elasticsearch._types.query_dsl.MultiMatchQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-
-import java.util.Arrays;
 
 @SuppressWarnings("serial")
 public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {

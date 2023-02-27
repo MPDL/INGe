@@ -1,5 +1,20 @@
 package de.mpg.mpdl.inge.pubman.web.affiliation;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
+
+import org.apache.log4j.Logger;
+import org.primefaces.event.NodeExpandEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
@@ -18,19 +33,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-import org.apache.log4j.Logger;
-import org.primefaces.event.NodeExpandEvent;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @ManagedBean(name = "AffiliationBean")
 @SessionScoped

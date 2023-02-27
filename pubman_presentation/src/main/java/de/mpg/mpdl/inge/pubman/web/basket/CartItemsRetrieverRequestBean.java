@@ -1,5 +1,13 @@
 package de.mpg.mpdl.inge.pubman.web.basket;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.faces.bean.ManagedBean;
+
+import org.apache.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.SortOptions;
@@ -19,12 +27,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-import org.apache.log4j.Logger;
-
-import javax.faces.bean.ManagedBean;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses

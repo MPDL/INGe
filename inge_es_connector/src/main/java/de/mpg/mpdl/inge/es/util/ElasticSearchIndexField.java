@@ -1,12 +1,12 @@
 package de.mpg.mpdl.inge.es.util;
 
-import co.elastic.clients.elasticsearch._types.mapping.Property;
-import co.elastic.clients.elasticsearch._types.mapping.PropertyBase;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import co.elastic.clients.elasticsearch._types.mapping.Property;
+import co.elastic.clients.elasticsearch._types.mapping.PropertyBase;
 
 
 public class ElasticSearchIndexField {

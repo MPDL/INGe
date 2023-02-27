@@ -26,6 +26,15 @@
 
 package de.mpg.mpdl.inge.pubman.web.contextList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import org.apache.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
@@ -41,13 +50,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-import org.apache.log4j.Logger;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.

@@ -1,5 +1,19 @@
 package de.mpg.mpdl.inge.pubman.web.workspaces;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+
+import org.apache.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -26,18 +40,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.ConeUtils;
-import org.apache.log4j.Logger;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.model.SelectItem;
-import javax.servlet.ServletOutputStream;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Gergana Stoyanova

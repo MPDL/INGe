@@ -1,15 +1,21 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.io.SyndFeedOutput;
-import de.mpg.mpdl.inge.service.feed.FeedServiceImpl;
-import io.swagger.annotations.Api;
+import java.io.StringReader;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.StringReader;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.SyndFeedOutput;
+
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.service.feed.FeedServiceImpl;
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/feed")

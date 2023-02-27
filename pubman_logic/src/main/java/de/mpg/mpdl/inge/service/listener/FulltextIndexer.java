@@ -1,5 +1,15 @@
 package de.mpg.mpdl.inge.service.listener;
 
+import java.io.ByteArrayOutputStream;
+
+import javax.jms.ObjectMessage;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
@@ -8,15 +18,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.stereotype.Component;
-
-import javax.jms.ObjectMessage;
-import java.io.ByteArrayOutputStream;
 
 @Component
 public class FulltextIndexer {
