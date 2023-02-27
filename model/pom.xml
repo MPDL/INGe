@@ -169,10 +169,12 @@
 			<artifactId>mapstruct</artifactId>
 		</dependency>
 
+		<!--
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>

@@ -8,6 +8,15 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.SearchResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
+import de.mpg.mpdl.inge.transformation.transformers.CitationTransformer;
+import net.sf.saxon.om.Item;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -745,6 +754,23 @@ public class TransformerFactoryTest {
   public void testGetAllTargetFormatsFor() {
     assertTrue(Arrays.asList(TransformerFactory.getAllTargetFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
         .containsAll(Arrays.asList(targetForESCIDOC_ITEM_V3_XML)));
+  }
+
+  @Test
+  public void testSearchResultToCitationPdf() throws TransformationException, IOException {
+
+    StringWriter wr = new StringWriter();
+
+    Transformer t = TransformerFactory.newTransformer(FORMAT.SEARCH_RESULT_VO, FORMAT.PDF);
+    t.getConfiguration().put(CitationTransformer.CONFIGURATION_CITATION, "APA");
+
+    JavaType type = TypeFactory.defaultInstance().constructParametricType(SearchRetrieveResponseVO.class, ItemVersionVO.class);
+    SearchRetrieveResponseVO<ItemVersionVO> sr =
+        MapperFactory.getObjectMapper().readValue(getClass().getClassLoader().getResourceAsStream("sourceFiles/searchResult.json"), type);
+    t.transform(new TransformerVoSource(sr), new TransformerStreamResult(wr));
+
+    logger.info("\n" + wr.toString());
+
   }
 
 }

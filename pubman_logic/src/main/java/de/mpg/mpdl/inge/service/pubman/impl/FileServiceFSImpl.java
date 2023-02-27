@@ -1,28 +1,25 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Stream;
-
+import de.mpg.mpdl.inge.db.repository.FileRepository;
+import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
+import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
+import de.mpg.mpdl.inge.service.aa.Principal;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.annotation.PostConstruct;
-
+import net.arnx.wmf2svg.util.Base64;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
@@ -44,25 +41,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.db.repository.FileRepository;
-import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
-import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
-import de.mpg.mpdl.inge.service.aa.Principal;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.FileService;
-import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import net.arnx.wmf2svg.util.Base64;
+import java.io.*;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.time.ZonedDateTime;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 /**
  * FileService implementation using the file system to store staged files
@@ -416,28 +408,6 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
     final Metadata metadata = new Metadata();
-
-    //    ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();
-    //    try {
-    //      FileVOWrapper wrapper = this.readFile(itemId, componentId, authenticationToken);
-    //      wrapper.readFile(fileOutput);
-    //      final TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
-    //      final AutoDetectParser parser = new AutoDetectParser();
-    //      final BodyContentHandler handler = new BodyContentHandler(-1);
-    //      ParseContext context = new ParseContext();
-    //      parser.parse(input, handler, metadata, context);
-    //      fileOutput.close();
-    //      input.close();
-    //    } catch (IOException | SAXException | TikaException e) {
-    //      logger.error("could not read file [" + componentId + "] for Metadata extraction");
-    //      throw new IngeTechnicalException("could not read file [" + componentId + "] for Metadata extraction", e);
-    //    } finally {
-    //      try {
-    //        fileOutput.close();
-    //      } catch (IOException e) {
-    //        logger.error("Could not close output stream", e);
-    //      }
-    //    }
 
     try (ByteArrayOutputStream fileOutput = new ByteArrayOutputStream()) {
       FileVOWrapper wrapper = this.readFile(itemId, componentId, authenticationToken);

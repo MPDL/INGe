@@ -16,6 +16,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.docx4j.Docx4J;
 import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
@@ -59,6 +61,7 @@ import net.sf.saxon.TransformerFactoryImpl;
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.ESCIDOC_SNIPPET)
 public class CitationTransformer extends SingleTransformer implements ChainableTransformer {
 
+  static final Logger logger = LogManager.getLogger(CitationTransformer.class);
   public static final String CONFIGURATION_CITATION = "citation";
   public static final String CONFIGURATION_CSL_ID = "csl_id";
 
@@ -79,6 +82,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
       writeByteArrayToStreamResult(content, (TransformerStreamResult) result);
     } catch (Exception e) {
+      logger.error(e);
       throw new TransformationException("Error while citation transformation", e);
     }
 
@@ -138,6 +142,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       return generateHtmlOutput(escidocSnippet, getTargetFormat(), "html", true).getBytes(StandardCharsets.UTF_8);
     } else if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat()) || TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
       String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
+      logger.info(htmlResult);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
 
       //      // TODO: Viel schöner machen!
@@ -191,9 +196,9 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat())) {
         wordOutputDoc.save(bos);
       } else if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-        FOSettings foSettings = Docx4J.createFOSettings();
-        foSettings.setWmlPackage(wordOutputDoc);
-        Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
+        //FOSettings foSettings = Docx4J.createFOSettings();
+        //foSettings.setWmlPackage(wordOutputDoc);
+        Docx4J.toPDF(wordOutputDoc, bos);
       }
 
       bos.flush();

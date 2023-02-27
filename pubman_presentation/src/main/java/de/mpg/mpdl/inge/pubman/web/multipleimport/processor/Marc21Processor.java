@@ -33,7 +33,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Base64;
 
-import org.apache.tika.io.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.marc4j.MarcStreamReader;
 import org.marc4j.MarcXmlWriter;
 import org.marc4j.marc.Record;

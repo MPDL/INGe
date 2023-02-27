@@ -43,12 +43,7 @@
 	</build>
 
 	<dependencies>
-		<dependency>
-			<!-- Required for docx4j -->
-			<groupId>com.googlecode.jaxb-namespaceprefixmapper-interfaces</groupId>
-			<artifactId>JAXBNamespacePrefixMapper</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_logic</artifactId>
@@ -70,21 +65,29 @@
 			<artifactId>saxon-dom</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-core</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.tika</groupId>
-			<artifactId>tika-parsers</artifactId>
+			<artifactId>tika-parsers-standard-package</artifactId>
 		</dependency>
+
+		<!--  Required for docx4j-export-fo -->
+		<!--
 		<dependency>
-			<!--  Required for docx4j-export-fo -->
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>fop</artifactId>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.docx4j</groupId>
-			<artifactId>docx4j</artifactId>
+			<artifactId>docx4j-JAXB-ReferenceImpl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.docx4j</groupId>
