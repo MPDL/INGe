@@ -11,12 +11,16 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import org.mapstruct.*;
+import org.mapstruct.control.DeepClone;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mapper(subclassExhaustiveStrategy = SubclassExhaustiveStrategy.RUNTIME_EXCEPTION)
+@Mapper(subclassExhaustiveStrategy = SubclassExhaustiveStrategy.RUNTIME_EXCEPTION, mappingControl = DeepClone.class,
+    nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public abstract class MapStructMapper {
+
+  /* 1. Cloning methods for Database VOs */
 
   public abstract void updateItemVersionVO(ItemVersionVO source, @MappingTarget ItemVersionVO target);
 
@@ -28,6 +32,18 @@ public abstract class MapStructMapper {
 
   public abstract void updateAccountUserDbVO(AccountUserDbVO source, @MappingTarget AccountUserDbVO target);
 
+  @SubclassMapping(source = ContextDbVO.class, target = ContextDbVO.class)
+  public abstract ContextDbRO map(ContextDbRO basicRo);
+
+  //@SubclassMapping(source = AffiliationDbVO.class, target = AffiliationDbVO.class)
+  //public abstract AffiliationDbRO map(AffiliationDbRO basicRo);
+
+  @SubclassMapping(source = FileDbVO.class, target = FileDbVO.class)
+  public abstract FileDbRO map(FileDbRO basicRo);
+
+
+
+  /* 2. New DB VOs to old VOs and vice versa */
 
   @Mappings({@Mapping(source = "publicStatus", target = "object.publicState"), @Mapping(source = "pid", target = "object.objectPid"),
       @Mapping(source = "owner.objectId", target = "object.creator.objectId"),
@@ -73,8 +89,9 @@ public abstract class MapStructMapper {
   @InheritInverseConfiguration
   @SubclassMappings({@SubclassMapping(source = FileDbRO.class, target = FileRO.class),
       @SubclassMapping(source = AffiliationDbRO.class, target = AffiliationRO.class),
-      @SubclassMapping(source = ContextDbRO.class, target = ContextRO.class)})
+      @SubclassMapping(source = ContextDbRO.class, target = ContextRO.class),})
   public abstract ReferenceObject toReferenceObject(BasicDbRO referenceObject);
+
 
   @Mappings({@Mapping(source = "name", target = "name"), @Mapping(source = "creator.objectId", target = "creator.objectId"),
       @Mapping(source = "creator.title", target = "creator.name"), @Mapping(source = "modifiedBy.objectId", target = "modifier.objectId"),
@@ -106,24 +123,29 @@ public abstract class MapStructMapper {
   @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
   public abstract FileDbVO.Visibility map(FileVO.Visibility vis);
 
-  @InheritInverseConfiguration
+  @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
   public abstract FileVO.Visibility map(FileDbVO.Visibility vis);
 
   @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
   public abstract FileDbVO.Storage map(FileVO.Storage vis);
 
-  @InheritInverseConfiguration
+  @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
   public abstract FileVO.Storage map(FileDbVO.Storage vis);
 
   @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
   public abstract FileDbVO.ChecksumAlgorithm map(FileVO.ChecksumAlgorithm vis);
 
-  @InheritInverseConfiguration
+  @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
   public abstract FileVO.ChecksumAlgorithm map(FileDbVO.ChecksumAlgorithm vis);
+
+  @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
+  public abstract AffiliationDbVO.State map(String state);
+
+  public abstract String map(AffiliationDbVO.State state);
 
 
   @Named("firstElement")
-  public AffiliationDbRO map(List<AffiliationRO> value) {
+  public AffiliationDbRO firstElement(List<AffiliationRO> value) {
     if (value == null)
       return null;
     if (value.isEmpty())
@@ -132,12 +154,16 @@ public abstract class MapStructMapper {
   }
 
   @Named("toList")
-  public List<AffiliationRO> map(AffiliationDbRO value) {
+  public List<AffiliationRO> toList(AffiliationDbRO value) {
     if (value == null)
       return null;
     List<AffiliationRO> affList = new ArrayList<>();
     affList.add((AffiliationRO) toReferenceObject(value));
     return affList;
+  }
+
+  int map(long value) {
+    return Long.valueOf(value).intValue();
   }
 
 
