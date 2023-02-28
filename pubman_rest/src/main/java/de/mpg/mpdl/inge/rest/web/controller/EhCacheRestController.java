@@ -1,10 +1,14 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.apache.log4j.Logger;
 
 import org.ehcache.core.statistics.CacheStatistics;
 import org.ehcache.sizeof.SizeOf;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,14 +28,16 @@ import java.util.Iterator;
 @Hidden
 public class EhCacheRestController {
 
+  @Autowired
+  private CacheManager cacheManager;
+
   private static final Logger logger = Logger.getLogger(EhCacheRestController.class);
 
   @RequestMapping(value = "info", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
   public String info(@RequestParam(value = "name", required = false) String name) {
     StringBuilder srResponse = new StringBuilder();
     try {
-      CachingProvider provider = Caching.getCachingProvider();
-      CacheManager cacheManager = provider.getCacheManager();
+
 
       for (String cacheName : cacheManager.getCacheNames()) {
         Cache cache = cacheManager.getCache(cacheName);
@@ -59,8 +65,8 @@ public class EhCacheRestController {
     StringBuilder srResponse = new StringBuilder();
 
     try {
-      CachingProvider provider = Caching.getCachingProvider();
-      CacheManager cacheManager = provider.getCacheManager();
+      //CachingProvider provider = Caching.getCachingProvider();
+      //CacheManager cacheManager = provider.getCacheManager();
 
 
 

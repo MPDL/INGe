@@ -2,9 +2,15 @@ package de.mpg.mpdl.inge.db.spring;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.SharedCacheMode;
+
+import javax.cache.CacheManager;
+import javax.cache.Caching;
+import javax.cache.spi.CachingProvider;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.ehcache.core.util.ClassLoading;
+import org.ehcache.jsr107.EhcacheCachingProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +27,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+import java.net.URI;
+
 @Configuration
 @ComponentScan({"de.mpg.mpdl.inge.db.repository", "de.mpg.mpdl.inge.db.filestorage", "de.mpg.mpdl.inge.db.spring"})
 @EnableJpaRepositories(basePackages = "de.mpg.mpdl.inge.db.repository", entityManagerFactoryRef = "entityManagerFactory",
@@ -33,6 +41,11 @@ public class JPAConfiguration {
   @Bean
   @Primary
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
+    //Set default class loader for CacheManager to avoid problems with ear classloading.
+    //Caching.setDefaultClassLoader(JPAConfiguration.class.getClassLoader());
+    //Create a ehcache cache manager
+    //defaultCacheManager();
+
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(restDataSource());
     em.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.model.db"});
@@ -73,6 +86,18 @@ public class JPAConfiguration {
 
     return transactionManager;
   }
+
+
+  @Bean
+  public CacheManager defaultCacheManager() throws Exception {
+    CachingProvider provider = Caching.getCachingProvider(EhcacheCachingProvider.class.getName());
+    URI ehcacheConfigFileURI = JPAConfiguration.class.getClassLoader().getResource("ehcache.xml").toURI();
+    logger.info("URI for ehcache:" + ehcacheConfigFileURI);
+    CacheManager cacheManager = provider.getCacheManager(ehcacheConfigFileURI, ClassLoading.getDefaultClassLoader());
+
+    return cacheManager;
+  }
+
 
 
 }

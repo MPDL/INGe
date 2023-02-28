@@ -8,15 +8,15 @@
         <jcache:defaults default-template="myDefaultTemplate"/>
     </ehcache:service>
 
-    <ehcache:persistence directory="user.home/ehcache"/>
+    <ehcache:persistence directory="${user.home}/ehcache"/>
 
 
     <ehcache:cache-template name="myDefaultTemplate">
         <ehcache:expiry>
-            <ehcache:tti>3600</ehcache:tti>
+            <ehcache:ttl>3600</ehcache:ttl>
         </ehcache:expiry>
         <ehcache:resources>
-            <ehcache:heap unit="entries">2000</ehcache:heap>
+            <ehcache:heap unit="entries">5000</ehcache:heap>
             <!--<ehcache:offheap unit="MB">0</ehcache:offheap>-->
         </ehcache:resources>
 
