@@ -34,32 +34,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
-public class GrantRO extends ReferenceObject implements Cloneable {
+public class GrantRO extends ReferenceObject {
   /**
    * Creates a new instance.
    */
   public GrantRO() {
     super();
-  }
-
-  /**
-   * Copy constructor.
-   * 
-   * @author Thomas Diebaecker
-   * @param other The instance to copy.
-   */
-  public GrantRO(GrantRO other) {
-    super(other);
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @author Thomas Diebaecker
-   */
-  @Override
-  public Object clone() {
-    return new GrantRO(this);
   }
 
   /**

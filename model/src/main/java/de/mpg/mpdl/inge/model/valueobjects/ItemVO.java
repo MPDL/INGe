@@ -163,16 +163,6 @@ public class ItemVO extends ValueObject implements Searchable {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @author Thomas Diebaecker
-   */
-  @Override
-  public Object clone() {
-    return new ItemVO(this);
-  }
-
   public String getPublicStatusComment() {
     return this.publicStatusComment;
   }

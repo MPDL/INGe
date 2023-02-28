@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 @MappedSuperclass
-public class BasicDbRO implements Cloneable, Serializable {
+public class BasicDbRO implements Serializable {
   @Id
   private String objectId;
 

@@ -111,24 +111,6 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   /**
-   * Clone constructor.
-   * 
-   * @param context The collection to be cloned.
-   */
-  public ContextVO(ContextVO context) {
-    this.creator = context.creator;
-    this.defaultMetadata = context.defaultMetadata;
-    this.description = context.description;
-    this.name = context.name;
-    this.reference = context.reference;
-    this.responsibleAffiliations = context.responsibleAffiliations;
-    this.state = context.state;
-    this.validationPoints = context.validationPoints;
-    this.adminDescriptors = context.adminDescriptors;
-    this.type = context.type;
-  }
-
-  /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if this is a
    * 'create' or an 'update' transformation.
    */

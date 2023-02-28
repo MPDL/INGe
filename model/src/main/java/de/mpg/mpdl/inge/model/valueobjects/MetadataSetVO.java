@@ -35,7 +35,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
  * @updated 05-Sep-2007 11:10:10
  */
 @SuppressWarnings("serial")
-public class MetadataSetVO extends ValueObject {
+public class MetadataSetVO extends ValueObject implements Cloneable {
   /**
    * The title of the item.
    */
@@ -76,7 +76,6 @@ public class MetadataSetVO extends ValueObject {
     title = newVal;
   }
 
-  @Override
   protected MetadataSetVO clone() {
     return new MetadataSetVO(this.getTitle());
   }

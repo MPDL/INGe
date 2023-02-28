@@ -151,12 +151,6 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     type = newVal;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     IdentifierVO clone = new IdentifierVO();
     clone.setId(getId());

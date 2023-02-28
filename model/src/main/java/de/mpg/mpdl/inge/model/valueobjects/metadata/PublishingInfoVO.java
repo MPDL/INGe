@@ -91,12 +91,6 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
     publisher = newVal;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     PublishingInfoVO vo = new PublishingInfoVO();
     vo.setEdition(getEdition());

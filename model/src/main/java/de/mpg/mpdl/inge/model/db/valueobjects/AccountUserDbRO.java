@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
-public class AccountUserDbRO implements Cloneable, Serializable {
+public class AccountUserDbRO implements Serializable {
   private String name;
 
   private String objectId;

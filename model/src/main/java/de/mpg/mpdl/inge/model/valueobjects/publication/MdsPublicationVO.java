@@ -344,7 +344,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
 
     for (SubjectVO subject : other.getSubjects()) {
-      getSubjects().add(subject);
+      getSubjects().add((SubjectVO) subject.clone());
     }
 
     for (AbstractVO summary : other.getAbstracts()) {
@@ -563,10 +563,6 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     totalNumberOfPages = newVal;
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public MdsPublicationVO clone() {
     super.clone();
     return new MdsPublicationVO(this);

@@ -123,12 +123,6 @@ public class EventVO extends ValueObject implements Cloneable {
     title = newVal;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     EventVO clone = new EventVO();
     if (getTitle() != null) {
