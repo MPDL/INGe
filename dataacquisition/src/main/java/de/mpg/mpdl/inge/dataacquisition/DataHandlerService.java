@@ -83,7 +83,7 @@ public class DataHandlerService {
   public DataHandlerService() {}
 
   public byte[] doFetchMetaData(String source, DataSourceVO dataSourceVO, String identifier, TransformerFactory.FORMAT targetFormat)
-      throws DataaquisitionException {
+      throws DataacquisitionException {
     byte[] fetchedData = null;
 
     try {
@@ -93,31 +93,31 @@ public class DataHandlerService {
         fetchedData = textualData.getBytes();
       }
     } catch (Exception e) {
-      throw new DataaquisitionException(e);
+      throw new DataacquisitionException(e);
     }
 
     return fetchedData;
   }
 
-  public byte[] doFetchFullText(DataSourceVO dataSourceVO, String identifier, String[] fileFormatNames) throws DataaquisitionException {
+  public byte[] doFetchFullText(DataSourceVO dataSourceVO, String identifier, String[] fileFormatNames) throws DataacquisitionException {
     byte[] fetchedData = null;
 
     try {
       fetchedData = this.fetchFileData(identifier, dataSourceVO, fileFormatNames);
     } catch (Exception e) {
-      throw new DataaquisitionException(e);
+      throw new DataacquisitionException(e);
     }
 
     return fetchedData;
   }
 
   private String fetchTextualData(String source, String identifier, DataSourceVO dataSourceVO, TransformerFactory.FORMAT targetFormat)
-      throws DataaquisitionException, TransformationException, UnsupportedEncodingException, MalformedURLException {
+      throws DataacquisitionException, TransformationException, UnsupportedEncodingException, MalformedURLException {
     MetadataVO metaDataVO = Util.getMdObjectToFetch(dataSourceVO, targetFormat);
 
     if (metaDataVO == null) {
       logger.warn("Requested metadata for identifier " + identifier + " not supported.");
-      throw new DataaquisitionException("Requested metadata for identifier " + identifier + " not supported.");
+      throw new DataacquisitionException("Requested metadata for identifier " + identifier + " not supported.");
     }
 
     String decodedUrl = URLDecoder.decode(metaDataVO.getMdUrl().toString(), dataSourceVO.getEncoding());
@@ -143,7 +143,7 @@ public class DataHandlerService {
 
     if (!supportedProtocol) {
       logger.warn("Harvesting protocol " + dataSourceVO.getHarvestProtocol() + " not supported.");
-      throw new DataaquisitionException("Harvesting protocol " + dataSourceVO.getHarvestProtocol() + " not supported.");
+      throw new DataacquisitionException("Harvesting protocol " + dataSourceVO.getHarvestProtocol() + " not supported.");
     }
 
     String itemAfterTransformaton = item;
@@ -156,7 +156,7 @@ public class DataHandlerService {
         metaDataFormat = TransformerFactory.getFormat(metaDataVO.getName());
       } catch (IllegalArgumentException e) {
         logger.warn("Requested metadata format " + metaDataVO.getName() + " not supported.");
-        throw new DataaquisitionException("Requested metadata format " + metaDataVO.getName() + " not supported.");
+        throw new DataacquisitionException("Requested metadata format " + metaDataVO.getName() + " not supported.");
       }
 
       if (!targetFormat.equals(metaDataFormat)) {
@@ -198,7 +198,7 @@ public class DataHandlerService {
   }
 
 
-  private byte[] fetchFileData(String identifier, DataSourceVO dataSourceVO, String[] fileFormatNames) throws DataaquisitionException {
+  private byte[] fetchFileData(String identifier, DataSourceVO dataSourceVO, String[] fileFormatNames) throws DataacquisitionException {
     byte[] in = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ZipOutputStream zos = new ZipOutputStream(baos);
@@ -250,17 +250,17 @@ public class DataHandlerService {
       this.fileEnding = ".zip";
 
       zos.close();
-    } catch (DataaquisitionException e) {
+    } catch (DataacquisitionException e) {
       logger.error("Import this.source " + dataSourceVO + " not available.", e);
-      throw new DataaquisitionException("Import this.source " + dataSourceVO + " not available.", e);
+      throw new DataacquisitionException("Import this.source " + dataSourceVO + " not available.", e);
     } catch (IOException e) {
-      throw new DataaquisitionException(e);
+      throw new DataacquisitionException(e);
     }
 
     return baos.toByteArray();
   }
 
-  private byte[] fetchFile(FullTextVO fulltext, DataSourceVO dataSourceVO) throws DataaquisitionException {
+  private byte[] fetchFile(FullTextVO fulltext, DataSourceVO dataSourceVO) throws DataacquisitionException {
     byte[] input = null;
 
     try {
@@ -286,23 +286,23 @@ public class DataHandlerService {
           return fetchFile(fulltext, dataSourceVO);
 
         case 403:
-          throw new DataaquisitionException("Access to url " + dataSourceVO.getName() + " is restricted.");
+          throw new DataacquisitionException("Access to url " + dataSourceVO.getName() + " is restricted.");
 
         case 503:
           // request was not processed by this.source
           logger.warn("Import this.source " + dataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
-          throw new DataaquisitionException(
+          throw new DataacquisitionException(
               "Import this.source " + dataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
 
         default:
-          throw new DataaquisitionException(
+          throw new DataacquisitionException(
               "An error occurred during importing from external system: " + responseCode + ": " + httpCon.getResponseMessage());
       }
     } catch (AccessException e) {
       logger.error("Access denied.", e);
-      throw new DataaquisitionException(dataSourceVO.getName());
+      throw new DataacquisitionException(dataSourceVO.getName());
     } catch (IOException e) {
-      throw new DataaquisitionException(e);
+      throw new DataacquisitionException(e);
     }
 
     return input;
@@ -313,9 +313,9 @@ public class DataHandlerService {
    * 
    * @param this.sourceURL
    * @return itemXML
-   * @throws DataaquisitionException
+   * @throws DataacquisitionException
    */
-  private String fetchRecord(URL url, String encoding, DataSourceVO dataSourceVO) throws DataaquisitionException {
+  private String fetchRecord(URL url, String encoding, DataSourceVO dataSourceVO) throws DataacquisitionException {
     StringBuffer itemXML = new StringBuffer();
 
     try {
@@ -338,14 +338,14 @@ public class DataHandlerService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             Date retryAfter = dateFormat.parse(retryAfterHeader);
             logger.debug("Source responded with 503, retry after " + retryAfter + ".");
-            throw new DataaquisitionException("Source responded with 503, retry after " + retryAfter + ".");
+            throw new DataacquisitionException("Source responded with 503, retry after " + retryAfter + ".");
           } else {
             logger.debug("Source responded with 503, retry after " + dataSourceVO.getRetryAfter() + ".");
-            throw new DataaquisitionException("Source responded with 503, retry after " + dataSourceVO.getRetryAfter() + ".");
+            throw new DataacquisitionException("Source responded with 503, retry after " + dataSourceVO.getRetryAfter() + ".");
           }
 
         default:
-          throw new DataaquisitionException(
+          throw new DataacquisitionException(
               "An error occurred during importing from external system: " + responseCode + ": " + httpCon.getResponseMessage());
       }
 
@@ -361,9 +361,9 @@ public class DataHandlerService {
       httpCon.disconnect();
     } catch (AccessException e) {
       logger.error("Access denied.", e);
-      throw new DataaquisitionException("Access denied " + dataSourceVO.getName(), e);
+      throw new DataacquisitionException("Access denied " + dataSourceVO.getName(), e);
     } catch (Exception e) {
-      throw new DataaquisitionException(e);
+      throw new DataacquisitionException(e);
     }
 
     return itemXML.toString();

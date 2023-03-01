@@ -85,12 +85,6 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
     this.setDescription(other.getDescription());
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @author Thomas Diebaecker
-   */
-  @Override
   public Object clone() {
     return new ItemRelationVO(this);
   }

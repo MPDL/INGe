@@ -25,15 +25,15 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
 public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {

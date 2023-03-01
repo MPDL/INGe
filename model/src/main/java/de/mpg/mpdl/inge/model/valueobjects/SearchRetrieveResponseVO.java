@@ -2,12 +2,11 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.List;
 
-import co.elastic.clients.elasticsearch.core.SearchResponse;
-
-import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)

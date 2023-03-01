@@ -8,7 +8,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
-public class FundingInfoVO extends ValueObject {
+public class FundingInfoVO extends ValueObject implements Cloneable {
 
 
   private FundingOrganizationVO fundingOrganization = new FundingOrganizationVO();

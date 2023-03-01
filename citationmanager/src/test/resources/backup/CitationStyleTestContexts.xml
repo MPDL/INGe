@@ -120,7 +120,6 @@
 						</allowed-genre>
 					</allowed-genres>
 					<template-item></template-item>
-					<validation-schema>publication</validation-schema>
 					<workflow>simple</workflow>
 					<contact-email></contact-email>
 				</pubman-admin-descriptor>

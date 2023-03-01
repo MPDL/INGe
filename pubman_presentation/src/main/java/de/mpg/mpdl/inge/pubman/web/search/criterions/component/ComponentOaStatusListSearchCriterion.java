@@ -25,6 +25,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
@@ -33,10 +37,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
 public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion<String> {

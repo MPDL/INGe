@@ -25,13 +25,33 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions;
 
+import java.io.Serializable;
+import java.io.StringReader;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+import org.apache.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.*;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.*;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.AffiliatedContextListSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.EventInvitationSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.ItemStateListSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.PublicationStatusListSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentContentCategoryListSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentOaStatusListSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentVisibilityListSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileAvailableSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.ReviewMethodSearchCriterion;
@@ -39,19 +59,31 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.StateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.genre.GenreListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.*;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldAndFulltextSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.CollectionSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentContentCategory;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentVisibilitySearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.DegreeSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.EventTitleSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FulltextSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.JournalSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.KeywordSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.LanguageSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.LocalTagSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.OrcidSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ProjectInfoSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.SourceSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.TitleSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.CreatedBySearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.ModifiedBySearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-import org.apache.log4j.Logger;
-
-import java.io.Serializable;
-import java.io.StringReader;
-import java.lang.reflect.Constructor;
-import java.util.*;
 
 @SuppressWarnings("serial")
 public abstract class SearchCriterionBase implements Serializable {

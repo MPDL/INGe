@@ -56,7 +56,7 @@ import jakarta.persistence.Table;
  * @updated 21-Nov-2007 12:05:47
  */
 @SuppressWarnings("serial")
-@Entity(name = "FileVO")
+@Entity
 @Table(name = "file")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")

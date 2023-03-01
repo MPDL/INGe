@@ -1,5 +1,9 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -12,10 +16,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
 public class ItemStateListSearchCriterion extends MapListSearchCriterion<String> {

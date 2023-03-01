@@ -25,6 +25,15 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.genre;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -36,9 +45,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.DegreeSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
-
-import java.util.*;
-import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
 public class GenreListSearchCriterion extends SearchCriterionBase {

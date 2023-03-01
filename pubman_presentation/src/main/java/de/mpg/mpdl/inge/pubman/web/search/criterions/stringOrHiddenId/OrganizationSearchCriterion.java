@@ -25,6 +25,9 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
@@ -32,9 +35,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SuppressWarnings("serial")
 public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion {

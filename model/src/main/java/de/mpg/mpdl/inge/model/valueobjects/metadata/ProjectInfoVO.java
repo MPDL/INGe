@@ -8,7 +8,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
-public class ProjectInfoVO extends ValueObject {
+public class ProjectInfoVO extends ValueObject implements Cloneable {
   private String title;
   private IdentifierVO grantIdentifier = new IdentifierVO(IdType.GRANT_ID, "");
   private FundingInfoVO fundingInfo = new FundingInfoVO();

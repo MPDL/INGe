@@ -304,12 +304,6 @@ public class SourceVO extends ValueObject implements Cloneable {
     this.totalNumberOfPages = totalNumberOfPages;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     SourceVO vo = new SourceVO();
     if (getTitle() != null) {

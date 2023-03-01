@@ -65,8 +65,6 @@
 
 		<value style="element" name="template-item" field="templateItem" usage="optional" />
 		
-		<value style="element" name="validation-schema" field="validationSchema" usage="optional" />
-
 		<value style="element" name="workflow"
 			type="de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO$Workflow"
 			deserializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.deserializeWorkflowEnum"

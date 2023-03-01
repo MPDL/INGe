@@ -160,12 +160,6 @@ public class PersonVO extends ValueObject implements Cloneable {
     return titles;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     PersonVO vo = new PersonVO();
     if (getIdentifier() != null) {

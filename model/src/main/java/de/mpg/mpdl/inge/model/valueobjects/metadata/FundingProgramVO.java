@@ -10,7 +10,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
-public class FundingProgramVO extends ValueObject {
+public class FundingProgramVO extends ValueObject implements Cloneable {
   private String title;
   private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();
 

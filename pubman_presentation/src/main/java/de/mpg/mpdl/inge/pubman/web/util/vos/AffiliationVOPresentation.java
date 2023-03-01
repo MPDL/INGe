@@ -26,6 +26,12 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
@@ -42,11 +48,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("serial")
 public class AffiliationVOPresentation extends AffiliationDbVO implements Comparable<AffiliationVOPresentation> {

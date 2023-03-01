@@ -26,41 +26,24 @@
 
 package de.mpg.mpdl.inge.model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO.InvitationStatus;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingInfoVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingOrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingProgramVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.util.XmlUtilities;
 
 /**
@@ -91,15 +74,16 @@ public class TestBase {
    * 
    * @return pubItem
    */
+  /*
   protected PubItemVO getPubItemWithoutFiles() {
     PubItemVO item = new PubItemVO();
-
+  
     item.setBaseUrl("http://myBaseUrl.org");
-
+  
     // Metadata
     MdsPublicationVO mds = getMdsPublication1();
     item.setMetadata(mds);
-
+  
     // PubCollectionRef
     ContextRO contextRef = new ContextRO();
     contextRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
@@ -114,31 +98,34 @@ public class TestBase {
     version.setVersionNumber(1);
     version.setState(ItemVO.State.PENDING);
     version.setModificationDate(new Date());
-
+  
     item.setVersion(version);
-
+  
     return item;
   }
+  */
 
   /**
    * Creates another well-defined PubItemVO.
    * 
    * @return pubItem
    */
+  /*
   protected PubItemVO getPubItem2() {
     PubItemVO item = new PubItemVO();
-
+  
     // (1) metadata
     MdsPublicationVO mds = getMdsPublication2();
     item.setMetadata(mds);
-
+  
     // (2) pubCollection
     ContextRO collectionRef = new ContextRO();
     collectionRef.setObjectId("escidoc:persistent3");
     item.setContext(collectionRef);
-
+  
     return item;
   }
+  */
 
   /**
    * Creates a well-defined PubItemVO named "PubMan: The first of all.".
@@ -147,17 +134,18 @@ public class TestBase {
    * 
    * @throws Exception Any exception
    */
+  /*
   protected PubItemVO getPubItemNamedTheFirstOfAll() throws Exception {
     PubItemVO item = new PubItemVO();
-
+  
     item.setBaseUrl("http://myBaseUrl.org");
-
+  
     // properties of the item
     // PubCollectionRef
     ContextRO collectionRef = new ContextRO();
     collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     item.setContext(collectionRef);
-
+  
     // item metadata
     MdsPublicationVO mds = new MdsPublicationVO();
     // title
@@ -200,12 +188,12 @@ public class TestBase {
     mds.setFreeKeywords(s1);
     // table of contents
     mds.setTableOfContents("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.");
-
+  
     ProjectInfoVO projectInfo = new ProjectInfoVO();
     projectInfo.setTitle("Test Project Name");
     IdentifierVO grantIdentifier = new IdentifierVO(IdType.GRANT_ID, "grantIdentifier1234");
     projectInfo.setGrantIdentifier(grantIdentifier);
-
+  
     FundingInfoVO fundingInfo = new FundingInfoVO();
     FundingOrganizationVO fundingOrganization = new FundingOrganizationVO();
     fundingOrganization.setTitle("Test Funding Organization European Council");
@@ -213,35 +201,37 @@ public class TestBase {
     FundingProgramVO fundingProgram = new FundingProgramVO();
     fundingProgram.setTitle("Test funding Horizon2020");
     fundingProgram.getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, "H2020"));
-
-
+  
+  
     fundingInfo.setFundingOrganization(fundingOrganization);
     fundingInfo.setFundingProgram(fundingProgram);
-
+  
     projectInfo.setFundingInfo(fundingInfo);
-
-
-
+  
+  
+  
     mds.getProjectInfo().add(projectInfo);
     item.setMetadata(mds);
-
+  
     return item;
   }
+  */
 
   /**
    * Creates a well-defined PubItemVO named "PubMan: The first of all.".
    * 
    * @return pubItem
    */
+  /*
   protected ItemResultVO getPubItemResultNamedTheFirstOfAll() {
     ItemResultVO itemResult = new ItemResultVO();
-
+  
     // properties of the item
     // PubCollectionRef
     ContextRO collectionRef = new ContextRO();
     collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     itemResult.setContext(collectionRef);
-
+  
     // item metadata
     MdsPublicationVO mds = new MdsPublicationVO();
     // title
@@ -272,29 +262,32 @@ public class TestBase {
     source.setTitle("The title of the source");
     source.setGenre(SourceVO.Genre.JOURNAL);
     itemResult.getMetadataSets().add(mds);
-
+  
     return itemResult;
   }
+  */
 
   /**
    * Creates a well-defined, complex PubItemVO without files.
    * 
    * @return pubItem
    */
+  /*
   protected PubItemVO getComplexPubItemWithoutFiles() {
     PubItemVO item = new PubItemVO();
-
+  
     // Metadata
     MdsPublicationVO mds = getMdsPublication1();
     item.setMetadata(mds);
-
+  
     // PubCollectionRef
     ContextRO collectionRef = new ContextRO();
     collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     item.setContext(collectionRef);
-
+  
     return item;
   }
+  */
 
   /**
    * Creates a well-defined, complex MdsPublicationVO.
@@ -529,16 +522,17 @@ public class TestBase {
    * 
    * @return The generated MdsPublicationVO.
    */
+  /*
   protected MdsPublicationVO getMdsPublication2() {
     // Metadata
     MdsPublicationVO mds = new MdsPublicationVO();
-
+  
     // Title
     mds.setTitle("The title");
-
+  
     // Genre
     mds.setGenre(Genre.BOOK);
-
+  
     // Creators
     CreatorVO creator = new CreatorVO();
     creator.setRole(CreatorRole.AUTHOR);
@@ -548,14 +542,14 @@ public class TestBase {
     person.setCompleteName("Hans Meier");
     creator.setPerson(person);
     mds.getCreators().add(creator);
-
+  
     // Dates
     mds.setDateCreated("2005-2");
     mds.setDateSubmitted("2005-8-31");
     mds.setDateAccepted("2005");
     mds.setDatePublishedInPrint("2006-2-1");
     mds.setDateModified("2007-2-29");
-
+  
     // Identifiers
     List<IdentifierVO> identifierList = mds.getIdentifiers();
     IdentifierVO identifierVO = new IdentifierVO();
@@ -564,17 +558,17 @@ public class TestBase {
     for (int i = 0; i < 2; i++) {
       identifierList.add(identifierVO);
     }
-
+  
     // Publishing info
     PublishingInfoVO publishingInfoVO = new PublishingInfoVO();
     publishingInfoVO.setEdition("Edition 123");
     publishingInfoVO.setPlace("Place 5");
     publishingInfoVO.setPublisher("Publisher XY");
     mds.setPublishingInfo(publishingInfoVO);
-
+  
     // build the List of SourceVOs...
     List<SourceVO> sourcesList = mds.getSources();
-
+  
     // build one SourceVO instance...
     SourceVO sourceVO = new SourceVO();
     sourceVO.setTitle("The title");
@@ -596,7 +590,7 @@ public class TestBase {
     for (IdentifierVO id : identifierList) {
       sourceIdentifierList.add(id);
     }
-
+  
     // build another SourceVO instance...
     SourceVO sourceVO2 = new SourceVO();
     sourceVO2.setTitle("The title");
@@ -618,18 +612,18 @@ public class TestBase {
     for (IdentifierVO id : identifierList) {
       sourceIdentifierList2.add(id);
     }
-
+  
     // add several of the "other" SourceVO instances to the first SourceVO instance
     List<SourceVO> sourceSourcesList = sourceVO.getSources();
     for (int i = 0; i < 2; i++) {
       sourceSourcesList.add(sourceVO2);
     }
-
+  
     // add SourceVO several times
     for (int i = 0; i < 2; i++) {
       sourcesList.add(sourceVO);
     }
-
+  
     // Event
     EventVO event = new EventVO();
     // Event.Title
@@ -643,9 +637,10 @@ public class TestBase {
     // Event.InvitationStatus
     event.setInvitationStatus(InvitationStatus.INVITED);
     mds.setEvent(event);
-
+  
     return mds;
   }
+  */
 
   /**
    * Searches the Java classpath for a given file name and gives back the file (or a
@@ -655,6 +650,7 @@ public class TestBase {
    * @return The file
    * @throws FileNotFoundException Thrown if the file was not found.
    */
+  /*
   public static File findFileInClasspath(String fileName) throws FileNotFoundException {
     URL url = TestBase.class.getClassLoader().getResource(fileName);
     if (url == null) {
@@ -662,6 +658,7 @@ public class TestBase {
     }
     return new File(url.getFile());
   }
+  */
 
   /**
    * Reads contents from text file and returns it as String.
@@ -670,9 +667,11 @@ public class TestBase {
    * @return Entire contents of filename as a String
    * @throws IOException i/o exception
    */
+  /*
   protected static String readFile(String fileName) throws IOException {
     return ResourceUtil.getResourceAsString(fileName, TestBase.class.getClassLoader());
   }
+  */
 
   /**
    * Search the given String for the first occurence of "objid" and return its value.
@@ -680,6 +679,7 @@ public class TestBase {
    * @param item A (XML) String
    * @return The objid value
    */
+  /*
   protected static String getObjid(String item) {
     String result = "";
     String searchString = "objid=\"";
@@ -693,6 +693,7 @@ public class TestBase {
     }
     return result;
   }
+  */
 
   /**
    * Search the given String for the first occurence of "last-modification-date" and return its
@@ -701,6 +702,7 @@ public class TestBase {
    * @param item A (XML) String
    * @return The last-modification-date value
    */
+  /*
   protected static String getLastModificationDate(String item) {
     String result = "";
     String searchString = "last-modification-date=\"";
@@ -714,6 +716,7 @@ public class TestBase {
     }
     return result;
   }
+  */
 
   public static void main(String[] args) throws Exception {
     String xml = args[0];

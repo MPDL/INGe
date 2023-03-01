@@ -59,7 +59,8 @@
 					<clusterName>testCluster</clusterName>
 					<transportPort>9500</transportPort>
 					<httpPort>9400</httpPort>
-					<version>6.8.23</version>
+					<version>8.6.2</version>
+					<keepExistingData>true</keepExistingData>
 					<pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>
 					<skip>${maven.test.skip}</skip>
 					<environmentVariables>

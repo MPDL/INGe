@@ -179,12 +179,6 @@ public class FileVO extends ValueObject implements Cloneable {
     checksumAlgorithm = other.checksumAlgorithm;
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @author Thomas Diebaecker
-   */
-  @Override
   public Object clone() {
     return new FileVO(this);
   }

@@ -86,12 +86,6 @@ public class OrganizationVO extends ValueObject implements Cloneable {
     name = newVal;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     OrganizationVO clone = new OrganizationVO();
     clone.setAddress(getAddress());

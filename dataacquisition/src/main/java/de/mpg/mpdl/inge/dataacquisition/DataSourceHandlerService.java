@@ -9,16 +9,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
+import de.mpg.mpdl.inge.dataacquisition.explainSources.FTFetchSettingType;
+import de.mpg.mpdl.inge.dataacquisition.explainSources.FTFetchSettingsType;
+import de.mpg.mpdl.inge.dataacquisition.explainSources.ImportSourceType;
+import de.mpg.mpdl.inge.dataacquisition.explainSources.ImportSourcesDocument;
+import de.mpg.mpdl.inge.dataacquisition.explainSources.ImportSourcesType;
+import de.mpg.mpdl.inge.dataacquisition.explainSources.MDFetchSettingType;
+import de.mpg.mpdl.inge.dataacquisition.explainSources.MDFetchSettingsType;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.dataaquisition.explainSources.FTFetchSettingType;
-import de.mpg.mpdl.inge.dataaquisition.explainSources.FTFetchSettingsType;
-import de.mpg.mpdl.inge.dataaquisition.explainSources.ImportSourceType;
-import de.mpg.mpdl.inge.dataaquisition.explainSources.ImportSourcesDocument;
-import de.mpg.mpdl.inge.dataaquisition.explainSources.ImportSourcesType;
-import de.mpg.mpdl.inge.dataaquisition.explainSources.MDFetchSettingType;
-import de.mpg.mpdl.inge.dataaquisition.explainSources.MDFetchSettingsType;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

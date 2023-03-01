@@ -1,8 +1,9 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatType;
-import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsDocument;
-import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsType;
+
+import de.mpg.mpdl.inge.dataacquisition.unapiFormats.FormatType;
+import de.mpg.mpdl.inge.dataacquisition.unapiFormats.FormatsDocument;
+import de.mpg.mpdl.inge.dataacquisition.unapiFormats.FormatsType;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;

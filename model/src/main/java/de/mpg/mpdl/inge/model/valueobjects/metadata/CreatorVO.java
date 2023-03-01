@@ -207,10 +207,6 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public Object clone() {
 
     CreatorVO clone = new CreatorVO();

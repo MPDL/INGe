@@ -74,30 +74,6 @@ public class AffiliationVO extends ValueObject implements Searchable {
   }
 
   /**
-   * Clone constructor.
-   */
-  public AffiliationVO(AffiliationVO affiliation) {
-
-    this.childAffiliations = affiliation.childAffiliations;
-
-    this.parentAffiliations = affiliation.parentAffiliations;
-    this.reference = affiliation.reference;
-    this.creationDate = affiliation.creationDate;
-    this.lastModificationDate = affiliation.lastModificationDate;
-    this.creator = affiliation.creator;
-    this.modifiedBy = affiliation.modifiedBy;
-    this.hasChildren = affiliation.hasChildren;
-    this.publicStatus = affiliation.publicStatus;
-    this.metadataSets = affiliation.metadataSets;
-    this.predecessorAffiliations = affiliation.predecessorAffiliations;
-  }
-
-  @Override
-  protected Object clone() throws CloneNotSupportedException {
-    return new AffiliationVO(this);
-  }
-
-  /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if this is a
    * 'create' or an 'update' transformation.
    */

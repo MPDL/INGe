@@ -103,12 +103,6 @@ public class PartnerVO extends ValueObject implements Cloneable {
     person = newVal;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     PartnerVO vo = new PartnerVO();
     if (getOrganization() != null) {

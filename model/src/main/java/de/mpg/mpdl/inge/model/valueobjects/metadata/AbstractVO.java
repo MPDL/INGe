@@ -107,12 +107,6 @@ public class AbstractVO extends ValueObject implements Cloneable {
   }
 
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     AbstractVO vo = new AbstractVO();
     vo.setLanguage(getLanguage());

@@ -44,13 +44,6 @@ public class AffiliationResultVO extends AffiliationVO implements SearchResultEl
   private float score;
 
   /**
-   * Construct an ItemResultVO using the parents copy constructor.
-   */
-  public AffiliationResultVO(AffiliationVO affiliationVO) {
-    super(affiliationVO);
-  }
-
-  /**
    * Delivers the list of search hits.
    */
   public java.util.List<SearchHitVO> getSearchHitList() {

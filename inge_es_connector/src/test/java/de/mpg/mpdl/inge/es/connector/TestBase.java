@@ -159,7 +159,6 @@ public class TestBase {
     templateItem.setTitle("testTitle");
     templateItem.setVersionNumber(5);
     admin.setTemplateItem(templateItem);
-    admin.setValidationSchema("testValidationSchema");
     admin.setVisibilityOfReferences("testVisibility");
     admin.setWorkflow(Workflow.STANDARD);
     vo.setAdminDescriptor(admin);
@@ -389,8 +388,9 @@ public class TestBase {
     source2.getCreators().add(creator);
     identifier = new IdentifierVO(IdType.ARXIV, "testIdentifier");
     source2.getIdentifiers().add(identifier);
-    source.getSources().add(source2);
+    //source.getSources().add(source2);
     mdsPublication.getSources().add(source);
+    mdsPublication.getSources().add(source2);
     SubjectVO subject = new SubjectVO();
     subject.setLanguage("testLanguage");
     subject.setType("testType");

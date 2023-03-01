@@ -134,12 +134,6 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
     this.type = type;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#clone()
-   */
-  @Override
   public Object clone() {
     AlternativeTitleVO vo = new AlternativeTitleVO();
     vo.setLanguage(getLanguage());
