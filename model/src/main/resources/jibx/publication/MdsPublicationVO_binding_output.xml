@@ -46,9 +46,8 @@
 	<!-- JUS -->
 	<namespace prefix="legalCase" uri="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" default="none"/>
 	
-	
 	<!--  -->
-	<!-- The bindings for escidocprofile.xsd -->
+	<!-- The bindings -->
 	<!--  -->
 	<include path="CreatorVO_binding.xml" />
 	<include path="IdentifierVO_binding.xml" />
@@ -59,6 +58,7 @@
 	<include path="../ReferenceObject_binding.xml" />
 	<include path="SourceVO_binding_abstract.xml" />	
 	<include path="AbstractVO_binding.xml" />
+	<include path="SubjectVO_binding.xml" />
 	<include path="AlternativeTitleVO_binding.xml" />
 	<include path="ProjectInfoVO_binding.xml" />
 
@@ -81,8 +81,7 @@
 
 		<!-- Node: item.md-records.md-record.publication.creator(*) -->
 		<!-- Field: PubItemVO.metadata.creators [java.util.ArrayList<CreatorVO>]-->
-		<collection field="creators"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.creatorVOListFactory">
+		<collection field="creators">
 			<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
 				type="de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO" usage="optional" />
 		</collection>
@@ -95,7 +94,7 @@
 
 		<!-- Node: item.md-records.md-record.publication.language(*) -->
 		<!-- Field: PubItemVO.metadata.language [List<String>]-->
-		<collection field="languages" factory="org.jibx.runtime.Utility.arrayListFactory" usage="optional">
+		<collection field="languages" usage="optional">
 
 			<!-- value style="element" name="language" ns="${xsd.metadata.dc}" type="java.lang.String" /-->
 			<structure type="java.lang.String" usage="optional">
@@ -108,22 +107,7 @@
 
 		</collection>
 
-
-		<!-- Node: item.md-records.md-record.publication.alternative(*) -->
-		<!-- Field: PubItemVO.metadata.alternativeTitles [List<AlternativeTitleVO>]-->
-		<!-- 
-		<collection field="alternativeTitles"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-			<structure name="alternative" ns="${xsd.metadata.dcterms}"
-				type="de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO">
-				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
-					usage="optional" />
-				<value style="text" field="value" usage="optional" />
-			</structure>
-		</collection>
-		 -->
-		<collection field="alternativeTitles"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
+		<collection field="alternativeTitles" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"
 				map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO" />
 		</collection>
@@ -131,8 +115,7 @@
 
 		<!-- Node: item.md-records.md-record.publication.identifier(*) -->
 		<!-- Field: PubItemVO.metadata.identifiers [List<IdentifierVO>]-->
-		<collection field="identifiers"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
+		<collection field="identifiers" usage="optional">
 			<structure name="identifier" ns="${xsd.metadata.dc}"
 				map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 		</collection>
@@ -207,12 +190,9 @@
 
 		<!-- Node: item.md-records.md-record.publication.source(*) -->
 		<!-- Field: PubItemVO.metadata.sources [List<SourceVO>] -->
-		<collection field="sources"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.sourceVOListFactory" usage="optional">
-			
+		<collection field="sources" usage="optional">
 			<structure name="source" ns="${xsd.metadata.source}"
 				map-as="SourceVO_abstract" />
-				
 		</collection>
 
 
@@ -306,8 +286,7 @@
 
 		<!-- Node: item.md-records.md-record.publication.abstract(*) -->
 		<!-- Field: PubItemVO.metadata.abstracts [List<AbstractVO>] -->
-		<collection field="abstracts"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.abstractVOListFactory" usage="optional">
+		<collection field="abstracts" usage="optional">
 			<structure name="abstract" ns="${xsd.metadata.dcterms}"
 				type="de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO">
 				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
@@ -323,8 +302,7 @@
 
         <!-- Node: item.md-records.md-record.publication.DDC -->
 		<!-- Field: PubItemVO.metadata.subjects -->
-		<collection field="subjects"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.subjectVOListFactory" usage="optional">
+		<collection field="subjects" usage="optional">
 			<structure name="subject" ns="${xsd.metadata.dc}"
 				map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO" />
 		</collection>
@@ -342,7 +320,7 @@
 			
 		<!-- Node: item.md-records.md-record.projectInfo -->
 		<!-- Field: PubItemVO.metadata.projectInfos -->
-		<collection field="projectInfo" factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.projectInfoVOListFactory" usage="optional">
+		<collection field="projectInfo" usage="optional">
 			<structure name="project-info" ns="${xsd.metadata.project}" map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.ProjectInfoVO" usage="optional"/>
 		</collection>
 

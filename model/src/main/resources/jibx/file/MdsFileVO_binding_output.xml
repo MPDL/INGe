@@ -56,8 +56,7 @@
 
 			<!-- Node: file.identifier -->
 			<!-- Field: MdsFileVO.identifiers [List<IdentifierVO>] -->
-			<collection field="identifiers"
-				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
+			<collection field="identifiers" usage="optional">
 				<structure name="identifier" ns="${xsd.metadata.dc}"
 					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 			</collection>
@@ -74,8 +73,7 @@
 				
 			<!-- Node: file.format -->
 			<!-- Field: MdsFileVO.formats [List<String>] -->
-			<collection field="formats"
-				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.formatVOListFactory" usage="optional">
+			<collection field="formats" usage="optional">
 				<structure name="format" ns="${xsd.metadata.dc}" type="de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO"/>
 			</collection>
 

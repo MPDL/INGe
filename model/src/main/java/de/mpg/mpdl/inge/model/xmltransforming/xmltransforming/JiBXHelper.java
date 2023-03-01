@@ -39,15 +39,12 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.referenceobjects.AllowedRolesRO;
-import de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject;
 import de.mpg.mpdl.inge.model.types.Coordinates;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
@@ -63,8 +60,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.TextFragmentVO;
-import de.mpg.mpdl.inge.model.valueobjects.TocDivVO;
-import de.mpg.mpdl.inge.model.valueobjects.TocPtrVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
@@ -176,16 +171,6 @@ public class JiBXHelper {
   }
 
   /**
-   * Factory method to create a <code>java.util.ArrayList&lt;FileFormatVO></code> as the
-   * implementation of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;FileFormatVO></code>
-   */
-  public static List<FileFormatVO> fileFormatVOListFactory() {
-    return new ArrayList<FileFormatVO>();
-  }
-
-  /**
    * Factory method to create a <code>java.util.ArrayList&lt;GrantVO></code> as the implementation
    * of a <code>java.util.List</code>.
    * 
@@ -289,22 +274,8 @@ public class JiBXHelper {
     return new ArrayList<FileVO>();
   }
 
-  /**
-   * Factory method to create a <code>java.util.ArrayList&lt;ReferenceObject></code> as the
-   * implementation of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;ReferenceObject></code>
-   */
-  public static List<ReferenceObject> memberROListFactory() {
-    return new ArrayList<ReferenceObject>();
-  }
-
   public static List<ValueObject> memberListFactory() {
     return new ArrayList<ValueObject>();
-  }
-
-  public static List<AllowedRolesRO> allowedRolesListFactory() {
-    return new ArrayList<AllowedRolesRO>();
   }
 
   /**
@@ -432,44 +403,6 @@ public class JiBXHelper {
   public static List<SubjectVO> subjectVOListFactory() {
     return new ArrayList<SubjectVO>();
   }
-
-  /**
-   * Factory method to create a <code>java.util.ArrayList&lt;TocDivVO></code> as the implementation
-   * of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;TocDivVO></code>
-   */
-  public static List<TocDivVO> tocDivVOListFactory() {
-    return new ArrayList<TocDivVO>();
-  }
-
-  /**
-   * Factory method to create a <code>java.util.ArrayList&lt;TocPtrVO></code> as the implementation
-   * of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;TocPtrVO></code>
-   */
-  public static List<TocPtrVO> tocPtrVOListFactory() {
-    return new ArrayList<TocPtrVO>();
-  }
-
-
-  //  /**
-  //   * Factory method to create a <code>java.net.URL</code>
-  //   * 
-  //   * @return A new <code>java.net.URL</code>
-  //   */
-  //  public static URL urlFactory() {
-  //    URL url = null;
-  //    try {
-  //      // create a dummy URL
-  //      url = new URL("http://www.escidoc.de");
-  //    } catch (MalformedURLException e) {
-  //      // Should not be reached.
-  //      e.printStackTrace();
-  //    }
-  //    return url;
-  //  }
 
   public static List<SearchRetrieveRecordVO> searchRetrieveRecordVOListFactory() {
     return new ArrayList<SearchRetrieveRecordVO>();

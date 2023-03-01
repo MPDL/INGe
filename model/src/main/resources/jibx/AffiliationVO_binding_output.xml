@@ -89,7 +89,6 @@
 		<!-- Field: AffiliationVO.parentAffiliations [List<AffiliationRO>] -->
 		<collection name="parents" ns="${xsd.soap.ou.ou}"
 			field="parentAffiliations"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.affiliationROListFactory"
 			test-method="hasParentAffiliations" usage="optional">
 
 			<!-- Node: organizational-unit.parents.parent -->

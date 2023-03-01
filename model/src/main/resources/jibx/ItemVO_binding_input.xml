@@ -169,7 +169,7 @@
 			<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.metadataSetVOListFactory"
-				item-type="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO" usage="optional" ordered="false" allow-repeats="true">
+				item-type="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO" usage="optional" ordered="false">
 
 				<!-- PubMan -->
 				<structure name="publication" ns="${xsd.metadata.publication}"

@@ -54,19 +54,14 @@
 						<includeSchemaBinding>bindings_AccountUserVO.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_AffiliationVO_input.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_AffiliationVO_output.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_FileURL.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_FilterTaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_Grant.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PidServiceResponseVO.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_PubItemVO_PubCollectionVO_input.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_PubItemVO_PubCollectionVO_output.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_ContainerVO_input.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_ContainerVO_output.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_TaskParamVO.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_PidServiceResponseVO.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_FilterTaskParamVO.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_FileURL.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_ExportFormat.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_Grant.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_TocItemVO_input.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_TocItemVO_output.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_SearchResultVO_input.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_TaskParamVO.xml</includeSchemaBinding>
 						<includeSchemaBinding>jibx_generated/binding.xml</includeSchemaBinding>
 					</includeSchemaBindings>
 				</configuration>

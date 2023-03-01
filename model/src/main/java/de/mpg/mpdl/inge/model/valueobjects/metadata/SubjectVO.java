@@ -45,6 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 public class SubjectVO extends ValueObject implements Cloneable {
   @IgnoreForCleanup
   private String language;
+
   private String value;
   private String type;
 

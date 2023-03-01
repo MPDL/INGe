@@ -28,12 +28,9 @@
 -->
 
 <binding>
-   <!-- abstract mapping for SubjectVO -->
-   <mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO" abstract="true">
+   <!-- abstract mapping for AbstractVO -->
+   <mapping class="de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO" abstract="true">
       <value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language" usage="optional" />
-      <value style="attribute" name="type" ns="http://www.w3.org/2001/XMLSchema-instance" field="type" usage="optional"
-      	deserializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.deserializeTextTypeEnum"
-      	serializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.serializeTextTypeEnum"/>
       <value style="text" field="value" usage="optional" />      
    </mapping>
 </binding>

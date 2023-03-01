@@ -38,8 +38,7 @@
 
 		<!-- Node: item-list.item(*) -->
 		<!-- Field: PubItemVOListWrapper.pubItemVOList [List<PubItemVO>] -->
-		<collection field="itemVOList"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.itemVOListFactory">
+		<collection field="itemVOList">
 			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemVO" />
 		</collection>
 

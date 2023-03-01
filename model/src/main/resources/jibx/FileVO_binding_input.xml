@@ -138,7 +138,7 @@
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.metadataSetVOListFactory"
 			item-type="de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO"
-			usage="optional" ordered="false" allow-repeats="true" flexible="true">
+			usage="optional" ordered="false" flexible="true">
 				<structure name="file" ns="${xsd.metadata.file}"
 					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO" usage="optional" ordered="false"/>
 		</collection>

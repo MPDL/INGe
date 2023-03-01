@@ -75,7 +75,6 @@
 	<include path="RelationVO_binding.xml" />
 	<include path="ItemVO_binding_input.xml" />
 	<include path="PubItemVO_binding.xml" />
-<!--	<include path="ItemRO_binding.xml" />-->
 	<include path="ReferenceObject_binding.xml" />
 	
 	<!-- Add. for Affiliation -->
@@ -84,5 +83,4 @@
 	<include path="ParentAffiliationROListWrapper_binding.xml"/>
 	<include path="AffiliationRO_binding.xml"/>
 	<include path="publication/IdentifierVO_binding.xml"/>
-
 </binding>
