@@ -24,12 +24,6 @@ public class EntityTransformer {
 
   private static Mapper dozerMapper = MapperFactory.getDozerMapper();
 
-  /*
-  public static ContextDbVO transformToNew(ContextVO contextVo) {
-    return dozerMapper.map(contextVo, ContextDbVO.class);
-  }
-  */
-
   public static ItemVersionVO transformToNew(PubItemVO itemVo) {
     return dozerMapper.map(itemVo, ItemVersionVO.class);
   }
@@ -37,26 +31,6 @@ public class EntityTransformer {
   public static FileDbVO transformToNew(FileVO fileVo) {
     return dozerMapper.map(fileVo, FileDbVO.class);
   }
-
-  /*
-  public static AffiliationDbVO transformToNew(AffiliationVO affVo) {
-    return dozerMapper.map(affVo, AffiliationDbVO.class);
-  }
-  */
-
-  /*
-  private static AccountUserRO transformToOld(AccountUserDbRO newAccountUserRo) {
-    if (newAccountUserRo == null) {
-      return null;
-    }
-  
-    AccountUserRO modifier = new AccountUserRO();
-    modifier.setObjectId(newAccountUserRo.getObjectId());
-    modifier.setTitle(newAccountUserRo.getName());
-  
-    return modifier;
-  }
-  */
 
   public static PubItemVO transformToOld(ItemVersionVO itemVo) {
     if (itemVo == null) {
@@ -167,41 +141,4 @@ public class EntityTransformer {
 
     return vhList;
   }
-
-  /*
-  public static AccountUserVO transformToOld(AccountUserDbVO newAccountUser) {
-    if (newAccountUser == null) {
-      return null;
-    }
-  
-    AccountUserVO oldAccountUser = new AccountUserVO();
-    oldAccountUser.setCreationDate(newAccountUser.getCreationDate());
-    oldAccountUser.setCreator(transformToOld(newAccountUser.getCreator()));
-    oldAccountUser.setLastModificationDate(newAccountUser.getLastModificationDate());
-    oldAccountUser.setModifiedBy(transformToOld(newAccountUser.getModifier()));
-    oldAccountUser.setName(newAccountUser.getName());
-    oldAccountUser.setActive(newAccountUser.isActive());
-    oldAccountUser.setEmail(newAccountUser.getEmail());
-    oldAccountUser.setUserid(newAccountUser.getLoginname());
-  
-    if (newAccountUser.getAffiliation() != null) {
-      AffiliationRO affRo = new AffiliationRO();
-      affRo.setObjectId(newAccountUser.getAffiliation().getObjectId());
-      affRo.setTitle(newAccountUser.getAffiliation().getName());
-      oldAccountUser.getAffiliations().add(affRo);
-    }
-  
-    AccountUserRO userRo = new AccountUserRO();
-    userRo.setObjectId(newAccountUser.getObjectId());
-    userRo.setTitle(newAccountUser.getName());
-  
-    oldAccountUser.setReference(userRo);
-    oldAccountUser.getGrants().clear();
-    if (newAccountUser.getGrantList() != null) {
-      oldAccountUser.getGrants().addAll(newAccountUser.getGrantList());
-    }
-  
-    return oldAccountUser;
-  }
-  */
 }

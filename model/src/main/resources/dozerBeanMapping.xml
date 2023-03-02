@@ -3,19 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
-	<!--
-	<mapping wildcard="true">
-		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
-		</class-a>
-		<class-b is-accessible="true">de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation
-		</class-b>
-		<field-exclude>
-			<a>serialVersionUID</a>
-			<b>serialVersionUID</b>
-		</field-exclude>
-	</mapping>
--->
-
 	<mapping wildcard="true">
 		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO
 		</class-a>
@@ -34,10 +21,6 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO
 		</class-b>
-		<field-exclude>
-			<a>serialVersionUID</a>
-			<b>serialVersionUID</b>
-		</field-exclude>
 	</mapping>
 	
 	<mapping wildcard="true">
@@ -45,10 +28,6 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO
 		</class-b>
-		<field-exclude>
-			<a>serialVersionUID</a>
-			<b>serialVersionUID</b>
-		</field-exclude>
 	</mapping>
 
 	<mapping wildcard="true">
@@ -56,10 +35,6 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
 		</class-b>
-		<field-exclude>
-			<a>serialVersionUID</a>
-			<b>serialVersionUID</b>
-		</field-exclude>
 	</mapping>
 
 	<mapping wildcard="true">
@@ -74,10 +49,6 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO
 		</class-b>
-		<field-exclude>
-			<a>serialVersionUID</a>
-			<b>serialVersionUID</b>
-		</field-exclude>
 	</mapping>
 	
 	<mapping wildcard="true">
@@ -85,10 +56,6 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO
 		</class-b>
-		<field-exclude>
-			<a>serialVersionUID</a>
-			<b>serialVersionUID</b>
-		</field-exclude>
 	</mapping>
 
 	<mapping wildcard="false">
@@ -101,71 +68,55 @@
 			<a>version</a>
 			<b>this</b>
 		</field>
-
 		<field>
 			<a>publicStatus</a>
 			<b>object.publicState</b>
 		</field>
-
 		<field>
 			<a>pid</a>
 			<b>object.objectPid</b>
 		</field>
-
 		<field>
 			<a>owner.objectId</a>
 			<b>object.creator.objectId</b>
 		</field>
-
 		<field>
 			<a>owner.title</a>
 			<b>object.creator.name</b>
 		</field>
-
 		<field>
 			<a>context.objectId</a>
 			<b>object.context.objectId</b>
 		</field>
-
 		<field>
 			<a>context.title</a>
 			<b>object.context.name</b>
 		</field>
-
 		<field>
 			<a>creationDate</a>
 			<b>object.creationDate</b>
 		</field>
-
 		<field>
 			<a>latestVersion</a>
 			<b>object.latestVersion</b>
 		</field>
-
 		<field>
 			<a>latestRelease</a>
 			<b>object.latestRelease</b>
 		</field>
-
 		<field>
 			<a>localTags</a>
 			<b>object.localTags</b>
 		</field>
-
 		<field>
 			<a>metadata</a>
 			<b>metadata</b>
 		</field>
-
 		<field>
 			<a>files</a>
 			<b>files</b>
 		</field>
-
-
 	</mapping>
-
-
 
 	<mapping>
 		<class-a>de.mpg.mpdl.inge.model.referenceobjects.ItemRO
@@ -177,47 +128,38 @@
 			<a>objectId</a>
 			<b>objectId</b>
 		</field>
-
 		<field>
 			<a>versionNumber</a>
 			<b>versionNumber</b>
 		</field>
-
 		<field>
 			<a>modificationDate</a>
 			<b>modificationDate</b>
 		</field>
-
 		<field>
 			<a>state</a>
 			<b>versionState</b>
 		</field>
-
 		<field>
 			<a>modificationDate</a>
 			<b>modificationDate</b>
 		</field>
-
 		<field>
 			<a>pid</a>
 			<b>versionPid</b>
 		</field>
-
 		<field>
 			<a>modifiedByRO.objectId</a>
 			<b>modifier.objectId</b>
 		</field>
-
 		<field>
 			<a>modifiedByRO.title</a>
 			<b>modifier.name</b>
 		</field>
-
 		<field-exclude>
 			<a>objectIdAndVersion</a>
 			<b>objectIdAndVersion</b>
 		</field-exclude>
-
 	</mapping>
 
 	<mapping>
@@ -229,53 +171,43 @@
 			<a>reference.objectId</a>
 			<b>objectId</b>
 		</field>
-
 		<field>
 			<a>name</a>
 			<b>name</b>
 		</field>
-
 		<field>
 			<a>createdByRO.objectId</a>
 			<b>creator.objectId</b>
 		</field>
-
 		<field>
 			<a>createdByRO.title</a>
 			<b>creator.name</b>
 		</field>
-
 		<field>
 			<a>lastModificationDate</a>
 			<b>lastModificationDate</b>
 		</field>
-
 		<field>
 			<a>creationDate</a>
 			<b>creationDate</b>
 		</field>
-
 		<field>
 			<a>defaultMetadata</a>
 			<b>metadata</b>
 		</field>
-
 		<field>
 			<a>defaultMetadata.size</a>
 			<b>size</b>
 		</field>
-
 		<field>
 			<a>contentCategory</a>
 			<b>metadata.contentCategory</b>
 		</field>
-
 		<field>
 			<a>description</a>
 			<b>metadata.description</b>
 		</field>
 	</mapping>
-
 
 	<mapping>
 		<class-a>de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
@@ -286,7 +218,6 @@
 			<a>objectId</a>
 			<b>objectId</b>
 		</field>
-
 		<field>
 			<a>title</a>
 			<b>name</b>
@@ -303,69 +234,51 @@
 			<a>reference</a>
 			<b>this</b>
 		</field>
-
 		<field>
 			<a>name</a>
 			<b>name</b>
 		</field>
-
 		<field>
 			<a>creator.objectId</a>
 			<b>creator.objectId</b>
 		</field>
-
 		<field>
 			<a>creator.title</a>
 			<b>creator.name</b>
 		</field>
-
 		<field>
 			<a>modifiedBy.objectId</a>
 			<b>modifier.objectId</b>
 		</field>
-
 		<field>
 			<a>modifiedBy.title</a>
 			<b>modifier.name</b>
 		</field>
-
 		<field>
 			<a>lastModificationDate</a>
 			<b>lastModificationDate</b>
 		</field>
-
 		<field>
 			<a>state</a>
 			<b>state</b>
 		</field>
-
 		<field>
 			<a>adminDescriptor.allowedGenres</a>
 			<b>allowedGenres</b>
 		</field>
-
 		<field>
 			<a>adminDescriptor.allowedSubjectClassifications</a>
 			<b>allowedSubjectClassifications</b>
 		</field>
-
 		<field>
 			<a>adminDescriptor.workflow</a>
 			<b>workflow</b>
 		</field>
-
 		<field>
 			<a>adminDescriptor.contactEmail</a>
 			<b>contactEmail</b>
 		</field>
-		
-		<field-exclude>
-			<a>serialVersionUID</a>
-			<b>serialVersionUID</b>
-		</field-exclude>
-
 	</mapping>
-
 
 	<mapping>
 		<class-a>de.mpg.mpdl.inge.model.valueobjects.AffiliationVO
@@ -377,37 +290,30 @@
 			<a>reference</a>
 			<b>this</b>
 		</field>
-
 		<field>
 			<a>creator.objectId</a>
 			<b>creator.objectId</b>
 		</field>
-
 		<field>
 			<a>creator.title</a>
 			<b>creator.name</b>
 		</field>
-
 		<field>
 			<a>modifiedBy.objectId</a>
 			<b>modifier.objectId</b>
 		</field>
-
 		<field>
 			<a>modifiedBy.title</a>
 			<b>modifier.name</b>
 		</field>
-
 		<field>
 			<a>lastModificationDate</a>
 			<b>lastModificationDate</b>
 		</field>
-
 		<field>
 			<a>defaultMetadata</a>
 			<b>metadata</b>
 		</field>
-
 		<field>
 			<a>parentAffiliations[0]</a>
 			<b>parentAffiliation</b>

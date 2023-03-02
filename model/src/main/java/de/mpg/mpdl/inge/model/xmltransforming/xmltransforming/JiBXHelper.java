@@ -40,7 +40,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.types.Coordinates;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -116,9 +115,11 @@ public class JiBXHelper {
    * 
    * @return A new <code>java.util.ArrayList&lt;AffiliationPathVO></code>
    */
+  /*
   public static List<AffiliationPathVO> affiliationPathVOListFactory() {
     return new ArrayList<AffiliationPathVO>();
   }
+  */
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AffiliationRO></code> as the
@@ -136,9 +137,11 @@ public class JiBXHelper {
    * 
    * @return A new <code>java.util.ArrayList&lt;AffiliationVO></code>
    */
+  /*
   public static List<AffiliationVO> affiliationVOListFactory() {
     return new ArrayList<AffiliationVO>();
   }
+  */
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;String></code> as the implementation of
@@ -176,10 +179,11 @@ public class JiBXHelper {
    * 
    * @return A new <code>java.util.ArrayList&lt;GrantVO></code>
    */
+  /*
   public static List<GrantVO> grantVOListFactory() {
     return new ArrayList<GrantVO>();
   }
-
+  */
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AccountUserVO></code> as the
@@ -187,9 +191,11 @@ public class JiBXHelper {
    * 
    * @return A new <code>java.util.ArrayList&lt;AccountUserVO></code>
    */
+  /*
   public static List<AccountUserVO> accountUserVOListFactory() {
     return new ArrayList<AccountUserVO>();
   }
+  */
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;Filter></code> as the implementation of
@@ -197,9 +203,11 @@ public class JiBXHelper {
    * 
    * @return A new <code>java.util.ArrayList&lt;Filter></code>
    */
+  /*
   public static List<Filter> filterListFactory() {
     return new ArrayList<Filter>();
   }
+  */
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;HitwordVO></code> as the implementation
@@ -408,10 +416,11 @@ public class JiBXHelper {
     return new ArrayList<SearchRetrieveRecordVO>();
   }
 
-
+  /*
   public static List<UserAttributeVO> userAttributeVOListFactory() {
     return new ArrayList<UserAttributeVO>();
   }
+  */
 
 
   /**

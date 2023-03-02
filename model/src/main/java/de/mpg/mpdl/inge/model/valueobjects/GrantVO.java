@@ -131,28 +131,6 @@ public class GrantVO extends ValueObject {
     this.role = grant.role;
   }
 
-  //  /**
-  //   * Delivers true if the granted role is of type 'depositor' for the given object (normally a
-  //   * PubCollection).
-  //   */
-  //  public boolean isDepositor(ReferenceObject objRef) {
-  //    if (objRef == null) {
-  //      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
-  //    }
-  //    return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
-  //  }
-
-  //  /**
-  //   * Delivers true if the granted role is of type 'moderator' for the given object (normally a
-  //   * PubCollection).
-  //   */
-  //  public boolean isModerator(ReferenceObject objRef) {
-  //    if (objRef == null) {
-  //      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
-  //    }
-  //    return (PredefinedRoles.MODERATOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
-  //  }
-
   /**
    * Delivers the object reference of the object the rights are granted for.
    */
