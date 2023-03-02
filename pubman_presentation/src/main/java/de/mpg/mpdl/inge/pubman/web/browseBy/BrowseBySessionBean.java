@@ -45,7 +45,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.Logger;
 
 import jakarta.faces.bean.ManagedBean;
@@ -190,8 +190,7 @@ public class BrowseBySessionBean extends FacesBean {
 
   /**
    * Call the cone service to retrieve all browse by values.
-   * 
-   * @param type, type of the cone request (persons, subjects, journals)
+   *
    * @return
    */
   public List<LinkVO> getConeAll() {

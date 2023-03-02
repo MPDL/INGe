@@ -2,18 +2,23 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.net.URI;
 
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.Form;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.fluent.Executor;
+import org.apache.http.client.fluent.Form;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.ClientProperties;
-import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +46,10 @@ public class PidServiceImpl implements PidService {
 
   private String createPath;
 
-  private WebTarget target;
+  //private WebTarget target;
+  private Executor httpExecutor;
+
+  private String serviceUrl;
 
   public PidServiceImpl() {
     this.init();
@@ -52,40 +60,38 @@ public class PidServiceImpl implements PidService {
     String user = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USER);
     String passwd = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_PASSWORD);
     int timeout = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_TIMEOUT));
-    String serviceUrl = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_URL);
+    serviceUrl = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_URL);
 
     //ClientConfig clientConfig = new ClientConfig();
 
-    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user, passwd).build();
+    BasicCredentialsProvider basicCredProvider = new BasicCredentialsProvider();
+    basicCredProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, passwd));
 
-    //clientConfig.register(feature);
+    RequestConfig config =
+        RequestConfig.custom().setConnectTimeout(timeout).setConnectionRequestTimeout(timeout).setSocketTimeout(timeout).build();
 
-    //Client client = ClientBuilder.newClient(clientConfig);
-    Client client = ClientBuilder.newBuilder().register(feature).build();
+    HttpClient httpClient =
+        HttpClientBuilder.create().setDefaultRequestConfig(config).setDefaultCredentialsProvider(basicCredProvider).build();
 
-
-    client.property(ClientProperties.CONNECT_TIMEOUT, timeout);
-    client.property(ClientProperties.READ_TIMEOUT, timeout);
-
-    this.target = client.target(serviceUrl);
+    this.httpExecutor = Executor.newInstance(httpClient);
   }
 
   @Override
   public PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException {
-    Response response;
     try {
-      Form form = new Form();
-      form.param(URL, url.toString());
 
-      response = this.target.path(this.createPath).request(MediaType.TEXT_PLAIN_TYPE).post(Entity.form(form));
+      URI uri = URI.create(this.serviceUrl).resolve(this.createPath);
 
-      if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
-        String xml = response.readEntity(String.class);
+      HttpResponse httpResponse =
+          httpExecutor.execute(Request.Post(uri).bodyForm(Form.form().add(URL, url.toString()).build())).returnResponse();
+
+      if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_CREATED) {
+        String xml = EntityUtils.toString(httpResponse.getEntity());
         PidServiceResponseVO pidServiceResponseVO = XmlTransformingService.transformToPidServiceResponse(xml);
         return pidServiceResponseVO;
       } else {
-        logger.error("Error occured, when contacting DOxI. StatusCode= " + response.getStatus());
-        throw new IngeApplicationException("Error occured, when contacting DOxI: " + response.readEntity(String.class));
+        logger.error("Error occured, when contacting DOxI. StatusCode= " + httpResponse.getStatusLine().getStatusCode());
+        throw new IngeApplicationException("Error occured, when contacting DOxI: " + EntityUtils.toString(httpResponse.getEntity()));
       }
     } catch (Exception e) {
       logger.error("Error occured, when contacting DOxI.", e);
