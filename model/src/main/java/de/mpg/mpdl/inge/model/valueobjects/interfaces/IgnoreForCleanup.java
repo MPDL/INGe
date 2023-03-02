@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.model.valueobjects;
+package de.mpg.mpdl.inge.model.valueobjects.interfaces;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
