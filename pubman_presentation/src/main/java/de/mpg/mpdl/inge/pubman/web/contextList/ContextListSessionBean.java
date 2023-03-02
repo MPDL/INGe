@@ -160,12 +160,6 @@ public class ContextListSessionBean extends FacesBean {
           List<PubContextVOPresentation> allPrivilegedContextList = CommonUtils.convertToPubCollectionVOPresentationList(ctxList);
 
           for (final PubContextVOPresentation context : allPrivilegedContextList) {
-            // TODO NBU: change this dummy looping once AccountUserVO
-            // provides method for
-            // isDepositor(ObjectRef)
-            // At present it only provides this function for Moderator
-            // and Privileged viewer
-
             for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
               if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
                 if (grant.getObjectRef().equals(context.getObjectId())

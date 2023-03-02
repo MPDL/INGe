@@ -49,7 +49,6 @@ public class SubmitProcess extends Thread {
   };
 
   private final ImportLog importLog;
-  //  private AccountUserVO user;
   private final String authenticationToken;
   private Connection connection = null;
   private Modus modus = null;
@@ -76,8 +75,6 @@ public class SubmitProcess extends Thread {
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_release_process", connection);
           break;
       }
-      //      this.user = new AccountUserVO();
-      //      this.user.setUserid(importLog.getUser());
     } catch (final Exception e) {
       switch (modus) {
         case SUBMIT:
