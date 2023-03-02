@@ -20,6 +20,10 @@ import org.elasticsearch.client.RestClientBuilder.HttpClientConfigCallback;
 public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
 
   private ElasticsearchClient client;
+  private String host = PropertyReader.getProperty("inge.es.hostname");
+  private int port = Integer.valueOf(PropertyReader.getProperty("inge.es.port"));
+  private String schema = PropertyReader.getProperty("inge.es.schema");
+
   private String user = PropertyReader.getProperty("inge.es.user");
   private String pass = PropertyReader.getProperty("inge.es.password");
 
@@ -34,7 +38,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
     final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, pass));
     RestClient restClient =
-        RestClient.builder(new HttpHost("localhost", 9200, "http")).setHttpClientConfigCallback(new HttpClientConfigCallback() {
+        RestClient.builder(new HttpHost(host, port, schema)).setHttpClientConfigCallback(new HttpClientConfigCallback() {
           @Override
           public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
             return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
