@@ -1180,9 +1180,12 @@
 		<inge.email.withauthentication>false</inge.email.withauthentication>
 		<inge.es.cluster.name.test>testCluster</inge.es.cluster.name.test>
 		<inge.es.cluster.name>elastic_inge</inge.es.cluster.name>
+		<!--
 		<inge.es.transport.ips.test>127.0.0.1:9500</inge.es.transport.ips.test>
 		<inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips>
+		-->
 		<inge.es.rest.host-port>localhost:9400</inge.es.rest.host-port>
+		<inge.es.rest.path-prefix></inge.es.rest.path-prefix>
 		<inge.es.user></inge.es.user>
 		<inge.es.password></inge.es.password>
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>

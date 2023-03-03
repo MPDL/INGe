@@ -426,12 +426,9 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       final String finalIndexName = realIndexName;
 
       GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(finalIndexName));
-      //GetMappingsResponse resp = this.client.getClient().admin().indices().prepareGetMappings(this.indexName).addTypes(this.indexType).get();
 
       if (!resp.result().isEmpty()) { // SP: avoiding NullPointerException
         Map<String, Property> resultMap = resp.result().get(finalIndexName).mappings().properties();
-
-        //((MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
 
         Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(resultMap);
         ElasticSearchIndexField allField = new ElasticSearchIndexField();
@@ -441,6 +438,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
         return map;
       }
     } catch (IOException e) {
+      logger.error("Error retrieving elasticsearch mapping", e);
       throw new IngeTechnicalException(e);
     }
 
