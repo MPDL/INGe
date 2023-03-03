@@ -29,8 +29,8 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import de.mpg.mpdl.inge.model.valueobjects.IgnoreForCleanup;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 
 /**
  * This class combines a abstract value with an optional language attribute.
@@ -45,6 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 public class SubjectVO extends ValueObject implements Cloneable {
   @IgnoreForCleanup
   private String language;
+
   private String value;
   private String type;
 

@@ -86,12 +86,7 @@
 	<include path="PubItemVO_binding.xml" />
 	<include path="ItemVOListWrapper_binding_input.xml" />
 	<include path="MemberListWrapper_binding.xml" />
-<!--	<include path="ContainerVO_binding_input.xml" />-->
 	<include path="ResultVO_binding.xml" />
 	<include path="SearchRetrieveResponse_binding_input.xml" />
-<!--	<include path="ItemRO_binding.xml" />-->
 	<include path="ReferenceObject_binding.xml" />
-	
-
 </binding>
-

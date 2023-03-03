@@ -15,6 +15,7 @@ import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestClientBuilder.HttpClientConfigCallback;
 
 public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
@@ -23,6 +24,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
   private String user = PropertyReader.getProperty("inge.es.user");
   private String pass = PropertyReader.getProperty("inge.es.password");
+  private String pathPrefix = PropertyReader.getProperty("inge.es.rest.path-prefix");
 
   private static final Logger logger = Logger.getLogger(ElasticSearchTransportClientProvider.class);
 
@@ -31,17 +33,22 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
     logger.info("Building Elasticsearch REST client for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT) + ">");
 
 
-    RestClient restClient = RestClient.builder(HttpHost.create(PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT)))
-        .setHttpClientConfigCallback(httpClientBuilder -> {
-          if (user != null && !user.isEmpty()) {
-            final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-            credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, pass));
-            return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-          }
-          return httpClientBuilder;
+    RestClientBuilder restClientBuilder =
+        RestClient.builder(HttpHost.create(PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT)));
+    if (user != null && !user.isEmpty()) {
+      restClientBuilder.setHttpClientConfigCallback(httpClientBuilder -> {
+        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, pass));
+        return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+      });
+    }
 
-        }).build();
-    ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
+    if (pathPrefix != null && !pathPrefix.isEmpty()) {
+      restClientBuilder.setPathPrefix(pathPrefix);
+    }
+
+    ElasticsearchTransport transport =
+        new RestClientTransport(restClientBuilder.build(), new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
 
     client = new ElasticsearchClient(transport);
   }

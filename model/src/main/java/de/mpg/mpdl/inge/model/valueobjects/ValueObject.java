@@ -36,6 +36,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
+
 /**
  * The super class of all value objects.
  * 

@@ -78,9 +78,5 @@
 	<include path="ItemResultVO_binding_output.xml" />
 	<include path="ItemVOListWrapper_binding_output.xml" />
 	<include path="MemberListWrapper_binding.xml" />
-	<!--  include path="ContainerVO_binding_output.xml" />-->
-<!--	<include path="ItemRO_binding.xml" />-->
 	<include path="ReferenceObject_binding.xml" />
-
 </binding>
-

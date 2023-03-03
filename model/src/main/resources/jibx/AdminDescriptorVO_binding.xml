@@ -29,7 +29,7 @@
 
 <binding>
 
-	<!-- concrete mapping for AccountUserVO -->
+	<!-- concrete mapping for AdminDescriptorVO -->
 	<mapping abstract="true" class="de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO" ordered="false">
 
 	</mapping>

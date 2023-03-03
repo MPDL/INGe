@@ -158,7 +158,7 @@
 			<structure name="content-model-specific" ns="${xsd.soap.common.prop}" ordered="false" flexible="true">
 				
 				<structure name="local-tags" usage="optional" ordered="false" allow-repeats="true">
-					<collection field="localTags" factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.localTagsListFactory" item-type="java.lang.String" usage="optional">
+					<collection field="localTags" item-type="java.lang.String" usage="optional">
 						<value name="local-tag"/>
 					</collection>
 				</structure>
@@ -178,7 +178,6 @@
 		<structure name="components" ns="${xsd.soap.item.components}">
 			<value style="attribute" name="base" ns="http://www.w3.org/XML/1998/namespace" field="baseUrl" usage="optional"/>
 			<collection field="files"
-				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.pubFileVOListFactory"
 				item-type="de.mpg.mpdl.inge.model.valueobjects.FileVO"
 				test-method="hasFiles" usage="optional">
 				<structure map-as="de.mpg.mpdl.inge.model.valueobjects.FileVO" />
@@ -188,7 +187,6 @@
 		<!-- Node: item.relations -->
 		<!-- Field: relations [List<PubItemRelationVO>] -->
 		<collection name="relations" ns="${xsd.soap.common.relations}" field="relations"
-			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.relationVOListFactory"
 			item-type="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" test-method="hasRelations"
 			usage="optional">
 			<structure map-as="de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO" />

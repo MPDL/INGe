@@ -140,45 +140,16 @@ public class TestBase {
     modifier.setObjectId("testModifier");
     modifier.setName("testModifier");
     vo.setModifier(modifier);
-
-    // AdminDescriptor
-    /*
-    PublicationAdminDescriptorVO admin = new PublicationAdminDescriptorVO();
-    admin.getAllowedGenres().add(Genre.ARTICLE);
-    admin.getAllowedSubjectClassifications().add(SubjectClassification.DDC);
-    admin.setContactEmail("testContactEmail");
-    ItemRO templateItem = new ItemRO("testId");
-    templateItem.setHref("testHref");
-    templateItem.setLastMessage("testLastMessage");
-    templateItem.setModificationDate(DATE);
-    AccountUserRO modifier = new AccountUserRO("testModifier");
-    modifier.setTitle("testTitle");
-    templateItem.setModifiedByRO(modifier);
-    templateItem.setPid("testPid");
-    templateItem.setState(ItemVO.State.PENDING);
-    templateItem.setTitle("testTitle");
-    templateItem.setVersionNumber(5);
-    admin.setTemplateItem(templateItem);
-    admin.setVisibilityOfReferences("testVisibility");
-    admin.setWorkflow(Workflow.STANDARD);
-    vo.setAdminDescriptor(admin);
-     */
-
-
     vo.setDescription("testDescription");
     vo.setName("testName");
-
     vo.setObjectId("testContext");
-
 
     // ResponsibleAffiliations
     AffiliationDbRO responsible = new AffiliationDbRO();
     responsible.setObjectId("testResponsible");
     responsible.setName("testTitle");
     vo.getResponsibleAffiliations().add(responsible);
-
     vo.setState(ContextDbVO.State.CLOSED);
-
 
     return vo;
   }
@@ -457,37 +428,6 @@ public class TestBase {
 
     vo.getObject().getLocalTags().add("testTag");
 
-    // Relations
-    /*
-    ItemRO targetItemRef = new ItemRO("testTargetItemRef");
-    targetItemRef.setHref("testHref");
-    targetItemRef.setLastMessage("testLastMessage");
-    targetItemRef.setModificationDate(DATE);
-    modifier = new AccountUserRO("testModifier");
-    modifier.setTitle("testTitle");
-    targetItemRef.setModifiedByRO(modifier);
-    targetItemRef.setPid("testPid");
-    targetItemRef.setState(ItemVO.State.PENDING);
-    targetItemRef.setTitle("testTitle");
-    targetItemRef.setVersionNumber(5);
-    ItemRelationVO relation = new ItemRelationVO("testType", targetItemRef);
-    relation.setDescription("testDescription");
-    targetItemRef = new ItemRO("testItem");
-    targetItemRef.setHref("testHref");
-    targetItemRef.setLastMessage("testLastMessage");
-    targetItemRef.setModificationDate(DATE);
-    modifier = new AccountUserRO("testModifier");
-    modifier.setTitle("testTitle");
-    targetItemRef.setModifiedByRO(modifier);
-    targetItemRef.setPid("testPid");
-    targetItemRef.setState(ItemVO.State.PENDING);
-    targetItemRef.setTitle("testTitle");
-    targetItemRef.setVersionNumber(5);
-    relation.setTargetItemRef(targetItemRef);
-    relation.setType("testType");
-    vo.getRelations().add(relation);
-    
-    */
     return vo;
   }
 

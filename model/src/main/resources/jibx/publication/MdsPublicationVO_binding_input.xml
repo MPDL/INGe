@@ -45,11 +45,9 @@
 	<namespace prefix="project" uri="${xsd.metadata.project}" default="none"/>
 	<!-- JUS -->
 	<namespace prefix="legalCase" uri="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" default="none"/>
-	
-	
 
 	<!--  -->
-	<!-- The bindings for escidocprofile.xsd -->
+	<!-- The bindings -->
 	<!--  -->
 	<include path="CreatorVO_binding.xml" />
 	<include path="IdentifierVO_binding.xml" />
@@ -60,6 +58,7 @@
 	<include path="../ReferenceObject_binding.xml" />
 	<include path="SourceVO_binding_abstract.xml" />		
 	<include path="AbstractVO_binding.xml" />
+	<include path="SubjectVO_binding.xml" />
 	<include path="AlternativeTitleVO_binding.xml" />
 	<include path="ProjectInfoVO_binding.xml" />
 
@@ -97,19 +96,6 @@
 			</collection>
 
 
-			<!-- Node: item.md-records.md-record.publication.alternative(*) -->
-			<!-- Field: PubItemVO.metadata.alternativeTitles [List<TextVO>]-->
-			<!-- 
-			<collection field="alternativeTitles"
-				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-				<structure name="alternative" ns="${xsd.metadata.dcterms}"
-					type="de.mpg.mpdl.inge.model.valueobjects.metadata.TextVO">
-					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
-						usage="optional" />
-					<value style="text" field="value" usage="optional" />
-				</structure>
-			</collection>
-			 -->
 			<collection field="alternativeTitles"
 			factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"

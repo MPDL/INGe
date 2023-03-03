@@ -53,15 +53,13 @@
 				
 			<!-- Node: organizational-unit.organization-details.alternative -->
 			<!-- Field: AffiliationVO.alternativeNames [List<String>] -->
-			<collection field="alternativeNames"
-				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
+			<collection field="alternativeNames" usage="optional">
 				<value name="alternative" style="element" ns="${xsd.metadata.dcterms}" type="java.lang.String"/>
 			</collection>
 
 			<!-- Node: organizational-unit.organization-details.identifier -->
 			<!-- Field: AffiliationVO.identifiers [List<String>] -->
-			<collection field="identifiers"
-				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
+			<collection field="identifiers" usage="optional">
 				<structure name="identifier" ns="${xsd.metadata.dc}"
 					map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO" />
 			</collection>
@@ -73,8 +71,7 @@
 
 			<!-- Node: organizational-unit.organization-details.description -->
 			<!-- Field: AffiliationVO.descriptions [List<String>] -->
-			<collection field="descriptions"
-				factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
+			<collection field="descriptions" usage="optional">
 				<value name="description" style="element" ns="${xsd.metadata.dc}" type="java.lang.String"/>
 			</collection>
 

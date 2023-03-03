@@ -30,8 +30,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import de.mpg.mpdl.inge.model.valueobjects.IgnoreForCleanup;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 
 /**
  * @revised by MuJ: 29.08.2007
