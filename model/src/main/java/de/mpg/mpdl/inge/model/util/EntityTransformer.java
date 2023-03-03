@@ -18,7 +18,6 @@ import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
@@ -403,42 +402,6 @@ public class EntityTransformer {
     }
 
     return vhList;
-  }
-
-  public static AccountUserVO transformToOld(AccountUserDbVO newAccountUser) {
-    if (newAccountUser == null) {
-      return null;
-    }
-
-    AccountUserVO oldAccountUser = new AccountUserVO();
-    oldAccountUser.setCreationDate(newAccountUser.getCreationDate());
-    oldAccountUser.setCreator(transformToOld(newAccountUser.getCreator()));
-    oldAccountUser.setLastModificationDate(newAccountUser.getLastModificationDate());
-    oldAccountUser.setModifiedBy(transformToOld(newAccountUser.getModifier()));
-    oldAccountUser.setName(newAccountUser.getName());
-    oldAccountUser.setActive(newAccountUser.isActive());
-    oldAccountUser.setEmail(newAccountUser.getEmail());
-    oldAccountUser.setUserid(newAccountUser.getLoginname());
-
-    if (newAccountUser.getAffiliation() != null) {
-      AffiliationRO affRo = new AffiliationRO();
-      affRo.setObjectId(newAccountUser.getAffiliation().getObjectId());
-      affRo.setTitle(newAccountUser.getAffiliation().getName());
-      oldAccountUser.getAffiliations().add(affRo);
-    }
-
-    AccountUserRO userRo = new AccountUserRO();
-    userRo.setObjectId(newAccountUser.getObjectId());
-    userRo.setTitle(newAccountUser.getName());
-
-    oldAccountUser.setReference(userRo);
-    oldAccountUser.getGrants().clear();
-    if (newAccountUser.getGrantList() != null) {
-      oldAccountUser.getGrants().addAll(newAccountUser.getGrantList());
-    }
-
-
-    return oldAccountUser;
   }
 
   private static String changeId(String prefix, String href) {
