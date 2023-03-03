@@ -197,6 +197,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     // Reindex old and new Parents
     if (getElasticDao() != null) {
       ModelObject vo = getDbRepository().findById(id).orElse(null);
+      logger.info("Reindexing object " + vo.getObjectId());
       if (immediate) {
         getElasticDao().createImmediately(getIdForElasticSearch(id), vo);
       } else {
