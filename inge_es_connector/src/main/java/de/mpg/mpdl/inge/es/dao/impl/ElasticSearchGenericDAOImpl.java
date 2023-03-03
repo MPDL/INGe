@@ -1,49 +1,21 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import co.elastic.clients.elasticsearch._types.*;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
+import co.elastic.clients.elasticsearch._types.mapping.Property;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.*;
+import co.elastic.clients.elasticsearch.core.search.*;
+import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
+import co.elastic.clients.elasticsearch.indices.get_alias.IndexAliases;
+import co.elastic.clients.json.JsonpMapper;
+import co.elastic.clients.json.JsonpSerializable;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import co.elastic.clients.elasticsearch._types.FieldSort;
-import co.elastic.clients.elasticsearch._types.Refresh;
-import co.elastic.clients.elasticsearch._types.SortOptions;
-import co.elastic.clients.elasticsearch._types.SortOrder;
-import co.elastic.clients.elasticsearch._types.Time;
-import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
-import co.elastic.clients.elasticsearch._types.mapping.Property;
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch.core.ClearScrollRequest;
-import co.elastic.clients.elasticsearch.core.ClearScrollResponse;
-import co.elastic.clients.elasticsearch.core.DeleteByQueryResponse;
-import co.elastic.clients.elasticsearch.core.DeleteResponse;
-import co.elastic.clients.elasticsearch.core.GetResponse;
-import co.elastic.clients.elasticsearch.core.IndexResponse;
-import co.elastic.clients.elasticsearch.core.SearchRequest;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
-import co.elastic.clients.elasticsearch.core.UpdateResponse;
-import co.elastic.clients.elasticsearch.core.search.Hit;
-import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import co.elastic.clients.elasticsearch.core.search.SourceConfig;
-import co.elastic.clients.elasticsearch.core.search.SourceFilter;
-import co.elastic.clients.elasticsearch.core.search.TrackHits;
-import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
-import co.elastic.clients.json.JsonpMapper;
-import co.elastic.clients.json.JsonpSerializable;
-import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
@@ -56,6 +28,13 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import jakarta.json.spi.JsonProvider;
 import jakarta.json.stream.JsonGenerator;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.*;
 
 /**
  * ElasticSearchClient enables elasticsearch accessibility
@@ -432,21 +411,25 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
   //SP: Alias-Suche funktioniert in ES 6.1 nicht mehr wie erwartet
   public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException {
-    //    String realIndexName = indexName;
-    //
-    //    GetAliasesResponse aliasResp = client.getClient().admin().indices().prepareGetAliases(indexName).get();
-    //    if (!aliasResp.getAliases().isEmpty()) {
-    //      realIndexName = aliasResp.getAliases().keys().iterator().next().value;
-    //    }
-
-    //    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
 
     try {
-      GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(this.indexName));
+      String realIndexName = indexName;
+
+      try {
+        Map<String, IndexAliases> aliasResponse = this.client.getClient().indices().getAlias(m -> m.name(this.indexName)).result();
+        //use first available alias
+        realIndexName = aliasResponse.keySet().iterator().next();
+
+      } catch (ElasticsearchException e) {
+      }
+
+      final String finalIndexName = realIndexName;
+
+      GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(finalIndexName));
       //GetMappingsResponse resp = this.client.getClient().admin().indices().prepareGetMappings(this.indexName).addTypes(this.indexType).get();
 
       if (!resp.result().isEmpty()) { // SP: avoiding NullPointerException
-        Map<String, Property> resultMap = resp.result().get(this.indexName).mappings().properties();
+        Map<String, Property> resultMap = resp.result().get(finalIndexName).mappings().properties();
 
         //((MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
 
