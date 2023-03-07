@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.NestedSortValue;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhraseQuery;
@@ -102,41 +103,43 @@ public class SearchUtils {
   }
 
   public static FieldSort baseElasticSearchSortBuilder(Map<String, ElasticSearchIndexField> indexMap, String index, SortOrder order) {
-
     ElasticSearchIndexField field = indexMap.get(index);
-    String indexField = index;
 
-    if (field != null) {
-      switch (field.getType()) {
-        case TEXT: {
-          indexField += ".keyword";
-          break;
-
-        }
-
-      }
-    } else {
+    if (field == null) {
       logger.warn("Index field " + index + " not found");
+      return null;
     }
 
+    String indexField = index;
+    switch (field.getType()) {
+      case TEXT: {
+        indexField += ".keyword";
+        break;
+      }
+    }
+
+    FieldSort fieldSort = null;
     String finalIndexField = indexField;
-    FieldSort fieldSort = FieldSort.of(fs -> fs.field(finalIndexField).order(order));
+    List<String> nestedPaths = field.getNestedPaths();
+
+    if (nestedPaths == null) {
+      fieldSort = FieldSort.of(fs -> fs.field(finalIndexField).order(order));
+    } else {
+      NestedSortValue nestedSortValue = NestedSortValue.of(nsv -> nsv.path(String.join(".", nestedPaths)));
+      fieldSort = FieldSort.of(fs -> fs.field(finalIndexField).order(order).nested(nestedSortValue));
+    }
+
     return fieldSort;
   }
 
   public static <E> List<E> getRecordListFromElasticSearchResponse(ResponseBody<E> sr, Class<E> clazz) throws IOException {
-
-
-
     List<E> hitList = new ArrayList<>();
     for (Hit<E> hit : sr.hits().hits()) {
-
-
       //E itemVO = hit.source();
       //MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
       hitList.add(ElasticSearchGenericDAOImpl.getVoFromResponseObject(hit.source(), clazz));
-
     }
+
     return hitList;
   }
 
@@ -149,7 +152,4 @@ public class SearchUtils {
   public static <E> List<E> getRecordListFromSearchRetrieveResponse(SearchRetrieveResponseVO<E> srr, Class<E> clazz) throws IOException {
     return srr.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
   }
-
-
-
 }
