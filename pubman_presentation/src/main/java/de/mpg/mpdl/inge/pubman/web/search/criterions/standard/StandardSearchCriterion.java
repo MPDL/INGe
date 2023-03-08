@@ -27,16 +27,12 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
 public abstract class StandardSearchCriterion extends SearchCriterionBase {
   private String searchString;
-
-  //  @Override
-  //  public String toCqlString(Index indexName) throws SearchParseException {
-  //    return this.baseCqlBuilder(this.getCqlIndexes(indexName), this.searchString);
-  //  }
 
   @Override
   public String getQueryStringContent() {
@@ -47,8 +43,6 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
   public void parseQueryStringContent(String content) {
     this.searchString = SearchCriterionBase.unescapeForQueryString(content);
   }
-
-  //  public abstract String[] getCqlIndexes(Index indexName);
 
   public abstract String[] getElasticIndexes();
 
@@ -66,7 +60,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
     return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.searchString);
   }
 }

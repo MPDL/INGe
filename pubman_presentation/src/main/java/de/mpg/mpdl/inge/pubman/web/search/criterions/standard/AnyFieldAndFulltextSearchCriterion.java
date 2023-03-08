@@ -29,6 +29,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.SimpleQueryStringQuery;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 @SuppressWarnings("serial")
 public class AnyFieldAndFulltextSearchCriterion extends FulltextSearchCriterion {
@@ -36,7 +37,7 @@ public class AnyFieldAndFulltextSearchCriterion extends FulltextSearchCriterion 
 
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
 
     BoolQuery.Builder qb = new BoolQuery.Builder();
     //Use simple query for searching all fields

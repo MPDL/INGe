@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -233,7 +234,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   }
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
 
     if (!this.isEmpty(QueryType.CQL)) {
 

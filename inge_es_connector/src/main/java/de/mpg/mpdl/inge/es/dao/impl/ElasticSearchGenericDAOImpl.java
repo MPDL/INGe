@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import co.elastic.clients.elasticsearch._types.ElasticsearchException;
 import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.NestedSortValue;
 import co.elastic.clients.elasticsearch._types.Refresh;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;
@@ -238,7 +239,8 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   }
 
 
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException {
+  public SearchRetrieveResponseVO<E> search(Map<String, ElasticSearchIndexField> indexMap, SearchRetrieveRequestVO searchQuery)
+      throws IngeTechnicalException {
 
     SearchRetrieveResponseVO<E> srrVO;
     try {
@@ -274,10 +276,28 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       }
 
       if (searchQuery.getSortKeys() != null) {
+        FieldSort fieldSort = null;
         for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField())
-              .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
-          sr.sort(SortOptions.of(so -> so.field(fs)));
+          //          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField())
+          //              .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
+          //          sr.sort(SortOptions.of(so -> so.field(fs)));
+          ElasticSearchIndexField field = indexMap.get(sc.getIndexField());
+          if (null == field) {
+            throw new IngeTechnicalException("Index field " + sc.getIndexField() + " not found");
+          }
+
+          List<String> nestedPaths = field.getNestedPaths();
+          if (nestedPaths == null) {
+            fieldSort = FieldSort.of(f -> f.field(sc.getIndexField())
+                .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
+          } else {
+            NestedSortValue nestedSortValue = NestedSortValue.of(nsv -> nsv.path(String.join(".", nestedPaths)));
+            fieldSort = FieldSort.of(f -> f.field(sc.getIndexField())
+                .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc)
+                .nested(nestedSortValue));
+          }
+          FieldSort finalFieldSort = fieldSort;
+          sr.sort(SortOptions.of(so -> so.field(finalFieldSort)));
         }
       }
 

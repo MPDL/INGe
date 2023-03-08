@@ -31,6 +31,7 @@ import java.util.List;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
@@ -211,7 +212,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   }
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
     if (getHiddenId() != null && !getHiddenId().trim().isEmpty()) {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();

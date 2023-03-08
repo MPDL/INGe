@@ -84,7 +84,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
       srr.setQueryBuilder(query);
 
-      return getElasticDao().search(srr);
+      return getElasticDao().search(this.indexFields, srr);
     }
     return null;
   }

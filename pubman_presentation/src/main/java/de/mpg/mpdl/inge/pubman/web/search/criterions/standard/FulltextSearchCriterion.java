@@ -30,6 +30,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.HasChildQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.search.Highlight;
 import co.elastic.clients.elasticsearch.core.search.HighlightField;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -39,15 +40,15 @@ public class FulltextSearchCriterion extends StandardSearchCriterion {
 
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
 
 
     Highlight hb = Highlight.of(h -> h.fields(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, new HighlightField.Builder().build())
         .preTags("<span class=\"searchHit\">").postTags("</span>"));
 
-    Query childQueryBuilder = HasChildQuery.of(h -> h.type("file")
-        .query(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, getSearchString()))
-        .scoreMode(ChildScoreMode.Avg).innerHits(i -> i.highlight(hb).source(sc -> sc
+    Query query = SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, getSearchString());
+    Query childQueryBuilder = HasChildQuery.of(h -> h.type("file").query(query).scoreMode(ChildScoreMode.Avg)
+        .innerHits(i -> i.highlight(hb).source(sc -> sc
             //.fetch(true)
             .filter(f -> f.excludes(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT))
 
