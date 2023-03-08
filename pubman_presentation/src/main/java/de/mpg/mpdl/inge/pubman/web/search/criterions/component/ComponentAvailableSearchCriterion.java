@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -39,7 +40,9 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
   public enum ComponentAvailability
   {
-    YES, NO, WHATEVER
+    YES,
+    NO,
+    WHATEVER
   }
 
 
@@ -82,7 +85,7 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
   //  }
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
     switch (this.selectedAvailability) {
       case YES: {
         return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE},
@@ -90,10 +93,8 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
       }
 
       case NO: {
-        return BoolQuery
-            .of(b -> b
-                .mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, this.getStorageType())))
-            ._toQuery();
+        Query query = SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, this.getStorageType());
+        return BoolQuery.of(b -> b.mustNot(query))._toQuery();
       }
 
       case WHATEVER:

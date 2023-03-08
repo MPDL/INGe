@@ -9,6 +9,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.MapListSearchCriterion;
@@ -118,8 +119,9 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
    * 
    * @param user
    * @return
+   * @throws IngeTechnicalException
    */
-  public static Query filterOut(AccountUserDbVO user, State s) {
+  public static Query filterOut(AccountUserDbVO user, State s) throws IngeTechnicalException {
     BoolQuery.Builder filterOutQuery = new BoolQuery.Builder();
 
     filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
@@ -151,7 +153,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     return filterOutQuery.build()._toQuery();
   }
 
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
     if (!this.isEmpty(QueryType.CQL)) {
       LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
       BoolQuery.Builder bq = new BoolQuery.Builder();

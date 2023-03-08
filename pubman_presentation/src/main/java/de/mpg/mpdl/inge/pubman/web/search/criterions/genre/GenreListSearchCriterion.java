@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
@@ -392,7 +393,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public Query toElasticSearchQuery() throws SearchParseException {
+  public Query toElasticSearchQuery() throws SearchParseException, IngeTechnicalException {
     return SearchCriterionBase.scListToElasticSearchQuery(this.getGenreSearchCriterions());
   }
 

@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.enums;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -46,7 +47,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   //  }
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
     return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.getSearchString(this.getSelectedEnum()));
   }
 
