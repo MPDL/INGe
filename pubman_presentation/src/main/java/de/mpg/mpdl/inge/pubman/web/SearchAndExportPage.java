@@ -48,7 +48,9 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
@@ -61,8 +63,10 @@ import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "SearchAndExportPage")
@@ -151,7 +155,12 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
   public void curl() {
-    String curl = getCurl();
+    String curl = null;
+    try {
+      curl = getCurl();
+    } catch (final Exception e) {
+      throw new RuntimeException("Cannot create curl:", e);
+    }
     createCurlResponse(curl);
     FacesTools.getCurrentInstance().responseComplete();
   }
@@ -260,11 +269,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
         + URLEncoder.encode(this.esQuery, StandardCharsets.UTF_8.toString());
   }
 
-  private String getCurl() {
-    if (this.esQuery == null) {
-      return null;
-    }
-
+  private String getCurl() throws IngeTechnicalException {
     SearchAndExportRetrieveRequestVO saerrVO = parseInput();
 
     StringBuilder sb = new StringBuilder();
@@ -301,7 +306,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     return sb.toString();
   }
 
-  private String getSearchString(SearchAndExportRetrieveRequestVO saerrVO) {
+  private String getSearchString(SearchAndExportRetrieveRequestVO saerrVO) throws IngeTechnicalException {
     StringBuilder sb = new StringBuilder();
 
     sb.append("{");
@@ -318,6 +323,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     if (doSort) {
+      PubItemService pi = ApplicationBean.INSTANCE.getPubItemService();
       sb.append(",");
       sb.append("\"sort\" : [");
       for (int i = 0; i < this.sort.size(); i++) {
@@ -326,7 +332,11 @@ public class SearchAndExportPage extends BreadcrumbPage {
           if (i > 0) {
             sb.append(",");
           }
-          sb.append("{\"" + mySort.getKey() + "\" : {\"order\" : \"" + mySort.getOrder().name() + "\"}}");
+          FieldSort fieldSort = SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), mySort.getKey(),
+              mySort.getOrder().equals(SearchSortCriteria.SortOrder.DESC) ? co.elastic.clients.elasticsearch._types.SortOrder.Desc
+                  : co.elastic.clients.elasticsearch._types.SortOrder.Asc);
+          sb.append(fieldSort.toString().replace("FieldSort: ", ""));
+          //          sb.append("{\"" + mySort.getKey() + "\" : {\"order\" : \"" + mySort.getOrder().name() + "\"}}");
         }
       }
       sb.append("]");
