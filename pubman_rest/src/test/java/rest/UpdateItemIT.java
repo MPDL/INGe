@@ -9,10 +9,7 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.Customization;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.comparator.CustomComparator;
+import util.AssertJsonWrapper;
 import util.TestBase;
 import util.TestDataManager;
 
@@ -50,11 +47,9 @@ public class UpdateItemIT {
 
         //Then
         String responseBody = response.getBody().asString();
-        String expectedResponse = requestBody;
-        CustomComparator ignoreAttributes =
-                new CustomComparator(JSONCompareMode.LENIENT, new Customization("lastModificationDate", (o1, o2) -> true),
-                        new Customization("latestVersion.modificationDate", (o1, o2) -> true), new Customization("modificationDate", (o1, o2) -> true));
-        JSONAssert.assertEquals(expectedResponse, responseBody, ignoreAttributes);
+        String expectedResponseBody = requestBody;
+        String[] ignoreFields = {"lastModificationDate", "latestVersion.modificationDate", "modificationDate"};
+        AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
 
         JsonNode responseBodyNode = objectMapper.readTree(responseBody);
         assertThat(responseBodyNode.get("modificationDate").toString()).isNotEqualToIgnoringCase(jsonNode.get("modificationDate").toString());

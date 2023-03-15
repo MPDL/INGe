@@ -8,10 +8,7 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.Customization;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.comparator.CustomComparator;
+import util.AssertJsonWrapper;
 import util.TestBase;
 import util.TestDataManager;
 
@@ -48,12 +45,9 @@ public class GetItemIT {
 
         //Then
         String responseBody = response.getBody().asString();
-        String expectedResponse = Files.readString(Paths.get("src/test/resources/createdItemResponse.json"), StandardCharsets.UTF_8);
-        CustomComparator ignoreAttributes = new CustomComparator(JSONCompareMode.LENIENT, new Customization("creationDate", (o1, o2) -> true),
-                new Customization("lastModificationDate", (o1, o2) -> true), new Customization("latestVersion.modificationDate", (o1, o2) -> true),
-                new Customization("latestVersion.objectId", (o1, o2) -> true), new Customization("modificationDate", (o1, o2) -> true),
-                new Customization("objectId", (o1, o2) -> true));
-        JSONAssert.assertEquals(expectedResponse, responseBody, ignoreAttributes);
+        String expectedResponseBody = Files.readString(Paths.get("src/test/resources/createdItemResponse.json"), StandardCharsets.UTF_8);
+        String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId"};
+        AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
 
         //TODO: Extract or Add finally:
         TestDataManager.deleteItem(responseBody);
@@ -73,12 +67,11 @@ public class GetItemIT {
 
         //Then
         String responseBody = response.getBody().asString();
-        String expectedResponse = Files.readString(Paths.get("src/test/resources/noAuthorizationTokenResponse.json"), StandardCharsets.UTF_8);
-        CustomComparator ignoreTimestampAttribute =
-                new CustomComparator(JSONCompareMode.LENIENT, new Customization("timestamp", (o1, o2) -> true),
-                        //TODO: Rework returned messages & exception in productive code
-                        new Customization("exception", (o1, o2) -> true));
-        JSONAssert.assertEquals(expectedResponse, responseBody, ignoreTimestampAttribute);
+        String expectedResponseBody = Files.readString(Paths.get("src/test/resources/noAuthorizationTokenResponse.json"), StandardCharsets.UTF_8);
+        String[] ignoreFields = {"timestamp", "exception"};
+        //TODO: Rework returned messages & exception in productive code
+        AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
+
 
         //TODO: Extract or Add finally:
         TestDataManager.deleteItem(requestBody);

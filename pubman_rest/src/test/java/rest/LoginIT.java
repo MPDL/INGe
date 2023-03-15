@@ -5,10 +5,7 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.Customization;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.comparator.CustomComparator;
+import util.AssertJsonWrapper;
 import util.TestBase;
 
 import java.io.IOException;
@@ -58,11 +55,9 @@ public class LoginIT {
 
         String responseBody = response.getBody().asString();
         String expectedResponseBody = Files.readString(Paths.get("src/test/resources/loginNoBodyResponse.json"), StandardCharsets.UTF_8);
-        CustomComparator ignoreTimestampAttribute =
-                new CustomComparator(JSONCompareMode.LENIENT, new Customization("timestamp", (o1, o2) -> true),
-                        //TODO: Rework returned messages & exception in productive code
-                        new Customization("message", (o1, o2) -> true), new Customization("exception", (o1, o2) -> true));
-        JSONAssert.assertEquals(expectedResponseBody, responseBody, ignoreTimestampAttribute);
+        String[] ignoreFields = {"timestamp", "message", "exception"};
+        //TODO: Rework returned messages & exception in productive code
+        AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
     }
 
     @Test
@@ -80,11 +75,9 @@ public class LoginIT {
         String responseBody = response.getBody().asString();
         String expectedResponseBody =
                 Files.readString(Paths.get("src/test/resources/loginWrongCredentialsResponse.json"), StandardCharsets.UTF_8);
-        CustomComparator ignoreTimestampAttribute =
-                new CustomComparator(JSONCompareMode.LENIENT, new Customization("timestamp", (o1, o2) -> true),
-                        //TODO: Rework returned messages & exception in productive code
-                        new Customization("exception", (o1, o2) -> true));
-        JSONAssert.assertEquals(expectedResponseBody, responseBody, ignoreTimestampAttribute);
+        String[] ignoreFields = {"timestamp", "exception"};
+        //TODO: Rework returned messages & exception in productive code
+        AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
     }
 
 }
