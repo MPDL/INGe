@@ -1155,13 +1155,13 @@
 		<inge.cone.database.server.port>5432</inge.cone.database.server.port>
 		<inge.cone.extended.attributes.use>false</inge.cone.extended.attributes.use>
 		<inge.cone.language.default>en</inge.cone.language.default>
-		<inge.cone.results.default>500</inge.cone.results.default>
-		<inge.cone.results.maximum>20000</inge.cone.results.maximum>
 		<inge.cone.mimetype.pattern>application/vnd.cone-(.+)</inge.cone.mimetype.pattern>
 		<inge.cone.modelsxml.path>models.xml</inge.cone.modelsxml.path>
 		<inge.cone.person.id.identifier>/persons/resource/</inge.cone.person.id.identifier>
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
 		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>
+		<inge.cone.results.default>500</inge.cone.results.default>
+		<inge.cone.results.maximum>20000</inge.cone.results.maximum>
 		<inge.cone.service.url.test>https://dev.inge.mpdl.mpg.de/cone/</inge.cone.service.url.test>
 		<inge.cone.service.url>http://localhost:8080/cone/</inge.cone.service.url>
 		<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
@@ -1178,10 +1178,11 @@
 		<inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
 		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
 		<inge.email.withauthentication>false</inge.email.withauthentication>
-		<inge.es.rest.host-port>localhost:9400</inge.es.rest.host-port>
+		<inge.es.password></inge.es.password>
+		<inge.es.rest.host-port.test>localhost:9400</inge.es.rest.host-port.test>
+		<inge.es.rest.host-port>localhost:9200</inge.es.rest.host-port>
 		<inge.es.rest.path-prefix></inge.es.rest.path-prefix>
 		<inge.es.user></inge.es.user>
-		<inge.es.password></inge.es.password>
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
@@ -1227,8 +1228,8 @@
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
 		<inge.pubman.privacy.url />
 		<inge.pubman.root.authors.icon />
-		<inge.pubman.root.organization.name />
 		<inge.pubman.root.organisation.id />
+		<inge.pubman.root.organization.name />
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
 		<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.url>
