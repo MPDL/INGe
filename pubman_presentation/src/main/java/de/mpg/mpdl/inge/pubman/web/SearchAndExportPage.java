@@ -26,29 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import de.mpg.mpdl.inge.model.valueobjects.*;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
-import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
-import de.mpg.mpdl.inge.service.util.JsonUtil;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
-import jakarta.faces.validator.ValidatorException;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -57,6 +34,40 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.faces.validator.ValidatorException;
+
+import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
+import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
+import de.mpg.mpdl.inge.service.util.JsonUtil;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "SearchAndExportPage")
 @SessionScoped
@@ -144,7 +155,12 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
   public void curl() {
-    String curl = getCurl();
+    String curl = null;
+    try {
+      curl = getCurl();
+    } catch (final Exception e) {
+      throw new RuntimeException("Cannot create curl:", e);
+    }
     createCurlResponse(curl);
     FacesTools.getCurrentInstance().responseComplete();
   }
@@ -253,11 +269,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
         + URLEncoder.encode(this.esQuery, StandardCharsets.UTF_8.toString());
   }
 
-  private String getCurl() {
-    if (this.esQuery == null) {
-      return null;
-    }
-
+  private String getCurl() throws IngeTechnicalException {
     SearchAndExportRetrieveRequestVO saerrVO = parseInput();
 
     StringBuilder sb = new StringBuilder();
@@ -294,7 +306,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     return sb.toString();
   }
 
-  private String getSearchString(SearchAndExportRetrieveRequestVO saerrVO) {
+  private String getSearchString(SearchAndExportRetrieveRequestVO saerrVO) throws IngeTechnicalException {
     StringBuilder sb = new StringBuilder();
 
     sb.append("{");
@@ -311,6 +323,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     if (doSort) {
+      PubItemService pi = ApplicationBean.INSTANCE.getPubItemService();
       sb.append(",");
       sb.append("\"sort\" : [");
       for (int i = 0; i < this.sort.size(); i++) {
@@ -319,7 +332,11 @@ public class SearchAndExportPage extends BreadcrumbPage {
           if (i > 0) {
             sb.append(",");
           }
-          sb.append("{\"" + mySort.getKey() + "\" : {\"order\" : \"" + mySort.getOrder().name() + "\"}}");
+          FieldSort fieldSort = SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), mySort.getKey(),
+              mySort.getOrder().equals(SearchSortCriteria.SortOrder.DESC) ? co.elastic.clients.elasticsearch._types.SortOrder.Desc
+                  : co.elastic.clients.elasticsearch._types.SortOrder.Asc);
+          sb.append(fieldSort.toString().replace("FieldSort: ", ""));
+          //          sb.append("{\"" + mySort.getKey() + "\" : {\"order\" : \"" + mySort.getOrder().name() + "\"}}");
         }
       }
       sb.append("]");
