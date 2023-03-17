@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
@@ -113,8 +114,9 @@ public class HomePage extends BreadcrumbPage {
     ssb.query(bqb.build()._toQuery());
     ssb.from(0);
     ssb.size(4);
-    ssb.sort(SortOptions.of(i -> i.field(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE, SortOrder.Desc))));
+    FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE,
+        SortOrder.Desc);
+    ssb.sort(SortOptions.of(i -> i.field(fs)));
 
     SearchRequest sr = ssb.build();
     ResponseBody resp = pi.searchDetailed(sr, null);

@@ -68,7 +68,8 @@ public interface GenericDaoEs<E> {
    * @return
    * @throws IngeTechnicalException
    */
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException;
+  public SearchRetrieveResponseVO<E> search(Map<String, ElasticSearchIndexField> indexMap, SearchRetrieveRequestVO searchQuery)
+      throws IngeTechnicalException;
 
 
   public ResponseBody<ObjectNode> searchDetailed(JsonNode searchRequest) throws IngeTechnicalException;

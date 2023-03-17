@@ -64,8 +64,8 @@ public class PropertyReader {
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
-  public static final String INGE_AUTH_MPG_JSON_IP_LIST_URL = "inge.auth.mpg.ip.json.url";
   public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
+  public static final String INGE_AUTH_MPG_JSON_IP_LIST_URL = "inge.auth.mpg.ip.json.url";
   public static final String INGE_CLUSTER_NODE_NAME = "inge.cluster.node.name";
   public static final String INGE_CONE_CACHE_USE = "inge.cone.cache.use";
   public static final String INGE_CONE_DATABASE_DRIVER_CLASS = "inge.cone.database.driver.class";
@@ -73,8 +73,8 @@ public class PropertyReader {
   public static final String INGE_CONE_DATABASE_SERVER_NAME = "inge.cone.database.server.name";
   public static final String INGE_CONE_DATABASE_SERVER_PORT = "inge.cone.database.server.port";
   public static final String INGE_CONE_DATABASE_USER_NAME = "inge.cone.database.user.name";
-  public static final String INGE_CONE_EXTENDED_ATTRIBUTES_USE = "inge.cone.extended.attributes.use";
   public static final String INGE_CONE_DATABASE_USER_PASSWORD = "inge.cone.database.user.password";
+  public static final String INGE_CONE_EXTENDED_ATTRIBUTES_USE = "inge.cone.extended.attributes.use";
   public static final String INGE_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
   public static final String INGE_CONE_MIMETYPE_PATTERN = "inge.cone.mimetype.pattern";
   public static final String INGE_CONE_MODELSXML_PATH = "inge.cone.modelsxml.path";
@@ -105,9 +105,10 @@ public class PropertyReader {
   public static final String INGE_EMAIL_MAILSERVERNAME = "inge.email.mailservername";
   public static final String INGE_EMAIL_SENDER = "inge.email.sender";
   public static final String INGE_EMAIL_WITHAUTHENTICATION = "inge.email.withauthentication";
-  public static final String INGE_ES_CLUSTER_NAME = "inge.es.cluster.name";
+  public static final String INGE_ES_PASSWORD = "inge.es.password";
   public static final String INGE_ES_REST_HOST_PORT = "inge.es.rest.host-port";
-  public static final String INGE_ES_TRANSPORT_IPS = "inge.es.transport.ips";
+  public static final String INGE_ES_REST_PATH_PREFIX = "inge.es.rest.path-prefix";
+  public static final String INGE_ES_USER = "inge.es.user";
   public static final String INGE_FILESTORAGE_FILESYSTEM_PATH = "inge.filestorage.filesystem_path";
   public static final String INGE_FILESTORAGE_OAI_FILESYSTEM_PATH = "inge.filestorage.oai.filesystem_path";
   public static final String INGE_FILESTORAGE_SEAWEED_DIRECT_SUBMIT_PATH = "inge.filestorage.seaweed_direct_submit_path";

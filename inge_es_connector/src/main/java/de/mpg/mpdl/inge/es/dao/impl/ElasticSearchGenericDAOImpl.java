@@ -1,21 +1,52 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import co.elastic.clients.elasticsearch._types.*;
-import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
-import co.elastic.clients.elasticsearch._types.mapping.Property;
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch.core.*;
-import co.elastic.clients.elasticsearch.core.search.*;
-import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
-import co.elastic.clients.elasticsearch.indices.get_alias.IndexAliases;
-import co.elastic.clients.json.JsonpMapper;
-import co.elastic.clients.json.JsonpSerializable;
-import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import co.elastic.clients.elasticsearch._types.ElasticsearchException;
+import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.NestedSortValue;
+import co.elastic.clients.elasticsearch._types.Refresh;
+import co.elastic.clients.elasticsearch._types.SortOptions;
+import co.elastic.clients.elasticsearch._types.SortOrder;
+import co.elastic.clients.elasticsearch._types.Time;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
+import co.elastic.clients.elasticsearch._types.mapping.Property;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch.core.ClearScrollRequest;
+import co.elastic.clients.elasticsearch.core.ClearScrollResponse;
+import co.elastic.clients.elasticsearch.core.DeleteByQueryResponse;
+import co.elastic.clients.elasticsearch.core.DeleteResponse;
+import co.elastic.clients.elasticsearch.core.GetResponse;
+import co.elastic.clients.elasticsearch.core.IndexResponse;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.UpdateResponse;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import co.elastic.clients.elasticsearch.core.search.SourceConfig;
+import co.elastic.clients.elasticsearch.core.search.SourceFilter;
+import co.elastic.clients.elasticsearch.core.search.TrackHits;
+import co.elastic.clients.elasticsearch.indices.GetMappingResponse;
+import co.elastic.clients.elasticsearch.indices.get_alias.IndexAliases;
+import co.elastic.clients.json.JsonpMapper;
+import co.elastic.clients.json.JsonpSerializable;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
@@ -28,13 +59,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import jakarta.json.spi.JsonProvider;
 import jakarta.json.stream.JsonGenerator;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.*;
 
 /**
  * ElasticSearchClient enables elasticsearch accessibility
@@ -215,7 +239,8 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   }
 
 
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException {
+  public SearchRetrieveResponseVO<E> search(Map<String, ElasticSearchIndexField> indexMap, SearchRetrieveRequestVO searchQuery)
+      throws IngeTechnicalException {
 
     SearchRetrieveResponseVO<E> srrVO;
     try {
@@ -251,10 +276,28 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       }
 
       if (searchQuery.getSortKeys() != null) {
+        FieldSort fieldSort = null;
         for (SearchSortCriteria sc : searchQuery.getSortKeys()) {
-          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField())
-              .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
-          sr.sort(SortOptions.of(so -> so.field(fs)));
+          //          FieldSort fs = FieldSort.of(f -> f.field(sc.getIndexField())
+          //              .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
+          //          sr.sort(SortOptions.of(so -> so.field(fs)));
+          ElasticSearchIndexField field = indexMap.get(sc.getIndexField());
+          if (null == field) {
+            throw new IngeTechnicalException("Index field " + sc.getIndexField() + " not found");
+          }
+
+          List<String> nestedPaths = field.getNestedPaths();
+          if (nestedPaths == null) {
+            fieldSort = FieldSort.of(f -> f.field(sc.getIndexField())
+                .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
+          } else {
+            NestedSortValue nestedSortValue = NestedSortValue.of(nsv -> nsv.path(String.join(".", nestedPaths)));
+            fieldSort = FieldSort.of(f -> f.field(sc.getIndexField())
+                .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc)
+                .nested(nestedSortValue));
+          }
+          FieldSort finalFieldSort = fieldSort;
+          sr.sort(SortOptions.of(so -> so.field(finalFieldSort)));
         }
       }
 

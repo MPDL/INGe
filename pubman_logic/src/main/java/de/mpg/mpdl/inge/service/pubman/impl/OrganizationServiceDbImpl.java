@@ -194,10 +194,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException, IngeTechnicalException {
 
-    SearchRequest ssb = SearchRequest.of(sr -> sr.docvalueFields(dv -> dv.field(INDEX_OBJECT_ID))
-        .query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId))
-        .size(500));
-
+    Query query = SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId);
+    SearchRequest ssb = SearchRequest.of(sr -> sr.docvalueFields(dv -> dv.field(INDEX_OBJECT_ID)).query(query).size(500));
 
     ResponseBody<ObjectNode> resp = null;
     List<Hit> listHits = new ArrayList<Hit>();

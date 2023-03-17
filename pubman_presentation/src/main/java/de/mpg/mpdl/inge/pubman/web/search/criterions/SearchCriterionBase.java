@@ -40,6 +40,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.AffiliatedContextListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
@@ -195,7 +196,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
   protected SearchCriterion searchCriterion;
 
-  public abstract Query toElasticSearchQuery() throws SearchParseException;
+  public abstract Query toElasticSearchQuery() throws SearchParseException, IngeTechnicalException;
 
   public abstract String getElasticSearchNestedPath();
 
@@ -440,12 +441,12 @@ public abstract class SearchCriterionBase implements Serializable {
   //
   //  }
 
-  public static Query baseElasticSearchQueryBuilder(String[] indexFields, String... searchString) {
+  public static Query baseElasticSearchQueryBuilder(String[] indexFields, String... searchString) throws IngeTechnicalException {
     Map<String, ElasticSearchIndexField> indexMap = ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
     return SearchUtils.baseElasticSearchQueryBuilder(indexMap, indexFields, searchString);
   }
 
-  public static Query baseElasticSearchQueryBuilder(String index, String... value) {
+  public static Query baseElasticSearchQueryBuilder(String index, String... value) throws IngeTechnicalException {
     Map<String, ElasticSearchIndexField> indexMap = ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
     return SearchUtils.baseElasticSearchQueryBuilder(indexMap, index, value);
   }
@@ -539,7 +540,7 @@ public abstract class SearchCriterionBase implements Serializable {
   //
   //  }
 
-  public static Query scListToElasticSearchQuery(List<SearchCriterionBase> scList) throws SearchParseException {
+  public static Query scListToElasticSearchQuery(List<SearchCriterionBase> scList) throws SearchParseException, IngeTechnicalException {
     final List<SearchCriterionBase> cleanedScList = SearchCriterionBase.removeEmptyFields(scList, QueryType.CQL);
 
     // Set partner parenthesis for every parenthesis
@@ -562,7 +563,7 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
   private static Query cleanedScListToElasticSearchQuery(List<SearchCriterionBase> scList, String parentNestedPath)
-      throws SearchParseException {
+      throws SearchParseException, IngeTechnicalException {
 
     SearchCriterionBase.logger.debug("Call with list: " + scList);
 

@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -81,7 +82,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 
 
   @Override
-  public Query toElasticSearchQuery() {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
     if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
       return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.hiddenId);
     } else {
