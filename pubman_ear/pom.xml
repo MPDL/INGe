@@ -79,20 +79,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<release>${jdk.version}</release>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>test-compile</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
@@ -222,6 +208,7 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-webmvc</artifactId>

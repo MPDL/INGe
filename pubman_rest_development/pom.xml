@@ -9,7 +9,6 @@
 	</parent>
 
 	<artifactId>pubman_rest_development</artifactId>
-
 	<name>PubMan REST Development Web Service</name>
 	<packaging>war</packaging>
 
