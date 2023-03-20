@@ -449,8 +449,8 @@ public class Bibtex implements BibtexInterface {
                                                                                                                   // !=
                                                                                                                   // null
                       {
-                        String organizationalUnit = (author.getTags().get("affiliation" + new Integer(ouCount).toString()) != null
-                            ? author.getTags().get("affiliation" + new Integer(ouCount).toString())
+                        String organizationalUnit = (author.getTags().get("affiliation" + String.valueOf(ouCount)) != null
+                            ? author.getTags().get("affiliation" + String.valueOf(ouCount))
                             : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
                         Node coneEntries = null;
                         if (query.equals(author.getTags().get("identifier"))) {
@@ -774,8 +774,8 @@ public class Bibtex implements BibtexInterface {
                                                                                                                   // !=
                                                                                                                   // null
                       {
-                        String organizationalUnit = (editor.getTags().get("affiliation" + new Integer(ouCount).toString()) != null
-                            ? editor.getTags().get("affiliation" + new Integer(ouCount).toString())
+                        String organizationalUnit = (editor.getTags().get("affiliation" + String.valueOf(ouCount)) != null
+                            ? editor.getTags().get("affiliation" + String.valueOf(ouCount))
                             : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
                         Node coneEntries = null;
                         if (query.equals(editor.getTags().get("identifier"))) {

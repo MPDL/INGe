@@ -749,7 +749,7 @@ public class ViewItemFull extends FacesBean {
         creatorDisplay.setFormattedDisplay(formattedCreator);
         final ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
         creatorOrganization.setOrganizationName(formattedCreator);
-        creatorOrganization.setPosition(new Integer(counterOrganization).toString());
+        creatorOrganization.setPosition(String.valueOf(counterOrganization));
         creatorOrganization.setOrganizationAddress(creator1.getOrganization().getAddress());
         creatorOrganization.setOrganizationInfoPage(formattedCreator, creator1.getOrganization().getAddress());
         creatorOrganization.setIdentifier(creator1.getOrganization().getIdentifier());
@@ -790,7 +790,7 @@ public class ViewItemFull extends FacesBean {
       viewOrganization.setOrganizationName(tempOrganizationListInstance.getName());
       viewOrganization.setOrganizationAddress(tempOrganizationListInstance.getAddress());
       viewOrganization.setOrganizationIdentifier(tempOrganizationListInstance.getIdentifier());
-      viewOrganization.setPosition(new Integer(affiliationPosition).toString());
+      viewOrganization.setPosition(String.valueOf(affiliationPosition));
       viewOrganization.setOrganizationInfoPage(tempOrganizationListInstance.getName(), tempOrganizationListInstance.getAddress());
       viewOrganization.setOrganizationDescription(tempOrganizationListInstance.getName(), tempOrganizationListInstance.getAddress(),
           tempOrganizationListInstance.getIdentifier());
@@ -818,7 +818,7 @@ public class ViewItemFull extends FacesBean {
         if (organizationsFound > 0 && j < sortOrganizationList.size()) {
           annotation.append(", ");
         }
-        annotation.append(new Integer(j + 1).toString());
+        annotation.append(String.valueOf(j + 1));
         organizationsFound++;
       }
     }

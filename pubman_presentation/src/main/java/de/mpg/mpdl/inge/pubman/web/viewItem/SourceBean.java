@@ -189,7 +189,7 @@ public class SourceBean extends FacesBean {
         creatorDisplay.setFormattedDisplay(formattedCreator);
         final ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
         creatorOrganization.setOrganizationName(formattedCreator);
-        creatorOrganization.setPosition(new Integer(counterOrganization).toString());
+        creatorOrganization.setPosition(String.valueOf(counterOrganization));
         creatorOrganization.setOrganizationAddress(creator1.getOrganization().getAddress());
         creatorOrganization.setOrganizationInfoPage(formattedCreator, creator1.getOrganization().getAddress());
         creatorOrganization.setIdentifier(creator1.getOrganization().getIdentifier());

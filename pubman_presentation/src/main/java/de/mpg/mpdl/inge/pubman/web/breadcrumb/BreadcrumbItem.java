@@ -136,7 +136,7 @@ public class BreadcrumbItem extends FacesBean {
       try {
         final Class<?> beanClass = this.defaultAction.getDeclaringClass();
         final Object bean = FacesTools.findBean(beanClass.getName());
-        return this.defaultAction.invoke(bean, null).toString();
+        return this.defaultAction.invoke(bean, (Object[]) null).toString();
       } catch (final Exception e) {
         BreadcrumbItem.logger.error("Error executing default action", e);
       }

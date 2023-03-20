@@ -113,9 +113,9 @@ public class MpiKybFormat extends AuthorFormat {
         author.addTag(IDENTIFIER, identifier);
       }
       if (affiliations != null) {
-        author.addTag(AFFILIATION_COUNT, new Integer(affiliationCount).toString());
+        author.addTag(AFFILIATION_COUNT, String.valueOf(affiliationCount));
         for (int j = 0; j < affiliationCount; j++) {
-          author.addTag(AFFILIATION + new Integer(j).toString(), affiliations.get(j));
+          author.addTag(AFFILIATION + String.valueOf(affiliationCount), affiliations.get(j));
         }
       }
       author.setFormat(this);
