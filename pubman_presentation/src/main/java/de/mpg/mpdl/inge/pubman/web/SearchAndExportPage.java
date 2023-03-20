@@ -35,14 +35,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import javax.faces.validator.ValidatorException;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.validator.ValidatorException;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
