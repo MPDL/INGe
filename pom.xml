@@ -739,7 +739,6 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
 				<version>8.4.13-SNAPSHOT</version>
-				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
 			<dependency>
@@ -897,7 +896,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.8.2</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -907,7 +906,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>2.5.2</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -1322,8 +1321,6 @@
 				<inge.csl.javascript.engine>v8</inge.csl.javascript.engine>
 				<inge.pubman.blog.baseUrl>https://blog.pure.mpg.de/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>https://blog.pure.mpg.de/feed/</inge.pubman.blog.news>
-				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-				<inge.pubman.build.mode>pure</inge.pubman.build.mode>
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
 				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
 				<inge.pubman.logo.url>/resources/images/pure_logo_web.png</inge.pubman.logo.url>

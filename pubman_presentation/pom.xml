@@ -31,7 +31,6 @@
 							<Dependencies>pubman</Dependencies>
 						</manifestEntries>
 					</archive>
-					<classifier>${inge.pubman.build.mode}</classifier>
 				</configuration>
 			</plugin>
 			<plugin>
