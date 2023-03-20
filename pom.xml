@@ -1368,6 +1368,7 @@
 				<jboss.tmp.deploy>/srv/web/inge</jboss.tmp.deploy>
 				<jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>
 				<jboss.username>jboss</jboss.username>
+				<ssh.keyfile>id_rsa</ssh.keyfile>
 			</properties>
 		</profile>
 

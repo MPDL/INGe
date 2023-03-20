@@ -165,14 +165,14 @@
 								<configuration>
 									<target>
 										<!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->  
-										<scp file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}" todir="${jboss.user.scp}:${jboss.tmp.deploy}" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}" todir="${jboss.user.scp}:${jboss.tmp.deploy}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- configuration for the deploy wildfly server -->
-										<scp file="${project.build.directory}/classes/module.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/module.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- copy over the configuration file -->
-										<scp file="${project.build.directory}/classes/pubman.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
-										<scp file="${project.build.directory}/classes/solution.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/pubman.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/solution.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- finally move the ear file to the deployment directory -->	
-										<sshexec host="${jboss.host}" username="${jboss.username}" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments" />  
+										<sshexec host="${jboss.host}" username="${jboss.username}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments" />  
 									</target>
 								</configuration>
 							</execution>
