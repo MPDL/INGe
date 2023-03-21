@@ -8,4 +8,4 @@ PubMan, based on INGe, is a software providing a pulication repository. The soft
 * Java 17.0.6+10
 * Elasticsearch 8.6.1
 * Postgresql 13.9
-* Maven 3.8.6
+* Maven 3.9.0
