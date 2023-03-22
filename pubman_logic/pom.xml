@@ -50,9 +50,6 @@
 					<version>8.6.2</version>
 					<pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>
 					<skip>${maven.test.skip}</skip>
-					<environmentVariables>
-						<!--<JAVA_HOME>${elasticsearch.plugin.java_home.dir}</JAVA_HOME>-->
-					</environmentVariables>
 				</configuration>
 				<executions>
 					<execution>
@@ -72,6 +69,36 @@
 				</executions>
 			</plugin>
 		</plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.github.alexcojocaru</groupId>
+										<artifactId>elasticsearch-maven-plugin</artifactId>
+										<versionRange>[6.23,)</versionRange>
+										<goals>
+											<goal>runforked</goal>
+											<goal>stop</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<dependencies>
