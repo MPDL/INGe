@@ -1266,9 +1266,6 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<properties>
-				<escidoc.common.release.build>true</escidoc.common.release.build>
-			</properties>
 		</profile>
 
 		<!-- activate this profile to deploy the artifacts -->
@@ -1341,6 +1338,84 @@
 				</plugins>
 			</build>
 		</profile>
+		
+		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
+		<profile>
+			<id>only-eclipse</id>
+			<activation>
+				<property>
+					<name>m2e.version</name>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>com.github.alexcojocaru</groupId>
+												<artifactId>elasticsearch-maven-plugin</artifactId>
+												<versionRange>[6.23,)</versionRange>
+												<goals>
+													<goal>runforked</goal>
+													<goal>stop</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<execute>
+													<runOnIncremental>true</runOnIncremental>
+												</execute>
+											</action>
+										</pluginExecution>
+										
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>net.revelc.code.formatter</groupId>
+												<artifactId>formatter-maven-plugin</artifactId>
+												<versionRange>[2.7.0,)</versionRange>
+												<goals>
+													<goal>format</goal>
+													<goal>default</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+										
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>
+													org.codehaus.mojo
+												</groupId>
+												<artifactId>
+													xmlbeans-maven-plugin
+												</artifactId>
+												<versionRange>
+													[2.3.3,)
+												</versionRange>
+												<goals>
+													<goal>xmlbeans</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>		
 	</profiles>
 
 </project>

@@ -71,11 +71,6 @@
 			<artifactId>model</artifactId>
 		</dependency>
 		<dependency>
-			<!--this citeproc version is a snapshot version although the version number 
-				does not indicate it. It requires rhino library The newer releases of citeproc 
-				(1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated 
-				in JDK8. However, we got massive performance problems with the newer versions, 
-				so we use the old version until the performance problems are solved. -->
 			<groupId>de.undercouch</groupId>
 			<artifactId>citeproc-java</artifactId>
 		</dependency>
@@ -112,4 +107,5 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
+
 </project>

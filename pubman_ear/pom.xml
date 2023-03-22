@@ -206,7 +206,6 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-webmvc</artifactId>
