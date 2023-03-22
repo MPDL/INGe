@@ -27,7 +27,6 @@
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
 					<applicationName>pubman_ear</applicationName>
-					<classifier>${inge.pubman.build.mode}</classifier>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
 					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
@@ -79,20 +78,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<release>${jdk.version}</release>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>test-compile</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
@@ -124,7 +109,7 @@
 								<configuration>
 									<target>
 										<!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->  
-										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy wildfly server -->
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the configuration file -->
@@ -165,14 +150,14 @@
 								<configuration>
 									<target>
 										<!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->  
-										<scp file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}" todir="${jboss.user.scp}:${jboss.tmp.deploy}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.user.scp}:${jboss.tmp.deploy}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- configuration for the deploy wildfly server -->
 										<scp file="${project.build.directory}/classes/module.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- copy over the configuration file -->
 										<scp file="${project.build.directory}/classes/pubman.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<scp file="${project.build.directory}/classes/solution.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- finally move the ear file to the deployment directory -->	
-										<sshexec host="${jboss.host}" username="${jboss.username}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments" />  
+										<sshexec host="${jboss.host}" username="${jboss.username}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}.${project.packaging} ${jboss.install.dir}/standalone/deployments" />
 									</target>
 								</configuration>
 							</execution>
@@ -209,7 +194,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<classifier>${inge.pubman.build.mode}</classifier>
 			<type>war</type>
 		</dependency>
 		<dependency>

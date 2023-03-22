@@ -77,7 +77,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
       if (authenticationToken != null) {
         query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, aaService.checkLoginRequired(authenticationToken));
       } else {
-        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, null);
+        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, (Object[]) null);
       }
 
       srr.setQueryBuilder(query);
@@ -101,7 +101,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
       if (authenticationToken != null) {
         query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, aaService.checkLoginRequired(authenticationToken));
       } else {
-        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, null);
+        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, (Object[]) null);
       }
 
       ObjectNode searchRequestNode = (ObjectNode) ElasticSearchGenericDAOImpl.toJsonNode(ssb);

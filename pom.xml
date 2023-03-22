@@ -239,7 +239,6 @@
 				<artifactId>artemis-server</artifactId>
 				<version>2.28.0</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
@@ -255,7 +254,6 @@
 				<artifactId>fluent-hc</artifactId>
 				<version>4.5.14</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.tika</groupId>
 				<artifactId>tika-core</artifactId>
@@ -713,7 +711,6 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
 				<version>8.4.13-SNAPSHOT</version>
-				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
 			<dependency>
@@ -855,13 +852,8 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>3.3.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
+					<version>3.11.0</version>
 					<configuration>
 						<forceJavacCompilerUse>true</forceJavacCompilerUse>
 						<encoding>${project.build.sourceEncoding}</encoding>
@@ -871,11 +863,16 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.8.2</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-ear-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>
 				<plugin>
@@ -907,40 +904,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>3.3.1</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.codehaus.cargo</groupId>
-					<artifactId>cargo-maven2-plugin</artifactId>
-					<version>1.4.10</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.codehaus.izpack</groupId>
-					<artifactId>izpack-maven-plugin</artifactId>
-					<version>1.0-alpha-5</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>axistools-maven-plugin</artifactId>
-					<version>1.3</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.9.1</version>
+					<version>3.3.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>buildnumber-maven-plugin</artifactId>
 					<version>1.3</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>javacc-maven-plugin</artifactId>
-					<version>2.6</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.xmlbeans</groupId>
@@ -970,37 +939,15 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.2.0</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>test-javadoc</goal>
-						</goals>
-						<configuration>
-							<additionalparam>-Xdoclint:none</additionalparam>
-							<minmemory>128m</minmemory>
-							<maxmemory>1g</maxmemory>
-							<failOnError>false</failOnError>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>3.0.0-M1</version>
+				<version>3.0.0</version>
 				<configuration>
 					<preparationGoals>clean verify</preparationGoals>
 				</configuration>
-				
 			</plugin>
-			
+
 			<plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-source-plugin</artifactId>
@@ -1017,84 +964,10 @@
 		</plugins>
 
 		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ftp</artifactId>
-				<version>2.6</version>
-			</extension>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-http</artifactId>
-				<version>2.6</version>
-			</extension>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ssh</artifactId>
-				<version>2.5</version>
-			</extension>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-webdav-jackrabbit</artifactId>
-				<version>2.6</version>
-			</extension>
 		</extensions>
 	</build>
 
 	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changelog-plugin</artifactId>
-				<version>2.3</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-				<version>2.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.5</version>
-				<configuration>
-					<sourceEncoding>utf-8</sourceEncoding>
-					<minimumTokens>100</minimumTokens>
-					<targetJdk>${jdk.version}</targetJdk>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.8.1</version>
-				<configuration>
-					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>javancss-maven-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<forceEncoding>utf-8</forceEncoding>
-					<excludes>
-						<exclude>**/BibTex.java</exclude>
-						<exclude>**/Transformation.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jdepend-maven-plugin</artifactId>
-				<version>2.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>taglist-maven-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
-
-		</plugins>
 	</reporting>
 
 	<properties>
@@ -1327,8 +1200,6 @@
 				<inge.csl.javascript.engine>v8</inge.csl.javascript.engine>
 				<inge.pubman.blog.baseUrl>https://blog.pure.mpg.de/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>https://blog.pure.mpg.de/feed/</inge.pubman.blog.news>
-				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-				<inge.pubman.build.mode>pure</inge.pubman.build.mode>
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
 				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
 				<inge.pubman.logo.url>/resources/images/pure_logo_web.png</inge.pubman.logo.url>
@@ -1372,47 +1243,12 @@
 			</properties>
 		</profile>
 
-		<!-- activate this profile for instrumenting code by JRebel -->
-		<profile>
-			<id>env-jrebel-build</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.zeroturnaround</groupId>
-						<artifactId>jrebel-maven-plugin</artifactId>
-						<version>1.1.7</version>
-						<configuration>
-							<name>${project.artifactId}-development</name>
-							<version>${project.version}-${maven.build.timestamp}</version>
-							<addResourcesDirToRebelXml>false</addResourcesDirToRebelXml>
-							<skip>${escidoc.common.release.build}</skip>
-						</configuration>
-						<executions>
-							<execution>
-								<id>generate-rebel-xml</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
 		<!-- activate this profile for a release build, suppresses critical tests -->
 		<profile>
 			<id>env-release-build</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<properties>
-				<escidoc.common.release.build>true</escidoc.common.release.build>
-			</properties>
 		</profile>
 
 		<!-- activate this profile to deploy the artifacts -->
@@ -1486,8 +1322,7 @@
 			</build>
 		</profile>
 
-		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse 
-			warning messages for certain plugins -->
+		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
 		<profile>
 			<id>only-eclipse</id>
 			<activation>
@@ -1507,59 +1342,36 @@
 									<pluginExecutions>
 										<pluginExecution>
 											<pluginExecutionFilter>
-												<groupId>org.codehaus.mojo</groupId>
-												<artifactId>
-													axistools-maven-plugin
-												</artifactId>
-												<versionRange>[1.3,)</versionRange>
+												<groupId>com.github.alexcojocaru</groupId>
+												<artifactId>elasticsearch-maven-plugin</artifactId>
+												<versionRange>[6.23,)</versionRange>
 												<goals>
-													<goal>wsdl2java</goal>
+													<goal>runforked</goal>
+													<goal>stop</goal>
 												</goals>
 											</pluginExecutionFilter>
 											<action>
-												<ignore />
+												<execute>
+													<runOnIncremental>true</runOnIncremental>
+												</execute>
 											</action>
 										</pluginExecution>
+
 										<pluginExecution>
 											<pluginExecutionFilter>
-												<groupId>
-													org.apache.maven.plugins
-												</groupId>
-												<artifactId>
-													maven-antrun-plugin
-												</artifactId>
-												<versionRange>
-													[1.1,)
-												</versionRange>
+												<groupId>net.revelc.code.formatter</groupId>
+												<artifactId>formatter-maven-plugin</artifactId>
+												<versionRange>[2.7.0,)</versionRange>
 												<goals>
-													<goal>run</goal>
+													<goal>format</goal>
+													<goal>default</goal>
 												</goals>
 											</pluginExecutionFilter>
 											<action>
 												<ignore />
 											</action>
 										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>
-													org.apache.maven.plugins
-												</groupId>
-												<artifactId>
-													maven-ear-plugin
-												</artifactId>
-												<versionRange>
-													[2.4.2,)
-												</versionRange>
-												<goals>
-													<goal>
-														generate-application-xml
-													</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
+
 										<pluginExecution>
 											<pluginExecutionFilter>
 												<groupId>
@@ -1577,109 +1389,6 @@
 											</pluginExecutionFilter>
 											<action>
 												<ignore />
-											</action>
-										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>
-													org.codehaus.mojo
-												</groupId>
-												<artifactId>
-													javacc-maven-plugin
-												</artifactId>
-												<versionRange>
-													[2.6,)
-												</versionRange>
-												<goals>
-													<goal>javacc</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>org.zeroturnaround</groupId>
-												<artifactId>jrebel-maven-plugin</artifactId>
-												<versionRange>[1.1.3,)</versionRange>
-												<goals>
-													<goal>generate</goal>
-													<goal>generate-liverebel-xml</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>org.apache.maven.plugins</groupId>
-												<artifactId>maven-dependency-plugin</artifactId>
-												<versionRange>[1.0.0,)</versionRange>
-												<goals>
-													<goal>copy-dependencies</goal>
-													<goal>unpack-dependencies</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>com.google.code.maven-replacer-plugin</groupId>
-												<artifactId>replacer</artifactId>
-												<versionRange>[1.5.3,)</versionRange>
-												<goals>
-													<goal>replace</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>net.revelc.code.formatter</groupId>
-												<artifactId>formatter-maven-plugin</artifactId>
-												<versionRange>[0.4,)</versionRange>
-												<goals>
-													<goal>format</goal>
-													<goal>default</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>org.jacoco</groupId>
-												<artifactId>jacoco-maven-plugin</artifactId>
-												<versionRange>[0.7.1.201405082137,)</versionRange>
-												<goals>
-													<goal>prepare-agent</goal>
-													<goal>prepare-ut-agent</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>org.codehaus.mojo</groupId>
-												<artifactId>buildnumber-maven-plugin</artifactId>
-												<versionRange>[1.0,)</versionRange>
-												<goals>
-													<goal>create</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<execute>
-													<runOnIncremental>true</runOnIncremental>
-												</execute>
 											</action>
 										</pluginExecution>
 									</pluginExecutions>

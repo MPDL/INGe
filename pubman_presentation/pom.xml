@@ -26,13 +26,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<warName>pubman_presentation</warName>
 					<archive>
 						<manifestEntries>
 							<Dependencies>pubman</Dependencies>
 						</manifestEntries>
 					</archive>
-					<classifier>${inge.pubman.build.mode}</classifier>
 				</configuration>
 			</plugin>
 			<plugin>
