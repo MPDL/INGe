@@ -71,11 +71,11 @@
 			<version>2.3</version>
 			<scope>runtime</scope>
 		</dependency>
-			<dependency>
-				<groupId>org.json</groupId>
-				<artifactId>json</artifactId>
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
 			<scope>runtime</scope>
-			</dependency>
+		</dependency>
 	</dependencies>
 
 </project>
