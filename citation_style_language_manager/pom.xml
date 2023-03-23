@@ -55,7 +55,6 @@
 					<includes>
 						<include>**/TestCitationStyleLanguageManager.java</include>
 					</includes>
-					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
 		</plugins>

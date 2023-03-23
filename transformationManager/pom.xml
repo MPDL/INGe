@@ -36,7 +36,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<skip>false</skip>
-					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1277,69 +1277,6 @@
 			</activation>
 		</profile>
 
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-				<jacoco.version>0.8.2</jacoco.version>
-				<jacoco.outputDir>${project.build.directory}</jacoco.outputDir>
-				<jacoco.out.ut.file>jacoco.exec</jacoco.out.ut.file>
-				<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
-				<sonar.jacoco.reportPaths>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPaths>
-				<sonar.jacoco.itReportPaths>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPaths>
-				<jacoco.arguments.ut>-Xmx1G -XX:+CMSClassUnloadingEnabled
-					${jacoco.agent.ut.arg}</jacoco.arguments.ut>
-				<jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m
-					-XX:+CMSClassUnloadingEnabled ${jacoco.agent.it.arg}</jacoco.arguments.it>
-			</properties>
-
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.jacoco</groupId>
-							<artifactId>jacoco-maven-plugin</artifactId>
-							<version>${jacoco.version}</version>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-
-				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>prepare-ut-agent</id>
-								<phase>process-test-classes</phase>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-								<configuration>
-									<destFile>${sonar.jacoco.reportPaths}</destFile>
-									<propertyName>jacoco.agent.ut.arg</propertyName>
-									<append>true</append>
-								</configuration>
-							</execution>
-							<execution>
-								<id>jacoco-site</id>
-								<phase>test</phase>
-								<goals>
-									<goal>report</goal>
-								</goals>
-								<configuration>
-									<dataFile>${sonar.jacoco.reportPaths}</dataFile>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		
 		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
 		<profile>
 			<id>only-eclipse</id>
