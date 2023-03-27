@@ -6,7 +6,7 @@
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<name>INGe</name>
-	<version>8.4.13-SNAPSHOT</version>
+	<version>8.5.0</version>
 
 	<packaging>pom</packaging>
 
@@ -133,7 +133,7 @@
 		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
 		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
 		<url>https://github.com/MPDL/INGe</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.5.0</tag>
 	</scm>
 
 	<repositories>
@@ -655,96 +655,96 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>8.4.13-SNAPSHOT</version>
+				<version>8.5.0</version>
 			</dependency>
 
 			<!-- Saxon -->
@@ -1034,12 +1034,12 @@
 		<inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
 		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
 		<inge.email.withauthentication>false</inge.email.withauthentication>
-		<inge.es.password></inge.es.password>
+		<inge.es.password />
 		<inge.es.rest.host-port.test>localhost:9400</inge.es.rest.host-port.test>
 		<inge.es.rest.host-port>localhost:9200</inge.es.rest.host-port>
-		<inge.es.rest.path-prefix.test></inge.es.rest.path-prefix.test>
-		<inge.es.rest.path-prefix></inge.es.rest.path-prefix>
-		<inge.es.user></inge.es.user>
+		<inge.es.rest.path-prefix.test />
+		<inge.es.rest.path-prefix />
+		<inge.es.user />
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
