@@ -1,4 +1,4 @@
-<!-- Mattomo -->
+<!-- Matomo -->
 <script data-name="matomo"  data-category="analytics" type="text/plain">
 var _paq = _paq || [];
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
