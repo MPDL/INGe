@@ -38,7 +38,7 @@
 							align="left" />
 						<!-- Textual description and link to external resource -->
 						<h:panelGroup id="imgLocatorGroupOpenAccess"
-							rendered="#{locator.file.metadata.oaStatus!=null}">
+							rendered="#{locator.file.metadata.oaStatus!=null and locator.file.metadata.oaStatus.name().toLowerCase() != 'closed_access'}">
 							<img src="../resources/images/open_access_#{locator.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 									 class="large_imgImg xTiny_marginRExcl" align="left" title="#{locator.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
 									 	locator.file.metadata.oaStatus.name().toLowerCase() == 'green' ? tip.ViewItem_imgOa_green :

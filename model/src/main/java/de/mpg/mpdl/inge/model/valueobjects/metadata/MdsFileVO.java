@@ -39,7 +39,7 @@ public class MdsFileVO extends MetadataSetVO {
 
   public enum OA_STATUS
   {
-		NOT_SPECIFIED, GOLD, HYBRID, GREEN, MISCELLANEOUS
+		NOT_SPECIFIED, GOLD, HYBRID, GREEN, MISCELLANEOUS, CLOSED_ACCESS
 	}
 
   /**

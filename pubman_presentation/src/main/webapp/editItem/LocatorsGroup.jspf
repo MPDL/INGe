@@ -150,7 +150,7 @@
 									value="#{locator.file.metadata.oaStatus}"
 									onfocus="updateSelectionBox(this);"
 									onchange="this.form.submit()">
-									<f:selectItems value="#{EditItem.oaStatuses}" />
+									<f:selectItems value="#{EditItem.oaStatusesLocators}" />
 								</h:selectOneMenu>
 							</h:panelGroup>
 						</span>

@@ -919,7 +919,20 @@ public class EditItem extends FacesBean {
     return this.getI18nHelper().getSelectItemsVisibility(false);
   }
 
-  public SelectItem[] getOaStatuses() {
+  public SelectItem[] getOaStatusesFiles() {
+    SelectItem[] oaSatuses = this.getI18nHelper().getSelectItemsOaStatus(false);
+    SelectItem[] reducedOaSatuses = new SelectItem[oaSatuses.length - 1];
+    int j = 0;
+    for (int i = 0; i < oaSatuses.length; i++) {
+      if (!MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(oaSatuses[i].getValue())) {
+        reducedOaSatuses[j] = oaSatuses[i];
+        j++;
+      }
+    }
+    return reducedOaSatuses;
+  }
+
+  public SelectItem[] getOaStatusesLocators() {
     return this.getI18nHelper().getSelectItemsOaStatus(false);
   }
 

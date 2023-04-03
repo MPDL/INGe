@@ -34,8 +34,10 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
     super(type);
     if (SearchCriterion.FILE_SECTION.equals(type)) {
       storageType = Storage.INTERNAL_MANAGED;
+      oaStatusListSearchCriterion = new ComponentOaStatusListSearchCriterion(true);
     } else if (SearchCriterion.LOCATOR_SECTION.equals(type)) {
       storageType = Storage.EXTERNAL_URL;
+      oaStatusListSearchCriterion = new ComponentOaStatusListSearchCriterion(false);
     }
   }
 

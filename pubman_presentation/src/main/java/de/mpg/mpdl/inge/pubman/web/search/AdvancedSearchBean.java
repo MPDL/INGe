@@ -714,8 +714,8 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     return this.oaStatusListMenu;
   }
 
-  public void setOaStatutsListMenu(List<SelectItem> contentCategoryListMenu) {
-    this.oaStatusListMenu = contentCategoryListMenu;
+  public void setOaStatutsListMenu(List<SelectItem> oaStatusListMenu) {
+    this.oaStatusListMenu = oaStatusListMenu;
   }
 
   public List<SelectItem> getComponentVisibilityListMenu() {
