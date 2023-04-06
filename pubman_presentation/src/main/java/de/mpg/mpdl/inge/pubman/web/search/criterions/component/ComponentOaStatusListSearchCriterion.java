@@ -48,8 +48,6 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
     super(ComponentOaStatusListSearchCriterion.getOaStatusMap(false));
   }
 
-  private static Map<String, String> getOaStatusMap() {
-    final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
   public ComponentOaStatusListSearchCriterion(boolean reducedListFlag) {
     super(ComponentOaStatusListSearchCriterion.getOaStatusMap(reducedListFlag));
   }
