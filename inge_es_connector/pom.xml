@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.4.13-SNAPSHOT</version>
+		<version>8.5.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>inge_es_connector</artifactId>
@@ -48,7 +48,6 @@
 						<include>**/**Test.java</include>
 						<include>**/Test**.java</include>
 					</includes>
-					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -63,9 +62,6 @@
 					<keepExistingData>true</keepExistingData>
 					<pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>
 					<skip>${maven.test.skip}</skip>
-					<environmentVariables>
-						<!--<JAVA_HOME>${elasticsearch.plugin.java_home.dir}</JAVA_HOME>-->
-					</environmentVariables>
 				</configuration>
 				<executions>
 					<execution>
@@ -85,6 +81,36 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.github.alexcojocaru</groupId>
+										<artifactId>elasticsearch-maven-plugin</artifactId>
+										<versionRange>[6.23,)</versionRange>
+										<goals>
+											<goal>runforked</goal>
+											<goal>stop</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<dependencies>

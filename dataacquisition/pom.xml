@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.4.13-SNAPSHOT</version>
+		<version>8.5.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>dataacquisition</artifactId>
@@ -60,10 +60,44 @@
 						<include>**/DataSourceHandlerTest.java</include>
 					</includes>
 					<skip>false</skip>
-					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
 		</plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											xmlbeans-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.3.3,)
+										</versionRange>
+										<goals>
+											<goal>xmlbeans</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 
 		<resources>
 			<resource>

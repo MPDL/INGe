@@ -51,6 +51,11 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
     this.initEnumMap(preSelectionMap);
   }
 
+  //  public MapListSearchCriterion(Map<String, T> m, Map<String, Boolean> preSelectionMap, boolean removeListValues) {
+  //    this.setValueMap(m);
+  //    this.initEnumMap(preSelectionMap);
+  //  }
+
   public MapListSearchCriterion(Map<String, T> m) {
     this.setValueMap(m);
     this.initEnumMap(null);
@@ -66,6 +71,17 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
         this.enumMap.put(v, preSelectionMap.get(v));
       }
 
+    }
+    return this.enumMap;
+
+  }
+
+  public Map<String, Boolean> initRemoveSelctedEnumMap(Map<String, Boolean> preSelectionMap) {
+
+    for (final String v : this.getValueMap().keySet()) {
+      if (preSelectionMap == null || preSelectionMap.containsKey(v)) {
+        this.enumMap.remove(v, preSelectionMap.get(v));
+      }
     }
     return this.enumMap;
 

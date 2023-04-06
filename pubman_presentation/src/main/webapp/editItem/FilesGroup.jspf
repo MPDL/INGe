@@ -156,7 +156,7 @@
 									value="#{fileVar.file.metadata.oaStatus}"
 									onfocus="updateSelectionBox(this);"
 									onchange="this.form.submit()">
-									<f:selectItems value="#{EditItem.oaStatuses}" />
+									<f:selectItems value="#{EditItem.oaStatusesFiles}" />
 								</h:selectOneMenu>
 							</h:panelGroup>
 						</h:panelGroup>

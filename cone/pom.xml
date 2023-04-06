@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.4.13-SNAPSHOT</version>
+		<version>8.5.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>cone</artifactId>
@@ -41,7 +41,6 @@
 						<include>**/**Test.java</include>
 						<include>**/Test**.java</include>
 					</includes>
-					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
 		</plugins>

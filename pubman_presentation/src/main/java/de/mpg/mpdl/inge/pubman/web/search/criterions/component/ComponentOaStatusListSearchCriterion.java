@@ -42,21 +42,30 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 @SuppressWarnings("serial")
 public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion<String> {
 
-
+  private static final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
 
   public ComponentOaStatusListSearchCriterion() {
-    super(ComponentOaStatusListSearchCriterion.getOaStatusMap());
+    super(ComponentOaStatusListSearchCriterion.getOaStatusMap(false));
   }
 
   private static Map<String, String> getOaStatusMap() {
     final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
+  public ComponentOaStatusListSearchCriterion(boolean reducedListFlag) {
+    super(ComponentOaStatusListSearchCriterion.getOaStatusMap(reducedListFlag));
+  }
+
+  private static Map<String, String> getOaStatusMap(boolean reducedListFlag) {
     final MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
     final Map<String, String> oaMap = new LinkedHashMap<String, String>();
     final Map<String, String> newMap = new LinkedHashMap<String, String>();
 
     if (values.length > 0) {
       for (int i = 0; i < values.length; i++) {
-        oaMap.put(values[i].name(), i18nHelper.convertEnumToString(values[i]));
+        if (reducedListFlag == true && MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(values[i].name())) {
+
+        } else {
+          oaMap.put(values[i].name(), i18nHelper.convertEnumToString(values[i]));
+        }
       }
     }
     for (final Entry<String, String> entry : oaMap.entrySet()) {
@@ -65,7 +74,6 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
 
     return newMap;
   }
-
 
   @Override
   public String getCqlValue(Index indexName, String value) {
@@ -91,7 +99,6 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
       BoolQuery.Builder bq = new BoolQuery.Builder();
       for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
-
         if (entry.getValue()) {
           final String value = this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(entry.getKey()));
           final String notSpecifiedValue =
@@ -102,16 +109,13 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
           }
           bq = bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(value), value));
 
-
         }
 
       }
 
-
       return bq.build()._toQuery();
 
     }
-
 
     return null;
   }
