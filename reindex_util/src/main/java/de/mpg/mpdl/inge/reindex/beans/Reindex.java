@@ -14,7 +14,7 @@ public class Reindex {
 
   public boolean run(String what, String id) throws Exception {
     switch (what) {
-      case "ctxs_reindex":
+      case "contexts_reindex":
         reIndexing.reindexContexts();
         break;
       case "items_reindex":
