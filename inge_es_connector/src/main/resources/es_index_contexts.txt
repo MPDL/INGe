@@ -1,5 +1,11 @@
 Postman:
-PUT https://IP/es/contexts_20180919
+PUT https://IP/es/contexts_20230328
+Body raw json
 es_index_contexts.json
 
 Alias: contexts
+
+curl -X PUT localhost:9200/contexts_20230328 -H 'Content-Type: application/json' -d 'es_index_contexts.json'
+
+GET https://IP/es/contexts_20230328/_search?track_total_hits=true
+DELETE https://IP/es/contexts_2023032

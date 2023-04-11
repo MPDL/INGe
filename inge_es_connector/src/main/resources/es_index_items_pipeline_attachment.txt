@@ -1,3 +1,4 @@
 Postman:
 PUT https://IP/es/_ingest/pipeline/attachment
+Body raw json
 es_index_items_pipeline_attachement.json

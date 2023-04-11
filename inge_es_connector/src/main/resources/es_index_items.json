@@ -763,22 +763,6 @@
           },
           "event": {
             "properties": {
-              "alternativeTitles": {
-                "properties": {
-                  "language": {
-                    "type": "keyword"
-                  },
-                  "value": {
-                    "type": "text",
-                    "fields": {
-                      "keyword": {
-                        "type": "keyword",
-                        "normalizer": "sort"
-                      }
-                    }
-                  }
-                }
-              },
               "endDate": {
                 "type": "date",
                 "ignore_malformed": true,
