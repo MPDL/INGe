@@ -28,8 +28,7 @@
           "type": "html_strip"
         }
       }
-    },
-    "number_of_replicas": "1"
+    }
   },
   "mappings": {
     "dynamic": "strict",
