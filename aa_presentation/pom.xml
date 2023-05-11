@@ -74,7 +74,7 @@
 			</build>
 		</profile>
         <profile>
-            <id>env-iass</id>
+            <id>env-rifs</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>

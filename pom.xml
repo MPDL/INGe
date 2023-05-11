@@ -1251,9 +1251,9 @@
 			</distributionManagement>
 		</profile>
 
-        <!-- activate this profile for an Iass build -->
+        <!-- activate this profile for an Rifs build -->
         <profile>
-            <id>env-iass</id>
+            <id>env-rifs</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -1273,7 +1273,7 @@
                 <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
                 <inge.cone.cache.use>false</inge.cone.cache.use>
                 <inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
-                <inge.cone.modelsxml.path>models_iass.xml</inge.cone.modelsxml.path>
+                <inge.cone.modelsxml.path>models_rifs.xml</inge.cone.modelsxml.path>
                 <inge.cone.subjectVocab />
                 <inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
                 <inge.doi.service.create.url />
@@ -1284,7 +1284,7 @@
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,RIFSPROJECT,SSRN,URI,URN,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1293,16 +1293,16 @@
                 <inge.pubman.blog.baseUrl />
                 <inge.pubman.blog.news />
                 <inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-                <inge.pubman.build.mode>iass</inge.pubman.build.mode>
+                <inge.pubman.build.mode>rifs</inge.pubman.build.mode>
                 <inge.pubman.contact.url />
                 <inge.pubman.handbook.url />
                 <inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
-                <inge.pubman.logo.url>/resources/images/iass.svg</inge.pubman.logo.url>
-                <inge.pubman.policy.url>https://www.iass-potsdam.de/de/impressum</inge.pubman.policy.url>
-                <inge.pubman.privacy.policy.url>https://www.iass-potsdam.de/de/datenschutz</inge.pubman.privacy.policy.url>
+                <inge.pubman.logo.url>/resources/images/rifs.jpg</inge.pubman.logo.url>
+                <inge.pubman.policy.url>https://www.rifs-potsdam.de/de/impressum</inge.pubman.policy.url>
+                <inge.pubman.privacy.policy.url>https://www.rifs-potsdam.de/de/datenschutz</inge.pubman.privacy.policy.url>
                 <inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
                 <inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
-                <inge.pubman_presentation.overview_page.authors_ou>IASS</inge.pubman_presentation.overview_page.authors_ou>
+                <inge.pubman_presentation.overview_page.authors_ou>RIFS</inge.pubman_presentation.overview_page.authors_ou>
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>

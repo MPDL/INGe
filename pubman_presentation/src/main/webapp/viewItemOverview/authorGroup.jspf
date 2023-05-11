@@ -89,10 +89,10 @@
 		</h:panelGroup>
 	</h:panelGroup>
 	
-    <!-- Authors tile GFZ, IASS, PIK-->
+    <!-- Authors tile GFZ, RIFS, PIK-->
     <h:panelGroup layout="block"
         styleClass="huge_area0 tile_category borderDarkBlue"
-        rendered="#{ViewItemFull.specificOrganization == 'GFZ' or ViewItemFull.specificOrganization == 'IASS' or ViewItemFull.specificOrganization == 'PIK'}">
+        rendered="#{ViewItemFull.specificOrganization == 'GFZ' or ViewItemFull.specificOrganization == 'RIFS' or ViewItemFull.specificOrganization == 'PIK'}">
         <!-- Authors tile title and icon -->
         <!-- Gfz specific -->
         <h:panelGroup layout="block" styleClass="huge_area0_p6"
@@ -104,11 +104,11 @@
                     value="#{lbl.ViewItemOverview_lblSpecificAuthorsSection}" />
             </h5>
         </h:panelGroup>
-        <!-- Iass specific -->
+        <!-- Rifs specific -->
         <h:panelGroup layout="block" styleClass="huge_area0_p6"
-            rendered="#{ViewItemFull.specificOrganization == 'IASS'}">
+            rendered="#{ViewItemFull.specificOrganization == 'RIFS'}">
             <h5 class="tile_title">
-                <img src="../resources/images/overviewPage/IASS_authors_31.png"
+                <img src="../resources/images/overviewPage/RIFS_authors_31.png"
                     class="big_imgBtn" align="right" />
                 <h:outputText
                     value="#{lbl.ViewItemOverview_lblSpecificAuthorsSection}" />
@@ -124,13 +124,13 @@
                     value="#{lbl.ViewItemOverview_lblSpecificAuthorsSection}" />
             </h5>
         </h:panelGroup>
-        <!-- If no authors available show message for GFZ,IASS,PIK -->
+        <!-- If no authors available show message for GFZ,RIFS,PIK -->
         <h:panelGroup layout="block" styleClass="huge_area0_p6"
             rendered="#{ViewItemFull.pubItem.allAuthors == null or ViewItemFull.pubItem.allAuthors != null and empty(ViewItemFull.pubItem.allAuthors)}">
             <h:outputText
                 value="#{msg.ViewItemOverview_noSpecificAuthorsAvailable}" />
         </h:panelGroup>
-        <!-- Iterator for GFZ, IASS, PIK Authors -->
+        <!-- Iterator for GFZ, RIFS, PIK Authors -->
         <h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
             style="max-height:300px;">
             <h:panelGroup layout="block" styleClass="free_area0_p6 content">
@@ -159,17 +159,17 @@
                                      class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
                             </h:panelGroup>
                         </h:panelGroup>
-                        <!-- Iass specific -->
+                        <!-- Rifs specific -->
                         <h:panelGroup styleClass="image"
-                            rendered="#{ViewItemFull.specificOrganization == 'IASS'}">
-                            <!-- Standard image for Iass-Authors with CoNE link -->
+                            rendered="#{ViewItemFull.specificOrganization == 'RIFS'}">
+                            <!-- Standard image for Rifs-Authors with CoNE link -->
                             <h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
                                 rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
                                 target="_blank">
-                                <img src="../resources/images/overviewPage/IASS_authors_64.png"
+                                <img src="../resources/images/overviewPage/RIFS_authors_64.png"
                                     class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
                             </h:outputLink>
-                            <!-- Standard image for Iass-Authors without CoNE link -->
+                            <!-- Standard image for Rifs-Authors without CoNE link -->
                             <h:panelGroup
                                 rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
                                 <img src="../resources/images/overviewPage/ANY_authors_64.png"

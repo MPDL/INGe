@@ -8,10 +8,10 @@
 	<f:loadBundle var="tip" basename="Tooltip" />
 	<!-- HOMEPAGE ENGLISH VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
-		<h2>Publication Database IASS</h2>
+		<h2>Publication Database RIFS</h2>
 		<p> - Open Access repository<br />
 			- Open publishing platform for books, proceedings, journals and more<br />
-			- Publication records from external use of IASS scientific infrastructure
+			- Publication records from external use of RIFS scientific infrastructure
 		</p>
 		<br />
 		<br />
@@ -60,10 +60,10 @@
 	</h:panelGroup>
 	<!-- HOMEPAGE GERMAN VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
-        <h2>Publikationsdatenbank IASS</h2>
+        <h2>Publikationsdatenbank RIFS</h2>
 		<p>	- Open Access Repository<br />
 			- offene Verlagsplattform für Bücher, Proceedings, Zeitschriften und mehr<br />
-			- Publikationsnachweise zur externen Nutzung der wissenschaftlichen Infrastruktur des IASS
+			- Publikationsnachweise zur externen Nutzung der wissenschaftlichen Infrastruktur des RIFS
 		</p>
 		<br />
 		<br />
@@ -112,10 +112,10 @@
 	</h:panelGroup>
 	<!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
-        <h2>Publication Database IASS</h2>
+        <h2>Publication Database RIFS</h2>
 		<p> - Open Access repository<br />
 			- Open publishing platform for books, proceedings, journals and more<br />
-			- Publication records from external use of IASS scientific infrastructure
+			- Publication records from external use of RIFS scientific infrastructure
 		</p>
 		<br />
 		<br />

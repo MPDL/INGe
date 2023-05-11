@@ -441,6 +441,27 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 	</model>
 	
 	<model>
+		<name>rifsproject</name>
+		<aliases>
+			<alias>rifsproject</alias>
+		</aliases>
+		<description>RIFS Projects</description>
+		<open>false</open>
+		<primary-identifier control="false" subject-prefix="rifsproject/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="Langform" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Kurzform" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
 		<name>funding-organizations</name>
 		<aliases>
 			<alias>funding-organizations</alias>
