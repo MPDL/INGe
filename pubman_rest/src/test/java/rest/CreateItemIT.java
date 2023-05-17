@@ -24,6 +24,7 @@ public class CreateItemIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
     public static void initSpec() {
@@ -31,15 +32,13 @@ public class CreateItemIT {
     }
 
     @Test
-    public void testCreateItem() throws IOException, JSONException {
+    void testCreateItem() throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
-
-        String requestBody = Files.readString(Paths.get("src/test/resources/itemRequest.json"), StandardCharsets.UTF_8);
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(requestBody);
-        ((ObjectNode) jsonNode.path("metadata")).put("title", "REST Assured Test Title 1");
-        requestBody = jsonNode.toString();
+        String baseRequestBody = Files.readString(Paths.get("src/test/resources/itemRequest.json"), StandardCharsets.UTF_8);
+        JsonNode requestNode = this.objectMapper.readTree(baseRequestBody);
+        ((ObjectNode) requestNode.path("metadata")).put("title", "REST Assured Test Title 1");
+        String requestBody = requestNode.toString();
 
         //When
         Response response = given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody)
@@ -56,10 +55,9 @@ public class CreateItemIT {
     }
 
     @Test
-    public void testCreateItemNoAuthorizationToken() throws IOException, JSONException {
+    void testCreateItemNoAuthorizationToken() throws IOException, JSONException {
         //Given
         String token = "";
-
         String requestBody = Files.readString(Paths.get("src/test/resources/itemRequest.json"), StandardCharsets.UTF_8);
 
         //When
@@ -68,8 +66,7 @@ public class CreateItemIT {
 
         //Then
         String responseBody = response.getBody().asString();
-        String expectedResponseBody =
-                Files.readString(Paths.get("src/test/resources/emptyAuthorizationTokenResponse.json"), StandardCharsets.UTF_8);
+        String expectedResponseBody = Files.readString(Paths.get("src/test/resources/emptyAuthorizationTokenResponse.json"), StandardCharsets.UTF_8);
         String[] ignoreFields = {"timestamp", "exception", "message", "cause.exception", "cause.message"};
         //TODO: Rework returned messages & exception in productive code
         AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);

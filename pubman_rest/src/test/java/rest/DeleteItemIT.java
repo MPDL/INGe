@@ -1,6 +1,5 @@
 package rest;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -22,6 +21,7 @@ public class DeleteItemIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
     public static void initSpec() {
@@ -29,16 +29,12 @@ public class DeleteItemIT {
     }
 
     @Test
-    public void testDeleteItem() throws IOException, JSONException {
+    void testDeleteItem() throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
-
         String requestBody = Files.readString(Paths.get("src/test/resources/deleteItemRequest.json"), StandardCharsets.UTF_8);
-
         String createdItemBody = TestDataManager.createItem();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(createdItemBody);
-        String itemId = jsonNode.get("objectId").asText();
+        String itemId = this.objectMapper.readTree(createdItemBody).get("objectId").asText();
 
         //When
         given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody).when().delete(itemId)

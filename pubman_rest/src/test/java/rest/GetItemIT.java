@@ -1,6 +1,5 @@
 package rest;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -23,6 +22,7 @@ public class GetItemIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
     public static void initSpec() {
@@ -30,14 +30,11 @@ public class GetItemIT {
     }
 
     @Test
-    public void testGetItem() throws IOException, JSONException {
+    void testGetItem() throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
-
         String requestBody = TestDataManager.createItem();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(requestBody);
-        String itemId = jsonNode.get("objectId").asText();
+        String itemId = this.objectMapper.readTree(requestBody).get("objectId").asText();
 
         //When
         Response response = given().spec(requestSpecification).header("Authorization", token).when().get(itemId).then().statusCode(200)
@@ -54,12 +51,10 @@ public class GetItemIT {
     }
 
     @Test
-    public void testGetItemNoAuthorizationToken() throws IOException, JSONException {
+    void testGetItemNoAuthorizationToken() throws IOException, JSONException {
         //Given
         String requestBody = TestDataManager.createItem();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(requestBody);
-        String itemId = jsonNode.get("objectId").asText();
+        String itemId = this.objectMapper.readTree(requestBody).get("objectId").asText();
 
         //When
         Response response =

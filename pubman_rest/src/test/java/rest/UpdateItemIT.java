@@ -22,6 +22,7 @@ public class UpdateItemIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
     public static void initSpec() {
@@ -29,17 +30,14 @@ public class UpdateItemIT {
     }
 
     @Test
-    public void testUpdateItem() throws IOException, JSONException {
+    void testUpdateItem() throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
-
-        String requestBody = TestDataManager.createItem();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(requestBody);
-        ((ObjectNode) jsonNode.path("metadata")).put("title", "REST Assured Test Title 1 - Updated");
-        requestBody = jsonNode.toString();
-
-        String itemId = jsonNode.get("objectId").asText();
+        String baseRequestBody = TestDataManager.createItem();
+        JsonNode requestNode = this.objectMapper.readTree(baseRequestBody);
+        ((ObjectNode) requestNode.path("metadata")).put("title", "REST Assured Test Title 1 - Updated");
+        String requestBody = requestNode.toString();
+        String itemId = requestNode.get("objectId").asText();
 
         //When
         Response response = given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody)
@@ -47,16 +45,15 @@ public class UpdateItemIT {
 
         //Then
         String responseBody = response.getBody().asString();
-        String expectedResponseBody = requestBody;
         String[] ignoreFields = {"lastModificationDate", "latestVersion.modificationDate", "modificationDate"};
-        AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
+        AssertJsonWrapper.assertEquals(requestBody, responseBody, ignoreFields);
 
         JsonNode responseBodyNode = objectMapper.readTree(responseBody);
-        assertThat(responseBodyNode.get("modificationDate").toString()).isNotEqualToIgnoringCase(jsonNode.get("modificationDate").toString());
+        assertThat(responseBodyNode.get("modificationDate").toString()).isNotEqualToIgnoringCase(requestNode.get("modificationDate").toString());
         assertThat(responseBodyNode.get("lastModificationDate").toString())
-                .isNotEqualToIgnoringCase(jsonNode.get("lastModificationDate").toString());
+                .isNotEqualToIgnoringCase(requestNode.get("lastModificationDate").toString());
         assertThat(responseBodyNode.get("latestVersion").path("modificationDate").toString())
-                .isNotEqualToIgnoringCase(jsonNode.get("latestVersion").path("modificationDate").toString());
+                .isNotEqualToIgnoringCase(requestNode.get("latestVersion").path("modificationDate").toString());
 
         //TODO: Extract or Add finally:
         TestDataManager.deleteItem(responseBody);

@@ -27,7 +27,7 @@ public class LoginIT {
     }
 
     @Test
-    public void testLogin() throws JSONException {
+    void testLogin() throws JSONException {
         //Given
         String credentials = TestBase.USERNAME + ":" + TestBase.PASSWORD;
 
@@ -43,7 +43,7 @@ public class LoginIT {
     }
 
     @Test
-    public void testLoginNoBody() throws IOException, JSONException {
+    void testLoginNoBody() throws IOException, JSONException {
         //Given
 
         //When
@@ -61,7 +61,7 @@ public class LoginIT {
     }
 
     @Test
-    public void testLoginWrongCredentials() throws IOException, JSONException {
+    void testLoginWrongCredentials() throws IOException, JSONException {
         //Given
         String credentials = TestBase.USERNAME + ":" + "WrongPassword";
 
