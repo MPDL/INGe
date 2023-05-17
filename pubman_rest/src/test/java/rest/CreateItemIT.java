@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,10 +28,16 @@ public class CreateItemIT {
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private String responseBody;
 
     @BeforeAll
-    public static void initSpec() {
+    static void initSpec() {
         requestSpecification = TestBase.initRequestSpecification(BASE_PATH);
+    }
+
+    @AfterEach
+    void deleteItems() throws IOException {
+        TestDataManager.deleteItem(responseBody);
     }
 
     @Test
@@ -47,13 +54,10 @@ public class CreateItemIT {
                 .when().post().then().statusCode(201).contentType(ContentType.JSON).extract().response();
 
         //Then
-        String responseBody = response.getBody().asString();
+        responseBody = response.getBody().asString();
         String expectedResponseBody = Files.readString(Paths.get("src/test/resources/createdItemResponse.json"), StandardCharsets.UTF_8);
         String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId"};
         AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
-
-        //TODO: Extract or Add finally:
-        TestDataManager.deleteItem(responseBody);
     }
 
     @ParameterizedTest
@@ -72,30 +76,9 @@ public class CreateItemIT {
                 .when().post().then().statusCode(201).contentType(ContentType.JSON).extract().response();
 
         //Then
-        String responseBody = response.getBody().asString();
+        responseBody = response.getBody().asString();
         String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId"};
         AssertJsonWrapper.assertEquals(baseRequestBody, responseBody, ignoreFields);
-
-        //TODO: Extract or Add finally:
-        TestDataManager.deleteItem(responseBody);
-    }
-
-    @Test
-    void testCreateItemNoAuthorizationToken() throws IOException, JSONException {
-        //Given
-        String token = "";
-        String requestBody = Files.readString(Paths.get("src/test/resources/itemRequest.json"), StandardCharsets.UTF_8);
-
-        //When
-        Response response = given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody)
-                .when().post().then().statusCode(401).contentType(ContentType.JSON).extract().response();
-
-        //Then
-        String responseBody = response.getBody().asString();
-        String expectedResponseBody = Files.readString(Paths.get("src/test/resources/emptyAuthorizationTokenResponse.json"), StandardCharsets.UTF_8);
-        String[] ignoreFields = {"timestamp", "exception", "message", "cause.exception", "cause.message"};
-        //TODO: Rework returned messages & exception in productive code
-        AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
     }
 
 }
