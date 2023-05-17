@@ -1,0 +1,7 @@
+{
+  "timestamp": "",
+  "status": 401,
+  "error": "Unauthorized",
+  "exception": "",
+  "message": "You have to be logged in with username/password."
+}

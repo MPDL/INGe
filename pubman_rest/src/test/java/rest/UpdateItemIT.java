@@ -30,7 +30,7 @@ public class UpdateItemIT {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
-    public static void initSpec() {
+    static void initSpec() {
         requestSpecification = TestBase.initRequestSpecification(BASE_PATH);
     }
 
