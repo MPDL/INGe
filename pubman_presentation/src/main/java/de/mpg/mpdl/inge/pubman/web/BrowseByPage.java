@@ -366,7 +366,8 @@ public class BrowseByPage extends BreadcrumbPage {
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
     bqb.must(qb);
-    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(bqb.toString(), "UTF-8"));
+    Query query = bqb.build()._toQuery();
+    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(query.toString(), "UTF-8"));
   }
 
   @Override

@@ -371,49 +371,40 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     return "";
   }
 
-  public void setQueryStringUrlParam(String query) {
+  private void setQueryStringUrlParam(String query) {
     this.queryStringUrlParam = query;
     this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterQuery, query);
   }
 
-  public String getElasticSearchQueryUrlParam() {
+  private String getElasticSearchQueryUrlParam() {
     if (this.elasticSearchQueryUrlParam == null) {
       this.elasticSearchQueryUrlParam =
           this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
     }
-    return this.elasticSearchQueryUrlParam;
+    return this.elasticSearchQueryUrlParam != null ? this.elasticSearchQueryUrlParam.replace("Query: ", "") : null;
   }
 
-  public void setElasticSearchQueryUrlParam(String elasticSearchQuery) {
+  private void setElasticSearchQueryUrlParam(String elasticSearchQuery) {
     this.elasticSearchQueryUrlParam = elasticSearchQuery;
     this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterElasticSearchQuery,
         elasticSearchQuery);
   }
 
-  public String getPrettyElasticSearchQuery() {
+  public String getElasticSearchQuery() {
     try {
-      if (this.elasticSearchQueryUrlParam != null) {
-        return JsonUtil.prettifyJsonString(this.elasticSearchQueryUrlParam);
-      } else {
-        return this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : "";
-      }
+      return this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : "";
     } catch (Exception e) {
-      logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
+      logger.error("Cannot parse Json String " + this.elasticSearchQueryBuilder);
       return "";
     }
   }
 
   public String getMinifiedUrlEncodedElasticSearchQuery() {
     try {
-      String json = null;
-      if (this.elasticSearchQueryUrlParam != null) {
-        json = this.elasticSearchQueryUrlParam;
-      } else {
-        json = this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : null;
-      }
+      String json = this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : null;
       return json != null ? URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName()) : "";
     } catch (Exception e) {
-      logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
+      logger.error("Cannot parse Json String " + this.elasticSearchQueryBuilder);
       return "";
     }
   }

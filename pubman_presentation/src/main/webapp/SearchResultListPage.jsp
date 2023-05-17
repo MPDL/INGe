@@ -307,7 +307,7 @@
 									</h2>
 									<h:inputTextarea styleClass="half_txtArea inputTxtArea"
 										rows="30"
-										value="#{SearchRetrieverRequestBean.prettyElasticSearchQuery}"
+										value="#{SearchRetrieverRequestBean.elasticSearchQuery}"
 										readonly="true" />
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
