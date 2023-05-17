@@ -1,0 +1,368 @@
+{
+  "objectId": "",
+  "versionNumber": 1,
+  "modificationDate": "",
+  "versionState": "PENDING",
+  "modifier": {
+    "objectId": "user_3020504"
+  },
+  "lastModificationDate": "",
+  "publicState": "PENDING",
+  "objectPid": null,
+  "creator": {
+    "objectId": "user_3020504"
+  },
+  "context": {
+    "objectId": "ctx_persistent3",
+    "name": "PubMan Test Collection",
+    "lastModificationDate": "2022-03-10T10:57:19.493+00:00",
+    "creationDate": "2007-01-16T11:23:24.359+00:00",
+    "creator": {
+      "objectId": "user_user42"
+    },
+    "modifier": {
+      "objectId": "user_user42"
+    }
+  },
+  "creationDate": "",
+  "latestRelease": null,
+  "latestVersion": {
+    "objectId": "",
+    "versionNumber": 1,
+    "modificationDate": "",
+    "versionState": "PENDING",
+    "versionPid": null,
+    "modifier": {
+      "objectId": "user_3020504"
+    }
+  },
+  "localTags": [
+    "PubMan JSON Templates",
+    "tag1"
+  ],
+  "metadata": {
+    "title": "PubMan JSON Template - Conference Paper",
+    "alternativeTitles": [
+      {
+        "value": "Support for JSON Imports",
+        "type": "SUBTITLE"
+      }
+    ],
+    "creators": [
+      {
+        "person": {
+          "givenName": "Martin",
+          "familyName": "Boosen",
+          "organizations": [
+            {
+              "address": "Amalienstr. 33, 80799 Munich, DE",
+              "identifier": "ou_1753285",
+              "name": "Collections, Max Planck Digital Library, Max Planck Society",
+              "identifierPath": [
+                "ou_1753285",
+                "ou_persistent25",
+                "ou_persistent13"
+              ]
+            },
+            {
+              "identifier": "ou_persistent22",
+              "name": "Test Institute",
+              "identifierPath": [
+                "ou_persistent22"
+              ]
+            }
+          ],
+          "identifier": {
+            "id": "/persons/resource/persons96304",
+            "type": "CONE"
+          },
+          "orcid": "https://orcid.org/1234-1234-1234-1234"
+        },
+        "role": "AUTHOR",
+        "type": "PERSON"
+      },
+      {
+        "person": {
+          "givenName": "Peter",
+          "familyName": "Pater"
+        },
+        "role": "AUTHOR",
+        "type": "PERSON"
+      },
+      {
+        "person": {
+          "givenName": "L.",
+          "familyName": "Baum",
+          "organizations": [
+            {
+              "identifier": "ou_persistent22",
+              "name": "External Organizations",
+              "identifierPath": [
+                "ou_persistent22"
+              ]
+            }
+          ]
+        },
+        "role": "AUTHOR",
+        "type": "PERSON"
+      }
+    ],
+    "dateAccepted": "2018-05-01",
+    "dateCreated": "2018-05-01",
+    "dateModified": "2018-05-01",
+    "datePublishedInPrint": "2018",
+    "datePublishedOnline": "2018",
+    "dateSubmitted": "2018-05-01",
+    "event": {
+      "endDate": "2019-07-19",
+      "invitationStatus": "INVITED",
+      "place": "Cologne",
+      "startDate": "2019-07-18",
+      "title": "Testing Conference 2019"
+    },
+    "genre": "CONFERENCE_PAPER",
+    "identifiers": [
+      {
+        "id": "Local_ID: 123456",
+        "type": "OTHER"
+      },
+      {
+        "id": "rt85hd21",
+        "type": "OTHER"
+      },
+      {
+        "id": "Handb9875",
+        "type": "BIBTEX_CITEKEY"
+      },
+      {
+        "id": "arxiv:123456",
+        "type": "ARXIV"
+      },
+      {
+        "id": "10.17617/2.3027595",
+        "type": "DOI"
+      },
+      {
+        "id": "123456",
+        "type": "PMC"
+      },
+      {
+        "id": "987654",
+        "type": "BMC"
+      },
+      {
+        "id": "123456",
+        "type": "SSRN"
+      },
+      {
+        "id": "https://www.mpdl.mpg.de/",
+        "type": "URI"
+      },
+      {
+        "id": "urn:nbn:de:101:1",
+        "type": "URN"
+      }
+    ],
+    "languages": [
+      "deu"
+    ],
+    "reviewMethod": "INTERNAL",
+    "sources": [
+      {
+        "title": "Proceedings of the Testing Conference 2019",
+        "alternativeTitles": [
+          {
+            "value": "TeCon19",
+            "type": "ABBREVIATION"
+          }
+        ],
+        "creators": [
+          {
+            "person": {
+              "givenName": "Martin",
+              "familyName": "Boosen",
+              "organizations": [
+                {
+                  "identifier": "ou_1753285",
+                  "name": "Collections, Max Planck Digital Library, Max Planck Society",
+                  "identifierPath": [
+                    "ou_1753285",
+                    "ou_persistent25",
+                    "ou_persistent13"
+                  ]
+                }
+              ],
+              "identifier": {
+                "id": "/persons/resource/persons96304",
+                "type": "CONE"
+              }
+            },
+            "role": "EDITOR",
+            "type": "PERSON"
+          },
+          {
+            "person": {
+              "givenName": "Matthias",
+              "familyName": "Walter",
+              "organizations": [
+                {
+                  "identifier": "ou_1753285",
+                  "name": "Collections, Max Planck Digital Library, Max Planck Society",
+                  "identifierPath": [
+                    "ou_1753285",
+                    "ou_persistent25",
+                    "ou_persistent13"
+                  ]
+                }
+              ],
+              "identifier": {
+                "id": "/persons/resource/persons96357",
+                "type": "CONE"
+              }
+            },
+            "role": "EDITOR",
+            "type": "PERSON"
+          },
+          {
+            "organization": {
+              "identifier": "ou_persistent25",
+              "name": "Max Planck Digital Library, Max Planck Society",
+              "identifierPath": [
+                "ou_persistent25",
+                "ou_persistent13"
+              ]
+            },
+            "role": "EDITOR",
+            "type": "ORGANIZATION"
+          }
+        ],
+        "volume": "5",
+        "issue": "19",
+        "startPage": "401",
+        "endPage": "413",
+        "sequenceNumber": "e983589578",
+        "publishingInfo": {
+          "edition": "4. Aufl.",
+          "place": "Munich - Berlin - Goettingen",
+          "publisher": "MPDL-Verlag"
+        },
+        "identifiers": [
+          {
+            "id": "12312-4539-45634",
+            "type": "ISBN"
+          }
+        ],
+        "genre": "PROCEEDINGS",
+        "totalNumberOfPages": "584"
+      },
+      {
+        "title": "Interesting Proceedings of the 21st Century",
+        "creators": [
+          {
+            "organization": {
+              "identifier": "ou_persistent13",
+              "name": "Max Planck Society",
+              "identifierPath": [
+                "ou_persistent13"
+              ]
+            },
+            "role": "EDITOR",
+            "type": "ORGANIZATION"
+          },
+          {
+            "organization": {
+              "identifier": "ou_persistent25",
+              "name": "Max Planck Digital Library, Max Planck Society",
+              "identifierPath": [
+                "ou_persistent25",
+                "ou_persistent13"
+              ]
+            },
+            "role": "EDITOR",
+            "type": "ORGANIZATION"
+          }
+        ],
+        "volume": "19",
+        "issue": "7",
+        "startPage": "6502",
+        "endPage": "7086",
+        "sequenceNumber": "e7457547",
+        "publishingInfo": {
+          "edition": "9th. Edition",
+          "place": "Bremen",
+          "publisher": "Series-Verlag"
+        },
+        "identifiers": [
+          {
+            "id": "1234-5678-89",
+            "type": "ISSN"
+          }
+        ],
+        "genre": "SERIES",
+        "totalNumberOfPages": "8792"
+      }
+    ],
+    "freeKeywords": "Keyword 1, Keyword 2, Keyword 3",
+    "subjects": [
+      {
+        "value": "Prophetic books of Old Testament - 224",
+        "type": "DDC"
+      }
+    ],
+    "totalNumberOfPages": "12",
+    "abstracts": [
+      {
+        "language": "eng",
+        "value": "An abstract is a brief summary of a research article, thesis, review, conference proceeding, or any in-depth analysis of a particular subject and is often used to help the reader quickly ascertain the paper's purpose.[1] When used, an abstract always appears at the beginning of a manuscript or typescript, acting as the point-of-entry for any given academic paper or patent application. Abstracting and indexing services for various academic disciplines are aimed at compiling a body of literature for that particular subject.<br><br>The terms précis or synopsis are used in some publications to refer to the same thing that other publications might call an \"abstract\". In management reports, an executive summary usually contains more information (and often more sensitive information) than the abstract does. "
+      },
+      {
+        "language": "deu",
+        "value": "Ein Abstract ist eine prägnante Inhaltsangabe, ein Abriss ohne Interpretation und Wertung einer wissenschaftlichen Arbeit. In DIN 1426 wird das (oder auch der) Abstract als Kurzreferat (auch als Synonym verwandt) zur Inhaltsangabe beschrieben. Dadurch wird die Arbeit vor der Veröffentlichung beschrieben bzw. beworben. "
+      }
+    ],
+    "projectInfo": [
+      {
+        "title": "My little Project",
+        "grantIdentifier": {
+          "id": "456789",
+          "type": "GRANT_ID"
+        },
+        "fundingInfo": {
+          "fundingOrganization": {
+            "title": "Max Planck Society"
+          },
+          "fundingProgram": {
+            "title": "Programme 2354"
+          }
+        }
+      },
+      {
+        "title": "My next Project",
+        "grantIdentifier": {
+          "id": "69752",
+          "type": "GRANT_ID"
+        },
+        "fundingInfo": {
+          "fundingOrganization": {
+            "title": "European Commission",
+            "identifiers": [
+              {
+                "id": "EC",
+                "type": "OPEN_AIRE"
+              }
+            ]
+          },
+          "fundingProgram": {
+            "title": "Horizon 2020",
+            "identifiers": [
+              {
+                "id": "H2020",
+                "type": "OPEN_AIRE"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
