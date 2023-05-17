@@ -21,7 +21,7 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class GetItemIT {
+class GetItemIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";

@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class CreateItemIT {
+class CreateItemIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
@@ -65,8 +65,8 @@ public class CreateItemIT {
     void testCreateItem(String input) throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
-        String baseRequestBody = Files.readString(Paths.get("src/test/resources/templates/" + input), StandardCharsets.UTF_8);
-        JsonNode requestNode = this.objectMapper.readTree(baseRequestBody);
+        String baseBody = Files.readString(Paths.get("src/test/resources/templates/" + input), StandardCharsets.UTF_8);
+        JsonNode requestNode = this.objectMapper.readTree(baseBody);
         //((ObjectNode) requestNode.path("metadata")).put("title", "REST Assured Test - " + input);
         //TODO: Add/Change: context + creator/modifier in the json file!?!
         String requestBody = requestNode.toString();
@@ -78,7 +78,7 @@ public class CreateItemIT {
         //Then
         responseBody = response.getBody().asString();
         String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId"};
-        AssertJsonWrapper.assertEquals(baseRequestBody, responseBody, ignoreFields);
+        AssertJsonWrapper.assertEquals(requestBody, responseBody, ignoreFields);
     }
 
 }

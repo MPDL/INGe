@@ -16,13 +16,13 @@ import java.nio.file.Paths;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoginIT {
+class LoginIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/login";
 
     @BeforeAll
-    public static void initSpec() {
+    static void initSpec() {
         requestSpecification = TestBase.initRequestSpecification(BASE_PATH);
     }
 

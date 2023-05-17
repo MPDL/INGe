@@ -2,7 +2,6 @@ package rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,7 +18,7 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteItemIT {
+class DeleteItemIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
@@ -43,8 +42,7 @@ public class DeleteItemIT {
                 .then().statusCode(200);
 
         //Then
-        Response response =
-                given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
+        given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
     }
 
     @ParameterizedTest
@@ -52,17 +50,16 @@ public class DeleteItemIT {
     void testDeleteItem(String input) throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
-        String requestBody = Files.readString(Paths.get("src/test/resources/templates/" + input), StandardCharsets.UTF_8);
-        String createdItemBody = TestDataManager.createItem(requestBody);
-        String itemId = this.objectMapper.readTree(createdItemBody).get("objectId").asText();
+        String baseBody = Files.readString(Paths.get("src/test/resources/templates/" + input), StandardCharsets.UTF_8);
+        String createdResponseBody = TestDataManager.createItem(baseBody);
+        String itemId = this.objectMapper.readTree(createdResponseBody).get("objectId").asText();
 
         //When
-        given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody).when().delete(itemId)
+        given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(createdResponseBody).when().delete(itemId)
                 .then().statusCode(200);
 
         //Then
-        Response response =
-                given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
+        given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
     }
 
 }

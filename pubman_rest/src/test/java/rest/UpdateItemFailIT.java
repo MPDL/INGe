@@ -21,7 +21,7 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class UpdateItemFailIT {
+class UpdateItemFailIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
@@ -41,7 +41,6 @@ public class UpdateItemFailIT {
     @Test
     void testUpdateItemNoAuthorizationToken() throws IOException, JSONException {
         //Given
-        String token = TestDataManager.login();
         String baseRequestBody = TestDataManager.createItem();
         JsonNode requestNode = this.objectMapper.readTree(baseRequestBody);
         ((ObjectNode) requestNode.path("metadata")).put("title", "REST Assured Test Title 1 - Updated");

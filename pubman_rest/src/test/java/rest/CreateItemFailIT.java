@@ -1,6 +1,5 @@
 package rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -17,11 +16,10 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class CreateItemFailIT {
+class CreateItemFailIT {
 
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
     static void initSpec() {
