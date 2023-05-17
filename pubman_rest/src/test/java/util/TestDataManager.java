@@ -2,7 +2,6 @@ package util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -17,49 +16,54 @@ import static io.restassured.RestAssured.given;
 
 public abstract class TestDataManager {
 
-  //TODO: Test-User & Context must exist to run the Tests - Creation via API!?
+    //TODO: Test-User & Context must exist to run the Tests - Creation via API!?
 
-  //TODO: Refactor: Do not use REST Assured to create Test-Data!?
+    //TODO: Refactor: Do not use REST Assured to create Test-Data!?
 
-  public static String login() {
-    RequestSpecification requestSpecification = TestBase.initRequestSpecification("/login");
-    String credentials = TestBase.USERNAME + ":" + TestBase.PASSWORD;
+    public static String login() {
+        RequestSpecification requestSpecification = TestBase.initRequestSpecification("/login");
+        String credentials = TestBase.USERNAME + ":" + TestBase.PASSWORD;
 
-    Response response = given().spec(requestSpecification).body(credentials).when().post().then().statusCode(200).extract().response();
+        Response response = given().spec(requestSpecification).body(credentials).when().post().then().statusCode(200).extract().response();
 
-    String headerToken = response.getHeader("token");
-    return headerToken;
-  }
+        String headerToken = response.getHeader("token");
+        return headerToken;
+    }
 
-  public static String createItem() throws IOException, JSONException {
-    RequestSpecification requestSpecification = TestBase.initRequestSpecification("/items");
-    String token = TestDataManager.login();
+    public static String createItem() throws IOException, JSONException {
+        String requestBody = Files.readString(Paths.get("src/test/resources/itemRequest.json"), StandardCharsets.UTF_8);
 
-    String requestBody = Files.readString(Paths.get("src/test/resources/itemRequest.json"), StandardCharsets.UTF_8);
-    ObjectMapper objectMapper = new ObjectMapper();
-    JsonNode jsonNode = objectMapper.readTree(requestBody);
-    ((ObjectNode) jsonNode.path("metadata")).put("title", "REST Assured Test Title 1");
-    requestBody = jsonNode.toString();
+        return createItem(requestBody);
+    }
 
-    Response response = given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody)
-        .when().post().then().statusCode(201).contentType(ContentType.JSON).extract().response();
+    public static String createItem(String requestBody) throws IOException, JSONException {
+        RequestSpecification requestSpecification = TestBase.initRequestSpecification("/items");
+        String token = TestDataManager.login();
 
-    String body = response.getBody().asString();
-    return body;
-  }
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(requestBody);
+        //((ObjectNode) jsonNode.path("metadata")).put("title", "REST Assured Test Title 1");
+        requestBody = jsonNode.toString();
 
-  public static void deleteItem(String responseBody) throws IOException {
-    RequestSpecification requestSpecification = TestBase.initRequestSpecification("/items");
-    String token = TestDataManager.login();
+        Response response = given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody)
+                .when().post().then().statusCode(201).contentType(ContentType.JSON).extract().response();
 
-    String requestBody = Files.readString(Paths.get("src/test/resources/deleteItemRequest.json"), StandardCharsets.UTF_8);
+        String body = response.getBody().asString();
+        return body;
+    }
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    JsonNode jsonNode = objectMapper.readTree(responseBody);
-    String itemId = jsonNode.get("objectId").asText();
+    public static void deleteItem(String responseBody) throws IOException {
+        RequestSpecification requestSpecification = TestBase.initRequestSpecification("/items");
+        String token = TestDataManager.login();
 
-    //When
-    given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody).when().delete(itemId)
-        .then().statusCode(200);
-  }
+        String requestBody = Files.readString(Paths.get("src/test/resources/deleteItemRequest.json"), StandardCharsets.UTF_8);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseBody);
+        String itemId = jsonNode.get("objectId").asText();
+
+        //When
+        given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody).when().delete(itemId)
+                .then().statusCode(200);
+    }
 }

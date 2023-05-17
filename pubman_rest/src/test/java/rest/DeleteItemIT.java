@@ -7,6 +7,8 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import util.TestBase;
 import util.TestDataManager;
 
@@ -24,7 +26,7 @@ public class DeleteItemIT {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
-    public static void initSpec() {
+    static void initSpec() {
         requestSpecification = TestBase.initRequestSpecification(BASE_PATH);
     }
 
@@ -43,7 +45,24 @@ public class DeleteItemIT {
         //Then
         Response response =
                 given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
+    }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"JournalArticleTemplate.json", "ConferencePaperTemplate.json", "BookChapterTemplate.json", "TalkTemplate.json", "ThesisTemplate.json", "PosterTemplate.json"})
+    void testDeleteItem(String input) throws IOException, JSONException {
+        //Given
+        String token = TestDataManager.login();
+        String requestBody = Files.readString(Paths.get("src/test/resources/templates/" + input), StandardCharsets.UTF_8);
+        String createdItemBody = TestDataManager.createItem(requestBody);
+        String itemId = this.objectMapper.readTree(createdItemBody).get("objectId").asText();
+
+        //When
+        given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody).when().delete(itemId)
+                .then().statusCode(200);
+
+        //Then
+        Response response =
+                given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
     }
 
 }
