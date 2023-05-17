@@ -2,12 +2,14 @@ package rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import util.AssertJsonWrapper;
 import util.TestBase;
 import util.TestDataManager;
 
@@ -33,6 +35,7 @@ class DeleteItemIT {
     void testDeleteItem() throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
+        //TODO: Why is the body required for delete in productive code
         String requestBody = Files.readString(Paths.get("src/test/resources/deleteItemRequest.json"), StandardCharsets.UTF_8);
         String createdItemBody = TestDataManager.createItem();
         String itemId = this.objectMapper.readTree(createdItemBody).get("objectId").asText();
@@ -42,7 +45,11 @@ class DeleteItemIT {
                 .then().statusCode(200);
 
         //Then
-        given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
+        Response getItemResponse = given().spec(requestSpecification).header("Authorization", token).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
+        String getItemResponseBody = getItemResponse.getBody().asString();
+        String expectedResponseBody = Files.readString(Paths.get("src/test/resources/notFoundResponse.json"), StandardCharsets.UTF_8);
+        String[] ignoreFields = {"timestamp", "exception"};
+        AssertJsonWrapper.assertEquals(expectedResponseBody, getItemResponseBody, ignoreFields);
     }
 
     @ParameterizedTest
@@ -50,16 +57,21 @@ class DeleteItemIT {
     void testDeleteItem(String input) throws IOException, JSONException {
         //Given
         String token = TestDataManager.login();
+        String requestBody = Files.readString(Paths.get("src/test/resources/deleteItemRequest.json"), StandardCharsets.UTF_8);
         String baseBody = Files.readString(Paths.get("src/test/resources/templates/" + input), StandardCharsets.UTF_8);
         String createdResponseBody = TestDataManager.createItem(baseBody);
         String itemId = this.objectMapper.readTree(createdResponseBody).get("objectId").asText();
 
         //When
-        given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(createdResponseBody).when().delete(itemId)
+        given().spec(requestSpecification).contentType(ContentType.JSON).header("Authorization", token).body(requestBody).when().delete(itemId)
                 .then().statusCode(200);
 
         //Then
-        given().spec(requestSpecification).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
+        Response getItemResponse = given().spec(requestSpecification).header("Authorization", token).when().get(itemId).then().statusCode(404).contentType(ContentType.JSON).extract().response();
+        String getItemResponseBody = getItemResponse.getBody().asString();
+        String expectedResponseBody = Files.readString(Paths.get("src/test/resources/notFoundResponse.json"), StandardCharsets.UTF_8);
+        String[] ignoreFields = {"timestamp", "exception"};
+        AssertJsonWrapper.assertEquals(expectedResponseBody, getItemResponseBody, ignoreFields);
     }
 
 }
