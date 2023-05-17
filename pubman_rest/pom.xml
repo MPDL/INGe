@@ -1,113 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<artifactId>INGe</artifactId>
-		<groupId>de.mpg.mpdl.inge</groupId>
-		<version>8.4.13-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <artifactId>INGe</artifactId>
+        <groupId>de.mpg.mpdl.inge</groupId>
+        <version>8.4.13-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>pubman_rest</artifactId>
-	<name>PubMan REST Web Service</name>
-	<packaging>war</packaging>
+    <artifactId>pubman_rest</artifactId>
+    <name>PubMan REST Web Service</name>
+    <packaging>war</packaging>
 
-	<scm>
-		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
-		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
-		<url>https://github.com/MPDL/INGe</url>
-		<tag>HEAD</tag>
-	</scm>
+    <scm>
+        <connection>scm:git:https://github.com/MPDL/INGe.git</connection>
+        <developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
+        <url>https://github.com/MPDL/INGe</url>
+        <tag>HEAD</tag>
+    </scm>
 
-	<build>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources-filtered</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Dependencies>pubman</Dependencies>
-						</manifestEntries>
-					</archive>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources-filtered</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>pubman</Dependencies>
+                        </manifestEntries>
+                    </archive>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<profiles>
-		<profile>
-			<id>rest-tests</id>
-			<properties>
-				<baseURI>Define this property in your settings.xml</baseURI>
-				<username>Define this property in your settings.xml</username>
-				<password>Define this property in your settings.xml</password>
-			</properties>
-		</profile>
-	</profiles>
+    <profiles>
+        <profile>
+            <id>rest-tests</id>
+            <properties>
+                <baseURI>Define this property in your settings.xml</baseURI>
+                <username>Define this property in your settings.xml</username>
+                <password>Define this property in your settings.xml</password>
+            </properties>
+        </profile>
+    </profiles>
 
-	<dependencies>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>dataacquisition</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>pubman_logic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-rest-webmvc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-		</dependency>
-		<dependency>
-			<!-- Required for swagger -->
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>de.mpg.mpdl.inge</groupId>
+            <artifactId>dataacquisition</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.mpg.mpdl.inge</groupId>
+            <artifactId>pubman_logic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <!-- Required for swagger -->
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>5.3.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.24.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.skyscreamer</groupId>
-			<artifactId>jsonassert</artifactId>
-			<version>1.5.1</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>1.5.1</version>
+            <scope>test</scope>
+        </dependency>
 
-	</dependencies>
-	
+    </dependencies>
+
 </project>
