@@ -7,6 +7,8 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import util.AssertJsonWrapper;
 import util.TestBase;
 import util.TestDataManager;
@@ -45,6 +47,28 @@ public class GetItemIT {
         String expectedResponseBody = Files.readString(Paths.get("src/test/resources/createdItemResponse.json"), StandardCharsets.UTF_8);
         String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId"};
         AssertJsonWrapper.assertEquals(expectedResponseBody, responseBody, ignoreFields);
+
+        //TODO: Extract or Add finally:
+        TestDataManager.deleteItem(responseBody);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"JournalArticleTemplate.json", "ConferencePaperTemplate.json", "BookChapterTemplate.json", "TalkTemplate.json", "ThesisTemplate.json", "PosterTemplate.json"})
+    void testGetItem(String input) throws IOException, JSONException {
+        //Given
+        String token = TestDataManager.login();
+        String baseBody = Files.readString(Paths.get("src/test/resources/templates/" + input), StandardCharsets.UTF_8);
+        String createdResponseBody = TestDataManager.createItem(baseBody);
+        String itemId = this.objectMapper.readTree(createdResponseBody).get("objectId").asText();
+
+        //When
+        Response response = given().spec(requestSpecification).header("Authorization", token).when().get(itemId).then().statusCode(200)
+                .contentType(ContentType.JSON).extract().response();
+
+        //Then
+        String responseBody = response.getBody().asString();
+        String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId"};
+        AssertJsonWrapper.assertEquals(createdResponseBody, responseBody, ignoreFields);
 
         //TODO: Extract or Add finally:
         TestDataManager.deleteItem(responseBody);
