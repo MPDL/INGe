@@ -1216,7 +1216,7 @@
 				<inge.auth.mpg.ip.csv.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.csv.url>
 				<inge.auth.mpg.ip.json.url>https://rena.mpdl.mpg.de/iplists/keeperx_en.json</inge.auth.mpg.ip.json.url>
 				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
-				<inge.csl.javascript.engine>v8</inge.csl.javascript.engine>
+				<inge.csl.javascript.engine>graaljs</inge.csl.javascript.engine>
 				<inge.pubman.blog.baseUrl>dev-labfolder.mpdl.mpg.de/feedrapp/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>https://blog.pure.mpg.de/feed/</inge.pubman.blog.news>
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
