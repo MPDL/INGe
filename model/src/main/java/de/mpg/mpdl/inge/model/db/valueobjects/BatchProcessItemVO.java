@@ -29,9 +29,15 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 import java.io.Serializable;
 import java.text.MessageFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -60,6 +66,8 @@ public class BatchProcessItemVO implements Serializable {
   public long objectId;
   public BatchProcessMessages batchProcessMessage;
   public BatchProcessMessagesTypes batchProcessMessageType;
+
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   public ItemVersionVO itemVersionVO;
 
   public BatchProcessItemVO() {
