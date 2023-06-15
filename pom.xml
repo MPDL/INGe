@@ -6,7 +6,7 @@
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<name>INGe</name>
-	<version>8.5.1-SNAPSHOT</version>
+	<version>8.5.2-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 
@@ -445,7 +445,7 @@
 			<dependency>
 				<groupId>co.elastic.clients</groupId>
 				<artifactId>elasticsearch-java</artifactId>
-				<version>8.7.0</version>
+				<version>8.8.0</version>
 			</dependency>
 
 			<!-- Hibernate -->
@@ -655,96 +655,96 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>8.5.1-SNAPSHOT</version>
+				<version>8.5.2-SNAPSHOT</version>
 			</dependency>
 
 			<!-- Saxon -->
@@ -1216,8 +1216,8 @@
 				<inge.auth.mpg.ip.csv.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.csv.url>
 				<inge.auth.mpg.ip.json.url>https://rena.mpdl.mpg.de/iplists/keeperx_en.json</inge.auth.mpg.ip.json.url>
 				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
-				<inge.csl.javascript.engine>v8</inge.csl.javascript.engine>
-				<inge.pubman.blog.baseUrl>https://blog.pure.mpg.de/</inge.pubman.blog.baseUrl>
+				<inge.csl.javascript.engine>graaljs</inge.csl.javascript.engine>
+				<inge.pubman.blog.baseUrl>newsfeed.pure.mpg.de/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>https://blog.pure.mpg.de/feed/</inge.pubman.blog.news>
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
 				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
