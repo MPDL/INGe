@@ -7,10 +7,10 @@ import de.mpg.mpdl.inge.reindex.beans.Reindex;
 import de.mpg.mpdl.inge.reindex.config.ReindexConfiguration;
 
 public class Main {
-  private static final Logger log = Logger.getLogger(Main.class.getName());
+  private static final Logger logger = Logger.getLogger(Main.class);
 
   public static void main(String[] args) {
-    log.info("########### START Reindex ###########");
+    logger.info("########### START Reindex ###########");
     boolean success = false;
 
     try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ReindexConfiguration.class)) {
@@ -18,35 +18,35 @@ public class Main {
       String what = null, id = null;
 
       if (args.length < 1) {
-        log.warn("You need to specify, what you're going to reindex.");
-        log.warn("Valid args: ctxs_reindex, items_reindex, ous_reindex, users_reindex, single_reindex item_xxxx");
+        logger.warn("You need to specify, what you're going to reindex.");
+        logger.warn("Valid args: ctxs_reindex, items_reindex, ous_reindex, users_reindex, single_reindex item_xxxx");
       } else {
         if (args.length == 1) {
           what = args[0];
-          log.info("What: " + what);
+          logger.info("What: " + what);
         }
         if (args.length == 2) {
           what = args[0];
-          log.info("What: " + what);
+          logger.info("What: " + what);
           id = args[1];
-          log.info("Id: " + id);
+          logger.info("Id: " + id);
         }
         if (what != null && !what.isEmpty()) {
           try {
             success = bean.run(what, id);
           } catch (Exception e) {
-            log.error(e);
+            logger.error(e);
           }
         } else {
-          log.error("Invalid attempt !!!");
+          logger.error("Invalid attempt !!!");
         }
       }
     }
 
     if (success) {
-      log.info("########### ENDE Reindex ###########");
+      logger.info("########### ENDE Reindex ###########");
     } else {
-      log.error("########### ABORTING Reindex ###########");
+      logger.error("########### ABORTING Reindex ###########");
     }
   }
 }

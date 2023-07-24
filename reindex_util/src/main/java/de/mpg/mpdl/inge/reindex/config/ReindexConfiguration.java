@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 @Import(value = {JPAConfiguration.class, AppConfigPubmanLogic.class})
 @EnableAsync
 public class ReindexConfiguration implements AsyncConfigurer {
-  private static final Logger log = Logger.getLogger(ReindexConfiguration.class.getName());
+  private static final Logger logger = Logger.getLogger(ReindexConfiguration.class);
 
   @Override
   public Executor getAsyncExecutor() {
@@ -33,10 +33,10 @@ public class ReindexConfiguration implements AsyncConfigurer {
 
       @Override
       public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-        log.error("uncaught async exception", ex);
-        log.info("method name: " + method.getName());
+        logger.error("uncaught async exception", ex);
+        logger.info("method name: " + method.getName());
         for (Object obj : params) {
-          log.info("object param " + obj);
+          logger.info("object param " + obj);
         }
       }
     };

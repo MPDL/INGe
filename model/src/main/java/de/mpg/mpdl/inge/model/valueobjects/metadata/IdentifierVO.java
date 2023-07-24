@@ -94,6 +94,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     REGIONALK("http://purl.org/escidoc/metadata/terms/0.1/REGIONALK"), //
     REPORT_NR("http://purl.org/escidoc/metadata/terms/0.1/REPORT-NR"), //
     RESEARCHTK("http://purl.org/escidoc/metadata/terms/0.1/RESEARCHTK"), //
+    IASSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/IASSPROJECT"), //
     RIFSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/RIFSPROJECT"), //
     SSRN("http://purl.org/escidoc/metadata/terms/0.1/SSRN"), //
     URI("http://purl.org/escidoc/metadata/terms/0.1/URI"), //

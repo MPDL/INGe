@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Reindex {
 
-  private static final Logger log = Logger.getLogger(Reindex.class.getName());
+  private static final Logger logger = Logger.getLogger(Reindex.class);
 
   @Autowired
   private Reindexing reIndexing;
@@ -27,7 +27,7 @@ public class Reindex {
         if (id != null && !id.isEmpty()) {
           reIndexing.reindexItem(id);
         } else {
-          log.error("Invalid Id!!! [" + id + "]");
+          logger.error("Invalid Id!!! [" + id + "]");
           return false;
         }
         break;
@@ -35,7 +35,7 @@ public class Reindex {
         reIndexing.reindexUsers();
         break;
       default:
-        log.error("You don't really know, what exactly you want to do!!! [" + what + "]");
+        logger.error("You don't really know, what exactly you want to do!!! [" + what + "]");
         return false;
     }
 

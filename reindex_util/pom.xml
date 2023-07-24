@@ -78,6 +78,7 @@
 										<exclude>META-INF/*.SF</exclude>
 										<exclude>META-INF/*.DSA</exclude>
 										<exclude>META-INF/*.RSA</exclude>
+										<exclude>**/Log4j2Plugins.dat</exclude>
 									</excludes>
 								</filter>
 							</filters>
@@ -94,6 +95,11 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.22.0-GA</version>
+		</dependency>		
 	</dependencies>
 
 </project>
