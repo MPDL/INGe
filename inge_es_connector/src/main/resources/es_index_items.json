@@ -29,7 +29,7 @@
         }
       }
     },
-    "number_of_replicas": "1"
+    "number_of_replicas": "0"
   },
   "mappings": {
     "dynamic": "strict",
@@ -763,22 +763,6 @@
           },
           "event": {
             "properties": {
-              "alternativeTitles": {
-                "properties": {
-                  "language": {
-                    "type": "keyword"
-                  },
-                  "value": {
-                    "type": "text",
-                    "fields": {
-                      "keyword": {
-                        "type": "keyword",
-                        "normalizer": "sort"
-                      }
-                    }
-                  }
-                }
-              },
               "endDate": {
                 "type": "date",
                 "ignore_malformed": true,

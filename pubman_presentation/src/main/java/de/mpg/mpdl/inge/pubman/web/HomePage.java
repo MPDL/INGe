@@ -79,22 +79,6 @@ public class HomePage extends BreadcrumbPage {
     super.init();
   }
 
-  /**
-   * Reads the blog URL from the properties file. Needed for blogintegration on homepage
-   * 
-   * @return blodUrl as String
-   */
-  public String getBlogBaseUrl() {
-    String url = "";
-    try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_BASEURL);
-    } catch (final Exception e) {
-      HomePage.logger.error("Could not read property: 'inge.pubman.blog.baseUrl' from properties file.", e);
-    }
-
-    return url;
-  }
-
   public boolean isDepositor() {
     return this.getLoginHelper().getIsDepositor();
   }

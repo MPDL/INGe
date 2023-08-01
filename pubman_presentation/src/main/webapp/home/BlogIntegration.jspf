@@ -19,7 +19,7 @@
 								pubmanBlogUrl,
 								{
 									ssl : true,
-									host: "feedrapp.info",
+									host: "#{ApplicationBean.pubmanBlogBaseUrl}",
 									limit : 4,
 									dateFormatFunction : function(date) {
 										return $.format
