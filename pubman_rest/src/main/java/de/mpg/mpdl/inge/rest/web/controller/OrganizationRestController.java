@@ -22,6 +22,7 @@ import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -320,5 +321,16 @@ public class OrganizationRestController {
     AffiliationDbVO updated = organizationSvc.addPredecessor(ouId, lmd, predecessorId, token);
 
     return new ResponseEntity<AffiliationDbVO>(updated, HttpStatus.OK);
+  }
+
+  @Hidden
+  @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST, consumes = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,
+          produces = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<String> searchDetailed(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+                                               @RequestBody JsonNode searchSource, @RequestParam(name = "scroll", required = false) String scrollTimeValue,
+                                               HttpServletResponse httpResponse)
+          throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+
+    return UtilServiceBean.searchDetailed(organizationSvc, searchSource, scrollTimeValue, token, httpResponse);
   }
 }
