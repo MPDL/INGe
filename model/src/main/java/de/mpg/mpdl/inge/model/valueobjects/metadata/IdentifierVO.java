@@ -53,16 +53,22 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     ADS("https://archive.org/services/purl/domain/ads"),
     ARXIV("http://purl.org/escidoc/metadata/terms/0.1/ARXIV"), //
     BIBTEX_CITEKEY("http://purl.org/escidoc/metadata/terms/0.1/BIBTEX-CITEKEY"), //
+    BIORXIV("https://archive.org/services/purl/domain/BIORXIV"),
     BMC("http://purl.org/escidoc/metadata/terms/0.1/BMC"), //
+    CHEMRXIV("https://archive.org/services/purl/domain/CHEMRXIV"),
     CONE("http://purl.org/escidoc/metadata/terms/0.1/CONE"), //
     DOI("http://purl.org/escidoc/metadata/terms/0.1/DOI"), //
+    EARTHARXIV("https://archive.org/services/purl/domain/EARTHARXIV"),
+    EDARXIV("https://archive.org/services/purl/domain/EDARXIV"),
     EDOC("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), //
     ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), // wegen Altdaten noch notwendig
+    ESS_OPEN_ARCHIVE("https://archive.org/services/purl/domain/ESS_OPEN_ARCHIVE"),
     GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), // anderer Zusammenhang (Projektinfo)
     ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
     ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
     MDB_ID("http://purl.org/escidoc/metadata/terms/0.1/MDB-ID"), //
+    MEDRXIV("https://archive.org/services/purl/domain/MEDRXIV"),
     MODELMETHOD("http://purl.org/escidoc/metadata/terms/0.1/MODELMETHOD"), //
     OATYPE("http://purl.org/escidoc/metadata/terms/0.1/OATYPE"), //
     OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), // anderer Zusammenhang (Fundingorganization)
@@ -75,10 +81,13 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     PMC("http://purl.org/escidoc/metadata/terms/0.1/PMC"), //
     PMID("http://purl.org/escidoc/metadata/terms/0.1/PMID"), //
     PND("http://purl.org/escidoc/metadata/terms/0.1/PND"), //
+    PSYARXIV("https://archive.org/services/purl/domain/PSYARXIV"),
     PUBLISHER("http://purl.org/escidoc/metadata/terms/0.1/PUBLISHER"), //
     REGIONALK("http://purl.org/escidoc/metadata/terms/0.1/REGIONALK"), //
     REPORT_NR("http://purl.org/escidoc/metadata/terms/0.1/REPORT-NR"), //
     RESEARCHTK("http://purl.org/escidoc/metadata/terms/0.1/RESEARCHTK"), //
+    RESEARCH_SQUARE("https://archive.org/services/purl/domain/RESEARCH_SQUARE"),
+    SOCARXIV("https://archive.org/services/purl/domain/SOCARXIV"),
     SSRN("http://purl.org/escidoc/metadata/terms/0.1/SSRN"), //
     URI("http://purl.org/escidoc/metadata/terms/0.1/URI"), //
     URN("http://purl.org/escidoc/metadata/terms/0.1/URN"), //

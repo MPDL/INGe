@@ -895,7 +895,16 @@ public class ViewItemFull extends FacesBean {
           identifiers.append(idList.get(i).getTypeString());
         }
         identifiers.append(": ");
-        if (idList.get(i).getType() == IdType.DOI) {
+        if (idList.get(i).getType() == IdType.BIORXIV //
+            || idList.get(i).getType() == IdType.CHEMRXIV //
+            || idList.get(i).getType() == IdType.DOI //
+            || idList.get(i).getType() == IdType.EARTHARXIV //
+            || idList.get(i).getType() == IdType.EDARXIV //
+            || idList.get(i).getType() == IdType.ESS_OPEN_ARCHIVE //
+            || idList.get(i).getType() == IdType.MEDRXIV //
+            || idList.get(i).getType() == IdType.PSYARXIV // 
+            || idList.get(i).getType() == IdType.RESEARCH_SQUARE //
+            || idList.get(i).getType() == IdType.SOCARXIV) {
           identifiers.append("<a target='_blank' href='https://doi.org/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.ADS) {
           identifiers.append("<a target='_blank' href='https://ui.adsabs.harvard.edu/abs/" + idList.get(i).getId() + "'>"
