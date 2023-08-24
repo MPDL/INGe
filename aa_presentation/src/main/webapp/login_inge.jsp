@@ -32,7 +32,7 @@
 <%@page import="de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish"%>
 <%@page import="de.mpg.mpdl.inge.util.PropertyReader" %>
 <%@page import="java.net.URLDecoder"%>
-<%@ page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.Enumeration"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -52,7 +52,6 @@
 <head>
 <body lang="de">
 
-
 <%
 String message = null;
 if(request.getParameter("username")!=null) {
@@ -65,14 +64,12 @@ if(request.getParameter("username")!=null) {
       if(token !=null)
       {
         String target = request.getParameter("target");
-     	response.sendRedirect(URLDecoder.decode(target) + "&token=" + token);
+     	response.sendRedirect(target + "&token=" + token);
       }
       else
       {
         message = "Incorrect credentials. Please try again";
       }
-  
-  
 }
   %>
 
