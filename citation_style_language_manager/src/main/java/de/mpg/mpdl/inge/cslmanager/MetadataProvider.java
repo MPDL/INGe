@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.text.WordUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -325,7 +326,9 @@ public class MetadataProvider implements ItemDataProvider {
             && !IdentifierVO.IdType.EDOC.equals(identifier.getType()) && !IdentifierVO.IdType.PMC.equals(identifier.getType())
             && !IdentifierVO.IdType.PMID.equals(identifier.getType()) && !IdentifierVO.IdType.PND.equals(identifier.getType())
             && !IdentifierVO.IdType.ZDB.equals(identifier.getType())) {
-          cslItem.number(identifierList.get(0).getTypeString() + ": " + identifierList.get(0).getId());
+          String type = identifierList.get(0).getTypeString().replaceAll("_", " ");
+          type = WordUtils.capitalizeFully(type);
+          cslItem.number(type + ": " + identifierList.get(0).getId());
         }
       }
 
