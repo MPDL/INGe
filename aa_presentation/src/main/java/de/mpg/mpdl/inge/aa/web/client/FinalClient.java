@@ -50,7 +50,8 @@ public abstract class FinalClient extends Client {
   protected void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String tan = request.getParameter("tan");
     String target = request.getParameter("target");
-    //    String handle = request.getParameter("tan4directLogin");
+    String uri = request.getParameter("uri");
+    String model = request.getParameter("model");
 
     try {
       AuthenticationVO authenticationVO = finalizeAuthentication(request, response);
@@ -60,15 +61,19 @@ public abstract class FinalClient extends Client {
       String encodedXml = RSAEncoder.rsaEncrypt(xml);
       String separator = "?";
 
-      //      if (handle != null) {
-      //        target += "&tan4directLogin=" + URLEncoder.encode(handle, "ISO-8859-1");
-      //      }
-
       if (target.contains("?")) {
         separator = "&";
-      }
-      try {
-        response.sendRedirect(target + separator + encodedXml);
+      } // 24.08.2023
+      try { // SP: the original target got lost (and I can't find out where...)
+            //     now it contains only model and not uri or searchterm and not model
+            //     in the first case you have to deliver uri and in second case model
+        if (uri != null) { // first case
+          response.sendRedirect(target + "&uri=" + uri + separator + encodedXml);
+        } else if (model != null) { // second case
+          response.sendRedirect(target + "&model=" + model + separator + encodedXml);
+        } else {
+          response.sendRedirect(target + separator + encodedXml);
+        }
       } catch (IllegalStateException ise) {
         logger.warn("Caught IllegalStateException: DEBUG for more info");
         logger.debug("FinalClient tried to send a redirect, but there was probably already a header defined.");

@@ -402,7 +402,9 @@ public class ConeServlet extends HttpServlet {
 
           response.getWriter().print(formatter.formatQuery(result, model));
         }
-        querier.release();
+        if (querier != null) {
+          querier.release();
+        }
       }
     } catch (IOException e) {
       throw new ConeException(e);

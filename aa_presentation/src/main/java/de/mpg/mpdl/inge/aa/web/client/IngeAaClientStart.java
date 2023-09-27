@@ -49,8 +49,8 @@ public class IngeAaClientStart extends StartClient {
     String from = request.getParameter("target");
     String aaInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
 
-    return "/auth/login_inge.jsp?target=" + aaInstanceUrl + "clientReturn" + URLEncoder
-        .encode(URLEncoder.encode("?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1"), "ISO-8859-1"), "ISO-8859-1");
+    return "/auth/login_inge.jsp?target=" + aaInstanceUrl + "clientReturn"
+        + URLEncoder.encode("?target=" + from + "&tan=" + tan, "ISO-8859-1");
   }
 
 }

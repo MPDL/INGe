@@ -127,7 +127,7 @@ public class BrowseByPage extends BreadcrumbPage {
         localLang = "en";
       }
       final URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + type + "/query?f=options&"
-          + this.bbBean.getQuery() + "=\"" + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
+          + this.bbBean.getQuery() + "=" + URLEncoder.encode("\"" + startChar + "*\"", "UTF-8") + "&n=0&lang=" + localLang);
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();

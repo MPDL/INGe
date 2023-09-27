@@ -1048,7 +1048,7 @@
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
-		<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+		<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BIORXIV,BMC,CHEMRXIV,CONE,DOI,EARTHARXIV,EDARXIV,EDOC,ESS_OPEN_ARCHIVE,ISBN,ISI,ISSN,MEDRXIV,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PSYARXIV,REPORT_NR,RESEARCH_SQUARE,SOCARXIV,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
 		<inge.index.context.name>contexts</inge.index.context.name>
 		<inge.index.context.sort>name.keyword</inge.index.context.sort>

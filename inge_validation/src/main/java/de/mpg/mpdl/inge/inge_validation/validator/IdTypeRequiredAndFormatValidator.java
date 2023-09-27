@@ -38,7 +38,16 @@ public class IdTypeRequiredAndFormatValidator extends ValidatorHandler<List<Iden
               context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField("identifier[" + i + "]"));
               ok = false;
             } else { // Check format of the IDs
-              if (IdentifierVO.IdType.DOI.equals(identifierVO.getType())
+              if ((IdentifierVO.IdType.BIORXIV.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.CHEMRXIV.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.DOI.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.EARTHARXIV.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.EDARXIV.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.ESS_OPEN_ARCHIVE.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.MEDRXIV.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.PSYARXIV.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.RESEARCH_SQUARE.equals(identifierVO.getType()) //
+                  || IdentifierVO.IdType.SOCARXIV.equals(identifierVO.getType()))
                   && (identifierVO.getId().startsWith("https://doi.org") || identifierVO.getId().startsWith("http://doi.org"))) {
                 context.addError(ValidationError.create(ErrorMessages.INCORRECT_ID_DOI_FORMAT).setField("identifier[" + i + "]"));
                 ok = false;
