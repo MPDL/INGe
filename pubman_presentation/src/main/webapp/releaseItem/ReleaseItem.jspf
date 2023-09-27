@@ -35,7 +35,7 @@
 						value="#{ReleaseItem.creators}" />
 				</span>
 			</div>
-			div class="free_area0 endline itemLine noTopBorder">
+			<div class="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
 						value="#{lbl.ReleaseItem_ExportControl}" /><span class="noDisplay">:
 				</span>
