@@ -35,6 +35,16 @@
 						value="#{ReleaseItem.creators}" />
 				</span>
 			</div>
+			div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
+						value="#{lbl.ReleaseItem_ExportControl}" /><span class="noDisplay">:
+				</span>
+				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> 
+					<h:outputText value="#{msg.ReleaseItem_ExportControlPart1} " />
+					 <h:outputLink value="https://www.bafa.de/SharedDocs/Downloads/EN/Foreign_Trade/ec_awareness_academia.pdf?__blob%3DpublicationFile%26v%3D2" >#{msg.ReleaseItem_ExportControlLinkText}</h:outputLink> 
+					<h:outputText value=" #{msg.ReleaseItem_ExportControlPart2}" />
+				</span>
+			</div>
 			<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder"
 				rendered="#{ReleaseItem.hasRightsInformation}">
 				<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
