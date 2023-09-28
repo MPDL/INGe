@@ -41,7 +41,7 @@
 				</span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> 
 					<h:outputText value="#{msg.ReleaseItem_ExportControlPart1} " />
-					 <h:outputLink value="https://www.bafa.de/SharedDocs/Downloads/EN/Foreign_Trade/ec_awareness_academia.pdf?__blob%3DpublicationFile%26v%3D2" >#{msg.ReleaseItem_ExportControlLinkText}</h:outputLink> 
+					 <h:outputLink value="https://www.bafa.de/SharedDocs/Downloads/EN/Foreign_Trade/ec_awareness_academia.pdf?" >#{msg.ReleaseItem_ExportControlLinkText}</h:outputLink> 
 					<h:outputText value=" #{msg.ReleaseItem_ExportControlPart2}" />
 				</span>
 			</div>

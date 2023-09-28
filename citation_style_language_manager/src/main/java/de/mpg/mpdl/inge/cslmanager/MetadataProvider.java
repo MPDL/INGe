@@ -326,9 +326,53 @@ public class MetadataProvider implements ItemDataProvider {
             && !IdentifierVO.IdType.EDOC.equals(identifier.getType()) && !IdentifierVO.IdType.PMC.equals(identifier.getType())
             && !IdentifierVO.IdType.PMID.equals(identifier.getType()) && !IdentifierVO.IdType.PND.equals(identifier.getType())
             && !IdentifierVO.IdType.ZDB.equals(identifier.getType())) {
-          String type = identifierList.get(0).getTypeString().replaceAll("_", " ");
-          type = WordUtils.capitalizeFully(type);
-          cslItem.number(type + ": " + identifierList.get(0).getId());
+          if (IdentifierVO.IdType.PATENT_NR.equals(identifier.getType())) {
+            cslItem.number("Patent Nr.: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.PATENT_PUBLICATION_NR.equals(identifier.getType())) {
+            cslItem.number("Patent Publication Nr.: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.PATENT_APPLICATION_NR.equals(identifier.getType())) {
+            cslItem.number("Patent Application Nr.: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.REPORT_NR.equals(identifier.getType())) {
+            cslItem.number("Report Nr.: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.ISI.equals(identifier.getType())) {
+            cslItem.number("ISI: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.PII.equals(identifier.getType())) {
+            cslItem.number("PII: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.SSRN.equals(identifier.getType())) {
+            cslItem.number("SSRN: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.ARXIV.equals(identifier.getType())) {
+            cslItem.number("arXiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.BIORXIV.equals(identifier.getType())) {
+            cslItem.number("bioRxiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.CHEMRXIV.equals(identifier.getType())) {
+            cslItem.number("ChemRxiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.EARTHARXIV.equals(identifier.getType())) {
+            cslItem.number("EarthArXiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.PSYARXIV.equals(identifier.getType())) {
+            cslItem.number("PsyArXiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.SOCARXIV.equals(identifier.getType())) {
+            cslItem.number("SocArXiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.EDARXIV.equals(identifier.getType())) {
+            cslItem.number("EdArXiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.MEDRXIV.equals(identifier.getType())) {
+            cslItem.number("MedRxiv: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.ADS.equals(identifier.getType())) {
+            cslItem.number("ADS: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.ESS_OPEN_ARCHIVE.equals(identifier.getType())) {
+            cslItem.number("ESSOAr: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.RESEARCH_SQUARE.equals(identifier.getType())) {
+            cslItem.number("Research Square: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.BMC.equals(identifier.getType())) {
+            cslItem.number("BMC: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(identifier.getType())) {
+            cslItem.number("BibTex CiteKey: " + identifierList.get(0).getId());
+          } else if (IdentifierVO.IdType.OTHER.equals(identifier.getType())) {
+            cslItem.number("Other ID: " + identifierList.get(0).getId());
+          } else {
+            String type = identifierList.get(0).getTypeString();
+            type = WordUtils.capitalizeFully(type);
+            cslItem.number(type + ": " + identifierList.get(0).getId());
+          }
         }
       }
 
@@ -736,20 +780,80 @@ public class MetadataProvider implements ItemDataProvider {
                       } else if (IdentifierVO.IdType.ARXIV.equals(id2.getType())) {
                         return 1;
                       } else {
-                        if (IdentifierVO.IdType.BMC.equals(id1.getType())) {
+                        if (IdentifierVO.IdType.BIORXIV.equals(id1.getType())) {
                           return -1;
-                        } else if (IdentifierVO.IdType.BMC.equals(id2.getType())) {
+                        } else if (IdentifierVO.IdType.BIORXIV.equals(id2.getType())) {
                           return 1;
                         } else {
-                          if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(id1.getType())) {
+                          if (IdentifierVO.IdType.CHEMRXIV.equals(id1.getType())) {
                             return -1;
-                          } else if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(id2.getType())) {
+                          } else if (IdentifierVO.IdType.CHEMRXIV.equals(id2.getType())) {
                             return 1;
                           } else {
-                            if (IdentifierVO.IdType.OTHER.equals(id1.getType())) {
+                            if (IdentifierVO.IdType.EARTHARXIV.equals(id1.getType())) {
                               return -1;
-                            } else if (IdentifierVO.IdType.OTHER.equals(id2.getType())) {
+                            } else if (IdentifierVO.IdType.EARTHARXIV.equals(id2.getType())) {
                               return 1;
+                            } else {
+                              if (IdentifierVO.IdType.PSYARXIV.equals(id1.getType())) {
+                                return -1;
+                              } else if (IdentifierVO.IdType.PSYARXIV.equals(id2.getType())) {
+                                return 1;
+                              } else {
+                                if (IdentifierVO.IdType.SOCARXIV.equals(id1.getType())) {
+                                  return -1;
+                                } else if (IdentifierVO.IdType.SOCARXIV.equals(id2.getType())) {
+                                  return 1;
+                                } else {
+                                  if (IdentifierVO.IdType.EDARXIV.equals(id1.getType())) {
+                                    return -1;
+                                  } else if (IdentifierVO.IdType.EDARXIV.equals(id2.getType())) {
+                                    return 1;
+                                  } else {
+                                    if (IdentifierVO.IdType.MEDRXIV.equals(id1.getType())) {
+                                      return -1;
+                                    } else if (IdentifierVO.IdType.MEDRXIV.equals(id2.getType())) {
+                                      return 1;
+                                    } else {
+                                      if (IdentifierVO.IdType.ADS.equals(id1.getType())) {
+                                        return -1;
+                                      } else if (IdentifierVO.IdType.ADS.equals(id2.getType())) {
+                                        return 1;
+                                      } else {
+                                        if (IdentifierVO.IdType.ESS_OPEN_ARCHIVE.equals(id1.getType())) {
+                                          return -1;
+                                        } else if (IdentifierVO.IdType.ESS_OPEN_ARCHIVE.equals(id2.getType())) {
+                                          return 1;
+                                        } else {
+                                          if (IdentifierVO.IdType.RESEARCH_SQUARE.equals(id1.getType())) {
+                                            return -1;
+                                          } else if (IdentifierVO.IdType.RESEARCH_SQUARE.equals(id2.getType())) {
+                                            return 1;
+                                          } else {
+                                            if (IdentifierVO.IdType.BMC.equals(id1.getType())) {
+                                              return -1;
+                                            } else if (IdentifierVO.IdType.BMC.equals(id2.getType())) {
+                                              return 1;
+                                            } else {
+                                              if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(id1.getType())) {
+                                                return -1;
+                                              } else if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(id2.getType())) {
+                                                return 1;
+                                              } else {
+                                                if (IdentifierVO.IdType.OTHER.equals(id1.getType())) {
+                                                  return -1;
+                                                } else if (IdentifierVO.IdType.OTHER.equals(id2.getType())) {
+                                                  return 1;
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
                             }
                           }
                         }
