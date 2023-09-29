@@ -53,7 +53,7 @@
 									<xsl:value-of select="$genre-ves/enum[.='article']/@uri"/>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:value-of select="$genre-ves/enum[.='paper']/@uri"/>
+									<xsl:value-of select="$genre-ves/enum[.='preprint']/@uri"/>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:attribute>
