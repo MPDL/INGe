@@ -23,9 +23,11 @@ import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
@@ -102,7 +104,7 @@ public class FeedServiceImpl {
     return feed;
   }
 
-  private List<PubItemVO> search(Query qb) throws Exception {
+  private List<SearchRetrieveRecordVO> search(Query qb) throws Exception {
     SearchRequest.of(sr -> sr.size(50).query(qb)
         .sort(s -> s.field(fs -> fs.field(PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE).order(SortOrder.Desc))));
 
@@ -149,18 +151,17 @@ public class FeedServiceImpl {
    * @param itemList
    * @return <List>SyndEntry
    */
-  private List<SyndEntry> transformToEntryList(List<PubItemVO> itemList) {
+  private List<SyndEntry> transformToEntryList(List<SearchRetrieveRecordVO> recordList) {
 
     List<SyndEntry> entries = new ArrayList<SyndEntry>();
 
 
 
-    for (ItemVO item : itemList) {
+    for (SearchRetrieveRecordVO record : recordList) {
 
       SyndEntry se = new SyndEntryImpl();
-
-      PubItemVO pi = (PubItemVO) item;
-      MdsPublicationVO md = pi.getMetadata();
+      ItemVersionVO item = (ItemVersionVO) record.getData();
+      MdsPublicationVO md = item.getMetadata();
 
       // Content
 
@@ -230,8 +231,7 @@ public class FeedServiceImpl {
       // se.setContents(contents)
 
       try {
-        se.setLink(UriBuilder.getItemObjectAndVersionLink(pi.getLatestRelease().getObjectId(), pi.getLatestRelease().getVersionNumber())
-            .toString());
+        se.setLink(UriBuilder.getItemObjectAndVersionLink(item.getObjectId(), item.getVersionNumber()).toString());
       } catch (URISyntaxException e) {
         logger.error("Error building URL", e);
       }
@@ -240,13 +240,13 @@ public class FeedServiceImpl {
       se.setUri(se.getLink());
 
       // Entry UpdatedDate ???
-      if (pi.getModificationDate() != null) { // gibt sonst NullPointerException
-        se.setUpdatedDate(pi.getModificationDate());
+      if (item.getModificationDate() != null) { // gibt sonst NullPointerException
+        se.setUpdatedDate(item.getModificationDate());
       }
 
       // Entry PublishedDate ???
-      if (pi.getLatestRelease().getModificationDate() != null) { // gibt sonst NullPointerException
-        se.setPublishedDate(pi.getLatestRelease().getModificationDate());
+      if (item.getModificationDate() != null) { // gibt sonst NullPointerException
+        se.setPublishedDate(item.getModificationDate());
       }
 
 
