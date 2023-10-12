@@ -131,6 +131,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     INTERVIEW("http://purl.org/escidoc/metadata/ves/publication-types/interview"), //
     ISSUE("http://purl.org/escidoc/metadata/ves/publication-types/issue"), //
     JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"), //
+    MAGAZINE_ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/magazine-article"), //
     MANUAL("http://purl.org/escidoc/metadata/ves/publication-types/manual"), //
     MANUSCRIPT("http://purl.org/escidoc/metadata/ves/publication-types/manuscript"), //
     MEETING_ABSTRACT("http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract"), //
