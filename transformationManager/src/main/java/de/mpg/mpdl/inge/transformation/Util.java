@@ -351,6 +351,7 @@ public class Util {
             + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
             + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
         client = new HttpClient();
+        client.getState().clearCookies();
         method = new GetMethod(queryUrl);
         //        if (coneSession != null) {
         //          method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
