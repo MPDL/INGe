@@ -163,6 +163,7 @@ public class Util {
             //              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             //            }
             logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
+            client.getState().clearCookies();
             client.executeMethod(detailMethod);
 
             if (detailMethod.getStatusCode() == 200) {
@@ -446,6 +447,7 @@ public class Util {
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               // detailMethod.setFollowRedirects(true);
+              client.getState().clearCookies();
               client.executeMethod(detailMethod);
               logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
               if (detailMethod.getStatusCode() == 200) {
