@@ -58,7 +58,7 @@
 		<enum uri="http://purl.org/eprint/type/pre-registration-paper">pre-registration-paper</enum>
 		<enum uri="http://purl.org/eprint/type/registered-report">registered-report</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/film">film</enum>
-		
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/magazine-article">magazine-article</enum>
 	</xsl:variable>
 	<xsl:variable name="creator-ves">
 		<enum uri="http://www.loc.gov/loc.terms/relators/AUT">author</enum>

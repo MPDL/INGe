@@ -636,6 +636,8 @@ public class MetadataProvider implements ItemDataProvider {
       cslGenre = CSLType.MOTION_PICTURE;
     } else if (Genre.INTERVIEW.equals(genre)) {
       cslGenre = CSLType.INTERVIEW;
+    } else if (Genre.MAGAZINE_ARTICLE.equals(genre)) {
+      cslGenre = CSLType.ARTICLE_MAGAZINE;
     } else if (Genre.MANUSCRIPT.equals(genre)) {
       cslGenre = CSLType.MANUSCRIPT;
     } else if (Genre.NEWSPAPER_ARTICLE.equals(genre)) {

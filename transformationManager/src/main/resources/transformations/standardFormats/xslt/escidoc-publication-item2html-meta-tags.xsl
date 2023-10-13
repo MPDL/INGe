@@ -218,7 +218,7 @@
 					<xsl:with-param name="content" select="."/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$genre='article' or $genre='newspaper-article' or $genre='book-review' or $genre='review-article'">
+			<xsl:when test="$genre='article' or $genre='newspaper-article' or $genre='book-review' or $genre='magazine-article' or $genre='review-article'">
 				<xsl:call-template name="createMetatag">
 					<xsl:with-param name="name" select="$key-journal-title"/>
 					<xsl:with-param name="content" select="."/>
@@ -228,7 +228,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="source:source/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']" mode="journal">
-		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='review-article'">
+		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-journal-abbrev"/>
 				<xsl:with-param name="content" select="."/>
@@ -236,7 +236,7 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="source:source/eterms:volume" mode="journal">
-		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='review-article'">
+		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-volume"/>
 				<xsl:with-param name="content" select="."/>
@@ -244,7 +244,7 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="source:source/eterms:issue" mode="journal">
-		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='review-article'">
+		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-issue"/>
 				<xsl:with-param name="content" select="."/>
@@ -270,7 +270,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="source:source/dc:identifier[@xsi:type='eterms:ISSN']" mode="journal">
-		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='review-article'">
+		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-issn"/>
 				<xsl:with-param name="content" select="concat($prefix-issn, .)"/>

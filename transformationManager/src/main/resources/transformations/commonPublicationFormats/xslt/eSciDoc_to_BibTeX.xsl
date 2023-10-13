@@ -38,7 +38,7 @@
 		<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
 		<!-- detect bibtex entry type -->
 		<xsl:choose>
-			<xsl:when test="$genre='article' or $genre='book-review' or $genre='review-article'">
+			<xsl:when test="$genre='article' or $genre='book-review' or $genre='magazine-article' or $genre='review-article'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">article</xsl:with-param>
 				</xsl:call-template>
@@ -443,7 +443,7 @@
 		<!-- SOURCE ISSUE -->
 		<xsl:if test="eterms:issue!=''">
 			<xsl:choose>
-				<xsl:when test="$publication-type = 'article' or $publication-type='book-review' or $publication-type='review-article'">
+				<xsl:when test="$publication-type = 'article' or $publication-type='book-review' or $publication-Type='magazine-article' or $publication-type='review-article'">
 					<xsl:call-template name="createField">
 						<xsl:with-param name="name" select="'number'"/>
 						<xsl:with-param name="xpath" select="eterms:issue"/>
