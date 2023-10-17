@@ -350,7 +350,6 @@ public class Util {
             + URLEncoder.encode("dcterms:alternative", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
             + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
             + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-        client = new HttpClient();
         client.getState().clearCookies();
         method = new GetMethod(queryUrl);
         //        if (coneSession != null) {
@@ -373,6 +372,7 @@ public class Util {
                 //detailMethod.setFollowRedirects(true);
                 logger
                     .info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn returned " + detailMethod.getResponseBodyAsString());
+                client.getState().clearCookies();
                 client.executeMethod(detailMethod);
                 if (detailMethod.getStatusCode() == 200) {
                   Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
