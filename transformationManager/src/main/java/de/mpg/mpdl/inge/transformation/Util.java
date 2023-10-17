@@ -643,7 +643,7 @@ public class Util {
         // sometimes not
 
         logger.info("GET request to " + url + " did not return any Content-Length. Trying GET request.");
-        httpClient = new HttpClient();
+        httpClient.getState().clearCookies();
         GetMethod getMethod = new GetMethod(url);
         httpClient.executeMethod(getMethod);
 
