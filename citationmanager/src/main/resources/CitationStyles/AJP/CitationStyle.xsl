@@ -63,6 +63,9 @@
                         <xsl:variable name="l_data_publication">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/data-publication')"/>
                         </xsl:variable>
+                        <xsl:variable name="l_film">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/film')"/>
+                        </xsl:variable>
                         <xsl:variable name="l_interview">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/interview')"/>
                         </xsl:variable>
@@ -116,6 +119,9 @@
                         </xsl:variable>
                         <xsl:variable name="l_thesis">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Thesis')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_magazine-article">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/magazine-article')"/>
                         </xsl:variable>
                         <xsl:variable name="l_other">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/other')"/>
@@ -250,7 +256,7 @@
                             <xsl:value-of select="func:escapeMarkupTags(pub:publication/eterms:degree/text())"/>
                         </xsl:variable>
                         <xsl:variable name="l_degree">
-                            <xsl:value-of select="func:escapeMarkupTags(&#xA;&#x9;&#x9;if ($v_degree=$l_master) then 'Master' else&#xA;&#x9;&#x9;if ($v_degree=$l_diploma) then 'Diploma' else&#xA;&#x9;&#x9;if ($v_degree=$l_magister) then 'Magister' else&#xA;&#x9;&#x9;if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else&#xA;&#x9;&#x9;if ($v_degree=$l_phd) then 'PhD' else&#xA;&#x9;&#x9;if ($v_degree=$l_habilitation) then 'Habilitation' else&#xA;&#x9;&#x9;if ($v_degree=$l_bachelor) then 'Bachelor' else ''&#xA;&#x9;)"/>
+                            <xsl:value-of select="func:escapeMarkupTags( if ($v_degree=$l_master) then 'Master' else if ($v_degree=$l_diploma) then 'Diploma' else if ($v_degree=$l_magister) then 'Magister' else if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else if ($v_degree=$l_phd) then 'PhD' else if ($v_degree=$l_habilitation) then 'Habilitation' else if ($v_degree=$l_bachelor) then 'Bachelor' else '')"/>
                         </xsl:variable>
                         <!--### Variables ###-->
 	<xsl:variable name="objid">
@@ -1355,7 +1361,7 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$isNotPublication"/>
                             </xsl:when>
-                            <xsl:when test="$genre = ($l_article, $l_review_article)">
+                            <xsl:when test="$genre = ($l_article, $l_review_article, $l_magazine-article)">
                                 <xsl:variable name="Article"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
@@ -1852,16 +1858,16 @@
 			         <m n="11">November</m>
 			         <m n="12">December</m>
 		      </xsl:variable>
-		      <xsl:value-of select="     $months/m[     matches(      tokenize($date, '-')[2], @n     )     ]   "/>
+		      <xsl:value-of select="$months/m[matches(tokenize($date,'-')[2],@n)]"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:get_initials">
 		      <xsl:param name="str"/>
-		      <xsl:variable name="delim" select="if (contains ($str, '-')) then '-' else ' '"/>
+		      <xsl:variable name="delim" select="if (contains($str,'-')) then '-' else ' '"/>
 		      <xsl:variable name="result">
-		          <xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
-			             <xsl:value-of select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')"/>
-		          </xsl:for-each>
+			         <xsl:for-each select="tokenize(normalize-space ($str),'\s+|\.\s+|\-\s*')">
+				            <xsl:value-of select="concat(substring(.,1,1),if (position()!=last()) then concat('.', $delim) else '.')"/>
+			         </xsl:for-each>
 		      </xsl:variable>
 		      <xsl:value-of select="$result"/>
 	   </xsl:function>
@@ -1870,18 +1876,14 @@
 		      <xsl:param name="fname"/>
 		      <xsl:param name="gname"/>
 		      <xsl:param name="delim"/>
-		
-		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( ($fname, func:get_initials($gname)), $delim )   "/>
-		
+		      <xsl:value-of select="if (jfunc:isCJK(concat($fname, $gname))) then string-join(($fname,$gname),$delim) else string-join(($fname,func:get_initials($gname)),$delim)"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:initials_fname">
 		      <xsl:param name="gname"/>
 		      <xsl:param name="fname"/>
 		      <xsl:param name="delim"/>
-		
-		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( (func:get_initials($gname), $fname), $delim )   "/>
-		
+		      <xsl:value-of select="if (jfunc:isCJK(concat($fname, $gname))) then string-join(($fname, $gname),$delim) else string-join((func:get_initials($gname),$fname),$delim)"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:escapeMarkupTags">
@@ -1891,31 +1893,28 @@
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:cleanCitation">
 		      <xsl:param name="str"/>
-			     <xsl:value-of select="     normalize-space (     functx:replace-multi (      $str,      ( '([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1', '([.,?!:;])\s*\1', '\.&#34;\.', '\s+([.,?!:;])', '\s*(&lt;[/]?span&gt;)\s*([.,?!:;])', '([?!])+\.' ),      ( '$1$2',         '$1',    '.&#34;',  '$1',     '$1$2',         '$1' )     )     )    "/>
-			     <!-- 																	.".=>." ??? -->
+		      <xsl:value-of select="normalize-space(functx:replace-multi($str,('([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1','([.,?!:;])\s*\1','\.&#34;\.','\s+([.,?!:;])','\s*(&lt;[/]?span&gt;)\s*([.,?!:;])','([?!])+\.'),('$1$2','$1','.&#34;','$1','$1$2','$1')))"/>
+		      <!-- 																	.".=>." ??? -->
 	</xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
-                  name="functx:replace-multi"
-                  as="xs:string?">
-	       <xsl:param name="arg" as="xs:string?"/> 
-	       <xsl:param name="changeFrom" as="xs:string*"/> 
-	       <xsl:param name="changeTo" as="xs:string*"/> 
-	 
-	       <xsl:sequence select="      if (count($changeFrom) &gt; 0)     then functx:replace-multi(            replace($arg, $changeFrom[1],                       functx:if-absent($changeTo[1],'')),            $changeFrom[position() &gt; 1],            $changeTo[position() &gt; 1])     else $arg   "/>
-	   
+                  as="xs:string?"
+                  name="functx:replace-multi">
+		      <xsl:param as="xs:string?" name="arg"/>
+		      <xsl:param as="xs:string*" name="changeFrom"/>
+		      <xsl:param as="xs:string*" name="changeTo"/>
+		      <xsl:sequence select="if (count($changeFrom)&gt;0) then functx:replace-multi(replace($arg,$changeFrom[1],functx:if-absent($changeTo[1],'')),$changeFrom[position()&gt;1],$changeTo[position()&gt;1]) else $arg"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
-                  name="functx:if-absent"
-                  as="item()*">
-	       <xsl:param name="arg" as="item()*"/> 
-	       <xsl:param name="value" as="item()*"/> 
-	 
-	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
+                  as="item()*"
+                  name="functx:if-absent">
+		      <xsl:param as="item()*" name="arg"/>
+		      <xsl:param as="item()*" name="value"/>
+		      <xsl:sequence select="if (exists($arg)) then $arg else $value"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:get_reverse_date">
 		      <xsl:param name="input_date"/>
-		      <xsl:if test="$input_date[.!=''] ">
+		      <xsl:if test="$input_date[.!='']">
 			         <xsl:value-of select="concat(substring($input_date,9,2),'.',substring($input_date,6,2),'.',substring($input_date,1,4))"/>
 		      </xsl:if>
 	   </xsl:function>
@@ -1928,27 +1927,27 @@
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:substringAfterEdition">
 		      <xsl:param name="inputWithSpaceComma"/>
-		      <xsl:value-of select="substring-before(substring-after($inputWithSpaceComma,', '), ' ')"/>
+		      <xsl:value-of select="substring-before(substring-after($inputWithSpaceComma,','),' ')"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:substringBeforeEdition">
 		      <xsl:param name="inputWithSpaceComma"/>
-		      <xsl:value-of select="substring-before(substring-before($inputWithSpaceComma,', '), ' ')"/>
+		      <xsl:value-of select="substring-before(substring-before($inputWithSpaceComma,', '),' ')"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:substringBeforeInstalment">
 		      <xsl:param name="inputWithInstalment"/>
-		      <xsl:value-of select="      if (contains($inputWithInstalment, 'instl'))      then substring-before($inputWithInstalment, 'instl')        else if (contains($inputWithInstalment, 'Lf'))      then substring-before($inputWithInstalment, 'Lf')        else ''      "/>
+		      <xsl:value-of select="if (contains($inputWithInstalment,'instl')) then substring-before($inputWithInstalment,'instl') else if (contains($inputWithInstalment,'Lf')) then substring-before($inputWithInstalment,'Lf') else ''"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:substringBeforeSince">
 		      <xsl:param name="inputWithSince"/>
-	       <xsl:value-of select="       if (contains($inputWithSince, 'since'))       then substring-before($inputWithSince, 'since')         else if (contains($inputWithSince, 'seit'))       then substring-before($inputWithSince, 'seit')         else ''       "/>
+		      <xsl:value-of select=" if (contains($inputWithSince,'since')) then substring-before($inputWithSince,'since') else if (contains($inputWithSince,'seit')) then substring-before($inputWithSince,'seit') else ''"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:substringAfterSince">
-	       <xsl:param name="inputWithSince"/>
-		      <xsl:value-of select="      if (contains($inputWithSince, 'since'))      then substring-after($inputWithSince, 'since')        else if (contains($inputWithSince, 'seit'))      then substring-after($inputWithSince, 'seit')        else ''      "/>
+		      <xsl:param name="inputWithSince"/>
+		      <xsl:value-of select="if (contains($inputWithSince,'since')) then substring-after($inputWithSince,'since') else if (contains($inputWithSince,'seit')) then substring-after($inputWithSince,'seit') else ''"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:substringAfterReviewOf">
