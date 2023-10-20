@@ -443,7 +443,7 @@
 		<!-- SOURCE ISSUE -->
 		<xsl:if test="eterms:issue!=''">
 			<xsl:choose>
-				<xsl:when test="$publication-type = 'article' or $publication-type='book-review' or $publication-Type='magazine-article' or $publication-type='review-article'">
+				<xsl:when test="$publication-type = 'article' or $publication-type='book-review' or $publication-type='magazine-article' or $publication-type='review-article'">
 					<xsl:call-template name="createField">
 						<xsl:with-param name="name" select="'number'"/>
 						<xsl:with-param name="xpath" select="eterms:issue"/>
