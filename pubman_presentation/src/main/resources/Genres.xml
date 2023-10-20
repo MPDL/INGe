@@ -857,7 +857,7 @@
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all"/>
 		</genre>
 		
-		<genre id="MAGAZINE_ARTICLE" label="ENUM_GENRE_ARTICLE">
+		<genre id="MAGAZINE_ARTICLE" label="ENUM_GENRE_MAGAZINE_ARTICLE">
 			<field id="genre_group" value="article"/>
 			<group id="details">
 				<group id="publishing_info" repeatable="false" display="false" optional="true" form-id="all"/>
