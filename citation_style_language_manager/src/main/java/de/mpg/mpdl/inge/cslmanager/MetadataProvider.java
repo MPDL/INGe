@@ -355,7 +355,7 @@ public class MetadataProvider implements ItemDataProvider {
           } else if (IdentifierVO.IdType.EDARXIV.equals(identifier.getType())) {
             cslItem.number("EdArXiv: " + identifierList.get(0).getId());
           } else if (IdentifierVO.IdType.MEDRXIV.equals(identifier.getType())) {
-            cslItem.number("MedRxiv: " + identifierList.get(0).getId());
+            cslItem.number("medRxiv: " + identifierList.get(0).getId());
           } else if (IdentifierVO.IdType.ADS.equals(identifier.getType())) {
             cslItem.number("ADS: " + identifierList.get(0).getId());
           } else if (IdentifierVO.IdType.ESS_OPEN_ARCHIVE.equals(identifier.getType())) {
@@ -365,7 +365,7 @@ public class MetadataProvider implements ItemDataProvider {
           } else if (IdentifierVO.IdType.BMC.equals(identifier.getType())) {
             cslItem.number("BMC: " + identifierList.get(0).getId());
           } else if (IdentifierVO.IdType.BIBTEX_CITEKEY.equals(identifier.getType())) {
-            cslItem.number("BibTex CiteKey: " + identifierList.get(0).getId());
+            cslItem.number("BibTex Citekey: " + identifierList.get(0).getId());
           } else if (IdentifierVO.IdType.OTHER.equals(identifier.getType())) {
             cslItem.number("Other ID: " + identifierList.get(0).getId());
           } else {
