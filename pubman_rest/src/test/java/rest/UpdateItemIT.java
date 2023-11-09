@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,10 +29,16 @@ class UpdateItemIT {
     private static RequestSpecification requestSpecification;
     private static final String BASE_PATH = "/items";
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private String responseBody;
 
     @BeforeAll
     static void initSpec() {
         requestSpecification = TestBase.initRequestSpecification(BASE_PATH);
+    }
+
+    @AfterEach
+    void deleteItems() throws IOException {
+        TestDataManager.deleteItem(responseBody);
     }
 
     @Test
@@ -49,7 +56,7 @@ class UpdateItemIT {
                 .when().put(itemId).then().statusCode(200).contentType(ContentType.JSON).extract().response();
 
         //Then
-        String responseBody = response.getBody().asString();
+        responseBody = response.getBody().asString();
         String[] ignoreFields = {"lastModificationDate", "latestVersion.modificationDate", "modificationDate"};
         AssertJsonWrapper.assertEquals(requestBody, responseBody, ignoreFields);
 
@@ -59,9 +66,6 @@ class UpdateItemIT {
                 .isNotEqualToIgnoringCase(requestNode.get("lastModificationDate").toString());
         assertThat(responseBodyNode.get("latestVersion").path("modificationDate").toString())
                 .isNotEqualToIgnoringCase(requestNode.get("latestVersion").path("modificationDate").toString());
-
-        //TODO: Extract or Add finally:
-        TestDataManager.deleteItem(responseBody);
     }
 
     @ParameterizedTest
@@ -81,7 +85,7 @@ class UpdateItemIT {
                 .when().put(itemId).then().statusCode(200).contentType(ContentType.JSON).extract().response();
 
         //Then
-        String responseBody = response.getBody().asString();
+        responseBody = response.getBody().asString();
         String[] ignoreFields = {"lastModificationDate", "latestVersion.modificationDate", "modificationDate"};
         AssertJsonWrapper.assertEquals(requestBody, responseBody, ignoreFields);
 
@@ -91,9 +95,6 @@ class UpdateItemIT {
                 .isNotEqualToIgnoringCase(requestNode.get("lastModificationDate").toString());
         assertThat(responseBodyNode.get("latestVersion").path("modificationDate").toString())
                 .isNotEqualToIgnoringCase(requestNode.get("latestVersion").path("modificationDate").toString());
-
-        //TODO: Extract or Add finally:
-        TestDataManager.deleteItem(responseBody);
     }
 
 }
