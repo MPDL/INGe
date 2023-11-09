@@ -77,7 +77,7 @@ class CreateItemIT {
 
         //Then
         responseBody = response.getBody().asString();
-        String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId"};
+        String[] ignoreFields = {"creationDate", "lastModificationDate", "latestVersion.modificationDate", "latestVersion.objectId", "modificationDate", "objectId", "context.lastModificationDate"};
         AssertJsonWrapper.assertEquals(requestBody, responseBody, ignoreFields);
     }
 
