@@ -416,6 +416,17 @@
 				<misc:target misc:use="festschrift">0</misc:target>
 			</misc:mapping>
 			<misc:mapping>
+				<misc:source>http://purl.org/escidoc/metadata/ves/publication-types/magazine-article</misc:source>
+				<misc:target misc:use="996a">magazine-article</misc:target>
+				<misc:target misc:use="997a">magazine-article</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
 				<misc:source>http://purl.org/escidoc/metadata/ves/publication-types/manual</misc:source>
 				<misc:target misc:use="996a">Bedienungsanleitung</misc:target>
 				<misc:target misc:use="997a">manual</misc:target>
