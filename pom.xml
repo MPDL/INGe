@@ -583,11 +583,6 @@
 				<artifactId>log4j-slf4j-impl</artifactId>
 				<version>2.19.0</version>
 			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.7.36</version>
-			</dependency>
 
 			<!-- Spring -->
 			<dependency>
