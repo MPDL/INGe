@@ -924,7 +924,6 @@
 				<artifactId>formatter-maven-plugin</artifactId>
 				<version>2.7.0</version>
 				<configuration>
-					<release>${jdk.version}</release>
 					<lineEnding>LF</lineEnding>
 					<encoding>UTF-8</encoding>
 					<configFile>${project.parent.basedir}/java-google-style-custom.xml</configFile>
