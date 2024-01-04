@@ -324,12 +324,13 @@ public class OrganizationRestController {
   }
 
   @Hidden
-  @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST, consumes = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,
-          produces = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST,
+      consumes = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,
+      produces = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<String> searchDetailed(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-                                               @RequestBody JsonNode searchSource, @RequestParam(name = "scroll", required = false) String scrollTimeValue,
-                                               HttpServletResponse httpResponse)
-          throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+      @RequestBody JsonNode searchSource, @RequestParam(name = "scroll", required = false) String scrollTimeValue,
+      HttpServletResponse httpResponse)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
     return UtilServiceBean.searchDetailed(organizationSvc, searchSource, scrollTimeValue, token, httpResponse);
   }
