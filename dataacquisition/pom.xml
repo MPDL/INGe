@@ -33,23 +33,23 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>xmlbeans-maven-plugin</artifactId>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans</artifactId>
 				<executions>
 					<execution>
 						<id>xmlbeans</id>
 						<phase>generate-sources</phase>
 						<goals>
-							<goal>xmlbeans</goal>
+							<goal>compile</goal>
 						</goals>
 					</execution>
 				</executions>
 				<inherited>true</inherited>
 				<configuration>
-					<javaSource>1.8</javaSource>
+
 					<noPvr>true</noPvr>
 					<download>true</download>
-
+					<sourceDir>${project.basedir}/src/main/xsd</sourceDir>
 				</configuration>
 			</plugin>
 			<plugin>
