@@ -163,6 +163,7 @@ public class Util {
             //              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             //            }
             logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
+            client.getState().clearCookies();
             client.executeMethod(detailMethod);
 
             if (detailMethod.getStatusCode() == 200) {
@@ -349,7 +350,7 @@ public class Util {
             + URLEncoder.encode("dcterms:alternative", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
             + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
             + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-        client = new HttpClient();
+        client.getState().clearCookies();
         method = new GetMethod(queryUrl);
         //        if (coneSession != null) {
         //          method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
@@ -371,6 +372,7 @@ public class Util {
                 //detailMethod.setFollowRedirects(true);
                 logger
                     .info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn returned " + detailMethod.getResponseBodyAsString());
+                client.getState().clearCookies();
                 client.executeMethod(detailMethod);
                 if (detailMethod.getStatusCode() == 200) {
                   Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -446,6 +448,7 @@ public class Util {
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               // detailMethod.setFollowRedirects(true);
+              client.getState().clearCookies();
               client.executeMethod(detailMethod);
               logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
               if (detailMethod.getStatusCode() == 200) {
@@ -640,7 +643,7 @@ public class Util {
         // sometimes not
 
         logger.info("GET request to " + url + " did not return any Content-Length. Trying GET request.");
-        httpClient = new HttpClient();
+        httpClient.getState().clearCookies();
         GetMethod getMethod = new GetMethod(url);
         httpClient.executeMethod(getMethod);
 

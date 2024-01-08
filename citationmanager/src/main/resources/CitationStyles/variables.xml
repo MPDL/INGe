@@ -54,6 +54,7 @@
 	<variable name="l_software">'http://purl.org/escidoc/metadata/ves/publication-types/software'</variable>
 	<variable name="l_talk-at-event">'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'</variable>
 	<variable name="l_thesis">'http://purl.org/eprint/type/Thesis'</variable>
+	<variable name="l_magazine-article">'http://purl.org/escidoc/metadata/ves/publication-types/magazine-article'</variable>
 	<variable name="l_other">'http://purl.org/escidoc/metadata/ves/publication-types/other'</variable>
 	<!-- jus genre labels -->
 	<variable name="l_monograph"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/monograph']]></variable>

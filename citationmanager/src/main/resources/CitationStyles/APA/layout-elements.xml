@@ -208,7 +208,7 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[$genre = $l_article and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='') and (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!='')]]></valid-if>
+						<valid-if><![CDATA[$genre = ($l_article, $l_magazine-article) and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='') and (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!='')]]></valid-if>
 						<delimiter value="-" />
 						<starts-with value="pp. "/>
 					</parameters>
@@ -219,7 +219,7 @@
 				</layout-element>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[not($genre = $l_article and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='') and (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!=''))]]></valid-if>
+						<valid-if><![CDATA[not($genre = ($l_article, $l_magazine-article) and (pub:publication/source:source[1]/eterms:sequence-number and pub:publication/source:source[1]/eterms:sequence-number!='') and (pub:publication/source:source[1]/eterms:start-page and pub:publication/source:source[1]/eterms:start-page!=''))]]></valid-if>
 						<delimiter value="-" />
 					</parameters>
 					<elements>

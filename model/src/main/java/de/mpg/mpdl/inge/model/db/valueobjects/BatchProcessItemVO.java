@@ -64,7 +64,7 @@ public class BatchProcessItemVO implements Serializable {
   public BatchProcessMessages batchProcessMessage;
   public BatchProcessMessagesTypes batchProcessMessageType;
 
-  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.EAGER)
   public ItemVersionVO itemVersionVO;
 
   public BatchProcessItemVO() {

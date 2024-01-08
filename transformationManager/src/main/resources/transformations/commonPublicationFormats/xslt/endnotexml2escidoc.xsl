@@ -79,7 +79,7 @@
 		<m key="Conference Paper">conference-paper</m>
 		<m key="Conference Proceedings">proceedings</m>
 		<m key="Journal Article">article</m>
-		<m key="Magazine Article">newspaper-article</m>
+		<m key="Magazine Article">magazine-article</m>
 		<m key="Meeting Abstract">meeting-abstract</m>
 		<m key="Newspaper Article">newspaper-article</m>
 		<m key="Electronic Article">article</m>
@@ -1227,13 +1227,13 @@
 								<xsl:otherwise>
 									<xsl:choose>
 										<xsl:when
-											test="gen = 'http://purl.org/escidoc/metadata/ves/publication-types/article' and exists(NUM_7) and NUM_7 != ''">
+											test="(gen = 'http://purl.org/escidoc/metadata/ves/publication-types/article' or gen = 'http://purl.org/escidoc/metadata/ves/publication-types/magazine-article') and exists(NUM_7) and NUM_7 != ''">
 											<xsl:value-of select="NUM_7" />
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:choose>
 												<xsl:when
-													test="gen != 'http://purl.org/escidoc/metadata/ves/publication-types/article' and exists(NUM_8) and NUM_8 != ''">
+													test="(gen != 'http://purl.org/escidoc/metadata/ves/publication-types/article' or gen = 'http://purl.org/escidoc/metadata/ves/publication-types/magazine-article') and exists(NUM_8) and NUM_8 != ''">
 													<xsl:value-of select="NUM_8" />
 												</xsl:when>
 											</xsl:choose>

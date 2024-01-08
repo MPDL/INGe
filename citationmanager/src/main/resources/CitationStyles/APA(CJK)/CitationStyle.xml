@@ -293,7 +293,7 @@
 	<cs-layout-definition name="journal-article-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( $l_article, $l_paper,$l_data_publication, $l_pre_registration_paper, $l_registered_report, $l_preprint, $l_blog_post, $l_interview, $l_software, $l_review_article, $l_film ) 
+				$genre = ( $l_article, $l_paper,$l_data_publication, $l_pre_registration_paper, $l_registered_report, $l_preprint, $l_blog_post, $l_interview, $l_software, $l_review_article, $l_film, $l_magazine-article ) 
 				or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper, $l_meeting-abstract, $l_data_publication, $l_pre_registration_paper, $l_registered_report, $l_preprint, $l_blog_post, $l_interview, $l_software, $l_review_article, $l_film) and $source-type = $l_journal )  
 			]]></valid-if>
 			<delimiter value="" />

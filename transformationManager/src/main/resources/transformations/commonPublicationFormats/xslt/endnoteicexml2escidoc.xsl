@@ -67,7 +67,7 @@
 		<m key="Conference Paper">conference-paper</m>
 		<m key="Conference Proceedings">proceedings</m>
 		<m key="Journal Article">article</m>
-		<m key="Magazine Article">article</m>
+		<m key="Magazine Article">magazine-article</m>
 		<m key="Newspaper Article">article</m>
 		<m key="Electronic Article">article</m>
 		<m key="Report">report</m>
@@ -439,7 +439,7 @@
 					<xsl:value-of select="concat($year, if ($year!='' and $date!='') then '-' else '', $date)"/>
 				</dcterms:issued>
 			</xsl:if>
-			<xsl:if test="NUM_7 and ( $refType = 'Journal Article' )">
+			<xsl:if test="NUM_7 and ( $refType = 'Journal Article' or $refType = 'Magazine Article' )">
 				<eterms:published-online xsi:type="dcterms:W3CDTF">
 					<xsl:value-of select="NUM_7"/>
 				</eterms:published-online>
