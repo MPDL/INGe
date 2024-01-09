@@ -5,7 +5,9 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -15,6 +17,7 @@ public class BatchProcessUserLockDbVO implements Serializable {
 
   @Id
   @Column(name = "user_account_objectid")
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = AccountUserDbVO.class)
   private String userAccountObjectId;
 
   @Column(name = "lock_date")

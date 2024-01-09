@@ -111,6 +111,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   private BatchProcessLogDetailDbVO.State state;
 
   @Column(name = "message")
+  @Enumerated(EnumType.STRING)
   private BatchProcessLogDetailDbVO.Message logMessage;
 
   @Column(name = "start_date")

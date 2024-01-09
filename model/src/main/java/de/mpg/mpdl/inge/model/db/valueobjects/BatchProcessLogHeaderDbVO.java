@@ -7,9 +7,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -30,6 +32,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   private long batchLogHeaderId;
   
   @Column(name = "user_account_objectid")
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = AccountUserDbVO.class)
   private String userAccountObjectId;
 
   @Column(name = "state")
