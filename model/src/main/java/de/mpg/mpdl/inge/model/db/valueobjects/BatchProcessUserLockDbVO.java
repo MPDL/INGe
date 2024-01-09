@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -17,7 +16,6 @@ import jakarta.persistence.Table;
 public class BatchProcessUserLockDbVO implements Serializable {
 
   @Id
-  @PrimaryKeyJoinColumn(name = "user_account_objectid")
   @OneToOne(fetch = FetchType.EAGER, targetEntity = AccountUserDbVO.class)
   private String userAccountObjectId;
 
