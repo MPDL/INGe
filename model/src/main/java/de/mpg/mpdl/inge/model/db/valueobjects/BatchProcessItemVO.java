@@ -29,18 +29,16 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 import java.io.Serializable;
 import java.text.MessageFormat;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 
 /**
  * Messages used in batch processing.
