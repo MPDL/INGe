@@ -11,6 +11,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -32,6 +33,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   private long batchLogHeaderId;
   
   @OneToOne(fetch = FetchType.EAGER, targetEntity = AccountUserDbVO.class)
+  @JoinColumn(name = "user_account_objectid")
   private String userAccountObjectId;
 
   @Column(name = "state")

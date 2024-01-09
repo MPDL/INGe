@@ -44,6 +44,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -100,6 +101,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   private long batchLogDetailId;
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = BatchProcessLogHeaderDbVO.class)
+  @JoinColumn(name = "batch_log_header_id")
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO;
 
