@@ -1,39 +1,13 @@
-/*
- * 
- * CDDL HEADER START
- * 
- * The contents of this file are subject to the terms of the Common Development and Distribution
- * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
- * the License.
- * 
- * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
- * http://www.escidoc.org/license. See the License for the specific language governing permissions
- * and limitations under the License.
- * 
- * When distributing Covered Code, include this CDDL HEADER in each file and include the License
- * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
- * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
- * Copyright [yyyy] [name of copyright owner]
- * 
- * CDDL HEADER END
- */
-
-/*
- * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
- * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
- * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
- */
-
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import jakarta.persistence.Column;
@@ -46,16 +20,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "batch_log_detail")
-@JsonInclude(value = Include.NON_EMPTY)
+@Table(name = "batch_process_log_detail")
 public class BatchProcessLogDetailDbVO implements Serializable {
 
-  public enum State {
+  public enum State
+  {
     INITIALIZED,
     RUNNING,
     SUCCESS,
@@ -63,7 +36,8 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     EXCEPTION
   }
 
-  public enum Message implements Messages {
+  public enum Message implements Messages
+  {
     // SUCCESS MESSAGES
     SUCCESS("batch_ProcessLog_Success"),
     // ERROR MESSAGES
@@ -83,30 +57,33 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
     AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError");
 
-    private String message;
+  private String message;
 
-    Message(String message) {
+  Message(String message) {
       this.message = message;
     }
 
-    @Override
+  @Override
     public String getMessage() {
       return message;
-    }
-  }
+    }}
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "batch_log_detail_id")
-  private long batchLogDetailId;
+  @Column(name = "batch_process_log_detail_id")
+  private long batchProcessLogDetailId;
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = BatchProcessLogHeaderDbVO.class)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "batchProcess")
   @JoinColumn(name = "batch_log_header_id")
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO;
 
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class)
-  private ItemVersionVO itemVersionVO;
+  @Column(name = "item_objectid")
+  private String itemObjectId;
+
+  @Column(name = "item_versionnumber")
+  private Integer itemVersionnumber;
 
   @Column(name = "state")
   @Enumerated(EnumType.STRING)
@@ -114,30 +91,37 @@ public class BatchProcessLogDetailDbVO implements Serializable {
 
   @Column(name = "message")
   @Enumerated(EnumType.STRING)
-  private BatchProcessLogDetailDbVO.Message logMessage;
+  private BatchProcessLogDetailDbVO.Message message;
 
-  @Column(name = "start_date")
-  private Date startDate;
+  @Column(name = "start_date", columnDefinition = "TIMESTAMP")
+  private LocalDateTime startDate;
 
-  @Column(name = "end_date")
-  private Date endDate;
+  @Column(name = "end_date", columnDefinition = "TIMESTAMP")
+  private LocalDateTime endDate;
 
   public BatchProcessLogDetailDbVO() {}
 
-  public BatchProcessLogDetailDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, ItemVersionVO itemVersionVO,
-      BatchProcessLogDetailDbVO.State state, Date startDate) {
+  public BatchProcessLogDetailDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String itemObjectId, Integer itemVersionnumber,
+      BatchProcessLogDetailDbVO.State state, LocalDateTime startDate) {
+    this(batchProcessLogHeaderDbVO, itemObjectId, itemVersionnumber, state, (BatchProcessLogDetailDbVO.Message) null, startDate);
+  }
+
+  public BatchProcessLogDetailDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String itemObjectId, Integer itemVersionnumber,
+      BatchProcessLogDetailDbVO.State state, BatchProcessLogDetailDbVO.Message message, LocalDateTime startDate) {
     this.batchProcessLogHeaderDbVO = batchProcessLogHeaderDbVO;
-    this.itemVersionVO = itemVersionVO;
+    this.itemObjectId = itemObjectId;
+    this.itemVersionnumber = itemVersionnumber;
     this.state = state;
+    this.message = message;
     this.startDate = startDate;
   }
 
   public long getBatchLogDetailId() {
-    return this.batchLogDetailId;
+    return this.batchProcessLogDetailId;
   }
 
   public void setBatchLogDetailId(long batchLogDetailId) {
-    this.batchLogDetailId = batchLogDetailId;
+    this.batchProcessLogDetailId = batchLogDetailId;
   }
 
   public BatchProcessLogDetailDbVO.State getState() {
@@ -148,19 +132,19 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     this.state = state;
   }
 
-  public BatchProcessLogDetailDbVO.Message getLogMessage() {
-    return this.logMessage;
+  public BatchProcessLogDetailDbVO.Message getMessage() {
+    return this.message;
   }
 
-  public void setLogMessage(BatchProcessLogDetailDbVO.Message logMessage) {
-    this.logMessage = logMessage;
+  public void setMessage(BatchProcessLogDetailDbVO.Message message) {
+    this.message = message;
   }
 
-  public Date getEndDate() {
+  public LocalDateTime getEndDate() {
     return this.endDate;
   }
 
-  public void setEndDate(Date endDate) {
+  public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
   }
 
@@ -168,11 +152,36 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     return this.batchProcessLogHeaderDbVO;
   }
 
-  public ItemVersionVO getItemVersionVO() {
-    return this.itemVersionVO;
+  public String getItemObjectId() {
+    return this.itemObjectId;
   }
 
-  public Date getStartDate() {
+  public Integer getItemVersionnumber() {
+    return this.itemVersionnumber;
+  }
+
+  public LocalDateTime getStartDate() {
     return this.startDate;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(batchProcessLogDetailId, batchProcessLogHeaderDbVO, endDate, itemObjectId, itemVersionnumber, message, startDate,
+        state);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    BatchProcessLogDetailDbVO other = (BatchProcessLogDetailDbVO) obj;
+    return batchProcessLogDetailId == other.batchProcessLogDetailId
+        && Objects.equals(batchProcessLogHeaderDbVO, other.batchProcessLogHeaderDbVO) && Objects.equals(endDate, other.endDate)
+        && Objects.equals(itemObjectId, other.itemObjectId) && Objects.equals(itemVersionnumber, other.itemVersionnumber)
+        && message == other.message && Objects.equals(startDate, other.startDate) && state == other.state;
   }
 }
