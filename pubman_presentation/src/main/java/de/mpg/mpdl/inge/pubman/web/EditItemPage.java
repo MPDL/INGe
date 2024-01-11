@@ -26,9 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * BackingBean for EditItemPage.jsp. This one is empty because all code is implemented in the

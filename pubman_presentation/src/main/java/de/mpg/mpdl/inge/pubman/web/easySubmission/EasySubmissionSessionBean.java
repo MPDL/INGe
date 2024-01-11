@@ -29,10 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.easySubmission;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.model.SelectItem;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
@@ -40,6 +36,9 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.CreatorBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving

@@ -30,12 +30,11 @@
  */
 package de.mpg.mpdl.inge.pubman.web.util.converter;
 
+import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
-
-import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 
 public class HTMLEscapeConverter implements Converter {
   public static final String CONVERTER_ID = "HTMLEscapeConverter";

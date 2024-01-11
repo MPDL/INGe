@@ -26,9 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * Backing bean for ViewItemMedium.jspf (for viewing items in a medium context).

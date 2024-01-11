@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.util.servlet;
 import java.io.InputStream;
 import java.util.ResourceBundle;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -39,6 +37,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import de.mpg.mpdl.inge.pubman.web.util.handler.GenreHandler;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
 
 @SuppressWarnings("serial")
 public class GenreServlet extends HttpServlet {

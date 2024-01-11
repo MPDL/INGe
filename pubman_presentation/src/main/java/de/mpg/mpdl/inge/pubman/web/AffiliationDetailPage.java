@@ -25,8 +25,6 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import jakarta.faces.bean.ManagedBean;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
@@ -34,6 +32,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * 

@@ -2,10 +2,9 @@ package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.util.List;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
-
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "UtilBean")
 @RequestScoped

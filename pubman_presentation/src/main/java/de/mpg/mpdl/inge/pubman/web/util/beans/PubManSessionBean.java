@@ -24,11 +24,10 @@
  */
 package de.mpg.mpdl.inge.pubman.web.util.beans;
 
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 import jakarta.faces.event.ValueChangeEvent;
-
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 @ManagedBean(name = "PubManSessionBean")
 @SessionScoped

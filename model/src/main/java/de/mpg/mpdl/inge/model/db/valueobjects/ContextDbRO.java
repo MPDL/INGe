@@ -26,10 +26,10 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import jakarta.persistence.MappedSuperclass;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import jakarta.persistence.MappedSuperclass;
 
 /**
  * The class for AccountUser references.

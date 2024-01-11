@@ -28,10 +28,9 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import java.util.Map;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import jakarta.faces.bean.ManagedBean;
 
 @ManagedBean(name = "SearchResultListPage")
 @SuppressWarnings("serial")

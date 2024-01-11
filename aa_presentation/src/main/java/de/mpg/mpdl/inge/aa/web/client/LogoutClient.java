@@ -1,9 +1,9 @@
 package de.mpg.mpdl.inge.aa.web.client;
 
+import org.apache.log4j.Logger;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
 
 public class LogoutClient extends Client {
 

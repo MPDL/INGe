@@ -2,9 +2,6 @@ package de.mpg.mpdl.inge.service.pubman;
 
 import java.util.Date;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -14,6 +11,8 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserAccountService extends GenericService<AccountUserDbVO, String> {
 

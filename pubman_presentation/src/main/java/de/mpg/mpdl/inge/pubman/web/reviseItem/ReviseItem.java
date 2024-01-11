@@ -2,8 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.reviseItem;
 
 import java.io.IOException;
 
-import jakarta.faces.bean.ManagedBean;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -15,6 +13,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
+import jakarta.faces.bean.ManagedBean;
 
 @ManagedBean(name = "ReviseItem")
 @SuppressWarnings("serial")

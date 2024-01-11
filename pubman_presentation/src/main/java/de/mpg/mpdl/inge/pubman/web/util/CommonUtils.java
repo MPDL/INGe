@@ -47,9 +47,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jakarta.faces.component.html.HtmlSelectOneRadio;
-import jakarta.faces.model.SelectItem;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
@@ -68,6 +65,8 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.faces.component.html.HtmlSelectOneRadio;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Provides different utilities for all kinds of stuff.

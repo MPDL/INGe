@@ -1,12 +1,13 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import de.mpg.mpdl.inge.cone_cache.ConeCache;
-import io.swagger.v3.oas.annotations.Hidden;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import de.mpg.mpdl.inge.cone_cache.ConeCache;
+import io.swagger.v3.oas.annotations.Hidden;
 
 // TODO: Authorization
 @RestController

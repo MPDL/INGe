@@ -29,12 +29,11 @@ package de.mpg.mpdl.inge.pubman.web.qaws;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 import jakarta.faces.model.SelectItem;
-
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * TODO Session Bean for the Quality Assurance Workspace, keeps all attributes

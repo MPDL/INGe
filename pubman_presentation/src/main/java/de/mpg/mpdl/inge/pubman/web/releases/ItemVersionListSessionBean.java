@@ -29,15 +29,14 @@ package de.mpg.mpdl.inge.pubman.web.releases;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.EventLogEntryVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.VersionHistoryVOPresentation;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory, the Item Log and

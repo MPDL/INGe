@@ -1,10 +1,9 @@
 package de.mpg.mpdl.inge.pubman.web.util.converter;
 
+import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
-
-import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 
 /**
  * Removes all sub and sup tags from a string, used for browser title

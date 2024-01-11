@@ -28,10 +28,9 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * A JSF bean class to hold the data of the items of an import.

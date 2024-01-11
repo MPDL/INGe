@@ -10,12 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jakarta.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import jakarta.faces.model.SelectItem;
 
 /**
  * This abstract bean class is used to manage lists with one or two paginators. It can work together

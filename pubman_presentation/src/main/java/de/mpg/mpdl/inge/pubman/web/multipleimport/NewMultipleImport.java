@@ -26,9 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * Session bean to hold data needed for an import of multiple items.

@@ -28,11 +28,10 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import java.lang.reflect.Method;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * BackingBean for EasySubmissionPage.jsp, Step3Import.

@@ -30,6 +30,9 @@ import java.io.File;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.activation.FileDataSource;
@@ -46,10 +49,6 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
-
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 /**
  * @author Galina Stancheva (initial creation)

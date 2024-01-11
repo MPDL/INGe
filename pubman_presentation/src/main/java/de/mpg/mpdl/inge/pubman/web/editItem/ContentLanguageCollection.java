@@ -29,10 +29,9 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.faces.model.SelectItem;
-
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Bean to handle the ContentLanguageCollection on a single jsp. A ContentLanguageCollection is

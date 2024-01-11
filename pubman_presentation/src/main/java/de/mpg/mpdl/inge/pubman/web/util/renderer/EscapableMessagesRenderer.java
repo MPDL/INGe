@@ -37,12 +37,12 @@ package de.mpg.mpdl.inge.pubman.web.util.renderer;
  */
 import java.io.IOException;
 
+import com.sun.faces.renderkit.html_basic.MessagesRenderer;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.context.ResponseWriterWrapper;
-
-import com.sun.faces.renderkit.html_basic.MessagesRenderer;
 
 // TODO test if this is working in Versions after JSF 2.2
 // @FacesRenderer(componentFamily = "jakarta.faces.Messages", rendererType =

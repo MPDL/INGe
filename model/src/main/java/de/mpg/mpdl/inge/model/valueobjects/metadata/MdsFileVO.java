@@ -3,13 +3,12 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)

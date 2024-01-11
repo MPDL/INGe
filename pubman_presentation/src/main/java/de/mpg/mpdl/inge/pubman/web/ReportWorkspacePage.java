@@ -26,9 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * BackingBean for Workspaces Page (ReportWorkspacePage.jsp).

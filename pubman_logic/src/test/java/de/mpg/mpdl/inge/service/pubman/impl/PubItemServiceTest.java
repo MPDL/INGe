@@ -2,8 +2,6 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import static org.junit.Assert.assertTrue;
 
-import jakarta.persistence.EntityManager;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,6 +27,7 @@ import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
+import jakarta.persistence.EntityManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})

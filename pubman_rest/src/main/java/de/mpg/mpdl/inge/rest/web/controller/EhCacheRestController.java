@@ -1,26 +1,19 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
-import io.swagger.v3.oas.annotations.Hidden;
-import org.apache.log4j.Logger;
+import java.util.Iterator;
 
-import org.ehcache.core.statistics.CacheStatistics;
-import org.ehcache.sizeof.SizeOf;
+import javax.cache.Cache;
+import javax.cache.CacheManager;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.Caching;
-import javax.cache.spi.CachingProvider;
-import java.util.Arrays;
-import java.util.Iterator;
+import io.swagger.v3.oas.annotations.Hidden;
 
 // TODO: Authorization
 @RestController

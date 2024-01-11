@@ -26,9 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.itemList;
 
-import jakarta.faces.component.html.HtmlPanelGroup;
-
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import jakarta.faces.component.html.HtmlPanelGroup;
 
 /**
  * Fragment class for lists of items.

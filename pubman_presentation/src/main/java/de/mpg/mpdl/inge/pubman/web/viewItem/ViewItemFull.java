@@ -37,8 +37,6 @@ import java.util.MissingResourceException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jakarta.faces.bean.ManagedBean;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -109,6 +107,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
 import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).

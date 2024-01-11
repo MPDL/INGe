@@ -26,9 +26,6 @@
 
 package de.mpg.mpdl.inge.aa.web.client.old;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.apache.commons.codec.binary.Base64;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
@@ -36,6 +33,8 @@ import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 import de.mpg.mpdl.inge.aa.web.client.FinalClient;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * TODO Description

@@ -3,8 +3,6 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -18,6 +16,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.transformation.util.creators.Author;
 import de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder;
+import jakarta.faces.model.SelectItem;
 
 @SuppressWarnings("serial")
 public class EditItemBean extends FacesBean {

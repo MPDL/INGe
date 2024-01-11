@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -39,6 +38,7 @@ import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A SAX parser that reads in the servieces.xml configuration file.

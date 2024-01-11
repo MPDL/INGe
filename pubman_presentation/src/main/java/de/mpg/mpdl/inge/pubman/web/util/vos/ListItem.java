@@ -27,11 +27,10 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import java.util.List;
 
-import jakarta.faces.event.ValueChangeEvent;
-
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
+import jakarta.faces.event.ValueChangeEvent;
 
 public class ListItem {
   private int index;

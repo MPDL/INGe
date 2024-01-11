@@ -5,10 +5,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.FlushModeType;
-import jakarta.persistence.PersistenceContext;
-
 import org.apache.log4j.Logger;
 import org.hibernate.CacheMode;
 import org.hibernate.ScrollMode;
@@ -34,6 +30,9 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.PersistenceContext;
 
 public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id extends Serializable> extends GenericServiceBaseImpl<ModelObject>
     implements GenericService<ModelObject, Id> {

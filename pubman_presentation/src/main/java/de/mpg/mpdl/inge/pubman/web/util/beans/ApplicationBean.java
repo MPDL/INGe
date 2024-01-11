@@ -33,10 +33,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import jakarta.faces.bean.ApplicationScoped;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ManagedProperty;
-import jakarta.faces.model.SelectItem;
+import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
@@ -59,8 +56,10 @@ import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-
-import javax.sql.DataSource;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.model.SelectItem;
 
 /**
  * ApplicationBean which stores all application wide values.

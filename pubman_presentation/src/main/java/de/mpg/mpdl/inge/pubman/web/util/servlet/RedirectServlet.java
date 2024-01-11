@@ -28,14 +28,13 @@ package de.mpg.mpdl.inge.pubman.web.util.servlet;
 
 import java.io.IOException;
 
+import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls. /pubman/item/escidoc:12345 for

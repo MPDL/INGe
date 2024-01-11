@@ -26,14 +26,13 @@
 
 package de.mpg.mpdl.inge.pubman.web.util;
 
-import jakarta.faces.bean.ManagedBean;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * TODO Description

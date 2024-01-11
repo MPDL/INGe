@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.db.spring;
 
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.SharedCacheMode;
+import java.net.URI;
 
 import javax.cache.CacheManager;
 import javax.cache.Caching;
@@ -26,8 +25,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
-
-import java.net.URI;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.SharedCacheMode;
 
 @Configuration
 @ComponentScan({"de.mpg.mpdl.inge.db.repository", "de.mpg.mpdl.inge.db.filestorage", "de.mpg.mpdl.inge.db.spring"})

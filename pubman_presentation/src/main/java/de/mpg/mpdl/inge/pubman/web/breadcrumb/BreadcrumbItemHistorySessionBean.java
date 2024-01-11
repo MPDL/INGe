@@ -27,10 +27,9 @@ package de.mpg.mpdl.inge.pubman.web.breadcrumb;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
-
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
  * BreadcrumbItem history is stored in this session bean for advanced page navigation.

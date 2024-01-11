@@ -25,9 +25,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * Fragment class for the AffiliationTreePage. This class provides all functionality for choosing

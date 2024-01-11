@@ -2,12 +2,11 @@ package de.mpg.mpdl.inge.aa.web.client;
 
 import java.io.IOException;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * 

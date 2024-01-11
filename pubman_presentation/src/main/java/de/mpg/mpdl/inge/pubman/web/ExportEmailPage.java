@@ -25,12 +25,11 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp

@@ -1,6 +1,20 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+
+import org.apache.xmlbeans.XmlOptions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import de.mpg.mpdl.inge.dataacquisition.unapiFormats.FormatType;
 import de.mpg.mpdl.inge.dataacquisition.unapiFormats.FormatsDocument;
 import de.mpg.mpdl.inge.dataacquisition.unapiFormats.FormatsType;
@@ -17,15 +31,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.xmlbeans.XmlOptions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/unapi")

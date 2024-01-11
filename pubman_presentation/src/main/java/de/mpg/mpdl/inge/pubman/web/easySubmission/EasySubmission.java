@@ -31,15 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.component.html.HtmlSelectOneMenu;
-import jakarta.faces.component.html.HtmlSelectOneRadio;
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
 
 import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
@@ -94,7 +89,11 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.primefaces.model.file.UploadedFile;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.html.HtmlSelectOneMenu;
+import jakarta.faces.component.html.HtmlSelectOneRadio;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving

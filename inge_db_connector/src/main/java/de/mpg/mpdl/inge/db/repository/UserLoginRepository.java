@@ -3,15 +3,14 @@ package de.mpg.mpdl.inge.db.repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 import org.apache.log4j.Logger;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Service
 public class UserLoginRepository {

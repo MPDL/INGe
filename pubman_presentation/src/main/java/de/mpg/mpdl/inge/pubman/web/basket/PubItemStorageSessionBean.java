@@ -3,11 +3,10 @@ package de.mpg.mpdl.inge.pubman.web.basket;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 
 /**
  * Session Bean that stores the referneces of PubItems in a Map for the Basket session basket

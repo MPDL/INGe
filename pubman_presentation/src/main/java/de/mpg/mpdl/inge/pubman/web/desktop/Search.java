@@ -26,6 +26,12 @@
 
 package de.mpg.mpdl.inge.pubman.web.desktop;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
@@ -41,12 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-import org.apache.log4j.Logger;
-
 import jakarta.faces.bean.ManagedBean;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 @ManagedBean(name = "Search")
 @SuppressWarnings("serial")

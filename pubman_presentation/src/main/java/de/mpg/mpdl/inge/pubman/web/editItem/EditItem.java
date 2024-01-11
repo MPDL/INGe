@@ -31,14 +31,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.component.html.HtmlCommandLink;
-import jakarta.faces.component.html.HtmlSelectOneMenu;
-import jakarta.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
 
 import com.sun.faces.facelets.component.UIRepeat;
 
@@ -94,7 +90,10 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import org.primefaces.model.file.UploadedFile;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.html.HtmlCommandLink;
+import jakarta.faces.component.html.HtmlSelectOneMenu;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving

@@ -25,9 +25,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import jakarta.faces.bean.ManagedBean;
 
 @ManagedBean(name = "CreateItemPage")
 @SuppressWarnings("serial")

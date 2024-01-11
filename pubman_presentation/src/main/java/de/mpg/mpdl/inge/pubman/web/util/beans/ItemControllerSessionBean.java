@@ -28,9 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.util.List;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -79,6 +76,8 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 
 @ManagedBean(name = "ItemControllerSessionBean")
 @SessionScoped

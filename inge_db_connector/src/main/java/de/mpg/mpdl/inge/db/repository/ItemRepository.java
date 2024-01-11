@@ -2,14 +2,13 @@ package de.mpg.mpdl.inge.db.repository;
 
 import java.util.List;
 
-import jakarta.persistence.QueryHint;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
+import jakarta.persistence.QueryHint;
 
 // @NoRepositoryBean
 public interface ItemRepository extends GenericRepository<ItemVersionVO, VersionableId> {

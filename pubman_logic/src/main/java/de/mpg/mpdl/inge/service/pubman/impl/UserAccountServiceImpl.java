@@ -12,10 +12,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
@@ -65,6 +61,9 @@ import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.util.UserAccountLoginAttemptsCacheUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, String> implements UserAccountService, ReindexListener {

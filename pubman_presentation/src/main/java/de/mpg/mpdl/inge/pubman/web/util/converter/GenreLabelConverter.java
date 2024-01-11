@@ -31,13 +31,12 @@
  */
 package de.mpg.mpdl.inge.pubman.web.util.converter;
 
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
-
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 public class GenreLabelConverter implements Converter {
   public static final String CONVERTER_ID = "GenreLabelConverter";

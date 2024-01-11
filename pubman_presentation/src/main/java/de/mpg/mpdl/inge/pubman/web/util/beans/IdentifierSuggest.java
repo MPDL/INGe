@@ -30,9 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import jakarta.faces.bean.ManagedBean;
 
 @ManagedBean(name = "IdentifierSuggest")
 public class IdentifierSuggest {

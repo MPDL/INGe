@@ -25,11 +25,10 @@
 
 package de.mpg.mpdl.inge.pubman.web.search;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 
 /**
  * Keeps all attributes that are used for the whole session by the SearchResultList.

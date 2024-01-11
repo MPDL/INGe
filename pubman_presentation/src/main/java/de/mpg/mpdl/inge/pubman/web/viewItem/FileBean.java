@@ -32,8 +32,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.faces.event.ValueChangeEvent;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -48,6 +46,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
+import jakarta.faces.event.ValueChangeEvent;
 
 /**
  * Bean for storing the information of files attached to items.

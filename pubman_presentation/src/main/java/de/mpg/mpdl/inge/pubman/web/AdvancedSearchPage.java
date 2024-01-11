@@ -25,9 +25,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import jakarta.faces.bean.ManagedBean;
-
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import jakarta.faces.bean.ManagedBean;
 
 /**
  * Class for the AdvancedSearch Page.

@@ -29,16 +29,15 @@ package de.mpg.mpdl.inge.pubman.web.util;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.application.FacesMessage.Severity;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.component.UIComponent;
-
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.UIComponent;
 
 /**
  * The FacesBean provides common features for bean and facesMessage handling. Designed to replace

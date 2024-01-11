@@ -1,11 +1,5 @@
 package de.mpg.mpdl.inge.pubman.web.spring;
 
-import jakarta.faces.webapp.FacesServlet;
-import jakarta.servlet.FilterRegistration;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRegistration;
-
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -15,6 +9,11 @@ import com.sun.faces.config.ConfigureListener;
 import de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
+import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 
 public class WebAppInitializer implements WebApplicationInitializer {
   public void onStartup(ServletContext servletContext) throws ServletException {

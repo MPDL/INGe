@@ -2,13 +2,12 @@ package de.mpg.mpdl.inge.pubman.web.common_presentation;
 
 import java.util.List;
 
-import jakarta.annotation.PostConstruct;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.annotation.PostConstruct;
 
 /**
  * This class is an abstract class for all pages that need to implement and display a paginated

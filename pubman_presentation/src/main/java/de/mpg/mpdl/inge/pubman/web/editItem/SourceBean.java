@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.faces.model.SelectItem;
-
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -44,6 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.editItem.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
+import jakarta.faces.model.SelectItem;
 
 /**
  * POJO bean to deal with one source.

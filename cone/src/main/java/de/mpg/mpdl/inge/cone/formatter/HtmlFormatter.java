@@ -35,7 +35,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -54,6 +53,7 @@ import de.mpg.mpdl.inge.cone.util.RdfHelper;
 import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet to answer calls from the JQuery Javascript API.

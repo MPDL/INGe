@@ -450,7 +450,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   /**
    * Returns the ou path from the given id up to root parent
    */
-  @Transactional
+  @Transactional(readOnly = true)
   public String getOuPath(String id) throws IngeTechnicalException, IngeApplicationException {
 
     AffiliationDbVO affVo = organizationRepository.findById(id).orElse(null);
@@ -471,7 +471,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   /**
    * Returns the path from the given id up to root parent
    */
-  @Transactional
+  @Transactional(readOnly = true)
   public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
     AffiliationDbVO affVo = organizationRepository.findById(id).orElse(null);
     if (affVo == null)
@@ -487,7 +487,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     return idPath;
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   public List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
     List<String> ouIds = new ArrayList<>();
     fillWithChildOus(ouIds, id);

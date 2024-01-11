@@ -31,12 +31,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import jakarta.faces.model.SelectItem;
-
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import jakarta.faces.model.SelectItem;
 
 /**
  * Bean to handle the IdentifierCollection on a single jsp. A IdentifierCollection is represented by

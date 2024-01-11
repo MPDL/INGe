@@ -3,11 +3,10 @@ package de.mpg.mpdl.inge.pubman.web.util.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
-
-import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 
 public class HTMLSubSupBrConverter implements Converter {
   public static final String CONVERTER_ID = "HTMLSubSupBrConverter";
