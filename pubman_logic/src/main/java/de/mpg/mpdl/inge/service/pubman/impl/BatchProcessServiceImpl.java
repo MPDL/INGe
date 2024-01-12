@@ -25,14 +25,14 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.PubItemBatchServiceNeu;
+import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
 @Service
 @Primary
-public class PubItemBatchServiceNeuImpl implements PubItemBatchServiceNeu {
+public class BatchProcessServiceImpl implements BatchProcessService {
 
-  private static final Logger logger = Logger.getLogger(PubItemBatchServiceNeuImpl.class);
+  private static final Logger logger = Logger.getLogger(BatchProcessServiceImpl.class);
 
   @Autowired
   private AuthorizationService authorizationService;
@@ -49,26 +49,61 @@ public class PubItemBatchServiceNeuImpl implements PubItemBatchServiceNeu {
   @Autowired
   private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
-  public PubItemBatchServiceNeuImpl() {}
+  public BatchProcessServiceImpl() {}
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public BatchProcessUserLockDbVO getBatchProcessUserLock(String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = checkUser(token);
+    BatchProcessUserLockDbVO batchProcessUserLockDbVO =
+        this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
+
+    return batchProcessUserLockDbVO;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public BatchProcessLogHeaderDbVO getBatchProcessLogHeader(String batchProcessLogHeaderId, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    checkUser(token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessLogHeaderRepository.findById(batchProcessLogHeaderId).orElse(null);
+
+    return batchProcessLogHeaderDbVO;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public List<BatchProcessLogHeaderDbVO> getAllBatchProcessLogHeaders(String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    checkUser(token);
+    List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs = this.batchProcessLogHeaderRepository.findAll();
+
+    return batchProcessLogHeaderDbVOs;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public List<BatchProcessLogDetailDbVO> getBatchProcessLogDetails(String batchProcessLogHeaderId, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = getBatchProcessLogHeader(batchProcessLogHeaderId, token);
+    List<BatchProcessLogDetailDbVO> batchProcessLogDetailDbVOs =
+        this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVO(batchProcessLogHeaderDbVO);
+
+    return batchProcessLogDetailDbVOs;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   @Override
   public BatchProcessLogHeaderDbVO deletePubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    Principal principal = authorizationService.checkLoginRequired(token);
-    AccountUserDbVO accountUserDbVO = principal.getUserAccount();
-
-    if (null == itemIds || itemIds.isEmpty()) {
-      throw new IngeApplicationException("The list of items must not be empty");
-    }
-
-    BatchProcessUserLockDbVO batchProcessUserLockDbVO =
-        this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
-
-    if (batchProcessUserLockDbVO != null) {
-      throw new IngeApplicationException(
-          "User " + accountUserDbVO.getObjectId() + " already locked since " + batchProcessUserLockDbVO.getLockDate());
-    }
+    AccountUserDbVO accountUserDbVO = commonChecks(itemIds, token);
 
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         initializeBatchProcessLog(accountUserDbVO, BatchProcessLogHeaderDbVO.Method.DELETE_PUBITEMS, itemIds, token);
@@ -86,7 +121,7 @@ public class PubItemBatchServiceNeuImpl implements PubItemBatchServiceNeu {
 
     for (String itemId : itemIds) {
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO =
-          this.batchProcessLogDetailRepository.findByLogHeaderAndItem(batchProcessLogHeaderDbVO, itemId);
+          this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVOAndItemObjectId(batchProcessLogHeaderDbVO, itemId);
 
       if (BatchProcessLogDetailDbVO.State.INITIALIZED.equals(batchProcessLogDetailDbVO.getState())) {
         batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING);
@@ -134,6 +169,36 @@ public class PubItemBatchServiceNeuImpl implements PubItemBatchServiceNeu {
     return batchProcessLogDetailDbVO;
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  private AccountUserDbVO checkUser(String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+    Principal principal = authorizationService.checkLoginRequired(token);
+    AccountUserDbVO accountUserDbVO = principal.getUserAccount();
+    return accountUserDbVO;
+  }
+
+  private AccountUserDbVO commonChecks(List<String> itemIds, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = checkUser(token);
+
+    if (null == itemIds || itemIds.isEmpty()) {
+      throw new IngeApplicationException("The list of items must not be empty");
+    }
+
+    BatchProcessUserLockDbVO batchProcessUserLockDbVO =
+        this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
+
+    if (batchProcessUserLockDbVO != null) {
+      throw new IngeApplicationException(
+          "User " + accountUserDbVO.getObjectId() + " already locked since " + batchProcessUserLockDbVO.getLockDate());
+    }
+
+    return accountUserDbVO;
+  }
+
   @Transactional(rollbackFor = Throwable.class)
   private BatchProcessLogHeaderDbVO initializeBatchProcessLog(AccountUserDbVO accountUserDbVO, BatchProcessLogHeaderDbVO.Method method,
       List<String> itemIds, String token) {
@@ -143,6 +208,13 @@ public class PubItemBatchServiceNeuImpl implements PubItemBatchServiceNeu {
     createBatchProcessLogDetails(accountUserDbVO, itemIds, batchProcessLogHeaderDbVO, token);
 
     return batchProcessLogHeaderDbVO;
+  }
+
+  @Transactional(rollbackFor = Throwable.class)
+  private void finishBatchProcessLog(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO) {
+
+    updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.FINISHED);
+    removeBatchProcessUserLock(accountUserDbVO);
   }
 
   private void createBatchProcessUserLock(AccountUserDbVO accountUserDbVO) {
@@ -229,13 +301,6 @@ public class PubItemBatchServiceNeuImpl implements PubItemBatchServiceNeu {
     batchProcessLogDetailDbVO = this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
 
     return batchProcessLogDetailDbVO;
-  }
-
-  @Transactional(rollbackFor = Throwable.class)
-  private void finishBatchProcessLog(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO) {
-
-    updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.FINISHED);
-    removeBatchProcessUserLock(accountUserDbVO);
   }
 
   private void removeBatchProcessUserLock(AccountUserDbVO accountUserDbVO) {
