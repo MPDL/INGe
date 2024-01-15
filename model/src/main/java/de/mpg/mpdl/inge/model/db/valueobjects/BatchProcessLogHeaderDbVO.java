@@ -27,7 +27,11 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
 
   public enum Method
   {
-    DELETE_PUBITEMS
+    DELETE_PUBITEMS,
+    RELEASE_PUBITEMS,
+    REVISE_PUBITEMS,
+    SUBMIT_PUBITEMS,
+    WITHDRAW_PUBITEMS
   }
 
   @Id
@@ -57,11 +61,11 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
 
   public BatchProcessLogHeaderDbVO() {}
 
-  public BatchProcessLogHeaderDbVO(AccountUserDbVO accountUser, BatchProcessLogHeaderDbVO.State state,
-      BatchProcessLogHeaderDbVO.Method method, int numberOfItems, LocalDateTime startDate) {
+  public BatchProcessLogHeaderDbVO(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUser,
+      BatchProcessLogHeaderDbVO.State state, int numberOfItems, LocalDateTime startDate) {
+    this.method = method;
     this.userAccountObjectId = accountUser.getObjectId();
     this.state = state;
-    this.method = method;
     this.numberOfItems = numberOfItems;
     this.startDate = startDate;
   }

@@ -32,7 +32,6 @@ public class BatchProcessController {
   private final String BatchProcessLogHeader_ID_PATH = "/{batchProcessLogHeaderId}";
   private final String BatchProcessLogDetails_ID_PATH = "/{batchProcessLogHeaderId}/batchProcessLogDetails";
   private final String BatchProcessLogHeader_VAR = "batchProcessLogHeaderId";
- 
 
   private BatchProcessService batchProcessService;
 
@@ -43,7 +42,7 @@ public class BatchProcessController {
 
   @RequestMapping(value = "/getBatchProcessUserLock", method = RequestMethod.GET)
   public ResponseEntity<BatchProcessUserLockDbVO> getBatchProcessUserLock(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token)
+      @RequestHeader(value = AUTHZ_HEADER, required = true) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     BatchProcessUserLockDbVO batchProcessUserLockDbVO = this.batchProcessService.getBatchProcessUserLock(token);
@@ -57,7 +56,7 @@ public class BatchProcessController {
 
   @RequestMapping(value = BatchProcessLogHeader_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<BatchProcessLogHeaderDbVO> getBatchProcessLogHeader(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestHeader(value = AUTHZ_HEADER, required = true) String token,
       @PathVariable(value = BatchProcessLogHeader_VAR) String batchProcessLogHeaderId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
@@ -72,32 +71,80 @@ public class BatchProcessController {
 
   @RequestMapping(value = "/getAllBatchProcessLogHeaders", method = RequestMethod.GET)
   public ResponseEntity<List<BatchProcessLogHeaderDbVO>> getAllBatchProcessLogHeaders(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      @RequestHeader(value = AUTHZ_HEADER, required = true) String token)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs = this.batchProcessService.getAllBatchProcessLogHeaders(token);
+
+    if (null == batchProcessLogHeaderDbVOs || batchProcessLogHeaderDbVOs.isEmpty()) {
+      throw new NotFoundException();
+    }
 
     return new ResponseEntity<List<BatchProcessLogHeaderDbVO>>(batchProcessLogHeaderDbVOs, HttpStatus.OK);
   }
 
   @RequestMapping(value = BatchProcessLogDetails_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<List<BatchProcessLogDetailDbVO>> getBatchProcessLogDetails(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestHeader(value = AUTHZ_HEADER, required = true) String token,
       @PathVariable(value = BatchProcessLogHeader_VAR) String batchProcessLogHeaderId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     List<BatchProcessLogDetailDbVO> batchProcessLogDetailDbVOs =
         this.batchProcessService.getBatchProcessLogDetails(batchProcessLogHeaderId, token);
+
+    if (null == batchProcessLogDetailDbVOs || batchProcessLogDetailDbVOs.isEmpty()) {
+      throw new NotFoundException();
+    }
 
     return new ResponseEntity<List<BatchProcessLogDetailDbVO>>(batchProcessLogDetailDbVOs, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/deletePubItems", method = RequestMethod.PUT)
-  public ResponseEntity<BatchProcessLogHeaderDbVO> deletePubItems(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+  public ResponseEntity<BatchProcessLogHeaderDbVO> deletePubItems(@RequestHeader(value = AUTHZ_HEADER, required = true) String token,
       @RequestBody List<String> itemIds)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.deletePubItems(itemIds, token);
+
+    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/releasePubItems", method = RequestMethod.PUT)
+  public ResponseEntity<BatchProcessLogHeaderDbVO> releasePubItems(@RequestHeader(value = AUTHZ_HEADER, required = true) String token,
+      @RequestBody List<String> itemIds)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.releasePubItems(itemIds, token);
+
+    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/revisePubItems", method = RequestMethod.PUT)
+  public ResponseEntity<BatchProcessLogHeaderDbVO> revisePubItems(@RequestHeader(value = AUTHZ_HEADER, required = true) String token,
+      @RequestBody List<String> itemIds)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.revisePubItems(itemIds, token);
+
+    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/submitPubItems", method = RequestMethod.PUT)
+  public ResponseEntity<BatchProcessLogHeaderDbVO> submitPubItems(@RequestHeader(value = AUTHZ_HEADER, required = true) String token,
+      @RequestBody List<String> itemIds)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.submitPubItems(itemIds, token);
+
+    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/withdrawPubItems", method = RequestMethod.PUT)
+  public ResponseEntity<BatchProcessLogHeaderDbVO> withdrawPubItems(@RequestHeader(value = AUTHZ_HEADER, required = true) String token,
+      @RequestBody List<String> itemIds)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.withdrawPubItems(itemIds, token);
 
     return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }

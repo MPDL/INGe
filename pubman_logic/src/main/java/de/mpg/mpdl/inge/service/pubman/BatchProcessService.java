@@ -21,9 +21,23 @@ public interface BatchProcessService {
   public List<BatchProcessLogDetailDbVO> getBatchProcessLogDetails(String batchProcessLogHeaderId, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  public BatchProcessUserLockDbVO getBatchProcessUserLock(String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
   public BatchProcessLogHeaderDbVO deletePubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
-  public BatchProcessUserLockDbVO getBatchProcessUserLock(String token)
+  public BatchProcessLogHeaderDbVO releasePubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO revisePubItems(List<String> itemIds, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO submitPubItems(List<String> itemIds, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO withdrawPubItems(List<String> itemIds, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+
 }
