@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 import org.hibernate.annotations.Cache;
@@ -94,20 +94,20 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   private BatchProcessLogDetailDbVO.Message message;
 
   @Column(name = "start_date", columnDefinition = "TIMESTAMP")
-  private LocalDateTime startDate;
+  private Date startDate;
 
   @Column(name = "end_date", columnDefinition = "TIMESTAMP")
-  private LocalDateTime endDate;
+  private Date endDate;
 
   public BatchProcessLogDetailDbVO() {}
 
   public BatchProcessLogDetailDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String itemObjectId, Integer itemVersionnumber,
-      BatchProcessLogDetailDbVO.State state, LocalDateTime startDate) {
+      BatchProcessLogDetailDbVO.State state, Date startDate) {
     this(batchProcessLogHeaderDbVO, itemObjectId, itemVersionnumber, state, (BatchProcessLogDetailDbVO.Message) null, startDate);
   }
 
   public BatchProcessLogDetailDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String itemObjectId, Integer itemVersionnumber,
-      BatchProcessLogDetailDbVO.State state, BatchProcessLogDetailDbVO.Message message, LocalDateTime startDate) {
+      BatchProcessLogDetailDbVO.State state, BatchProcessLogDetailDbVO.Message message, Date startDate) {
     this.batchProcessLogHeaderDbVO = batchProcessLogHeaderDbVO;
     this.itemObjectId = itemObjectId;
     this.itemVersionnumber = itemVersionnumber;
@@ -140,11 +140,11 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     this.message = message;
   }
 
-  public LocalDateTime getEndDate() {
+  public Date getEndDate() {
     return this.endDate;
   }
 
-  public void setEndDate(LocalDateTime endDate) {
+  public void setEndDate(Date endDate) {
     this.endDate = endDate;
   }
 
@@ -160,7 +160,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     return this.itemVersionnumber;
   }
 
-  public LocalDateTime getStartDate() {
+  public Date getStartDate() {
     return this.startDate;
   }
 

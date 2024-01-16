@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -19,11 +19,11 @@ public class BatchProcessUserLockDbVO implements Serializable {
   private String userAccountObjectId;
 
   @Column(name = "lock_date", columnDefinition = "TIMESTAMP")
-  private LocalDateTime lockDate;
+  private Date lockDate;
 
   public BatchProcessUserLockDbVO() {}
 
-  public BatchProcessUserLockDbVO(AccountUserDbVO accountUser, LocalDateTime lockDate) {
+  public BatchProcessUserLockDbVO(AccountUserDbVO accountUser, Date lockDate) {
     this.userAccountObjectId = accountUser.getObjectId();
     this.lockDate = lockDate;
   }
@@ -32,7 +32,7 @@ public class BatchProcessUserLockDbVO implements Serializable {
     return this.userAccountObjectId;
   }
 
-  public LocalDateTime getLockDate() {
+  public Date getLockDate() {
     return this.lockDate;
   }
 

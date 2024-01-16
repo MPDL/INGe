@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -54,15 +54,15 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   private BatchProcessLogHeaderDbVO.Method method;
 
   @Column(name = "start_date", columnDefinition = "TIMESTAMP")
-  private LocalDateTime startDate;
+  private Date startDate;
 
   @Column(name = "end_date", columnDefinition = "TIMESTAMP")
-  private LocalDateTime endDate;
+  private Date endDate;
 
   public BatchProcessLogHeaderDbVO() {}
 
   public BatchProcessLogHeaderDbVO(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUser,
-      BatchProcessLogHeaderDbVO.State state, int numberOfItems, LocalDateTime startDate) {
+      BatchProcessLogHeaderDbVO.State state, int numberOfItems, Date startDate) {
     this.method = method;
     this.userAccountObjectId = accountUser.getObjectId();
     this.state = state;
@@ -86,11 +86,11 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
     return this.numberOfItems;
   }
 
-  public LocalDateTime getEndDate() {
+  public Date getEndDate() {
     return this.endDate;
   }
 
-  public void setEndDate(LocalDateTime endDate) {
+  public void setEndDate(Date endDate) {
     this.endDate = endDate;
   }
 
@@ -102,7 +102,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
     return this.userAccountObjectId;
   }
 
-  public LocalDateTime getStartDate() {
+  public Date getStartDate() {
     return this.startDate;
   }
 
