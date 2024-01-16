@@ -18,6 +18,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -26,6 +27,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
 
 @Service
 @Primary
@@ -174,6 +176,10 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
 
+    if (!GrantUtil.hasRole(accountUserDbVO, PredefinedRoles.MODERATOR)) {
+      throw new AuthorizationException("User must be MODERATOR");
+    }
+    
     if (null == itemIds || itemIds.isEmpty()) {
       throw new IngeApplicationException("The list of items must not be empty");
     }
@@ -246,6 +252,10 @@ public class BatchProcessServiceImpl implements BatchProcessService {
             itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR, new Date());
       } catch (IngeApplicationException e) {
+        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
+            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
+            BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
+      } catch (RuntimeException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
             itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());

@@ -98,6 +98,10 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
     return this.batchProcessLogHeaderId;
   }
 
+  public void setBatchProcessLogHeaderId(long batchProcessLogHeaderId) {
+    this.batchProcessLogHeaderId = batchProcessLogHeaderId;
+  }
+
   public String getUserAccountObjectId() {
     return this.userAccountObjectId;
   }

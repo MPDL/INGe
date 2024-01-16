@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,8 +96,16 @@ public class BatchProcessController {
     if (null == batchProcessLogDetailDbVOs || batchProcessLogDetailDbVOs.isEmpty()) {
       throw new NotFoundException();
     }
+    
+    List<BatchProcessLogDetailDbVO> adaptedBatchProcessLogDetailDbVOs = new ArrayList<BatchProcessLogDetailDbVO>();
+    for (BatchProcessLogDetailDbVO batchProcessLogDetailDbVO : batchProcessLogDetailDbVOs) {
+      BatchProcessLogHeaderDbVO adaptedBatchProcessLogHeaderDbVO = new BatchProcessLogHeaderDbVO();
+      adaptedBatchProcessLogHeaderDbVO.setBatchProcessLogHeaderId(batchProcessLogDetailDbVO.getBatchProcessLogHeaderDbVO().getBatchLogHeaderId());
+      batchProcessLogDetailDbVO.setBatchProcessLogHeaderDbVO(adaptedBatchProcessLogHeaderDbVO);
+      adaptedBatchProcessLogDetailDbVOs.add(batchProcessLogDetailDbVO);
+    }
 
-    return new ResponseEntity<List<BatchProcessLogDetailDbVO>>(batchProcessLogDetailDbVOs, HttpStatus.OK);
+    return new ResponseEntity<List<BatchProcessLogDetailDbVO>>(adaptedBatchProcessLogDetailDbVOs, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/deletePubItems", method = RequestMethod.PUT)

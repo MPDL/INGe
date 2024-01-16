@@ -32,8 +32,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     INITIALIZED,
     RUNNING,
     SUCCESS,
-    ERROR,
-    EXCEPTION
+    ERROR
   }
 
   public enum Message implements Messages
@@ -75,7 +74,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = BatchProcessLogHeaderDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "batchProcess")
-  @JoinColumn(name = "batch_log_header_id")
+  @JoinColumn(name = "batch_process_log_header_id")
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO;
 
@@ -116,7 +115,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     this.startDate = startDate;
   }
 
-  public long getBatchLogDetailId() {
+  public long getBatchProcessLogDetailId() {
     return this.batchProcessLogDetailId;
   }
 
@@ -150,6 +149,10 @@ public class BatchProcessLogDetailDbVO implements Serializable {
 
   public BatchProcessLogHeaderDbVO getBatchProcessLogHeaderDbVO() {
     return this.batchProcessLogHeaderDbVO;
+  }
+
+  public void setBatchProcessLogHeaderDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO) {
+    this.batchProcessLogHeaderDbVO = batchProcessLogHeaderDbVO;
   }
 
   public String getItemObjectId() {
