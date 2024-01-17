@@ -179,7 +179,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     if (!GrantUtil.hasRole(accountUserDbVO, PredefinedRoles.MODERATOR)) {
       throw new AuthorizationException("User must be MODERATOR");
     }
-    
+
     if (null == itemIds || itemIds.isEmpty()) {
       throw new IngeApplicationException("The list of items must not be empty");
     }

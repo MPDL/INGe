@@ -6,5 +6,4 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.filestorage")
 public class AppConfigFileStorage {
-
 }

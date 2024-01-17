@@ -36,9 +36,9 @@ import jakarta.jms.JMSException;
 @ComponentScan("de.mpg.mpdl.inge.service")
 @Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class, AppConfigIngeValidation.class})
 @EnableAsync
-@EnableTransactionManagement
-@EnableScheduling
 @EnableJms
+@EnableScheduling
+@EnableTransactionManagement
 @PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
   private static final Logger logger = Logger.getLogger(AppConfigPubmanLogic.class);

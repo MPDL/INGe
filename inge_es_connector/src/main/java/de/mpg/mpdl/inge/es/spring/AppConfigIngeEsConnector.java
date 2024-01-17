@@ -20,10 +20,6 @@ public class AppConfigIngeEsConnector {
     return new ElasticSearchTransportClientProvider();
   }
 
-
   @PreDestroy
-  public void closeClient() {
-
-    //elasticSearchClientProvider().getClient().close();
-  }
+  public void closeClient() {}
 }

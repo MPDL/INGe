@@ -96,11 +96,12 @@ public class BatchProcessController {
     if (null == batchProcessLogDetailDbVOs || batchProcessLogDetailDbVOs.isEmpty()) {
       throw new NotFoundException();
     }
-    
+
     List<BatchProcessLogDetailDbVO> adaptedBatchProcessLogDetailDbVOs = new ArrayList<BatchProcessLogDetailDbVO>();
     for (BatchProcessLogDetailDbVO batchProcessLogDetailDbVO : batchProcessLogDetailDbVOs) {
       BatchProcessLogHeaderDbVO adaptedBatchProcessLogHeaderDbVO = new BatchProcessLogHeaderDbVO();
-      adaptedBatchProcessLogHeaderDbVO.setBatchProcessLogHeaderId(batchProcessLogDetailDbVO.getBatchProcessLogHeaderDbVO().getBatchLogHeaderId());
+      adaptedBatchProcessLogHeaderDbVO
+          .setBatchProcessLogHeaderId(batchProcessLogDetailDbVO.getBatchProcessLogHeaderDbVO().getBatchLogHeaderId());
       batchProcessLogDetailDbVO.setBatchProcessLogHeaderDbVO(adaptedBatchProcessLogHeaderDbVO);
       adaptedBatchProcessLogDetailDbVOs.add(batchProcessLogDetailDbVO);
     }

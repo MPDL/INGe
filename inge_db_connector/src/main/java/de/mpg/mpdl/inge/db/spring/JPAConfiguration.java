@@ -53,18 +53,16 @@ public class JPAConfiguration {
     // Hibernate Properties are under /src/main/resources
     // em.setJpaProperties(hibernateProperties());
     em.setSharedCacheMode(SharedCacheMode.ENABLE_SELECTIVE);
+
     return em;
   }
-
 
   @Bean
   @Primary
   public DataSource restDataSource() throws Exception {
+
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
-
     dataSource.setDriverClass(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_DRIVER_CLASS));
-
-
     dataSource.setJdbcUrl(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_JDBC_URL));
     dataSource.setUser(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME));
     dataSource.setPassword(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_PASSWORD));
@@ -72,13 +70,13 @@ public class JPAConfiguration {
     logger.info("Using database <" + PropertyReader.getProperty(PropertyReader.INGE_DATABASE_JDBC_URL) + ">");
     logger.info("Using database user <" + PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME) + ">");
 
-
     return dataSource;
   }
 
   @Bean
   @Primary
   public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+
     JpaTransactionManager transactionManager = new JpaTransactionManager();
     transactionManager.setEntityManagerFactory(emf);
     transactionManager.setDefaultTimeout(30);
@@ -86,9 +84,9 @@ public class JPAConfiguration {
     return transactionManager;
   }
 
-
   @Bean
   public CacheManager defaultCacheManager() throws Exception {
+
     CachingProvider provider = Caching.getCachingProvider(EhcacheCachingProvider.class.getName());
     URI ehcacheConfigFileURI = JPAConfiguration.class.getClassLoader().getResource("ehcache.xml").toURI();
     logger.info("URI for ehcache:" + ehcacheConfigFileURI);
@@ -96,7 +94,4 @@ public class JPAConfiguration {
 
     return cacheManager;
   }
-
-
-
 }
