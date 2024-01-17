@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,6 +19,7 @@ import jakarta.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "batch_process_log_header")
+@JsonInclude(value = Include.NON_EMPTY)
 public class BatchProcessLogHeaderDbVO implements Serializable {
 
   public enum State
@@ -47,7 +51,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   private BatchProcessLogHeaderDbVO.State state;
 
   @Column(name = "number_of_items")
-  private int numberOfItems;
+  private Integer numberOfItems;
 
   @Column(name = "method")
   @Enumerated(EnumType.STRING)
@@ -62,7 +66,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   public BatchProcessLogHeaderDbVO() {}
 
   public BatchProcessLogHeaderDbVO(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUser,
-      BatchProcessLogHeaderDbVO.State state, int numberOfItems, Date startDate) {
+      BatchProcessLogHeaderDbVO.State state, Integer numberOfItems, Date startDate) {
     this.method = method;
     this.userAccountObjectId = accountUser.getObjectId();
     this.state = state;
@@ -82,7 +86,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
     return this.method;
   }
 
-  public int getNumberOfItems() {
+  public Integer getNumberOfItems() {
     return this.numberOfItems;
   }
 
@@ -96,10 +100,6 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
 
   public long getBatchLogHeaderId() {
     return this.batchProcessLogHeaderId;
-  }
-
-  public void setBatchProcessLogHeaderId(long batchProcessLogHeaderId) {
-    this.batchProcessLogHeaderId = batchProcessLogHeaderId;
   }
 
   public String getUserAccountObjectId() {
@@ -125,7 +125,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
       return false;
     BatchProcessLogHeaderDbVO other = (BatchProcessLogHeaderDbVO) obj;
     return batchProcessLogHeaderId == other.batchProcessLogHeaderId && Objects.equals(endDate, other.endDate) && method == other.method
-        && numberOfItems == other.numberOfItems && Objects.equals(startDate, other.startDate) && state == other.state
+        && Objects.equals(numberOfItems, other.numberOfItems) && Objects.equals(startDate, other.startDate) && state == other.state
         && Objects.equals(userAccountObjectId, other.userAccountObjectId);
   }
 }

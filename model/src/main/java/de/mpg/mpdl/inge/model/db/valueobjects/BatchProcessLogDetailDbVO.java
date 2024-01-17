@@ -9,6 +9,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,6 +28,7 @@ import jakarta.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "batch_process_log_detail")
+@JsonInclude(value = Include.NON_EMPTY)
 public class BatchProcessLogDetailDbVO implements Serializable {
 
   public enum State

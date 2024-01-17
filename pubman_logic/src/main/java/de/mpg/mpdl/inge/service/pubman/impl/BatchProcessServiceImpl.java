@@ -213,7 +213,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private BatchProcessLogHeaderDbVO createBatchProcessLogHeader(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUserDbVO,
-      int numberOfItems) {
+      Integer numberOfItems) {
 
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         new BatchProcessLogHeaderDbVO(method, accountUserDbVO, BatchProcessLogHeaderDbVO.State.INITIALIZED, numberOfItems, new Date());

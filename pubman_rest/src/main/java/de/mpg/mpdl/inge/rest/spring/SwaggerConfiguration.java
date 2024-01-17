@@ -11,6 +11,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 
+
 @Configuration
 public class SwaggerConfiguration {
 
@@ -29,7 +30,7 @@ public class SwaggerConfiguration {
   public OpenAPI customOpenAPI() {
 
     OpenAPI openAPI = new OpenAPI();
-    openAPI.info(new Info().title("PubMan REST API").description("apiDescription").version("1.0"));
+    openAPI.info(new Info().title("PubMan REST API").description(apiDescription).version("1.0"));
     openAPI.servers(Arrays.asList(new Server().url(restServiceUrl)));
 
     return openAPI;

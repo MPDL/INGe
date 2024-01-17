@@ -97,12 +97,10 @@ public class BatchProcessController {
       throw new NotFoundException();
     }
 
+    // remove BatchProcessLogHeaderDbVO
     List<BatchProcessLogDetailDbVO> adaptedBatchProcessLogDetailDbVOs = new ArrayList<BatchProcessLogDetailDbVO>();
     for (BatchProcessLogDetailDbVO batchProcessLogDetailDbVO : batchProcessLogDetailDbVOs) {
-      BatchProcessLogHeaderDbVO adaptedBatchProcessLogHeaderDbVO = new BatchProcessLogHeaderDbVO();
-      adaptedBatchProcessLogHeaderDbVO
-          .setBatchProcessLogHeaderId(batchProcessLogDetailDbVO.getBatchProcessLogHeaderDbVO().getBatchLogHeaderId());
-      batchProcessLogDetailDbVO.setBatchProcessLogHeaderDbVO(adaptedBatchProcessLogHeaderDbVO);
+      batchProcessLogDetailDbVO.setBatchProcessLogHeaderDbVO(null);
       adaptedBatchProcessLogDetailDbVOs.add(batchProcessLogDetailDbVO);
     }
 
