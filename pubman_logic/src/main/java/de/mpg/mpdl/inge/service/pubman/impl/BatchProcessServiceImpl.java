@@ -164,9 +164,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     AccountUserDbVO accountUserDbVO = commonChecks(itemIds, token);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    logger.info("Vor ASYNC");
+    logger.info("Vor ASYNC Call");
     this.batchProcessAsyncService.batchPubItemsAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token);
-    logger.info("Nach ASYNC");
+    logger.info("Nach ASYNC Call");
 
     return batchProcessLogHeaderDbVO;
   }

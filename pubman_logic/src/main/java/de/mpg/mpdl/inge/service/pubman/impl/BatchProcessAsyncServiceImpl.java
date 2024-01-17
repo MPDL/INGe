@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,19 +56,14 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
   @Autowired
   private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
+  @Autowired
+  private Executor asyncExecutor;
+
   public BatchProcessAsyncServiceImpl() {}
 
   @Override
   public Executor getAsyncExecutor() {
-
-    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-    executor.setCorePoolSize(2); //default: 1
-    executor.setMaxPoolSize(10); //default: Integer.MAX_VALUE
-    executor.setQueueCapacity(20); // default: Integer.MAX_VALUE
-    executor.setKeepAliveSeconds(120); // default: 60 seconds
-    executor.initialize();
-
-    return executor;
+    return this.asyncExecutor;
   }
 
   @SuppressWarnings("incomplete-switch")
@@ -78,14 +72,6 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
       AccountUserDbVO accountUserDbVO, List<String> itemIds, String token) {
 
     logger.info("Start ASYNC");
-    logger.info("Starte ASYNC sleep");
-    try {
-      Thread.currentThread();
-      Thread.sleep(50000);
-    } catch (InterruptedException e) {
-      logger.error("ASYNC thread: " + e);
-    }
-    logger.info("Beende ASYNC sleep");
 
     batchProcessLogHeaderDbVO = updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.RUNNING);
 
@@ -204,6 +190,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
     }
 
     finishBatchProcessLog(batchProcessLogHeaderDbVO, accountUserDbVO);
+
+    logger.info("End ASYNC");
   }
 
   @Transactional(rollbackFor = Throwable.class)

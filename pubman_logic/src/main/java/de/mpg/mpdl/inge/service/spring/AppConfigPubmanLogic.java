@@ -34,7 +34,8 @@ import jakarta.jms.JMSException;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
-@Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class, AppConfigIngeValidation.class})
+@Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class, AppConfigIngeValidation.class,
+    AsyncExecutorConfiguration.class})
 @EnableAsync
 @EnableJms
 @EnableScheduling
