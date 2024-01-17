@@ -24,6 +24,9 @@ public interface BatchProcessService {
   public BatchProcessUserLockDbVO getBatchProcessUserLock(String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
+  public void deleteBatchProcessUserLock(String token, String accountUserObjectId)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
   public BatchProcessLogHeaderDbVO deletePubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
@@ -38,6 +41,5 @@ public interface BatchProcessService {
 
   public BatchProcessLogHeaderDbVO withdrawPubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
-
 
 }

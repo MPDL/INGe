@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,21 @@ public class BatchProcessServiceImpl implements BatchProcessService {
         this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
 
     return batchProcessUserLockDbVO;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public void deleteBatchProcessUserLock(String token, String accountUserObjectId)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException, NoSuchElementException {
+
+    AccountUserDbVO accountUserDbVO = checkUser(token);
+
+    if (!GrantUtil.hasRole(accountUserDbVO, PredefinedRoles.SYSADMIN)) {
+      throw new AuthorizationException("User must be SYSADMIN");
+    }
+
+    BatchProcessUserLockDbVO batchProcessUserLockDbVO = this.batchProcessUserLockRepository.findById(accountUserObjectId).orElseThrow();
+    this.batchProcessUserLockRepository.delete(batchProcessUserLockDbVO);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  

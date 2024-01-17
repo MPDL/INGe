@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,8 +31,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class BatchProcessController {
 
   private final String AUTHZ_HEADER = "Authorization";
+
+  private final String AccountUserObjectId_VAR = "accountUserObjectId";
+  private final String BatchProcessUserLockDelete_PATH = "deleteBatchProcessUserLock/{accountUserObjectId}";
+
   private final String BatchProcessLogHeader_ID_PATH = "/{batchProcessLogHeaderId}";
-  private final String BatchProcessLogDetails_ID_PATH = "/{batchProcessLogHeaderId}/batchProcessLogDetails";
+  private final String BatchProcessLogDetails_ID_PATH = "/batchProcessLogDetails/{batchProcessLogHeaderId}";
   private final String BatchProcessLogHeader_VAR = "batchProcessLogHeaderId";
 
   private BatchProcessService batchProcessService;
@@ -53,6 +58,20 @@ public class BatchProcessController {
     }
 
     return new ResponseEntity<BatchProcessUserLockDbVO>(batchProcessUserLockDbVO, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = BatchProcessUserLockDelete_PATH, method = RequestMethod.DELETE)
+  public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = AccountUserObjectId_VAR) String accountUserObjectId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
+    try {
+      this.batchProcessService.deleteBatchProcessUserLock(token, accountUserObjectId);
+    } catch (NoSuchElementException e) {
+      throw new NotFoundException();
+    }
+
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @RequestMapping(value = BatchProcessLogHeader_ID_PATH, method = RequestMethod.GET)
