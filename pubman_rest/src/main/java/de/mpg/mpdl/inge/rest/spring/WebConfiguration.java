@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,28 +21,25 @@ import de.mpg.mpdl.inge.model.util.MapperFactory;
 @ComponentScan(basePackages = {"de.mpg.mpdl.inge.rest"})
 public class WebConfiguration implements WebMvcConfigurer {
 
-
-
   @Override
   public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-    //First place: A Json converter using our default Jackson object mapper
+
+    // First place: A Json converter using our default Jackson object mapper
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
     converter.setObjectMapper(MapperFactory.getObjectMapper());
-    converters.add(0, converter);
+    converters.add(converter);
 
-    //Second place: A String converter which allows to return strings as json
+    // Second Place: For SpringDoc (otherwise Malformed (base64 encoded) api-docs)
+    converters.add(new ByteArrayHttpMessageConverter());
+
+    // Third place: A String converter which allows to return strings as json
     StringHttpMessageConverter smc = new StringHttpMessageConverter();
     smc.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
-    converters.add(0, smc);
-    //    System.out.println("Converters" + converters);
-
-    //WebMvcConfigurer.super.extendMessageConverters(converters);
+    converters.add(smc);
   }
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**").exposedHeaders("Token").allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
   }
-
-
 }
