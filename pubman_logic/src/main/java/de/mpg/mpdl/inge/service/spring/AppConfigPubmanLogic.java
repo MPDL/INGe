@@ -42,6 +42,7 @@ import jakarta.jms.JMSException;
 @EnableTransactionManagement
 @PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
+
   private static final Logger logger = Logger.getLogger(AppConfigPubmanLogic.class);
 
   private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
@@ -59,7 +60,6 @@ public class AppConfigPubmanLogic {
     return new PropertySourcesPlaceholderConfigurer();
   }
 
-
   /**
    * Start and configure an ActiveMQ broker when Spring application is started
    * 
@@ -68,7 +68,9 @@ public class AppConfigPubmanLogic {
    */
   @Bean(initMethod = "start", destroyMethod = "stop")
   public EmbeddedActiveMQ brokerService() throws Exception {
+
     EmbeddedActiveMQ brokerService = new EmbeddedActiveMQ();
+
     org.apache.activemq.artemis.core.config.Configuration config = new ConfigurationImpl();
     config.setPersistenceEnabled(true);
     config.addAcceptorConfiguration("in-vm", DEFAULT_BROKER_URL);
@@ -77,19 +79,13 @@ public class AppConfigPubmanLogic {
     config.setGracefulShutdownEnabled(true);
     config.setSecurityEnabled(false);
 
-
     String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
     if (jbossHomeDir != null) {
       config.setBrokerInstance(new File(jbossHomeDir + "/standalone/data/activemq"));
     } else {
       config.setBrokerInstance(new File(System.getProperty(PropertyReader.JAVA_IO_TMPDIR)));
     }
-    /*
-    brokerService.setUseJmx(false);
-    brokerService.addConnector(DEFAULT_BROKER_URL);
-    brokerService.setBrokerName("localhost");
-    brokerService.setUseShutdownHook(true);
-    */
+
     brokerService.setConfiguration(config);
 
     return brokerService;
@@ -100,56 +96,59 @@ public class AppConfigPubmanLogic {
 
     ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
     connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
-    //connectionFactory.set
-    //connectionFactory.setUseAsyncSend(true);
     connectionFactory.setDeserializationWhiteList("de.mpg.mpdl.inge.model,java.util,java.sql,org.hibernate.collection,java.lang");
+
     return connectionFactory;
   }
 
-
   @Bean
   public DefaultJmsListenerContainerFactory topicContainerFactory(jakarta.jms.ConnectionFactory connectionFactory) {
+
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setPubSubDomain(true);
-    //factory.setDestinationResolver(new BeanFactoryDestinationResolver(springContextBeanFactory));
     factory.setConcurrency("1");
+
     return factory;
   }
 
   @Bean
   public JmsTemplate topicJmsTemplate(jakarta.jms.ConnectionFactory jmsConnectionFactory) throws JMSException {
+
     JmsTemplate jmsTemplate = new JmsTemplate(jmsConnectionFactory);
     jmsTemplate.setDefaultDestination(new ActiveMQTopic("items-topic"));
     jmsTemplate.setPubSubDomain(true);
+
     return jmsTemplate;
   }
 
-
   @Bean
   public DefaultJmsListenerContainerFactory queueContainerFactory(jakarta.jms.ConnectionFactory connectionFactory) {
+
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setPubSubDomain(false);
-    // factory.setDestinationResolver(new BeanFactoryDestinationResolver(springContextBeanFactory));
     factory.setConcurrency("3-10");
+
     return factory;
   }
 
   @Bean
   public JmsTemplate queueJmsTemplate(jakarta.jms.ConnectionFactory connectionFactory) throws JMSException {
+
     JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
     jmsTemplate.setDefaultDestination(new ActiveMQQueue("items-queue"));
     jmsTemplate.setPubSubDomain(false);
+
     return jmsTemplate;
   }
 
-
-
   public static BeanFactory getRootContextBeanFactory() {
+
     if (PUBMAN_LOGIC_BEAN_FACTORY == null) {
       PUBMAN_LOGIC_BEAN_FACTORY = new ClassPathXmlApplicationContext("beanRefContext.xml");
     }
+
     return PUBMAN_LOGIC_BEAN_FACTORY;
   }
 }

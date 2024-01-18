@@ -70,7 +70,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   @Override
-  public void deleteBatchProcessUserLock(String token, String accountUserObjectId)
+  public void deleteBatchProcessUserLock(String accountUserObjectId, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException, NoSuchElementException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
@@ -89,6 +89,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
+    
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessLogHeaderRepository
         .findOneByBatchProcessLogHeaderIdAndUserAccountObjectId(Long.parseLong(batchProcessLogHeaderId), accountUserDbVO.getObjectId());
 
@@ -101,6 +102,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
+    
     List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs =
         this.batchProcessLogHeaderRepository.findAllByUserAccountObjectId(accountUserDbVO.getObjectId());
 
@@ -120,6 +122,22 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     }
 
     return batchProcessLogDetailDbVOs;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public BatchProcessLogHeaderDbVO addKeywords(List<String> itemIds, String keywords, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    return addKeywords(BatchProcessLogHeaderDbVO.Method.ADD_KEYWORDS, itemIds, keywords, token);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public BatchProcessLogHeaderDbVO addLocalTags(List<String> itemIds, List<String> localTags, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    return addLocalTags(BatchProcessLogHeaderDbVO.Method.ADD_LOCALTAGS, itemIds, localTags, token);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
@@ -158,10 +176,41 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     return batchPubItems(BatchProcessLogHeaderDbVO.Method.WITHDRAW_PUBITEMS, itemIds, token);
   }
 
+  private BatchProcessLogHeaderDbVO addKeywords(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String keywords,
+      String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkString(keywords);
+    
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.addKeywordsAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, keywords, token);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
+  }
+
+  private BatchProcessLogHeaderDbVO addLocalTags(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, List<String> localTags,
+      String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkList(localTags);
+    
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.addLocalTagsAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, localTags, token);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
+  }
+
   private BatchProcessLogHeaderDbVO batchPubItems(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    AccountUserDbVO accountUserDbVO = commonChecks(itemIds, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     logger.info("Vor ASYNC Call");
@@ -173,43 +222,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  private AccountUserDbVO checkUser(String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-    Principal principal = authorizationService.checkLoginRequired(token);
-
-    AccountUserDbVO accountUserDbVO = principal.getUserAccount();
-
-    if (null == accountUserDbVO) {
-      throw new IngeApplicationException("Invalid user");
-    }
-
-    return accountUserDbVO;
-  }
-
-  private AccountUserDbVO commonChecks(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkUser(token);
-
-    if (!GrantUtil.hasRole(accountUserDbVO, PredefinedRoles.MODERATOR)) {
-      throw new AuthorizationException("User must be MODERATOR");
-    }
-
-    if (null == itemIds || itemIds.isEmpty()) {
-      throw new IngeApplicationException("The list of items must not be empty");
-    }
-
-    BatchProcessUserLockDbVO batchProcessUserLockDbVO =
-        this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
-
-    if (batchProcessUserLockDbVO != null) {
-      throw new IngeApplicationException(
-          "User " + accountUserDbVO.getObjectId() + " already locked since " + batchProcessUserLockDbVO.getLockDate());
-    }
-
-    return accountUserDbVO;
-  }
 
   @Transactional(rollbackFor = Throwable.class)
   private BatchProcessLogHeaderDbVO initializeBatchProcessLog(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUserDbVO,
@@ -278,6 +290,56 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       }
 
       this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
+    }
+  }
+  
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  private AccountUserDbVO checkUser(String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+    Principal principal = authorizationService.checkLoginRequired(token);
+
+    AccountUserDbVO accountUserDbVO = principal.getUserAccount();
+
+    if (null == accountUserDbVO) {
+      throw new IngeApplicationException("Invalid user");
+    }
+
+    return accountUserDbVO;
+  }
+
+  private AccountUserDbVO checkCommon(String token, List<String> itemIds)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = checkUser(token);
+
+    if (!GrantUtil.hasRole(accountUserDbVO, PredefinedRoles.MODERATOR)) {
+      throw new AuthorizationException("User must be MODERATOR");
+    }
+
+    BatchProcessUserLockDbVO batchProcessUserLockDbVO =
+        this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
+
+    if (batchProcessUserLockDbVO != null) {
+      throw new IngeApplicationException(
+          "User " + accountUserDbVO.getObjectId() + " already locked since " + batchProcessUserLockDbVO.getLockDate());
+    }
+
+    checkList(itemIds);
+    
+    return accountUserDbVO;
+  }
+
+  private void checkList(List<String> list) throws IngeApplicationException {
+    if (null == list || list.isEmpty()) {
+      throw new IngeApplicationException("The list must not be empty");
+    }
+  }
+
+  private void checkString(String string) throws IngeApplicationException {
+    if (null == string || string.isEmpty()) {
+      throw new IngeApplicationException("The string must not be empty");
     }
   }
 }

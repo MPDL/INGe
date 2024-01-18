@@ -31,6 +31,8 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
 
   public enum Method
   {
+    ADD_KEYWORDS,
+    ADD_LOCALTAGS,
     DELETE_PUBITEMS,
     RELEASE_PUBITEMS,
     REVISE_PUBITEMS,

@@ -78,7 +78,8 @@ public class ContextRestController {
   @Hidden
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "q") String query, @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "q") String query, //
+      @RequestParam(value = "size", required = true, defaultValue = "10") int limit, //
       @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     //QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);

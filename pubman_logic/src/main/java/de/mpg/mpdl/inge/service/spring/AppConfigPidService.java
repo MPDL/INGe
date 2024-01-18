@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PidServiceImpl;
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
 public class AppConfigPidService {
+
   private static final Logger logger = Logger.getLogger(AppConfigPidService.class);
 
   @Bean(name = "pidServiceImpl")
