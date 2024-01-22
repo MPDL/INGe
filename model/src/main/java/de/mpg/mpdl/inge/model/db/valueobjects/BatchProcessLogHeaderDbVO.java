@@ -33,6 +33,7 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   {
     ADD_KEYWORDS,
     ADD_LOCALTAGS,
+    ADD_SOURCE_IDENTIFIER,
     DELETE_PUBITEMS,
     RELEASE_PUBITEMS,
     REVISE_PUBITEMS,

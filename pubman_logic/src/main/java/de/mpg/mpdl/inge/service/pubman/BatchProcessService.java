@@ -6,6 +6,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -31,6 +32,9 @@ public interface BatchProcessService {
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
   public BatchProcessLogHeaderDbVO addLocalTags(List<String> itemIds, List<String> localTags, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO addSourceIdentifier(List<String> itemIds, int sourceNumber, IdentifierVO.IdType sourceIdentifierType, String sourceIdentifier, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
   public BatchProcessLogHeaderDbVO deletePubItems(List<String> itemIds, String token)

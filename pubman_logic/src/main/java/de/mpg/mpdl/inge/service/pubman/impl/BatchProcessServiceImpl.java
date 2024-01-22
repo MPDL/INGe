@@ -20,6 +20,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -89,7 +90,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
-    
+
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessLogHeaderRepository
         .findOneByBatchProcessLogHeaderIdAndUserAccountObjectId(Long.parseLong(batchProcessLogHeaderId), accountUserDbVO.getObjectId());
 
@@ -102,7 +103,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
-    
+
     List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs =
         this.batchProcessLogHeaderRepository.findAllByUserAccountObjectId(accountUserDbVO.getObjectId());
 
@@ -138,6 +139,15 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
     return addLocalTags(BatchProcessLogHeaderDbVO.Method.ADD_LOCALTAGS, itemIds, localTags, token);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  @Override
+  public BatchProcessLogHeaderDbVO addSourceIdentifier(List<String> itemIds, int sourceNumber, IdentifierVO.IdType sourceIdentifierType,
+      String sourceIdentifier, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+    
+    return addSourceIdentifier(BatchProcessLogHeaderDbVO.Method.ADD_SOURCE_IDENTIFIER, itemIds, sourceNumber, sourceIdentifierType, sourceIdentifier, token);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
@@ -181,7 +191,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(keywords);
-    
+
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     logger.info("Vor ASYNC Call");
@@ -196,7 +206,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkList(localTags);
-    
+
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     logger.info("Vor ASYNC Call");
@@ -206,11 +216,27 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     return batchProcessLogHeaderDbVO;
   }
 
+  private BatchProcessLogHeaderDbVO addSourceIdentifier(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, int sourceNumber, IdentifierVO.IdType sourceIdentifierType,
+      String sourceIdentifier, String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkInt(sourceNumber);
+    checkEnum(sourceIdentifierType);
+
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.addSourceIdentifierAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, sourceNumber, sourceIdentifierType, sourceIdentifier, token);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
+  }
+
   private BatchProcessLogHeaderDbVO batchPubItems(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    
+
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     logger.info("Vor ASYNC Call");
@@ -292,7 +318,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
     }
   }
-  
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -327,7 +353,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     }
 
     checkList(itemIds);
-    
+
     return accountUserDbVO;
   }
 
@@ -338,8 +364,20 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private void checkString(String string) throws IngeApplicationException {
-    if (null == string || string.isEmpty()) {
+    if (null == string || string.trim().isEmpty()) {
       throw new IngeApplicationException("The string must not be empty");
+    }
+  }
+  
+  private void checkInt(int number) throws IngeApplicationException {
+    if (number < 0) {
+      throw new IngeApplicationException("The number must not be negative");
+    }
+  }
+  
+  private void checkEnum(IdentifierVO.IdType identifierType) throws IngeApplicationException {
+    if (null == identifierType) {
+      throw new IngeApplicationException("The identiferType must not be empty");
     }
   }
 }

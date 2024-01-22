@@ -30,6 +30,8 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -155,11 +157,69 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
           } else {
             if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-              if (itemId != null && localTags != null && !localTags.isEmpty()) {
-                List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
-                currentLocalTags.addAll(localTags);
-                itemVersionVO.getObject().setLocalTags(currentLocalTags);
-                batchProcessLogDetailDbVO = doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+              List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
+              currentLocalTags.addAll(localTags);
+              itemVersionVO.getObject().setLocalTags(currentLocalTags);
+              batchProcessLogDetailDbVO = doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+            } else {
+              batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                  BatchProcessLogDetailDbVO.Message.STATE_WRONG);
+            }
+          }
+        } catch (IngeTechnicalException e) {
+          batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR);
+        } catch (AuthenticationException e) {
+          batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.AUTHENTICATION_ERROR);
+        } catch (AuthorizationException e) {
+          batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR);
+        } catch (IngeApplicationException e) {
+          batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR);
+        }
+      }
+    }
+
+    finishBatchProcessLog(batchProcessLogHeaderDbVO, accountUserDbVO);
+
+    logger.info("End ASYNC");
+  }
+
+  public void addSourceIdentifierAsync(BatchProcessLogHeaderDbVO.Method method,
+      BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO, List<String> itemIds, int sourceNumber,
+      IdentifierVO.IdType sourceIdentifierType, String sourceIdentifer, String token) {
+
+    logger.info("Start ASYNC");
+
+    batchProcessLogHeaderDbVO = updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.RUNNING);
+
+    for (String itemId : itemIds) {
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO =
+          this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVOAndItemObjectId(batchProcessLogHeaderDbVO, itemId);
+
+      if (BatchProcessLogDetailDbVO.State.INITIALIZED.equals(batchProcessLogDetailDbVO.getState())) {
+        batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING);
+
+        ItemVersionVO itemVersionVO = null;
+        try {
+          itemVersionVO = this.pubItemService.get(itemId, token);
+          if (null == itemVersionVO) {
+            batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
+          } else {
+            if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
+              List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
+              if (currentSourceList != null && currentSourceList.size() >= sourceNumber
+                  && currentSourceList.get(sourceNumber - 1) != null) {
+                if (currentSourceList.get(sourceNumber - 1).getIdentifiers() != null) {
+                  currentSourceList.get(sourceNumber - 1).getIdentifiers().add(new IdentifierVO(sourceIdentifierType, sourceIdentifer));
+                  batchProcessLogDetailDbVO = doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+                }
+              } else {
+                batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                    BatchProcessLogDetailDbVO.Message.METADATA_NO_SOURCE_FOUND);
               }
             } else {
               batchProcessLogDetailDbVO = updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,

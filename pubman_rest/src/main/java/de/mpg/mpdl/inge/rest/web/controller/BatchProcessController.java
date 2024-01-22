@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -33,6 +34,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Batch Process")
 public class BatchProcessController {
 
+  private static final String SOURCE_IDENTIFIER_TYPE = "sourceIdentiferType";
+  private static final String SOURCE_IDENTIFIER = "sourceIdentifer";
+  private static final String SOURCE_NUMBER = "sourceNumber";
   private static final String KEYWORDS = "keywords";
   private static final String LOCAL_TAGS = "localTags";
   private static final String ITEM_IDS = "itemIds";
@@ -156,6 +160,21 @@ public class BatchProcessController {
 
     List<String> itemIds = convertJsonNode2List(parameters, ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.addKeywords(itemIds, keywords, token);
+
+    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/addSourceIdentifer", method = RequestMethod.PUT)
+  public ResponseEntity<BatchProcessLogHeaderDbVO> addSourceIdentifer( //
+      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestParam(value = SOURCE_NUMBER, required = true) int sourceNumber, //
+      @RequestParam(value = SOURCE_IDENTIFIER_TYPE, required = true) IdentifierVO.IdType sourceIdentifierType, //
+      @RequestParam(value = SOURCE_IDENTIFIER, required = true) String sourceIdentifier, //
+      @RequestBody JsonNode parameters)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    List<String> itemIds = convertJsonNode2List(parameters, ITEM_IDS);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.addSourceIdentifier(itemIds, sourceNumber, sourceIdentifierType, sourceIdentifier, token);
 
     return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
