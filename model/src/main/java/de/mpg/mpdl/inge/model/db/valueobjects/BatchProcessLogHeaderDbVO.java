@@ -22,20 +22,27 @@ import jakarta.persistence.Table;
 @JsonInclude(value = Include.NON_EMPTY)
 public class BatchProcessLogHeaderDbVO implements Serializable {
 
-  public enum State
-  {
+  public enum State {
     INITIALIZED,
     RUNNING,
     FINISHED
   }
 
-  public enum Method
-  {
+  public enum Method {
     ADD_KEYWORDS,
     ADD_LOCALTAGS,
     ADD_SOURCE_IDENTIFIER,
+    CHANGE_CONTEXT,
+    CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY,
+    CHANGE_FILE_CONTENT_CATEGORY,
+    CHANGE_GENRE,
+    CHANGE_LOCALTAG,
+    CHANGE_SOURCE_GENRE,
     DELETE_PUBITEMS,
     RELEASE_PUBITEMS,
+    REPLACE_EDITION,
+    REPLACE_FILE_AUDIENCE,
+    REPLACE_KEYWORDS,
     REVISE_PUBITEMS,
     SUBMIT_PUBITEMS,
     WITHDRAW_PUBITEMS

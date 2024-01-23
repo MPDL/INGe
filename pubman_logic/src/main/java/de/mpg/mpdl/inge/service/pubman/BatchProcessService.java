@@ -7,26 +7,13 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface BatchProcessService {
-
-  public BatchProcessLogHeaderDbVO getBatchProcessLogHeader(String batchProcessLogHeaderId, String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
-  public List<BatchProcessLogHeaderDbVO> getAllBatchProcessLogHeaders(String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
-  public List<BatchProcessLogDetailDbVO> getBatchProcessLogDetails(String batchProcessLogHeaderId, String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
-  public BatchProcessUserLockDbVO getBatchProcessUserLock(String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
-
-  public void deleteBatchProcessUserLock(String accountUserObjectId, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
   public BatchProcessLogHeaderDbVO addKeywords(List<String> itemIds, String keywords, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
@@ -34,13 +21,59 @@ public interface BatchProcessService {
   public BatchProcessLogHeaderDbVO addLocalTags(List<String> itemIds, List<String> localTags, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
-  public BatchProcessLogHeaderDbVO addSourceIdentifier(List<String> itemIds, int sourceNumber, IdentifierVO.IdType sourceIdentifierType, String sourceIdentifier, String token)
+  public BatchProcessLogHeaderDbVO addSourceIdentifier(List<String> itemIds, int sourceNumber, IdentifierVO.IdType sourceIdentifierType,
+      String sourceIdentifier, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO changeContext(List<String> itemIds, String contextFrom, String contextTo, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO changeExternalReferenceContentCategory(List<String> itemIds, String externalReferenceContentCategoryFrom,
+      String externalReferenceContentCategoryTo, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO changeFileContentCategory(List<String> itemIds, String fileContentCategoryFrom,
+      String fileContentCategoryTo, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO changeGenre(List<String> itemIds, MdsPublicationVO.Genre genreFrom, MdsPublicationVO.Genre genreTo,
+      MdsPublicationVO.DegreeType degreeType, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO changeLocalTag(List<String> itemIds, String localTagFrom, String localTagTo, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO changeSourceGenre(List<String> itemIds, SourceVO.Genre sourceGenreFrom, SourceVO.Genre sourceGenreTo,
+      String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public void deleteBatchProcessUserLock(String accountUserObjectId, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
   public BatchProcessLogHeaderDbVO deletePubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
+  public List<BatchProcessLogHeaderDbVO> getAllBatchProcessLogHeaders(String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public List<BatchProcessLogDetailDbVO> getBatchProcessLogDetails(String batchProcessLogHeaderId, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public BatchProcessLogHeaderDbVO getBatchProcessLogHeader(String batchProcessLogHeaderId, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public BatchProcessUserLockDbVO getBatchProcessUserLock(String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
   public BatchProcessLogHeaderDbVO releasePubItems(List<String> itemIds, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO replaceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+
+  public BatchProcessLogHeaderDbVO replaceKeywords(List<String> itemIds, String keywords, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
   public BatchProcessLogHeaderDbVO revisePubItems(List<String> itemIds, String token)
