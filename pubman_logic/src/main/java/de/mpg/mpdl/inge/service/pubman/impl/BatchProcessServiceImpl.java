@@ -28,9 +28,9 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 
 @Service
@@ -46,13 +46,13 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   private BatchProcessAsyncService batchProcessAsyncService;
 
   @Autowired
-  private BatchProcessUserLockRepository batchProcessUserLockRepository;
+  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
   @Autowired
   private BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
 
   @Autowired
-  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
+  private BatchProcessUserLockRepository batchProcessUserLockRepository;
 
   @Autowired
   private PubItemService pubItemService;
@@ -70,7 +70,20 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   public BatchProcessLogHeaderDbVO addLocalTags(List<String> itemIds, List<String> localTags, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return addLocalTags(BatchProcessLogHeaderDbVO.Method.ADD_LOCALTAGS, itemIds, localTags, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkList(localTags, "localTags");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.ADD_LOCALTAGS;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setLocalTags(localTags);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
@@ -78,17 +91,45 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       String sourceIdentifier, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return addSourceIdentifier(BatchProcessLogHeaderDbVO.Method.ADD_SOURCE_IDENTIFIER, itemIds, sourceNumber, sourceIdentifierType,
-        sourceIdentifier, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkInt(sourceNumber, "sourceNumber");
+    checkEnum(sourceIdentifierType, "sourceIdentifierType");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.ADD_SOURCE_IDENTIFIER;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setSourceNumber(sourceNumber);
+    batchOperationsImpl.setSourceIdentifierType(sourceIdentifierType);
+    batchOperationsImpl.setSourceIdentifer(sourceIdentifier);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
-  public BatchProcessLogHeaderDbVO changeFileContentCategory(List<String> itemIds, String fileContentCategoryFrom,
-      String fileContentCategoryTo, String token)
+  public BatchProcessLogHeaderDbVO changeContext(List<String> itemIds, String contextFrom, String contextTo, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return changeContentCategory(BatchProcessLogHeaderDbVO.Method.CHANGE_FILE_CONTENT_CATEGORY, itemIds, fileContentCategoryFrom,
-        fileContentCategoryTo, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkString(contextFrom, "contextFrom");
+    checkString(contextTo, "contextTo");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_CONTEXT;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setContextFrom(contextFrom);
+    batchOperationsImpl.setContextTo(contextTo);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
@@ -96,15 +137,17 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       String externalReferenceContentCategoryTo, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return changeContentCategory(BatchProcessLogHeaderDbVO.Method.CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, itemIds,
+    return doChangeContentCategory(BatchProcessLogHeaderDbVO.Method.CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, itemIds,
         externalReferenceContentCategoryFrom, externalReferenceContentCategoryTo, token);
   }
 
   @Override
-  public BatchProcessLogHeaderDbVO changeContext(List<String> itemIds, String contextFrom, String contextTo, String token)
+  public BatchProcessLogHeaderDbVO changeFileContentCategory(List<String> itemIds, String fileContentCategoryFrom,
+      String fileContentCategoryTo, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return changeContext(BatchProcessLogHeaderDbVO.Method.CHANGE_CONTEXT, itemIds, contextFrom, contextTo, token);
+    return doChangeContentCategory(BatchProcessLogHeaderDbVO.Method.CHANGE_FILE_CONTENT_CATEGORY, itemIds, fileContentCategoryFrom,
+        fileContentCategoryTo, token);
   }
 
   @Override
@@ -112,21 +155,66 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       MdsPublicationVO.DegreeType degreeType, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return changeGenre(BatchProcessLogHeaderDbVO.Method.CHANGE_GENRE, itemIds, genreFrom, genreTo, degreeType, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkGenre(genreFrom, "genreFrom");
+    checkGenre(genreTo, "genreTo");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_GENRE;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setGenreFrom(genreFrom);
+    batchOperationsImpl.setGenreTo(genreTo);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
   public BatchProcessLogHeaderDbVO changeLocalTag(List<String> itemIds, String localTagFrom, String localTagTo, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return changeLocalTag(BatchProcessLogHeaderDbVO.Method.CHANGE_LOCALTAG, itemIds, localTagFrom, localTagTo, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkString(localTagFrom, "localTagFrom");
+    checkString(localTagTo, "localTagTo");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_LOCALTAG;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setLocalTagFrom(localTagFrom);
+    batchOperationsImpl.setLocalTagTo(localTagTo);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
   public BatchProcessLogHeaderDbVO changeSourceGenre(List<String> itemIds, SourceVO.Genre sourceGenreFrom, SourceVO.Genre sourceGenreTo,
       String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return changeSourceGenre(BatchProcessLogHeaderDbVO.Method.CHANGE_SOURCE_GENRE, itemIds, sourceGenreFrom, sourceGenreTo, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkSourceGenre(sourceGenreFrom, "sourceGenreFrom");
+    checkSourceGenre(sourceGenreTo, "sourceGenreTo");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_SOURCE_GENRE;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setSourceGenreFrom(sourceGenreFrom);
+    batchOperationsImpl.setSourceGenreTo(sourceGenreTo);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
@@ -210,21 +298,49 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   public BatchProcessLogHeaderDbVO replaceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return replaceEdition(BatchProcessLogHeaderDbVO.Method.ADD_SOURCE_IDENTIFIER, itemIds, sourceNumber, edition, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkInt(sourceNumber, "sourceNumber");
+    checkString(edition, "edition");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_EDITION;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setSourceNumber(sourceNumber);
+    batchOperationsImpl.setEdition(edition);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
   public BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return replaceFileAudience(BatchProcessLogHeaderDbVO.Method.REPLACE_FILE_AUDIENCE, itemIds, audiences, token);
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkList(audiences, "audiences");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_FILE_AUDIENCE;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setAudiences(audiences);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
   }
 
   @Override
   public BatchProcessLogHeaderDbVO replaceKeywords(List<String> itemIds, String keywords, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
-    return doKeywords(BatchProcessLogHeaderDbVO.Method.ADD_KEYWORDS, itemIds, keywords, token);
+    return doKeywords(BatchProcessLogHeaderDbVO.Method.REPLACE_KEYWORDS, itemIds, keywords, token);
   }
 
   @Override
@@ -250,129 +366,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  private BatchProcessLogHeaderDbVO addLocalTags(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, List<String> localTags,
-      String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkList(localTags, "localTags");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.addLocalTagsAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, localTags, token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private BatchProcessLogHeaderDbVO addSourceIdentifier(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, int sourceNumber,
-      IdentifierVO.IdType sourceIdentifierType, String sourceIdentifier, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkInt(sourceNumber, "sourceNumber");
-    checkEnum(sourceIdentifierType, "sourceIdentifierType");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.addSourceIdentifierAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, sourceNumber,
-        sourceIdentifierType, sourceIdentifier, token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private BatchProcessLogHeaderDbVO changeContext(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String contextFrom,
-      String contextTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkString(contextFrom, "contextFrom");
-    checkString(contextTo, "contextTo");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.changeContextAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, contextFrom, contextTo,
-        token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private BatchProcessLogHeaderDbVO changeContentCategory(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
-      String contentCategoryFrom, String contentCategoryTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkString(contentCategoryFrom, "contentCategoryFrom");
-    checkString(contentCategoryTo, "econtentCategoryTo");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.changeContentCategoryAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds,
-        contentCategoryFrom, contentCategoryTo, token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private BatchProcessLogHeaderDbVO changeGenre(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
-      MdsPublicationVO.Genre genreFrom, MdsPublicationVO.Genre genreTo, MdsPublicationVO.DegreeType degreeType, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkGenre(genreFrom, "genreFrom");
-    checkGenre(genreTo, "genreTo");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.changeGenreAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, genreFrom, genreTo,
-        degreeType, token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private BatchProcessLogHeaderDbVO changeLocalTag(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String localTagFrom,
-      String localTagTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkString(localTagFrom, "localTagFrom");
-    checkString(localTagTo, "localTagTo");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.changeLocalTagAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, localTagFrom, localTagTo,
-        token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private BatchProcessLogHeaderDbVO changeSourceGenre(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
-      SourceVO.Genre sourceGenreFrom, SourceVO.Genre sourceGenreTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkSourceGenre(sourceGenreFrom, "sourceGenreFrom");
-    checkSourceGenre(sourceGenreTo, "sourceGenreTo");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.changeSourceGenreAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, sourceGenreFrom,
-        sourceGenreTo, token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
 
   private AccountUserDbVO checkCommon(String token, List<String> itemIds)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
@@ -504,16 +497,39 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     this.batchProcessUserLockRepository.saveAndFlush(batchProcessUserLockDbVO);
   }
 
-  private BatchProcessLogHeaderDbVO doKeywords(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String keywords, String token)
+  private BatchProcessLogHeaderDbVO doChangeContentCategory(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
+      String contentCategoryFrom, String contentCategoryTo, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkString(contentCategoryFrom, "contentCategoryFrom");
+    checkString(contentCategoryTo, "contentCategoryTo");
+
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setContentCategoryFrom(contentCategoryFrom);
+    batchOperationsImpl.setCategoryTo(contentCategoryTo);
+
+    logger.info("Vor ASYNC Call");
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call");
+
+    return batchProcessLogHeaderDbVO;
+  }
+
+  private BatchProcessLogHeaderDbVO doKeywords(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String keywords, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(keywords, "keywords");
 
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setKeywords(keywords);
+
     logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.doKeywordsAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, keywords, token);
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
     logger.info("Nach ASYNC Call");
 
     return batchProcessLogHeaderDbVO;
@@ -543,38 +559,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     return batchProcessLogHeaderDbVO;
   }
-
-  private BatchProcessLogHeaderDbVO replaceEdition(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, int sourceNumber,
-      String edition, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkInt(sourceNumber, "sourceNumber");
-    checkString(edition, "edition");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.replaceEditionAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, sourceNumber, edition,
-        token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private BatchProcessLogHeaderDbVO replaceFileAudience(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
-      List<String> audiences, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkList(audiences, "audiences");
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    logger.info("Vor ASYNC Call");
-    this.batchProcessAsyncService.replaceFileAudienceAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, audiences, token);
-    logger.info("Nach ASYNC Call");
-
-    return batchProcessLogHeaderDbVO;
-  }
 }
+
+
