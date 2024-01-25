@@ -24,13 +24,25 @@ public interface BatchProcessOperations {
   public BatchProcessLogDetailDbVO changeContext(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  public BatchProcessLogDetailDbVO changeFileVisibility(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
   public BatchProcessLogDetailDbVO changeGenre(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public BatchProcessLogDetailDbVO changeKeywords(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public BatchProcessLogDetailDbVO changeLocalTag(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  public BatchProcessLogDetailDbVO changeReviewMethod(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
   public BatchProcessLogDetailDbVO changeSourceGenre(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public BatchProcessLogDetailDbVO changeSourceIdentifier(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public BatchProcessLogDetailDbVO doKeywords(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
@@ -40,5 +52,8 @@ public interface BatchProcessOperations {
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public BatchProcessLogDetailDbVO replaceFileAudience(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public BatchProcessLogDetailDbVO replaceOrcid(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 }

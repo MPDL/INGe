@@ -53,6 +53,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
     METADATA_CHANGE_VALUE_ORCID_NO_PERSON("batch_ProcessLog_MetadataChangeOrcidNoPerson"),
     VALIDATION_GLOBAL("batch_ProcessLog_ValidationGlobal"),
+    VALIDATION_INVALID_ORCID("batch_ProcessLog_ValidationInvalidOrcid"),
     VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource"),
     // EXCEPTION ERROR MESSAGES
     ITEM_NOT_FOUND("batch_ProcessLog_ItemNotFoundError"),

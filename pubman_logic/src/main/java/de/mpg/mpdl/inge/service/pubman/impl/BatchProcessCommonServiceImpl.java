@@ -30,16 +30,16 @@ import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 public class BatchProcessCommonServiceImpl implements BatchProcessCommonService {
 
   @Autowired
-  private PubItemService pubItemService;
+  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
   @Autowired
-  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
+  private BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
 
   @Autowired
   private BatchProcessUserLockRepository batchProcessUserLockRepository;
 
   @Autowired
-  private BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
+  private PubItemService pubItemService;
 
   @Override
   @SuppressWarnings("incomplete-switch")
@@ -111,7 +111,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       BatchProcessLogDetailDbVO.State state, BatchProcessLogDetailDbVO.Message message) {
 
     batchProcessLogDetailDbVO.setState(state);
-    if (null != message) {
+    if (message != null) {
       batchProcessLogDetailDbVO.setMessage(message);
     }
     batchProcessLogDetailDbVO.setEndDate(new Date());

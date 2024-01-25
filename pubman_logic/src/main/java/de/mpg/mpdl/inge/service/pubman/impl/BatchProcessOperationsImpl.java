@@ -15,11 +15,16 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -31,47 +36,41 @@ import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
 @Primary
 public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
-  private List<String> localTags;
-
-  private String keywords;
-
-  private int sourceNumber;
-
-  private IdentifierVO.IdType sourceIdentifierType;
-
-  private String sourceIdentifer;
-
-  private String contextFrom;
-
-  private String contextTo;
-
-  private MdsPublicationVO.Genre genreFrom;
-
-  private MdsPublicationVO.Genre genreTo;
-
-  private MdsPublicationVO.DegreeType degreeType;
-
-  private SourceVO.Genre sourceGenreFrom;
-
-  private SourceVO.Genre sourceGenreTo;
-
-  private String localTagFrom;
-
-  private String localTagTo;
-
-  private String contentCategoryFrom;
-
-  private String categoryTo;
-
-  private String edition;
-
-  private List<String> audiences;
+  @Autowired
+  private BatchProcessCommonService batchProcessCommonService;
 
   @Autowired
   private ContextService contextService;
 
-  @Autowired
-  private BatchProcessCommonService batchProcessCommonService;
+  private List<String> audiences;
+  private String categoryTo;
+  private String contentCategoryFrom;
+  private String contextFrom;
+  private String contextTo;
+  private String creatorId;
+  private MdsPublicationVO.DegreeType degreeType;
+  private String edition;
+  private MdsPublicationVO.Genre genreFrom;
+  private MdsPublicationVO.Genre genreTo;
+  private String keywords;
+  private String keywordsFrom;
+  private String keywordsTo;
+  private String localTagFrom;
+  private List<String> localTags;
+  private String localTagTo;
+  private String orcid;
+  private MdsPublicationVO.ReviewMethod reviewMethodFrom;
+  private MdsPublicationVO.ReviewMethod reviewMethodTo;
+  private SourceVO.Genre sourceGenreFrom;
+  private SourceVO.Genre sourceGenreTo;
+  private String sourceIdentifer;
+  private String sourceIdentiferFrom;
+  private String sourceIdentiferTo;
+  private IdentifierVO.IdType sourceIdentifierType;
+  private int sourceNumber;
+  private IpListProvider.IpRange userAccountIpRange;
+  private FileDbVO.Visibility visibilityFrom;
+  private FileDbVO.Visibility visibilityTo;
 
   @Override
   public BatchProcessLogDetailDbVO addLocalTags(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
@@ -147,7 +146,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
     if (this.contextFrom.equals(itemVersionVO.getObject().getContext().getObjectId())) {
       ContextDbVO contextDbVOTo = this.contextService.get(this.contextTo, token);
-      if (null == contextDbVOTo) {
+      if (contextDbVOTo == null) {
         batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
             BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.CONTEXT_NOT_FOUND);
       } else if (itemVersionVO.getMetadata() != null && itemVersionVO.getMetadata().getGenre() != null
@@ -176,6 +175,46 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   }
 
   @Override
+  public BatchProcessLogDetailDbVO changeFileVisibility(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    String ipRangeToSet = null;
+    if (this.userAccountIpRange != null && this.userAccountIpRange.getId() != null) {
+      ipRangeToSet = this.userAccountIpRange.getId();
+    }
+
+    boolean anyFilesChanged = false;
+    for (FileDbVO file : itemVersionVO.getFiles()) {
+      if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && file.getVisibility().equals(this.visibilityFrom)) {
+        file.setVisibility(this.visibilityTo);
+        if (FileVO.Visibility.AUDIENCE.equals(this.visibilityTo)) {
+          if (file.getAllowedAudienceIds() != null && ipRangeToSet != null) {
+            file.getAllowedAudienceIds().add(ipRangeToSet);
+          } else if (file.getAllowedAudienceIds() == null) {
+            file.setAllowedAudienceIds(new ArrayList<String>());
+            if (ipRangeToSet != null) {
+              file.getAllowedAudienceIds().add(ipRangeToSet);
+            }
+          }
+        }
+        if (FileDbVO.Visibility.PUBLIC.equals(this.visibilityTo) && file.getMetadata().getEmbargoUntil() != null) {
+          file.getMetadata().setEmbargoUntil(null);
+        }
+        anyFilesChanged = true;
+      }
+    }
+    if (anyFilesChanged == true) {
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+    } else {
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+          BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.FILES_METADATA_OLD_VALUE_NOT_EQUAL);
+    }
+
+    return batchProcessLogDetailDbVO;
+  }
+
+  @Override
   public BatchProcessLogDetailDbVO changeGenre(BatchProcessLogHeaderDbVO.Method method, String token,
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
@@ -185,23 +224,18 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
         && contextDbVOTo.getAllowedGenres().contains(itemVersionVO.getMetadata().getGenre())) {
       Genre currentPubItemGenre = itemVersionVO.getMetadata().getGenre();
       if (currentPubItemGenre.equals(this.genreFrom)) {
-        if (!genreFrom.equals(this.genreTo)) {
-          if (!Genre.THESIS.equals(this.genreTo)) {
-            itemVersionVO.getMetadata().setGenre(this.genreTo);
-            batchProcessLogDetailDbVO =
-                this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
-          } else if (Genre.THESIS.equals(this.genreTo) && null != this.degreeType) {
-            itemVersionVO.getMetadata().setGenre(this.genreTo);
-            itemVersionVO.getMetadata().setDegree(this.degreeType);
-            batchProcessLogDetailDbVO =
-                this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
-          } else {
-            batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_NO_NEW_VALUE_SET);
-          }
+        if (!Genre.THESIS.equals(this.genreTo)) {
+          itemVersionVO.getMetadata().setGenre(this.genreTo);
+          batchProcessLogDetailDbVO =
+              this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+        } else if (Genre.THESIS.equals(this.genreTo) && this.degreeType != null) {
+          itemVersionVO.getMetadata().setGenre(this.genreTo);
+          itemVersionVO.getMetadata().setDegree(this.degreeType);
+          batchProcessLogDetailDbVO =
+              this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
         } else {
           batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_NO_CHANGE_VALUE);
+              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_NO_NEW_VALUE_SET);
         }
       } else {
         batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
@@ -210,6 +244,55 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
           BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_ALLOWED);
+    }
+
+    return batchProcessLogDetailDbVO;
+  }
+
+  @Override
+  public BatchProcessLogDetailDbVO changeKeywords(BatchProcessLogHeaderDbVO.Method method, String token,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    boolean keywordsChanged = false;
+    char splittingChar = ',';
+    String currentKeywords = itemVersionVO.getMetadata().getFreeKeywords();
+    String[] keywordArray = new String[1];
+    if (currentKeywords != null) {
+      if (currentKeywords.contains(",")) {
+        keywordArray = currentKeywords.split(",");
+      } else if (currentKeywords.contains(";")) {
+        keywordArray = currentKeywords.split(";");
+        splittingChar = ';';
+      } else if (currentKeywords.contains(" ")) {
+        keywordArray = currentKeywords.split(" ");
+        splittingChar = ' ';
+      } else {
+        keywordArray[0] = currentKeywords;
+      }
+      StringBuilder keywordString = new StringBuilder();
+      for (int i = 0; i < keywordArray.length; i++) {
+        String keyword = keywordArray[i].trim();
+        if (i != 0) {
+          keywordString.append(splittingChar);
+        }
+        if (keyword != "" && this.keywordsFrom.equals(keyword)) {
+          keywordString.append(this.keywordsTo);
+          keywordsChanged = true;
+        } else {
+          keywordString.append(keyword);
+        }
+      }
+      if (keywordsChanged) {
+        itemVersionVO.getMetadata().setFreeKeywords(keywordString.toString());
+        batchProcessLogDetailDbVO = this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+      } else {
+        batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+            BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+      }
+    } else {
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+          BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_NO_CHANGE_VALUE);
     }
 
     return batchProcessLogDetailDbVO;
@@ -229,6 +312,24 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
           BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_NO_CHANGE_VALUE);
+    }
+
+    return batchProcessLogDetailDbVO;
+  }
+
+  @Override
+  public BatchProcessLogDetailDbVO changeReviewMethod(BatchProcessLogHeaderDbVO.Method method, String token,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    ReviewMethod currentReviewMethod = itemVersionVO.getMetadata().getReviewMethod();
+    if ((currentReviewMethod == null && this.reviewMethodFrom == null && this.reviewMethodTo != null)
+        || (currentReviewMethod != null && this.reviewMethodFrom != null && currentReviewMethod.equals(this.reviewMethodFrom))) {
+      itemVersionVO.getMetadata().setReviewMethod(this.reviewMethodTo);
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+    } else {
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+          BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
     }
 
     return batchProcessLogDetailDbVO;
@@ -259,6 +360,41 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
           BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_NO_CHANGE_VALUE);
+    }
+
+    return batchProcessLogDetailDbVO;
+  }
+
+  @Override
+  public BatchProcessLogDetailDbVO changeSourceIdentifier(BatchProcessLogHeaderDbVO.Method method, String token,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    boolean sourceChanged = false;
+    List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
+    if (currentSourceList != null && currentSourceList.size() >= this.sourceNumber && currentSourceList.get(this.sourceNumber - 1) != null
+        && currentSourceList.get(this.sourceNumber - 1).getIdentifiers() != null) {
+      for (int i = 0; i < currentSourceList.get(this.sourceNumber - 1).getIdentifiers().size(); i++) {
+        IdentifierVO identifier = currentSourceList.get(this.sourceNumber - 1).getIdentifiers().get(i);
+        if (this.sourceIdentifierType.equals(identifier.getType()) && this.sourceIdentiferFrom.equals(identifier.getId())) {
+          if (this.sourceIdentiferTo != null && !("").equals(this.sourceIdentiferTo.trim())) {
+            identifier.setId(this.sourceIdentiferTo);
+            currentSourceList.get(this.sourceNumber - 1).getIdentifiers().set(i, identifier);
+          } else {
+            currentSourceList.get(this.sourceNumber - 1).getIdentifiers().remove(i);
+          }
+          sourceChanged = true;
+        }
+      }
+      if (sourceChanged == true) {
+        batchProcessLogDetailDbVO = this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+      } else {
+        batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+            BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+      }
+    } else {
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+          BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_NO_SOURCE_FOUND);
     }
 
     return batchProcessLogDetailDbVO;
@@ -338,6 +474,47 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     return batchProcessLogDetailDbVO;
   }
 
+  @Override
+  public BatchProcessLogDetailDbVO replaceOrcid(BatchProcessLogHeaderDbVO.Method method, String token,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    boolean anyOrcidChanged = false;
+    for (CreatorVO creator : itemVersionVO.getMetadata().getCreators()) {
+      PersonVO person = creator.getPerson();
+      if (person != null && person.getIdentifier() != null) {
+        if (creatorId.equals(person.getIdentifier().getId())) {
+          if (!this.orcid.equals(person.getOrcid())) {
+            person.setOrcid(this.orcid);
+            anyOrcidChanged = true;
+          }
+        }
+      }
+    }
+    List<SourceVO> sources = itemVersionVO.getMetadata().getSources();
+    for (SourceVO source : sources) {
+      for (CreatorVO creator : source.getCreators()) {
+        PersonVO person = creator.getPerson();
+        if (person != null && person.getIdentifier() != null) {
+          if (creatorId.equals(person.getIdentifier().getId())) {
+            if (!this.orcid.equals(person.getOrcid())) {
+              person.setOrcid(this.orcid);
+              anyOrcidChanged = true;
+            }
+          }
+        }
+      }
+    }
+    if (anyOrcidChanged == true) {
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+    } else {
+      batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+          BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_ORCID_NO_PERSON);
+    }
+
+    return batchProcessLogDetailDbVO;
+  }
+
   public void setAudiences(List<String> audiences) {
     this.audiences = audiences;
   }
@@ -356,6 +533,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
   public void setContextTo(String contextTo) {
     this.contextTo = contextTo;
+  }
+
+  public void setCreatorId(String creatorId) {
+    this.creatorId = creatorId;
   }
 
   public void setDegreeType(MdsPublicationVO.DegreeType degreeType) {
@@ -378,6 +559,14 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     this.keywords = keywords;
   }
 
+  public void setKeywordsFrom(String keywordsFrom) {
+    this.keywordsFrom = keywordsFrom;
+  }
+
+  public void setKeywordsTo(String keywordsTo) {
+    this.keywordsTo = keywordsTo;
+  }
+
   public void setLocalTagFrom(String localTagFrom) {
     this.localTagFrom = localTagFrom;
   }
@@ -388,6 +577,18 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
   public void setLocalTagTo(String localTagTo) {
     this.localTagTo = localTagTo;
+  }
+
+  public void setOrcid(String orcid) {
+    this.orcid = orcid;
+  }
+
+  public void setReviewMethodFrom(MdsPublicationVO.ReviewMethod reviewMethodFrom) {
+    this.reviewMethodFrom = reviewMethodFrom;
+  }
+
+  public void setReviewMethodTo(MdsPublicationVO.ReviewMethod reviewMethodTo) {
+    this.reviewMethodTo = reviewMethodTo;
   }
 
   public void setSourceGenreFrom(SourceVO.Genre sourceGenreFrom) {
@@ -402,11 +603,31 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     this.sourceIdentifer = sourceIdentifer;
   }
 
+  public void setSourceIdentiferFrom(String sourceIdentiferFrom) {
+    this.sourceIdentiferFrom = sourceIdentiferFrom;
+  }
+
+  public void setSourceIdentiferTo(String sourceIdentiferTo) {
+    this.sourceIdentiferTo = sourceIdentiferTo;
+  }
+
   public void setSourceIdentifierType(IdentifierVO.IdType sourceIdentifierType) {
     this.sourceIdentifierType = sourceIdentifierType;
   }
 
   public void setSourceNumber(int sourceNumber) {
     this.sourceNumber = sourceNumber;
+  }
+
+  public void setUserAccountIpRange(IpListProvider.IpRange userAccountIpRange) {
+    this.userAccountIpRange = userAccountIpRange;
+  }
+
+  public void setVisibilityFrom(FileDbVO.Visibility visibilityFrom) {
+    this.visibilityFrom = visibilityFrom;
+  }
+
+  public void setVisibilityTo(FileDbVO.Visibility visibilityTo) {
+    this.visibilityTo = visibilityTo;
   }
 }

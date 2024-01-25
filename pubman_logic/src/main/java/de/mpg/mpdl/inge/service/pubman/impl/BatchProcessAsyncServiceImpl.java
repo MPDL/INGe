@@ -39,19 +39,19 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
   private static final Logger logger = Logger.getLogger(BatchProcessAsyncServiceImpl.class);
 
   @Autowired
-  private PubItemService pubItemService;
-
-  @Autowired
-  private ContextService contextService;
-
-  @Autowired
-  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
+  private Executor asyncExecutor;
 
   @Autowired
   private BatchProcessCommonService batchProcessCommonService;
 
   @Autowired
-  private Executor asyncExecutor;
+  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
+
+  @Autowired
+  private ContextService contextService;
+
+  @Autowired
+  private PubItemService pubItemService;
 
   public BatchProcessAsyncServiceImpl() {}
 
@@ -70,13 +70,13 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVOAndItemObjectId(batchProcessLogHeaderDbVO, itemId);
 
       if (BatchProcessLogDetailDbVO.State.INITIALIZED.equals(batchProcessLogDetailDbVO.getState())) {
-        batchProcessLogDetailDbVO =
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING, null);
+        batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+            BatchProcessLogDetailDbVO.State.RUNNING, null);
 
         ItemVersionVO itemVersionVO = null;
         try {
           itemVersionVO = this.pubItemService.get(itemId, token);
-          if (null == itemVersionVO) {
+          if (itemVersionVO == null) {
             batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                 BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
           } else if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
@@ -93,20 +93,38 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               case CHANGE_CONTEXT:
                 batchProcessLogDetailDbVO = batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
+              case CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, CHANGE_FILE_CONTENT_CATEGORY:
+                batchProcessLogDetailDbVO = batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                break;
+              case CHANGE_FILE_VISIBILITY:
+                batchProcessLogDetailDbVO = batchOperations.changeFileVisibility(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                break;
               case CHANGE_GENRE:
                 batchProcessLogDetailDbVO = batchOperations.changeGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                break;
+              case CHANGE_KEYWORDS:
+                batchProcessLogDetailDbVO = batchOperations.changeKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
               case CHANGE_LOCALTAG:
                 batchProcessLogDetailDbVO = batchOperations.changeLocalTag(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
-              case CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, CHANGE_FILE_CONTENT_CATEGORY:
-                batchProcessLogDetailDbVO = batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+              case CHANGE_REVIEW_METHOD:
+                batchProcessLogDetailDbVO = batchOperations.changeReviewMethod(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                break;
+              case CHANGE_SOURCE_GENRE:
+                batchProcessLogDetailDbVO = batchOperations.changeSourceGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                break;
+              case CHANGE_SOURCE_IDENTIFIER:
+                batchProcessLogDetailDbVO = batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
               case REPLACE_EDITION:
                 batchProcessLogDetailDbVO = batchOperations.replaceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
               case REPLACE_FILE_AUDIENCE:
                 batchProcessLogDetailDbVO = batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                break;
+              case REPLACE_ORCID:
+                batchProcessLogDetailDbVO = batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
             }
           } else {
@@ -123,8 +141,49 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
               BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR);
         } catch (IngeApplicationException e) {
+          BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR;
+
+          switch (method) {
+            case CHANGE_GENRE:
+              if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+                ValidationException validationException = (ValidationException) e.getCause();
+                ValidationReportVO validationReport = validationException.getReport();
+
+                if (validationReport.hasItems()) {
+                  for (ValidationReportItemVO validationItem : validationReport.getItems()) {
+                    if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
+                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_NO_SOURCE;
+                      break;
+                    } else {
+                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
+                      // no break: anther report Item could set a finer message
+                    }
+                  }
+                }
+              }
+              break;
+            case REPLACE_ORCID:
+              if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+                ValidationException validationException = (ValidationException) e.getCause();
+                ValidationReportVO validationReport = validationException.getReport();
+
+                if (validationReport.hasItems()) {
+                  for (ValidationReportItemVO validationItem : validationReport.getItems()) {
+                    if (ErrorMessages.CREATOR_ORCID_INVALID.equals(validationItem.getContent())) {
+                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_INVALID_ORCID;
+                      break;
+                    } else {
+                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
+                      // no break: anther report Item could set a finer message
+                    }
+                  }
+                }
+              }
+              break;
+          }
+
           batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR);
+              BatchProcessLogDetailDbVO.State.ERROR, message);
         }
       }
     }
@@ -156,7 +215,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
         ContextDbVO contextDbVO = null;
         try {
           itemVersionVO = this.pubItemService.get(itemId, token);
-          if (null == itemVersionVO) {
+          if (itemVersionVO == null) {
             batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                 BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
           } else {
@@ -234,8 +293,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR;
 
           switch (method) {
-            case RELEASE_PUBITEMS:
-            case SUBMIT_PUBITEMS:
+            case RELEASE_PUBITEMS, SUBMIT_PUBITEMS:
               if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
                 ValidationException validationException = (ValidationException) e.getCause();
                 ValidationReportVO validationReport = validationException.getReport();

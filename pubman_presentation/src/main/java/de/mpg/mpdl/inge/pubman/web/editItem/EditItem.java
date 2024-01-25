@@ -558,7 +558,7 @@ public class EditItem extends FacesBean {
       if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage().contains("ViewItemFullPage.jsp")) {
         FacesTools.getExternalContext().redirect(
             FacesTools.getRequest().getContextPath() + "/faces/" + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
-      } else if (null != this.getPubItem().getObjectId()) {
+      } else if (this.getPubItem().getObjectId() != null) {
         FacesTools.getExternalContext()
             .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
       } else {
