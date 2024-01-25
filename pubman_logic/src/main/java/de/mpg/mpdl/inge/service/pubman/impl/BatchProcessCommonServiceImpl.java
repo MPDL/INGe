@@ -51,6 +51,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
     String message;
     switch (method) {
       case DELETE_PUBITEMS:
+        // no message
         this.pubItemService.delete(itemId, token);
         break;
       case RELEASE_PUBITEMS:

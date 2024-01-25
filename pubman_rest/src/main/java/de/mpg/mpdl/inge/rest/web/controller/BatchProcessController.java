@@ -31,6 +31,9 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -80,6 +83,10 @@ public class BatchProcessController {
   private static final String SOURCE_NUMBER = "sourceNumber";
   private static final String USER_ACCOUNT_IP_RANGE = "userAccountIpRange";
 
+  private static final String EXAMPLE_AUDIENCES = "\"audiences\": [\"audience\", \"audience\", ...]";
+  private static final String EXAMPLE_ITEM_IDS = "\"itemIds\": [\"item_xxx\", \"item_xxx\", ...]";
+  private static final String EXAMPLE_LOCALTAGS = "\"localTags\": [\"tag\", \"tag\", ...]";
+
   private BatchProcessService batchProcessService;
 
   @Autowired
@@ -87,7 +94,17 @@ public class BatchProcessController {
     this.batchProcessService = batchProcessService;
   }
 
+  /* 
+   * Beispiel für listParameters:
+   *   {
+   *     "itemIds": ["item_xxx", "item_xxx", ...],
+   *     "localTags": ["tag", "tag", ...]
+   *   }
+   */
+
   @RequestMapping(value = "/addKeywords", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> addKeywords( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = KEYWORDS, required = true) String keywords, //
@@ -101,6 +118,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/addLocalTags", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_LOCALTAGS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> addLocalTags( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestBody JsonNode listParameters)
@@ -114,6 +133,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/addSourceIdentifer", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> addSourceIdentifer( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = SOURCE_NUMBER, required = true) int sourceNumber, //
@@ -130,6 +151,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeContext", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeContext( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = CONTEXT_FROM, required = true) String contextFrom, //
@@ -144,6 +167,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeExternalReferenceContentCategory", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeExternalReferenceContentCategory( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = EXTERNAL_REFERENCE_CONTENT_CATEGORY_FROM, required = true) String externalReferenceContentCategoryFrom, //
@@ -159,6 +184,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeFileContentCategory", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeFileContentCategory( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = FILE_CONTENT_CATEGORY_FROM, required = true) String fileContentCategoryFrom, //
@@ -174,6 +201,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeFileVisibility", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeFileVisibility( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = FILE_VISIBILITY_FROM, required = true) FileDbVO.Visibility fileVisibilityFrom, //
@@ -190,6 +219,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeGenre", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeGenre( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = GENRE_FROM, required = true) MdsPublicationVO.Genre genreFrom, //
@@ -206,6 +237,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeKeywords", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeKeywords( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = KEYWORDS_FROM, required = true) String keywordsFrom, //
@@ -220,6 +253,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeLocalTag", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeLocalTag( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = LOCALTAG_FROM, required = true) String localTagFrom, //
@@ -234,6 +269,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeReviewMethod", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeReviewMethod( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = REVIEW_METHOD_FROM, required = false) MdsPublicationVO.ReviewMethod reviewMethodFrom, //
@@ -249,6 +286,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeSourceGenre", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeSourceGenre( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = SOURCE_GENRE_FROM, required = true) SourceVO.Genre sourceGenreFrom, //
@@ -264,6 +303,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/changeSourceIdentifer", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeSourceIdentifer( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = SOURCE_NUMBER, required = true) int sourceNumber, //
@@ -296,6 +337,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/deletePubItems", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> deletePubItems( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestBody JsonNode listParameters)
@@ -374,6 +417,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/releasePubItems", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> releasePubItems( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestBody JsonNode listParameters)
@@ -386,6 +431,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/replaceEdition", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceEdition( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = SOURCE_NUMBER, required = true) int sourceNumber, //
@@ -400,6 +447,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/replaceFileAudience", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_AUDIENCES + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceFileAudience( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestBody JsonNode listParameters)
@@ -413,6 +462,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/replaceKeywords", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceKeywords( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = KEYWORDS, required = true) String keywords, //
@@ -426,6 +477,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/replaceOrcid", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceOrcid( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestParam(value = CREATOR_ID, required = true) String creatorId, //
@@ -440,6 +493,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/revisePubItems", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> revisePubItems( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestBody JsonNode listParameters)
@@ -452,6 +507,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/submitPubItems", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> submitPubItems( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestBody JsonNode listParameters)
@@ -464,6 +521,8 @@ public class BatchProcessController {
   }
 
   @RequestMapping(value = "/withdrawPubItems", method = RequestMethod.PUT)
+  @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> withdrawPubItems( //
       @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
       @RequestBody JsonNode listParameters)
@@ -478,16 +537,16 @@ public class BatchProcessController {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  private List<String> convertJsonNode2List(JsonNode listParameters, String node) throws IngeApplicationException {
+  private List<String> convertJsonNode2List(JsonNode listParameters, String name) throws IngeApplicationException {
 
     List<String> list = new ArrayList<String>();
-    JsonNode jsonNode = listParameters.get(node);
+    JsonNode jsonNode = listParameters.get(name);
     if (jsonNode != null) {
       jsonNode.forEach(element -> list.add(element.asText()));
     }
 
     if (list.isEmpty()) {
-      throw new IngeApplicationException("The request body doesn't contain valid " + node);
+      throw new IngeApplicationException("The request body doesn't contain valid " + name);
     }
 
     return list;

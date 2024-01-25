@@ -60,7 +60,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
   public void doAsync(BatchProcessLogHeaderDbVO.Method method, BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO,
       AccountUserDbVO accountUserDbVO, List<String> itemIds, String token, BatchProcessOperations batchOperations) {
 
-    logger.info("Start ASYNC");
+    logger.info("Start ASYNC " + method + ": " + itemIds.size());
+    long startTime = System.currentTimeMillis();
 
     batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.RUNNING);
@@ -156,7 +157,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                       break;
                     } else {
                       message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
-                      // no break: anther report Item could set a finer message
+                      // no break: another report Item could set a finer message
                     }
                   }
                 }
@@ -174,7 +175,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                       break;
                     } else {
                       message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
-                      // no break: anther report Item could set a finer message
+                      // no break: another report Item could set a finer message
                     }
                   }
                 }
@@ -190,7 +191,9 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
     this.batchProcessCommonService.finishBatchProcessLog(batchProcessLogHeaderDbVO, accountUserDbVO);
 
-    logger.info("End ASYNC");
+    long endTime = System.currentTimeMillis();
+    long durationInSeconds = (endTime - startTime) / 1000;
+    logger.info("End ASYNC " + method + "-> " + durationInSeconds + "s");
   }
 
   @SuppressWarnings("incomplete-switch")
@@ -198,7 +201,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
   public void doPubItemsAsync(BatchProcessLogHeaderDbVO.Method method, BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO,
       AccountUserDbVO accountUserDbVO, List<String> itemIds, String token) {
 
-    logger.info("Start ASYNC");
+    logger.info("Start ASYNC " + method + ": " + itemIds.size());
+    long startTime = System.currentTimeMillis();
 
     batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.RUNNING);
@@ -304,7 +308,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                       break;
                     } else {
                       message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
-                      // no break: anther report Item could set a finer message
+                      // no break: another report Item could set a finer message
                     }
                   }
                 }
@@ -320,7 +324,9 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
     this.batchProcessCommonService.finishBatchProcessLog(batchProcessLogHeaderDbVO, accountUserDbVO);
 
-    logger.info("End ASYNC");
+    long endTime = System.currentTimeMillis();
+    long durationInSeconds = (endTime - startTime) / 1000;
+    logger.info("End ASYNC " + method + "-> " + durationInSeconds + "s");
   }
 
   @Override
