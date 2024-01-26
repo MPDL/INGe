@@ -81,9 +81,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setLocalTags(localTags);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("NACH ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -105,9 +105,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setSourceIdentifierType(sourceIdentifierType);
     batchOperationsImpl.setSourceIdentifer(sourceIdentifier);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -128,9 +128,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setContextFrom(contextFrom);
     batchOperationsImpl.setContextTo(contextTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -171,9 +171,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setVisibilityTo(fileVisibilityTo);
     batchOperationsImpl.setUserAccountIpRange(userAccountIpRange);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -195,9 +195,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setGenreFrom(genreFrom);
     batchOperationsImpl.setGenreTo(genreTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -218,9 +218,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setKeywordsFrom(keywordsFrom);
     batchOperationsImpl.setKeywordsTo(keywordsTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -241,9 +241,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setLocalTagFrom(localTagFrom);
     batchOperationsImpl.setLocalTagTo(localTagTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -264,9 +264,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setReviewMethodFrom(reviewMethodFrom);
     batchOperationsImpl.setReviewMethodTo(reviewMethodTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -287,9 +287,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setSourceGenreFrom(sourceGenreFrom);
     batchOperationsImpl.setSourceGenreTo(sourceGenreTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -315,9 +315,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setSourceIdentiferFrom(sourceIdentifierFrom);
     batchOperationsImpl.setSourceIdentiferTo(sourceIdentifierTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -414,9 +414,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setSourceNumber(sourceNumber);
     batchOperationsImpl.setEdition(edition);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -434,9 +434,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setAudiences(audiences);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -463,9 +463,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setCreatorId(creatorId);
     batchOperationsImpl.setOrcid(orcid);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -651,9 +651,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     batchOperationsImpl.setContentCategoryFrom(contentCategoryFrom);
     batchOperationsImpl.setCategoryTo(contentCategoryTo);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -668,9 +668,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setKeywords(keywords);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
@@ -682,9 +682,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    logger.info("Vor ASYNC Call");
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doPubItemsAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token);
-    logger.info("Nach ASYNC Call");
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
   }
