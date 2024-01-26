@@ -145,6 +145,24 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR;
 
           switch (method) {
+            case CHANGE_FILE_VISIBILITY:
+              if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+                ValidationException validationException = (ValidationException) e.getCause();
+                ValidationReportVO validationReport = validationException.getReport();
+
+                if (validationReport.hasItems()) {
+                  for (ValidationReportItemVO validationItem : validationReport.getItems()) {
+                    if (ErrorMessages.COMPONENT_IP_RANGE_NOT_PROVIDED.equals(validationItem.getContent())) {
+                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_IP_RANGE_NOT_PROVIDED;
+                      break;
+                    } else {
+                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
+                      // no break: another report Item could set a finer message
+                    }
+                  }
+                }
+              }
+              break;
             case CHANGE_GENRE:
               if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
                 ValidationException validationException = (ValidationException) e.getCause();

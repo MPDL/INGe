@@ -41,27 +41,28 @@ public class BatchProcessLogDetailDbVO implements Serializable {
 
   public enum Message implements Messages
   {
-    // SUCCESS MESSAGES
+    // SUCCESS MESSAGE
     SUCCESS("batch_ProcessLog_Success"),
+    
     // ERROR MESSAGES
-    STATE_WRONG("batch_ProcessLog_StateWrong"),
+    AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
+    AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError"),
+    CONTEXT_NOT_FOUND("batch_ProcessLog_ContextNotFoundError"),
     FILES_METADATA_OLD_VALUE_NOT_EQUAL("batch_ProcessLog_FileMetadataOldValueNotEqual"),
+    INTERNAL_ERROR("batch_ProcessLog_InternalError"),
+    ITEM_NOT_FOUND("batch_ProcessLog_ItemNotFoundError"),
     METADATA_CHANGE_VALUE_NOT_ALLOWED("batch_ProcessLog_MetadataChangeValueNotAllowed"),
+    METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
+    METADATA_CHANGE_VALUE_ORCID_NO_PERSON("batch_ProcessLog_MetadataChangeOrcidNoPerson"),
     METADATA_NO_CHANGE_VALUE("batch_ProcessLog_MetadataNoChangeValue"),
     METADATA_NO_NEW_VALUE_SET("batch_ProcessLog_MetadataNoNewValueSet"),
     METADATA_NO_SOURCE_FOUND("batch_ProcessLog_MetadataNoSourceFound"),
-    METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
-    METADATA_CHANGE_VALUE_ORCID_NO_PERSON("batch_ProcessLog_MetadataChangeOrcidNoPerson"),
+    STATE_WRONG("batch_ProcessLog_StateWrong"),
     VALIDATION_GLOBAL("batch_ProcessLog_ValidationGlobal"),
     VALIDATION_INVALID_ORCID("batch_ProcessLog_ValidationInvalidOrcid"),
-    VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource"),
-    // EXCEPTION ERROR MESSAGES
-    ITEM_NOT_FOUND("batch_ProcessLog_ItemNotFoundError"),
-    CONTEXT_NOT_FOUND("batch_ProcessLog_ContextNotFoundError"),
-    INTERNAL_ERROR("batch_ProcessLog_InternalError"),
-    AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
-    AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError");
-
+    VALIDATION_IP_RANGE_NOT_PROVIDED("batch_ProcessLog_IpRangeNotProvided"),
+    VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource");
+    
   private String message;
 
   Message(String message) {

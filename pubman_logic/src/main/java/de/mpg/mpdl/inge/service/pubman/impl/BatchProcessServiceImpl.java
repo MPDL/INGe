@@ -660,6 +660,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   private BatchProcessLogHeaderDbVO doKeywords(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String keywords, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+    
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(keywords, "keywords");
 
