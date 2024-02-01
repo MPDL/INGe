@@ -48,7 +48,7 @@ public interface BatchProcessOperations {
   public BatchProcessLogDetailDbVO doKeywords(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO replaceEdition(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+  public BatchProcessLogDetailDbVO replaceSourceEdition(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public BatchProcessLogDetailDbVO replaceFileAudience(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,

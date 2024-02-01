@@ -118,8 +118,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               case CHANGE_SOURCE_IDENTIFIER:
                 batchProcessLogDetailDbVO = batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
-              case REPLACE_EDITION:
-                batchProcessLogDetailDbVO = batchOperations.replaceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+              case REPLACE_SOURCE_EDITION:
+                batchProcessLogDetailDbVO = batchOperations.replaceSourceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
               case REPLACE_FILE_AUDIENCE:
                 batchProcessLogDetailDbVO = batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);

@@ -426,7 +426,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   }
 
   @Override
-  public BatchProcessLogDetailDbVO replaceEdition(BatchProcessLogHeaderDbVO.Method method, String token,
+  public BatchProcessLogDetailDbVO replaceSourceEdition(BatchProcessLogHeaderDbVO.Method method, String token,
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 

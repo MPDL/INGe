@@ -84,7 +84,7 @@ public interface BatchProcessService {
   public BatchProcessLogHeaderDbVO releasePubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
-  public BatchProcessLogHeaderDbVO replaceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
+  public BatchProcessLogHeaderDbVO replaceSourceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
   public BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)

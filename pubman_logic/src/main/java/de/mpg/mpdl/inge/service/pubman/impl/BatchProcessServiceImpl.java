@@ -400,14 +400,14 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   @Override
-  public BatchProcessLogHeaderDbVO replaceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
+  public BatchProcessLogHeaderDbVO replaceSourceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkInt(sourceNumber, "sourceNumber");
     checkString(edition, "edition");
 
-    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_EDITION;
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_SOURCE_EDITION;
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();

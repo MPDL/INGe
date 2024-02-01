@@ -435,7 +435,7 @@ public class BatchProcessController {
     return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/replaceEdition", method = RequestMethod.PUT)
+  @RequestMapping(value = "/replaceSourceEdition", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceEdition( //
@@ -446,7 +446,7 @@ public class BatchProcessController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceEdition(itemIds, sourceNumber, edition, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceSourceEdition(itemIds, sourceNumber, edition, token);
 
     return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
