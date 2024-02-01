@@ -400,28 +400,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   @Override
-  public BatchProcessLogHeaderDbVO replaceSourceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkInt(sourceNumber, "sourceNumber");
-    checkString(edition, "edition");
-
-    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_SOURCE_EDITION;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
-
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
-    batchOperationsImpl.setSourceNumber(sourceNumber);
-    batchOperationsImpl.setEdition(edition);
-
-    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
-    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
-    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  @Override
   public BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
@@ -462,6 +440,28 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setCreatorId(creatorId);
     batchOperationsImpl.setOrcid(orcid);
+
+    logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
+    this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
+    logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
+
+    return batchProcessLogHeaderDbVO;
+  }
+
+  @Override
+  public BatchProcessLogHeaderDbVO replaceSourceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
+    checkInt(sourceNumber, "sourceNumber");
+    checkString(edition, "edition");
+
+    BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_SOURCE_EDITION;
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    batchOperationsImpl.setSourceNumber(sourceNumber);
+    batchOperationsImpl.setEdition(edition);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
@@ -523,7 +523,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private void checkEquals(Object object1, Object object2, String name1, String name2) throws IngeApplicationException {
-    if (object1.equals(object1)) {
+    if (object1.equals(object2)) {
       throw new IngeApplicationException("The object " + name1 + " must not be equal to " + name2);
     }
   }
@@ -577,8 +577,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     }
   }
 
-  private void createBatchProcessLogDetails(AccountUserDbVO accountUserDbVO, List<String> itemIds,
-      BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String token) {
+  private void createBatchProcessLogDetails(List<String> itemIds, BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String token) {
 
     for (String itemId : itemIds) {
       ItemVersionVO itemVersionVO = null;
@@ -587,9 +586,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       try {
         itemVersionVO = this.pubItemService.get(itemId, token);
         if (itemVersionVO == null) {
-          batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-              itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-              BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND, new Date());
+          batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, null,
+              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND, new Date());
         } else {
           batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, itemVersionVO.getVersionNumber(),
               BatchProcessLogDetailDbVO.State.INITIALIZED, new Date());
@@ -660,7 +658,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   private BatchProcessLogHeaderDbVO doKeywords(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String keywords, String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-    
+
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(keywords, "keywords");
 
@@ -691,12 +689,12 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   @Transactional(rollbackFor = Throwable.class)
-  private BatchProcessLogHeaderDbVO initializeBatchProcessLog(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUserDbVO,
+  protected BatchProcessLogHeaderDbVO initializeBatchProcessLog(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUserDbVO,
       List<String> itemIds, String token) {
 
     createBatchProcessUserLock(accountUserDbVO);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = createBatchProcessLogHeader(method, accountUserDbVO, itemIds.size());
-    createBatchProcessLogDetails(accountUserDbVO, itemIds, batchProcessLogHeaderDbVO, token);
+    createBatchProcessLogDetails(itemIds, batchProcessLogHeaderDbVO, token);
 
     return batchProcessLogHeaderDbVO;
   }

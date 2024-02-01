@@ -62,8 +62,8 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     VALIDATION_INVALID_ORCID("batch_ProcessLog_ValidationInvalidOrcid"),
     VALIDATION_IP_RANGE_NOT_PROVIDED("batch_ProcessLog_IpRangeNotProvided"),
     VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource");
-    
-  private String message;
+
+  private final String message;
 
   Message(String message) {
       this.message = message;

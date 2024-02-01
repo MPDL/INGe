@@ -88,7 +88,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
     if (itemVersionVO.getObject().getLocalTags() != null) {
       itemVersionVO.getObject().getLocalTags().add(message);
     } else {
-      itemVersionVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+      itemVersionVO.getObject().setLocalTags(new ArrayList<>(Arrays.asList(message)));
     }
 
     this.pubItemService.update(itemVersionVO, token);

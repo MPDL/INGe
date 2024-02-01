@@ -89,7 +89,7 @@ public class BatchProcessController {
   private static final String EXAMPLE_LOCALTAGS = "\"localTags\": [\"tag\", \"tag\", ...]";
   private static final String EXAMPLE_USER_ACCOUNT_IP_RANGE = "\"userAccountIpRange\": {...}";
 
-  private BatchProcessService batchProcessService;
+  private final BatchProcessService batchProcessService;
 
   @Autowired
   public BatchProcessController(BatchProcessService batchProcessService) {
@@ -110,22 +110,22 @@ public class BatchProcessController {
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> addKeywords( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = KEYWORDS, required = true) String keywords, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = KEYWORDS) String keywords, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.addKeywords(itemIds, keywords, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/addLocalTags", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_LOCALTAGS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> addLocalTags( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
@@ -133,17 +133,17 @@ public class BatchProcessController {
     List<String> localTags = convertJsonNode2List(parameters, PARAM_LOCALTAGS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.addLocalTags(itemIds, localTags, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/addSourceIdentifer", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> addSourceIdentifer( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = SOURCE_NUMBER, required = true) int sourceNumber, //
-      @RequestParam(value = SOURCE_IDENTIFIER_TYPE, required = true) IdentifierVO.IdType sourceIdentifierType, //
-      @RequestParam(value = SOURCE_IDENTIFIER, required = true) String sourceIdentifier, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = SOURCE_NUMBER) int sourceNumber, //
+      @RequestParam(value = SOURCE_IDENTIFIER_TYPE) IdentifierVO.IdType sourceIdentifierType, //
+      @RequestParam(value = SOURCE_IDENTIFIER) String sourceIdentifier, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
@@ -151,32 +151,32 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessService.addSourceIdentifier(itemIds, sourceNumber, sourceIdentifierType, sourceIdentifier, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeContext", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeContext( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = CONTEXT_FROM, required = true) String contextFrom, //
-      @RequestParam(value = CONTEXT_TO, required = true) String contextTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = CONTEXT_FROM) String contextFrom, //
+      @RequestParam(value = CONTEXT_TO) String contextTo, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeContext(itemIds, contextFrom, contextTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeExternalReferenceContentCategory", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeExternalReferenceContentCategory( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = EXTERNAL_REFERENCE_CONTENT_CATEGORY_FROM, required = true) String externalReferenceContentCategoryFrom, //
-      @RequestParam(value = EXTERNAL_REFERENCE_CONTENT_CATEGORY_TO, required = true) String externalReferenceContentCategoryTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = EXTERNAL_REFERENCE_CONTENT_CATEGORY_FROM) String externalReferenceContentCategoryFrom, //
+      @RequestParam(value = EXTERNAL_REFERENCE_CONTENT_CATEGORY_TO) String externalReferenceContentCategoryTo, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
@@ -184,16 +184,16 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeExternalReferenceContentCategory(itemIds,
         externalReferenceContentCategoryFrom, externalReferenceContentCategoryTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeFileContentCategory", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeFileContentCategory( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = FILE_CONTENT_CATEGORY_FROM, required = true) String fileContentCategoryFrom, //
-      @RequestParam(value = FILE_CONTENT_CATEGORY_TO, required = true) String fileContentCategoryTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = FILE_CONTENT_CATEGORY_FROM) String fileContentCategoryFrom, //
+      @RequestParam(value = FILE_CONTENT_CATEGORY_TO) String fileContentCategoryTo, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
@@ -201,16 +201,16 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessService.changeFileContentCategory(itemIds, fileContentCategoryFrom, fileContentCategoryTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeFileVisibility", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_USER_ACCOUNT_IP_RANGE + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeFileVisibility( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = FILE_VISIBILITY_FROM, required = true) FileDbVO.Visibility fileVisibilityFrom, //
-      @RequestParam(value = FILE_VISIBILITY_TO, required = true) FileDbVO.Visibility fileVisibilityTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = FILE_VISIBILITY_FROM) FileDbVO.Visibility fileVisibilityFrom, //
+      @RequestParam(value = FILE_VISIBILITY_TO) FileDbVO.Visibility fileVisibilityTo, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
@@ -220,16 +220,16 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessService.changeFileVisibility(itemIds, fileVisibilityFrom, fileVisibilityTo, userAccountIpRange, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeGenre", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeGenre( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = GENRE_FROM, required = true) MdsPublicationVO.Genre genreFrom, //
-      @RequestParam(value = GENRE_TO, required = true) MdsPublicationVO.Genre genreTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = GENRE_FROM) MdsPublicationVO.Genre genreFrom, //
+      @RequestParam(value = GENRE_TO) MdsPublicationVO.Genre genreTo, //
       @RequestParam(value = DEGREE_TYPE, required = false) MdsPublicationVO.DegreeType degreeType, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
@@ -238,46 +238,46 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessService.changeGenre(itemIds, genreFrom, genreTo, degreeType, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeKeywords", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeKeywords( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = KEYWORDS_FROM, required = true) String keywordsFrom, //
-      @RequestParam(value = KEYWORDS_TO, required = true) String keywordsTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = KEYWORDS_FROM) String keywordsFrom, //
+      @RequestParam(value = KEYWORDS_TO) String keywordsTo, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeKeywords(itemIds, keywordsFrom, keywordsTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeLocalTag", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeLocalTag( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = LOCALTAG_FROM, required = true) String localTagFrom, //
-      @RequestParam(value = LOCALTAG_TO, required = true) String localTagTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = LOCALTAG_FROM) String localTagFrom, //
+      @RequestParam(value = LOCALTAG_TO) String localTagTo, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeLocalTag(itemIds, localTagFrom, localTagTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeReviewMethod", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeReviewMethod( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestParam(value = REVIEW_METHOD_FROM, required = false) MdsPublicationVO.ReviewMethod reviewMethodFrom, //
       @RequestParam(value = REVIEW_METHOD_TO, required = false) MdsPublicationVO.ReviewMethod reviewMethodTo, //
       @RequestBody JsonNode parameters)
@@ -287,16 +287,16 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessService.changeReviewMethod(itemIds, reviewMethodFrom, reviewMethodTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeSourceGenre", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeSourceGenre( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = SOURCE_GENRE_FROM, required = true) SourceVO.Genre sourceGenreFrom, //
-      @RequestParam(value = SOURCE_GENRE_TO, required = true) SourceVO.Genre sourceGenreTo, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = SOURCE_GENRE_FROM) SourceVO.Genre sourceGenreFrom, //
+      @RequestParam(value = SOURCE_GENRE_TO) SourceVO.Genre sourceGenreTo, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
@@ -304,16 +304,16 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessService.changeSourceGenre(itemIds, sourceGenreFrom, sourceGenreTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/changeSourceIdentifer", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeSourceIdentifer( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = SOURCE_NUMBER, required = true) int sourceNumber, //
-      @RequestParam(value = SOURCE_IDENTIFIER_TYPE, required = true) IdentifierVO.IdType sourceIdentifierType, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = SOURCE_NUMBER) int sourceNumber, //
+      @RequestParam(value = SOURCE_IDENTIFIER_TYPE) IdentifierVO.IdType sourceIdentifierType, //
       @RequestParam(value = SOURCE_IDENTIFIER_FROM, required = false) String sourceIdentifierFrom, //
       @RequestParam(value = SOURCE_IDENTIFIER_TO, required = false) String sourceIdentifierTo, //
       @RequestBody JsonNode parameters)
@@ -323,7 +323,7 @@ public class BatchProcessController {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeSourceIdentifier(itemIds, sourceNumber,
         sourceIdentifierType, sourceIdentifierFrom, sourceIdentifierTo, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = BatchProcessUserLockDelete_PATH, method = RequestMethod.DELETE)
@@ -345,19 +345,18 @@ public class BatchProcessController {
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> deletePubItems( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.deletePubItems(itemIds, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/getAllBatchProcessLogHeaders", method = RequestMethod.GET)
-  public ResponseEntity<List<BatchProcessLogHeaderDbVO>> getAllBatchProcessLogHeaders(
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token)
+  public ResponseEntity<List<BatchProcessLogHeaderDbVO>> getAllBatchProcessLogHeaders(@RequestHeader(value = AUTHZ_HEADER) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs = this.batchProcessService.getAllBatchProcessLogHeaders(token);
@@ -366,12 +365,11 @@ public class BatchProcessController {
       throw new NotFoundException();
     }
 
-    return new ResponseEntity<List<BatchProcessLogHeaderDbVO>>(batchProcessLogHeaderDbVOs, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVOs, HttpStatus.OK);
   }
 
   @RequestMapping(value = BatchProcessLogDetails_ID_PATH, method = RequestMethod.GET)
-  public ResponseEntity<List<BatchProcessLogDetailDbVO>> getBatchProcessLogDetails(
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token,
+  public ResponseEntity<List<BatchProcessLogDetailDbVO>> getBatchProcessLogDetails(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = BatchProcessLogHeader_VAR) String batchProcessLogHeaderId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
@@ -383,18 +381,17 @@ public class BatchProcessController {
     }
 
     // remove BatchProcessLogHeaderDbVO
-    List<BatchProcessLogDetailDbVO> adaptedBatchProcessLogDetailDbVOs = new ArrayList<BatchProcessLogDetailDbVO>();
+    List<BatchProcessLogDetailDbVO> adaptedBatchProcessLogDetailDbVOs = new ArrayList<>();
     for (BatchProcessLogDetailDbVO batchProcessLogDetailDbVO : batchProcessLogDetailDbVOs) {
       batchProcessLogDetailDbVO.setBatchProcessLogHeaderDbVO(null);
       adaptedBatchProcessLogDetailDbVOs.add(batchProcessLogDetailDbVO);
     }
 
-    return new ResponseEntity<List<BatchProcessLogDetailDbVO>>(adaptedBatchProcessLogDetailDbVOs, HttpStatus.OK);
+    return new ResponseEntity<>(adaptedBatchProcessLogDetailDbVOs, HttpStatus.OK);
   }
 
   @RequestMapping(value = BatchProcessLogHeader_ID_PATH, method = RequestMethod.GET)
-  public ResponseEntity<BatchProcessLogHeaderDbVO> getBatchProcessLogHeader(
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token,
+  public ResponseEntity<BatchProcessLogHeaderDbVO> getBatchProcessLogHeader(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = BatchProcessLogHeader_VAR) String batchProcessLogHeaderId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
@@ -404,12 +401,11 @@ public class BatchProcessController {
       throw new NotFoundException();
     }
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/getBatchProcessUserLock", method = RequestMethod.GET)
-  public ResponseEntity<BatchProcessUserLockDbVO> getBatchProcessUserLock(
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token)
+  public ResponseEntity<BatchProcessUserLockDbVO> getBatchProcessUserLock(@RequestHeader(value = AUTHZ_HEADER) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     BatchProcessUserLockDbVO batchProcessUserLockDbVO = this.batchProcessService.getBatchProcessUserLock(token);
@@ -418,44 +414,45 @@ public class BatchProcessController {
       throw new NotFoundException();
     }
 
-    return new ResponseEntity<BatchProcessUserLockDbVO>(batchProcessUserLockDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessUserLockDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/releasePubItems", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> releasePubItems( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.releasePubItems(itemIds, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/replaceSourceEdition", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceEdition( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = SOURCE_NUMBER, required = true) int sourceNumber, //
-      @RequestParam(value = EDITION, required = true) String edition, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = SOURCE_NUMBER) int sourceNumber, //
+      @RequestParam(value = EDITION) String edition, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceSourceEdition(itemIds, sourceNumber, edition, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessService.replaceSourceEdition(itemIds, sourceNumber, edition, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/replaceFileAudience", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_AUDIENCES + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceFileAudience( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
@@ -463,80 +460,80 @@ public class BatchProcessController {
     List<String> audiences = convertJsonNode2List(parameters, PARAM_AUDIENCES);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceFileAudience(itemIds, audiences, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/replaceKeywords", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceKeywords( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = KEYWORDS, required = true) String keywords, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = KEYWORDS) String keywords, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceKeywords(itemIds, keywords, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/replaceOrcid", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceOrcid( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
-      @RequestParam(value = CREATOR_ID, required = true) String creatorId, //
-      @RequestParam(value = ORCID, required = true) String orcid, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
+      @RequestParam(value = CREATOR_ID) String creatorId, //
+      @RequestParam(value = ORCID) String orcid, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceOrcid(itemIds, creatorId, orcid, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/revisePubItems", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> revisePubItems( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.revisePubItems(itemIds, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/submitPubItems", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> submitPubItems( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.submitPubItems(itemIds, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/withdrawPubItems", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> withdrawPubItems( //
-      @RequestHeader(value = AUTHZ_HEADER, required = true) String token, //
+      @RequestHeader(value = AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.withdrawPubItems(itemIds, token);
 
-    return new ResponseEntity<BatchProcessLogHeaderDbVO>(batchProcessLogHeaderDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
@@ -544,7 +541,7 @@ public class BatchProcessController {
 
   private List<String> convertJsonNode2List(JsonNode parameters, String parameterName) throws IngeApplicationException {
 
-    List<String> convertedList = new ArrayList<String>();
+    List<String> convertedList = new ArrayList<>();
 
     JsonNode jsonNode = parameters.get(parameterName);
     if (jsonNode != null) {

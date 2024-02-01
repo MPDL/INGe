@@ -11,49 +11,48 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface BatchProcessOperations {
 
-  public BatchProcessLogDetailDbVO addLocalTags(BatchProcessLogHeaderDbVO.Method method, String token,
-      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+  void addLocalTags(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  void addSourceIdentifier(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO addSourceIdentifier(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeContentCategory(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeContentCategory(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeContext(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeContext(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeFileVisibility(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeFileVisibility(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeGenre(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeGenre(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeKeywords(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeKeywords(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeLocalTag(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeLocalTag(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeReviewMethod(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeReviewMethod(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeSourceGenre(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeSourceGenre(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void changeSourceIdentifier(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO changeSourceIdentifier(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void doKeywords(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO doKeywords(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void replaceFileAudience(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO replaceSourceEdition(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void replaceOrcid(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public BatchProcessLogDetailDbVO replaceFileAudience(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
-  public BatchProcessLogDetailDbVO replaceOrcid(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void replaceSourceEdition(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 }
