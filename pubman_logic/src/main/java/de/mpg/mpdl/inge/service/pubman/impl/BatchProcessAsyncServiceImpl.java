@@ -230,7 +230,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVOAndItemObjectId(batchProcessLogHeaderDbVO, itemId);
 
       if (BatchProcessLogDetailDbVO.State.INITIALIZED.equals(batchProcessLogDetailDbVO.getState())) {
-        batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
             BatchProcessLogDetailDbVO.State.RUNNING, null);
 
         ItemVersionVO itemVersionVO = null;
@@ -238,31 +238,30 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
         try {
           itemVersionVO = this.pubItemService.get(itemId, token);
           if (itemVersionVO == null) {
-            batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                 BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
           } else {
             switch (method) {
               case DELETE_PUBITEMS:
                 if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())
                     && !ItemVersionRO.State.RELEASED.equals(itemVersionVO.getObject().getPublicState())) {
-                  batchProcessLogDetailDbVO =
-                      this.batchProcessCommonService.doPubItem(method, token, itemId, (Date) null, batchProcessLogDetailDbVO);
+                  this.batchProcessCommonService.doPubItem(method, token, itemId, (Date) null, batchProcessLogDetailDbVO);
                 } else {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                       BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
                 }
                 break;
               case RELEASE_PUBITEMS:
                 contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
                 if (ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getVersionState())) {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.doPubItem(method, token, itemId,
+                  this.batchProcessCommonService.doPubItem(method, token, itemId,
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else if (ItemVersionRO.State.PENDING.equals(itemVersionVO.getVersionState())
                     && ContextDbVO.Workflow.SIMPLE.equals(contextDbVO.getWorkflow())) {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.doPubItem(method, token, itemId,
+                  this.batchProcessCommonService.doPubItem(method, token, itemId,
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                       BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
                 }
                 break;
@@ -271,10 +270,10 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 if (ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getVersionState())
                     && ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow())
                     && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.doPubItem(method, token, itemId,
+                  this.batchProcessCommonService.doPubItem(method, token, itemId,
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                       BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
                 }
               case SUBMIT_PUBITEMS:
@@ -283,20 +282,20 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                     || ItemVersionRO.State.PENDING.equals(itemVersionVO.getVersionState()))
                     && ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow())
                     && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.doPubItem(method, token, itemId,
+                  this.batchProcessCommonService.doPubItem(method, token, itemId,
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                       BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
                 }
                 break;
               case WITHDRAW_PUBITEMS:
                 if (ItemVersionRO.State.RELEASED.equals(itemVersionVO.getVersionState())
                     && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.doPubItem(method, token, itemId,
+                  this.batchProcessCommonService.doPubItem(method, token, itemId,
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
-                  batchProcessLogDetailDbVO = this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                       BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
                 }
                 break;

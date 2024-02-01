@@ -1,24 +1,9 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogDetailRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogHeaderRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessUserLockRepository;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.*;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -31,9 +16,16 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessAsyncService;
+import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Primary
@@ -48,6 +40,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   private BatchProcessAsyncService batchProcessAsyncService;
 
   @Autowired
+  private BatchProcessCommonService batchProcessCommonService;
+
+  @Autowired
   private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
   @Autowired
@@ -55,9 +50,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Autowired
   private BatchProcessUserLockRepository batchProcessUserLockRepository;
-
-  @Autowired
-  private PubItemService pubItemService;
 
   public BatchProcessServiceImpl() {}
 
@@ -76,7 +68,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkList(localTags, "localTags");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.ADD_LOCALTAGS;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setLocalTags(localTags);
@@ -98,7 +91,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEnum(sourceIdentifierType, "sourceIdentifierType");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.ADD_SOURCE_IDENTIFIER;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setSourceNumber(sourceNumber);
@@ -122,7 +116,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEquals(contextFrom, contextTo, "contextFrom", "contextTo");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_CONTEXT;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setContextFrom(contextFrom);
@@ -164,7 +159,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEquals(fileVisibilityFrom, fileVisibilityTo, "fileVisibilityFrom", "fileVisibilityTo");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_FILE_VISIBILITY;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setVisibilityFrom(fileVisibilityFrom);
@@ -189,7 +185,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEquals(genreFrom, genreTo, "genreFrom", "genreTo");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_GENRE;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setGenreFrom(genreFrom);
@@ -212,7 +209,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEquals(keywordsFrom, keywordsTo, "keywordsFrom", "keywordsTo");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_KEYWORDS;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setKeywordsFrom(keywordsFrom);
@@ -235,7 +233,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEquals(localTagFrom, localTagTo, "localTagFrom", "localTagTo");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_LOCALTAG;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setLocalTagFrom(localTagFrom);
@@ -258,7 +257,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEquals(reviewMethodFrom, reviewMethodTo, "reviewMethodFrom", "reviewMethodTo");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_REVIEW_METHOD;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setReviewMethodFrom(reviewMethodFrom);
@@ -281,7 +281,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkEquals(sourceGenreFrom, sourceGenreTo, "sourceGenreFrom", "sourceGenreTo");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_SOURCE_GENRE;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setSourceGenreFrom(sourceGenreFrom);
@@ -307,7 +308,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_SOURCE_IDENTIFIER;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setSourceNumber(sourceNumber);
@@ -407,7 +409,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkList(audiences, "audiences");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_FILE_AUDIENCE;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setAudiences(audiences);
@@ -435,7 +438,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkString(orcid, "orcid");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_ORCID;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setCreatorId(creatorId);
@@ -457,7 +461,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkString(edition, "edition");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_SOURCE_EDITION;
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setSourceNumber(sourceNumber);
@@ -577,62 +582,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     }
   }
 
-  private void createBatchProcessLogDetails(List<String> itemIds, BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String token) {
 
-    for (String itemId : itemIds) {
-      ItemVersionVO itemVersionVO = null;
-      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO = null;
-
-      try {
-        itemVersionVO = this.pubItemService.get(itemId, token);
-        if (itemVersionVO == null) {
-          batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, null,
-              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND, new Date());
-        } else {
-          batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, itemVersionVO.getVersionNumber(),
-              BatchProcessLogDetailDbVO.State.INITIALIZED, new Date());
-        }
-      } catch (IngeTechnicalException e) {
-        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
-      } catch (AuthenticationException e) {
-        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.AUTHENTICATION_ERROR, new Date());
-      } catch (AuthorizationException e) {
-        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR, new Date());
-      } catch (IngeApplicationException e) {
-        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
-      } catch (RuntimeException e) {
-        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
-      }
-
-      this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
-    }
-  }
-
-  private BatchProcessLogHeaderDbVO createBatchProcessLogHeader(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUserDbVO,
-      Integer numberOfItems) {
-
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
-        new BatchProcessLogHeaderDbVO(method, accountUserDbVO, BatchProcessLogHeaderDbVO.State.INITIALIZED, numberOfItems, new Date());
-    batchProcessLogHeaderDbVO = this.batchProcessLogHeaderRepository.saveAndFlush(batchProcessLogHeaderDbVO);
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  private void createBatchProcessUserLock(AccountUserDbVO accountUserDbVO) {
-
-    BatchProcessUserLockDbVO batchProcessUserLockDbVO = new BatchProcessUserLockDbVO(accountUserDbVO, new Date());
-    this.batchProcessUserLockRepository.saveAndFlush(batchProcessUserLockDbVO);
-  }
 
   private BatchProcessLogHeaderDbVO doChangeContentCategory(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
       String contentCategoryFrom, String contentCategoryTo, String token)
@@ -643,7 +593,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     checkString(contentCategoryTo, "contentCategoryTo");
     checkEquals(contentCategoryFrom, contentCategoryTo, "contentCategoryFrom", "contentCategoryTo");
 
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setContentCategoryFrom(contentCategoryFrom);
@@ -662,7 +613,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(keywords, "keywords");
 
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
     batchOperationsImpl.setKeywords(keywords);
@@ -679,22 +631,12 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
 
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doPubItemsAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token);
     logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
-
-    return batchProcessLogHeaderDbVO;
-  }
-
-  @Transactional(rollbackFor = Throwable.class)
-  protected BatchProcessLogHeaderDbVO initializeBatchProcessLog(BatchProcessLogHeaderDbVO.Method method, AccountUserDbVO accountUserDbVO,
-      List<String> itemIds, String token) {
-
-    createBatchProcessUserLock(accountUserDbVO);
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = createBatchProcessLogHeader(method, accountUserDbVO, itemIds.size());
-    createBatchProcessLogDetails(itemIds, batchProcessLogHeaderDbVO, token);
 
     return batchProcessLogHeaderDbVO;
   }
