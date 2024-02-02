@@ -1,9 +1,20 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogDetailRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogHeaderRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessUserLockRepository;
-import de.mpg.mpdl.inge.model.db.valueobjects.*;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -16,42 +27,42 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @Primary
 public class BatchProcessServiceImpl implements BatchProcessService {
 
+  private final ContextService contextService;
   private static final Logger logger = Logger.getLogger(BatchProcessServiceImpl.class);
 
-  @Autowired
-  private AuthorizationService authorizationService;
+  private final AuthorizationService authorizationService;
 
-  @Autowired
-  private BatchProcessAsyncService batchProcessAsyncService;
+  private final BatchProcessAsyncService batchProcessAsyncService;
 
-  @Autowired
-  private BatchProcessCommonService batchProcessCommonService;
+  private final BatchProcessCommonService batchProcessCommonService;
 
-  @Autowired
-  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
+  private final BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
-  @Autowired
-  private BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
+  private final BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
 
-  @Autowired
-  private BatchProcessUserLockRepository batchProcessUserLockRepository;
+  private final BatchProcessUserLockRepository batchProcessUserLockRepository;
 
-  public BatchProcessServiceImpl() {}
+  public BatchProcessServiceImpl(AuthorizationService authorizationService, BatchProcessAsyncService batchProcessAsyncService,
+      BatchProcessCommonService batchProcessCommonService, BatchProcessLogDetailRepository batchProcessLogDetailRepository,
+      BatchProcessLogHeaderRepository batchProcessLogHeaderRepository, BatchProcessUserLockRepository batchProcessUserLockRepository,
+      ContextService contextService) {
+    this.authorizationService = authorizationService;
+    this.batchProcessAsyncService = batchProcessAsyncService;
+    this.batchProcessCommonService = batchProcessCommonService;
+    this.batchProcessLogDetailRepository = batchProcessLogDetailRepository;
+    this.batchProcessLogHeaderRepository = batchProcessLogHeaderRepository;
+    this.batchProcessUserLockRepository = batchProcessUserLockRepository;
+    this.contextService = contextService;
+  }
 
   @Override
   public BatchProcessLogHeaderDbVO addKeywords(List<String> itemIds, String keywords, String token)
@@ -71,7 +82,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setLocalTags(localTags);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
@@ -94,7 +105,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setSourceNumber(sourceNumber);
     batchOperationsImpl.setSourceIdentifierType(sourceIdentifierType);
     batchOperationsImpl.setSourceIdentifer(sourceIdentifier);
@@ -119,7 +130,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setContextFrom(contextFrom);
     batchOperationsImpl.setContextTo(contextTo);
 
@@ -162,7 +173,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setVisibilityFrom(fileVisibilityFrom);
     batchOperationsImpl.setVisibilityTo(fileVisibilityTo);
     batchOperationsImpl.setUserAccountIpRange(userAccountIpRange);
@@ -188,7 +199,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setGenreFrom(genreFrom);
     batchOperationsImpl.setGenreTo(genreTo);
 
@@ -212,7 +223,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setKeywordsFrom(keywordsFrom);
     batchOperationsImpl.setKeywordsTo(keywordsTo);
 
@@ -236,7 +247,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setLocalTagFrom(localTagFrom);
     batchOperationsImpl.setLocalTagTo(localTagTo);
 
@@ -260,7 +271,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setReviewMethodFrom(reviewMethodFrom);
     batchOperationsImpl.setReviewMethodTo(reviewMethodTo);
 
@@ -284,7 +295,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setSourceGenreFrom(sourceGenreFrom);
     batchOperationsImpl.setSourceGenreTo(sourceGenreTo);
 
@@ -311,7 +322,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setSourceNumber(sourceNumber);
     batchOperationsImpl.setSourceIdentifierType(sourceIdentifierType);
     batchOperationsImpl.setSourceIdentiferFrom(sourceIdentifierFrom);
@@ -412,7 +423,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setAudiences(audiences);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
@@ -441,7 +452,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setCreatorId(creatorId);
     batchOperationsImpl.setOrcid(orcid);
 
@@ -464,7 +475,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setSourceNumber(sourceNumber);
     batchOperationsImpl.setEdition(edition);
 
@@ -596,7 +607,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setContentCategoryFrom(contentCategoryFrom);
     batchOperationsImpl.setCategoryTo(contentCategoryTo);
 
@@ -616,7 +627,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
-    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl();
+    BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setKeywords(keywords);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());

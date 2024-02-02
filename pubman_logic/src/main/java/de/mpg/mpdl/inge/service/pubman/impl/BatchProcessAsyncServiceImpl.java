@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
@@ -38,22 +37,24 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
   private static final Logger logger = Logger.getLogger(BatchProcessAsyncServiceImpl.class);
 
-  @Autowired
-  private Executor asyncExecutor;
+  private final Executor asyncExecutor;
 
-  @Autowired
-  private BatchProcessCommonService batchProcessCommonService;
+  private final BatchProcessCommonService batchProcessCommonService;
 
-  @Autowired
-  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
+  private final BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
-  @Autowired
-  private ContextService contextService;
+  private final ContextService contextService;
 
-  @Autowired
-  private PubItemService pubItemService;
+  private final PubItemService pubItemService;
 
-  public BatchProcessAsyncServiceImpl() {}
+  public BatchProcessAsyncServiceImpl(Executor asyncExecutor, BatchProcessCommonService batchProcessCommonService,
+      BatchProcessLogDetailRepository batchProcessLogDetailRepository, ContextService contextService, PubItemService pubItemService) {
+    this.asyncExecutor = asyncExecutor;
+    this.batchProcessCommonService = batchProcessCommonService;
+    this.batchProcessLogDetailRepository = batchProcessLogDetailRepository;
+    this.contextService = contextService;
+    this.pubItemService = pubItemService;
+  }
 
   @SuppressWarnings("incomplete-switch")
   @Async

@@ -1,10 +1,12 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogDetailRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogHeaderRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessUserLockRepository;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -23,17 +30,22 @@ import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 @Primary
 public class BatchProcessCommonServiceImpl implements BatchProcessCommonService {
 
-  @Autowired
-  private BatchProcessLogDetailRepository batchProcessLogDetailRepository;
+  private final BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
-  @Autowired
-  private BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
+  private final BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
 
-  @Autowired
-  private BatchProcessUserLockRepository batchProcessUserLockRepository;
+  private final BatchProcessUserLockRepository batchProcessUserLockRepository;
 
-  @Autowired
-  private PubItemService pubItemService;
+  private final PubItemService pubItemService;
+
+  public BatchProcessCommonServiceImpl(BatchProcessLogDetailRepository batchProcessLogDetailRepository,
+      BatchProcessLogHeaderRepository batchProcessLogHeaderRepository, BatchProcessUserLockRepository batchProcessUserLockRepository,
+      PubItemService pubItemService) {
+    this.batchProcessLogDetailRepository = batchProcessLogDetailRepository;
+    this.batchProcessLogHeaderRepository = batchProcessLogHeaderRepository;
+    this.batchProcessUserLockRepository = batchProcessUserLockRepository;
+    this.pubItemService = pubItemService;
+  }
 
   @Override
   @SuppressWarnings("incomplete-switch")
@@ -110,8 +122,8 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
   }
 
   @Override
-  public void updateBatchProcessLogDetail(BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      BatchProcessLogDetailDbVO.State state, BatchProcessLogDetailDbVO.Message message) {
+  public void updateBatchProcessLogDetail(BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State state,
+      BatchProcessLogDetailDbVO.Message message) {
 
     batchProcessLogDetailDbVO.setState(state);
     if (message != null) {

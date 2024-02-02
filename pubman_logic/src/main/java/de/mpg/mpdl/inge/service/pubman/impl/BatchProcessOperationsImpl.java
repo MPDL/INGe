@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -36,11 +35,9 @@ import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
 @Primary
 public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
-  @Autowired
-  private BatchProcessCommonService batchProcessCommonService;
+  private final BatchProcessCommonService batchProcessCommonService;
 
-  @Autowired
-  private ContextService contextService;
+  private final ContextService contextService;
 
   private List<String> audiences;
   private String categoryTo;
@@ -71,6 +68,11 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   private IpListProvider.IpRange userAccountIpRange;
   private FileDbVO.Visibility visibilityFrom;
   private FileDbVO.Visibility visibilityTo;
+
+  public BatchProcessOperationsImpl(BatchProcessCommonService batchProcessCommonService, ContextService contextService) {
+    this.batchProcessCommonService = batchProcessCommonService;
+    this.contextService = contextService;
+  }
 
   @Override
   public void addLocalTags(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
