@@ -9,18 +9,17 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 /**
  * Spring configuration
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @Configuration
 @ComponentScan(basePackages = { //
     "de.mpg.mpdl.inge.filestorage", //
     "de.mpg.mpdl.inge.filestorage.filesystem", //
-    "de.mpg.mpdl.inge.filestorage.seaweedfs", //
-    "de.mpg.mpdl.inge.filestorage.glusterfs" //
+    "de.mpg.mpdl.inge.filestorage.seaweedfs"
 })
 public class FileStorageConnectorConfiguration {
 
