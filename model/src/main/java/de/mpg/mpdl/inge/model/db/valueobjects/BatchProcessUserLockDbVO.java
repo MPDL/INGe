@@ -8,6 +8,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity
@@ -15,10 +17,12 @@ import jakarta.persistence.Table;
 public class BatchProcessUserLockDbVO implements Serializable {
 
   @Id
-  @Column(name = "user_account_objectid")
+  @Size(max = 255)
+  @Column(name = "user_account_objectid", nullable = false)
   private String userAccountObjectId;
 
-  @Column(name = "lock_date", columnDefinition = "TIMESTAMP")
+  @NotNull
+  @Column(name = "lock_date", columnDefinition = "TIMESTAMP", nullable = false)
   private Date lockDate;
 
   public BatchProcessUserLockDbVO() {}

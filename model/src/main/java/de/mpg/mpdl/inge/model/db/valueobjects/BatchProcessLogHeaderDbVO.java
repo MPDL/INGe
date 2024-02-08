@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,7 +11,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @SuppressWarnings("serial")
 @Entity
@@ -56,25 +59,34 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   }
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "batch_process_log_header_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "batch_process_log_id_gen")
+  @SequenceGenerator(name = "batch_process_log_id_gen", sequenceName = "batch_process_log_id_seq", allocationSize = 1)
+  @Column(name = "batch_process_log_header_id", nullable = false)
   private long batchProcessLogHeaderId;
 
-  @Column(name = "user_account_objectid")
+  @Size(max = 255)
+  @NotNull
+  @Column(name = "user_account_objectid", nullable = false)
   private String userAccountObjectId;
 
-  @Column(name = "state")
+  @Size(max = 255)
+  @NotNull
   @Enumerated(EnumType.STRING)
+  @Column(name = "state", nullable = false)
   private BatchProcessLogHeaderDbVO.State state;
 
-  @Column(name = "number_of_items")
+  @NotNull
+  @Column(name = "number_of_items", nullable = false)
   private Integer numberOfItems;
 
-  @Column(name = "method")
+  @Size(max = 255)
+  @NotNull
+  @Column(name = "method", nullable = false)
   @Enumerated(EnumType.STRING)
   private BatchProcessLogHeaderDbVO.Method method;
 
-  @Column(name = "start_date", columnDefinition = "TIMESTAMP")
+  @NotNull
+  @Column(name = "start_date", columnDefinition = "TIMESTAMP", nullable = false)
   private Date startDate;
 
   @Column(name = "end_date", columnDefinition = "TIMESTAMP")

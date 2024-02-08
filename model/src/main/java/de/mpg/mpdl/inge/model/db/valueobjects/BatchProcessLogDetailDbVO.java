@@ -4,15 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,7 +14,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 
 @SuppressWarnings("serial")
 @Entity
@@ -43,7 +47,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   {
     // SUCCESS MESSAGE
     SUCCESS("batch_ProcessLog_Success"),
-    
+
     // ERROR MESSAGES
     AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
     AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError"),
@@ -75,8 +79,9 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     }}
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "batch_process_log_detail_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "batch_process_log_id_gen")
+  @SequenceGenerator(name = "batch_process_log_id_gen", sequenceName = "batch_process_log_id_seq", allocationSize = 1)
+  @Column(name = "batch_process_log_detail_id", nullable = false)
   private long batchProcessLogDetailId;
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = BatchProcessLogHeaderDbVO.class)
@@ -85,21 +90,28 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO;
 
-  @Column(name = "item_objectid")
+  @Size(max = 255)
+  @NotNull
+  @Column(name = "item_objectid", nullable = false)
   private String itemObjectId;
 
-  @Column(name = "item_versionnumber")
+  @NotNull
+  @Column(name = "item_versionnumber", nullable = false)
   private Integer itemVersionnumber;
 
-  @Column(name = "state")
+  @Size(max = 255)
+  @NotNull
   @Enumerated(EnumType.STRING)
+  @Column(name = "state", nullable = false)
   private BatchProcessLogDetailDbVO.State state;
 
+  @Size(max = 255)
   @Column(name = "message")
   @Enumerated(EnumType.STRING)
   private BatchProcessLogDetailDbVO.Message message;
 
-  @Column(name = "start_date", columnDefinition = "TIMESTAMP")
+  @NotNull
+  @Column(name = "start_date", columnDefinition = "TIMESTAMP", nullable = false)
   private Date startDate;
 
   @Column(name = "end_date", columnDefinition = "TIMESTAMP")

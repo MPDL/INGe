@@ -14,3 +14,4 @@ target/
 *.iws
 
 reindex_util/dependency-reduced-pom.xml
+.jpb/jpb-settings.xml
