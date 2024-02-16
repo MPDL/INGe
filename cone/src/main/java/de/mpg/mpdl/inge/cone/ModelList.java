@@ -63,9 +63,9 @@ public class ModelList {
 
   private static ModelList instance = null;
   private static final Logger logger = Logger.getLogger(ModelList.class);
-  private Set<Model> list = new HashSet<Model>();
-  private Map<String, String> defaultNamepaces = new HashMap<String, String>();
-  private Map<String, Set<String>> formatMimetypes = new HashMap<String, Set<String>>();
+  private Set<Model> list = new HashSet<>();
+  private Map<String, String> defaultNamepaces = new HashMap<>();
+  private Map<String, Set<String>> formatMimetypes = new HashMap<>();
 
   private ModelList() throws ConeException {
     try {
@@ -155,9 +155,9 @@ public class ModelList {
    * @version $Revision$ $LastChangedDate$
    */
   private class ServiceListHandler extends de.mpg.mpdl.inge.util.ShortContentHandler {
-    private final Set<Model> list = new LinkedHashSet<Model>();
+    private final Set<Model> list = new LinkedHashSet<>();
     private Model currentService = null;
-    private final Stack<List<Predicate>> predicateStack = new Stack<List<Predicate>>();
+    private final Stack<List<Predicate>> predicateStack = new Stack<>();
     private Set<String> currentFormat = null;
 
     @Override
@@ -248,7 +248,7 @@ public class ModelList {
       } else if ("models/config/default-namespace".equals(localStack.toString())) {
         defaultNamepaces.put(attributes.getValue("uri"), attributes.getValue("prefix"));
       } else if ("models/formats/format".equals(localStack.toString())) {
-        currentFormat = new HashSet<String>();
+        currentFormat = new HashSet<>();
         formatMimetypes.put(attributes.getValue("id"), currentFormat);
       } else if ("models/formats/format/mime-type".equals(localStack.toString())) {
         currentFormat.add(attributes.getValue("id"));
@@ -269,7 +269,7 @@ public class ModelList {
     public void endDocument() throws SAXException {
       super.endDocument();
 
-      Stack<String> modelStack = new Stack<String>();
+      Stack<String> modelStack = new Stack<>();
 
       for (Model model : list) {
         modelStack.push(model.getName());
@@ -292,8 +292,8 @@ public class ModelList {
         for (ModelResult result : model.getResults()) {
           if (predicate.isLocalized() && result.getResultPattern().contains("<" + predicate.getId() + ">")) {
             model.setLocalizedResultPattern(true);
-          } else if (predicate.isResource() && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(),
-              result.getResultPattern(), new Stack<String>())) {
+          } else if (predicate.isResource()
+              && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(), result.getResultPattern(), new Stack<>())) {
             model.setLocalizedResultPattern(true);
           } else if (!predicate.isLocalized() && result.getResultPattern().contains("<" + predicate.getId() + ">")) {
             model.setGlobalResultPattern(true);
@@ -372,14 +372,14 @@ public class ModelList {
 
     private String name;
     private String description;
-    private List<String> aliases = new ArrayList<String>();
-    private List<Predicate> predicates = new ArrayList<Predicate>();
+    private List<String> aliases = new ArrayList<>();
+    private List<Predicate> predicates = new ArrayList<>();
     private String identifier;
     private String identifierPrefix;
     private String subjectPrefix;
     private boolean generateIdentifier;
     private boolean controlled;
-    private List<ModelResult> results = new ArrayList<ModelResult>();
+    private List<ModelResult> results = new ArrayList<>();
     private boolean localizedResultPattern;
     private boolean globalResultPattern;
     private boolean localizedMatches;
@@ -642,7 +642,7 @@ public class ModelList {
     private boolean multiple;
     private boolean mandatory;
     private boolean localized;
-    private final List<Predicate> predicates = new ArrayList<Predicate>();
+    private final List<Predicate> predicates = new ArrayList<>();
     private boolean generateObject = false;
     private boolean includeResource = true;
     private String resourceModel;

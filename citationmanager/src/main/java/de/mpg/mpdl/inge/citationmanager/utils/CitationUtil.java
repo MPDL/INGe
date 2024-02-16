@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -32,14 +32,14 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or
  * in jar files.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
 /**
  * @author vlad
- * 
+ *
  */
 public class CitationUtil {
   public static final String CITATIONSTYLES_DIRECTORY = "CitationStyles/";
@@ -57,17 +57,16 @@ public class CitationUtil {
   /**
    * Returns path to the directory of the classes depending on the run context (TOBE implemented
    * further)
-   * 
+   *
    * @return path
-   * @throws IOException
    */
-  public static String getPathToClasses() throws IOException {
+  public static String getPathToClasses() {
     return "";
   }
 
   /**
    * Returns path to the resources directory
-   * 
+   *
    * @return path
    * @throws IOException
    */
@@ -77,7 +76,7 @@ public class CitationUtil {
 
   /**
    * Returns path to the test resources directory
-   * 
+   *
    * @return path
    * @throws IOException
    */
@@ -87,7 +86,7 @@ public class CitationUtil {
 
   /**
    * Returns path to the test resources directory of the citation style
-   * 
+   *
    * @param cs - CItation Style ID
    * @return
    * @throws IOException
@@ -98,7 +97,7 @@ public class CitationUtil {
 
   /**
    * Returns path to the Citation Styles directory
-   * 
+   *
    * @return path
    * @throws IOException
    */
@@ -108,7 +107,7 @@ public class CitationUtil {
 
   /**
    * Returns path to the Citation Style directory
-   * 
+   *
    * @param cs
    * @return
    * @throws IOException
@@ -119,7 +118,7 @@ public class CitationUtil {
 
   /**
    * Returns path to the Citation Style Definition XML
-   * 
+   *
    * @param cs
    * @return
    * @throws IOException
@@ -130,7 +129,7 @@ public class CitationUtil {
 
   /**
    * Returns path to the Citation Style compiled XSL
-   * 
+   *
    * @param cs
    * @return
    * @throws IOException
@@ -141,7 +140,7 @@ public class CitationUtil {
 
   /**
    * Returns path to the Schemas directory
-   * 
+   *
    * @return path
    * @throws IOException
    */
@@ -151,7 +150,7 @@ public class CitationUtil {
 
   /**
    * Gets URI to the resources
-   * 
+   *
    * @return uri to the resources
    * @throws IOException
    */
@@ -161,7 +160,7 @@ public class CitationUtil {
 
   /*
    * Explains citation styles and output types for them
-   * 
+   *
    * @see de.mpg.mpdl.inge.citationmanager.CitationStyleHandler#explainStyles()
    */
   public static String getExplainStyles() throws CitationStyleManagerException {

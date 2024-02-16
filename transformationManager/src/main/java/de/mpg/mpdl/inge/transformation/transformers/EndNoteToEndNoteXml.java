@@ -41,7 +41,7 @@ public class EndNoteToEndNoteXml extends SingleTransformer implements ChainableT
     return new TransformerStreamResult(new ByteArrayOutputStream());
   }
 
-  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
     TransformerFactoryImpl xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");

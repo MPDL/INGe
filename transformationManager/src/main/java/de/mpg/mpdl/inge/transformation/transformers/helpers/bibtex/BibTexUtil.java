@@ -58,8 +58,7 @@ public class BibTexUtil {
   /**
    * Mapping between BibTeX and eSciDoc genres.
    */
-  private static Map<BibTexUtil.Genre, MdsPublicationVO.Genre> genreMapping =
-      new HashMap<BibTexUtil.Genre, MdsPublicationVO.Genre>();
+  private static Map<BibTexUtil.Genre, MdsPublicationVO.Genre> genreMapping = new HashMap<>();
   static {
     genreMapping.put(BibTexUtil.Genre.article, MdsPublicationVO.Genre.ARTICLE);
     genreMapping.put(BibTexUtil.Genre.book, MdsPublicationVO.Genre.BOOK);
@@ -84,7 +83,7 @@ public class BibTexUtil {
   /**
    * Mapping for BibTeX special characters.
    */
-  private static final Map<String, String> encodingTable = new LinkedHashMap<String, String>();
+  private static final Map<String, String> encodingTable = new LinkedHashMap<>();
   static {
     /*
      * should be generated from de.mpg.mpdl.inge.structuredexportmanager.functions.BibTex.java
@@ -1601,7 +1600,7 @@ public class BibTexUtil {
   /**
    * Mapping for month formats.
    */
-  private static final Map<String, String> monthTable = new HashMap<String, String>();
+  private static final Map<String, String> monthTable = new HashMap<>();
   static {
     monthTable.put("1", "01");
     monthTable.put("2", "02");

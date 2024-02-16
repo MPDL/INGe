@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Objects;
 import org.apache.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
@@ -62,17 +63,17 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   /**
    * The HTTP-GET parameter name for the query
    */
-  public static String parameterQuery = "q";
+  public static final String parameterQuery = "q";
 
   /**
    * The HTTP-GET parameter name for the elastic search query query
    */
-  public static String parameterElasticSearchQuery = "esq";
+  public static final String parameterElasticSearchQuery = "esq";
 
   /**
    * The HTTP-GET parameter name for the search type (advanced, simple, ...)
    */
-  public static String parameterSearchType = "searchType";
+  public static final String parameterSearchType = "searchType";
 
   //  /**
   //   * The current cqlQuery
@@ -103,7 +104,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   private Query elasticSearchQueryBuilder;
 
   public SearchRetrieverRequestBean() {
-    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
+    super(FacesTools.findBean("PubItemListSessionBean"), false);
   }
 
   @Override
@@ -137,11 +138,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     // extract the cql parameter
     // and decode it with UrlDecode.
     Map<String, String> paramMap = null;
-    try {
-      paramMap = CommonUtils.getDecodedUrlParameterMap(request.getQueryString());
-    } catch (final UnsupportedEncodingException e) {
-      SearchRetrieverRequestBean.logger.error("Error during reading GET parameters.", e);
-    }
+    paramMap = CommonUtils.getDecodedUrlParameterMap(request.getQueryString());
 
 
 
@@ -157,11 +154,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
     final String searchType = paramMap.get(SearchRetrieverRequestBean.parameterSearchType);
-    if (searchType == null) {
-      this.setSearchType("simple");
-    } else {
-      this.setSearchType(searchType);
-    }
+    this.setSearchType(Objects.requireNonNullElse(searchType, "simple"));
 
     if ((elasticSearchQuery == null || elasticSearchQuery.isEmpty()) && (query == null || query.isEmpty())) {
       this.error(this.getMessage("SearchQueryError"));
@@ -174,7 +167,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
 
-    List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+    List<PubItemVOPresentation> pubItemList = new ArrayList<>();
     // checkSortCriterias(sc);
     try {
 
@@ -277,10 +270,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
   /**
    * @return link to the atom feed for the current search
-   * @throws PubManVersionNotAvailableException
-   * @throws UnsupportedEncodingException
    */
-  public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
+  public String getAtomFeedLink() {
     if (this.getElasticSearchQueryUrlParam() == null) {
       return null;
     }
@@ -296,11 +287,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
     final List<SearchRetrieveRecordVO> results = result.getRecords();
 
-    final ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-    for (int i = 0; i < results.size(); i++) {
+    final ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<>();
+    for (final SearchRetrieveRecordVO record : results) {
       // check if we have found an item
 
-      final SearchRetrieveRecordVO record = results.get(i);
       final PubItemVOPresentation pubItemPres = new PubItemVOPresentation((ItemVersionVO) record.getData());
       pubItemList.add(pubItemPres);
 

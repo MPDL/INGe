@@ -181,9 +181,9 @@ public class TransformerFactory {
 
 
 
-  protected static List<TransformerEdge> getShortestPath(FORMAT sourceFormat, FORMAT targetFormat) throws TransformationException {
+  protected static List<TransformerEdge> getShortestPath(FORMAT sourceFormat, FORMAT targetFormat) {
 
-    List<TransformerEdge> transformerEdges = new ArrayList<TransformerEdge>();
+    List<TransformerEdge> transformerEdges = new ArrayList<>();
 
     Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
 
@@ -246,7 +246,7 @@ public class TransformerFactory {
 
     try {
       ChainTransformer chainTransformer = new ChainTransformer();
-      List<ChainableTransformer> tList = new ArrayList<ChainableTransformer>();
+      List<ChainableTransformer> tList = new ArrayList<>();
       chainTransformer.setTransformerChain(tList);
       chainTransformer.setSourceFormat(sourceFormat);
       chainTransformer.setTargetFormat(targetFormat);
@@ -271,7 +271,7 @@ public class TransformerFactory {
   }
 
   protected static FORMAT[] findAllTargetFormats(FORMAT sourceFormat) {
-    Set<FORMAT> targetFormats = new HashSet<FORMAT>();
+    Set<FORMAT> targetFormats = new HashSet<>();
     Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
 
     Set<Class<?>> transformerModuleClasses = refl.getTypesAnnotatedWith(TransformerModule.class);
@@ -301,7 +301,7 @@ public class TransformerFactory {
       }
     }
 
-    return (FORMAT[]) targetFormats.toArray(new FORMAT[targetFormats.size()]);
+    return targetFormats.toArray(new FORMAT[0]);
   }
 
 
@@ -311,7 +311,7 @@ public class TransformerFactory {
   }
 
   protected static FORMAT[] findAllSourceFormats(FORMAT targetFormat) {
-    Set<FORMAT> sourceFormats = new HashSet<FORMAT>();
+    Set<FORMAT> sourceFormats = new HashSet<>();
     Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
 
     Set<Class<?>> transformerModuleClasses = refl.getTypesAnnotatedWith(TransformerModule.class);
@@ -341,7 +341,7 @@ public class TransformerFactory {
       }
     }
 
-    return (FORMAT[]) sourceFormats.toArray(new FORMAT[sourceFormats.size()]);
+    return sourceFormats.toArray(new FORMAT[0]);
   }
 
   public static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {

@@ -73,8 +73,8 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private OrganizationVO currentlySelecting = null;
   private ContextDbVO context;
 
-  private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-  private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+  private List<PubFileVOPresentation> files = new ArrayList<>();
+  private List<PubFileVOPresentation> locators = new ArrayList<>();
 
   private String selectedDate;
 
@@ -223,13 +223,13 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public SelectItem[] getFULLTEXT_OPTIONS() {
     // TODO Workaround cause Labels are set before the language change is done. Could be done better
     // if there are performance issues (see EasySubmission.java)
-    for (int i = 0; i < this.FULLTEXT_OPTIONS.length; i++) {
-      if (this.FULLTEXT_OPTIONS[i].getValue().equals(EasySubmissionSessionBean.FULLTEXT_ALL)) {
-        this.FULLTEXT_OPTIONS[i].setLabel(this.getLabel("easy_submission_lblFulltext_all"));
-      } else if (this.FULLTEXT_OPTIONS[i].getValue().equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
-        this.FULLTEXT_OPTIONS[i].setLabel(this.getLabel("easy_submission_lblFulltext_none"));
+    for (SelectItem fulltextOption : this.FULLTEXT_OPTIONS) {
+      if (fulltextOption.getValue().equals(EasySubmissionSessionBean.FULLTEXT_ALL)) {
+        fulltextOption.setLabel(this.getLabel("easy_submission_lblFulltext_all"));
+      } else if (fulltextOption.getValue().equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
+        fulltextOption.setLabel(this.getLabel("easy_submission_lblFulltext_none"));
       } else {
-        this.FULLTEXT_OPTIONS[i].setLabel(this.getCurrentFTLabel());
+        fulltextOption.setLabel(this.getCurrentFTLabel());
       }
     }
     return this.FULLTEXT_OPTIONS;

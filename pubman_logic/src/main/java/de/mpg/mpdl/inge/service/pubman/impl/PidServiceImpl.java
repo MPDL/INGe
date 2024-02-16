@@ -28,9 +28,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * PidService implementation
- * 
+ *
  * @author przibylla
- * 
+ *
  */
 @Service
 @Primary
@@ -73,7 +73,7 @@ public class PidServiceImpl implements PidService {
   }
 
   @Override
-  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException {
+  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException {
     try {
 
       URI uri = URI.create(this.serviceUrl).resolve(this.createPath);

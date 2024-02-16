@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +46,7 @@ public class MetadataProvider implements ItemDataProvider {
   private static final String[] dateFormats = {"yyyy-MM-dd", "yyyy-MM", "yyyy"};
 
   private final List<PubItemVO> pubItemList;
-  private final List<String> ids = new ArrayList<String>();
+  private final List<String> ids = new ArrayList<>();
 
   public MetadataProvider(String itemList) throws TechnicalException {
     try {
@@ -59,8 +58,6 @@ public class MetadataProvider implements ItemDataProvider {
     } catch (TechnicalException e) {
       logger.error("Unable to transform itemList", e);
       throw new TechnicalException(e);
-    } catch (CloneNotSupportedException e) {
-      throw new RuntimeException(e);
     }
   }
 
@@ -71,7 +68,7 @@ public class MetadataProvider implements ItemDataProvider {
    */
   @Override
   public String[] getIds() {
-    return ids.toArray(new String[ids.size()]);
+    return ids.toArray(new String[0]);
   }
 
   /*
@@ -111,13 +108,13 @@ public class MetadataProvider implements ItemDataProvider {
       }
 
       // Creators
-      List<CSLName> authorList = new ArrayList<CSLName>();
-      List<CSLName> editorList = new ArrayList<CSLName>();
-      List<CSLName> directorList = new ArrayList<CSLName>();
-      List<CSLName> illustratorList = new ArrayList<CSLName>();
-      List<CSLName> translatorList = new ArrayList<CSLName>();
-      List<CSLName> composerList = new ArrayList<CSLName>();
-      List<CSLName> interviewerList = new ArrayList<CSLName>();
+      List<CSLName> authorList = new ArrayList<>();
+      List<CSLName> editorList = new ArrayList<>();
+      List<CSLName> directorList = new ArrayList<>();
+      List<CSLName> illustratorList = new ArrayList<>();
+      List<CSLName> translatorList = new ArrayList<>();
+      List<CSLName> composerList = new ArrayList<>();
+      List<CSLName> interviewerList = new ArrayList<>();
       for (CreatorVO creator : metadata.getCreators()) {
         if (CreatorVO.CreatorType.PERSON.equals(creator.getType())) {
           if (CreatorVO.CreatorRole.AUTHOR.equals(creator.getRole()) || CreatorVO.CreatorRole.COMMENTATOR.equals(creator.getRole())
@@ -277,7 +274,7 @@ public class MetadataProvider implements ItemDataProvider {
       if (currentItem.getFiles() != null && !currentItem.getFiles().isEmpty()) {
         List<FileVO> fileList = null;
         fileList = currentItem.getFiles();
-        Collections.sort(fileList, new FileUrlPriorityComparator());
+        fileList.sort(new FileUrlPriorityComparator());
         if (fileList.get(0) != null) {
           if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
               && ("any-fulltext".equals(fileList.get(0).getContentCategory()) || "post-print".equals(fileList.get(0).getContentCategory())
@@ -319,7 +316,7 @@ public class MetadataProvider implements ItemDataProvider {
       }
       if (metadata.getIdentifiers() != null && !metadata.getIdentifiers().isEmpty()) {
         List<IdentifierVO> identifierList = metadata.getIdentifiers();
-        Collections.sort(identifierList, new IdentfierPriorityComparator());
+        identifierList.sort(new IdentfierPriorityComparator());
         IdentifierVO identifier = identifierList.get(0);
         if (identifier != null && !IdentifierVO.IdType.DOI.equals(identifier.getType())
             && !IdentifierVO.IdType.ISBN.equals(identifier.getType()) && !IdentifierVO.IdType.ISSN.equals(identifier.getType())
@@ -415,7 +412,7 @@ public class MetadataProvider implements ItemDataProvider {
           cslItem.collectionTitle(source.getTitle());
 
           // Source creators
-          List<CSLName> collectionEditorList = new ArrayList<CSLName>();
+          List<CSLName> collectionEditorList = new ArrayList<>();
           for (CreatorVO sourceCreator : source.getCreators()) {
             if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
                 || CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
@@ -435,7 +432,7 @@ public class MetadataProvider implements ItemDataProvider {
           cslItem.containerTitle(source.getTitle());
 
           // Source creators
-          List<CSLName> containerAuthorList = new ArrayList<CSLName>();
+          List<CSLName> containerAuthorList = new ArrayList<>();
           for (CreatorVO sourceCreator : source.getCreators()) {
             if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())) {
               if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
@@ -469,7 +466,7 @@ public class MetadataProvider implements ItemDataProvider {
             // Source title
             cslItem.collectionTitle(secondSource.getTitle());
             // Source creators
-            List<CSLName> collectionEditorList = new ArrayList<CSLName>();
+            List<CSLName> collectionEditorList = new ArrayList<>();
             for (CreatorVO sourceCreator : secondSource.getCreators()) {
               if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
                   || CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {

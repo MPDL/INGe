@@ -165,7 +165,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   protected abstract ModelObject createEmptyDbObject();
 
   protected abstract List<Id> updateObjectWithValues(ModelObject givenObject, ModelObject objectToBeUpdated, AccountUserDbVO userAccount,
-      boolean create) throws IngeTechnicalException, IngeApplicationException;
+      boolean create) throws IngeApplicationException;
 
 
   protected abstract JpaRepository<ModelObject, Id> getDbRepository();
@@ -206,8 +206,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   }
 
   @Override
-  public void reindex(Id id, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void reindex(Id id, String authenticationToken) throws IngeTechnicalException {
     // TODO AA
     reindex(id, false);
   }
@@ -216,8 +215,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
 
   @Override
   @Transactional(readOnly = true)
-  public void reindexAll(String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void reindexAll(String authenticationToken) {
 
     // TODO AA
     if (getElasticDao() != null) {
@@ -245,7 +243,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
           }
           count++;
 
-          Id id = (Id) results.get();
+          Id id = results.get();
 
           queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
 

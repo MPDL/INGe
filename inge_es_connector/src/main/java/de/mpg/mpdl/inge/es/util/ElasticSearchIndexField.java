@@ -160,7 +160,7 @@ public class ElasticSearchIndexField {
     private static ElasticSearchIndexField createIndexFieldObject(String path, List<String> nestedPath, String type) {
       ElasticSearchIndexField indexField = new ElasticSearchIndexField();
 
-      indexField.setIndexName(path.toString());
+      indexField.setIndexName(path);
       if (nestedPath != null && !nestedPath.isEmpty()) {
         indexField.setNestedPaths(new ArrayList<>(nestedPath));
       }

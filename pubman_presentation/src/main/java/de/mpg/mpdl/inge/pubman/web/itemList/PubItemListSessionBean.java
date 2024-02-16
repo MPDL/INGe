@@ -183,11 +183,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     this.sortOrder = sortOrder;
   }
 
-  /**
-   * Returns the sort order. "ascending" or "descending"
-   *
-   * @param sortOrder
-   */
   public SortOrder getSortOrder() {
     return this.sortOrder;
   }}
@@ -195,12 +190,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   /**
    * The HTTP GET parameter name for the sorting criteria.
    */
-  public static String parameterSelectedSortBy = "sortBy";
+  public static final String parameterSelectedSortBy = "sortBy";
 
   /**
    * The HTTP GET parameter name for the sorting order
    */
-  public static String parameterSelectedSortOrder = "sortOrder";
+  public static final String parameterSelectedSortOrder = "sortOrder";
 
   /**
    * A list containing the menu entries of the sorting criteria menu.
@@ -231,7 +226,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * A map containing the references of the currently selected pub items of one page. Used to reset
    * selections after a redirect.
    */
-  private final Map<String, ItemVersionRO> selectedItemRefs = new HashMap<String, ItemVersionRO>();
+  private final Map<String, ItemVersionRO> selectedItemRefs = new HashMap<>();
 
   /**
    * A integer telling about the current items' position in the list
@@ -537,7 +532,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * Returns the menu entries for the sorting criteria menu
    */
   public List<SelectItem> getSortBySelectItems() {
-    this.sortBySelectItems = new ArrayList<SelectItem>();
+    this.sortBySelectItems = new ArrayList<>();
 
     for (SORT_CRITERIA sc : SORT_CRITERIA.values()) {
 
@@ -686,11 +681,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     this.listType = listType;
   }
 
-  /**
-   * Returns the list type ("BIB" or "GRID")
-   *
-   * @param listType
-   */
   public String getListType() {
     return this.listType;
   }
@@ -701,7 +691,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public List<PubItemVOPresentation> getSelectedItems() {
-    final List<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
+    final List<PubItemVOPresentation> selectedPubItems = new ArrayList<>();
     for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
         selectedPubItems.add(pubItem);
@@ -718,7 +708,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void addAllToBatch() {
-    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
     final List<PubItemVOPresentation> allListPubItems = this.retrieveAll();
 
     int added = 0;
@@ -758,7 +748,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void addSelectedToBatch() {
-    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
     final List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
 
     int added = 0;
@@ -797,12 +787,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void refillBatchWithErrorsOnly() {
-    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
     BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
 
     int added = 0;
     if (batchLog != null) {
-      pubItemBatch.setStoredPubItems(new HashMap<String, ItemVersionRO>());
+      pubItemBatch.setStoredPubItems(new HashMap<>());
       for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
 
         if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
@@ -836,12 +826,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void refillBatchWithLog() {
-    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
     BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
 
     int added = 0;
     if (batchLog != null) {
-      pubItemBatch.setStoredPubItems(new HashMap<String, ItemVersionRO>());
+      pubItemBatch.setStoredPubItems(new HashMap<>());
       for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
 
         if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
@@ -874,7 +864,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void addSelectedToCart() {
-    final PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
+    final PubItemStorageSessionBean pubItemStorage = FacesTools.findBean("PubItemStorageSessionBean");
     final List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
 
     int added = 0;
@@ -1081,9 +1071,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   public String showExportEmailPage(List<PubItemVOPresentation> pubItemList) {
     this.saveSelections();
 
-    final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+    final ItemControllerSessionBean icsb = FacesTools.findBean("ItemControllerSessionBean");
     // this.setSelectedItemsAndCurrentItem();
-    final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+    final ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
 
     if (!pubItemList.isEmpty()) {
       // gets the export format VO that holds the data.
@@ -1146,8 +1136,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
   public static void exportAndDownload(List<PubItemVOPresentation> pubItemList) {
-    final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-    final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+    final ItemControllerSessionBean icsb = FacesTools.findBean("ItemControllerSessionBean");
+    final ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
     // export format and file format.
     final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
     byte[] exportFileData = null;
@@ -1384,7 +1374,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+    return FacesTools.findBean("ItemControllerSessionBean");
   }
 
   public String getUseExtendedConeAttributes() {

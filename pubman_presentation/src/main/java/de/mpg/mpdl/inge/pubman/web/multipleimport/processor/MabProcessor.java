@@ -98,7 +98,7 @@ public class MabProcessor extends FormatProcessor {
     try {
       final BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getSourceFile()));
       String line = null;
-      final ArrayList<String> itemList = new ArrayList<String>();
+      final ArrayList<String> itemList = new ArrayList<>();
       StringWriter stringWriter = new StringWriter();
       final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       int lineBreakCount = 0;

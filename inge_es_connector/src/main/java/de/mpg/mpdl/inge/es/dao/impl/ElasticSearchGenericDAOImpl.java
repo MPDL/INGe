@@ -74,13 +74,13 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   @Autowired
   protected ElasticSearchClientProvider client;
 
-  protected ObjectMapper mapper = MapperFactory.getObjectMapper();
+  protected final ObjectMapper mapper = MapperFactory.getObjectMapper();
 
-  protected String indexName;
+  protected final String indexName;
 
-  protected String indexType;
+  protected final String indexType;
 
-  protected Class<E> typeParameterClass;
+  protected final Class<E> typeParameterClass;
 
   private static final int DEFAULT_SEARCH_SIZE = 100;
   private static final int MAX_SEARCH_SIZE = 10000;
@@ -104,14 +104,12 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
 
 
-  public String create(String id, E entity) throws IngeTechnicalException {
+  public void create(String id, E entity) throws IngeTechnicalException {
     try {
 
       IndexResponse indexResponse = client.getClient().index(i -> i.index(indexName).id(id).document(applyCustomValues(entity))
 
       );
-
-      return indexResponse.id();
 
     } catch (IOException e) {
       throw new IngeTechnicalException(e);
@@ -190,11 +188,10 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
   }
 
-  public String delete(String id) throws IngeTechnicalException {
+  public void delete(String id) throws IngeTechnicalException {
 
     try {
       DeleteResponse deleteResponse = client.getClient().delete(d -> d.index(indexName).id(id));
-      return deleteResponse.id();
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
@@ -215,24 +212,21 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   /**
    * Use maxDocs <=1000 in order to disable scrolling for delete-by-query
    */
-  public long deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException {
+  public void deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException {
 
     try {
-      DeleteByQueryResponse deleteResponse =
-          client.getClient().deleteByQuery(d -> d.index(indexName).query(query).maxDocs(Long.valueOf(maxDocs)));
-      return deleteResponse.deleted();
+      DeleteByQueryResponse deleteResponse = client.getClient().deleteByQuery(d -> d.index(indexName).query(query).maxDocs((long) maxDocs));
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
   }
 
 
-  public boolean clearScroll(String scrollId) throws IngeTechnicalException {
+  public void clearScroll(String scrollId) throws IngeTechnicalException {
 
     try {
       ClearScrollResponse resp = client.getClient().clearScroll(ClearScrollRequest.of(cs -> cs.scrollId(scrollId)));
 
-      return resp.succeeded();
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
@@ -410,7 +404,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
   public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(ResponseBody<E> sr, Class<E> clazz)
       throws IOException {
-    SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
+    SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<>();
     srrVO.setOriginalResponse(sr);
     srrVO.setNumberOfRecords((int) sr.hits().total().value());
     srrVO.setScrollId(sr.scrollId());
@@ -418,7 +412,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
     List<SearchRetrieveRecordVO<E>> hitList = new ArrayList<>();
     srrVO.setRecords(hitList);
     for (Hit hit : sr.hits().hits()) {
-      SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<E>();
+      SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<>();
       hitList.add(srr);
 
       E vo = getVoFromResponseObject(hit.source(), clazz);
@@ -485,7 +479,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       throw new IngeTechnicalException(e);
     }
 
-    return new HashMap<String, ElasticSearchIndexField>();
+    return new HashMap<>();
   }
 
 

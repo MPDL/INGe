@@ -29,15 +29,11 @@ public class ReindexConfiguration implements AsyncConfigurer {
 
   @Override
   public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-    return new AsyncUncaughtExceptionHandler() {
-
-      @Override
-      public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-        log.error("uncaught async exception", ex);
-        log.info("method name: " + method.getName());
-        for (Object obj : params) {
-          log.info("object param " + obj);
-        }
+    return (ex, method, params) -> {
+      log.error("uncaught async exception", ex);
+      log.info("method name: " + method.getName());
+      for (Object obj : params) {
+        log.info("object param " + obj);
       }
     };
   }

@@ -176,7 +176,7 @@ public class SourceBean extends EditItemBean {
    */
   public SelectItem[] getSourceGenreOptions() {
     final Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
-    final List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
+    final List<SelectItem> sourceGenres = new ArrayList<>();
     sourceGenres.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
     for (final SourceVO.Genre value : SourceVO.Genre.values()) {
       sourceGenres.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
@@ -196,7 +196,7 @@ public class SourceBean extends EditItemBean {
       }
     }
 
-    return sourceGenres.toArray(new SelectItem[sourceGenres.size()]);
+    return sourceGenres.toArray(new SelectItem[0]);
   }
 
   //  public boolean getAutosuggestJournals() {
@@ -234,10 +234,10 @@ public class SourceBean extends EditItemBean {
   }
 
   public static List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
-    final List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
+    final List<AlternativeTitleVO> list = new ArrayList<>();
     final String[] alternativeTitles = titleList.split(SourceBean.HIDDEN_DELIMITER);
-    for (int i = 0; i < alternativeTitles.length; i++) {
-      final String[] parts = alternativeTitles[i].trim().split(SourceBean.HIDDEN_INNER_DELIMITER);
+    for (String title : alternativeTitles) {
+      final String[] parts = title.trim().split(SourceBean.HIDDEN_INNER_DELIMITER);
       final String alternativeTitleType = parts[0].trim();
       final String alternativeTitle = parts[1].trim();
       if (!alternativeTitle.isEmpty()) {
@@ -250,10 +250,10 @@ public class SourceBean extends EditItemBean {
   }
 
   public static List<IdentifierVO> parseIdentifiers(String idList) {
-    final List<IdentifierVO> list = new ArrayList<IdentifierVO>();
+    final List<IdentifierVO> list = new ArrayList<>();
     final String[] ids = idList.split(SourceBean.HIDDEN_DELIMITER);
-    for (int i = 0; i < ids.length; i++) {
-      final String idComplete = ids[i].trim();
+    for (String s : ids) {
+      final String idComplete = s.trim();
       final String[] idParts = idComplete.split(SourceBean.HIDDEN_IDTYPE_DELIMITER);
       // id has no type, use type 'other'
       if (idParts.length == 1 && !idParts[0].isEmpty()) {
@@ -298,7 +298,7 @@ public class SourceBean extends EditItemBean {
     newSourceCreator.setType(CreatorType.PERSON);
     newSourceCreator.setPerson(new PersonVO());
     newSourceCreator.getPerson().setIdentifier(new IdentifierVO());
-    newSourceCreator.getPerson().setOrganizations(new ArrayList<OrganizationVO>());
+    newSourceCreator.getPerson().setOrganizations(new ArrayList<>());
     final OrganizationVO newCreatorOrganization = new OrganizationVO();
     newCreatorOrganization.setName("");
     newSourceCreator.getPerson().getOrganizations().add(newCreatorOrganization);

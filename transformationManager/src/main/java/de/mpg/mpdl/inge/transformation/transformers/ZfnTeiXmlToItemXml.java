@@ -22,8 +22,8 @@ public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTrans
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
-    Map<String, Object> map = new HashMap<String, Object>();
+  public Map<String, Object> getParameters() {
+    Map<String, Object> map = new HashMap<>();
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.FALSE);

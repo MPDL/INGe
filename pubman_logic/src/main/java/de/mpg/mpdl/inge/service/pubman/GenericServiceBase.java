@@ -23,8 +23,7 @@ public interface GenericServiceBase<E> {
   ResponseBody searchDetailed(SearchRequest ssb, long scrollTime, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  ResponseBody scrollOn(String scrollId, long scrollTime)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  ResponseBody scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException;
 
   Map<String, ElasticSearchIndexField> getElasticSearchIndexFields();
 

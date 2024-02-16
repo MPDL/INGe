@@ -30,8 +30,7 @@ import jakarta.persistence.SharedCacheMode;
 
 @Configuration
 @ComponentScan({"de.mpg.mpdl.inge.db.repository", "de.mpg.mpdl.inge.db.filestorage", "de.mpg.mpdl.inge.db.spring"})
-@EnableJpaRepositories(basePackages = "de.mpg.mpdl.inge.db.repository", entityManagerFactoryRef = "entityManagerFactory",
-    transactionManagerRef = "transactionManager")
+@EnableJpaRepositories(basePackages = "de.mpg.mpdl.inge.db.repository")
 @EnableTransactionManagement
 public class JPAConfiguration {
 

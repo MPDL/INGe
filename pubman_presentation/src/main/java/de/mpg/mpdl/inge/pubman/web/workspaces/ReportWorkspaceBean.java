@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.workspaces;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,10 +53,10 @@ public class ReportWorkspaceBean extends FacesBean {
   private String reportYear;
 
 
-  private final Map<String, String> configuration = new HashMap<String, String>();
-  private List<String> allOUs = new ArrayList<String>();
+  private final Map<String, String> configuration = new HashMap<>();
+  private List<String> allOUs = new ArrayList<>();
 
-  private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
+  private List<SelectItem> outputFormats = new ArrayList<>();
   private TransformerFactory.FORMAT format;
 
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();

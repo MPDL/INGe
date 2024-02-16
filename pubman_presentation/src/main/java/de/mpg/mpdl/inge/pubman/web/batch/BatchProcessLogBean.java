@@ -10,9 +10,9 @@ import jakarta.faces.bean.SessionScoped;
 
 /**
  * Bean for documenting the batch process
- * 
+ *
  * @author walter
- * 
+ *
  */
 
 @ManagedBean(name = "BatchProcessLogBean")
@@ -31,7 +31,7 @@ public class BatchProcessLogBean extends FacesBean {
 
   public BatchProcessLogBean () {
     this.batchStatus = Status.NOT_STARTED;
-    this.batchProcessLogItemList = new ArrayList<BatchProcessItemVO>();
+    this.batchProcessLogItemList = new ArrayList<>();
   }
 
   public Status getBatchStatus() {

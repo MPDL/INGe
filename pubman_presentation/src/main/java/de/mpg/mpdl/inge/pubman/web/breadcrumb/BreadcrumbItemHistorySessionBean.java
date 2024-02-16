@@ -46,7 +46,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
       "SearchResultListPage", "DepositorWSPage", "QAWSPage", "BatchWorkspacePage", "CartItemsPage"};
 
   // the List of BreadCrumbs representing JSP's that have been viewed
-  private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
+  private List<BreadcrumbItem> breadcrumbs = new ArrayList<>();
 
   /**
    * Initializes this BreadcrumbItemHistory.
@@ -96,9 +96,9 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
         // special case for list after watching an item
         if (position < this.breadcrumbs.size() - 1) {
           for (int m = position + 1; m < this.breadcrumbs.size(); m++) {
-            for (int k = 0; k < this.itemListPages.length; k++) {
+            for (String itemListPage : this.itemListPages) {
 
-              if (this.breadcrumbs.get(m).getDisplayValue().equals(this.itemListPages[k])
+              if (this.breadcrumbs.get(m).getDisplayValue().equals(itemListPage)
                   && this.breadcrumbs.get(position).getPage().contains("itemId=") && newItem.getPage().contains("itemId=")) {
                 specialListTreatment = true;
               }
@@ -168,7 +168,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   public List<BreadcrumbItem> getBreadcrumbItemHistory() {
     // return only the last 3 items of the breadcrumb list
     if (this.breadcrumbs.size() > 3) {
-      final List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<BreadcrumbItem>();
+      final List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<>();
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 3));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 2));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 1));
@@ -220,11 +220,10 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
    */
   public boolean getPreviousPageIsListPage() {
     if (this.breadcrumbs.size() > 1) {
-      for (int i = 0; i < this.itemListPages.length; i++) {
-        if (this.itemListPages[i].equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())) {
+      for (String itemListPage : this.itemListPages) {
+        if (itemListPage.equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())) {
           return true;
-        } else if ((this.breadcrumbs.size() > 2
-            && this.itemListPages[i].equals(this.breadcrumbs.get(this.breadcrumbs.size() - 3).getDisplayValue()))
+        } else if ((this.breadcrumbs.size() > 2 && itemListPage.equals(this.breadcrumbs.get(this.breadcrumbs.size() - 3).getDisplayValue()))
             && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())
                 || "ViewItemOverviewPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue()))
             && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1).getDisplayValue())

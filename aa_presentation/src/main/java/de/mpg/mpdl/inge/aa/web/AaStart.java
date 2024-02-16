@@ -64,7 +64,7 @@ public class AaStart extends HttpServlet {
    * not. - target: The URL the user should be redirected to after authentication.
    *
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     request.setCharacterEncoding(DEFAULT_ENCODING);
     response.setCharacterEncoding(DEFAULT_ENCODING);
 

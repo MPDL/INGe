@@ -50,7 +50,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) throws Exception {
+  public List<Author> getAuthors(String authorsString) {
 
     // Check 4 versions (new line as separator or blank, surname or given name first) and choose the
     // best result
@@ -80,7 +80,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
   }
 
   private String[] prepareAuthorsLooseFormat(String authorsString) {
-    List<String> parts = new ArrayList<String>();
+    List<String> parts = new ArrayList<>();
     String currentString = "";
 
     // remove last comma or semicolon
@@ -118,9 +118,8 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
 
     // split strings by rest of seperators
     String seperatorsRegEX2 = "( and | und | et )";
-    List<String> parts2 = new ArrayList<String>();
-    for (int i = 0; i < parts.size(); i++) {
-      String part = parts.get(i);
+    List<String> parts2 = new ArrayList<>();
+    for (String part : parts) {
       String[] newSeps = part.split(seperatorsRegEX2);
       Collections.addAll(parts2, newSeps);
     }

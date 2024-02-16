@@ -36,13 +36,13 @@ public class RISImport {
   public String transformRIS2XML(String file) {
     String result = "";
     List<String> itemList = getItemListFromString(file); // extract items to array
-    List<List<Pair>> items = new ArrayList<List<Pair>>();
+    List<List<Pair>> items = new ArrayList<>();
 
     Pattern risLinePattern = Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)", Pattern.DOTALL | Pattern.MULTILINE);
 
     if (itemList != null) { // transform items to XML
       for (String item : itemList) {
-        List<Pair> itemPairs = new ArrayList<Pair>();
+        List<Pair> itemPairs = new ArrayList<>();
         Matcher risLineMatcher = risLinePattern.matcher(item);
         while (risLineMatcher.find()) {
           String line = risLineMatcher.group();
@@ -118,7 +118,7 @@ public class RISImport {
     Pattern risItemPattern = Pattern.compile("^TY  -.*?^ER  -", Pattern.DOTALL | Pattern.MULTILINE);
     Matcher risItemMatcher = risItemPattern.matcher(s);
 
-    List<String> itemStrings = new ArrayList<String>();
+    List<String> itemStrings = new ArrayList<>();
     while (risItemMatcher.find()) {
       itemStrings.add(risItemMatcher.group());
       //      System.out.println();
@@ -127,12 +127,6 @@ public class RISImport {
     return itemStrings;
   }
 
-  /**
-   * get a pair from line string (by regex string)
-   *
-   * @param string - RIS line as string
-   * @return Pair - key-value pair created by string line
-   */
   public Pair createRISPairByString(String line) {
     String[] lineArr = line.split("\\s-\\s");
     Pair pair = null;
@@ -161,12 +155,6 @@ public class RISImport {
     return "";
   }
 
-  /**
-   * creates the complete item list in xml
-   *
-   * @param item pair list
-   * @return xml string of the whole item list
-   */
   public String transformItemListToXML(List<List<Pair>> itemList) {
     String xml = "<item-list>";
 

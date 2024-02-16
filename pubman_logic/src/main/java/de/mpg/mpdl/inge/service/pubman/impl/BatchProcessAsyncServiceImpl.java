@@ -246,7 +246,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               case DELETE_PUBITEMS:
                 if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())
                     && !ItemVersionRO.State.RELEASED.equals(itemVersionVO.getObject().getPublicState())) {
-                  this.batchProcessCommonService.doPubItem(method, token, itemId, (Date) null, batchProcessLogDetailDbVO);
+                  this.batchProcessCommonService.doPubItem(method, token, itemId, null, batchProcessLogDetailDbVO);
                 } else {
                   this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                       BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);

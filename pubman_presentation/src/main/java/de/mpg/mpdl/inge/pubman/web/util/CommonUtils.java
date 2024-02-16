@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -83,7 +82,7 @@ public class CommonUtils {
   private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm";
 
   // HTML escaped characters mapping
-  private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t"};
+  private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "'", "\r\n", "\n", "\r", "\t"};
   private static final String[] ESCAPED_CHARACTERS =
       {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
 
@@ -107,18 +106,17 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Set<?> set, boolean includeEmptyOption) {
-    final List<SelectItem> options = new ArrayList<SelectItem>();
+    final List<SelectItem> options = new ArrayList<>();
 
     if (includeEmptyOption) {
       options.add(new SelectItem("", CommonUtils.NO_ITEM_SET));
     }
 
-    final Iterator<?> iter = set.iterator();
-    while (iter.hasNext()) {
-      options.add(new SelectItem(iter.next()));
+    for (Object o : set) {
+      options.add(new SelectItem(o));
     }
 
-    return options.toArray(new SelectItem[options.size()]);
+    return options.toArray(new SelectItem[0]);
   }
 
   /**
@@ -140,17 +138,17 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Object[] objects, boolean includeEmptyOption) {
-    final List<SelectItem> options = new ArrayList<SelectItem>();
+    final List<SelectItem> options = new ArrayList<>();
 
     if (includeEmptyOption) {
       options.add(new SelectItem("", CommonUtils.NO_ITEM_SET));
     }
 
-    for (int i = 0; i < objects.length; i++) {
-      options.add(new SelectItem(objects[i]));
+    for (Object object : objects) {
+      options.add(new SelectItem(object));
     }
 
-    return options.toArray(new SelectItem[options.size()]);
+    return options.toArray(new SelectItem[0]);
   }
 
   public static SelectItem[] getLanguageOptions() {
@@ -177,7 +175,7 @@ public class CommonUtils {
    * @return all Languages from Cone Service, with "de","en" and "ja" at the first positions
    */
   private static SelectItem[] retrieveLanguageOptions(String locale) {
-    final Map<String, String> result = new LinkedHashMap<String, String>();
+    final Map<String, String> result = new LinkedHashMap<>();
 
     try {
       final HttpClient httpClient = new HttpClient();
@@ -203,28 +201,34 @@ public class CommonUtils {
     final SelectItem[] options = new SelectItem[result.size() + 5];
     options[0] = new SelectItem("", CommonUtils.NO_ITEM_SET);
 
-    if (locale.equals("de")) {
-      options[1] = new SelectItem("eng", "eng - Englisch");
-      options[2] = new SelectItem("deu", "deu - Deutsch");
-      options[3] = new SelectItem("jpn", "jpn - Japanisch");
-    } else if (locale.equals("en")) {
-      options[1] = new SelectItem("eng", "eng - English");
-      options[2] = new SelectItem("deu", "deu - German");
-      options[3] = new SelectItem("jpn", "jpn - Japanese");
-    } else if (locale.equals("fr")) {
-      options[1] = new SelectItem("eng", "eng - Anglais");
-      options[2] = new SelectItem("deu", "deu - Allemand");
-      options[3] = new SelectItem("jpn", "jpn - Japonais");
-    } else if (locale.equals("ja")) {
-      options[1] = new SelectItem("eng", "eng - 英語");
-      options[2] = new SelectItem("deu", "deu - ドイツ語");
-      options[3] = new SelectItem("jpn", "jpn - 日本語");
-    } else {
-      CommonUtils.logger.error("Language not supported: " + locale);
-      // Using english as default
-      options[1] = new SelectItem("eng", "eng - English");
-      options[2] = new SelectItem("deu", "deu - German");
-      options[3] = new SelectItem("jpn", "jpn - Japanese");
+    switch (locale) {
+      case "de" -> {
+        options[1] = new SelectItem("eng", "eng - Englisch");
+        options[2] = new SelectItem("deu", "deu - Deutsch");
+        options[3] = new SelectItem("jpn", "jpn - Japanisch");
+      }
+      case "en" -> {
+        options[1] = new SelectItem("eng", "eng - English");
+        options[2] = new SelectItem("deu", "deu - German");
+        options[3] = new SelectItem("jpn", "jpn - Japanese");
+      }
+      case "fr" -> {
+        options[1] = new SelectItem("eng", "eng - Anglais");
+        options[2] = new SelectItem("deu", "deu - Allemand");
+        options[3] = new SelectItem("jpn", "jpn - Japonais");
+      }
+      case "ja" -> {
+        options[1] = new SelectItem("eng", "eng - 英語");
+        options[2] = new SelectItem("deu", "deu - ドイツ語");
+        options[3] = new SelectItem("jpn", "jpn - 日本語");
+      }
+      default -> {
+        CommonUtils.logger.error("Language not supported: " + locale);
+        // Using english as default
+        options[1] = new SelectItem("eng", "eng - English");
+        options[2] = new SelectItem("deu", "deu - German");
+        options[3] = new SelectItem("jpn", "jpn - Japanese");
+      }
     }
 
     options[4] = new SelectItem("", CommonUtils.NO_ITEM_SET);
@@ -276,12 +280,6 @@ public class CommonUtils {
     return null;
   }
 
-  /**
-   * Returns the current value of a comboBox. Used in UIs.
-   *
-   * @param comboBox the comboBox for which the value should be returned
-   * @return the current value of the comboBox
-   */
   public static String getUIValue(HtmlSelectOneRadio radioButton) {
     if (radioButton.getSubmittedValue() != null && radioButton.getSubmittedValue() instanceof String[]
         && ((String[]) radioButton.getSubmittedValue()).length > 0) {
@@ -356,10 +354,10 @@ public class CommonUtils {
    * @return the list of PubItemVOs
    */
   public static ArrayList<ItemVersionVO> convertToPubItemVOList(List<PubItemVOPresentation> list) {
-    final ArrayList<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
+    final ArrayList<ItemVersionVO> pubItemList = new ArrayList<>();
 
-    for (int i = 0; i < list.size(); i++) {
-      pubItemList.add(new ItemVersionVO(list.get(i)));
+    for (PubItemVOPresentation pubItemVOPresentation : list) {
+      pubItemList.add(new ItemVersionVO(pubItemVOPresentation));
     }
 
     return pubItemList;
@@ -372,10 +370,10 @@ public class CommonUtils {
    * @return the list of PubItemVOPresentations
    */
   public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<? extends ItemVersionVO> list) {
-    final List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+    final List<PubItemVOPresentation> pubItemList = new ArrayList<>();
 
-    for (int i = 0; i < list.size(); i++) {
-      pubItemList.add(new PubItemVOPresentation(list.get(i)));
+    for (ItemVersionVO itemVersionVO : list) {
+      pubItemList.add(new PubItemVOPresentation(itemVersionVO));
     }
 
     return pubItemList;
@@ -388,7 +386,7 @@ public class CommonUtils {
    * @return the list of PubItemVOPresentations
    */
   public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(List<? extends FileDbVO> list) {
-    final List<PubFileVOPresentation> pubFileList = new ArrayList<PubFileVOPresentation>();
+    final List<PubFileVOPresentation> pubFileList = new ArrayList<>();
 
     for (int i = 0; i < list.size(); i++) {
       pubFileList.add(new PubFileVOPresentation(i, list.get(i)));
@@ -404,10 +402,10 @@ public class CommonUtils {
    * @return the list of RelationVOPresentation
    */
   public static List<RelationVOPresentation> convertToRelationVOPresentationList(List<RelationVO> list) {
-    final List<RelationVOPresentation> relationList = new ArrayList<RelationVOPresentation>();
+    final List<RelationVOPresentation> relationList = new ArrayList<>();
 
-    for (int i = 0; i < list.size(); i++) {
-      relationList.add(new RelationVOPresentation(list.get(i)));
+    for (RelationVO relationVO : list) {
+      relationList.add(new RelationVOPresentation(relationVO));
     }
 
     return relationList;
@@ -420,10 +418,10 @@ public class CommonUtils {
    * @return the list of PubCollectionVOPresentations
    */
   public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<ContextDbVO> list) {
-    final List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
+    final List<PubContextVOPresentation> contextList = new ArrayList<>();
 
-    for (int i = 0; i < list.size(); i++) {
-      contextList.add(new PubContextVOPresentation(list.get(i)));
+    for (ContextDbVO contextDbVO : list) {
+      contextList.add(new PubContextVOPresentation(contextDbVO));
     }
 
     return contextList;
@@ -436,13 +434,13 @@ public class CommonUtils {
    * @return the list of AffiliationVOPresentations
    */
   public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationDbVO> list) {
-    final List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i) != null
-          && PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID).equals(list.get(i).getObjectId())) {
-        affiliationList.add(0, new AffiliationVOPresentation(list.get(i)));
+    final List<AffiliationVOPresentation> affiliationList = new ArrayList<>();
+    for (AffiliationDbVO affiliationDbVO : list) {
+      if (affiliationDbVO != null
+          && PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID).equals(affiliationDbVO.getObjectId())) {
+        affiliationList.add(0, new AffiliationVOPresentation(affiliationDbVO));
       } else {
-        affiliationList.add(new AffiliationVOPresentation(list.get(i)));
+        affiliationList.add(new AffiliationVOPresentation(affiliationDbVO));
       }
     }
 
@@ -475,9 +473,9 @@ public class CommonUtils {
     return valid;
   }
 
-  public static Map<String, String> getDecodedUrlParameterMap(String query) throws UnsupportedEncodingException {
+  public static Map<String, String> getDecodedUrlParameterMap(String query) {
     CommonUtils.logger.info("query: " + query);
-    final Map<String, String> parameterMap = new HashMap<String, String>();
+    final Map<String, String> parameterMap = new HashMap<>();
 
     if (query != null) {
       final String[] parameters = query.split("&");
@@ -493,12 +491,6 @@ public class CommonUtils {
     return parameterMap;
   }
 
-  /**
-   * Transforms broken ISO-8859-1 strings into correct UTF-8 strings.
-   *
-   * @param brokenValue
-   * @return hopefully fixed string.
-   */
   public static String fixURLEncoding(String input) {
     if (input != null) {
       final String utf8 = new String(input.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
@@ -512,7 +504,7 @@ public class CommonUtils {
     return null;
   }
 
-  public static String getGenericItemLink(String objectId, int version) throws Exception {
+  public static String getGenericItemLink(String objectId, int version) {
     if (objectId != null) {
       return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
           + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader

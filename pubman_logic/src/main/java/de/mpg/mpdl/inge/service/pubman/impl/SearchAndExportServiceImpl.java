@@ -36,8 +36,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
 
 
   @Override
-  public SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token) throws IngeTechnicalException {
     byte[] result;
     String fileName;
     String targetMimeType;
@@ -63,7 +62,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
   }
 
   private List<ItemVersionVO> getSearchResult(SearchRetrieveResponseVO<ItemVersionVO> srrVO) {
-    List<ItemVersionVO> searchResult = new ArrayList<ItemVersionVO>();
+    List<ItemVersionVO> searchResult = new ArrayList<>();
     for (SearchRetrieveRecordVO<ItemVersionVO> record : srrVO.getRecords()) {
       searchResult.add(record.getData());
     }

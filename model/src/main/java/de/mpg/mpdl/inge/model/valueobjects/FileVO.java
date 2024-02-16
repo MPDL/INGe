@@ -33,6 +33,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -138,7 +139,7 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   private String mimeType;
 
-  private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
+  private List<MetadataSetVO> metadataSets = new ArrayList<>();
 
 
   // Internal reference to the files content
@@ -403,10 +404,10 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getContentCategoryString() {
-    if (contentCategory == null || contentCategory.toString() == null) {
+    if (contentCategory == null || contentCategory == null) {
       return "";
     }
-    return contentCategory.toString();
+    return contentCategory;
   }
 
   /**
@@ -586,8 +587,8 @@ public class FileVO extends ValueObject implements Cloneable {
         return false;
     } else if (other.metadataSets == null)
       return false;
-    else if (!metadataSets.containsAll(other.metadataSets) //
-        || !other.metadataSets.containsAll(metadataSets)) {
+    else if (!new HashSet<>(metadataSets).containsAll(other.metadataSets) //
+        || !new HashSet<>(other.metadataSets).containsAll(metadataSets)) {
       return false;
     }
 

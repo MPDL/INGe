@@ -113,8 +113,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
     return null;
   }
 
-  public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public ResponseBody<ObjectNode> scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException {
     return getElasticDao().scrollOn(scrollId, scrollTime);
   }
 

@@ -58,7 +58,7 @@ public abstract class DataModelManager<T> {
   public void setObjectList(List<T> objectList) {
     this.objectList = objectList;
     if (this.objectDM == null) {
-      this.objectDM = new ListDataModel<Object>();
+      this.objectDM = new ListDataModel<>();
     }
     this.objectDM.setWrappedData(objectList);
   }
@@ -71,10 +71,10 @@ public abstract class DataModelManager<T> {
    */
   public DataModel<?> getObjectDM() {
     if (this.objectList == null) {
-      this.objectList = new ArrayList<T>();
+      this.objectList = new ArrayList<>();
     }
     if (this.objectDM == null) {
-      this.objectDM = new ListDataModel<Object>();
+      this.objectDM = new ListDataModel<>();
       this.objectDM.setWrappedData(this.objectList);
     }
     return this.objectDM;

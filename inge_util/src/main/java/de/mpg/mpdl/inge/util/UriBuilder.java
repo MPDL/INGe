@@ -52,8 +52,7 @@ public class UriBuilder {
    * @return
    * @throws URISyntaxException
    */
-  public static URI getItemComponentLink(String itemObjectId, int versionNumber, String fileId, String fileName)
-      throws URISyntaxException, UnsupportedEncodingException {
+  public static URI getItemComponentLink(String itemObjectId, int versionNumber, String fileId, String fileName) throws URISyntaxException {
     return new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN).replace("$1", (itemObjectId + "_" + versionNumber))

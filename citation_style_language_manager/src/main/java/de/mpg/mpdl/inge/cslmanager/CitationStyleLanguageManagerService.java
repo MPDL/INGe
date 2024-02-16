@@ -18,7 +18,7 @@ import de.undercouch.citeproc.script.ScriptRunnerFactory.RunnerType;
 /**
  * CitationStyleLanguageManagerDefaultImpl is used to generate a citation for an escidoc item or a
  * list of escidoc items
- * 
+ *
  * @author walter
  */
 public class CitationStyleLanguageManagerService {
@@ -26,7 +26,7 @@ public class CitationStyleLanguageManagerService {
   private static final String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
   public static List<String> getOutput(String citationStyle, String itemList) throws CitationStyleLanguageException {
-    List<String> citationList = new ArrayList<String>();
+    List<String> citationList = new ArrayList<>();
 
     CSL citeproc = null;
     try {

@@ -199,13 +199,13 @@ public class CreatorVO extends ValueObject implements Cloneable {
     try {
       CreatorVO clone = (CreatorVO) super.clone();
       if (clone.organization != null) {
-        clone.organization = (OrganizationVO) this.organization.clone();
+        clone.organization = this.organization.clone();
       }
       if (clone.type != null) {
         clone.type = this.type;
       }
       if (clone.person != null) {
-        clone.person = (PersonVO) this.person.clone();
+        clone.person = this.person.clone();
       }
       return clone;
     } catch (CloneNotSupportedException e) {

@@ -25,11 +25,9 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
   ItemVersionVO revisePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken);
 
   boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item) throws IngeApplicationException, IngeTechnicalException;
 
-  void reindex(String id, boolean includeFulltext, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException;
 }

@@ -60,27 +60,26 @@ public class ContextRestController {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<ContextDbVO> srResponse = ctxSvc.search(srRequest, token);
 
-    return new ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> getAll(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", defaultValue = "10") int limit, @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Query matchAllQuery = new MatchAllQuery.Builder().build()._toQuery();
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_CONTEXT_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<ContextDbVO> srResponse = ctxSvc.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @Hidden
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "q") String query, //
-      @RequestParam(value = "size", required = true, defaultValue = "10") int limit, //
-      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", defaultValue = "10") int limit, //
+      @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     //QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
     Query matchQueryParam = QueryStringQuery.of(q -> q.query(query))._toQuery();
@@ -88,7 +87,7 @@ public class ContextRestController {
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_CONTEXT_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<ContextDbVO> srResponse = ctxSvc.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.GET)
@@ -102,7 +101,7 @@ public class ContextRestController {
       ctx = ctxSvc.get(ctxId, null);
     }
     if (ctx != null) {
-      return new ResponseEntity<ContextDbVO>(ctx, HttpStatus.OK);
+      return new ResponseEntity<>(ctx, HttpStatus.OK);
     } else {
       throw new NotFoundException();
     }
@@ -113,7 +112,7 @@ public class ContextRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ContextDbVO created = null;
     created = ctxSvc.create(ctx, token);
-    return new ResponseEntity<ContextDbVO>(created, HttpStatus.CREATED);
+    return new ResponseEntity<>(created, HttpStatus.CREATED);
   }
 
   @RequestMapping(value = CTX_ID_PATH + "/open", method = RequestMethod.PUT)
@@ -123,7 +122,7 @@ public class ContextRestController {
     Date lmd = utils.string2Date(modificationDate);
     ContextDbVO opened = null;
     opened = ctxSvc.open(ctxId, lmd, token);
-    return new ResponseEntity<ContextDbVO>(opened, HttpStatus.OK);
+    return new ResponseEntity<>(opened, HttpStatus.OK);
   }
 
   @RequestMapping(value = CTX_ID_PATH + "/close", method = RequestMethod.PUT)
@@ -133,7 +132,7 @@ public class ContextRestController {
     Date lmd = utils.string2Date(modificationDate);
     ContextDbVO closed = null;
     closed = ctxSvc.close(ctxId, lmd, token);
-    return new ResponseEntity<ContextDbVO>(closed, HttpStatus.OK);
+    return new ResponseEntity<>(closed, HttpStatus.OK);
   }
 
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.PUT)
@@ -142,7 +141,7 @@ public class ContextRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ContextDbVO updated = null;
     updated = ctxSvc.update(ctx, token);
-    return new ResponseEntity<ContextDbVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.DELETE)

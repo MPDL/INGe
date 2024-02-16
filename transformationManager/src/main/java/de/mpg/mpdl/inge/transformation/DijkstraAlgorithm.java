@@ -24,16 +24,16 @@ public class DijkstraAlgorithm {
 
   public DijkstraAlgorithm(List<FORMAT> formatList, List<TransformerEdge> transformerList) {
     // create a copy of the array so that we can operate on this array
-    this.edges = new ArrayList<TransformerEdge>(transformerList);
+    this.edges = new ArrayList<>(transformerList);
   }
 
   public void execute(FORMAT source) {
-    settledNodes = new HashSet<FORMAT>();
-    unSettledNodes = new HashSet<FORMAT>();
+    settledNodes = new HashSet<>();
+    unSettledNodes = new HashSet<>();
 
-    distance = new HashMap<FORMAT, Integer>();
-    predecessors = new HashMap<FORMAT, FORMAT>();
-    predecessorEdges = new HashMap<TransformerFactory.FORMAT, TransformerEdge>();
+    distance = new HashMap<>();
+    predecessors = new HashMap<>();
+    predecessorEdges = new HashMap<>();
     distance.put(source, 0);
     unSettledNodes.add(source);
     while (!unSettledNodes.isEmpty()) {
@@ -70,7 +70,7 @@ public class DijkstraAlgorithm {
   }
 
   private List<TransformerEdge> getNeighbors(FORMAT node) {
-    List<TransformerEdge> neighbors = new ArrayList<TransformerEdge>();
+    List<TransformerEdge> neighbors = new ArrayList<>();
     for (TransformerEdge edge : edges) {
       if (edge.getSourceFormat().equals(node) && !isSettled(edge.getTargetFormat())) {
         neighbors.add(edge);
@@ -110,8 +110,8 @@ public class DijkstraAlgorithm {
    * This method returns the path from the source to the selected target and NULL if no path exists
    */
   public List<TransformerEdge> getPath(FORMAT target) {
-    LinkedList<FORMAT> path = new LinkedList<FORMAT>();
-    LinkedList<TransformerEdge> edgesPath = new LinkedList<TransformerEdge>();
+    LinkedList<FORMAT> path = new LinkedList<>();
+    LinkedList<TransformerEdge> edgesPath = new LinkedList<>();
     FORMAT step = target;
     // check if a path exists
     if (predecessors.get(step) == null) {

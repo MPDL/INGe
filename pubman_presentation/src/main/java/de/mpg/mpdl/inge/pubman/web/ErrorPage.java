@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -38,7 +38,7 @@ import jakarta.faces.component.html.HtmlPanelGrid;
  * BackingBean for ErrorPage.jsp. Use this class to display error messages in a seperate page. Don't
  * forget in the calling component to set the exception as the reason for this error before you
  * display the page!
- * 
+ *
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
@@ -65,7 +65,7 @@ public class ErrorPage extends BreadcrumbPage {
 
   /**
    * Sets all attributes of the pageAlert component according to the exception set before.
-   * 
+   *
    */
   private void createPageAlert() {
     // remove all elements
@@ -112,7 +112,7 @@ public class ErrorPage extends BreadcrumbPage {
   }
 
   public String getStackTrace() {
-    final StringBuffer buffer = new StringBuffer();
+    final StringBuilder buffer = new StringBuilder();
     if (this.exception != null) {
       final StackTraceElement[] stackTrace = this.exception.getStackTrace();
       for (final StackTraceElement stackTraceElement : stackTrace) {
@@ -142,7 +142,7 @@ public class ErrorPage extends BreadcrumbPage {
 
   /**
    * Sets the panel with the pageAlert.
-   * 
+   *
    * @param panPageAlert the new pageAlert component
    */
   public void setPanPageAlert(HtmlPanelGrid panPageAlert) {
@@ -151,7 +151,7 @@ public class ErrorPage extends BreadcrumbPage {
 
   /**
    * Returns the exception this pageAlert will display.
-   * 
+   *
    * @return the exception of the pageAlert
    */
   public Exception getException() {
@@ -160,7 +160,7 @@ public class ErrorPage extends BreadcrumbPage {
 
   /**
    * Sets a new exception that should be displayed by the pageAlert.
-   * 
+   *
    * @param exception the exception that should be displayed
    */
   public void setException(Exception exception) {

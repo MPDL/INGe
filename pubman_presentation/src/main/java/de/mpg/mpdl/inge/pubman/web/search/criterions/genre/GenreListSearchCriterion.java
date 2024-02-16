@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -26,8 +26,6 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.genre;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,8 +47,8 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 @SuppressWarnings("serial")
 public class GenreListSearchCriterion extends SearchCriterionBase {
-  private Map<Genre, Boolean> genreMap = new LinkedHashMap<Genre, Boolean>();
-  private Map<DegreeType, Boolean> degreeMap = new LinkedHashMap<DegreeType, Boolean>();
+  private Map<Genre, Boolean> genreMap = new LinkedHashMap<>();
+  private Map<DegreeType, Boolean> degreeMap = new LinkedHashMap<>();
 
   public GenreListSearchCriterion() {
     this.initGenreMap();
@@ -60,33 +58,26 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   /**
    * Initializes a sorted map containing all Genres as key and their selection state as value. The
    * map is sorted by the label of the genre in the given language
-   * 
-   * @return
    */
-  public Map<Genre, Boolean> initGenreMap() {
+  public void initGenreMap() {
 
     // first create a map with genre as key and the label as value
-    final Map<Genre, String> genreLabelMap = new LinkedHashMap<Genre, String>();
-    final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
+    final Map<Genre, String> genreLabelMap = new LinkedHashMap<>();
+    final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
     for (final Genre g : Genre.values()) {
       genreLabelMap.put(g, i18nHelper.getLabel("ENUM_GENRE_" + g.name()));
     }
 
 
     // Then create a list with the map entries and sort the list by the label
-    final List<Map.Entry<Genre, String>> sortedGenreList = new LinkedList<Map.Entry<Genre, String>>(genreLabelMap.entrySet());
-    Collections.sort(sortedGenreList, new Comparator<Map.Entry<Genre, String>>() {
-      @Override
-      public int compare(Map.Entry<Genre, String> o1, Map.Entry<Genre, String> o2) {
-        return (o1.getValue()).compareTo(o2.getValue());
-      }
-    });
+    final List<Map.Entry<Genre, String>> sortedGenreList = new LinkedList<>(genreLabelMap.entrySet());
+    sortedGenreList.sort((o1, o2) -> (o1.getValue()).compareTo(o2.getValue()));
 
 
     // now fill the genre map with the ordered genres
     // genreMap = new LinkedHashMap<Genre, Boolean>();
 
-    final Map<Genre, Boolean> oldValMap = new LinkedHashMap<Genre, Boolean>(this.genreMap);
+    final Map<Genre, Boolean> oldValMap = new LinkedHashMap<>(this.genreMap);
     this.genreMap.clear();
     Entry<Genre, String> thesisEntry = null;
     for (final Entry<Genre, String> entry : sortedGenreList) {
@@ -109,21 +100,19 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
       }
     }
 
-    return this.genreMap;
   }
 
-  private Map<DegreeType, Boolean> initDegreeMap() {
+  private void initDegreeMap() {
 
     // degreeMap = new LinkedHashMap<DegreeType, Boolean>();
     for (final DegreeType dt : DegreeType.values()) {
       this.degreeMap.put(dt, false);
     }
-    return this.degreeMap;
   }
 
 
 
-  // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten 
+  // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten
   public synchronized Genre[] getGenreList() {
     final Genre[] genreArray = new Genre[0];
     return this.genreMap.keySet().toArray(genreArray);
@@ -142,7 +131,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String getQueryStringContent() {
-    final StringBuffer sb = new StringBuffer();
+    final StringBuilder sb = new StringBuilder();
 
 
     boolean allGenres = true;
@@ -293,8 +282,8 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
     // boolean allDegrees = true;
 
-    final List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
-    final List<SearchCriterionBase> degreeCriterionsList = new ArrayList<SearchCriterionBase>();
+    final List<SearchCriterionBase> returnList = new ArrayList<>();
+    final List<SearchCriterionBase> degreeCriterionsList = new ArrayList<>();
     returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     int i = 0;
     for (final Entry<Genre, Boolean> entry : this.genreMap.entrySet()) {
@@ -372,7 +361,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     }
   }
 
-  // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten 
+  // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten
   public synchronized Map<Genre, Boolean> getGenreMap() {
     this.initGenreMap();
     return this.genreMap;

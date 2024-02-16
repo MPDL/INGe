@@ -49,9 +49,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ShortContentHandler extends DefaultHandler {
   private StringBuffer currentContent;
-  protected XMLStack stack = new XMLStack();
-  protected XMLStack localStack = new XMLStack();
-  protected Map<String, Map<String, String>> namespacesMap = new HashMap<String, Map<String, String>>();
+  protected final XMLStack stack = new XMLStack();
+  protected final XMLStack localStack = new XMLStack();
+  protected final Map<String, Map<String, String>> namespacesMap = new HashMap<>();
   protected Map<String, String> namespaces = null;
 
   /**
@@ -63,7 +63,7 @@ public class ShortContentHandler extends DefaultHandler {
     if (namespacesMap.get(stack.toString()) != null) {
       formerNamespaces = namespacesMap.get(stack.toString());
     } else {
-      formerNamespaces = new HashMap<String, String>();
+      formerNamespaces = new HashMap<>();
     }
 
     stack.push(name);
@@ -73,7 +73,7 @@ public class ShortContentHandler extends DefaultHandler {
       localStack.push(name);
     }
 
-    Map<String, String> currentNamespaces = new HashMap<String, String>(formerNamespaces);
+    Map<String, String> currentNamespaces = new HashMap<>(formerNamespaces);
 
     for (int i = 0; i < attributes.getLength(); i++) {
       if (attributes.getQName(i).startsWith("xmlns:")) {
@@ -92,9 +92,6 @@ public class ShortContentHandler extends DefaultHandler {
     currentContent = new StringBuffer();
   }
 
-  /**
-   * Call {@link ShortContentHandler.content} if there is some. Then delete Current content.
-   */
   @Override
   public void endElement(String uri, String localName, String name) throws SAXException {
     if (currentContent != null) {
@@ -109,7 +106,7 @@ public class ShortContentHandler extends DefaultHandler {
    * Append characters to current content.
    */
   @Override
-  public final void characters(char[] ch, int start, int length) throws SAXException {
+  public final void characters(char[] ch, int start, int length) {
     if (currentContent != null) {
       currentContent.append(ch, start, length);
     }
@@ -126,7 +123,7 @@ public class ShortContentHandler extends DefaultHandler {
    *        available.
    * @param content The string content of the current tag.
    */
-  public void content(String uri, String localName, String name, String content) throws SAXException {
+  public void content(String uri, String localName, String name, String content) {
     // Do nothing by default
   }
 
@@ -180,7 +177,7 @@ public class ShortContentHandler extends DefaultHandler {
     public synchronized String toString() {
       StringWriter writer = new StringWriter();
       for (Iterator<String> iterator = this.iterator(); iterator.hasNext();) {
-        String element = (String) iterator.next();
+        String element = iterator.next();
         writer.append(element);
         if (iterator.hasNext()) {
           writer.append("/");

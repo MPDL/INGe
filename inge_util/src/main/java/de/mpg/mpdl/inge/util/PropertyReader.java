@@ -296,18 +296,6 @@ public class PropertyReader {
     new PropertyReader();
   }
 
-  /**
-   * Gets the value of a property for the given key from the system properties or the PubMan
-   * property file. It is always tried to get the requested property value from the system
-   * properties. This option gives the opportunity to set a specific property temporary using the
-   * system properties. If the requested property could not be obtained from the system properties
-   * the PubMan property file is accessed. (For details on access to the properties file see class
-   * description.)
-   *
-   * @param key The key of the property.
-   * @param callingClass Class of the calling class
-   * @return The value of the property.
-   */
   private String doGetProperty(String key) {
     // First check system properties
     String value = System.getProperty(key);

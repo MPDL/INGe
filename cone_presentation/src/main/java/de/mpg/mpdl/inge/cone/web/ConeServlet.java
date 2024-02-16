@@ -96,7 +96,7 @@ public class ConeServlet extends HttpServlet {
   private static final String DEFAULT_ENCODING = "UTF-8";
   private static final String DEFAULT_FORMAT = "html";
 
-  private static final Set<String> RESERVED_PARAMETERS = new HashSet<String>() {
+  private static final Set<String> RESERVED_PARAMETERS = new HashSet<>() {
     {
       this.add("f");
       this.add("format");
@@ -136,12 +136,11 @@ public class ConeServlet extends HttpServlet {
 
     // LoggedIn
     boolean loggedIn = false;
-    if (request.getSession().getAttribute("logged_in") == null
-        || !((Boolean) request.getSession().getAttribute("logged_in")).booleanValue()) {
+    if (request.getSession().getAttribute("logged_in") == null || !(Boolean) request.getSession().getAttribute("logged_in")) {
       Login.checkLogin(request, false);
       loggedIn = getLoggedIn(request);
     } else {
-      loggedIn = ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue();
+      loggedIn = (Boolean) request.getSession().getAttribute("logged_in");
     }
 
     // CONE Zugriff im LoggedIn Modus (obwohl nicht eingelogged)
@@ -227,12 +226,8 @@ public class ConeServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     if ("query".equals(action)) {
       String queryString;
-      try {
-        queryString =
-            UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
-      } catch (ConeException e) {
-        throw new ServletException(e);
-      }
+      queryString =
+          UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
 
       // Limit
       int limit;
@@ -252,10 +247,10 @@ public class ConeServlet extends HttpServlet {
         if (queryString != null) {
           queryAction(queryString, limit, language, modeType, response, formatter, modelName, loggedIn);
         } else {
-          ArrayList<Pair<String>> searchFields = new ArrayList<Pair<String>>();
+          ArrayList<Pair<String>> searchFields = new ArrayList<>();
           for (Object key : request.getParameterMap().keySet()) {
             if (!RESERVED_PARAMETERS.contains(key)) {
-              searchFields.add(new Pair<String>(key.toString(), UrlHelper.fixURLEncoding(request.getParameter(key.toString()))));
+              searchFields.add(new Pair<>(key.toString(), UrlHelper.fixURLEncoding(request.getParameter(key.toString()))));
             }
           }
           queryFieldsAction(searchFields.toArray(new Pair[] {}), limit, language, modeType, response, formatter, modelName, loggedIn);
@@ -303,14 +298,6 @@ public class ConeServlet extends HttpServlet {
     response.setHeader("Connection", "close");
   }
 
-  /**
-   * Retrieve the whole list of entities.
-   *
-   * @param request
-   * @param response
-   * @param model
-   * @throws IOException
-   */
   private void allAction(String language, Querier.ModeType modeType, HttpServletResponse response, AbstractFormatter formatter,
       String modelName, boolean loggedIn) throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -335,15 +322,6 @@ public class ConeServlet extends HttpServlet {
     querier.release();
   }
 
-  /**
-   * Retrieve the details for a given id.
-   *
-   * @param request Just to use it in the method.
-   * @param response Just to use it in the method.
-   * @param out Just to use it in the method.
-   * @param model The requested type of data, e.g. "journals", "languages"
-   * @throws IOException
-   */
   private void detailAction(String id, String language, HttpServletResponse response, AbstractFormatter formatter, PrintWriter out,
       String modelName, boolean loggedIn) throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -368,14 +346,6 @@ public class ConeServlet extends HttpServlet {
     }
   }
 
-  /**
-   * Retrieve a list of matching entities.
-   *
-   * @param request
-   * @param response
-   * @param model
-   * @throws IOException
-   */
   private void queryAction(String queryString, int limit, String language, Querier.ModeType modeType, HttpServletResponse response,
       AbstractFormatter formatter, String modelName, boolean loggedIn) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -410,14 +380,6 @@ public class ConeServlet extends HttpServlet {
     }
   }
 
-  /**
-   * Retrieve a list of matching entities.
-   *
-   * @param request
-   * @param response
-   * @param model
-   * @throws IOException
-   */
   private void queryFieldsAction(Pair[] searchFields, int limit, String language, Querier.ModeType modeType, HttpServletResponse response,
       AbstractFormatter formatter, String modelName, boolean loggedIn) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -457,7 +419,6 @@ public class ConeServlet extends HttpServlet {
   }
 
   private boolean getLoggedIn(HttpServletRequest request) {
-    return (request.getSession().getAttribute("logged_in") != null
-        && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+    return (request.getSession().getAttribute("logged_in") != null && (Boolean) request.getSession().getAttribute("logged_in"));
   }
 }

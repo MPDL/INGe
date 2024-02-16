@@ -146,12 +146,6 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     return true;
   }
 
-  /**
-   * Executes a GET request to the locator.
-   *
-   * @param locato
-   * @return byte[]
-   */
   private byte[] fetchLocator(URL locator) {
     byte[] input = null;
     URLConnection conn = null;
@@ -181,11 +175,10 @@ public abstract class FileLocatorUploadBean extends FacesBean {
   }
 
   public Vector<FileDbVO> getLocators(ItemVersionVO item) {
-    final Vector<FileDbVO> locators = new Vector<FileDbVO>();
+    final Vector<FileDbVO> locators = new Vector<>();
 
     final List<FileDbVO> files = item.getFiles();
-    for (int i = 0; i < files.size(); i++) {
-      final FileDbVO currentFile = files.get(i);
+    for (final FileDbVO currentFile : files) {
       if (currentFile.getStorage() == FileDbVO.Storage.EXTERNAL_URL) {
         locators.add(currentFile);
       }

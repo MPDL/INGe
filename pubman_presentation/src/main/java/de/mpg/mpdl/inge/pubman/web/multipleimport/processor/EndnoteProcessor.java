@@ -119,8 +119,8 @@ public class EndnoteProcessor extends FormatProcessor {
       String buff;
       boolean firstItem = true;
       int count = 0;
-      StringBuffer sb = null;
-      final List<String> l = new ArrayList<String>();
+      StringBuilder sb = null;
+      final List<String> l = new ArrayList<>();
 
       while ((buff = reader.readLine()) != null) {
 
@@ -130,13 +130,13 @@ public class EndnoteProcessor extends FormatProcessor {
           // first item handling
           if (firstItem) {
             firstItem = false;
-            sb = new StringBuffer();
+            sb = new StringBuilder();
           }
           // new item
           else if (count >= 1 && buff.startsWith("%0")) {
             l.add(sb.toString().trim());
             count = 0;
-            sb = new StringBuffer();
+            sb = new StringBuilder();
           }
           sb.append(buff).append("\n");
         }
@@ -149,7 +149,7 @@ public class EndnoteProcessor extends FormatProcessor {
 
       reader.close();
 
-      this.items = l.toArray(new String[l.size()]);
+      this.items = l.toArray(new String[0]);
 
       this.length = this.items.length;
 

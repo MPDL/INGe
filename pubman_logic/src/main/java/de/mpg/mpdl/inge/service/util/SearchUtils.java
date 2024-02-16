@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.util;
 
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +82,7 @@ public class SearchUtils {
           return TermQuery.of(t -> t.field(index).value(value[0]))._toQuery();
         } else {
           List<FieldValue> fvList = new ArrayList<>();
-          Arrays.stream(value).map(i -> FieldValue.of(i)).collect(Collectors.toList());
+          Arrays.stream(value).map(FieldValue::of).collect(Collectors.toList());
           return TermsQuery.of(t -> t.field(index).terms(te -> te.value(fvList)))._toQuery();
         }
       }
@@ -145,7 +146,7 @@ public class SearchUtils {
     return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse(sr, clazz);
   }
 
-  public static <E> List<E> getRecordListFromSearchRetrieveResponse(SearchRetrieveResponseVO<E> srr, Class<E> clazz) throws IOException {
-    return srr.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+  public static <E> List<E> getRecordListFromSearchRetrieveResponse(SearchRetrieveResponseVO<E> srr, Class<E> clazz) {
+    return srr.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
 }

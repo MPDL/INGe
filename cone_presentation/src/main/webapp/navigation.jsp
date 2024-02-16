@@ -85,8 +85,10 @@
 			<a href="search.jsp" class="free_area0 xTiny_marginRIncl<% if ("/search.jsp".equals(request.getServletPath())) { %> active<% } %>">Search</a>
 		<% } %>
 
-		<% if ((request.getSession() != null && request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())
-				|| (request.getSession() != null && request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
+		<% if ((request.getSession() != null && request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+                .getAttribute("edit_open_vocabulary"))
+				|| (request.getSession() != null && request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+                .getAttribute("edit_closed_vocabulary"))) { %>
 			<a href="select.jsp" class="free_area0 xTiny_marginRIncl<% if ("/select.jsp".equals(request.getServletPath())) { %> active<% } %>">Enter New Entity</a>
 			<a href="import.jsp" class="free_area0 xTiny_marginRIncl<% if ("/import.jsp".equals(request.getServletPath())) { %> active<% } %>">Import</a>
 		<% } %>

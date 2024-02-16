@@ -7,7 +7,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
 public class ValidationReportVO extends ValueObject {
-  private final List<ValidationReportItemVO> items = new ArrayList<ValidationReportItemVO>();
+  private final List<ValidationReportItemVO> items = new ArrayList<>();
 
   public ValidationReportVO() {}
 

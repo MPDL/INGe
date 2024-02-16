@@ -29,8 +29,8 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
-    Map<String, Object> map = new HashMap<String, Object>();
+  public Map<String, Object> getParameters() {
+    Map<String, Object> map = new HashMap<>();
 
     map.put("pubmanInstanceUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
     map.put("pubmanContextPath", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
@@ -40,7 +40,7 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   }
 
   @Override
-  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+  public Map<String, String> getDefaultConfiguration() {
     return null;
   }
 

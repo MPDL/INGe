@@ -25,6 +25,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -77,9 +78,9 @@ public class ItemVO extends ValueObject implements Searchable {
   private ItemRO version = new ItemRO();
   private ItemVO.LockStatus lockStatus;
   private ItemVO.State publicStatus;
-  private List<FileVO> files = new ArrayList<FileVO>();
-  private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
-  private List<String> localTags = new ArrayList<String>();
+  private List<FileVO> files = new ArrayList<>();
+  private List<MetadataSetVO> metadataSets = new ArrayList<>();
+  private List<String> localTags = new ArrayList<>();
   @JsonIgnore
   private String baseUrl;
   private String contentModel;
@@ -93,7 +94,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * deleted when they are note provided on updates. TODO MuJ or BrP: model and implement correctly,
    * transforming too. Remove quickfix-VO ("ItemRelationVO").
    */
-  private final List<ItemRelationVO> relations = new java.util.ArrayList<ItemRelationVO>();
+  private final List<ItemRelationVO> relations = new java.util.ArrayList<>();
 
   /**
    * Public constructor.
@@ -125,13 +126,13 @@ public class ItemVO extends ValueObject implements Searchable {
     }
 
     if (other.getOwner() != null) {
-      this.setOwner((AccountUserRO) other.getOwner().clone());
+      this.setOwner(other.getOwner().clone());
     }
 
     this.setPid(other.getPid());
 
     if (other.getContext() != null) {
-      this.setContext((ContextRO) other.getContext().clone());
+      this.setContext(other.getContext().clone());
     }
 
     if (other.getContentModel() != null) {
@@ -139,24 +140,22 @@ public class ItemVO extends ValueObject implements Searchable {
     }
 
     if (other.getVersion() != null) {
-      this.setVersion((ItemRO) other.getVersion().clone());
+      this.setVersion(other.getVersion().clone());
     }
 
     if (other.getLatestVersion() != null) {
-      this.setLatestVersion((ItemRO) other.getLatestVersion().clone());
+      this.setLatestVersion(other.getLatestVersion().clone());
     }
 
     if (other.getLatestRelease() != null) {
-      this.setLatestRelease((ItemRO) other.getLatestRelease().clone());
+      this.setLatestRelease(other.getLatestRelease().clone());
     }
 
     for (ItemRelationVO relation : other.getRelations()) {
-      this.getRelations().add((ItemRelationVO) relation.clone());
+      this.getRelations().add(relation.clone());
     }
 
-    for (String localTag : other.getLocalTags()) {
-      this.localTags.add(localTag);
-    }
+    this.localTags.addAll(other.getLocalTags());
   }
 
   public String getPublicStatusComment() {
@@ -477,8 +476,8 @@ public class ItemVO extends ValueObject implements Searchable {
         return false;
     } else if (other.files == null)
       return false;
-    else if (!files.containsAll(other.files) //
-        || !other.files.containsAll(files)) {
+    else if (!new HashSet<>(files).containsAll(other.files) //
+        || !new HashSet<>(other.files).containsAll(files)) {
       return false;
     }
 
@@ -499,8 +498,8 @@ public class ItemVO extends ValueObject implements Searchable {
         return false;
     } else if (other.localTags == null)
       return false;
-    else if (!localTags.containsAll(other.localTags) //
-        || !other.localTags.containsAll(localTags)) {
+    else if (!new HashSet<>(localTags).containsAll(other.localTags) //
+        || !new HashSet<>(other.localTags).containsAll(localTags)) {
       return false;
     }
 
@@ -512,8 +511,8 @@ public class ItemVO extends ValueObject implements Searchable {
         return false;
     } else if (other.metadataSets == null)
       return false;
-    else if (!metadataSets.containsAll(other.metadataSets) //
-        || !other.metadataSets.containsAll(metadataSets)) {
+    else if (!new HashSet<>(metadataSets).containsAll(other.metadataSets) //
+        || !new HashSet<>(other.metadataSets).containsAll(metadataSets)) {
       return false;
     }
 
@@ -543,8 +542,8 @@ public class ItemVO extends ValueObject implements Searchable {
         return false;
     } else if (other.relations == null)
       return false;
-    else if (!relations.containsAll(other.relations) //
-        || !other.relations.containsAll(relations)) {
+    else if (!new HashSet<>(relations).containsAll(other.relations) //
+        || !new HashSet<>(other.relations).containsAll(relations)) {
       return false;
     }
 

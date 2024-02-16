@@ -21,7 +21,7 @@ public class HTMLSubSupConverter implements Converter {
   @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
     final String snippet = (String) object;
-    final List<String> tags = new ArrayList<String>();
+    final List<String> tags = new ArrayList<>();
     tags.add("sup");
     tags.add("sub");
     tags.add("SUB");

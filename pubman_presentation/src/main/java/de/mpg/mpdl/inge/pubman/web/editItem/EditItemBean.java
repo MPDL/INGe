@@ -31,9 +31,9 @@ public class EditItemBean extends FacesBean {
   /** Checkbox if existing authors should be overwritten with the ones from author copy/paste */
   private boolean overwriteCreators;
 
-  private List<CreatorVOPresentation> creators = new ArrayList<CreatorVOPresentation>();
+  private List<CreatorVOPresentation> creators = new ArrayList<>();
 
-  private List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
+  private List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<>();
 
   /** The string with authors to parse for author copy&paste. */
   private String creatorParseString;
@@ -41,7 +41,7 @@ public class EditItemBean extends FacesBean {
   private boolean organizationPasted = false;
 
   /** List containing the ou number of the organizations which are mapped to a creator */
-  private final List<Integer> usedOrganizations = new ArrayList<Integer>();
+  private final List<Integer> usedOrganizations = new ArrayList<>();
 
   public List<CreatorVOPresentation> getCreators() {
     return this.creators;
@@ -60,7 +60,7 @@ public class EditItemBean extends FacesBean {
   }
 
   public void initOrganizationsFromCreators() {
-    final List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
+    final List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<>();
     for (final CreatorVOPresentation creator : this.creators) {
       if (creator.getType() == CreatorType.PERSON) {
         for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
@@ -246,17 +246,6 @@ public class EditItemBean extends FacesBean {
     return this.creatorParseString;
   }
 
-  /**
-   * Parses a string that includes creators in different formats and adds them to the given
-   * creatorCollection.
-   *
-   * @param creatorString The String to be parsed
-   * @param creatorCollection The collection to which the creators should be added
-   * @param orgs A list of organizations that should be added to every creator. null if no
-   *        organizations should be added.
-   * @param overwrite Indicates if the already existing creators should be overwritten
-   * @throws Exception
-   */
   public void parseCreatorString(String creatorString, List<OrganizationVO> orgs, boolean overwrite) throws Exception {
     final AuthorDecoder authDec = new AuthorDecoder(creatorString);
 

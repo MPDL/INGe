@@ -44,7 +44,7 @@ import java.nio.charset.StandardCharsets;
 public class IngeAaClientStart extends StartClient {
 
   @Override
-  protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) {
     String tan = request.getParameter("tan");
     String from = request.getParameter("target");
     String aaInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);

@@ -38,6 +38,7 @@ import java.net.URLDecoder;
 import java.rmi.AccessException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -308,15 +309,8 @@ public class DataHandlerService {
     return input;
   }
 
-  /**
-   * Fetches a record for given record identifier.
-   *
-   * @param this.sourceURL
-   * @return itemXML
-   * @throws DataacquisitionException
-   */
   private String fetchRecord(URL url, String encoding, DataSourceVO dataSourceVO) throws DataacquisitionException {
-    StringBuffer itemXML = new StringBuffer();
+    StringBuilder itemXML = new StringBuilder();
 
     try {
       URLConnection con = url.openConnection();
@@ -386,11 +380,7 @@ public class DataHandlerService {
   }
 
   public String getFileEnding() {
-    if (this.fileEnding == null) {
-      return "";
-    } else {
-      return this.fileEnding;
-    }
+    return Objects.requireNonNullElse(this.fileEnding, "");
   }
 
   public String getContentCategory() {

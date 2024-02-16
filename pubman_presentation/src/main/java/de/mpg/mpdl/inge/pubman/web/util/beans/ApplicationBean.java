@@ -97,7 +97,7 @@ public class ApplicationBean extends FacesBean {
   private Map<String, String> creatorRoleMap;
   private Map<String, String> excludedSourceGenreMap;
 
-  private Set<AffiliationDbVO> ouList = new HashSet<AffiliationDbVO>();
+  private Set<AffiliationDbVO> ouList = new HashSet<>();
 
   private String additionalLogoCss;
   private String appContext = "";
@@ -148,7 +148,7 @@ public class ApplicationBean extends FacesBean {
   private ItemTransformingService itemTransformingService;
 
   public ApplicationBean() {
-    this.languageSelectItems = new HashMap<String, SelectItem[]>();
+    this.languageSelectItems = new HashMap<>();
     this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
     this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
     this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
@@ -164,7 +164,7 @@ public class ApplicationBean extends FacesBean {
    * @return the URL
    */
   private String buildPubmanStyleTags() throws PubManStylesheetNotAvailableException {
-    final StringBuffer styleTags = new StringBuffer();
+    final StringBuilder styleTags = new StringBuilder();
     //    String StylesheetStandard = "";
     //    String StylesheetContrast = "";
     //    String StylesheetClassic = "";
@@ -268,19 +268,14 @@ public class ApplicationBean extends FacesBean {
   public SystemType getSystemTypeFromProperty() throws PubManVersionNotAvailableException {
     final String sysType = PropertyReader.getProperty(PropertyReader.INGE_SYSTEMTYPE);
 
-    if (sysType.equals("workstation")) {
-      return SystemType.Workstation;
-    } else if (sysType.equals("dev")) {
-      return SystemType.Dev_Server;
-    } else if (sysType.equals("qa")) {
-      return SystemType.QA_Server;
-    } else if (sysType.equals("test")) {
-      return SystemType.Test_Server;
-    } else if (sysType.equals("production")) {
-      return SystemType.Production_Server;
-    } else {
-      throw new PubManVersionNotAvailableException("SystemType Property unsupported!");
-    }
+    return switch (sysType) {
+      case "workstation" -> SystemType.Workstation;
+      case "dev" -> SystemType.Dev_Server;
+      case "qa" -> SystemType.QA_Server;
+      case "test" -> SystemType.Test_Server;
+      case "production" -> SystemType.Production_Server;
+      default -> throw new PubManVersionNotAvailableException("SystemType Property unsupported!");
+    };
   }
 
   public String getAdditionalLogoCss() {

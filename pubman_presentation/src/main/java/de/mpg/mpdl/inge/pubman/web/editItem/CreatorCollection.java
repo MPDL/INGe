@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 /**
  * Bean to handle the CreatorCollection on a single jsp. A CreatorCollection is represented by a
  * List&lt;CreatorVO>.
- * 
+ *
  * @author Mario Wagner
  */
 public class CreatorCollection {
@@ -50,13 +50,13 @@ public class CreatorCollection {
 
   /**
    * Specialized DataModelManager to deal with objects of type CreatorBean
-   * 
+   *
    * @author Mario Wagner
    */
   public class CreatorManager extends DataModelManager<CreatorBean> {
 
     public CreatorManager(List<CreatorVO> list) {
-      this.objectList = new ArrayList<CreatorBean>();
+      this.objectList = new ArrayList<>();
       for (final CreatorVO creatorVO : list) {
         final CreatorBean creatorBean = new CreatorBean(creatorVO);
         this.objectList.add(creatorBean);

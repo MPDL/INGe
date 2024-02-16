@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -95,13 +96,13 @@ public class ContextVO extends ValueObject implements Searchable {
   /**
    * The set union of validation points for items in this collection.
    */
-  private final java.util.List<ValidationPointVO> validationPoints = new java.util.ArrayList<ValidationPointVO>();
+  private final java.util.List<ValidationPointVO> validationPoints = new java.util.ArrayList<>();
   /**
    * The list of responsible affiliations for this collection.
    */
-  private final java.util.List<AffiliationRO> responsibleAffiliations = new java.util.ArrayList<AffiliationRO>();
+  private final java.util.List<AffiliationRO> responsibleAffiliations = new java.util.ArrayList<>();
 
-  private final List<AdminDescriptorVO> adminDescriptors = new ArrayList<AdminDescriptorVO>();
+  private final List<AdminDescriptorVO> adminDescriptors = new ArrayList<>();
 
   /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if this is a
@@ -314,8 +315,8 @@ public class ContextVO extends ValueObject implements Searchable {
         return false;
     } else if (other.adminDescriptors == null)
       return false;
-    else if (!adminDescriptors.containsAll(other.adminDescriptors) //
-        || !other.adminDescriptors.containsAll(adminDescriptors)) {
+    else if (!new HashSet<>(adminDescriptors).containsAll(other.adminDescriptors) //
+        || !new HashSet<>(other.adminDescriptors).containsAll(adminDescriptors)) {
       return false;
     }
 
@@ -354,8 +355,8 @@ public class ContextVO extends ValueObject implements Searchable {
         return false;
     } else if (other.responsibleAffiliations == null)
       return false;
-    else if (!responsibleAffiliations.containsAll(other.responsibleAffiliations) //
-        || !other.responsibleAffiliations.containsAll(responsibleAffiliations)) {
+    else if (!new HashSet<>(responsibleAffiliations).containsAll(other.responsibleAffiliations) //
+        || !new HashSet<>(other.responsibleAffiliations).containsAll(responsibleAffiliations)) {
       return false;
     }
 
@@ -373,8 +374,8 @@ public class ContextVO extends ValueObject implements Searchable {
         return false;
     } else if (other.validationPoints == null)
       return false;
-    else if (!validationPoints.containsAll(other.validationPoints) //
-        || !other.validationPoints.containsAll(validationPoints)) {
+    else if (!new HashSet<>(validationPoints).containsAll(other.validationPoints) //
+        || !new HashSet<>(other.validationPoints).containsAll(validationPoints)) {
       return false;
     }
 

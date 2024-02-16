@@ -23,7 +23,7 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
   private static Map<String, String> getPublicationStatusMap() {
 
 
-    final Map<String, String> publicationStatusMap = new LinkedHashMap<String, String>();
+    final Map<String, String> publicationStatusMap = new LinkedHashMap<>();
 
     publicationStatusMap.put("not-specified", "not-specified");
     publicationStatusMap.put("submitted", "submitted");

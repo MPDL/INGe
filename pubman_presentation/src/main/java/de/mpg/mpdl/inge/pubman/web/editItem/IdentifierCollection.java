@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web.editItem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class IdentifierCollection extends FacesBean {
 
   public IdentifierCollection() {
     // ensure the parentVO is never null;
-    this(new ArrayList<IdentifierVO>());
+    this(new ArrayList<>());
   }
 
   public IdentifierCollection(List<IdentifierVO> parentVO) {
@@ -73,7 +72,7 @@ public class IdentifierCollection extends FacesBean {
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
-    final ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
+    final ArrayList<SelectItem> selectItemList = new ArrayList<>();
 
     // constants for comboBoxes
     selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
@@ -83,12 +82,7 @@ public class IdentifierCollection extends FacesBean {
     }
 
     // Sort identifiers alphabetically
-    Collections.sort(selectItemList, new Comparator<SelectItem>() {
-      @Override
-      public int compare(SelectItem o1, SelectItem o2) {
-        return o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase());
-      }
-    });
+    selectItemList.sort((o1, o2) -> o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase()));
 
     return selectItemList.toArray(new SelectItem[] {});
   }

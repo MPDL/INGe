@@ -206,7 +206,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public abstract String getQueryStringContent();
 
-  public abstract void parseQueryStringContent(String content) throws SearchParseException;
+  public abstract void parseQueryStringContent(String content);
 
   public abstract boolean isEmpty(QueryType queryType);
 
@@ -544,7 +544,7 @@ public abstract class SearchCriterionBase implements Serializable {
     final List<SearchCriterionBase> cleanedScList = SearchCriterionBase.removeEmptyFields(scList, QueryType.CQL);
 
     // Set partner parenthesis for every parenthesis
-    final Stack<Parenthesis> parenthesisStack = new Stack<Parenthesis>();
+    final Stack<Parenthesis> parenthesisStack = new Stack<>();
     for (final SearchCriterionBase sc : cleanedScList) {
       if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
         parenthesisStack.push((Parenthesis) sc);
@@ -588,7 +588,7 @@ public abstract class SearchCriterionBase implements Serializable {
     // Remove unnecessary parenthesis
     while (SearchCriterion.OPENING_PARENTHESIS.equals(criterionList.get(0).getSearchCriterion())
         && SearchCriterion.CLOSING_PARENTHESIS.equals(criterionList.get(criterionList.size() - 1).getSearchCriterion())
-        && ((Parenthesis) criterionList.get(0)).getPartnerParenthesis() == ((Parenthesis) criterionList.get(criterionList.size() - 1))) {
+        && ((Parenthesis) criterionList.get(0)).getPartnerParenthesis() == criterionList.get(criterionList.size() - 1)) {
 
       criterionList.remove(0);
       criterionList.remove(criterionList.size() - 1);
@@ -697,9 +697,7 @@ public abstract class SearchCriterionBase implements Serializable {
     final List<SearchCriterionBase> removedList = SearchCriterionBase.removeEmptyFields(criterionList, QueryType.INTERNAL);
 
     final StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < removedList.size(); i++) {
-
-      final SearchCriterionBase criterion = removedList.get(i);
+    for (final SearchCriterionBase criterion : removedList) {
 
       final String query = criterion.toQueryString();
       if (query != null) {
@@ -714,17 +712,17 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
   public static List<SearchCriterionBase> queryStringToScList(String queryString) throws RuntimeException {
-    final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+    final List<SearchCriterionBase> scList = new ArrayList<>();
 
     final StringReader sr = new StringReader(queryString);
 
     int ch;
     try {
 
-      final StringBuffer substringBuffer = new StringBuffer();
+      final StringBuilder substringBuffer = new StringBuilder();
       SearchCriterion currentSearchCriterionName = null;
       SearchCriterionBase currentSearchCriterion = null;
-      final Stack<Parenthesis> parenthesisStack = new Stack<Parenthesis>();
+      final Stack<Parenthesis> parenthesisStack = new Stack<>();
       while ((ch = sr.read()) != -1) {
 
         if (ch == '=' && !substringBuffer.isEmpty() && substringBuffer.charAt(substringBuffer.length() - 1) != '\\') {
@@ -735,7 +733,7 @@ public abstract class SearchCriterionBase implements Serializable {
           }
 
           int contentChar;
-          final StringBuffer contentBuffer = new StringBuffer();
+          final StringBuilder contentBuffer = new StringBuilder();
           while ((contentChar = sr.read()) != -1) {
 
             if (contentChar == '"' && !(!contentBuffer.isEmpty() && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
@@ -762,15 +760,19 @@ public abstract class SearchCriterionBase implements Serializable {
         // Logical Operators
         else if (ch == ' ') {
           if (!substringBuffer.isEmpty()) {
-            if (substringBuffer.toString().toLowerCase().equals("and")) {
-              scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-              substringBuffer.setLength(0);
-            } else if (substringBuffer.toString().toLowerCase().equals("or")) {
-              scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
-              substringBuffer.setLength(0);
-            } else if (substringBuffer.toString().toLowerCase().equals("not")) {
-              scList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
-              substringBuffer.setLength(0);
+            switch (substringBuffer.toString().toLowerCase()) {
+              case "and" -> {
+                scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+                substringBuffer.setLength(0);
+              }
+              case "or" -> {
+                scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+                substringBuffer.setLength(0);
+              }
+              case "not" -> {
+                scList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
+                substringBuffer.setLength(0);
+              }
             }
 
 
@@ -822,12 +824,12 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList, QueryType queryType) {
     if (criterionList == null) {
-      return new ArrayList<SearchCriterionBase>();
+      return new ArrayList<>();
     } else {
 
 
-      final List<SearchCriterionBase> copyForRemoval = new ArrayList<SearchCriterionBase>(criterionList);
-      final List<SearchCriterionBase> copyForIteration = new ArrayList<SearchCriterionBase>(criterionList);
+      final List<SearchCriterionBase> copyForRemoval = new ArrayList<>(criterionList);
+      final List<SearchCriterionBase> copyForIteration = new ArrayList<>(criterionList);
       // Collections.copy(copy, criterionList);
 
       for (final SearchCriterionBase sc : copyForIteration) {
@@ -894,7 +896,7 @@ public abstract class SearchCriterionBase implements Serializable {
     criterionList.remove(criterion);
 
 
-    final List<SearchCriterionBase> parenthesisToRemove = new ArrayList<SearchCriterionBase>();
+    final List<SearchCriterionBase> parenthesisToRemove = new ArrayList<>();
     // now remove empty parenthesis
     for (int i = 0; i < criterionList.size(); i++) {
       final SearchCriterionBase sc = criterionList.get(i);

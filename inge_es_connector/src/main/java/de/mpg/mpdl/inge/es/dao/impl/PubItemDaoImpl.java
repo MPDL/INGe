@@ -123,7 +123,7 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
   }
 
 
-  public String createFulltext(String itemId, String fileId, byte[] file) throws IngeTechnicalException {
+  public void createFulltext(String itemId, String fileId, byte[] file) throws IngeTechnicalException {
     try {
 
       ObjectNode rootObject = mapper.createObjectNode();
@@ -139,7 +139,6 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
               IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setRouting(itemId)
           .setPipeline("attachment").setId(itemId + "__" + fileId).setSource(mapper.writeValueAsBytes(rootObject), XContentType.JSON).get();
       */
-      return indexResponse.id();
 
 
     } catch (Exception e) {

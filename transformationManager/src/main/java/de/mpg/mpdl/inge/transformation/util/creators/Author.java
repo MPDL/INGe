@@ -44,7 +44,7 @@ public class Author {
   private String prefix = null;
   private AuthorFormat format = null;
 
-  private final Map<String, String> tags = new HashMap<String, String>();
+  private final Map<String, String> tags = new HashMap<>();
 
   public String getSurname() {
     return surname;
@@ -68,20 +68,20 @@ public class Author {
     if (!givenName.isEmpty()) {
       if (givenName.contains("-")) {
         String[] names = givenName.split("-");
-        String init = "";
+        StringBuilder init = new StringBuilder();
         for (String name : names) {
-          init += name.charAt(0) + ".-";
+          init.append(name.charAt(0)).append(".-");
         }
         this.initial = init.substring(0, init.length() - 1);
       } else if (givenName.contains(" ")) {
         String[] names = givenName.split(" |\\.");
-        String init = "";
+        StringBuilder init = new StringBuilder();
         for (String name : names) {
           if (!"".equals(name)) {
-            init += name.charAt(0) + ". ";
+            init.append(name.charAt(0)).append(". ");
           }
         }
-        this.initial = init.trim();
+        this.initial = init.toString().trim();
       } else {
         this.initial = givenName.charAt(0) + ".";
       }
@@ -109,8 +109,7 @@ public class Author {
    * {@inheritDoc}
    */
   public boolean equals(Object obj) {
-    if (obj instanceof Author) {
-      Author other = (Author) obj;
+    if (obj instanceof Author other) {
 
       // givenName
       if (this.givenName == null) {

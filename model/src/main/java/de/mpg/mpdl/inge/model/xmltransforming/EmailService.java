@@ -26,12 +26,6 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Properties;
-
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
@@ -44,11 +38,14 @@ import jakarta.mail.Multipart;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
-import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
+import java.io.File;
+import java.util.Date;
+import java.util.Properties;
+import org.apache.log4j.Logger;
 
 /**
  * @author Galina Stancheva (initial creation)
@@ -149,7 +146,7 @@ public class EmailService {
     return status;
   }
 
-  private static void addAtachments(String[] attachments, Multipart multipart) throws MessagingException, AddressException {
+  private static void addAtachments(String[] attachments, Multipart multipart) throws MessagingException {
     for (String filename : attachments) {
       MimeBodyPart attachmentBodyPart = new MimeBodyPart();
 

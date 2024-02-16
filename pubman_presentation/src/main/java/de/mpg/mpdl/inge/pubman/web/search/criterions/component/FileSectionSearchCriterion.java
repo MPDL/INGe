@@ -119,7 +119,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public void parseQueryStringContent(String content) throws SearchParseException {
+  public void parseQueryStringContent(String content) {
     String[] parts = content.split("\\|\\|", -1);
     this.selectedAvailability = ComponentAvailability.valueOf(parts[0]);
     this.visibilityListSearchCriterion.parseQueryStringContent(parts[1]);

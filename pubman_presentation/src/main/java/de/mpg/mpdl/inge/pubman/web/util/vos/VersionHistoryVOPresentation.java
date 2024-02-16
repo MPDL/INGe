@@ -25,7 +25,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
 
   public VersionHistoryVOPresentation(VersionHistoryEntryVO versionHistoryEntryVO) {
-    this.eventLogEntries = new ArrayList<EventLogEntryVOPresentation>();
+    this.eventLogEntries = new ArrayList<>();
     this.setEvents(versionHistoryEntryVO.getEvents());
     this.setModificationDate(versionHistoryEntryVO.getModificationDate());
     this.setReference(versionHistoryEntryVO.getReference());
@@ -44,7 +44,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
   /**
    * JSF action to rollback the item to this version.
-   * 
+   *
    * @return Nothing
    */
   public String rollback() throws Exception {
@@ -93,7 +93,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
         .setCurrentPubItem(new PubItemVOPresentation(pubItemVONewVersion));
 
-    final ViewItemFull viewItemFull = (ViewItemFull) FacesTools.findBean("ViewItemFull");
+    final ViewItemFull viewItemFull = FacesTools.findBean("ViewItemFull");
     viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
     viewItemFull.init();
 

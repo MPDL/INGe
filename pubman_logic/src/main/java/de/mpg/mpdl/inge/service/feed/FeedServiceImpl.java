@@ -142,16 +142,9 @@ public class FeedServiceImpl {
   //    return catList;
   //  }
 
-  /**
-   * Transformation method takes ItemList XML and transforms it to the list of syndication entries (
-   * <code><List>SyndEntry</code>)
-   *
-   * @param itemList
-   * @return <List>SyndEntry
-   */
   private List<SyndEntry> transformToEntryList(List<SearchRetrieveRecordVO> recordList) {
 
-    List<SyndEntry> entries = new ArrayList<SyndEntry>();
+    List<SyndEntry> entries = new ArrayList<>();
 
 
 
@@ -188,7 +181,7 @@ public class FeedServiceImpl {
       // Category
       String subj = md.getFreeKeywords();
       if (subj != null && !subj.isEmpty()) {
-        List<SyndCategory> categories = new ArrayList<SyndCategory>();
+        List<SyndCategory> categories = new ArrayList<>();
         SyndCategory scat = new SyndCategoryImpl();
         scat.setName(subj);
         categories.add(scat);
@@ -197,9 +190,9 @@ public class FeedServiceImpl {
 
 
       if (md.getCreators() != null && !md.getCreators().isEmpty()) {
-        List<SyndPerson> authors = new ArrayList<SyndPerson>();
+        List<SyndPerson> authors = new ArrayList<>();
         SyndPerson sp;
-        StringBuffer allCrs = new StringBuffer();
+        StringBuilder allCrs = new StringBuilder();
         int counter = 0;
         for (CreatorVO creator : md.getCreators()) {
 

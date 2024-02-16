@@ -63,8 +63,10 @@
 					<%
 						Set<Model> modelList = ModelList.getInstance().getList();
 						boolean loggedIn = Login.getLoggedIn(request);
-						boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
-						boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
+						boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+                                .getAttribute("edit_open_vocabulary"));
+						boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+                                .getAttribute("edit_closed_vocabulary"));
 
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
 					%>

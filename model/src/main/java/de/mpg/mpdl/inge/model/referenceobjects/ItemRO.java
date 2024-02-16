@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import java.util.Objects;
 
 /**
  * The class for item references.
@@ -295,11 +296,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
 
   @JsonIgnore
   public Date getModificationDateForXml() {
-    if (modificationDate == null) {
-      return new Date();
-    } else {
-      return modificationDate;
-    }
+    return Objects.requireNonNullElseGet(modificationDate, Date::new);
   }
 
   @JsonIgnore
@@ -313,20 +310,12 @@ public class ItemRO extends ReferenceObject implements Cloneable {
 
   @JsonIgnore
   public AccountUserRO getModifiedByForXml() {
-    if (modifiedByRO == null) {
-      return new AccountUserRO();
-    } else {
-      return modifiedByRO;
-    }
+    return Objects.requireNonNullElseGet(modifiedByRO, AccountUserRO::new);
   }
 
   @JsonIgnore
   public String getLastMessageForXml() {
-    if (lastMessage == null) {
-      return "";
-    } else {
-      return lastMessage;
-    }
+    return Objects.requireNonNullElse(lastMessage, "");
   }
 
   @Override

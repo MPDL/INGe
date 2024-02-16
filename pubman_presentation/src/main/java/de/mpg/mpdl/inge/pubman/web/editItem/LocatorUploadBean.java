@@ -62,6 +62,6 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    return FacesTools.findBean("EditItemSessionBean");
   }
 }

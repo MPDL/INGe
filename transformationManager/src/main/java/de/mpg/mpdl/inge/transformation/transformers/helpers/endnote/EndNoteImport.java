@@ -28,7 +28,7 @@ public class EndNoteImport {
 
     List<String> itemList = splitItems(file);
     if (itemList != null && itemList.size() > 1) { // transform items to XML
-      List<List<Pair>> itemPairsList = new ArrayList<List<Pair>>();
+      List<List<Pair>> itemPairsList = new ArrayList<>();
       for (String s : itemList) {
         List<Pair> itemPairs = getItemPairs(splitItemElements(s));
         itemPairsList.add(itemPairs);
@@ -50,10 +50,10 @@ public class EndNoteImport {
    * @return
    */
   public List<String> splitItems(String itemsStr) {
-    List<String> l = new ArrayList<String>();
+    List<String> l = new ArrayList<>();
     String buff;
     boolean firstItem = true;
-    StringBuffer sb = null;
+    StringBuilder sb = null;
     int counter = 0;
 
     // replace first empty lines and BOM
@@ -69,13 +69,13 @@ public class EndNoteImport {
           // first item handling
           if (firstItem) {
             firstItem = false;
-            sb = new StringBuffer();
+            sb = new StringBuilder();
           }
           // new item
           else if (counter >= 1 && buff.startsWith("%0")) {
             l.add(sb.toString().trim());
             counter = 0;
-            sb = new StringBuffer();
+            sb = new StringBuilder();
           }
           sb.append(buff).append("\n");
         }
@@ -103,7 +103,7 @@ public class EndNoteImport {
    */
   public List<String> splitItemElements(String itemStr) {
 
-    List<String> l = new ArrayList<String>();
+    List<String> l = new ArrayList<>();
     String pattern = "(\\r\\n|\\n|\\r)%";
     Pattern p = Pattern.compile(pattern);
     for (String s : p.split("\n" + itemStr))
@@ -115,15 +115,9 @@ public class EndNoteImport {
 
   }
 
-  /**
-   * get item pairs from item string and pack them into the <code>List</code>
-   *
-   * @param string - EndNote item as string
-   * @return String list with item key-value pairs
-   */
   public List<Pair> getItemPairs(List<String> lines) {
 
-    List<Pair> pairList = new ArrayList<Pair>();
+    List<Pair> pairList = new ArrayList<>();
     if (lines != null) {
       for (String line : lines) {
         Pair p = createEndNotePairByString(line);
@@ -134,12 +128,6 @@ public class EndNoteImport {
     return pairList;
   }
 
-  /**
-   * get a EndNote <code>Pair</code> from line string
-   *
-   * @param string - EndNote line as string
-   * @return Pair - key-value pair created by string line
-   */
   public Pair createEndNotePairByString(String line) {
     Pattern p = Pattern.compile("^(%\\S)\\s+(.*)$", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
     Matcher m = p.matcher(line);
@@ -163,12 +151,6 @@ public class EndNoteImport {
     return xml;
   }
 
-  /**
-   * creates the complete item list in xml
-   *
-   * @param item pair list
-   * @return xml string of the whole item list
-   */
   public String transformItemPairsListToXML(List<List<Pair>> itemList) {
     String xml = "";
     if (itemList != null && !itemList.isEmpty())

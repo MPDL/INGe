@@ -35,11 +35,11 @@ public class BatchProcessLogDbVO implements Serializable {
 
 
   public BatchProcessLogDbVO() {
-    this.batchProcessLogItemList = new ArrayList<BatchProcessItemVO>();
+    this.batchProcessLogItemList = new ArrayList<>();
   }
 
   public BatchProcessLogDbVO(AccountUserDbVO accountUser) {
-    this.batchProcessLogItemList = new ArrayList<BatchProcessItemVO>();
+    this.batchProcessLogItemList = new ArrayList<>();
     this.userId = accountUser.getObjectId();
   }
 

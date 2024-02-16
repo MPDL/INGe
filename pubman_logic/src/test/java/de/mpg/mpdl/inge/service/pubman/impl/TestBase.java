@@ -70,7 +70,7 @@ public class TestBase {
     Principal principal = null;
     try {
       principal = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
+    } catch (IngeTechnicalException | AuthenticationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
@@ -82,7 +82,7 @@ public class TestBase {
     Principal principal = null;
     try {
       principal = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
+    } catch (IngeTechnicalException | AuthenticationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
@@ -94,7 +94,7 @@ public class TestBase {
     Principal principal = null;
     try {
       principal = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
+    } catch (IngeTechnicalException | AuthenticationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }

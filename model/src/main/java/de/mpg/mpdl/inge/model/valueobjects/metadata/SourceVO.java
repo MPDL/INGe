@@ -32,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import java.util.HashSet;
 
 /**
  * Some items are published as part of a bundle, e.g. a journal, a book, a series or a database. The
@@ -305,16 +306,16 @@ public class SourceVO extends ValueObject implements Cloneable {
     try {
       SourceVO clone = (SourceVO) super.clone();
       for (AlternativeTitleVO title : this.alternativeTitles) {
-        clone.alternativeTitles.add((AlternativeTitleVO) title.clone());
+        clone.alternativeTitles.add(title.clone());
       }
       for (CreatorVO creator : this.creators) {
-        clone.creators.add((CreatorVO) creator.clone());
+        clone.creators.add(creator.clone());
       }
       for (IdentifierVO identifier : this.identifiers) {
-        clone.identifiers.add((IdentifierVO) identifier.clone());
+        clone.identifiers.add(identifier.clone());
       }
       for (SourceVO source : this.sources) {
-        clone.sources.add((SourceVO) source.clone());
+        clone.sources.add(source.clone());
       }
       return clone;
     } catch (CloneNotSupportedException e) {
@@ -361,8 +362,8 @@ public class SourceVO extends ValueObject implements Cloneable {
         return false;
     } else if (other.alternativeTitles == null)
       return false;
-    else if (!alternativeTitles.containsAll(other.alternativeTitles) //
-        || !other.alternativeTitles.containsAll(alternativeTitles)) {
+    else if (!new HashSet<>(alternativeTitles).containsAll(other.alternativeTitles) //
+        || !new HashSet<>(other.alternativeTitles).containsAll(alternativeTitles)) {
       return false;
     }
 
@@ -371,8 +372,8 @@ public class SourceVO extends ValueObject implements Cloneable {
         return false;
     } else if (other.creators == null)
       return false;
-    else if (!creators.containsAll(other.creators) //
-        || !other.creators.containsAll(creators)) {
+    else if (!new HashSet<>(creators).containsAll(other.creators) //
+        || !new HashSet<>(other.creators).containsAll(creators)) {
       return false;
     }
 
@@ -396,8 +397,8 @@ public class SourceVO extends ValueObject implements Cloneable {
         return false;
     } else if (other.identifiers == null)
       return false;
-    else if (!identifiers.containsAll(other.identifiers) //
-        || !other.identifiers.containsAll(identifiers)) {
+    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
       return false;
     }
 
@@ -424,8 +425,8 @@ public class SourceVO extends ValueObject implements Cloneable {
         return false;
     } else if (other.sources == null)
       return false;
-    else if (!sources.containsAll(other.sources) //
-        || !other.sources.containsAll(sources)) {
+    else if (!new HashSet<>(sources).containsAll(other.sources) //
+        || !new HashSet<>(other.sources).containsAll(sources)) {
       return false;
     }
 

@@ -57,7 +57,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
   public Map<String, String> getConfiguration() {
     Map<String, String> superConfig = super.getConfiguration();
     if (superConfig == null || superConfig.isEmpty()) {
-      Map<String, String> c = new HashMap<String, String>();
+      Map<String, String> c = new HashMap<>();
       try {
         c = getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BIBTEX_CONFIGURATION_FILENAME);
 
@@ -72,7 +72,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
     return superConfig;
   }
 
-  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
     TransformerFactoryImpl xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");

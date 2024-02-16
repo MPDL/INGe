@@ -43,7 +43,7 @@ public class AuthCookieToHeaderFilter implements Filter {
   private UserAccountService userAccountService;
 
   @Override
-  public void init(FilterConfig filterConfig) throws ServletException {
+  public void init(FilterConfig filterConfig) {
     this.userAccountService =
         WebApplicationContextUtils.getWebApplicationContext(filterConfig.getServletContext()).getBean(UserAccountService.class);
 
@@ -140,7 +140,7 @@ public class AuthCookieToHeaderFilter implements Filter {
       super(request);
     }
 
-    private final Map<String, String> headerMap = new HashMap<String, String>();
+    private final Map<String, String> headerMap = new HashMap<>();
 
     /**
      * add a header with given name and value
@@ -167,9 +167,7 @@ public class AuthCookieToHeaderFilter implements Filter {
     @Override
     public Enumeration<String> getHeaderNames() {
       List<String> names = Collections.list(super.getHeaderNames());
-      for (String name : headerMap.keySet()) {
-        names.add(name);
-      }
+      names.addAll(headerMap.keySet());
       return Collections.enumeration(names);
     }
 

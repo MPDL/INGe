@@ -83,7 +83,7 @@ public abstract class SingleTransformer implements Transformer {
       return null;
     } else {
       try {
-        Map<String, String> config = new HashMap<String, String>();
+        Map<String, String> config = new HashMap<>();
         InputStream propertyInputStram = ResourceUtil.getResourceAsStream(propertyFileName, SingleTransformer.class.getClassLoader());
         Properties props = new Properties();
         props.load(propertyInputStram);
@@ -109,7 +109,7 @@ public abstract class SingleTransformer implements Transformer {
       return null;
     } else {
       try {
-        Map<String, List<String>> properties = new HashMap<String, List<String>>();
+        Map<String, List<String>> properties = new HashMap<>();
         InputStream propertyInputStram = ResourceUtil.getResourceAsStream(propertyFileName, SingleTransformer.class.getClassLoader());
         Properties props = new Properties();
         props.load(propertyInputStram);
@@ -212,7 +212,7 @@ public abstract class SingleTransformer implements Transformer {
   }
 
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return new ArrayList<String>();
+    return new ArrayList<>();
   }
 
 

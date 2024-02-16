@@ -23,7 +23,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This class handles the import function from external sources.
- * 
+ *
  * @author kleinfe1
  * @author $Author$ (last modification)
  */
@@ -47,20 +47,19 @@ public class DataSourceHandlerService {
 
   /**
    * Returns all available Sources.
-   * 
+   *
    * @return List of DataSourceVO
    * @throws RuntimeException
    */
   public List<DataSourceVO> getSources(String transformationFormat, String sourceStatus) throws RuntimeException {
-    List<DataSourceVO> sources = new ArrayList<DataSourceVO>();
+    List<DataSourceVO> sources = new ArrayList<>();
 
     try {
       ImportSourceType[] sourceTypes = getImportSourceTypes();
 
-      for (int i = 0; i < sourceTypes.length; i++) {
-        ImportSourceType sourceType = sourceTypes[i];
-        List<FullTextVO> fulltextVec = new ArrayList<FullTextVO>();
-        List<MetadataVO> mdVec = new ArrayList<MetadataVO>();
+      for (ImportSourceType sourceType : sourceTypes) {
+        List<FullTextVO> fulltextVec = new ArrayList<>();
+        List<MetadataVO> mdVec = new ArrayList<>();
 
         String status = simpleLiteralTostring(sourceType.getStatus());
         if (status.equalsIgnoreCase(sourceStatus)) {
@@ -76,18 +75,18 @@ public class DataSourceHandlerService {
 
           // Accepted identifier Prefixes
           SimpleLiteral[] idPrefArr = sourceType.getSourceIdentifierArray();
-          List<String> idPrefVec = new ArrayList<String>();
-          for (int x = 0; x < idPrefArr.length; x++) {
-            String idPref = simpleLiteralTostring(idPrefArr[x]);
+          List<String> idPrefVec = new ArrayList<>();
+          for (SimpleLiteral literal : idPrefArr) {
+            String idPref = simpleLiteralTostring(literal);
             idPrefVec.add(idPref);
           }
           sourceVO.setIdentifier(idPrefVec);
 
           // Identifier Examples
           SimpleLiteral[] idExArr = sourceType.getSourceIdentifierExampleArray();
-          List<String> idExVec = new ArrayList<String>();
-          for (int y = 0; y < idExArr.length; y++) {
-            String idEx = simpleLiteralTostring(idExArr[y]);
+          List<String> idExVec = new ArrayList<>();
+          for (SimpleLiteral simpleLiteral : idExArr) {
+            String idEx = simpleLiteralTostring(simpleLiteral);
             idExVec.add(idEx);
           }
           sourceVO.setIdentifierExample(idExVec);
@@ -197,15 +196,15 @@ public class DataSourceHandlerService {
 
   /**
    * Returns a specific source.
-   * 
+   *
    * @param name
    * @return corresponding source
    * @throws RuntimeException
    */
   public DataSourceVO getSourceByName(String name) throws RuntimeException {
     DataSourceVO sourceVO = new DataSourceVO();
-    List<FullTextVO> fulltextVec = new ArrayList<FullTextVO>();
-    List<MetadataVO> mdVec = new ArrayList<MetadataVO>();
+    List<FullTextVO> fulltextVec = new ArrayList<>();
+    List<MetadataVO> mdVec = new ArrayList<>();
     boolean found = false;
 
     try {
@@ -229,18 +228,18 @@ public class DataSourceHandlerService {
 
         // Accepted identifier Prefixes
         SimpleLiteral[] idPrefArr = sourceType.getSourceIdentifierArray();
-        List<String> idPrefVec = new ArrayList<String>();
-        for (int i = 0; i < idPrefArr.length; i++) {
-          String idPref = simpleLiteralTostring(idPrefArr[i]);
+        List<String> idPrefVec = new ArrayList<>();
+        for (SimpleLiteral literal : idPrefArr) {
+          String idPref = simpleLiteralTostring(literal);
           idPrefVec.add(idPref);
         }
         sourceVO.setIdentifier(idPrefVec);
 
         // Identifier Examples
         SimpleLiteral[] idExArr = sourceType.getSourceIdentifierExampleArray();
-        List<String> idExVec = new ArrayList<String>();
-        for (int y = 0; y < idExArr.length; y++) {
-          String idEx = simpleLiteralTostring(idExArr[y]);
+        List<String> idExVec = new ArrayList<>();
+        for (SimpleLiteral simpleLiteral : idExArr) {
+          String idEx = simpleLiteralTostring(simpleLiteral);
           idExVec.add(idEx);
         }
         sourceVO.setIdentifierExample(idExVec);
@@ -306,7 +305,7 @@ public class DataSourceHandlerService {
 
   /**
    * Returns a specific source.
-   * 
+   *
    * @param id
    * @return corresponding source
    * @throws RuntimeException
@@ -316,10 +315,8 @@ public class DataSourceHandlerService {
 
     for (ImportSourceType sourceType : sourceTypes) {
       SimpleLiteral[] idPrefVec = sourceType.getSourceIdentifierArray();
-      for (int x = 0; x < idPrefVec.length; x++) {
-        SimpleLiteral idPref = idPrefVec[x];
+      for (SimpleLiteral idPref : idPrefVec) {
         if (!simpleLiteralTostring(idPref).equalsIgnoreCase(id)) {
-          continue;
         } else {
           return this.getSourceByName(sourceType.getName());
         }
@@ -331,7 +328,7 @@ public class DataSourceHandlerService {
 
   /**
    * Returns a source name.
-   * 
+   *
    * @param id
    * @return corresponding source name
    * @throws RuntimeException
@@ -341,10 +338,8 @@ public class DataSourceHandlerService {
 
     for (ImportSourceType sourceType : sourceTypes) {
       SimpleLiteral[] idPrefVec = sourceType.getSourceIdentifierArray();
-      for (int x = 0; x < idPrefVec.length; x++) {
-        SimpleLiteral idPref = idPrefVec[x];
+      for (SimpleLiteral idPref : idPrefVec) {
         if (!simpleLiteralTostring(idPref).equalsIgnoreCase(id)) {
-          continue;
         } else {
           return sourceType.getName();
         }
@@ -357,7 +352,7 @@ public class DataSourceHandlerService {
   //  /**
   //   * This operation returns the metadata informations to fetch. If no format from was specified the
   //   * default metadata informations are fetched
-  //   * 
+  //   *
   //   * @param dataSourceVO
   //   * @param format the format of which the metadata will be retrieved
   //   * @return metadata informations
@@ -377,7 +372,7 @@ public class DataSourceHandlerService {
 
   /**
    * Returns the default MetadataVO from a source.
-   * 
+   *
    * @param source
    * @return MetadataVO
    */
@@ -396,7 +391,7 @@ public class DataSourceHandlerService {
 
   /**
    * This operation updates a metadata information set of the importSource.
-   * 
+   *
    * @param source
    * @param md the metadata object which will be updated
    * @return ImportSourceVO with updated metadata informations

@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class SearchRetrieveResponseVoToItemXml extends SingleTransformer impleme
     try {
       SearchRetrieveResponseVO<ItemVersionVO> searchResult =
           (SearchRetrieveResponseVO<ItemVersionVO>) ((TransformerVoSource) source).getSource();
-      List<ItemVersionVO> itemList = searchResult.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+      List<ItemVersionVO> itemList = searchResult.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
       List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
 
       ItemVOListWrapper listWrapper = new ItemVOListWrapper();
@@ -49,7 +50,7 @@ public class SearchRetrieveResponseVoToItemXml extends SingleTransformer impleme
       }
 
       String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
-      writeStringToStreamResult(escidocItemList, (TransformerStreamResult) result);
+      writeStringToStreamResult(escidocItemList, result);
     } catch (Exception e) {
       throw new TransformationException("Error while citation transformation", e);
     }
@@ -62,7 +63,7 @@ public class SearchRetrieveResponseVoToItemXml extends SingleTransformer impleme
     return tr;
   }
 
-  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
     TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");

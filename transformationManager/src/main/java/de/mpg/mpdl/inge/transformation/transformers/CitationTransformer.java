@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -69,7 +70,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     try {
       SearchRetrieveResponseVO<ItemVersionVO> s = (SearchRetrieveResponseVO<ItemVersionVO>) ((TransformerVoSource) source).getSource();
 
-      List<ItemVersionVO> itemList = s.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+      List<ItemVersionVO> itemList = s.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
       ExportFormatVO exportFormat = new ExportFormatVO(getTargetFormat().getName(), getConfiguration().get(CONFIGURATION_CITATION),
           getConfiguration().get(CONFIGURATION_CSL_ID));
 
@@ -79,7 +80,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       byte[] content = integrateCitationIntoOutput(exportFormat, s, itemList, citationList);
 
 
-      writeByteArrayToStreamResult(content, (TransformerStreamResult) result);
+      writeByteArrayToStreamResult(content, result);
     } catch (Exception e) {
       logger.error(e);
       throw new TransformationException("Error while citation transformation", e);
@@ -237,7 +238,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     return sw.toString();
   }
 
-  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
     TransformerFactoryImpl xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");

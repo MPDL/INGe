@@ -32,7 +32,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -58,10 +57,10 @@ public class ObjectComparator {
   private static final MessageFormat FIRST_VALUE_NULL = new MessageFormat("First object is null, second object is {0}.");
   private static final MessageFormat SECOND_VALUE_NULL = new MessageFormat("First object is {0}, second object is null.");
 
-  private final List<String> diffs = new ArrayList<String>();
-  private final List<String> fieldnames = new ArrayList<String>();
+  private final List<String> diffs = new ArrayList<>();
+  private final List<String> fieldnames = new ArrayList<>();
 
-  private final Set<Object> compared = new HashSet<Object>();
+  private final Set<Object> compared = new HashSet<>();
 
   /**
    * Creates a new ObjectComparator instance that compares the two given objects. Note: Compare also
@@ -117,13 +116,6 @@ public class ObjectComparator {
     return result.toString();
   }
 
-  /**
-   * Compares two objects dealing also with null values.
-   *
-   * @param o1 The first object to compare.
-   * @param o2 The second object to compare.
-   * @return true if the two objects are equal otherwise false.
-   */
   protected boolean equals(Object obj1, Object obj2) {
     if (obj1 != null) {
       if (!obj1.equals(obj2)) {
@@ -177,9 +169,8 @@ public class ObjectComparator {
         if (!equals(fieldValue1, fieldValue2)) {
           diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(), fieldValue1, fieldValue2}));
         }
-      } else if (fieldValue1 instanceof List) {
+      } else if (fieldValue1 instanceof List<?> list1) {
         // Check type of list
-        List<?> list1 = (List<?>) fieldValue1;
         List<?> list2 = (List<?>) fieldValue2;
         if (list1.size() != list2.size()) {
           diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.size(), list2.size()}));
@@ -238,9 +229,8 @@ public class ObjectComparator {
   }
 
   private String getFieldNames() {
-    StringBuffer s = new StringBuffer();
-    for (Iterator<String> iter = fieldnames.iterator(); iter.hasNext();) {
-      String element = (String) iter.next();
+    StringBuilder s = new StringBuilder();
+    for (String element : fieldnames) {
       if (!element.isEmpty()) {
         if (!s.isEmpty() && (!element.startsWith("["))) {
           s.append(".");

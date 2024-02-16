@@ -310,8 +310,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   }
 
   @Override
-  public void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response) {
 
     removeTokenCookie(request, response);
 
@@ -333,7 +332,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   @Override
   public Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException {
     if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
       throw new AuthenticationException("Could not login, Please provide correct username and password!");
     }
@@ -348,8 +347,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     return loginUserOrAnonymous(username, password, null, null, false);
   }
 
-  public Principal login(HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public Principal login(HttpServletRequest request, HttpServletResponse response) throws IngeTechnicalException, AuthenticationException {
 
     return loginUserOrAnonymous(null, null, request, response, false);
   }
@@ -451,7 +449,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   }
 
   @Override
-  public AccountUserDbVO get(String authenticationToken) throws IngeTechnicalException, AuthenticationException {
+  public AccountUserDbVO get(String authenticationToken) throws AuthenticationException {
     DecodedJWT jwt = verifyToken(authenticationToken);
     String userId = jwt.getSubject();
     return userAccountRepository.findByLoginname(userId);

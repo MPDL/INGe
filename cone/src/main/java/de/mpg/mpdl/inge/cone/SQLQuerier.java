@@ -121,15 +121,15 @@ public class SQLQuerier implements Querier {
       String subQuery = "matches.model = '" + modelName + "'";
       String order1 = "";
       String order2 = "";
-      for (int i = 0; i < searchStrings.length; i++) {
+      for (String string : searchStrings) {
         subQuery += " and";
-        if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-          subQuery += " ('|' || matches.value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+        if (string.startsWith("\"") && string.endsWith("\"")) {
+          subQuery += " ('|' || matches.value || '|') ilike '%|" + string.substring(1, string.length() - 1) + "|%'";
         } else {
-          subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
-          order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
-          order2 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "%' desc, ('|' || matches.value || '|') ilike '% "
-              + searchStrings[i] + "%' desc, ";
+          subQuery += " matches.value ilike '%" + string + "%'";
+          order1 += "('|' || matches.value || '|') ilike '%|" + string + "|%' desc, ";
+          order2 += "('|' || matches.value || '|') ilike '%|" + string + "%' desc, ('|' || matches.value || '|') ilike '% " + string
+              + "%' desc, ";
 
         }
       }
@@ -150,14 +150,14 @@ public class SQLQuerier implements Querier {
 
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
-      List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
+      List<Pair<LocalizedString>> resultSet = new ArrayList<>();
       while (result.next()) {
         String id = result.getString("id");
         String value = result.getString("value");
         String lang = result.getString("lang");
         String type = result.getString("type");
         String sortKey = result.getString("sort");
-        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
+        Pair<LocalizedString> pair = new Pair<>(id, new ResultEntry(value, lang, type, sortKey));
         resultSet.add(pair);
       }
 
@@ -212,14 +212,14 @@ public class SQLQuerier implements Querier {
 
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
-      List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
+      List<Pair<LocalizedString>> resultSet = new ArrayList<>();
       while (result.next()) {
         String id = result.getString("id");
         String value = result.getString("value");
         String lang = result.getString("lang");
         String type = result.getString("type");
         String sortKey = result.getString("sort");
-        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
+        Pair<LocalizedString> pair = new Pair<>(id, new ResultEntry(value, lang, type, sortKey));
         resultSet.add(pair);
       }
 
@@ -256,15 +256,15 @@ public class SQLQuerier implements Querier {
       String subQuery = "model = '" + modelName + "'";
       String order1 = "";
       String order2 = "";
-      for (int i = 0; i < searchStrings.length; i++) {
+      for (String string : searchStrings) {
         subQuery += " and";
-        if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-          subQuery += " ('|' || matches.value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+        if (string.startsWith("\"") && string.endsWith("\"")) {
+          subQuery += " ('|' || matches.value || '|') ilike '%|" + string.substring(1, string.length() - 1) + "|%'";
         } else {
-          subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
-          order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
-          order2 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "%' desc, ('|' || matches.value || '|') ilike '% "
-              + searchStrings[i] + "%' desc, ";
+          subQuery += " matches.value ilike '%" + string + "%'";
+          order1 += "('|' || matches.value || '|') ilike '%|" + string + "|%' desc, ";
+          order2 += "('|' || matches.value || '|') ilike '%|" + string + "%' desc, ('|' || matches.value || '|') ilike '% " + string
+              + "%' desc, ";
         }
       }
       query = "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id "
@@ -284,7 +284,7 @@ public class SQLQuerier implements Querier {
 
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
-      List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
+      List<TreeFragment> resultSet = new ArrayList<>();
       while (result.next()) {
         String id = result.getString("id");
         TreeFragment treeFragment = details(modelName, id, language);
@@ -342,7 +342,7 @@ public class SQLQuerier implements Querier {
 
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
-      List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
+      List<TreeFragment> resultSet = new ArrayList<>();
       while (result.next()) {
         String id = result.getString("id");
         TreeFragment treeFragment = details(modelName, id, language);
@@ -453,13 +453,13 @@ public class SQLQuerier implements Querier {
           String[] subResult;
           if (predicate.isResource()) {
             String subModelName = predicate.getResourceModel();
-            Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
+            Pair<String> subPair = new Pair<>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
             joinClause += " inner join triples triples" + counter + "_" + (level + 1) + " on " + table + ".object = triples" + counter + "_"
                 + (level + 1) + ".subject ";
             subQuery += " and " + table + ".predicate = '" + predicate.getId() + "' ";
             subResult = getSubqueries(subModelName, new Pair[] {subPair}, null, level + 1, counter);
           } else {
-            Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
+            Pair<String> subPair = new Pair<>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
             joinClause += " inner join triples triples" + counter + "_" + (level + 1) + " on " + table + ".object = triples" + counter + "_"
                 + (level + 1) + ".subject ";
             subQuery += " and " + table + ".predicate = '" + predicate.getId() + "' ";
@@ -485,7 +485,7 @@ public class SQLQuerier implements Querier {
   private String[] formatSearchString(String searchString) {
     searchString = searchString.replace("'", "''").replace('*', '%').trim();
 
-    ArrayList<String> list = new ArrayList<String>();
+    ArrayList<String> list = new ArrayList<>();
 
     Pattern pattern = Pattern.compile("(\"[^\"]*\")");
     Matcher matcher = pattern.matcher(searchString);
@@ -521,7 +521,7 @@ public class SQLQuerier implements Querier {
       }
 
       if (modelName != null) {
-        Stack<String> idStack = new Stack<String>();
+        Stack<String> idStack = new Stack<>();
         idStack.push(id);
 
         TreeFragment result = details(modelName, id, language, idStack, connection);
@@ -601,7 +601,7 @@ public class SQLQuerier implements Querier {
               if (resultMap.containsKey(predicateValue)) {
                 resultMap.get(predicateValue).add(localizedTripleObject);
               } else {
-                ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
+                ArrayList<LocalizedTripleObject> newEntry = new ArrayList<>();
                 newEntry.add(localizedTripleObject);
                 resultMap.put(predicateValue, newEntry);
               }
@@ -883,7 +883,7 @@ public class SQLQuerier implements Querier {
         statement.setInt(2, hits);
       }
       ResultSet result = statement.executeQuery();
-      List<String> results = new ArrayList<String>();
+      List<String> results = new ArrayList<>();
       while (result.next()) {
         results.add(result.getString("subject"));
       }

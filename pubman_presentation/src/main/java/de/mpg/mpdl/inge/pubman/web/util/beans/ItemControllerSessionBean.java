@@ -226,7 +226,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    return FacesTools.findBean("ContextListSessionBean");
   }
 
   public ContextDbVO getCurrentContext() {
@@ -259,7 +259,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    return FacesTools.findBean("EditItemSessionBean");
   }
 
   /**
@@ -525,18 +525,6 @@ public class ItemControllerSessionBean extends FacesBean {
     return this.itemTransformingService.getOutputForExport(exportFormatVO, itemsToExportList);
   }
 
-  /**
-   * Returns a list of releases for a pubitem.
-   *
-   * @author Tobias Schraut
-   * @param the item id for which releases should be fetched
-   * @return the item with the requested id
-   * @throws IngeApplicationException
-   * @throws AuthorizationException
-   * @throws AuthenticationException
-   * @throws IngeTechnicalException
-   * @throws Exception if framework access fails
-   */
   public PubItemVOPresentation retrieveItem(String itemID)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     ItemVersionVO itemVersionVO = ApplicationBean.INSTANCE.getPubItemService().get(itemID, this.getLoginHelper().getAuthenticationToken());
@@ -581,13 +569,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
 
 
-  /**
-   * Returns an item by its id.
-   *
-   * @param the item id which belongs to the item
-   * @return the item with the requested id
-   * @throws Exception if framework access fails
-   */
   public List<VersionHistoryEntryVO> retrieveVersionHistoryForItem(String itemID) throws Exception {
 
     final List<AuditDbVO> versionHistoryList =

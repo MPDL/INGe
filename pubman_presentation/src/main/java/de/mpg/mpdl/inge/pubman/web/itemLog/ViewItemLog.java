@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -39,7 +39,7 @@ import jakarta.faces.bean.ManagedBean;
 
 /**
  * Fragment class for viewItemLog.jspf
- * 
+ *
  * @author Markus Haarlaender (initial creation)
  * @version $Revision$ $LastChangedDate$
  */
@@ -55,7 +55,7 @@ public class ViewItemLog extends FacesBean {
   }
 
   public void init() {
-    final ItemVersionListSessionBean ivlsb = (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
+    final ItemVersionListSessionBean ivlsb = FacesTools.findBean("ItemVersionListSessionBean");
     if (ivlsb.getVersionList() == null) {
       ivlsb.initLists(this.getVersionHistory(
           ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean")).getCurrentPubItem().getObjectId()));
@@ -64,7 +64,7 @@ public class ViewItemLog extends FacesBean {
 
   /**
    * Retrieves all event logs for the current pubitem.
-   * 
+   *
    * @param itemID the id of the item for which the releases should be retrieved
    * @return the list of EventLogEntryVOs
    */

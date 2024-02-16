@@ -95,7 +95,7 @@ public class JiBXHelper {
    * Only the characters "<" and "&" are strictly illegal in XML. Apostrophes, quotation marks and
    * greater than signs are legal, but it is a good habit to replace them.
    */
-  private static final String[] problematicCharacters = {">", "\"", "\'"};
+  private static final String[] problematicCharacters = {">", "\"", "'"};
   private static final String[] escapedCharacters = {"&gt;", "&quot;", "&apos;"};
 
   /**
@@ -123,7 +123,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;AffiliationRO></code>
    */
   public static List<AffiliationRO> affiliationROListFactory() {
-    return new ArrayList<AffiliationRO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -145,7 +145,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;String></code>
    */
   public static List<String> localTagsListFactory() {
-    return new ArrayList<String>();
+    return new ArrayList<>();
   }
 
   /**
@@ -155,7 +155,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;CreatorVO></code>
    */
   public static List<CreatorVO> creatorVOListFactory() {
-    return new ArrayList<CreatorVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -165,7 +165,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;FormatVO></code>
    */
   public static List<FormatVO> formatVOListFactory() {
-    return new ArrayList<FormatVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -211,7 +211,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;HitwordVO></code>
    */
   public static List<HitwordVO> hitwordVOListFactory() {
-    return new ArrayList<HitwordVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -221,7 +221,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;IdentifierVO></code>
    */
   public static List<IdentifierVO> identifierVOListFactory() {
-    return new ArrayList<IdentifierVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -231,7 +231,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;MdsPublicationVO.Genre></code>
    */
   public static List<MdsPublicationVO.Genre> genreListFactory() {
-    return new ArrayList<MdsPublicationVO.Genre>();
+    return new ArrayList<>();
   }
 
   /**
@@ -242,7 +242,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;MdsPublicationVO.SubjectClassification></code>
    */
   public static List<MdsPublicationVO.SubjectClassification> subjectClassificationListFactory() {
-    return new ArrayList<MdsPublicationVO.SubjectClassification>();
+    return new ArrayList<>();
   }
 
 
@@ -254,7 +254,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;OrganizationVO></code>
    */
   public static List<OrganizationVO> organizationVOListFactory() {
-    return new ArrayList<OrganizationVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -264,7 +264,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;ContextVO></code>
    */
   public static List<ContextVO> contextVOListFactory() {
-    return new ArrayList<ContextVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -274,11 +274,11 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;FileVO></code>
    */
   public static List<FileVO> pubFileVOListFactory() {
-    return new ArrayList<FileVO>();
+    return new ArrayList<>();
   }
 
   public static List<ValueObject> memberListFactory() {
-    return new ArrayList<ValueObject>();
+    return new ArrayList<>();
   }
 
   /**
@@ -287,12 +287,12 @@ public class JiBXHelper {
    * @return A new {@link ArrayList}.
    */
   public static List<?> adminDescriptorVOListFactory() {
-    return new ArrayList<Object>();
+    return new ArrayList<>();
   }
 
 
   public static List<ProjectInfoVO> projectInfoVOListFactory() {
-    return new ArrayList<ProjectInfoVO>();
+    return new ArrayList<>();
   }
 
 
@@ -303,7 +303,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;VersionHistoryEntryVO></code>
    */
   public static List<VersionHistoryEntryVO> eventVOListFactory() {
-    return new ArrayList<VersionHistoryEntryVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -313,7 +313,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;ItemVO></code>
    */
   public static List<ItemVO> itemVOListFactory() {
-    return new ArrayList<ItemVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -323,7 +323,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;MetadataSetVO></code>
    */
   public static List<MetadataSetVO> metadataSetVOListFactory() {
-    return new ArrayList<MetadataSetVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -333,7 +333,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;ItemRelationVO></code>
    */
   public static List<ItemRelationVO> relationVOListFactory() {
-    return new ArrayList<ItemRelationVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -343,7 +343,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;SearchHitVO></code>
    */
   public static List<SearchHitVO> searchHitVOListFactory() {
-    return new ArrayList<SearchHitVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -353,7 +353,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;SourceVO></code>
    */
   public static List<SourceVO> sourceVOListFactory() {
-    return new ArrayList<SourceVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -363,7 +363,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;String></code>
    */
   public static List<String> stringListFactory() {
-    return new ArrayList<String>();
+    return new ArrayList<>();
   }
 
   /**
@@ -373,7 +373,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;TextFragmentVO></code>
    */
   public static List<TextFragmentVO> textFragmentVOListFactory() {
-    return new ArrayList<TextFragmentVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -383,7 +383,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;AlternativeTitleVO></code>
    */
   public static List<AlternativeTitleVO> alternativeTitleVOListFactory() {
-    return new ArrayList<AlternativeTitleVO>();
+    return new ArrayList<>();
   }
 
   /**
@@ -393,7 +393,7 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;AlternativeTitleVO></code>
    */
   public static List<AbstractVO> abstractVOListFactory() {
-    return new ArrayList<AbstractVO>();
+    return new ArrayList<>();
   }
 
 
@@ -404,11 +404,11 @@ public class JiBXHelper {
    * @return A new <code>java.util.ArrayList&lt;SubjectVO></code>
    */
   public static List<SubjectVO> subjectVOListFactory() {
-    return new ArrayList<SubjectVO>();
+    return new ArrayList<>();
   }
 
   public static List<SearchRetrieveRecordVO> searchRetrieveRecordVOListFactory() {
-    return new ArrayList<SearchRetrieveRecordVO>();
+    return new ArrayList<>();
   }
 
   /*
@@ -436,12 +436,12 @@ public class JiBXHelper {
     if (oldPat.length() == 1 && newPat.length() == 1) {
       return in.replace(oldPat.charAt(0), newPat.charAt(0));
     }
-    if (in.indexOf(oldPat) < 0) {
+    if (!in.contains(oldPat)) {
       return in;
     }
     int lastIndex = 0;
     int newIndex = 0;
-    StringBuffer newString = new StringBuffer();
+    StringBuilder newString = new StringBuilder();
     for (;;) {
       newIndex = in.indexOf(oldPat, lastIndex);
       if (newIndex != -1) {
@@ -588,14 +588,6 @@ public class JiBXHelper {
     return date;
   }
 
-  /**
-   * Deserializes a String containing an <code>xs:dateTime</code> to the corresponding
-   * <code>java.util.Date</code>.
-   *
-   * @param dateString The String to deserialize
-   * @return The corresponding <code>java.util.Date</code>
-   * @throws WrongDateException
-   */
   public static Coordinates deserializeCoordinates(String coordString) throws Exception {
     return new Coordinates(coordString);
   }
@@ -627,7 +619,7 @@ public class JiBXHelper {
       url = new java.net.URL(urlString);
     } catch (MalformedURLException e) {
       // log it and give back a null URL
-      StringBuffer sb = new StringBuffer();
+      StringBuilder sb = new StringBuilder();
       sb.append("MalformedURLException in " + JiBXHelper.class.getSimpleName() + ":deserializeURL(). ");
       sb.append("The affected url [String] was: '" + urlString + "'.");
       // logger.debug(sb.toString());
@@ -1061,9 +1053,8 @@ public class JiBXHelper {
    *
    * @param enumValue The String to deserialize
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
-   * @throws WrongEnumException
    */
-  public static SourceVO.Genre deserializeSourceGenreEnum(String enumValue) throws WrongEnumException {
+  public static SourceVO.Genre deserializeSourceGenreEnum(String enumValue) {
     if (enumValue != null) {
 
       for (SourceVO.Genre g : SourceVO.Genre.values()) {
@@ -1118,9 +1109,8 @@ public class JiBXHelper {
    *
    * @param enumValue The String to deserialize
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
-   * @throws WrongEnumException
    */
-  public static EventLogEntryVO.EventType deserializeEventTypeEnum(String enumValue) throws WrongEnumException {
+  public static EventLogEntryVO.EventType deserializeEventTypeEnum(String enumValue) {
     EventLogEntryVO.EventType type = null;
     if ("create".equals(enumValue)) {
       return EventLogEntryVO.EventType.CREATE;

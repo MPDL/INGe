@@ -130,7 +130,7 @@
 								//Value for predicate exists and predicate is modifyable
 								if (predicate.isModify())
 								{
-									StringBuffer value = new StringBuffer();
+									StringBuilder value = new StringBuilder();
 									if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
 										value.append(HtmlUtils.escapeHtml(predicate.getDefault(request)));
@@ -357,7 +357,7 @@
 				paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
 			}
 			String[] langValues = request.getParameterValues(paramName + "_lang");
-			List<LocalizedTripleObject> objects = new ArrayList<LocalizedTripleObject>();
+			List<LocalizedTripleObject> objects = new ArrayList<>();
 			if (paramValues != null)
 			{
 				for (int i = 0; i < paramValues.length; i++)
@@ -434,7 +434,7 @@
 			{
 				if (predicate.isLocalized())
 				{
-					Set<String> languages = new HashSet<String>();
+					Set<String> languages = new HashSet<>();
 					for (LocalizedTripleObject tripleObject : objects)
 					{
 						if (languages.contains(tripleObject.getLanguage()))
@@ -482,8 +482,8 @@
 %>
 
 <%
-	errors = new ArrayList<String>();
-	messages = new ArrayList<String>();
+	errors = new ArrayList<>();
+	messages = new ArrayList<>();
 	warning = false;
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
@@ -536,8 +536,8 @@
 	boolean form = ("true".equals(request.getParameter("form")));
 	if (request.getParameter("workflow") != null)
 	{
-		errors = new ArrayList<String>();
-		messages = new ArrayList<String>();
+		errors = new ArrayList<>();
+		messages = new ArrayList<>();
 		results = (TreeFragment) session.getAttribute("currentObject");
 		if ("change".equals(request.getParameter("workflow")))
 		{
@@ -576,7 +576,7 @@
 	else if ((request.getParameter("delete") != null
 			|| request.getParameter("save") != null)
 			&& ((request.getSession().getAttribute("edit_open_vocabulary") == null)
-				&& (model != null && (Boolean)model.isOpen())
+				&& (model != null && model.isOpen())
 			))
 	{
 		errors.add("Not authorized for this action.");
@@ -631,7 +631,7 @@
 				}
 				if (model.getIdentifier() != null)
 				{
-					List<LocalizedTripleObject> idList = new ArrayList<LocalizedTripleObject>();
+					List<LocalizedTripleObject> idList = new ArrayList<>();
 					idList.add(new LocalizedString(model.getIdentifierPrefix() + identifierValue));
 					results.put(model.getIdentifier(), idList);
 				}
@@ -664,8 +664,8 @@
 		{
 			results = querier.details(modelName, uri, "*");
 		}
-		errors = new ArrayList<String>();
-		messages = new ArrayList<String>();
+		errors = new ArrayList<>();
+		messages = new ArrayList<>();
 	}
 %>
 

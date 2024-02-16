@@ -11,14 +11,14 @@ import org.xml.sax.SAXException;
 
 public class GenreHandler extends ShortContentHandler {
 
-  private final LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
+  private final LinkedHashMap<String, String> defaultMap = new LinkedHashMap<>();
   private LinkedHashMap<String, String> map = null;
 
-  private Map<String, String> authorRoles = new LinkedHashMap<String, String>();
-  private Map<String, String> contentCategories = new LinkedHashMap<String, String>();
-  private Map<String, String> sourceGenres = new LinkedHashMap<String, String>();
+  private Map<String, String> authorRoles = new LinkedHashMap<>();
+  private Map<String, String> contentCategories = new LinkedHashMap<>();
+  private Map<String, String> sourceGenres = new LinkedHashMap<>();
 
-  private final Stack<String> stack = new Stack<String>();
+  private final Stack<String> stack = new Stack<>();
 
   private String dir = null;
   private String formID = "";

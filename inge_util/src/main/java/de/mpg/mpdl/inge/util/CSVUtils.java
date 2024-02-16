@@ -48,7 +48,7 @@ public class CSVUtils {
       separators = DEFAULT_SEPARATOR;
     }
 
-    StringBuffer curVal = new StringBuffer();
+    StringBuilder curVal = new StringBuilder();
     boolean inQuotes = false;
     boolean startCollectChar = false;
     boolean doubleQuotesInColumn = false;
@@ -94,12 +94,11 @@ public class CSVUtils {
 
           result.add(curVal.toString());
 
-          curVal = new StringBuffer();
+          curVal = new StringBuilder();
           startCollectChar = false;
 
         } else if (ch == '\r') {
           //ignore LF characters
-          continue;
         } else if (ch == '\n') {
           //the end, break!
           break;

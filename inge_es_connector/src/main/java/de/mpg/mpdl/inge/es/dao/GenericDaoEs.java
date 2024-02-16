@@ -26,7 +26,7 @@ public interface GenericDaoEs<E> {
    */
   String createImmediately(String id, E entity) throws IngeTechnicalException;
 
-  String create(String id, E entity) throws IngeTechnicalException;
+  void create(String id, E entity) throws IngeTechnicalException;
 
   /**
    * retrieves the object from elasticsearch for a given id
@@ -46,17 +46,17 @@ public interface GenericDaoEs<E> {
    */
   String deleteImmediatly(String id) throws IngeTechnicalException;
 
-  String delete(String id) throws IngeTechnicalException;
+  void delete(String id) throws IngeTechnicalException;
 
   long deleteByQuery(Query query) throws IngeTechnicalException;
 
   /**
    * Use maxDocs <=1000 in order to disable scrolling for delete-by-query
    */
-  long deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException;
+  void deleteByQuery(Query query, int maxDocs) throws IngeTechnicalException;
 
 
-  boolean clearScroll(String scrollId) throws IngeTechnicalException;
+  void clearScroll(String scrollId) throws IngeTechnicalException;
 
   /**
    * searches in elasticsearch with a given searchQuery

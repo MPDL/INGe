@@ -54,7 +54,7 @@ public class FacesBean implements Serializable {
   private final InternationalizationHelper i18nHelper;
 
   public FacesBean() {
-    this.i18nHelper = (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
+    this.i18nHelper = FacesTools.findBean("InternationalizationHelper");
   }
 
   /**
@@ -291,7 +291,7 @@ public class FacesBean implements Serializable {
   }
 
   public LoginHelper getLoginHelper() {
-    return (LoginHelper) FacesTools.findBean("LoginHelper");
+    return FacesTools.findBean("LoginHelper");
   }
 
   public InternationalizationHelper getI18nHelper() {

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -41,7 +41,7 @@ import jakarta.faces.bean.SessionScoped;
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory, the Item Log and
  * the Revision History.
- * 
+ *
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision$ $LastChangedDate$
  */
@@ -49,18 +49,18 @@ import jakarta.faces.bean.SessionScoped;
 @SessionScoped
 @SuppressWarnings("serial")
 public class ItemVersionListSessionBean extends FacesBean {
-  private List<VersionHistoryVOPresentation> versionList = new ArrayList<VersionHistoryVOPresentation>();
+  private List<VersionHistoryVOPresentation> versionList = new ArrayList<>();
 
-  private List<EventLogEntryVOPresentation> releaseList = new ArrayList<EventLogEntryVOPresentation>();
+  private List<EventLogEntryVOPresentation> releaseList = new ArrayList<>();
 
-  private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
+  private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<>();
 
   public ItemVersionListSessionBean() {}
 
   public void initLists(List<VersionHistoryEntryVO> vList) {
-    this.versionList = new ArrayList<VersionHistoryVOPresentation>();
-    this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
-    this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
+    this.versionList = new ArrayList<>();
+    this.releaseList = new ArrayList<>();
+    this.eventLogList = new ArrayList<>();
 
     for (final VersionHistoryEntryVO vEntry : vList) {
       this.versionList.add(new VersionHistoryVOPresentation(vEntry));

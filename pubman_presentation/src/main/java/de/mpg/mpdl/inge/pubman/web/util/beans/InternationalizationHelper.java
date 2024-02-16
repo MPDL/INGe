@@ -68,7 +68,7 @@ public class InternationalizationHelper implements Serializable {
 
   private Locale userLocale;
 
-  private List<LanguageChangeObserver> languageChangeObservers = new ArrayList<LanguageChangeObserver>();
+  private List<LanguageChangeObserver> languageChangeObservers = new ArrayList<>();
 
   public InternationalizationHelper() {
     this.userLocale = FacesTools.getExternalContext().getRequestLocale();
@@ -177,7 +177,7 @@ public class InternationalizationHelper implements Serializable {
   }
 
   private Object[] removeNullValues(Object[] values) {
-    final List<Object> listWithoutNulls = new ArrayList<Object>();
+    final List<Object> listWithoutNulls = new ArrayList<>();
     for (final Object o : values) {
       if (o != null) {
         listWithoutNulls.add(o);
@@ -266,7 +266,7 @@ public class InternationalizationHelper implements Serializable {
   public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
     final Map<String, String> negativeRoles = ApplicationBean.INSTANCE.getCreatorRoleMap();
 
-    final List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
+    final List<CreatorVO.CreatorRole> values = new ArrayList<>();
     Collections.addAll(values, CreatorVO.CreatorRole.values());
 
     int i = 0;
@@ -404,11 +404,6 @@ public class InternationalizationHelper implements Serializable {
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
-  /**
-   * Returns an array of SelectItems for the enum {@link SelectComponentAccessability}
-   *
-   * @return array of SelectItems for SelectComponentAccessability
-   */
   public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry) {
     final InternationalizationHelper.SelectComponentVisibility[] values = InternationalizationHelper.SelectComponentVisibility.values();
 

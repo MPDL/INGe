@@ -57,12 +57,10 @@ public class XmlUtilities {
 
   /**
    * @throws IOException
-   * @throws SAXException
-   * @throws ParserConfigurationException
    */
-  private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException {
+  private static void initializeSchemas() throws IOException {
     File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/", XmlUtilities.class.getClassLoader());
-    schemas = new HashMap<String, Schema>();
+    schemas = new HashMap<>();
     SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     for (File file : schemaFiles) {
       try {

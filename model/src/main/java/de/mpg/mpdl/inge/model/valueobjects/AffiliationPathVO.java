@@ -40,7 +40,7 @@ public class AffiliationPathVO extends ValueObject {
   /**
    * The list of affiliations representing the affiliation path.
    */
-  private final java.util.List<AffiliationRO> affiliationList = new java.util.ArrayList<AffiliationRO>();
+  private final java.util.List<AffiliationRO> affiliationList = new java.util.ArrayList<>();
 
   /**
    * Delivers the list of affiliations representing the affiliation path.

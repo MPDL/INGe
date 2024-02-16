@@ -83,7 +83,7 @@ public class XmlHelper {
 
   private static final TransformerFactory TF = new net.sf.saxon.TransformerFactoryImpl();
 
-  public static HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
+  public static final HashMap<String, Templates> templCache = new HashMap<>(20);
 
   // List of all available output formats
   public static HashMap<String, String[]> outputFormatsHash = null;
@@ -93,7 +93,7 @@ public class XmlHelper {
   private static HashMap<String, HashMap<String, String[]>> citationStylesHash = null;
 
   // FontStyleCollectiona Hash
-  public static HashMap<String, FontStylesCollection> fsc = new HashMap<String, FontStylesCollection>();
+  public static final HashMap<String, FontStylesCollection> fsc = new HashMap<>();
 
   /**
    * Load Default FontStylesCollection, singleton 1) if no citation style is given, return default
@@ -197,12 +197,6 @@ public class XmlHelper {
     return null;
   }
 
-  /**
-   * Validation of CitationStyle XML against 1) XML schema 2) Schematron schema
-   *
-   * @param xmlDocumentUrl is URI to XML to be validated
-   * @throws IOException
-   */
   public String validateCitationStyleXML(final String cs) throws IOException {
     String csFile = CitationUtil.getPathToCitationStyleXML(cs);
     logger.info("Document to be validated: " + csFile);
@@ -246,12 +240,12 @@ public class XmlHelper {
     public boolean validationError = false;
     public SAXParseException saxParseException = null;
 
-    public void error(SAXParseException exception) throws SAXException {
+    public void error(SAXParseException exception) {
       validationError = true;
       saxParseException = exception;
     }
 
-    public void fatalError(SAXParseException exception) throws SAXException {
+    public void fatalError(SAXParseException exception) {
       validationError = true;
       saxParseException = exception;
     }
@@ -337,7 +331,7 @@ public class XmlHelper {
         throw new RuntimeException("Cannot process expain file:", e);
       }
 
-      outputFormatsHash = new HashMap<String, String[]>();
+      outputFormatsHash = new HashMap<>();
 
       for (int i = 0; i < nl.getLength(); i++) {
         Node n = nl.item(i);
@@ -386,7 +380,7 @@ public class XmlHelper {
       } catch (Exception e) {
         throw new RuntimeException("Cannot process expain file:", e);
       }
-      citationStylesHash = new HashMap<String, HashMap<String, String[]>>();
+      citationStylesHash = new HashMap<>();
       // for all export formats take identifiers
       for (int i = 0; i < nl.getLength(); i++) {
         Node n = nl.item(i);
@@ -400,7 +394,7 @@ public class XmlHelper {
         Node outputFormatsNode = findNode(exportFormatChildren, "output-formats");
 
         // if no export format identifier found, continue for
-        HashMap<String, String[]> formatsHash = new HashMap<String, String[]>();
+        HashMap<String, String[]> formatsHash = new HashMap<>();
         if (!(outputFormatsNode == null || outputFormatsNode.getTextContent() == null)) {
           String refs = outputFormatsNode.getAttributes().getNamedItem("refs").getTextContent();
 

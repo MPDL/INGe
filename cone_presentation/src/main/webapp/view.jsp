@@ -148,13 +148,15 @@
 							<div class="free_area0 sub">
 								<% if (Login.getLoggedIn(request)) { %>
 									<% if (model.isOpen() &&
-										(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
+										(request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+                                                .getAttribute("edit_open_vocabulary"))) { %>
 										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
 											Edit Entity
 										</a>
 									<% } %>
 									<% if (!model.isOpen() &&
-										(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
+										(request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+                                                .getAttribute("edit_closed_vocabulary"))) { %>
 										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
 											Edit Entity
 										</a>

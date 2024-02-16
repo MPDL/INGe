@@ -51,19 +51,19 @@
 	if (loggedIn)
 	{
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
-		
+
 		out.println("Reset started...");
 		out.flush();
-	
-		List<String> models = new ArrayList<String>();
-		
+
+		List<String> models = new ArrayList<>();
+
 		models.add(request.getParameter("model"));
-		
+
 		for (String modelName : models)
 		{
-		    
+
 		    Model model = ModelList.getInstance().getModelByAlias(modelName);
-		    
+
 		    List<String> ids = querier.getAllIds(model.getName());
 		    for (String id : ids)
 		    {
@@ -74,9 +74,9 @@
 		        out.flush();
 		    }
 		}
-		
+
 		out.println("...finished");
-	
+
 		querier.release();
 	}
 	else

@@ -11,13 +11,13 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import jakarta.faces.context.FacesContext;
 
 /**
- * 
+ *
  * TODO Abstract class that defines a page as usable for the breadcrumb navigation.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public abstract class BreadcrumbPage extends FacesBean {
@@ -45,8 +45,7 @@ public abstract class BreadcrumbPage extends FacesBean {
       BreadcrumbPage.logger.error("Error getting default action", e);
     }
 
-    final BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean =
-        (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
+    final BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
     breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction, this.isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
   }

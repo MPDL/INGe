@@ -129,7 +129,7 @@ public class ExportItems extends FacesBean {
   }
 
   private ExportItemsSessionBean getExportItemsSessionBean() {
-    return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+    return FacesTools.findBean("ExportItemsSessionBean");
   }
 
   /*
@@ -179,7 +179,7 @@ public class ExportItems extends FacesBean {
     boolean OK = false;
     if (recipientsAddressesStr != null && !recipientsAddressesStr.trim().isEmpty()) {
       recipientsAddresses = recipientsAddressesStr.split(",");
-      FOR: for (final String ra : recipientsAddresses) {
+      for (final String ra : recipientsAddresses) {
         if (!ra.trim().isEmpty()) {
           OK = true;
           break;
@@ -219,8 +219,7 @@ public class ExportItems extends FacesBean {
       this.info(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
 
       // redirect to last breadcrumb
-      final BreadcrumbItemHistorySessionBean bhsb =
-          (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
+      final BreadcrumbItemHistorySessionBean bhsb = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
       try {
         FacesTools.getExternalContext().redirect(bhsb.getPreviousItem().getPage());
       } catch (final IOException e) {

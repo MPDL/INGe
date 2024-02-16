@@ -46,7 +46,7 @@ public class AuthorizationService {
   @Autowired
   private UserAccountService userAccountService;
 
-  ObjectMapper modelMapper = MapperFactory.getObjectMapper();
+  final ObjectMapper modelMapper = MapperFactory.getObjectMapper();
 
   @Autowired
   OrganizationService ouService;
@@ -151,7 +151,7 @@ public class AuthorizationService {
               Map<String, String> userMap = (Map<String, String>) rule.getValue();
 
               if (userMap.containsKey("field_user_id_match")) {
-                String value = (String) userMap.get("field_user_id_match");
+                String value = userMap.get("field_user_id_match");
                 AccountUserDbVO finalUserAccount = userAccount;
                 subQb.must(TermQuery.of(t -> t.field(indices.get(value)).value(finalUserAccount.getObjectId()))._toQuery());
                 userMatch = true;
@@ -161,15 +161,14 @@ public class AuthorizationService {
                   || userMap.containsKey("field_ctx_ou_id_match")) {
                 BoolQuery.Builder grantQueryBuilder = new BoolQuery.Builder();
                 for (GrantVO grant : userAccount.getGrantList()) {
-                  if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
+                  if (grant.getRole().equalsIgnoreCase(userMap.get("role"))) {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
                       // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou")) {
                         List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält auch eigene Ou
                         parents.remove(parents.size() - 1); // remove root
-                        List<FieldValue> grantFieldMatchValues =
-                            new ArrayList<>(parents.stream().map(i -> FieldValue.of(i)).collect(Collectors.toList()));
+                        List<FieldValue> grantFieldMatchValues = parents.stream().map(FieldValue::of).collect(Collectors.toList());
                         grantQueryBuilder.should(TermsQuery
                             .of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).terms(te -> te.value(grantFieldMatchValues)))
                             ._toQuery());
@@ -424,7 +423,7 @@ public class AuthorizationService {
                     throw new AuthorizationException("Expected one of " + valuesToCompare + " for field " + key + " (" + keyValue + ")");
                   }
                 } else {
-                  Object val = getFieldValueOrString(order, objects, (String) rule.getValue().toString());
+                  Object val = getFieldValueOrString(order, objects, rule.getValue().toString());
                   String value = null;
                   if (val != null) {
                     value = val.toString();
@@ -449,7 +448,6 @@ public class AuthorizationService {
       }
 
       if (lastExceptionOfAll == null) {
-        return;
       } else {
         if (lastExceptionOfAll instanceof AuthorizationException)
           throw (AuthorizationException) lastExceptionOfAll;
@@ -727,7 +725,7 @@ public class AuthorizationService {
         ContextDbVO ro = (ContextDbVO) object;
         return ro.getResponsibleAffiliations().get(0).getObjectId();
       } else {
-        return getFieldValueViaGetter(object, field.substring(field.indexOf(".") + 1, field.length()));
+        return getFieldValueViaGetter(object, field.substring(field.indexOf(".") + 1));
       }
     } else {
       return field;
@@ -746,7 +744,7 @@ public class AuthorizationService {
           if (fieldHierarchy.length == 1) {
             return value;
           } else {
-            return getFieldValueViaGetter(value, field.substring(field.indexOf(".") + 1, field.length()));
+            return getFieldValueViaGetter(value, field.substring(field.indexOf(".") + 1));
           }
         }
       }

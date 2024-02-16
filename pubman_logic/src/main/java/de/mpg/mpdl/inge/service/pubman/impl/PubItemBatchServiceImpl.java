@@ -1,14 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-
 import de.mpg.mpdl.inge.db.repository.BatchLogRepository;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
@@ -40,6 +31,13 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 
 /**
@@ -74,7 +72,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO addKeywords(List<String> pubItemObjectIdList, String keywordsNew, String message, String authenticationToken,
       AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
 
     if (keywordsNew != null && !keywordsNew.trim().isEmpty()) {
@@ -101,7 +99,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             if (pubItemVO.getObject().getLocalTags() != null) {
               pubItemVO.getObject().getLocalTags().add(message);
             } else {
-              pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+              pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
             }
             resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                 BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -150,7 +148,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO addLocalTags(List<String> pubItemObjectIdList, List<String> localTagsToAdd, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
       ItemVersionVO pubItemVO = null;
@@ -215,7 +213,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeContext(List<String> pubItemObjectIdList, String contextOld, String contextNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ContextDbVO contextVO = null;
     if (contextNew != null) {
@@ -236,7 +234,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   if (pubItemVO.getObject().getLocalTags() != null) {
                     pubItemVO.getObject().getLocalTags().add(message);
                   } else {
-                    pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                    pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                   }
                   resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                       BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -299,7 +297,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeExternalReferenceContentCategory(List<String> pubItemObjectIdList, String contentCategoryOld,
       String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (contentCategoryOld != null && contentCategoryNew != null && !contentCategoryOld.equals(contentCategoryNew)) {
       ItemVersionVO pubItemVO = null;
@@ -320,7 +318,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (pubItemVO.getObject().getLocalTags() != null) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
-                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
               }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -375,7 +373,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeOrcid(List<String> pubItemObjectIdList, String creatorId, String orcidNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
     for (String itemId : pubItemObjectIdList) {
@@ -413,7 +411,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             if (pubItemVO.getObject().getLocalTags() != null) {
               pubItemVO.getObject().getLocalTags().add(message);
             } else {
-              pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+              pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
             }
             resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                 BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -465,7 +463,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, List<String> audienceListNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (audienceListNew != null && !audienceListNew.isEmpty()) {
       ItemVersionVO pubItemVO = null;
@@ -476,7 +474,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
             boolean anyFilesChanged = false;
             for (FileDbVO file : pubItemVO.getFiles()) {
-              List<String> audienceList = file.getAllowedAudienceIds() != null ? file.getAllowedAudienceIds() : new ArrayList<String>();
+              List<String> audienceList = file.getAllowedAudienceIds() != null ? file.getAllowedAudienceIds() : new ArrayList<>();
               if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
                   && FileDbVO.Visibility.AUDIENCE.equals(file.getVisibility())) {
                 audienceList.clear();
@@ -489,7 +487,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (pubItemVO.getObject().getLocalTags() != null) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
-                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
               }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -544,7 +542,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeFileContentCategory(List<String> pubItemObjectIdList, String contentCategoryOld,
       String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (contentCategoryOld != null && contentCategoryNew != null && !contentCategoryOld.equals(contentCategoryNew)) {
       ItemVersionVO pubItemVO = null;
@@ -565,7 +563,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (pubItemVO.getObject().getLocalTags() != null) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
-                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
               }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -619,7 +617,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, Visibility visibilityOld, Visibility visibilityNew,
       IpRange userAccountIpRange, String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (visibilityOld != null && visibilityNew != null && !visibilityOld.equals(visibilityNew)) {
       ItemVersionVO pubItemVO = null;
@@ -641,7 +639,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   if (file.getAllowedAudienceIds() != null && ipRangeToSet != null) {
                     file.getAllowedAudienceIds().add(ipRangeToSet);
                   } else if (file.getAllowedAudienceIds() == null) {
-                    file.setAllowedAudienceIds(new ArrayList<String>());
+                    file.setAllowedAudienceIds(new ArrayList<>());
                     if (ipRangeToSet != null) {
                       file.getAllowedAudienceIds().add(ipRangeToSet);
                     }
@@ -657,7 +655,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (pubItemVO.getObject().getLocalTags() != null) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
-                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
               }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -712,7 +710,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeGenre(List<String> pubItemObjectIdList, Genre genreOld, Genre genreNew, DegreeType degree,
       String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (genreOld != null && genreNew != null) {
       ItemVersionVO pubItemVO = null;
@@ -734,7 +732,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                     if (pubItemVO.getObject().getLocalTags() != null) {
                       pubItemVO.getObject().getLocalTags().add(message);
                     } else {
-                      pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                      pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                     }
                     resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                         BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -744,7 +742,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                     if (pubItemVO.getObject().getLocalTags() != null) {
                       pubItemVO.getObject().getLocalTags().add(message);
                     } else {
-                      pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                      pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                     }
                     resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                         BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -826,7 +824,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeKeywords(List<String> pubItemObjectIdList, String keywordsOld, String keywordsNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (keywordsNew != null) {
       ItemVersionVO pubItemVO = null;
@@ -871,7 +869,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 if (pubItemVO.getObject().getLocalTags() != null) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
-                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                  pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                 }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -928,7 +926,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeReviewMethod(List<String> pubItemObjectIdList, String reviewMethodOld, String reviewMethodNew,
       String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     // if (reviewMethodOld != null && reviewMethodNew != null) {
     ItemVersionVO pubItemVO = null;
@@ -949,7 +947,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (pubItemVO.getObject().getLocalTags() != null) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
-                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
               }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1008,7 +1006,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeSourceGenre(List<String> pubItemObjectIdList, SourceVO.Genre genreOld, SourceVO.Genre genreNew,
       String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (genreOld != null && genreNew != null) {
       ItemVersionVO pubItemVO = null;
@@ -1032,7 +1030,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 if (pubItemVO.getObject().getLocalTags() != null) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
-                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                  pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                 }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1090,7 +1088,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO addSourceId(List<String> pubItemObjectIdList, String sourceNumber, IdentifierVO.IdType sourceIdType,
       String idNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (idNew != null) {
       ItemVersionVO pubItemVO = null;
@@ -1109,7 +1107,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   if (pubItemVO.getObject().getLocalTags() != null) {
                     pubItemVO.getObject().getLocalTags().add(message);
                   } else {
-                    pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                    pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                   }
                   resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                       BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1165,7 +1163,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeSourceIdReplace(List<String> pubItemObjectIdList, String sourceNumber, IdentifierVO.IdType sourceIdType,
       String idOld, String idNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (sourceNumber != null && sourceIdType != null && idOld != null && !idOld.trim().isEmpty()) {
       ItemVersionVO pubItemVO = null;
@@ -1197,7 +1195,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 if (pubItemVO.getObject().getLocalTags() != null) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
-                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                  pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                 }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1254,7 +1252,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO changeSourceEdition(List<String> pubItemObjectIdList, String sourceNumber, String edition, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (sourceNumber != null) {
       ItemVersionVO pubItemVO = null;
@@ -1272,7 +1270,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 if (pubItemVO.getObject().getLocalTags() != null) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
-                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                  pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                 }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1282,7 +1280,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 if (pubItemVO.getObject().getLocalTags() != null) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
-                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                  pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                 }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1337,7 +1335,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO replaceLocalTags(List<String> pubItemObjectIdList, String localTagOld, String localTagNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
     if (localTagOld != null && localTagNew != null && !localTagOld.trim().isEmpty()) {
@@ -1407,7 +1405,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO submitPubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
       AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
     for (String itemId : pubItemObjectIdList) {
@@ -1478,7 +1476,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO replaceAllKeywords(List<String> pubItemObjectIdList, String keywordsNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (keywordsNew != null) {
       ItemVersionVO pubItemVO = null;
@@ -1490,7 +1488,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           if (pubItemVO.getObject().getLocalTags() != null) {
             pubItemVO.getObject().getLocalTags().add(message);
           } else {
-            pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+            pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
           }
           resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1544,7 +1542,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO releasePubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
       AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
     ContextDbVO contextVO = null;
@@ -1623,7 +1621,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO withdrawPubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
       AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
     for (String itemId : pubItemObjectIdList) {
@@ -1679,7 +1677,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO revisePubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
       AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
     for (String itemId : pubItemObjectIdList) {
@@ -1737,7 +1735,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO deletePubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
       AccountUserDbVO accountUser) {
-    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
     for (String itemId : pubItemObjectIdList) {

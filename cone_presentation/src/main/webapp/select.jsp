@@ -63,17 +63,19 @@
 					<%
 						Set<Model> modelList = ModelList.getInstance().getList();
 						boolean loggedIn = Login.getLoggedIn(request);
-					
+
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
 					%>
 
 					<div class="full_area0 fullItem">
-						
+
 						<% if (loggedIn) {
-						
-							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
-							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
-							
+
+							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+                                    .getAttribute("edit_open_vocabulary"));
+							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+                                    .getAttribute("edit_closed_vocabulary"));
+
 							%>
 							<% for (Model model : ModelList.getInstance().getList()) { %>
 								<% if ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed)) { %>

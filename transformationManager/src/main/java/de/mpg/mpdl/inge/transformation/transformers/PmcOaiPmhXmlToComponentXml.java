@@ -20,14 +20,14 @@ public class PmcOaiPmhXmlToComponentXml extends XslTransformer implements Chaina
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
-    Map<String, Object> map = new HashMap<String, Object>();
+  public Map<String, Object> getParameters() {
+    Map<String, Object> map = new HashMap<>();
     map.put("external_organization_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
     return map;
   }
 
   @Override
-  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+  public Map<String, String> getDefaultConfiguration() {
     return null;
   }
 

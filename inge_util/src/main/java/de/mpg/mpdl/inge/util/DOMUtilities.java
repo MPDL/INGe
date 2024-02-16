@@ -119,15 +119,6 @@ public class DOMUtilities {
     return createDocumentBuilder(namespaceAwareness).parse(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)), "UTF-8");
   }
 
-  /**
-   * Creates new org.w3c.dom.Document
-   *
-   * @param xml
-   * @return org.w3c.dom.Document
-   * @throws ParserConfigurationException
-   * @throws IOExceptionS
-   * @throws SAXException
-   */
   private static Document createDocument(byte[] xml) throws ParserConfigurationException, SAXException, IOException {
     return createDocumentBuilder().parse(new ByteArrayInputStream(xml), "UTF-8");
   }
@@ -253,9 +244,8 @@ public class DOMUtilities {
    *
    * @return The child of the node selected by the xPath
    *
-   * @throws TransformerException If anything fails.
    */
-  public static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException {
+  public static Node selectSingleNode(final Node node, final String xpathExpression) {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
     try {
@@ -271,9 +261,8 @@ public class DOMUtilities {
    * @param node The node.
    * @param xpathExpression The xPath.
    * @return The list of children of the node selected by the xPath.
-   * @throws TransformerException If anything fails.
    */
-  public static NodeList selectNodeList(final Node node, final String xpathExpression) throws TransformerException {
+  public static NodeList selectNodeList(final Node node, final String xpathExpression) {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
     try {

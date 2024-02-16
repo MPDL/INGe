@@ -65,16 +65,6 @@ public class Util {
   private static final String coneRel1 = "/resource/";
   private static final String coneRel2 = "?format=rdf";
 
-  /**
-   * This operation return the Metadata Object of the format to fetch from the source.
-   *
-   * @param dataSourceVO
-   * @param trgFormatName
-   * @param trgFormatType
-   * @param trgFormatEndcoding
-   * @return Metadata Object of the format to fetch
-   * @throws FormatNotAvailableException
-   */
   public static MetadataVO getMdObjectToFetch(DataSourceVO dataSourceVO, TransformerFactory.FORMAT format) {
     MetadataVO sourceMd = null;
 
@@ -112,15 +102,6 @@ public class Util {
     return null;
   }
 
-  /**
-   * This operation return the Fulltext Object of the format to fetch from the source.
-   *
-   * @param source
-   * @param formatName
-   * @param formatType
-   * @param formatEncoding
-   * @return Fulltext Object of the format to fetch
-   */
   public static FullTextVO getFtObjectToFetch(DataSourceVO source, String fileFormatName) {
     FullTextVO fullTextVO = null;
 
@@ -164,8 +145,8 @@ public class Util {
   public static String trimIdentifier(DataSourceVO source, String identifier) {
     List<String> idPrefVec = source.getIdentifier();
 
-    for (int i = 0; i < idPrefVec.size(); i++) {
-      String idPref = idPrefVec.get(i).toLowerCase();
+    for (String s : idPrefVec) {
+      String idPref = s.toLowerCase();
       if (identifier.toLowerCase().startsWith(idPref)) {
         identifier = identifier.substring(idPref.length());
         if (identifier.startsWith(":")) {

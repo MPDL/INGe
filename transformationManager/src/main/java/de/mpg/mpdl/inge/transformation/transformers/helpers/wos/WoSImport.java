@@ -36,7 +36,7 @@ public class WoSImport {
     String result = "";
 
     String[] itemList = getItemListFromString(file, "(\nER\n+EF\n)|(\nER\n)");
-    List<List<Pair>> items = new ArrayList<List<Pair>>();
+    List<List<Pair>> items = new ArrayList<>();
     if (itemList != null && itemList.length > 1) { // transform items to XML
 
       for (String item : itemList) {
@@ -97,19 +97,13 @@ public class WoSImport {
     return file;
   }
 
-  /**
-   * identifies item lines from input string and stores it in a List<String>
-   *
-   * @param string
-   * @return
-   */
   public List<String> getItemFromString(String itemStr) {
     Pattern pattern = Pattern.compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*(\\r\\n|\\r|\\n))((\\s\\s\\s.*(\\r\\n|\\r|\\n))?)*)");
     // Pattern pattern =
     // Pattern.compile("(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)");
 
     Matcher matcher = pattern.matcher(itemStr);
-    List<String> lineStrArr = new ArrayList<String>();
+    List<String> lineStrArr = new ArrayList<>();
     while (matcher.find()) {
       lineStrArr.add(matcher.group());
     }
@@ -131,14 +125,8 @@ public class WoSImport {
     return strItemList;
   }
 
-  /**
-   * get item pairs from item string (by regex string)
-   *
-   * @param string - RIS item as string
-   * @return String list with item key-value pairs
-   */
   public List<Pair> getItemPairs(List<String> lines) {
-    List<Pair> pairList = new ArrayList<Pair>();
+    List<Pair> pairList = new ArrayList<>();
 
     if (lines != null) {
       for (String line : lines) {
@@ -150,12 +138,6 @@ public class WoSImport {
     return pairList;
   }
 
-  /**
-   * get a pair from line string (by regex string)
-   *
-   * @param string - RIS line as string
-   * @return Pair - key-value pair created by string line
-   */
   public Pair createWoSPairByString(String line) {
     String key = line.substring(0, 2);
     String value = line.substring(3);
@@ -179,12 +161,6 @@ public class WoSImport {
     return "";
   }
 
-  /**
-   * creates the complete item list in xml
-   *
-   * @param item pair list
-   * @return xml string of the whole item list
-   */
   public String transformItemListToXML(List<List<Pair>> itemList) {
     String xml = "<item-list>";
 

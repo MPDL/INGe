@@ -48,7 +48,7 @@ public class MpiKybFormat extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) throws Exception {
+  public List<Author> getAuthors(String authorsString) {
     Pattern pattern = Pattern.compile(getPattern());
     Matcher matcher = pattern.matcher(authorsString);
     if (!matcher.find()) {
@@ -68,25 +68,25 @@ public class MpiKybFormat extends AuthorFormat {
       authorsString = authorsString.substring(0, authorsString.lastIndexOf("\n"));
     }
     String[] authors = authorsString.split(";");
-    List<String> newList = new ArrayList<String>();
+    List<String> newList = new ArrayList<>();
     Collections.addAll(newList, authors);
     List<Author> result = getAuthorList(newList.toArray(new String[] {}), " ");
     return result;
   }
 
   private List<Author> getAuthorList(String[] authors, String separator) {
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
     for (String authorString : authors) {
       String[] parts = null;
       String identifier = null;
-      List<String> affiliations = new ArrayList<String>();
+      List<String> affiliations = new ArrayList<>();
       int affiliationCount = 0;
-      if (authorString.indexOf("{") != -1) {
+      if (authorString.contains("{")) {
         identifier = authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
         String affiliationsString = null;
         if (authorString.indexOf("{", authorString.indexOf("}")) != -1) {
           affiliationsString = authorString.substring(authorString.indexOf("{", authorString.indexOf("}")));
-          while (affiliationsString.indexOf("{") != -1) {
+          while (affiliationsString.contains("{")) {
             affiliations.add(affiliationsString.substring(affiliationsString.indexOf("{") + 1, affiliationsString.indexOf("}")));
             affiliationsString = affiliationsString.substring(affiliationsString.indexOf("}") + 1);
             affiliationCount++;

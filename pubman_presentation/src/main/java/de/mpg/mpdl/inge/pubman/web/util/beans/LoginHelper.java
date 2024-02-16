@@ -1,19 +1,19 @@
 /*
- * 
- * 
+ *
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -58,7 +58,7 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
- * 
+ *
  * @author: Tobias Schraut, created 07.03.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
@@ -131,7 +131,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * Method checks if the user is already logged in and inserts the escidoc user handle.
-   * 
+   *
    * @return String empty navigation string for reloading the current page
    * @throws IOException IOException
    * @throws TechnicalException TechnicalException
@@ -154,7 +154,7 @@ public class LoginHelper extends FacesBean {
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
         if (GrantUtil.hasRole(accountUser, PredefinedRoles.DEPOSITOR)) {
-          final DepositorWSSessionBean depWSSessionBean = (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
+          final DepositorWSSessionBean depWSSessionBean = FacesTools.findBean("DepositorWSSessionBean");
           // enable the depositor links if necessary
           depWSSessionBean.setMyWorkspace(true);
           depWSSessionBean.setDepositorWS(true);
@@ -267,7 +267,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * JSF Wrapper for isAdmin()
-   * 
+   *
    * @return
    */
   public boolean getIsAdmin() {
@@ -276,7 +276,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * JSF Wrapper for isAdmin()
-   * 
+   *
    * @return
    */
   public boolean getIsLocalAdmin() {
@@ -285,7 +285,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * JSF Wrapper for isModerator()
-   * 
+   *
    * @return
    */
   public boolean getIsModerator() {
@@ -294,7 +294,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * JSF Wrapper for isDepositor()
-   * 
+   *
    * @return
    */
   public boolean getIsDepositor() {
@@ -303,7 +303,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * JSF Wrapper for isReporter()
-   * 
+   *
    * @return
    */
   public boolean getIsReporter() {
@@ -312,7 +312,7 @@ public class LoginHelper extends FacesBean {
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
-      this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
+      this.userAccountAffiliations = new ArrayList<>();
       if (accountUser.getAffiliation() != null) {
         final AffiliationDbVO orgUnit =
             ApplicationBean.INSTANCE.getOrganizationService().get(accountUser.getAffiliation().getObjectId(), null);
@@ -337,9 +337,9 @@ public class LoginHelper extends FacesBean {
    * {"\"http://escidoc.de/core/01/properties/user\"=" + //
    * getAccountUser().getReference().getObjectId() + " and " + //
    * "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
-   * 
+   *
    * }
-   * 
+   *
    * return this.userAccountUserGroups; }
    */
 
@@ -359,7 +359,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * sets whether detailedMode is activated or not
-   * 
+   *
    * @param detailedMode the detailedMode to set
    */
   public void setDetailedMode(boolean detailedMode) {
@@ -368,7 +368,7 @@ public class LoginHelper extends FacesBean {
 
   /**
    * returns whether detailedMode is activated or not
-   * 
+   *
    * @return detailedMode [boolean]
    */
   public boolean isDetailedMode() {

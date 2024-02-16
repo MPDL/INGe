@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,8 +75,6 @@ import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.UriBuilder;
-import jakarta.jms.JMSException;
-import jakarta.jms.Message;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.FlushModeType;
 import jakarta.persistence.PersistenceContext;
@@ -295,7 +291,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
 
 
-  private void createAuditEntry(ItemVersionVO pubItem, EventType event) throws IngeApplicationException, IngeTechnicalException {
+  private void createAuditEntry(ItemVersionVO pubItem, EventType event) throws IngeApplicationException {
     AuditDbVO audit = new AuditDbVO();
     audit.setEvent(event);
     audit.setComment(pubItem.getMessage());
@@ -345,7 +341,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
 
-  private ItemVersionRO updatePubItemWithTechnicalMd(ItemVersionVO latestVersion, String modifierName, String modifierId) {
+  private void updatePubItemWithTechnicalMd(ItemVersionVO latestVersion, String modifierName, String modifierId) {
     Date currentDate = new Date();
 
     latestVersion.setModificationDate(currentDate);
@@ -356,7 +352,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     latestVersion.setModifier(mod);
     latestVersion.getObject().setLastModificationDate(currentDate);
 
-    return latestVersion;
   }
 
   @Override
@@ -827,10 +822,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
                   PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT)));
             }
           }
-        } catch (URISyntaxException | TechnicalException | UnsupportedEncodingException e) {
+        } catch (URISyntaxException e) {
           logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
               + latestVersion.getObjectIdAndVersion() + "]", e);
           throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+        } catch (TechnicalException e) {
+          throw new RuntimeException(e);
         }
       }
     }
@@ -860,8 +857,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     validate(pubItem, vp);
   }
 
-  private void validate(ItemVersionVO pubItem, ValidationPoint vp)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  private void validate(ItemVersionVO pubItem, ValidationPoint vp) throws IngeTechnicalException, IngeApplicationException {
     try {
       this.itemValidatingService.validate(pubItem, vp);
     } catch (ValidationException e) {
@@ -889,8 +885,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   @Override
   @Transactional(readOnly = true)
-  public void reindexAll(String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void reindexAll(String authenticationToken) {
     Query<String> query = (Query<String>) entityManager.createQuery("SELECT itemObject.objectId FROM ItemRootVO itemObject");
     query.setReadOnly(true);
     query.setFetchSize(500);
@@ -903,7 +898,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     while (results.next()) {
       try {
         count++;
-        String id = (String) results.get();
+        String id = results.get();
         queueJmsTemplate.convertAndSend("reindex-ItemVersionVO", id);
 
         // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
@@ -980,16 +975,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   @Override
-  public void reindex(String id, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void reindex(String id, String authenticationToken) throws IngeTechnicalException {
     // TODO AA
     reindex(id, false, true);
   }
 
 
   @Override
-  public void reindex(String id, boolean includeFulltext, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException {
     // TODO AA
     reindex(id, false, includeFulltext);
   }
@@ -997,8 +990,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   @Override
   @Transactional(readOnly = true)
-  public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException {
+  public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken) {
 
     List<AuditDbVO> list = auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
 
@@ -1028,12 +1020,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
 
   private void sendEventTopic(ItemVersionVO item, String method) {
-    topicJmsTemplate.convertAndSend(item, new MessagePostProcessor() {
-      @Override
-      public Message postProcessMessage(Message message) throws JMSException {
-        message.setStringProperty("method", method);
-        return message;
-      }
+    topicJmsTemplate.convertAndSend(item, message -> {
+      message.setStringProperty("method", method);
+      return message;
     });
   }
 
@@ -1041,7 +1030,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public boolean checkAccess(AccessType at, Principal principal, ItemVersionVO item)
       throws IngeApplicationException, IngeTechnicalException {
     try {
-      checkAa(at.getMethodName(), principal, item, ((ContextDbVO) item.getObject().getContext()));
+      checkAa(at.getMethodName(), principal, item, item.getObject().getContext());
     } catch (AuthenticationException | AuthorizationException e) {
       return false;
     } catch (IngeTechnicalException | IngeApplicationException e) {

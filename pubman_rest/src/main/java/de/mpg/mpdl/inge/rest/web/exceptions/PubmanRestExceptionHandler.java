@@ -49,7 +49,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   private static ResponseEntity<Object> buildExceptionResponseEntity(Throwable e, HttpHeaders headers, HttpStatus status) {
     Map<String, Object> jsonException = new LinkedHashMap<>();
     buildExceptionMessage(e, jsonException, status);
-    return new ResponseEntity<Object>(jsonException, headers, status);
+    return new ResponseEntity<>(jsonException, headers, status);
   }
 
   @ExceptionHandler(value = NotFoundException.class)

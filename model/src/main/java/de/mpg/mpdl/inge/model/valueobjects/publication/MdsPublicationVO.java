@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.model.valueobjects.publication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -197,12 +198,12 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Alternative titles of the publication, e.g. translations of original title or sub-titles.
    */
-  private final java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
+  private final java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<>();
   /**
    * Persons and organizations who essentially participated in creating the content with a specific
    * task, e.g. author, translator, editor.
    */
-  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
+  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<>();
   private String dateAccepted;
   private String dateCreated;
   private String dateModified;
@@ -231,13 +232,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Identifiers referencing the described item, e.g. the ISBN, Report-Number.
    */
-  private final java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<IdentifierVO>();
+  private final java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<>();
   /**
    * The language attribute is a valid ISO Language Code. These codes are the lower- case,
    * two-letter codes as defined by ISO-639. You can find a full list of these codes at a number of
    * sites, such as: http://www.loc.gov/standards/iso639- 2/englangn.html
    */
-  private final java.util.List<String> languages = new java.util.ArrayList<String>();
+  private final java.util.List<String> languages = new java.util.ArrayList<>();
   /**
    * The name of the library where the item is currently located.
    */
@@ -254,13 +255,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * The bundles in which the item has been published, e.g. journals, books, series or databases.
    */
-  private final java.util.List<SourceVO> sources = new java.util.ArrayList<SourceVO>();
+  private final java.util.List<SourceVO> sources = new java.util.ArrayList<>();
   /**
    * Free keywords.
    */
   private String freeKeywords;
 
-  private final List<SubjectVO> subjects = new ArrayList<SubjectVO>();
+  private final List<SubjectVO> subjects = new ArrayList<>();
 
   private String tableOfContents;
   /**
@@ -271,7 +272,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Abstracts or short descriptions of the item.
    */
-  private final java.util.List<AbstractVO> abstracts = new java.util.ArrayList<AbstractVO>();
+  private final java.util.List<AbstractVO> abstracts = new java.util.ArrayList<>();
 
   /**
    * Information about project and funding
@@ -292,10 +293,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public MdsPublicationVO(MdsPublicationVO other) {
     super(other.getTitle());
     for (AlternativeTitleVO altTitle : other.getAlternativeTitles()) {
-      getAlternativeTitles().add((AlternativeTitleVO) altTitle.clone());
+      getAlternativeTitles().add(altTitle.clone());
     }
     for (CreatorVO creator : other.getCreators()) {
-      getCreators().add((CreatorVO) creator.clone());
+      getCreators().add(creator.clone());
     }
     if (other.getDateAccepted() != null) {
       setDateAccepted(other.getDateAccepted());
@@ -318,25 +319,25 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
     setDegree(other.getDegree());
     if (other.getEvent() != null) {
-      setEvent((EventVO) other.getEvent().clone());
+      setEvent(other.getEvent().clone());
     }
     // JUS BEGIN
     if (other.getLegalCase() != null) {
-      setLegalCase((LegalCaseVO) other.getLegalCase().clone());
+      setLegalCase(other.getLegalCase().clone());
     }
     // JUS END
     setGenre(other.getGenre());
     for (IdentifierVO identifier : other.getIdentifiers()) {
-      getIdentifiers().add((IdentifierVO) identifier.clone());
+      getIdentifiers().add(identifier.clone());
     }
     getLanguages().addAll(other.getLanguages());
     setLocation(other.getLocation());
     if (other.getPublishingInfo() != null) {
-      setPublishingInfo((PublishingInfoVO) other.getPublishingInfo().clone());
+      setPublishingInfo(other.getPublishingInfo().clone());
     }
     setReviewMethod(other.getReviewMethod());
     for (SourceVO source : other.getSources()) {
-      getSources().add((SourceVO) source.clone());
+      getSources().add(source.clone());
     }
 
     if (other.getFreeKeywords() != null) {
@@ -344,11 +345,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
 
     for (SubjectVO subject : other.getSubjects()) {
-      getSubjects().add((SubjectVO) subject.clone());
+      getSubjects().add(subject.clone());
     }
 
     for (AbstractVO summary : other.getAbstracts()) {
-      getAbstracts().add((AbstractVO) summary.clone());
+      getAbstracts().add(summary.clone());
     }
     if (other.getTableOfContents() != null) {
       setTableOfContents(other.getTableOfContents());
@@ -358,7 +359,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
     if (other.getProjectInfo() != null) {
       for (ProjectInfoVO pi : other.getProjectInfo()) {
-        getProjectInfo().add((ProjectInfoVO) pi.clone());
+        getProjectInfo().add(pi.clone());
       }
     }
 
@@ -616,8 +617,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.abstracts == null)
       return false;
-    else if (!abstracts.containsAll(other.abstracts) //
-        || !other.abstracts.containsAll(abstracts)) {
+    else if (!new HashSet<>(abstracts).containsAll(other.abstracts) //
+        || !new HashSet<>(other.abstracts).containsAll(abstracts)) {
       return false;
     }
 
@@ -626,8 +627,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.alternativeTitles == null)
       return false;
-    else if (!alternativeTitles.containsAll(other.alternativeTitles) //
-        || !other.alternativeTitles.containsAll(alternativeTitles)) {
+    else if (!new HashSet<>(alternativeTitles).containsAll(other.alternativeTitles) //
+        || !new HashSet<>(other.alternativeTitles).containsAll(alternativeTitles)) {
       return false;
     }
 
@@ -636,8 +637,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.creators == null)
       return false;
-    else if (!creators.containsAll(other.creators) //
-        || !other.creators.containsAll(creators)) {
+    else if (!new HashSet<>(creators).containsAll(other.creators) //
+        || !new HashSet<>(other.creators).containsAll(creators)) {
       return false;
     }
 
@@ -700,7 +701,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.identifiers == null)
       return false;
-    else if (!identifiers.containsAll(other.identifiers) || !other.identifiers.containsAll(identifiers)) {
+    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
       return false;
     }
 
@@ -709,8 +710,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.languages == null)
       return false;
-    else if (!languages.containsAll(other.languages) //
-        || !other.languages.containsAll(languages)) {
+    else if (!new HashSet<>(languages).containsAll(other.languages) //
+        || !new HashSet<>(other.languages).containsAll(languages)) {
       return false;
     }
 
@@ -746,8 +747,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.sources == null)
       return false;
-    else if (!sources.containsAll(other.sources) //
-        || !other.sources.containsAll(sources)) {
+    else if (!new HashSet<>(sources).containsAll(other.sources) //
+        || !new HashSet<>(other.sources).containsAll(sources)) {
       return false;
     }
 
@@ -756,8 +757,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.subjects == null)
       return false;
-    else if (!subjects.containsAll(other.subjects) //
-        || !other.subjects.containsAll(subjects)) {
+    else if (!new HashSet<>(subjects).containsAll(other.subjects) //
+        || !new HashSet<>(other.subjects).containsAll(subjects)) {
       return false;
     }
 

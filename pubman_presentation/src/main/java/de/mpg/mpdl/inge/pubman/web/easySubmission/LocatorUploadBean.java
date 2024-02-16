@@ -63,6 +63,6 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   }
 
   private EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean");
+    return FacesTools.findBean("EasySubmissionSessionBean");
   }
 }

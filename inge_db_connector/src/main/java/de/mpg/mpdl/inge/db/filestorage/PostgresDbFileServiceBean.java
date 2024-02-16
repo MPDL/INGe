@@ -41,17 +41,6 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
     return DataSourceUtils.getConnection(dataSource).unwrap(PGConnection.class);
   }
 
-  /**
-   * creates a file in the seaweed instance
-   * <p>
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream,
-   *      java.lang.String)
-   *
-   * @return json - response returned (including "fid", "fileUrl", "fileName", ...)
-   * @throws IOException
-   */
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
@@ -88,18 +77,6 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
   }
 
-  /**
-   * read a file from the seaweed instance to an outputstream
-   * <p>
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String,
-   *      java.io.OutputStream)
-   *
-   * @param fileId - Id of the file to read
-   * @param out - OutputStream where result is written
-   * @throws IOException
-   */
   @Override
   @Transactional(rollbackFor = Throwable.class, readOnly = true)
   public void readFile(String fileId, OutputStream out) throws IngeTechnicalException {
@@ -132,16 +109,6 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
   }
 
-  /**
-   * delete a file with a specific id from the seaweed instance
-   * <p>
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
-   *
-   * @param fileId - Id of the file to read
-   * @throws Exception
-   */
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void deleteFile(String fileId) throws IngeTechnicalException {

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Objects;
 import org.apache.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
@@ -63,7 +64,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   /**
    * The GET parameter name for the item state.
    */
-  protected static String parameterSelectedItemState = "itemState";
+  protected static final String parameterSelectedItemState = "itemState";
 
   /**
    * import filter.
@@ -96,7 +97,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   private String selectedItemState;
 
   public MyItemsRetrieverRequestBean() {
-    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
+    super(FacesTools.findBean("PubItemListSessionBean"), false);
   }
 
   /**
@@ -106,7 +107,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   public void init() {
     this.checkForLogin();
 
-    final List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
+    final List<SelectItem> importSelectItems = new ArrayList<>();
     importSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
     if (!this.getLoginHelper().isLoggedIn()) {
@@ -151,7 +152,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
-    List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+    List<PubItemVOPresentation> returnList = new ArrayList<>();
 
     // Return empty list if the user is not logged in, needed to avoid exceptions
     if (!this.getLoginHelper().isLoggedIn()) {
@@ -256,7 +257,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
    * @return
    */
   public List<SelectItem> getItemStateSelectItems() {
-    this.itemStateSelectItems = new ArrayList<SelectItem>();
+    this.itemStateSelectItems = new ArrayList<>();
     this.itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptWithdrawn")));
     this.itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.PENDING.name(),
         this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.PENDING))));
@@ -364,19 +365,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   public void readOutParameters() {
     final String selectedItemState =
         FacesTools.getExternalContext().getRequestParameterMap().get(MyItemsRetrieverRequestBean.parameterSelectedItemState);
-    if (selectedItemState == null) {
-      this.setSelectedItemState("all");
-    } else {
-      this.setSelectedItemState(selectedItemState);
-    }
+    this.setSelectedItemState(Objects.requireNonNullElse(selectedItemState, "all"));
 
     final String selectedItem =
         FacesTools.getExternalContext().getRequestParameterMap().get(MyItemsRetrieverRequestBean.parameterSelectedImport);
-    if (selectedItem == null) {
-      this.setSelectedImport("all");
-    } else {
-      this.setSelectedImport(selectedItem);
-    }
+    this.setSelectedImport(Objects.requireNonNullElse(selectedItem, "all"));
   }
 
   @Override

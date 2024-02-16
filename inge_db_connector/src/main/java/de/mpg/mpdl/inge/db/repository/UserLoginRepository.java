@@ -34,7 +34,7 @@ public class UserLoginRepository {
   }
 
   @Transactional
-  public void removeLogin(String loginName) throws IngeTechnicalException {
+  public void removeLogin(String loginName) {
     entityManager.createNativeQuery("DELETE FROM user_login WHERE loginname=?1").setParameter(1, loginName).executeUpdate();
   }
 

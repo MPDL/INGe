@@ -14,14 +14,14 @@ public class DisplayTools {
   //          IdType.PATENT_NR, IdType.PATENT_APPLICATION_NR, IdType.PATENT_PUBLICATION_NR, IdType.OTHER};
 
   public static IdType[] getIdTypesToDisplay() {
-    List<IdType> idTypes = new ArrayList<IdType>();
+    List<IdType> idTypes = new ArrayList<>();
     String[] sIdTypes = PropertyReader.getProperty(PropertyReader.INGE_ID_TYPES_TO_DISPLAY).split(",");
 
     for (String sIdType : sIdTypes) {
       idTypes.add(IdentifierVO.IdType.valueOf(sIdType));
     }
 
-    return idTypes.toArray(new IdType[idTypes.size()]);
+    return idTypes.toArray(new IdType[0]);
   }
 
 }

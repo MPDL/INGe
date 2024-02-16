@@ -11,17 +11,15 @@ import de.mpg.mpdl.inge.transformation.util.SourceTargetPair;
 public class TransformerCache {
   // Map holding the transformers
   // key: Pair source format - target format, value: Transformer object
-  private static final Map<SourceTargetPair, List<TransformerEdge>> transformerMap = new HashMap<SourceTargetPair, List<TransformerEdge>>();
+  private static final Map<SourceTargetPair, List<TransformerEdge>> transformerMap = new HashMap<>();
 
   // Map holding a List of target FORMATS
   // key: source format, value: Array of FORMAT objects containing all reachable target formats
-  private static final Map<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]> targetFormatsMap =
-      new HashMap<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]>();
+  private static final Map<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]> targetFormatsMap = new HashMap<>();
 
   // Map holding a List of source FORMATS
   // key: target format, value: Array of FORMAT objects containing all source formats
-  private static final Map<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]> sourceFormatsMap =
-      new HashMap<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]>();
+  private static final Map<TransformerFactory.FORMAT, TransformerFactory.FORMAT[]> sourceFormatsMap = new HashMap<>();
 
   private TransformerCache() {}
 
@@ -59,11 +57,7 @@ public class TransformerCache {
         return true;
 
       if (t == null) {
-        try {
-          t = TransformerFactory.getShortestPath(sourceFormat, targetFormat);
-        } catch (TransformationException e) {
-          return false;
-        }
+        t = TransformerFactory.getShortestPath(sourceFormat, targetFormat);
 
         if (t != null) {
           transformerMap.put(new SourceTargetPair(sourceFormat, targetFormat), t);

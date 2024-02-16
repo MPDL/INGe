@@ -21,7 +21,7 @@ public class HTMLSubSupBrConverter implements Converter {
   @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
     final String snippet = (String) object;
-    List<String> tags = new ArrayList<String>();
+    List<String> tags = new ArrayList<>();
     tags.add("sup");
     tags.add("sub");
     tags.add("SUB");
@@ -29,7 +29,7 @@ public class HTMLSubSupBrConverter implements Converter {
     tags.add("br");
     tags.add("BR");
 
-    List<String> unbalanced = new ArrayList<String>();
+    List<String> unbalanced = new ArrayList<>();
     unbalanced.add("br");
     unbalanced.add("BR");
 

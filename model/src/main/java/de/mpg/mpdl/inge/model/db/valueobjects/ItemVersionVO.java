@@ -26,6 +26,7 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Objects;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -108,7 +109,7 @@ public class ItemVersionVO extends ItemVersionRO {
   @OrderColumn(name = "creationDate")
   @JoinTable(name = "item_version_file")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-  private List<FileDbVO> files = new ArrayList<FileDbVO>();
+  private List<FileDbVO> files = new ArrayList<>();
 
 
   public void setFileLinks() {
@@ -189,11 +190,7 @@ public class ItemVersionVO extends ItemVersionRO {
 
   @JsonIgnore
   public String getLastMessageForXml() {
-    if (message == null) {
-      return "";
-    } else {
-      return message;
-    }
+    return Objects.requireNonNullElse(message, "");
   }
 
   @Override

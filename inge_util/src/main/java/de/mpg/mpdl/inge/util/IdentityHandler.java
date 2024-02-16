@@ -44,7 +44,7 @@ import org.xml.sax.SAXException;
  */
 public class IdentityHandler extends ShortContentHandler {
   private final StringWriter result = new StringWriter();
-  protected Map<String, String> nameSpaces = new HashMap<String, String>();
+  protected Map<String, String> nameSpaces = new HashMap<>();
   protected String defaultNameSpace = null;
   protected int length = 0;
 

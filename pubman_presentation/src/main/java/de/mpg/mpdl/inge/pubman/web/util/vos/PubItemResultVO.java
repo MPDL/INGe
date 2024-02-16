@@ -56,7 +56,7 @@ public class PubItemResultVO extends ItemVersionVO {
   public PubItemResultVO(ItemVersionVO itemVO, List<SearchHitVO> searchHits, float score) {
     super(itemVO);
     if (!searchHits.isEmpty()) {
-      this.searchHitList = new java.util.ArrayList<SearchHitVO>();
+      this.searchHitList = new java.util.ArrayList<>();
       this.searchHitList = searchHits;
       this.score = score;
     }

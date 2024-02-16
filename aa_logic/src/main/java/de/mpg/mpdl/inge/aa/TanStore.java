@@ -42,7 +42,7 @@ import org.apache.commons.codec.binary.Base64;
  *
  */
 public class TanStore {
-  private static final Set<String> tanSet = new HashSet<String>();
+  private static final Set<String> tanSet = new HashSet<>();
 
   public static boolean checkTan(String tan) {
     if (tanSet.contains(tan)) {

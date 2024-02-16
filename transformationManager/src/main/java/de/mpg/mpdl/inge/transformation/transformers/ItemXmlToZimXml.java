@@ -23,8 +23,8 @@ public class ItemXmlToZimXml extends XslTransformer implements ChainableTransfor
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
-    Map<String, Object> map = new HashMap<String, Object>();
+  public Map<String, Object> getParameters() {
+    Map<String, Object> map = new HashMap<>();
 
     map.put("pubman_instance", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
     map.put("pubmanUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
@@ -39,7 +39,7 @@ public class ItemXmlToZimXml extends XslTransformer implements ChainableTransfor
   }
 
   @Override
-  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+  public Map<String, String> getDefaultConfiguration() {
     return null;
   }
 

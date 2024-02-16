@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,7 +69,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
 
-  private List<String> allChildrenOfMpg = new ArrayList<String>();
+  private List<String> allChildrenOfMpg = new ArrayList<>();
 
   @Autowired
   private OrganizationDaoEs organizationDao;
@@ -98,7 +99,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC));
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
-    return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+    return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
 
   /**
@@ -114,7 +115,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     final List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
 
     if (topLevelOus.isEmpty()) {
-      return new ArrayList<AffiliationDbVO>();
+      return new ArrayList<>();
     }
 
     final List<FieldValue> topLevelOuIds = new ArrayList<>();
@@ -129,7 +130,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
-    return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+    return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
 
   /**
@@ -149,7 +150,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC));
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
-    return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+    return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
 
   /**
@@ -163,17 +164,17 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds, String ignoreOuId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    List<AffiliationDbVO> result = new ArrayList<AffiliationDbVO>();
+    List<AffiliationDbVO> result = new ArrayList<>();
     for (String parentAffiliationId : parentAffiliationIds) {
       if (!parentAffiliationId.equals(ignoreOuId)) {
         result.add(this.get(parentAffiliationId, null));
         List<AffiliationDbVO> children = this.searchChildOrganizations(parentAffiliationId);
-        List<String> childrenIds = new ArrayList<String>();
+        List<String> childrenIds = new ArrayList<>();
         for (AffiliationDbVO child : children) {
           childrenIds.add(child.getObjectId());
         }
         if (!childrenIds.isEmpty()) {
-          result.addAll(this.searchAllChildOrganizations(childrenIds.toArray(new String[childrenIds.size()]), ignoreOuId));
+          result.addAll(this.searchAllChildOrganizations(childrenIds.toArray(new String[0]), ignoreOuId));
         }
       }
     }
@@ -189,28 +190,24 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
-    return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+    return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
 
-  private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException, IngeTechnicalException {
+  private void fillWithChildOus(List<String> idList, String ouId) throws IngeTechnicalException {
 
     Query query = SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId);
     SearchRequest ssb = SearchRequest.of(sr -> sr.docvalueFields(dv -> dv.field(INDEX_OBJECT_ID)).query(query).size(500));
 
     ResponseBody<ObjectNode> resp = null;
-    List<Hit> listHits = new ArrayList<Hit>();
+    List<Hit> listHits = new ArrayList<>();
     JsonNode searchRequestNode = ElasticSearchGenericDAOImpl.toJsonNode(ssb);
     do {
       if (resp == null) {
         resp = organizationDao.searchDetailed(searchRequestNode, 120000);
-        for (Hit<ObjectNode> searchHit : resp.hits().hits()) {
-          listHits.add(searchHit);
-        }
+        listHits.addAll(resp.hits().hits());
       } else {
         resp = organizationDao.scrollOn(resp.scrollId(), 120000);
-        for (Hit<ObjectNode> searchHit : resp.hits().hits()) {
-          listHits.add(searchHit);
-        }
+        listHits.addAll(resp.hits().hits());
       }
     } while (!resp.hits().hits().isEmpty());
 
@@ -398,7 +395,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   @Override
   protected List<String> updateObjectWithValues(AffiliationDbVO givenAff, AffiliationDbVO toBeUpdatedAff, AccountUserDbVO userAccount,
-      boolean createNew) throws IngeTechnicalException, IngeApplicationException {
+      boolean createNew) throws IngeApplicationException {
 
     if (createNew) {
       toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
@@ -451,7 +448,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    * Returns the ou path from the given id up to root parent
    */
   @Transactional(readOnly = true)
-  public String getOuPath(String id) throws IngeTechnicalException, IngeApplicationException {
+  public String getOuPath(String id) throws IngeApplicationException {
 
     AffiliationDbVO affVo = organizationRepository.findById(id).orElse(null);
     if (affVo == null)
@@ -472,7 +469,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    * Returns the path from the given id up to root parent
    */
   @Transactional(readOnly = true)
-  public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
+  public List<String> getIdPath(String id) throws IngeApplicationException {
     AffiliationDbVO affVo = organizationRepository.findById(id).orElse(null);
     if (affVo == null)
       throw new IngeApplicationException("Could not find organization with id " + id);
@@ -522,7 +519,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   }
 
   @Override
-  public List<String> getAllChildrenOfMpg() throws IngeTechnicalException, IngeApplicationException {
+  public List<String> getAllChildrenOfMpg() {
     return this.allChildrenOfMpg;
   }
 

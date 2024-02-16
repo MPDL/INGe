@@ -122,11 +122,11 @@ public class EscidocProcessor extends FormatProcessor {
         if (source.contains("item-list")) {
           itemList = XmlTransformingService.transformToPubItemList(source);
         } else {
-          itemList = new ArrayList<PubItemVO>();
+          itemList = new ArrayList<>();
           final PubItemVO itemVO = XmlTransformingService.transformToPubItem(source);
           itemList.add(itemVO);
         }
-        this.items = new ArrayList<String>();
+        this.items = new ArrayList<>();
         for (final ItemVO itemVO : itemList) {
           this.items.add(XmlTransformingService.transformToItem(itemVO));
         }

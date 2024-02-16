@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -37,11 +37,11 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * TODO Session Bean for the Quality Assurance Workspace, keeps all attributes
- * 
+ *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "QAWSSessionBean")
 @SessionScoped
@@ -57,7 +57,7 @@ public class QAWSSessionBean extends FacesBean {
 
   private String selectedItemState = "SUBMITTED";
 
-  private List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
+  private List<ItemVersionVO> pubItemList = new ArrayList<>();
 
   /**
    * The currently selected context filter.

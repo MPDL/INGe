@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -169,39 +168,40 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public void init() {
-    this.pubItemListSessionBean = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    this.pubItemListSessionBean = FacesTools.findBean("PubItemListSessionBean");
     this.internationalizationHelper = this.getI18nHelper();
-    this.storedPubItems = new HashMap<String, ItemVersionRO>();
+    this.storedPubItems = new HashMap<>();
   }
 
   public void initFields() {
     // Contexts
-    this.contextSelectItems = new ArrayList<SelectItem>();
+    this.contextSelectItems = new ArrayList<>();
     this.selectedContextOld = null;
     this.selectedContextNew = null;
 
     // Local tags
-    this.localTagsToAdd = new ArrayList<String>();
+    this.localTagsToAdd = new ArrayList<>();
     this.localTagsToAdd.add("");
     this.inputChangeLocalTagsReplaceFrom = null;
     this.inputChangeLocalTagsReplaceTo = null;
 
     // Genres
-    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
     final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
-    List<Genre> allowedGenresForContext = new ArrayList<Genre>();
-    List<Genre> allowedGenres = new ArrayList<Genre>();
+    List<Genre> allowedGenresForContext = new ArrayList<>();
+    List<Genre> allowedGenres = new ArrayList<>();
     Genre genreToCheck = null;
-    this.changeGenreSelectItems = new ArrayList<SelectItem>();
-    for (int i = 0; i < contextVOList.size(); i++) {
+    this.changeGenreSelectItems = new ArrayList<>();
+    for (PubContextVOPresentation pubContextVOPresentation : contextVOList) {
       String workflow = "null";
-      if (contextVOList.get(i).getWorkflow() != null) {
-        workflow = contextVOList.get(i).getWorkflow().toString();
+      if (pubContextVOPresentation.getWorkflow() != null) {
+        workflow = pubContextVOPresentation.getWorkflow().toString();
       }
-      this.contextSelectItems.add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
-      allowedGenresForContext = contextVOList.get(i).getAllowedGenres();
-      for (int j = 0; j < allowedGenresForContext.size(); j++) {
-        genreToCheck = allowedGenresForContext.get(j);
+      this.contextSelectItems
+          .add(new SelectItem(pubContextVOPresentation.getObjectId(), pubContextVOPresentation.getName() + " -- " + workflow));
+      allowedGenresForContext = pubContextVOPresentation.getAllowedGenres();
+      for (Genre genre : allowedGenresForContext) {
+        genreToCheck = genre;
         if (!allowedGenres.contains(genreToCheck)) {
           allowedGenres.add(genreToCheck);
         }
@@ -216,35 +216,34 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeGenreFrom = null;
     this.changeGenreTo = null;
 
-    this.changeGenreThesisTypeSelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsDegreeType(true)));
+    this.changeGenreThesisTypeSelectItems = new ArrayList<>(Arrays.asList(this.getI18nHelper().getSelectItemsDegreeType(true)));
     this.changeGenreThesisType = null;
     this.showThesisType = false;
 
     // Visibility
-    this.changeFilesVisibilitySelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsVisibility(false)));
+    this.changeFilesVisibilitySelectItems = new ArrayList<>(Arrays.asList(this.getI18nHelper().getSelectItemsVisibility(false)));
     this.changeFilesVisibilityFrom = null;
     this.changeFilesVisibilityTo = null;
 
     // Content category files
-    this.changeFilesContentCategorySelectItems =
-        new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
+    this.changeFilesContentCategorySelectItems = new ArrayList<>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
     this.changeFilesContentCategoryFrom = null;
     this.changeFilesContentCategoryTo = null;
 
     // IP Range
-    this.changeFilesAudienceSelectItems = new ArrayList<SelectItem>();
+    this.changeFilesAudienceSelectItems = new ArrayList<>();
     for (IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
       this.changeFilesAudienceSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
     }
 
-    Collections.sort(this.changeFilesAudienceSelectItems, (a, b) -> a.getLabel().compareTo(b.getLabel()));
+    this.changeFilesAudienceSelectItems.sort(Comparator.comparing(SelectItem::getLabel));
 
-    this.ipRangeToAdd = new ArrayList<String>();
+    this.ipRangeToAdd = new ArrayList<>();
     this.ipRangeToAdd.add("");
 
     // Content category external references
     this.changeExternalReferencesContentCategorySelectItems =
-        new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
+        new ArrayList<>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
     this.changeExternalReferencesContentCategoryFrom = null;
     this.changeExternalReferencesContentCategoryTo = null;
 
@@ -253,7 +252,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.orcid = null;
 
     // Review
-    this.changeReviewMethodSelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsReviewMethod(true)));
+    this.changeReviewMethodSelectItems = new ArrayList<>(Arrays.asList(this.getI18nHelper().getSelectItemsReviewMethod(true)));
     this.changeReviewMethodFrom = null;
     this.changeReviewMethodTo = null;
 
@@ -261,7 +260,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changePublicationKeywordsAddInput = null;
 
     // Keywords replace
-    this.changePublicationKeywordsReplaceTypeSelectItems = new ArrayList<SelectItem>();
+    this.changePublicationKeywordsReplaceTypeSelectItems = new ArrayList<>();
     this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(ReplaceType.REPLACE_ALL, "ALL"));
     this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(ReplaceType.REPLACE_BY_VALUE, "SPECIFIC VALUE"));
     this.changePublicationKeywordsReplaceType = null;
@@ -271,7 +270,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
     // Genre source
     final Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
-    changeSourceGenreSelectItems = new ArrayList<SelectItem>();
+    changeSourceGenreSelectItems = new ArrayList<>();
     changeSourceGenreSelectItems.add(new SelectItem("", this.getLabel("BatchWorkspace_lblNoItemsSet")));
     for (final SourceVO.Genre value : SourceVO.Genre.values()) {
       changeSourceGenreSelectItems.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
@@ -288,12 +287,12 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
         i++;
       }
     }
-    changeSourceGenreSelectItems.toArray(new SelectItem[changeSourceGenreSelectItems.size()]);
+    changeSourceGenreSelectItems.toArray(new SelectItem[0]);
     this.changeSourceGenreFrom = null;
     this.changeSourceGenreTo = null;
 
     // Output source number
-    this.changeSourceNumberSelectItems = new ArrayList<SelectItem>();
+    this.changeSourceNumberSelectItems = new ArrayList<>();
     this.changeSourceNumberSelectItems.add(new SelectItem("1", "1"));
     this.changeSourceNumberSelectItems.add(new SelectItem("2", "2"));
     this.changeSoureEditionNumber = null;
@@ -789,7 +788,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public InternationalizationHelper getI18nHelper() {
-    return (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
+    return FacesTools.findBean("InternationalizationHelper");
   }
 
   /**
@@ -814,7 +813,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
-    final ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
+    final ArrayList<SelectItem> selectItemList = new ArrayList<>();
 
     // constants for comboBoxes
     selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
@@ -824,12 +823,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     }
 
     // Sort identifiers alphabetically
-    Collections.sort(selectItemList, new Comparator<SelectItem>() {
-      @Override
-      public int compare(SelectItem o1, SelectItem o2) {
-        return o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase());
-      }
-    });
+    selectItemList.sort((o1, o2) -> o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase()));
 
     return selectItemList.toArray(new SelectItem[] {});
   }
@@ -874,7 +868,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     System.out.println(formatter.format(calendar.getTime()));
 
     if (localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
-      List<String> pubItemObjectIdList = new ArrayList<String>();
+      List<String> pubItemObjectIdList = new ArrayList<>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
@@ -895,7 +889,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -912,7 +906,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     if (changeExternalReferencesContentCategoryFrom != null && changeExternalReferencesContentCategoryTo != null) {
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -950,7 +944,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
       return null;
     }
 
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
 
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -970,7 +964,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -988,7 +982,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     if (changeFilesContentCategoryFrom != null && changeFilesContentCategoryTo != null) {
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -1011,7 +1005,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1030,7 +1024,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1053,7 +1047,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     if (changePublicationKeywordsAddInput != null && !changePublicationKeywordsAddInput.trim().isEmpty()) {
-      List<String> pubItemObjectIdList = new ArrayList<String>();
+      List<String> pubItemObjectIdList = new ArrayList<>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
@@ -1074,7 +1068,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1098,7 +1092,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1116,7 +1110,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     if (changeSourceGenreFrom != null && changeSourceGenreTo != null) {
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -1140,7 +1134,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     if (changeSourceIdAdd != null && !changeSourceIdAdd.trim().isEmpty() && changeSourceIdTypeAdd != null) {
-      List<String> pubItemObjectIdList = new ArrayList<String>();
+      List<String> pubItemObjectIdList = new ArrayList<>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
@@ -1163,7 +1157,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     if (changeSourceIdReplaceFrom != null && !changeSourceIdReplaceFrom.trim().isEmpty() && changeSourceIdTypeReplace != null) {
-      List<String> pubItemObjectIdList = new ArrayList<String>();
+      List<String> pubItemObjectIdList = new ArrayList<>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
@@ -1185,7 +1179,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1203,7 +1197,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1220,7 +1214,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1238,7 +1232,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     if (inputChangeLocalTagsReplaceFrom != null && !inputChangeLocalTagsReplaceFrom.trim().isEmpty()) {
-      List<String> pubItemObjectIdList = new ArrayList<String>();
+      List<String> pubItemObjectIdList = new ArrayList<>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
@@ -1259,7 +1253,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1276,7 +1270,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1293,7 +1287,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    List<String> pubItemObjectIdList = new ArrayList<String>();
+    List<String> pubItemObjectIdList = new ArrayList<>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
@@ -1349,10 +1343,10 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.orcid = null;
   }
 
-  private enum ReplaceType
+  public enum ReplaceType
   {
     REPLACE_ALL,
-    REPLACE_BY_VALUE;
+    REPLACE_BY_VALUE
   }
 
   private enum BatchMessages implements Messages

@@ -48,18 +48,18 @@ public class EditItemSessionBean extends EditItemBean {
   public static final String SUBMISSION_METHOD_EASY_SUBMISSION = "EASY_SUBMISSION";
   public static final String SUBMISSION_METHOD_IMPORT = "IMPORT";
 
-  private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+  private List<PubFileVOPresentation> files = new ArrayList<>();
 
   private boolean filesInitialized = false;
 
-  private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+  private List<PubFileVOPresentation> locators = new ArrayList<>();
 
   private String genreBundle = "Genre_ARTICLE";
 
   /** The offset of the page where to jump back */
   private String offset;
 
-  private List<SourceBean> sources = new ArrayList<SourceBean>();
+  private List<SourceBean> sources = new ArrayList<>();
 
   /**
    * Flag for the GUI to detect if the edit item page is called for a submission or for an editing

@@ -93,7 +93,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
   public abstract Source getXsltSource() throws TransformationException;
 
-  public abstract Map<String, Object> getParameters() throws TransformationException;
+  public abstract Map<String, Object> getParameters();
 
   public abstract Map<String, String> getDefaultConfiguration() throws TransformationException;
 
@@ -120,7 +120,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     }
   }
 
-  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
     TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");

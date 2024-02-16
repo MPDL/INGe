@@ -57,9 +57,8 @@ public class UserAccountRestController {
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> getAll(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "size", defaultValue = "10") int limit,
+      @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     //QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     Query matchAllQuery = new MatchAllQuery.Builder().build()._toQuery();
@@ -67,15 +66,14 @@ public class UserAccountRestController {
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
 
-    return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @Hidden
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> filter(
       @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
-      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", defaultValue = "10") int limit, @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Query matchQueryParam = QueryStringQuery.of(q -> q.query(query))._toQuery();
     //QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
@@ -84,7 +82,7 @@ public class UserAccountRestController {
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
 
-    return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -94,7 +92,7 @@ public class UserAccountRestController {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
 
-    return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.GET)
@@ -103,7 +101,7 @@ public class UserAccountRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     AccountUserDbVO user = userSvc.get(userId, token);
     if (user != null) {
-      return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
+      return new ResponseEntity<>(user, HttpStatus.OK);
     } else {
       throw new NotFoundException();
     }
@@ -114,7 +112,7 @@ public class UserAccountRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO created = userSvc.create(user, token);
 
-    return new ResponseEntity<AccountUserDbVO>(created, HttpStatus.CREATED);
+    return new ResponseEntity<>(created, HttpStatus.CREATED);
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.PUT)
@@ -123,7 +121,7 @@ public class UserAccountRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO updated = userSvc.update(user, token);
 
-    return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH + "/add", method = RequestMethod.PUT)
@@ -133,7 +131,7 @@ public class UserAccountRestController {
     AccountUserDbVO user2AddGrants2 = userSvc.get(userId, token);
     AccountUserDbVO updated = userSvc.addGrants(userId, user2AddGrants2.getLastModificationDate(), grants, token);
 
-    return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH + "/remove", method = RequestMethod.PUT)
@@ -143,7 +141,7 @@ public class UserAccountRestController {
     AccountUserDbVO user2RemoveGrantsFrom = userSvc.get(userId, token);
     AccountUserDbVO updated = userSvc.removeGrants(userId, user2RemoveGrantsFrom.getLastModificationDate(), grants, token);
 
-    return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH + "/activate", method = RequestMethod.PUT)
@@ -153,7 +151,7 @@ public class UserAccountRestController {
     Date lmd = utils.string2Date(modificationDate);
     AccountUserDbVO updated = userSvc.activate(userId, lmd, token);
 
-    return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH + "/deactivate", method = RequestMethod.PUT)
@@ -163,7 +161,7 @@ public class UserAccountRestController {
     Date lmd = utils.string2Date(modificationDate);
     AccountUserDbVO updated = userSvc.deactivate(userId, lmd, token);
 
-    return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH + "/password", method = RequestMethod.PUT)
@@ -175,7 +173,7 @@ public class UserAccountRestController {
     Date lmd = user.getLastModificationDate();
     AccountUserDbVO updated = userSvc.changePassword(userId, lmd, changedPassword, false, token);
 
-    return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
@@ -188,10 +186,9 @@ public class UserAccountRestController {
 
   @RequestMapping(value = "/generateRandomPassword", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
   public ResponseEntity<String> generateRandomPassword(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token) {
     String pw = this.userSvc.generateRandomPassword();
 
-    return new ResponseEntity<String>(pw, HttpStatus.OK);
+    return new ResponseEntity<>(pw, HttpStatus.OK);
   }
 }

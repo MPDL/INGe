@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.cone;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -53,9 +52,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class RDFHandler extends DefaultHandler {
 
-  private final List<LocalizedTripleObject> result = new ArrayList<LocalizedTripleObject>();
-  private final Stack<LocalizedTripleObject> stack = new Stack<LocalizedTripleObject>();
-  private final Stack<QName> tagStack = new Stack<QName>();
+  private final List<LocalizedTripleObject> result = new ArrayList<>();
+  private final Stack<LocalizedTripleObject> stack = new Stack<>();
+  private final Stack<QName> tagStack = new Stack<>();
 
   private final Querier querier;
   private final Model model;
@@ -117,8 +116,7 @@ public class RDFHandler extends DefaultHandler {
         }
 
         String pred = null;
-        for (Iterator<String> iterator = container.keySet().iterator(); iterator.hasNext();) {
-          String key = (String) iterator.next();
+        for (String key : container.keySet()) {
           if (container.get(key).contains(wrongData)) {
             pred = key;
             break;
@@ -153,7 +151,7 @@ public class RDFHandler extends DefaultHandler {
         if (((TreeFragment) this.stack.peek()).get(predicate) != null) {
           ((TreeFragment) this.stack.peek()).get(predicate).add(firstValue);
         } else {
-          List<LocalizedTripleObject> newList = new ArrayList<LocalizedTripleObject>();
+          List<LocalizedTripleObject> newList = new ArrayList<>();
           newList.add(firstValue);
           ((TreeFragment) this.stack.peek()).put(predicate, newList);
         }
@@ -167,7 +165,7 @@ public class RDFHandler extends DefaultHandler {
   }
 
   @Override
-  public void endElement(String uri, String localName, String name) throws SAXException {
+  public void endElement(String uri, String localName, String name) {
     // super.endElement(uri, localName, name);
 
     QName currentTag = new QName(uri, localName);
@@ -220,7 +218,7 @@ public class RDFHandler extends DefaultHandler {
    * Append characters to current content.
    */
   @Override
-  public final void characters(char[] ch, int start, int length) throws SAXException {
+  public final void characters(char[] ch, int start, int length) {
     if (currentContent != null) {
       currentContent.append(ch, start, length);
     }

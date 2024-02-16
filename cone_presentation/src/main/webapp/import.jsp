@@ -63,10 +63,12 @@
 					<div class="full_area0">
 						<div class="small_marginLExcl">
 							<% if (request.getSession() != null && Login.getLoggedIn(request)) {
-								
-								boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
-								boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
-	
+
+								boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+                                        .getAttribute("edit_open_vocabulary"));
+								boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+                                        .getAttribute("edit_closed_vocabulary"));
+
 								%>
 								Model:
 								<br/>

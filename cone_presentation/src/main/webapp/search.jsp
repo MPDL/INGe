@@ -164,7 +164,7 @@
 													<%	for (ModelList.Model model : ModelList.getInstance().getList()) {
 														 if (model.getName().equals(request.getParameter("model"))){
 															request.getSession().setAttribute("open_model",
-                                                                    Boolean.valueOf(model.isOpen()));
+                                                                    model.isOpen());
 															//System.out.print("model "+model.getName()+" open: "+Boolean.toString(model.isOpen()));
 															break;
 														 }
@@ -173,13 +173,15 @@
 															<% if (loggedIn) { %>
 																<%
 																if((Boolean)request.getSession().getAttribute("open_model") &&
-																		(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
+																		(request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+                                                                                .getAttribute("edit_open_vocabulary"))) { %>
 																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
 																<% } %>
 
 																<%
 																if(!(Boolean)request.getSession().getAttribute("open_model") &&
-																		(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
+																		(request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+                                                                                .getAttribute("edit_closed_vocabulary"))) { %>
 																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
 																<% } %>
 

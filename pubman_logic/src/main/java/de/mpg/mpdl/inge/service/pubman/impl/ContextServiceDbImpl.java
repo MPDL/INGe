@@ -108,7 +108,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
   @Override
   protected List<String> updateObjectWithValues(ContextDbVO givenContext, ContextDbVO toBeUpdatedContext, AccountUserDbVO userAccount,
-      boolean createNew) throws IngeTechnicalException, IngeApplicationException {
+      boolean createNew) throws IngeApplicationException {
 
     toBeUpdatedContext.setAllowedGenres(givenContext.getAllowedGenres());
     toBeUpdatedContext.setAllowedSubjectClassifications(givenContext.getAllowedSubjectClassifications());

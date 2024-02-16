@@ -11,9 +11,9 @@ import jakarta.faces.convert.Converter;
 /**
  * This converter shortens a string, escapes all html tags except sup/sub and balances the shortened
  * string
- * 
+ *
  * @author haarlae1
- * 
+ *
  */
 public class HTMLSubSupShortTitleConverter implements Converter {
   private static final int LENGTH = 80;
@@ -28,7 +28,7 @@ public class HTMLSubSupShortTitleConverter implements Converter {
   @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
     final String snippet = (String) object;
-    final List<String> tags = new ArrayList<String>();
+    final List<String> tags = new ArrayList<>();
     tags.add("sup");
     tags.add("sub");
     tags.add("SUB");

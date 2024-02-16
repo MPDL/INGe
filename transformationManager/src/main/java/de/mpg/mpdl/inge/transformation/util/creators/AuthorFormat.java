@@ -86,13 +86,6 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    */
   public abstract String getPattern();
 
-  /**
-   * This method is called to get an integer value that indicates how reliable the result of this
-   * parser is.
-   *
-   * @return An integer value between 1 (highly reliable) and {@link Integer.MAX_VALUE} (not
-   *         reliable at all).
-   */
   public abstract int getSignificance();
 
   /**
@@ -194,7 +187,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
     InputStream file = ResourceUtil.getResourceAsStream(filename, AuthorFormat.class.getClassLoader());
     BufferedReader br = new BufferedReader(new InputStreamReader(file));
     String name = "";
-    Set<String> result = new HashSet<String>();
+    Set<String> result = new HashSet<>();
     while ((name = br.readLine()) != null) {
       result.add(name);
     }
@@ -229,25 +222,25 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    */
   public List<Author> getAuthorListNormalFormat(String[] authors, String separator) {
 
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
     for (String authorString : authors) {
 
       String[] parts = authorString.split(separator);
 
-      String givenName = "";
-      String surname = parts[parts.length - 1];
+      StringBuilder givenName = new StringBuilder();
+      StringBuilder surname = new StringBuilder(parts[parts.length - 1]);
       for (int i = parts.length - 2; i >= 0; i--) {
         if (parts[i].matches(PREFIX)) {
-          surname = parts[i] + " " + surname;
+          surname.insert(0, parts[i] + " ");
         } else {
-          givenName = parts[i] + " " + givenName;
+          givenName.insert(0, parts[i] + " ");
         }
 
       }
       Author author = new Author();
 
-      author.setGivenName(givenName.trim());
-      author.setSurname(surname);
+      author.setGivenName(givenName.toString().trim());
+      author.setSurname(surname.toString());
       author.setFormat(this);
       result.add(author);
 
@@ -273,7 +266,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @return The authors as list of author objects.
    */
   public List<Author> getAuthorListWithInitials(String[] authors) {
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
     for (String authorString : authors) {
 
       logger.debug("Testing " + authorString);
@@ -303,7 +296,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @return The authors as list of author objects.
    */
   public List<Author> getAuthorListLeadingSurname(String[] authors, String limit) {
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
     for (String authorString : authors) {
       int delimiter = authorString.indexOf(limit);
       Author author = new Author();
@@ -328,7 +321,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   }
 
   public List<Author> getAuthorListCheckingGivenNames(String[] authors) throws Exception {
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
 
 
     int prefixPosition = -1;
@@ -347,7 +340,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
         }
       }
 
-      String givenName = "";
+      StringBuilder givenName = new StringBuilder();
       String surname = "";
 
       if (prefixPosition == -1) {
@@ -355,26 +348,26 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
         if (lastSpace == -1) {
           return null;
         }
-        givenName = authorString.substring(0, lastSpace);
+        givenName = new StringBuilder(authorString.substring(0, lastSpace));
         surname = authorString.substring(lastSpace + 1);
       } else {
         surname = parts[parts.length - 1];
         for (int i = 0; i < prefixPosition; i++) {
-          givenName += parts[i];
+          givenName.append(parts[i]);
         }
 
       }
 
 
-      String[] names = givenName.split(" |-");
-      for (int i = 0; i < names.length; i++) {
-        if (!isGivenName(names[i])) {
+      String[] names = givenName.toString().split(" |-");
+      for (String name : names) {
+        if (!isGivenName(name)) {
           return null;
         }
       }
 
 
-      author.setGivenName(givenName);
+      author.setGivenName(givenName.toString());
       author.setSurname(surname);
       author.setFormat(this);
       result.add(author);
@@ -394,7 +387,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @throws Exception Any {@link Exception}
    */
   public List<Author> getAuthorListCheckingNames(String authorsString, String[] authors) throws Exception {
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
     for (String authorString : authors) {
 
       Author author = new Author();
@@ -431,7 +424,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   }
 
   public List<Author> getAuthorListLooseFormat(String[] authors) {
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
     for (String authorString : authors) {
       Author author = new Author();
 
@@ -456,30 +449,30 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       if (parts.length > 1) {
 
         String surname = parts[parts.length - 1];
-        String prefix = "";
-        String givenName = "";
-        String title = "";
+        StringBuilder prefix = new StringBuilder();
+        StringBuilder givenName = new StringBuilder();
+        StringBuilder title = new StringBuilder();
         for (int i = 0; i < parts.length - 1; i++) {
           String part = parts[i];
-          if (part.matches(PREFIX) && !givenName.trim().isEmpty()) {
-            prefix += part + " ";
-          } else if (part.matches(TITLE) && givenName.trim().isEmpty()) {
-            title += part + " ";
+          if (part.matches(PREFIX) && !givenName.toString().trim().isEmpty()) {
+            prefix.append(part).append(" ");
+          } else if (part.matches(TITLE) && givenName.toString().trim().isEmpty()) {
+            title.append(part).append(" ");
           } else if (part.matches(IGNORE_CHARACTERS)) {
             // ignore whole string
           }
 
           else {
-            givenName += part + " ";
+            givenName.append(part).append(" ");
           }
 
 
         }
 
-        author.setGivenName(givenName.trim());
-        author.setSurname(prefix.trim() + " " + surname.trim());
+        author.setGivenName(givenName.toString().trim());
+        author.setSurname(prefix.toString().trim() + " " + surname.trim());
         author.setSurname(author.getSurname().trim());
-        author.setTitle(title.trim());
+        author.setTitle(title.toString().trim());
         author.setFormat(this);
         result.add(author);
 
@@ -502,16 +495,16 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   }
 
   protected List<Author> getAuthorListLooseFormatSurnameFirst(String[] authors) {
-    List<Author> result = new ArrayList<Author>();
+    List<Author> result = new ArrayList<>();
     for (String authorString : authors) {
       Author author = new Author();
       String[] parts = null;
-      if (authorString.indexOf(",") != -1) {
+      if (authorString.contains(",")) {
         parts = authorString.split(",");
-      } else if (authorString.indexOf(";") != -1) {
+      } else if (authorString.contains(";")) {
         parts = authorString.split(";");
       } else {
-        if (authorString.indexOf("{") != -1 && authorString.indexOf("}") != -1 && authorString.indexOf("{") < authorString.indexOf("}")) {
+        if (authorString.contains("{") && authorString.contains("}") && authorString.indexOf("{") < authorString.indexOf("}")) {
           authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
           if (authorString.indexOf("{", authorString.indexOf("}")) != -1 && authorString.indexOf("}", authorString.indexOf("}")) != -1
               && authorString.indexOf("{", authorString.indexOf("}")) < authorString.indexOf("}", authorString.indexOf("}"))) {
@@ -530,49 +523,49 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
         String[] givenNameParts = parts[1].split("\\s");
 
         // look for other parts that are seperated by a comma, e.g. "Jun." or "Sen."
-        String additionalParts = "";
+        StringBuilder additionalParts = new StringBuilder();
         if (parts.length > 2) {
           for (int i = 2; i < parts.length; i++) {
-            additionalParts += parts[i] + " ";
+            additionalParts.append(parts[i]).append(" ");
           }
         }
-        additionalParts = additionalParts.trim();
+        additionalParts = new StringBuilder(additionalParts.toString().trim());
 
-        String surname = "";
-        String prefix = "";
-        String givenName = "";
-        String title = "";
+        StringBuilder surname = new StringBuilder();
+        StringBuilder prefix = new StringBuilder();
+        StringBuilder givenName = new StringBuilder();
+        StringBuilder title = new StringBuilder();
 
-        for (int i = 0; i < surnameParts.length; i++) {
-          if (surnameParts[i].toLowerCase().matches(PREFIX)) {
-            prefix += surnameParts[i] + " ";
-          } else if (surnameParts[i].matches(TITLE)) {
-            title += surnameParts[i] + " ";
-          } else if (surnameParts[i].matches(FORBIDDEN_CHARACTERS)) {
+        for (String surnamePart : surnameParts) {
+          if (surnamePart.toLowerCase().matches(PREFIX)) {
+            prefix.append(surnamePart).append(" ");
+          } else if (surnamePart.matches(TITLE)) {
+            title.append(surnamePart).append(" ");
+          } else if (surnamePart.matches(FORBIDDEN_CHARACTERS)) {
             // ignore part
           } else {
-            surname += surnameParts[i] + " ";
+            surname.append(surnamePart).append(" ");
           }
 
         }
 
-        for (int i = 0; i < givenNameParts.length; i++) {
-          if (givenNameParts[i].matches(FORBIDDEN_CHARACTERS)) {
+        for (String givenNamePart : givenNameParts) {
+          if (givenNamePart.matches(FORBIDDEN_CHARACTERS)) {
             // ignore part
           } else {
-            givenName += givenNameParts[i] + " ";
+            givenName.append(givenNamePart).append(" ");
           }
 
         }
 
-        if (additionalParts.matches(FORBIDDEN_CHARACTERS)) {
-          additionalParts = "";
+        if (additionalParts.toString().matches(FORBIDDEN_CHARACTERS)) {
+          additionalParts = new StringBuilder();
         }
 
-        author.setGivenName(givenName.trim());
-        author.setSurname(prefix.trim() + " " + surname.trim() + " " + additionalParts);
+        author.setGivenName(givenName.toString().trim());
+        author.setSurname(prefix.toString().trim() + " " + surname.toString().trim() + " " + additionalParts);
         author.setSurname(author.getSurname().trim());
-        author.setTitle(title.trim());
+        author.setTitle(title.toString().trim());
 
       } else if (parts != null) {
         author.setSurname(parts[0].trim());
@@ -614,7 +607,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @return A string array containing the trimmed pieces of the string.
    */
   protected String[] split(String authorsString, char delimiter) {
-    ArrayList<String> list = new ArrayList<String>();
+    ArrayList<String> list = new ArrayList<>();
     int currentStart = 0;
     int currentEnd;
     while ((currentEnd = authorsString.indexOf(delimiter, currentStart)) >= 0) {

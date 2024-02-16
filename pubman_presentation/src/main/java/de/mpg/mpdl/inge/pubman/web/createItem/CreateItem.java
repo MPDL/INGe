@@ -125,7 +125,7 @@ public class CreateItem extends FacesBean {
   }
 
   protected EditItem getEditItem() {
-    return (EditItem) FacesTools.findBean("EditItem");
+    return FacesTools.findBean("EditItem");
   }
 
   public boolean getMultiple() {
@@ -161,14 +161,14 @@ public class CreateItem extends FacesBean {
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    return FacesTools.findBean("ContextListSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    return FacesTools.findBean("EditItemSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+    return FacesTools.findBean("ItemControllerSessionBean");
   }
 }

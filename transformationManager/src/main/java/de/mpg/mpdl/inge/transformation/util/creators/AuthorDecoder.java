@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -39,14 +39,14 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
  * Main class for author string decoding.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 4134 $ $LastChangedDate: 2011-09-22 18:21:00 +0200 (Do, 22 Sep 2011) $
  */
 public class AuthorDecoder {
 
-  private List<List<Author>> authorListList = new ArrayList<List<Author>>();
+  private List<List<Author>> authorListList = new ArrayList<>();
   private AuthorFormat bestFormat = null;
 
   private static final Logger logger = Logger.getLogger(AuthorDecoder.class);
@@ -59,9 +59,9 @@ public class AuthorDecoder {
     /*
      * String[] prefixes1 = "Damien van den Borgne".split(WesternFormat1.PREFIX, 3); String[]
      * prefixes2 = "Damien von Sudo".split(WesternFormat1.PREFIX, 3);
-     * 
+     *
      * for (String string : prefixes1) { System.out.println(string); }
-     * 
+     *
      * for (String string : prefixes2) { System.out.println(string); }
      */
     if (args == null || args.length == 0) {
@@ -77,7 +77,7 @@ public class AuthorDecoder {
 
   /**
    * Constructor that starts the processing of a given author string.
-   * 
+   *
    * @param authors The author string to be parsed.
    * @throws Exception Any Exception.
    */
@@ -87,7 +87,7 @@ public class AuthorDecoder {
 
   /**
    * Constructor that starts the processing of a given author string.
-   * 
+   *
    * @param authors The author string to be parsed.
    * @param bestOnly Indicates if only the first (and best) result should be evaluated.
    * @throws Exception Any Exception.
@@ -233,7 +233,7 @@ public class AuthorDecoder {
    * following structure: <authors> <author> <familyname>Buxtehude-Mölln</familyname>
    * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
    * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   * 
+   *
    * @param authors
    * @return
    */

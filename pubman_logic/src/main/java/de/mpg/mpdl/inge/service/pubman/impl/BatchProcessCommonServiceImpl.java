@@ -1,16 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogDetailRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogHeaderRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessUserLockRepository;
@@ -25,6 +14,14 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Primary
@@ -92,7 +89,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
     if (itemVersionVO.getObject().getLocalTags() != null) {
       itemVersionVO.getObject().getLocalTags().add(message);
     } else {
-      itemVersionVO.getObject().setLocalTags(new ArrayList<>(Arrays.asList(message)));
+      itemVersionVO.getObject().setLocalTags(new ArrayList<>(List.of(message)));
     }
 
     this.pubItemService.update(itemVersionVO, token);
@@ -159,7 +156,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
           batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, itemVersionVO.getVersionNumber(),
               BatchProcessLogDetailDbVO.State.INITIALIZED, new Date());
         }
-      } catch (IngeTechnicalException e) {
+      } catch (IngeTechnicalException | RuntimeException | IngeApplicationException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
             itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
@@ -171,14 +168,6 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
             itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR, new Date());
-      } catch (IngeApplicationException e) {
-        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
-      } catch (RuntimeException e) {
-        batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
       }
 
       this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);

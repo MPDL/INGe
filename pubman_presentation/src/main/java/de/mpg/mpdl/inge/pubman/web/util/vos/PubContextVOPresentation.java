@@ -16,7 +16,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 
 /**
  * Wrapper class for contexts to be used in the presentation.
- * 
+ *
  * @author franke
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
@@ -53,7 +53,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
       this.getItemControllerSessionBean().getCurrentPubItem().getObject().setContext(this);
       return EditItem.LOAD_EDITITEM;
     } else if (this.getCreateItem().getMethod() == SubmissionMethod.MULTIPLE_IMPORT) {
-      final MultipleImport multipleImport = (MultipleImport) FacesTools.findBean("MultipleImport");
+      final MultipleImport multipleImport = FacesTools.findBean("MultipleImport");
       multipleImport.setContext(this);
       return MultipleImport.LOAD_MULTIPLE_IMPORT;
     } else {
@@ -61,7 +61,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
     }
   }
 
-  public String selectForEasySubmission() {
+  public void selectForEasySubmission() {
     this.selected = true;
 
     // deselect all other contexts
@@ -75,9 +75,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
     this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
 
     if (this.getEasySubmissionSessionBean().getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT) {
-      return "loadNewFetchMetadata";
     } else {
-      return "loadNewEasySubmission";
     }
   }
 
@@ -89,18 +87,18 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    return FacesTools.findBean("ContextListSessionBean");
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+    return FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean");
+    return FacesTools.findBean("EasySubmissionSessionBean");
   }
 
   private CreateItem getCreateItem() {
-    return (CreateItem) FacesTools.findBean("CreateItem");
+    return FacesTools.findBean("CreateItem");
   }
 }

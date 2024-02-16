@@ -19,22 +19,18 @@ public interface UserAccountService extends GenericService<AccountUserDbVO, Stri
   void delete(String userId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException;
 
-  AccountUserDbVO get(String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  AccountUserDbVO get(String authenticationToken) throws AuthenticationException;
 
-  Principal login(String username, String password)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  Principal login(String username, String password) throws IngeTechnicalException, AuthenticationException;
 
   Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+      throws IngeTechnicalException, AuthenticationException;
 
-  Principal login(HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  Principal login(HttpServletRequest request, HttpServletResponse response) throws IngeTechnicalException, AuthenticationException;
 
   Principal loginForPasswordChange(String username, String password) throws IngeTechnicalException, AuthenticationException;
 
-  void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response);
 
   AccountUserDbVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;

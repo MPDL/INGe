@@ -60,9 +60,10 @@ public class CreateJournalRdf {
     FileWriter fileWriter =
         new FileWriter(ResourceUtil.getResourceAsFile("src/main/resources/journals.rdf", CreateJournalRdf.class.getClassLoader()));
     // StringWriter stringWriter = new StringWriter();
-    fileWriter.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<!DOCTYPE rdf:RDF>\n"
-        + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
-        + "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">");
+    fileWriter.append("""
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE rdf:RDF>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">""");
     while (rs.next()) {
       // int rm = rs.getInt("rm");
       String sfxId = rs.getString("sfxid");

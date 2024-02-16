@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.contextList;
 
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -125,8 +126,8 @@ public class ContextListSessionBean extends FacesBean {
    * @throws TechnicalException
    */
   private void retrieveAllContextsForUser() throws SecurityException, TechnicalException {
-    this.depositorContextList = new ArrayList<PubContextVOPresentation>();
-    this.moderatorContextList = new ArrayList<PubContextVOPresentation>();
+    this.depositorContextList = new ArrayList<>();
+    this.moderatorContextList = new ArrayList<>();
 
     if (this.getLoginHelper().isLoggedIn() && this.getLoginHelper().getAccountUser().getGrantList() != null) {
       try {
@@ -153,7 +154,7 @@ public class ContextListSessionBean extends FacesBean {
 
           SearchRetrieveResponseVO<ContextDbVO> response =
               contextService.search(new SearchRetrieveRequestVO(bq.build()._toQuery(), 1000, 0), null);
-          List<ContextDbVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+          List<ContextDbVO> ctxList = response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
           // ... and transform to PubCollections.
           List<PubContextVOPresentation> allPrivilegedContextList = CommonUtils.convertToPubCollectionVOPresentationList(ctxList);

@@ -54,7 +54,6 @@ public class Login {
         request.getSession().setAttribute("logged_in", Boolean.TRUE);
         request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);
         showWarning = false;
-        continue;
       }
     }
 
@@ -63,13 +62,11 @@ public class Login {
   }
 
   public static boolean getLoggedIn(HttpServletRequest request) {
-    if (request.getSession().getAttribute("logged_in") != null
-        && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue()) {
+    if (request.getSession().getAttribute("logged_in") != null && (Boolean) request.getSession().getAttribute("logged_in")) {
       return true;
     } else {
       checkLogin(request, true);
-      return (request.getSession().getAttribute("logged_in") != null
-          && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+      return (request.getSession().getAttribute("logged_in") != null && (Boolean) request.getSession().getAttribute("logged_in"));
     }
   }
 }

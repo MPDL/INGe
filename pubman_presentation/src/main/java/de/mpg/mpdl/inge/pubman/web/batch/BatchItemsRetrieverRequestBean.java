@@ -54,7 +54,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
     // refreshAlways is needed due to workarround (latest-version problem, filter only retrieves
     // latest versions and therefore
     // number of items in the basket could change -> message is displayed to the user.
-    super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), true);
+    super(FacesTools.findBean("PubItemListSessionBean"), true);
   }
 
   @Override
@@ -82,11 +82,11 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
    */
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
-    List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+    List<PubItemVOPresentation> returnList = new ArrayList<>();
 
 
     try {
-      final PubItemBatchSessionBean pbsb = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+      final PubItemBatchSessionBean pbsb = FacesTools.findBean("PubItemBatchSessionBean");
 
 
       if (!pbsb.getStoredPubItems().isEmpty()) {
@@ -151,7 +151,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
    * @return
    */
   public void deleteSelected() {
-    final PubItemBatchSessionBean pbsb = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    final PubItemBatchSessionBean pbsb = FacesTools.findBean("PubItemBatchSessionBean");
     int countSelected = 0;
 
     for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {

@@ -63,7 +63,7 @@ public class LoginRestController {
   public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO user = this.userSvc.get(token);
-    return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
+    return new ResponseEntity<>(user, HttpStatus.OK);
   }
 
   @RequestMapping(path = "logout", method = GET, produces = APPLICATION_JSON_VALUE)

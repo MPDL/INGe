@@ -75,7 +75,7 @@ public class ModelHelper {
   public static List<Pair<ResultEntry>> buildObjectFromPatternNew(String modelName, String currentSubject, TreeFragment poMap,
       boolean loggedIn) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
-    List<Pair<ResultEntry>> results = new ArrayList<Pair<ResultEntry>>();
+    List<Pair<ResultEntry>> results = new ArrayList<>();
     Set<String> languages = getLanguagesForResults(model, poMap, loggedIn);
 
     for (ModelResult modelResult : model.getResults()) {
@@ -101,7 +101,7 @@ public class ModelHelper {
 
   private static List<Pair<ResultEntry>> getReplaceResult(ModelResult modelResult,
       List<Map<String, List<LocalizedTripleObject>>> permutationMaps, String lang) {
-    List<ResultEntry> resList = new ArrayList<ResultEntry>();
+    List<ResultEntry> resList = new ArrayList<>();
     for (Map<String, List<LocalizedTripleObject>> map : permutationMaps) {
       String result = getResultStringFromPattern(modelResult.getResultPattern(), map);
       ResultEntry replaceResult = new ResultEntry(result);
@@ -117,16 +117,16 @@ public class ModelHelper {
     }
 
     // remove duplicates and empty results
-    List<ResultEntry> resListWithoutDuplicates = new ArrayList<ResultEntry>();
+    List<ResultEntry> resListWithoutDuplicates = new ArrayList<>();
     for (ResultEntry res : resList) {
       if (!resListWithoutDuplicates.contains(res) && res.getValue() != null && !res.getValue().isEmpty()) {
         resListWithoutDuplicates.add(res);
       }
     }
 
-    List<Pair<ResultEntry>> pairResultList = new ArrayList<Pair<ResultEntry>>();
+    List<Pair<ResultEntry>> pairResultList = new ArrayList<>();
     for (ResultEntry res : resListWithoutDuplicates) {
-      pairResultList.add(new Pair<ResultEntry>(null, res));
+      pairResultList.add(new Pair<>(null, res));
     }
 
 
@@ -139,8 +139,8 @@ public class ModelHelper {
     // logger.info("----------------------------Get Permutations-----------------------------------\n"
     // + modelResult.getResultPattern() + "\n" +
     // "------------------------------------------------------------------------------");
-    List<Map<String, List<LocalizedTripleObject>>> permutationList = new ArrayList<Map<String, List<LocalizedTripleObject>>>();
-    permutationList.add(new HashMap<String, List<LocalizedTripleObject>>());
+    List<Map<String, List<LocalizedTripleObject>>> permutationList = new ArrayList<>();
+    permutationList.add(new HashMap<>());
     return getPermutations(model, null, poMap, modelResult, loggedIn, lang, permutationList, "");
   }
 
@@ -168,14 +168,13 @@ public class ModelHelper {
         }
 
 
-        List<Map<String, List<LocalizedTripleObject>>> newPermutationList = new ArrayList<Map<String, List<LocalizedTripleObject>>>();
+        List<Map<String, List<LocalizedTripleObject>>> newPermutationList = new ArrayList<>();
 
         for (LocalizedTripleObject value : poMap.get(predicate.getId())) {
 
-          if (!predicate.isResource() && (value instanceof TreeFragment && (lang.equals(value.getLanguage()) || value.getLanguage() == null
+          if (!predicate.isResource() && (value instanceof TreeFragment treeValue && (lang.equals(value.getLanguage()) || value.getLanguage() == null
               || "".equals(value.getLanguage())
               || (lang.isEmpty() && value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT)))))) {
-            TreeFragment treeValue = (TreeFragment) value;
 
             newPermutationList.addAll(getPermutations(model, predicate, treeValue, modelResult, loggedIn, lang, permutationList,
                 prefix + predicate.getId() + "|"));
@@ -205,8 +204,8 @@ public class ModelHelper {
                     || value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT))))) {
 
               for (Map<String, List<LocalizedTripleObject>> currentMap : permutationList) {
-                Map<String, List<LocalizedTripleObject>> newMap = new HashMap<String, List<LocalizedTripleObject>>(currentMap);
-                List<LocalizedTripleObject> list = new ArrayList<LocalizedTripleObject>();
+                Map<String, List<LocalizedTripleObject>> newMap = new HashMap<>(currentMap);
+                List<LocalizedTripleObject> list = new ArrayList<>();
                 list.add(value);
                 newMap.put(prefix + predicate.getId(), list);
                 newPermutationList.add(newMap);
@@ -226,12 +225,12 @@ public class ModelHelper {
 
 
   private static String getResultStringFromPattern(String pattern, Map<String, List<LocalizedTripleObject>> permutationMap) {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
     String[] patternPieces = pattern.split("\\n");
     for (String line : patternPieces) {
       // logger.info("------------------------------------- patternLine: " + line
       // +"---------------------------------------------------");
-      List<ResultEntry> strings = new ArrayList<ResultEntry>();
+      List<ResultEntry> strings = new ArrayList<>();
       strings.add(new ResultEntry(line));
 
 
@@ -268,15 +267,8 @@ public class ModelHelper {
     return result.toString();
   }
 
-  /**
-   * @param modelName
-   * @param poMap
-   * @param languages
-   * @return
-   * @throws Exception
-   */
   private static Set<String> getLanguagesForResults(Model model, TreeFragment poMap, boolean loggedIn) throws ConeException {
-    Set<String> languages = new HashSet<String>();
+    Set<String> languages = new HashSet<>();
 
     if (model.isLocalizedResultPattern()) {
       for (String key : poMap.keySet()) {
@@ -303,16 +295,8 @@ public class ModelHelper {
     return languages;
   }
 
-  /**
-   * @param modelName
-   * @param poMap
-   * @param languages
-   * @return
-   * @throws ConeException
-   * @throws Exception
-   */
   private static Set<String> getLanguagesForMatches(Model model, TreeFragment poMap, boolean loggedIn) throws ConeException {
-    Set<String> languages = new HashSet<String>();
+    Set<String> languages = new HashSet<>();
 
     if (model.isLocalizedMatches()) {
       for (String key : poMap.keySet()) {
@@ -369,12 +353,12 @@ public class ModelHelper {
   public static List<Pair<LocalizedString>> buildMatchStringFromModel(String modelName, String id, TreeFragment values, boolean loggedIn)
       throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
-    List<Pair<LocalizedString>> results = new ArrayList<Pair<LocalizedString>>();
+    List<Pair<LocalizedString>> results = new ArrayList<>();
     Set<String> languages = getLanguagesForMatches(model, values, loggedIn);
 
     for (String lang : languages) {
       String matchString = id + getMatchString(model.getPredicates(), values, lang, loggedIn);
-      Pair<LocalizedString> pair = new Pair<LocalizedString>(lang, new LocalizedString(matchString));
+      Pair<LocalizedString> pair = new Pair<>(lang, new LocalizedString(matchString));
       results.add(pair);
     }
 

@@ -47,7 +47,7 @@ public class Coordinates implements Serializable {
     // this.altitudeSet = false;
   }
 
-  public Coordinates(String coordinates) throws Exception {
+  public Coordinates(String coordinates) {
     if (coordinates != null && !coordinates.isEmpty()) {
       String[] coordinatesArray = coordinates.split(",");
       if (coordinatesArray.length == 2) {

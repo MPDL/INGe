@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -32,7 +32,7 @@ import jakarta.faces.bean.ManagedBean;
 
 /**
  * Fragment class for the corresponding Header-JSP.
- * 
+ *
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
@@ -50,7 +50,7 @@ public class Header extends FacesBean {
   /**
    * Getter for the logo definition f the type of the server. E.g a dev server gets another logo
    * than an demo server.
-   * 
+   *
    * @return logo definition
    */
   public String getServerLogo() {
@@ -71,11 +71,10 @@ public class Header extends FacesBean {
 
   /**
    * Get instance type property. Return an empty string if it is not defined.
-   * 
+   *
    * @return A string representing the instance type, e.g. "dev", "qa".
-   * @throws Exception Any exception from PropertyReader
    */
-  public String getType() throws Exception {
+  public String getType() {
     if (this.type == null) {
       this.type = PropertyReader.getProperty(PropertyReader.INGE_SYSTEMTYPE);
       if (this.type == null) {

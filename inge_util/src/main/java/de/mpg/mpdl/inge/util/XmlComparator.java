@@ -33,6 +33,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Objects;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -53,8 +54,8 @@ import org.xml.sax.SAXException;
 public class XmlComparator {
   private static final Logger logger = Logger.getLogger(XmlComparator.class);
 
-  private final List<String> errors = new ArrayList<String>();
-  private final List<XmlNode> elementsToIgnore = new ArrayList<XmlNode>();
+  private final List<String> errors = new ArrayList<>();
+  private final List<XmlNode> elementsToIgnore = new ArrayList<>();
   private boolean omit = false;
 
   /**
@@ -107,7 +108,7 @@ public class XmlComparator {
     for (String e : elements) {
       String[] components = StringUtils.split(e, ",");
       String name = components[0].trim();
-      Map<String, String> attributeMap = new HashMap<String, String>();
+      Map<String, String> attributeMap = new HashMap<>();
 
       if (components.length >= 1 && components[1] != null && components[1].contains("=")) {
         String[] attributeListToAdd = components[1].trim().split(" ");
@@ -128,7 +129,7 @@ public class XmlComparator {
   }
 
   private class FirstXmlHandler extends ShortContentHandler {
-    private final LinkedList<Node> nodeList = new LinkedList<Node>();
+    private final LinkedList<Node> nodeList = new LinkedList<>();
 
     @Override
     public void content(String uri, String localName, String name, String content) throws SAXException {
@@ -140,7 +141,7 @@ public class XmlComparator {
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
       super.startElement(uri, localName, name, attributes);
-      Map<String, String> attributeMap = new HashMap<String, String>();
+      Map<String, String> attributeMap = new HashMap<>();
 
       for (int i = 0; i < attributes.getLength(); i++) {
 
@@ -197,7 +198,7 @@ public class XmlComparator {
 
       super.startElement(uri, localName, name, attributes);
       XmlNode xmlNode;
-      Map<String, String> attributeMap = new HashMap<String, String>();
+      Map<String, String> attributeMap = new HashMap<>();
       for (int i = 0; i < attributes.getLength(); i++) {
 
         if (attributes.getQName(i).contains(":")) {
@@ -240,7 +241,7 @@ public class XmlComparator {
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException {
 
-      List<String> namesOfElementsToIgnore = new ArrayList<String>();
+      List<String> namesOfElementsToIgnore = new ArrayList<>();
 
       for (XmlNode node : elementsToIgnore) {
         namesOfElementsToIgnore.add(node.name);
@@ -288,8 +289,8 @@ public class XmlComparator {
           }
         }
 
-        boolean x1 = (this.name == null ? ((XmlNode) other).name == null : this.name.equals(((XmlNode) other).name));
-        boolean x2 = (this.namespace == null ? ((XmlNode) other).namespace == null : this.namespace.equals(((XmlNode) other).namespace));
+        boolean x1 = (Objects.equals(this.name, ((XmlNode) other).name));
+        boolean x2 = (Objects.equals(this.namespace, ((XmlNode) other).namespace));
 
         return (x1 && x2);
       }

@@ -74,8 +74,8 @@ public abstract class ValueObject implements Serializable {
 
 
 
-  public boolean cleanup() throws Exception {
-    return this.isEmpty(true);
+  public void cleanup() throws Exception {
+    this.isEmpty(true);
   }
 
   public boolean isEmpty(boolean cleanup) throws Exception {
@@ -85,7 +85,7 @@ public abstract class ValueObject implements Serializable {
 
 
   public static List<Field> getAllFields(Class<?> type) {
-    List<Field> fields = new ArrayList<Field>();
+    List<Field> fields = new ArrayList<>();
     for (Class<?> c = type; c != null; c = c.getSuperclass()) {
       fields.addAll(Arrays.asList(c.getDeclaredFields()));
     }
@@ -106,7 +106,7 @@ public abstract class ValueObject implements Serializable {
 
         if (coll != null) {
 
-          Collection<Object> toBeRemoved = new ArrayList<Object>();
+          Collection<Object> toBeRemoved = new ArrayList<>();
 
           for (Object collObj : coll) {
 

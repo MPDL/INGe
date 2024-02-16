@@ -61,8 +61,8 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
-    Map<String, Object> map = new HashMap<String, Object>();
+  public Map<String, Object> getParameters() {
+    Map<String, Object> map = new HashMap<>();
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");

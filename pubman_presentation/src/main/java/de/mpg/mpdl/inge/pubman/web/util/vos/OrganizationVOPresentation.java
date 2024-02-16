@@ -71,17 +71,17 @@ public class OrganizationVOPresentation extends OrganizationVO {
     for (final CreatorVOPresentation creator : this.bean.getCreators()) {
       final int[] ous = creator.getOus();
       String newOuNumbers = "";
-      for (int i = 0; i < ous.length; i++) {
-        if (ous[i] <= this.getNumber() || ous[i] >= this.getList().size()) {
+      for (int j : ous) {
+        if (j <= this.getNumber() || j >= this.getList().size()) {
           if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
-          newOuNumbers += ous[i];
-        } else if (ous[i] > this.getNumber()) {
+          newOuNumbers += j;
+        } else if (j > this.getNumber()) {
           if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
-          newOuNumbers += (ous[i] + 1);
+          newOuNumbers += (j + 1);
         }
       }
       creator.setOuNumbers(newOuNumbers);
@@ -97,17 +97,17 @@ public class OrganizationVOPresentation extends OrganizationVO {
     for (final CreatorVOPresentation creator : this.bean.getCreators()) {
       final int[] ous = creator.getOus();
       String newOuNumbers = "";
-      for (int i = 0; i < ous.length; i++) {
-        if (ous[i] < this.getNumber()) {
+      for (int j : ous) {
+        if (j < this.getNumber()) {
           if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
-          newOuNumbers += ous[i];
-        } else if (ous[i] > this.getNumber()) {
+          newOuNumbers += j;
+        } else if (j > this.getNumber()) {
           if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
-          newOuNumbers += (ous[i] - 1);
+          newOuNumbers += (j - 1);
         }
       }
       creator.setOuNumbers(newOuNumbers);
@@ -134,9 +134,6 @@ public class OrganizationVOPresentation extends OrganizationVO {
     return this.bean.getCreatorOrganizations();
   }
 
-  /**
-   * @param list the list to set
-   */
   public void setBean(EditItemBean bean) {
     this.bean = bean;
   }

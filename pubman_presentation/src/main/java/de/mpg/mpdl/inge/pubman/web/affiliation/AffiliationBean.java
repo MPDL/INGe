@@ -1,17 +1,5 @@
 package de.mpg.mpdl.inge.pubman.web.affiliation;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.primefaces.event.NodeExpandEvent;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
-
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
@@ -27,12 +15,21 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 import jakarta.faces.model.SelectItem;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.log4j.Logger;
+import org.primefaces.event.NodeExpandEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "AffiliationBean")
 @SessionScoped
@@ -57,7 +54,7 @@ public class AffiliationBean extends FacesBean {
 
 
   public AffiliationBean() throws Exception {
-    affiliationMap = new HashMap<String, AffiliationVOPresentation>();
+    affiliationMap = new HashMap<>();
     this.setTopLevelAffs(CommonUtils
         .convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations()));
 
@@ -280,7 +277,7 @@ public class AffiliationBean extends FacesBean {
 
     if (this.affiliationSelectItems == null) {
 
-      final List<SelectItem> list = new ArrayList<SelectItem>();
+      final List<SelectItem> list = new ArrayList<>();
       list.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
       final List<AffiliationVOPresentation> topLevelAffs = this.topLevelAffs;
@@ -309,13 +306,14 @@ public class AffiliationBean extends FacesBean {
       return;
     }
 
-    String prefix = "";
+    StringBuilder prefixBuilder = new StringBuilder();
     for (int i = 0; i < level; i++) {
       // 2 save blanks
-      prefix += '\u00A0';
-      prefix += '\u00A0';
-      prefix += '\u00A0';
+      prefixBuilder.append('\u00A0');
+      prefixBuilder.append('\u00A0');
+      prefixBuilder.append('\u00A0');
     }
+    String prefix = prefixBuilder.toString();
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
@@ -342,8 +340,8 @@ public class AffiliationBean extends FacesBean {
    * @throws Exception Any exception
    */
   public String getResetMessage() throws Exception {
-    this.topLevelAffs = CommonUtils.convertToAffiliationVOPresentationList(
-        ((OrganizationServiceDbImpl) ApplicationBean.INSTANCE.getOrganizationService()).searchTopLevelOrganizations());
+    this.topLevelAffs =
+        CommonUtils.convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations());
     this.affiliationSelectItems = null;
     return this.getMessage("Affiliations_reloaded");
   }

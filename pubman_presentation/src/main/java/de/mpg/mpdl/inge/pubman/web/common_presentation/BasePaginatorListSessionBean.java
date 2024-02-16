@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.common_presentation;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * A list containing the PaginatorPage objects
    */
-  private final List<PaginatorPage> paginatorPageList = new ArrayList<PaginatorPage>();
+  private final List<PaginatorPage> paginatorPageList = new ArrayList<>();
 
   /**
    * The list containing the current elements of the displayed list
@@ -118,7 +117,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * A map that contains the currently used GET parameters by this bean and the corresponding
    * BaseListRetrieverRequestBean.
    */
-  private Map<String, String> redirectParameterMap = new HashMap<String, String>();
+  private Map<String, String> redirectParameterMap = new HashMap<>();
 
   /**
    * The current BaseListRetrieverRequestBean
@@ -147,7 +146,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * A Map that has stored the GET parameters from the last request
    */
-  private Map<String, String> oldRedirectParameterMap = new HashMap<String, String>();
+  private Map<String, String> oldRedirectParameterMap = new HashMap<>();
 
   private boolean listUpdate = true;
 
@@ -157,7 +156,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * Initializes a new BasePaginatorListSessionBean
    */
   public BasePaginatorListSessionBean() {
-    this.elementsPerPageSelectItems = new ArrayList<SelectItem>();
+    this.elementsPerPageSelectItems = new ArrayList<>();
     this.elementsPerPageSelectItems.add(new SelectItem("10", "10"));
     this.elementsPerPageSelectItems.add(new SelectItem("25", "25")); // --default: 25
     this.elementsPerPageSelectItems.add(new SelectItem("50", "50"));
@@ -329,34 +328,16 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     this.elementsPerPageTop = elementsPerPageTop;
   }
 
-  /**
-   * WARNING: USE THIS METHOD ONLY FROM LOWER PAGINATOR SELECTION MENU IN JSPF. For setting the
-   * value manually, use setElementsPerPage().
-   *
-   * @param elementsPerPageTop
-   */
   @Deprecated
   public void setElementsPerPageBottom(int elementsPerPageBottom) {
     this.elementsPerPageBottom = elementsPerPageBottom;
   }
 
-  /**
-   * WARNING: USE THIS METHOD ONLY FROM UPPER PAGINATOR SELECTION MENU IN JSPF. For getting the
-   * value manually, use getElementsPerPage().
-   *
-   * @param elementsPerPageTop
-   */
   @Deprecated
   public int getElementsPerPageTop() {
     return this.elementsPerPageTop;
   }
 
-  /**
-   * WARNING: USE THIS METHOD ONLY FROM UPPER PAGINATOR SELECTION MENU IN JSPF. For getting the
-   * value manually, use getElementsPerPage().
-   *
-   * @param elementsPerPageTop
-   */
   @Deprecated
   public int getElementsPerPageBottom() {
     return this.elementsPerPageBottom;
@@ -375,9 +356,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * Used as action when the user changes the upper number of elements menu.
    *
    * @return
-   * @throws Exception
    */
-  public void changeElementsPerPageTop() throws Exception {
+  public void changeElementsPerPageTop() {
     this.setElementsPerPage(this.getElementsPerPageTop());
     // set new PageNumber to a number where the first element of the current Page is still displayed
     this.setCurrentPageNumber(((this.currentPageNumber - 1 * this.elementsPerPage + 1) / (this.elementsPerPage)) + 1);
@@ -389,9 +369,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * Used as action when the user changes the lower number of elements menu.
    *
    * @return
-   * @throws Exception
    */
-  public void changeElementsPerPageBottom() throws Exception {
+  public void changeElementsPerPageBottom() {
     this.setElementsPerPage(this.getElementsPerPageBottom());
     // set new PageNumber to a number where the first element of the current Page is still displayed
     this.setCurrentPageNumber(((this.currentPageNumber - 1 * this.elementsPerPage + 1) / (this.elementsPerPage)) + 1);
@@ -579,14 +558,14 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   private String getUrlParameterString() {
 
-    String parameterUrl = "?";
-
+    StringBuilder parameterUrlBuilder = new StringBuilder("?");
     for (final Entry<String, String> entrySet : this.getParameterMap().entrySet()) {
       if (entrySet.getValue() != null) {
-        parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), StandardCharsets.UTF_8) + "="
-            + URLEncoder.encode(entrySet.getValue(), StandardCharsets.UTF_8) + "&";
+        parameterUrlBuilder.append(URLEncoder.encode(entrySet.getKey(), StandardCharsets.UTF_8)).append("=")
+            .append(URLEncoder.encode(entrySet.getValue(), StandardCharsets.UTF_8)).append("&");
       }
     }
+    String parameterUrl = parameterUrlBuilder.toString();
 
     parameterUrl = parameterUrl.substring(0, parameterUrl.length() - 1);
 
@@ -735,45 +714,21 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     return this.listPageName;
   }
 
-  /**
-   * WARNING: USE THIS METHOD ONLY FROM UPPER GO TO INPUT FIELD MENU IN JSPF. For setting the value
-   * manually, use setGoToPage().
-   *
-   * @param elementsPerPageTop
-   */
   @Deprecated
   public void setGoToPageTop(String goToPage) {
     this.goToPageTop = goToPage;
   }
 
-  /**
-   * WARNING: USE THIS METHOD ONLY FROM UPPER GO TO INPUT FIELD MENU IN JSPF. For getting the value
-   * manually, use getGoToPage().
-   *
-   * @param elementsPerPageTop
-   */
   @Deprecated
   public String getGoToPageTop() {
     return this.goToPageTop;
   }
 
-  /**
-   * WARNING: USE THIS METHOD ONLY FROM LOWER GO TO INPUT FIELD MENU IN JSPF. For setting the value
-   * manually, use setGoToPage().
-   *
-   * @param elementsPerPageTop
-   */
   @Deprecated
   public void setGoToPageBottom(String goToPage) {
     this.goToPageBottom = goToPage;
   }
 
-  /**
-   * WARNING: USE THIS METHOD ONLY FROM LOWER GO TO INPUT FIELD MENU IN JSPF. For getting the value
-   * manually, use getGoToPage().
-   *
-   * @param elementsPerPageTop
-   */
   @Deprecated
   public String getGoToPageBottom() {
     return this.goToPageBottom;

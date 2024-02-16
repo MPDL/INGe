@@ -18,7 +18,7 @@ public class VoResult extends TransformerResultAbstractImpl<ValueObject> impleme
   }
 
   @Override
-  public TransformerSource createSourceFromInBetweenResult() throws TransformationException {
+  public TransformerSource createSourceFromInBetweenResult() {
     return new TransformerVoSource(this.getResult());
   }
 

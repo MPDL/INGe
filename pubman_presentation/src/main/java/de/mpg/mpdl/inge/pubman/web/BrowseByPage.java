@@ -74,7 +74,7 @@ import jakarta.faces.model.SelectItem;
 public class BrowseByPage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(BrowseByPage.class);
 
-  private final BrowseBySessionBean bbBean = (BrowseBySessionBean) FacesTools.findBean("BrowseBySessionBean");
+  private final BrowseBySessionBean bbBean = FacesTools.findBean("BrowseBySessionBean");
 
   private List<String> creators;
   private List<String> subjects;
@@ -86,8 +86,8 @@ public class BrowseByPage extends BreadcrumbPage {
   @Override
   public void init() {
     super.init();
-    this.creators = new ArrayList<String>();
-    this.subjects = new ArrayList<String>();
+    this.creators = new ArrayList<>();
+    this.subjects = new ArrayList<>();
 
     if ("year".equals(this.getSelectedValue())) {
       this.loadBrowseByYear();
@@ -116,7 +116,7 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return
    */
   private List<LinkVO> callCone(String type, String startChar) {
-    final List<LinkVO> links = new ArrayList<LinkVO>();
+    final List<LinkVO> links = new ArrayList<>();
     try {
       String localLang = Locale.getDefault().getLanguage();
       if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja"))) {

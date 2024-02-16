@@ -76,7 +76,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
   private final SearchAndExportService saes = ApplicationBean.INSTANCE.getSearchAndExportService();
 
-  private final List<MySort> sort = new ArrayList<MySort>();
+  private final List<MySort> sort = new ArrayList<>();
   private String esQuery;
   private String limit;
   private String offset;
@@ -190,7 +190,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
   private SearchAndExportRetrieveRequestVO parseInput() {
     try {
-      final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+      final ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
       final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
 
       Query queryBuilder = Query.of(q -> q.withJson(new StringReader(this.esQuery)));
@@ -207,7 +207,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
       int _offset = Integer.parseInt(this.offset);
 
       SearchRetrieveRequestVO srrVO =
-          new SearchRetrieveRequestVO(queryBuilder, _limit, _offset, sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+          new SearchRetrieveRequestVO(queryBuilder, _limit, _offset, sortCriterias.toArray(new SearchSortCriteria[0]));
       SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srrVO, curExportFormat);
 
       return saerrVO;
@@ -259,7 +259,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     return this.maxLimit;
   }
 
-  public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
+  public String getAtomFeedLink() {
     if (this.esQuery == null) {
       return null;
     }

@@ -19,7 +19,7 @@ public class UserAccountLoginAttemptsCacheUtil {
   private final LoadingCache<String, Integer> attemptsCache;
 
   public UserAccountLoginAttemptsCacheUtil() {
-    attemptsCache = CacheBuilder.newBuilder().expireAfterWrite(ATTEMPT_TIMER, TimeUnit.MINUTES).build(new CacheLoader<String, Integer>() {
+    attemptsCache = CacheBuilder.newBuilder().expireAfterWrite(ATTEMPT_TIMER, TimeUnit.MINUTES).build(new CacheLoader<>() {
       public Integer load(String key) {
         return 0;
       }

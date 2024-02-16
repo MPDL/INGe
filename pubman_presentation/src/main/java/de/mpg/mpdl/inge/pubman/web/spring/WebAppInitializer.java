@@ -16,7 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRegistration;
 
 public class WebAppInitializer implements WebApplicationInitializer {
-  public void onStartup(ServletContext servletContext) throws ServletException {
+  public void onStartup(ServletContext servletContext) {
     // Create the 'root' Spring application context
     //AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
     //rootContext.register(AppConfigPubmanLogic.class);

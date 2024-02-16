@@ -26,7 +26,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   }
 
   private static Map<String, String> getItemStateMap() {
-    final Map<String, String> itemStateMap = new LinkedHashMap<String, String>();
+    final Map<String, String> itemStateMap = new LinkedHashMap<>();
 
     itemStateMap.put("PENDING", "PENDING");
     itemStateMap.put("SUBMITTED", "SUBMITTED");
@@ -38,7 +38,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   }
 
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
-    final Map<String, Boolean> itemStateMap = new LinkedHashMap<String, Boolean>();
+    final Map<String, Boolean> itemStateMap = new LinkedHashMap<>();
 
     itemStateMap.put("PENDING", true);
     itemStateMap.put("SUBMITTED", true);
@@ -116,7 +116,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   /**
    * Creates a query which filters out duplicate items when an item's latest release is not the same
    * as its latest version
-   * 
+   *
    * @param user
    * @return
    * @throws IngeTechnicalException

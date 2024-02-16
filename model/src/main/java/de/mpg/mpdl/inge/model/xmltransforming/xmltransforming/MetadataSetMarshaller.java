@@ -55,12 +55,11 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
     // make sure the parameters are as expected
     if (!(obj instanceof List)) {
       throw new JiBXException("Invalid object type for marshaller");
-    } else if (!(ictx instanceof MarshallingContext)) {
+    } else if (!(ictx instanceof MarshallingContext ctx)) {
       throw new JiBXException("Invalid object type for marshaller");
     } else {
 
       // start by generating start tag for container
-      MarshallingContext ctx = (MarshallingContext) ictx;
       List<MetadataSetVO> list = (List<MetadataSetVO>) obj;
       if (!list.isEmpty()) {
         ctx.startTagAttributes(m_index, m_name).closeStartContent();
@@ -69,7 +68,7 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
         Iterator<MetadataSetVO> iter = list.iterator();
         boolean first = true;
         while (iter.hasNext()) {
-          MetadataSetVO entry = (MetadataSetVO) iter.next();
+          MetadataSetVO entry = iter.next();
           ctx.startTagAttributes(m_index, RECORD_ELEMENT_NAME);
 
           logger.debug("m_index: " + m_index);

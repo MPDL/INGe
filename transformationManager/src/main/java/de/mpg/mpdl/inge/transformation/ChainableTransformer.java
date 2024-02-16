@@ -11,5 +11,5 @@ public interface ChainableTransformer extends Transformer {
 
   TransformerResult createNewInBetweenResult();
 
-  void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException;
+  void xmlSourceToXmlResult(Source s, Result r) throws TransformerException;
 }

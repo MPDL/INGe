@@ -372,7 +372,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public void removeFile() {
-    final EditItemSessionBean editItemSessionBean = (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    final EditItemSessionBean editItemSessionBean = FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getFiles().remove(this.index);
 
@@ -388,7 +388,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String removeLocatorEditItem() {
-    final EditItemSessionBean editItemSessionBean = (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    final EditItemSessionBean editItemSessionBean = FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getLocators().remove(this.index);
 
@@ -471,10 +471,10 @@ public class PubFileVOPresentation extends FacesBean {
   //  }
 
   protected EasySubmission getEasySubmission() {
-    return (EasySubmission) FacesTools.findBean("EasySubmission");
+    return FacesTools.findBean("EasySubmission");
   }
 
   private EasySubmissionSessionBean getEasySubmissionSessionBean() {
-    return (EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean");
+    return FacesTools.findBean("EasySubmissionSessionBean");
   }
 }

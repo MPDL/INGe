@@ -24,20 +24,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.editItem;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.apache.tika.Tika;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.UploadedFile;
-
 import com.sun.faces.facelets.component.UIRepeat;
-
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -94,6 +81,15 @@ import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.component.html.HtmlCommandLink;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
 import jakarta.faces.model.SelectItem;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving
@@ -202,7 +198,7 @@ public class EditItem extends FacesBean {
   /**
    * Adds sub-ValueObjects to an item initially to be able to bind uiComponents to them.
    */
-  private void initializeItem() throws Exception {
+  private void initializeItem() {
     // get the item that is currently edited
     final ItemVersionVO pubItem = this.getPubItem();
     if (pubItem != null) {
@@ -291,7 +287,7 @@ public class EditItem extends FacesBean {
 
   private void bindFiles() {
     // add files
-    final List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+    final List<PubFileVOPresentation> files = new ArrayList<>();
     int fileCount = 0;
 
     for (final FileDbVO file : this.getPubItem().getFiles()) {
@@ -316,7 +312,7 @@ public class EditItem extends FacesBean {
     this.setFiles(files);
 
     // add locators
-    final List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+    final List<PubFileVOPresentation> locators = new ArrayList<>();
     int locatorCount = 0;
 
     for (final FileDbVO file : this.getPubItem().getFiles()) {
@@ -365,8 +361,8 @@ public class EditItem extends FacesBean {
       final List<PubFileVOPresentation> files = this.getFiles();
 
       if (files != null && !files.isEmpty()) {
-        for (int i = 0; i < files.size(); i++) {
-          pubItem.getFiles().add(files.get(i).getFile());
+        for (PubFileVOPresentation file : files) {
+          pubItem.getFiles().add(file.getFile());
         }
       }
 
@@ -394,15 +390,14 @@ public class EditItem extends FacesBean {
   }
 
 
-  public List<ListItem> getLanguages() throws Exception {
+  public List<ListItem> getLanguages() {
     if (this.languages == null) {
-      this.languages = new ArrayList<ListItem>();
+      this.languages = new ArrayList<>();
       if (this.getPubItem().getMetadata().getLanguages().isEmpty()) {
         this.getPubItem().getMetadata().getLanguages().add("");
       }
       int counter = 0;
-      for (final Iterator<String> iterator = this.getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();) {
-        final String value = iterator.next();
+      for (final String value : this.getPubItem().getMetadata().getLanguages()) {
         final ListItem item = new ListItem();
         item.setValue(value);
         item.setIndex(counter++);
@@ -479,7 +474,7 @@ public class EditItem extends FacesBean {
     // cleanup item according to genre specific MD specification
     final GenreSpecificItemManager itemManager = new GenreSpecificItemManager(pubItem, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
     try {
-      pubItem = (ItemVersionVO) itemManager.cleanupItem();
+      pubItem = itemManager.cleanupItem();
     } catch (final Exception e) {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
@@ -650,7 +645,7 @@ public class EditItem extends FacesBean {
     this.stageFile(event.getFile());
   }
 
-  private String stageFile(UploadedFile file) {
+  private void stageFile(UploadedFile file) {
     if (file != null && file.getSize() > 0) {
       try {
         String path = null;
@@ -702,7 +697,6 @@ public class EditItem extends FacesBean {
       this.error(this.getMessage("ComponentEmpty"));
     }
 
-    return "";
   }
 
   /**
@@ -761,9 +755,7 @@ public class EditItem extends FacesBean {
   }
 
   private void showValidationMessages(ValidationReportVO report) {
-    for (final Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
-      final ValidationReportItemVO element = iter.next();
-
+    for (final ValidationReportItemVO element : report.getItems()) {
       switch (element.getSeverity()) {
         case ERROR:
           this.error(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
@@ -854,7 +846,7 @@ public class EditItem extends FacesBean {
   }
 
   public boolean getLocalTagEditingAllowed() {
-    final ViewItemFull viewItemFull = (ViewItemFull) FacesTools.findBean("ViewItemFull");
+    final ViewItemFull viewItemFull = FacesTools.findBean("ViewItemFull");
 
     boolean isWorkflowSimple = true;
 
@@ -922,9 +914,9 @@ public class EditItem extends FacesBean {
     SelectItem[] oaSatuses = this.getI18nHelper().getSelectItemsOaStatus(false);
     SelectItem[] reducedOaSatuses = new SelectItem[oaSatuses.length - 1];
     int j = 0;
-    for (int i = 0; i < oaSatuses.length; i++) {
-      if (!MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(oaSatuses[i].getValue())) {
-        reducedOaSatuses[j] = oaSatuses[i];
+    for (SelectItem oaSatus : oaSatuses) {
+      if (!MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(oaSatus.getValue())) {
+        reducedOaSatuses[j] = oaSatus;
         j++;
       }
     }
@@ -955,7 +947,7 @@ public class EditItem extends FacesBean {
       ipRangeSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
     }
 
-    Collections.sort(ipRangeSelectItems, (a, b) -> a.getLabel().compareTo(b.getLabel()));
+    ipRangeSelectItems.sort(Comparator.comparing(SelectItem::getLabel));
     ipRangeSelectItems.add(0, new SelectItem(null, "-"));
     return ipRangeSelectItems;
   }
@@ -1072,7 +1064,7 @@ public class EditItem extends FacesBean {
     this.item = item;
   }
 
-  public String getOwner() throws Exception {
+  public String getOwner() {
     if (this.getPubItem().getObject().getCreator() != null) {
       if (this.getPubItem().getObject().getCreator().getName() != null
           && this.getPubItem().getObject().getCreator().getName().trim() != "") {
@@ -1096,7 +1088,7 @@ public class EditItem extends FacesBean {
     return null;
   }
 
-  public String getLastModifier() throws Exception {
+  public String getLastModifier() {
     if (this.getPubItem().getModifier() != null && this.getPubItem().getModifier().getName() != null) {
       return this.getPubItem().getModifier().getName();
     } else if (this.getPubItem().getModifier() != null && this.getPubItem().getModifier().getObjectId() != null) {
@@ -1154,14 +1146,13 @@ public class EditItem extends FacesBean {
    * Get all allowed subject classifications from the admin descriptor of the context.
    *
    * @return An array of SelectItem containing the subject classifications.
-   * @throws Exception Any exception.
    */
-  public SelectItem[] getSubjectTypes() throws Exception {
-    final ArrayList<SelectItem> result = new ArrayList<SelectItem>();
+  public SelectItem[] getSubjectTypes() {
+    final ArrayList<SelectItem> result = new ArrayList<>();
 
     result.add(new SelectItem(null, "-"));
     final ContextDbRO contextRO = this.getPubItem().getObject().getContext();
-    ArrayList<PubContextVOPresentation> userContexts = new ArrayList<PubContextVOPresentation>();
+    ArrayList<PubContextVOPresentation> userContexts = new ArrayList<>();
     userContexts.addAll(this.getContextListSessionBean().getDepositorContextList());
     userContexts.addAll(this.getContextListSessionBean().getModeratorContextList());
     for (final PubContextVOPresentation context : userContexts) {
@@ -1189,10 +1180,10 @@ public class EditItem extends FacesBean {
     String newGenre = this.getPubItem().getMetadata().getGenre().name();
     final Genre[] possibleGenres = MdsPublicationVO.Genre.values();
 
-    for (int i = 0; i < possibleGenres.length; i++) {
-      if (possibleGenres[i].toString().equals(newGenre)) {
-        this.getPubItem().getMetadata().setGenre(possibleGenres[i]);
-        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(possibleGenres[i]);
+    for (Genre possibleGenre : possibleGenres) {
+      if (possibleGenre.toString().equals(newGenre)) {
+        this.getPubItem().getMetadata().setGenre(possibleGenre);
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(possibleGenre);
       }
     }
 
@@ -1289,11 +1280,11 @@ public class EditItem extends FacesBean {
   }
 
   private List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
-    final List<AlternativeTitleVO> list = new ArrayList<AlternativeTitleVO>();
+    final List<AlternativeTitleVO> list = new ArrayList<>();
     final String[] alternativeTitles = titleList.split(EditItem.HIDDEN_DELIMITER);
 
-    for (int i = 0; i < alternativeTitles.length; i++) {
-      final String[] parts = alternativeTitles[i].trim().split(EditItem.AUTOPASTE_INNER_DELIMITER);
+    for (String title : alternativeTitles) {
+      final String[] parts = title.trim().split(EditItem.AUTOPASTE_INNER_DELIMITER);
       final String alternativeTitleType = parts[0].trim();
       final String alternativeTitle = parts[1].trim();
       if (!alternativeTitle.isEmpty()) {
@@ -1311,22 +1302,22 @@ public class EditItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+    return FacesTools.findBean("ItemControllerSessionBean");
   }
 
   private EditItemSessionBean getEditItemSessionBean() {
-    return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    return FacesTools.findBean("EditItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    return FacesTools.findBean("PubItemListSessionBean");
   }
 
   private BreadcrumbItemHistorySessionBean getBreadcrumbItemHistorySessionBean() {
-    return (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
+    return FacesTools.findBean("BreadcrumbItemHistorySessionBean");
   }
 
   private ContextListSessionBean getContextListSessionBean() {
-    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    return FacesTools.findBean("ContextListSessionBean");
   }
 }

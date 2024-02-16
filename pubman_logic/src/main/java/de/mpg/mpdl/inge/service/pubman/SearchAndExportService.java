@@ -12,7 +12,6 @@ public interface SearchAndExportService {
   SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token) throws IngeTechnicalException;
 
 }

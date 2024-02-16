@@ -125,7 +125,7 @@ public class AuthenticationVO implements Serializable {
     }
 
     @Override
-    public void content(String uri, String localName, String name, String content) throws SAXException {
+    public void content(String uri, String localName, String name, String content) {
       if ("authentication-object/userid".equals(getLocalStack().toString())) {
         userId = content;
       } else if ("authentication-object/username".equals(getLocalStack().toString())) {
@@ -161,8 +161,8 @@ public class AuthenticationVO implements Serializable {
   private String userId;
   private String username;
   private String fullName;
-  private final Set<Grant> grants = new HashSet<AuthenticationVO.Grant>();
-  private final Set<Role> roles = new HashSet<AuthenticationVO.Role>();
+  private final Set<Grant> grants = new HashSet<>();
+  private final Set<Role> roles = new HashSet<>();
   private String token;
 
   public AuthenticationVO() {}

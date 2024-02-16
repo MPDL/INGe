@@ -11,11 +11,11 @@ import jakarta.faces.bean.SessionScoped;
 /**
  * Session Bean that stores the referneces of PubItems in a Map for the Basket session basket
  * functionality. TODO Description
- * 
+ *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "PubItemStorageSessionBean")
 @SessionScoped
@@ -36,7 +36,7 @@ public class PubItemStorageSessionBean extends FacesBean {
   private int diffDisplayNumber = 0;
 
   public PubItemStorageSessionBean() {
-    this.storedPubItems = new HashMap<String, ItemVersionRO>();
+    this.storedPubItems = new HashMap<>();
   }
 
   public int getStoredPubItemsSize() {

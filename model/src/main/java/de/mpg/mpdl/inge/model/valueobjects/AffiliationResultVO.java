@@ -39,7 +39,7 @@ public class AffiliationResultVO extends AffiliationVO implements SearchResultEl
    * List of hits. Every hit in files contains the file reference and the text fragments of the
    * search hit.
    */
-  private final java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
+  private final java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<>();
 
   private float score;
 

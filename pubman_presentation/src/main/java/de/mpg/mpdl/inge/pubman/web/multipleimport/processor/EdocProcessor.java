@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -54,11 +54,11 @@ import de.mpg.mpdl.inge.util.IdentityHandler;
 
 /**
  * Format processor for eDoc XML files.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class EdocProcessor extends FormatProcessor {
 
@@ -69,7 +69,7 @@ public class EdocProcessor extends FormatProcessor {
   private FileService fileService;
 
   private boolean init = false;
-  private final List<String> items = new ArrayList<String>();
+  private final List<String> items = new ArrayList<>();
   private int counter = -1;
   private int length = -1;
   private byte[] originalData = null;
@@ -153,7 +153,7 @@ public class EdocProcessor extends FormatProcessor {
 
   /**
    * Fetches a file from a given URL and adds the staged file-path to fileDbVO
-   * 
+   *
    * @param url
    * @param file
    * @param authenticationToken
@@ -161,8 +161,7 @@ public class EdocProcessor extends FormatProcessor {
    * @throws Exception
    */
   public void getFileforImport(String url, FileDbVO file, String authenticationToken) throws Exception {
-    CloseableHttpAsyncClient httpClient = HttpAsyncClients.createDefault();
-    try {
+    try (CloseableHttpAsyncClient httpClient = HttpAsyncClients.createDefault()) {
       httpClient.start();
       HttpGet getRequest = new HttpGet(url);
       Future<HttpResponse> future = httpClient.execute(getRequest, null);
@@ -185,18 +184,16 @@ public class EdocProcessor extends FormatProcessor {
         logger.error("Could not donwload file for eDoc import");
         throw new IngeApplicationException("Server did not respond with 200 - OK --> could not download file from [" + url + "]");
       }
-    } finally {
-      httpClient.close();
     }
   }
 
   /**
    * SAX parser to extract the items out of the XML.
-   * 
+   *
    * @author franke (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class EdocHandler extends IdentityHandler {
 
@@ -263,7 +260,7 @@ public class EdocProcessor extends FormatProcessor {
 
     /**
      * Returns an XML-escaped String that can be used for writing an XML.
-     * 
+     *
      * @param input A string
      * @return The XML-escaped string
      */

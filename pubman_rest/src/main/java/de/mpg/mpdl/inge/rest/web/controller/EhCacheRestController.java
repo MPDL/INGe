@@ -82,7 +82,7 @@ public class EhCacheRestController {
     return srResponse.toString();
   }
 
-  private static <K extends Object, V extends Object> long getSize(Cache<K, V> cache) {
+  private static <K, V> long getSize(Cache<K, V> cache) {
     Iterator<Cache.Entry<K, V>> itr = cache.iterator();
     long count = 0;
     while (itr.hasNext()) {

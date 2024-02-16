@@ -31,7 +31,7 @@ public class SubmitItem extends FacesBean {
   }
 
   public void init() {
-    final StringBuffer creators = new StringBuffer();
+    final StringBuilder creators = new StringBuilder();
     for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (!creators.isEmpty()) {
         creators.append("; ");
@@ -90,7 +90,7 @@ public class SubmitItem extends FacesBean {
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+    return FacesTools.findBean("ItemControllerSessionBean");
   }
 
   public ItemVersionVO getPubItem() {
@@ -98,7 +98,7 @@ public class SubmitItem extends FacesBean {
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {
-    return (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    return FacesTools.findBean("PubItemListSessionBean");
   }
 
   public void setSubmissionComment(String submissionComment) {

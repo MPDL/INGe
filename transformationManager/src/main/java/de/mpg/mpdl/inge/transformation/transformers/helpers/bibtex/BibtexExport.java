@@ -45,7 +45,7 @@ public class BibtexExport {
    * UNICODE -> BibTex mapping not really comprehensive
    */
   @SuppressWarnings("serial")
-  public static final Map<String, String> ENTITIES = new HashMap<String, String>() {
+  public static final Map<String, String> ENTITIES = new HashMap<>() {
     {
       /*
        * Changes need to be done for the import side too!
@@ -842,14 +842,8 @@ public class BibtexExport {
     }
   };
 
-  /**
-   * Escapes UNICODE string with the BibTex entities
-   *
-   * @param s
-   * @return escaped String
-   */
   public static String texString(String str) {
-    StringBuffer retstr = new StringBuffer();
+    StringBuilder retstr = new StringBuilder();
     if (str == null || str.trim().isEmpty()) {
       return null;
     }

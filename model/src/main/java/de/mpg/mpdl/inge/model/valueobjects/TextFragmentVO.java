@@ -43,7 +43,7 @@ public class TextFragmentVO extends ValueObject {
   /**
    * The list of hitwords.
    */
-  private final java.util.List<HitwordVO> hitwordList = new java.util.ArrayList<HitwordVO>();
+  private final java.util.List<HitwordVO> hitwordList = new java.util.ArrayList<>();
 
   /**
    * Delivers the text fragment of the search hit.

@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.rest.spring;
 
 import java.util.Arrays;
 
+import java.util.Collections;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +31,7 @@ public class SwaggerConfiguration {
 
     OpenAPI openAPI = new OpenAPI();
     openAPI.info(new Info().title("PubMan REST API").description(apiDescription).version("1.0"));
-    openAPI.servers(Arrays.asList(new Server().url(restServiceUrl)));
+    openAPI.servers(Collections.singletonList(new Server().url(restServiceUrl)));
 
     return openAPI;
   }

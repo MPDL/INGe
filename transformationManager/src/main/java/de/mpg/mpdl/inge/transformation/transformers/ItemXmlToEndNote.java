@@ -23,8 +23,8 @@ public class ItemXmlToEndNote extends XslTransformer implements ChainableTransfo
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
-    Map<String, Object> map = new HashMap<String, Object>();
+  public Map<String, Object> getParameters() {
+    Map<String, Object> map = new HashMap<>();
 
     map.put("handleShort", PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT));
     map.put("handleUrl", PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL));
@@ -38,7 +38,7 @@ public class ItemXmlToEndNote extends XslTransformer implements ChainableTransfo
   }
 
   @Override
-  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+  public Map<String, String> getDefaultConfiguration() {
     return null;
   }
 

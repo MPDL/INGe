@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,13 +50,13 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class AffiliationVO extends ValueObject implements Searchable {
-  private final java.util.List<AffiliationRO> childAffiliations = new java.util.ArrayList<AffiliationRO>();
+  private final java.util.List<AffiliationRO> childAffiliations = new java.util.ArrayList<>();
 
-  private final List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
+  private final List<MetadataSetVO> metadataSets = new ArrayList<>();
 
-  private java.util.List<AffiliationRO> parentAffiliations = new ArrayList<AffiliationRO>();
+  private java.util.List<AffiliationRO> parentAffiliations = new ArrayList<>();
 
-  private java.util.List<AffiliationRO> predecessorAffiliations = new ArrayList<AffiliationRO>();
+  private java.util.List<AffiliationRO> predecessorAffiliations = new ArrayList<>();
 
   protected AffiliationRO reference;
 
@@ -322,8 +323,8 @@ public class AffiliationVO extends ValueObject implements Searchable {
         return false;
     } else if (other.childAffiliations == null)
       return false;
-    else if (!childAffiliations.containsAll(other.childAffiliations) //
-        || !other.childAffiliations.containsAll(childAffiliations)) {
+    else if (!new HashSet<>(childAffiliations).containsAll(other.childAffiliations) //
+        || !new HashSet<>(other.childAffiliations).containsAll(childAffiliations)) {
       return false;
     }
 
@@ -353,8 +354,8 @@ public class AffiliationVO extends ValueObject implements Searchable {
         return false;
     } else if (other.metadataSets == null)
       return false;
-    else if (!metadataSets.containsAll(other.metadataSets) //
-        || !other.metadataSets.containsAll(metadataSets)) {
+    else if (!new HashSet<>(metadataSets).containsAll(other.metadataSets) //
+        || !new HashSet<>(other.metadataSets).containsAll(metadataSets)) {
       return false;
     }
 
@@ -369,8 +370,8 @@ public class AffiliationVO extends ValueObject implements Searchable {
         return false;
     } else if (other.parentAffiliations == null)
       return false;
-    else if (!parentAffiliations.containsAll(other.parentAffiliations) //
-        || !other.parentAffiliations.containsAll(parentAffiliations)) {
+    else if (!new HashSet<>(parentAffiliations).containsAll(other.parentAffiliations) //
+        || !new HashSet<>(other.parentAffiliations).containsAll(parentAffiliations)) {
       return false;
     }
 
@@ -379,8 +380,8 @@ public class AffiliationVO extends ValueObject implements Searchable {
         return false;
     } else if (other.predecessorAffiliations == null)
       return false;
-    else if (!predecessorAffiliations.containsAll(other.predecessorAffiliations) //
-        || !other.predecessorAffiliations.containsAll(predecessorAffiliations)) {
+    else if (!new HashSet<>(predecessorAffiliations).containsAll(other.predecessorAffiliations) //
+        || !new HashSet<>(other.predecessorAffiliations).containsAll(predecessorAffiliations)) {
       return false;
     }
 

@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -123,7 +122,7 @@ public class ImportLog extends BaseImportLog {
       ps.setInt(1, id);
       rs = ps.executeQuery();
 
-      final List<ImportLogItem> importLogItems = new ArrayList<ImportLogItem>();
+      final List<ImportLogItem> importLogItems = new ArrayList<>();
 
       while (rs.next()) {
         final ImportLogItem importLogItem = ImportLog.fillImportLogItem(rs, importLog);
@@ -147,14 +146,14 @@ public class ImportLog extends BaseImportLog {
         if (!importLogItems.isEmpty()) {
 
           ImportLogItem currentImportLogItem = iterator.next();
-          List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
+          List<ImportLogItemDetail> importLogItemDetails = new ArrayList<>();
           currentImportLogItem.setItems(importLogItemDetails);
 
           while (rs.next()) {
             final int itemId = rs.getInt("parent");
             while (currentImportLogItem.getId() != itemId && iterator.hasNext()) {
               currentImportLogItem = iterator.next();
-              importLogItemDetails = new ArrayList<ImportLogItemDetail>();
+              importLogItemDetails = new ArrayList<>();
               currentImportLogItem.setItems(importLogItemDetails);
             }
 
@@ -171,7 +170,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   public static List<ImportLogItemDetail> getImportLogItemDetails(int id, String userid, Connection connection) {
-    final List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
+    final List<ImportLogItemDetail> importLogItemDetails = new ArrayList<>();
 
     final String query = "select import_log_item_detail.* " + "from import_log_item, import_log_item_detail, import_log "
         + "where import_log_item.id = import_log_item_detail.parent "
@@ -189,7 +188,7 @@ public class ImportLog extends BaseImportLog {
       rs = ps.executeQuery();
 
       while (rs.next()) {
-        final ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, (ImportLogItem) null);
+        final ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, null);
         importLogItemDetails.add(importLogItemDetail);
       }
 
@@ -201,7 +200,7 @@ public class ImportLog extends BaseImportLog {
 
   public static List<ImportLog> getImportLogs(AccountUserDbVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
       boolean loadDetails, Connection connection) {
-    final List<ImportLog> result = new ArrayList<ImportLog>();
+    final List<ImportLog> result = new ArrayList<>();
     PreparedStatement ps = null;
     ResultSet rs = null;
 
@@ -234,7 +233,7 @@ public class ImportLog extends BaseImportLog {
   private String context;
   private ImportLogItem currentImportLogItem = null;
   private TransformerFactory.FORMAT format;
-  private List<ImportLogItem> importLogItems = new ArrayList<ImportLogItem>();
+  private List<ImportLogItem> importLogItems = new ArrayList<>();
   private int percentage;
   private String user;
   private ContextDbVO.Workflow workflow;

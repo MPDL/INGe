@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,9 +20,9 @@ public class MdsFileVO extends MetadataSetVO {
   /**
    * Identifier of an external resource.
    */
-  private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();
+  private List<IdentifierVO> identifiers = new ArrayList<>();
 
-  private List<FormatVO> formats = new ArrayList<FormatVO>();
+  private List<FormatVO> formats = new ArrayList<>();
 
   /**
    * Please use FileDbVO.size instead
@@ -50,7 +51,7 @@ public class MdsFileVO extends MetadataSetVO {
 
   /**
 	 * Clone constructor.
-	 * 
+	 *
 	 * @param other The {@link MdsFileVO} to be cloned.
 	 */
 	public MdsFileVO(MdsFileVO other) {
@@ -225,8 +226,8 @@ public class MdsFileVO extends MetadataSetVO {
         return false;
     } else if (other.formats == null)
       return false;
-    else if (!formats.containsAll(other.formats) //
-        || !other.formats.containsAll(formats)) {
+    else if (!new HashSet<>(formats).containsAll(other.formats) //
+        || !new HashSet<>(other.formats).containsAll(formats)) {
       return false;
     }
 
@@ -235,8 +236,8 @@ public class MdsFileVO extends MetadataSetVO {
         return false;
     } else if (other.identifiers == null)
       return false;
-    else if (!identifiers.containsAll(other.identifiers) //
-        || !other.identifiers.containsAll(identifiers)) {
+    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
       return false;
     }
 

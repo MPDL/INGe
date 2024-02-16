@@ -13,7 +13,6 @@ import de.mpg.mpdl.inge.cone.SQLQuerier;
 import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -25,9 +24,7 @@ public class SitemapFilter implements Filter {
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
-      final HttpServletRequest req = (HttpServletRequest) request;
-      final HttpServletResponse resp = (HttpServletResponse) response;
+    if ((request instanceof HttpServletRequest req) && (response instanceof HttpServletResponse resp)) {
       final String filename = req.getServletPath();
 
       if (filename != null && filename.matches("^/sitemap\\d*\\.xml$")) {

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -57,11 +57,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet to answer calls from the JQuery Javascript API.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class JQueryFormatter extends AbstractFormatter {
 
@@ -76,16 +76,14 @@ public class JQueryFormatter extends AbstractFormatter {
 
   /**
    * Send explain output to client.
-   * 
+   *
    * @param response
-   * 
+   *
    * @throws FileNotFoundException
    * @throws TransformerFactoryConfigurationError
    * @throws IOException
-   * @throws URISyntaxException
    */
-  public void explain(HttpServletResponse response)
-      throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
+  public void explain(HttpServletResponse response) throws FileNotFoundException, TransformerFactoryConfigurationError, IOException {
     response.setContentType("text/xml");
 
     InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
@@ -103,12 +101,6 @@ public class JQueryFormatter extends AbstractFormatter {
     }
   }
 
-  /**
-   * Formats an RDF XML String into a JQuery readable list.
-   * 
-   * @param result The RDF.
-   * @return A String formatted in a JQuery readable format.
-   */
   public OutputStream format(String source) throws IOException {
 
     InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl", JQueryFormatter.class.getClassLoader());
@@ -125,12 +117,6 @@ public class JQueryFormatter extends AbstractFormatter {
     return result;
   }
 
-  /**
-   * Formats an Map&lt;String, String> into a JQuery readable list.
-   * 
-   * @param result The RDF.
-   * @return A String formatted in a JQuery readable format.
-   */
   public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
 
     StringWriter result = new StringWriter();
@@ -157,13 +143,7 @@ public class JQueryFormatter extends AbstractFormatter {
     return result.toString();
   }
 
-  /**
-   * Formats an Map&lt;String, String> into a JQuery readable list.
-   * 
-   * @param result The RDF.
-   * @return A String formatted in a JQuery readable format.
-   */
-  public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws ConeException {
+  public String formatDetails(String id, Model model, TreeFragment triples, String lang) {
     return triples.toJson();
   }
 

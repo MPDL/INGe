@@ -21,8 +21,8 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 
   private static Map<String, PubContextVOPresentation> getItemStateMap() {
 
-    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    final Map<String, PubContextVOPresentation> contextMap = new LinkedHashMap<String, PubContextVOPresentation>();
+    final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
+    final Map<String, PubContextVOPresentation> contextMap = new LinkedHashMap<>();
 
 
     for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
@@ -38,8 +38,8 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
 
-    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    final Map<String, Boolean> preSelectionMap = new LinkedHashMap<String, Boolean>();
+    final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
+    final Map<String, Boolean> preSelectionMap = new LinkedHashMap<>();
 
     for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
       preSelectionMap.put(context.getObjectId(), true);

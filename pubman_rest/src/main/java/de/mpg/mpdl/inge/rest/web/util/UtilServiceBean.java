@@ -97,13 +97,13 @@ public class UtilServiceBean {
     
     */
 
-    return new ResponseEntity<String>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
+    return new ResponseEntity<>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
   }
 
 
   public static <T> ResponseEntity<String> scroll(GenericService<T, ?> service, JsonNode scrollJson, String token,
       HttpServletResponse httpResp)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     String scrollTimeValue = scrollJson.get("scroll").asText();
     String scrollId = scrollJson.get("scroll_id").asText();
     //long scrollTime = TimeValue.parseTimeValue(scrollTimeValue, "test").getMillis();
@@ -115,7 +115,7 @@ public class UtilServiceBean {
     //XContentBuilder builder = XContentFactory.jsonBuilder(httpResp.getOutputStream());
     //resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
 
-    return new ResponseEntity<String>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
+    return new ResponseEntity<>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
   }
 
 
@@ -139,11 +139,9 @@ public class UtilServiceBean {
     JsonNode sorting = query.get("sort");
     if (sorting != null) {
       if (sorting.isArray()) {
-        sorting.forEach(node -> {
-          node.fieldNames().forEachRemaining(field -> {
-            sortCriterias.add(new SearchSortCriteria(field, SortOrder.valueOf(node.get(field).get("order").textValue().toUpperCase())));
-          });
-        });
+        sorting.forEach(node -> node.fieldNames().forEachRemaining(field -> {
+          sortCriterias.add(new SearchSortCriteria(field, SortOrder.valueOf(node.get(field).get("order").textValue().toUpperCase())));
+        }));
       } else {
         String key = sorting.fieldNames().next();
         String value = sorting.get(key).get("order").textValue().toUpperCase();
@@ -160,7 +158,7 @@ public class UtilServiceBean {
     }
 
     SearchRetrieveRequestVO request =
-        new SearchRetrieveRequestVO(queryBuilder, limit, offset, sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+        new SearchRetrieveRequestVO(queryBuilder, limit, offset, sortCriterias.toArray(new SearchSortCriteria[0]));
     //    request.setQueryBuilder(queryBuilder);
     //    request.setSortKeys(sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
     //    request.setLimit(limit);
@@ -248,7 +246,7 @@ public class UtilServiceBean {
       if (scroll) {
         headers.add("scrollId", srResponse.getScrollId());
       }
-      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
+      return new ResponseEntity<>(srResponse, headers, HttpStatus.OK);
     }
 
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);

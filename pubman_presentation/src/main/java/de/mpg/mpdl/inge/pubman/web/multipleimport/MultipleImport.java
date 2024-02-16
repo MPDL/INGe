@@ -75,7 +75,7 @@ public class MultipleImport extends FacesBean {
   private TransformerFactory.FORMAT format;
   private File uploadedFile;
   private List<SelectItem> configParameters = null;
-  private List<SelectItem> importFormats = new ArrayList<SelectItem>();
+  private List<SelectItem> importFormats = new ArrayList<>();
   private Map<String, List<SelectItem>> parametersValues;
   private String fixedFileName;
   private String name;
@@ -135,7 +135,7 @@ public class MultipleImport extends FacesBean {
     Map<String, String> configuration = null;
 
     if (!this.configParameters.isEmpty()) {
-      configuration = new LinkedHashMap<String, String>();
+      configuration = new LinkedHashMap<>();
     }
 
     for (final SelectItem si : this.configParameters) {
@@ -168,7 +168,7 @@ public class MultipleImport extends FacesBean {
     this.uploadedImportFile = null;
 
     // deselect the selected context
-    final ContextListSessionBean contextListSessionBean = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean contextListSessionBean = FacesTools.findBean("ContextListSessionBean");
     if (contextListSessionBean.getDepositorContextList() != null) {
       for (int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++) {
         contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
@@ -177,7 +177,7 @@ public class MultipleImport extends FacesBean {
 
     // set the current submission step to step2
     if (contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() > 1) {
-      final CreateItem createItem = (CreateItem) FacesTools.findBean("CreateItem");
+      final CreateItem createItem = FacesTools.findBean("CreateItem");
       createItem.setTarget(MultipleImport.LOAD_MULTIPLE_IMPORT);
       createItem.setMethod(SubmissionMethod.MULTIPLE_IMPORT);
       return CreateItem.LOAD_CREATEITEM;
@@ -192,7 +192,7 @@ public class MultipleImport extends FacesBean {
     }
   }
 
-  public List<SelectItem> initConfigParameters() throws Exception {
+  public void initConfigParameters() throws Exception {
     Transformer transformer = null;
     Map<String, String> config = null;
 
@@ -202,14 +202,14 @@ public class MultipleImport extends FacesBean {
       config = transformer.getConfiguration();
     }
 
-    this.configParameters = new ArrayList<SelectItem>();
+    this.configParameters = new ArrayList<>();
 
     if (config != null) {
-      this.parametersValues = new LinkedHashMap<String, List<SelectItem>>();
+      this.parametersValues = new LinkedHashMap<>();
 
       for (final String key : config.keySet()) {
         final List<String> values = transformer.getAllConfigurationValuesFor(key);
-        final List<SelectItem> list = new ArrayList<SelectItem>();
+        final List<SelectItem> list = new ArrayList<>();
         if (values != null) {
           for (final String str : values) {
             list.add(new SelectItem(str, str));
@@ -220,10 +220,9 @@ public class MultipleImport extends FacesBean {
       }
     }
 
-    return this.configParameters;
   }
 
-  public List<SelectItem> getConfigParameters() throws Exception {
+  public List<SelectItem> getConfigParameters() {
     return this.configParameters;
   }
 

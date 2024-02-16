@@ -70,9 +70,9 @@ public class ZfNProcessor extends FormatProcessor {
   private int counter = -1;
   private int length = -1;
   private byte[] originalData = null;
-  FTPClient f = new FTPClient();
+  final FTPClient f = new FTPClient();
   boolean ftpOpen = false;
-  private final ArrayList<String> fileNames = new ArrayList<String>();
+  private final ArrayList<String> fileNames = new ArrayList<>();
   private Map<String, String> config;
   private String currentFile = "";
   private int fileSize = 0;
@@ -83,7 +83,7 @@ public class ZfNProcessor extends FormatProcessor {
 
     try {
       final InputStream in = new FileInputStream(this.getSourceFile());
-      final ArrayList<String> itemList = new ArrayList<String>();
+      final ArrayList<String> itemList = new ArrayList<>();
       final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
       String item = null;
@@ -147,15 +147,6 @@ public class ZfNProcessor extends FormatProcessor {
     return null;
   }
 
-  /**
-   * Converts an inputstream into a FileDbVO.
-   *
-   * @param file
-   * @param name
-   * @param user
-   * @return FileDbVO
-   * @throws Exception
-   */
   private FileDbVO createPubFile(InputStream in, Principal user) throws Exception {
     ZfNProcessor.logger.debug("Creating PubFile: " + this.getCurrentFile());
 
@@ -200,15 +191,6 @@ public class ZfNProcessor extends FormatProcessor {
     return fileVO;
   }
 
-  /**
-   * Uploads a file to the staging servlet and returns the corresponding URL.
-   *
-   * @param InputStream to upload
-   * @param mimetype The mimetype of the file
-   * @param userHandle The userhandle to use for upload
-   * @return The URL of the uploaded file.
-   * @throws Exception If anything goes wrong...
-   */
   private String uploadFile(InputStream in, String mimetype, String name, Principal principal) throws Exception {
 
 
@@ -272,7 +254,7 @@ public class ZfNProcessor extends FormatProcessor {
    * @param name
    * @return
    */
-  private String processZfnFileName(String name) throws Exception {
+  private String processZfnFileName(String name) {
     final String[] nameArr = name.split("\\.");
     final String nameNew = nameArr[0] + ".pdf";
 

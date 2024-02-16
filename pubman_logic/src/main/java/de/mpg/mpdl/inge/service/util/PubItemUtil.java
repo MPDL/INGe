@@ -70,7 +70,7 @@ public class PubItemUtil {
 
       // remove empty tags
       if (pubItem.getObject().getLocalTags() != null) {
-        final List<String> emptyTags = new ArrayList<String>();
+        final List<String> emptyTags = new ArrayList<>();
         for (final String tag : pubItem.getObject().getLocalTags()) {
           if (tag == null || tag.isEmpty()) {
             emptyTags.add(tag);
@@ -122,7 +122,7 @@ public class PubItemUtil {
     copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
 
     for (CreatorVO creator : originalPubItem.getMetadata().getCreators()) {
-      copiedPubItem.getMetadata().getCreators().add((CreatorVO) creator.clone());
+      copiedPubItem.getMetadata().getCreators().add(creator.clone());
     }
 
     if (originalPubItem.getMetadata().getTitle() != null) {
@@ -134,7 +134,7 @@ public class PubItemUtil {
     }
 
     for (AlternativeTitleVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
-      copiedPubItem.getMetadata().getAlternativeTitles().add((AlternativeTitleVO) title.clone());
+      copiedPubItem.getMetadata().getAlternativeTitles().add(title.clone());
     }
 
     if (originalPubItem.getMetadata().getFreeKeywords() != null) {

@@ -81,11 +81,6 @@ public class SourceBean extends FacesBean {
     this.initialize(source);
   }
 
-  /**
-   * Initializes the UI and sets all attributes of the GUI components.
-   *
-   * @param pubItemVO a pubitem
-   */
   protected void initialize(SourceVO source) {
     if (!source.getCreators().isEmpty()) {
       this.createCreatorsList();
@@ -103,14 +98,14 @@ public class SourceBean extends FacesBean {
     List<CreatorVO> tempCreatorList;
     List<OrganizationVO> tempOrganizationList = null;
     List<OrganizationVO> sortOrganizationList = null;
-    sortOrganizationList = new ArrayList<OrganizationVO>();
+    sortOrganizationList = new ArrayList<>();
 
     String formattedCreator = "";
     String formattedOrganization = "";
 
-    this.setSourceOrganizationList(new ArrayList<ViewItemOrganization>());
-    this.setSourceCreatorOrganizationsArray(new ArrayList<ViewItemCreatorOrganization>());
-    this.setSourceOrganizationArray(new ArrayList<String>());
+    this.setSourceOrganizationList(new ArrayList<>());
+    this.setSourceCreatorOrganizationsArray(new ArrayList<>());
+    this.setSourceOrganizationArray(new ArrayList<>());
 
     // counter for organization array
     int counterOrganization = 0;
@@ -119,18 +114,18 @@ public class SourceBean extends FacesBean {
     // temporary list of All creators, retrieved directly from the metadata
     tempCreatorList = this.getSource().getCreators();
     // the list of creators is initialized to a new array list
-    this.setSourceCreatorArray(new ArrayList<ViewItemCreators>());
+    this.setSourceCreatorArray(new ArrayList<>());
     int affiliationPosition = 0;
 
     // for each creator in the list
-    for (int i = 0; i < tempCreatorList.size(); i++) {
+    for (CreatorVO creatorVO : tempCreatorList) {
 
       // temporary organization list is matched against the sorted for each separate creator
       // therefore for each creator is newly re-set
-      tempOrganizationList = new ArrayList<OrganizationVO>();
+      tempOrganizationList = new ArrayList<>();
 
       CreatorVO creator1 = new CreatorVO();
-      creator1 = tempCreatorList.get(i);
+      creator1 = creatorVO;
 
       final CreatorDisplay creatorDisplay = new CreatorDisplay();
       final ViewItemCreators creator = new ViewItemCreators();
@@ -140,20 +135,17 @@ public class SourceBean extends FacesBean {
         // if there is affiliated organization for this creator
         if (!creator1.getPerson().getOrganizations().isEmpty()) {
           // add each affiliated organization of the creator to the temporary organization list
-          for (int listSize = 0; listSize < creator1.getPerson().getOrganizations().size(); listSize++) {
-            tempOrganizationList.add(creator1.getPerson().getOrganizations().get(listSize));
-          }
+          tempOrganizationList.addAll(creator1.getPerson().getOrganizations());
 
           // for each organizations in the temporary organization list
-          for (int j = 0; j < tempOrganizationList.size(); j++) {
+          for (OrganizationVO organizationVO : tempOrganizationList) {
             // check if the organization in the list is in the sorted organization list
-            if (!sortOrganizationList.contains(tempOrganizationList.get(j))) {
+            if (!sortOrganizationList.contains(organizationVO)) {
               affiliationPosition++;
               // if the temporary organization is to be added to the sorted set of organizations
-              sortOrganizationList.add(tempOrganizationList.get(j));
+              sortOrganizationList.add(organizationVO);
               // create new Organization view object
-              this.getSourceOrganizationList()
-                  .add(ViewItemFull.formatCreatorOrganization(tempOrganizationList.get(j), affiliationPosition));
+              this.getSourceOrganizationList().add(ViewItemFull.formatCreatorOrganization(organizationVO, affiliationPosition));
             }
           }
         }
@@ -220,7 +212,7 @@ public class SourceBean extends FacesBean {
   private String getPublishingInfo(SourceVO source) {
 
 
-    final StringBuffer publishingInfo = new StringBuffer();
+    final StringBuilder publishingInfo = new StringBuilder();
     publishingInfo.append("");
     if (source.getPublishingInfo() != null) {
 
@@ -262,7 +254,7 @@ public class SourceBean extends FacesBean {
    * @return String the formatted start and end page
    */
   private String getStartEndPage(SourceVO source) {
-    final StringBuffer startEndPage = new StringBuffer();
+    final StringBuilder startEndPage = new StringBuilder();
 
     if (source.getStartPage() != null) {
       startEndPage.append(source.getStartPage());

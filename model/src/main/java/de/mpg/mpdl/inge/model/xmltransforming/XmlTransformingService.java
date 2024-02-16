@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.model.xmltransforming;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -110,7 +109,7 @@ public class XmlTransformingService {
     } catch (ClassCastException e) {
       throw new TechnicalException(e);
     }
-    Collections.sort(itemVO.getFiles(), new FileVOCreationDateComparator());
+    itemVO.getFiles().sort(new FileVOCreationDateComparator());
     return itemVO;
   }
 
@@ -189,7 +188,7 @@ public class XmlTransformingService {
     return utf8itemList;
   }
 
-  public static PubItemVO transformToPubItem(String itemXml) throws TechnicalException, CloneNotSupportedException {
+  public static PubItemVO transformToPubItem(String itemXml) throws TechnicalException {
     ItemVO itemVO = transformToItem(itemXml);
     if (!itemVO.getMetadataSets().isEmpty() && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO) {
       return new PubItemVO(itemVO);
@@ -199,9 +198,9 @@ public class XmlTransformingService {
     }
   }
 
-  public static List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException, CloneNotSupportedException {
+  public static List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException {
     List<? extends ItemVO> list = transformToItemList(itemList);
-    List<PubItemVO> newList = new ArrayList<PubItemVO>();
+    List<PubItemVO> newList = new ArrayList<>();
     for (ItemVO itemVO : list) {
       PubItemVO pubItemVO = new PubItemVO(itemVO);
       newList.add(pubItemVO);

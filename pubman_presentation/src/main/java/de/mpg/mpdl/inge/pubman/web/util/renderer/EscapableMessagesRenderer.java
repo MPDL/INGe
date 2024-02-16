@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -29,11 +29,11 @@ package de.mpg.mpdl.inge.pubman.web.util.renderer;
 /**
  * Custom MessagesRenderer that prevents faces messages from being not encoded (u can disable this
  * renderer by adding the attribute escape=false to the <h:messages> tag)
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 import java.io.IOException;
 
@@ -65,7 +65,7 @@ public class EscapableMessagesRenderer extends MessagesRenderer {
       public void writeText(Object text, UIComponent component, String property) throws IOException {
         final String string = String.valueOf(text);
         String escape = (String) component.getAttributes().get("escape");
-        if (escape != null && !Boolean.valueOf(escape)) {
+        if (escape != null && !Boolean.parseBoolean(escape)) {
           super.write(string);
         } else {
           super.writeText(string, component, property);

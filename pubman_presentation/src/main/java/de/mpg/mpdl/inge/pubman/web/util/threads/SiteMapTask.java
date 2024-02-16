@@ -85,7 +85,7 @@ public class SiteMapTask {
 
   private FileWriter fileWriter = null;
 
-  private final List<File> files = new ArrayList<File>();
+  private final List<File> files = new ArrayList<>();
 
   //  private boolean signal = false;
 
@@ -231,7 +231,7 @@ public class SiteMapTask {
     return successful;
   }
 
-  private long addViewItemPages() {
+  private void addViewItemPages() {
     int firstRecord = 0;
     long totalRecords = 0;
     writtenInCurrentFile = 0;
@@ -324,7 +324,6 @@ public class SiteMapTask {
 
     } while (!resp.hits().hits().isEmpty());
 
-    return totalRecords;
   }
 
 
@@ -347,10 +346,10 @@ public class SiteMapTask {
 
   private void startSitemap() {
     try {
-      this.fileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-          + "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" " + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-          + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
-          + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
+      this.fileWriter.write("""
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+          """);
     } catch (final Exception e) {
       e.printStackTrace();
     }

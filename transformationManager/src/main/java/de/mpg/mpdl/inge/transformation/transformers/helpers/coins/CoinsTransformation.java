@@ -74,7 +74,7 @@ public class CoinsTransformation {
    * @return String HTML Span Tag
    */
   public String getCOinS(PubItemVO pubitemVO) {
-    StringBuffer coinsContent = new StringBuffer();
+    StringBuilder coinsContent = new StringBuilder();
     if (pubitemVO != null) {
       if (pubitemVO.getMetadata() != null) {
         String rftGenre = "";
@@ -195,7 +195,7 @@ public class CoinsTransformation {
    * @return all concatinated and ; separated complete names
    */
   private String getCompleteNames(PubItemVO pubitemVO) {
-    StringBuffer completeNames = new StringBuffer();
+    StringBuilder completeNames = new StringBuilder();
     if (pubitemVO.getMetadata().getCreators() != null) {
       for (int i = 0; i < pubitemVO.getMetadata().getCreators().size(); i++) {
         if (i > 0) {
@@ -377,7 +377,7 @@ public class CoinsTransformation {
    * @return The escaped string.
    */
   public String htmlEscape(String cdata) {
-    String[] problematicCharacters = {"&", ">", "<", "\"", "\'", "\n", "\r"};
+    String[] problematicCharacters = {"&", ">", "<", "\"", "'", "\n", "\r"};
     String[] escapedCharacters = {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>"};
 
     // The escaping has to start with the ampsersand (&amp;, '&') !
@@ -406,12 +406,12 @@ public class CoinsTransformation {
     if (oldPat.length() == 1 && newPat.length() == 1) {
       return in.replace(oldPat.charAt(0), newPat.charAt(0));
     }
-    if (in.indexOf(oldPat) < 0) {
+    if (!in.contains(oldPat)) {
       return in;
     }
     int lastIndex = 0;
     int newIndex = 0;
-    StringBuffer newString = new StringBuffer();
+    StringBuilder newString = new StringBuilder();
     for (;;) {
       newIndex = in.indexOf(oldPat, lastIndex);
       if (newIndex != -1) {

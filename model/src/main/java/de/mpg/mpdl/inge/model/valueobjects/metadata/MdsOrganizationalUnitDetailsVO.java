@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,18 +23,18 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
    * http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list- en1.html
    */
   private String countryCode;
-  private List<String> descriptions = new ArrayList<String>();
+  private List<String> descriptions = new ArrayList<>();
 
   /**
    * Identifier of an external resource.
    */
-  private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();
+  private List<IdentifierVO> identifiers = new ArrayList<>();
 
   /**
    * The unique name of the affiliation in the organizational structure.
    */
   private String name;
-  private List<String> alternativeNames = new ArrayList<String>();
+  private List<String> alternativeNames = new ArrayList<>();
   private String type;
   private String startDate;
   private String endDate;
@@ -45,7 +46,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
 
   /**
    * Clone constructor.
-   * 
+   *
    * @param other The {@link MdsOrganizationalUnitDetailsVO} to be cloned.
    */
   public MdsOrganizationalUnitDetailsVO(MdsOrganizationalUnitDetailsVO other) {
@@ -163,8 +164,8 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
         return false;
     } else if (other.alternativeNames == null)
       return false;
-    else if (!alternativeNames.containsAll(other.alternativeNames) //
-        || !other.alternativeNames.containsAll(alternativeNames)) {
+    else if (!new HashSet<>(alternativeNames).containsAll(other.alternativeNames) //
+        || !new HashSet<>(other.alternativeNames).containsAll(alternativeNames)) {
       return false;
     }
 
@@ -191,8 +192,8 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
         return false;
     } else if (other.descriptions == null)
       return false;
-    else if (!descriptions.containsAll(other.descriptions) //
-        || !other.descriptions.containsAll(descriptions)) {
+    else if (!new HashSet<>(descriptions).containsAll(other.descriptions) //
+        || !new HashSet<>(other.descriptions).containsAll(descriptions)) {
       return false;
     }
 
@@ -207,8 +208,8 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
         return false;
     } else if (other.identifiers == null)
       return false;
-    else if (!identifiers.containsAll(other.identifiers) //
-        || !other.identifiers.containsAll(identifiers)) {
+    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
       return false;
     }
 

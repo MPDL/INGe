@@ -38,7 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
  */
 @SuppressWarnings("serial")
 public class MdsTranslationVO extends MetadataSetVO {
-  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
+  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<>();
   private String language;
   private String creationDate;
 

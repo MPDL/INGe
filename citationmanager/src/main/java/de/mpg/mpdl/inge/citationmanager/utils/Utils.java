@@ -48,13 +48,6 @@ public class Utils {
     return (val != null && !val.trim().isEmpty());
   }
 
-  /**
-   * Throws ExportManagerException true if cond is true
-   *
-   * @param cond
-   * @param message
-   * @throws ExportManagerException
-   */
   public static void checkCondition(boolean cond, String message) throws CitationStyleManagerException {
     if (cond)
       throw new CitationStyleManagerException(message);

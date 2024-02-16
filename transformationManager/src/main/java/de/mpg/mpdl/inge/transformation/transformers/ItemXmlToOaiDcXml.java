@@ -20,12 +20,12 @@ public class ItemXmlToOaiDcXml extends XslTransformer implements ChainableTransf
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
+  public Map<String, Object> getParameters() {
     return null;
   }
 
   @Override
-  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+  public Map<String, String> getDefaultConfiguration() {
     return null;
   }
 

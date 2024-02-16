@@ -33,7 +33,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -113,13 +112,13 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public List<String> getControlledVocabs() {
-    final List<String> vocabs = new ArrayList<String>();
+    final List<String> vocabs = new ArrayList<>();
     try {
       final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
       if (vocabsStr != null && !vocabsStr.trim().isEmpty()) {
         final String[] vocabsArr = vocabsStr.split(";");
-        for (int i = 0; i < vocabsArr.length; i++) {
-          vocabs.add(vocabsArr[i].trim());
+        for (String s : vocabsArr) {
+          vocabs.add(s.trim());
         }
       }
     } catch (final Exception e) {
@@ -179,7 +178,7 @@ public class BrowseBySessionBean extends FacesBean {
       }
 
       if (this.showChars) {
-        final SortedSet<Character> characters = new TreeSet<Character>();
+        final SortedSet<Character> characters = new TreeSet<>();
 
         for (int i = 0; i < BrowseBySessionBean.CHARACTERS.length; i++) {
           characters.add(BrowseBySessionBean.CHARACTERS[i]);
@@ -188,8 +187,7 @@ public class BrowseBySessionBean extends FacesBean {
         this.characters = new String[characters.size()];
         int counter = 0;
 
-        for (final Iterator<Character> iterator = characters.iterator(); iterator.hasNext();) {
-          final Character character = iterator.next();
+        for (final Character character : characters) {
           this.characters[counter] = character.toString();
           counter++;
         }
@@ -203,7 +201,7 @@ public class BrowseBySessionBean extends FacesBean {
    * @return
    */
   public List<LinkVO> getConeAll() {
-    final List<LinkVO> links = new ArrayList<LinkVO>();
+    final List<LinkVO> links = new ArrayList<>();
 
     try {
       final URL coneUrl =
@@ -352,7 +350,7 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public String[] getYearMapSortedKeyArray() {
-    String[] keys = this.yearMap.keySet().toArray(new String[this.yearMap.keySet().size()]);
+    String[] keys = this.yearMap.keySet().toArray(new String[0]);
     ArrayUtils.reverse(keys);
 
     return keys;

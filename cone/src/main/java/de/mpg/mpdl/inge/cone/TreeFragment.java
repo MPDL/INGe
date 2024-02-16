@@ -74,7 +74,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
   // Add predicates of other if this predicate does not exist yet, otherwise overwrite it.
   public void merge(TreeFragment other, boolean overwrite) {
-    Set<String> removedPredicates = new HashSet<String>();
+    Set<String> removedPredicates = new HashSet<>();
 
     for (String predicateName : other.keySet()) {
       if (get(predicateName) != null) {
@@ -122,7 +122,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
     } else {
       StringWriter result = new StringWriter();
-      Map<String, String> namespaces = new HashMap<String, String>();
+      Map<String, String> namespaces = new HashMap<>();
       ModelList modelList = ModelList.getInstance();
 
       int counter = 0;
@@ -267,7 +267,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
         } else {
           writer.append("[\n");
           for (Iterator<LocalizedTripleObject> iterator2 = get(key).iterator(); iterator2.hasNext();) {
-            LocalizedTripleObject object = (LocalizedTripleObject) iterator2.next();
+            LocalizedTripleObject object = iterator2.next();
             writer.append(object.toJson());
             if (iterator2.hasNext()) {
               writer.append(",");

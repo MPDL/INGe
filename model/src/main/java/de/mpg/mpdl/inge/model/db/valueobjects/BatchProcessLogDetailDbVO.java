@@ -121,7 +121,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
 
   public BatchProcessLogDetailDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String itemObjectId, Integer itemVersionnumber,
       BatchProcessLogDetailDbVO.State state, Date startDate) {
-    this(batchProcessLogHeaderDbVO, itemObjectId, itemVersionnumber, state, (BatchProcessLogDetailDbVO.Message) null, startDate);
+    this(batchProcessLogHeaderDbVO, itemObjectId, itemVersionnumber, state, null, startDate);
   }
 
   public BatchProcessLogDetailDbVO(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, String itemObjectId, Integer itemVersionnumber,

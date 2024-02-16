@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -40,16 +40,16 @@ import org.xml.sax.helpers.DefaultHandler;
  * Generic SAX handler with convenience methods. Useful for XML with only short string content.
  * Classes that extend this class should always call super() at the beginning of an overridden
  * method.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
 public class ShortContentHandler extends DefaultHandler {
   private StringWriter currentContent = new StringWriter();
-  protected XMLStack stack = new XMLStack();
-  protected XMLStack localStack = new XMLStack();
-  protected Map<String, String> namespaces = new HashMap<String, String>();
+  protected final XMLStack stack = new XMLStack();
+  protected final XMLStack localStack = new XMLStack();
+  protected final Map<String, String> namespaces = new HashMap<>();
 
   @Override
   public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
@@ -78,13 +78,13 @@ public class ShortContentHandler extends DefaultHandler {
   }
 
   @Override
-  public final void characters(char[] ch, int start, int length) throws SAXException {
+  public final void characters(char[] ch, int start, int length) {
     this.currentContent.write(ch, start, length);
   }
 
   /**
    * Called when string content was found.
-   * 
+   *
    * @param uri The Namespace URI, or the empty string if the element has no Namespace URI or if
    *        Namespace processing is not being performed.
    * @param localName The local name (without prefix), or the empty string if Namespace processing
@@ -119,7 +119,7 @@ public class ShortContentHandler extends DefaultHandler {
 
   /**
    * A {@link Stack} extension to facilitate XML navigation.
-   * 
+   *
    * @author franke (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$

@@ -41,7 +41,7 @@ public class AccountUserDbVO extends BasicDbRO {
 
   //@Type(type = "GrantVOListJsonUserType")
   @JdbcTypeCode(SqlTypes.JSON)
-  private List<GrantVO> grantList = new ArrayList<GrantVO>();
+  private List<GrantVO> grantList = new ArrayList<>();
 
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = AffiliationDbVO.class)

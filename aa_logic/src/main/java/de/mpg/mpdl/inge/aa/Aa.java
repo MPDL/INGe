@@ -91,9 +91,8 @@ public class Aa {
    *
    * @param request the servlet request.
    * @return a URL
-   * @throws Exception Encoding exception is unlikely.
    */
-  public static String getLoginLink(HttpServletRequest request) throws Exception {
+  public static String getLoginLink(HttpServletRequest request) {
     //    if (!Config.isLoaded()) {
     //      initConfig(request);
     //    }

@@ -9,9 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * @author haarlaender
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class LogoutClientServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public class LogoutClientServlet extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
     try {
       String clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_LOGOUT_CLASS);
       if (clientClassName != null) {

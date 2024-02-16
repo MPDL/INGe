@@ -361,7 +361,7 @@ public class EntityTransformer {
 
         vhEntry.setReference(ref);
         vhEntry.setState(ItemVO.State.valueOf(audit.getPubItem().getVersionState().name()));
-        vhEntry.setEvents(new ArrayList<EventLogEntryVO>());
+        vhEntry.setEvents(new ArrayList<>());
 
         vhList.add(vhEntry);
       }

@@ -78,7 +78,7 @@ public class OrganizationSuggest {
       List<AffiliationDbVO> resultList = SearchUtils.getRecordListFromElasticSearchResponse(resp, AffiliationDbVO.class);
 
       for (final AffiliationDbVO affiliationVO : resultList) {
-        final List<AffiliationDbVO> initList = new ArrayList<AffiliationDbVO>();
+        final List<AffiliationDbVO> initList = new ArrayList<>();
         initList.add(affiliationVO);
         final List<List<AffiliationDbVO>> pathList = this.getPaths(initList);
 
@@ -121,7 +121,7 @@ public class OrganizationSuggest {
   }
 
   private List<List<AffiliationDbVO>> getPaths(List<AffiliationDbVO> currentPath) throws Exception {
-    final List<List<AffiliationDbVO>> result = new ArrayList<List<AffiliationDbVO>>();
+    final List<List<AffiliationDbVO>> result = new ArrayList<>();
     final AffiliationDbVO affiliationVO = currentPath.get(currentPath.size() - 1);
 
     if (affiliationVO != null) {
@@ -129,7 +129,7 @@ public class OrganizationSuggest {
         result.add(currentPath);
       } else {
 
-        final List<AffiliationDbVO> list = new ArrayList<AffiliationDbVO>(currentPath);
+        final List<AffiliationDbVO> list = new ArrayList<>(currentPath);
         final AffiliationDbVO parentVO = this.getAffiliation(affiliationVO.getParentAffiliation());
         list.add(parentVO);
         result.addAll(this.getPaths(list));

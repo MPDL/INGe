@@ -43,7 +43,7 @@ public class MABImport {
                                                                                                                           // itemList) {
                                                                                                                           // // System.out.print(item+"\n*******************************************");
                                                                                                                           // }
-    List<List<Pair>> items = new ArrayList<List<Pair>>();
+    List<List<Pair>> items = new ArrayList<>();
     if (itemList != null && itemList.length > 1) { // transform items to XML
 
       for (String item : itemList) {
@@ -116,7 +116,7 @@ public class MABImport {
    * @return
    */
   public List<String> getItemFromString(String string, String patternString) {
-    List<String> strArr = new ArrayList<String>();
+    List<String> strArr = new ArrayList<>();
     Pattern patternLine1 = Pattern.compile("(\\s{6})[###]\\s*(.*(\\n|\\r|\\r\\n))");
 
     Matcher matcherLine1 = patternLine1.matcher(string);
@@ -148,14 +148,8 @@ public class MABImport {
     return itemList;
   }
 
-  /**
-   * get item pairs from item string (by regex string)
-   *
-   * @param string - MAB item as string
-   * @return String list with item key-value pairs
-   */
   public List<Pair> getItemPairs(List<String> lines) {
-    List<Pair> pairList = new ArrayList<Pair>();
+    List<Pair> pairList = new ArrayList<>();
 
     if (lines != null && !lines.isEmpty()) {
       String line1 = lines.get(0);
@@ -171,12 +165,6 @@ public class MABImport {
     return pairList;
   }
 
-  /**
-   * get a pair from line string (by regex string)
-   *
-   * @param string - MAB line as string
-   * @return Pair - key-value pair created by string line
-   */
   public Pair createMABPairByString(String line, String regex) {
     // String[] line1 = line.split("(\\s{6})[###]\\s*");
     // String[] lineArr = line.split("([0-9]{3}\\s{5}|[0-9]\\s[a-z]\\s{3})");
@@ -207,12 +195,6 @@ public class MABImport {
     return "";
   }
 
-  /**
-   * creates the complete item list in xml
-   *
-   * @param item pair list
-   * @return xml string of the whole item list
-   */
   public String transformItemListToXML(List<List<Pair>> itemList) {
     String xml = "<item-list>";
 

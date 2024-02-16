@@ -90,7 +90,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
   @JoinTable(name = "organization_predecessor")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   @JsonSerialize(contentAs=AffiliationDbRO.class)
-  private java.util.List<AffiliationDbRO> predecessorAffiliations = new ArrayList<AffiliationDbRO>();
+  private java.util.List<AffiliationDbRO> predecessorAffiliations = new ArrayList<>();
 
   @Enumerated(EnumType.STRING)
   private AffiliationDbVO.State publicStatus;

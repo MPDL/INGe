@@ -48,11 +48,6 @@ public class MetadataSetVO extends ValueObject implements Cloneable {
    */
   public MetadataSetVO() {}
 
-  /**
-   * Title constructor.
-   *
-   * @param other
-   */
   public MetadataSetVO(String title) {
     setTitle(title);
   }

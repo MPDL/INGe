@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +13,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 @JsonInclude(value = Include.NON_EMPTY)
 public class FundingProgramVO extends ValueObject implements Cloneable {
   private String title;
-  private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();
+  private List<IdentifierVO> identifiers = new ArrayList<>();
 
   public FundingProgramVO() {}
 
@@ -36,7 +37,7 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
     try {
       FundingProgramVO clone = (FundingProgramVO) super.clone();
       for (IdentifierVO identifier : this.identifiers) {
-        clone.identifiers.add((IdentifierVO) identifier.clone());
+        clone.identifiers.add(identifier.clone());
       }
       return clone;
     } catch (CloneNotSupportedException e) {
@@ -71,8 +72,8 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
         return false;
     } else if (other.identifiers == null)
       return false;
-    else if (!identifiers.containsAll(other.identifiers) //
-        || !other.identifiers.containsAll(identifiers)) {
+    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
       return false;
     }
 

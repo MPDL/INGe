@@ -99,8 +99,7 @@ public class RSAEncoder {
 
   public static Key readKeyFromFile(String keyFileName, boolean publ) throws Exception {
     InputStream in = ResourceUtil.getResourceAsStream(keyFileName, RSAEncoder.class.getClassLoader());
-    ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(in));
-    try {
+    try (ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(in))) {
       BigInteger m = (BigInteger) oin.readObject();
       BigInteger e = (BigInteger) oin.readObject();
       KeySpec keySpec;
@@ -119,8 +118,6 @@ public class RSAEncoder {
       }
     } catch (Exception e) {
       throw new RuntimeException("Error reading key from file", e);
-    } finally {
-      oin.close();
     }
   }
 

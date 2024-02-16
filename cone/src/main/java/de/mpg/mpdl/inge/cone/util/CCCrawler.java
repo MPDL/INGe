@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -43,11 +43,11 @@ import de.mpg.mpdl.inge.cone.TreeFragment;
 
 /**
  * TODO Description
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class CCCrawler {
 
@@ -103,15 +103,15 @@ public class CCCrawler {
             String key1 = "urn:cone:commercial";
             String key3 = "urn:cone:jurisdiction";
 
-            List<LocalizedTripleObject> list = new ArrayList<LocalizedTripleObject>();
+            List<LocalizedTripleObject> list = new ArrayList<>();
             list.add(new LocalizedString(fieldCommercial.toBoolean()));
             fragment.put(key1, list);
 
-            List<LocalizedTripleObject> list2 = new ArrayList<LocalizedTripleObject>();
+            List<LocalizedTripleObject> list2 = new ArrayList<>();
             list2.add(new LocalizedString(fieldDerivatives.toBoolean()));
             fragment.put("urn:cone:derivatives", list2);
 
-            List<LocalizedTripleObject> list3 = new ArrayList<LocalizedTripleObject>();
+            List<LocalizedTripleObject> list3 = new ArrayList<>();
             list3.add(new LocalizedString(fieldJurisdiction.toString()));
             fragment.put(key3, list3);
 
@@ -126,7 +126,7 @@ public class CCCrawler {
               Pattern versionPattern = Pattern.compile("/(\\d+\\.\\d+)/[^/]+/$");
               Matcher versionMatcher = versionPattern.matcher(url);
               if (versionMatcher.find()) {
-                list = new ArrayList<LocalizedTripleObject>();
+                list = new ArrayList<>();
                 list.add(new LocalizedString(versionMatcher.group(1)));
                 fragment.put("urn:cone:version", list);
               }
@@ -134,7 +134,7 @@ public class CCCrawler {
               Pattern imgPattern = Pattern.compile("src=\"([^\"]+)\"");
               Matcher imgMatcher = imgPattern.matcher(codeToCopy);
               if (imgMatcher.find()) {
-                list = new ArrayList<LocalizedTripleObject>();
+                list = new ArrayList<>();
                 list.add(new LocalizedString(imgMatcher.group(1)));
                 fragment.put("http://xmlns.com/foaf/0.1/depiction", list);
               }
@@ -147,7 +147,7 @@ public class CCCrawler {
               Pattern namePattern = Pattern.compile("<h2 property=\"dc:title\">([^<]+)</h2>");
               Matcher nameMatcher = namePattern.matcher(page);
               if (nameMatcher.find()) {
-                list = new ArrayList<LocalizedTripleObject>();
+                list = new ArrayList<>();
                 list.add(new LocalizedString(nameMatcher.group(1)));
                 fragment.put("http://purl.org/dc/elements/1.1/title", list);
               }
@@ -172,7 +172,7 @@ public class CCCrawler {
   private static List<LocalizedTripleObject> extractLanguages(String page, String baseURL)
       throws Exception {
     HttpClient httpClient = new HttpClient();
-    List<LocalizedTripleObject> result = new ArrayList<LocalizedTripleObject>();
+    List<LocalizedTripleObject> result = new ArrayList<>();
 
     Pattern pattern =
         Pattern
@@ -188,15 +188,15 @@ public class CCCrawler {
       treeFragment.setLanguage(locale.split("_")[0]);
 
       String url = baseURL + matcher.group(1);
-      List<LocalizedTripleObject> list = new ArrayList<LocalizedTripleObject>();
+      List<LocalizedTripleObject> list = new ArrayList<>();
       list.add(new LocalizedString(url));
       treeFragment.put("http://purl.org/dc/elements/1.1/identifier", list);
 
-      list = new ArrayList<LocalizedTripleObject>();
+      list = new ArrayList<>();
       list.add(new LocalizedString(matcher.group(2)));
       treeFragment.put("http://purl.org/dc/elements/1.1/title", list);
 
-      list = new ArrayList<LocalizedTripleObject>();
+      list = new ArrayList<>();
       list.add(new LocalizedString(locale));
       treeFragment.put("urn:cone:locale", list);
 
@@ -208,7 +208,7 @@ public class CCCrawler {
       Pattern namePattern = Pattern.compile("<h2 property=\"dc:title\">([^<]+)</h2>");
       Matcher nameMatcher = namePattern.matcher(translation);
       if (nameMatcher.find()) {
-        list = new ArrayList<LocalizedTripleObject>();
+        list = new ArrayList<>();
         list.add(new LocalizedString(nameMatcher.group(1)));
         treeFragment.put("http://purl.org/dc/elements/1.1/title", list);
       }

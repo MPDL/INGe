@@ -54,7 +54,7 @@ public class FilterTaskParamVO extends ValueObject {
   private static final String OR = " or ";
   private static final String AND = " and ";
 
-  private final List<Filter> filterList = new ArrayList<Filter>();
+  private final List<Filter> filterList = new ArrayList<>();
 
   private static final Logger logger = Logger.getLogger(FilterTaskParamVO.class);
 
@@ -74,7 +74,7 @@ public class FilterTaskParamVO extends ValueObject {
     StringBuffer queryBuffer = new StringBuffer(1024);
     String sorting = "";
 
-    HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
+    HashMap<String, String[]> filterMap = new HashMap<>();
     filterMap.put("operation", new String[] {"searchRetrive"});
     filterMap.put("version", new String[] {"1.1"});
 
@@ -86,18 +86,15 @@ public class FilterTaskParamVO extends ValueObject {
 
     // loop through all entries in the filter list
     for (Filter filter : filterList) {
-      if (filter instanceof OffsetFilter) {
-        OffsetFilter offsetFilter = (OffsetFilter) filter;
+      if (filter instanceof OffsetFilter offsetFilter) {
         String offset = offsetFilter.getOffset();
         Integer newOffset = Integer.parseInt(offset) + 1;
         filterMap.put("startRecord", new String[] {newOffset.toString()});
         previousFilter = filter;
-      } else if (filter instanceof LimitFilter) {
-        LimitFilter limitFilter = (LimitFilter) filter;
+      } else if (filter instanceof LimitFilter limitFilter) {
         filterMap.put("maximumRecords", new String[] {limitFilter.getLimit()});
         previousFilter = filter;
-      } else if (filter instanceof OrderFilter) {
-        OrderFilter orderFilter = (OrderFilter) filter;
+      } else if (filter instanceof OrderFilter orderFilter) {
 
         StringTokenizer tok = new StringTokenizer(orderFilter.getProperty());
         while (tok.hasMoreTokens()) {
@@ -120,11 +117,11 @@ public class FilterTaskParamVO extends ValueObject {
           enhanceQuery(queryBuffer, "\"/properties/created-by/id\"=" + ((OwnerFilter) filter).getUserRef().getObjectId(), previousFilter,
               filter);
         } else if (filter instanceof ItemRefFilter) {
-          enhanceQuery(queryBuffer, "\"/id\" any", previousFilter, ((ItemRefFilter) filter));
+          enhanceQuery(queryBuffer, "\"/id\" any", previousFilter, filter);
         } else if (filter instanceof ItemRefVersionFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/version/id\" any", previousFilter, ((ItemRefVersionFilter) filter));
+          enhanceQuery(queryBuffer, "\"/properties/version/id\" any", previousFilter, filter);
         } else if (filter instanceof AffiliationRefFilter) {
-          enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((AffiliationRefFilter) filter));
+          enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, filter);
         } else if (filter instanceof RoleFilter) {
           enhanceQuery(queryBuffer, "\"/role\"=" + ((RoleFilter) filter).getRole(), previousFilter, filter);
           previousFilter = filter;
@@ -158,8 +155,7 @@ public class FilterTaskParamVO extends ValueObject {
         } else if (filter instanceof PersonsOrganizationsFilter) {
           enhanceQuery(queryBuffer, "\"/md-records/md-record/publication/creator/person/organization/identifier\"="
               + ((PersonsOrganizationsFilter) filter).getOrgUnitId(), previousFilter, filter);
-        } else if (filter instanceof StandardFilter) {
-          StandardFilter standardFilter = (StandardFilter) filter;
+        } else if (filter instanceof StandardFilter standardFilter) {
           if (standardFilter.getOperator() != null) {
             enhanceQuery(queryBuffer,
                 "\"" + standardFilter.getFilterName() + "\"" + standardFilter.getOperator() + standardFilter.getValue(), previousFilter,
@@ -167,8 +163,7 @@ public class FilterTaskParamVO extends ValueObject {
           } else {
             enhanceQuery(queryBuffer, "\"" + standardFilter.getFilterName() + "\"=" + standardFilter.getValue(), previousFilter, filter);
           }
-        } else if (filter instanceof CqlFilter) {
-          CqlFilter cqlfilterFilter = (CqlFilter) filter;
+        } else if (filter instanceof CqlFilter cqlfilterFilter) {
           enhanceQuery(queryBuffer, cqlfilterFilter.getCql(), previousFilter, filter);
         }
         previousFilter = filter;
@@ -201,7 +196,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
 
-    if (((AbstractFilter) filter).compareTo((AbstractFilter) previousFilter) != 0) {
+    if (filter.compareTo(previousFilter) != 0) {
       // filter has changed - close the previous one, connect snippets with AND and brackets if
       // query has already been started
       if (!b.isEmpty()) {
@@ -211,7 +206,6 @@ public class FilterTaskParamVO extends ValueObject {
       b.append(LEFT_PARANTHESIS);
       doAppend(b, querySnippet, filter);
 
-      return;
     } else {
       // filter has not changed - connect snippets with OR without brackets (except for RoleFilters)
       if (filter instanceof RoleFilter)
@@ -223,14 +217,12 @@ public class FilterTaskParamVO extends ValueObject {
         b.append(OR);
       doAppend(b, querySnippet, filter);
 
-      return;
     }
   }
 
   private void doAppend(StringBuffer b, String queryPiece, Filter filter) {
     int i = 0;
-    if (filter instanceof AffiliationRefFilter) {
-      AffiliationRefFilter affiliationRefFilter = (AffiliationRefFilter) filter;
+    if (filter instanceof AffiliationRefFilter affiliationRefFilter) {
 
       for (AffiliationRO affiliationRO : affiliationRefFilter.getIdList()) {
         b.append(queryPiece);
@@ -241,8 +233,7 @@ public class FilterTaskParamVO extends ValueObject {
         b.append(OR);
       }
 
-    } else if (filter instanceof ItemRefFilter) {
-      ItemRefFilter itemRefFilter = (ItemRefFilter) filter;
+    } else if (filter instanceof ItemRefFilter itemRefFilter) {
       b.append(queryPiece);
 
       for (ItemRO itemRO : itemRefFilter.getIdList()) {
@@ -252,8 +243,7 @@ public class FilterTaskParamVO extends ValueObject {
           break;
       }
 
-    } else if (filter instanceof ItemRefVersionFilter) {
-      ItemRefVersionFilter itemRefFilter = (ItemRefVersionFilter) filter;
+    } else if (filter instanceof ItemRefVersionFilter itemRefFilter) {
       b.append(queryPiece);
 
       for (ItemRO itemRO : itemRefFilter.getIdList()) {
@@ -271,7 +261,7 @@ public class FilterTaskParamVO extends ValueObject {
   public String getOperator(Filter filter, Filter previousFilter) {
     if (filter == null || previousFilter == null)
       return "";
-    if (((AbstractFilter) filter).compareTo((AbstractFilter) previousFilter) == 0)
+    if (filter.compareTo(previousFilter) == 0)
       return OR;
 
     return AND;
@@ -348,7 +338,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * List of ids.
      */
-    private List<ItemRO> idList = new ArrayList<ItemRO>();
+    private List<ItemRO> idList = new ArrayList<>();
 
     /**
      * Creates a new instance.
@@ -378,7 +368,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * List of ids.
      */
-    private List<ItemRO> idList = new ArrayList<ItemRO>();
+    private List<ItemRO> idList = new ArrayList<>();
 
     /**
      * Creates a new instance.
@@ -638,7 +628,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * List of ids.
      */
-    private final List<AffiliationRO> idList = new ArrayList<AffiliationRO>();
+    private final List<AffiliationRO> idList = new ArrayList<>();
 
     /**
      * Creates a new instance.

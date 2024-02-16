@@ -17,7 +17,7 @@ public class NetworkUtils {
 
   /**
    * method checks if an address fits in a given ip range (pattern)
-   * 
+   *
    * @param pattern
    * @param address
    * @return
@@ -41,9 +41,8 @@ public class NetworkUtils {
     String[] mask = pattern.split("\\.");
     String[] ip_address = address.split("\\.");
     for (int i = 0; i < mask.length; i++) {
-      if (mask[i].equals("*") || mask[i].equals(ip_address[i]))
-        continue;
-      else if (mask[i].contains("-")) {
+      if (mask[i].equals("*") || mask[i].equals(ip_address[i])) {
+      } else if (mask[i].contains("-")) {
         int min = Integer.parseInt(mask[i].split("-")[0]);
         int max = Integer.parseInt(mask[i].split("-")[1]);
         int ip = Integer.parseInt(ip_address[i]);

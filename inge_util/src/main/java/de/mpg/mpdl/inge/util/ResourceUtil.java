@@ -200,11 +200,11 @@ public class ResourceUtil {
       throw new IOException("The given path is not a directory.");
     }
 
-    ArrayList<File> fileArray = new ArrayList<File>();
+    ArrayList<File> fileArray = new ArrayList<>();
     String[] fileNames = dirFile.list();
 
-    for (int i = 0; i < fileNames.length; i++) {
-      File file = new File(dirFile.getAbsolutePath() + "/" + fileNames[i]);
+    for (String fileName : fileNames) {
+      File file = new File(dirFile.getAbsolutePath() + "/" + fileName);
 
       if (file.isFile()) {
         fileArray.add(file);

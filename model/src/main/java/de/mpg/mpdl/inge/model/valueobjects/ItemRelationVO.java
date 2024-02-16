@@ -67,7 +67,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
     try {
       ItemRelationVO clone = (ItemRelationVO) super.clone();
       if (clone.targetItemRef != null) {
-        clone.targetItemRef = (ItemRO) this.targetItemRef.clone();
+        clone.targetItemRef = this.targetItemRef.clone();
       }
       return clone;
     } catch (CloneNotSupportedException e) {

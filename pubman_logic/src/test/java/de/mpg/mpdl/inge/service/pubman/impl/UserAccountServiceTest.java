@@ -85,7 +85,7 @@ public class UserAccountServiceTest extends TestBase {
     Principal principal = null;
     try {
       principal = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
+    } catch (IngeTechnicalException | AuthenticationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }

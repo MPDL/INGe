@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class XsltHelper {
   private static final Logger logger = Logger.getLogger(XsltHelper.class);
 
-  private static Map<Pair, String> citationMap = new HashMap<Pair, String>();
+  private static Map<Pair, String> citationMap = new HashMap<>();
   private static long lastCitationMapUpdate = 0;
 
   private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
@@ -85,7 +85,7 @@ public class XsltHelper {
     client.executeMethod(getMethod);
 
     BufferedReader buffer = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
-    StringBuffer content = new StringBuffer();
+    StringBuilder content = new StringBuilder();
     String line;
     while ((line = buffer.readLine()) != null) {
       content.append(line);
@@ -177,13 +177,6 @@ public class XsltHelper {
     return citationStyle;
   }
 
-  /**
-   * Escape all xml/html tags except: style: for jasper internal styling sub/sup: will not be
-   * escaped in case of balanced presence all other - to be escaped
-   *
-   * @param str
-   * @return escaped string
-   */
   public static String[] escapeMarkupTags(String[] snippet) {
     if (snippet == null) {
       return null;
@@ -211,7 +204,7 @@ public class XsltHelper {
   public static boolean isBalanced(String snippet) {
     if (snippet == null)
       return true; // ????
-    Stack<String> s = new Stack<String>();
+    Stack<String> s = new Stack<>();
     Matcher m = SUBS_OR_SUPS.matcher(snippet);
     while (m.find()) {
       String tag = m.group(1);
@@ -234,14 +227,13 @@ public class XsltHelper {
    *
    * @param snippet
    * @return converted snippet
-   * @throws CitationStyleManagerException
    */
-  public static String convertSnippetToHtml(String snippet) throws CitationStyleManagerException {
+  public static String convertSnippetToHtml(String snippet) {
     FontStyle fs;
     FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
     if (!Utils.checkVal(snippet) || fsc == null)
       return snippet;
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     Matcher m = SPANS_WITH_CLASS.matcher(snippet);
     while (m.find()) {
       String cssClass = m.group(1);

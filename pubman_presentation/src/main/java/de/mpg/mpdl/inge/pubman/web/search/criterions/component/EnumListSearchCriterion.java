@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchCriterionBase {
 
 
-  private Map<T, Boolean> enumMap = new LinkedHashMap<T, Boolean>();
+  private Map<T, Boolean> enumMap = new LinkedHashMap<>();
 
   private final Class<T> enumClass;
 
@@ -47,22 +47,19 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
   }
 
 
-  public Map<T, Boolean> initEnumMap() {
+  public void initEnumMap() {
 
     for (final T v : this.enumClass.getEnumConstants()) {
       this.enumMap.put(v, false);
     }
-    return this.enumMap;
 
   }
 
 
 
   public List<T> getEnumList() {
-    final List<T> list = new ArrayList<T>();
-    for (final T t : this.enumMap.keySet()) {
-      list.add(t);
-    }
+    final List<T> list = new ArrayList<>();
+    list.addAll(this.enumMap.keySet());
     return list;
   }
 
@@ -118,7 +115,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
   @Override
   public String toQueryString() {
-    final StringBuffer sb = new StringBuffer();
+    final StringBuilder sb = new StringBuilder();
     sb.append(this.getSearchCriterion() + "=\"");
 
     boolean allChecked = true;

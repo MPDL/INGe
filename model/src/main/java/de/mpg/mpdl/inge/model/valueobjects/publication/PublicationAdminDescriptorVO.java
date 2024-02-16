@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.model.valueobjects.publication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -33,11 +34,11 @@ import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 
 /**
  * Implementation of an admin descriptor for PubMan publications.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
@@ -48,10 +49,9 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
     SIMPLE
   }
 
-  private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
+  private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<>();
 
-  private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
-      new ArrayList<MdsPublicationVO.SubjectClassification>();
+  private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications = new ArrayList<>();
 
   private ItemRO templateItem;
 
@@ -156,8 +156,8 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
       }
     } else if (other.allowedGenres == null) {
       return false;
-    } else if (!this.allowedGenres.containsAll(other.allowedGenres) //
-        || !other.allowedGenres.containsAll(this.allowedGenres)) {
+    } else if (!new HashSet<>(this.allowedGenres).containsAll(other.allowedGenres) //
+        || !new HashSet<>(other.allowedGenres).containsAll(this.allowedGenres)) {
       return false;
     }
 
@@ -167,8 +167,8 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
       }
     } else if (other.allowedSubjectClassifications == null) {
       return false;
-    } else if (!this.allowedSubjectClassifications.containsAll(other.allowedSubjectClassifications) //
-        || !other.allowedSubjectClassifications.containsAll(this.allowedSubjectClassifications)) {
+    } else if (!new HashSet<>(this.allowedSubjectClassifications).containsAll(other.allowedSubjectClassifications) //
+        || !new HashSet<>(other.allowedSubjectClassifications).containsAll(this.allowedSubjectClassifications)) {
       return false;
     }
 

@@ -31,7 +31,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.SAXException;
@@ -53,10 +52,10 @@ public class FontStylesCollection {
   public static final String DEFAULT_FONTSTYLE_NAME = "NORMAL";
 
   // Hash for the quick search of Fonts with the Name of Style
-  private final HashMap<String, FontStyle> namesMap = new HashMap<String, FontStyle>();
+  private final HashMap<String, FontStyle> namesMap = new HashMap<>();
 
   // Hash for the quick search of Fonts with the css Name of Style
-  private final HashMap<String, FontStyle> cssMap = new HashMap<String, FontStyle>();
+  private final HashMap<String, FontStyle> cssMap = new HashMap<>();
 
   public FontStylesCollection() {
     setDefault();
@@ -64,7 +63,7 @@ public class FontStylesCollection {
 
   public void setDefault() {
     setName("Default");
-    setFontStyles(new ArrayList<FontStyle>());
+    setFontStyles(new ArrayList<>());
     setDefaultFontStyle(null);
   }
 

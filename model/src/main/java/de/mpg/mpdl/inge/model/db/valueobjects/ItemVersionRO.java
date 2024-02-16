@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
+import java.util.Objects;
 
 
 @SuppressWarnings("serial")
@@ -66,7 +67,7 @@ public class ItemVersionRO implements Serializable {
 
   /**
    * Get the full identification of an item version.
-   * 
+   *
    * @return A String in the form objid:versionNumber e.g. "escidoc:345:2"
    */
   @Transient
@@ -109,7 +110,7 @@ public class ItemVersionRO implements Serializable {
 
   /**
    * The version number of the referenced item. This attribute is optional.
-   * 
+   *
    * @param newVal
    */
   public void setVersionNumber(int newVal) {
@@ -128,7 +129,7 @@ public class ItemVersionRO implements Serializable {
 
   /**
    * Delivers the state of the item.
-   * 
+   *
    * @return The current State.
    */
   public ItemVersionRO.State getVersionState() {
@@ -137,7 +138,7 @@ public class ItemVersionRO implements Serializable {
 
   /**
    * Sets the state of the item.
-   * 
+   *
    * @param newVal The new state.
    */
   public void setVersionState(ItemVersionRO.State newVal) {
@@ -172,11 +173,7 @@ public class ItemVersionRO implements Serializable {
 
   @JsonIgnore
   public Date getModificationDateForXml() {
-    if (modificationDate == null) {
-      return new Date();
-    } else {
-      return modificationDate;
-    }
+    return Objects.requireNonNullElseGet(modificationDate, Date::new);
   }
 
   @Override

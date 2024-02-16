@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -55,7 +55,7 @@ import jakarta.persistence.Table;
  * Special type of container of data with specific workflow (i.e. the publication management
  * workflow). A set of publication objects which have some common denominator. Collection may
  * contain one or more subcollections.
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:14:08
@@ -69,7 +69,7 @@ import jakarta.persistence.Table;
 public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
   /**
    * The possible states of a collection.
-   * 
+   *
    * @updated 05-Sep-2007 11:14:08
    */
   public enum State
@@ -87,12 +87,11 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
 
   //@Type(type = "GenreListJsonUserType")
   @JdbcTypeCode(SqlTypes.JSON)
-  private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
+  private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<>();
 
   //@Type(type = "SubjectClassificationListJsonUserType")
   @JdbcTypeCode(SqlTypes.JSON)
-  private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
-      new ArrayList<MdsPublicationVO.SubjectClassification>();
+  private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications = new ArrayList<>();
 
   @Enumerated(EnumType.STRING)
   private Workflow workflow;
@@ -118,7 +117,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   @JsonSerialize(contentAs=AffiliationDbRO.class)
   @JoinTable(name = "context_organization")
-  private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
+  private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<>();
 
 
   /**
@@ -149,7 +148,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   /**
    * Sets the description of the collection, i. e. a short description of the collection and the
    * collection policy.
-   * 
+   *
    * @param newVal
    */
   public void setDescription(String newVal) {
@@ -158,7 +157,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
 
   /**
    * Sets the state of the collection.
-   * 
+   *
    * @param newVal
    */
   public void setState(ContextDbVO.State newVal) {

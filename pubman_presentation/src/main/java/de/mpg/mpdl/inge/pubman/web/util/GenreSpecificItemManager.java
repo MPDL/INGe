@@ -50,8 +50,8 @@ public class GenreSpecificItemManager {
   }
 
   public ItemVersionVO cleanupItem() throws Exception {
-    final List<Object> objs = new ArrayList<Object>();
-    final LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+    final List<Object> objs = new ArrayList<>();
+    final LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
     if (this.pubItem != null && this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getGenre() != null) {
       final String genre = this.pubItem.getMetadata().getGenre().name();
@@ -79,8 +79,8 @@ public class GenreSpecificItemManager {
     return this.pubItem;
   }
 
-  private List<Object> getMappedObject(Object baseObject, String mappingString) throws NoSuchMethodException, Exception {
-    final List<Object> result = new ArrayList<Object>();
+  private List<Object> getMappedObject(Object baseObject, String mappingString) throws Exception {
+    final List<Object> result = new ArrayList<>();
     // first get all values in the class attribute String and eliminate the "."
     final String[] attributes = mappingString.split("\\.");
 
@@ -131,7 +131,7 @@ public class GenreSpecificItemManager {
     return result;
   }
 
-  private Object getObject(Object object, String mapString) throws Exception, NoSuchMethodException {
+  private Object getObject(Object object, String mapString) throws Exception {
     // prepare the string for a method call
     String renamedAttribute = mapString;
     // save the first character

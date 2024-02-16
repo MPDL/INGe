@@ -9,18 +9,13 @@ public class EscidocNamespaceContextImpl implements NamespaceContext {
 
   @Override
   public String getNamespaceURI(String prefix) {
-    switch (prefix) {
-      case "item":
-        return "http://www.escidoc.de/schemas/item/0.10";
-      case "prop":
-        return "http://escidoc.de/core/01/properties/";
-      case "srel":
-        return "http://escidoc.de/core/01/structural-relations/";
-      case "dcterms":
-        return "http://purl.org/dc/terms/";
-      default:
-        return XMLConstants.NULL_NS_URI;
-    }
+    return switch (prefix) {
+      case "item" -> "http://www.escidoc.de/schemas/item/0.10";
+      case "prop" -> "http://escidoc.de/core/01/properties/";
+      case "srel" -> "http://escidoc.de/core/01/structural-relations/";
+      case "dcterms" -> "http://purl.org/dc/terms/";
+      default -> XMLConstants.NULL_NS_URI;
+    };
 
   }
 

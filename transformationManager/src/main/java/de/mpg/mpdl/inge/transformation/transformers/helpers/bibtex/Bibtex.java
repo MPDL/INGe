@@ -109,7 +109,7 @@ public class Bibtex implements BibtexInterface {
     // Remove Math '$' from the whole BibTex-String
     Pattern mathPattern = Pattern.compile("(?sm)\\$(\\\\.*?)(?<!\\\\)\\$");
     Matcher mathMatcher = mathPattern.matcher(bibtex);
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     while (mathMatcher.find()) {
       mathMatcher.appendReplacement(sb, "$1");
     }
@@ -133,13 +133,12 @@ public class Bibtex implements BibtexInterface {
       throw new RuntimeException();
     }
     for (Object object : entries) {
-      if (object instanceof BibtexEntry) {
+      if (object instanceof BibtexEntry entry) {
         if (entryFound) {
           logger.error("Multiple entries in BibTex record.");
           throw new RuntimeException();
         }
         entryFound = true;
-        BibtexEntry entry = (BibtexEntry) object;
         // genre
         BibTexUtil.Genre bibGenre;
         try {
@@ -383,8 +382,7 @@ public class Bibtex implements BibtexInterface {
         // author
         boolean noConeAuthorFound = true;
         if (fields.get("author") != null) {
-          if (fields.get("author") instanceof BibtexPersonList) {
-            BibtexPersonList authors = (BibtexPersonList) fields.get("author");
+          if (fields.get("author") instanceof BibtexPersonList authors) {
             for (Object author : authors.getList()) {
               if (author instanceof BibtexPerson) {
                 addCreator(mds, (BibtexPerson) author, CreatorVO.CreatorRole.AUTHOR, affiliation, affiliationAddress);
@@ -392,14 +390,13 @@ public class Bibtex implements BibtexInterface {
                 logger.warn("Entry in BibtexPersonList not a BibtexPerson: [" + author + "] in [" + author + "]");
               }
             }
-          } else if (fields.get("author") instanceof BibtexPerson) {
-            BibtexPerson author = (BibtexPerson) fields.get("author");
-            addCreator(mds, (BibtexPerson) author, CreatorVO.CreatorRole.AUTHOR, affiliation, affiliationAddress);
+          } else if (fields.get("author") instanceof BibtexPerson author) {
+            addCreator(mds, author, CreatorVO.CreatorRole.AUTHOR, affiliation, affiliationAddress);
           } else if (fields.get("author") instanceof BibtexString) {
             AuthorDecoder decoder;
             try {
               String authorString = BibTexUtil.bibtexDecode(fields.get("author").toString(), false);
-              List<CreatorVO> teams = new ArrayList<CreatorVO>();
+              List<CreatorVO> teams = new ArrayList<>();
               if (authorString.contains("Team")) {
                 // set pattern for finding Teams (leaded or followed by [and|,|;|{|}|^|$])
                 Pattern pattern = Pattern.compile("(?<=(and|,|;|\\{|^))([\\w|\\s]*?Team[\\w|\\s]*?)(?=(and|,|;|\\}|$))", Pattern.DOTALL);
@@ -484,14 +481,11 @@ public class Bibtex implements BibtexInterface {
                                   String id = null;
                                   Node node = posNode.getFirstChild().getFirstChild();
                                   while (node != null) {
-                                    if ("eprints:affiliatedInstitution".equals(node.getNodeName())) {
-                                      name = node.getFirstChild().getNodeValue();
-                                    } else if ("escidoc:start-date".equals(node.getNodeName())) {
-                                      from = node.getFirstChild().getNodeValue();
-                                    } else if ("escidoc:end-date".equals(node.getNodeName())) {
-                                      until = node.getFirstChild().getNodeValue();
-                                    } else if ("dc:identifier".equals(node.getNodeName())) {
-                                      id = node.getFirstChild().getNodeValue();
+                                    switch (node.getNodeName()) {
+                                      case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
+                                      case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
+                                      case "escidoc:end-date" -> until = node.getFirstChild().getNodeValue();
+                                      case "dc:identifier" -> id = node.getFirstChild().getNodeValue();
                                     }
                                     node = node.getNextSibling();
                                   }
@@ -592,14 +586,11 @@ public class Bibtex implements BibtexInterface {
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
                               while (node != null) {
-                                if ("eprints:affiliatedInstitution".equals(node.getNodeName())) {
-                                  name = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:start-date".equals(node.getNodeName())) {
-                                  from = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:end-date".equals(node.getNodeName())) {
-                                  until = node.getFirstChild().getNodeValue();
-                                } else if ("dc:identifier".equals(node.getNodeName())) {
-                                  id = node.getFirstChild().getNodeValue();
+                                switch (node.getNodeName()) {
+                                  case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
+                                  case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
+                                  case "escidoc:end-date" -> until = node.getFirstChild().getNodeValue();
+                                  case "dc:identifier" -> id = node.getFirstChild().getNodeValue();
                                 }
                                 node = node.getNextSibling();
                               }
@@ -644,14 +635,11 @@ public class Bibtex implements BibtexInterface {
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
                               while (node != null) {
-                                if ("eprints:affiliatedInstitution".equals(node.getNodeName())) {
-                                  name = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:start-date".equals(node.getNodeName())) {
-                                  from = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:end-date".equals(node.getNodeName())) {
-                                  until = node.getFirstChild().getNodeValue();
-                                } else if ("dc:identifier".equals(node.getNodeName())) {
-                                  id = node.getFirstChild().getNodeValue();
+                                switch (node.getNodeName()) {
+                                  case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
+                                  case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
+                                  case "escidoc:end-date" -> until = node.getFirstChild().getNodeValue();
+                                  case "dc:identifier" -> id = node.getFirstChild().getNodeValue();
                                 }
                                 node = node.getNextSibling();
                               }
@@ -708,8 +696,7 @@ public class Bibtex implements BibtexInterface {
         boolean noConeEditorFound = false;
         if (fields.get("editor") != null) {
           logger.debug("fields.get(\"editor\"): " + fields.get("editor").getClass());
-          if (fields.get("editor") instanceof BibtexPersonList) {
-            BibtexPersonList editors = (BibtexPersonList) fields.get("editor");
+          if (fields.get("editor") instanceof BibtexPersonList editors) {
             for (Object editor : editors.getList()) {
               if (editor instanceof BibtexPerson) {
                 addCreator(mds, (BibtexPerson) editor, CreatorVO.CreatorRole.EDITOR, affiliation, affiliationAddress);
@@ -717,14 +704,13 @@ public class Bibtex implements BibtexInterface {
                 logger.warn("Entry in BibtexPersonList not a BibtexPerson: [" + editor + "] in [" + editors + "]");
               }
             }
-          } else if (fields.get("editor") instanceof BibtexPerson) {
-            BibtexPerson editor = (BibtexPerson) fields.get("editor");
-            addCreator(mds, (BibtexPerson) editor, CreatorVO.CreatorRole.EDITOR, affiliation, affiliationAddress);
+          } else if (fields.get("editor") instanceof BibtexPerson editor) {
+            addCreator(mds, editor, CreatorVO.CreatorRole.EDITOR, affiliation, affiliationAddress);
           } else if (fields.get("editor") instanceof BibtexString) {
             AuthorDecoder decoder;
             try {
               String editorString = BibTexUtil.bibtexDecode(fields.get("editor").toString(), false);
-              List<CreatorVO> teams = new ArrayList<CreatorVO>();
+              List<CreatorVO> teams = new ArrayList<>();
               if (editorString.contains("Team")) {
                 // set pattern for finding Teams (leaded or followed by [and|,|;|{|}|^|$])
                 Pattern pattern = Pattern.compile("(?<=(and|,|;|\\{|^))([\\w|\\s]*?Team[\\w|\\s]*?)(?=(and|,|;|\\}|$))", Pattern.DOTALL);
@@ -809,14 +795,11 @@ public class Bibtex implements BibtexInterface {
                                   String id = null;
                                   Node node = posNode.getFirstChild().getFirstChild();
                                   while (node != null) {
-                                    if ("eprints:affiliatedInstitution".equals(node.getNodeName())) {
-                                      name = node.getFirstChild().getNodeValue();
-                                    } else if ("escidoc:start-date".equals(node.getNodeName())) {
-                                      from = node.getFirstChild().getNodeValue();
-                                    } else if ("escidoc:end-date".equals(node.getNodeName())) {
-                                      until = node.getFirstChild().getNodeValue();
-                                    } else if ("dc:identifier".equals(node.getNodeName())) {
-                                      id = node.getFirstChild().getNodeValue();
+                                    switch (node.getNodeName()) {
+                                      case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
+                                      case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
+                                      case "escidoc:end-date" -> until = node.getFirstChild().getNodeValue();
+                                      case "dc:identifier" -> id = node.getFirstChild().getNodeValue();
                                     }
                                     node = node.getNextSibling();
                                   }
@@ -917,14 +900,11 @@ public class Bibtex implements BibtexInterface {
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
                               while (node != null) {
-                                if ("eprints:affiliatedInstitution".equals(node.getNodeName())) {
-                                  name = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:start-date".equals(node.getNodeName())) {
-                                  from = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:end-date".equals(node.getNodeName())) {
-                                  until = node.getFirstChild().getNodeValue();
-                                } else if ("dc:identifier".equals(node.getNodeName())) {
-                                  id = node.getFirstChild().getNodeValue();
+                                switch (node.getNodeName()) {
+                                  case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
+                                  case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
+                                  case "escidoc:end-date" -> until = node.getFirstChild().getNodeValue();
+                                  case "dc:identifier" -> id = node.getFirstChild().getNodeValue();
                                 }
                                 node = node.getNextSibling();
                               }
@@ -969,14 +949,11 @@ public class Bibtex implements BibtexInterface {
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
                               while (node != null) {
-                                if ("eprints:affiliatedInstitution".equals(node.getNodeName())) {
-                                  name = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:start-date".equals(node.getNodeName())) {
-                                  from = node.getFirstChild().getNodeValue();
-                                } else if ("escidoc:end-date".equals(node.getNodeName())) {
-                                  until = node.getFirstChild().getNodeValue();
-                                } else if ("dc:identifier".equals(node.getNodeName())) {
-                                  id = node.getFirstChild().getNodeValue();
+                                switch (node.getNodeName()) {
+                                  case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
+                                  case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
+                                  case "escidoc:end-date" -> until = node.getFirstChild().getNodeValue();
+                                  case "dc:identifier" -> id = node.getFirstChild().getNodeValue();
                                 }
                                 node = node.getNextSibling();
                               }
@@ -1306,12 +1283,12 @@ public class Bibtex implements BibtexInterface {
     httpClient.executeMethod(getMethod);
     InputStream inputStream = getMethod.getResponseBodyAsStream();
     String line;
-    Set<String> result = new HashSet<String>();
+    Set<String> result = new HashSet<>();
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     while ((line = bufferedReader.readLine()) != null) {
       // result.add(line.replaceAll("(\\d|_)+\\|", ""));
       try {
-        result.add(line.substring(line.indexOf("|") + 1, line.length()));
+        result.add(line.substring(line.indexOf("|") + 1));
       } catch (IndexOutOfBoundsException e) {
       }
     }
@@ -1331,11 +1308,11 @@ public class Bibtex implements BibtexInterface {
     httpClient.executeMethod(getMethod);
     InputStream inputStream = getMethod.getResponseBodyAsStream();
     String line;
-    Set<String> result = new HashSet<String>();
+    Set<String> result = new HashSet<>();
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     while ((line = bufferedReader.readLine()) != null) {
       try {
-        result.add(line.substring(line.indexOf("|") + 1, line.length()));
+        result.add(line.substring(line.indexOf("|") + 1));
       } catch (IndexOutOfBoundsException e) {
       }
       // result.add(line.replaceAll("(\\d|_)+\\|", ""));

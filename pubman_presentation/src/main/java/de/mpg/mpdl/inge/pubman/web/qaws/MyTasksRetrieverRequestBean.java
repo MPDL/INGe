@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -93,7 +94,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
-    List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+    List<PubItemVOPresentation> returnList = new ArrayList<>();
 
     if (!this.getLoginHelper().isLoggedIn() || !this.getLoginHelper().getIsModerator()
         || this.getLoginHelper().getAuthenticationToken() == null) {
@@ -221,11 +222,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
     final String orgUnit =
         FacesTools.getExternalContext().getRequestParameterMap().get(MyTasksRetrieverRequestBean.parameterSelectedOrgUnit);
-    if (orgUnit == null) {
-      this.setSelectedOrgUnit("all");
-    } else {
-      this.setSelectedOrgUnit(orgUnit);
-    }
+    this.setSelectedOrgUnit(Objects.requireNonNullElse(orgUnit, "all"));
   }
 
   @Override
@@ -259,7 +256,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    */
   public String getSelectedContextLabel() {
     if (!this.getSelectedContext().equals("all")) {
-      final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+      final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
       final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
       for (final PubContextVOPresentation contextVO : contextVOList) {
@@ -278,7 +275,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    * @return
    */
   public String getSelectedOrgUnitLabel() {
-    final AffiliationBean affTree = (AffiliationBean) FacesTools.findBean("AffiliationBean");
+    final AffiliationBean affTree = FacesTools.findBean("AffiliationBean");
 
     return (this.getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap().get(this.getSelectedOrgUnit()).getNamePath());
   }
@@ -288,7 +285,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    */
   @Override
   public List<SelectItem> getItemStateSelectItems() {
-    final List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
+    final List<SelectItem> itemStateSelectItems = new ArrayList<>();
 
     itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptPendingWithdrawn")));
     itemStateSelectItems
@@ -323,17 +320,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     // LoginHelper loginHelper = (LoginHelper) FacesTools.findBean(LoginHelper.class);
 
     // Contexts (Collections)
-    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
     final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
-    this.contextSelectItems = new ArrayList<SelectItem>();
+    this.contextSelectItems = new ArrayList<>();
     this.contextSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
-    for (int i = 0; i < contextVOList.size(); i++) {
+    for (PubContextVOPresentation contextVOPresentation : contextVOList) {
       String workflow = "null";
-      if (contextVOList.get(i).getWorkflow() != null) {
-        workflow = contextVOList.get(i).getWorkflow().toString();
+      if (contextVOPresentation.getWorkflow() != null) {
+        workflow = contextVOPresentation.getWorkflow().toString();
       }
-      this.contextSelectItems.add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
+      this.contextSelectItems.add(new SelectItem(contextVOPresentation.getObjectId(), contextVOPresentation.getName() + " -- " + workflow));
     }
 
     String contextString = ",";
@@ -342,7 +339,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     }
 
     // Init imports
-    final List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
+    final List<SelectItem> importSelectItems = new ArrayList<>();
     importSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
     Connection connection = null;
@@ -432,7 +429,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   }
 
   private QAWSSessionBean getQAWSSessionBean() {
-    return (QAWSSessionBean) FacesTools.findBean("QAWSSessionBean");
+    return FacesTools.findBean("QAWSSessionBean");
   }
 
   @Override
@@ -456,7 +453,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
       affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
-      final AffiliationBean affTree = (AffiliationBean) FacesTools.findBean("AffiliationBean");
+      final AffiliationBean affTree = FacesTools.findBean("AffiliationBean");
       affTree.getAffiliationMap().put(aff.getObjectId(), aff);
       if (aff.getChildren() != null) {
         this.addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);
@@ -465,7 +462,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   }
 
   public List<SelectItem> getOrgUnitSelectItems() {
-    final List<SelectItem> userAffiliationsList = new ArrayList<SelectItem>();
+    final List<SelectItem> userAffiliationsList = new ArrayList<>();
     userAffiliationsList.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
     try {
       final List<AffiliationVOPresentation> affList = this.getLoginHelper().getAccountUsersAffiliations();

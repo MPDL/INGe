@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.StandardCharsets;
@@ -15,9 +14,7 @@ public class FindBadUTF8 {
       "C:\\Users\\haarlae1\\Documents\\Pubman\\Import files\\TestdatenBMC\\Testdaten Markus\\1752-1947-5-391.xml";
 
   public static void main(String[] argv) throws IOException {
-    InputStream inStream = null;
-    try {
-      inStream = new FileInputStream(URL);
+    try (InputStream inStream = new FileInputStream(URL)) {
       CharsetDecoder d = StandardCharsets.UTF_8.newDecoder();
       CharBuffer out = CharBuffer.allocate(1);
       ByteBuffer in = ByteBuffer.allocate(10);
@@ -60,10 +57,6 @@ public class FindBadUTF8 {
       }
 
       System.out.println("OK");
-    } finally {
-      if (inStream != null) {
-        inStream.close();
-      }
     }
   }
 }

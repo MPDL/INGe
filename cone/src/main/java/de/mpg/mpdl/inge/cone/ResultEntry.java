@@ -13,7 +13,7 @@ public class ResultEntry extends LocalizedString {
 
 
 
-  private Map<String, List<LocalizedTripleObject>> valueMap = new HashMap<String, List<LocalizedTripleObject>>();
+  private Map<String, List<LocalizedTripleObject>> valueMap = new HashMap<>();
 
 
 
@@ -41,13 +41,13 @@ public class ResultEntry extends LocalizedString {
   /*
    * @Override public boolean equals(Object obj) { if (obj == this) { return true; } if (obj == null
    * || obj.getClass() != this.getClass()) { return false; }
-   * 
+   *
    * ResultEntry res = (ResultEntry) obj;
-   * 
+   *
    * return (getResult()!=null && getResult().equals(res.getResult())); }
-   * 
+   *
    * @Override public String toString() { return getResult();
-   * 
+   *
    * }
    */
 

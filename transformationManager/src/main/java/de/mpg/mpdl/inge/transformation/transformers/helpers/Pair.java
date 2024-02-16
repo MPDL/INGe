@@ -5,11 +5,11 @@ import java.util.Map;
 
 /**
  * A key-value pair.
- * 
+ *
  * @author kurt (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class Pair {
 
@@ -18,7 +18,7 @@ public class Pair {
 
   // EndNote to xml tags mapping
   @SuppressWarnings("serial")
-  public static final Map<String, String> KEY_MAPPING = new HashMap<String, String>() {
+  public static final Map<String, String> KEY_MAPPING = new HashMap<>() {
     {
       put("%A", "A");
       put("%B", "B");
@@ -77,7 +77,7 @@ public class Pair {
 
   /**
    * Constructor with fields.
-   * 
+   *
    * @param key The key
    * @param value The value
    */

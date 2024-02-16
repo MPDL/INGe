@@ -41,7 +41,7 @@ public class ItemResultVO extends ItemVO implements SearchResultElement {
    * List of hits. Every hit in files contains the file reference and the text fragments of the
    * search hit.
    */
-  private final java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
+  private final java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<>();
 
 
   private float score;
@@ -49,7 +49,7 @@ public class ItemResultVO extends ItemVO implements SearchResultElement {
   /**
    * Construct an ItemResultVO using the parents copy constructor.
    */
-  public ItemResultVO(ItemVO itemVO) throws CloneNotSupportedException {
+  public ItemResultVO(ItemVO itemVO) {
     super(itemVO);
   }
 

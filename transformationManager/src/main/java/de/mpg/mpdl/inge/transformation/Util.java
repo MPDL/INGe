@@ -113,15 +113,6 @@ public class Util {
   //        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
   //  }
 
-  /**
-   * Queries CoNE service and returns the result as DOM node. The returned XML has the following
-   * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
-   * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
-   * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   *
-   * @param authors
-   * @return
-   */
   public static Node queryCone(String model, String query) {
     DocumentBuilder documentBuilder;
     String queryUrl = null;
@@ -191,7 +182,7 @@ public class Util {
 
   public static List<String> queryConeForJava(String model, String query) {
 
-    List<String> returnSet = new ArrayList<String>();
+    List<String> returnSet = new ArrayList<>();
     String queryUrl = null;
     try {
       logger.info("queryCone: " + model + " query: " + query);
@@ -309,15 +300,6 @@ public class Util {
   //    }
   //  }
 
-  /**
-   * Queries the CoNE service and transforms the result into a DOM node.
-   *
-   * @param model The type of object (e.g. "persons")
-   * @param name The query string.
-   * @param ou Specialty for persons
-   * @param coneSession A JSESSIONID to not produce a new session with each call.
-   * @return A DOM node containing the results.
-   */
   public static Node queryConeExact(String model, String name, String ou) {
     DocumentBuilder documentBuilder;
 
@@ -346,7 +328,7 @@ public class Util {
       logger.info("CoNE query: " + queryUrl);
       client.executeMethod(method);
       if (method.getStatusCode() == 200) {
-        ArrayList<String> results = new ArrayList<String>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+        ArrayList<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
         queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("dcterms:alternative", StandardCharsets.UTF_8) + "="
             + URLEncoder.encode("\"" + name + "\"", StandardCharsets.UTF_8) + "&"
@@ -361,7 +343,7 @@ public class Util {
         logger.info("CoNE query: " + queryUrl);
         if (method.getStatusCode() == 200) {
           results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
-          Set<String> oldIds = new HashSet<String>();
+          Set<String> oldIds = new HashSet<>();
           for (String result : results) {
             if (!result.trim().isEmpty()) {
               String id = result.split("\\|")[1];
@@ -401,15 +383,6 @@ public class Util {
   }
 
 
-  /**
-   * Queries the CoNE service and transforms the result into a DOM node.
-   *
-   * @param model The type of object (e.g. "persons")
-   * @param name The query string.
-   * @param ou Specialty for persons
-   * @param coneSession A JSESSIONID to not produce a new session with each call.
-   * @return A DOM node containing the results.
-   */
   public static Node queryConeExactWithIdentifier(String model, String identifier, String ou) {
     DocumentBuilder documentBuilder;
 
@@ -439,8 +412,8 @@ public class Util {
       client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl);
       if (method.getStatusCode() == 200) {
-        ArrayList<String> results = new ArrayList<String>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
-        Set<String> oldIds = new HashSet<String>();
+        ArrayList<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+        Set<String> oldIds = new HashSet<>();
         for (String result : results) {
           if (!result.trim().isEmpty()) {
             String id = result.split("\\|")[1];
@@ -475,20 +448,10 @@ public class Util {
     }
   }
 
-  /**
-   * Queries CoNE service and returns the result as DOM node. The returned XML has the following
-   * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
-   * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
-   * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   *
-   * @param Single instituteId for an institute without departments or list of Ids. Every department
-   *        has his own Id.
-   * @return
-   */
   public static Node queryReportPersonCone(String model, String query) {
     DocumentBuilder documentBuilder;
     String queryUrl;
-    List<String> childIds = new ArrayList<String>();
+    List<String> childIds = new ArrayList<>();
     // get the childOUs if any in the query
     if (query.contains(" ")) {
       String[] result = query.split("\\s+");

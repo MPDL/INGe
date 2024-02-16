@@ -55,7 +55,7 @@ public class HtmlUtils {
     if (snippet == null)
       return true;
 
-    Stack<String> s = new Stack<String>();
+    Stack<String> s = new Stack<>();
     Matcher m = SUBS_OR_SUPS.matcher(snippet);
     while (m.find()) {
       String tag = m.group(1);
@@ -84,10 +84,10 @@ public class HtmlUtils {
     boolean balanced = true;
     int removeLastCharacters = 0;
 
-    Stack<SubSupTag> s = new Stack<SubSupTag>();
+    Stack<SubSupTag> s = new Stack<>();
     Matcher m = Pattern.compile("\\<(\\/?)(\\S+?)\\>", Pattern.DOTALL).matcher(snippet);
 
-    List<SubSupTag> tagListToBeClosed = new ArrayList<HtmlUtils.SubSupTag>();
+    List<SubSupTag> tagListToBeClosed = new ArrayList<>();
 
     while (m.find()) {
       String slash = m.group(1);
@@ -136,7 +136,7 @@ public class HtmlUtils {
     }
 
     if (s.isEmpty() && balanced) {
-      StringBuffer result = new StringBuffer(snippet.substring(0, length - removeLastCharacters));
+      StringBuilder result = new StringBuilder(snippet.substring(0, length - removeLastCharacters));
       for (SubSupTag tag : tagListToBeClosed) {
         result.append(tag.toHtml());
       }
@@ -156,10 +156,10 @@ public class HtmlUtils {
     boolean balanced = true;
     int removeLastCharacters = 0;
 
-    Stack<SubSupTag> s = new Stack<SubSupTag>();
+    Stack<SubSupTag> s = new Stack<>();
     Matcher m = Pattern.compile("\\<(\\/?)(\\S+?)\\>", Pattern.DOTALL).matcher(snippet);
 
-    List<SubSupTag> tagListToBeClosed = new ArrayList<HtmlUtils.SubSupTag>();
+    List<SubSupTag> tagListToBeClosed = new ArrayList<>();
 
     while (m.find()) {
       String slash = m.group(1);
@@ -208,7 +208,7 @@ public class HtmlUtils {
     }
 
     if (s.isEmpty() && balanced) {
-      StringBuffer result = new StringBuffer(snippet.substring(0, length - removeLastCharacters));
+      StringBuilder result = new StringBuilder(snippet.substring(0, length - removeLastCharacters));
       for (SubSupTag tag : tagListToBeClosed) {
         result.append(tag.toHtml());
       }
@@ -223,7 +223,7 @@ public class HtmlUtils {
 
     snippet = Pattern.compile("\\&(?!amp;)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet).replaceAll("&amp;");
 
-    StringBuffer exceptions = new StringBuffer();
+    StringBuilder exceptions = new StringBuilder();
     if (tagNameExceptions != null) {
       for (int i = 0; i < tagNameExceptions.size(); i++) {
         if (i > 0) {
@@ -307,7 +307,7 @@ public class HtmlUtils {
     // }
 
     public String toHtml() {
-      StringBuffer buffer = new StringBuffer();
+      StringBuilder buffer = new StringBuilder();
       buffer.append("<");
       if (TagType.END.equals(tagType)) {
         buffer.append("/");
@@ -331,7 +331,7 @@ public class HtmlUtils {
 
     String testTitle =
         "Dies ist ein Testtitel mit viel H<sub>2</sub>O und 3<sup>2</sup> und so <sup>höher</sup> und <h>bla</h> und auch <SUB>tiefer</SUB>";
-    List<String> tags = new ArrayList<String>();
+    List<String> tags = new ArrayList<>();
     tags.add("sup");
     tags.add("sub");
 

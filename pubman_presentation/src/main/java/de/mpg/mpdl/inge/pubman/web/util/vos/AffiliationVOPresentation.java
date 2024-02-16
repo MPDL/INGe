@@ -58,7 +58,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
   private AffiliationVOPresentation parent = null;
 
-  private List<AffiliationDbVO> predecessors = new ArrayList<AffiliationDbVO>();
+  private List<AffiliationDbVO> predecessors = new ArrayList<>();
   private List<AffiliationDbVO> successors = null;
   private List<AffiliationVOPresentation> children = null;
 
@@ -94,7 +94,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
   public MdsOrganizationalUnitDetailsVO getDetails() {
     if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
-      return (MdsOrganizationalUnitDetailsVO) this.getMetadata();
+      return this.getMetadata();
     } else {
       return new MdsOrganizationalUnitDetailsVO();
     }
@@ -198,7 +198,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
   public String getName() {
     if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
-      return ((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName();
+      return this.getMetadata().getName();
     }
 
     return null;
@@ -214,14 +214,13 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
     }
 
     if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
-      if (((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName()
-          .length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH
-              - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
-        return ((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName().substring(0,
+      if (this.getMetadata().getName().length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH
+          - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
+        return this.getMetadata().getName().substring(0,
             (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH)))
             + "...";
       } else {
-        return ((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName();
+        return this.getMetadata().getName();
       }
     }
 
@@ -230,7 +229,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
   public List<String> getUris() {
     final List<IdentifierVO> identifiers = this.getMetadata().getIdentifiers();
-    final List<String> uriList = new ArrayList<String>();
+    final List<String> uriList = new ArrayList<>();
 
     for (final IdentifierVO identifier : identifiers) {
       if (identifier.getType() != null && identifier.getType().equals(IdentifierVO.IdType.URI)) {
@@ -262,7 +261,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
    */
   private List<AffiliationDbVO> retrieveAllOrganizationalUnits(List<AffiliationDbRO> affiliations) {
 
-    List<AffiliationDbVO> transformedAffs = new ArrayList<AffiliationDbVO>();
+    List<AffiliationDbVO> transformedAffs = new ArrayList<>();
 
     if (affiliations.isEmpty()) {
       return transformedAffs;
@@ -330,7 +329,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
         this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.getObjectId());
 
       } catch (final Exception e) {
-        this.successors = new ArrayList<AffiliationDbVO>();
+        this.successors = new ArrayList<>();
       }
     }
   }

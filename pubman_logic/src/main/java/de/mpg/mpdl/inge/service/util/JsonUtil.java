@@ -18,11 +18,11 @@ public class JsonUtil {
 
   }
 
-  public static String minifyJsonString(String prettyJsonString) throws JsonMappingException, JsonParseException, IOException {
+  public static String minifyJsonString(String prettyJsonString) throws IOException {
     return DEFAULT_OBJECT_MAPPER.readValue(prettyJsonString, JsonNode.class).toString();
   }
 
-  public static String prettifyJsonString(String jsonString) throws JsonMappingException, JsonParseException, IOException {
+  public static String prettifyJsonString(String jsonString) throws IOException {
     return PRETTY_OBJECT_MAPPER.writeValueAsString(PRETTY_OBJECT_MAPPER.readValue(jsonString, JsonNode.class));
 
   }

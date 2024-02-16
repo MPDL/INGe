@@ -86,23 +86,21 @@ public class ItemRestController {
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getAll(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", defaultValue = "10") int limit, @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Query matchAllQuery = new MatchAllQuery.Builder().build()._toQuery();
     //QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @Hidden
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> filter(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
-      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", defaultValue = "10") int limit, @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     //QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
     Query matchQueryParam = QueryStringQuery.of(q -> q.query(query))._toQuery();
@@ -110,7 +108,7 @@ public class ItemRestController {
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
+    return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -144,7 +142,7 @@ public class ItemRestController {
       @RequestParam(value = "format", required = false) String format, //
       @RequestParam(value = "citation", required = false) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
-      @RequestParam(value = "scrollId", required = true) String scrollId, //
+      @RequestParam(value = "scrollId") String scrollId, //
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
@@ -156,7 +154,7 @@ public class ItemRestController {
       HttpHeaders headers = new HttpHeaders();
       headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
       headers.add("scrollId", srResponse.getScrollId());
-      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
+      return new ResponseEntity<>(srResponse, headers, HttpStatus.OK);
     }
 
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
@@ -234,7 +232,7 @@ public class ItemRestController {
       throw new NotFoundException();
     }
 
-    return new ResponseEntity<ItemVersionVO>(item, HttpStatus.OK);
+    return new ResponseEntity<>(item, HttpStatus.OK);
   }
 
 
@@ -302,7 +300,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AuditDbVO> list = null;
     list = pis.getVersionHistory(itemId, token);
-    return new ResponseEntity<List<AuditDbVO>>(list, HttpStatus.OK);
+    return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.POST)
@@ -311,7 +309,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ItemVersionVO created = null;
     created = pis.create(item, token);
-    return new ResponseEntity<ItemVersionVO>(created, HttpStatus.CREATED);
+    return new ResponseEntity<>(created, HttpStatus.CREATED);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/release", method = RequestMethod.PUT)
@@ -320,7 +318,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ItemVersionVO released = null;
     released = pis.releasePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<ItemVersionVO>(released, HttpStatus.OK);
+    return new ResponseEntity<>(released, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/revise", method = RequestMethod.PUT)
@@ -329,7 +327,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ItemVersionVO revised = null;
     revised = pis.revisePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<ItemVersionVO>(revised, HttpStatus.OK);
+    return new ResponseEntity<>(revised, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/submit", method = RequestMethod.PUT)
@@ -338,7 +336,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ItemVersionVO submitted = null;
     submitted = pis.submitPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<ItemVersionVO>(submitted, HttpStatus.OK);
+    return new ResponseEntity<>(submitted, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/withdraw", method = RequestMethod.PUT)
@@ -347,7 +345,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ItemVersionVO withdrawn = null;
     withdrawn = pis.withdrawPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<ItemVersionVO>(withdrawn, HttpStatus.OK);
+    return new ResponseEntity<>(withdrawn, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.PUT)
@@ -357,7 +355,7 @@ public class ItemRestController {
     //TODO Write itemId into item
     ItemVersionVO updated = null;
     updated = pis.update(item, token);
-    return new ResponseEntity<ItemVersionVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.DELETE)

@@ -50,7 +50,7 @@ public class SearchHitVO extends ValueObject {
   /**
    * List of text fragments belonging to this search hit.
    */
-  private final java.util.List<TextFragmentVO> textFragmentList = new java.util.ArrayList<TextFragmentVO>();
+  private final java.util.List<TextFragmentVO> textFragmentList = new java.util.ArrayList<>();
   private SearchHitType type;
   /**
    * This FileRO points to the File containing the search hit. When the search hit is of type

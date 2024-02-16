@@ -11,7 +11,7 @@ public class MapperFactory {
 
   private static final ObjectMapper jsonObjectMapper = new ObjectMapper();
 
-  public static MapStructMapper STRUCT_MAP_MAPPER = Mappers.getMapper(MapStructMapper.class);
+  public static final MapStructMapper STRUCT_MAP_MAPPER = Mappers.getMapper(MapStructMapper.class);
   //private static final Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
 
   static {

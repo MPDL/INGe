@@ -285,7 +285,7 @@ public class CreatorVOPresentation extends CreatorVO {
       this.setPerson(new PersonVO());
       this.getPerson().setIdentifier(new IdentifierVO());
       this.getPerson().getIdentifier().setType(IdType.CONE);
-      this.getPerson().setOrganizations(new ArrayList<OrganizationVO>());
+      this.getPerson().setOrganizations(new ArrayList<>());
     } else if (CreatorType.ORGANIZATION == type) {
       this.setType(CreatorType.ORGANIZATION);
       this.setOrganization(new OrganizationVO());
@@ -319,6 +319,6 @@ public class CreatorVOPresentation extends CreatorVO {
   }
 
   private EditItem getEditItem() {
-    return (EditItem) FacesTools.findBean("EditItem");
+    return FacesTools.findBean("EditItem");
   }
 }

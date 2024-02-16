@@ -60,17 +60,10 @@ public class FileBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(FileBean.class);
 
   private FileDbVO file;
-  private List<String> searchHits = new ArrayList<String>();
+  private List<String> searchHits = new ArrayList<>();
   private final ItemVersionVO item;
   private boolean fileAccessGranted = false;
 
-  /**
-   * Public constructor with parameters
-   *
-   * @param file
-   * @param position
-   * @param itemState
-   */
   public FileBean(FileDbVO file, ItemVersionVO item) {
     this.file = file;
     this.item = item;
@@ -78,14 +71,6 @@ public class FileBean extends FacesBean {
 
   }
 
-  /**
-   * Second constructor (used if pubitem has fulltext search hits)
-   *
-   * @param file
-   * @param position
-   * @param itemState
-   * @param resultitem
-   */
   public FileBean(FileDbVO file, ItemVersionVO item, List<String> searchHitList) {
     this.file = file;
     this.item = item;
@@ -94,52 +79,6 @@ public class FileBean extends FacesBean {
     this.initializeFileAccessGranted();
 
   }
-
-  /**
-   * Sets up some extra information concerning full text search hits
-   *
-   * @param file
-   * @param position
-   * @param itemState
-   * @param resultitem
-   */
-  /*
-  protected void initialize(FileDbVO file, ItemVersionVO item, List<String> searchHitList) {
-    // set some html elements which cannot be completely constructed in the jsp
-  
-    String beforeSearchHitString;
-    String searchHitString;
-    String afterSearchHitString;
-  
-    // browse through the list of files and examine which of the files is the one the search result
-    // hits where found in
-    for (int i = 0; i < searchHitList.size(); i++) {
-      if (searchHitList.get(i).getType() == SearchHitType.FULLTEXT) {
-        if (searchHitList.get(i).getHitReference() != null) {
-          if (searchHitList.get(i).getHitReference().getObjectId().equals(this.file.getObjectId())) {
-            for (int j = 0; j < searchHitList.get(i).getTextFragmentList().size(); j++) {
-              int startPosition = 0;
-              int endPosition = 0;
-  
-              startPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getStartIndex();
-              endPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getEndIndex() + 1;
-  
-              beforeSearchHitString = "..." + searchHitList.get(i).getTextFragmentList().get(j).getData().substring(0, startPosition);
-              searchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(startPosition, endPosition);
-              afterSearchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition) + "...";
-  
-              this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString, afterSearchHitString));
-            }
-          }
-  
-        }
-  
-      }
-  
-    }
-  
-  }
-  */
 
   private void initializeFileAccessGranted() {
     // examine weather the user holds an audience Grant for the current file or not
@@ -410,8 +349,7 @@ public class FileBean extends FacesBean {
       if (this.file.getMetadata() != null && this.file.getMetadata().getLicense() != null) {
         final String licenceURL = this.file.getMetadata().getLicense().toLowerCase();
 
-        if (licenceURL != null && !licenceURL.trim().isEmpty() && licenceURL.indexOf("creative") > -1
-            && licenceURL.indexOf("commons") > -1) {
+        if (licenceURL != null && !licenceURL.trim().isEmpty() && licenceURL.contains("creative") && licenceURL.contains("commons")) {
           final String[] splittedURL = licenceURL.split("\\/");
           // Change for dettecting license url in a string
           int start = 0;
@@ -554,7 +492,7 @@ public class FileBean extends FacesBean {
 
   public static String getOpenPDFSearchParameter(List<String> shbList) {
     String param = "\"";
-    final List<String> searchWords = new ArrayList<String>();
+    final List<String> searchWords = new ArrayList<>();
     for (final String shb : shbList) {
       if (!searchWords.contains(shb)) {
         searchWords.add(shb);

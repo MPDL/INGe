@@ -90,7 +90,7 @@ public class Search extends FacesBean {
   }
 
   public static Query generateElasticSearchRequest(String searchString, boolean includeFiles) throws Exception {
-    final List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
+    final List<SearchCriterionBase> criteria = new ArrayList<>();
 
     if (includeFiles) {
       final AnyFieldAndFulltextSearchCriterion anyFulltext = new AnyFieldAndFulltextSearchCriterion();

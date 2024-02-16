@@ -18,7 +18,7 @@ public interface IpListProvider {
   class IpRange {
     String name;
     String id;
-    private List<String> ipRanges = new ArrayList<String>();
+    private List<String> ipRanges = new ArrayList<>();
 
 
     public IpRange(String id, String name, List<String> ipRanges) {

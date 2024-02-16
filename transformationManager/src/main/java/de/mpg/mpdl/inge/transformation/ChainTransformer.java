@@ -55,7 +55,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
 
   @Override
   public Map<String, String> getConfiguration() {
-    Map<String, String> c = new HashMap<String, String>();
+    Map<String, String> c = new HashMap<>();
 
     for (ChainableTransformer t : this.transformerChain) {
       Map<String, String> tConfig = t.getConfiguration();
@@ -90,7 +90,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    List<String> v = new ArrayList<String>();
+    List<String> v = new ArrayList<>();
     for (ChainableTransformer t : this.transformerChain) {
       if (t.getAllConfigurationValuesFor(key) != null)
         v.addAll(t.getAllConfigurationValuesFor(key));
@@ -102,7 +102,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
   public String toString() {
     String chain = "";
     if (this.transformerChain != null) {
-      chain = transformerChain.stream().map(i -> i.toString()).collect(Collectors.joining(" -- "));
+      chain = transformerChain.stream().map(Object::toString).collect(Collectors.joining(" -- "));
     }
 
     return super.toString() + " via " + chain;

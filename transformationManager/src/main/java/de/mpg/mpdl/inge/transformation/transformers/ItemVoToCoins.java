@@ -29,7 +29,7 @@ public class ItemVoToCoins extends SingleTransformer implements ChainableTransfo
     CoinsTransformation coinsTransformation = new CoinsTransformation();
     String stringResult = coinsTransformation.getCOinS((PubItemVO) s.getSource());
 
-    writeStringToStreamResult(stringResult, (TransformerStreamResult) result);
+    writeStringToStreamResult(stringResult, result);
   }
 
   @Override
@@ -38,7 +38,7 @@ public class ItemVoToCoins extends SingleTransformer implements ChainableTransfo
   }
 
   @Override
-  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
     TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");

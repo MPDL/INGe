@@ -1,19 +1,14 @@
 package de.mpg.mpdl.inge.service.pubman;
 
-import java.util.List;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import java.util.List;
 
 /**
  * Interface defining the batch functions for PubItems
@@ -23,39 +18,9 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
  */
 public interface PubItemBatchService {
 
-  /**
-   * add keywords for multiple Items within a Map <pubItemId, modificationDate> and a
-   * BatchProcessLogDbVO
-   *
-   * @param pubItemsMap
-   * @param keywordsNew
-   * @param message
-   * @param authenticationToken
-   * @param accountUser
-   * @return
-   * @throws IngeTechnicalException
-   * @throws AuthenticationException
-   * @throws AuthorizationException
-   * @throws IngeApplicationExcepti on
-   */
   BatchProcessLogDbVO addKeywords(List<String> pubItemObjectIdList, String keywordsNew, String message, String authenticationToken,
       AccountUserDbVO accountUser);
 
-  /**
-   * add local tags for multiple Items within a Map <pubItemId, modificationDate> and return a
-   * BatchProcessLogDbVO
-   *
-   * @param pubItemsMap
-   * @param localTagsToAdd
-   * @param message
-   * @param authenticationToken
-   * @param accountUser
-   * @return
-   * @throws IngeTechnicalException
-   * @throws AuthenticationException
-   * @throws AuthorizationException
-   * @throws IngeApplicationException
-   */
   BatchProcessLogDbVO addLocalTags(List<String> pubItemObjectIdList, List<String> localTagsToAdd, String message,
       String authenticationToken, AccountUserDbVO accountUser);
 
@@ -90,32 +55,9 @@ public interface PubItemBatchService {
   BatchProcessLogDbVO changeContext(List<String> pubItemObjectIdList, String contextOld, String contextNew, String message,
       String authenticationToken, AccountUserDbVO accountUser);
 
-  /**
-   * replacing the content category for the external references of a list of objectIds and return a
-   * BatchProcessLogDbVO object
-   *
-   * @param pubItemsMap
-   * @param contentCategoryOld
-   * @param contentCategoryNew
-   * @param message
-   * @param authenticationToken
-   * @param accountUser
-   * @return
-   */
   BatchProcessLogDbVO changeExternalReferenceContentCategory(List<String> pubItemObjectIdList, String contentCategoryOld,
       String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser);
 
-  /**
-   * replacing the orcid a list of objectIds and return a BatchProcessLogDbVO object
-   *
-   * @param pubItemsMap
-   * @param creatorId
-   * @param orcidNew
-   * @param message
-   * @param authenticationToken
-   * @param accountUser
-   * @return
-   */
   BatchProcessLogDbVO changeOrcid(List<String> pubItemObjectIdList, String creatorId, String orcidNew, String message,
       String authenticationToken, AccountUserDbVO accountUser);
 
@@ -327,19 +269,6 @@ public interface PubItemBatchService {
   BatchProcessLogDbVO revisePubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
       AccountUserDbVO accountUser);
 
-  /**
-   * Submit multiple Items within a Map <pubItemId, modificationDate> and return a Map with
-   * <itemId, exception>
-   *
-   * @param pubItemsMap
-   * @param message
-   * @param authenticationToken
-   * @return
-   * @throws IngeTechnicalException
-   * @throws AuthenticationException
-   * @throws AuthorizationException
-   * @throws IngeApplicationException
-   */
   BatchProcessLogDbVO submitPubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
       AccountUserDbVO accountUser);
 

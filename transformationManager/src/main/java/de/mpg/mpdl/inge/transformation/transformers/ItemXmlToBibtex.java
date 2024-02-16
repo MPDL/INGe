@@ -23,12 +23,12 @@ public class ItemXmlToBibtex extends XslTransformer implements ChainableTransfor
   }
 
   @Override
-  public Map<String, Object> getParameters() throws TransformationException {
+  public Map<String, Object> getParameters() {
     return null;
   }
 
   public Map<String, String> getOutputKeys() {
-    Map<String, String> map = new HashMap<String, String>();
+    Map<String, String> map = new HashMap<>();
     map.put(OutputKeys.INDENT, "yes");
     map.put(OutputKeys.METHOD, "text");
     map.put(OutputKeys.ENCODING, "UTF-8");
@@ -42,7 +42,7 @@ public class ItemXmlToBibtex extends XslTransformer implements ChainableTransfor
   }
 
   @Override
-  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+  public Map<String, String> getDefaultConfiguration() {
     return null;
   }
 

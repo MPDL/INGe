@@ -294,7 +294,6 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
         final Tika tika = new Tika();
         fileVO.setMimeType(tika.detect(stagedFileStream, stagedFileVo.getFilename()));
-        stagedFileStream.close();
       } catch (final Exception e) {
         logger.info("Error while trying to detect mimetype of staged file " + stagedFileVo.getId(), e);
       }
@@ -430,7 +429,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       throw new IngeTechnicalException("could not read file [" + componentId + "] for Metadata extraction", e);
     }
 
-    final StringBuffer b = new StringBuffer(2048);
+    final StringBuilder b = new StringBuilder(2048);
     for (final String name : metadata.names()) {
       b.append(name).append(": ").append(metadata.get(name)).append(System.getProperty(PropertyReader.LINE_SEPARATOR));
     }
@@ -481,7 +480,6 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       }
 
       // close the stream; We don't need it now.
-      fis.close();
     }
 
     // Get the hash's bytes
@@ -490,8 +488,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     // This bytes[] has bytes in decimal format;
     // Convert it to hexadecimal format
     StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < bytes.length; i++) {
-      sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+    for (byte aByte : bytes) {
+      sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
     }
 
     // return complete hash

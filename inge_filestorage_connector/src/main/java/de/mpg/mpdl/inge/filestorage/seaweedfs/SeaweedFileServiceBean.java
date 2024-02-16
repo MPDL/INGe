@@ -51,17 +51,6 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
   @Autowired
   private CloseableHttpClient httpClient;
 
-  /**
-   * creates a file in the seaweed instance
-   * <p>
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream,
-   *      java.lang.String)
-   *
-   * @return json - response returned (including "fid", "fileUrl", "fileName", ...)
-   * @throws IOException
-   */
   @Override
   public String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
     String fileId;
@@ -99,18 +88,6 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     return fileId;
   }
 
-  /**
-   * read a file from the seaweed instance to an outputstream
-   * <p>
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String,
-   *      java.io.OutputStream)
-   *
-   * @param fileId - Id of the file to read
-   * @param out - OutputStream where result is written
-   * @throws IOException
-   */
   @Override
   public void readFile(String fileId, OutputStream out) throws IngeTechnicalException {
     System.out.println("Trying to read Id [" + fileId + "]");
@@ -140,16 +117,6 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     }
   }
 
-  /**
-   * delete a file with a specific id from the seaweed instance
-   * <p>
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
-   *
-   * @param fileId - Id of the file to read
-   * @throws Exception
-   */
   @Override
   public void deleteFile(String fileId) throws IngeTechnicalException {
     System.out.println("Trying to delete Id [" + fileId + "]");

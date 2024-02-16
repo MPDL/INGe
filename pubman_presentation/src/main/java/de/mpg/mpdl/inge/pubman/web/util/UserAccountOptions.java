@@ -90,7 +90,7 @@ public class UserAccountOptions extends FacesBean {
     try {
       if (this.password != null && !this.password.trim().isEmpty()) {
         if (this.password.equals(this.secondPassword)) {
-          this.loginHelper = (LoginHelper) FacesTools.findBean("LoginHelper");
+          this.loginHelper = FacesTools.findBean("LoginHelper");
           UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();
           userAccountService.changePassword(this.loginHelper.getAccountUser().getObjectId(),
               this.loginHelper.getAccountUser().getLastModificationDate(), this.password, true, this.loginHelper.getAuthenticationToken());
@@ -117,7 +117,7 @@ public class UserAccountOptions extends FacesBean {
     try {
       if (this.password != null && !this.password.trim().isEmpty()) {
         if (this.password.equals(this.secondPassword)) {
-          this.loginHelper = (LoginHelper) FacesTools.findBean("LoginHelper");
+          this.loginHelper = FacesTools.findBean("LoginHelper");
           UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();
           Principal principal = userAccountService.loginForPasswordChange(this.loginName, this.currentPassword);
           if (principal != null) {

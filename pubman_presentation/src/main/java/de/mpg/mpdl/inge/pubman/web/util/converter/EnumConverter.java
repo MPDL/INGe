@@ -74,8 +74,7 @@ public class EnumConverter implements Converter {
     }
 
     if (this.valueList != null) {
-      for (int i = 0; i < this.valueList.length; i++) {
-        final Object valueListObject = this.valueList[i];
+      for (final Object valueListObject : this.valueList) {
         final String valueListString = valueListObject.toString();
         if (valueListString.compareTo(string) == 0) {
           retVal = valueListObject;
@@ -92,13 +91,6 @@ public class EnumConverter implements Converter {
     return retVal;
   }
 
-  /**
-   * Converts an object to a string value.
-   *
-   * @param facesContext the current FacesContext
-   * @param uiComponent the uiComponent with the possible values
-   * @param string the string value which should be converted
-   */
   @Override
   public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object object) {
     if (object == null) {
