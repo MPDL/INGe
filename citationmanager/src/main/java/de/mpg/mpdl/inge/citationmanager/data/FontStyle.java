@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -26,18 +26,17 @@
 package de.mpg.mpdl.inge.citationmanager.data;
 
 import java.awt.Color;
-
 import org.apache.log4j.Logger;
 
 /**
  * An instance of the class represents a font style definition
- * 
+ *
  * @author makarenko (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
 
-public class FontStyle implements Cloneable {
+public class FontStyle {
   private static final Logger logger = Logger.getLogger(FontStyle.class);
 
   private boolean def; // font is default
@@ -92,7 +91,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * def setter
-   * 
+   *
    * @param newDef
    */
   public void setDef(boolean newDef) {
@@ -101,7 +100,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * def getter
-   * 
+   *
    * @return def
    */
   public boolean getDef() {
@@ -110,7 +109,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * name setter
-   * 
+   *
    * @param newName
    */
   public void setName(String newName) {
@@ -119,7 +118,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * name getter
-   * 
+   *
    * @return name
    */
   public String getName() {
@@ -128,7 +127,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * fontSize setter
-   * 
+   *
    * @param newFontSize
    */
   public void setFontSize(int newFontSize) {
@@ -137,7 +136,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * fontSize getter
-   * 
+   *
    * @return fontSize
    */
   public int getFontSize() {
@@ -146,7 +145,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * fontName setter
-   * 
+   *
    * @param newFontName
    */
   public void setFontName(String newFontName) {
@@ -155,7 +154,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * fontName getter
-   * 
+   *
    * @return fontName
    */
   public String getFontName() {
@@ -164,7 +163,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isBold setter
-   * 
+   *
    * @param newIsBold
    */
   public void setIsBold(boolean newIsBold) {
@@ -173,7 +172,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isBold getter
-   * 
+   *
    * @return isBold
    */
   public boolean getIsBold() {
@@ -182,7 +181,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isItalic setter
-   * 
+   *
    * @param newIsItalic
    */
   public void setIsItalic(boolean newIsItalic) {
@@ -191,7 +190,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isItalic getter
-   * 
+   *
    * @return isItalic
    */
   public boolean getIsItalic() {
@@ -200,7 +199,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isUnderline setter
-   * 
+   *
    * @param newIsUnderline
    */
   public void setIsUnderline(boolean newIsUnderline) {
@@ -209,7 +208,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isUnderline getter
-   * 
+   *
    * @return isUnderline
    */
   public boolean getIsUnderline() {
@@ -218,7 +217,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isStrikeThrogh setter
-   * 
+   *
    * @param newIsStrikeThrough
    */
   public void setIsStrikeThrough(boolean newIsStrikeThrough) {
@@ -227,7 +226,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isStrikeThrough getter
-   * 
+   *
    * @return isStrikeThrough
    */
   public boolean getIsStrikeThrough() {
@@ -236,7 +235,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * pdfFontName setter
-   * 
+   *
    * @param newPdfFontName
    */
   public void setPdfFontName(String newPdfFontName) {
@@ -245,7 +244,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * pdfFontName getter
-   * 
+   *
    * @return pdfFontName
    */
   public String getPdfFontName() {
@@ -254,7 +253,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * foreColor setter
-   * 
+   *
    * @param newForeColor
    */
   public void setForeColor(String newForeColor) {
@@ -263,7 +262,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * foreColor getter
-   * 
+   *
    * @return foreColor
    */
   public String getForeColor() {
@@ -272,7 +271,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * backColor setter
-   * 
+   *
    * @param newBackColor
    */
   public void setBackColor(String newBackColor) {
@@ -281,7 +280,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * backColor getter
-   * 
+   *
    * @return backColor
    */
   public String getBackColor() {
@@ -318,19 +317,19 @@ public class FontStyle implements Cloneable {
 
   public Color getBackColorAwt() {
     String bc = getBackColor().toUpperCase();
-    return bc == null || "".equals(bc.trim()) || "WHITE".equals(bc) ? Color.WHITE
+    return bc == null || bc.trim().isEmpty() || "WHITE".equals(bc) ? Color.WHITE
         : "BLACK".equals(bc) ? Color.BLACK : "RED".equals(bc) ? Color.RED : "BLUE".equals(bc) ? Color.BLUE : Color.WHITE; // default
   }
 
   public Color getForeColorAwt() {
     String fc = getForeColor().toUpperCase();
-    return fc == null || "".equals(fc.trim()) || "BLACK".equals(fc) ? Color.BLACK
+    return fc == null || fc.trim().isEmpty() || "BLACK".equals(fc) ? Color.BLACK
         : "WHITE".equals(fc) ? Color.WHITE : "RED".equals(fc) ? Color.RED : "BLUE".equals(fc) ? Color.BLUE : Color.BLACK; // default
   }
 
   /**
    * pdfEncoding setter
-   * 
+   *
    * @param newPdfEncoding
    */
   public void setPdfEncoding(String newPdfEncoding) {
@@ -339,7 +338,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * pdfEncoding getter
-   * 
+   *
    * @return pdfEncoding
    */
   public String getPdfEncoding() {
@@ -348,7 +347,7 @@ public class FontStyle implements Cloneable {
 
   /**
    * isPdfEmbedded setter
-   * 
+   *
    * @param newIsPdfEmbedded
    */
   public void setIsPdfEmbedded(boolean newIsPdfEmbedded) {
@@ -357,12 +356,13 @@ public class FontStyle implements Cloneable {
 
   /**
    * isPdfEmbedded getter
-   * 
+   *
    * @return isPdfEmbedded
    */
   public boolean getIsPdfEmbedded() {
     return isPdfEmbedded;
   }
+
 
   public String getCssClass() {
     return cssClass;
@@ -372,18 +372,6 @@ public class FontStyle implements Cloneable {
     this.cssClass = cssClass;
   }
 
-  public Object clone() {
-    Object clone = null;
-    try {
-      clone = super.clone();
-    } catch (CloneNotSupportedException e) {
-      // should never happen
-    }
-
-    ((FontStyle) clone).setFontName(getFontName());
-
-    return clone;
-  }
 
   public String getStyleAttributes() {
     return " fontName=\\\"" + fontName + "\\\"" + " fontSize=\\\"" + fontSize + "\\\"" + " isBold=\\\"" + isBold + "\\\"" + " isItalic=\\\""
@@ -396,7 +384,7 @@ public class FontStyle implements Cloneable {
   /**
    * Creates JasperReport representation of the style If font is default, there is nothing to
    * define, definition will be taken from the JasperReport itself.
-   * 
+   *
    * @return String of the JasperReport font tag. String.format should be used to resolve %s
    */
   public String applyStyle(String expr) {
@@ -408,28 +396,12 @@ public class FontStyle implements Cloneable {
    */
 
   public String applyCssClass(String expr) {
-    return this.cssClass == null || this.cssClass.trim().equals("") ? expr : String.format(CSS_CLASS_REPORT_TAG, this.cssClass, expr);
+    return this.cssClass == null || this.cssClass.trim().isEmpty() ? expr : String.format(CSS_CLASS_REPORT_TAG, this.cssClass, expr);
   }
 
   public String toString() {
     return "[" + def + "," + name + "," + fontSize + "," + fontName + "," + isBold + "," + isItalic + "," + isUnderline + ","
         + isStrikeThrough + "," + pdfFontName + "," + foreColor + "," + backColor + "," + pdfEncoding + "," + isPdfEmbedded + ","
         + isPdfSimulatedBold + "," + isPdfSimulatedItalic + "," + cssClass + "]";
-  }
-
-  public static void main(String[] args) {
-    FontStyle fs = new FontStyle();
-    logger.info("Default FontStyle:" + fs);
-
-    FontStyle fsclone = (FontStyle) fs.clone();
-    logger.info("clone:" + fsclone);
-
-    fsclone.setName("----StyleName----");
-
-    logger.info("Default FontStyle:" + fs);
-    logger.info("clone:" + fsclone);
-    logger.info("toStyle:" + fsclone.applyStyle("style"));
-    fsclone.setCssClass("TestCssClass");
-    logger.info("CssClass:" + fsclone.applyCssClass("kuku"));
   }
 }

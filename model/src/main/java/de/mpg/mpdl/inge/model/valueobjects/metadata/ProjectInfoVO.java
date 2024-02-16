@@ -41,16 +41,18 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
 
 
   public ProjectInfoVO clone() {
-    ProjectInfoVO clonedProjectInfo = new ProjectInfoVO();
-    if (this.getFundingInfo() != null) {
-      clonedProjectInfo.setFundingInfo((FundingInfoVO) this.getFundingInfo().clone());
+    try {
+      ProjectInfoVO clone = (ProjectInfoVO) super.clone();
+      if (clone.fundingInfo != null) {
+        clone.fundingInfo = ((FundingInfoVO) this.fundingInfo.clone());
+      }
+      if (clone.grantIdentifier != null) {
+        clone.grantIdentifier = (IdentifierVO) this.grantIdentifier.clone();
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-    if (this.getGrantIdentifier() != null) {
-      clonedProjectInfo.setGrantIdentifier((IdentifierVO) this.getGrantIdentifier().clone());
-    }
-
-    clonedProjectInfo.setTitle(this.getTitle());
-    return clonedProjectInfo;
   }
 
   @Override

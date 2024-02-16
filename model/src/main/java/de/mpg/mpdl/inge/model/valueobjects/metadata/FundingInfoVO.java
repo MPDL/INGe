@@ -15,9 +15,7 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
   private FundingProgramVO fundingProgram = new FundingProgramVO();
 
 
-  public FundingInfoVO() {
-    super();
-  }
+  public FundingInfoVO() {}
 
   public FundingProgramVO getFundingProgram() {
     return fundingProgram;
@@ -37,18 +35,19 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
 
 
   public FundingInfoVO clone() {
-    FundingInfoVO clonedFundingInfo = new FundingInfoVO();
-    if (this.getFundingOrganization() != null) {
-      clonedFundingInfo.setFundingOrganization(this.getFundingOrganization().clone());
+    try {
+      FundingInfoVO clone = (FundingInfoVO) super.clone();
+      if (clone.fundingOrganization != null) {
+        clone.fundingOrganization = (FundingOrganizationVO) this.getFundingOrganization().clone();
+      }
+      if (this.getFundingProgram() != null) {
+        clone.fundingProgram = (FundingProgramVO) this.fundingProgram.clone();
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-    if (this.getFundingProgram() != null) {
-      clonedFundingInfo.setFundingProgram(this.getFundingProgram().clone());
-    }
-
-
-    return clonedFundingInfo;
   }
-
 
   @Override
   public int hashCode() {

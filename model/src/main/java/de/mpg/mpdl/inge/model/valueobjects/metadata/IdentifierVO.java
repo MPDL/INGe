@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 
 /**
  * Identifiers can be internal or external.
- * 
+ *
  * @revised by MuJ: 29.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:59:09
@@ -45,7 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 public class IdentifierVO extends ValueObject implements Cloneable {
   /**
    * The possible types of the identifier.
-   * 
+   *
    * @updated 05-Sep-2007 12:59:09
    */
   public enum IdType
@@ -94,9 +94,9 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     WORKINGGROUP("http://purl.org/escidoc/metadata/terms/0.1/WORKINGGROUP"), //
     ZDB("http://purl.org/escidoc/metadata/terms/0.1/ZDB");
 
-  private String uri;
+  private final String uri;
 
-  private IdType(String uri) {
+  IdType(String uri) {
       this.uri = uri;
     }
 
@@ -113,17 +113,15 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * Creates a new instance.
    */
   public IdentifierVO() {
-    super();
   }
 
   /**
    * Creates a new instance with the given type and the given identifier.
-   * 
+   *
    * @param type
    * @param id
    */
   public IdentifierVO(IdType type, String id) {
-    super();
     this.type = type;
     this.id = id;
   }
@@ -144,7 +142,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the identifier.
-   * 
+   *
    * @param newVal
    */
   public void setId(String newVal) {
@@ -153,18 +151,23 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the type of the identifier.
-   * 
+   *
    * @param newVal
    */
   public void setType(IdType newVal) {
     type = newVal;
   }
 
-  public Object clone() {
-    IdentifierVO clone = new IdentifierVO();
-    clone.setId(getId());
-    clone.setType(getType());
-    return clone;
+  public IdentifierVO clone() {
+    try {
+      IdentifierVO clone = (IdentifierVO) super.clone();
+      if (clone.type != null) {
+        clone.type = this.type;
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
@@ -204,7 +207,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
   /**
    * Returns the value of the type Enum as a String. If the Enum is not set, an empty String is
    * returned.
-   * 
+   *
    * @return the value of the type Enum
    */
   @JsonIgnore
@@ -217,12 +220,12 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the value of the type Enum by a String.
-   * 
+   *
    * @param newValString
    */
   @JsonIgnore
   public void setTypeString(String newValString) {
-    if (newValString == null || newValString.length() == 0) {
+    if (newValString == null || newValString.isEmpty()) {
       setType(null);
     } else {
       IdentifierVO.IdType newVal = IdentifierVO.IdType.valueOf(newValString);

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
@@ -10,9 +10,9 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 /**
  * @author gerga
- * 
+ *
  *         JUS-specific VO
- * 
+ *
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
@@ -54,26 +54,13 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
     this.courtName = newVal;
   }
 
-  public Object clone() {
-    LegalCaseVO clone = new LegalCaseVO();
-    if (getTitle() != null) {
-
-      clone.setTitle(getTitle());
+  public LegalCaseVO clone() {
+    try {
+      LegalCaseVO clone = (LegalCaseVO) super.clone();
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-    if (getIdentifier() != null) {
-
-      clone.setIdentifier(getIdentifier());
-    }
-    if (getDatePublished() != null) {
-
-      clone.setDatePublished(getDatePublished());
-    }
-    if (getCourtName() != null) {
-
-      clone.setCourtName(getCourtName());
-    }
-    return clone;
-
   }
 
   @Override

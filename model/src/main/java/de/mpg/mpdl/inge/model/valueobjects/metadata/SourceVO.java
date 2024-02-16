@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 /**
  * Some items are published as part of a bundle, e.g. a journal, a book, a series or a database. The
  * source container includes descriptive elements of the superordinate element.
- * 
+ *
  * @revised by MuJ: 27.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 22-Okt-2007 14:35:53
@@ -45,8 +45,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 @JsonInclude(value = Include.NON_EMPTY)
 public class SourceVO extends ValueObject implements Cloneable {
   private String title;
-  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
-  private java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
+  private final java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<>();
+  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<>();
   private String volume;
   private String issue;
   private Date datePublishedInPrint;
@@ -54,8 +54,8 @@ public class SourceVO extends ValueObject implements Cloneable {
   private String endPage;
   private String sequenceNumber;
   private PublishingInfoVO publishingInfo;
-  private java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<IdentifierVO>();
-  private java.util.List<SourceVO> sources = new java.util.ArrayList<SourceVO>();
+  private final java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<>();
+  private final java.util.List<SourceVO> sources = new java.util.ArrayList<>();
   private Genre genre;
   private String totalNumberOfPages;
 
@@ -83,9 +83,9 @@ public class SourceVO extends ValueObject implements Cloneable {
     COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"), //
     FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/festschrift");
 
-  private String uri;
+  private final String uri;
 
-  private Genre(String uri) {
+  Genre(String uri) {
       this.uri = uri;
     }
 
@@ -105,9 +105,9 @@ public class SourceVO extends ValueObject implements Cloneable {
     SUBTITLE("http://purl.org/escidoc/metadata/terms/0.1/SUBTITLE"), //
     OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
 
-  private String uri;
+  private final String uri;
 
-  private AlternativeTitleType(String uri) {
+  AlternativeTitleType(String uri) {
       this.uri = uri;
     }
 
@@ -120,17 +120,14 @@ public class SourceVO extends ValueObject implements Cloneable {
   /**
    * Creates a new instance.
    */
-  public SourceVO() {
-    super();
-  }
+  public SourceVO() {}
 
   /**
    * Creates a new instance with the given title.
-   * 
+   *
    * @param title
    */
   public SourceVO(String title) {
-    super();
     this.title = title;
   }
 
@@ -143,7 +140,7 @@ public class SourceVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the title of the source, e.g. the title of the journal or the book.
-   * 
+   *
    * @param newVal
    */
   public void setTitle(String newVal) {
@@ -167,7 +164,7 @@ public class SourceVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the volume of the source in which the described item was published in.
-   * 
+   *
    * @param newVal
    */
   public void setVolume(String newVal) {
@@ -183,7 +180,7 @@ public class SourceVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the issue of the source in which the described item was published in.
-   * 
+   *
    * @param newVal
    */
   public void setIssue(String newVal) {
@@ -199,7 +196,7 @@ public class SourceVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the page where the described item starts.
-   * 
+   *
    * @param newVal
    */
   public void setStartPage(String newVal) {
@@ -215,7 +212,7 @@ public class SourceVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the page where the described item ends.
-   * 
+   *
    * @param newVal
    */
   public void setEndPage(String newVal) {
@@ -231,7 +228,7 @@ public class SourceVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the sequence number, i. e. the number of the described item within the source.
-   * 
+   *
    * @param newVal
    */
   public void setSequenceNumber(String newVal) {
@@ -251,7 +248,7 @@ public class SourceVO extends ValueObject implements Cloneable {
    * Sets the publishing info, i. e. the institution which published the item and additional
    * information, e.g. the publisher name and place of a book or the university where an theses has
    * been created.
-   * 
+   *
    * @param newVal
    */
   public void setPublishingInfo(PublishingInfoVO newVal) {
@@ -282,7 +279,7 @@ public class SourceVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the genre of the source.
-   * 
+   *
    * @param newVal
    */
   public void setGenre(Genre newVal) {
@@ -304,37 +301,25 @@ public class SourceVO extends ValueObject implements Cloneable {
     this.totalNumberOfPages = totalNumberOfPages;
   }
 
-  public Object clone() {
-    SourceVO vo = new SourceVO();
-    if (getTitle() != null) {
-      vo.setTitle(getTitle());
+  public SourceVO clone() {
+    try {
+      SourceVO clone = (SourceVO) super.clone();
+      for (AlternativeTitleVO title : this.alternativeTitles) {
+        clone.alternativeTitles.add((AlternativeTitleVO) title.clone());
+      }
+      for (CreatorVO creator : this.creators) {
+        clone.creators.add((CreatorVO) creator.clone());
+      }
+      for (IdentifierVO identifier : this.identifiers) {
+        clone.identifiers.add((IdentifierVO) identifier.clone());
+      }
+      for (SourceVO source : this.sources) {
+        clone.sources.add((SourceVO) source.clone());
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-    vo.setVolume(getVolume());
-    vo.setIssue(getIssue());
-    if (getPublishingInfo() != null) {
-      vo.setPublishingInfo((PublishingInfoVO) getPublishingInfo().clone());
-    }
-    vo.setSequenceNumber(getSequenceNumber());
-    vo.setTotalNumberOfPages(getTotalNumberOfPages());
-    vo.setStartPage(getStartPage());
-    vo.setEndPage(getEndPage());
-    for (AlternativeTitleVO title : getAlternativeTitles()) {
-      vo.getAlternativeTitles().add((AlternativeTitleVO) title.clone());
-    }
-    for (CreatorVO creator : getCreators()) {
-      vo.getCreators().add((CreatorVO) creator.clone());
-    }
-    for (IdentifierVO identifier : getIdentifiers()) {
-      vo.getIdentifiers().add((IdentifierVO) identifier.clone());
-    }
-    for (SourceVO source : getSources()) {
-      vo.getSources().add((SourceVO) source.clone());
-    }
-
-    // added by DiT, 27.11.2007
-    vo.setGenre(this.getGenre());
-
-    return vo;
   }
 
   @Override

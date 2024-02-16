@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -25,27 +25,25 @@
 
 package de.mpg.mpdl.inge.citationmanager.data;
 
+import de.mpg.mpdl.inge.util.ResourceUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.util.ResourceUtil;
-
 /**
  * An instance of this class represents a Collection of {@link FontStyle}s
- * 
+ *
  * @author vmakarenko (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
-public class FontStylesCollection implements Cloneable {
+public class FontStylesCollection {
 
   private String name; // Name of collection
   private List<FontStyle> fontStyles; // List of font styles
@@ -55,10 +53,10 @@ public class FontStylesCollection implements Cloneable {
   public static final String DEFAULT_FONTSTYLE_NAME = "NORMAL";
 
   // Hash for the quick search of Fonts with the Name of Style
-  private HashMap<String, FontStyle> namesMap = new HashMap<String, FontStyle>();
+  private final HashMap<String, FontStyle> namesMap = new HashMap<String, FontStyle>();
 
   // Hash for the quick search of Fonts with the css Name of Style
-  private HashMap<String, FontStyle> cssMap = new HashMap<String, FontStyle>();
+  private final HashMap<String, FontStyle> cssMap = new HashMap<String, FontStyle>();
 
   public FontStylesCollection() {
     setDefault();
@@ -144,7 +142,7 @@ public class FontStylesCollection implements Cloneable {
 
   /**
    * Loads {@link FontStylesCollection} from inputStream
-   * 
+   *
    * @param inputStream
    * @return {@link FontStylesCollection}
    * @throws IOException
@@ -188,7 +186,7 @@ public class FontStylesCollection implements Cloneable {
 
   /**
    * Loads {@link FontStylesCollection} from xmlfile
-   * 
+   *
    * @param xmlFileName
    * @return {@link FontStylesCollection}
    * @throws IOException
@@ -196,29 +194,5 @@ public class FontStylesCollection implements Cloneable {
    */
   public static FontStylesCollection loadFromXml(String xmlFileName) throws IOException, SAXException {
     return loadFromXml(ResourceUtil.getResourceAsStream(xmlFileName, FontStylesCollection.class.getClassLoader()));
-  }
-
-  public Object clone() {
-    Object clone = null;
-    try {
-      clone = super.clone();
-    } catch (CloneNotSupportedException e) {
-      // should never happen
-    }
-
-    ((FontStylesCollection) clone).setName(getName());
-
-    ((FontStylesCollection) clone).setFontStyles(new ArrayList<FontStyle>());
-
-    for (FontStyle fs : fontStyles) {
-      ((FontStylesCollection) clone).addFontStyle((FontStyle) fs.clone());
-    }
-    return clone;
-  }
-
-  public static void main(String[] args) throws IOException, SAXException, CitationStyleManagerException {
-    FontStylesCollection fsc = FontStylesCollection.loadFromXml("src/main/resources/CitationStyles/Default/FontStyles.xml");
-    FontStylesCollection fscclone = (FontStylesCollection) fsc.clone();
-    fscclone.fontStyles.get(0).setFontName("Name in clone!!!");
   }
 }

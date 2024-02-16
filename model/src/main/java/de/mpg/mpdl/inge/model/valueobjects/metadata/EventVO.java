@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 public class EventVO extends ValueObject implements Cloneable {
   /**
    * The possible invitation status of the event.
-   * 
+   *
    * @updated 22-Okt-2007 15:26:37
    */
   public enum InvitationStatus
@@ -98,7 +98,7 @@ public class EventVO extends ValueObject implements Cloneable {
   /**
    * Sets the invitations status of the event. The invitation status is the information whether the
    * creator was explicitly invited.
-   * 
+   *
    * @param newVal
    */
   public void setInvitationStatus(InvitationStatus newVal) {
@@ -107,7 +107,7 @@ public class EventVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the place of the event.
-   * 
+   *
    * @param newVal newVal
    */
   public void setPlace(String newVal) {
@@ -116,29 +116,23 @@ public class EventVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the title of the event.
-   * 
+   *
    * @param newVal newVal
    */
   public void setTitle(String newVal) {
     title = newVal;
   }
 
-  public Object clone() {
-    EventVO clone = new EventVO();
-    if (getTitle() != null) {
-      clone.setTitle(getTitle());
+  public EventVO clone() {
+    try {
+      EventVO clone = (EventVO) super.clone();
+      if (clone.invitationStatus != null) {
+        clone.invitationStatus = this.invitationStatus;
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-    if (getEndDate() != null) {
-      clone.setEndDate(getEndDate());
-    }
-    if (getStartDate() != null) {
-      clone.setStartDate(getStartDate());
-    }
-    clone.setInvitationStatus(getInvitationStatus());
-    if (getPlace() != null) {
-      clone.setPlace(getPlace());
-    }
-    return clone;
   }
 
   @Override
@@ -198,7 +192,7 @@ public class EventVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the end date of the event.
-   * 
+   *
    * @param newVal
    */
   public void setEndDate(String newVal) {
@@ -207,7 +201,7 @@ public class EventVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the start date of the event.
-   * 
+   *
    * @param newVal
    */
   public void setStartDate(String newVal) {

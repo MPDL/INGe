@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -34,18 +34,17 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 
 /**
  * This class combines a abstract value with an optional language attribute.
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class SubjectVO extends ValueObject implements Cloneable {
   @IgnoreForCleanup
   private String language;
-
   private String value;
   private String type;
 
@@ -53,20 +52,17 @@ public class SubjectVO extends ValueObject implements Cloneable {
    * Creates a new instance with the given value.
    */
   public SubjectVO(String value) {
-    super();
     this.value = value;
   }
 
   /**
    * Creates a new instance.
    */
-  public SubjectVO() {
-    super();
-  }
+  public SubjectVO() {}
 
   /**
    * Creates a new instance with the given value and language.
-   * 
+   *
    * @param value The abstract value
    * @param language The abstract language
    */
@@ -77,7 +73,7 @@ public class SubjectVO extends ValueObject implements Cloneable {
 
   /**
    * Creates a new instance with the given value and language.
-   * 
+   *
    * @param value The abstract value
    * @param language The abstract language
    * @param type The type of the abstract
@@ -104,7 +100,7 @@ public class SubjectVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the language of the abstract.
-   * 
+   *
    * @param newVal newVal
    */
   public void setLanguage(String newVal) {
@@ -113,7 +109,7 @@ public class SubjectVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the value of the abstract.
-   * 
+   *
    * @param newVal newVal
    */
   public void setValue(String newVal) {
@@ -136,16 +132,17 @@ public class SubjectVO extends ValueObject implements Cloneable {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#clone()
    */
   @Override
-  public Object clone() {
-    SubjectVO vo = new SubjectVO();
-    vo.setLanguage(getLanguage());
-    vo.setValue(getValue());
-    vo.setType(getType());
-    return vo;
+  public SubjectVO clone() {
+    try {
+      SubjectVO clone = (SubjectVO) super.clone();
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
@@ -194,7 +191,7 @@ public class SubjectVO extends ValueObject implements Cloneable {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

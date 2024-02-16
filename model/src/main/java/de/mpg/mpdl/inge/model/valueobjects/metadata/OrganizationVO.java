@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -26,12 +26,10 @@
 
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
-import java.util.Arrays;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import java.util.Arrays;
 
 /**
  * @revised by MuJ: 27.08.2007
@@ -70,7 +68,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the address of the organization as used in the item.
-   * 
+   *
    * @param newVal
    */
   public void setAddress(String newVal) {
@@ -79,26 +77,21 @@ public class OrganizationVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the name of the organization as used in the item.
-   * 
+   *
    * @param newVal
    */
   public void setName(String newVal) {
     name = newVal;
   }
 
-  public Object clone() {
-    OrganizationVO clone = new OrganizationVO();
-    clone.setAddress(getAddress());
-    if (getIdentifier() != null) {
-      clone.setIdentifier(getIdentifier());
+  public OrganizationVO clone() {
+    try {
+      OrganizationVO clone = (OrganizationVO) super.clone();
+      clone.identifierPath = this.identifierPath.clone();
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-    if (getName() != null) {
-      clone.setName(getName());
-    }
-    if ((getIdentifierPath() != null)) {
-      clone.setIdentifierPath(Arrays.copyOf(getIdentifierPath(), getIdentifierPath().length));
-    }
-    return clone;
   }
 
   @Override
@@ -146,7 +139,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the id of the corresponding affiliation in the system.
-   * 
+   *
    * @param newVal
    */
   public void setIdentifier(String newVal) {

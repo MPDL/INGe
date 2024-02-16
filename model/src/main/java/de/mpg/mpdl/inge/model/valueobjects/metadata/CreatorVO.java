@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -43,7 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 public class CreatorVO extends ValueObject implements Cloneable {
   /**
    * The possible roles of the creator.
-   * 
+   *
    * @updated 05-Sep-2007 12:48:55
    */
   public enum CreatorRole
@@ -73,9 +73,9 @@ public class CreatorVO extends ValueObject implements Cloneable {
     SOUND_DESIGNER("http://www.loc.gov/loc.terms/relators/SDS");
 
 
-  private String uri;
+  private final String uri;
 
-  private CreatorRole(String uri) {
+  CreatorRole(String uri) {
       this.uri = uri;
     }
 
@@ -85,7 +85,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
   /**
    * The possible creator types.
-   * 
+   *
    * @updated 05-Sep-2007 12:48:55
    */
   public enum CreatorType{PERSON,ORGANIZATION}
@@ -102,18 +102,15 @@ public class CreatorVO extends ValueObject implements Cloneable {
   /**
    * Creates a new instance.
    */
-  public CreatorVO() {
-    super();
-  }
+  public CreatorVO() {}
 
   /**
    * Creates a new instance with the given organization and role.
-   * 
+   *
    * @param organization The organization
    * @param role The creator role
    */
   public CreatorVO(OrganizationVO organization, CreatorRole role) {
-    super();
     // use the setter as the setter does more than just setting the property
     setOrganization(organization);
     this.role = role;
@@ -121,12 +118,11 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
   /**
    * Creates a new instance with the given person and role.
-   * 
+   *
    * @param person The person
    * @param role The creator role
    */
   public CreatorVO(PersonVO person, CreatorRole role) {
-    super();
     // use the setter as the setter does more than just setting the property
     setPerson(person);
     this.role = role;
@@ -163,38 +159,30 @@ public class CreatorVO extends ValueObject implements Cloneable {
   /**
    * Set the creator to the given organization. Because the creator cannot be an organization and a
    * person at the same time, the person is set to null.
-   * 
+   *
    * @param newVal newVal
    */
   public void setOrganization(OrganizationVO newVal) {
-    // if (newVal != null)
-    // {
-    // DiT, 13.08.2007: set type newly and delete counterpart
     this.type = CreatorType.ORGANIZATION;
     this.person = null;
-    // }
     organization = newVal;
   }
 
   /**
    * Set the creator to the given person. Because the creator cannot be a person and an organization
    * at the same time, the organization is set to null.
-   * 
+   *
    * @param newVal newVal
    */
   public void setPerson(PersonVO newVal) {
-    // if (newVal != null)
-    // {
-    // DiT, 13.08.2007: set type newly and delete counterpart
     this.type = CreatorType.PERSON;
     this.organization = null;
-    // }
     person = newVal;
   }
 
   /**
    * Set the creators' role.
-   * 
+   *
    * @param newVal newVal
    */
   public void setRole(CreatorRole newVal) {
@@ -207,16 +195,22 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
   }
 
-  public Object clone() {
-
-    CreatorVO clone = new CreatorVO();
-    clone.setRole(this.getRole());
-    if (getPerson() != null) {
-      clone.setPerson((PersonVO) getPerson().clone());
-    } else if (getOrganization() != null) {
-      clone.setOrganization((OrganizationVO) getOrganization().clone());
+  public CreatorVO clone() {
+    try {
+      CreatorVO clone = (CreatorVO) super.clone();
+      if (clone.organization != null) {
+        clone.organization = (OrganizationVO) this.organization.clone();
+      }
+      if (clone.type != null) {
+        clone.type = this.type;
+      }
+      if (clone.person != null) {
+        clone.person = (PersonVO) this.person.clone();
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-    return clone;
   }
 
   @Override
@@ -267,7 +261,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
   /**
    * Delivers the value of the role Enum as a String. If the enum is not set, an empty String is
    * returned.
-   * 
+   *
    * @return the value of the role Enum
    */
   @JsonIgnore
@@ -280,12 +274,12 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the value of the role Enum by a String.
-   * 
+   *
    * @param newValString A string containing the new value.
    */
   @JsonIgnore
   public void setRoleString(String newValString) {
-    if (newValString == null || newValString.length() == 0) {
+    if (newValString == null || newValString.isEmpty()) {
       role = null;
     } else {
       CreatorVO.CreatorRole newVal = CreatorVO.CreatorRole.valueOf(newValString);
@@ -296,7 +290,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
   /**
    * Delivers the value of the type Enum as a String. If the enum is not set, an empty String is
    * returned.
-   * 
+   *
    * @return the value of the type Enum
    */
   @JsonIgnore
@@ -309,12 +303,12 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the value of the type Enum by a String.
-   * 
+   *
    * @param newValString A string containing the new value.
    */
   @JsonIgnore
   public void setTypeString(String newValString) {
-    if (newValString == null || newValString.length() == 0) {
+    if (newValString == null || newValString.isEmpty()) {
       setType(null);
     } else {
       CreatorVO.CreatorType newVal = CreatorVO.CreatorType.valueOf(newValString);

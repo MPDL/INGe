@@ -14,9 +14,7 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
   private String title;
   private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();
 
-  public FundingProgramVO() {
-    super();
-  }
+  public FundingProgramVO() {}
 
   public String getTitle() {
     return title;
@@ -35,14 +33,15 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
   }
 
   public FundingProgramVO clone() {
-    FundingProgramVO clonedFundingProgram = new FundingProgramVO();
-    clonedFundingProgram.setTitle(this.getTitle());
-    for (IdentifierVO id : identifiers) {
-      clonedFundingProgram.getIdentifiers().add((IdentifierVO) id.clone());
-
+    try {
+      FundingProgramVO clone = (FundingProgramVO) super.clone();
+      for (IdentifierVO identifier : this.identifiers) {
+        clone.identifiers.add((IdentifierVO) identifier.clone());
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
-
-    return clonedFundingProgram;
   }
 
   @Override

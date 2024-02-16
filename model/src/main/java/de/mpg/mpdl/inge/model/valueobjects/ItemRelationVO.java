@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -31,10 +31,10 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 /**
  * Represents one content relation to one item. In contrast to RelationVO (which contains subject,
  * predicate and object), this class only contains predicate and object.
- * 
+ * <p>
  * This class is a workaround for the relations contained in the ItemVO (therefore it has no source,
  * in contrast to RelationVO).
- * 
+ *
  * @updated 18-Okt-2007 15:42:32
  */
 @SuppressWarnings("serial")
@@ -55,38 +55,24 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
   private ItemRO targetItemRef;
 
   /**
-   * This no-argument constructor is needed by JiBX!
-   * 
-   * @param type
-   * @param targetItemRef
-   */
-  public ItemRelationVO() {
-    super();
-  }
-
-  /**
    * @param type
    * @param targetItemRef
    */
   public ItemRelationVO(String type, ItemRO targetItemRef) {
-    super();
     setType(type);
     setTargetItemRef(targetItemRef);
   }
 
-  /**
-   * Copy constructor.
-   * 
-   * @author Thomas Diebaecker
-   * @param other The instance to copy.
-   */
-  public ItemRelationVO(ItemRelationVO other) {
-    this(other.getType(), other.getTargetItemRef());
-    this.setDescription(other.getDescription());
-  }
-
-  public Object clone() {
-    return new ItemRelationVO(this);
+  public ItemRelationVO clone() {
+    try {
+      ItemRelationVO clone = (ItemRelationVO) super.clone();
+      if (clone.targetItemRef != null) {
+        clone.targetItemRef = (ItemRO) this.targetItemRef.clone();
+      }
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**
@@ -105,7 +91,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
 
   /**
    * Describes the reference of the target item.
-   * 
+   *
    * @param newVal
    */
   public void setTargetItemRef(ItemRO newVal) {
@@ -114,7 +100,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
 
   /**
    * Description of the content relation, e. g. the reason for the relation.
-   * 
+   *
    * @param newVal
    */
   public void setDescription(String newVal) {
@@ -130,7 +116,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
 
   /**
    * The type of the relation.
-   * 
+   *
    * @param newVal
    */
   public void setType(String newVal) {
