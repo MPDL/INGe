@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.mpg.mpdl.inge.service.pubman;
 
@@ -19,40 +19,40 @@ import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
 
 /**
  * FileService Interface - staging, storing and indexing files
- * 
+ *
  * @author walter
- * 
+ *
  */
 public interface FileServiceExternal {
 
   /**
    * create a stage file for storing later
-   * 
+   *
    * @param fileInputStream
    * @param fileName
    * @return An pbject containing information about the staged file
    * @throws IOException
    */
-  public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
+  StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException;
 
 
 
-  public FileVOWrapper readFile(String itemId, String fileId, String authentitationToken)
+  FileVOWrapper readFile(String itemId, String fileId, String authentitationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException;
 
 
 
   /**
    * retrieve the metadata for a file
-   * 
+   *
    * @param fileId
    * @return
    */
-  public String getFileMetadata(String itemId, String fileId, String authenticationToken)
+  String getFileMetadata(String itemId, String fileId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException;
 
-  public boolean checkAccess(AccessType at, Principal principal, ItemVersionVO item, FileDbVO file)
+  boolean checkAccess(AccessType at, Principal principal, ItemVersionVO item, FileDbVO file)
       throws IngeApplicationException, IngeTechnicalException;
 
 

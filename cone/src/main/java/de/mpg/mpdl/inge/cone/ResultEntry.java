@@ -22,7 +22,6 @@ public class ResultEntry extends LocalizedString {
   }
 
   public ResultEntry(String value, String lang, String type, String sortResult) {
-    super();
     super.setValue(value);
     super.setLanguage(lang);
     this.sortResult = sortResult;

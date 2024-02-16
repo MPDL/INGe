@@ -8,18 +8,18 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 /**
  * @author walter
- * 
+ *
  */
 public interface PidService {
 
   /**
    * creates a new PID for a given url
-   * 
+   *
    * @param url
    * @return PID
    * @throws IngeApplicationException
    * @throws TechnicalException
    */
-  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException;
+  PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException;
 
 }

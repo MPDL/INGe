@@ -75,9 +75,7 @@ public class BasicDbRO implements Serializable {
   /**
    * Creates a new instance.
    */
-  public BasicDbRO() {
-    super();
-  }
+  public BasicDbRO() {}
 
 
 

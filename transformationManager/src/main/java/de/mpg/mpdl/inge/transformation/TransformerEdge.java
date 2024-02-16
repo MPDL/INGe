@@ -11,7 +11,6 @@ public class TransformerEdge {
   private FORMAT targetFormat;
 
   public TransformerEdge(Class<? extends Transformer> transformerClass, FORMAT sourceFormat, FORMAT targetFormat) {
-    super();
     this.transformerClass = transformerClass;
     this.sourceFormat = sourceFormat;
     this.targetFormat = targetFormat;

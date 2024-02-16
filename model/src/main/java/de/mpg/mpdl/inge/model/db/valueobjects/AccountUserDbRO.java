@@ -50,9 +50,7 @@ public class AccountUserDbRO implements Serializable {
   /**
    * Creates a new instance.
    */
-  public AccountUserDbRO() {
-    super();
-  }
+  public AccountUserDbRO() {}
 
 
 

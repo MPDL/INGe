@@ -38,9 +38,7 @@ public class TechnicalException extends Exception {
   /**
    * Default constructor.
    */
-  public TechnicalException() {
-    super();
-  }
+  public TechnicalException() {}
 
   /**
    * Constructor with text.

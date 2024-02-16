@@ -13,19 +13,19 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 public interface ItemTransformingService {
 
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr) throws IngeTechnicalException;
+  byte[] getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr) throws IngeTechnicalException;
 
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws IngeTechnicalException;
+  byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws IngeTechnicalException;
 
-  public TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target);
+  TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target);
 
-  public TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT source);
+  TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT source);
 
-  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String xml,
-      Map<String, String> configuration) throws TransformationException;
+  String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String xml, Map<String, String> configuration)
+      throws TransformationException;
 
-  public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat);
+  boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat);
 
-  public String transformPubItemTo(TransformerFactory.FORMAT target, PubItemVO item) throws TransformationException;
+  String transformPubItemTo(TransformerFactory.FORMAT target, PubItemVO item) throws TransformationException;
 
 }

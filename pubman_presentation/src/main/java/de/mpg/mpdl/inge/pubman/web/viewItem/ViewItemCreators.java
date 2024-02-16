@@ -3,9 +3,9 @@ package de.mpg.mpdl.inge.pubman.web.viewItem;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
- * 
+ *
  * @author yu
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class ViewItemCreators extends FacesBean {
@@ -15,7 +15,7 @@ public class ViewItemCreators extends FacesBean {
 
   public enum Type
   {
-    PERSON, ORGANIZATION;
+    PERSON, ORGANIZATION
   }
 
   public ViewItemCreators() {}

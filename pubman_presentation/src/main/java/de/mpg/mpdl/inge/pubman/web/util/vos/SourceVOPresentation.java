@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 /**
  * SourceVOPresentation defines some presentation specific methods expanding the extended SourceVO
  * class
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -49,7 +49,7 @@ public class SourceVOPresentation extends SourceVO {
   /**
    * get the negative list of source genres as Map for this (server-) instance, depending on the
    * source_genres.properties definitions
-   * 
+   *
    * @return Map filled with all source genres which will be excluded
    */
   public static Map<String, String> getExcludedSourceGenreMap() {
@@ -64,7 +64,7 @@ public class SourceVOPresentation extends SourceVO {
   /**
    * get the negative list of source genres as properties for this (server-) instance, depending on
    * the source_genres.properties definitions
-   * 
+   *
    * @return Properties filled with all source genres which will be excluded
    */
   private static Properties loadExcludedSourceGenreProperties() {
@@ -73,12 +73,12 @@ public class SourceVOPresentation extends SourceVO {
     try {
       contentCategoryURI = SourceVOPresentation.class.getClassLoader().getResource("source_genres.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(SourceVOPresentation.class).info("Source genre properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(SourceVOPresentation.class).info("Source genre properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         SourceVOPresentation.properties.load(in);
         SourceVOPresentation.properties.putAll(SourceVOPresentation.properties);
         in.close();
-        Logger.getLogger(SourceVOPresentation.class).info("Source genre properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(SourceVOPresentation.class).info("Source genre properties loaded from " + contentCategoryURI);
       } else {
         Logger.getLogger(SourceVOPresentation.class).debug("Source genre properties file not found.");
       }

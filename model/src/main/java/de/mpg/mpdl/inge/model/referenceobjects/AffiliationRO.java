@@ -45,9 +45,7 @@ public class AffiliationRO extends ReferenceObject {
   /**
    * Creates a new instance.
    */
-  public AffiliationRO() {
-    super();
-  }
+  public AffiliationRO() {}
 
   /**
    * Creates a new instance with the given objectId.

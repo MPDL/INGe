@@ -11,41 +11,41 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface OrganizationService extends GenericService<AffiliationDbVO, String> {
 
-  public AffiliationDbVO open(String id, Date modificationDate, String authenticationToken)
+  AffiliationDbVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AffiliationDbVO close(String id, Date modificationDate, String authenticationToken)
+  AffiliationDbVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AffiliationDbVO addPredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
+  AffiliationDbVO addPredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AffiliationDbVO removePredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
+  AffiliationDbVO removePredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationDbVO> searchTopLevelOrganizations()
+  List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationDbVO> searchFirstLevelOrganizations()
+  List<AffiliationDbVO> searchFirstLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
+  List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds, String ignoreOuId)
+  List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds, String ignoreOuId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationDbVO> searchSuccessors(String objectId)
+  List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public String getOuPath(String id) throws IngeTechnicalException, IngeApplicationException;
+  String getOuPath(String id) throws IngeTechnicalException, IngeApplicationException;
 
-  public List<String> getIdPath(String id)
+  List<String> getIdPath(String id)
       throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException;
 
-  public List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException;
+  List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException;
 
-  public List<String> getAllChildrenOfMpg() throws IngeTechnicalException, IngeApplicationException;
+  List<String> getAllChildrenOfMpg() throws IngeTechnicalException, IngeApplicationException;
 
-  public void refreshAllChildrenOfMpg();
+  void refreshAllChildrenOfMpg();
 }

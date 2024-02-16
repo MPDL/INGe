@@ -9,20 +9,19 @@ import de.mpg.mpdl.inge.util.NetworkUtils;
 
 public interface IpListProvider {
 
-  public IpRange get(String id);
+  IpRange get(String id);
 
-  public Collection<IpRange> getAll();
+  Collection<IpRange> getAll();
 
-  public IpRange getMatch(String adress);
+  IpRange getMatch(String adress);
 
-  public class IpRange {
+  class IpRange {
     String name;
     String id;
     private List<String> ipRanges = new ArrayList<String>();
 
 
     public IpRange(String id, String name, List<String> ipRanges) {
-      super();
       this.name = name;
       this.id = id;
       this.setIpRanges(ipRanges);

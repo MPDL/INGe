@@ -13,7 +13,6 @@ public class SearchSortCriteria extends ValueObject {
   private SortOrder sortOrder;
 
   public SearchSortCriteria(String indexField, SortOrder sortOrder) {
-    super();
     this.indexField = indexField;
     this.sortOrder = sortOrder;
   }

@@ -24,9 +24,6 @@ public class SitemapFilter implements Filter {
   private static final Logger logger = Logger.getLogger(SQLQuerier.class);
 
   @Override
-  public void destroy() {}
-
-  @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
       final HttpServletRequest req = (HttpServletRequest) request;
@@ -71,6 +68,4 @@ public class SitemapFilter implements Filter {
     }
   }
 
-  @Override
-  public void init(FilterConfig arg0) throws ServletException {}
 }

@@ -38,9 +38,7 @@ public class GrantRO extends ReferenceObject {
   /**
    * Creates a new instance.
    */
-  public GrantRO() {
-    super();
-  }
+  public GrantRO() {}
 
   /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if this is a

@@ -67,13 +67,6 @@ public class RelationVO extends ValueObject {
   private ItemRO targetItemRef;
 
   /**
-   * Default constructor.
-   */
-  public RelationVO() {
-
-  }
-
-  /**
    * Clone constructor.
    * 
    * @param relation The relation to be cloned.

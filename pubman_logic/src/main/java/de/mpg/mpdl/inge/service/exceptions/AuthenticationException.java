@@ -3,10 +3,7 @@ package de.mpg.mpdl.inge.service.exceptions;
 @SuppressWarnings("serial")
 public class AuthenticationException extends Exception {
 
-  public AuthenticationException() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+  public AuthenticationException() {}
 
   public AuthenticationException(String message, Throwable cause) {
     super(message, cause);

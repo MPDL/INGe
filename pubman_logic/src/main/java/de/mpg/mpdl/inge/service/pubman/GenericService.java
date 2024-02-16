@@ -9,22 +9,22 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface GenericService<E, Id extends Serializable> extends GenericServiceBase<E> {
 
-  public E create(E object, String authenticationToken)
+  E create(E object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public E update(E object, String authenticationToken)
+  E update(E object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public void delete(Id id, String authenticationToken)
+  void delete(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public E get(Id id, String authenticationToken)
+  E get(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public void reindexAll(String authenticationToken)
+  void reindexAll(String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public void reindex(Id id, String authenticationToken)
+  void reindex(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
 

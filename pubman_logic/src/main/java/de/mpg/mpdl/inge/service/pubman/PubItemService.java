@@ -13,24 +13,23 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface PubItemService extends GenericService<ItemVersionVO, String> {
-  public ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+  ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ItemVersionVO releasePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+  ItemVersionVO releasePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ItemVersionVO withdrawPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+  ItemVersionVO withdrawPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ItemVersionVO revisePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+  ItemVersionVO revisePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken)
+  List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
-      throws IngeApplicationException, IngeTechnicalException;
+  boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item) throws IngeApplicationException, IngeTechnicalException;
 
-  public void reindex(String id, boolean includeFulltext, String authenticationToken)
+  void reindex(String id, boolean includeFulltext, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 }

@@ -4,6 +4,6 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 public interface ReindexListener {
 
-  public void reindexListener(String id) throws IngeTechnicalException;
+  void reindexListener(String id) throws IngeTechnicalException;
 
 }

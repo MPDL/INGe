@@ -43,9 +43,7 @@ public class FileRO extends ReferenceObject {
   /**
    * Creates a new instance.
    */
-  public FileRO() {
-    super();
-  }
+  public FileRO() {}
 
   /**
    * Creates a new instance with the given objectId.

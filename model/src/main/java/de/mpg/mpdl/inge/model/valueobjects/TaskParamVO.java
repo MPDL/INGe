@@ -55,8 +55,6 @@ public class TaskParamVO extends ValueObject {
     this.password = password;
   }
 
-  public TaskParamVO() {}
-
   /**
    * Creates a new instance with the given modification date.
    * 

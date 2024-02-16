@@ -10,10 +10,10 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface ContextService extends GenericService<ContextDbVO, String> {
 
-  public ContextDbVO open(String contextId, Date modificationDate, String authenticationToken)
+  ContextDbVO open(String contextId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ContextDbVO close(String contextId, Date modificationDate, String authenticationToken)
+  ContextDbVO close(String contextId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
 }

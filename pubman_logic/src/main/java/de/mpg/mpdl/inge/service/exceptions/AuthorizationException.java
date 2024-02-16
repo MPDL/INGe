@@ -3,10 +3,7 @@ package de.mpg.mpdl.inge.service.exceptions;
 @SuppressWarnings("serial")
 public class AuthorizationException extends Exception {
 
-  public AuthorizationException() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+  public AuthorizationException() {}
 
   public AuthorizationException(String message, Throwable cause) {
     super(message, cause);

@@ -16,43 +16,43 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserAccountService extends GenericService<AccountUserDbVO, String> {
 
-  public void delete(String userId, String authenticationToken)
+  void delete(String userId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException;
 
-  public AccountUserDbVO get(String authenticationToken)
+  AccountUserDbVO get(String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public Principal login(String username, String password)
+  Principal login(String username, String password)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
+  Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public Principal login(HttpServletRequest request, HttpServletResponse response)
+  Principal login(HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public Principal loginForPasswordChange(String username, String password) throws IngeTechnicalException, AuthenticationException;
+  Principal loginForPasswordChange(String username, String password) throws IngeTechnicalException, AuthenticationException;
 
-  public void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
+  void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AccountUserDbVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
+  AccountUserDbVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AccountUserDbVO addGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
+  AccountUserDbVO addGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, boolean passwordChangeFlag,
+  AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, boolean passwordChangeFlag,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AccountUserDbVO activate(String id, Date modificationDate, String authenticationToken)
+  AccountUserDbVO activate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AccountUserDbVO deactivate(String id, Date modificationDate, String authenticationToken)
+  AccountUserDbVO deactivate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public DecodedJWT verifyToken(String authenticationToken) throws AuthenticationException;
+  DecodedJWT verifyToken(String authenticationToken) throws AuthenticationException;
 
-  public String generateRandomPassword();
+  String generateRandomPassword();
 
 }

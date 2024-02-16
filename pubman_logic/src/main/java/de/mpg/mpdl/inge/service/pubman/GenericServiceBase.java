@@ -14,20 +14,20 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface GenericServiceBase<E> {
 
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO srr, String authenticationToken)
+  SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO srr, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ResponseBody searchDetailed(SearchRequest ssb, String authenticationToken)
+  ResponseBody searchDetailed(SearchRequest ssb, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ResponseBody searchDetailed(SearchRequest ssb, long scrollTime, String authenticationToken)
+  ResponseBody searchDetailed(SearchRequest ssb, long scrollTime, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public ResponseBody scrollOn(String scrollId, long scrollTime)
+  ResponseBody scrollOn(String scrollId, long scrollTime)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public Map<String, ElasticSearchIndexField> getElasticSearchIndexFields();
+  Map<String, ElasticSearchIndexField> getElasticSearchIndexFields();
 
-  public void initSearchIndexFields();
+  void initSearchIndexFields();
 
 }

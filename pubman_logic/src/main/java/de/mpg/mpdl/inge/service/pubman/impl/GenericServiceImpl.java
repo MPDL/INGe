@@ -178,7 +178,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
 
   protected String getIdForElasticSearch(Id id) {
     return id.toString();
-  };
+  }
 
   protected void reindex(List<Id> idList) throws IngeTechnicalException {
     // Reindex old and new Parents

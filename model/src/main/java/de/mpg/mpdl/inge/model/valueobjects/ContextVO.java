@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
  * Special type of container of data with specific workflow (i.e. the publication management
  * workflow). A set of publication objects which have some common denominator. Collection may
  * contain one or more subcollections.
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:14:08
@@ -54,7 +54,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 public class ContextVO extends ValueObject implements Searchable {
   /**
    * The possible states of a collection.
-   * 
+   *
    * @updated 05-Sep-2007 11:14:08
    */
   public enum State
@@ -95,20 +95,13 @@ public class ContextVO extends ValueObject implements Searchable {
   /**
    * The set union of validation points for items in this collection.
    */
-  private java.util.List<ValidationPointVO> validationPoints = new java.util.ArrayList<ValidationPointVO>();
+  private final java.util.List<ValidationPointVO> validationPoints = new java.util.ArrayList<ValidationPointVO>();
   /**
    * The list of responsible affiliations for this collection.
    */
-  private java.util.List<AffiliationRO> responsibleAffiliations = new java.util.ArrayList<AffiliationRO>();
+  private final java.util.List<AffiliationRO> responsibleAffiliations = new java.util.ArrayList<AffiliationRO>();
 
-  private List<AdminDescriptorVO> adminDescriptors = new ArrayList<AdminDescriptorVO>();
-
-  /**
-   * Default constructor.
-   */
-  public ContextVO() {
-
-  }
+  private final List<AdminDescriptorVO> adminDescriptors = new ArrayList<AdminDescriptorVO>();
 
   /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if this is a
@@ -136,7 +129,7 @@ public class ContextVO extends ValueObject implements Searchable {
   /**
    * Sets the description of the collection, i. e. a short description of the collection and the
    * collection policy.
-   * 
+   *
    * @param newVal
    */
   public void setDescription(String newVal) {
@@ -145,7 +138,7 @@ public class ContextVO extends ValueObject implements Searchable {
 
   /**
    * Sets the state of the collection.
-   * 
+   *
    * @param newVal
    */
   public void setState(ContextVO.State newVal) {
@@ -161,7 +154,7 @@ public class ContextVO extends ValueObject implements Searchable {
 
   /**
    * Sets the name of the collection, i. e. a unique name of the collection within the system.
-   * 
+   *
    * @param newVal
    */
   public void setName(String newVal) {
@@ -170,7 +163,7 @@ public class ContextVO extends ValueObject implements Searchable {
 
   /**
    * Delivers the refence object identifying this pubCollection.
-   * 
+   *
    * @see de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
    */
   public ContextRO getReference() {
@@ -179,7 +172,7 @@ public class ContextVO extends ValueObject implements Searchable {
 
   /**
    * Sets the refence object identifying this pubCollection.
-   * 
+   *
    * @see de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
    * @param newVal
    */
@@ -196,7 +189,7 @@ public class ContextVO extends ValueObject implements Searchable {
 
   /**
    * Sets the default metadata for items of the collection.
-   * 
+   *
    * @param newVal
    */
   public void setDefaultMetadata(MdsPublicationVO newVal) {
@@ -219,7 +212,7 @@ public class ContextVO extends ValueObject implements Searchable {
 
   /**
    * Sets the reference of the creator of the collection.
-   * 
+   *
    * @param newVal
    */
   public void setCreator(AccountUserRO newVal) {
@@ -239,7 +232,7 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public PublicationAdminDescriptorVO getAdminDescriptor() {
-    if (getAdminDescriptors().size() > 0 && getAdminDescriptors().get(0) instanceof PublicationAdminDescriptorVO) {
+    if (!getAdminDescriptors().isEmpty() && getAdminDescriptors().get(0) instanceof PublicationAdminDescriptorVO) {
       return (PublicationAdminDescriptorVO) getAdminDescriptors().get(0);
     } else {
       return null;
@@ -247,7 +240,7 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public void setAdminDescriptor(PublicationAdminDescriptorVO adminDescriptorVO) {
-    if (getAdminDescriptors().size() > 0) {
+    if (!getAdminDescriptors().isEmpty()) {
       getAdminDescriptors().set(0, adminDescriptorVO);
     } else {
       getAdminDescriptors().add(adminDescriptorVO);

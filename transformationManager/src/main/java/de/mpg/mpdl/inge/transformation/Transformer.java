@@ -9,21 +9,21 @@ import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 
 public interface Transformer {
-  public void transform(TransformerSource source, TransformerResult result) throws TransformationException;
+  void transform(TransformerSource source, TransformerResult result) throws TransformationException;
 
-  public Map<String, String> getConfiguration();
+  Map<String, String> getConfiguration();
 
-  public void setConfiguration(Map<String, String> config);
+  void setConfiguration(Map<String, String> config);
 
-  public void mergeConfiguration(Map<String, String> config);
+  void mergeConfiguration(Map<String, String> config);
 
-  public void setSourceFormat(FORMAT sourceFormat);
+  void setSourceFormat(FORMAT sourceFormat);
 
-  public FORMAT getSourceFormat();
+  FORMAT getSourceFormat();
 
-  public void setTargetFormat(FORMAT targetFormat);
+  void setTargetFormat(FORMAT targetFormat);
 
-  public FORMAT getTargetFormat();
+  FORMAT getTargetFormat();
 
-  public List<String> getAllConfigurationValuesFor(String key) throws TransformationException;
+  List<String> getAllConfigurationValuesFor(String key) throws TransformationException;
 }

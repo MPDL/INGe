@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.mpg.mpdl.inge.service.pubman;
 
@@ -14,16 +14,16 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 /**
  * FileService Interface - staging, storing and indexing files
- * 
+ *
  * @author walter
- * 
+ *
  */
 public interface FileService extends FileServiceExternal {
 
 
 
   /**
-   * 
+   *
    * @param stagedFileId
    * @param fileName
    * @param authenticationToken
@@ -33,19 +33,19 @@ public interface FileService extends FileServiceExternal {
    * @throws AuthorizationException
    * @throws AuthenticationException
    */
-  public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException;
+  void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException;
 
-  public void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
+  void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
       throws IngeTechnicalException, IngeApplicationException;
 
 
   /**
    * @param fileInputStream
    */
-  public void indexFile(InputStream fileInputStream);
+  void indexFile(InputStream fileInputStream);
 
-  public void deleteFile(String reference) throws IngeTechnicalException;
+  void deleteFile(String reference) throws IngeTechnicalException;
 
-  public void deleteOldStagingFiles();
+  void deleteOldStagingFiles();
 
 }

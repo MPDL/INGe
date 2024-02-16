@@ -13,7 +13,6 @@ public class Principal implements Serializable {
 
 
   public Principal(AccountUserDbVO userAccount, String jwToken) {
-    super();
     this.userAccount = userAccount;
     this.jwToken = jwToken;
   }

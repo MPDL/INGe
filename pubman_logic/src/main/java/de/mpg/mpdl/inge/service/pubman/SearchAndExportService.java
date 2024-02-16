@@ -9,10 +9,10 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface SearchAndExportService {
 
-  public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
+  SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
+  SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
 }

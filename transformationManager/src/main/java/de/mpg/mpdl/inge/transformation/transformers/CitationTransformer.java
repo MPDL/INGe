@@ -188,7 +188,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       Spacing spacing = new Spacing();
       spacing.setAfter(BigInteger.valueOf(400));
       ppr.setSpacing(spacing);
-      mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);;
+      mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);
 
       ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
