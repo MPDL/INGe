@@ -25,7 +25,7 @@ public class OaiFileTools {
     logger.info("OAI: Trying to create File [" + fileName + "]");
     Path directoryPath = Paths.get(OAI_FILESYSTEM_ROOT_PATH);
     if (Files.notExists(directoryPath)) {
-      logger.info("OAI: trying to create directory [ " + directoryPath.toString() + "]");
+      logger.info("OAI: trying to create directory [ " + directoryPath + "]");
       try {
         Files.createDirectories(directoryPath);
       } catch (IOException e) {
@@ -38,7 +38,7 @@ public class OaiFileTools {
     try {
       CopyOption[] options = new CopyOption[] {StandardCopyOption.REPLACE_EXISTING,};
       Files.copy(fileInputStream, filePath, options);
-      logger.info("OAI: File [" + filePath.toString() + "] created.");
+      logger.info("OAI: File [" + filePath + "] created.");
     } catch (IOException e) {
       logger.error("OAI: An error occoured, when trying to create file [" + filePath + "]", e);
       throw new IngeTechnicalException("OAI: An error occoured, when trying to create file [" + filePath + "]", e);
@@ -53,13 +53,13 @@ public class OaiFileTools {
     try {
       if (Files.exists(filePath)) {
         Files.delete(filePath);
-        logger.info("OAI: File [" + filePath.toString() + "] deleted.");
+        logger.info("OAI: File [" + filePath + "] deleted.");
       } else {
-        logger.info("OAI: File [" + filePath.toString() + "] does not exist.");
+        logger.info("OAI: File [" + filePath + "] does not exist.");
       }
     } catch (IOException e) {
-      logger.error("OAI: An error occoured, when trying to delete the file [" + filePath.toString() + "]", e);
-      throw new IngeTechnicalException("OAI: An error occoured, when trying to delete the file [" + filePath.toString() + "]", e);
+      logger.error("OAI: An error occoured, when trying to delete the file [" + filePath + "]", e);
+      throw new IngeTechnicalException("OAI: An error occoured, when trying to delete the file [" + filePath + "]", e);
     }
   }
 }

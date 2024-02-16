@@ -18,11 +18,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
 
-  private ElasticsearchClient client;
+  private final ElasticsearchClient client;
 
-  private String user = PropertyReader.getProperty(PropertyReader.INGE_ES_USER);
-  private String pass = PropertyReader.getProperty(PropertyReader.INGE_ES_PASSWORD);
-  private String pathPrefix = PropertyReader.getProperty(PropertyReader.INGE_ES_REST_PATH_PREFIX);
+  private final String user = PropertyReader.getProperty(PropertyReader.INGE_ES_USER);
+  private final String pass = PropertyReader.getProperty(PropertyReader.INGE_ES_PASSWORD);
 
   private static final Logger logger = Logger.getLogger(ElasticSearchTransportClientProvider.class);
 
@@ -41,6 +40,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
       });
     }
 
+    String pathPrefix = PropertyReader.getProperty(PropertyReader.INGE_ES_REST_PATH_PREFIX);
     if (pathPrefix != null && !pathPrefix.isEmpty()) {
       restClientBuilder.setPathPrefix(pathPrefix);
     }

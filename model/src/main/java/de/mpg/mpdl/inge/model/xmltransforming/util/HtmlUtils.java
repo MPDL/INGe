@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 
 /**
  * Useful HTML functionalities.
- * 
+ *
  * @author Vlad Makarenko (initial creation)
  * @version $Revision$ $LastChangedDate$ by $Author$
  */
@@ -47,7 +47,7 @@ public class HtmlUtils {
 
   /**
    * Check of the balanced tags sup/sub
-   * 
+   *
    * @param snippet
    * @return <code>true</code> if balanced, <code>false</code> otherwise
    */
@@ -74,7 +74,7 @@ public class HtmlUtils {
   /**
    * Shortens a string to the given length and makes sure that the given html tags are still
    * balanced in the resulting string, if they were balanced in the full string.
-   * 
+   *
    * @param snippet
    * @param length
    * @param tagsNotToBeEscaped
@@ -234,7 +234,7 @@ public class HtmlUtils {
     }
 
     if (tagNameExceptions != null && !tagNameExceptions.isEmpty()) {
-      snippet = Pattern.compile("\\<(?!(\\/?(" + exceptions.toString() + ")))", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
+      snippet = Pattern.compile("\\<(?!(\\/?(" + exceptions + ")))", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
     } else {
       snippet = Pattern.compile("\\<", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
     }
@@ -246,7 +246,7 @@ public class HtmlUtils {
 
   /**
    * Removes sub and sup tags from a string if tags are balanced
-   * 
+   *
    * @param snippet
    * @return
    */
@@ -260,18 +260,18 @@ public class HtmlUtils {
 
   private enum TagType
   {
-    BEGIN, END;
+    BEGIN, END
   }
 
   private class SubSupTag {
 
     // private int startPosition;
 
-    private int endPosition;
+    private final int endPosition;
 
-    private String tagContent;
+    private final String tagContent;
 
-    private TagType tagType;
+    private final TagType tagType;
 
 
 

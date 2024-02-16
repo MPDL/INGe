@@ -85,8 +85,8 @@ public class ValidationTools {
       char chr = text.charAt(i);
       if (chr < 0x20 && chr != 0x9 && chr != 0xA && chr != 0xD
           || chr > 0xD7FF && (chr < 0xE000 || chr == 0xFFFE || chr == 0xFFFF || chr > 0x10FFFF)) {
-        context.addError(ValidationError.create(errorMessage)
-            .setField(" " + Character.toString(chr) + " (0x" + Integer.toHexString(chr) + ", pos " + Integer.toString((i + 1)) + ")"));
+        context.addError(
+            ValidationError.create(errorMessage).setField(" " + chr + " (0x" + Integer.toHexString(chr) + ", pos " + (i + 1) + ")"));
         ok = false;
       }
     }

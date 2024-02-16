@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -310,7 +310,7 @@ public class DataHandlerService {
 
   /**
    * Fetches a record for given record identifier.
-   * 
+   *
    * @param this.sourceURL
    * @return itemXML
    * @throws DataacquisitionException
@@ -407,11 +407,11 @@ public class DataHandlerService {
 
   public FileDbVO getComponentVO(DataSourceVO dataSourceVO) {
     if (this.componentVO != null) {
-      if (this.componentVO.getMetadata().getRights() == null || this.componentVO.getMetadata().getRights().equals("")) {
+      if (this.componentVO.getMetadata().getRights() == null || this.componentVO.getMetadata().getRights().isEmpty()) {
         this.componentVO.getMetadata().setRights(dataSourceVO.getCopyright());
       }
 
-      if (this.componentVO.getMetadata().getLicense() == null || this.componentVO.getMetadata().getLicense().equals("")) {
+      if (this.componentVO.getMetadata().getLicense() == null || this.componentVO.getMetadata().getLicense().isEmpty()) {
         this.componentVO.getMetadata().setLicense(dataSourceVO.getLicense());
       }
 

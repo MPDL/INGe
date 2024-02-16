@@ -32,7 +32,7 @@ public class WithdrawItem extends FacesBean {
   public void init() {
     final StringBuffer creators = new StringBuffer();
     for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
-      if (creators.length() > 0) {
+      if (!creators.isEmpty()) {
         creators.append("; ");
       }
 
@@ -90,7 +90,7 @@ public class WithdrawItem extends FacesBean {
   }
 
   public String withdraw() {
-    if (this.withdrawalComment == null || "".equals(this.withdrawalComment.trim())) {
+    if (this.withdrawalComment == null || this.withdrawalComment.trim().isEmpty()) {
       this.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
       return null;
     }

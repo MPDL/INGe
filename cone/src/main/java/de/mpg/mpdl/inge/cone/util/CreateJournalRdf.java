@@ -31,7 +31,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Helper class to generate an RDF file from the initial database.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 public class CreateJournalRdf {
   /**
    * Main-Method.
-   * 
+   *
    * @param args No arguments needed
    * @throws Exception Any exception
    */
@@ -49,7 +49,7 @@ public class CreateJournalRdf {
 
   /**
    * Default constructor. Contains the main routine.
-   * 
+   *
    * @throws Exception Any exception
    */
   private CreateJournalRdf() throws Exception {
@@ -78,29 +78,29 @@ public class CreateJournalRdf {
       fileWriter.append("\t\t<dc:identifier>");
       fileWriter.append(xmlFormat(sfxId));
       fileWriter.append("</dc:identifier>\n");
-      if (eDocTitle != null && !"".equals(eDocTitle)) {
+      if (eDocTitle != null && !eDocTitle.isEmpty()) {
         fileWriter.append("\t\t<dc:title>");
         fileWriter.append(xmlFormat(eDocTitle));
         fileWriter.append("</dc:title>\n");
       } else {
         throw new RuntimeException("Empty title: sfxid=" + sfxId);
       }
-      if (eDocAbbrev != null && !"".equals(eDocAbbrev)) {
+      if (eDocAbbrev != null && !eDocAbbrev.isEmpty()) {
         fileWriter.append("\t\t<dcterms:alternative>");
         fileWriter.append(xmlFormat(eDocAbbrev));
         fileWriter.append("</dcterms:alternative>\n");
       }
-      if (sfxPublisher != null && !"".equals(sfxPublisher)) {
+      if (sfxPublisher != null && !sfxPublisher.isEmpty()) {
         fileWriter.append("\t\t<dc:publisher>");
         fileWriter.append(xmlFormat(sfxPublisher));
         fileWriter.append("</dc:publisher>\n");
       }
-      if (sfxPlace != null && !"".equals(sfxPlace)) {
+      if (sfxPlace != null && !sfxPlace.isEmpty()) {
         fileWriter.append("\t\t<dcterms:publisher>");
         fileWriter.append(xmlFormat(sfxPlace));
         fileWriter.append("</dcterms:publisher>\n");
       }
-      if (sfxIssn != null && !"".equals(sfxIssn)) {
+      if (sfxIssn != null && !sfxIssn.isEmpty()) {
         fileWriter.append("\t\t<dcterms:identifier>");
         fileWriter.append(xmlFormat(sfxIssn));
         fileWriter.append("</dcterms:identifier>\n");
@@ -120,7 +120,7 @@ public class CreateJournalRdf {
 
   /**
    * Initialize Connection to database.
-   * 
+   *
    * @throws ConeException Any exception.
    */
   private Connection getConnection() throws ConeException {

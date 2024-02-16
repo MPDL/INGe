@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -40,9 +40,9 @@ import org.xml.sax.helpers.DefaultHandler;
  * Generic SAX handler with convenience methods. Useful for XML with only short string content.
  * Classes that extend this class should always call super() at the beginning of an overridden
  * method.
- * 
+ * <p>
  * Important: This class is not useful for XMLs with mixed contents: <a><b/>xyz</a>
- * 
+ *
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
@@ -73,8 +73,7 @@ public class ShortContentHandler extends DefaultHandler {
       localStack.push(name);
     }
 
-    Map<String, String> currentNamespaces = new HashMap<String, String>();
-    currentNamespaces.putAll(formerNamespaces);
+    Map<String, String> currentNamespaces = new HashMap<String, String>(formerNamespaces);
 
     for (int i = 0; i < attributes.getLength(); i++) {
       if (attributes.getQName(i).startsWith("xmlns:")) {
@@ -118,7 +117,7 @@ public class ShortContentHandler extends DefaultHandler {
 
   /**
    * Called when string content was found.
-   * 
+   *
    * @param uri The Namespace URI, or the empty string if the element has no Namespace URI or if
    *        Namespace processing is not being performed.
    * @param localName The local name (without prefix), or the empty string if Namespace processing
@@ -134,7 +133,7 @@ public class ShortContentHandler extends DefaultHandler {
   /**
    * Encodes an XML attribute. Replaces characters that might break the XML into XML entities.
    * Includes &quot; and &apos;.
-   * 
+   *
    * @param str The string that shall be encoded
    * @return The encoded string
    */
@@ -144,7 +143,7 @@ public class ShortContentHandler extends DefaultHandler {
 
   /**
    * Encodes XML string content. Replaces characters that might break the XML into XML entities.
-   * 
+   *
    * @param str The string that shall be encoded
    * @return The encoded string
    */
@@ -166,7 +165,7 @@ public class ShortContentHandler extends DefaultHandler {
 
   /**
    * A {@link Stack} extension to facilitate XML navigation.
-   * 
+   *
    * @author franke (initial creation)
    * @author $Author: mfranke $ (last modification)
    * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $

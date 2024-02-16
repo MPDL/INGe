@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -84,10 +84,10 @@ public class ImportProcess extends Thread {
   private TransformerFactory.FORMAT format;
   private File file;
   private FormatProcessor formatProcessor;
-  private ImportLog importLog;
+  private final ImportLog importLog;
   private Map<String, String> configuration = null;
 
-  private String authenticationToken;
+  private final String authenticationToken;
 
   private boolean failed = false;
   private boolean rollback;
@@ -305,7 +305,7 @@ public class ImportProcess extends Thread {
               if (this.failed) {
                 return;
               }
-              if (singleItem != null && !"".equals(singleItem.trim())) {
+              if (singleItem != null && !singleItem.trim().isEmpty()) {
                 this.prepareItem(singleItem);
               }
               counter++;
@@ -368,7 +368,7 @@ public class ImportProcess extends Thread {
 
               item.getItemVO().getObject().getLocalTags().add("multiple_import");
               item.getItemVO().getObject().getLocalTags().add(localTag.toString());
-              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "Local Tag: " + localTag.toString(), this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "Local Tag: " + localTag, this.connection);
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
 
@@ -484,14 +484,14 @@ public class ImportProcess extends Thread {
 
   private boolean checkDuplicatesByIdentifier(ItemVersionVO itemVO) {
     try {
-      if (itemVO.getMetadata().getIdentifiers().size() > 0) {
+      if (!itemVO.getMetadata().getIdentifiers().isEmpty()) {
 
 
 
         List<SearchCriterionBase> scList = new ArrayList<>();
 
         for (final IdentifierVO identifierVO : itemVO.getMetadata().getIdentifiers()) {
-          if (scList.size() >= 1) {
+          if (!scList.isEmpty()) {
             scList.add(new de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator(SearchCriterion.OR_OPERATOR));
           }
           IdentifierSearchCriterion sc = new IdentifierSearchCriterion();

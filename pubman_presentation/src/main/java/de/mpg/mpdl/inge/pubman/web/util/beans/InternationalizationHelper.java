@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -32,7 +33,7 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * Class for Internationalization settings.
- * 
+ *
  * @author: Tobias Schraut, created 04.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
@@ -115,7 +116,7 @@ public class InternationalizationHelper implements Serializable {
         Locale.setDefault(locale);
         this.userLocale = locale;
         this.homeContent = "n/a";
-        this.notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
+        this.notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());
         InternationalizationHelper.logger.debug("New locale: " + language + "_" + country + " : " + locale);
       } catch (final Exception e) {
         InternationalizationHelper.logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
@@ -151,7 +152,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Turn the values of an enum to an array of SelectItem.
-   * 
+   *
    * @param includeNoItemSelectedEntry Decide if a SelectItem with null value should be inserted.
    * @param values The values of an enum.
    * @return An array of SelectItem.
@@ -188,7 +189,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Adds an entry for NoItemSelected in front of the given array.
-   * 
+   *
    * @param selectItems the array where the entry should be added
    * @return a new array with an entry for NoItemSelected
    */
@@ -197,16 +198,14 @@ public class InternationalizationHelper implements Serializable {
 
     // add the entry for NoItemSelected in front of the array
     newSelectItems[0] = this.NO_ITEM_SET;
-    for (int i = 0; i < selectItems.length; i++) {
-      newSelectItems[i + 1] = selectItems[i];
-    }
+    System.arraycopy(selectItems, 0, newSelectItems, 1, selectItems.length);
 
     return newSelectItems;
   }
 
   /**
    * TODO FrM: Check this Converts an enum to a String for output.
-   * 
+   *
    * @param enumObject the enum to convert
    * @return the converted String for output
    */
@@ -236,7 +235,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum genre.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for genre
    */
@@ -248,7 +247,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum CreatorType.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for CreatorType
    */
@@ -260,7 +259,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum CreatorRole.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for CreatorRole
    */
@@ -268,9 +267,7 @@ public class InternationalizationHelper implements Serializable {
     final Map<String, String> negativeRoles = ApplicationBean.INSTANCE.getCreatorRoleMap();
 
     final List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
-    for (final CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
-      values.add(role);
-    }
+    Collections.addAll(values, CreatorVO.CreatorRole.values());
 
     int i = 0;
     while (i < values.size()) {
@@ -286,7 +283,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum genre.
-   * 
+   *
    * @return array of SelectItems for genre
    */
   public SelectItem[] getSelectItemsGenre() {
@@ -295,7 +292,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum DegreeType.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for DegreeType
    */
@@ -307,7 +304,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum genre.
-   * 
+   *
    * @return array of SelectItems for genre
    */
   public SelectItem[] getSelectItemsReviewMethod() {
@@ -316,7 +313,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum ReviewMethod.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for ReviewMethod
    */
@@ -328,7 +325,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum visibility.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for visibility
    */
@@ -340,7 +337,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the content-categories.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for ReviewMethod
    */
@@ -366,7 +363,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum OA_STATUS.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for visibility
    */
@@ -378,7 +375,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum InvitationStatus.
-   * 
+   *
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for InvitationStatus
    */
@@ -398,7 +395,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum {@link SelectComponentAvailability}
-   * 
+   *
    * @return array of SelectItems for SelectComponentAvailability
    */
   public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry) {
@@ -409,7 +406,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Returns an array of SelectItems for the enum {@link SelectComponentAccessability}
-   * 
+   *
    * @return array of SelectItems for SelectComponentAccessability
    */
   public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry) {
@@ -423,7 +420,7 @@ public class InternationalizationHelper implements Serializable {
    * inge.pubman.home.content.url has to be set with the url. If different languages should be
    * supported, The url source has to be provided with the different lcoale endings, e.g. ".de",
    * ".en", ".ja".
-   * 
+   *
    * @return
    */
   public String getHomeContent() {
@@ -431,7 +428,7 @@ public class InternationalizationHelper implements Serializable {
       try {
         final String contentUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HOME_CONTENT_URL);
 
-        if (contentUrl != null && !contentUrl.equals("")) {
+        if (contentUrl != null && !contentUrl.isEmpty()) {
           // Try if there's a specific local version
           this.homeContent = this.getContent(new URL(contentUrl + "." + this.locale));
 

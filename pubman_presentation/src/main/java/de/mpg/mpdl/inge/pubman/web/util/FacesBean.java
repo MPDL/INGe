@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -42,7 +42,7 @@ import jakarta.faces.component.UIComponent;
 /**
  * The FacesBean provides common features for bean and facesMessage handling. Designed to replace
  * inheritance from FacesBean and others.
- * 
+ *
  * @author Mario Wagner
  * @version
  */
@@ -51,7 +51,7 @@ import jakarta.faces.component.UIComponent;
 public class FacesBean implements Serializable {
   private static final Logger logger = Logger.getLogger(FacesBean.class);
 
-  private InternationalizationHelper i18nHelper;
+  private final InternationalizationHelper i18nHelper;
 
   public FacesBean() {
     this.i18nHelper = (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
@@ -61,7 +61,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void info(String summary) {
@@ -72,7 +72,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void info(String summary, String detail) {
@@ -83,7 +83,7 @@ public class FacesBean implements Serializable {
    * Enqueue a <code>FacesMessage</code> associated with the specified component, containing the
    * specified summary text and a message severity level of <code>FacesMessage.SEVERITY_ERROR</code>
    * .
-   * 
+   *
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
@@ -95,7 +95,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void info(String summary, String detail, UIComponent component) {
@@ -106,7 +106,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void warn(String summary) {
@@ -117,7 +117,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void warn(String summary, String detail) {
@@ -128,7 +128,7 @@ public class FacesBean implements Serializable {
    * Enqueue a <code>FacesMessage</code> associated with the specified component, containing the
    * specified summary text and a message severity level of <code>FacesMessage.SEVERITY_ERROR</code>
    * .
-   * 
+   *
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
@@ -140,7 +140,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void warn(String summary, String detail, UIComponent component) {
@@ -151,7 +151,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void error(String summary) {
@@ -162,7 +162,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void error(String summary, String detail) {
@@ -173,7 +173,7 @@ public class FacesBean implements Serializable {
    * Enqueue a <code>FacesMessage</code> associated with the specified component, containing the
    * specified summary text and a message severity level of <code>FacesMessage.SEVERITY_ERROR</code>
    * .
-   * 
+   *
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
@@ -185,7 +185,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void error(String summary, String detail, UIComponent component) {
@@ -196,7 +196,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void fatal(String summary) {
@@ -207,7 +207,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void fatal(String summary, String detail) {
@@ -218,7 +218,7 @@ public class FacesBean implements Serializable {
    * Enqueue a <code>FacesMessage</code> associated with the specified component, containing the
    * specified summary text and a message severity level of <code>FacesMessage.SEVERITY_ERROR</code>
    * .
-   * 
+   *
    * @param component associated <code>UIComponent</code>
    * @param summary summary text
    */
@@ -230,7 +230,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void fatal(String summary, String detail, UIComponent component) {
@@ -241,7 +241,7 @@ public class FacesBean implements Serializable {
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
    * containing the specified summary text, a detailed description and a message severity level of
    * <code>FacesMessage.SEVERITY_ERROR</code>.
-   * 
+   *
    * @param summary summary text
    */
   public void message(String summary, String detail, UIComponent component, Severity severity) {

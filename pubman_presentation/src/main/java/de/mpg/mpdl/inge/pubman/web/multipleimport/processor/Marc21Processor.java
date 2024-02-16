@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import org.apache.commons.io.IOUtils;
@@ -41,11 +42,11 @@ import org.marc4j.marc.Record;
 /*
  * takes Marc21 binary data and returns chunks of single MARRCXML records This is kind of cheating,
  * but FormatProcessor has to return String
- * 
+ *
  * @author Stefan Krause, Editura GmbH & Co. KG (initial creation)
- * 
+ *
  * @author $Author: skrause $ (last modification)
- * 
+ *
  * @version $Revision: 261 $ $LastChangedDate: 2013-04-30 20:57:29 +0200 (Di, 30 Apr 2013) $
  */
 
@@ -59,7 +60,7 @@ public class Marc21Processor extends FormatProcessor {
     MarcXmlWriter writer;
     try {
       final InputStream is = new FileInputStream(this.getSourceFile());
-      if (this.encoding == null || this.encoding.trim().equals("") || this.encoding.trim().equals("*")) {
+      if (this.encoding == null || this.encoding.trim().isEmpty() || this.encoding.trim().equals("*")) {
         reader = new MarcStreamReader(is);
       } else {
         reader = new MarcStreamReader(is, this.encoding);
@@ -82,7 +83,7 @@ public class Marc21Processor extends FormatProcessor {
 
     try {
       // nasty workaround to get rid of the namespace issues, has to be fixed, Stf, 2013-03-22
-      final String xml = new String(result.toString("UTF-8").replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
+      final String xml = new String(result.toString(StandardCharsets.UTF_8).replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
           .replaceAll("<collection", "<collection xmlns=\"http://www.loc.gov/MARC21/slim\""));
       this.marcxmlprocessor = new MarcXmlProcessor();
 

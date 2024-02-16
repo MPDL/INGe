@@ -20,72 +20,72 @@ import java.util.Map;
 
 /**
  * Interface between the CoNE data storage and the presentation.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
 public interface Querier {
 
-  public enum ModeType
+  enum ModeType
   {
-    FAST, FULL;
+    FAST, FULL
   }
 
 
   /**
    * Retrieve a list of entities matching the given search query.
-   * 
+   *
    * @param modelName The entity type, e.g. "journals", "languages".
    * @param searchString The search query, one or more words.
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String modelName, String searchString, ModeType modeType)
+  List<? extends Describable> query(String modelName, String searchString, ModeType modeType)
       throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search query and the given language.
-   * 
+   *
    * @param modelName The object type, e.g. "journals", "languages".
    * @param searchString The search query, one or more words.
    * @param language The given language in ISO-639-1 format (2 letters).
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType) throws ConeException;
+  List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search query and the given language.
-   * 
+   *
    * @param modelName The object type, e.g. "journals", "languages".
    * @param searchString The search query, one or more words.
    * @param language The given language in ISO-639-1 format (2 letters).
    * @param limit The maximum number of results returned.
-   * 
+   *
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType, int limit)
+  List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType, int limit)
       throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search fields and the given language.
-   * 
+   *
    * @param modelName The object type, e.g. "journals", "languages".
    * @param searchFields The search fields, key is the predicate and value is the search term.
    * @param language The given language in ISO-639-1 format (2 letters).
    * @param limit The maximum number of results returned.
-   * 
+   *
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String modelName, Pair<String>[] searchFields, String language, ModeType modeType, int limit)
+  List<? extends Describable> query(String modelName, Pair<String>[] searchFields, String language, ModeType modeType, int limit)
       throws ConeException;
 
   /**
    * Retrieves details about an entity identified by the given id.
-   * 
+   *
    * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
    * @return A {@link Map} of {@link List}s of {@link LocalizedString}s containing the information
@@ -94,12 +94,12 @@ public interface Querier {
    *         alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public TreeFragment details(String modelName, String id) throws ConeException;
+  TreeFragment details(String modelName, String id) throws ConeException;
 
   /**
    * Retrieves details about an entity identified by the given id and returns the results in the
    * given language.
-   * 
+   *
    * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
    * @param language The given language in ISO-639-1 format (2 letters).
@@ -109,11 +109,11 @@ public interface Querier {
    *         alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public TreeFragment details(String modelName, String id, String language) throws ConeException;
+  TreeFragment details(String modelName, String id, String language) throws ConeException;
 
   /**
    * Inserts a map of values into the database.
-   * 
+   *
    * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
    * @param values A {@link Map} of {@link List}s of {@link LocalizedString}s containing the
@@ -122,28 +122,28 @@ public interface Querier {
    *        alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public void create(String modelName, String id, TreeFragment values) throws ConeException;
+  void create(String modelName, String id, TreeFragment values) throws ConeException;
 
   /**
    * Deletes all entries from the database that fit the given model and id.
-   * 
+   *
    * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
    * @throws Exception Any exception.
    */
-  public void delete(String modelName, String id) throws ConeException;
+  void delete(String modelName, String id) throws ConeException;
 
-  public String createUniqueIdentifier(String model) throws ConeException;
+  String createUniqueIdentifier(String model) throws ConeException;
 
-  public List<String> getAllIds(String modelName) throws ConeException;
+  List<String> getAllIds(String modelName) throws ConeException;
 
-  public List<String> getAllIds(String modelName, int hits) throws ConeException;
+  List<String> getAllIds(String modelName, int hits) throws ConeException;
 
-  public void release() throws ConeException;
+  void release() throws ConeException;
 
-  public void setLoggedIn(boolean loggedIn);
+  void setLoggedIn(boolean loggedIn);
 
-  public boolean getLoggedIn();
+  boolean getLoggedIn();
 
-  public void cleanup() throws ConeException;
+  void cleanup() throws ConeException;
 }

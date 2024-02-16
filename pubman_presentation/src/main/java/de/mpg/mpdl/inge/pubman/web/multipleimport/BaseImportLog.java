@@ -10,7 +10,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 public class BaseImportLog {
   /**
    * enum to describe if something went wrong with this element.
-   * 
+   * <p>
    * - FINE: everything is alright - WARNING: import worked, but something could have been done
    * better - PROBLEM: some item was not imported because validation failed - ERROR: some items were
    * not imported because there were system errors during the import - FATAL: the import was

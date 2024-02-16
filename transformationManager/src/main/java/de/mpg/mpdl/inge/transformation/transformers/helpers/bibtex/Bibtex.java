@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -79,7 +80,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Implementation of BibTex transformation.
- * 
+ *
  * @author kleinfe1 (initial creation)
  * @author $Author: MWalter $ (last modification)
  * @version $Revision: 5725 $ $LastChangedDate: 2015-10-07 14:43:23 +0200 (Wed, 07 Oct 2015) $
@@ -92,7 +93,7 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * sets the configuration-settings
-   * 
+   *
    * @param configuration
    */
   public void setConfiguration(Map<String, String> configuration) {
@@ -127,7 +128,7 @@ public class Bibtex implements BibtexInterface {
     itemVO.setMetadata(mds);
     List<?> entries = file.getEntries();
     boolean entryFound = false;
-    if (entries == null || entries.size() == 0) {
+    if (entries == null || entries.isEmpty()) {
       logger.warn("No entry found in BibTex record.");
       throw new RuntimeException();
     }
@@ -449,9 +450,9 @@ public class Bibtex implements BibtexInterface {
                                                                                                                   // !=
                                                                                                                   // null
                       {
-                        String organizationalUnit = (author.getTags().get("affiliation" + String.valueOf(ouCount)) != null
-                            ? author.getTags().get("affiliation" + String.valueOf(ouCount))
-                            : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                        String organizationalUnit =
+                            (author.getTags().get("affiliation" + ouCount) != null ? author.getTags().get("affiliation" + ouCount)
+                                : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
                         Node coneEntries = null;
                         if (query.equals(author.getTags().get("identifier"))) {
                           coneEntries = Util.queryConeExactWithIdentifier("persons", query, organizationalUnit);
@@ -540,8 +541,8 @@ public class Bibtex implements BibtexInterface {
                             if (identifier != null && !("".equals(identifier))) {
                               try {
                                 String ouSubTitle = identifier.substring(0, identifier.indexOf(","));
-                                Document document = Util.queryFramework(
-                                    "/oum/organizational-units?query=" + URLEncoder.encode("\"/title\"=\"" + ouSubTitle + "\"", "UTF-8"));
+                                Document document = Util.queryFramework("/oum/organizational-units?query="
+                                    + URLEncoder.encode("\"/title\"=\"" + ouSubTitle + "\"", StandardCharsets.UTF_8));
                                 NodeList ouList = document.getElementsByTagNameNS("http://www.escidoc.de/schemas/organizationalunit/0.8",
                                     "organizational-unit");
                                 Element ou = (Element) ouList.item(0);
@@ -774,9 +775,9 @@ public class Bibtex implements BibtexInterface {
                                                                                                                   // !=
                                                                                                                   // null
                       {
-                        String organizationalUnit = (editor.getTags().get("affiliation" + String.valueOf(ouCount)) != null
-                            ? editor.getTags().get("affiliation" + String.valueOf(ouCount))
-                            : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                        String organizationalUnit =
+                            (editor.getTags().get("affiliation" + ouCount) != null ? editor.getTags().get("affiliation" + ouCount)
+                                : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
                         Node coneEntries = null;
                         if (query.equals(editor.getTags().get("identifier"))) {
                           coneEntries = Util.queryConeExactWithIdentifier("persons", query, organizationalUnit);
@@ -865,8 +866,8 @@ public class Bibtex implements BibtexInterface {
                             if (identifier != null && !("".equals(identifier))) {
                               try {
                                 String ouSubTitle = identifier.substring(0, identifier.indexOf(","));
-                                Document document = Util.queryFramework(
-                                    "/oum/organizational-units?query=" + URLEncoder.encode("\"/title\"=\"" + ouSubTitle + "\"", "UTF-8"));
+                                Document document = Util.queryFramework("/oum/organizational-units?query="
+                                    + URLEncoder.encode("\"/title\"=\"" + ouSubTitle + "\"", StandardCharsets.UTF_8));
                                 NodeList ouList = document.getElementsByTagNameNS("http://www.escidoc.de/schemas/organizationalunit/0.8",
                                     "organizational-unit");
                                 Element ou = (Element) ouList.item(0);
@@ -1050,7 +1051,7 @@ public class Bibtex implements BibtexInterface {
             }
           }
         }
-        if (!affiliationFound && mds.getCreators().size() > 0) {
+        if (!affiliationFound && !mds.getCreators().isEmpty()) {
           OrganizationVO externalOrganization = new OrganizationVO();
           externalOrganization.setName("External Organizations");
           try {
@@ -1279,13 +1280,13 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * Checks if date1 is before date2.
-   * 
+   *
    * @param date1 A date in one of the formats "YYYY", "YYYY-MM" or "YYYY-MM-DD"
    * @param date2 A date in one of the formats "YYYY", "YYYY-MM" or "YYYY-MM-DD"
    * @return Returns true if date1 is before date2
    */
   private boolean smaller(String date1, String date2) {
-    if (date1 == null || "".equals(date1) || date2 == null || "".equals(date2)) {
+    if (date1 == null || date1.isEmpty() || date2 == null || date2.isEmpty()) {
       return true;
     }
     date1 = (date1 + "-01-01").substring(0, 10);
@@ -1295,7 +1296,7 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * Get group classification from CoNE.
-   * 
+   *
    * @return A set containing MPIS groups.
    * @throws Exception
    */
@@ -1306,7 +1307,7 @@ public class Bibtex implements BibtexInterface {
     InputStream inputStream = getMethod.getResponseBodyAsStream();
     String line;
     Set<String> result = new HashSet<String>();
-    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     while ((line = bufferedReader.readLine()) != null) {
       // result.add(line.replaceAll("(\\d|_)+\\|", ""));
       try {
@@ -1320,7 +1321,7 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * Get project classification from CoNE.
-   * 
+   *
    * @return A set containing MPIS projects.
    * @throws Exception
    */
@@ -1331,7 +1332,7 @@ public class Bibtex implements BibtexInterface {
     InputStream inputStream = getMethod.getResponseBodyAsStream();
     String line;
     Set<String> result = new HashSet<String>();
-    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     while ((line = bufferedReader.readLine()) != null) {
       try {
         result.add(line.substring(line.indexOf("|") + 1, line.length()));

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -36,6 +36,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Map;
@@ -57,9 +58,9 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 
 /**
  * This class handles the multiple import for the zfn format
- * 
+ *
  * @author kleinfercher (initial creation)
- * 
+ *
  */
 public class ZfNProcessor extends FormatProcessor {
   private static final Logger logger = Logger.getLogger(ZfNProcessor.class);
@@ -98,7 +99,7 @@ public class ZfNProcessor extends FormatProcessor {
       while ((zipentry = zipinputstream.getNextEntry()) != null) {
         count++;
         final StringWriter sw = new StringWriter();
-        final Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, "UTF-8"));
+        final Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, StandardCharsets.UTF_8));
 
         while ((readReturn = reader.read(buffer)) != -1) {
           sw.write(buffer, 0, readReturn);
@@ -128,7 +129,7 @@ public class ZfNProcessor extends FormatProcessor {
 
   /**
    * Fetches a file from a ftp server, using the information in config
-   * 
+   *
    * @param config
    * @param user
    * @return
@@ -148,7 +149,7 @@ public class ZfNProcessor extends FormatProcessor {
 
   /**
    * Converts an inputstream into a FileDbVO.
-   * 
+   *
    * @param file
    * @param name
    * @param user
@@ -166,7 +167,7 @@ public class ZfNProcessor extends FormatProcessor {
 
     final String fileURL = this.uploadFile(in, mimeType, this.getCurrentFile(), user);
 
-    if (fileURL != null && !fileURL.toString().trim().equals("")) {
+    if (fileURL != null && !fileURL.toString().trim().isEmpty()) {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.setMetadata(mdSet);
@@ -201,7 +202,7 @@ public class ZfNProcessor extends FormatProcessor {
 
   /**
    * Uploads a file to the staging servlet and returns the corresponding URL.
-   * 
+   *
    * @param InputStream to upload
    * @param mimetype The mimetype of the file
    * @param userHandle The userhandle to use for upload
@@ -267,7 +268,7 @@ public class ZfNProcessor extends FormatProcessor {
   /**
    * Change a filename like:ZNC-1988-43c-0029.header.tei.xml in smth. like ZNC-1988-43c-0029.pdf so
    * we can fetch the corresponding full text to a metadata file
-   * 
+   *
    * @param name
    * @return
    */
@@ -280,7 +281,7 @@ public class ZfNProcessor extends FormatProcessor {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#hasNext()
    */
   @Override
@@ -302,7 +303,7 @@ public class ZfNProcessor extends FormatProcessor {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#next()
    */
   @Override
@@ -321,7 +322,7 @@ public class ZfNProcessor extends FormatProcessor {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#remove()
    */
   @Override

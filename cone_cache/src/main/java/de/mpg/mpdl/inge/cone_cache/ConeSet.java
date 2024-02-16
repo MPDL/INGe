@@ -16,8 +16,8 @@ public enum ConeSet {
   MPIS_GROUPS_TITLE(new HashSet<String>()), //
   MPIS_PROJECTS_TITLE(new HashSet<String>()), //
   MPIWG_PROJECTS_TITLE(new HashSet<String>());
-  
-  private HashSet<String> set;
+
+  private final HashSet<String> set;
 
   ConeSet(HashSet<String> set) {
     this.set = set;

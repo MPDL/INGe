@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -98,7 +98,7 @@ import jakarta.faces.model.SelectItem;
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving
  * and submitting a PubItem including methods for depending dynamic UI components.
- * 
+ *
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
@@ -172,7 +172,7 @@ public class EditItem extends FacesBean {
   /**
    * Delivers a reference to the currently edited item. This is a shortCut for the method in the
    * ItemController.
-   * 
+   *
    * @return the item that is currently edited
    */
   public PubItemVOPresentation getPubItem() {
@@ -190,7 +190,7 @@ public class EditItem extends FacesBean {
             this.getItemControllerSessionBean().retrieveContext(this.getPubItem().getObject().getContext().getObjectId());
         return context.getName();
       } catch (final Exception e) {
-        EditItem.logger.error("Could not retrieve the requested context." + "\n" + e.toString());
+        EditItem.logger.error("Could not retrieve the requested context." + "\n" + e);
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
@@ -209,19 +209,19 @@ public class EditItem extends FacesBean {
       // set the default genre to article
       if (pubItem.getMetadata().getGenre() == null) {
         pubItem.getMetadata().setGenre(Genre.ARTICLE);
-        this.getEditItemSessionBean().setGenreBundle("Genre_" + Genre.ARTICLE.toString());
+        this.getEditItemSessionBean().setGenreBundle("Genre_" + Genre.ARTICLE);
       } else { // if(this.getEditItemSessionBean().getGenreBundle().trim().equals(""))
         this.getEditItemSessionBean().setGenreBundle("Genre_" + pubItem.getMetadata().getGenre().name());
       }
 
       this.getItemControllerSessionBean().initializeItem(pubItem);
 
-      if (!this.getEditItemSessionBean().isFilesInitialized() || this.getLocators().size() == 0) {
+      if (!this.getEditItemSessionBean().isFilesInitialized() || this.getLocators().isEmpty()) {
         this.bindFiles();
         this.getEditItemSessionBean().setFilesInitialized(true);
       }
 
-      if (this.getEditItemSessionBean().getSources().size() == 0) {
+      if (this.getEditItemSessionBean().getSources().isEmpty()) {
         this.getEditItemSessionBean().bindSourcesToBean(pubItem.getMetadata().getSources());
       }
 
@@ -245,11 +245,11 @@ public class EditItem extends FacesBean {
         }
       }
 
-      if (this.getEditItemSessionBean().getCreators().size() == 0) {
+      if (this.getEditItemSessionBean().getCreators().isEmpty()) {
         this.getEditItemSessionBean().bindCreatorsToBean(pubItem.getMetadata().getCreators());
       }
 
-      if (this.getEditItemSessionBean().getCreatorOrganizations().size() == 0) {
+      if (this.getEditItemSessionBean().getCreatorOrganizations().isEmpty()) {
         this.getEditItemSessionBean().initOrganizationsFromCreators();
       }
 
@@ -276,11 +276,11 @@ public class EditItem extends FacesBean {
           }
         }
 
-        if (sourceBean.getCreators().size() == 0) {
+        if (sourceBean.getCreators().isEmpty()) {
           sourceBean.bindCreatorsToBean(source.getCreators());
         }
 
-        if (sourceBean.getCreatorOrganizations().size() == 0) {
+        if (sourceBean.getCreatorOrganizations().isEmpty()) {
           sourceBean.initOrganizationsFromCreators();
         }
       }
@@ -364,7 +364,7 @@ public class EditItem extends FacesBean {
       // add the files
       final List<PubFileVOPresentation> files = this.getFiles();
 
-      if (files != null && files.size() > 0) {
+      if (files != null && !files.isEmpty()) {
         for (int i = 0; i < files.size(); i++) {
           pubItem.getFiles().add(files.get(i).getFile());
         }
@@ -379,7 +379,7 @@ public class EditItem extends FacesBean {
           // add name from content if not available
           final MdsFileVO defaultMetadata = loc.getFile().getMetadata();
           final String title = defaultMetadata.getTitle();
-          if (title == null || title.trim().equals("")) {
+          if (title == null || title.trim().isEmpty()) {
             defaultMetadata.setTitle(loc.getFile().getContent());
           }
 
@@ -397,7 +397,7 @@ public class EditItem extends FacesBean {
   public List<ListItem> getLanguages() throws Exception {
     if (this.languages == null) {
       this.languages = new ArrayList<ListItem>();
-      if (this.getPubItem().getMetadata().getLanguages().size() == 0) {
+      if (this.getPubItem().getMetadata().getLanguages().isEmpty()) {
         this.getPubItem().getMetadata().getLanguages().add("");
       }
       int counter = 0;
@@ -434,7 +434,7 @@ public class EditItem extends FacesBean {
       this.showValidationMessages(e.getReport());
       return null;
     } catch (final Exception e) {
-      EditItem.logger.error("Could not validate item." + "\n" + e.toString(), e);
+      EditItem.logger.error("Could not validate item." + "\n" + e, e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }
@@ -492,7 +492,7 @@ public class EditItem extends FacesBean {
       try {
         oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getObjectId());
       } catch (final Exception e) {
-        EditItem.logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+        EditItem.logger.error("Could not retrieve item." + "\n" + e, e);
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
@@ -534,7 +534,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Cancels the editing.
-   * 
+   *
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String cancel() {
@@ -723,7 +723,7 @@ public class EditItem extends FacesBean {
 
   /**
    * This method adds a locator to the list of locators of the item
-   * 
+   *
    * @return navigation string (null)
    */
   public void addLocator() {
@@ -737,7 +737,7 @@ public class EditItem extends FacesBean {
 
   /**
    * This method saves the latest locator to the list of files of the item
-   * 
+   *
    * @return navigation string (null)
    */
   public void saveLocator() {
@@ -749,7 +749,7 @@ public class EditItem extends FacesBean {
       }
       // Set file name if not filled
       if (this.getLocators().get(indexUpload).getFile().getMetadata().getTitle() == null
-          || this.getLocators().get(indexUpload).getFile().getMetadata().getTitle().trim().equals("")) {
+          || this.getLocators().get(indexUpload).getFile().getMetadata().getTitle().trim().isEmpty()) {
         this.getLocators().get(indexUpload).getFile().getMetadata()
             .setTitle(this.getLocators().get(indexUpload).getFile().getContent().trim());
       }
@@ -784,7 +784,7 @@ public class EditItem extends FacesBean {
      * boolean isStatePending = true; boolean isStateSubmitted = false; boolean isStateReleased =
      * false; // boolean isStateInRevision = false; boolean isStateWithdrawn = false; // boolean
      * isPublicStateReleased = false;
-     * 
+     *
      * if (this.getPubItem() != null && this.getPubItem().getVersionState() != null) {
      * isStatePending = ItemVersionRO.State.PENDING.equals(this.getPubItem().getVersionState());
      * isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
@@ -794,7 +794,7 @@ public class EditItem extends FacesBean {
      * = ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getVersionState()); //
      * isPublicStateReleased =
      * ItemVersionRO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState()); }
-     * 
+     *
      * boolean isOwner = true; if (this.getPubItem() != null &&
      * this.getPubItem().getObject().getCreator() != null) { isOwner =
      * (this.getLoginHelper().getAccountUser() != null ?
@@ -809,7 +809,7 @@ public class EditItem extends FacesBean {
 
     /*
      * boolean isWorkflowStandard = false; boolean isWorkflowSimple = true;
-     * 
+     *
      * try { if (this.getItemControllerSessionBean().getCurrentContext() != null) {
      * isWorkflowStandard = (ContextDbVO.Workflow.STANDARD ==
      * this.getItemControllerSessionBean().getCurrentContext().getWorkflow()); isWorkflowSimple =
@@ -874,7 +874,7 @@ public class EditItem extends FacesBean {
 
   /**
    * localized creation of SelectItems for the genres available.
-   * 
+   *
    * @return SelectItem[] with Strings representing genres.
    */
   public SelectItem[] getGenres() {
@@ -884,7 +884,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for degreeType.
-   * 
+   *
    * @return all options for degreeType
    */
   public SelectItem[] getDegreeTypes() {
@@ -893,7 +893,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for reviewMethod.
-   * 
+   *
    * @return all options for reviewMethod
    */
   public SelectItem[] getReviewMethods() {
@@ -902,7 +902,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for content categories.
-   * 
+   *
    * @return all options for content c ategories.
    */
   public SelectItem[] getContentCategories() {
@@ -911,7 +911,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for visibility.
-   * 
+   *
    * @return all options for visibility
    */
   public SelectItem[] getVisibilities() {
@@ -963,7 +963,7 @@ public class EditItem extends FacesBean {
   /**
    * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a
    * checkbox.
-   * 
+   *
    * @return true if invitationstatus in VO is set, else false
    */
   public boolean getInvited() {
@@ -979,7 +979,7 @@ public class EditItem extends FacesBean {
   /**
    * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a
    * checkbox.
-   * 
+   *
    * @param invited the value of the checkbox
    */
   public void setInvited(boolean invited) {
@@ -1142,7 +1142,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Checks if there are any subject classifications defined for this item.
-   * 
+   *
    * @return true if ther is at least one subject classification.
    * @throws Exception Any exception.
    */
@@ -1152,7 +1152,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Get all allowed subject classifications from the admin descriptor of the context.
-   * 
+   *
    * @return An array of SelectItem containing the subject classifications.
    * @throws Exception Any exception.
    */
@@ -1182,7 +1182,7 @@ public class EditItem extends FacesBean {
 
   /**
    * This method changes the Genre and sets the needed property file for genre specific Metadata
-   * 
+   *
    * @return String null
    */
   public void changeGenre() {
@@ -1196,7 +1196,7 @@ public class EditItem extends FacesBean {
       }
     }
 
-    if (newGenre != null && newGenre.trim().equals("")) {
+    if (newGenre != null && newGenre.trim().isEmpty()) {
       newGenre = "ARTICLE";
     }
 
@@ -1206,7 +1206,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Adds a new local tag to the ItemVersionVO and a new wrapped local tag to PubItemVOPresentation.
-   * 
+   *
    * @return Returns always null.
    */
   public void addLocalTag() {
@@ -1271,7 +1271,7 @@ public class EditItem extends FacesBean {
    * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the
    * model. Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format
    * of ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
-   * 
+   *
    * @return
    */
   public void parseAndSetAlternativeTitles() {
@@ -1283,7 +1283,7 @@ public class EditItem extends FacesBean {
     final IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
     idManager.getObjectList().clear();
 
-    if (!this.getHiddenAlternativeTitlesField().trim().equals("")) {
+    if (!this.getHiddenAlternativeTitlesField().trim().isEmpty()) {
       altTitleList.addAll(this.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
     }
   }
@@ -1296,7 +1296,7 @@ public class EditItem extends FacesBean {
       final String[] parts = alternativeTitles[i].trim().split(EditItem.AUTOPASTE_INNER_DELIMITER);
       final String alternativeTitleType = parts[0].trim();
       final String alternativeTitle = parts[1].trim();
-      if (!alternativeTitle.equals("")) {
+      if (!alternativeTitle.isEmpty()) {
         final AlternativeTitleVO alternativeTitleVO = new AlternativeTitleVO(alternativeTitle);
         alternativeTitleVO.setType(alternativeTitleType);
         list.add(alternativeTitleVO);

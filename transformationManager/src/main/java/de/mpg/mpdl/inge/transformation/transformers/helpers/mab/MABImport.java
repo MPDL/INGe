@@ -14,11 +14,11 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 
 /**
  * provides the import of a MAB file
- * 
+ *
  * @author kurt (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class MABImport {
   private static final Logger logger = Logger.getLogger(MABImport.class);
@@ -30,7 +30,7 @@ public class MABImport {
 
   /**
    * reads the import file and transforms the items to XML
-   * 
+   *
    * @return xml
    */
   public String transformMAB2XML(String file) {
@@ -67,7 +67,7 @@ public class MABImport {
 
   /**
    * reads the file and stores it in a string
-   * 
+   *
    * @return List<String> with file lines
    */
   public String readFile() {
@@ -111,7 +111,7 @@ public class MABImport {
 
   /**
    * identifies item lines from input string and stores it in a List<String>
-   * 
+   *
    * @param string
    * @return
    */
@@ -136,28 +136,28 @@ public class MABImport {
 
   /**
    * identifies MAB items from input string and stores it in an String Array
-   * 
+   *
    * @param string
    * @return
    */
   public String[] getItemListFromString(String string, String pattern) {
     // replace first empty lines and BOM
     String s = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string).replaceFirst("$1");
-    String itemList[] = s.split(pattern);
+    String[] itemList = s.split(pattern);
 
     return itemList;
   }
 
   /**
    * get item pairs from item string (by regex string)
-   * 
+   *
    * @param string - MAB item as string
    * @return String list with item key-value pairs
    */
   public List<Pair> getItemPairs(List<String> lines) {
     List<Pair> pairList = new ArrayList<Pair>();
 
-    if (lines != null && lines.size() > 0) {
+    if (lines != null && !lines.isEmpty()) {
       String line1 = lines.get(0);
       Pair pair1 = createMABPairByString(line1, "(\\s{6})###\\s*");
       pairList.add(pair1);
@@ -173,7 +173,7 @@ public class MABImport {
 
   /**
    * get a pair from line string (by regex string)
-   * 
+   *
    * @param string - MAB line as string
    * @return Pair - key-value pair created by string line
    */
@@ -195,12 +195,12 @@ public class MABImport {
 
   /**
    * creates a single item in xml
-   * 
+   *
    * @param item pair list
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
-    if (item != null && item.size() > 0) {
+    if (item != null && !item.isEmpty()) {
       return createXMLElement("item", transformItemSubelementsToXML(item));
     }
 
@@ -209,14 +209,14 @@ public class MABImport {
 
   /**
    * creates the complete item list in xml
-   * 
+   *
    * @param item pair list
    * @return xml string of the whole item list
    */
   public String transformItemListToXML(List<List<Pair>> itemList) {
     String xml = "<item-list>";
 
-    if (itemList != null && itemList.size() > 0) {
+    if (itemList != null && !itemList.isEmpty()) {
       for (List<Pair> item : itemList) {
         xml = xml + "\n" + transformItemToXML(item);
       }
@@ -229,13 +229,13 @@ public class MABImport {
 
   /**
    * creates an xml string of the item pair list
-   * 
+   *
    * @param item pairs as list
    * @return xml String
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && item.size() > 0) {
+    if (item != null && !item.isEmpty()) {
       for (Pair pair : item) {
         String key = "";
         String value = "";
@@ -259,7 +259,7 @@ public class MABImport {
 
   /**
    * creates a single element in xml
-   * 
+   *
    * @param tag - tag name of the element
    * @param value - value of the element
    * @return xml element as string
@@ -274,7 +274,7 @@ public class MABImport {
 
   /**
    * escapes special characters
-   * 
+   *
    * @param input string
    * @return string with escaped characters
    */

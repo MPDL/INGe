@@ -10,11 +10,11 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 public class FileVOWrapper {
 
-  private String fileId;
+  private final String fileId;
 
-  private FileDbVO fileVO;
+  private final FileDbVO fileVO;
 
-  private FileStorageInterface fileStorageInterface;
+  private final FileStorageInterface fileStorageInterface;
 
   private static final Logger logger = Logger.getLogger(FileVOWrapper.class);
 

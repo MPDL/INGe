@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -67,11 +67,11 @@ import de.mpg.mpdl.inge.util.XmlUtilities;
 
 /**
  * Thread that creates Sitemap files.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 
 @Component
@@ -86,12 +86,6 @@ public class SiteMapTask {
   private FileWriter fileWriter = null;
 
   private final List<File> files = new ArrayList<File>();
-
-  private SimpleDateFormat dateFormat;
-
-  //  private String contentModel;
-  private String contextPath;
-  private String instanceUrl;
 
   //  private boolean signal = false;
 
@@ -119,11 +113,12 @@ public class SiteMapTask {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
-      this.instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-      this.contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+      String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
+      //  private String contentModel;
+      String contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
 
 
-      this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
       this.changeFile();
 
@@ -147,7 +142,7 @@ public class SiteMapTask {
         // File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
         this.copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length(), true);
       } else {
-        final String currentDate = this.dateFormat.format(new Date());
+        final String currentDate = dateFormat.format(new Date());
 
         final File indexFile = File.createTempFile("sitemap", ".xml");
         final FileWriter indexFileWriter = new FileWriter(indexFile);
@@ -167,8 +162,8 @@ public class SiteMapTask {
           }
           this.copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
 
-          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + this.instanceUrl + this.contextPath + "/sitemap" + (i + 1)
-              + ".xml</loc>\n\t\t<lastmod>" + currentDate + "</lastmod>\n\t</sitemap>\n");
+          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + instanceUrl + contextPath + "/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>"
+              + currentDate + "</lastmod>\n\t</sitemap>\n");
 
         }
 
@@ -327,7 +322,7 @@ public class SiteMapTask {
       }
 
 
-    } while (resp.hits().hits().size() != 0);
+    } while (!resp.hits().hits().isEmpty());
 
     return totalRecords;
   }

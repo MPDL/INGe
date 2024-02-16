@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -117,11 +118,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
       t.mergeConfiguration(configuration);
     }
 
-    try {
-      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))), new TransformerStreamResult(wr));
-    } catch (UnsupportedEncodingException e) {
-      throw new TransformationException(e);
-    }
+    t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes(StandardCharsets.UTF_8))),
+        new TransformerStreamResult(wr));
 
     return wr.toString();
   }
@@ -133,7 +131,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
 
       final Transformer t = TransformerFactory.newTransformer(TransformerFactory.getInternalFormat(), target);
       //      logger.info(itemXml);
-      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))), new TransformerStreamResult(wr));
+      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes(StandardCharsets.UTF_8))),
+          new TransformerStreamResult(wr));
     } catch (Exception e) {
       throw new TransformationException(e);
     }

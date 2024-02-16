@@ -12,7 +12,7 @@ import jakarta.faces.model.ListDataModel;
  * methods. Internally the objects are stored using a List<T>, which Type T has to be given by the
  * implementing class. For your viewing pleasure there is method called getObjectDataList(),
  * delivering all objects stored in the suitable vo accessed by getDataSetFromVO().
- * 
+ *
  * @author Mario Wagner
  * @param <T> the object type you want to manage in an data table
  */
@@ -36,8 +36,8 @@ public abstract class DataModelManager<T> {
   /**
    * Tell me where in your value object or class there is a list of data to be managed and give it
    * to me.
-   * 
-   * @return Set containing data object of type T
+   *
+   * @return List containing data object of type T
    */
   // public abstract List<T> getDataListFromVO();
 
@@ -52,7 +52,7 @@ public abstract class DataModelManager<T> {
   }
 
   /**
-   * 
+   *
    * @param objectList new List<T>
    */
   public void setObjectList(List<T> objectList) {
@@ -66,7 +66,7 @@ public abstract class DataModelManager<T> {
   /**
    * The DataModel is always created by wrapping the data objects contained in the objectList. If
    * this objectList is empty, there will be no rows to be displayed.
-   * 
+   *
    * @return DataModel
    */
   public DataModel<?> getObjectDM() {
@@ -84,7 +84,7 @@ public abstract class DataModelManager<T> {
 
   /**
    * Simple setter, not really used yet
-   * 
+   *
    * @param objectDM new DataModel
    */
   public void setObjectDM(DataModel<?> objectDM) {

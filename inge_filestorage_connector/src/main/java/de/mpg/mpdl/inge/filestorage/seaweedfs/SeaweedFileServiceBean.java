@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -32,11 +33,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * File storage service for seaweed (handling full text files and so on)
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @Service
 public class SeaweedFileServiceBean implements FileStorageInterface {
@@ -52,12 +53,12 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
 
   /**
    * creates a file in the seaweed instance
-   * 
+   * <p>
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream,
    *      java.lang.String)
-   * 
+   *
    * @return json - response returned (including "fid", "fileUrl", "fileName", ...)
    * @throws IOException
    */
@@ -100,12 +101,12 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
 
   /**
    * read a file from the seaweed instance to an outputstream
-   * 
+   * <p>
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String,
    *      java.io.OutputStream)
-   * 
+   *
    * @param fileId - Id of the file to read
    * @param out - OutputStream where result is written
    * @throws IOException
@@ -141,11 +142,11 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
 
   /**
    * delete a file with a specific id from the seaweed instance
-   * 
+   * <p>
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
-   * 
+   *
    * @param fileId - Id of the file to read
    * @throws Exception
    */
@@ -154,7 +155,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     System.out.println("Trying to delete Id [" + fileId + "]");
     CloseableHttpResponse response = null;
     try {
-      HttpDelete httpDelete = new HttpDelete(SEAWEED_MASTER_URL + "/" + URLEncoder.encode(fileId, "UTF-8"));
+      HttpDelete httpDelete = new HttpDelete(SEAWEED_MASTER_URL + "/" + URLEncoder.encode(fileId, StandardCharsets.UTF_8));
       logger.info("Delete request: " + httpDelete.getURI().toString());
 
       response = httpClient.execute(httpDelete);
@@ -164,7 +165,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
         logger.info("Redirecting delete manually");
         httpDelete.setURI(new URI(response.getFirstHeader("Location").getValue()));
         response.close();
-        System.out.println("[" + httpDelete.toString() + "]");
+        System.out.println("[" + httpDelete + "]");
         response = httpClient.execute(httpDelete);
       }
       HttpEntity responseEntity = response.getEntity();

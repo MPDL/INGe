@@ -44,8 +44,8 @@ public class ContextRestController {
   private final String CTX_ID_PATH = "/{ctxId}";
   private final String CTX_ID_VAR = "ctxId";
 
-  private ContextService ctxSvc;
-  private UtilServiceBean utils;
+  private final ContextService ctxSvc;
+  private final UtilServiceBean utils;
 
   @Autowired
   public ContextRestController(ContextService ctxSvc, UtilServiceBean utils) {

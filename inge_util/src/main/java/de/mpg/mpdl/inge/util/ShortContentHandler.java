@@ -15,9 +15,9 @@ import org.xml.sax.helpers.DefaultHandler;
  * Generic SAX handler with convenience methods. Useful for XML with only short string content.
  * Classes that extend this class should always call super() at the beginning of an overridden
  * method.
- * 
+ * <p>
  * Important: This class is not useful for XMLs with mixed contents: <a><b/>xyz</a>
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -27,7 +27,7 @@ public class ShortContentHandler extends DefaultHandler {
   protected XMLStack localStack = new XMLStack();
 
   private StringBuffer currentContent;
-  private Map<String, Map<String, String>> namespacesMap = new HashMap<String, Map<String, String>>();
+  private final Map<String, Map<String, String>> namespacesMap = new HashMap<String, Map<String, String>>();
   private Map<String, String> namespaces = null;
 
   /**
@@ -49,8 +49,7 @@ public class ShortContentHandler extends DefaultHandler {
       localStack.push(name);
     }
 
-    Map<String, String> currentNamespaces = new HashMap<String, String>();
-    currentNamespaces.putAll(formerNamespaces);
+    Map<String, String> currentNamespaces = new HashMap<String, String>(formerNamespaces);
 
     for (int i = 0; i < attributes.getLength(); i++) {
       if (attributes.getQName(i).startsWith("xmlns:")) {
@@ -94,7 +93,7 @@ public class ShortContentHandler extends DefaultHandler {
 
   /**
    * Called when string content was found.
-   * 
+   *
    * @param uri The Namespace URI, or the empty string if the element has no Namespace URI or if
    *        Namespace processing is not being performed.
    * @param localName The local name (without prefix), or the empty string if Namespace processing
@@ -121,7 +120,7 @@ public class ShortContentHandler extends DefaultHandler {
 
   /**
    * Encodes XML string content. Replaces characters that might break the XML into XML entities.
-   * 
+   *
    * @param str The string that shall be encoded
    * @return The encoded string
    */
@@ -143,7 +142,7 @@ public class ShortContentHandler extends DefaultHandler {
 
   /**
    * A {@link Stack} extension to facilitate XML navigation.
-   * 
+   *
    * @author franke (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -78,7 +78,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.WrongEn
 
 /**
  * Class with helper methods for the JiBX-based XML-2-Java-Transforming.
- * 
+ *
  * @author Johannes Mueller (initial creation)
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 28.08.2007
@@ -95,8 +95,8 @@ public class JiBXHelper {
    * Only the characters "<" and "&" are strictly illegal in XML. Apostrophes, quotation marks and
    * greater than signs are legal, but it is a good habit to replace them.
    */
-  private static final String problematicCharacters[] = {">", "\"", "\'"};
-  private static final String escapedCharacters[] = {"&gt;", "&quot;", "&apos;"};
+  private static final String[] problematicCharacters = {">", "\"", "\'"};
+  private static final String[] escapedCharacters = {"&gt;", "&quot;", "&apos;"};
 
   /**
    * UTF-8 control characters that are illegal for XML according to W3C
@@ -107,7 +107,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AffiliationPathVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;AffiliationPathVO></code>
    */
   /*
@@ -119,7 +119,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AffiliationRO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;AffiliationRO></code>
    */
   public static List<AffiliationRO> affiliationROListFactory() {
@@ -129,7 +129,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AffiliationVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;AffiliationVO></code>
    */
   /*
@@ -141,7 +141,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;String></code> as the implementation of
    * a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;String></code>
    */
   public static List<String> localTagsListFactory() {
@@ -151,7 +151,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;CreatorVO></code> as the implementation
    * of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;CreatorVO></code>
    */
   public static List<CreatorVO> creatorVOListFactory() {
@@ -161,7 +161,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;FormatVO></code> as the implementation
    * of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;FormatVO></code>
    */
   public static List<FormatVO> formatVOListFactory() {
@@ -171,7 +171,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;GrantVO></code> as the implementation
    * of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;GrantVO></code>
    */
   /*
@@ -183,7 +183,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AccountUserVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;AccountUserVO></code>
    */
   /*
@@ -195,7 +195,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;Filter></code> as the implementation of
    * a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;Filter></code>
    */
   /*
@@ -207,7 +207,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;HitwordVO></code> as the implementation
    * of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;HitwordVO></code>
    */
   public static List<HitwordVO> hitwordVOListFactory() {
@@ -217,7 +217,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;IdentifierVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;IdentifierVO></code>
    */
   public static List<IdentifierVO> identifierVOListFactory() {
@@ -227,7 +227,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;MdsPublicationVO.Genre></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;MdsPublicationVO.Genre></code>
    */
   public static List<MdsPublicationVO.Genre> genreListFactory() {
@@ -238,7 +238,7 @@ public class JiBXHelper {
    * Factory method to create a
    * <code>java.util.ArrayList&lt;MdsPublicationVO.SubjectClassification></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;MdsPublicationVO.SubjectClassification></code>
    */
   public static List<MdsPublicationVO.SubjectClassification> subjectClassificationListFactory() {
@@ -250,7 +250,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;OrganizationVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;OrganizationVO></code>
    */
   public static List<OrganizationVO> organizationVOListFactory() {
@@ -260,7 +260,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;ContextVO></code> as the implementation
    * of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;ContextVO></code>
    */
   public static List<ContextVO> contextVOListFactory() {
@@ -270,7 +270,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;FileVO></code> as the implementation of
    * a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;FileVO></code>
    */
   public static List<FileVO> pubFileVOListFactory() {
@@ -283,7 +283,7 @@ public class JiBXHelper {
 
   /**
    * Factory method to create a {@link ArrayList} as the implementation of a {@link List}.
-   * 
+   *
    * @return A new {@link ArrayList}.
    */
   public static List<?> adminDescriptorVOListFactory() {
@@ -299,7 +299,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;VersionHistoryEntryVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;VersionHistoryEntryVO></code>
    */
   public static List<VersionHistoryEntryVO> eventVOListFactory() {
@@ -309,7 +309,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;ItemVO></code> as the implementation of
    * a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;ItemVO></code>
    */
   public static List<ItemVO> itemVOListFactory() {
@@ -319,7 +319,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;MetadataSetVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;MetadataSetVO></code>
    */
   public static List<MetadataSetVO> metadataSetVOListFactory() {
@@ -329,7 +329,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;ItemRelationVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;ItemRelationVO></code>
    */
   public static List<ItemRelationVO> relationVOListFactory() {
@@ -339,7 +339,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;SearchHitVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;SearchHitVO></code>
    */
   public static List<SearchHitVO> searchHitVOListFactory() {
@@ -349,7 +349,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;SourceVO></code> as the implementation
    * of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;SourceVO></code>
    */
   public static List<SourceVO> sourceVOListFactory() {
@@ -359,7 +359,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;String></code> as the implementation of
    * a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;String></code>
    */
   public static List<String> stringListFactory() {
@@ -369,7 +369,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;TextFragmentVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;TextFragmentVO></code>
    */
   public static List<TextFragmentVO> textFragmentVOListFactory() {
@@ -379,7 +379,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AlternativeTitleVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;AlternativeTitleVO></code>
    */
   public static List<AlternativeTitleVO> alternativeTitleVOListFactory() {
@@ -389,7 +389,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AbstractVO></code> as the
    * implementation of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;AlternativeTitleVO></code>
    */
   public static List<AbstractVO> abstractVOListFactory() {
@@ -400,7 +400,7 @@ public class JiBXHelper {
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;SubjectVO></code> as the implementation
    * of a <code>java.util.List</code>.
-   * 
+   *
    * @return A new <code>java.util.ArrayList&lt;SubjectVO></code>
    */
   public static List<SubjectVO> subjectVOListFactory() {
@@ -420,7 +420,7 @@ public class JiBXHelper {
 
   /**
    * Change all occurrences of a given 'old' pattern in a String to a given 'new' pattern.
-   * 
+   *
    * @param in The String to change
    * @param oldPat The old pattern
    * @param newPat The new pattern
@@ -430,7 +430,7 @@ public class JiBXHelper {
     if (in == null) {
       return null;
     }
-    if (oldPat.length() == 0) {
+    if (oldPat.isEmpty()) {
       return in;
     }
     if (oldPat.length() == 1 && newPat.length() == 1) {
@@ -457,7 +457,7 @@ public class JiBXHelper {
 
   /**
    * Escapes unwanted XML characters.
-   * 
+   *
    * @param cdata A String that might contain illegal XML characters.
    * @return The escaped String
    */
@@ -471,7 +471,7 @@ public class JiBXHelper {
 
   /**
    * Unescapes the set of escaped special characters "greater than", apostrophe and quotation mark.
-   * 
+   *
    * @param cdata A String that might contain illegal XML characters.
    * @return The unescaped String
    */
@@ -485,7 +485,7 @@ public class JiBXHelper {
 
   /**
    * Deserializes a String containing 'true' or 'false' to the corresponding boolean value.
-   * 
+   *
    * @param booleanValue The String to deserialize
    * @return boolean The corresponding boolean
    * @throws WrongEnumException
@@ -509,7 +509,7 @@ public class JiBXHelper {
 
   /**
    * Serializes a boolean to a corresponding String ('true' or 'false').
-   * 
+   *
    * @param bool The boolean to serialize
    * @return String The corresponding String ('true' or 'false')
    */
@@ -520,7 +520,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a creator-role like defined in escidocenumtypes.xsd to the
    * corresponding CreatorVO.CreatorRole Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return The corresponding CreatorVO.CreatorRole Enum
    * @throws WrongEnumException
@@ -549,7 +549,7 @@ public class JiBXHelper {
 
   /**
    * Serializes enums to strings
-   * 
+   *
    * @param enumeration The enum
    * @return The searialized string
    */
@@ -566,7 +566,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing an <code>xs:dateTime</code> to the corresponding
    * <code>java.util.Date</code>.
-   * 
+   *
    * @param dateString The String to deserialize
    * @return The corresponding <code>java.util.Date</code>
    * @throws WrongDateException
@@ -591,7 +591,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing an <code>xs:dateTime</code> to the corresponding
    * <code>java.util.Date</code>.
-   * 
+   *
    * @param dateString The String to deserialize
    * @return The corresponding <code>java.util.Date</code>
    * @throws WrongDateException
@@ -603,7 +603,7 @@ public class JiBXHelper {
   /**
    * Serializes a <code>java.util.Date</code> to a String. The format of the String is
    * "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'".
-   * 
+   *
    * @see java.text.SimpleDateFormat
    * @param date The Date to serialize
    * @return String The corresponding String
@@ -617,7 +617,7 @@ public class JiBXHelper {
 
   /**
    * Deserializes a String to a <code>java.net.URL</code>.
-   * 
+   *
    * @param urlString The URL String to deserialize
    * @return The corresponding <code>java.net.URL</code>
    */
@@ -637,7 +637,7 @@ public class JiBXHelper {
 
   /**
    * Serializes a <code>java.net.URL</code> to a String.
-   * 
+   *
    * @param url The <code>java.net.URL</code> to serialize
    * @return The corresponding String
    */
@@ -648,7 +648,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a degree type like defined in escidocenumtypes.xsd to the
    * corresponding MdsPublicationVO.DegreeType enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return DegreeType The corresponding MdsPublicationVO.DegreeType Enum
    * @throws WrongEnumException
@@ -679,7 +679,7 @@ public class JiBXHelper {
 
   /**
    * Serializes enums to strings
-   * 
+   *
    * @param enumeration The enum
    * @return The searialized string
    */
@@ -698,14 +698,14 @@ public class JiBXHelper {
    * http://www.mail-archive.com/jibx-users@lists.sourceforge.net/msg00003.html), a
    * <code>null</code> value is returned when this method is called with a <code>null</code>
    * parameter.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return Visibility The corresponding <code>FileVO.Visibility</code> Enum (or <code>null</code>)
    * @throws WrongEnumException
    */
   public static Visibility deserializeFileVisibilityEnum(String enumValue) throws WrongEnumException {
     Visibility visibility = null;
-    if ((enumValue == null) || enumValue.equals("")) {
+    if ((enumValue == null) || enumValue.isEmpty()) {
       /*-
        * As JiBX v1.1.3 calls the deserialization method for all optional attributes also (see
        * {@link http://www.mail-archive.com/jibx-users@lists.sourceforge.net/msg00003.html}, a <code>null</code> value is returned
@@ -726,7 +726,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a genre type like defined in escidocenumtypes.xsd to the
    * corresponding <code>MdsPublicationVO.Genre</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return Genre The corresponding <code>MdsPublicationVO.Genre</code> Enum
    * @throws WrongEnumException
@@ -774,7 +774,7 @@ public class JiBXHelper {
 
   /**
    * Serializes enums to strings
-   * 
+   *
    * @param enumeration The enum
    * @return The searialized string
    */
@@ -798,7 +798,7 @@ public class JiBXHelper {
    * Deserializes a String containing a <code>xsi:type</code> attribute of <dc:identifier> and
    * <escidoc:identifier> elements (referencing to the types defined in escidocidtypes.xsd and
    * dcterms.xsd) to the corresponding <code>IdentifierVO.IdType</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return IdType The corresponding <code>IdentifierVO.IdType</code> Enum
    * @throws WrongEnumException
@@ -821,7 +821,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a <code>xsi:type</code> attribute of AlternativeTitleVO
    * elements (referencing to the types defined in escidoctypes.xsd) to the corresponding String.
-   * 
+   *
    * @param value The String to deserialize
    * @return String The corresponding string
    */
@@ -837,7 +837,7 @@ public class JiBXHelper {
   /**
    * Serializes an <code>IdentifierVO.IdType</code> Enum to a String that corresponds to the types
    * defined in escidocidtypes.xsd and dcterms.xsd.
-   * 
+   *
    * @param idType The <code>IdentifierVO.IdType</code> to serialize
    * @return The corresponding 'xsi:type' String (cf. escidocidtypes.xsd and
    *         http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd)
@@ -854,7 +854,7 @@ public class JiBXHelper {
   /**
    * Serializes an <code>AlternativeTitleVO.Type</code> Enum to a String that corresponds to the
    * types defined in escidoctypes.xsd.
-   * 
+   *
    * @param type The <code>AlternativeTitleVO.Type</code> to serialize
    * @return The corresponding 'xsi:type' String (cf. escidocidtypes.xsd and
    *         http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd)
@@ -871,7 +871,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing an invitation status like defined in escidocenumtypes.xsd to
    * the corresponding <code>VersionHistoryEntryVO.InvitationStatus</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return InvitationStatus The corresponding <code>VersionHistoryEntryVO.InvitationStatus</code>
    *         Enum
@@ -895,7 +895,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a lock-status-type like defined in item.xsd to the
    * corresponding <code>ItemVO.LockStatus</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return ValidityStatus The corresponding <code>ItemVO.LockStatus</code> Enum
    * @throws WrongEnumException
@@ -918,7 +918,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a ChecksumAlgorithm-type like defined in item.xsd to the
    * corresponding <code>FileVO.ChecksumAlgorithm</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return ChecksumAlgorithm The corresponding <code>FileVO.ChecksumAlgorithm</code> Enum
    * @throws WrongEnumException
@@ -943,7 +943,7 @@ public class JiBXHelper {
    * to the following rules: Every upper case letter is replaced by a lower case letter and every
    * underscore is replaced by a hyphen. If theses rules are not sufficient, a specialized
    * serialization method has to be used instead.
-   * 
+   *
    * @param enumeration The Enum to serialize
    * @return String The corresponding String
    */
@@ -957,7 +957,7 @@ public class JiBXHelper {
 
   /**
    * Serializes enums to strings leaving the cases as they are but replacing _ by -.
-   * 
+   *
    * @param enumeration The enum
    * @return The searialized string
    */
@@ -974,7 +974,7 @@ public class JiBXHelper {
    * to the following rules: Every upper case letter is replaced by a lower case letter and every
    * underscore is replaced by a hyphen. If theses rules are not sufficient, a specialized
    * serialization method has to be used instead.
-   * 
+   *
    * @param enumeration The Enum to serialize
    * @return String The corresponding String
    */
@@ -989,7 +989,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a review-method like defined in escidocenumtypes.xsd to the
    * corresponding <code>MdsPublicationVO.ReviewMethod</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return ReviewMethod The corresponding <code>MdsPublicationVO.ReviewMethod</code> Enum
    * @throws WrongEnumException
@@ -1020,7 +1020,7 @@ public class JiBXHelper {
 
   /**
    * Serializes enums to strings
-   * 
+   *
    * @param enumeration The enum
    * @return The searialized string
    */
@@ -1035,7 +1035,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a type like defined in search-result.xsd to the corresponding
    * <code>SearchHitVO.SearchHitType</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return SearchHitType The corresponding <code>SearchHitVO.SearchHitType</code> Enum
    * @throws WrongEnumException
@@ -1058,7 +1058,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a genre type like defined in escidocenumtypes.xsd to the
    * corresponding <code>SourceVO.Genre</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
    * @throws WrongEnumException
@@ -1079,7 +1079,7 @@ public class JiBXHelper {
 
   /**
    * Serializes enums to strings
-   * 
+   *
    * @param enumeration The enum
    * @return The searialized string
    */
@@ -1094,7 +1094,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a genre type like defined in escidocenumtypes.xsd to the
    * corresponding <code>SourceVO.Genre</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
    * @throws WrongEnumException
@@ -1115,7 +1115,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a genre type like defined in escidocenumtypes.xsd to the
    * corresponding <code>SourceVO.Genre</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
    * @throws WrongEnumException
@@ -1144,7 +1144,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a status-type like defined in context.xsd to the corresponding
    * <code>ContextVO.State</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return ContextVO.State The corresponding <code>ContextVO.State</code> Enum
    * @throws WrongEnumException
@@ -1167,10 +1167,10 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a status-type like defined in item.xsd to the corresponding
    * <code>ItemVO.State</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return ItemVO.State The corresponding <code>ItemVO.State</code> Enum.
-   * 
+   *
    * @throws WrongEnumException Thrown if string value does not match any value of the enum.
    */
   public static ItemVO.State deserializeItemStateEnum(String enumValue) throws WrongEnumException {
@@ -1191,7 +1191,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a visibility-type like defined in components.xsd to the
    * corresponding <code>FileVO.Visibility</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return State The corresponding <code>FileVO.Visibility</code> Enum
    * @throws WrongEnumException
@@ -1215,7 +1215,7 @@ public class JiBXHelper {
   /**
    * Deserializes a String containing a storage-attribute like defined in components.xsd to the
    * corresponding <code>FileVO.Storage</code> Enum.
-   * 
+   *
    * @param enumValue The String to deserialize
    * @return Storage The corresponding <code>FileVO.Storage</code> Enum
    * @throws WrongEnumException
@@ -1237,7 +1237,7 @@ public class JiBXHelper {
 
   //  /**
   //   * Removes from a String everything before the last slash and the slash itself.
-  //   * 
+  //   *
   //   * @param prefixedString The String to be freed from everyting before the last slash and the slash
   //   *        itself
   //   * @return The String without the prefix (everything before the last slash and the slash itself)
@@ -1248,7 +1248,7 @@ public class JiBXHelper {
 
   //  /**
   //   * Adds the prefix '/ir/context/' to the given String and gives back the result.
-  //   * 
+  //   *
   //   * @param unprefixedString A context String without the link prefix (&quot;/ir/context/&quot;)
   //   * @return The String with added prefix (&quot;/ir/context/&quot;)
   //   */
@@ -1258,7 +1258,7 @@ public class JiBXHelper {
 
   //  /**
   //   * Adds the prefix '/um/user-account/' to the given String and gives back the result.
-  //   * 
+  //   *
   //   * @param unprefixedString A context String without the creator prefix
   //   *        (&quot;/um/user-account/&quot;)
   //   * @return The String with added prefix (&quot;/um/user-account/&quot;)
@@ -1269,7 +1269,7 @@ public class JiBXHelper {
 
   //  /**
   //   * Adds the prefix '/oum/organizational-unit/' to the given String and gives back the result.
-  //   * 
+  //   *
   //   * @param unprefixedString A context String without the organizational unit prefix
   //   *        (&quot;/oum/organizational-unit/&quot;)
   //   * @return The String with added prefix (&quot;/oum/organizational-unit/&quot;)
@@ -1281,7 +1281,7 @@ public class JiBXHelper {
   /**
    * Removes characters from a string that are illegal according to W3C spec
    * http://www.w3.org/TR/xml/#charsets
-   * 
+   *
    * @param cdata
    * @return
    */

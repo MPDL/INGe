@@ -49,8 +49,8 @@ public class OrganizationRestController {
   private final String AUTHZ_HEADER = "Authorization";
   private final String OU_ID_PATH = "/{ouId}";
   private final String OU_ID_VAR = "ouId";
-  private OrganizationService organizationSvc;
-  private UtilServiceBean utils;
+  private final OrganizationService organizationSvc;
+  private final UtilServiceBean utils;
 
   @Autowired
   public OrganizationRestController(OrganizationService ouSvc, UtilServiceBean utils) {

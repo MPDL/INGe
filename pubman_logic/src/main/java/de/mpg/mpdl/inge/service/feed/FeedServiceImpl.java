@@ -145,7 +145,7 @@ public class FeedServiceImpl {
   /**
    * Transformation method takes ItemList XML and transforms it to the list of syndication entries (
    * <code><List>SyndEntry</code>)
-   * 
+   *
    * @param itemList
    * @return <List>SyndEntry
    */
@@ -166,11 +166,11 @@ public class FeedServiceImpl {
       /*
        * SyndContent scont = new SyndContentImpl(); scont.setType("application/xml"); try { String
        * itemXml = replaceXmlHeader(xt.transformToItem( pi ));
-       * 
+       *
        * scont.setValue( itemXml ); if ( "atom_0.3".equals(getFeedType()) )
        * scont.setMode(Content.XML); } catch (TechnicalException e) { throw new RuntimeException(
        * "Cannot transform to XML: ", e); };
-       * 
+       *
        * se.setContents(Arrays.asList(scont));
        */
       //
@@ -179,7 +179,7 @@ public class FeedServiceImpl {
       // Description ??? optional
       List<AbstractVO> abs = md.getAbstracts();
       SyndContent sc = new SyndContentImpl();
-      if (abs.size() > 0) {
+      if (!abs.isEmpty()) {
         sc.setValue(abs.get(0).getValue());
       }
 
@@ -196,7 +196,7 @@ public class FeedServiceImpl {
       }
 
 
-      if (md.getCreators() != null && md.getCreators().size() > 0) {
+      if (md.getCreators() != null && !md.getCreators().isEmpty()) {
         List<SyndPerson> authors = new ArrayList<SyndPerson>();
         SyndPerson sp;
         StringBuffer allCrs = new StringBuffer();

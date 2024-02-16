@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.mpg.mpdl.inge.util;
 
@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Util class for setting URIs
- * 
+ *
  * @author walter
  *
  */
@@ -19,7 +19,7 @@ public class UriBuilder {
 
   /**
    * get URI for publication item
-   * 
+   *
    * @param itemObjectId
    * @return
    * @throws URISyntaxException
@@ -32,7 +32,7 @@ public class UriBuilder {
 
   /**
    * get URI for publication item with version
-   * 
+   *
    * @param itemObjectId (format: item_12345)
    * @param versionNumber (format: 12)
    * @return
@@ -46,7 +46,7 @@ public class UriBuilder {
 
   /**
    * get URI for component contained in a publication item
-   * 
+   *
    * @param itemObjectId (format: item_12345)
    * @param versionNumber (format: 12)
    * @return
@@ -57,6 +57,6 @@ public class UriBuilder {
     return new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN).replace("$1", (itemObjectId + "_" + versionNumber))
-            .replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString())));
+            .replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8)));
   }
 }

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -63,7 +63,7 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * ApplicationBean which stores all application wide values.
- * 
+ *
  * @author: Thomas Diebäcker, created 09.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
@@ -114,7 +114,6 @@ public class ApplicationBean extends FacesBean {
   private String pubmanRootOrganizationName;
   private String pubmanStyleTags;
   private String version = null;
-  private String buildDate = null;
 
   private boolean pidHandleActivated;
 
@@ -161,7 +160,7 @@ public class ApplicationBean extends FacesBean {
 
   /**
    * Provides the URL of the pubman stylesheet.
-   * 
+   *
    * @return the URL
    */
   private String buildPubmanStyleTags() throws PubManStylesheetNotAvailableException {
@@ -262,7 +261,7 @@ public class ApplicationBean extends FacesBean {
 
   /**
    * Provides the escidoc instance string.
-   * 
+   *
    * @return the escidoc instance
    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
    */
@@ -294,7 +293,7 @@ public class ApplicationBean extends FacesBean {
 
   /**
    * Returns the title and version of the application, shown in the header.
-   * 
+   *
    * @return applicationtitle, including version
    */
   public String getAppTitle() {
@@ -432,7 +431,7 @@ public class ApplicationBean extends FacesBean {
       Properties versionProperties = new Properties();
       versionProperties.load(ResourceUtil.getResourceAsStream("/pubman-version.txt", ApplicationBean.class.getClassLoader()));
       this.version = versionProperties.getProperty("version");
-      this.buildDate = versionProperties.getProperty("build.date");
+      String buildDate = versionProperties.getProperty("build.date");
 
       this.appTitle = this.getLabel("Pubman_browserTitle");
       // hide the version information if system type is production

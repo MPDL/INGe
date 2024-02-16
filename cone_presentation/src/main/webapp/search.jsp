@@ -51,6 +51,7 @@
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 
 <%
 	List<? extends Describable> results = null;
@@ -60,7 +61,8 @@
 	while (params.hasMoreElements()) {
 		String param = params.nextElement().toString();
 		if (param.equals("searchterm") || param.equals("model") || param.equals("lang")) {
-			queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)), "UTF-8");
+			queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)),
+                    StandardCharsets.UTF_8);
 			if (params.hasMoreElements()) {
 				queryString += "&";
 			}
@@ -73,7 +75,7 @@
 	boolean loggedIn = Login.getLoggedIn(request);
 	String searchterm = UrlHelper.fixURLEncoding(request.getParameter("searchterm"));
 	pageContext.setAttribute("searchterm", searchterm);
-	if (searchterm != null && !"".equals(searchterm)) {
+	if (searchterm != null && !searchterm.isEmpty()) {
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
 		if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang"))) {
 			results = querier.query(request.getParameter("model"), searchterm, request.getParameter("lang"), Querier.ModeType.FAST);
@@ -137,7 +139,7 @@
 								<span class="seperator"></span>
 								<div class="free_area0 itemBlockContent endline">
 									<div class="free_area0 endline itemLine noTopBorder">
-										<% if (results.size() == 0) { %>
+										<% if (results.isEmpty()) { %>
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0_p8 endline labelLine clear">
 													&#160;<span class="noDisplay">: </span>
@@ -148,7 +150,7 @@
 											</div>
 										<% } else { %>
 											<% int i = 0; %>
-											<% for (Describable desc : results) { 
+											<% for (Describable desc : results) {
 												Pair pair = (Pair) desc; %>
 												<% if(i == 0) { %>
 													<div class="free_area0 endline itemLine noTopBorder">
@@ -158,28 +160,29 @@
 														<b class="xHuge_area0 large_marginLIncl endline clear">
 															<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= HtmlUtils.escapeHtml(pair.getValue().toString()) %></a>
 														</b>
-														
+
 													<%	for (ModelList.Model model : ModelList.getInstance().getList()) {
-														 if (model.getName().equals(request.getParameter("model"))){ 
-															request.getSession().setAttribute("open_model",new Boolean(model.isOpen()));
+														 if (model.getName().equals(request.getParameter("model"))){
+															request.getSession().setAttribute("open_model",
+                                                                    Boolean.valueOf(model.isOpen()));
 															//System.out.print("model "+model.getName()+" open: "+Boolean.toString(model.isOpen()));
 															break;
-														 }	
+														 }
 													 } %>
 														<span class="large_area0_p8 lineToolSection">
 															<% if (loggedIn) { %>
-																<% 
-																if((Boolean)request.getSession().getAttribute("open_model") &&																	
+																<%
+																if((Boolean)request.getSession().getAttribute("open_model") &&
 																		(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
 																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
-																<% } %>														
-															
-																<% 
+																<% } %>
+
+																<%
 																if(!(Boolean)request.getSession().getAttribute("open_model") &&
 																		(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
 																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
 																<% } %>
-																
+
 															<% } %>
 														</span>
 													</div>

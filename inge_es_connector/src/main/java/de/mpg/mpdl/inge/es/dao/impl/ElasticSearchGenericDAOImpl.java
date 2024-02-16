@@ -85,7 +85,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
   private static final int DEFAULT_SEARCH_SIZE = 100;
   private static final int MAX_SEARCH_SIZE = 10000;
 
-  private ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
 
   public ElasticSearchGenericDAOImpl(String indexName, String indexType, Class<E> typeParameterClass) {

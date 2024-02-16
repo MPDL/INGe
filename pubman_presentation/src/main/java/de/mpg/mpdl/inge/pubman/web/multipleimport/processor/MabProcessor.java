@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -36,11 +36,11 @@ import java.util.NoSuchElementException;
 
 /**
  * TODO Description
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class MabProcessor extends FormatProcessor {
 
@@ -52,7 +52,7 @@ public class MabProcessor extends FormatProcessor {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#hasNext()
    */
   @Override
@@ -65,7 +65,7 @@ public class MabProcessor extends FormatProcessor {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#next()
    */
   @Override
@@ -84,7 +84,7 @@ public class MabProcessor extends FormatProcessor {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#remove()
    */
   @Override
@@ -110,10 +110,10 @@ public class MabProcessor extends FormatProcessor {
         byteArrayOutputStream.write(line.getBytes(this.getEncoding()));
         byteArrayOutputStream.write("\n".getBytes(this.getEncoding()));
 
-        if ("".equals(line) && lineBreakCount == 6) {
+        if (line.isEmpty() && lineBreakCount == 6) {
           itemList.add(stringWriter.toString().trim());
           stringWriter = new StringWriter();
-        } else if ("".equals(line)) {
+        } else if (line.isEmpty()) {
           lineBreakCount++;
         } else {
           lineBreakCount = 0;
@@ -122,7 +122,7 @@ public class MabProcessor extends FormatProcessor {
 
       bufferedReader.close();
 
-      if (!"".equals(stringWriter.toString().trim())) {
+      if (!stringWriter.toString().trim().isEmpty()) {
         itemList.add(stringWriter.toString().trim());
       }
 

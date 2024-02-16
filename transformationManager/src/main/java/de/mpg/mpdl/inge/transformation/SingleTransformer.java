@@ -142,7 +142,7 @@ public abstract class SingleTransformer implements Transformer {
     Scanner scanner;
 
     if (s.getInputStream() != null) {
-      scanner = new Scanner(s.getInputStream(), "utf-8");
+      scanner = new Scanner(s.getInputStream(), StandardCharsets.UTF_8);
 
     } else if (s.getReader() != null) {
       scanner = new Scanner(s.getReader());

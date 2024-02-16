@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -30,7 +30,7 @@ import java.io.Serializable;
 
 /**
  * Root Class of all typed references of ValueObjects.
- * 
+ *
  * @created 18-Jan-2007 15:42:40
  * @revised by MuJ: 27.08.2007
  * @author Full Access
@@ -58,7 +58,7 @@ public abstract class ReferenceObject implements Serializable {
 
   /**
    * Copy constructor.
-   * 
+   *
    * @author Thomas Diebaecker
    * @param other The instance to copy.
    */
@@ -69,7 +69,7 @@ public abstract class ReferenceObject implements Serializable {
 
   /**
    * Creates a new instance with the given ID.
-   * 
+   *
    * @param objectId
    */
   public ReferenceObject(String objectId) {
@@ -85,7 +85,7 @@ public abstract class ReferenceObject implements Serializable {
 
   /**
    * Sets the technical objectId-attribute of corresponding ValueObject.
-   * 
+   *
    * @param objectId
    */
   public void setObjectId(String objectId) {
@@ -135,7 +135,7 @@ public abstract class ReferenceObject implements Serializable {
    */
   @Override
   public String toString() {
-    return new StringBuilder(getClass().getName()).append(':').append(objectId).toString();
+    return getClass().getName() + ':' + objectId;
   }
 
   public void setTitle(String title) {

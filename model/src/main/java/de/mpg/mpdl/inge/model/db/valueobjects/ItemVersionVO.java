@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -61,7 +61,7 @@ import jakarta.persistence.Table;
 
 /**
  * Item object which consists of descriptive metadata and may have one or more files associated.
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
@@ -144,7 +144,7 @@ public class ItemVersionVO extends ItemVersionRO {
 
   /**
    * Public constructor.
-   * 
+   *
    * @author Thomas Diebaecker
    */
   public ItemVersionVO() {}
@@ -157,18 +157,18 @@ public class ItemVersionVO extends ItemVersionRO {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @author Thomas Diebaecker
    */
 
   /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if a "components"
    * XML structure has to be created during marshalling.
-   * 
+   *
    * @return true, if the item contains one or more files.
    */
   boolean hasFiles() {
-    return (this.files.size() >= 1);
+    return (!this.files.isEmpty());
   }
 
 

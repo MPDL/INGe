@@ -30,11 +30,11 @@ import jakarta.faces.bean.ManagedBean;
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses
  * the PubItemSessionBean as cooresponding BasePaginatorListSessionBean.
- * 
+ *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "CartItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
@@ -84,7 +84,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
       final PubItemStorageSessionBean pssb = (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
 
 
-      if (pssb.getStoredPubItems().size() > 0) {
+      if (!pssb.getStoredPubItems().isEmpty()) {
 
         List<FieldValue> ids =
             pssb.getStoredPubItems().values().stream().map(i -> FieldValue.of(i.getObjectIdAndVersion())).collect(Collectors.toList());
@@ -140,7 +140,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
   /**
    * Called from JSF when selected items in the list should be removed from the basket.
-   * 
+   *
    * @return
    */
   public void deleteSelected() {

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,11 +51,11 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 /**
  * Class that describes an import.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class ImportLog extends BaseImportLog {
   private static ImportLog fillImportLog(ResultSet resultSet) throws SQLException {
@@ -143,7 +144,7 @@ public class ImportLog extends BaseImportLog {
 
         final Iterator<ImportLogItem> iterator = importLogItems.iterator();
 
-        if (importLogItems.size() > 0) {
+        if (!importLogItems.isEmpty()) {
 
           ImportLogItem currentImportLogItem = iterator.next();
           List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
@@ -164,9 +165,6 @@ public class ImportLog extends BaseImportLog {
       }
     } catch (final Exception e) {
       throw new RuntimeException("Error getting detail", e);
-    } finally {
-      // DbTools.closeResultSet(rs);
-      // DbTools.closePreparedStatement(ps);
     }
 
     return importLog;
@@ -198,9 +196,6 @@ public class ImportLog extends BaseImportLog {
       return importLogItemDetails;
     } catch (final Exception e) {
       throw new RuntimeException(e);
-    } finally {
-      // DbTools.closeResultSet(rs);
-      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -225,9 +220,6 @@ public class ImportLog extends BaseImportLog {
       }
     } catch (final Exception e) {
       throw new RuntimeException("Error getting log", e);
-    } finally {
-      // DbTools.closeResultSet(rs);
-      // DbTools.closePreparedStatement(ps);
     }
 
     return result;
@@ -261,7 +253,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * Puts the import's focus on this item.
-   * 
+   *
    * @param item The item to be activated
    */
   public void activateItem(ImportLogItem item) {
@@ -276,7 +268,7 @@ public class ImportLog extends BaseImportLog {
    * Adds a detail to the focused item using the given error level and a previously caught
    * exception. Start- and end-date are set to the current date. Status is set to FINISHED. The
    * exception is transformed into a stack trace.
-   * 
+   *
    * @param errLevel The error level of this item
    * @param exception The exception that should be added to the item
    */
@@ -288,9 +280,9 @@ public class ImportLog extends BaseImportLog {
   /**
    * Adds a detail to the focused item using the given error level and message key. Start- and
    * end-date are set to the current date. Status is set to FINISHED.
-   * 
+   * <p>
    * Defaults: - The detail id will be set to null
-   * 
+   *
    * @param errLevel The error level of this item
    * @param msg A message key for a localized message
    */
@@ -301,7 +293,7 @@ public class ImportLog extends BaseImportLog {
   /**
    * Adds a detail to the focused item using the given error level, message key and detail id.
    * Start- and end-date are set to the current date. Status is set to FINISHED.
-   * 
+   *
    * @param errLevel The error level of this item
    * @param msg A message key for a localized message
    * @param detailId The (eSciDoc) id related to this detail (e.g. the id of an identified
@@ -337,7 +329,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * JSF action to delete all items of an import from the repository.
-   * 
+   *
    * @return Always null.
    */
   public void deleteAll() {
@@ -385,7 +377,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * Transforms an exception into a Java stack trace.
-   * 
+   *
    * @param exception The exception
    * @return The stack trace
    */
@@ -457,11 +449,8 @@ public class ImportLog extends BaseImportLog {
    * @return A link to the MyItems page filtering for this import
    */
   public String getMyItemsLink() {
-    try {
-      return "DepositorWSPage.jsp?import=" + URLEncoder.encode(this.getMessage() + " " + this.getStartDateFormatted(), "ISO-8859-1");
-    } catch (final UnsupportedEncodingException usee) {
-      throw new RuntimeException(usee);
-    }
+    return "DepositorWSPage.jsp?import="
+        + URLEncoder.encode(this.getMessage() + " " + this.getStartDateFormatted(), StandardCharsets.ISO_8859_1);
   }
 
   public int getPercentage() {
@@ -500,7 +489,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * JSF action to remove an import from the database.
-   * 
+   *
    * @return Always null.
    */
   public void remove() {
@@ -581,9 +570,6 @@ public class ImportLog extends BaseImportLog {
       }
     } catch (final Exception e) {
       throw new RuntimeException("Error saving import_log", e);
-    } finally {
-      // DbTools.closeResultSet(rs);
-      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -614,9 +600,6 @@ public class ImportLog extends BaseImportLog {
       }
     } catch (final Exception e) {
       throw new RuntimeException("Error saving import_log_item", e);
-    } finally {
-      // DbTools.closeResultSet(rs);
-      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -637,9 +620,6 @@ public class ImportLog extends BaseImportLog {
       ps.executeUpdate();
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log_item_detail", e);
-    } finally {
-      // DbTools.closeResultSet(rs);
-      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -670,7 +650,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * Dummy setter to avoid JSF warnings.
-   * 
+   *
    * @param link The link
    */
   public void setItemsLink(String link) {}
@@ -684,7 +664,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * Dummy setter to avoid JSF warnings.
-   * 
+   *
    * @param link The link
    */
   public void setLogLink(String link) {}
@@ -704,9 +684,9 @@ public class ImportLog extends BaseImportLog {
   /**
    * Creates a new item using the given error level and message, then putting the focus of the
    * import on it.
-   * 
+   * <p>
    * Defaults: - Item id will be set to null - Start date will be set to the current date
-   * 
+   *
    * @param errLevel The initial error level of this item
    * @param msg A message key for a localized message
    */
@@ -717,7 +697,7 @@ public class ImportLog extends BaseImportLog {
   /**
    * Creates a new item using the given error level, message, item id and start date, then putting
    * the focus of the import on it.
-   * 
+   *
    * @param errLevel The initial error level of this item
    * @param msg A message key for a localized message
    * @param sDate The start date of this item
@@ -743,10 +723,10 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * Creates a new item using the given message.
-   * 
+   * <p>
    * Defaults: - Item id will be set to null - Start date will be set to the current date - Error
    * level will be set to FINE.
-   * 
+   *
    * @param msg A message key for a localized message
    */
   public void startItem(String msg, Connection connection) {
@@ -756,9 +736,9 @@ public class ImportLog extends BaseImportLog {
   /**
    * Creates a new item using the given message, item id and start date, then putting the focus of
    * the import on it.
-   * 
+   * <p>
    * Defaults: - Error level will be set to FINE.
-   * 
+   *
    * @param msg A message key for a localized message
    * @param sDate The start date of this item
    * @param itemId The eSciDoc id of the imported item
@@ -770,9 +750,9 @@ public class ImportLog extends BaseImportLog {
   /**
    * Creates a new item using the given message and item id, then putting the focus of the import on
    * it.
-   * 
+   * <p>
    * Defaults: - Start date will be set to the current date - Error level will be set to FINE.
-   * 
+   *
    * @param msg A message key for a localized message
    * @param itemId The eSciDoc id of the imported item
    */
@@ -782,7 +762,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * JSF action to submit all items of an import from the repository.
-   * 
+   *
    * @return Always null.
    */
   public void submitAll() {
@@ -807,7 +787,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * JSF action to submit/release all items of an import from the repository.
-   * 
+   *
    * @return Always null.
    */
   public void submitAndReleaseAll() {
@@ -832,7 +812,7 @@ public class ImportLog extends BaseImportLog {
 
   /**
    * JSF action to release all items of an import from the repository.
-   * 
+   *
    * @return Always null.
    */
   public void releaseAll() {
@@ -920,8 +900,6 @@ public class ImportLog extends BaseImportLog {
       ps.executeUpdate();
     } catch (final Exception e) {
       throw new RuntimeException("Error updating import_log", e);
-    } finally {
-      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -950,8 +928,6 @@ public class ImportLog extends BaseImportLog {
       ps.executeUpdate();
     } catch (final Exception e) {
       throw new RuntimeException("Error updating import_log_item", e);
-    } finally {
-      // DbTools.closePreparedStatement(ps);
     }
   }
 }

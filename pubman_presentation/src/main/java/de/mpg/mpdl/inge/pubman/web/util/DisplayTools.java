@@ -13,7 +13,7 @@ public class DisplayTools {
   //          IdType.PND, IdType.ZDB, IdType.PMID, IdType.ARXIV, IdType.PMC, IdType.BMC, IdType.BIBTEX_CITEKEY, IdType.REPORT_NR, IdType.SSRN,
   //          IdType.PATENT_NR, IdType.PATENT_APPLICATION_NR, IdType.PATENT_PUBLICATION_NR, IdType.OTHER};
 
-  public static final IdType[] getIdTypesToDisplay() {
+  public static IdType[] getIdTypesToDisplay() {
     List<IdType> idTypes = new ArrayList<IdType>();
     String[] sIdTypes = PropertyReader.getProperty(PropertyReader.INGE_ID_TYPES_TO_DISPLAY).split(",");
 

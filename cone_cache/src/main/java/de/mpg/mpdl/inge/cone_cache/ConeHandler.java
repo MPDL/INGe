@@ -28,7 +28,7 @@ public class ConeHandler extends DefaultHandler {
   }
 
   @Override
-  public void characters(char ch[], int start, int length) throws SAXException {
+  public void characters(char[] ch, int start, int length) throws SAXException {
     if (this.isSearchElement) {
       this.tmp.append(new String(ch, start, length));
     }

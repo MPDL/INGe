@@ -32,9 +32,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Class handling REST request to the MPDL DOxI
- * 
+ *
  * @author walter
- * 
+ *
  */
 public class DoiRestService {
 
@@ -43,7 +43,7 @@ public class DoiRestService {
 
   /**
    * creates a new DOI for the given item
-   * 
+   *
    * @param pubItem
    * @return new DOI
    */
@@ -72,11 +72,11 @@ public class DoiRestService {
 
       // REST request to the DOI service for creating a new DOI
       RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
-      String queryParams = "?url="
-          + URLEncoder.encode(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+      String queryParams = "?url=" + URLEncoder.encode(
+          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
               + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
-              + (PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN)).replace("$1", pubItem.getObjectId()), "UTF-8")
-          + "&suffix=" + pubItem.getObjectId().substring(pubItem.getObjectId().indexOf("_") + 1);
+              + (PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN)).replace("$1", pubItem.getObjectId()),
+          StandardCharsets.UTF_8) + "&suffix=" + pubItem.getObjectId().substring(pubItem.getObjectId().indexOf("_") + 1);
       HttpClient client = new HttpClient();
       client.getParams().setAuthenticationPreemptive(true);
       Credentials defaultcreds = new UsernamePasswordCredentials(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USER),
@@ -112,7 +112,7 @@ public class DoiRestService {
 
   /**
    * Checks if the given item is suitable for getting a new DOI
-   * 
+   *
    * @param pubItem
    * @return
    */

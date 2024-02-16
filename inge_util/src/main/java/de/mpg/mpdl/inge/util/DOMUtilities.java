@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
+import java.nio.charset.StandardCharsets;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,7 +45,7 @@ public class DOMUtilities {
 
   /**
    * Builds new DocumentBuilder
-   * 
+   *
    * @return DocumentBuilder
    * @throws ParserConfigurationException
    */
@@ -54,7 +55,7 @@ public class DOMUtilities {
 
   /**
    * Builds new DocumentBuilder
-   * 
+   *
    * @return DocumentBuilder
    * @throws ParserConfigurationException
    */
@@ -69,7 +70,7 @@ public class DOMUtilities {
 
   /**
    * Creates new empty org.w3c.dom.Document
-   * 
+   *
    * @return org.w3c.dom.Document
    * @throws ParserConfigurationException
    */
@@ -79,7 +80,7 @@ public class DOMUtilities {
 
   /**
    * Creates new empty org.w3c.dom.Document
-   * 
+   *
    * @return org.w3c.dom.Document
    * @throws ParserConfigurationException
    */
@@ -89,7 +90,7 @@ public class DOMUtilities {
 
   /**
    * Creates new org.w3c.dom.Document
-   * 
+   *
    * @param xml
    * @return org.w3c.dom.Document
    * @throws ParserConfigurationException
@@ -98,12 +99,12 @@ public class DOMUtilities {
    */
   public static Document createDocument(String xml) throws IOException, ParserConfigurationException, SAXException {
 
-    return createDocument(xml.getBytes("UTF-8"));
+    return createDocument(xml.getBytes(StandardCharsets.UTF_8));
   }
 
   /**
    * Parse the given xml String into a Document.
-   * 
+   *
    * @param xml The xml String.
    * @param namespaceAwareness namespace awareness (default is false)
    * @return The Document.
@@ -115,12 +116,12 @@ public class DOMUtilities {
    */
   public static Document createDocument(final String xml, final boolean namespaceAwareness)
       throws ParserConfigurationException, UnsupportedEncodingException, IOException, SAXException {
-    return createDocumentBuilder(namespaceAwareness).parse(new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
+    return createDocumentBuilder(namespaceAwareness).parse(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)), "UTF-8");
   }
 
   /**
    * Creates new org.w3c.dom.Document
-   * 
+   *
    * @param xml
    * @return org.w3c.dom.Document
    * @throws ParserConfigurationException
@@ -163,7 +164,7 @@ public class DOMUtilities {
 
   /**
    * Writes org.w3c.dom.Document to XML file
-   * 
+   *
    * @param doc
    * @param xmlFileName
    * @throws IOException
@@ -189,7 +190,7 @@ public class DOMUtilities {
 
   /**
    * Base procedure for xml serialization
-   * 
+   *
    * @param doc - is org.w3c.dom.Document
    * @param streamResult r
    * @throws IOException
@@ -213,7 +214,7 @@ public class DOMUtilities {
 
   /**
    * Writes org.w3c.dom.Document to String
-   * 
+   *
    * @param doc
    * @throws IOException
    */
@@ -227,12 +228,12 @@ public class DOMUtilities {
 
   /**
    * Delivers the value of one distinct node in an <code>org.w3c.dom.Document</code>.
-   * 
+   *
    * @param document The <code>org.w3c.dom.Document</code>
    * @param xpathExpression The XPath expression as string
-   * 
+   *
    * @return The value of the node
-   * 
+   *
    */
   public static String getValue(Document document, String xpathExpression) {
     XPathFactory factory = XPathFactory.newInstance();
@@ -246,12 +247,12 @@ public class DOMUtilities {
 
   /**
    * Return the child of the node selected by the xPath.
-   * 
+   *
    * @param node The node.
    * @param xpathExpression The XPath expression as string
-   * 
+   *
    * @return The child of the node selected by the xPath
-   * 
+   *
    * @throws TransformerException If anything fails.
    */
   public static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException {
@@ -266,7 +267,7 @@ public class DOMUtilities {
 
   /**
    * Return the list of children of the node selected by the xPath.
-   * 
+   *
    * @param node The node.
    * @param xpathExpression The xPath.
    * @return The list of children of the node selected by the xPath.
@@ -341,7 +342,7 @@ public class DOMUtilities {
 
   /**
    * Serialize the given Dom Object to a String.
-   * 
+   *
    * @param xml The Xml Node to serialize.
    * @param omitXMLDeclaration Indicates if XML declaration will be omitted.
    * @return The String representation of the Xml Node.

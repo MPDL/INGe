@@ -47,7 +47,7 @@ public class JPAConfiguration {
 
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(restDataSource());
-    em.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.model.db"});
+    em.setPackagesToScan("de.mpg.mpdl.inge.model.db");
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);
     // Hibernate Properties are under /src/main/resources

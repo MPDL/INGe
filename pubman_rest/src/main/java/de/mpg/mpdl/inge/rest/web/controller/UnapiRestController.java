@@ -37,8 +37,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @Hidden
 public class UnapiRestController {
 
-  private PubItemService pis;
-  private ItemTransformingService its;
+  private final PubItemService pis;
+  private final ItemTransformingService its;
 
   @Autowired
   public UnapiRestController(PubItemService pis, ItemTransformingService its) {

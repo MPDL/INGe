@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Bean object to hold an author's data.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 4134 $ $LastChangedDate: 2011-09-22 18:21:00 +0200 (Do, 22 Sep 2011) $
@@ -44,7 +44,7 @@ public class Author {
   private String prefix = null;
   private AuthorFormat format = null;
 
-  private Map<String, String> tags = new HashMap<String, String>();
+  private final Map<String, String> tags = new HashMap<String, String>();
 
   public String getSurname() {
     return surname;
@@ -60,17 +60,17 @@ public class Author {
 
   /**
    * Setter for givenName. Also sets the initials.
-   * 
+   *
    * @param givenName The given name string.
    */
   public void setGivenName(String givenName) {
     this.givenName = givenName;
-    if (!givenName.equals("")) {
+    if (!givenName.isEmpty()) {
       if (givenName.contains("-")) {
         String[] names = givenName.split("-");
         String init = "";
         for (String name : names) {
-          init += name.substring(0, 1) + ".-";
+          init += name.charAt(0) + ".-";
         }
         this.initial = init.substring(0, init.length() - 1);
       } else if (givenName.contains(" ")) {
@@ -78,12 +78,12 @@ public class Author {
         String init = "";
         for (String name : names) {
           if (!"".equals(name)) {
-            init += name.substring(0, 1) + ". ";
+            init += name.charAt(0) + ". ";
           }
         }
         this.initial = init.trim();
       } else {
-        this.initial = givenName.substring(0, 1) + ".";
+        this.initial = givenName.charAt(0) + ".";
       }
 
     }

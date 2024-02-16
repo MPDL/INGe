@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.mpg.mpdl.inge.cslmanager;
 
@@ -37,17 +37,17 @@ import de.undercouch.citeproc.csl.CSLType;
 
 /**
  * MetadataProvider provides csl item data for a given escidoc item-List
- * 
+ *
  * @author walter
- * 
+ *
  */
 public class MetadataProvider implements ItemDataProvider {
   private static final Logger logger = Logger.getLogger(CitationStyleLanguageManagerService.class);
 
   private static final String[] dateFormats = {"yyyy-MM-dd", "yyyy-MM", "yyyy"};
 
-  private List<PubItemVO> pubItemList;
-  private List<String> ids = new ArrayList<String>();
+  private final List<PubItemVO> pubItemList;
+  private final List<String> ids = new ArrayList<String>();
 
   public MetadataProvider(String itemList) throws TechnicalException {
     try {
@@ -59,12 +59,14 @@ public class MetadataProvider implements ItemDataProvider {
     } catch (TechnicalException e) {
       logger.error("Unable to transform itemList", e);
       throw new TechnicalException(e);
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
     }
   }
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.undercouch.citeproc.ItemDataProvider#getIds()
    */
   @Override
@@ -74,7 +76,7 @@ public class MetadataProvider implements ItemDataProvider {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.undercouch.citeproc.ItemDataProvider#retrieveItem(java.lang.String)
    */
   @Override
@@ -156,25 +158,25 @@ public class MetadataProvider implements ItemDataProvider {
           }
         }
       }
-      if (authorList.size() > 0) {
+      if (!authorList.isEmpty()) {
         cslItem.author(getCSLNameArrayFromList(authorList));
       }
-      if (editorList.size() > 0) {
+      if (!editorList.isEmpty()) {
         cslItem.editor(getCSLNameArrayFromList(editorList));
       }
-      if (directorList.size() > 0) {
+      if (!directorList.isEmpty()) {
         cslItem.director(getCSLNameArrayFromList(directorList));
       }
-      if (illustratorList.size() > 0) {
+      if (!illustratorList.isEmpty()) {
         cslItem.illustrator(getCSLNameArrayFromList(illustratorList));
       }
-      if (translatorList.size() > 0) {
+      if (!translatorList.isEmpty()) {
         cslItem.translator(getCSLNameArrayFromList(translatorList));
       }
-      if (composerList.size() > 0) {
+      if (!composerList.isEmpty()) {
         cslItem.composer(getCSLNameArrayFromList(composerList));
       }
-      if (interviewerList.size() > 0) {
+      if (!interviewerList.isEmpty()) {
         cslItem.interviewer(getCSLNameArrayFromList(interviewerList));
       }
 
@@ -425,7 +427,7 @@ public class MetadataProvider implements ItemDataProvider {
               }
             }
           }
-          if (collectionEditorList.size() > 0) {
+          if (!collectionEditorList.isEmpty()) {
             cslItem.collectionEditor(getCSLNameArrayFromList(collectionEditorList));
           }
         } else {
@@ -451,10 +453,10 @@ public class MetadataProvider implements ItemDataProvider {
               }
             }
           }
-          if (containerAuthorList.size() > 0) {
+          if (!containerAuthorList.isEmpty()) {
             cslItem.containerAuthor(getCSLNameArrayFromList(containerAuthorList));
           }
-          if (editorList.size() > 0) {
+          if (!editorList.isEmpty()) {
             cslItem.editor(getCSLNameArrayFromList(editorList));
           }
         }
@@ -479,7 +481,7 @@ public class MetadataProvider implements ItemDataProvider {
                 }
               }
             }
-            if (collectionEditorList.size() > 0) {
+            if (!collectionEditorList.isEmpty()) {
               cslItem.collectionEditor(getCSLNameArrayFromList(collectionEditorList));
             }
             cslItem.collectionNumber(secondSource.getVolume());
@@ -666,9 +668,9 @@ public class MetadataProvider implements ItemDataProvider {
 
   /**
    * Comparator Implementation to sort FileVOs for CSL-Output
-   * 
+   *
    * @author walter
-   * 
+   *
    */
   @SuppressWarnings("serial")
   private class FileUrlPriorityComparator implements Comparator<FileVO>, Serializable {
@@ -731,9 +733,9 @@ public class MetadataProvider implements ItemDataProvider {
 
   /**
    * Comparator Implementation to sort IdentifierVOs for CSL-Output
-   * 
+   *
    * @author walter
-   * 
+   *
    */
   @SuppressWarnings("serial")
   private class IdentfierPriorityComparator implements Comparator<IdentifierVO>, Serializable {

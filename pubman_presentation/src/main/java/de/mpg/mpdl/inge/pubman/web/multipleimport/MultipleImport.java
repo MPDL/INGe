@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -56,11 +56,11 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * Session bean to hold data needed for an import of multiple items.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "MultipleImport")
 @SessionScoped
@@ -117,9 +117,9 @@ public class MultipleImport extends FacesBean {
       if (size < 1024) {
         return size + "B";
       } else if (size < 1024 * 1024) {
-        return Math.round(size / 1024) + "KB";
+        return Math.round((float) size / 1024) + "KB";
       } else {
-        return Math.round(size / (1024 * 1024)) + "MB";
+        return Math.round((float) size / (1024 * 1024)) + "MB";
       }
     }
 
@@ -134,7 +134,7 @@ public class MultipleImport extends FacesBean {
 
     Map<String, String> configuration = null;
 
-    if (this.configParameters.size() > 0) {
+    if (!this.configParameters.isEmpty()) {
       configuration = new LinkedHashMap<String, String>();
     }
 
@@ -159,7 +159,7 @@ public class MultipleImport extends FacesBean {
 
   /**
    * JSF action that is triggered from the submission menu.
-   * 
+   *
    * @return Depending on the contexts the user is allowed to create items in, either createItemPage
    *         or multipleImport
    */

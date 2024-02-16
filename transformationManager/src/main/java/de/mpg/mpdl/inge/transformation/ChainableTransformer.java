@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 
 public interface ChainableTransformer extends Transformer {
 
-  public TransformerResult createNewInBetweenResult();
+  TransformerResult createNewInBetweenResult();
 
-  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException;
+  void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException;
 }

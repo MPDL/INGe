@@ -34,7 +34,7 @@ public class ReleaseItem extends FacesBean {
   public void init() {
     final StringBuffer creators = new StringBuffer();
     for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
-      if (creators.length() > 0) {
+      if (!creators.isEmpty()) {
         creators.append("; ");
       }
 
@@ -75,7 +75,7 @@ public class ReleaseItem extends FacesBean {
 
   /**
    * Checks is the current item has at least one rights information field filled.
-   * 
+   *
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {

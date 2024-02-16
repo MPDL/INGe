@@ -3,10 +3,10 @@ package de.mpg.mpdl.inge.model.valueobjects;
 @SuppressWarnings("serial")
 public class SearchAndExportResultVO extends ValueObject {
 
-  private byte[] result;
-  private String fileName;
-  private String targetMimeType;
-  private int totalNumberOfRecords;
+  private final byte[] result;
+  private final String fileName;
+  private final String targetMimeType;
+  private final int totalNumberOfRecords;
 
   public SearchAndExportResultVO(byte[] result, String fileName, String targetMimeType, int totalNumberOfRecords) {
     this.result = result;

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -46,11 +46,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Helper class for result pattern.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class ModelHelper {
 
@@ -174,7 +174,7 @@ public class ModelHelper {
 
           if (!predicate.isResource() && (value instanceof TreeFragment && (lang.equals(value.getLanguage()) || value.getLanguage() == null
               || "".equals(value.getLanguage())
-              || ("".equals(lang) && value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT)))))) {
+              || (lang.isEmpty() && value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT)))))) {
             TreeFragment treeValue = (TreeFragment) value;
 
             newPermutationList.addAll(getPermutations(model, predicate, treeValue, modelResult, loggedIn, lang, permutationList,
@@ -201,12 +201,11 @@ public class ModelHelper {
           } else {
 
             if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage())
-                || (!predicate.isLocalized() && value.getLanguage() == null) || ("".equals(lang) && (value.getLanguage() == null
+                || (!predicate.isLocalized() && value.getLanguage() == null) || (lang.isEmpty() && (value.getLanguage() == null
                     || value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT))))) {
 
               for (Map<String, List<LocalizedTripleObject>> currentMap : permutationList) {
-                Map<String, List<LocalizedTripleObject>> newMap = new HashMap<String, List<LocalizedTripleObject>>();
-                newMap.putAll(currentMap);
+                Map<String, List<LocalizedTripleObject>> newMap = new HashMap<String, List<LocalizedTripleObject>>(currentMap);
                 List<LocalizedTripleObject> list = new ArrayList<LocalizedTripleObject>();
                 list.add(value);
                 newMap.put(prefix + predicate.getId(), list);
@@ -216,7 +215,7 @@ public class ModelHelper {
           }
 
         }
-        if (newPermutationList.size() > 0) {
+        if (!newPermutationList.isEmpty()) {
           permutationList = newPermutationList;
         }
       }
@@ -387,7 +386,7 @@ public class ModelHelper {
     StringWriter result = new StringWriter();
 
     for (Predicate predicate : predicates) {
-      if (predicate.isSearchable() && values.get(predicate.getId()) != null && values.get(predicate.getId()).size() > 0) {
+      if (predicate.isSearchable() && values.get(predicate.getId()) != null && !values.get(predicate.getId()).isEmpty()) {
         for (LocalizedTripleObject value : values.get(predicate.getId())) {
           if (value.getLanguage() == null || "".equals(value.getLanguage()) || lang.equals(value.getLanguage())) {
             if (predicate.isResource() && value instanceof TreeFragment) {
@@ -433,7 +432,7 @@ public class ModelHelper {
 
     /**
      * Convenience constructor.
-     * 
+     *
      * @param patternString Will be converted to a @see java.util.regex.Pattern
      * @param replace The string the matching pattern will be substituted by.
      */

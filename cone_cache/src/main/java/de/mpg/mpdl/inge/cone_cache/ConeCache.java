@@ -86,7 +86,7 @@ public class ConeCache {
         return;
       }
 
-      if (0 == result.size()) {
+      if (result.isEmpty()) {
         logger.warn("    " + "Size: " + result.size() + " " + queryUrl);
       } else {
         logger.info("    " + "Size: " + result.size() + " " + queryUrl);

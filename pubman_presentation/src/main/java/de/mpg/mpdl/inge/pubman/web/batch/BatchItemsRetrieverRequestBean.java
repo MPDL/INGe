@@ -35,11 +35,11 @@ import jakarta.faces.bean.ManagedBean;
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the batch list. It uses
  * the PubItemSessionBean as cooresponding BasePaginatorListSessionBean.
- * 
+ *
  * @author Matthias Walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "BatchItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
@@ -89,7 +89,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
       final PubItemBatchSessionBean pbsb = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
 
 
-      if (pbsb.getStoredPubItems().size() > 0) {
+      if (!pbsb.getStoredPubItems().isEmpty()) {
 
         List<FieldValue> ids =
             pbsb.getStoredPubItems().values().stream().map(i -> FieldValue.of(i.getObjectId())).collect(Collectors.toList());
@@ -147,7 +147,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
 
   /**
    * Called from JSF when selected items in the list should be removed from the batch list.
-   * 
+   *
    * @return
    */
   public void deleteSelected() {

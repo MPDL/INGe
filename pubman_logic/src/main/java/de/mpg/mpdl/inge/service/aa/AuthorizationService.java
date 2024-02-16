@@ -41,7 +41,7 @@ public class AuthorizationService {
 
   private final static Logger logger = Logger.getLogger(AuthorizationService.class);
 
-  private Map<String, Object> aaMap;
+  private final Map<String, Object> aaMap;
 
   @Autowired
   private UserAccountService userAccountService;
@@ -72,7 +72,7 @@ public class AuthorizationService {
 
   private String methodName;
 
-  private AccessType(String methodName) {
+  AccessType(String methodName) {
       this.setMethodName(methodName);
     }
 
@@ -166,10 +166,10 @@ public class AuthorizationService {
                     if (userMap.get("field_grant_id_match") != null) {
                       // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou")) {
-                        List<FieldValue> grantFieldMatchValues = new ArrayList<>();
                         List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält auch eigene Ou
                         parents.remove(parents.size() - 1); // remove root
-                        grantFieldMatchValues.addAll(parents.stream().map(i -> FieldValue.of(i)).collect(Collectors.toList()));
+                        List<FieldValue> grantFieldMatchValues =
+                            new ArrayList<>(parents.stream().map(i -> FieldValue.of(i)).collect(Collectors.toList()));
                         grantQueryBuilder.should(TermsQuery
                             .of(t -> t.field(indices.get(userMap.get("field_grant_id_match"))).terms(te -> te.value(grantFieldMatchValues)))
                             ._toQuery());

@@ -61,6 +61,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="org.apache.log4j.Logger"%>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 
 <%!
 	static Logger logger = Logger.getLogger("CoNE edit.jsp");
@@ -91,8 +92,8 @@
 				{
 					List<LocalizedTripleObject> resList = results.get(predicate.getId());
 					if (results.get(predicate.getId()) != null && !resList.isEmpty())
-					{				
-						for (LocalizedTripleObject object : resList) 
+					{
+						for (LocalizedTripleObject object : resList)
 						{
 							out.append(HtmlUtils.escapeHtml(object.toString()));
 							if (object instanceof TreeFragment)
@@ -118,7 +119,8 @@
 				else
 				{
 					//If a value for this predicate already exists
-					if (results != null && results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0)
+					if (results != null && results.get(predicate.getId()) != null && !results.get(predicate.getId())
+                            .isEmpty())
 					{
 						int counter = 0;
 						boolean multiValues = results.get(predicate.getId()).size() > 1;
@@ -154,17 +156,17 @@
 									String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:. ]", "_")) : "";
 									if (predicate.isGenerateObject())
 									{
-										out.append("\n<input type=\"hidden\" class=\"noDisplay\"" + nameSnippet + " value=\"" + value.toString() + "\"/>");
+										out.append("\n<input type=\"hidden\" class=\"noDisplay\"" + nameSnippet + " value=\"" + value + "\"/>");
 									}
 									else if(predicate.getType()!=null && predicate.getType() == ModelList.Type.XML)
 									{
 										out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
-										out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet  + ">" + value.toString() + "</textarea>");
+										out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet  + ">" + value + "</textarea>");
 										out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').bind('change', {txtArea: '" + name + "'}, readCslFile)});</script>");
 									}
 									else
 									{
-										out.append("\n<input type=\"text\" class=\"huge_txtInput" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + " value=\"" + value.toString() + "\"/>");
+										out.append("\n<input type=\"text\" class=\"huge_txtInput" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + " value=\"" + value + "\"/>");
 									}
 									if (predicate.isResource())
 									{
@@ -183,20 +185,23 @@
 									}
 									if (predicate.isMultiple())
 									{
-										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+                                                .isEmpty()) + ")\"/>");
 									}
 									else
 									{
 										if (predicate.isLocalized())
 										{
-											out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>"  );
+											out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && !predicate.getPredicates()
+                                                    .isEmpty()) + ")\"/>"  );
 										}
 									}
 									if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 									{
-										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"removeLine(this, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ");\"/>");
+										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"removeLine(this, " + (predicate.getPredicates() != null && !predicate.getPredicates()
+                                                .isEmpty()) + ");\"/>");
 									}
-									if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0 || predicate.isResource())
+									if (predicate.getPredicates() == null || predicate.getPredicates().isEmpty() || predicate.isResource())
 									{
 										out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', " + (multiValues ? counter + "" : "null") + ", true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
 									}
@@ -227,8 +232,8 @@
 										}
 									}
 								}
-							//Predicate has child predicates	
-							if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+							//Predicate has child predicates
+							if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
 							{
 								out.append("<br/>");
 								out.append("\n<span class=\"free_area0 clear\">");
@@ -242,7 +247,7 @@
 					//A value for this predicate does not exist yet, it is modifyable
 					else if (predicate.isModify() && !(predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE))
 					{
-						if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
+						if (predicate.getPredicates() == null || predicate.getPredicates().isEmpty())
 						{
 								out.append("\n<span class=\"xHuge_area0 singleItem inputField endline\">");
 								String name = prefix + predicate.getId().replaceAll("[/:. ]", "_");
@@ -280,13 +285,15 @@
 								}
 								if (predicate.isMultiple())
 								{
-									out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+									out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+                                            .isEmpty()) + ")\"/>");
 								}
 								else
 								{
 									if (predicate.isLocalized())
 									{
-										out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+										out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && !predicate.getPredicates()
+                                                .isEmpty()) + ")\"/>");
 									}
 								}
 								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
@@ -295,13 +302,15 @@
 						else if (predicate.isMultiple())
 						{
 							out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+                                    .isEmpty()) + ")\"/>");
 							out.append("</span>");
 						}
 						else if (predicate.isLocalized())
 						{
 							out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+                                    .isEmpty()) + ")\"/>");
 							out.append("</span>");
 						}
 					}
@@ -332,7 +341,7 @@
 		}
 		return out.toString();
 	}
-	
+
 	private void mapFormValues(Model model, List<Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix) throws ConeException
 	{
 		for (Predicate predicate : predicates)
@@ -365,7 +374,7 @@
 					}
 					if (!"".equals(paramValue))
 					{
-						if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+						if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
 						{
 							TreeFragment fragment = new TreeFragment(paramValue, langValue);
 							objects.add(fragment);
@@ -387,7 +396,7 @@
 						{
 							String generatedObject = querier.createUniqueIdentifier(null);
 							//System.out.println("Generating new identifier")
-							if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+							if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
 							{
 								TreeFragment fragment = new TreeFragment(generatedObject, langValue);
 								objects.add(fragment);
@@ -411,7 +420,7 @@
 			}
 			else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
 			{
-				if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+				if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
 				{
 					TreeFragment fragment = new TreeFragment(predicate.getDefault(request), null);
 					objects.add(fragment);
@@ -446,7 +455,7 @@
 			}
 			if ((model.getIdentifier() == null || !model.getIdentifier().equals(predicate.getId())) && predicate.isMandatory())
 			{
-				if (objects.size() == 0)
+				if (objects.isEmpty())
 				{
 					errors.add("\"" + predicate.getName() + "\" is mandatory.");
 				}
@@ -478,12 +487,12 @@
 	warning = false;
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
-	if (null == modelName || "".equals(modelName.trim())) {
+	if (null == modelName || modelName.trim().isEmpty()) {
 	  String error = "model may not be null";
 	  logger.error(error);
 	  throw new RuntimeException(error);
 	}
-	if (uri != null && !"".equals(uri.trim()) && !UrlHelper.isValidParam(uri)) {
+	if (uri != null && !uri.trim().isEmpty() && !UrlHelper.isValidParam(uri)) {
 	  String error = "uri " + uri + " not valid";
 	  logger.error(error);
 	  throw new RuntimeException(error);
@@ -499,7 +508,7 @@
 	Enumeration<String> paramNames = request.getParameterNames();
 	boolean loggedIn = Login.getLoggedIn(request);
 	querier = QuerierFactory.newQuerier(loggedIn);
-	if (modelName != null && !"".equals(modelName))
+	if (modelName != null && !modelName.isEmpty())
 	{
 		model = ModelList.getInstance().getModelByAlias(modelName);
 	}
@@ -589,7 +598,7 @@
 	}
 	else if (request.getParameter("save") != null)
 	{
-		 if (errors.size() == 0)
+		 if (errors.isEmpty())
 		 {
 			if (uri == null)
 			{
@@ -603,7 +612,7 @@
 				{
 					identifierValue = request.getParameter("cone_identifier");
 					//Check if identifier is null or not ASCII compatible
-					if (identifierValue != null && !"".equals(identifierValue) && UrlHelper.isValidParam(identifierValue) && Charset.forName("US-ASCII").newEncoder().canEncode(identifierValue))
+					if (identifierValue != null && !identifierValue.isEmpty() && UrlHelper.isValidParam(identifierValue) && StandardCharsets.US_ASCII.newEncoder().canEncode(identifierValue))
 					{
 						identifierValue = identifierValue.trim();
 						uri = model.getSubjectPrefix() + identifierValue;
@@ -636,7 +645,7 @@
 				}
 				logger.info("Modifying existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 			}
-			if (errors.size() == 0 && !warning)
+			if (errors.isEmpty() && !warning)
 			{
 				querier.delete(modelName, uri);
 				querier.create(modelName, uri, results);
@@ -648,7 +657,7 @@
 		 }
 	}
 	//Edit existing entity
-	else if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
+	else if (uri != null && !uri.isEmpty() && modelName != null && !modelName.isEmpty())
 	{
 		//First call of edit existing entity (just GET request, no form submission)
 		if (!form)
@@ -695,14 +704,14 @@
 								</div>
 							</div>
 							<div class="subHeader">
-								<% if (messages.size() > 0) { %>
+								<% if (!messages.isEmpty()) { %>
 									<ul class="singleMessage">
 									<% for (String message : messages) { %>
 										<li class="messageStatus"><%= message %></li>
 									<% } %>
 									</ul>
 								<% } %>
-								<% if (request.getParameter("save") != null && errors.size() > 0) { %>
+								<% if (request.getParameter("save") != null && !errors.isEmpty()) { %>
 									<ul>
 										<% for (String error : errors) { %>
 											<li class="messageError"><b>Error: </b><%= error %></li>
@@ -777,7 +786,7 @@
 														{
 															subject = results.getSubject();
 														}
-														
+
 														out.append("<input type=\"text\" name=\"cone_identifier\" id='cone_identifier' class=\"double_txtInput\" onchange=\"checkId('" + model.getName() + "', false)\" value=\"" + subject + "\" />");
 														out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' id='idInfo' onclick=\"checkId('" + model.getName() + "', true);return false;\">i</span>");
 													}
@@ -791,7 +800,7 @@
 										</span>
 										<% if (model != null) { %>
 											<%= displayPredicates(model, results, uri, model.getPredicates(), "", "", Login.getLoggedIn(request)) %>
-										<% } %>	
+										<% } %>
 									</div>
 									<div class="free_area0 xTiny_marginLIncl">
 										<span class="mandatory">* mandatory field</span>
@@ -805,7 +814,7 @@
 						<% if (uri != null) { %>
 							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
 						<% } %>
-						
+
 					</div>
 				</form>
 			</div>

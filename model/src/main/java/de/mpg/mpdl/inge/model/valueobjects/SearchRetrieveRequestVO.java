@@ -11,7 +11,7 @@ public class SearchRetrieveRequestVO extends ValueObject {
 
   private Query queryBuilder;
 
-  private List<Aggregation> aggregationBuilders = new ArrayList<>();
+  private final List<Aggregation> aggregationBuilders = new ArrayList<>();
 
   // use -1 for default limit set by property (currently 100)
   // use -2 for max limit set by property (currently 10000)

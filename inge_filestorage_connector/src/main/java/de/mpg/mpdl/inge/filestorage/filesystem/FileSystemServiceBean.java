@@ -24,11 +24,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * File storage service direct on the file system
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @Service
 @Primary
@@ -40,10 +40,10 @@ public class FileSystemServiceBean implements FileStorageInterface {
       System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_FILESYSTEM_PATH);
 
   /*
-   * 
-   * 
+   *
+   *
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io. InputStream,
    * java.lang.String)
    */
@@ -101,7 +101,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String,
    * java.io.OutputStream)
    */
@@ -111,11 +111,11 @@ public class FileSystemServiceBean implements FileStorageInterface {
       if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
         Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
 
-        logger.debug("Trying to read file from " + path.toString());
+        logger.debug("Trying to read file from " + path);
         if (Files.exists(path)) {
           Files.copy(path, out);
         } else {
-          logger.error("Path " + path.toString() + " does not exist");
+          logger.error("Path " + path + " does not exist");
         }
       } else {
         // Doesn't work if the environment from the development REST service is development enabled (loop)
@@ -123,9 +123,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
             Request
                 .Get(
                     PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
-                        + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1)
-                        + (URLEncoder.encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1),
-                            StandardCharsets.UTF_8.name())))
+                        + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1) + (URLEncoder
+                            .encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1), StandardCharsets.UTF_8)))
                 .addHeader("Authorization",
                     "Basic " + Base64.getEncoder()
                         .encodeToString((PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME) + ":"
@@ -143,7 +142,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
    */
   @Override
@@ -155,8 +154,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Files.delete(path);
       }
     } catch (IOException e) {
-      logger.error("An error occoured, when trying to delete the file [" + path.toString() + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to delete the file [" + path.toString() + "]", e);
+      logger.error("An error occoured, when trying to delete the file [" + path + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to delete the file [" + path + "]", e);
     }
   }
 }

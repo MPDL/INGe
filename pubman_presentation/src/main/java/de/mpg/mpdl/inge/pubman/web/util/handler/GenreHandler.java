@@ -11,8 +11,6 @@ import org.xml.sax.SAXException;
 
 public class GenreHandler extends ShortContentHandler {
 
-  private FileWriter fileWriter = null;
-
   private final LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
   private LinkedHashMap<String, String> map = null;
 
@@ -45,66 +43,67 @@ public class GenreHandler extends ShortContentHandler {
     super.endElement(uri, localName, name);
 
     try {
+      FileWriter fileWriter = null;
       if ("genre".equals(name)) {
-        this.fileWriter = new FileWriter(this.dir + "/Genre_" + this.genre + ".properties");
+        fileWriter = new FileWriter(this.dir + "/Genre_" + this.genre + ".properties");
 
         for (final String key : this.map.keySet()) {
-          this.fileWriter.append(key.replace("-", "_"));
-          this.fileWriter.append("=");
-          this.fileWriter.append(this.map.get(key));
-          this.fileWriter.append("\n");
+          fileWriter.append(key.replace("-", "_"));
+          fileWriter.append("=");
+          fileWriter.append(this.map.get(key));
+          fileWriter.append("\n");
         }
 
-        this.fileWriter.flush();
-        this.fileWriter.close();
-        this.fileWriter = null;
+        fileWriter.flush();
+        fileWriter.close();
+        fileWriter = null;
 
         this.map = null;
       } else if ("group".equals(name) || "field".equals(name)) {
         this.stack.pop();
       } else if ("content-categories".equals(name)) {
-        this.fileWriter = new FileWriter(this.dir + "/content_categories.properties");
+        fileWriter = new FileWriter(this.dir + "/content_categories.properties");
 
         for (final String key : this.contentCategories.keySet()) {
-          this.fileWriter.append(key.toLowerCase());
-          this.fileWriter.append("=");
-          this.fileWriter.append(this.contentCategories.get(key));
-          this.fileWriter.append("\n");
+          fileWriter.append(key.toLowerCase());
+          fileWriter.append("=");
+          fileWriter.append(this.contentCategories.get(key));
+          fileWriter.append("\n");
         }
 
-        this.fileWriter.flush();
-        this.fileWriter.close();
-        this.fileWriter = null;
+        fileWriter.flush();
+        fileWriter.close();
+        fileWriter = null;
 
         this.contentCategories = null;
       } else if ("author-roles".equals(name)) {
-        this.fileWriter = new FileWriter(this.dir + "/author_roles.properties");
+        fileWriter = new FileWriter(this.dir + "/author_roles.properties");
 
         for (final String key : this.authorRoles.keySet()) {
-          this.fileWriter.append(key.toLowerCase());
-          this.fileWriter.append("=");
-          this.fileWriter.append(this.authorRoles.get(key));
-          this.fileWriter.append("\n");
+          fileWriter.append(key.toLowerCase());
+          fileWriter.append("=");
+          fileWriter.append(this.authorRoles.get(key));
+          fileWriter.append("\n");
         }
 
-        this.fileWriter.flush();
-        this.fileWriter.close();
-        this.fileWriter = null;
+        fileWriter.flush();
+        fileWriter.close();
+        fileWriter = null;
 
         this.authorRoles = null;
       } else if ("source-genres".equals(name)) {
-        this.fileWriter = new FileWriter(this.dir + "/source_genres.properties");
+        fileWriter = new FileWriter(this.dir + "/source_genres.properties");
 
         for (final String key : this.sourceGenres.keySet()) {
-          this.fileWriter.append(key.toLowerCase());
-          this.fileWriter.append("=");
-          this.fileWriter.append(this.sourceGenres.get(key));
-          this.fileWriter.append("\n");
+          fileWriter.append(key.toLowerCase());
+          fileWriter.append("=");
+          fileWriter.append(this.sourceGenres.get(key));
+          fileWriter.append("\n");
         }
 
-        this.fileWriter.flush();
-        this.fileWriter.close();
-        this.fileWriter = null;
+        fileWriter.flush();
+        fileWriter.close();
+        fileWriter = null;
 
         this.sourceGenres = null;
       } else if ("group".equals(name) || "field".equals(name)) {

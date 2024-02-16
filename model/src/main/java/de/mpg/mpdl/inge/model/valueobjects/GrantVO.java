@@ -102,9 +102,6 @@ public class GrantVO extends ValueObject {
 
   }
 
-  /**
-   * Default constructor.
-   */
   public GrantVO() {}
 
   /**

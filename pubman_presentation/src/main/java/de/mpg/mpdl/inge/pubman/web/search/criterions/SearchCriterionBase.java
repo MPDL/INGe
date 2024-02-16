@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -188,7 +188,7 @@ public abstract class SearchCriterionBase implements Serializable {
     this.displayType = displayType;
   }}
 
-  public enum DisplayType{STANDARD,DATE,PERSON,OPERATOR,PARENTHESIS;}
+  public enum DisplayType{STANDARD,DATE,PERSON,OPERATOR,PARENTHESIS}
 
   public enum QueryType{CQL,INTERNAL}
 
@@ -316,12 +316,12 @@ public abstract class SearchCriterionBase implements Serializable {
   //   * Creates a cql string out of one or several search indexes and an search string. The search
   //   * string is splitted into single words, except they are in quotes. The special characters of the
   //   * search string parts are escaped.
-  //   * 
+  //   *
   //   * Example: cqlIndexes={escidoc.title, escidoc.fulltext} searchString = book "john grisham"
-  //   * 
+  //   *
   //   * Resulting cql string: escidoc.title=("book" and "john grisham") or escioc.fulltext=("book" and
   //   * "john grisham")
-  //   * 
+  //   *
   //   * @param cqlIndexes
   //   * @param searchString
   //   * @return the cql string or null, if no search string or indexes are given
@@ -454,7 +454,7 @@ public abstract class SearchCriterionBase implements Serializable {
   //  /**
   //   * Creates a CQL query string out of a list of search criteria. Before, it removes empty search
   //   * criterions. Adds parenthesis around every single search criterion object.
-  //   * 
+  //   *
   //   * @param criterionList
   //   * @return
   //   */
@@ -604,7 +604,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
           final LogicalOperator op = (LogicalOperator) sc;
           mainOperators.add(op);
-          //Check if this operator changes from last 
+          //Check if this operator changes from last
           if (lastOperator != null && ((lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
               && !op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
               || (!lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
@@ -645,7 +645,7 @@ public abstract class SearchCriterionBase implements Serializable {
     if (criterionList.size() == 1) {
       resultedQueryBuilder = criterionList.get(0).toElasticSearchQuery();
 
-    } else if (mainOperators.size() > 0) {
+    } else if (!mainOperators.isEmpty()) {
 
       SearchCriterionBase.logger.debug("found main operators: " + mainOperators);
 
@@ -727,7 +727,7 @@ public abstract class SearchCriterionBase implements Serializable {
       final Stack<Parenthesis> parenthesisStack = new Stack<Parenthesis>();
       while ((ch = sr.read()) != -1) {
 
-        if (ch == '=' && substringBuffer.length() > 0 && substringBuffer.charAt(substringBuffer.length() - 1) != '\\') {
+        if (ch == '=' && !substringBuffer.isEmpty() && substringBuffer.charAt(substringBuffer.length() - 1) != '\\') {
           currentSearchCriterionName = SearchCriterion.valueOf(substringBuffer.toString());
 
           if (sr.read() != '"') {
@@ -738,13 +738,13 @@ public abstract class SearchCriterionBase implements Serializable {
           final StringBuffer contentBuffer = new StringBuffer();
           while ((contentChar = sr.read()) != -1) {
 
-            if (contentChar == '"' && !(contentBuffer.length() > 0 && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
+            if (contentChar == '"' && !(!contentBuffer.isEmpty() && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
               // end of content
               currentSearchCriterion = SearchCriterionBase.initSearchCriterion(currentSearchCriterionName);
               try {
                 currentSearchCriterion.parseQueryStringContent(contentBuffer.toString());
               } catch (final Exception e) {
-                throw new RuntimeException("Error while parsing query string content: " + contentBuffer.toString(), e);
+                throw new RuntimeException("Error while parsing query string content: " + contentBuffer, e);
               }
               scList.add(currentSearchCriterion);
               break;
@@ -761,7 +761,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
         // Logical Operators
         else if (ch == ' ') {
-          if (substringBuffer.length() > 0) {
+          if (!substringBuffer.isEmpty()) {
             if (substringBuffer.toString().toLowerCase().equals("and")) {
               scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
               substringBuffer.setLength(0);
@@ -839,7 +839,7 @@ public abstract class SearchCriterionBase implements Serializable {
       }
 
       // if first in list is an operator except "NOT", remove it
-      if (copyForRemoval.size() > 0 && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion().getDisplayType())
+      if (!copyForRemoval.isEmpty() && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion().getDisplayType())
           && !SearchCriterion.NOT_OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion())) {
         copyForRemoval.remove(0);
       }
@@ -913,7 +913,7 @@ public abstract class SearchCriterionBase implements Serializable {
     criterionList.removeAll(parenthesisToRemove);
 
     // if first criterion is an operand, remove it
-    if (criterionList != null && criterionList.size() > 0
+    if (criterionList != null && !criterionList.isEmpty()
         && DisplayType.OPERATOR.equals(criterionList.get(0).getSearchCriterion().getDisplayType())) {
       criterionList.remove(0);
     }

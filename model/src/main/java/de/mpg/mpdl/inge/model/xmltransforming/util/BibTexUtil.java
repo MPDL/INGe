@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Utility class for BibTeX handling.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -86,7 +86,7 @@ public class BibTexUtil {
   /**
    * Mapping for BibTeX special characters.
    */
-  private static Map<String, String> encodingTable = new LinkedHashMap<String, String>();
+  private static final Map<String, String> encodingTable = new LinkedHashMap<String, String>();
   static {
     encodingTable.put("\\acute{e}", "\u00e9");
     encodingTable.put("\\ast", "\u002a");
@@ -498,7 +498,7 @@ public class BibTexUtil {
   /**
    * Mapping for month formats.
    */
-  private static Map<String, String> monthTable = new HashMap<String, String>();
+  private static final Map<String, String> monthTable = new HashMap<String, String>();
   static {
     monthTable.put("0", "01");
     monthTable.put("1", "02");
@@ -553,7 +553,7 @@ public class BibTexUtil {
 
   /**
    * Translates from BibTeX to normalized UTF-8.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @return A UTF-8 encoded string.
    */
@@ -563,7 +563,7 @@ public class BibTexUtil {
 
   /**
    * Translates from BibTeX to normalized UTF-8.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @param stripBraces Indicates whether empty braces "{}" should be removed as well.
    * @return A UTF-8 encoded string.
@@ -581,7 +581,7 @@ public class BibTexUtil {
 
   /**
    * Replaces all BibTeX encoded special characters with UTF-8.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @return A UTF-8 encoded string.
    */
@@ -606,7 +606,7 @@ public class BibTexUtil {
 
   /**
    * Extracts all braces "{}" from BibTeX encoded strings.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @return A string without braces.
    */
@@ -636,7 +636,7 @@ public class BibTexUtil {
 
   /**
    * Parses a given string into a valid month.
-   * 
+   *
    * @param monthString A string containing an encoded month.
    * @return A string containing a month in eSciDoc format.
    */
@@ -654,7 +654,7 @@ public class BibTexUtil {
 
   /**
    * Parses a string containing information about start and end page.
-   * 
+   *
    * @param pagesString A BibTeX "pages" string, e.g. "1--20", "3-5".
    * @param sourceVO The {@link SourceVO} where the pages information should be added.
    */

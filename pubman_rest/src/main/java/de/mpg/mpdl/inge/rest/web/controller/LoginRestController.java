@@ -28,10 +28,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @Tag(name = "Login / Logout")
 public class LoginRestController {
 
-  private final String TOKEN_HEADER = "Token";
   private final String AUTHZ_HEADER = "Authorization";
 
-  private UserAccountService userSvc;
+  private final UserAccountService userSvc;
 
   @Autowired
   public LoginRestController(UserAccountService userSvc) {
@@ -52,6 +51,7 @@ public class LoginRestController {
     Principal principal = this.userSvc.login(username, password, request, response);
     if (principal != null && !principal.getJwToken().isEmpty()) {
       HttpHeaders headers = new HttpHeaders();
+      String TOKEN_HEADER = "Token";
       headers.add(TOKEN_HEADER, principal.getJwToken());
       return new ResponseEntity<>(headers, HttpStatus.OK);
     }

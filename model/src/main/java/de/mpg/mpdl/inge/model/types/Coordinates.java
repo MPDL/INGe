@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 /**
  * Simple implementation of KLM coordinates.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class Coordinates implements Serializable {
@@ -22,7 +22,7 @@ public class Coordinates implements Serializable {
 
   /**
    * Constructor for 3D coordinates.
-   * 
+   *
    * @param latitude
    * @param longitute
    * @param altitude
@@ -36,7 +36,7 @@ public class Coordinates implements Serializable {
 
   /**
    * Constructor for 2D coordinates.
-   * 
+   *
    * @param latitude
    * @param longitute
    */
@@ -48,7 +48,7 @@ public class Coordinates implements Serializable {
   }
 
   public Coordinates(String coordinates) throws Exception {
-    if (coordinates != null && !"".equals(coordinates)) {
+    if (coordinates != null && !coordinates.isEmpty()) {
       String[] coordinatesArray = coordinates.split(",");
       if (coordinatesArray.length == 2) {
         this.latitude = Double.parseDouble(coordinatesArray[0]);

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -46,7 +46,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 
 /**
  * The metadata of a Publication.
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:48:44
@@ -56,7 +56,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * The possible degree types for an item.
-   * 
+   *
    * @updated 21-Nov-2007 11:48:44
    */
   public enum DegreeType
@@ -69,9 +69,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     PHD("http://purl.org/escidoc/metadata/ves/academic-degrees/phd"), //
     STAATSEXAMEN("http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen");
 
-  private String uri;
+  private final String uri;
 
-  private DegreeType(String uri) {
+  DegreeType(String uri) {
       this.uri = uri;
     }
 
@@ -81,7 +81,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
   /**
    * The possible review methods for an item.
-   * 
+   *
    * @updated 21-Nov-2007 11:48:44
    */
   public enum ReviewMethod{
@@ -90,9 +90,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     NO_REVIEW("http://purl.org/escidoc/metadata/ves/review-methods/no-review"), //
     PEER("http://purl.org/eprint/status/PeerReviewed");
 
-  private String uri;
+  private final String uri;
 
-  private ReviewMethod(String uri) {
+  ReviewMethod(String uri) {
       this.uri = uri;
     }
 
@@ -155,9 +155,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     TALK_AT_EVENT("http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"), //
     THESIS("http://purl.org/eprint/type/Thesis");
 
-  private String uri;
+  private final String uri;
 
-  private Genre(String uri) {
+  Genre(String uri) {
       this.uri = uri;
     }
 
@@ -180,9 +180,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     MPICC_PROJECTS("http://purl.org/escidoc/metadata/terms/0.1/MPICC_PROJECTS"),
     PACS("http://purl.org/escidoc/metadata/terms/0.1/PACS");
 
-  private String uri;
+  private final String uri;
 
-  private SubjectClassification(String uri) {
+  SubjectClassification(String uri) {
       this.uri = uri;
     }
 
@@ -197,12 +197,12 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Alternative titles of the publication, e.g. translations of original title or sub-titles.
    */
-  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
+  private final java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
   /**
    * Persons and organizations who essentially participated in creating the content with a specific
    * task, e.g. author, translator, editor.
    */
-  private java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
+  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
   private String dateAccepted;
   private String dateCreated;
   private String dateModified;
@@ -231,13 +231,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Identifiers referencing the described item, e.g. the ISBN, Report-Number.
    */
-  private java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<IdentifierVO>();
+  private final java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<IdentifierVO>();
   /**
    * The language attribute is a valid ISO Language Code. These codes are the lower- case,
    * two-letter codes as defined by ISO-639. You can find a full list of these codes at a number of
    * sites, such as: http://www.loc.gov/standards/iso639- 2/englangn.html
    */
-  private java.util.List<String> languages = new java.util.ArrayList<String>();
+  private final java.util.List<String> languages = new java.util.ArrayList<String>();
   /**
    * The name of the library where the item is currently located.
    */
@@ -254,13 +254,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * The bundles in which the item has been published, e.g. journals, books, series or databases.
    */
-  private java.util.List<SourceVO> sources = new java.util.ArrayList<SourceVO>();
+  private final java.util.List<SourceVO> sources = new java.util.ArrayList<SourceVO>();
   /**
    * Free keywords.
    */
   private String freeKeywords;
 
-  private List<SubjectVO> subjects = new ArrayList<SubjectVO>();
+  private final List<SubjectVO> subjects = new ArrayList<SubjectVO>();
 
   private String tableOfContents;
   /**
@@ -271,7 +271,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Abstracts or short descriptions of the item.
    */
-  private java.util.List<AbstractVO> abstracts = new java.util.ArrayList<AbstractVO>();
+  private final java.util.List<AbstractVO> abstracts = new java.util.ArrayList<AbstractVO>();
 
   /**
    * Information about project and funding
@@ -282,12 +282,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * Creates a new instance.
    */
   public MdsPublicationVO() {
-    super();
   }
 
   /**
    * Copy constructor.
-   * 
+   *
    * @param other The instance to copy.
    */
   public MdsPublicationVO(MdsPublicationVO other) {
@@ -479,7 +478,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Sets the degree of the item, i. e. the type of degree which is received with this type of
    * publication
-   * 
+   *
    * @param newVal newVal
    */
   public void setDegree(DegreeType newVal) {
@@ -489,7 +488,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Sets the event of the item. Some items are related to an event, e.g. a conference or a lecture
    * series.
-   * 
+   *
    * @param newVal newVal
    */
   public void setEvent(EventVO newVal) {
@@ -507,7 +506,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Sets the genre of the item, i. e. the type of the publication (e. g. article, book, conference
    * paper).
-   * 
+   *
    * @param newVal newVal
    */
   public void setGenre(MdsPublicationVO.Genre newVal) {
@@ -517,7 +516,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Sets the location of the item, i. e. the name of the library where the item is currently
    * located.
-   * 
+   *
    * @param newVal newVal
    */
   public void setLocation(String newVal) {
@@ -528,7 +527,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * Sets the publication info of the item, i. e. the institution which published the item and
    * additional information, e. g. the publisher name and place of a book, or the university where a
    * thesis has been created.
-   * 
+   *
    * @param newVal newVal
    */
   public void setPublishingInfo(PublishingInfoVO newVal) {
@@ -538,7 +537,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Sets the review method of the item, i. e. the type of the scientific review process for the
    * described item.
-   * 
+   *
    * @param newVal newVal
    */
   public void setReviewMethod(ReviewMethod newVal) {
@@ -547,7 +546,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
   /**
    * Sets the table of contents of the item.
-   * 
+   *
    * @param newVal
    */
   public void setTableOfContents(String newVal) {
@@ -557,7 +556,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Sets the number of pages of the item. Note: The pages of an item published in a bundle is part
    * of the source container.
-   * 
+   *
    * @param newVal newVal
    */
   public void setTotalNumberOfPages(String newVal) {
@@ -565,7 +564,6 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   }
 
   public MdsPublicationVO clone() {
-    super.clone();
     return new MdsPublicationVO(this);
   }
 
@@ -825,11 +823,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
   /**
    * Sets the date when the item was accepted (for scientific check).
-   * 
+   *
    * @param newVal
    */
   public void setDateAccepted(String newVal) {
-    if (newVal == null || newVal.equals("")) {
+    if (newVal == null || newVal.isEmpty()) {
       dateAccepted = null;
     } else {
       dateAccepted = newVal;
@@ -839,11 +837,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
   /**
    * Sets the date when the item was created.
-   * 
+   *
    * @param newVal
    */
   public void setDateCreated(String newVal) {
-    if (newVal == null || newVal.equals("")) {
+    if (newVal == null || newVal.isEmpty()) {
       dateCreated = null;
     } else {
       dateCreated = newVal;
@@ -853,11 +851,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
   /**
    * Sets the date when the item was modified.
-   * 
+   *
    * @param newVal
    */
   public void setDateModified(String newVal) {
-    if (newVal == null || newVal.equals("")) {
+    if (newVal == null || newVal.isEmpty()) {
       dateModified = null;
     } else {
       dateModified = newVal;
@@ -867,11 +865,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
   /**
    * Sets the date when the item was published.
-   * 
+   *
    * @param newVal
    */
   public void setDatePublishedInPrint(String newVal) {
-    if (newVal == null || newVal.equals("")) {
+    if (newVal == null || newVal.isEmpty()) {
       datePublishedInPrint = null;
     } else {
       datePublishedInPrint = newVal;
@@ -880,11 +878,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
   /**
    * Sets the date when the item was submitted.
-   * 
+   *
    * @param newVal
    */
   public void setDateSubmitted(String newVal) {
-    if (newVal == null || newVal.equals("")) {
+    if (newVal == null || newVal.isEmpty()) {
       dateSubmitted = null;
     } else {
       dateSubmitted = newVal;
@@ -914,11 +912,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   }
 
   /**
-   * 
+   *
    * @param newVal
    */
   public void setDatePublishedOnline(String newVal) {
-    if (newVal == null || newVal.equals("")) {
+    if (newVal == null || newVal.isEmpty()) {
       datePublishedOnline = null;
     } else {
       datePublishedOnline = newVal;

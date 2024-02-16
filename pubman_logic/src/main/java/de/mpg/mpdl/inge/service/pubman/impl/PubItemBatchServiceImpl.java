@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
 /**
  * Implementation of the PubItemBatchService interface
- * 
+ *
  * @author walter
  *
  */
@@ -67,7 +67,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addKeywords(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String)
    */
@@ -77,7 +77,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
 
-    if (keywordsNew != null && !"".equals(keywordsNew.trim())) {
+    if (keywordsNew != null && !keywordsNew.trim().isEmpty()) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -143,7 +143,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addLocalTags(java.util.Map,
    * java.util.List, java.lang.String, java.lang.String)
    */
@@ -152,7 +152,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (localTagsToAdd != null && localTagsToAdd.size() > 0) {
+    if (localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -208,7 +208,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeContext(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
@@ -291,7 +291,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeExternalReferenceContentCategory(
    * java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
@@ -367,7 +367,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeOrcid(
    * java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
@@ -458,7 +458,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeFileAudience(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
@@ -536,7 +536,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeFileContentCategory(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
@@ -611,7 +611,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeFileVisibility(java.util.Map,
    * de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility,
    * de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility, java.lang.String, java.lang.String)
@@ -703,7 +703,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeGenre(java.util.Map,
    * de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre,
    * de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre, java.lang.String,
@@ -819,7 +819,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeKeywords(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
@@ -839,7 +839,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             char splittingChar = ',';
             String currentKeywords = null;
             String[] keywordArray = new String[1];
-            if (keywordsOld != null && !"".equals(keywordsOld.trim())
+            if (keywordsOld != null && !keywordsOld.trim().isEmpty()
                 && (currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
 
               if (currentKeywords.contains(",")) {
@@ -921,7 +921,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeReviewMethod(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
@@ -999,7 +999,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceGenre(java.util.Map,
    * de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre,
    * de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre, java.lang.String,
@@ -1082,7 +1082,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addSourceId(java.util.Map,
    * java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType,
    * java.lang.String, java.lang.String, java.lang.String)
@@ -1157,7 +1157,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceIdReplace(java.util.Map,
    * java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
@@ -1167,7 +1167,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String idOld, String idNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (sourceNumber != null && sourceIdType != null && idOld != null && !("").equals(idOld.trim())) {
+    if (sourceNumber != null && sourceIdType != null && idOld != null && !idOld.trim().isEmpty()) {
       ItemVersionVO pubItemVO = null;
       boolean sourceChanged = false;
       for (String itemId : pubItemObjectIdList) {
@@ -1184,7 +1184,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               for (int i = 0; i < currentSourceList.get(sourceNumberInt - 1).getIdentifiers().size(); i++) {
                 IdentifierVO identifier = currentSourceList.get(sourceNumberInt - 1).getIdentifiers().get(i);
                 if (sourceIdType.equals(identifier.getType()) && idOld.equals(identifier.getId())) {
-                  if (idNew != null && !("").equals(idNew.trim())) {
+                  if (idNew != null && !idNew.trim().isEmpty()) {
                     identifier.setId(idNew);
                     currentSourceList.get(sourceNumberInt - 1).getIdentifiers().set(i, identifier);
                   } else {
@@ -1247,7 +1247,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceEdition(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
@@ -1330,7 +1330,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#replaceLocalTags(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
@@ -1340,7 +1340,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
-    if (localTagOld != null && localTagNew != null && !"".equals(localTagOld.trim())) {
+    if (localTagOld != null && localTagNew != null && !localTagOld.trim().isEmpty()) {
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
         try {
@@ -1400,7 +1400,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#submitPubItems(java.util.Map,
    * java.lang.String, java.lang.String)
    */
@@ -1537,7 +1537,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#releasePubItems(java.util.Map,
    * java.lang.String, java.lang.String)
    */
@@ -1616,7 +1616,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#withdrawPubItems(java.util.Map,
    * java.lang.String, java.lang.String)
    */
@@ -1672,7 +1672,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#revisePubItems(java.util.Map,
    * java.lang.String, java.lang.String)
    */
@@ -1730,7 +1730,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#deletePubItems(java.util.Map,
    * java.lang.String, java.lang.String)
    */

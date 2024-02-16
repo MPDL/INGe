@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -46,7 +46,7 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * POJO bean to deal with one source.
- * 
+ *
  * @author Mario Wagner
  */
 @SuppressWarnings("serial")
@@ -65,7 +65,7 @@ public class SourceBean extends EditItemBean {
 
   /**
    * Create a source bean using a given {@link SourceVO}.
-   * 
+   *
    * @param source The original source vo.
    */
   public SourceBean(SourceVO source, List<SourceBean> list) {
@@ -83,13 +83,13 @@ public class SourceBean extends EditItemBean {
 
   /**
    * Set the source and initialize collections.
-   * 
+   *
    * @param source The original source vo.
    */
   public void setSource(SourceVO source) {
     this.source = source;
     // initialize embedded collections
-    if (this.getCreators().size() == 0) {
+    if (this.getCreators().isEmpty()) {
       this.bindCreatorsToBean(source.getCreators());
     }
     this.identifierCollection = new IdentifierCollection(source.getIdentifiers());
@@ -143,7 +143,7 @@ public class SourceBean extends EditItemBean {
 
   /**
    * If genre is journal, activate auto suggest.
-   * 
+   *
    * @return EditItem page.
    */
   public String chooseGenre() {
@@ -171,7 +171,7 @@ public class SourceBean extends EditItemBean {
 
   /**
    * localized creation of SelectItems for the source genres available.
-   * 
+   *
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
@@ -211,7 +211,7 @@ public class SourceBean extends EditItemBean {
    * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the
    * model. Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format
    * of ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
-   * 
+   *
    * @return
    */
   public String parseAndSetAlternativeTitlesAndIds() {
@@ -223,10 +223,10 @@ public class SourceBean extends EditItemBean {
     final IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
     idManager.getObjectList().clear();
 
-    if (!this.getHiddenAlternativeTitlesField().trim().equals("")) {
+    if (!this.getHiddenAlternativeTitlesField().trim().isEmpty()) {
       altTitleList.addAll(SourceBean.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
     }
-    if (!this.getHiddenIdsField().trim().equals("")) {
+    if (!this.getHiddenIdsField().trim().isEmpty()) {
       // idManager.getDataListFromVO().clear();
       idManager.getObjectList().addAll(SourceBean.parseIdentifiers(this.getHiddenIdsField()));
     }
@@ -240,7 +240,7 @@ public class SourceBean extends EditItemBean {
       final String[] parts = alternativeTitles[i].trim().split(SourceBean.HIDDEN_INNER_DELIMITER);
       final String alternativeTitleType = parts[0].trim();
       final String alternativeTitle = parts[1].trim();
-      if (!alternativeTitle.equals("")) {
+      if (!alternativeTitle.isEmpty()) {
         final AlternativeTitleVO textVO = new AlternativeTitleVO(alternativeTitle);
         textVO.setType(alternativeTitleType);
         list.add(textVO);
@@ -256,7 +256,7 @@ public class SourceBean extends EditItemBean {
       final String idComplete = ids[i].trim();
       final String[] idParts = idComplete.split(SourceBean.HIDDEN_IDTYPE_DELIMITER);
       // id has no type, use type 'other'
-      if (idParts.length == 1 && !idParts[0].equals("")) {
+      if (idParts.length == 1 && !idParts[0].isEmpty()) {
         final IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
         list.add(idVO);
       }
@@ -289,7 +289,7 @@ public class SourceBean extends EditItemBean {
   public String add() {
 
     final SourceVO sourceVO = new SourceVO();
-    if (sourceVO.getIdentifiers().size() == 0) {
+    if (sourceVO.getIdentifiers().isEmpty()) {
       sourceVO.getIdentifiers().add(new IdentifierVO());
     }
 

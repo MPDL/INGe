@@ -43,11 +43,11 @@ import jakarta.servlet.http.HttpServletRequest;
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result
  * list. It executes the Search whenever the page is called with a GET cql parameter and a valid cql
  * query. It uses the PubItemListSessionBean as corresponding BasePaginatorListSessionBean.
- * 
+ *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
@@ -242,7 +242,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
   //  /**
   //   * Sets the current cql query
-  //   * 
+  //   *
   //   * @param cqlQuery
   //   */
   //  public void setCqlQuery(String cqlQuery) {
@@ -252,7 +252,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   //
   //  /**
   //   * Returns the current cql query
-  //   * 
+  //   *
   //   * @return
   //   */
   //  public String getCqlQuery() {
@@ -261,7 +261,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   //
   //  /**
   //   * Returns the current cql query without blanks
-  //   * 
+  //   *
   //   * @return
   //   */
   //  public String getNormalizedCqlQuery() {
@@ -286,7 +286,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     }
 
     return "<link href='" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q="
-        + URLEncoder.encode(this.getElasticSearchQueryUrlParam(), "UTF-8")
+        + URLEncoder.encode(this.getElasticSearchQueryUrlParam(), StandardCharsets.UTF_8)
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
@@ -317,7 +317,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   /**
    * Sets the search type (e.g. advanced, simple, ...) Can be used in the jspf in order to display
    * search type specific elements.
-   * 
+   *
    * @param searchType
    */
   public void setSearchType(String searchType) {
@@ -328,7 +328,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   /**
    * Returns the search type (e.g. advanced, simple, ...) Can be used in the jspf in order to
    * display search type specific elements
-   * 
+   *
    * @return
    */
   public String getSearchType() {
@@ -342,7 +342,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   /**
    * Checks if the selected sorting criteria is currently available. If not (empty string), it
    * displays a warning message to the user.
-   * 
+   *
    * @param sc The sorting criteria to be checked
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
@@ -359,12 +359,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   }
 
   public String getUrlEncodedQueryString() {
-    try {
-      if (this.queryStringUrlParam != null) {
-        return URLEncoder.encode(this.queryStringUrlParam, "UTF-8");
-      }
-    } catch (final UnsupportedEncodingException e) {
-      SearchRetrieverRequestBean.logger.error("Could not encode query string", e);
+    if (this.queryStringUrlParam != null) {
+      return URLEncoder.encode(this.queryStringUrlParam, StandardCharsets.UTF_8);
     }
 
     return "";

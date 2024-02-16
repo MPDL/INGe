@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -49,11 +49,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Function extensions for the citationmanager XSLTs
- * 
+ *
  * @author Vlad Makarenko (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate: 2010-02-17 16:48:14 +0100 (Mi, 17 Feb 2010) $
- * 
+ *
  */
 public class XsltHelper {
   private static final Logger logger = Logger.getLogger(XsltHelper.class);
@@ -71,7 +71,7 @@ public class XsltHelper {
   /**
    * Reads all CONE-entries with a citation-style field filled in. Generates a Map with citation
    * styles and idValue-Type-Pairs.
-   * 
+   *
    * @throws Exception
    */
   public static void getJournalsXML() throws Exception {
@@ -96,7 +96,7 @@ public class XsltHelper {
 
   /**
    * Parses a JSON and returns a citationStyleMap for JUS citations
-   * 
+   *
    * @return a Map<Pair, String> with citations; null if an error occurred
    */
   private static Map<Pair, String> getCitationStyleMap(String json) {
@@ -139,7 +139,7 @@ public class XsltHelper {
    * Jus-citation style. Called for publications of type journal article and case note. If there is
    * no idType of the source, a default citation style is returned. Else gets the citation style for
    * the given idValue-Type-Pair.
-   * 
+   *
    * @param idType
    * @param idValue
    * @return
@@ -148,7 +148,7 @@ public class XsltHelper {
   public static String getCitationStyleForJournal(String idType, String idValue) throws Exception {
     String citationStyle = null;
     // if there is no idType, put the citation style to default
-    if (idType.equals("")) {
+    if (idType.isEmpty()) {
       citationStyle = "default";
     } else {
       // if the type is CoNE, take the ID from the URL
@@ -158,7 +158,7 @@ public class XsltHelper {
       Pair keyValue = new Pair(idType, idValue);
       // Update citationMap if empty or if last update > 1h
       long timeSinceLastUpdate = System.currentTimeMillis() - lastCitationMapUpdate;
-      if (citationMap.size() == 0 || timeSinceLastUpdate > (3600 * 1000)) {
+      if (citationMap.isEmpty() || timeSinceLastUpdate > (3600 * 1000)) {
         getJournalsXML();
         lastCitationMapUpdate = System.currentTimeMillis();
       }
@@ -180,7 +180,7 @@ public class XsltHelper {
   /**
    * Escape all xml/html tags except: style: for jasper internal styling sub/sup: will not be
    * escaped in case of balanced presence all other - to be escaped
-   * 
+   *
    * @param str
    * @return escaped string
    */
@@ -204,7 +204,7 @@ public class XsltHelper {
 
   /**
    * Check of the balanced tags sup/sub
-   * 
+   *
    * @param snippet
    * @return <code>true</code> if balanced, <code>false</code> otherwise
    */
@@ -231,7 +231,7 @@ public class XsltHelper {
    * Converts snippet &lt;span&gt; tags to the HTML formatting, i.e. <code><b>, <i>, <u>, <s></code>
    * Text. Note: If at least one &lt;span&gt; css class will not match FontStyle css, the snippet
    * will be returned without any changes.
-   * 
+   *
    * @param snippet
    * @return converted snippet
    * @throws CitationStyleManagerException
@@ -274,13 +274,13 @@ public class XsltHelper {
 
   /**
    * Check CJK codepoints in <code>str</code>.
-   * 
+   *
    * @param str
    * @return <code>true</code> if <code>str</code> has at least one CJK codepoint, otherwise
    *         <code>false</code>.
    */
   public static boolean isCJK(String str) {
-    if (str == null || str.trim().equals(""))
+    if (str == null || str.trim().isEmpty())
       return false;
     for (int i = 0; i < str.length(); i++) {
       int codePoint = str.codePointAt(i);

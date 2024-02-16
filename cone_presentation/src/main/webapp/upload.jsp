@@ -112,7 +112,7 @@
 									errors = new ArrayList<String>();
 									boolean loggedIn = Login.getLoggedIn(request);
 									Logger logger = Logger.getLogger( "upload.jsp" );
-									
+
 									if (!loggedIn)
 									{
 									    errors.add("You are not logged in!");
@@ -120,14 +120,14 @@
 									else
 									{
 										boolean isMigrateNamespace = true;
-									
+
 										boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 										// Create a factory for disk-based file items
 										FileItemFactory factory = new DiskFileItemFactory();
-										
+
 										// Create a new file upload handler
 										ServletFileUpload upload = new ServletFileUpload(factory);
-										
+
 										// Parse the request
 										List<FileItem> items = upload.parseRequest(request);
 										InputStream uploadedStream = null;
@@ -156,7 +156,7 @@
 												uploadedStream = item.getInputStream();
 											}
 										}
-										
+
 										SAXParserFactory spf = SAXParserFactory.newInstance();
 										spf.setNamespaceAware(true);
 										SAXParser parser = spf.newSAXParser();
@@ -171,9 +171,9 @@
 										}
 
 										Querier querier = QuerierFactory.newQuerier(loggedIn);
-										
+
 										List<LocalizedTripleObject> results = rdfHandler.getResult();
-										
+
 										for (LocalizedTripleObject result : results)
 										{
 											if (result instanceof TreeFragment)
@@ -192,7 +192,7 @@
 												        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL).length());
 												        TreeFragment existingObject = querier.details(model.getName(), id, "*");
 												        out.println(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id);
-												        
+
 												        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
 												        {
 											        		out.println(" (skipped)<br/>");
@@ -237,7 +237,7 @@
 															querier.delete(model.getName(), id);
 															out.println(" (updated)");
 														}
-											            
+
 												    }
 												    else if (isMigrateNamespace)
 												    {
@@ -247,9 +247,9 @@
 												        {
 												            id = matcher.group();
 													        TreeFragment existingObject = querier.details(model.getName(), id, "*");
-													        
+
 													        out.println(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id);
-													        
+
 													        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
 													        {
 												        		out.println(" (skipped)<br/>");
@@ -309,7 +309,7 @@
 												{
 													throw new RuntimeException("Identifier expected");
 												}
-												
+
 												try
 												{
 													removeIdentifierPrefixes((TreeFragment) result, model);
@@ -320,22 +320,22 @@
 												{
 													out.println("<li class=\"messageError\"><b>Error: </b> "+e.getMessage() + "</li>");
 												}
-												
-												
-												
+
+
+
 											}
 											else
 											{
 												throw new RuntimeException("Wrong RDF structure at " + result);
 											}
 										}
-															
-									}				
+
+									}
 								%>
 								<hr/>
-								<% 
-								
-									if (errors!=null && errors.size() > 0) { %>
+								<%
+
+									if (errors!=null && !errors.isEmpty()) { %>
 									<ul>
 										<% for (String error : errors) { %>
 											<li class="messageError"><b>Error: </b><%= error %></li>
@@ -348,8 +348,8 @@
 					</div>
 				</div>
 				<div class="full_area0">
-				
-					
+
+
 				</div>
 			</div>
 		</div>

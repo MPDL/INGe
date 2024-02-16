@@ -46,8 +46,8 @@ public class UserAccountRestController {
   private final String AUTHZ_HEADER = "Authorization";
   private final String USER_ID_PATH = "/{userId}";
   private final String USER_ID_VAR = "userId";
-  private UserAccountService userSvc;
-  private UtilServiceBean utils;
+  private final UserAccountService userSvc;
+  private final UtilServiceBean utils;
 
   @Autowired
   public UserAccountRestController(UserAccountService userSvc, UtilServiceBean utils) {

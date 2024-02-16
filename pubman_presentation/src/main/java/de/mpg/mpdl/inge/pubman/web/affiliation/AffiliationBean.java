@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.pubman.web.affiliation;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,9 +88,9 @@ public class AffiliationBean extends FacesBean {
       if (this.selectedAffiliation.getMetadata().getCity() != null) {
         address += this.selectedAffiliation.getMetadata().getCity();
       }
-      if (this.selectedAffiliation.getMetadata().getCity() != null && !this.selectedAffiliation.getMetadata().getCity().equals("")
+      if (this.selectedAffiliation.getMetadata().getCity() != null && !this.selectedAffiliation.getMetadata().getCity().isEmpty()
           && this.selectedAffiliation.getMetadata().getCountryCode() != null
-          && !this.selectedAffiliation.getMetadata().getCountryCode().equals("")) {
+          && !this.selectedAffiliation.getMetadata().getCountryCode().isEmpty()) {
         address += ", ";
       }
       if (this.selectedAffiliation.getMetadata().getCountryCode() != null) {
@@ -222,7 +223,7 @@ public class AffiliationBean extends FacesBean {
 
   /**
    * Searches Items by Affiliation.
-   * 
+   *
    * @return string, identifying the page that should be navigated to after this method call
    */
   public String startSearchForAffiliation(AffiliationDbVO affiliation) {
@@ -245,11 +246,11 @@ public class AffiliationBean extends FacesBean {
 
       qb = bqb.build()._toQuery();
 
-      FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
-          + SearchRetrieverRequestBean.parameterSearchType + "=org");
+      FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), StandardCharsets.UTF_8)
+          + "&" + SearchRetrieverRequestBean.parameterSearchType + "=org");
 
     } catch (final Exception e) {
-      AffiliationBean.logger.error("Could not search for items." + "\n" + e.toString());
+      AffiliationBean.logger.error("Could not search for items." + "\n" + e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -269,7 +270,7 @@ public class AffiliationBean extends FacesBean {
 
   /**
    * Returns SelectItems for a menu with all organizational units.
-   * 
+   *
    * @return
    * @throws Exception
    */
@@ -296,7 +297,7 @@ public class AffiliationBean extends FacesBean {
 
   /**
    * Adds the list of the given affiliations to the filter select.
-   * 
+   *
    * @param affs
    * @param affSelectItems
    * @param level
@@ -336,7 +337,7 @@ public class AffiliationBean extends FacesBean {
 
   /**
    * Is called from JSF to reload the ou data.
-   * 
+   *
    * @return Just a dummy message
    * @throws Exception Any exception
    */

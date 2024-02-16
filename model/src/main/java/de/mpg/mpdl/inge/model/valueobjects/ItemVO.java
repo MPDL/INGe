@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -38,7 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 
 /**
  * Item object which consists of descriptive metadata and may have one or more files associated.
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
@@ -93,18 +93,18 @@ public class ItemVO extends ValueObject implements Searchable {
    * deleted when they are note provided on updates. TODO MuJ or BrP: model and implement correctly,
    * transforming too. Remove quickfix-VO ("ItemRelationVO").
    */
-  private List<ItemRelationVO> relations = new java.util.ArrayList<ItemRelationVO>();
+  private final List<ItemRelationVO> relations = new java.util.ArrayList<ItemRelationVO>();
 
   /**
    * Public constructor.
-   * 
+   *
    * @author Thomas Diebaecker
    */
   public ItemVO() {}
 
   /**
    * Copy constructor.
-   * 
+   *
    * @author Thomas Diebaecker
    * @param other The instance to copy.
    */
@@ -138,24 +138,20 @@ public class ItemVO extends ValueObject implements Searchable {
       this.setContentModel(other.getContentModel());
     }
 
-    try {
-      if (other.getVersion() != null) {
-        this.setVersion((ItemRO) other.getVersion().clone());
-      }
+    if (other.getVersion() != null) {
+      this.setVersion((ItemRO) other.getVersion().clone());
+    }
 
-      if (other.getLatestVersion() != null) {
-        this.setLatestVersion((ItemRO) other.getLatestVersion().clone());
-      }
+    if (other.getLatestVersion() != null) {
+      this.setLatestVersion((ItemRO) other.getLatestVersion().clone());
+    }
 
-      if (other.getLatestRelease() != null) {
-        this.setLatestRelease((ItemRO) other.getLatestRelease().clone());
-      }
+    if (other.getLatestRelease() != null) {
+      this.setLatestRelease((ItemRO) other.getLatestRelease().clone());
+    }
 
-      for (ItemRelationVO relation : other.getRelations()) {
-        this.getRelations().add((ItemRelationVO) relation.clone());
-      }
-    } catch (CloneNotSupportedException cnse) {
-      throw new RuntimeException(cnse);
+    for (ItemRelationVO relation : other.getRelations()) {
+      this.getRelations().add((ItemRelationVO) relation.clone());
     }
 
     for (String localTag : other.getLocalTags()) {
@@ -174,7 +170,7 @@ public class ItemVO extends ValueObject implements Searchable {
   /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if this is a
    * 'create' or an 'update' transformation.
-   * 
+   *
    * @return true, if this item already has a version object.
    */
   boolean alreadyExistsInFramework() {
@@ -184,11 +180,11 @@ public class ItemVO extends ValueObject implements Searchable {
   /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if a "components"
    * XML structure has to be created during marshalling.
-   * 
+   *
    * @return true, if the item contains one or more files.
    */
   boolean hasFiles() {
-    return (this.files.size() >= 1);
+    return (!this.files.isEmpty());
   }
 
   /**
@@ -203,7 +199,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * XML structure has to be created during marshalling.
    */
   boolean hasRelations() {
-    return (this.relations.size() >= 1);
+    return (!this.relations.isEmpty());
   }
 
   /**
@@ -266,7 +262,7 @@ public class ItemVO extends ValueObject implements Searchable {
 
   /**
    * Sets the owner of the item.
-   * 
+   *
    * @param newVal
    */
   public void setOwner(AccountUserRO newVal) {
@@ -275,7 +271,7 @@ public class ItemVO extends ValueObject implements Searchable {
 
   /**
    * Sets the persistent identifier of the item.
-   * 
+   *
    * @param newVal
    */
   public void setPid(String newVal) {
@@ -284,7 +280,7 @@ public class ItemVO extends ValueObject implements Searchable {
 
   /**
    * Sets the reference of the collection the item is contained in.
-   * 
+   *
    * @param newVal
    */
   public void setContext(ContextRO newVal) {
@@ -293,7 +289,7 @@ public class ItemVO extends ValueObject implements Searchable {
 
   /**
    * Sets the reference of the item.
-   * 
+   *
    * @param newVal
    */
   public void setVersion(ItemRO newVal) {
@@ -316,7 +312,7 @@ public class ItemVO extends ValueObject implements Searchable {
 
   /**
    * Sets the date when the item was created.
-   * 
+   *
    * @param newVal
    */
   public void setCreationDate(java.util.Date newVal) {
@@ -325,7 +321,7 @@ public class ItemVO extends ValueObject implements Searchable {
 
   /**
    * Sets the lock status of the item.
-   * 
+   *
    * @param newVal
    */
   public void setLockStatus(LockStatus newVal) {
@@ -345,7 +341,7 @@ public class ItemVO extends ValueObject implements Searchable {
 
   /**
    * Delivers the comment which has to be given when an item is withdrawn.
-   * 
+   *
    * @return The modification date as {@link Date}.
    */
   public Date getModificationDate() {

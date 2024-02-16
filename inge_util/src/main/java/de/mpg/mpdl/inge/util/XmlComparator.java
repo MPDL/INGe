@@ -1,22 +1,22 @@
 package de.mpg.mpdl.inge.util;
 
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -44,22 +44,22 @@ import org.xml.sax.SAXException;
 
 /**
  * Utility class to compare two XMLs logically.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class XmlComparator {
   private static final Logger logger = Logger.getLogger(XmlComparator.class);
 
-  private List<String> errors = new ArrayList<String>();
-  private List<XmlNode> elementsToIgnore = new ArrayList<XmlNode>();
+  private final List<String> errors = new ArrayList<String>();
+  private final List<XmlNode> elementsToIgnore = new ArrayList<XmlNode>();
   private boolean omit = false;
 
   /**
    * Constructor taking 2 XML strings.
-   * 
+   *
    * @param xml1 An XML string
    * @param xml2
    * @throws Exception
@@ -82,7 +82,7 @@ public class XmlComparator {
   }
 
   public boolean equal() {
-    return (errors.size() == 0);
+    return (errors.isEmpty());
   }
 
   public List<String> getErrors() {
@@ -110,9 +110,9 @@ public class XmlComparator {
       Map<String, String> attributeMap = new HashMap<String, String>();
 
       if (components.length >= 1 && components[1] != null && components[1].contains("=")) {
-        String attributeListToAdd[] = components[1].trim().split(" ");
+        String[] attributeListToAdd = components[1].trim().split(" ");
         for (String attributeToAdd : attributeListToAdd) {
-          String tag[] = StringUtils.split(attributeToAdd.trim(), "=");
+          String[] tag = StringUtils.split(attributeToAdd.trim(), "=");
           attributeMap.put(tag[0], tag[1]);
         }
       }
@@ -128,7 +128,7 @@ public class XmlComparator {
   }
 
   private class FirstXmlHandler extends ShortContentHandler {
-    private LinkedList<Node> nodeList = new LinkedList<Node>();
+    private final LinkedList<Node> nodeList = new LinkedList<Node>();
 
     @Override
     public void content(String uri, String localName, String name, String content) throws SAXException {
@@ -175,7 +175,7 @@ public class XmlComparator {
   }
 
   private class SecondXmlHandler extends ShortContentHandler {
-    private FirstXmlHandler firstXmlHandler;
+    private final FirstXmlHandler firstXmlHandler;
 
     private SecondXmlHandler(FirstXmlHandler firstXmlHandler) {
       this.firstXmlHandler = firstXmlHandler;
@@ -226,7 +226,7 @@ public class XmlComparator {
       }
 
       if (elementsToIgnore.contains(xmlNode)) {
-        logger.debug("omitting <" + xmlNode.toString() + ">");
+        logger.debug("omitting <" + xmlNode + ">");
         omit = true;
       }
 
@@ -255,13 +255,13 @@ public class XmlComparator {
   }
 
   private interface Node {
-    public boolean equals(Object other);
+    boolean equals(Object other);
   }
 
   private class XmlNode implements Node {
-    private Map<String, String> attributes;
-    private String name;
-    private String namespace;
+    private final Map<String, String> attributes;
+    private final String name;
+    private final String namespace;
 
     public XmlNode(Map<String, String> attributes, String name, String namespace) {
       this.attributes = attributes;
@@ -297,7 +297,7 @@ public class XmlComparator {
   }
 
   public class TextNode implements Node {
-    private String content;
+    private final String content;
 
     public TextNode(String content) {
       this.content = content.replace(">", "&gt;");

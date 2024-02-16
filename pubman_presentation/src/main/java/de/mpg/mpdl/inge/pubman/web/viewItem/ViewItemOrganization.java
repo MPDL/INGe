@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -31,7 +31,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 /**
  * ViewItemOrganization.java stores information about an organization that is affiliated to a
  * creator. This information will be presented in a popup window Created on 20. Februar 2007, 12:17
- * 
+ *
  * @author: Tobias Schraut
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
@@ -100,7 +100,7 @@ public class ViewItemOrganization {
   }
 
   public boolean getHasOrganizationalIdentifier() {
-    if (this.organizationIdentifier == null || this.organizationIdentifier.equals("")) {
+    if (this.organizationIdentifier == null || this.organizationIdentifier.isEmpty()) {
       return false;
     }
 

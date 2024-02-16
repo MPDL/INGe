@@ -105,11 +105,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   @Autowired
   private UserAccountLoginAttemptsCacheUtil loginAttemptsCache;
 
-  private Algorithm jwtAlgorithmKey;
+  private final Algorithm jwtAlgorithmKey;
 
-  private String jwtIssuer;
+  private final String jwtIssuer;
 
-  private JWTVerifier jwtVerifier;
+  private final JWTVerifier jwtVerifier;
 
   // private static final String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";

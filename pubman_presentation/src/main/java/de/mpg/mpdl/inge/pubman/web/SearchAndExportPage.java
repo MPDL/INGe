@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -76,7 +76,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
   private final SearchAndExportService saes = ApplicationBean.INSTANCE.getSearchAndExportService();
 
-  private List<MySort> sort = new ArrayList<MySort>();
+  private final List<MySort> sort = new ArrayList<MySort>();
   private String esQuery;
   private String limit;
   private String offset;
@@ -95,7 +95,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     try {
-      this.esQuery = URLDecoder.decode(this.esQuery, "UTF-8");
+      this.esQuery = URLDecoder.decode(this.esQuery, StandardCharsets.UTF_8);
       this.esQuery = JsonUtil.prettifyJsonString(this.esQuery);
     } catch (final Exception e) {
       SearchAndExportPage.logger.error("Error during decoding parameters.", e);
@@ -265,25 +265,17 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q="
-        + URLEncoder.encode(this.esQuery, StandardCharsets.UTF_8.toString());
+        + URLEncoder.encode(this.esQuery, StandardCharsets.UTF_8);
   }
 
   private String getCurl() throws IngeTechnicalException {
     SearchAndExportRetrieveRequestVO saerrVO = parseInput();
 
-    StringBuilder sb = new StringBuilder();
-    sb.append("curl -X POST ");
-    sb.append("\"");
-    sb.append(ApplicationBean.INSTANCE.getPubmanInstanceUrl());
-    sb.append("/rest/items/search");
-    sb.append(getParameterString(saerrVO));
-    sb.append("\" ");
-    sb.append("-H 'Cache-Control: no-cache' -H 'Content-Type: application/json' ");
-    sb.append("-d '");
-    sb.append(getSearchString(saerrVO));
-    sb.append("'");
+    String sb =
+        "curl -X POST " + "\"" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/items/search" + getParameterString(saerrVO)
+            + "\" " + "-H 'Cache-Control: no-cache' -H 'Content-Type: application/json' " + "-d '" + getSearchString(saerrVO) + "'";
 
-    return sb.toString();
+    return sb;
   }
 
   private String getParameterString(SearchAndExportRetrieveRequestVO saerrVO) {

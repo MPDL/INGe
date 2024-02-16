@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -223,7 +224,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
 
   /**
    * Dummy getter method which reads out query parameter form url;
-   * 
+   *
    * @return
    */
   public String getReadOutParams() {
@@ -661,11 +662,11 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
       final BreadcrumbItemHistorySessionBean bihsb =
           (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
       if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage")) {
-        bihsb.getCurrentItem().setPage("AdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
+        bihsb.getCurrentItem().setPage("AdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, StandardCharsets.UTF_8));
       } else if (bihsb.getCurrentItem().getDisplayValue().equals("AdminAdvancedSearchPage")) {
-        bihsb.getCurrentItem().setPage("AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
+        bihsb.getCurrentItem().setPage("AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, StandardCharsets.UTF_8));
       }
-      FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8") + "&"
+      FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?q=" + URLEncoder.encode(this.query, StandardCharsets.UTF_8) + "&"
           + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
     } catch (final Exception e) {
       AdvancedSearchBean.logger.error("Error while redirecting to search result page", e);

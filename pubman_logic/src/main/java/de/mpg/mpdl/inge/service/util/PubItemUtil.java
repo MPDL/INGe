@@ -30,7 +30,7 @@ public class PubItemUtil {
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
-   * 
+   *
    * @param pubItem the PubItem to clean up
    */
   public static void cleanUpItem(final ItemVersionVO pubItem) {
@@ -42,8 +42,8 @@ public class PubItemUtil {
         for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--) {
           // Cleanup MD
           pubItem.getFiles().get(i).getMetadata().cleanup();
-          if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName().length() == 0)
-              && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i).getContent().length() == 0)) {
+          if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName().isEmpty())
+              && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i).getContent().isEmpty())) {
             pubItem.getFiles().remove(i);
           }
         }
@@ -72,7 +72,7 @@ public class PubItemUtil {
       if (pubItem.getObject().getLocalTags() != null) {
         final List<String> emptyTags = new ArrayList<String>();
         for (final String tag : pubItem.getObject().getLocalTags()) {
-          if (tag == null || "".equals(tag)) {
+          if (tag == null || tag.isEmpty()) {
             emptyTags.add(tag);
           }
         }
@@ -98,13 +98,13 @@ public class PubItemUtil {
       }
 
       for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
-        if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
+        if (organization.getIdentifier() == null || organization.getIdentifier().isEmpty()) {
           organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
         }
       }
     } else {
       if (creator.getOrganization() != null
-          && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals(""))) {
+          && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().isEmpty())) {
         creator.getOrganization().setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
       }
     }

@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -54,7 +54,7 @@ import jakarta.persistence.Transient;
  * A MPG unit or lower level of organizational unit within an MPG unit; includes also external
  * affiliations. (Dependent on internal organizational structure: Institute, Department, project
  * groups, working groups, temporary working groups, etc.)
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 07-Sep-2007 13:27:29
@@ -98,7 +98,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
 
   // ACHTUNG: @Formula berechnet aktuelle Werte nur dann, wenn die Entität aus der Datenbank gelesen wird
   //          d.h. die Entität muss vorher mit entityManager.clear() aus dem Kontext gelöscht werden
-  //               -> vorher zur Sicherheit ein entityManager.flush() aufrufen 
+  //               -> vorher zur Sicherheit ein entityManager.flush() aufrufen
   @Formula("(select count(*)>0 from organization op WHERE op.parentAffiliation_objectid=objectId)")
   private boolean hasChildren;
 
@@ -138,7 +138,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
   /**
    * Sets the publicly visible status of the affiliation. The public status can only be changed by
    * the system.
-   * 
+   *
    * @param newVal
    */
   public void setPublicStatus(AffiliationDbVO.State newVal) {
@@ -163,11 +163,11 @@ public class AffiliationDbVO extends AffiliationDbRO {
 
   /**
    * Are predecessors available.
-   * 
+   *
    * @return true if predecessors are available
    */
   public boolean getHasPredecessors() {
-    return (this.predecessorAffiliations.size() != 0);
+    return (!this.predecessorAffiliations.isEmpty());
   }
 
   public MdsOrganizationalUnitDetailsVO getMetadata() {

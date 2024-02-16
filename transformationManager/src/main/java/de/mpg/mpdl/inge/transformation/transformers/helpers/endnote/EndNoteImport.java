@@ -12,15 +12,15 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 
 /**
  * provides the import of a EndNote file
- * 
+ *
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class EndNoteImport {
   /**
    * reads the import file and transforms the items to XML
-   * 
+   *
    * @return xml
    */
   public String transformEndNote2XML(String file) {
@@ -45,7 +45,7 @@ public class EndNoteImport {
 
   /**
    * Splits EndNote items and puts them into List<String>
-   * 
+   *
    * @param itemsStr item list string
    * @return
    */
@@ -97,7 +97,7 @@ public class EndNoteImport {
 
   /**
    * Splits EndNote fields of an item and puts them into List<String>
-   * 
+   *
    * @param itemStr - item string
    * @return
    */
@@ -117,7 +117,7 @@ public class EndNoteImport {
 
   /**
    * get item pairs from item string and pack them into the <code>List</code>
-   * 
+   *
    * @param string - EndNote item as string
    * @return String list with item key-value pairs
    */
@@ -136,7 +136,7 @@ public class EndNoteImport {
 
   /**
    * get a EndNote <code>Pair</code> from line string
-   * 
+   *
    * @param string - EndNote line as string
    * @return Pair - key-value pair created by string line
    */
@@ -151,13 +151,13 @@ public class EndNoteImport {
 
   /**
    * creates a single item in xml
-   * 
+   *
    * @param item pair list
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && item.size() > 0) {
+    if (item != null && !item.isEmpty()) {
       xml = createXMLElement("item", transformItemSubelementsToXML(item));
     }
     return xml;
@@ -165,13 +165,13 @@ public class EndNoteImport {
 
   /**
    * creates the complete item list in xml
-   * 
+   *
    * @param item pair list
    * @return xml string of the whole item list
    */
   public String transformItemPairsListToXML(List<List<Pair>> itemList) {
     String xml = "";
-    if (itemList != null && itemList.size() > 0)
+    if (itemList != null && !itemList.isEmpty())
       for (List<Pair> lp : itemList)
         xml += transformItemToXML(lp);
     return createXMLElement("item-list", xml);
@@ -179,13 +179,13 @@ public class EndNoteImport {
 
   /**
    * creates an xml string of the item pair list
-   * 
+   *
    * @param item pairs as list
    * @return xml String
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && item.size() > 0) {
+    if (item != null && !item.isEmpty()) {
       for (Pair p : item)
         xml += createXMLElement(p.getXmlTag(), escape(p.getValue()));
     }
@@ -194,7 +194,7 @@ public class EndNoteImport {
 
   /**
    * creates a single element in xml
-   * 
+   *
    * @param tag - tag name of the element
    * @param value - value of the element
    * @return xml element as string
@@ -209,7 +209,7 @@ public class EndNoteImport {
 
   /**
    * escapes special characters
-   * 
+   *
    * @param input string
    * @return string with escaped characters
    */
@@ -223,11 +223,11 @@ public class EndNoteImport {
   }
 
   public static boolean checkVal(String val) {
-    return (val != null && !val.trim().equals(""));
+    return (val != null && !val.trim().isEmpty());
   }
 
   public static boolean checkLen(String val) {
-    return (val != null && val.length() > 0);
+    return (val != null && !val.isEmpty());
   }
 
 }

@@ -51,7 +51,7 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * SessionBean for batch operations on PubItems
- * 
+ *
  * @author walter
  *
  */
@@ -128,7 +128,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   // Keywords replace
   private List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems;
-  private replaceType changePublicationKeywordsReplaceType;
+  private ReplaceType changePublicationKeywordsReplaceType;
   private boolean disabledKeywordInput;
   private String changePublicationKeywordsReplaceFrom;
   private String changePublicationKeywordsReplaceTo;
@@ -262,8 +262,8 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
     // Keywords replace
     this.changePublicationKeywordsReplaceTypeSelectItems = new ArrayList<SelectItem>();
-    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_ALL, "ALL"));
-    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_BY_VALUE, "SPECIFIC VALUE"));
+    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(ReplaceType.REPLACE_ALL, "ALL"));
+    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(ReplaceType.REPLACE_BY_VALUE, "SPECIFIC VALUE"));
     this.changePublicationKeywordsReplaceType = null;
     this.changePublicationKeywordsReplaceFrom = null;
     this.changePublicationKeywordsReplaceTo = null;
@@ -459,11 +459,11 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     return changeGenreTo;
   }
 
-  public replaceType getChangePublicationKeywordsReplaceType() {
+  public ReplaceType getChangePublicationKeywordsReplaceType() {
     return changePublicationKeywordsReplaceType;
   }
 
-  public void setChangePublicationKeywordsReplaceType(replaceType changePublicationKeywordsReplaceType) {
+  public void setChangePublicationKeywordsReplaceType(ReplaceType changePublicationKeywordsReplaceType) {
     this.changePublicationKeywordsReplaceType = changePublicationKeywordsReplaceType;
   }
 
@@ -810,7 +810,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   /**
    * localized creation of SelectItems for the identifier types available
-   * 
+   *
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
@@ -820,7 +820,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
 
     for (final IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
-      selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.toString())));
+      selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type)));
     }
 
     // Sort identifiers alphabetically
@@ -843,7 +843,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   /**
    * remove an IP range in the IP range presentation list
-   * 
+   *
    * @param index
    */
   public void removeIpRange(int index) {
@@ -860,7 +860,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   /**
    * remove local tag within the local tag presentation list
-   * 
+   *
    * @param index
    */
   public void removeLocalTag(int index) {
@@ -1052,7 +1052,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (changePublicationKeywordsAddInput != null && !"".equals(changePublicationKeywordsAddInput.trim())) {
+    if (changePublicationKeywordsAddInput != null && !changePublicationKeywordsAddInput.trim().isEmpty()) {
       List<String> pubItemObjectIdList = new ArrayList<String>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -1078,7 +1078,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    if (replaceType.REPLACE_BY_VALUE.equals(changePublicationKeywordsReplaceType)) {
+    if (ReplaceType.REPLACE_BY_VALUE.equals(changePublicationKeywordsReplaceType)) {
       this.batchProcessLog = pubItemBatchService.changeKeywords(pubItemObjectIdList, changePublicationKeywordsReplaceFrom,
           changePublicationKeywordsReplaceTo, "batch change keywords " + formatter.format(calendar.getTime()),
           loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
@@ -1139,7 +1139,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (changeSourceIdAdd != null && !"".equals(changeSourceIdAdd.trim()) && changeSourceIdTypeAdd != null) {
+    if (changeSourceIdAdd != null && !changeSourceIdAdd.trim().isEmpty() && changeSourceIdTypeAdd != null) {
       List<String> pubItemObjectIdList = new ArrayList<String>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -1162,7 +1162,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (changeSourceIdReplaceFrom != null && !"".equals(changeSourceIdReplaceFrom.trim()) && changeSourceIdTypeReplace != null) {
+    if (changeSourceIdReplaceFrom != null && !changeSourceIdReplaceFrom.trim().isEmpty() && changeSourceIdTypeReplace != null) {
       List<String> pubItemObjectIdList = new ArrayList<String>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -1237,7 +1237,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (inputChangeLocalTagsReplaceFrom != null && !"".equals(inputChangeLocalTagsReplaceFrom.trim())) {
+    if (inputChangeLocalTagsReplaceFrom != null && !inputChangeLocalTagsReplaceFrom.trim().isEmpty()) {
       List<String> pubItemObjectIdList = new ArrayList<String>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
@@ -1322,7 +1322,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public void handleKeywordReplaceTypeChange() {
-    if (replaceType.REPLACE_ALL.equals(this.changePublicationKeywordsReplaceType)) {
+    if (ReplaceType.REPLACE_ALL.equals(this.changePublicationKeywordsReplaceType)) {
       this.disabledKeywordInput = true;
     } else {
       this.disabledKeywordInput = false;
@@ -1349,7 +1349,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.orcid = null;
   }
 
-  private enum replaceType
+  private enum ReplaceType
   {
     REPLACE_ALL,
     REPLACE_BY_VALUE;
@@ -1362,11 +1362,11 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   /**
      * The message pattern. For syntax definition see {@link MessageFormat}.
      */
-    private String message;
+    private final String message;
 
   /**
      * Creates a new instance with the given message template.
-     * 
+     *
      * @param messageTemplate The message template
      */
     BatchMessages(String messageTemplate) {

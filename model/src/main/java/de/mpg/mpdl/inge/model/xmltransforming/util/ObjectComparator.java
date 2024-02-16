@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Compares two objects and creates a list of differences.
- * 
+ *
  * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
@@ -58,15 +58,15 @@ public class ObjectComparator {
   private static final MessageFormat FIRST_VALUE_NULL = new MessageFormat("First object is null, second object is {0}.");
   private static final MessageFormat SECOND_VALUE_NULL = new MessageFormat("First object is {0}, second object is null.");
 
-  private List<String> diffs = new ArrayList<String>();
-  private List<String> fieldnames = new ArrayList<String>();
+  private final List<String> diffs = new ArrayList<String>();
+  private final List<String> fieldnames = new ArrayList<String>();
 
-  private Set<Object> compared = new HashSet<Object>();
+  private final Set<Object> compared = new HashSet<Object>();
 
   /**
    * Creates a new ObjectComparator instance that compares the two given objects. Note: Compare also
    * works with null values.
-   * 
+   *
    * @param o1 The first object to compare.
    * @param o2 The second object to compare.
    * @throws IllegalAccessException
@@ -85,11 +85,11 @@ public class ObjectComparator {
 
   /**
    * Checks whether the two objects are equal.
-   * 
+   *
    * @return true if the two objects are equal otherwise false.
    */
   public boolean isEqual() {
-    if (diffs.size() == 0) {
+    if (diffs.isEmpty()) {
       return true;
     }
     return false;
@@ -97,7 +97,7 @@ public class ObjectComparator {
 
   /**
    * Gets the list of differences between the two objects.
-   * 
+   *
    * @return the list of differences. If no differences were detected an empty list is returned.
    */
   public List<String> getDiffs() {
@@ -106,7 +106,7 @@ public class ObjectComparator {
 
   /**
    * Returns a String with one line for each difference.
-   * 
+   *
    * @return the string represtation of the differences between the compared objects.
    */
   public String toString() {
@@ -119,7 +119,7 @@ public class ObjectComparator {
 
   /**
    * Compares two objects dealing also with null values.
-   * 
+   *
    * @param o1 The first object to compare.
    * @param o2 The second object to compare.
    * @return true if the two objects are equal otherwise false.
@@ -185,7 +185,7 @@ public class ObjectComparator {
           diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.size(), list2.size()}));
           return;
         }
-        if (list1.size() > 0) {
+        if (!list1.isEmpty()) {
           // Object listObject = list1.get(0);
           // boolean isSimpleTypeList = isSimpleComparableType(listObject);
           for (int i = 0; i < list1.size(); i++) {
@@ -241,8 +241,8 @@ public class ObjectComparator {
     StringBuffer s = new StringBuffer();
     for (Iterator<String> iter = fieldnames.iterator(); iter.hasNext();) {
       String element = (String) iter.next();
-      if (element.length() > 0) {
-        if (s.length() > 0 && (!element.startsWith("["))) {
+      if (!element.isEmpty()) {
+        if (!s.isEmpty() && (!element.startsWith("["))) {
           s.append(".");
         }
         s.append(element);

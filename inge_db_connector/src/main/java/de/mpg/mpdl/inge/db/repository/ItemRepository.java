@@ -15,15 +15,15 @@ public interface ItemRepository extends GenericRepository<ItemVersionVO, Version
 
   @Query("SELECT item FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM ItemVersionVO item WHERE item.objectId=:objectId)")
   @QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "true"))
-  public ItemVersionVO findLatestVersion(@Param("objectId") String objectId);
+  ItemVersionVO findLatestVersion(@Param("objectId") String objectId);
 
   @Query("SELECT item FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionState='RELEASED')")
   @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
-  public ItemVersionVO findLatestRelease(@Param("objectId") String objectId);
+  ItemVersionVO findLatestRelease(@Param("objectId") String objectId);
 
 
   @Query(value = "SELECT itemVersionVO_objectId FROM item_version_file WHERE files_objectId = :fileObjectId", nativeQuery = true)
-  public List<String> findItemsForFile(@Param("fileObjectId") String fileObjectId);
+  List<String> findItemsForFile(@Param("fileObjectId") String fileObjectId);
 
 
 

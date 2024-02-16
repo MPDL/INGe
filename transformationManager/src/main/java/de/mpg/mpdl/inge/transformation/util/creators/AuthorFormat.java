@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Abstract superclass for author string decoding formats. Provides basic functionality.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 3442 $ $LastChangedDate: 2010-08-03 09:44:01 +0200 (Di, 03 Aug 2010) $
@@ -72,7 +72,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * This method is called to execute the parser.
-   * 
+   *
    * @param authorString
    * @return A {@link List} of {@link Author} beans.
    * @throws Exception Any exception.
@@ -81,7 +81,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Returns the regular expression to identify a string this Class can probably handle.
-   * 
+   *
    * @return A string containing a regular expression.
    */
   public abstract String getPattern();
@@ -89,7 +89,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   /**
    * This method is called to get an integer value that indicates how reliable the result of this
    * parser is.
-   * 
+   *
    * @return An integer value between 1 (highly reliable) and {@link Integer.MAX_VALUE} (not
    *         reliable at all).
    */
@@ -97,14 +97,14 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Returns the name of this parser.
-   * 
+   *
    * @return The name
    */
   public abstract String getName();
 
   /**
    * Returns a description what kind of format this parser analyzes.
-   * 
+   *
    * @return The description.
    */
   public abstract String getDescription();
@@ -112,7 +112,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   /**
    * Should be implemented in case the format the parser analyzes is very special or is covered by
    * other Parsers, too.
-   * 
+   *
    * @return A warning message why the result of this parser might be problematic.
    */
   public abstract String getWarning();
@@ -126,7 +126,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Checks a controlled vocabulary, if the given string is a given name.
-   * 
+   *
    * @param name The given string.
    * @return <code>true</code> if the given string is contained in the list of given names.
    * @throws Exception Any {@link Exception}.
@@ -138,7 +138,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Checks a controlled vocabulary, if the given string is a surname.
-   * 
+   *
    * @param name The given string.
    * @return <code>true</code> if the given string is contained in the list of surnames.
    * @throws Exception Any {@link Exception}.
@@ -150,7 +150,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Returns the list of given names. If the list is not initialized yet, this is done.
-   * 
+   *
    * @return The list of given names.
    * @throws Exception Any {@link Exception}.
    */
@@ -167,7 +167,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Returns the list of surnames. If the list is not initialized yet, this is done.
-   * 
+   *
    * @return The list of surnames.
    * @throws Exception Any {@link Exception}.
    */
@@ -184,7 +184,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Reads words from a file into a {@link Set}.
-   * 
+   *
    * @param filename The name of the file relative or absolute. The file should contain lines each
    *        with one line.
    * @return A {@link Set} containing the words in a file.
@@ -204,10 +204,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   /**
    * Parses authors in the following formats: "Peter Müller" or "Linda McCartney" or "John Gabriel
    * Smith-Wesson" or "Karl H. Meiser"
-   * 
+   * <p>
    * Returns false results with e.g. "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki
    * Moon"
-   * 
+   *
    * @param authors The authors as string array.
    * @return The authors as list of author objects.
    */
@@ -218,13 +218,13 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   /**
    * Parses authors in the following formats: "Peter Müller" or "Linda McCartney" or "John Gabriel
    * Smith-Wesson" or "Karl H. Meiser"
-   * 
+   * <p>
    * Returns false results with e.g. "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki
    * Moon"
-   * 
+   *
    * @param authors The authors as string array.
    * @param separator The separator between first names and lastnames.
-   * 
+   *
    * @return The authors as list of author objects.
    */
   public List<Author> getAuthorListNormalFormat(String[] authors, String separator) {
@@ -253,9 +253,9 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
       /*
        * int lastSpace = authorString.lastIndexOf(separator);
-       * 
+       *
        * Author author = new Author();
-       * 
+       *
        * author.setGivenName(authorString.substring(0, lastSpace));
        * author.setSurname(authorString.substring(lastSpace + 1)); author.setFormat(this);
        * result.add(author);
@@ -268,7 +268,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   /**
    * Parses authors in the following formats: "P. Müller" or "L. McCartney" or "J.-P. Smith-Wesson"
    * or "K. H. Meiser" or "R-X Wang"
-   * 
+   *
    * @param authors The authors as string array.
    * @return The authors as list of author objects.
    */
@@ -298,7 +298,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Parses authors in the following formats: "Müller, Herbert", "Meier-Schmitz, K.L." etc.
-   * 
+   *
    * @param authors The authors as string array.
    * @return The authors as list of author objects.
    */
@@ -387,7 +387,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Parses authors using controlled vocabularies.
-   * 
+   *
    * @param authorsString The complete author string.
    * @param authors A string array holding the strings of single authors.
    * @return A {@link List} of {@link Author} beans.
@@ -461,9 +461,9 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
         String title = "";
         for (int i = 0; i < parts.length - 1; i++) {
           String part = parts[i];
-          if (part.matches(PREFIX) && !givenName.trim().equals("")) {
+          if (part.matches(PREFIX) && !givenName.trim().isEmpty()) {
             prefix += part + " ";
-          } else if (part.matches(TITLE) && givenName.trim().equals("")) {
+          } else if (part.matches(TITLE) && givenName.trim().isEmpty()) {
             title += part + " ";
           } else if (part.matches(IGNORE_CHARACTERS)) {
             // ignore whole string
@@ -483,7 +483,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
         author.setFormat(this);
         result.add(author);
 
-      } else if (parts.length == 1 && !parts[0].equals("")) {
+      } else if (parts.length == 1 && !parts[0].isEmpty()) {
 
         author.setSurname(parts[0].trim());
         author.setFormat(this);
@@ -590,10 +590,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Checks if a string contains at least one of the given characters without using regexp.
-   * 
+   *
    * @param authorsString The string that is tested
    * @param listOfCharacters A string containing characters that are searched for.
-   * 
+   *
    * @return true if the tested string contains one of the test characters.
    */
   protected boolean contains(String authorsString, String listOfCharacters) {
@@ -607,10 +607,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
   /**
    * Splits a string into pieces without using regexp.
-   * 
+   *
    * @param authorsString The string that is splitted.
    * @param delimiter The character where the string is splitted at.
-   * 
+   *
    * @return A string array containing the trimmed pieces of the string.
    */
   protected String[] split(String authorsString, char delimiter) {
@@ -628,9 +628,9 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   /**
    * Removes disturbing whitespaces from a given input string. If an author format does not require
    * this normalization it has to override this method.
-   * 
+   *
    * @param authors The string that should be normalized.
-   * 
+   *
    * @return The normalized string.
    */
   protected String normalize(String authors) {

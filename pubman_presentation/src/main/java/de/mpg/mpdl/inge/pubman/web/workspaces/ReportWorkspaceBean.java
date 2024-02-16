@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.workspaces;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +43,7 @@ import jakarta.servlet.ServletOutputStream;
 
 /**
  * @author Gergana Stoyanova
- * 
+ *
  */
 @ManagedBean(name = "ReportWorkspaceBean")
 @SuppressWarnings("serial")
@@ -53,13 +54,13 @@ public class ReportWorkspaceBean extends FacesBean {
   private String reportYear;
 
 
-  private Map<String, String> configuration = new HashMap<String, String>();
+  private final Map<String, String> configuration = new HashMap<String, String>();
   private List<String> allOUs = new ArrayList<String>();
 
   private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
   private TransformerFactory.FORMAT format;
 
-  private ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
+  private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   public ReportWorkspaceBean() {
     final TransformerFactory.FORMAT[] targetFormats =
@@ -168,29 +169,29 @@ public class ReportWorkspaceBean extends FacesBean {
     int totalNrOfSerchResultItems = 0;
 
     /*
-     * 
+     *
      * String query = "(escidoc.publication.compound.dates=\"" + this.reportYear + "*\" OR " +
      * "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/journal\" OR "
      * +
      * "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/series\") AND "
      * +
-     * 
+     *
      * "(escidoc.publication.creator.person.organization.identifier=\"" +
      * this.organization.getIdentifier() +
      * "\" OR escidoc.publication.source.creator.person.organization.identifier=\"" +
      * this.organization.getIdentifier() + "\" ";
-     * 
+     *
      * try { // get a list of children of the given org this.childAffilList =
      * this.getChildOUs(this.organization.getIdentifier()); } catch (final Exception e) {
      * logger.error("Error when trying to get the children of the given organization.", e);
      * e.printStackTrace(); }
-     * 
+     *
      * // when there are children, concat the org ids to the query if (this.childAffilList.size() >
      * 0) { for (final String child : this.childAffilList) { query = query +
      * "OR escidoc.publication.creator.person.organization.identifier=\"" + child +
      * "\" OR escidoc.publication.source.creator.person.organization.identifier=\"" + child + "\"";
      * } }
-     * 
+     *
      * // close the brackets of the query query = query + ")";
      */
 
@@ -290,8 +291,8 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       // logger.info(new String(src, "UTF-8"));
       result = this.itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML, this.format,
-          new String(src, "UTF-8"), this.configuration);
-    } catch (final TransformationException | UnsupportedEncodingException e) {
+          new String(src, StandardCharsets.UTF_8), this.configuration);
+    } catch (final TransformationException e) {
       throw new RuntimeException(e);
     }
 

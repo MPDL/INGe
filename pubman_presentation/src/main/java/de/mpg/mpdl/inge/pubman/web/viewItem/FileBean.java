@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.viewItem;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ import jakarta.faces.event.ValueChangeEvent;
 
 /**
  * Bean for storing the information of files attached to items.
- * 
+ *
  * @author: Tobias Schraut, created 25.03.2008
  * @version: $Revision$ $LastChangedDate$
  */
@@ -65,7 +66,7 @@ public class FileBean extends FacesBean {
 
   /**
    * Public constructor with parameters
-   * 
+   *
    * @param file
    * @param position
    * @param itemState
@@ -79,7 +80,7 @@ public class FileBean extends FacesBean {
 
   /**
    * Second constructor (used if pubitem has fulltext search hits)
-   * 
+   *
    * @param file
    * @param position
    * @param itemState
@@ -96,7 +97,7 @@ public class FileBean extends FacesBean {
 
   /**
    * Sets up some extra information concerning full text search hits
-   * 
+   *
    * @param file
    * @param position
    * @param itemState
@@ -255,7 +256,7 @@ public class FileBean extends FacesBean {
   //  /**
   //   * Adds a cookie named "escidocCookie" that holds the eScidoc user handle to the provided http
   //   * method object.
-  //   * 
+  //   *
   //   * @author Tobias Schraut
   //   * @param method The http method to add the cookie to.
   //   */
@@ -268,7 +269,7 @@ public class FileBean extends FacesBean {
 
   /**
    * Returns the content category.
-   * 
+   *
    * @return The internationalized content-category.
    */
   public String getContentCategory() {
@@ -281,7 +282,7 @@ public class FileBean extends FacesBean {
 
   /**
    * Returns an internationalized String for the file's content category.
-   * 
+   *
    * @return The internationalized content-category.
    */
   public String getContentCategoryLabel() {
@@ -312,7 +313,7 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getShowSearchHits() {
-    if (this.searchHits != null && this.searchHits.size() > 0) {
+    if (this.searchHits != null && !this.searchHits.isEmpty()) {
       return true;
     }
 
@@ -401,7 +402,7 @@ public class FileBean extends FacesBean {
   /**
    * This method generates a link to a refering thumbnail image out of a link to a creativecommons
    * licence
-   * 
+   *
    * @return teh generated link to the refering thumbnail image
    */
   public String getUrlToLicenceImage() {
@@ -409,7 +410,7 @@ public class FileBean extends FacesBean {
       if (this.file.getMetadata() != null && this.file.getMetadata().getLicense() != null) {
         final String licenceURL = this.file.getMetadata().getLicense().toLowerCase();
 
-        if (licenceURL != null && !licenceURL.trim().equals("") && licenceURL.indexOf("creative") > -1
+        if (licenceURL != null && !licenceURL.trim().isEmpty() && licenceURL.indexOf("creative") > -1
             && licenceURL.indexOf("commons") > -1) {
           final String[] splittedURL = licenceURL.split("\\/");
           // Change for dettecting license url in a string
@@ -439,7 +440,7 @@ public class FileBean extends FacesBean {
   /**
    * This Method evaluates if the embargo date input filed has to be displayed or not (yes, if
    * visibility is set to private or restricted)
-   * 
+   *
    * @return boolean flag if embargo date input field should be displayed or not
    */
   public boolean getShowEmbargoDate() {
@@ -470,7 +471,7 @@ public class FileBean extends FacesBean {
 
   /**
    * Returns the checksum algorithm of the file as string.
-   * 
+   *
    * @return
    */
   public String getChecksumAlgorithmAsString() {
@@ -484,7 +485,7 @@ public class FileBean extends FacesBean {
   /**
    * Sends back an html response of content type text/plain that includes the checksum as UTF-8
    * string.
-   * 
+   *
    * @return
    */
   public void displayChecksum() {
@@ -499,11 +500,11 @@ public class FileBean extends FacesBean {
           filename = "";
         }
 
-        FacesTools.getResponse().setHeader("Content-disposition",
-            "attachment; filename=" + URLEncoder.encode(filename, "UTF-8") + "." + this.getChecksumAlgorithmAsString().toLowerCase());
+        FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename="
+            + URLEncoder.encode(filename, StandardCharsets.UTF_8) + "." + this.getChecksumAlgorithmAsString().toLowerCase());
 
         final OutputStream out = FacesTools.getResponse().getOutputStream();
-        out.write(this.file.getChecksum().getBytes("UTF-8"));
+        out.write(this.file.getChecksum().getBytes(StandardCharsets.UTF_8));
         out.flush();
 
         FacesTools.getCurrentInstance().responseComplete();
@@ -523,7 +524,7 @@ public class FileBean extends FacesBean {
    * file. Gets the audience grants of the file object via filter method. Then it retrieves the user
    * groups of the grants, takes the org unit id of its selector and checks if the user belongs to
    * this org unit or if it is a child org unit of him.
-   * 
+   *
    * @return
    */
   public boolean isFileAccessGranted() {
@@ -533,7 +534,7 @@ public class FileBean extends FacesBean {
   /**
    * Generate a string for displaying file sizes. Added by FrM to compute a better result for values
    * < 1024.
-   * 
+   *
    * @param size The size of an uploaded file.
    * @return A string representing the file size in a readable format.
    */

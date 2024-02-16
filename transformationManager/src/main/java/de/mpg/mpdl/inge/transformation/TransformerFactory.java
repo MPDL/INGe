@@ -225,7 +225,7 @@ public class TransformerFactory {
 
     List<TransformerEdge> edges = TransformerCache.getTransformerEdges(sourceFormat, targetFormat);
 
-    if (edges == null || edges.size() == 0) {
+    if (edges == null || edges.isEmpty()) {
       logger.info("No suitable transformer found");
       throw new TransformationException("No transformation chain found for " + sourceFormat + " --> " + targetFormat);
     }

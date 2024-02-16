@@ -114,7 +114,7 @@ public class EditItemBean extends FacesBean {
 
   /**
    * localized creation of SelectItems for the creator roles available.
-   * 
+   *
    * @return SelectItem[] with Strings representing creator roles.
    */
   public SelectItem[] getCreatorRoles() {
@@ -123,7 +123,7 @@ public class EditItemBean extends FacesBean {
 
   /**
    * localized creation of SelectItems for the creator types available.
-   * 
+   *
    * @return SelectItem[] with Strings representing creator types.
    */
   public SelectItem[] getCreatorTypes() {
@@ -249,7 +249,7 @@ public class EditItemBean extends FacesBean {
   /**
    * Parses a string that includes creators in different formats and adds them to the given
    * creatorCollection.
-   * 
+   *
    * @param creatorString The String to be parsed
    * @param creatorCollection The collection to which the creators should be added
    * @param orgs A list of organizations that should be added to every creator. null if no
@@ -261,7 +261,7 @@ public class EditItemBean extends FacesBean {
     final AuthorDecoder authDec = new AuthorDecoder(creatorString);
 
     final List<Author> authorList = authDec.getBestAuthorList();
-    if (authorList == null || authorList.size() == 0) {
+    if (authorList == null || authorList.isEmpty()) {
       throw new Exception(this.getMessage("EditItemBean_errorParseCreator"));
     }
 
@@ -270,7 +270,7 @@ public class EditItemBean extends FacesBean {
     }
 
     // check if last existing author is empty, then remove it
-    if (this.getCreators().size() >= 1) {
+    if (!this.getCreators().isEmpty()) {
       final CreatorVOPresentation creatorVO = this.getCreators().get(this.getCreators().size() - 1);
       // creator is a person
       if (creatorVO.isPersonType() && creatorVO.getPerson() != null && "".equals(creatorVO.getPerson().getFamilyName())

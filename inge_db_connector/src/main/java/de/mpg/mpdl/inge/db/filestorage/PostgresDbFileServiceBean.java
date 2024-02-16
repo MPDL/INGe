@@ -21,11 +21,11 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 /**
  * File storage service for seaweed (handling full text files and so on)
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @Service
 public class PostgresDbFileServiceBean implements FileStorageInterface {
@@ -43,12 +43,12 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
   /**
    * creates a file in the seaweed instance
-   * 
+   * <p>
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream,
    *      java.lang.String)
-   * 
+   *
    * @return json - response returned (including "fid", "fileUrl", "fileName", ...)
    * @throws IOException
    */
@@ -63,7 +63,7 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
       LargeObject obj = lobm.open(oid);
 
 
-      byte buf[] = new byte[2048];
+      byte[] buf = new byte[2048];
       int s, tl = 0;
       while ((s = fileInputStream.read(buf, 0, 2048)) > 0) {
         obj.write(buf, 0, s);
@@ -90,12 +90,12 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
   /**
    * read a file from the seaweed instance to an outputstream
-   * 
+   * <p>
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String,
    *      java.io.OutputStream)
-   * 
+   *
    * @param fileId - Id of the file to read
    * @param out - OutputStream where result is written
    * @throws IOException
@@ -110,7 +110,7 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
       LargeObject obj = lobm.open(Long.parseLong(fileId), LargeObjectManager.READ);
 
 
-      byte buf[] = new byte[2048];
+      byte[] buf = new byte[2048];
       int s, tl = 0;
       while ((s = obj.read(buf, 0, 2048)) > 0) {
         out.write(buf, 0, s);
@@ -134,11 +134,11 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
   /**
    * delete a file with a specific id from the seaweed instance
-   * 
+   * <p>
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
-   * 
+   *
    * @param fileId - Id of the file to read
    * @throws Exception
    */

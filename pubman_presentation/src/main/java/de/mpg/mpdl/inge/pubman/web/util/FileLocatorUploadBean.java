@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -44,11 +44,11 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 
 /**
  * Class to handle the file upload of locators.
- * 
+ *
  * @author Friederike Kleinfercher (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public abstract class FileLocatorUploadBean extends FacesBean {
@@ -69,7 +69,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
 
   /**
    * Executes a HEAD request to the locator.
-   * 
+   *
    * @param locator
    * @return true if locator is accessible
    */
@@ -90,10 +90,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
-        case 503:
-          this.error = this.getMessage("errorLocatorServiceUnavailable");
-          return false;
-        case 302:
+        case 302, 503:
           this.error = this.getMessage("errorLocatorServiceUnavailable");
           return false;
         case 200:
@@ -151,7 +148,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
 
   /**
    * Executes a GET request to the locator.
-   * 
+   *
    * @param locato
    * @return byte[]
    */
@@ -274,7 +271,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
 
   /**
    * Extracts the filename out of a URL.
-   * 
+   *
    * @return Filename as String
    */
   public String getFileName(String URL) {

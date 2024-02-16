@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -47,11 +47,11 @@ import jakarta.faces.event.AjaxBehaviorEvent;
 
 /**
  * Presentation wrapper for {@link FileDbVO}.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class PubFileVOPresentation extends FacesBean {
@@ -104,7 +104,7 @@ public class PubFileVOPresentation extends FacesBean {
   /**
    * get all available content categories as Map for this (server-) instance, depending on the
    * content_categories.properties definitions
-   * 
+   *
    * @return Map filled with all content Categories
    */
   public static Map<String, String> getContentCategoryMap() {
@@ -118,7 +118,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   /**
-   * 
+   *
    * @param key for which the content category URI will be returned
    * @return URI depending on the key of the content category
    */
@@ -142,7 +142,7 @@ public class PubFileVOPresentation extends FacesBean {
   /**
    * get all available content categories as properties for this (server-) instance, depending on
    * the content_categories.properties definitions
-   * 
+   *
    * @return Properties filled with all content Categories
    */
   private static Properties loadContentCategoryProperties() {
@@ -151,13 +151,13 @@ public class PubFileVOPresentation extends FacesBean {
     try {
       contentCategoryURI = PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         PubFileVOPresentation.properties.load(in);
         PubFileVOPresentation.properties.putAll(PubFileVOPresentation.properties);
         in.close();
 
-        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties loaded from " + contentCategoryURI);
       } else {
         Logger.getLogger(PubFileVOPresentation.class).debug("Content-category properties file not found.");
       }
@@ -197,7 +197,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   /**
    * Returns the content category.
-   * 
+   *
    * @return The internationalized content-category.
    */
   public String getContentCategory() {
@@ -209,7 +209,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   /**
    * Returns an internationalized String for the file's content category.
-   * 
+   *
    * @return The internationalized content-category.
    */
   public String getContentCategoryLabel() {
@@ -250,7 +250,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   /**
    * Returns an string according to XML conventions.
-   * 
+   *
    * @return The content category of the file.
    */
   public String getContentCategoryAsXmlString() {
@@ -259,7 +259,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   /**
    * Sets the content category of the file.
-   * 
+   *
    * @param category The content category as a string according to XML conventions.
    */
   public void setContentCategoryAsXmlString(String category) {
@@ -268,7 +268,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   /**
    * Return the file size.
-   * 
+   *
    * @return The number of bytes.
    */
   public int getSize() {
@@ -393,7 +393,7 @@ public class PubFileVOPresentation extends FacesBean {
     editItemSessionBean.getLocators().remove(this.index);
 
     // ensure that at least one locator component is visible
-    if (editItemSessionBean.getLocators().size() == 0) {
+    if (editItemSessionBean.getLocators().isEmpty()) {
       final FileDbVO newLocator = new FileDbVO();
       newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
@@ -424,7 +424,7 @@ public class PubFileVOPresentation extends FacesBean {
   /**
    * This Method evaluates if the embargo date input filed has to be displayed or not (yes, if
    * visibility is set to private or restricted)
-   * 
+   *
    * @return boolean flag if embargo date input field should be displayed or not
    */
   public boolean getShowEmbargoDate() {
@@ -450,7 +450,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   /**
    * This method triggers an update on the OA status after the visibility was changed
-   * 
+   *
    * @param event The value change event
    */
   public void visibilityUpdateEvent(AjaxBehaviorEvent event) {

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -36,7 +36,7 @@ import jakarta.faces.convert.Converter;
 
 /**
  * Converter for converting Enums to Strings and vice versa.
- * 
+ *
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
@@ -49,7 +49,7 @@ public class EnumConverter implements Converter {
 
   /**
    * Public constructor with parameters
-   * 
+   *
    * @param valueList the list with possible values of the enum
    */
   public EnumConverter(Object[] valueList) {
@@ -58,7 +58,7 @@ public class EnumConverter implements Converter {
 
   /**
    * Converts a string value to an object out of the possible objects in the valueList.
-   * 
+   *
    * @param facesContext the current FacesContext
    * @param uiComponent the uiComponent with the possible values
    * @param string the string value which should be converted
@@ -69,7 +69,7 @@ public class EnumConverter implements Converter {
 
     // try to guess the valueList if it has not been given in the constructor (the converter is
     // invoked by a JSP, not a JAVA class)
-    if (this.valueList == null && string.length() > 0) {
+    if (this.valueList == null && !string.isEmpty()) {
       this.valueList = this.guessValueList(string);
     }
 
@@ -82,7 +82,7 @@ public class EnumConverter implements Converter {
           break;
         }
       }
-    } else if (string.length() == 0) {
+    } else if (string.isEmpty()) {
       retVal = null;
     } else {
       EnumConverter.logger.warn("ValueList is NULL. Cannot convert string '" + string + "' to object!");
@@ -94,7 +94,7 @@ public class EnumConverter implements Converter {
 
   /**
    * Converts an object to a string value.
-   * 
+   *
    * @param facesContext the current FacesContext
    * @param uiComponent the uiComponent with the possible values
    * @param string the string value which should be converted
@@ -110,7 +110,7 @@ public class EnumConverter implements Converter {
 
   /**
    * Tries to guess the enum that is used by searching all known lists for the String.
-   * 
+   *
    * @param searchString the string to search for in all lists
    * @return Array of objects of which at least one contained the searchString
    */

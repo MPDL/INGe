@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -47,11 +47,11 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * Presentation wrapper for CreatorVO
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class CreatorVOPresentation extends CreatorVO {
@@ -95,7 +95,7 @@ public class CreatorVOPresentation extends CreatorVO {
   /**
    * get the negative list of creator roles as Map for this (server-) instance, depending on the
    * author_roles.properties definitions
-   * 
+   *
    * @return Map filled with all creator roles, which will be excluded
    */
   public static Map<String, String> getCreatorRoleMap() {
@@ -110,7 +110,7 @@ public class CreatorVOPresentation extends CreatorVO {
   /**
    * get the negative list of creator roles as properties for this (server-) instance, depending on
    * the author_roles.properties definitions
-   * 
+   *
    * @return Properties filled with all creator roles, which will be excluded
    */
   private static Properties loadCreatorRoleProperties() {
@@ -119,12 +119,12 @@ public class CreatorVOPresentation extends CreatorVO {
     try {
       contentCategoryURI = CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         CreatorVOPresentation.properties.load(in);
         CreatorVOPresentation.properties.putAll(CreatorVOPresentation.properties);
         in.close();
-        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI);
       } else {
         Logger.getLogger(CreatorVOPresentation.class).debug("Author-Roles properties file not found.");
       }
@@ -136,7 +136,7 @@ public class CreatorVOPresentation extends CreatorVO {
 
   /**
    * Add a new creator to the list after this creator.
-   * 
+   *
    * @return Always empty
    */
   public void add() {
@@ -228,7 +228,7 @@ public class CreatorVOPresentation extends CreatorVO {
         } else {
           this.ouNumbers += ",";
         }
-        if (creatorOrganizations.indexOf(organization) >= 0) {
+        if (creatorOrganizations.contains(organization)) {
           this.ouNumbers += creatorOrganizations.indexOf(organization) + 1;
         }
       }

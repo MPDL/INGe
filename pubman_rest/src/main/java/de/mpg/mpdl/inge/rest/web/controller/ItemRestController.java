@@ -240,7 +240,7 @@ public class ItemRestController {
 
   /**
    * Retrieve a file with a given ID
-   * 
+   *
    * @param componentId
    * @param response
    */
@@ -265,8 +265,7 @@ public class ItemRestController {
       response.setHeader("Content-Disposition", contentDispositionType + "; "
       //Leave only utf-8 encoded filename, as normal filename could lead to encoding problems in Apache
       //+ "filename=\"" + fileVOWrapper.getFileVO().getName() + "\"; "
-          + "filename*=UTF-8''"
-          + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20"));
+          + "filename*=UTF-8''" + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8).replaceAll("\\+", "%20"));
       //      OutputStream output = response.getOutputStream();
       //      fileVOWrapper.readFile(output);
       //      output.flush();
@@ -282,7 +281,7 @@ public class ItemRestController {
 
   /**
    * Retrive the technical Metadata of a file
-   * 
+   *
    * @param componentId
    * @return
    * @throws IOException

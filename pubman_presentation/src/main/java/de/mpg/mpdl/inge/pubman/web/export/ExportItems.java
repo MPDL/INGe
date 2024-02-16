@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -46,7 +46,7 @@ import jakarta.faces.model.SelectItemGroup;
  * Fragment class for item exporting. This class provides all functionality for exporting items
  * according the selected export format (layout or structured) and the selected file format (PDF,
  * TXT, etc..).
- * 
+ *
  * @author: Galina Stancheva, created 02.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007
  */
@@ -120,7 +120,7 @@ public class ExportItems extends FacesBean {
 
     FILEFORMAT_OPTIONS = new SelectItem[] { //
         EXPORTFORMAT_APA, //
-        EXPORTFORMAT_APA_CJK, // 
+        EXPORTFORMAT_APA_CJK, //
         EXPORTFORMAT_AJP, //
         EXPORTFORMAT_JUS, //
         EXPORTFORMAT_CSL};
@@ -177,12 +177,12 @@ public class ExportItems extends FacesBean {
 
     String[] recipientsAddresses = null;
     boolean OK = false;
-    if (recipientsAddressesStr != null && !recipientsAddressesStr.trim().equals("")) {
+    if (recipientsAddressesStr != null && !recipientsAddressesStr.trim().isEmpty()) {
       recipientsAddresses = recipientsAddressesStr.split(",");
       FOR: for (final String ra : recipientsAddresses) {
-        if (!ra.trim().equals("")) {
+        if (!ra.trim().isEmpty()) {
           OK = true;
-          break FOR;
+          break;
         }
       }
     }
@@ -199,7 +199,7 @@ public class ExportItems extends FacesBean {
           replyToAddresses, subject, text, attachments);
       this.cleanUpEmailFields();
     } catch (final TechnicalException e) {
-      ExportItems.logger.error("Could not send the export formats." + "\n" + e.toString());
+      ExportItems.logger.error("Could not send the export formats." + "\n" + e);
       // normal
       final Throwable ecc = e.getCause().getCause();
       /*

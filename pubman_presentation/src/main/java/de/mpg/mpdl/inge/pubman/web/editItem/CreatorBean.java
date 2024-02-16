@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -47,7 +47,7 @@ import jakarta.faces.model.SelectItem;
 /**
  * POJO bean to deal with one creator. This can either be a person or a organisation. Only for
  * creators of type person there is a list of assigned organisations included.
- * 
+ *
  * @author Mario Wagner
  */
 @SuppressWarnings("serial")
@@ -76,11 +76,11 @@ public class CreatorBean extends FacesBean {
       this.creator.setType(CreatorVO.CreatorType.PERSON);
     }
     if (CreatorVO.CreatorType.PERSON.equals(creator.getType())
-        && (this.creator.getPerson() == null || this.creator.getPerson().getOrganizations().size() == 0)) {
+        && (this.creator.getPerson() == null || this.creator.getPerson().getOrganizations().isEmpty())) {
       if (this.creator.getPerson() == null) {
         this.creator.setPerson(new PersonVO());
       }
-      if (this.creator.getPerson().getOrganizations().size() == 0) {
+      if (this.creator.getPerson().getOrganizations().isEmpty()) {
         // create a new Organization for this person
         final OrganizationVO newPersonOrganization = new OrganizationVO();
         newPersonOrganization.setName("");
@@ -111,7 +111,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * Action navigation call to select one persons organisation
-   * 
+   *
    * @return
    */
   public String selectPersonOrganisation() {
@@ -140,7 +140,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * Action navigation call to select one persons organisation for easy submission
-   * 
+   *
    * @return
    */
   public String selectPersonOrganisationEasySubmission() {
@@ -158,7 +158,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * Action navigation call to select the creator organisation
-   * 
+   *
    * @return
    */
   public String selectOrganisation() {
@@ -178,7 +178,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * Action navigation call to select the creator organisation for Easy Submission
-   * 
+   *
    * @return
    */
   public String selectOrganisationEasySubmission() {
@@ -198,7 +198,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * ValueChangeListener method to handle changes in the creatorType.
-   * 
+   *
    * @param event
    * @throws AbortProcessingException
    */
@@ -214,7 +214,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * Specialized DataModelManager to deal with objects of type OrganizationVO
-   * 
+   *
    * @author Mario Wagner
    */
   public class PersonOrganisationManager extends DataModelManager<OrganizationVO> {
@@ -290,7 +290,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * localized creation of SelectItems for the creator roles available.
-   * 
+   *
    * @return SelectItem[] with Strings representing creator roles.
    */
   public SelectItem[] getCreatorRoles() {
@@ -299,7 +299,7 @@ public class CreatorBean extends FacesBean {
 
   /**
    * localized creation of SelectItems for the creator types available.
-   * 
+   *
    * @return SelectItem[] with Strings representing creator types.
    */
   public SelectItem[] getCreatorTypes() {
@@ -316,7 +316,7 @@ public class CreatorBean extends FacesBean {
   }
 
   public void setIdentifierValue(String newValue) {
-    if (newValue != null && !"".equals(newValue)) {
+    if (newValue != null && !newValue.isEmpty()) {
       if (this.isPersonType() && this.getCreator() != null && this.creator.getPerson() != null) {
         if (this.creator.getPerson().getIdentifier() == null) {
           this.creator.getPerson().setIdentifier(new IdentifierVO());
@@ -339,7 +339,7 @@ public class CreatorBean extends FacesBean {
         } else {
           this.ouNumber += ",";
         }
-        if (creatorOrganizations.indexOf(organization) >= 0) {
+        if (creatorOrganizations.contains(organization)) {
           this.ouNumber += creatorOrganizations.indexOf(organization) + 1;
         }
       }

@@ -11,6 +11,6 @@ public interface StagedFileRepository extends JpaRepository<StagedFileDbVO, Inte
 
 
   //@Query("SELECT stagefile FROM StagedFileDbVO stagefile WHERE stagefile.creationDate < :dateFrom")
-  public List<StagedFileDbVO> findByCreationDateBefore(Date dateFromUtc);
+  List<StagedFileDbVO> findByCreationDateBefore(Date dateFromUtc);
 
 }

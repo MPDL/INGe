@@ -8,8 +8,8 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 
 public interface BatchProcessLogHeaderRepository extends JpaRepository<BatchProcessLogHeaderDbVO, String> {
 
-  public BatchProcessLogHeaderDbVO findOneByBatchProcessLogHeaderIdAndUserAccountObjectId(long batchProcessLogHeaderId,
+  BatchProcessLogHeaderDbVO findOneByBatchProcessLogHeaderIdAndUserAccountObjectId(long batchProcessLogHeaderId,
       String userAccountObjectId);
 
-  public List<BatchProcessLogHeaderDbVO> findAllByUserAccountObjectId(String userAccountObjectId);
+  List<BatchProcessLogHeaderDbVO> findAllByUserAccountObjectId(String userAccountObjectId);
 }

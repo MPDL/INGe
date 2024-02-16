@@ -15,7 +15,7 @@ import jakarta.servlet.ServletException;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements WebApplicationInitializer {
 
-  private static Logger logger = Logger.getLogger(WebInitializer.class);
+  private static final Logger logger = Logger.getLogger(WebInitializer.class);
 
   @Override
 

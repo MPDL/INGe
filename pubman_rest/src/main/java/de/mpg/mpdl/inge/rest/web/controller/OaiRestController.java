@@ -126,7 +126,7 @@ public class OaiRestController {
           .execute() //
           .actionGet();
           */
-    } while (results.size() != 0 && countInterval < maxIntervals);
+    } while (!results.isEmpty() && countInterval < maxIntervals);
 
     if (scrollResp != null) {
       pubItemDao.clearScroll(scrollResp.scrollId());

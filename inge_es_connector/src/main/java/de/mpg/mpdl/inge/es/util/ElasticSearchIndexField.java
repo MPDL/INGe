@@ -14,7 +14,7 @@ public class ElasticSearchIndexField {
 
   public enum Type
   {
-    TEXT, KEYWORD, BOOLEAN, DATE, NUMERIC, UNKNOWN;
+    TEXT, KEYWORD, BOOLEAN, DATE, NUMERIC, UNKNOWN
 
   }
 
@@ -67,9 +67,9 @@ public class ElasticSearchIndexField {
   /**
    * Factory class that produces a Map of ElasticSearchIndexField objects with field name as keys.
    * Requires an Elasticsearch MappingMetadata object
-   * 
+   *
    * @author haarlae1
-   * 
+   *
    */
   public static class Factory {
 
@@ -91,7 +91,7 @@ public class ElasticSearchIndexField {
         StringBuilder newCurrentPath = new StringBuilder(currentPath);
         List<String> newCurrentNestedPaths = new ArrayList<>(currentNestedPaths);
 
-        if (newCurrentPath.length() > 0) {
+        if (!newCurrentPath.isEmpty()) {
           newCurrentPath.append(".");
         }
         newCurrentPath.append(entry.getKey());

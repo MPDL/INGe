@@ -10,16 +10,16 @@ public interface UserAccountRepository extends JpaRepository<AccountUserDbVO, St
   /*
    * @Query(value= "INSERT INTO user_login(loginname, password) VALUES (:loginname, :password)",
    * nativeQuery=true) public void insertLogin(@Param("loginname") String loginName,
-   * 
+   *
    * @Param("password") String encodedPassword);
-   * 
+   *
    * @Query(value= "UPDATE user_login SET password=:password WHERE loginname=:loginname",
    * nativeQuery=true) public void updateLogin(@Param("loginname") String loginName,
-   * 
+   *
    * @Param("password") String encodedPassword);
-   * 
+   *
    * @Query(value= "SELECT password FROM user_login WHERE loginname=:loginname", nativeQuery=true)
    * public String findPassword(@Param("loginname") String loginName);
    */
-  public AccountUserDbVO findByLoginname(@Param("loginname") String loginname);
+  AccountUserDbVO findByLoginname(@Param("loginname") String loginname);
 }

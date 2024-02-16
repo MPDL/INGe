@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -33,6 +33,7 @@ import java.io.ObjectInputStream;
 import java.io.StringWriter;
 import java.math.BigInteger;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -51,11 +52,11 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class RSAEncoder {
 
@@ -63,7 +64,7 @@ public class RSAEncoder {
 
   public static String rsaEncrypt(String string) throws Exception {
     StringWriter resultWriter = new StringWriter();
-    byte[] bytes = string.getBytes("UTF-8");
+    byte[] bytes = string.getBytes(StandardCharsets.UTF_8);
     PublicKey pubKey = (PublicKey) readKeyFromFile(PropertyReader.getProperty(PropertyReader.INGE_AA_PUBLIC_KEY_FILE), true);
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.ENCRYPT_MODE, pubKey);
@@ -74,7 +75,7 @@ public class RSAEncoder {
         resultWriter.write("&");
       }
       resultWriter.write("auth=");
-      resultWriter.write(URLEncoder.encode(new String(Base64.encodeBase64(result)), "ISO-8859-1"));
+      resultWriter.write(URLEncoder.encode(new String(Base64.encodeBase64(result)), StandardCharsets.ISO_8859_1));
     }
     return resultWriter.toString();
 
@@ -87,12 +88,12 @@ public class RSAEncoder {
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.DECRYPT_MODE, privateKey);
     for (String part : string) {
-      byte[] inArr = Base64.decodeBase64(part.getBytes("UTF-8"));
+      byte[] inArr = Base64.decodeBase64(part.getBytes(StandardCharsets.UTF_8));
       baos.write(cipher.doFinal(inArr));
       baos.flush();
     }
 
-    return new String(baos.toByteArray(), "UTF-8");
+    return new String(baos.toByteArray(), StandardCharsets.UTF_8);
 
   }
 

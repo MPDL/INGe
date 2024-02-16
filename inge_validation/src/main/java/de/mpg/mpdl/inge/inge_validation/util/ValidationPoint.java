@@ -8,7 +8,7 @@ public enum ValidationPoint {
   EASY_SUBMISSION_STEP_3("easy_submission_step_3"), //
   EASY_SUBMISSION_STEP_4("easy_submission_step_4");
 
-  private String name;
+  private final String name;
 
   ValidationPoint(String name) {
     this.name = name;

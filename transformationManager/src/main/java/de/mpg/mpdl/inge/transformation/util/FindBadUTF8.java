@@ -8,16 +8,17 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
+import java.nio.charset.StandardCharsets;
 
 public class FindBadUTF8 {
   private static final String URL =
       "C:\\Users\\haarlae1\\Documents\\Pubman\\Import files\\TestdatenBMC\\Testdaten Markus\\1752-1947-5-391.xml";
 
-  public static void main(String argv[]) throws IOException {
+  public static void main(String[] argv) throws IOException {
     InputStream inStream = null;
     try {
       inStream = new FileInputStream(URL);
-      CharsetDecoder d = Charset.forName("UTF-8").newDecoder();
+      CharsetDecoder d = StandardCharsets.UTF_8.newDecoder();
       CharBuffer out = CharBuffer.allocate(1);
       ByteBuffer in = ByteBuffer.allocate(10);
       in.clear();

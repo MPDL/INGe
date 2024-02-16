@@ -66,7 +66,7 @@
 						writer.append("<span class=\"noDisplay\">: </span>");
 						writer.append("</b>");
 						writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
-						if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment) {
+						if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty() && node instanceof TreeFragment) {
 							writer.append("<span class=\"xDouble_area0 singleItem endline\">");
 							writer.append("<span class=\"xDouble_area0\">");
 							writer.append("&#160;");
@@ -97,13 +97,13 @@
 
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
-	
-	if (null == uri || "".equals(uri.trim()) || null == modelName || "".equals(modelName.trim())) {
+
+	if (null == uri || uri.trim().isEmpty() || null == modelName || modelName.trim().isEmpty()) {
 		String error = "uri and/or model may not be null";
 		logger.error(error);
 		throw new RuntimeException(error);
 	}
-	
+
 	if (!UrlHelper.isValidParam(uri)) {
 		String error = "uri " + uri + " not valid";
 		logger.error(error);
@@ -121,7 +121,7 @@
 
 	Querier querier = QuerierFactory.newQuerier(loggedIn);
 	TreeFragment results = querier.details(modelName, uri, "*");
-	
+
 	querier.release();
 %>
 

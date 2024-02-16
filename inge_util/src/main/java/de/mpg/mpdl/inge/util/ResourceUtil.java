@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -36,6 +36,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or
  * in jar files.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -57,7 +58,7 @@ public class ResourceUtil {
 
   /**
    * Gets a resource as InputStream.
-   * 
+   *
    * @param fileName The path and name of the file relative from the working directory.
    * @return The resource as InputStream.
    * @throws FileNotFoundException Thrown if the resource cannot be located.
@@ -96,7 +97,7 @@ public class ResourceUtil {
 
   /**
    * Gets a resource as InputStream.
-   * 
+   *
    * @param fileName The path and name of the file relative from the working directory.
    * @return The resource as InputStream.
    * @throws FileNotFoundException Thrown if the resource cannot be located.
@@ -120,14 +121,14 @@ public class ResourceUtil {
 
   /**
    * Gets a resource as String.
-   * 
+   *
    * @param fileName The path and name of the file relative from the working directory.
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
    */
   public static String getResourceAsString(final String fileName, ClassLoader classLoader) throws IOException {
     InputStream fileIn = getResourceAsStream(fileName, classLoader);
-    BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
+    BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, StandardCharsets.UTF_8));
     String line = null;
     StringBuilder result = new StringBuilder();
 
@@ -141,13 +142,13 @@ public class ResourceUtil {
 
   /**
    * Gets a stream as String.
-   * 
+   *
    * @param stream The input stream
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
    */
   public static String getStreamAsString(final InputStream stream) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+    BufferedReader br = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
     String line = null;
     StringBuilder result = new StringBuilder();
 
@@ -162,7 +163,7 @@ public class ResourceUtil {
 
   /**
    * Gets a resource as String.
-   * 
+   *
    * @param fileName The path and name of the file relative from the working directory.
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
@@ -183,7 +184,7 @@ public class ResourceUtil {
 
   /**
    * Gets an array of files containing the files in a given directory.
-   * 
+   *
    * @param dir The name of the directory.
    * @return Array of files.
    * @throws IOException Thrown if file is not found.
@@ -217,7 +218,7 @@ public class ResourceUtil {
 
   /**
    * This method resolves /.. in uris
-   * 
+   *
    * @param name
    * @return
    */

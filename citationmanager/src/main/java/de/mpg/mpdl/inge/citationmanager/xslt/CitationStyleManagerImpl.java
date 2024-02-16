@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -54,22 +54,23 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 import net.sf.saxon.event.SaxonOutputKeys;
 
 /**
- * 
+ *
  * Citation Style Manager
- * 
+ *
  * @author Initial creation: vmakarenko
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
 
-  public static enum TASKS
+  public enum TASKS
   {
     validate, compile, pdf, rtf, odt, html_plain, html_styled, txt, snippet, escidoc_snippet
-  };
+  }
 
-  private static XmlHelper xh = new XmlHelper();
+
+  private static final XmlHelper xh = new XmlHelper();
 
   @Override
   public void compile(String cs) throws CitationStyleManagerException {
@@ -146,7 +147,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     }
   }
 
-  public static void main(String args[]) throws IOException, CitationStyleManagerException, TechnicalException {
+  public static void main(String[] args) throws IOException, CitationStyleManagerException, TechnicalException, CloneNotSupportedException {
     CitationStyleManagerInterface csm = new CitationStyleManagerImpl();
 
     String il = null;

@@ -40,19 +40,19 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * SQL implementation for the {@link Querier} interface. Currently works with Postgres, but should
  * also work with other relational databases like HSQL, MySQL. For Oracle and SQL Server, maybe some
  * modifications will be needed.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
 public class SQLQuerier implements Querier {
   private static final Logger logger = Logger.getLogger(SQLQuerier.class);
-  private Connection connection;
+  private final Connection connection;
   protected boolean loggedIn;
 
   /**
    * Default constructor initializing the {@link DataSource}.
-   * 
+   *
    * @throws Exception Any exception.
    */
   public SQLQuerier() throws Exception {
@@ -491,7 +491,7 @@ public class SQLQuerier implements Querier {
     Matcher matcher = pattern.matcher(searchString);
     int start = 0;
     while (start < searchString.length() && matcher.find(start)) {
-      if (start < matcher.start() && !"".equals(searchString.substring(start, matcher.start()).trim())) {
+      if (start < matcher.start() && !searchString.substring(start, matcher.start()).trim().isEmpty()) {
         list.addAll(Arrays.asList(searchString.substring(start, matcher.start()).split(" ")));
       }
       list.add(matcher.group(1));
@@ -590,7 +590,7 @@ public class SQLQuerier implements Querier {
                 localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
                 idStack.pop();
                 localizedTripleObject.setLanguage(lang);
-              } else if (!predicate.isResource() && predicate.getPredicates() != null && predicate.getPredicates().size() > 0) {
+              } else if (!predicate.isResource() && predicate.getPredicates() != null && !predicate.getPredicates().isEmpty()) {
                 localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
                 localizedTripleObject.setLanguage(lang);
               } else {
@@ -630,7 +630,7 @@ public class SQLQuerier implements Querier {
 
   /**
    * Returns a SQL safe representation of the given String.
-   * 
+   *
    * @param str The string that should be escaped
    * @return The escaped string
    */
@@ -770,7 +770,7 @@ public class SQLQuerier implements Querier {
       PreparedStatement statement = connection.prepareStatement(query);
 
       for (Predicate predicate : predicates) {
-        if (!predicate.isResource() && predicate.getPredicates() != null && predicate.getPredicates().size() > 0) {
+        if (!predicate.isResource() && predicate.getPredicates() != null && !predicate.getPredicates().isEmpty()) {
 
           statement.setString(1, id);
           statement.setString(2, predicate.getId());

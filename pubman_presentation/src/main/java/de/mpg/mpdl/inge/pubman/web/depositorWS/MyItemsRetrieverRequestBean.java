@@ -42,11 +42,11 @@ import jakarta.faces.model.SelectItem;
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the My Items
  * workspace. It uses the PubItemListSessionBean as corresponding BasePaginatorListSessionBean and
  * adds additional functionality for filtering the items by their state.
- * 
+ *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "MyItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
@@ -68,7 +68,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   /**
    * import filter.
    */
-  private static String parameterSelectedImport = "import";
+  private static final String parameterSelectedImport = "import";
 
   /**
    * The total number of records
@@ -229,7 +229,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   /**
    * Checks if the selected sorting criteria is currently available. If not (empty string), it
    * displays a warning message to the user.
-   * 
+   *
    * @param sc The sorting criteria to be checked
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
@@ -243,7 +243,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
   /**
    * Sets the current item state filter
-   * 
+   *
    * @param itemStateSelectItem
    */
   public void setItemStateSelectItems(List<SelectItem> itemStateSelectItem) {
@@ -252,7 +252,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
   /**
    * Sets and returns the menu entries of the item state filter menu.
-   * 
+   *
    * @return
    */
   public List<SelectItem> getItemStateSelectItems() {
@@ -274,7 +274,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
   /**
    * Sets the selected item state filter
-   * 
+   *
    * @param selectedItemState
    */
   public void setSelectedItemState(String selectedItemState) {
@@ -284,7 +284,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
   /**
    * Returns the currently selected item state filter
-   * 
+   *
    * @return
    */
   public String getSelectedItemState() {
@@ -308,7 +308,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
   /**
    * Returns the label for the currently selected item state.
-   * 
+   *
    * @return
    */
   public String getSelectedItemStateLabel() {
@@ -322,7 +322,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
   /**
    * Called by JSF whenever the item state menu is changed.
-   * 
+   *
    * @return
    */
   public String changeItemState() {
@@ -341,7 +341,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   /**
    * Called by JSF whenever the context filter menu is changed. Causes a redirect to the page with
    * updated import GET parameter.
-   * 
+   *
    * @return
    */
   public String changeImport() {

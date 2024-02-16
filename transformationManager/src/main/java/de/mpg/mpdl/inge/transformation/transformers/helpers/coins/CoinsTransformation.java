@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -31,13 +31,13 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
- * 
+ *
  * This class provides transforming a escidoc xml into the coins microformat.
- * 
+ *
  * @author kleinfe1 (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class CoinsTransformation {
   private static final String DELIMITER = "&amp;";
@@ -69,7 +69,7 @@ public class CoinsTransformation {
 
   /**
    * Generates the HTML Span Tag for COinS.
-   * 
+   *
    * @param pubitemVO the complete pub item
    * @return String HTML Span Tag
    */
@@ -101,41 +101,41 @@ public class CoinsTransformation {
 
         // add the title of the first source
         if (pubitemVO.getMetadata().getSources() != null) {
-          if (pubitemVO.getMetadata().getSources().size() > 0) {
+          if (!pubitemVO.getMetadata().getSources().isEmpty()) {
             if (pubitemVO.getMetadata().getSources().get(0).getTitle() != null) {
               rftTitle = RFT_TITLE_PREFIX + this.htmlEscape(pubitemVO.getMetadata().getSources().get(0).getTitle());
               rftTitle = rftTitle != null ? rftTitle.replace(" ", "+") : "";
             }
           }
         }
-        if (!getLastName(pubitemVO).equals("")) {
+        if (!getLastName(pubitemVO).isEmpty()) {
           rftAulast = RFT_AULAST_PREFIX + this.htmlEscape(getLastName(pubitemVO));
         }
-        if (!getFirstName(pubitemVO).equals("")) {
+        if (!getFirstName(pubitemVO).isEmpty()) {
           rftAufirst = RFT_AUFIRST_PREFIX + this.htmlEscape(getFirstName(pubitemVO));
         }
-        if (!getCompleteNames(pubitemVO).equals("")) {
+        if (!getCompleteNames(pubitemVO).isEmpty()) {
           rftAu = RFT_AU_PREFIX + this.htmlEscape(getCompleteNames(pubitemVO));
         }
-        if (!getISSN(pubitemVO).equals("")) {
+        if (!getISSN(pubitemVO).isEmpty()) {
           rftIssn = RFT_ISSN_PREFIX + this.htmlEscape(getISSN(pubitemVO));
         }
-        if (!getISBN(pubitemVO).equals("")) {
+        if (!getISBN(pubitemVO).isEmpty()) {
           rftIsbn = RFT_ISBN_PREFIX + this.htmlEscape(getISBN(pubitemVO));
         }
-        if (!getSourceIdentifier(pubitemVO).equals("")) {
+        if (!getSourceIdentifier(pubitemVO).isEmpty()) {
           rftId = RFT_ID_PREFIX + this.htmlEscape(getSourceIdentifier(pubitemVO));
         }
-        if (!getSourceVolume(pubitemVO).equals("")) {
+        if (!getSourceVolume(pubitemVO).isEmpty()) {
           rftVolume = RFT_VOLUME_PREFIX + this.htmlEscape(getSourceVolume(pubitemVO));
         }
-        if (!getSourceIssue(pubitemVO).equals("")) {
+        if (!getSourceIssue(pubitemVO).isEmpty()) {
           rftIssue = RFT_ISSUE_PREFIX + this.htmlEscape(getSourceIssue(pubitemVO));
         }
-        if (!getSourcePages(pubitemVO).equals("")) {
+        if (!getSourcePages(pubitemVO).isEmpty()) {
           rftPages = RFT_PAGES_PREFIX + this.htmlEscape(getSourcePages(pubitemVO));
         }
-        if (!getDate(pubitemVO).equals("")) {
+        if (!getDate(pubitemVO).isEmpty()) {
           rftDate = RFT_DATE_PREFIX + this.htmlEscape(getDate(pubitemVO));
         }
         // put all fields together
@@ -267,9 +267,9 @@ public class CoinsTransformation {
   private String getSourceIdentifier(PubItemVO pubitemVO) {
     String sourceIdentifier = "";
     if (pubitemVO.getMetadata().getSources() != null) {
-      if (pubitemVO.getMetadata().getSources().size() > 0) {
+      if (!pubitemVO.getMetadata().getSources().isEmpty()) {
         if (pubitemVO.getMetadata().getSources().get(0).getIdentifiers() != null) {
-          if (pubitemVO.getMetadata().getSources().get(0).getIdentifiers().size() > 0) {
+          if (!pubitemVO.getMetadata().getSources().get(0).getIdentifiers().isEmpty()) {
             for (int i = 0; i < pubitemVO.getMetadata().getSources().get(0).getIdentifiers().size(); i++) {
               if (pubitemVO.getMetadata().getSources().get(0).getIdentifiers().get(i).getType() != null) {
                 if (pubitemVO.getMetadata().getSources().get(0).getIdentifiers().get(i).getType().equals(IdentifierVO.IdType.DOI)) {
@@ -292,7 +292,7 @@ public class CoinsTransformation {
   private String getSourceVolume(PubItemVO pubitemVO) {
     String sourceVolume = "";
     if (pubitemVO.getMetadata().getSources() != null) {
-      if (pubitemVO.getMetadata().getSources().size() > 0 && pubitemVO.getMetadata().getSources().get(0).getVolume() != null) {
+      if (!pubitemVO.getMetadata().getSources().isEmpty() && pubitemVO.getMetadata().getSources().get(0).getVolume() != null) {
         if (pubitemVO.getMetadata().getSources().get(0).getVolume() != null) {
           sourceVolume = pubitemVO.getMetadata().getSources().get(0).getVolume();
         }
@@ -308,7 +308,7 @@ public class CoinsTransformation {
   private String getSourceIssue(PubItemVO pubitemVO) {
     String sourceIssue = "";
     if (pubitemVO.getMetadata().getSources() != null) {
-      if (pubitemVO.getMetadata().getSources().size() > 0 && pubitemVO.getMetadata().getSources().get(0).getIssue() != null) {
+      if (!pubitemVO.getMetadata().getSources().isEmpty() && pubitemVO.getMetadata().getSources().get(0).getIssue() != null) {
         if (pubitemVO.getMetadata().getSources().get(0).getIssue() != null) {
           sourceIssue = pubitemVO.getMetadata().getSources().get(0).getIssue();
         }
@@ -324,7 +324,7 @@ public class CoinsTransformation {
   private String getSourcePages(PubItemVO pubitemVO) {
     String sourcePages = "";
     if (pubitemVO.getMetadata().getSources() != null) {
-      if (pubitemVO.getMetadata().getSources().size() > 0 && pubitemVO.getMetadata().getSources().get(0).getStartPage() != null) {
+      if (!pubitemVO.getMetadata().getSources().isEmpty() && pubitemVO.getMetadata().getSources().get(0).getStartPage() != null) {
         if (pubitemVO.getMetadata().getSources().get(0).getStartPage() != null) {
           sourcePages = pubitemVO.getMetadata().getSources().get(0).getStartPage();
         }
@@ -372,7 +372,7 @@ public class CoinsTransformation {
   /**
    * Escapes problematic HTML characters ("less than", "greater than", ampersand, apostrophe and
    * quotation mark).
-   * 
+   *
    * @param cdata A String that might contain problematic HTML characters.
    * @return The escaped string.
    */
@@ -390,7 +390,7 @@ public class CoinsTransformation {
 
   /**
    * Changes all occurrences of oldPat to newPat.
-   * 
+   *
    * @param in A String that might contain problematic HTML characters.
    * @param oldPat the old pattern to be escaped.
    * @param newPat the new pattern to escape with.
@@ -400,7 +400,7 @@ public class CoinsTransformation {
     if (in == null) {
       return null;
     }
-    if (oldPat.length() == 0) {
+    if (oldPat.isEmpty()) {
       return in;
     }
     if (oldPat.length() == 1 && newPat.length() == 1) {

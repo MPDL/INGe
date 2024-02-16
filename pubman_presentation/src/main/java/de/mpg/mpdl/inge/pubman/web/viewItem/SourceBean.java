@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.util.ConeUtils;
 
 /**
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.
- * 
+ *
  * @author: Tobias Schraut, created 25.03.2008
  * @version: $Revision$ $LastChangedDate$
  */
@@ -83,18 +83,18 @@ public class SourceBean extends FacesBean {
 
   /**
    * Initializes the UI and sets all attributes of the GUI components.
-   * 
+   *
    * @param pubItemVO a pubitem
    */
   protected void initialize(SourceVO source) {
-    if (source.getCreators().size() > 0) {
+    if (!source.getCreators().isEmpty()) {
       this.createCreatorsList();
     }
 
     this.startEndPage = this.getStartEndPage(source);
     this.publishingInfo = this.getPublishingInfo(source);
 
-    if (source.getIdentifiers().size() > 0) {
+    if (!source.getIdentifiers().isEmpty()) {
       this.identifiers = ViewItemFull.getIdentifierHtmlString(source.getIdentifiers());
     }
   }
@@ -138,7 +138,7 @@ public class SourceBean extends FacesBean {
       // if the creator is a person add his organization to the sorted organization list
       if (creator1.getPerson() != null) {
         // if there is affiliated organization for this creator
-        if (creator1.getPerson().getOrganizations().size() > 0) {
+        if (!creator1.getPerson().getOrganizations().isEmpty()) {
           // add each affiliated organization of the creator to the temporary organization list
           for (int listSize = 0; listSize < creator1.getPerson().getOrganizations().size(); listSize++) {
             tempOrganizationList.add(creator1.getPerson().getOrganizations().get(listSize));
@@ -214,7 +214,7 @@ public class SourceBean extends FacesBean {
 
   /**
    * Returns the formatted Publishing Info according to filled elements
-   * 
+   *
    * @return String the formatted Publishing Info
    */
   private String getPublishingInfo(SourceVO source) {
@@ -225,25 +225,25 @@ public class SourceBean extends FacesBean {
     if (source.getPublishingInfo() != null) {
 
       // Place
-      if (source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().equals("")) {
+      if (source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().isEmpty()) {
         publishingInfo.append(source.getPublishingInfo().getPlace().trim());
       }
 
       // colon
-      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().equals("")
-          && source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().equals("")) {
+      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().isEmpty()
+          && source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().isEmpty()) {
         publishingInfo.append(" : ");
       }
 
       // Publisher
-      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().equals("")) {
+      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().isEmpty()) {
         publishingInfo.append(source.getPublishingInfo().getPublisher().trim());
       }
 
       // Comma
-      if ((source.getPublishingInfo().getEdition() != null && !source.getPublishingInfo().getEdition().trim().equals(""))
-          && ((source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().equals(""))
-              || (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().equals("")))) {
+      if ((source.getPublishingInfo().getEdition() != null && !source.getPublishingInfo().getEdition().trim().isEmpty())
+          && ((source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().isEmpty())
+              || (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().isEmpty()))) {
         publishingInfo.append(", ");
       }
 
@@ -258,7 +258,7 @@ public class SourceBean extends FacesBean {
 
   /**
    * Returns a formatted String containing the start and the end page of the source
-   * 
+   *
    * @return String the formatted start and end page
    */
   private String getStartEndPage(SourceVO source) {
@@ -357,14 +357,14 @@ public class SourceBean extends FacesBean {
   }
 
   public boolean getHasCreator() {
-    if (this.sourceCreatorArray.size() > 0) {
+    if (!this.sourceCreatorArray.isEmpty()) {
       return true;
     }
     return false;
   }
 
   public boolean getHasAffiliation() {
-    if (this.sourceOrganizationArray.size() > 0) {
+    if (!this.sourceOrganizationArray.isEmpty()) {
       return true;
     }
     return false;

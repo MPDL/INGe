@@ -65,9 +65,9 @@ import net.arnx.wmf2svg.util.Base64;
 
 /**
  * FileService implementation using the file system to store staged files
- * 
+ *
  * @author walter
- * 
+ *
  */
 @Service
 @Primary
@@ -97,7 +97,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public FileServiceFSImpl() throws IngeTechnicalException {
     Path rootDirectory = Paths.get(TMP_FILE_ROOT_PATH);
     if (Files.notExists(rootDirectory)) {
-      logger.info("trying to create directory [ " + rootDirectory.toString() + "]");
+      logger.info("trying to create directory [ " + rootDirectory + "]");
       try {
         Files.createDirectories(rootDirectory);
       } catch (IOException e) {
@@ -110,7 +110,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.filestorage.FileStorageInterface#readFile(java.lang.String,
    * java.io.OutputStream)
    */
@@ -160,7 +160,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.FileService#createStageFile(java.io.InputStream,
    * java.lang.String)
    */
@@ -181,7 +181,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     try {
 
-      Path tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH, String.valueOf(stagedFileVo.getId() + "_" + UUID.randomUUID()));
+      Path tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH, stagedFileVo.getId() + "_" + UUID.randomUUID());
       Files.copy(fileInputStream, tmpFilePath);
 
       stagedFileVo.setPath(tmpFilePath.toString());
@@ -221,7 +221,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     try {
 
-      //if content is an url, download content and create staged file  
+      //if content is an url, download content and create staged file
       if (fileVO.getContent().startsWith("http")) {
         HttpResponse resp = Request.Get(fileVO.getContent()).execute().returnResponse();
         if (resp.getStatusLine().getStatusCode() != 200) {
@@ -312,7 +312,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
         } else {
           Request request = Request
               .Post(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
-                  + URLEncoder.encode(forcedFileName, StandardCharsets.UTF_8.name()))
+                  + URLEncoder.encode(forcedFileName, StandardCharsets.UTF_8))
               .addHeader("Authorization",
                   "Basic " + Base64.encode((PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME) + ":"
                       + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).getBytes()))
@@ -343,8 +343,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
     /*
-     * 
-     * 
+     *
+     *
      * String[] fileNameParts = fileName.split("\\."); String hashedFileName = null; Path
      * tmpFilePath = null; if (fileNameParts.length > 1) { if (fileNameParts[0] != null &&
      * !("".equals(fileNameParts[0])) && fileNameParts[1] != null && !("".equals(fileNameParts[1])))
@@ -356,9 +356,9 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
      * Paths.get(TMP_FILE_ROOT_PATH + fileHashValue); } else { throw new
      * IngeTechnicalException("Could not write staged file [" + tmpFilePath + "] for file [" +
      * fileName + "]. No filename defined"); }
-     * 
-     * 
-     * 
+     *
+     *
+     *
      * try { Files.copy(fileInputStream, tmpFilePath); } catch (IOException e) {
      * logger.error("Could not write staged file [" + tmpFilePath + "] for file [" + fileName + "]",
      * e); throw new IngeTechnicalException("Could not write staged file [" + tmpFilePath +
@@ -370,7 +370,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
   @Transactional(rollbackFor = Throwable.class)
-  private void deleteStageFile(StagedFileDbVO stagedFileVO) throws IngeTechnicalException {
+  protected void deleteStageFile(StagedFileDbVO stagedFileVO) throws IngeTechnicalException {
 
     logger.info("Trying to delete staged file " + stagedFileVO.getId() + " / Name: " + stagedFileVO.getFilename() + " / Path: "
         + stagedFileVO.getPath());
@@ -393,7 +393,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.FileService#indexFile(java.io.InputStream)
    */
   @Override
@@ -404,7 +404,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileMetadata(java.lang.String)
    */
   @Override
@@ -478,7 +478,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       // Read file data and update in message digest
       while ((bytesCount = fis.read(byteArray)) != -1) {
         digest.update(byteArray, 0, bytesCount);
-      } ;
+      }
 
       // close the stream; We don't need it now.
       fis.close();

@@ -42,7 +42,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A SAX parser that reads in the servieces.xml configuration file.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -88,7 +88,7 @@ public class ModelList {
 
   /**
    * Returns the singleton.
-   * 
+   *
    * @throws Exception Any exception.
    * @return The singleton
    * @throws ConeException
@@ -102,7 +102,7 @@ public class ModelList {
 
   /**
    * Returns the singleton.
-   * 
+   *
    * @throws Exception Any exception.
    * @return The singleton
    */
@@ -116,7 +116,7 @@ public class ModelList {
 
   /**
    * Find a model by its alias.
-   * 
+   *
    * @param alias The String to look for.
    * @return The first {@link Model} in the list using the given alias.
    * @throws ConeException
@@ -149,15 +149,15 @@ public class ModelList {
 
   /**
    * SAX handler.
-   * 
+   *
    * @author franke (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
    */
   private class ServiceListHandler extends de.mpg.mpdl.inge.util.ShortContentHandler {
-    private Set<Model> list = new LinkedHashSet<Model>();
+    private final Set<Model> list = new LinkedHashSet<Model>();
     private Model currentService = null;
-    private Stack<List<Predicate>> predicateStack = new Stack<List<Predicate>>();
+    private final Stack<List<Predicate>> predicateStack = new Stack<List<Predicate>>();
     private Set<String> currentFormat = null;
 
     @Override
@@ -182,7 +182,7 @@ public class ModelList {
         }
 
       } else if ("models/model/primary-identifier".equals(localStack.toString())) {
-        currentService.setIdentifier("".equals(content.trim()) ? null : content.trim());
+        currentService.setIdentifier(content.trim().isEmpty() ? null : content.trim());
       } else if ("models/model/results/result/result-pattern".equals(localStack.toString())) {
         int resultSize = currentService.getResults().size();
         currentService.getResults().get(resultSize - 1).setResultPattern(content.trim());
@@ -309,7 +309,7 @@ public class ModelList {
            */
         }
 
-        if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0) {
+        if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty()) {
           setI18nFlags(model, predicate.getPredicates(), modelStack);
         } else if (predicate.isResource()) {
           try {
@@ -338,7 +338,7 @@ public class ModelList {
             model = existingModel;
             break;
           }
-        } ;
+        }
       } catch (Exception e) {
         throw new SAXException("Error getting sub model '" + modelName + "'", e);
       }
@@ -362,7 +362,7 @@ public class ModelList {
 
   /**
    * A bean holding data of a CoNE service.
-   * 
+   *
    * @author franke (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
@@ -394,7 +394,7 @@ public class ModelList {
 
     /**
      * Constructor by name.
-     * 
+     *
      * @param name The service name
      */
     public Model(String name) {
@@ -404,7 +404,7 @@ public class ModelList {
 
     /**
      * Constructor by name and description.
-     * 
+     *
      * @param name The service name
      * @param description The description
      */
@@ -416,7 +416,7 @@ public class ModelList {
 
     /**
      * Constructor by name, description and aliases.
-     * 
+     *
      * @param name The service name
      * @param description The description
      * @param aliases The {@link List} of aliases.
@@ -430,7 +430,7 @@ public class ModelList {
 
     /**
      * Constructor by name, description and aliases.
-     * 
+     *
      * @param name The service name
      * @param description The description
      * @param aliases The {@link List} of aliases
@@ -558,10 +558,10 @@ public class ModelList {
 
     /**
      * Find a predicate by id.
-     * 
+     *
      * @param predicateId the id of the predicate. If the id is null, a {@link NullPointerException}
      *        is thrown.
-     * 
+     *
      * @return null if there is no predicate with the given id, the according predicate otherwise.
      * @throws ConeException
      */
@@ -579,7 +579,7 @@ public class ModelList {
 
     /**
      * Compares to other objects.
-     * 
+     *
      * @param object The object this object is compared to
      * @return true, if the other object is a {@link Model} with the same name.
      */
@@ -602,7 +602,7 @@ public class ModelList {
     /**
      * Returns the hashCode of the service name. This is needed for using {@link HashSet}s
      * correctly.
-     * 
+     *
      * @return The hashCode
      */
     @Override
@@ -629,11 +629,11 @@ public class ModelList {
 
   /**
    * Inner VO class to define the data structure inside a model.
-   * 
+   *
    * @author franke (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class Predicate {
 
@@ -642,7 +642,7 @@ public class ModelList {
     private boolean multiple;
     private boolean mandatory;
     private boolean localized;
-    private List<Predicate> predicates = new ArrayList<Predicate>();
+    private final List<Predicate> predicates = new ArrayList<Predicate>();
     private boolean generateObject = false;
     private boolean includeResource = true;
     private String resourceModel;
@@ -658,7 +658,7 @@ public class ModelList {
 
     /**
      * Constructor using all fields.
-     * 
+     *
      * @param id The value of the predicate.
      * @param multiple Flag that indicates that this predicate might occur more than once.
      * @param mandatory Flag that indicates the this predicate must occur at least once.
@@ -704,14 +704,14 @@ public class ModelList {
       this.overwrite = overwrite;
       this.shouldBeUnique = shouldBeUnique;
       this.modify = modify;
-      if (eventString != null && !"".equals(eventString)) {
+      if (eventString != null && !eventString.isEmpty()) {
         this.event = Event.valueOf(eventString.toUpperCase());
       }
       this.resourceModel = resourceModel;
       this.defaultValue = defaultValue;
       this.suggestUrl = suggestUrl;
 
-      if (typeString != null && !"".equals(typeString)) {
+      if (typeString != null && !typeString.isEmpty()) {
         this.setType(Type.valueOf(typeString.toUpperCase()));
       }
     }
@@ -722,10 +722,10 @@ public class ModelList {
 
     /**
      * Find a sub predicate by id.
-     * 
+     *
      * @param predicateId the id of the sub predicate. If the id is null, a
      *        {@link NullPointerException} is thrown.
-     * 
+     *
      * @return null if there is no sub predicate with the given id, the according sub predicate
      *         otherwise.
      * @throws ConeException
@@ -751,7 +751,7 @@ public class ModelList {
         try {
           int index = this.defaultValue.lastIndexOf(".");
           Class cls = Class.forName(this.defaultValue.substring(0, index));
-          Method method = cls.getMethod(this.defaultValue.substring(index + 1), new Class[] {HttpServletRequest.class});
+          Method method = cls.getMethod(this.defaultValue.substring(index + 1), HttpServletRequest.class);
           String result = (String) method.invoke(null, new Object[] {request});
           return result;
         } catch (Exception e) {

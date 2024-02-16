@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -40,7 +40,7 @@ import jakarta.faces.model.SelectItem;
 /**
  * Bean to handle the IdentifierCollection on a single jsp. A IdentifierCollection is represented by
  * a List<IdentifierVO>.
- * 
+ *
  * @author Mario Wagner
  */
 @SuppressWarnings("serial")
@@ -69,7 +69,7 @@ public class IdentifierCollection extends FacesBean {
 
   /**
    * localized creation of SelectItems for the identifier types available
-   * 
+   *
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
@@ -79,7 +79,7 @@ public class IdentifierCollection extends FacesBean {
     selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
 
     for (final IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
-      selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.toString())));
+      selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type)));
     }
 
     // Sort identifiers alphabetically
@@ -95,7 +95,7 @@ public class IdentifierCollection extends FacesBean {
 
   /**
    * Specialized DataModelManager to deal with objects of type IdentifierVO
-   * 
+   *
    * @author Mario Wagner
    */
   public class IdentifierManager extends DataModelManager<IdentifierVO> {

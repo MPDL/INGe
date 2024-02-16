@@ -8,5 +8,5 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 
 public interface AuditRepository extends JpaRepository<AuditDbVO, String> {
 
-  public List<AuditDbVO> findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(String objectId);
+  List<AuditDbVO> findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(String objectId);
 }

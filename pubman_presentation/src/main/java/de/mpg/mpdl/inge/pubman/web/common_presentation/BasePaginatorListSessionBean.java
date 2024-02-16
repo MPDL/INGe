@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +25,12 @@ import jakarta.faces.model.SelectItem;
  * required GET parameters (via readOutParamaters()). This bean has to be managed in the session
  * scope of JSF. The list only refreshes if any GET parameters have changed or new parameters have
  * been added. If you want to refresh the list anyway, please call the hasChanged method.
- * 
- * 
+ *
+ *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  * @param <ListElementType> The Type of the list elements managed by this bean
  * @param <SortCriteria> The type of filters managed by this bean that are usable for every
  *        ListRetriever, eg. sorting of PubItems.
@@ -41,12 +42,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * The GET parameter name for the elements per page value
    */
-  private static String parameterElementsPerPage = "elementsPerPage";
+  private static final String parameterElementsPerPage = "elementsPerPage";
 
   /**
    * The GET parameter name for the current page number
    */
-  private static String parameterPageNumber = "pageNumber";
+  private static final String parameterPageNumber = "pageNumber";
 
 
   public String getParameterElementsPerPage() {
@@ -267,7 +268,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the corresponding BaseListRetrieverRequestBean.
-   * 
+   *
    * @return
    */
   protected BaseListRetrieverRequestBean<ListElementType, SortCriteria> getPaginatorListRetriever() {
@@ -276,7 +277,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the current list with the specified elements
-   * 
+   *
    * @return
    */
   public List<ListElementType> getCurrentPartList() {
@@ -285,7 +286,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the size of the current list
-   * 
+   *
    * @return
    */
   public int getPartListSize() {
@@ -320,7 +321,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM UPPER PAGINATOR SELECTION MENU IN JSPF. For setting the
    * value manually, use setElementsPerPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -331,7 +332,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM LOWER PAGINATOR SELECTION MENU IN JSPF. For setting the
    * value manually, use setElementsPerPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -342,7 +343,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM UPPER PAGINATOR SELECTION MENU IN JSPF. For getting the
    * value manually, use getElementsPerPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -353,7 +354,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM UPPER PAGINATOR SELECTION MENU IN JSPF. For getting the
    * value manually, use getElementsPerPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -363,7 +364,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the currently selected number of elements per page
-   * 
+   *
    * @return
    */
   public int getElementsPerPage() {
@@ -372,7 +373,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Used as action when the user changes the upper number of elements menu.
-   * 
+   *
    * @return
    * @throws Exception
    */
@@ -386,7 +387,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Used as action when the user changes the lower number of elements menu.
-   * 
+   *
    * @return
    * @throws Exception
    */
@@ -400,7 +401,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Used as action when the user sends an value from the upper go to input field
-   * 
+   *
    * @return
    * @throws Exception
    */
@@ -423,7 +424,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Used as action when the user sends an value from the lower go to input field
-   * 
+   *
    * @return
    * @throws Exception
    */
@@ -445,7 +446,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the current page number of the paginator
-   * 
+   *
    * @return
    */
   public int getCurrentPageNumber() {
@@ -454,7 +455,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns a list with the paginator pages. Used from jsf to iterate over the numbers
-   * 
+   *
    * @return
    */
   public List<PaginatorPage> getPaginatorPages() {
@@ -463,7 +464,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the number of all paginator pages, not only the visible ones
-   * 
+   *
    * @return
    */
   public int getPaginatorPageSize() {
@@ -473,7 +474,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * Returns the number of the paginator page button that should be displayed as first button of the
    * paginator in order to always display exactly seven paginator page buttons
-   * 
+   *
    * @return
    */
   public int getFirstPaginatorPageNumber() {
@@ -488,7 +489,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Sets the menu entries of the elements per page menu
-   * 
+   *
    * @param elementsPerPageSelectItems
    */
   public void setElementsPerPageSelectItems(List<SelectItem> elementsPerPageSelectItems) {
@@ -497,7 +498,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the menu entries of the elements per page menu
-   * 
+   *
    * @return
    */
   public List<SelectItem> getElementsPerPageSelectItems() {
@@ -505,13 +506,13 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   }
 
   /**
-   * 
+   *
    * Inner class pf which an instance represents an paginator button. Used by the iterator in jsf.
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class PaginatorPage implements Serializable {
     /**
@@ -525,7 +526,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     /**
      * Sets the page number of the paginator button
-     * 
+     *
      * @param number
      */
     public void setNumber(int number) {
@@ -534,7 +535,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     /**
      * Returns the page number of the paginator button
-     * 
+     *
      * @return
      */
     public int getNumber() {
@@ -543,7 +544,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     /**
      * Returns the link that is used as output link of the paginator page button
-     * 
+     *
      * @return
      */
     public String getLink() {
@@ -573,7 +574,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the GET parameters from the parameter map as string that can be appended to the URL
-   * 
+   *
    * @return
    */
   private String getUrlParameterString() {
@@ -581,13 +582,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     String parameterUrl = "?";
 
     for (final Entry<String, String> entrySet : this.getParameterMap().entrySet()) {
-      try {
-        if (entrySet.getValue() != null) {
-          parameterUrl =
-              parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "=" + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
-        }
-      } catch (final UnsupportedEncodingException e) {
-        throw new RuntimeException(e);
+      if (entrySet.getValue() != null) {
+        parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), StandardCharsets.UTF_8) + "="
+            + URLEncoder.encode(entrySet.getValue(), StandardCharsets.UTF_8) + "&";
       }
     }
 
@@ -601,7 +598,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * Returns the url to redirect, including the page path (drawn from BaseListRetrieverRequestBean
    * and all get parameters from the parameterMap.
-   * 
+   *
    * @return
    */
   public String getRedirectUrl() {
@@ -611,7 +608,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * Returns a map that contains all HTTP GET parameters as key-value pairs. If you want to redirect
    * please add your parameters here first.
-   * 
+   *
    * @return
    */
   public Map<String, String> getParameterMap() {
@@ -620,7 +617,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns a link of which one GET parameter is modified
-   * 
+   *
    * @param key The key of the parameter
    * @param value The value that should be contained in the URL
    * @return
@@ -635,7 +632,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the link for the "Next"-Button of the Paginator
-   * 
+   *
    * @return
    */
   public String getLinkForNextPage() {
@@ -644,7 +641,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the link for the "Previous"-Button of the Paginator
-   * 
+   *
    * @return
    */
   public String getLinkForPreviousPage() {
@@ -653,7 +650,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the link for the "First Page"-Button of the Paginator
-   * 
+   *
    * @return
    */
   public String getLinkForFirstPage() {
@@ -662,7 +659,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the link for the "Last Page"-Button of the Paginator
-   * 
+   *
    * @return
    */
   public String getLinkForLastPage() {
@@ -671,7 +668,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Sets the current paginator page number
-   * 
+   *
    * @param currentPageNumber
    */
   public void setCurrentPageNumber(int currentPageNumber) {
@@ -681,7 +678,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Sets the current BaseListRetrieverRequestBean of this SessionBean
-   * 
+   *
    * @param paginatorListRetriever
    */
   public void setPaginatorListRetriever(BaseListRetrieverRequestBean<ListElementType, SortCriteria> paginatorListRetriever) {
@@ -692,14 +689,14 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * When calling this method, implementing subclasses can return additional filters that are
    * typical for the list elements and that should be always passed to the
    * BaseListRetrieverRequestBean when retrieving a new list, e.g. for sorting
-   * 
+   *
    * @return
    */
   public abstract SortCriteria getSortCriteria();
 
   /**
    * Returns the pageType, a String that describes the current page with which this list is used.
-   * 
+   *
    * @return
    */
   public String getPageType() {
@@ -709,7 +706,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * Sets the pageType and, whenever a new pageType is used, calls pageTypeChanged(), clears the
    * parameter map and the input fields of go to boxes.
-   * 
+   *
    * @param pageType
    */
   public void setPageType(String pageType) {
@@ -741,7 +738,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM UPPER GO TO INPUT FIELD MENU IN JSPF. For setting the value
    * manually, use setGoToPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -752,7 +749,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM UPPER GO TO INPUT FIELD MENU IN JSPF. For getting the value
    * manually, use getGoToPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -763,7 +760,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM LOWER GO TO INPUT FIELD MENU IN JSPF. For setting the value
    * manually, use setGoToPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -774,7 +771,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   /**
    * WARNING: USE THIS METHOD ONLY FROM LOWER GO TO INPUT FIELD MENU IN JSPF. For getting the value
    * manually, use getGoToPage().
-   * 
+   *
    * @param elementsPerPageTop
    */
   @Deprecated
@@ -784,7 +781,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Sets the value of the go to input fields.
-   * 
+   *
    * @param goToPage
    */
   public void setGoToPage(String goToPage) {
@@ -795,7 +792,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the value of the go to input fields.
-   * 
+   *
    * @return
    */
   public String getGoToPage() {
@@ -820,7 +817,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   /**
    * Returns the value of listUpdate and resets it to true.
-   * 
+   *
    * @return
    */
   private boolean getListUpdate() {

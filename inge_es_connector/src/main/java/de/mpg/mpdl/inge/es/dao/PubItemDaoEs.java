@@ -5,6 +5,6 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
 public interface PubItemDaoEs extends GenericDaoEs<ItemVersionVO> {
 
-  public String createFulltext(String itemId, String fileId, byte[] file) throws IngeTechnicalException;
+  String createFulltext(String itemId, String fileId, byte[] file) throws IngeTechnicalException;
 
 }

@@ -48,11 +48,11 @@ import jakarta.faces.model.SelectItem;
  * BasePaginatorListSessionBean and adds additional functionality for filtering the items by their
  * state. It extends the MyItemsRetriever RequestBean because it has a similar behaviour regarding
  * item state filters.
- * 
+ *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "MyTasksRetrieverRequestBean")
 @SuppressWarnings("serial")
@@ -66,12 +66,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   /**
    * The HTTP GET parameter name for the context filter.
    */
-  private static String parameterSelectedContext = "context";
+  private static final String parameterSelectedContext = "context";
 
   /**
    * org unit filter.
    */
-  private static String parameterSelectedOrgUnit = "orgUnit";
+  private static final String parameterSelectedOrgUnit = "orgUnit";
 
   /**
    * A list with menu entries for the context filter menu.
@@ -235,7 +235,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   /**
    * Sets the selected context filter
-   * 
+   *
    * @param selectedContext
    */
   public void setSelectedContext(String selectedContext) {
@@ -245,7 +245,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   /**
    * Returns the selected context filter
-   * 
+   *
    * @return
    */
   public String getSelectedContext() {
@@ -254,7 +254,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   /**
    * Returns a label for the selected context.
-   * 
+   *
    * @return
    */
   public String getSelectedContextLabel() {
@@ -274,7 +274,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   /**
    * Returns a label for the selected org unit.
-   * 
+   *
    * @return
    */
   public String getSelectedOrgUnitLabel() {
@@ -376,7 +376,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   /**
    * Adds the list of the given affiliations to the filter select
-   * 
+   *
    * @param affs
    * @param affSelectItems
    * @param level
@@ -385,7 +385,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   /**
    * Sets the current menu items for the context filter menu.
-   * 
+   *
    * @param contextSelectItems
    */
   public void setContextSelectItems(List<SelectItem> contextSelectItems) {
@@ -394,7 +394,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
   /**
    * Returns the mneu items for the context filter menu.
-   * 
+   *
    * @return
    */
   public List<SelectItem> getContextSelectItems() {
@@ -404,7 +404,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   /**
    * Called by JSF whenever the context filter menu is changed. Causes a redirect to the page with
    * updated context GET parameter.
-   * 
+   *
    * @return
    */
   public void changeContext() {
@@ -419,7 +419,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   /**
    * Called by JSF whenever the organizational unit filter menu is changed. Causes a redirect to the
    * page with updated context GET parameter.
-   * 
+   *
    * @return
    */
   public void changeOrgUnit() {

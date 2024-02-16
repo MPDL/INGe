@@ -14,11 +14,11 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 
 /**
  * provides the import of a RIS file
- * 
+ *
  * @author kurt (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class WoSImport {
   private static final Logger logger = Logger.getLogger(WoSImport.class);
@@ -29,7 +29,7 @@ public class WoSImport {
 
   /**
    * reads the import file and transforms the items to XML
-   * 
+   *
    * @return xml
    */
   public String transformWoS2XML(String file) {
@@ -55,7 +55,7 @@ public class WoSImport {
 
   /**
    * reads the file and stores it in a string
-   * 
+   *
    * @return List<String> with file lines
    */
   public String readFile() {
@@ -99,7 +99,7 @@ public class WoSImport {
 
   /**
    * identifies item lines from input string and stores it in a List<String>
-   * 
+   *
    * @param string
    * @return
    */
@@ -119,12 +119,12 @@ public class WoSImport {
 
   /**
    * identifies RIS items from input string and stores it in an String Array
-   * 
+   *
    * @param string
    * @return
    */
   public String[] getItemListFromString(String string, String pattern) {
-    String strItemList[] = string.split(pattern);
+    String[] strItemList = string.split(pattern);
     // strItemList[0] = "\n"+strItemList[0].split("(FN ISI Export Format)\\n(VR 1.0)\\n")[0]; // cut
     // file header
 
@@ -133,7 +133,7 @@ public class WoSImport {
 
   /**
    * get item pairs from item string (by regex string)
-   * 
+   *
    * @param string - RIS item as string
    * @return String list with item key-value pairs
    */
@@ -152,7 +152,7 @@ public class WoSImport {
 
   /**
    * get a pair from line string (by regex string)
-   * 
+   *
    * @param string - RIS line as string
    * @return Pair - key-value pair created by string line
    */
@@ -167,12 +167,12 @@ public class WoSImport {
 
   /**
    * creates a single item in xml
-   * 
+   *
    * @param item pair list
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
-    if (item != null && item.size() > 0) {
+    if (item != null && !item.isEmpty()) {
       return createXMLElement("item", transformItemSubelementsToXML(item));
     }
 
@@ -181,14 +181,14 @@ public class WoSImport {
 
   /**
    * creates the complete item list in xml
-   * 
+   *
    * @param item pair list
    * @return xml string of the whole item list
    */
   public String transformItemListToXML(List<List<Pair>> itemList) {
     String xml = "<item-list>";
 
-    if (itemList != null && itemList.size() > 0) {
+    if (itemList != null && !itemList.isEmpty()) {
       for (List<Pair> item : itemList) {
         xml = xml + "\n" + transformItemToXML(item);
       }
@@ -201,13 +201,13 @@ public class WoSImport {
 
   /**
    * creates an xml string of the item pair list
-   * 
+   *
    * @param item pairs as list
    * @return xml String
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && item.size() > 0) {
+    if (item != null && !item.isEmpty()) {
       for (Pair pair : item) {
         xml = xml + createXMLElement(pair.getKey(), pair.getValue());
       }
@@ -218,7 +218,7 @@ public class WoSImport {
 
   /**
    * creates a single element in xml
-   * 
+   *
    * @param tag - tag name of the element
    * @param value - value of the element
    * @return xml element as string
@@ -233,7 +233,7 @@ public class WoSImport {
 
   /**
    * escapes special characters
-   * 
+   *
    * @param input string
    * @return string with escaped characters
    */

@@ -29,9 +29,9 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
   // XSD_NAMESPACE_PREFIX};
   // private static final String XSD_PREFIX_LEAD = "xsd:";
 
-  private String m_uri;
-  private int m_index;
-  private String m_name;
+  private final String m_uri;
+  private final int m_index;
+  private final String m_name;
 
   public MetadataSetMarshaller() {
     m_uri = null;

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -42,7 +42,7 @@ import jakarta.persistence.Table;
 
 /**
  * Messages used in batch processing.
- * 
+ *
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
@@ -78,7 +78,7 @@ public class BatchProcessItemVO implements Serializable {
 
   public enum BatchProcessMessagesTypes
   {
-    INFO, ERROR, SUCCESS, WARNING;
+    INFO, ERROR, SUCCESS, WARNING
   }
 
   public BatchProcessMessages getBatchProcessMessage() {
@@ -114,9 +114,9 @@ public class BatchProcessItemVO implements Serializable {
     // SUCCESS MESSAGES
     SUCCESS("batch_ProcessLog_Success"),
     // INFO MESSAGES
-    
+
     // WARNING MESSAGES
-    
+
 
     // ERROR MESSAGES
     STATE_WRONG("batch_ProcessLog_StateWrong"),
@@ -132,7 +132,7 @@ public class BatchProcessItemVO implements Serializable {
     METADATA_LOST("batch_ProcessLog_MetadataLost"),
     VALIDATION_GLOBAL("batch_ProcessLog_ValidationGlobal"),
     VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource"),
-    
+
     // EXCEPTION ERROR MESSAGES
     ITEM_NOT_FOUND("batch_ProcessLog_ItemNotFoundError"),
     INTERNAL_ERROR("batch_ProcessLog_InternalError"),
@@ -142,11 +142,11 @@ public class BatchProcessItemVO implements Serializable {
   /**
      * The message pattern. For syntax definition see {@link MessageFormat}.
      */
-    private String message;
+    private final String message;
 
   /**
      * Creates a new instance with the given message template.
-     * 
+     *
      * @param messageTemplate The message template
      */
     BatchProcessMessages(String messageTemplate) {

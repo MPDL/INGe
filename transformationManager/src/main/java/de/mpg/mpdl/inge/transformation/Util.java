@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -29,8 +29,10 @@ package de.mpg.mpdl.inge.transformation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,11 +60,11 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
  * Helper methods for the transformation service.
- * 
+ *
  * @author kleinfe1 (initial creation)
  * @author $Author: MWalter $ (last modification)
  * @version $Revision: 5445 $ $LastChangedDate: 2015-02-19 14:13:07 +0100 (Thu, 19 Feb 2015) $
- * 
+ *
  */
 public class Util {
   private static final Logger logger = Logger.getLogger(Util.class);
@@ -77,17 +79,17 @@ public class Util {
   }
 
   // Jasper styles enum
-  public static enum Styles
+  public enum Styles
   {
     APA,
     AJP,
     Default
-  };
+  }
 
 
   /**
    * Normalizes a given mimetype.
-   * 
+   *
    * @param mimetype
    * @return
    */
@@ -116,7 +118,7 @@ public class Util {
    * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
    * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
    * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   * 
+   *
    * @param authors
    * @return
    */
@@ -133,7 +135,7 @@ public class Util {
       document.appendChild(element);
 
       queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
-          + URLEncoder.encode(query, "UTF-8");
+          + URLEncoder.encode(query, StandardCharsets.UTF_8);
 
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
@@ -150,11 +152,11 @@ public class Util {
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
         for (String result : results) {
-          if (!"".equals(result.trim())) {
+          if (!result.trim().isEmpty()) {
             String id = result.split("\\|")[1];
             // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
             String tan = TanStore.getNewTan();
-            GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
+            GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
             //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
             //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
             //detailMethod.setFollowRedirects(true);
@@ -195,7 +197,7 @@ public class Util {
       logger.info("queryCone: " + model + " query: " + query);
 
       queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
-          + URLEncoder.encode(query, "UTF-8");
+          + URLEncoder.encode(query, StandardCharsets.UTF_8);
       HttpClient client = new HttpClient();
       GetMethod method = new GetMethod(queryUrl);
 
@@ -209,7 +211,7 @@ public class Util {
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
         for (String result : results) {
-          if (!"".equals(result.trim())) {
+          if (!result.trim().isEmpty()) {
             String nextId = result.split("\\|")[1];
             if (!returnSet.contains(nextId)) {
               returnSet.add(nextId);
@@ -231,7 +233,7 @@ public class Util {
 
   /**
    * queries the framework with the given request
-   * 
+   *
    * @param request
    * @return XML document returned by the framework
    * @throws Exception
@@ -309,7 +311,7 @@ public class Util {
 
   /**
    * Queries the CoNE service and transforms the result into a DOM node.
-   * 
+   *
    * @param model The type of object (e.g. "persons")
    * @param name The query string.
    * @param ou Specialty for persons
@@ -329,9 +331,9 @@ public class Util {
       document.appendChild(element);
 
       String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
-          + URLEncoder.encode("dc:title", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
-          + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
-          + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
+          + URLEncoder.encode("dc:title", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("\"" + name + "\"", StandardCharsets.UTF_8)
+          + "&" + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", StandardCharsets.UTF_8) + "="
+          + URLEncoder.encode("\"*" + ou + "*\"", StandardCharsets.UTF_8);
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
@@ -344,12 +346,12 @@ public class Util {
       logger.info("CoNE query: " + queryUrl);
       client.executeMethod(method);
       if (method.getStatusCode() == 200) {
-        ArrayList<String> results = new ArrayList<String>();
-        results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+        ArrayList<String> results = new ArrayList<String>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
         queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
-            + URLEncoder.encode("dcterms:alternative", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
-            + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
-            + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
+            + URLEncoder.encode("dcterms:alternative", StandardCharsets.UTF_8) + "="
+            + URLEncoder.encode("\"" + name + "\"", StandardCharsets.UTF_8) + "&"
+            + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", StandardCharsets.UTF_8) + "="
+            + URLEncoder.encode("\"*" + ou + "*\"", StandardCharsets.UTF_8);
         client.getState().clearCookies();
         method = new GetMethod(queryUrl);
         //        if (coneSession != null) {
@@ -361,12 +363,13 @@ public class Util {
           results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
           Set<String> oldIds = new HashSet<String>();
           for (String result : results) {
-            if (!"".equals(result.trim())) {
+            if (!result.trim().isEmpty()) {
               String id = result.split("\\|")[1];
               if (!oldIds.contains(id)) {
                 // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
                 String tan = TanStore.getNewTan();
-                GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
+                GetMethod detailMethod =
+                    new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
                 //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                 //detailMethod.setFollowRedirects(true);
@@ -400,7 +403,7 @@ public class Util {
 
   /**
    * Queries the CoNE service and transforms the result into a DOM node.
-   * 
+   *
    * @param model The type of object (e.g. "persons")
    * @param name The query string.
    * @param ou Specialty for persons
@@ -420,9 +423,10 @@ public class Util {
       document.appendChild(element);
 
       String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&dc:identifier/"
-          + URLEncoder.encode("rdf:value", "UTF-8") + "=" + URLEncoder.encode("\"" + identifier + "\"", "UTF-8") + "&"
-          + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
-          + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
+          + URLEncoder.encode("rdf:value", StandardCharsets.UTF_8) + "="
+          + URLEncoder.encode("\"" + identifier + "\"", StandardCharsets.UTF_8) + "&"
+          + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", StandardCharsets.UTF_8) + "="
+          + URLEncoder.encode("\"*" + ou + "*\"", StandardCharsets.UTF_8);
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
@@ -435,16 +439,15 @@ public class Util {
       client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl);
       if (method.getStatusCode() == 200) {
-        ArrayList<String> results = new ArrayList<String>();
-        results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+        ArrayList<String> results = new ArrayList<String>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
         Set<String> oldIds = new HashSet<String>();
         for (String result : results) {
-          if (!"".equals(result.trim())) {
+          if (!result.trim().isEmpty()) {
             String id = result.split("\\|")[1];
             if (!oldIds.contains(id)) {
               // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
               String tan = TanStore.getNewTan();
-              GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
+              GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               // detailMethod.setFollowRedirects(true);
@@ -477,7 +480,7 @@ public class Util {
    * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
    * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
    * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   * 
+   *
    * @param Single instituteId for an institute without departments or list of Ids. Every department
    *        has his own Id.
    * @return
@@ -489,9 +492,7 @@ public class Util {
     // get the childOUs if any in the query
     if (query.contains(" ")) {
       String[] result = query.split("\\s+");
-      for (String s : result) {
-        childIds.add(s);
-      }
+      Collections.addAll(childIds, result);
     }
 
     try {
@@ -501,18 +502,19 @@ public class Util {
       document.appendChild(element);
 
       HttpClient client = new HttpClient();
-      if (childIds.size() > 0) {
+      if (!childIds.isEmpty()) {
         // execute a method for every child ou
         for (String childId : childIds) {
           queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
-              + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "=" + URLEncoder.encode("\"" + childId + "\"", "UTF-8")
-              + "&n=0";
+              + URLEncoder.encode("escidoc:position/dc:identifier", StandardCharsets.UTF_8) + "="
+              + URLEncoder.encode("\"" + childId + "\"", StandardCharsets.UTF_8) + "&n=0";
           executeGetMethod(client, queryUrl, documentBuilder, document, element);
         }
       } else {
         // there are no child ous, method is called once
         queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
-            + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "=" + URLEncoder.encode("\"" + query + "\"", "UTF-8") + "&n=0";
+            + URLEncoder.encode("escidoc:position/dc:identifier", StandardCharsets.UTF_8) + "="
+            + URLEncoder.encode("\"" + query + "\"", StandardCharsets.UTF_8) + "&n=0";
         executeGetMethod(client, queryUrl, documentBuilder, document, element);
       }
 
@@ -534,7 +536,7 @@ public class Util {
 
   /**
    * Execute the GET-method.
-   * 
+   *
    * @param client
    * @param queryUrl
    * @param documentBuilder
@@ -553,7 +555,7 @@ public class Util {
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
         for (String result : results) {
-          if (!"".equals(result.trim())) {
+          if (!result.trim().isEmpty()) {
             String detailsUrl = result.split("\\|")[1];
             // if there is an alternative name, take only the first occurrence
             if (!detailsUrl.equalsIgnoreCase(previousUrl)) {

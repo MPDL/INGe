@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -41,7 +41,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 
 /**
  * Valueobject representing a filter taskParam.
- * 
+ *
  * @author Miriam Doelle (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -54,7 +54,7 @@ public class FilterTaskParamVO extends ValueObject {
   private static final String OR = " or ";
   private static final String AND = " and ";
 
-  private List<Filter> filterList = new ArrayList<Filter>();
+  private final List<Filter> filterList = new ArrayList<Filter>();
 
   private static final Logger logger = Logger.getLogger(FilterTaskParamVO.class);
 
@@ -178,7 +178,7 @@ public class FilterTaskParamVO extends ValueObject {
 
     queryBuffer.append(sorting);
 
-    logger.info("query: " + queryBuffer.toString());
+    logger.info("query: " + queryBuffer);
     filterMap.put("query", new String[] {queryBuffer.toString()});
 
     return filterMap;
@@ -204,7 +204,7 @@ public class FilterTaskParamVO extends ValueObject {
     if (((AbstractFilter) filter).compareTo((AbstractFilter) previousFilter) != 0) {
       // filter has changed - close the previous one, connect snippets with AND and brackets if
       // query has already been started
-      if (b.length() > 0) {
+      if (!b.isEmpty()) {
         b.append(RIGHT_PARANTHESIS);
         b.append(AND);
       }
@@ -318,7 +318,7 @@ public class FilterTaskParamVO extends ValueObject {
 
     /**
      * Creates a new filter instance with the given user reference
-     * 
+     *
      * @param userRef The user reference of the owner.
      */
     public OwnerFilter(AccountUserRO userRef) {
@@ -413,7 +413,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * Creates a new instance with the given state. As long as no common content item states are
      * defined we use the PubCollection state.
-     * 
+     *
      * @param state The state to filter for.
      */
     public PubCollectionStatusFilter(ContextVO.State state) {
@@ -447,7 +447,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * Creates a new instance with the given state. As long as no common content item states are
      * defined we use the ItemVO state.
-     * 
+     *
      * @param state The state to filter for.
      */
     public ItemStatusFilter(ItemVO.State state) {
@@ -483,7 +483,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * Creates a new instance with the given state. As long as no common content item states are
      * defined we use the ItemVO state.
-     * 
+     *
      * @param state The state to filter for.
      */
     public ItemPublicStatusFilter(ItemVO.State state) {
@@ -521,7 +521,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * Creates a new filter instance with the given role and user. To use the role filter the user
      * is mandatory.
-     * 
+     *
      * @param role The role to filter for.
      * @param user The user that has the given role.
      */
@@ -571,7 +571,7 @@ public class FilterTaskParamVO extends ValueObject {
 
     /**
      * Creates a new instance with the given (content) type.
-     * 
+     *
      * @param type The framework item (content) type to filter for.
      */
     public FrameworkItemTypeFilter(String type) {
@@ -587,7 +587,7 @@ public class FilterTaskParamVO extends ValueObject {
 
     /**
      * Sets the type filter.
-     * 
+     *
      * @param type The framework item (content) type to set
      */
     public void setType(String type) {
@@ -607,7 +607,7 @@ public class FilterTaskParamVO extends ValueObject {
 
     /**
      * Creates a new instance with the given type.
-     * 
+     *
      * @param type The framework context type to filter for.
      */
     public FrameworkContextTypeFilter(String type) {
@@ -623,7 +623,7 @@ public class FilterTaskParamVO extends ValueObject {
 
     /**
      * Sets the type filter.
-     * 
+     *
      * @param type The framework context type to set
      */
     public void setType(String type) {
@@ -638,7 +638,7 @@ public class FilterTaskParamVO extends ValueObject {
     /**
      * List of ids.
      */
-    private List<AffiliationRO> idList = new ArrayList<AffiliationRO>();
+    private final List<AffiliationRO> idList = new ArrayList<AffiliationRO>();
 
     /**
      * Creates a new instance.
@@ -665,13 +665,13 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * Class to filter by object type (e.g. item or container)
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class ObjectTypeFilter extends AbstractFilter implements Filter {
 
@@ -696,20 +696,19 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * Class to specify an offset for handlers that return lists. If the OffsetFilter is specified,
    * only the results from the offset are returned.
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class OffsetFilter extends AbstractFilter implements Filter {
     private String offset;
 
     public OffsetFilter(String offset) {
-      super();
       this.offset = offset;
     }
 
@@ -724,20 +723,19 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * Class to specify a list limit for handlers that return lists. Only the number of list entries
    * is returned that is specified with the limit value.
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class LimitFilter extends AbstractFilter implements Filter {
     private String limit;
 
     public LimitFilter(String limit) {
-      super();
       this.limit = limit;
     }
 
@@ -751,13 +749,13 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * This filter orders a returned list by the given property and sorting order;
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class OrderFilter extends AbstractFilter implements Filter {
     public final static String ORDER_ASCENDING = "sort.ascending";
@@ -767,7 +765,6 @@ public class FilterTaskParamVO extends ValueObject {
     private String sortOrder;
 
     public OrderFilter(String property, String sortOrder) {
-      super();
       this.property = property;
       this.sortOrder = sortOrder;
     }
@@ -790,20 +787,19 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * This filter filters by context id
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class ContextFilter extends AbstractFilter implements Filter {
 
     private String contextId;
 
     public ContextFilter(String contextId) {
-      super();
       this.contextId = contextId;
     }
 
@@ -817,20 +813,19 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * This filter filters by context id
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class LocalTagFilter extends AbstractFilter implements Filter {
 
     private String localTagId;
 
     public LocalTagFilter(String localTagId) {
-      super();
       this.localTagId = localTagId;
     }
 
@@ -850,13 +845,13 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * This filter filters by context id
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
   public class UserAccountStateFilter extends AbstractFilter implements Filter {
 
@@ -877,13 +872,13 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   /**
-   * 
+   *
    * This filter filters pub items by the id of the person's organization
-   * 
+   *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
-   * 
+   *
    */
 
   public class PersonsOrganizationsFilter extends AbstractFilter implements Filter {
@@ -891,7 +886,6 @@ public class FilterTaskParamVO extends ValueObject {
     private String orgUnitId;
 
     public PersonsOrganizationsFilter(String orgUnitId) {
-      super();
       this.orgUnitId = orgUnitId;
     }
 
@@ -913,33 +907,30 @@ public class FilterTaskParamVO extends ValueObject {
     private String logicalOperator;
 
     public StandardFilter(String filterName, String value) {
-      super();
       this.filterName = filterName;
       this.value = value;
     }
 
     /**
-     * 
+     *
      * @param filterName (eg. "http://escidoc.de/core/01/properties/user")
      * @param value (eg. "escidoc:12345")
      * @param operator (eg. "=" or "<>")
      */
     public StandardFilter(String filterName, String value, String operator) {
-      super();
       this.filterName = filterName;
       this.value = value;
       this.operator = operator;
     }
 
     /**
-     * 
+     *
      * @param filterName (eg. "http://escidoc.de/core/01/properties/user")
      * @param value (eg. "escidoc:12345")
      * @param operator (eg. "=" or "<>")
      * @param logicalOperator for possible link with the next StandardFilter (eg. "AND" or "OR")
      */
     public StandardFilter(String filterName, String value, String operator, String logicalOperator) {
-      super();
       this.filterName = filterName;
       this.value = value;
       this.operator = operator;

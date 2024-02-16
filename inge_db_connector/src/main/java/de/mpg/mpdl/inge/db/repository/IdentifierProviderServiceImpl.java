@@ -17,7 +17,7 @@ public class IdentifierProviderServiceImpl {
   {
     CONTEXT("ctx"), FILES("file"), ITEM("item"), OU("ou"), USER("user");
 
-  private String prefix;
+  private final String prefix;
 
   ID_PREFIX(String prefix) {
       this.prefix = prefix;
@@ -35,6 +35,6 @@ public class IdentifierProviderServiceImpl {
     Long res = (Long) entityManager.createNativeQuery("SELECT current_id FROM id_provider FOR UPDATE;").getSingleResult();
     entityManager.createNativeQuery("UPDATE id_provider SET current_id=current_id+1;").executeUpdate();
 
-    return new StringBuilder(prefix.getPrefix()).append("_").append(res.intValue()).toString();
+    return prefix.getPrefix() + "_" + res.intValue();
   }
 }

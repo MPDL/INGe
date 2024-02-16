@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,13 +47,13 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
- * 
+ *
  * Helper methods for the DataAcquisition Service.
- * 
+ *
  * @author kleinfe1 (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class Util {
   private static final Logger logger = Logger.getLogger(Util.class);
@@ -66,7 +67,7 @@ public class Util {
 
   /**
    * This operation return the Metadata Object of the format to fetch from the source.
-   * 
+   *
    * @param dataSourceVO
    * @param trgFormatName
    * @param trgFormatType
@@ -113,7 +114,7 @@ public class Util {
 
   /**
    * This operation return the Fulltext Object of the format to fetch from the source.
-   * 
+   *
    * @param source
    * @param formatName
    * @param formatType
@@ -155,7 +156,7 @@ public class Util {
   /**
    * Trims the given identifier according to description in source.xml, for a more flexible user
    * input handling.
-   * 
+   *
    * @param source
    * @param identifier
    * @return a trimed identifier
@@ -178,7 +179,7 @@ public class Util {
 
   /**
    * Retrieves the fileending for a given mimetype from the cone service.
-   * 
+   *
    * @param mimeType
    * @return fileending as String
    */
@@ -201,7 +202,7 @@ public class Util {
           throw new RuntimeException("An error occurred while calling Cone Service: " + responseCode);
       }
 
-      InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+      InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
       BufferedReader bReader = new BufferedReader(isReader);
 
       String line = "";

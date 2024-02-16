@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -61,7 +61,7 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * Wrapper class for items to be used in the presentation.
- * 
+ *
  * @author franke
  * @author $Author$
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
@@ -141,7 +141,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
 
     // get the first source of the item (if available)
-    if (item.getMetadata() != null && item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0) {
+    if (item.getMetadata() != null && item.getMetadata().getSources() != null && !item.getMetadata().getSources().isEmpty()) {
       this.firstSource = new SourceVO();
       this.firstSource = item.getMetadata().getSources().get(0);
     }
@@ -156,7 +156,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       final WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
       wrappedLocalTag.setParent(this);
       wrappedLocalTag.setValue(this.getObject().getLocalTags().get(i));
-      if (wrappedLocalTag.getValue().length() > 0 || this.wrappedLocalTags.size() == 0) {
+      if (!wrappedLocalTag.getValue().isEmpty() || this.wrappedLocalTags.isEmpty()) {
         this.wrappedLocalTags.add(wrappedLocalTag);
       }
     }
@@ -290,7 +290,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * localized creation of SelectItems for the identifier types available
-   * 
+   *
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getAlternativeTitleTypes() {
@@ -300,7 +300,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     selectItemList.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
 
     for (final SourceVO.AlternativeTitleType type : SourceVO.AlternativeTitleType.values()) {
-      selectItemList.add(new SelectItem(type.toString(), this.getLabel(("ENUM_ALTERNATIVETITLETYPE_" + type.toString()))));
+      selectItemList.add(new SelectItem(type.toString(), this.getLabel(("ENUM_ALTERNATIVETITLETYPE_" + type))));
     }
 
     return selectItemList.toArray(new SelectItem[] {});
@@ -326,7 +326,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Distinguish between Persons and organization as creators and returns them formatted as string.
-   * 
+   *
    * @return String the formatted creators
    */
   public String getCreators() {
@@ -340,7 +340,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Formats the display of the creators (internal use only, used for different views)
-   * 
+   *
    * @return String the formatted creators
    */
 
@@ -383,7 +383,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       creators = this.getCreators(creatorsNo);
     } else {
       creators = this.getCreators(creatorsMax);
-      creators = creators.toString() + " ...";
+      creators = creators + " ...";
     }
 
     return creators;
@@ -431,7 +431,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Returns the newest date of the metadata date section.
-   * 
+   *
    * @return the latest date
    */
   public String getLatestDate() {
@@ -471,23 +471,23 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     final ArrayList<String> dates = new ArrayList<String>();
 
-    if (this.getMetadata().getDateCreated() != null && !this.getMetadata().getDateCreated().equals("")) {
+    if (this.getMetadata().getDateCreated() != null && !this.getMetadata().getDateCreated().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDateCreated") + ": " + this.getMetadata().getDateCreated());
     }
-    if (this.getMetadata().getDateModified() != null && !this.getMetadata().getDateModified().equals("")) {
+    if (this.getMetadata().getDateModified() != null && !this.getMetadata().getDateModified().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDateModified") + ": " + this.getMetadata().getDateModified());
     }
-    if (this.getMetadata().getDateSubmitted() != null && !this.getMetadata().getDateSubmitted().equals("")) {
+    if (this.getMetadata().getDateSubmitted() != null && !this.getMetadata().getDateSubmitted().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDateSubmitted") + ": " + this.getMetadata().getDateSubmitted());
     }
-    if (this.getMetadata().getDateAccepted() != null && !this.getMetadata().getDateAccepted().equals("")) {
+    if (this.getMetadata().getDateAccepted() != null && !this.getMetadata().getDateAccepted().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDateAccepted") + ": " + this.getMetadata().getDateAccepted());
     }
-    if (this.getMetadata().getDatePublishedOnline() != null && !this.getMetadata().getDatePublishedOnline().equals("")) {
+    if (this.getMetadata().getDatePublishedOnline() != null && !this.getMetadata().getDatePublishedOnline().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDatePublishedOnline") + ": " + this.getMetadata().getDatePublishedOnline());
     }
 
-    if (this.getMetadata().getDatePublishedInPrint() != null && !this.getMetadata().getDatePublishedInPrint().equals("")) {
+    if (this.getMetadata().getDatePublishedInPrint() != null && !this.getMetadata().getDatePublishedInPrint().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDatePublishedInPrint") + ": " + this.getMetadata().getDatePublishedInPrint());
     }
 
@@ -515,7 +515,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * gets the genre of the item
-   * 
+   *
    * @return String the genre of the item
    */
   public String getGenre() {
@@ -528,7 +528,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * gets the genre group of the item
-   * 
+   *
    * @return String the genre group of the item
    */
   public String getGenreGroup() {
@@ -537,7 +537,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * gets the genre of the first source of the item
-   * 
+   *
    * @return String the genre of the source
    */
   public String getSourceGenre() {
@@ -550,7 +550,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Returns a formatted String containing the start and the end page of the source
-   * 
+   *
    * @return String the formatted start and end page
    */
   public String getStartEndPageSource() {
@@ -563,7 +563,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       startEndPage.append(this.firstSource.getStartPage());
     }
 
-    if (this.firstSource.getEndPage() != null && !this.firstSource.getEndPage().trim().equals("")) {
+    if (this.firstSource.getEndPage() != null && !this.firstSource.getEndPage().trim().isEmpty()) {
       startEndPage.append(" - ");
       startEndPage.append(this.firstSource.getEndPage());
     }
@@ -573,7 +573,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Returns the formatted object PID for presentation (without leading "hdl:")
-   * 
+   *
    * @return pid (String) the object PID without leading "hdl:"
    */
   public String getObjectPidWithoutPrefix() {
@@ -587,7 +587,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Returns the formatted Publishing Info according to filled elements
-   * 
+   *
    * @return String the formatted Publishing Info
    */
   public String getPublishingInfo() {
@@ -605,9 +605,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     // colon
     if (this.getMetadata().getPublishingInfo().getPublisher() != null
-        && !this.getMetadata().getPublishingInfo().getPublisher().trim().equals("")
+        && !this.getMetadata().getPublishingInfo().getPublisher().trim().isEmpty()
         && this.getMetadata().getPublishingInfo().getPlace() != null
-        && !this.getMetadata().getPublishingInfo().getPlace().trim().equals("")) {
+        && !this.getMetadata().getPublishingInfo().getPlace().trim().isEmpty()) {
       publishingInfo.append(" : ");
     }
 
@@ -618,11 +618,11 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     // Comma
     if ((this.getMetadata().getPublishingInfo().getEdition() != null
-        && !this.getMetadata().getPublishingInfo().getEdition().trim().equals(""))
+        && !this.getMetadata().getPublishingInfo().getEdition().trim().isEmpty())
         && ((this.getMetadata().getPublishingInfo().getPlace() != null
-            && !this.getMetadata().getPublishingInfo().getPlace().trim().equals(""))
+            && !this.getMetadata().getPublishingInfo().getPlace().trim().isEmpty())
             || (this.getMetadata().getPublishingInfo().getPublisher() != null
-                && !this.getMetadata().getPublishingInfo().getPublisher().trim().equals("")))) {
+                && !this.getMetadata().getPublishingInfo().getPublisher().trim().isEmpty()))) {
       publishingInfo.append(", ");
     }
 
@@ -636,7 +636,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Returns the formatted Publishing Info of the source(!!!) according to filled elements
-   * 
+   *
    * @return String the formatted Publishing Info of the source
    */
   public String getPublishingInfoSource() {
@@ -655,9 +655,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
       // colon
       if (this.firstSource.getPublishingInfo().getPublisher() != null
-          && !this.firstSource.getPublishingInfo().getPublisher().trim().equals("")
-          && this.firstSource.getPublishingInfo().getPlace() != null
-          && !this.firstSource.getPublishingInfo().getPlace().trim().equals("")) {
+          && !this.firstSource.getPublishingInfo().getPublisher().trim().isEmpty()
+          && this.firstSource.getPublishingInfo().getPlace() != null && !this.firstSource.getPublishingInfo().getPlace().trim().isEmpty()) {
         publishingInfoSource.append(" : ");
       }
 
@@ -667,12 +666,10 @@ public class PubItemVOPresentation extends ItemVersionVO {
       }
 
       // Comma
-      if ((this.firstSource.getPublishingInfo().getEdition() != null
-          && !this.firstSource.getPublishingInfo().getEdition().trim().equals(""))
-          && ((this.firstSource.getPublishingInfo().getPlace() != null
-              && !this.firstSource.getPublishingInfo().getPlace().trim().equals(""))
+      if ((this.firstSource.getPublishingInfo().getEdition() != null && !this.firstSource.getPublishingInfo().getEdition().trim().isEmpty())
+          && ((this.firstSource.getPublishingInfo().getPlace() != null && !this.firstSource.getPublishingInfo().getPlace().trim().isEmpty())
               || (this.firstSource.getPublishingInfo().getPublisher() != null
-                  && !this.firstSource.getPublishingInfo().getPublisher().trim().equals("")))) {
+                  && !this.firstSource.getPublishingInfo().getPublisher().trim().isEmpty()))) {
         publishingInfoSource.append(", ");
       }
 
@@ -687,13 +684,13 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Returns the event title (50 Chars) and crops the last characters
-   * 
+   *
    * @return String the event title
    */
   public String getEventTitle() {
     String eventTitle = "";
     if (this.getMetadata().getEvent() != null && this.getMetadata().getEvent().getTitle() != null
-        && !this.getMetadata().getEvent().getTitle().trim().equals("")) {
+        && !this.getMetadata().getEvent().getTitle().trim().isEmpty()) {
       if (this.getMetadata().getEvent().getTitle().length() > 50) {
         eventTitle = this.getMetadata().getEvent().getTitle().substring(0, 49) + "...";
       } else {
@@ -707,11 +704,11 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * Returns the title (80 Chars) and crops the last characters. Specification says 100 chars, but
    * this is too long, 50 is too short.
-   * 
+   *
    * @return String the title
    */
   public String getShortTitle() {
-    if (this.getMetadata().getTitle() != null && !this.getMetadata().getTitle().trim().equals("")) {
+    if (this.getMetadata().getTitle() != null && !this.getMetadata().getTitle().trim().isEmpty()) {
       if (this.getMetadata().getTitle().length() > 80) {
         return this.getMetadata().getTitle().substring(0, 79) + "...";
       }
@@ -725,11 +722,11 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * Returns the first abstract (150 Chars) and crops the last characters. Specification not
    * available!
-   * 
+   *
    * @return String the title
    */
   public String getShortAbstract() {
-    if (this.getMetadata().getAbstracts().size() > 0) {
+    if (!this.getMetadata().getAbstracts().isEmpty()) {
       if (this.getMetadata().getAbstracts().get(0) != null && this.getMetadata().getAbstracts().get(0).getValue() != null
           && this.getMetadata().getAbstracts().get(0).getValue().length() > 150) {
         return this.getMetadata().getAbstracts().get(0).getValue().substring(0, 149) + "...";
@@ -756,12 +753,12 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Returns the source title (50 Chars) of the first source and crops the last characters
-   * 
+   *
    * @return String the event title
    */
   public String getSourceTitle() {
     String sourceTitle = "";
-    if (this.firstSource != null && this.firstSource.getTitle() != null && !this.firstSource.getTitle().trim().equals("")) {
+    if (this.firstSource != null && this.firstSource.getTitle() != null && !this.firstSource.getTitle().trim().isEmpty()) {
       if (this.firstSource.getTitle().length() > 50) {
         sourceTitle = this.firstSource.getTitle().substring(0, 49) + "...";
       } else {
@@ -823,7 +820,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * This method examines which file is really a file and not a locator and returns a list of native
    * files
-   * 
+   *
    * @return List<FileDbVO> file list
    */
   private List<FileDbVO> getFileList() {
@@ -846,7 +843,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method examines which file is a locator and not a file and returns a list of locators
-   * 
+   *
    * @return List<FileDbVO> locator list
    */
   private List<FileDbVO> getLocatorList() {
@@ -869,7 +866,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Counts the files and gives info back as int
-   * 
+   *
    * @return int the amount of files belonging to this item
    */
   public int getAmountOfFiles() {
@@ -882,7 +879,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Counts the locators and gives info back as int
-   * 
+   *
    * @return int the amount of locators belonging to this item
    */
   public int getAmountOfLocators() {
@@ -895,7 +892,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Counts the sources of the current item
-   * 
+   *
    * @return int number of sources
    */
   public int getFurtherSources() {
@@ -909,7 +906,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Counts the creators and returns the number as int (inportant for rendering in )
-   * 
+   *
    * @return int number of creators
    */
   public int getCountCreators() {
@@ -926,7 +923,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Counts the affiliated organizations and returns the number as int (inportant for rendering in )
-   * 
+   *
    * @return int number of organiozations
    */
   public int getCountAffiliatedOrganizations() {
@@ -980,7 +977,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method return the public state of the current item
-   * 
+   *
    * @author Tobias Schraut
    * @return String public state of the current item
    */
@@ -994,7 +991,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method return the state of the current item version
-   * 
+   *
    * @author Tobias Schraut
    * @return String state of the current item version
    */
@@ -1008,7 +1005,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method return true if the item is withdrawn, otherwise false
-   * 
+   *
    * @author Tobias Schraut
    * @return Boolean true if item is withdrawn
    */
@@ -1018,7 +1015,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method return true if the item is submitted, otherwise false
-   * 
+   *
    * @author Tobias Schraut
    * @return Boolean true if item is submitted
    */
@@ -1028,7 +1025,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method return true if the item is released, otherwise false
-   * 
+   *
    * @author Tobias Schraut
    * @return Boolean true if item is released
    */
@@ -1038,7 +1035,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method return true if the item is pending, otherwise false
-   * 
+   *
    * @author Tobias Schraut
    * @return Boolean true if item is pending
    */
@@ -1048,7 +1045,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * This method return true if the item is in revision, otherwise false
-   * 
+   *
    * @author Tobias Schraut
    * @return Boolean true if item is in revision
    */
@@ -1207,7 +1204,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Delivers the FileBeans for all Files which have the content-category fulltext
-   * 
+   *
    * @return List<FileBeans> which have the content-category fulltext
    */
   public List<FileBean> getFulltextFileBeanList() {
@@ -1226,7 +1223,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * Delivers the FileBeans for all files which are publicly accessible and have content category
    * "any-fulltext" / "postprint" / "preprint" / "publisher-version"
-   * 
+   *
    * @return List<FileBeans> which are public accessible and have content category "any-fulltext" /
    *         "postprint" / "preprint" / "publisher-version"
    */
@@ -1247,7 +1244,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   /**
    * Delivers the FileBeans for all Files which have the content-category supplementary material
-   * 
+   *
    * @return List<FileBeans> which have the content-category supplementary material
    */
   public List<FileBean> getSupplementaryMaterialFileBeanList() {
@@ -1267,7 +1264,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * Delivers the FileBeans for all files which are restriced for the current user accessible and
    * have content category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
-   * 
+   *
    * @return List<FileBeans> which are restriced accessible for the current user and have content
    *         category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
    */
@@ -1291,7 +1288,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   /**
    * Delivers the FileBeans for all files which are publicly accessible and have content category
    * "supplementary-material"
-   * 
+   *
    * @return List<FileBeans> which are public accessible and have content category "any-fulltext" /
    *         "postprint" / "preprint" / "publisher-version"
    */
@@ -1321,7 +1318,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   public String getDescriptionMetaTag() {
     final List<CreatorVO> creators = this.getMetadata().getCreators();
 
-    if (creators.size() > 0) {
+    if (!creators.isEmpty()) {
       this.descriptionMetaTag = this.getLabel("ENUM_CREATORROLE_" + creators.get(0).getRoleString()) + ": ";
       if (creators.get(0).getPerson() != null) {
         this.descriptionMetaTag += creators.get(0).getPerson().getFamilyName() + ", " + creators.get(0).getPerson().getGivenName();
@@ -1350,7 +1347,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
 
     // add open access component
-    if (this.getFileBeanList() != null && this.getFileBeanList().size() > 0) {
+    if (this.getFileBeanList() != null && !this.getFileBeanList().isEmpty()) {
       for (final FileBean file : this.getFileBeanList()) {
         if (file.getIsVisible() == true) {
           this.descriptionMetaTag += "; Open Access";

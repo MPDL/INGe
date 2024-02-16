@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -25,22 +25,22 @@
  */
 
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -82,11 +82,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet to answer calls from various calls.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class ConeServlet extends HttpServlet {
@@ -114,7 +114,7 @@ public class ConeServlet extends HttpServlet {
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @throws IOException
    */
   @Override
@@ -206,8 +206,8 @@ public class ConeServlet extends HttpServlet {
 
     // Mode
     Querier.ModeType modeType;
-    if (request.getParameter("mode") != null && "full".equals(request.getParameter("mode").toLowerCase())
-        || request.getParameter("m") != null && "full".equals(request.getParameter("m").toLowerCase())) {
+    if (request.getParameter("mode") != null && "full".equalsIgnoreCase(request.getParameter("mode"))
+        || request.getParameter("m") != null && "full".equalsIgnoreCase(request.getParameter("m"))) {
       modeType = Querier.ModeType.FULL;
     } else {
       modeType = Querier.ModeType.FAST;
@@ -294,7 +294,7 @@ public class ConeServlet extends HttpServlet {
     } else if ("rdfs".equals(action)) {
       response.setContentType("text/xml");
       try {
-        out.print(Rdfs.getModelAsRdfs(null).toString());
+        out.print(Rdfs.getModelAsRdfs(null));
       } catch (Exception e) {
         throw new ServletException(e);
       }
@@ -305,7 +305,7 @@ public class ConeServlet extends HttpServlet {
 
   /**
    * Retrieve the whole list of entities.
-   * 
+   *
    * @param request
    * @param response
    * @param model
@@ -337,7 +337,7 @@ public class ConeServlet extends HttpServlet {
 
   /**
    * Retrieve the details for a given id.
-   * 
+   *
    * @param request Just to use it in the method.
    * @param response Just to use it in the method.
    * @param out Just to use it in the method.
@@ -370,7 +370,7 @@ public class ConeServlet extends HttpServlet {
 
   /**
    * Retrieve a list of matching entities.
-   * 
+   *
    * @param request
    * @param response
    * @param model
@@ -412,7 +412,7 @@ public class ConeServlet extends HttpServlet {
 
   /**
    * Retrieve a list of matching entities.
-   * 
+   *
    * @param request
    * @param response
    * @param model

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -35,11 +35,11 @@ import jakarta.faces.event.ValueChangeEvent;
 
 /**
  * Presentation wrapper for OrganizationVO.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @SuppressWarnings("serial")
 public class OrganizationVOPresentation extends OrganizationVO {
@@ -60,7 +60,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
 
   /**
    * Adds an organization to the list after this organization.
-   * 
+   *
    * @return Always empty
    */
   public void add() {
@@ -73,12 +73,12 @@ public class OrganizationVOPresentation extends OrganizationVO {
       String newOuNumbers = "";
       for (int i = 0; i < ous.length; i++) {
         if (ous[i] <= this.getNumber() || ous[i] >= this.getList().size()) {
-          if (!"".equals(newOuNumbers)) {
+          if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
           newOuNumbers += ous[i];
         } else if (ous[i] > this.getNumber()) {
-          if (!"".equals(newOuNumbers)) {
+          if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
           newOuNumbers += (ous[i] + 1);
@@ -90,7 +90,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
 
   /**
    * Removes this organization from the list.
-   * 
+   *
    * @return Always empty
    */
   public void remove() {
@@ -99,12 +99,12 @@ public class OrganizationVOPresentation extends OrganizationVO {
       String newOuNumbers = "";
       for (int i = 0; i < ous.length; i++) {
         if (ous[i] < this.getNumber()) {
-          if (!"".equals(newOuNumbers)) {
+          if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
           newOuNumbers += ous[i];
         } else if (ous[i] > this.getNumber()) {
-          if (!"".equals(newOuNumbers)) {
+          if (!newOuNumbers.isEmpty()) {
             newOuNumbers += ",";
           }
           newOuNumbers += (ous[i] - 1);

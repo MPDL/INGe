@@ -702,8 +702,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private class ValidId {
-    private String objectId;
-    private Integer version;
+    private final String objectId;
+    private final Integer version;
 
     public ValidId(String _objectId, Integer _version) {
       this.objectId = _objectId;
@@ -1055,9 +1055,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   /*
    * public ItemVersionVO enrichItem(ItemVersionVO item) {
-   * 
+   *
    * if (item != null) { try { entityManager.detach(item); } catch (Exception e) {
-   * 
+   *
    * } if (item.getFiles() != null) { for (FileDbVO file : item.getFiles()) { if
    * (Storage.INTERNAL_MANAGED.equals(file.getStorage())) { file.setContent("/rest/items/" +
    * item.getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content"); } } } } return

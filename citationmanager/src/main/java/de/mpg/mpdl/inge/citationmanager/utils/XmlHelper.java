@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -61,13 +61,13 @@ import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
- * 
+ *
  * XML processing helper
- * 
+ *
  * @author vmakarenko (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class XmlHelper {
 
@@ -81,14 +81,14 @@ public class XmlHelper {
   public static final String CSL = "CSL";
   public static final String PDF = "pdf";
 
-  private static TransformerFactory TF = new net.sf.saxon.TransformerFactoryImpl();
+  private static final TransformerFactory TF = new net.sf.saxon.TransformerFactoryImpl();
 
   public static HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
 
   // List of all available output formats
   public static HashMap<String, String[]> outputFormatsHash = null;
 
-  private static XPath xpath = XPathFactory.newInstance().newXPath();
+  private static final XPath xpath = XPathFactory.newInstance().newXPath();
 
   private static HashMap<String, HashMap<String, String[]>> citationStylesHash = null;
 
@@ -100,14 +100,14 @@ public class XmlHelper {
    * {@link FontStylesCollection} 2) if citation style is given, check citation style directory. If
    * there is a citation style specific {@link FontStylesCollection} in the citation style directory
    * FontStylesCollection, get it; if not - get default FontStylesCollection
-   * 
+   *
    * @param cs - citation style
    * @return {@link FontStylesCollection}
    * @throws CitationStyleManagerException
    */
   private static FontStylesCollection loadFontStylesCollection(String cs) {
     // get default FontStyleCollection from __Default__ element for empty cs
-    if (cs == null || "".equals(cs.trim()))
+    if (cs == null || cs.trim().isEmpty())
       return loadFontStylesCollection("__Default__");
     if (fsc.containsKey(cs))
       return fsc.get(cs);
@@ -136,7 +136,7 @@ public class XmlHelper {
 
   /**
    * Load Default FontStylesCollection
-   * 
+   *
    * @return {@link FontStylesCollection}
    * @throws CitationStyleManagerException
    */
@@ -163,7 +163,7 @@ public class XmlHelper {
 
   /**
    * XML Schema validation (JAVAX)
-   * 
+   *
    * @param schemaUrl is the XML Schema
    * @param xmlDocumentUrl is URI to XML to be validated
    * @throws CitationStyleManagerException
@@ -199,7 +199,7 @@ public class XmlHelper {
 
   /**
    * Validation of CitationStyle XML against 1) XML schema 2) Schematron schema
-   * 
+   *
    * @param xmlDocumentUrl is URI to XML to be validated
    * @throws IOException
    */
@@ -256,7 +256,6 @@ public class XmlHelper {
       saxParseException = exception;
     }
 
-    public void warning(SAXParseException exception) throws SAXException {}
   }
 
   /*
@@ -270,9 +269,9 @@ public class XmlHelper {
   /**
    * Returns the list of the output formats (first element of the array) for the citation style
    * <code>csName</code>.
-   * 
+   *
    * @param csName is name of citation style
-   * @return list of the output formats
+   * @return String[] of the output formats
    * @throws CitationStyleManagerException
    * @throws Exception
    * @throws IOException
@@ -285,7 +284,7 @@ public class XmlHelper {
 
   /**
    * Returns the mime-type for output format of the citation style
-   * 
+   *
    * @param csName is name of citation style
    * @param outFormat is the output format
    * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found
@@ -308,7 +307,7 @@ public class XmlHelper {
 
   /**
    * Returns the file extension according to format name.
-   * 
+   *
    * @throws CitationStyleManagerException
    */
   public static String getExtensionByName(String outputFormat) throws CitationStyleManagerException {
@@ -324,7 +323,7 @@ public class XmlHelper {
   /**
    * Get outputFormatsHash, where keys: names of output format values: array of {mime-type,
    * file-extension} for the output format
-   * 
+   *
    * @return outputFormatsHash
    */
   public static HashMap<String, String[]> getOutputFormatsHash() {
@@ -375,7 +374,7 @@ public class XmlHelper {
 
   /**
    * Return citationStylesHash keys: citation style id value: hash of supported output formats
-   * 
+   *
    * @return citationStylesHash
    */
   public static HashMap<String, HashMap<String, String[]>> getCitationStylesHash() {
@@ -420,7 +419,7 @@ public class XmlHelper {
 
   /**
    * Search for the first <code>Node</code> with the nodeName().equals(nodeName) in the nodeList
-   * 
+   *
    * @param nodeList
    * @param nodeName
    * @return Node or null if no Node has been found

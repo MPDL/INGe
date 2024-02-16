@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -93,7 +93,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   //  /**
   //   * Accepts an item.
-  //   * 
+  //   *
   //   * @param pubItem the item that should be accepted
   //   * @return string, identifying the page that should be navigated to after this method call
   //   * @throws Exception if framework access fails
@@ -115,7 +115,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * use an old item as template to creat a new one
-   * 
+   *
    * @return String navigation to edit Item
    */
   public String createItemFromTemplate() {
@@ -179,7 +179,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Creates a new PubItem and handles navigation afterwards.
-   * 
+   *
    * @param navigationRuleWhenSuccessful the navigation rule which should be returned when the
    *        operation is successful.
    * @param pubContextRO The eSciDoc context.
@@ -200,7 +200,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Deletes a PubItem and handles navigation afterwards.
-   * 
+   *
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successfull
    * @return string, identifying the page that should be navigated to after this methodcall
@@ -264,7 +264,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Tests if the metadata of the two items have changed.
-   * 
+   *
    * @param oldPubItem the old pubItem
    * @param newPubItem the new (maybe changed) pubItem
    * @return true if the metadata of the new item has changed
@@ -288,7 +288,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Initializes a new item with ValueObjects.
-   * 
+   *
    * @return the initialized item.
    */
   public ItemVersionVO initializeItem(ItemVersionVO newPubItem) {
@@ -448,7 +448,7 @@ public class ItemControllerSessionBean extends FacesBean {
         projectInfo.getFundingInfo().setFundingOrganization(new FundingOrganizationVO());
       }
 
-      if (projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().size() == 0) {
+      if (projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().isEmpty()) {
         projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
       }
 
@@ -456,7 +456,7 @@ public class ItemControllerSessionBean extends FacesBean {
         projectInfo.getFundingInfo().setFundingProgram(new FundingProgramVO());
       }
 
-      if (projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().size() == 0) {
+      if (projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().isEmpty()) {
         projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
       }
     }
@@ -466,7 +466,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * submits a pub item
-   * 
+   *
    * @param comment A comment
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successful.
@@ -489,7 +489,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Returns all items for a user depending on the selected itemState.
-   * 
+   *
    * @param contextID the ID of the context that should be retrieved
    * @return the context with the given ID
    */
@@ -508,7 +508,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Returns the export data stream with the selected items in the proper export format
-   * 
+   *
    * @author: StG
    * @param exportFormatVO is containing the selected export format and the file format
    * @param itemsToExportList is the list of selected items to be exported
@@ -527,7 +527,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Returns a list of releases for a pubitem.
-   * 
+   *
    * @author Tobias Schraut
    * @param the item id for which releases should be fetched
    * @return the item with the requested id
@@ -549,7 +549,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   //  /**
   //   * Returns all items in a list of item ids.
-  //   * 
+  //   *
   //   * @param itemRefs a list of item ids of items that should be retrieved.
   //   * @return all items for a user with the given ids
   //   * @throws Exception if framework access fails
@@ -583,7 +583,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Returns an item by its id.
-   * 
+   *
    * @param the item id which belongs to the item
    * @return the item with the requested id
    * @throws Exception if framework access fails
@@ -612,7 +612,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Saves a PubItem and handles navigation afterwards.
-   * 
+   *
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successful.
    * @return string, identifying the page that should be navigated to after this methodcall
@@ -663,7 +663,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Releases a PubItem and handles navigation afterwards.
-   * 
+   *
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successful.
    * @param comment Optional comment.
@@ -686,7 +686,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
   /**
    * Submits a PubItem and handles navigation afterwards.
-   * 
+   *
    * @param comment A comment
    * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
    *        operation is successful.

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -32,7 +32,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 /**
  * Representation of an PubItem search result record. This class is used only for JiBX
  * transformations of search results.
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:52
@@ -43,7 +43,7 @@ public class SearchResultVO extends ValueObject implements SearchResultElement {
    * List of hits. Every hit in files contains the file reference and the text fragments of the
    * search hit.
    */
-  private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
+  private final java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
   private Searchable resultVO;
 
   private float score;

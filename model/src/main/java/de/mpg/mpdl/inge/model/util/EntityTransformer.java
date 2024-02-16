@@ -27,7 +27,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class EntityTransformer {
 
-  private static MapStructMapper MAPPER = MapperFactory.STRUCT_MAP_MAPPER;
+  private static final MapStructMapper MAPPER = MapperFactory.STRUCT_MAP_MAPPER;
 
   public static ContextDbVO transformToNew(ContextVO contextVo) {
     return MAPPER.toContextDbVO(contextVo);
@@ -227,7 +227,7 @@ public class EntityTransformer {
     oldPubItem.setOwner(transformToOld(itemVo.getObject().getCreator()));
     oldPubItem.setPid(itemVo.getObject().getObjectPid());
     oldPubItem.setPublicStatus(transformToOld(itemVo.getObject().getPublicState()));
-    if (ItemVersionVO.State.WITHDRAWN.equals(itemVo.getObject().getPublicState())) 
+    if (ItemVersionVO.State.WITHDRAWN.equals(itemVo.getObject().getPublicState()))
     {
      oldPubItem.setPublicStatusComment(itemVo.getMessage());
     }

@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -66,13 +67,13 @@ import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 
 /**
- * 
+ *
  * Session Bean for Browse By
- * 
+ *
  * @author kleinfe1 (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @ManagedBean(name = "BrowseBySessionBean")
 @SessionScoped
@@ -91,7 +92,6 @@ public class BrowseBySessionBean extends FacesBean {
   private String selectedValue = "persons";
   private String[] characters = null;
   private boolean showChars = true;
-  private final int maxDisplay = 100;
   // private int yearStart;
 
   private Map<String, Long> yearMap = new TreeMap<>();
@@ -116,7 +116,7 @@ public class BrowseBySessionBean extends FacesBean {
     final List<String> vocabs = new ArrayList<String>();
     try {
       final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
-      if (vocabsStr != null && vocabsStr.trim().length() > 0) {
+      if (vocabsStr != null && !vocabsStr.trim().isEmpty()) {
         final String[] vocabsArr = vocabsStr.split(";");
         for (int i = 0; i < vocabsArr.length; i++) {
           vocabs.add(vocabsArr[i].trim());
@@ -153,13 +153,14 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public int getMaxDisplay() {
-    return this.maxDisplay;
+    int maxDisplay = 100;
+    return maxDisplay;
   }
 
   /**
    * This method checks weather the searchResult from CoNE has to be devided into character,
    * according to the value of 'maxDisplay'
-   * 
+   *
    * @return
    */
   public boolean isShowChars() {
@@ -220,7 +221,7 @@ public class BrowseBySessionBean extends FacesBean {
               "An error occurred while calling Cone Service: " + responseCode + ": " + httpConn.getResponseMessage());
       }
 
-      final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+      final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
       final BufferedReader bReader = new BufferedReader(isReader);
       String line = "";
       while ((line = bReader.readLine()) != null) {
@@ -286,7 +287,7 @@ public class BrowseBySessionBean extends FacesBean {
 
   /**
    * Searches the rep for the oldest year.
-   * 
+   *
    * @throws IngeApplicationException
    * @throws AuthorizationException
    * @throws AuthenticationException
@@ -294,8 +295,7 @@ public class BrowseBySessionBean extends FacesBean {
    */
   public void setYearPublished() {
     try {
-      fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-          PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE});
+      fillDateMap(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE);
     } catch (final Exception e) {
       BrowseBySessionBean.logger.error("An error occurred while calling setYearPublished.", e);
     }
@@ -303,10 +303,9 @@ public class BrowseBySessionBean extends FacesBean {
 
   public void setYearStartAny() {
     try {
-      fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-          PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED,
-          PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
-          PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED,});
+      fillDateMap(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
+          PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED,
+          PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED);
     } catch (final Exception e) {
       BrowseBySessionBean.logger.error("An error occurred while calling setYearStartAny.", e);
     }

@@ -27,7 +27,7 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
 
     if (ValidationTools.isNotEmpty(creators)) {
 
-      if (this.childsOfMPG.size() == 0) {
+      if (this.childsOfMPG.isEmpty()) {
         context.addError(ValidationError.create(ErrorMessages.EMPTY_CHILDS_OF_MPG).setErrorCode(ErrorMessages.ERROR));
         return false;
       }

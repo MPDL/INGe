@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -113,13 +113,13 @@ public class GenreSpecificItemManager {
 
         if (javaObjectToNullify != null) {
           if (javaObjectToNullify instanceof List) {
-            if (((List<?>) javaObjectToNullify).size() > 0) {
-              method = javaObjectToNullify.getClass().getMethod("clear", new Class[] {});
-              method.invoke(javaObjectToNullify, new Object[] {});
+            if (!((List<?>) javaObjectToNullify).isEmpty()) {
+              method = javaObjectToNullify.getClass().getMethod("clear");
+              method.invoke(javaObjectToNullify);
               result.add(method);
             }
           } else {
-            method = baseObject.getClass().getMethod("set" + renamedAttribute, new Class[] {javaObjectToNullify.getClass()});
+            method = baseObject.getClass().getMethod("set" + renamedAttribute, javaObjectToNullify.getClass());
             method.invoke(baseObject, new Object[] {null});
             result.add(method);
           }
@@ -140,8 +140,8 @@ public class GenreSpecificItemManager {
     renamedAttribute = renamedAttribute.substring(1);
     // add the first character in upper case
     renamedAttribute = firstCharacter.toUpperCase() + renamedAttribute;
-    final Method method = object.getClass().getMethod("get" + renamedAttribute, new Class[] {});
-    final Object javaObject = method.invoke(object, new Object[] {});
+    final Method method = object.getClass().getMethod("get" + renamedAttribute);
+    final Object javaObject = method.invoke(object);
 
     return javaObject;
   }

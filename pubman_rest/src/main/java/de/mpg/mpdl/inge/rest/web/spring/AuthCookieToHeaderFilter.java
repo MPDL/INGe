@@ -28,9 +28,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Reads cookie with authorization key and adds it as authorization header
- * 
+ *
  * @author haarlae1
- * 
+ *
  */
 public class AuthCookieToHeaderFilter implements Filter {
 
@@ -126,25 +126,25 @@ public class AuthCookieToHeaderFilter implements Filter {
   // http://bijubnair.blogspot.de/2008/12/adding-header-information-to-existing.html
   /**
    * allow adding additional header entries to a request
-   * 
+   *
    * @author wf
-   * 
+   *
    */
   public class HeaderMapRequestWrapper extends HttpServletRequestWrapper {
     /**
      * construct a wrapper for this request
-     * 
+     *
      * @param request
      */
     public HeaderMapRequestWrapper(HttpServletRequest request) {
       super(request);
     }
 
-    private Map<String, String> headerMap = new HashMap<String, String>();
+    private final Map<String, String> headerMap = new HashMap<String, String>();
 
     /**
      * add a header with given name and value
-     * 
+     *
      * @param name
      * @param value
      */

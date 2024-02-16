@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.desktop;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class Search extends FacesBean {
     final boolean includeFiles = this.getIncludeFiles();
 
     // check if the searchString contains useful data
-    if (searchString.trim().equals("")) {
+    if (searchString.trim().isEmpty()) {
       this.error(this.getMessage("search_NoCriteria"));
       return;
     }
@@ -80,8 +81,8 @@ public class Search extends FacesBean {
 
     try {
       final Query qb = Search.generateElasticSearchRequest(searchString, includeFiles);
-      FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(JsonUtil.minifyJsonString(ElasticSearchGenericDAOImpl.toJson(qb)), "UTF-8"));
+      FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq="
+          + URLEncoder.encode(JsonUtil.minifyJsonString(ElasticSearchGenericDAOImpl.toJson(qb)), StandardCharsets.UTF_8));
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));
@@ -120,7 +121,7 @@ public class Search extends FacesBean {
 
     try {
       final Query qb = Search.generateElasticSearchRequest(requestDummy, false);
-      final String openSearchRequest = "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8");
+      final String openSearchRequest = "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), StandardCharsets.UTF_8);
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);

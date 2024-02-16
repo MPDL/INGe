@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -26,20 +26,18 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A file that is contained in an item.
- * 
+ *
  * @revised by MuJ: 28.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 12:05:47
@@ -48,14 +46,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class FileVO extends ValueObject implements Cloneable {
   /**
    * The possible visibility of a file.
-   * 
+   *
    * @updated 21-Nov-2007 12:05:47
    */
   public enum Visibility
   {
     PUBLIC,
     PRIVATE,
-    AUDIENCE;
+    AUDIENCE
   }
 
   /**
@@ -149,14 +147,14 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Public contructor.
-   * 
+   *
    * @author Thomas Diebaecker
    */
   public FileVO() {}
 
   /**
    * Copy constructor.
-   * 
+   *
    * @author Thomas Diebaecker
    * @param other The instance to copy.
    */
@@ -179,14 +177,15 @@ public class FileVO extends ValueObject implements Cloneable {
     checksumAlgorithm = other.checksumAlgorithm;
   }
 
-  public Object clone() {
+  public Object clone()
+  {
     return new FileVO(this);
   }
 
   /**
    * Helper method for JiBX transformations. This method helps JiBX to determine if this is a
    * 'create' or an 'update' transformation. (visibility restricted to package)
-   * 
+   *
    * @return boolean true if this file already exists in the framework (creation date is already
    *         set)
    */
@@ -196,7 +195,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   @JsonProperty("metadata")
   public MdsFileVO getDefaultMetadata() {
-    if (metadataSets.size() > 0 && metadataSets.get(0) instanceof MdsFileVO) {
+    if (!metadataSets.isEmpty() && metadataSets.get(0) instanceof MdsFileVO) {
       return (MdsFileVO) metadataSets.get(0);
     } else {
       return null;
@@ -205,7 +204,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   @JsonProperty("metadata")
   public void setDefaultMetadata(MdsFileVO mdsFileVO) {
-    if (metadataSets.size() == 0) {
+    if (metadataSets.isEmpty()) {
       metadataSets.add(mdsFileVO);
     } else {
       metadataSets.set(0, mdsFileVO);
@@ -214,7 +213,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Delivers the files' reference.
-   * 
+   *
    * @see de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
    */
   public FileRO getReference() {
@@ -223,9 +222,9 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the files' reference.
-   * 
+   *
    * @see de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
-   * 
+   *
    * @param newVal
    */
   public void setReference(FileRO newVal) {
@@ -241,7 +240,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the name of the file including the extension.
-   * 
+   *
    * @param newVal
    */
   public void setName(String newVal) {
@@ -269,7 +268,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the persistent identifier of the file.
-   * 
+   *
    * @param newVal
    */
   public void setPid(String newVal) {
@@ -285,7 +284,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the description of the file, i. e. a short description of the file.
-   * 
+   *
    * @param newVal
    */
   public void setDescription(String newVal) {
@@ -309,7 +308,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets a reference to the content of the file, i. e. to the data of the file.
-   * 
+   *
    * @param newVal
    */
   public void setContent(String newVal) {
@@ -325,7 +324,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the content type of the file.
-   * 
+   *
    * @param newVal
    */
   public void setContentCategory(String newVal) {
@@ -341,7 +340,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the visibility of the file.
-   * 
+   *
    * @param newVal
    */
   public void setVisibility(FileVO.Visibility newVal) {
@@ -359,7 +358,7 @@ public class FileVO extends ValueObject implements Cloneable {
   /**
    * Sets the MIME-type of the file. For valid values see
    * http://www.iana.org/assignments/media-types/
-   * 
+   *
    * @param newVal
    */
   public void setMimeType(String newVal) {
@@ -375,7 +374,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the creation date of the file.
-   * 
+   *
    * @param newVal
    */
   public void setCreationDate(java.util.Date newVal) {
@@ -391,7 +390,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the date of the last modification of the file.
-   * 
+   *
    * @param newVal
    */
   public void setLastModificationDate(java.util.Date newVal) {
@@ -412,7 +411,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the value of the contentCategory Enum by a String.
-   * 
+   *
    * @param newValString
    */
   @JsonIgnore
@@ -434,12 +433,12 @@ public class FileVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the value of the visibility Enum by a String.
-   * 
+   *
    * @param newValString
    */
   @JsonIgnore
   public void setVisibilityString(String newValString) {
-    if (newValString == null || newValString.length() == 0) {
+    if (newValString == null || newValString.isEmpty()) {
       visibility = null;
     } else {
       FileVO.Visibility newVal = FileVO.Visibility.valueOf(newValString);
@@ -465,7 +464,7 @@ public class FileVO extends ValueObject implements Cloneable {
 
   @JsonIgnore
   public void setStorageString(String newValString) {
-    if (newValString == null || newValString.length() == 0) {
+    if (newValString == null || newValString.isEmpty()) {
       storage = null;
     } else {
       FileVO.Storage newVal = FileVO.Storage.valueOf(newValString);

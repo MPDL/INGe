@@ -88,7 +88,7 @@ public class UserAccountOptions extends FacesBean {
 
   public String updatePassword() {
     try {
-      if (this.password != null && !("").equals(this.password.trim())) {
+      if (this.password != null && !this.password.trim().isEmpty()) {
         if (this.password.equals(this.secondPassword)) {
           this.loginHelper = (LoginHelper) FacesTools.findBean("LoginHelper");
           UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();
@@ -115,7 +115,7 @@ public class UserAccountOptions extends FacesBean {
 
   public String updatePasswordNoLogin() {
     try {
-      if (this.password != null && !("").equals(this.password.trim())) {
+      if (this.password != null && !this.password.trim().isEmpty()) {
         if (this.password.equals(this.secondPassword)) {
           this.loginHelper = (LoginHelper) FacesTools.findBean("LoginHelper");
           UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();

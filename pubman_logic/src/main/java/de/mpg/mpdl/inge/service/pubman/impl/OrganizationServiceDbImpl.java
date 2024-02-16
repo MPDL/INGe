@@ -84,7 +84,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns all top-level affiliations.
-   * 
+   *
    * @return all top-level affiliations
    * @throws Exception if framework access fails
    */
@@ -93,9 +93,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
     final Query qb =
         BoolQuery.of(b1 -> b1.mustNot(ExistsQuery.of(eq -> eq.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID))._toQuery()))._toQuery();
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
-        new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
-            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC)});
+    final SearchRetrieveRequestVO srr =
+        new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0, new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
+            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC));
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
@@ -103,7 +103,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns all first-level affiliations.
-   * 
+   *
    * @return all first-level affiliations
    * @throws Exception if framework access fails
    */
@@ -113,7 +113,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     final BoolQuery.Builder qb = new BoolQuery.Builder();
     final List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
 
-    if (topLevelOus.size() == 0) {
+    if (topLevelOus.isEmpty()) {
       return new ArrayList<AffiliationDbVO>();
     }
 
@@ -124,8 +124,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     qb.filter(TermsQuery.of(t -> t.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID).terms(te -> te.value(topLevelOuIds)))._toQuery());
 
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb.build()._toQuery(), OU_SEARCH_LIMIT, 0,
-        new SearchSortCriteria[] {new SearchSortCriteria(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, SearchSortCriteria.SortOrder.ASC),
-            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC)});
+        new SearchSortCriteria(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, SearchSortCriteria.SortOrder.ASC),
+        new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC));
 
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
@@ -134,9 +134,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns next child affiliations of a given affiliation.
-   * 
+   *
    * @param parentAffiliationId The parent affiliation
-   * 
+   *
    * @return next child affiliations
    * @throws Exception if framework access fails
    */
@@ -144,9 +144,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     final Query qb = TermQuery.of(t -> t.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID).value(parentAffiliationId))._toQuery();
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
-        new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
-            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC)});
+    final SearchRetrieveRequestVO srr =
+        new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0, new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
+            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC));
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
@@ -154,9 +154,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns all child affiliations of given affiliations.
-   * 
+   *
    * @param parentAffiliationIds The parent affiliations
-   * 
+   *
    * @return all child affiliations
    * @throws Exception if framework access fails
    */
@@ -172,7 +172,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
         for (AffiliationDbVO child : children) {
           childrenIds.add(child.getObjectId());
         }
-        if (childrenIds.size() > 0) {
+        if (!childrenIds.isEmpty()) {
           result.addAll(this.searchAllChildOrganizations(childrenIds.toArray(new String[childrenIds.size()]), ignoreOuId));
         }
       }
@@ -212,14 +212,14 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
           listHits.add(searchHit);
         }
       }
-    } while (resp.hits().hits().size() != 0);
+    } while (!resp.hits().hits().isEmpty());
 
     if (resp != null) {
       getElasticDao().clearScroll(resp.scrollId());
     }
 
 
-    if (listHits.size() > 0) {
+    if (!listHits.isEmpty()) {
       for (Hit<ObjectNode> hit : listHits) {
         fillWithChildOus(idList, hit.source().get(INDEX_OBJECT_ID).asText());
       }

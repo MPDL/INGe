@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class XmlUtilities {
 
   /**
    * Assert that the XML is valid to the schema.
-   * 
+   *
    * @param xmlData The XML as string
    * @throws Exception Any exception
    */
@@ -141,14 +142,14 @@ public class XmlUtilities {
         return nameSpace;
       }
     };
-    parser.parse(new ByteArrayInputStream(xmlData.getBytes("UTF-8")), handler);
+    parser.parse(new ByteArrayInputStream(xmlData.getBytes(StandardCharsets.UTF_8)), handler);
     String nameSpace = handler.toString();
     return nameSpace;
   }
 
   /**
    * Returns an XML-escaped String that can be used for writing an XML.
-   * 
+   *
    * @param input A string
    * @return The XML-escaped string
    */

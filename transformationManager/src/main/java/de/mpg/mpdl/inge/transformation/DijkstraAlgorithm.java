@@ -36,7 +36,7 @@ public class DijkstraAlgorithm {
     predecessorEdges = new HashMap<TransformerFactory.FORMAT, TransformerEdge>();
     distance.put(source, 0);
     unSettledNodes.add(source);
-    while (unSettledNodes.size() > 0) {
+    while (!unSettledNodes.isEmpty()) {
       FORMAT node = getMinimum(unSettledNodes);
       settledNodes.add(node);
       unSettledNodes.remove(node);

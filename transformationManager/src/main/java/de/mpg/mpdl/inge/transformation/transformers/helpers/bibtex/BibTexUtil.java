@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Utility class for BibTeX handling.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 4134 $ $LastChangedDate: 2011-09-22 18:21:00 +0200 (Do, 22 Sep 2011) $
@@ -84,51 +84,51 @@ public class BibTexUtil {
   /**
    * Mapping for BibTeX special characters.
    */
-  private static Map<String, String> encodingTable = new LinkedHashMap<String, String>();
+  private static final Map<String, String> encodingTable = new LinkedHashMap<String, String>();
   static {
     /*
      * should be generated from de.mpg.mpdl.inge.structuredexportmanager.functions.BibTex.java
-     * 
+     *
      * ----------
-     * 
+     *
      * to add all braclet-possibilities use the following regex and replace the results by the ones
      * mentioned below
-     * 
+     *
      * find put\("(.*?)", "($?)\{?(\\\\)(.{1})\{?(.{1})\}?($?)"\);
-     * 
+     *
      * replace put("$1", "$2$3$4$5$6"); put("$1", "$2\{$3$4$5\}$6"); put("$1", "$2$3$4\{$5\}$6");
      * put("$1", "$2\{$3$4\{$5\}}$6");
-     * 
+     *
      * ----------
-     * 
+     *
      * to get the final table you have to turn the result you got above:
-     * 
+     *
      * find put\(\"(.*)\", \"(.*)\"\);
-     * 
+     *
      * replace encodingTable.put("$2", "$1");
-     * 
+     *
      * ----------
-     * 
+     *
      * remove all Math-Environment-Signs ($)
-     * 
+     *
      * find encodingTable.put\(\"\$(.*)\$\", \"(.*)\"\);
-     * 
+     *
      * replace encodingTable.put("$1", "$2");
-     * 
+     *
      * ----------
-     * 
+     *
      * needs to be sorted by lenght (descending) (use textmechanic.conm/Sort-TextLines.html or
      * something similar)
-     * 
+     *
      * ----------
-     * 
+     *
      * remove all following lines
-     * 
+     *
      * encodingTable.put("-", "\u2010"); encodingTable.put("-", "\u2011"); encodingTable.put("\\-",
      * "\u207B"); encodingTable.put("\\+", "\u207A");
-     * 
+     *
      * ----------
-     * 
+     *
      * add all following lines
      */
 
@@ -1601,7 +1601,7 @@ public class BibTexUtil {
   /**
    * Mapping for month formats.
    */
-  private static Map<String, String> monthTable = new HashMap<String, String>();
+  private static final Map<String, String> monthTable = new HashMap<String, String>();
   static {
     monthTable.put("1", "01");
     monthTable.put("2", "02");
@@ -1656,7 +1656,7 @@ public class BibTexUtil {
 
   /**
    * Translates from BibTeX to normalized UTF-8.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @return A UTF-8 encoded string.
    */
@@ -1666,7 +1666,7 @@ public class BibTexUtil {
 
   /**
    * Translates from BibTeX to normalized UTF-8.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @param stripBraces Indicates whether empty braces "{}" should be removed as well.
    * @return A UTF-8 encoded string.
@@ -1684,7 +1684,7 @@ public class BibTexUtil {
 
   /**
    * Replaces all BibTeX encoded special characters with UTF-8.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @return A UTF-8 encoded string.
    */
@@ -1709,7 +1709,7 @@ public class BibTexUtil {
 
   /**
    * Extracts all braces "{}" from BibTeX encoded strings.
-   * 
+   *
    * @param text A BibTeX encoded string.
    * @return A string without braces.
    */
@@ -1745,7 +1745,7 @@ public class BibTexUtil {
 
   /**
    * Parses a given string into a valid month.
-   * 
+   *
    * @param monthString A string containing an encoded month.
    * @return A string containing a month in eSciDoc format.
    */
@@ -1763,7 +1763,7 @@ public class BibTexUtil {
 
   /**
    * Parses a string containing information about start and end page.
-   * 
+   *
    * @param pagesString A BibTeX "pages" string, e.g. "1--20", "3-5".
    * @param sourceVO The {@link SourceVO} where the pages information should be added.
    */

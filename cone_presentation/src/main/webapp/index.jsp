@@ -65,7 +65,7 @@
 						boolean loggedIn = Login.getLoggedIn(request);
 						boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
 						boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
-						
+
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
 					%>
 					<div class="full_area0 fullItem">
@@ -76,7 +76,7 @@
 						<span class="seperator"></span>
 						<div class="free_area0 itemBlockContent endline">
 							<span class="free_area0_p8 endline firstLine noTopBorder">
-									The purpose of this service is to provide methods to deal with controlled lists of named 
+									The purpose of this service is to provide methods to deal with controlled lists of named
 									entities to assure data quality and facilitate data access and data entry.
 							</span>
 						</div>
@@ -111,7 +111,7 @@
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query?format=html&q=a">query</a>
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all?format=html">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>?format=html">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%=!ids.isEmpty() ? ids.get(0) : "" %>?format=html">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -121,7 +121,7 @@
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query?format=rdf&q=a">query</a>
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all?format=rdf">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>?format=rdf">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%=!ids.isEmpty() ? ids.get(0) : "" %>?format=rdf">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -131,7 +131,7 @@
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query?format=json&q=a">query</a>
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all?format=json">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>?format=json">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%=!ids.isEmpty() ? ids.get(0) : "" %>?format=json">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -141,7 +141,7 @@
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query?format=options&q=a">query</a>
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all?format=options">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>?format=options">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%=!ids.isEmpty() ? ids.get(0) : "" %>?format=options">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -151,7 +151,7 @@
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query?format=jquery&q=a">query</a>
 										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all?format=jquery">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>?format=jquery">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%=!ids.isEmpty() ? ids.get(0) : "" %>?format=jquery">details</a>
 									</span>
 								</span>
 							</div>

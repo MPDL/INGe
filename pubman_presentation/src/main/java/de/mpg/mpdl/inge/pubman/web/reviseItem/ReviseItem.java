@@ -32,7 +32,7 @@ public class ReviseItem extends FacesBean {
   public void init() {
     final StringBuffer creators = new StringBuffer();
     for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
-      if (creators.length() > 0) {
+      if (!creators.isEmpty()) {
         creators.append("; ");
       }
 

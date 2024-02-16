@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * A representation of a tree-like structure built of s-p-o triples.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
@@ -38,7 +38,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
   /**
    * Constructor with given subject.
-   * 
+   *
    * @param subject The subject.
    */
   public TreeFragment(String subject) {
@@ -47,7 +47,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
   /**
    * Constructor with given subject and language.
-   * 
+   *
    * @param subject The subject.
    * @param language The language.
    */
@@ -100,19 +100,19 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   }
 
   public boolean exists() {
-    return (this.keySet() != null && keySet().size() > 0);
+    return (this.keySet() != null && !keySet().isEmpty());
   }
 
   /**
    * {@inheritDoc}
    */
   public boolean hasValue() {
-    return (subject != null && !"".equals(subject));
+    return (subject != null && !subject.isEmpty());
   }
 
   /**
    * {@inheritDoc}
-   * 
+   *
    * @throws ConeException
    */
   public String toRdf(Model model) throws ConeException {
@@ -123,7 +123,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
     } else {
       StringWriter result = new StringWriter();
       Map<String, String> namespaces = new HashMap<String, String>();
-      ModelList modelList = ModelList.getInstance();;
+      ModelList modelList = ModelList.getInstance();
 
       int counter = 0;
 
@@ -139,7 +139,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
           throw new RuntimeException(e);
         }
       }
-      if (language != null && !"".equals(language)) {
+      if (language != null && !language.isEmpty()) {
         result.append(" xml:lang=\"");
         result.append(language);
         result.append("\"");
