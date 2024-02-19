@@ -1067,12 +1067,12 @@ public class EditItem extends FacesBean {
   public String getOwner() {
     if (this.getPubItem().getObject().getCreator() != null) {
       if (this.getPubItem().getObject().getCreator().getName() != null
-          && this.getPubItem().getObject().getCreator().getName().trim() != "") {
+          && !this.getPubItem().getObject().getCreator().getName().trim().equals("")) {
         return this.getPubItem().getObject().getCreator().getName();
       }
 
       if (this.getPubItem().getObject().getCreator().getObjectId() != null
-          && this.getPubItem().getObject().getCreator().getObjectId() != "") {
+          && !this.getPubItem().getObject().getCreator().getObjectId().equals("")) {
         return this.getPubItem().getObject().getCreator().getObjectId();
       }
     }
@@ -1136,9 +1136,8 @@ public class EditItem extends FacesBean {
    * Checks if there are any subject classifications defined for this item.
    *
    * @return true if ther is at least one subject classification.
-   * @throws Exception Any exception.
    */
-  public boolean getHasSubjectClassification() throws Exception {
+  public boolean getHasSubjectClassification() {
     return this.getSubjectTypes() != null;
   }
 

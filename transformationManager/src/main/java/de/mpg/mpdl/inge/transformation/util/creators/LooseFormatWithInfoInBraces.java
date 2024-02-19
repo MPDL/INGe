@@ -101,7 +101,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
         brackets -= 1;
         currentString += currentChar;
       } else if (currentChar.matches(seperatorsRegEX) && brackets == 0) {
-        parts.add(new String(currentString));
+        parts.add(currentString);
         currentString = "";
 
       } else {

@@ -104,10 +104,6 @@ public class SiteMapTask {
   //  private OrganizationService ouService;
 
 
-  /**
-   * {@inheritDoc}
-   */
-
   public void run() {
     try {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
@@ -148,10 +144,10 @@ public class SiteMapTask {
         final FileWriter indexFileWriter = new FileWriter(indexFile);
 
         indexFileWriter
-            .write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
-                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-                + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
-                + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
+            .write("""
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                """);
 
         for (int i = 0; i < this.files.size(); i++) {
           final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");

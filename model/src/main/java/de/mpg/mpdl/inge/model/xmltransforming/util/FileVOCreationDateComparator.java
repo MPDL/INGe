@@ -1,10 +1,11 @@
 package de.mpg.mpdl.inge.model.xmltransforming.util;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 
-public class FileVOCreationDateComparator implements Comparator<FileVO> {
+public class FileVOCreationDateComparator implements Comparator<FileVO>, Serializable {
 
   public int compare(FileVO file1, FileVO file2) {
 

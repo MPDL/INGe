@@ -485,7 +485,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   }
 
   @Transactional(readOnly = true)
-  public List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
+  public List<String> getChildIdPath(String id) throws IngeTechnicalException {
     List<String> ouIds = new ArrayList<>();
     fillWithChildOus(ouIds, id);
 
@@ -531,7 +531,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       List<String> allChildrenOfMpg_ = this.getChildIdPath(this.mpgId);
       this.allChildrenOfMpg = allChildrenOfMpg_;
       logger.info("CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size() + ").");
-    } catch (IngeTechnicalException | IngeApplicationException e) {
+    } catch (IngeTechnicalException e) {
       logger.error("CRON: refreshAllChildrenOfMpg() failed!", e);
     }
   }

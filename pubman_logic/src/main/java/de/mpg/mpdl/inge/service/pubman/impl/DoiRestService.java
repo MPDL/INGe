@@ -143,6 +143,7 @@ public class DoiRestService {
           || "research-data".equals(file.getMetadata().getContentCategory())
           || "multimedia".equals(file.getMetadata().getContentCategory()))) {
         doiReady = true;
+        break;
       }
     }
 

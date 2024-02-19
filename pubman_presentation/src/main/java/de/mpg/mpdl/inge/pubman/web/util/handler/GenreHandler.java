@@ -106,8 +106,6 @@ public class GenreHandler extends ShortContentHandler {
         fileWriter = null;
 
         this.sourceGenres = null;
-      } else if ("group".equals(name) || "field".equals(name)) {
-        this.stack.pop();
       }
     } catch (final Exception e) {
       throw new SAXException(e);

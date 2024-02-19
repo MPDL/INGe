@@ -946,7 +946,7 @@ public class EasySubmission extends FacesBean {
       final ItemVersionVO pubItem = this.getItem();
 
       // write creators back to VO
-      if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep() == EasySubmissionSessionBean.ES_STEP4) {
+      if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP4)) {
         this.getEasySubmissionSessionBean().bindCreatorsToVO(pubItem.getMetadata().getCreators());
       }
 

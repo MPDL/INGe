@@ -55,9 +55,6 @@ import org.apache.log4j.Logger;
 public class EmailService {
   private static final Logger logger = Logger.getLogger(EmailService.class);
 
-  /**
-   * {@inheritDoc}
-   */
   public static String sendMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
       String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,
       String subject, String text, String[] attachments) throws TechnicalException {

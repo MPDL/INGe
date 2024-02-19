@@ -101,6 +101,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
               if (this.breadcrumbs.get(m).getDisplayValue().equals(itemListPage)
                   && this.breadcrumbs.get(position).getPage().contains("itemId=") && newItem.getPage().contains("itemId=")) {
                 specialListTreatment = true;
+                break;
               }
             }
           }

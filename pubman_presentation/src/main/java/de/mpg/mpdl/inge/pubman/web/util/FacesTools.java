@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.util;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.ExternalContext;

@@ -62,9 +62,6 @@ public class IdentityHandler extends ShortContentHandler {
   // this.length += str.length();
   // }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void endElement(String uri, String localName, String name) throws SAXException {
     super.endElement(uri, localName, name);
@@ -78,9 +75,6 @@ public class IdentityHandler extends ShortContentHandler {
 
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
@@ -109,9 +103,6 @@ public class IdentityHandler extends ShortContentHandler {
 
 
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void content(String uri, String localName, String name, String content) throws SAXException {
     super.content(uri, localName, name, content);
@@ -119,9 +110,6 @@ public class IdentityHandler extends ShortContentHandler {
     this.length += XmlUtilities.escape(content).length();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void processingInstruction(String name, String params) throws SAXException {
     super.processingInstruction(name, params);

@@ -143,8 +143,7 @@ public class ItemRestController {
       @RequestParam(value = "citation", required = false) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scrollId") String scrollId, //
-      HttpServletResponse response)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+      HttpServletResponse response) throws IngeTechnicalException, IOException {
 
     ResponseBody searchResp = pis.scrollOn(scrollId, DEFAULT_SCROLL_TIME);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse =
@@ -191,8 +190,7 @@ public class ItemRestController {
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @Hidden
   public ResponseEntity<String> scroll(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @RequestBody JsonNode scrollJson, HttpServletResponse httpResponse)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+      @RequestBody JsonNode scrollJson, HttpServletResponse httpResponse) throws IngeTechnicalException {
 
     return UtilServiceBean.scroll(pis, scrollJson, token, httpResponse);
   }
@@ -296,8 +294,7 @@ public class ItemRestController {
 
   @RequestMapping(value = ITEM_ID_PATH + "/history", method = RequestMethod.GET)
   public ResponseEntity<List<AuditDbVO>> getVersionHistory(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
-      @PathVariable(value = ITEM_ID_VAR) String itemId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      @PathVariable(value = ITEM_ID_VAR) String itemId) {
     List<AuditDbVO> list = null;
     list = pis.getVersionHistory(itemId, token);
     return new ResponseEntity<>(list, HttpStatus.OK);

@@ -61,7 +61,7 @@ public class ContextRO extends ReferenceObject implements Cloneable {
   }
 
   /**
-   * {@inheritDoc}
+   *
    *
    * @author Thomas Diebaecker
    */

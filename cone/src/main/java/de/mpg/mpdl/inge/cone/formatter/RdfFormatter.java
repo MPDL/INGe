@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.cone.formatter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.xml.transform.OutputKeys;

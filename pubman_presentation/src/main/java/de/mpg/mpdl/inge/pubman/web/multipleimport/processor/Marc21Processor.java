@@ -83,8 +83,8 @@ public class Marc21Processor extends FormatProcessor {
 
     try {
       // nasty workaround to get rid of the namespace issues, has to be fixed, Stf, 2013-03-22
-      final String xml = new String(result.toString(StandardCharsets.UTF_8).replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
-          .replaceAll("<collection", "<collection xmlns=\"http://www.loc.gov/MARC21/slim\""));
+      final String xml = result.toString(StandardCharsets.UTF_8).replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
+          .replaceAll("<collection", "<collection xmlns=\"http://www.loc.gov/MARC21/slim\"");
       this.marcxmlprocessor = new MarcXmlProcessor();
 
       final File f = File.createTempFile("marcXml", "xml");

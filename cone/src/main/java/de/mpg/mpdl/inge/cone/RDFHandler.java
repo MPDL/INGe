@@ -58,7 +58,7 @@ public class RDFHandler extends DefaultHandler {
 
   private final Querier querier;
   private final Model model;
-  private StringBuffer currentContent;
+  private StringBuilder currentContent;
 
   private static final Logger logger = Logger.getLogger(RDFHandler.class);
 
@@ -161,7 +161,7 @@ public class RDFHandler extends DefaultHandler {
       }
     }
     tagStack.push(currentTag);
-    currentContent = new StringBuffer();
+    currentContent = new StringBuilder();
   }
 
   @Override

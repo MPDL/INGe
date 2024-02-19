@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.reindex.config;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
 
 import org.apache.log4j.Logger;

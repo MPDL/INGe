@@ -47,7 +47,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
-import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 import de.mpg.mpdl.inge.util.PropertyReader;

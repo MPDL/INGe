@@ -12,7 +12,6 @@ import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
 import jakarta.faces.webapp.FacesServlet;
 import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRegistration;
 
 public class WebAppInitializer implements WebApplicationInitializer {

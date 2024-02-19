@@ -846,8 +846,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return latestVersion;
   }
 
-  private void validate(ItemVersionVO pubItem)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  private void validate(ItemVersionVO pubItem) throws IngeTechnicalException, IngeApplicationException {
     ValidationPoint vp = ValidationPoint.STANDARD;
 
     if (pubItem.getObject().getPublicState() != null && State.PENDING.equals(pubItem.getObject().getPublicState())) {

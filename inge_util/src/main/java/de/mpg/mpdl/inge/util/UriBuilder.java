@@ -3,7 +3,6 @@
  */
 package de.mpg.mpdl.inge.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;

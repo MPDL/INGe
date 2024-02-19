@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.pubman.web.search;
 
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -25,8 +24,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
-import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -336,7 +333,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @param sc The sorting criteria to be checked
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
-    if (sc.getIndex() == null || sc.getIndex().equals("")) {
+    if (sc.getIndex() == null || sc.getIndex().length == 0) {
       this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1", this.getLabel("ENUM_CRITERIA_" + sc.name())));
     }
   }

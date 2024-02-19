@@ -48,9 +48,6 @@ public class SearchResultVO extends ValueObject implements SearchResultElement {
 
   private float score;
 
-  /**
-   * {@inheritDoc}
-   */
   public java.util.List<SearchHitVO> getSearchHitList() {
     return searchHitList;
   }

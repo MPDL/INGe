@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 

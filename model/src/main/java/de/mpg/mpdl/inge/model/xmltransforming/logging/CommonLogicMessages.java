@@ -44,9 +44,14 @@ public enum CommonLogicMessages implements Messages {
       "Method {0} took {1,number} milliseconds."),
 
   // ERROR MESSAGES
-  FRAMEWORK_SYSTEM_ERROR("Failed to use service {0} correctly."), XML_RELATED_ERROR(
-      "\n\n\n####### 1/3 Method ######\n{0}\n" + "####### 2/3 Exception ######\n{1}\n"
-          + "####### 3/3 XML ######\n{2}\n\n\n");
+  FRAMEWORK_SYSTEM_ERROR("Failed to use service {0} correctly."), XML_RELATED_ERROR("""
+      ####### 1/3 Method ######
+      {0}
+      ####### 2/3 Exception ######
+      {1}
+      ####### 3/3 XML ######
+      {2}
+      """);
 
   /**
    * The message pattern. For syntax definition see {@link MessageFormat}.

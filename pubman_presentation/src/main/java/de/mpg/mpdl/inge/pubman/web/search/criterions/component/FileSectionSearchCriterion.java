@@ -49,7 +49,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   //  }
 
   @Override
-  public Query toElasticSearchQuery() throws SearchParseException, IngeTechnicalException {
+  public Query toElasticSearchQuery() throws IngeTechnicalException {
 
     BoolQuery.Builder bq = new BoolQuery.Builder();
     switch (this.selectedAvailability) {

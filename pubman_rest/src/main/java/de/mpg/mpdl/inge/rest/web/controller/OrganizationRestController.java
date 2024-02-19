@@ -280,8 +280,7 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH + "/idPath", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
   public ResponseEntity<String> idPath(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      @PathVariable(value = OU_ID_VAR) String ouId) throws IngeApplicationException {
 
     List<String> idPath = organizationSvc.getIdPath(ouId);
     StringBuilder ouIdPath = new StringBuilder();
@@ -299,7 +298,7 @@ public class OrganizationRestController {
 
   @RequestMapping(value = OU_ID_PATH + "/ouPath", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
   public ResponseEntity<String> ouPath(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId) throws IngeTechnicalException, IngeApplicationException {
+      @PathVariable(value = OU_ID_VAR) String ouId) throws IngeApplicationException {
 
     String ouPath = organizationSvc.getOuPath(ouId);
 

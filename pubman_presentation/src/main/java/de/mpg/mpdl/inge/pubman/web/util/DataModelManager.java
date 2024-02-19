@@ -6,16 +6,6 @@ import java.util.List;
 import jakarta.faces.model.DataModel;
 import jakarta.faces.model.ListDataModel;
 
-/**
- * DataModel and List Manager for data input managed in form of data tables. The data object input
- * user interface is powered using a simple DataModel combined by some addObject and removeObject
- * methods. Internally the objects are stored using a List<T>, which Type T has to be given by the
- * implementing class. For your viewing pleasure there is method called getObjectDataList(),
- * delivering all objects stored in the suitable vo accessed by getDataSetFromVO().
- *
- * @author Mario Wagner
- * @param <T> the object type you want to manage in an data table
- */
 public abstract class DataModelManager<T> {
   protected List<T> objectList = null;
   protected DataModel<?> objectDM = null;
@@ -51,10 +41,6 @@ public abstract class DataModelManager<T> {
     return this.objectList;
   }
 
-  /**
-   *
-   * @param objectList new List<T>
-   */
   public void setObjectList(List<T> objectList) {
     this.objectList = objectList;
     if (this.objectDM == null) {

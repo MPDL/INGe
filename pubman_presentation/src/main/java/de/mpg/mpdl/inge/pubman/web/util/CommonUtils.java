@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -514,7 +513,7 @@ public class CommonUtils {
     return null;
   }
 
-  public static String getGenericItemLink(String objectId) throws Exception {
+  public static String getGenericItemLink(String objectId) {
     return CommonUtils.getGenericItemLink(objectId, 0);
   }
 }

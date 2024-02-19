@@ -31,7 +31,6 @@ import java.io.IOException;
 import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -51,9 +50,6 @@ public class RedirectServlet extends HttpServlet {
   private static final String INSTANCE_CONTEXT_PATH = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
   private static final String INSTANCE_URL = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     final String id = req.getPathInfo().substring(1);
@@ -116,9 +112,6 @@ public class RedirectServlet extends HttpServlet {
 
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
     // No post action

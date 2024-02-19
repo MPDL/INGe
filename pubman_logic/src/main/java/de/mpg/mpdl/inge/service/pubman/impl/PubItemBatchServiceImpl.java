@@ -857,7 +857,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 if (i != 0) {
                   keywordString.append(splittingChar);
                 }
-                if (keyword != "" && keywordsOld.equals(keyword)) {
+                if (!keyword.equals("") && keywordsOld.equals(keyword)) {
                   keywordString.append(keywordsNew);
                   keywordsChanged = true;
                 } else {

@@ -41,7 +41,7 @@ import de.undercouch.citeproc.csl.CSLType;
  *
  */
 public class MetadataProvider implements ItemDataProvider {
-  private static final Logger logger = Logger.getLogger(CitationStyleLanguageManagerService.class);
+  private static final Logger logger = Logger.getLogger(MetadataProvider.class);
 
   private static final String[] dateFormats = {"yyyy-MM-dd", "yyyy-MM", "yyyy"};
 

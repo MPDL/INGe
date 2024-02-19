@@ -29,7 +29,6 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
 import co.elastic.clients.json.JsonData;
-import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -295,7 +294,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
   //  }
 
   @Override
-  public Query toElasticSearchQuery() throws SearchParseException {
+  public Query toElasticSearchQuery() {
     return toElasticSearchQuery(this.getSearchCriterion(), this.getFrom(), this.getTo());
   }
 

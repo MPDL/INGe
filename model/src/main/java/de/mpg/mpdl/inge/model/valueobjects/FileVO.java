@@ -178,7 +178,7 @@ public class FileVO extends ValueObject implements Cloneable {
     checksumAlgorithm = other.checksumAlgorithm;
   }
 
-  public Object clone()
+  public FileVO clone()
   {
     return new FileVO(this);
   }
@@ -404,7 +404,7 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getContentCategoryString() {
-    if (contentCategory == null || contentCategory == null) {
+    if (contentCategory == null) {
       return "";
     }
     return contentCategory;

@@ -175,7 +175,7 @@ public class PubItemUtil {
   }
 
   private static void setOrganizationIdPathsInCreators(List<CreatorVO> creatorList, OrganizationService ouService)
-      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
+      throws IngeApplicationException {
 
     for (CreatorVO creator : creatorList) {
       if (creator.getPerson() != null) {
@@ -192,7 +192,7 @@ public class PubItemUtil {
 
 
   private static void setOrganizationIdPathInOrganization(OrganizationVO ou, OrganizationService ouService)
-      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
+      throws IngeApplicationException {
 
     if (ou.getIdentifier() != null && !ou.getIdentifier().trim().isEmpty()) {
       List<String> ouPath = ouService.getIdPath(ou.getIdentifier().trim());

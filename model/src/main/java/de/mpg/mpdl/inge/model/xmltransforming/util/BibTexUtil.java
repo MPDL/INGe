@@ -111,7 +111,6 @@ public class BibTexUtil {
     encodingTable.put("\\Lambda", "\u039b");
     encodingTable.put("\\Sigma", "\u03a3");
     encodingTable.put("\\Omega", "\u03a9");
-    encodingTable.put("\\delta", "\u03b4");
     encodingTable.put("\\alpha", "\u03b1");
     encodingTable.put("\\beta", "\u03b2");
     encodingTable.put("\\gamma", "\u03b3");
@@ -440,8 +439,6 @@ public class BibTexUtil {
     encodingTable.put("\\'{s}", "\u015b");
     encodingTable.put("{\\' s}", "\u015b");
     encodingTable.put("{\\'s}", "\u015b");
-    encodingTable.put("\\'s", "\u015b");
-    encodingTable.put("\\'s", "\u015b");
     encodingTable.put("{\\c{S}}", "\u015e");
     encodingTable.put("\\c{S}", "\u015e");
     encodingTable.put("{\\c{s}}", "\u015f");
@@ -466,8 +463,6 @@ public class BibTexUtil {
     encodingTable.put("{\\'{z}}", "\u017a");
     encodingTable.put("\\'{z}", "\u017a");
     encodingTable.put("{\\'z}", "\u017a");
-    encodingTable.put("\\'z", "\u017a");
-    encodingTable.put("\\'z", "\u017a");
     encodingTable.put("{\\.{Z}}", "\u017b");
     encodingTable.put("\\.{Z}", "\u017b");
     encodingTable.put("{\\.Z}", "\u017b");

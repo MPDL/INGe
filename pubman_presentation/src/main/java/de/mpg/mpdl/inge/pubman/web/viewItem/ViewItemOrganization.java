@@ -109,11 +109,11 @@ public class ViewItemOrganization {
 
   public void setOrganizationDescription(String organizationName, String organizationAddress, String organizationIdentifier) {
     String addr = organizationName;
-    if (organizationAddress != null && organizationAddress != "") {
+    if (organizationAddress != null && !organizationAddress.equals("")) {
       addr = addr + ", " + organizationAddress;
     }
 
-    if (organizationIdentifier != null && organizationIdentifier != "") {
+    if (organizationIdentifier != null && !organizationIdentifier.equals("")) {
       addr = addr + ", " + organizationIdentifier;
     }
 

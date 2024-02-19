@@ -78,9 +78,6 @@ public class CreatorCollection {
       return creatorBean;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void removeObjectAtIndex(int i) {
       // due to wrapped data handling

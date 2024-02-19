@@ -33,7 +33,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.xml.transform.OutputKeys;

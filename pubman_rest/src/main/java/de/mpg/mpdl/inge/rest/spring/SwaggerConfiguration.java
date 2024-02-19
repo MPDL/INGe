@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.rest.spring;
 
-import java.util.Arrays;
-
 import java.util.Collections;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;

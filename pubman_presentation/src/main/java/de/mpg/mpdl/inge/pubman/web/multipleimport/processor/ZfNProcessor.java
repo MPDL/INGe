@@ -105,7 +105,7 @@ public class ZfNProcessor extends FormatProcessor {
           sw.write(buffer, 0, readReturn);
         }
 
-        item = new String(sw.toString());
+        item = sw.toString();
         itemList.add(item);
         this.fileNames.add(zipentry.getName());
 
@@ -114,7 +114,7 @@ public class ZfNProcessor extends FormatProcessor {
 
       }
 
-      ZfNProcessor.logger.debug("Zip file contains " + count + "elements");
+      logger.debug("Zip file contains " + count + "elements");
       zipinputstream.close();
       this.counter = 0;
 
@@ -122,7 +122,7 @@ public class ZfNProcessor extends FormatProcessor {
       this.items = itemList.toArray(new String[] {});
       this.length = this.items.length;
     } catch (final Exception e) {
-      ZfNProcessor.logger.error("Could not read zip File: " + e.getMessage());
+      logger.error("Could not read zip File: " + e.getMessage());
       throw new RuntimeException("Error reading input stream", e);
     }
   }
@@ -148,7 +148,7 @@ public class ZfNProcessor extends FormatProcessor {
   }
 
   private FileDbVO createPubFile(InputStream in, Principal user) throws Exception {
-    ZfNProcessor.logger.debug("Creating PubFile: " + this.getCurrentFile());
+    logger.debug("Creating PubFile: " + this.getCurrentFile());
 
     final MdsFileVO mdSet = new MdsFileVO();
     final FileDbVO fileVO = new FileDbVO();
@@ -158,14 +158,14 @@ public class ZfNProcessor extends FormatProcessor {
 
     final String fileURL = this.uploadFile(in, mimeType, this.getCurrentFile(), user);
 
-    if (fileURL != null && !fileURL.toString().trim().isEmpty()) {
+    if (fileURL != null && !fileURL.trim().isEmpty()) {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.setMetadata(mdSet);
       fileVO.getMetadata().setTitle(this.getCurrentFile());
       fileVO.setMimeType(mimeType);
       fileVO.setName(this.getCurrentFile());
-      fileVO.setContent(fileURL.toString());
+      fileVO.setContent(fileURL);
       fileVO.setSize(this.fileSize);
       String contentCategory = null;
       if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
@@ -175,7 +175,7 @@ public class ZfNProcessor extends FormatProcessor {
         if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
-          Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+          Logger.getLogger(ZfNProcessor.class).warn("WARNING: no content-category has been defined in Genres.xml");
         }
       }
       fileVO.getMetadata().setContentCategory(contentCategory);
@@ -209,9 +209,9 @@ public class ZfNProcessor extends FormatProcessor {
     this.f.enterLocalActiveMode();
     this.f.changeWorkingDirectory(dir);
     this.f.setFileType(FTP.BINARY_FILE_TYPE);
-    ZfNProcessor.logger.debug("Connection to ftp server established.");
-    ZfNProcessor.logger.debug("Mode: Active ftp");
-    ZfNProcessor.logger.debug("Dir: " + dir);
+    logger.debug("Connection to ftp server established.");
+    logger.debug("Mode: Active ftp");
+    logger.debug("Dir: " + dir);
 
     this.ftpOpen = true;
   }
@@ -220,7 +220,7 @@ public class ZfNProcessor extends FormatProcessor {
     this.f.logout();
     this.f.disconnect();
     this.ftpOpen = false;
-    ZfNProcessor.logger.debug("Connection to ftp server closed.");
+    logger.debug("Connection to ftp server closed.");
   }
 
   /**
@@ -234,7 +234,7 @@ public class ZfNProcessor extends FormatProcessor {
       try {
         this.openFtpServer();
       } catch (final Exception e) {
-        ZfNProcessor.logger.error("Could not open ftp server " + e.getCause());
+        logger.error("Could not open ftp server " + e.getCause());
         throw new Exception();
       }
     }
@@ -276,7 +276,7 @@ public class ZfNProcessor extends FormatProcessor {
       try {
         this.closeFtpServer();
       } catch (final Exception e) {
-        ZfNProcessor.logger.error("Could not close ftp server connection");
+        logger.error("Could not close ftp server connection");
       }
     }
 

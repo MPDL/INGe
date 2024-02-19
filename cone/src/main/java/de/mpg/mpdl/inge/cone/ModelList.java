@@ -581,7 +581,7 @@ public class ModelList {
      * Compares to other objects.
      *
      * @param object The object this object is compared to
-     * @return true, if the other object is a {@link Model} with the same name.
+     * @return true, if the other object is a with the same name.
      */
     @Override
     public boolean equals(Object object) {

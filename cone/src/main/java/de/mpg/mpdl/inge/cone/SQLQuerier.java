@@ -65,24 +65,15 @@ public class SQLQuerier implements Querier {
         PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_PASSWORD));
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public List<? extends Describable> query(String modelName, String searchString, ModeType modeType) throws ConeException {
     return query(modelName, searchString, PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT), modeType);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType) throws ConeException {
     return query(modelName, searchString, language, modeType,
         Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_RESULTS_DEFAULT)));
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType, int limit)
       throws ConeException {
     if (modeType == ModeType.FAST) {
@@ -94,9 +85,6 @@ public class SQLQuerier implements Querier {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs, String language, ModeType modeType, int limit)
       throws ConeException {
     if (modeType == ModeType.FAST) {
@@ -479,9 +467,6 @@ public class SQLQuerier implements Querier {
     return new String[] {fromExtension, joinClause, subQuery, order1, order2, String.valueOf(found)};
   }
 
-  /**
-   * {@inheritDoc}
-   */
   private String[] formatSearchString(String searchString) {
     searchString = searchString.replace("'", "''").replace('*', '%').trim();
 
@@ -504,16 +489,10 @@ public class SQLQuerier implements Querier {
     return list.toArray(new String[] {});
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public TreeFragment details(String modelName, String id) throws ConeException {
     return details(modelName, id, null);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public TreeFragment details(String modelName, String id, String language) throws ConeException {
     try {
       if (connection.isClosed()) {
@@ -542,9 +521,6 @@ public class SQLQuerier implements Querier {
     return details(modelName, model.getPredicates(), id, language, idStack, connection);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public TreeFragment details(String modelName, List<Predicate> predicates, String id, String language, Stack<String> idStack,
       Connection connection) throws ConeException {
     String query = null;
@@ -638,9 +614,6 @@ public class SQLQuerier implements Querier {
     return str.replace("'", "''");
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void create(String modelName, String id, TreeFragment values) throws ConeException {
     try {
       if (connection.isClosed()) {
@@ -708,7 +681,7 @@ public class SQLQuerier implements Querier {
         List<Pair<ResultEntry>> results = ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
 
         for (Pair<ResultEntry> pair : results) {
-          if (pair.getValue() != null && !"".equals(pair.getValue())) {
+          if (pair.getValue() != null) {
             statement.setString(2, pair.getValue().getValue());
 
             if (pair.getValue().getLanguage() != null && "".equals(pair.getValue().getLanguage())) {
@@ -734,7 +707,7 @@ public class SQLQuerier implements Querier {
         List<Pair<LocalizedString>> matchResults = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
 
         for (Pair<LocalizedString> pair : matchResults) {
-          if (pair.getValue() != null && !"".equals(pair.getValue())) {
+          if (pair.getValue() != null) {
             statement.setString(2, pair.getValue().getValue());
             if (pair.getKey() != null && "".equals(pair.getKey())) {
               statement.setString(3, null);
@@ -751,9 +724,6 @@ public class SQLQuerier implements Querier {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void delete(String modelName, String id) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
     List<Predicate> predicates = model.getPredicates();
@@ -812,9 +782,6 @@ public class SQLQuerier implements Querier {
 
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public synchronized String createUniqueIdentifier(String modelName) throws ConeException {
     try {
       if (connection.isClosed()) {
@@ -903,9 +870,6 @@ public class SQLQuerier implements Querier {
     connection.close();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void release() throws ConeException {
     try {
       connection.close();

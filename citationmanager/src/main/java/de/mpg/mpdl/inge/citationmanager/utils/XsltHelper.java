@@ -41,7 +41,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
 import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
 import de.mpg.mpdl.inge.citationmanager.data.Pair;
@@ -220,14 +219,6 @@ public class XsltHelper {
     return s.empty();
   }
 
-  /**
-   * Converts snippet &lt;span&gt; tags to the HTML formatting, i.e. <code><b>, <i>, <u>, <s></code>
-   * Text. Note: If at least one &lt;span&gt; css class will not match FontStyle css, the snippet
-   * will be returned without any changes.
-   *
-   * @param snippet
-   * @return converted snippet
-   */
   public static String convertSnippetToHtml(String snippet) {
     FontStyle fs;
     FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();

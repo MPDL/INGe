@@ -53,11 +53,6 @@ public class WoSImport {
     return result;
   }
 
-  /**
-   * reads the file and stores it in a string
-   *
-   * @return List<String> with file lines
-   */
   public String readFile() {
     String file = "";
     FileReader fileReader = null;
@@ -200,7 +195,7 @@ public class WoSImport {
    * @return xml element as string
    */
   public String createXMLElement(String tag, String value) {
-    if (tag != null && tag != "") {
+    if (tag != null && !tag.equals("")) {
       return "<" + tag + ">" + value + "</" + tag + ">";
     }
 

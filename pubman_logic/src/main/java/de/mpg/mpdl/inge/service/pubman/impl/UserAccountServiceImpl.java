@@ -636,7 +636,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         // no whitespace
         new WhitespaceRule());
 
-    RuleResult result = validator.validate(new PasswordData(new String(password)));
+    RuleResult result = validator.validate(new PasswordData(password));
     if (!result.isValid()) {
       StringBuilder sb = new StringBuilder();
       for (String msg : validator.getMessages(result)) {

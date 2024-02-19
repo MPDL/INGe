@@ -52,7 +52,7 @@ public class MdsFileVO extends MetadataSetVO {
   /**
 	 * Clone constructor.
 	 *
-	 * @param other The {@link MdsFileVO} to be cloned.
+	 * @param other The  to be cloned.
 	 */
 	public MdsFileVO(MdsFileVO other) {
 		super(other.getTitle());

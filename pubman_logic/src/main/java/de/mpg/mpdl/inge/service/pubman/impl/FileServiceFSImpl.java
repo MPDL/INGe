@@ -167,7 +167,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
-      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
+      throws IngeTechnicalException, AuthenticationException {
 
     Principal user = aaService.checkLoginRequired(authenticationToken);
     if (fileName == null || fileName.trim().isEmpty()) {

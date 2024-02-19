@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class ConeHandler extends DefaultHandler {
@@ -12,7 +11,7 @@ public class ConeHandler extends DefaultHandler {
   private final Set<String> result = new HashSet<>();
 
   private final String searchElement;
-  private StringBuffer tmp;
+  private StringBuilder tmp;
   private boolean isSearchElement = false;
 
   public ConeHandler(String searchElement) {
@@ -23,7 +22,7 @@ public class ConeHandler extends DefaultHandler {
   public void startElement(String uri, String localName, String qName, Attributes attributes) {
     if (qName.equalsIgnoreCase(this.searchElement)) {
       this.isSearchElement = true;
-      this.tmp = new StringBuffer();
+      this.tmp = new StringBuilder();
     }
   }
 

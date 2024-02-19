@@ -98,16 +98,10 @@ public class Author {
     this.initial = initial;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public String toString() {
     return "[Author: givenName=" + givenName + ", initial=" + initial + ", sn=" + surname + "(" + format.getName() + ")]";
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public boolean equals(Object obj) {
     if (obj instanceof Author other) {
 

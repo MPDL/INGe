@@ -569,7 +569,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
 
 
-  public List<VersionHistoryEntryVO> retrieveVersionHistoryForItem(String itemID) throws Exception {
+  public List<VersionHistoryEntryVO> retrieveVersionHistoryForItem(String itemID) {
 
     final List<AuditDbVO> versionHistoryList =
         ApplicationBean.INSTANCE.getPubItemService().getVersionHistory(itemID, this.getLoginHelper().getAuthenticationToken());

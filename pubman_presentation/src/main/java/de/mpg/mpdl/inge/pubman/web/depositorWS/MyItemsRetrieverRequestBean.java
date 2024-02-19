@@ -173,11 +173,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
           + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
       bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.inline(is))))._toQuery());
 
-      if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
+      if (this.selectedItemState.equalsIgnoreCase("withdrawn")) {
         bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
-      else if (this.selectedItemState.toLowerCase().equals("all")) {
+      else if (this.selectedItemState.equalsIgnoreCase("all")) {
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
@@ -188,7 +188,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
-      if (!this.getSelectedImport().toLowerCase().equals("all")) {
+      if (!this.getSelectedImport().equalsIgnoreCase("all")) {
         bq.must(MatchQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()).operator(Operator.And))
             ._toQuery());
       }
@@ -234,7 +234,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
    * @param sc The sorting criteria to be checked
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
-    if (sc.getIndex() == null || sc.getIndex().equals("")) {
+    if (sc.getIndex() == null || sc.getIndex().length == 0) {
       this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1", this.getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }

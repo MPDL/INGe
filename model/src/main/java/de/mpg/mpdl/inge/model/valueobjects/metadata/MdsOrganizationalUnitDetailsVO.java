@@ -47,7 +47,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   /**
    * Clone constructor.
    *
-   * @param other The {@link MdsOrganizationalUnitDetailsVO} to be cloned.
+   * @param other The to be cloned.
    */
   public MdsOrganizationalUnitDetailsVO(MdsOrganizationalUnitDetailsVO other) {
     this.city = other.city;

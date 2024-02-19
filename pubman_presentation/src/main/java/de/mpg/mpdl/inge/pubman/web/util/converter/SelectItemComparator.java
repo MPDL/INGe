@@ -1,16 +1,17 @@
 package de.mpg.mpdl.inge.pubman.web.util.converter;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import jakarta.faces.model.SelectItem;
 
 /**
  * Can be used to order a list of SelectItems by their names
- * 
+ *
  * @author haarlae1
- * 
+ *
  */
-public class SelectItemComparator implements Comparator<SelectItem> {
+public class SelectItemComparator implements Comparator<SelectItem>, Serializable {
   @Override
   public int compare(SelectItem si1, SelectItem si2) {
 

@@ -76,6 +76,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -295,7 +296,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     }
 
     // Sort identifiers alphabetically
-    identifierRoleMenu.sort((o1, o2) -> o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase()));
+    identifierRoleMenu.sort(Comparator.comparing(o -> o.getLabel().toLowerCase()));
 
     return identifierRoleMenu;
   }
@@ -704,7 +705,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     return this.oaStatusListMenu;
   }
 
-  public void setOaStatutsListMenu(List<SelectItem> oaStatusListMenu) {
+  public void setOaStatusListMenu(List<SelectItem> oaStatusListMenu) {
     this.oaStatusListMenu = oaStatusListMenu;
   }
 
@@ -782,8 +783,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
 
   public void removeAutoSuggestValues(int position) {
     final SearchCriterionBase sc = this.criterionList.get(position);
-    if (sc instanceof StringOrHiddenIdSearchCriterion) {
-      final StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
+    if (sc instanceof StringOrHiddenIdSearchCriterion hiddenSc) {
       hiddenSc.setHiddenId(null);
       hiddenSc.setSearchString(null);
     }

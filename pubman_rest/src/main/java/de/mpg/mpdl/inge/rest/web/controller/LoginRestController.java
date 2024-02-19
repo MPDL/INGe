@@ -17,8 +17,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +37,7 @@ public class LoginRestController {
 
   @RequestMapping(path = "login", method = POST, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<?> login(@RequestBody String credentials, HttpServletRequest request, HttpServletResponse response)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, IngeTechnicalException {
     String[] splittedCredentials = credentials.split(":");
 
     if (splittedCredentials.length != 2) {
@@ -60,15 +58,13 @@ public class LoginRestController {
   }
 
   @RequestMapping(path = "login/who", method = GET, produces = APPLICATION_JSON_VALUE)
-  public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token) throws AuthenticationException {
     AccountUserDbVO user = this.userSvc.get(token);
     return new ResponseEntity<>(user, HttpStatus.OK);
   }
 
   @RequestMapping(path = "logout", method = GET, produces = APPLICATION_JSON_VALUE)
-  public String logout(@RequestHeader(value = AUTHZ_HEADER) String token, HttpServletRequest request, HttpServletResponse response)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public String logout(@RequestHeader(value = AUTHZ_HEADER) String token, HttpServletRequest request, HttpServletResponse response) {
     this.userSvc.logout(token, request, response);
 
     return "Successfully logged out";

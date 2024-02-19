@@ -88,8 +88,8 @@ public class FilterTaskParamVO extends ValueObject {
     for (Filter filter : filterList) {
       if (filter instanceof OffsetFilter offsetFilter) {
         String offset = offsetFilter.getOffset();
-        Integer newOffset = Integer.parseInt(offset) + 1;
-        filterMap.put("startRecord", new String[] {newOffset.toString()});
+        int newOffset = Integer.parseInt(offset) + 1;
+        filterMap.put("startRecord", new String[] {Integer.toString(newOffset)});
         previousFilter = filter;
       } else if (filter instanceof LimitFilter limitFilter) {
         filterMap.put("maximumRecords", new String[] {limitFilter.getLimit()});
@@ -111,7 +111,7 @@ public class FilterTaskParamVO extends ValueObject {
               filter);
         } else if (filter instanceof FrameworkContextTypeFilter) {
           enhanceQuery(queryBuffer,
-              "\"/properties/type\"=" + ((FrameworkContextTypeFilter) filter).getType().toString().replace('_', '-').toLowerCase(),
+              "\"/properties/type\"=" + ((FrameworkContextTypeFilter) filter).getType().replace('_', '-').toLowerCase(),
               previousFilter, filter);
         } else if (filter instanceof OwnerFilter) {
           enhanceQuery(queryBuffer, "\"/properties/created-by/id\"=" + ((OwnerFilter) filter).getUserRef().getObjectId(), previousFilter,
@@ -211,7 +211,7 @@ public class FilterTaskParamVO extends ValueObject {
       if (filter instanceof RoleFilter)
         b.append(AND);
       else if (filter instanceof StandardFilter && ((StandardFilter) filter).getLogicalOperator() != null
-          && "and".equals(((StandardFilter) filter).getLogicalOperator().toLowerCase())) {
+          && "and".equalsIgnoreCase(((StandardFilter) filter).getLogicalOperator())) {
         b.append(AND);
       } else
         b.append(OR);

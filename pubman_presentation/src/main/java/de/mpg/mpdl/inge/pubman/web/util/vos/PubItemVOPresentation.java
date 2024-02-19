@@ -404,8 +404,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
             && !CreatorRole.REFEREE.equals(creator.getRole()) && !CreatorRole.ADVISOR.equals(creator.getRole())
             && !CreatorRole.HONOREE.equals(creator.getRole())) {
           for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
-            if (organization.getName().toString().contains(rootOrganization)) {
+            if (organization.getName().contains(rootOrganization)) {
               isPartOfTheOrganization = true;
+              break;
             }
           }
           if (isPartOfTheOrganization) {
@@ -596,7 +597,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
 
     final StringBuilder publishingInfo = new StringBuilder();
-    publishingInfo.append("");
 
     // Place
     if (this.getMetadata().getPublishingInfo().getPlace() != null) {
@@ -646,7 +646,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     final StringBuilder publishingInfoSource = new StringBuilder();
 
-    publishingInfoSource.append("");
     if (this.firstSource.getPublishingInfo() != null) {
       // Place
       if (this.firstSource.getPublishingInfo().getPlace() != null) {
@@ -817,12 +816,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return locators.toString();
   }
 
-  /**
-   * This method examines which file is really a file and not a locator and returns a list of native
-   * files
-   *
-   * @return List<FileDbVO> file list
-   */
   private List<FileDbVO> getFileList() {
     List<FileDbVO> fileList = null;
     if (this.getFiles() != null) {
@@ -841,11 +834,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return this.getFileList().size();
   }
 
-  /**
-   * This method examines which file is a locator and not a file and returns a list of locators
-   *
-   * @return List<FileDbVO> locator list
-   */
   private List<FileDbVO> getLocatorList() {
     List<FileDbVO> locatorList = null;
     if (this.getFiles() != null) {
@@ -947,7 +935,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.selected = (Boolean) event.getNewValue();
   }
 
-  public String getLink() throws Exception {
+  public String getLink() {
     if (this != null && this.getObjectId() != null) {
       return CommonUtils.getGenericItemLink(this.getObjectId(), this.getVersionNumber());
     }
@@ -955,7 +943,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return null;
   }
 
-  public String getLinkLatestRelease() throws Exception {
+  public String getLinkLatestRelease() {
     if (this.getObject().getLatestRelease() != null && this.getObject().getLatestRelease().getObjectId() != null) {
       return CommonUtils.getGenericItemLink(this.getObject().getLatestRelease().getObjectId(),
           this.getObject().getLatestRelease().getVersionNumber());
@@ -1179,8 +1167,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
   }
 
-  public String getIdentifier() throws Exception {
-    final String id = this.getLink().toString();
+  public String getIdentifier() {
+    final String id = this.getLink();
     final String[] idSplit = id.split("/");
 
     return idSplit[idSplit.length - 1];
@@ -1202,11 +1190,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return this.fileBeanList;
   }
 
-  /**
-   * Delivers the FileBeans for all Files which have the content-category fulltext
-   *
-   * @return List<FileBeans> which have the content-category fulltext
-   */
   public List<FileBean> getFulltextFileBeanList() {
     final List<FileBean> fulltexts = new ArrayList<>();
     if (this.fileBeanList != null) {
@@ -1220,13 +1203,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return fulltexts;
   }
 
-  /**
-   * Delivers the FileBeans for all files which are publicly accessible and have content category
-   * "any-fulltext" / "postprint" / "preprint" / "publisher-version"
-   *
-   * @return List<FileBeans> which are public accessible and have content category "any-fulltext" /
-   *         "postprint" / "preprint" / "publisher-version"
-   */
   public List<FileBean> getPubliclyAccessibleFulltextFileBeanList() {
     final List<FileBean> fulltexts = new ArrayList<>();
     if (this.fileBeanList != null) {
@@ -1242,11 +1218,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return fulltexts;
   }
 
-  /**
-   * Delivers the FileBeans for all Files which have the content-category supplementary material
-   *
-   * @return List<FileBeans> which have the content-category supplementary material
-   */
   public List<FileBean> getSupplementaryMaterialFileBeanList() {
     final List<FileBean> supplementaryMaterial = new ArrayList<>();
     if (this.fileBeanList != null) {
@@ -1261,13 +1232,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return supplementaryMaterial;
   }
 
-  /**
-   * Delivers the FileBeans for all files which are restriced for the current user accessible and
-   * have content category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
-   *
-   * @return List<FileBeans> which are restriced accessible for the current user and have content
-   *         category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
-   */
   public List<FileBean> getRestrictedAccessibleFulltextFileBeanList() {
     final List<FileBean> fulltexts = new ArrayList<>();
     if (this.fileBeanList != null) {
@@ -1285,13 +1249,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return fulltexts;
   }
 
-  /**
-   * Delivers the FileBeans for all files which are publicly accessible and have content category
-   * "supplementary-material"
-   *
-   * @return List<FileBeans> which are public accessible and have content category "any-fulltext" /
-   *         "postprint" / "preprint" / "publisher-version"
-   */
   public List<FileBean> getPubliclyAccessibleSupplementaryMaterialFileBeanList() {
     final List<FileBean> supplementaryMaterial = new ArrayList<>();
     if (this.fileBeanList != null) {
@@ -1336,12 +1293,12 @@ public class PubItemVOPresentation extends ItemVersionVO {
         "; " + this.getLabel("ViewItemFull_lblGenre") + ": " + this.getLabel("ENUM_GENRE_" + this.getMetadata().getGenre());
 
     // add published print date
-    if (this.getMetadata().getDatePublishedInPrint() != null && this.getMetadata().getDatePublishedInPrint() != "") {
+    if (this.getMetadata().getDatePublishedInPrint() != null && !this.getMetadata().getDatePublishedInPrint().equals("")) {
       this.descriptionMetaTag +=
           "; " + this.getLabel("ViewItemShort_lblDatePublishedInPrint") + ": " + this.getMetadata().getDatePublishedInPrint();
     }
     // add published online date if no publisched print date
-    else if (this.getMetadata().getDatePublishedOnline() != null && this.getMetadata().getDatePublishedOnline() != "") {
+    else if (this.getMetadata().getDatePublishedOnline() != null && !this.getMetadata().getDatePublishedOnline().equals("")) {
       this.descriptionMetaTag +=
           "; " + this.getLabel("ViewItemShort_lblDatePublishedOnline") + ": " + this.getMetadata().getDatePublishedOnline();
     }
@@ -1357,12 +1314,12 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
 
     // add keywords
-    if (this.getMetadata().getFreeKeywords() != null && this.getMetadata().getFreeKeywords() != "") {
+    if (this.getMetadata().getFreeKeywords() != null && !this.getMetadata().getFreeKeywords().equals("")) {
       this.descriptionMetaTag += "; Keywords: " + this.getMetadata().getFreeKeywords();
     }
 
     // add title at the end of description meta tag
-    if (this.getMetadata().getTitle() != null && this.getMetadata().getTitle() != "") {
+    if (this.getMetadata().getTitle() != null && !this.getMetadata().getTitle().equals("")) {
       this.descriptionMetaTag += "; " + this.getLabel("ViewItemFull_lblTitle") + ": " + this.getMetadata().getTitle();
     }
 

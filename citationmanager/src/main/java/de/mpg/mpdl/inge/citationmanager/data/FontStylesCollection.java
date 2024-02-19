@@ -140,10 +140,10 @@ public class FontStylesCollection {
   }
 
   /**
-   * Loads {@link FontStylesCollection} from inputStream
+   * Loads from inputStream
    *
    * @param inputStream
-   * @return {@link FontStylesCollection}
+   * @return
    * @throws IOException
    * @throws SAXException
    */
@@ -184,10 +184,10 @@ public class FontStylesCollection {
   }
 
   /**
-   * Loads {@link FontStylesCollection} from xmlfile
+   * Loads from xmlfile
    *
    * @param xmlFileName
-   * @return {@link FontStylesCollection}
+   * @return
    * @throws IOException
    * @throws SAXException
    */

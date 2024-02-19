@@ -42,7 +42,7 @@ public interface OrganizationService extends GenericService<AffiliationDbVO, Str
 
   List<String> getIdPath(String id) throws IngeApplicationException;
 
-  List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException;
+  List<String> getChildIdPath(String id) throws IngeTechnicalException;
 
   List<String> getAllChildrenOfMpg();
 

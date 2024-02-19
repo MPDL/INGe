@@ -74,9 +74,6 @@ public class EdocProcessor extends FormatProcessor {
   private int length = -1;
   private byte[] originalData = null;
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean hasNext() {
     if (!this.init) {
@@ -85,9 +82,6 @@ public class EdocProcessor extends FormatProcessor {
     return (this.originalData != null && this.counter < this.length);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String next() throws NoSuchElementException {
     if (!this.init) {
@@ -131,17 +125,11 @@ public class EdocProcessor extends FormatProcessor {
 
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public int getLength() {
     return this.length;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String getDataAsBase64() {
     if (this.originalData == null) {
@@ -200,9 +188,6 @@ public class EdocProcessor extends FormatProcessor {
     private StringBuilder builder;
     private boolean inItem = false;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
       if ("edoc".equals(this.getStack().toString())) {
@@ -227,9 +212,6 @@ public class EdocProcessor extends FormatProcessor {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException {
       super.endElement(uri, localName, name);
@@ -247,9 +229,6 @@ public class EdocProcessor extends FormatProcessor {
       }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void content(String uri, String localName, String name, String content) throws SAXException {
       super.content(uri, localName, name, content);

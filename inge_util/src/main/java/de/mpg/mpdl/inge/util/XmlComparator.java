@@ -189,7 +189,7 @@ public class XmlComparator {
       Node other = firstXmlHandler.nodeList.poll();
 
       if (!textNode.equals(other) && !omit) {
-        errors.add("Difference at " + stack.toString() + ": " + other + " != " + textNode);
+        errors.add("Difference at " + stack + ": " + other + " != " + textNode);
       }
     }
 
@@ -234,7 +234,7 @@ public class XmlComparator {
       Node other = firstXmlHandler.nodeList.poll();
 
       if (!xmlNode.equals(other) && !omit) {
-        errors.add("Difference at " + stack.toString() + ": " + other + " != " + xmlNode);
+        errors.add("Difference at " + stack + ": " + other + " != " + xmlNode);
       }
     }
 

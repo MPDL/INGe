@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 

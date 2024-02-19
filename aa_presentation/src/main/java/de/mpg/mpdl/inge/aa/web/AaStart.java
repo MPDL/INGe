@@ -26,17 +26,15 @@
 
 package de.mpg.mpdl.inge.aa.web;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import de.mpg.mpdl.inge.util.PropertyReader;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * TODO Description
@@ -53,7 +51,7 @@ public class AaStart extends HttpServlet {
   private static final String DEFAULT_ENCODING = "UTF-8";
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     doPost(request, response);
   }
 

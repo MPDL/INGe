@@ -1,15 +1,5 @@
 package de.mpg.mpdl.inge.pubman.web.util.filter;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.cone.SQLQuerier;
 import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -18,9 +8,16 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.log4j.Logger;
 
 public class SitemapFilter implements Filter {
-  private static final Logger logger = Logger.getLogger(SQLQuerier.class);
+  private static final Logger logger = Logger.getLogger(SitemapFilter.class);
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

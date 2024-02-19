@@ -384,8 +384,7 @@ public class AuthorizationService {
   }
   */
 
-  public Principal checkLoginRequired(String authenticationToken)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+  public Principal checkLoginRequired(String authenticationToken) throws AuthenticationException {
     return new Principal(userAccountService.get(authenticationToken), authenticationToken);
   }
 

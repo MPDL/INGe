@@ -823,7 +823,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     }
 
     // Sort identifiers alphabetically
-    selectItemList.sort((o1, o2) -> o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase()));
+    selectItemList.sort(Comparator.comparing(o -> o.getLabel().toLowerCase()));
 
     return selectItemList.toArray(new SelectItem[] {});
   }
@@ -832,7 +832,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
    * adding an IP range in the IP range presentation list
    */
   public void addIpRange() {
-    this.ipRangeToAdd.add(new String(""));
+    this.ipRangeToAdd.add("");
   }
 
   /**
@@ -849,7 +849,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
    * adding a local tag to the local tag presentation list
    */
   public void addLocalTag() {
-    this.localTagsToAdd.add(new String(""));
+    this.localTagsToAdd.add("");
   }
 
   /**

@@ -43,12 +43,6 @@ public class EndNoteImport {
   }
 
 
-  /**
-   * Splits EndNote items and puts them into List<String>
-   *
-   * @param itemsStr item list string
-   * @return
-   */
   public List<String> splitItems(String itemsStr) {
     List<String> l = new ArrayList<>();
     String buff;
@@ -95,12 +89,6 @@ public class EndNoteImport {
     return l;
   }
 
-  /**
-   * Splits EndNote fields of an item and puts them into List<String>
-   *
-   * @param itemStr - item string
-   * @return
-   */
   public List<String> splitItemElements(String itemStr) {
 
     List<String> l = new ArrayList<>();

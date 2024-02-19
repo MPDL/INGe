@@ -113,7 +113,7 @@ public class ConeServlet extends HttpServlet {
   };
 
   /**
-   * {@inheritDoc}
+   *
    *
    * @throws IOException
    */

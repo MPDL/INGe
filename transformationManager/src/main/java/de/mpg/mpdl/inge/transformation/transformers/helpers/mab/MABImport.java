@@ -65,11 +65,6 @@ public class MABImport {
     return result;
   }
 
-  /**
-   * reads the file and stores it in a string
-   *
-   * @return List<String> with file lines
-   */
   public String readFile() {
     String file = "";
     FileReader fileReader = null;
@@ -109,12 +104,6 @@ public class MABImport {
     return file;
   }
 
-  /**
-   * identifies item lines from input string and stores it in a List<String>
-   *
-   * @param string
-   * @return
-   */
   public List<String> getItemFromString(String string, String patternString) {
     List<String> strArr = new ArrayList<>();
     Pattern patternLine1 = Pattern.compile("(\\s{6})[###]\\s*(.*(\\n|\\r|\\r\\n))");
@@ -247,7 +236,7 @@ public class MABImport {
    * @return xml element as string
    */
   public String createXMLElement(String tag, String value) {
-    if (tag != null && tag != "") {
+    if (tag != null && !tag.equals("")) {
       return "<" + tag + ">" + value + "</" + tag + ">";
     }
 

@@ -25,6 +25,7 @@
 
 package de.mpg.mpdl.inge.citationmanager.xslt;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,30 +125,25 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     }
   }
 
-  /**
-   * Class to resolve the XMLs location URIs needed for compilation supported resources:
-   * variables.xml (global) <CitationStyle>/variables.xml font-styles.xml
-   * cs-processing-xslt-includes.xml functions.xml
-   */
   class compilationURIResolver implements URIResolver {
 
     @Override
     public Source resolve(String href, String base) throws TransformerException {
       InputStream is;
 
+      String path =
+          ("cs-processing-xslt-includes.xml".equals(href) ? CitationUtil.getPathToClasses() + CitationUtil.TRANSFORMATIONS_DIRECTORY
+              : CitationUtil.getPathToCitationStyles()) + href;
       try {
-        String path =
-            ("cs-processing-xslt-includes.xml".equals(href) ? CitationUtil.getPathToClasses() + CitationUtil.TRANSFORMATIONS_DIRECTORY
-                : CitationUtil.getPathToCitationStyles()) + href;
         is = ResourceUtil.getResourceAsStream(path, CitationStyleManagerImpl.class.getClassLoader());
-      } catch (IOException e) {
+      } catch (FileNotFoundException e) {
         throw new TransformerException(e);
       }
       return new StreamSource(is);
     }
   }
 
-  public static void main(String[] args) throws IOException, CitationStyleManagerException, TechnicalException, CloneNotSupportedException {
+  public static void main(String[] args) throws IOException, CitationStyleManagerException, TechnicalException {
     CitationStyleManagerInterface csm = new CitationStyleManagerImpl();
 
     String il = null;

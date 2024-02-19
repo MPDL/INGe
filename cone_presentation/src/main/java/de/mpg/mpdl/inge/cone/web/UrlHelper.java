@@ -4,8 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.mpg.mpdl.inge.cone.ConeException;
-
 /**
  * Helper class for URL handling.
  *

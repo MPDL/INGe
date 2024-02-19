@@ -222,7 +222,7 @@ public class Bibtex implements BibtexInterface {
         if (fields.get("address") != null) {
           if (!(bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.inproceedings
               || bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.incollection)
-              && (sourceVO.getTitle() == null || sourceVO.getTitle() == null)) {
+              && sourceVO.getTitle() == null) {
             publishingInfoVO.setPlace(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("address").toString()), false));
           } else {
             if (sourceVO.getPublishingInfo() == null) {
@@ -239,7 +239,7 @@ public class Bibtex implements BibtexInterface {
         // publisher
         if (!(bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.inproceedings
             || bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.incollection)
-            && (sourceVO.getTitle() == null || sourceVO.getTitle() == null)) {
+            && sourceVO.getTitle() == null) {
           if (fields.get("publisher") != null) {
             publishingInfoVO.setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("publisher").toString()), false));
           } else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis
@@ -1119,23 +1119,23 @@ public class Bibtex implements BibtexInterface {
               BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("web_url").toString()), false)));
         }
         // Prevent the creation of an empty source
-        if (sourceVO.getTitle() != null && sourceVO.getTitle() != null && sourceVO.getTitle() != "" && sourceVO.getGenre() != null) {
+        if (sourceVO.getTitle() != null && sourceVO.getTitle() != null && !sourceVO.getTitle().equals("") && sourceVO.getGenre() != null) {
           mds.getSources().add(sourceVO);
           // Prevent the creation of an empty second
           if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty() && sourceVO.getSources().get(0) != null
               && sourceVO.getSources().get(0).getTitle() != null && sourceVO.getSources().get(0).getTitle() != null
-              && sourceVO.getSources().get(0).getTitle() != "") {
+              && !sourceVO.getSources().get(0).getTitle().equals("")) {
             mds.getSources().add(sourceVO.getSources().get(0));
           }
         }
         // Prevent the creation of an empty second source
-        if (secondSourceVO.getTitle() != null && secondSourceVO.getTitle() != null && secondSourceVO.getTitle() != ""
+        if (secondSourceVO.getTitle() != null && secondSourceVO.getTitle() != null && !secondSourceVO.getTitle().equals("")
             && secondSourceVO.getGenre() != null) {
           mds.getSources().add(secondSourceVO);
           // Prevent the creation of an empty second
           if (secondSourceVO.getSources() != null && !secondSourceVO.getSources().isEmpty() && secondSourceVO.getSources().get(0) != null
               && secondSourceVO.getSources().get(0).getTitle() != null && secondSourceVO.getSources().get(0).getTitle() != null
-              && secondSourceVO.getSources().get(0).getTitle() != "") {
+              && !secondSourceVO.getSources().get(0).getTitle().equals("")) {
             mds.getSources().add(secondSourceVO.getSources().get(0));
           }
         }

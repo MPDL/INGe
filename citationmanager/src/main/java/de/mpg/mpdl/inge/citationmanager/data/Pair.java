@@ -72,9 +72,6 @@ public class Pair {
     this.value = value;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public boolean equals(Object other) {
     if (other == null) {
       return false;

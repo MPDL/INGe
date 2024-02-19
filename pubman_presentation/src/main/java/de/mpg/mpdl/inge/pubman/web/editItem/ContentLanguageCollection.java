@@ -33,12 +33,6 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
 import jakarta.faces.model.SelectItem;
 
-/**
- * Bean to handle the ContentLanguageCollection on a single jsp. A ContentLanguageCollection is
- * represented by a List<String>.
- *
- * @author Mario Wagner
- */
 public class ContentLanguageCollection {
   private List<String> parentVO;
   private ContentLanguageManager contentLanguageManager;

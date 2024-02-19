@@ -228,15 +228,6 @@ public class AuthorDecoder {
     return null;
   }
 
-  /**
-   * Parses the given author string and returns the result as DOM node. The returned XML has the
-   * following structure: <authors> <author> <familyname>Buxtehude-Mölln</familyname>
-   * <givenname>Heribert</givenname> <prefix>von und zu</prefix> <title>König</title> </author>
-   * <author> <familyname>Müller</familyname> <givenname>Peter</givenname> </author> </authors>
-   *
-   * @param authors
-   * @return
-   */
   public static Node parseAsNode(String authors) {
     DocumentBuilder documentBuilder;
 

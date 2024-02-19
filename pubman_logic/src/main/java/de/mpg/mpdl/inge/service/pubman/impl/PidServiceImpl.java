@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PidService;
 import de.mpg.mpdl.inge.util.PropertyReader;

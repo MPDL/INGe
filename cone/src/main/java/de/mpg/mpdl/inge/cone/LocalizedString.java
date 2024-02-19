@@ -87,9 +87,6 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
     this.language = language;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public boolean equals(Object obj) {
     if (!(obj instanceof LocalizedString)) {
       return false;
@@ -118,37 +115,22 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public boolean hasValue() {
     return (value != null && !value.isEmpty());
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public String toString() {
     return value;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public char charAt(int index) {
     return value.charAt(index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public int length() {
     return value.length();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public CharSequence subSequence(int start, int end) {
     return value.subSequence(start, end);
   }
@@ -156,24 +138,18 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
   /**
    * Returns a concatenated localized string with the same language as this object.
    *
-   * @param other Another {@link LocalizedString}.
+   * @param other Another .
    *
-   * @return A newly created {@link LocalizedString}.
+   * @return A newly created .
    */
   public LocalizedString concat(LocalizedString other) {
     return new LocalizedString(this.value + other.value, this.language);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public String toRdf(Model model) {
     return StringEscapeUtils.escapeXml10(getValue());
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public String toJson() {
     return "\"" + getValue().replace("\"", "\\\"").replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t") + "\"";
   }

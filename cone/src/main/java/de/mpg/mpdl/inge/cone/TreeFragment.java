@@ -103,15 +103,12 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
     return (this.keySet() != null && !keySet().isEmpty());
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public boolean hasValue() {
     return (subject != null && !subject.isEmpty());
   }
 
   /**
-   * {@inheritDoc}
+   *
    *
    * @throws ConeException
    */
@@ -235,9 +232,6 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public String toJson() {
     if (size() == 0) {
       try {
@@ -285,9 +279,6 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
 
@@ -306,9 +297,6 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
     return super.toString();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean equals(Object o) {
     if (o == null) {

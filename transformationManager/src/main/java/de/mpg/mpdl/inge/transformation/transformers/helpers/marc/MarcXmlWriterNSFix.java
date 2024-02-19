@@ -57,7 +57,6 @@ import org.xml.sax.helpers.AttributesImpl;
  * the given {@link java.io.OutputStream}&nbsp; or {@link javax.xml.transform.Result}&nbsp;object.
  * It can be used in a SAX pipeline to postprocess the result. By default this class uses a nulll
  * transform. It is strongly recommended to use a dedicated XML serializer.
- * <p/>
  * <p>
  * This class requires a JAXP compliant XML parser and XSLT processor. The underlying SAX2 parser
  * should be namespace aware. In addition this class requires
@@ -69,7 +68,6 @@ import org.xml.sax.helpers.AttributesImpl;
  * The following example reads a file with MARC records and writes MARCXML records in UTF-8 encoding
  * to the console:
  * </p>
- * <p/>
  *
  * <pre>
  *
@@ -84,29 +82,24 @@ import org.xml.sax.helpers.AttributesImpl;
  *      writer.close();
  *
  * </pre>
- * <p/>
  * <p>
  * To perform a character conversion like MARC-8 to UCS/Unicode register a
  * <code>CharConverter</code>:
  * </p>
- * <p/>
  *
  * <pre>
  * writer.setConverter(new AnselToUnicode());
  * </pre>
- * <p/>
  * <p>
  * In addition you can perform Unicode normalization. This is for example not done by the MARC-8 to
  * UCS/Unicode converter. With Unicode normalization text is transformed into the canonical composed
  * form. For example &quot;abc&quot; is normalized to &quot;abc&quot;. To perform normalization set
  * Unicode normalization to true:
  * </p>
- * <p/>
  *
  * <pre>
  * writer.setUnicodeNormalization(true);
  * </pre>
- * <p/>
  * <p>
  * Please note that it's not garanteed to work if you try to convert normalized Unicode back to
  * MARC-8 encoding using {@link org.marc4j.converter.impl.UnicodeToAnsel}.
@@ -116,12 +109,10 @@ import org.xml.sax.helpers.AttributesImpl;
  * of this class with a {@link javax.xml.transform.sax.SAXResult}&nbsp;containing a
  * {@link org.xml.sax.ContentHandler}&nbsp;derived from a dedicated XML serializer.
  * </p>
- * <p/>
  * <p>
  * The following example uses <code>org.apache.xml.serialize.XMLSerializer</code> to write MARC
  * records to XML using MARC-8 to UCS/Unicode conversion and Unicode normalization:
  * </p>
- * <p/>
  *
  * <pre>
  *
@@ -142,14 +133,12 @@ import org.xml.sax.helpers.AttributesImpl;
  *      writer.close();
  *
  * </pre>
- * <p/>
  * <p>
  * You can post-process the result using a <code>Source</code> object pointing to a stylesheet
  * resource and a <code>Result</code> object to hold the transformation result tree. The example
  * below converts MARC to MARCXML and transforms the result tree to MODS using the stylesheet
  * provided by The Library of Congress:
  * </p>
- * <p/>
  *
  * <pre>
  *
@@ -169,11 +158,9 @@ import org.xml.sax.helpers.AttributesImpl;
  *      writer.close();
  *
  * </pre>
- * <p/>
  * <p>
  * It is also possible to write the result into a DOM Node:
  * </p>
- * <p/>
  *
  * <pre>
  *
@@ -220,9 +207,8 @@ public class MarcXmlWriterNSFix implements MarcWriter {
   private boolean normalize = false;
 
   /**
-   * Constructs an instance with the specified output stream.
-   * <p/>
-   * The default character encoding for UTF-8 is used.
+   * Constructs an instance with the specified output stream. The default character encoding for
+   * UTF-8 is used.
    *
    * @throws MarcException
    */
@@ -231,9 +217,8 @@ public class MarcXmlWriterNSFix implements MarcWriter {
   }
 
   /**
-   * Constructs an instance with the specified output stream and indentation.
-   * <p/>
-   * The default character encoding for UTF-8 is used.
+   * Constructs an instance with the specified output stream and indentation. The default character
+   * encoding for UTF-8 is used.
    *
    * @throws MarcException
    */
@@ -346,9 +331,8 @@ public class MarcXmlWriterNSFix implements MarcWriter {
 
   /**
    * If set to true this writer will perform Unicode normalization on data elements using
-   * normalization form C (NFC). The default is false.
-   * <p/>
-   * The implementation used is ICU4J 2.6. This version is based on Unicode 4.0.
+   * normalization form C (NFC). The default is false. The implementation used is ICU4J 2.6. This
+   * version is based on Unicode 4.0.
    *
    * @param normalize true if this writer performs Unicode normalization, false otherwise
    */

@@ -93,7 +93,7 @@ public class RSAEncoder {
       baos.flush();
     }
 
-    return new String(baos.toByteArray(), StandardCharsets.UTF_8);
+    return baos.toString(StandardCharsets.UTF_8);
 
   }
 

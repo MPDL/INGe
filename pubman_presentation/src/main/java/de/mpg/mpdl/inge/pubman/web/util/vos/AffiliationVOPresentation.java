@@ -183,13 +183,13 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public String getSortOrder() {
-    if ("closed".equals(this.getPublicStatus())) {
+    if ("closed".equals(this.getPublicStatus().toString())) {
       return "3" + this.getName().toLowerCase();
-    } else if (this.getMps() && "opened".equals(this.getPublicStatus())) {
+    } else if (this.getMps() && "opened".equals(this.getPublicStatus().toString())) {
       return "0" + this.getName().toLowerCase();
-    } else if ("opened".equals(this.getPublicStatus())) {
+    } else if ("opened".equals(this.getPublicStatus().toString())) {
       return "1" + this.getName().toLowerCase();
-    } else if ("created".equals(this.getPublicStatus())) {
+    } else if ("created".equals(this.getPublicStatus().toString())) {
       return "2" + this.getName().toLowerCase();
     } else {
       return "9" + this.getName().toLowerCase();

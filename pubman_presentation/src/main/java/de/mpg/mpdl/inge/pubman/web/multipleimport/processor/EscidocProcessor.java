@@ -55,9 +55,6 @@ public class EscidocProcessor extends FormatProcessor {
 
   public EscidocProcessor() {}
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String getDataAsBase64() {
     if (this.originalData == null) {
@@ -67,9 +64,6 @@ public class EscidocProcessor extends FormatProcessor {
     return Base64.getEncoder().encodeToString(this.originalData);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public int getLength() {
     if (!this.init) {
@@ -78,9 +72,6 @@ public class EscidocProcessor extends FormatProcessor {
     return this.length;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean hasNext() {
     if (!this.init) {
@@ -89,9 +80,6 @@ public class EscidocProcessor extends FormatProcessor {
     return (this.counter < this.length);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String next() {
     if (!this.init) {

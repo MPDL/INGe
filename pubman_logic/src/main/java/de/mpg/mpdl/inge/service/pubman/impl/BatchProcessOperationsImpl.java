@@ -1,11 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO.Method;
@@ -14,7 +8,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
@@ -30,6 +23,10 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 @Service
 @Primary
@@ -179,7 +176,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     for (FileDbVO file : itemVersionVO.getFiles()) {
       if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && file.getVisibility().equals(this.visibilityFrom)) {
         file.setVisibility(this.visibilityTo);
-        if (FileVO.Visibility.AUDIENCE.equals(this.visibilityTo)) {
+        if (FileDbVO.Visibility.AUDIENCE.equals(this.visibilityTo)) {
           if (file.getAllowedAudienceIds() != null && ipRangeToSet != null) {
             file.getAllowedAudienceIds().add(ipRangeToSet);
           } else if (file.getAllowedAudienceIds() == null) {

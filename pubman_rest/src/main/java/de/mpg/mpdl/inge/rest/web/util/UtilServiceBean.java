@@ -102,8 +102,7 @@ public class UtilServiceBean {
 
 
   public static <T> ResponseEntity<String> scroll(GenericService<T, ?> service, JsonNode scrollJson, String token,
-      HttpServletResponse httpResp)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      HttpServletResponse httpResp) throws IngeTechnicalException {
     String scrollTimeValue = scrollJson.get("scroll").asText();
     String scrollId = scrollJson.get("scroll_id").asText();
     //long scrollTime = TimeValue.parseTimeValue(scrollTimeValue, "test").getMillis();
@@ -139,9 +138,8 @@ public class UtilServiceBean {
     JsonNode sorting = query.get("sort");
     if (sorting != null) {
       if (sorting.isArray()) {
-        sorting.forEach(node -> node.fieldNames().forEachRemaining(field -> {
-          sortCriterias.add(new SearchSortCriteria(field, SortOrder.valueOf(node.get(field).get("order").textValue().toUpperCase())));
-        }));
+        sorting.forEach(node -> node.fieldNames().forEachRemaining(field -> sortCriterias
+            .add(new SearchSortCriteria(field, SortOrder.valueOf(node.get(field).get("order").textValue().toUpperCase())))));
       } else {
         String key = sorting.fieldNames().next();
         String value = sorting.get(key).get("order").textValue().toUpperCase();

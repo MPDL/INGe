@@ -263,13 +263,13 @@ public class ViewItemFull extends FacesBean {
         this.itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
             this.getPubItem().getObjectIdAndVersion());
         if (this.itemPattern.startsWith("/")) {
-          this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
+          this.itemPattern = this.itemPattern.substring(1);
         }
         // private String fwUrl;
         String itemObjectPattern =
             PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", this.getPubItem().getObjectId());
         if (itemObjectPattern.startsWith("/")) {
-          itemObjectPattern = itemObjectPattern.substring(1, itemObjectPattern.length());
+          itemObjectPattern = itemObjectPattern.substring(1);
         }
         // MF: Removed exclusion of pending items here
         this.citationURL = pubmanUrl + this.itemPattern;
@@ -280,7 +280,7 @@ public class ViewItemFull extends FacesBean {
           String latestVersionItemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
               this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion());
           if (latestVersionItemPattern.startsWith("/")) {
-            latestVersionItemPattern = latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
+            latestVersionItemPattern = latestVersionItemPattern.substring(1);
           }
           this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
         }
@@ -480,7 +480,7 @@ public class ViewItemFull extends FacesBean {
           this.ssrnContexts = new ArrayList<>();
           while (contexts.contains(",")) {
             this.ssrnContexts.add(contexts.substring(0, contexts.indexOf(",")));
-            contexts = contexts.substring(contexts.indexOf(",") + 1, contexts.length());
+            contexts = contexts.substring(contexts.indexOf(",") + 1);
           }
           this.ssrnContexts.add(contexts);
         }
@@ -823,7 +823,6 @@ public class ViewItemFull extends FacesBean {
    */
   public String getPublishingInfo() {
     final StringBuilder publishingInfo = new StringBuilder();
-    publishingInfo.append("");
     if (this.pubItem.getMetadata().getPublishingInfo() != null) {
       // Place
       if (this.pubItem.getMetadata().getPublishingInfo().getPlace() != null
@@ -1294,7 +1293,7 @@ public class ViewItemFull extends FacesBean {
   //    }
 
   public boolean getHasAbstracts() {
-    return !this.pubItem.getMetadata().getAbstracts().isEmpty() && !this.pubItem.getMetadata().getAbstracts().isEmpty();
+    return !this.pubItem.getMetadata().getAbstracts().isEmpty();
   }
 
   public boolean getHasSubjects() {
@@ -1793,16 +1792,16 @@ public class ViewItemFull extends FacesBean {
    */
   public String getLegalCaseCourtDateId() {
     final StringBuilder legalCaseString = new StringBuilder();
-    if (this.pubItem.getMetadata().getLegalCase().getCourtName() != "") {
+    if (!this.pubItem.getMetadata().getLegalCase().getCourtName().equals("")) {
       legalCaseString.append(this.pubItem.getMetadata().getLegalCase().getCourtName());
     }
-    if (this.pubItem.getMetadata().getLegalCase().getDatePublished() != "") {
+    if (!this.pubItem.getMetadata().getLegalCase().getDatePublished().equals("")) {
       if (!legalCaseString.isEmpty()) {
         legalCaseString.append(", ");
       }
       legalCaseString.append(this.pubItem.getMetadata().getLegalCase().getDatePublished());
     }
-    if (this.pubItem.getMetadata().getLegalCase().getIdentifier() != "") {
+    if (!this.pubItem.getMetadata().getLegalCase().getIdentifier().equals("")) {
       if (!legalCaseString.isEmpty()) {
         legalCaseString.append(" - ");
       }

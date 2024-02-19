@@ -106,7 +106,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
 
-      if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
+      if (getSelectedItemState().equalsIgnoreCase("withdrawn")) {
         bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
         if (getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name())
             || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name())) {
@@ -116,7 +116,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       }
 
-      else if (getSelectedItemState().toLowerCase().equals("all")) {
+      else if (getSelectedItemState().equalsIgnoreCase("all")) {
         List<FieldValue> states = new ArrayList<>();
         states.add(FieldValue.of("SUBMITTED"));
         states.add(FieldValue.of("RELEASED"));
@@ -137,11 +137,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
-      if (!this.getSelectedImport().toLowerCase().equals("all")) {
+      if (!this.getSelectedImport().equalsIgnoreCase("all")) {
         bq.must(MatchPhraseQuery.of(m -> m.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()))._toQuery());
       }
 
-      if (this.getSelectedContext().toLowerCase().equals("all")) {
+      if (this.getSelectedContext().equalsIgnoreCase("all")) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
         // menu)
         List<FieldValue> fv = getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue()))
@@ -152,7 +152,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).value(getSelectedContext()))._toQuery());
       }
 
-      if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
+      if (!this.getSelectedOrgUnit().equalsIgnoreCase("all")) {
 
         BoolQuery.Builder ouQuery = new BoolQuery.Builder();
         ouQuery.should(TermQuery

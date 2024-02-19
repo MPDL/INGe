@@ -507,7 +507,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     return doPubItems(BatchProcessLogHeaderDbVO.Method.WITHDRAW_PUBITEMS, itemIds, token);
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private AccountUserDbVO checkCommon(String token, List<String> itemIds)
@@ -574,8 +574,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     }
   }
 
-  private AccountUserDbVO checkUser(String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+  private AccountUserDbVO checkUser(String token) throws AuthenticationException, IngeApplicationException {
     Principal principal = authorizationService.checkLoginRequired(token);
 
     AccountUserDbVO accountUserDbVO = principal.getUserAccount();

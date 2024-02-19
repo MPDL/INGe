@@ -36,12 +36,6 @@ import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import jakarta.faces.model.SelectItem;
 
-/**
- * Bean to handle the IdentifierCollection on a single jsp. A IdentifierCollection is represented by
- * a List<IdentifierVO>.
- *
- * @author Mario Wagner
- */
 @SuppressWarnings("serial")
 public class IdentifierCollection extends FacesBean {
   private List<IdentifierVO> parentVO;
@@ -82,7 +76,7 @@ public class IdentifierCollection extends FacesBean {
     }
 
     // Sort identifiers alphabetically
-    selectItemList.sort((o1, o2) -> o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase()));
+    selectItemList.sort(Comparator.comparing(o -> o.getLabel().toLowerCase()));
 
     return selectItemList.toArray(new SelectItem[] {});
   }

@@ -4,7 +4,6 @@ import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 
 public interface ChainableTransformer extends Transformer {

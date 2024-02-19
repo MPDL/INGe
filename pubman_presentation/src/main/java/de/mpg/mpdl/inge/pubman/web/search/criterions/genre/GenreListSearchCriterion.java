@@ -25,13 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.genre;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
@@ -44,6 +37,12 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.DegreeSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
 public class GenreListSearchCriterion extends SearchCriterionBase {
@@ -71,7 +70,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
     // Then create a list with the map entries and sort the list by the label
     final List<Map.Entry<Genre, String>> sortedGenreList = new LinkedList<>(genreLabelMap.entrySet());
-    sortedGenreList.sort((o1, o2) -> (o1.getValue()).compareTo(o2.getValue()));
+    sortedGenreList.sort(Entry.comparingByValue());
 
 
     // now fill the genre map with the ordered genres

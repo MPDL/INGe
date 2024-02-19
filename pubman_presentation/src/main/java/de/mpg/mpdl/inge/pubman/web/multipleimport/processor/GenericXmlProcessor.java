@@ -114,7 +114,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
   protected void addItem(Node node) {
     try {
       StringWriter writer = new StringWriter();
-      String xml = new String();
+      String xml = "";
       Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
       transformer.transform(new DOMSource(node), new StreamResult(writer));
       xml = writer.toString();

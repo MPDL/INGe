@@ -68,9 +68,8 @@ public class CitationUtil {
    * Returns path to the resources directory
    *
    * @return path
-   * @throws IOException
    */
-  private static String getPathToResources() throws IOException {
+  private static String getPathToResources() {
     return getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
   }
 
@@ -78,9 +77,8 @@ public class CitationUtil {
    * Returns path to the test resources directory
    *
    * @return path
-   * @throws IOException
    */
-  public static String getPathToTestResources() throws IOException {
+  public static String getPathToTestResources() {
     return getPathToClasses().replace(CLASS_DIRECTORY, TEST_RESOURCES_DIRECTORY_LOCAL);
   }
 
@@ -89,9 +87,8 @@ public class CitationUtil {
    *
    * @param cs - CItation Style ID
    * @return
-   * @throws IOException
    */
-  public static String getPathToCitationStyleTestResources(String cs) throws IOException {
+  public static String getPathToCitationStyleTestResources(String cs) {
     return getPathToTestResources() + CITATIONSTYLES_DIRECTORY + cs + "/";
   }
 
@@ -99,9 +96,8 @@ public class CitationUtil {
    * Returns path to the Citation Styles directory
    *
    * @return path
-   * @throws IOException
    */
-  public static String getPathToCitationStyles() throws IOException {
+  public static String getPathToCitationStyles() {
     return getPathToResources() + CITATIONSTYLES_DIRECTORY;
   }
 
@@ -142,9 +138,8 @@ public class CitationUtil {
    * Returns path to the Schemas directory
    *
    * @return path
-   * @throws IOException
    */
-  public static String getPathToSchemas() throws IOException {
+  public static String getPathToSchemas() {
     return getPathToResources() + SCHEMAS_DIRECTORY;
   }
 
@@ -152,9 +147,8 @@ public class CitationUtil {
    * Gets URI to the resources
    *
    * @return uri to the resources
-   * @throws IOException
    */
-  public static String getUriToResources() throws IOException {
+  public static String getUriToResources() {
     return RESOURCES_DIRECTORY_JAR.equals(getPathToClasses()) ? RESOURCES_DIRECTORY_JAR : RESOURCES_DIRECTORY_LOCAL;
   }
 

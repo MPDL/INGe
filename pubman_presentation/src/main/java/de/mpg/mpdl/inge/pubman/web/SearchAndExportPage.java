@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import java.io.OutputStream;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -50,7 +49,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;

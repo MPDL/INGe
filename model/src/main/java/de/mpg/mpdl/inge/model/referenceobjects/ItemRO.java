@@ -108,7 +108,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   }
 
   /**
-   * {@inheritDoc}
+   *
    *
    * @author Thomas Diebaecker
    */

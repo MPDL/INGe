@@ -89,8 +89,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 
   public List<String> getEnumList() {
-    final List<String> list = new ArrayList<>();
-    list.addAll(this.enumMap.keySet());
+    final List<String> list = new ArrayList<>(this.enumMap.keySet());
     return list;
   }
 

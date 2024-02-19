@@ -36,19 +36,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/**
- * Generic SAX handler with convenience methods. Useful for XML with only short string content.
- * Classes that extend this class should always call super() at the beginning of an overridden
- * method.
- * <p>
- * Important: This class is not useful for XMLs with mixed contents: <a><b/>xyz</a>
- *
- * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 3183 $ $LastChangedDate: 2010-05-27 16:10:51 +0200 (Do, 27 Mai 2010) $
- */
 public class ShortContentHandler extends DefaultHandler {
-  private StringBuffer currentContent;
+  private StringBuilder currentContent;
   protected final XMLStack stack = new XMLStack();
   protected final XMLStack localStack = new XMLStack();
   protected final Map<String, Map<String, String>> namespacesMap = new HashMap<>();
@@ -89,7 +78,7 @@ public class ShortContentHandler extends DefaultHandler {
     namespacesMap.put(stack.toString(), currentNamespaces);
     this.namespaces = currentNamespaces;
 
-    currentContent = new StringBuffer();
+    currentContent = new StringBuilder();
   }
 
   @Override

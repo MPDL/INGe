@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.util.SourceTargetPair;
 
 public class TransformerCache {
@@ -27,8 +26,8 @@ public class TransformerCache {
     return TransformerCacheHolder.instance;
   }
 
-  protected static List<TransformerEdge> getTransformerEdges(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat)
-      throws TransformationException {
+  protected static List<TransformerEdge> getTransformerEdges(TransformerFactory.FORMAT sourceFormat,
+      TransformerFactory.FORMAT targetFormat) {
 
     synchronized (transformerMap) {
       List<TransformerEdge> t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat));

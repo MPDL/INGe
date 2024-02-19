@@ -50,9 +50,6 @@ public class RisProcessor extends FormatProcessor {
   private int length = -1;
   private byte[] originalData = null;
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean hasNext() {
     if (!this.init) {
@@ -61,9 +58,6 @@ public class RisProcessor extends FormatProcessor {
     return (this.items != null && this.counter < this.length);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String next() throws NoSuchElementException {
     if (!this.init) {

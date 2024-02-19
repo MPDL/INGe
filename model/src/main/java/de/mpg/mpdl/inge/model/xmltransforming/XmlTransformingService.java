@@ -57,9 +57,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOLis
 public class XmlTransformingService {
   private static final Logger logger = Logger.getLogger(XmlTransformingService.class);
 
-  /**
-   * {@inheritDoc}
-   */
   public static String transformToItem(ItemVO itemVO) throws TechnicalException {
     logger.debug("transformToItem(PubItemVO)");
     if (itemVO == null) {
@@ -88,9 +85,6 @@ public class XmlTransformingService {
     return utf8item;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public static ItemVO transformToItem(String item) throws TechnicalException {
     logger.debug("transformToPubItem(String) - String item=" + item);
     if (item == null) {
@@ -113,9 +107,6 @@ public class XmlTransformingService {
     return itemVO;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   private static List<? extends ItemVO> transformToItemList(String itemListXml) throws TechnicalException {
     logger.debug("transformToPubItemList(String) - String itemList=\n" + itemListXml);
     if (itemListXml == null) {

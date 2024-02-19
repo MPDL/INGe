@@ -213,7 +213,6 @@ public class SourceBean extends FacesBean {
 
 
     final StringBuilder publishingInfo = new StringBuilder();
-    publishingInfo.append("");
     if (source.getPublishingInfo() != null) {
 
       // Place

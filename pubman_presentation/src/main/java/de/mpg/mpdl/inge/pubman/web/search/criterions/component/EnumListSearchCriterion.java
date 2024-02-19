@@ -58,8 +58,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
 
   public List<T> getEnumList() {
-    final List<T> list = new ArrayList<>();
-    list.addAll(this.enumMap.keySet());
+    final List<T> list = new ArrayList<>(this.enumMap.keySet());
     return list;
   }
 

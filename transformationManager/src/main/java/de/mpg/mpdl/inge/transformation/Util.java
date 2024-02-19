@@ -95,13 +95,13 @@ public class Util {
    */
   public static String normalizeMimeType(String mimetype) {
     String thisMimetype = mimetype;
-    if (mimetype.toLowerCase().equals("text/xml")) {
+    if (mimetype.equalsIgnoreCase("text/xml")) {
       thisMimetype = "application/xml";
     }
-    if (mimetype.toLowerCase().equals("text/rtf")) {
+    if (mimetype.equalsIgnoreCase("text/rtf")) {
       thisMimetype = "application/rtf";
     }
-    if (mimetype.toLowerCase().equals("text/richtext")) {
+    if (mimetype.equalsIgnoreCase("text/richtext")) {
       thisMimetype = "application/rtf";
     }
     return thisMimetype;

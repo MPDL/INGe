@@ -74,7 +74,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
     this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, this);
     this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
 
-    if (this.getEasySubmissionSessionBean().getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT) {
+    if (this.getEasySubmissionSessionBean().getCurrentSubmissionMethod().equals(EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT)) {
     } else {
     }
   }

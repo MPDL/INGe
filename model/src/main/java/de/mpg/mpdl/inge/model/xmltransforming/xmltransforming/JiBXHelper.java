@@ -588,7 +588,7 @@ public class JiBXHelper {
     return date;
   }
 
-  public static Coordinates deserializeCoordinates(String coordString) throws Exception {
+  public static Coordinates deserializeCoordinates(String coordString) {
     return new Coordinates(coordString);
   }
 
