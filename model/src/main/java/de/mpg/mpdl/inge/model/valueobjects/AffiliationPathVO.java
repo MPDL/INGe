@@ -46,6 +46,6 @@ public class AffiliationPathVO extends ValueObject {
    * Delivers the list of affiliations representing the affiliation path.
    */
   public java.util.List<AffiliationRO> getAffiliationList() {
-    return affiliationList;
+    return this.affiliationList;
   }
 }

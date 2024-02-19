@@ -23,7 +23,7 @@ public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<Source
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           if (ValidationTools.isEmpty(sourceVO.getVolume())) {
             context.addError(ValidationError.create(ErrorMessages.SOURCE_VOLUME_NOT_PROVIDED).setField("source[" + i + "]")

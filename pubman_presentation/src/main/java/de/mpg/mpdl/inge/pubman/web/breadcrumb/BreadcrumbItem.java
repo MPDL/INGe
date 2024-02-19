@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
  * Class for single breadcrumbs. Each breadcrumb is represented with this class.
- * 
+ *
  * @author: Tobias Schraut, created 30.05.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 16.08.2007
  */
@@ -78,7 +78,7 @@ public class BreadcrumbItem extends FacesBean {
 
   /**
    * Internationalization is supported by this getter.
-   * 
+   *
    * @return displayValue to label this BreadcrumbItem
    */
   public String getPageLabel() {
@@ -117,7 +117,7 @@ public class BreadcrumbItem extends FacesBean {
 
   @Override
   public boolean equals(final Object other) {
-    if (this.page == null || !(other instanceof BreadcrumbItem)) {
+    if (null == this.page || !(other instanceof BreadcrumbItem)) {
       return false;
     }
 
@@ -133,13 +133,13 @@ public class BreadcrumbItem extends FacesBean {
   }
 
   public String executeDefaultAction() {
-    if (this.defaultAction != null) {
+    if (null != this.defaultAction) {
       try {
         final Class<?> beanClass = this.defaultAction.getDeclaringClass();
         final Object bean = FacesTools.findBean(beanClass.getName());
         return this.defaultAction.invoke(bean, (Object[]) null).toString();
       } catch (final Exception e) {
-        BreadcrumbItem.logger.error("Error executing default action", e);
+        logger.error("Error executing default action", e);
       }
     }
 

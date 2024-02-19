@@ -6,9 +6,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * 
+ *
  * @author haarlaender
- * 
+ *
  */
 public class IngeAaLogoutClient extends LogoutClient {
   @Override
@@ -16,12 +16,12 @@ public class IngeAaLogoutClient extends LogoutClient {
     String originalTarget = request.getParameter("target");
 
     Aa aa = new Aa(request);
-    if (aa.getAuthenticationVO() != null) {
+    if (null != aa.getAuthenticationVO()) {
       IngeAaClientFinish.logoutInInge(aa.getAuthenticationVO().getToken());
     }
 
     HttpSession session = request.getSession(false);
-    if (session != null) {
+    if (null != session) {
       session.invalidate();
     }
 

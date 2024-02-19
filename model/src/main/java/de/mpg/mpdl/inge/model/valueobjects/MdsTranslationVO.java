@@ -46,14 +46,14 @@ public class MdsTranslationVO extends MetadataSetVO {
    * Delivers the list of creators of the translation.
    */
   public java.util.List<CreatorVO> getCreators() {
-    return creators;
+    return this.creators;
   }
 
   /**
    * Delivers the language of the translation.
    */
   public String getLanguage() {
-    return language;
+    return this.language;
   }
 
   /**
@@ -62,14 +62,14 @@ public class MdsTranslationVO extends MetadataSetVO {
    * @param newVal newVal
    */
   public void setLanguage(String newVal) {
-    language = newVal;
+    this.language = newVal;
   }
 
   /**
    * Delivers the creation date of the translation.
    */
   public String getCreationDate() {
-    return creationDate;
+    return this.creationDate;
   }
 
   /**
@@ -78,6 +78,6 @@ public class MdsTranslationVO extends MetadataSetVO {
    * @param newVal
    */
   public void setCreationDate(String newVal) {
-    creationDate = newVal;
+    this.creationDate = newVal;
   }
 }

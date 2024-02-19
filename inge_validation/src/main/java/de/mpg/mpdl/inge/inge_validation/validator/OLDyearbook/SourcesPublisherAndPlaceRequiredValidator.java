@@ -24,11 +24,11 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           PublishingInfoVO p = sourceVO.getPublishingInfo();
 
-          if (p == null || ValidationTools.isEmpty(p.getPublisher())) {
+          if (null == p || ValidationTools.isEmpty(p.getPublisher())) {
             context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 
@@ -36,7 +36,7 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
 
           } // if
 
-          if (p == null || ValidationTools.isEmpty(p.getPlace())) {
+          if (null == p || ValidationTools.isEmpty(p.getPlace())) {
             context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 

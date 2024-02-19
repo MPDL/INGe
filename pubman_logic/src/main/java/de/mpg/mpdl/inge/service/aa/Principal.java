@@ -18,7 +18,7 @@ public class Principal implements Serializable {
   }
 
   public AccountUserDbVO getUserAccount() {
-    return userAccount;
+    return this.userAccount;
   }
 
   public void setUserAccount(AccountUserDbVO userAccount) {
@@ -28,7 +28,7 @@ public class Principal implements Serializable {
 
 
   public String getJwToken() {
-    return jwToken;
+    return this.jwToken;
   }
 
   public void setJwToken(String jwToken) {

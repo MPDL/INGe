@@ -146,10 +146,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @throws Exception Any {@link Exception}.
    */
   public Set<String> getGivenNames() throws Exception {
-    if (givenNames == null) {
-      givenNames = getNamesFromFile("metadata/names/givennames.txt");
+    if (null == this.givenNames) {
+      this.givenNames = getNamesFromFile("metadata/names/givennames.txt");
     }
-    return givenNames;
+    return this.givenNames;
   }
 
   public void setGivenNames(Set<String> givenNames) {
@@ -163,10 +163,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @throws Exception Any {@link Exception}.
    */
   public Set<String> getSurnames() throws Exception {
-    if (surnames == null) {
-      surnames = getNamesFromFile("metadata/names/surnames.txt");
+    if (null == this.surnames) {
+      this.surnames = getNamesFromFile("metadata/names/surnames.txt");
     }
-    return surnames;
+    return this.surnames;
   }
 
   public void setSurnames(Set<String> surnames) {
@@ -186,7 +186,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
     BufferedReader br = new BufferedReader(new InputStreamReader(file));
     String name = "";
     Set<String> result = new HashSet<>();
-    while ((name = br.readLine()) != null) {
+    while (null != (name = br.readLine())) {
       result.add(name);
     }
     return result;
@@ -227,7 +227,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
       StringBuilder givenName = new StringBuilder();
       StringBuilder surname = new StringBuilder(parts[parts.length - 1]);
-      for (int i = parts.length - 2; i >= 0; i--) {
+      for (int i = parts.length - 2; 0 <= i; i--) {
         if (parts[i].matches(PREFIX)) {
           surname.insert(0, parts[i] + " ");
         } else {
@@ -273,7 +273,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
       logger.debug("Limit " + limit);
 
-      if (limit == -1) {
+      if (-1 == limit) {
         return null;
       }
 
@@ -301,7 +301,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
       logger.debug("delimiter: " + delimiter);
 
-      if (delimiter >= 0) {
+      if (0 <= delimiter) {
         String givenName = authorString.substring(delimiter + 1).trim();
         if (givenName.contains(limit)) {
           return null;
@@ -329,7 +329,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       String[] parts = authorString.split(" ");
 
       // check middle parts
-      if (parts.length > 2) {
+      if (2 < parts.length) {
         for (int i = 1; i < parts.length - 1; i++) {
           if (parts[i].matches(" *" + PREFIX + " *")) {
             author.setPrefix(parts[i]);
@@ -341,9 +341,9 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       StringBuilder givenName = new StringBuilder();
       String surname = "";
 
-      if (prefixPosition == -1) {
+      if (-1 == prefixPosition) {
         int lastSpace = authorString.lastIndexOf(" ");
-        if (lastSpace == -1) {
+        if (-1 == lastSpace) {
           return null;
         }
         givenName = new StringBuilder(authorString.substring(0, lastSpace));
@@ -406,7 +406,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
 
       logger.debug("part: " + authorsString.indexOf(names[part]));
 
-      if (part == 0) {
+      if (0 == part) {
         return null;
       }
       String givenName = authorString.substring(0, authorString.indexOf(names[part]) - 1);
@@ -432,7 +432,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       int openBracketIndex = authorString.indexOf("(");
       int closingBracketIndex = authorString.indexOf(")");
 
-      if (openBracketIndex != -1 && closingBracketIndex != -1) {
+      if (-1 != openBracketIndex && -1 != closingBracketIndex) {
         // String additionalInfo = authorString.substring(openBracketIndex + 1,
         // closingBracketIndex);
         authorString = authorString.substring(0, openBracketIndex);
@@ -444,7 +444,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       // split the rest of the string and parse it
       String[] parts = authorString.split("\\s");
 
-      if (parts.length > 1) {
+      if (1 < parts.length) {
 
         String surname = parts[parts.length - 1];
         StringBuilder prefix = new StringBuilder();
@@ -474,7 +474,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
         author.setFormat(this);
         result.add(author);
 
-      } else if (parts.length == 1 && !parts[0].isEmpty()) {
+      } else if (1 == parts.length && !parts[0].isEmpty()) {
 
         author.setSurname(parts[0].trim());
         author.setFormat(this);
@@ -504,7 +504,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       } else {
         if (authorString.contains("{") && authorString.contains("}") && authorString.indexOf("{") < authorString.indexOf("}")) {
           authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
-          if (authorString.indexOf("{", authorString.indexOf("}")) != -1 && authorString.indexOf("}", authorString.indexOf("}")) != -1
+          if (-1 != authorString.indexOf("{", authorString.indexOf("}")) && -1 != authorString.indexOf("}", authorString.indexOf("}"))
               && authorString.indexOf("{", authorString.indexOf("}")) < authorString.indexOf("}", authorString.indexOf("}"))) {
             authorString.substring(authorString.indexOf("{", authorString.indexOf("}")) + 1,
                 authorString.indexOf("}", authorString.indexOf("{", authorString.indexOf("}"))));
@@ -515,14 +515,14 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       }
 
 
-      if (parts != null && parts.length > 1) {
+      if (null != parts && 1 < parts.length) {
 
         String[] surnameParts = parts[0].split("\\s");
         String[] givenNameParts = parts[1].split("\\s");
 
         // look for other parts that are seperated by a comma, e.g. "Jun." or "Sen."
         StringBuilder additionalParts = new StringBuilder();
-        if (parts.length > 2) {
+        if (2 < parts.length) {
           for (int i = 2; i < parts.length; i++) {
             additionalParts.append(parts[i]).append(" ");
           }
@@ -565,7 +565,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
         author.setSurname(author.getSurname().trim());
         author.setTitle(title.toString().trim());
 
-      } else if (parts != null) {
+      } else if (null != parts) {
         author.setSurname(parts[0].trim());
       }
 
@@ -589,7 +589,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    */
   protected boolean contains(String authorsString, String listOfCharacters) {
     for (char chr : listOfCharacters.toCharArray()) {
-      if (authorsString.indexOf(chr) >= 0) {
+      if (0 <= authorsString.indexOf(chr)) {
         return true;
       }
     }
@@ -608,7 +608,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
     ArrayList<String> list = new ArrayList<>();
     int currentStart = 0;
     int currentEnd;
-    while ((currentEnd = authorsString.indexOf(delimiter, currentStart)) >= 0) {
+    while (0 <= (currentEnd = authorsString.indexOf(delimiter, currentStart))) {
       list.add(authorsString.substring(currentStart, currentEnd).trim());
       currentStart = currentEnd + 1;
     }

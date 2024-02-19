@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
@@ -39,7 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
  * @updated 05-Sep-2007 12:48:55
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class CreatorVO extends ValueObject implements Cloneable {
   /**
    * The possible roles of the creator.
@@ -80,7 +79,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }}
 
   /**
@@ -132,28 +131,28 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * Delivers the organization (or null if the creator is not an organization).
    */
   public OrganizationVO getOrganization() {
-    return organization;
+    return this.organization;
   }
 
   /**
    * Delivers the person (or null if the creator is not an person).
    */
   public PersonVO getPerson() {
-    return person;
+    return this.person;
   }
 
   /**
    * Delivers the creators' role.
    */
   public CreatorRole getRole() {
-    return role;
+    return this.role;
   }
 
   /**
    * Delivers the creators' type.
    */
   public CreatorType getType() {
-    return type;
+    return this.type;
   }
 
   /**
@@ -165,7 +164,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
   public void setOrganization(OrganizationVO newVal) {
     this.type = CreatorType.ORGANIZATION;
     this.person = null;
-    organization = newVal;
+    this.organization = newVal;
   }
 
   /**
@@ -177,7 +176,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
   public void setPerson(PersonVO newVal) {
     this.type = CreatorType.PERSON;
     this.organization = null;
-    person = newVal;
+    this.person = newVal;
   }
 
   /**
@@ -186,25 +185,25 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * @param newVal newVal
    */
   public void setRole(CreatorRole newVal) {
-    role = newVal;
+    this.role = newVal;
   }
 
   public void setType(CreatorType newVal) {
 
-    type = newVal;
+    this.type = newVal;
 
   }
 
   public CreatorVO clone() {
     try {
       CreatorVO clone = (CreatorVO) super.clone();
-      if (clone.organization != null) {
+      if (null != clone.organization) {
         clone.organization = this.organization.clone();
       }
-      if (clone.type != null) {
+      if (null != clone.type) {
         clone.type = this.type;
       }
-      if (clone.person != null) {
+      if (null != clone.person) {
         clone.person = this.person.clone();
       }
       return clone;
@@ -217,10 +216,10 @@ public class CreatorVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((organization == null) ? 0 : organization.hashCode());
-    result = prime * result + ((person == null) ? 0 : person.hashCode());
-    result = prime * result + ((role == null) ? 0 : role.hashCode());
-    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((null == this.organization) ? 0 : this.organization.hashCode());
+    result = prime * result + ((null == this.person) ? 0 : this.person.hashCode());
+    result = prime * result + ((null == this.role) ? 0 : this.role.hashCode());
+    result = prime * result + ((null == this.type) ? 0 : this.type.hashCode());
     return result;
   }
 
@@ -229,7 +228,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -237,22 +236,22 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
     CreatorVO other = (CreatorVO) obj;
 
-    if (organization == null) {
-      if (other.organization != null)
+    if (null == this.organization) {
+      if (null != other.organization)
         return false;
-    } else if (!organization.equals(other.organization))
+    } else if (!this.organization.equals(other.organization))
       return false;
 
-    if (person == null) {
-      if (other.person != null)
+    if (null == this.person) {
+      if (null != other.person)
         return false;
-    } else if (!person.equals(other.person))
+    } else if (!this.person.equals(other.person))
       return false;
 
-    if (role != other.role)
+    if (this.role != other.role)
       return false;
 
-    if (type != other.type)
+    if (this.type != other.type)
       return false;
 
     return true;
@@ -266,10 +265,10 @@ public class CreatorVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getRoleString() {
-    if (role == null || role.toString() == null) {
+    if (null == this.role || null == this.role.toString()) {
       return "";
     }
-    return role.toString();
+    return this.role.toString();
   }
 
   /**
@@ -279,11 +278,11 @@ public class CreatorVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public void setRoleString(String newValString) {
-    if (newValString == null || newValString.isEmpty()) {
-      role = null;
+    if (null == newValString || newValString.isEmpty()) {
+      this.role = null;
     } else {
       CreatorVO.CreatorRole newVal = CreatorVO.CreatorRole.valueOf(newValString);
-      role = newVal;
+      this.role = newVal;
     }
   }
 
@@ -295,7 +294,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getTypeString() {
-    if (getType() == null || getType().toString() == null) {
+    if (null == getType() || null == getType().toString()) {
       return "";
     }
     return getType().toString();
@@ -308,7 +307,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public void setTypeString(String newValString) {
-    if (newValString == null || newValString.isEmpty()) {
+    if (null == newValString || newValString.isEmpty()) {
       setType(null);
     } else {
       CreatorVO.CreatorType newVal = CreatorVO.CreatorType.valueOf(newValString);

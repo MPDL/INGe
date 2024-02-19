@@ -23,7 +23,7 @@ public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceV
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           if (ValidationTools.isEmpty(sourceVO.getTitle())) {
             context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED).setField("source[" + i + "]")

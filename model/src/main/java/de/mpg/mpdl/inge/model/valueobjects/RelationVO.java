@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -27,17 +27,16 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 
 /**
  * Represents the content relation between two items.
- * 
+ *
  * @updated 18-Okt-2007 15:42:32
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class RelationVO extends ValueObject {
 
   /**
@@ -68,7 +67,7 @@ public class RelationVO extends ValueObject {
 
   /**
    * Clone constructor.
-   * 
+   *
    * @param relation The relation to be cloned.
    */
   public RelationVO(RelationVO relation) {
@@ -82,7 +81,7 @@ public class RelationVO extends ValueObject {
    * description of the content relation, e. g. the reason for the relation.
    */
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
 
@@ -90,56 +89,56 @@ public class RelationVO extends ValueObject {
    * the item ref of the item that is the source/start of the relation
    */
   public ItemRO getSourceItemRef() {
-    return sourceItemRef;
+    return this.sourceItemRef;
   }
 
   /**
    * Describes the reference of the target item.
    */
   public ItemRO getTargetItemRef() {
-    return targetItemRef;
+    return this.targetItemRef;
   }
 
   /**
    * the item ref of the item that is the source/start of the relation
-   * 
+   *
    * @param newVal
    */
   public void setSourceItemRef(ItemRO newVal) {
-    sourceItemRef = newVal;
+    this.sourceItemRef = newVal;
   }
 
   /**
    * Describes the reference of the target item.
-   * 
+   *
    * @param newVal
    */
   public void setTargetItemRef(ItemRO newVal) {
-    targetItemRef = newVal;
+    this.targetItemRef = newVal;
   }
 
   /**
    * Description of the content relation, e. g. the reason for the relation.
-   * 
+   *
    * @param newVal
    */
   public void setDescription(String newVal) {
-    description = newVal;
+    this.description = newVal;
   }
 
   /**
    * The type of the relation, e. g. "isRevisionOf"
    */
   public RelationType gettype() {
-    return type;
+    return this.type;
   }
 
   /**
    * The type of the relation, e. g. "isRevisionOf"
-   * 
+   *
    * @param newVal
    */
   public void settype(RelationType newVal) {
-    type = newVal;
+    this.type = newVal;
   }
 }

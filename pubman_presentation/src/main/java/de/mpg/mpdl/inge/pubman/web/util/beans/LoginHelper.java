@@ -35,7 +35,6 @@ import org.apache.logging.log4j.Logger;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.HomePage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -43,7 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl;
@@ -87,7 +86,7 @@ public class LoginHelper extends FacesBean {
   private boolean detailedMode;
   private boolean loggedIn;
 
-  private IpRange currentIp;
+  private IpListProvider.IpRange currentIp;
   private String userIp;
 
   public LoginHelper() {
@@ -109,19 +108,19 @@ public class LoginHelper extends FacesBean {
     UserAccountServiceImpl.removeTokenCookie((HttpServletRequest) ec.getRequest(), (HttpServletResponse) ec.getResponse());
 
 
-    userIp = ec.getRequestHeaderMap().get("X-Forwarded-For");
+    this.userIp = ec.getRequestHeaderMap().get("X-Forwarded-For");
     // try to fallback to getRemoteAddr(), if Proxy doesn't fill X-Forwarded-For header
-    if (userIp == null) {
+    if (null == this.userIp) {
       HttpServletRequest request = (HttpServletRequest) ec.getRequest();
-      userIp = request.getRemoteAddr();
+      this.userIp = request.getRemoteAddr();
     }
 
-    logger.info("Init LoginHelper with IP " + userIp);
+    logger.info("Init LoginHelper with IP " + this.userIp);
 
-    if (userIp != null) {
+    if (null != this.userIp) {
       try {
-        currentIp = ApplicationBean.INSTANCE.getIpListProvider().getMatch(userIp);
-        principal = ApplicationBean.INSTANCE.getUserAccountService().login((HttpServletRequest) ec.getRequest(),
+        this.currentIp = ApplicationBean.INSTANCE.getIpListProvider().getMatch(this.userIp);
+        this.principal = ApplicationBean.INSTANCE.getUserAccountService().login((HttpServletRequest) ec.getRequest(),
             (HttpServletResponse) ec.getResponse());
 
       } catch (Exception e) {
@@ -144,7 +143,7 @@ public class LoginHelper extends FacesBean {
       HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
       this.principal = ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(), this.getPassword(), request, response);
 
-      if (principal != null) {
+      if (null != this.principal) {
         this.accountUser = getPrincipal().getUserAccount();
         this.authenticationToken = getPrincipal().getJwToken();
         this.loggedIn = true;
@@ -154,7 +153,7 @@ public class LoginHelper extends FacesBean {
 
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
-        if (GrantUtil.hasRole(accountUser, PredefinedRoles.DEPOSITOR)) {
+        if (GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.DEPOSITOR)) {
           final DepositorWSSessionBean depWSSessionBean = FacesTools.findBean("DepositorWSSessionBean");
           // enable the depositor links if necessary
           depWSSessionBean.setMyWorkspace(true);
@@ -272,7 +271,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsAdmin() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.SYSADMIN);
+    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.SYSADMIN);
   }
 
   /**
@@ -281,7 +280,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsLocalAdmin() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.LOCAL_ADMIN);
+    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.LOCAL_ADMIN);
   }
 
   /**
@@ -290,7 +289,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsModerator() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.MODERATOR);
+    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.MODERATOR);
   }
 
   /**
@@ -299,7 +298,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsDepositor() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.DEPOSITOR);
+    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.DEPOSITOR);
   }
 
   /**
@@ -308,15 +307,15 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsReporter() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.REPORTER);
+    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.REPORTER);
   }
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
-    if (this.userAccountAffiliations == null) {
+    if (null == this.userAccountAffiliations) {
       this.userAccountAffiliations = new ArrayList<>();
-      if (accountUser.getAffiliation() != null) {
+      if (null != this.accountUser.getAffiliation()) {
         final AffiliationDbVO orgUnit =
-            ApplicationBean.INSTANCE.getOrganizationService().get(accountUser.getAffiliation().getObjectId(), null);
+            ApplicationBean.INSTANCE.getOrganizationService().get(this.accountUser.getAffiliation().getObjectId(), null);
         this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
       }
 
@@ -376,13 +375,13 @@ public class LoginHelper extends FacesBean {
     return this.detailedMode;
   }
 
-  public IpRange getCurrentIp() {
-    return currentIp;
+  public IpListProvider.IpRange getCurrentIp() {
+    return this.currentIp;
 
   }
 
   public Principal getPrincipal() {
-    return principal;
+    return this.principal;
   }
 
   public void setPrincipal(Principal principal) {
@@ -390,7 +389,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getInstanceAndUserIp() {
-    logger.info("Clusternode: " + PropertyReader.getProperty(PropertyReader.INGE_CLUSTER_NODE_NAME) + " / Userip: " + userIp);
-    return "Clusternode: " + PropertyReader.getProperty(PropertyReader.INGE_CLUSTER_NODE_NAME) + " / Userip: " + userIp;
+    logger.info("Clusternode: " + PropertyReader.getProperty(PropertyReader.INGE_CLUSTER_NODE_NAME) + " / Userip: " + this.userIp);
+    return "Clusternode: " + PropertyReader.getProperty(PropertyReader.INGE_CLUSTER_NODE_NAME) + " / Userip: " + this.userIp;
   }
 }

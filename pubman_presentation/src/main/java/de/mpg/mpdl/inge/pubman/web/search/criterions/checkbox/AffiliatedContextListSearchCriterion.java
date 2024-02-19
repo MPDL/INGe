@@ -79,12 +79,12 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
    */
   @Override
   public boolean isEmpty(QueryType queryType) {
-    if (queryType == QueryType.CQL) {
+    if (QueryType.CQL == queryType) {
       final boolean anySelected = this.getEnumMap().containsValue(true);
       return !anySelected;
     }
 
-    if (queryType == QueryType.INTERNAL) {
+    if (QueryType.INTERNAL == queryType) {
       return false;
     }
 

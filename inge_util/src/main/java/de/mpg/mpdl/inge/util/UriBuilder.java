@@ -16,6 +16,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class UriBuilder {
 
+  private UriBuilder() {}
+
   /**
    * get URI for publication item
    *

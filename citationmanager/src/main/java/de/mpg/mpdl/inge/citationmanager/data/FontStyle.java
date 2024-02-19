@@ -73,22 +73,22 @@ public class FontStyle {
    * Sets default values for the font TODO: to be moved to properties
    */
   public void setDefault() {
-    def = false;
-    name = null;
-    fontSize = 12;
-    fontName = "Arial";
-    isBold = false;
-    isItalic = false;
-    isUnderline = false;
-    isStrikeThrough = false;
-    pdfFontName = "ARIAL.TTF";
-    foreColor = "black";
-    backColor = "white";
-    pdfEncoding = "Identity-H";
-    cssClass = "";
-    isPdfEmbedded = false;
-    isPdfSimulatedBold = false;
-    isPdfSimulatedItalic = false;
+    this.def = false;
+    this.name = null;
+    this.fontSize = 12;
+    this.fontName = "Arial";
+    this.isBold = false;
+    this.isItalic = false;
+    this.isUnderline = false;
+    this.isStrikeThrough = false;
+    this.pdfFontName = "ARIAL.TTF";
+    this.foreColor = "black";
+    this.backColor = "white";
+    this.pdfEncoding = "Identity-H";
+    this.cssClass = "";
+    this.isPdfEmbedded = false;
+    this.isPdfSimulatedBold = false;
+    this.isPdfSimulatedItalic = false;
   }
 
   /**
@@ -97,7 +97,7 @@ public class FontStyle {
    * @param newDef
    */
   public void setDef(boolean newDef) {
-    def = newDef;
+    this.def = newDef;
   }
 
   /**
@@ -106,7 +106,7 @@ public class FontStyle {
    * @return def
    */
   public boolean getDef() {
-    return def;
+    return this.def;
   }
 
   /**
@@ -115,7 +115,7 @@ public class FontStyle {
    * @param newName
    */
   public void setName(String newName) {
-    name = newName;
+    this.name = newName;
   }
 
   /**
@@ -124,7 +124,7 @@ public class FontStyle {
    * @return name
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -133,7 +133,7 @@ public class FontStyle {
    * @param newFontSize
    */
   public void setFontSize(int newFontSize) {
-    fontSize = newFontSize >= 0 ? newFontSize : fontSize;
+    this.fontSize = 0 <= newFontSize ? newFontSize : this.fontSize;
   }
 
   /**
@@ -142,7 +142,7 @@ public class FontStyle {
    * @return fontSize
    */
   public int getFontSize() {
-    return fontSize;
+    return this.fontSize;
   }
 
   /**
@@ -151,7 +151,7 @@ public class FontStyle {
    * @param newFontName
    */
   public void setFontName(String newFontName) {
-    fontName = newFontName != null ? newFontName : fontName;
+    this.fontName = null != newFontName ? newFontName : this.fontName;
   }
 
   /**
@@ -160,7 +160,7 @@ public class FontStyle {
    * @return fontName
    */
   public String getFontName() {
-    return fontName;
+    return this.fontName;
   }
 
   /**
@@ -169,7 +169,7 @@ public class FontStyle {
    * @param newIsBold
    */
   public void setIsBold(boolean newIsBold) {
-    isBold = newIsBold;
+    this.isBold = newIsBold;
   }
 
   /**
@@ -178,7 +178,7 @@ public class FontStyle {
    * @return isBold
    */
   public boolean getIsBold() {
-    return isBold;
+    return this.isBold;
   }
 
   /**
@@ -187,7 +187,7 @@ public class FontStyle {
    * @param newIsItalic
    */
   public void setIsItalic(boolean newIsItalic) {
-    isItalic = newIsItalic;
+    this.isItalic = newIsItalic;
   }
 
   /**
@@ -196,7 +196,7 @@ public class FontStyle {
    * @return isItalic
    */
   public boolean getIsItalic() {
-    return isItalic;
+    return this.isItalic;
   }
 
   /**
@@ -205,7 +205,7 @@ public class FontStyle {
    * @param newIsUnderline
    */
   public void setIsUnderline(boolean newIsUnderline) {
-    isUnderline = newIsUnderline;
+    this.isUnderline = newIsUnderline;
   }
 
   /**
@@ -214,7 +214,7 @@ public class FontStyle {
    * @return isUnderline
    */
   public boolean getIsUnderline() {
-    return isUnderline;
+    return this.isUnderline;
   }
 
   /**
@@ -223,7 +223,7 @@ public class FontStyle {
    * @param newIsStrikeThrough
    */
   public void setIsStrikeThrough(boolean newIsStrikeThrough) {
-    isStrikeThrough = newIsStrikeThrough;
+    this.isStrikeThrough = newIsStrikeThrough;
   }
 
   /**
@@ -232,7 +232,7 @@ public class FontStyle {
    * @return isStrikeThrough
    */
   public boolean getIsStrikeThrough() {
-    return isStrikeThrough;
+    return this.isStrikeThrough;
   }
 
   /**
@@ -241,7 +241,7 @@ public class FontStyle {
    * @param newPdfFontName
    */
   public void setPdfFontName(String newPdfFontName) {
-    pdfFontName = newPdfFontName != null ? newPdfFontName : pdfFontName;
+    this.pdfFontName = null != newPdfFontName ? newPdfFontName : this.pdfFontName;
   }
 
   /**
@@ -250,7 +250,7 @@ public class FontStyle {
    * @return pdfFontName
    */
   public String getPdfFontName() {
-    return pdfFontName;
+    return this.pdfFontName;
   }
 
   /**
@@ -259,7 +259,7 @@ public class FontStyle {
    * @param newForeColor
    */
   public void setForeColor(String newForeColor) {
-    foreColor = newForeColor != null ? newForeColor : foreColor;
+    this.foreColor = null != newForeColor ? newForeColor : this.foreColor;
   }
 
   /**
@@ -268,7 +268,7 @@ public class FontStyle {
    * @return foreColor
    */
   public String getForeColor() {
-    return foreColor;
+    return this.foreColor;
   }
 
   /**
@@ -277,7 +277,7 @@ public class FontStyle {
    * @param newBackColor
    */
   public void setBackColor(String newBackColor) {
-    backColor = newBackColor != null ? newBackColor : backColor;
+    this.backColor = null != newBackColor ? newBackColor : this.backColor;
   }
 
   /**
@@ -286,14 +286,14 @@ public class FontStyle {
    * @return backColor
    */
   public String getBackColor() {
-    return backColor;
+    return this.backColor;
   }
 
   /**
    * @return the isPdfSimulatedBold
    */
   public boolean getIsPdfSimulatedBold() {
-    return isPdfSimulatedBold;
+    return this.isPdfSimulatedBold;
   }
 
   /**
@@ -307,7 +307,7 @@ public class FontStyle {
    * @return the isPdfSimulatedItalic
    */
   public boolean getIsPdfSimulatedItalic() {
-    return isPdfSimulatedItalic;
+    return this.isPdfSimulatedItalic;
   }
 
   /**
@@ -319,13 +319,13 @@ public class FontStyle {
 
   public Color getBackColorAwt() {
     String bc = getBackColor().toUpperCase();
-    return bc == null || bc.trim().isEmpty() || "WHITE".equals(bc) ? Color.WHITE
+    return null == bc || bc.trim().isEmpty() || "WHITE".equals(bc) ? Color.WHITE
         : "BLACK".equals(bc) ? Color.BLACK : "RED".equals(bc) ? Color.RED : "BLUE".equals(bc) ? Color.BLUE : Color.WHITE; // default
   }
 
   public Color getForeColorAwt() {
     String fc = getForeColor().toUpperCase();
-    return fc == null || fc.trim().isEmpty() || "BLACK".equals(fc) ? Color.BLACK
+    return null == fc || fc.trim().isEmpty() || "BLACK".equals(fc) ? Color.BLACK
         : "WHITE".equals(fc) ? Color.WHITE : "RED".equals(fc) ? Color.RED : "BLUE".equals(fc) ? Color.BLUE : Color.BLACK; // default
   }
 
@@ -335,7 +335,7 @@ public class FontStyle {
    * @param newPdfEncoding
    */
   public void setPdfEncoding(String newPdfEncoding) {
-    pdfEncoding = newPdfEncoding != null ? newPdfEncoding : pdfEncoding;
+    this.pdfEncoding = null != newPdfEncoding ? newPdfEncoding : this.pdfEncoding;
   }
 
   /**
@@ -344,7 +344,7 @@ public class FontStyle {
    * @return pdfEncoding
    */
   public String getPdfEncoding() {
-    return pdfEncoding;
+    return this.pdfEncoding;
   }
 
   /**
@@ -353,7 +353,7 @@ public class FontStyle {
    * @param newIsPdfEmbedded
    */
   public void setIsPdfEmbedded(boolean newIsPdfEmbedded) {
-    isPdfEmbedded = newIsPdfEmbedded;
+    this.isPdfEmbedded = newIsPdfEmbedded;
   }
 
   /**
@@ -362,12 +362,12 @@ public class FontStyle {
    * @return isPdfEmbedded
    */
   public boolean getIsPdfEmbedded() {
-    return isPdfEmbedded;
+    return this.isPdfEmbedded;
   }
 
 
   public String getCssClass() {
-    return cssClass;
+    return this.cssClass;
   }
 
   public void setCssClass(String cssClass) {
@@ -376,11 +376,12 @@ public class FontStyle {
 
 
   public String getStyleAttributes() {
-    return " fontName=\\\"" + fontName + "\\\"" + " fontSize=\\\"" + fontSize + "\\\"" + " isBold=\\\"" + isBold + "\\\"" + " isItalic=\\\""
-        + isItalic + "\\\"" + " isUnderline=\\\"" + isUnderline + "\\\"" + " isStrikeThrough=\\\"" + isStrikeThrough + "\\\""
-        + " pdfFontName=\\\"" + pdfFontName + "\\\"" + " forecolor=\\\"" + foreColor + "\\\"" + " backcolor=\\\"" + backColor + "\\\""
-        + " pdfEncoding=\\\"" + pdfEncoding + "\\\"" + " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\"" + " isPdfSimulatedBold=\\\""
-        + isPdfSimulatedBold + "\\\"" + " isPdfSimulatedItalic=\\\"" + isPdfSimulatedItalic + "\\\"";
+    return " fontName=\\\"" + this.fontName + "\\\"" + " fontSize=\\\"" + this.fontSize + "\\\"" + " isBold=\\\"" + this.isBold + "\\\""
+        + " isItalic=\\\"" + this.isItalic + "\\\"" + " isUnderline=\\\"" + this.isUnderline + "\\\"" + " isStrikeThrough=\\\""
+        + this.isStrikeThrough + "\\\"" + " pdfFontName=\\\"" + this.pdfFontName + "\\\"" + " forecolor=\\\"" + this.foreColor + "\\\""
+        + " backcolor=\\\"" + this.backColor + "\\\"" + " pdfEncoding=\\\"" + this.pdfEncoding + "\\\"" + " isPdfEmbedded=\\\""
+        + this.isPdfEmbedded + "\\\"" + " isPdfSimulatedBold=\\\"" + this.isPdfSimulatedBold + "\\\"" + " isPdfSimulatedItalic=\\\""
+        + this.isPdfSimulatedItalic + "\\\"";
   }
 
   /**
@@ -390,7 +391,7 @@ public class FontStyle {
    * @return String of the JasperReport font tag. String.format should be used to resolve %s
    */
   public String applyStyle(String expr) {
-    return def ? expr : "\"<style" + getStyleAttributes() + ">\"+" + expr + "+\"</style>\"";
+    return this.def ? expr : "\"<style" + getStyleAttributes() + ">\"+" + expr + "+\"</style>\"";
   }
 
   /**
@@ -398,12 +399,13 @@ public class FontStyle {
    */
 
   public String applyCssClass(String expr) {
-    return this.cssClass == null || this.cssClass.trim().isEmpty() ? expr : String.format(CSS_CLASS_REPORT_TAG, this.cssClass, expr);
+    return null == this.cssClass || this.cssClass.trim().isEmpty() ? expr : String.format(CSS_CLASS_REPORT_TAG, this.cssClass, expr);
   }
 
   public String toString() {
-    return "[" + def + "," + name + "," + fontSize + "," + fontName + "," + isBold + "," + isItalic + "," + isUnderline + ","
-        + isStrikeThrough + "," + pdfFontName + "," + foreColor + "," + backColor + "," + pdfEncoding + "," + isPdfEmbedded + ","
-        + isPdfSimulatedBold + "," + isPdfSimulatedItalic + "," + cssClass + "]";
+    return "[" + this.def + "," + this.name + "," + this.fontSize + "," + this.fontName + "," + this.isBold + "," + this.isItalic + ","
+        + this.isUnderline + "," + this.isStrikeThrough + "," + this.pdfFontName + "," + this.foreColor + "," + this.backColor + ","
+        + this.pdfEncoding + "," + this.isPdfEmbedded + "," + this.isPdfSimulatedBold + "," + this.isPdfSimulatedItalic + ","
+        + this.cssClass + "]";
   }
 }

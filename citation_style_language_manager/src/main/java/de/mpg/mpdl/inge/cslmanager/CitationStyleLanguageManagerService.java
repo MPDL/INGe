@@ -14,7 +14,6 @@ import de.undercouch.citeproc.CSL;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.output.Bibliography;
 import de.undercouch.citeproc.script.ScriptRunnerFactory;
-import de.undercouch.citeproc.script.ScriptRunnerFactory.RunnerType;
 
 /**
  * CitationStyleLanguageManagerDefaultImpl is used to generate a citation for an escidoc item or a
@@ -26,6 +25,8 @@ public class CitationStyleLanguageManagerService {
   private static final Logger logger = LogManager.getLogger(CitationStyleLanguageManagerService.class);
   private static final String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
+  private CitationStyleLanguageManagerService() {}
+
   public static List<String> getOutput(String citationStyle, String itemList) throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<>();
 
@@ -35,14 +36,14 @@ public class CitationStyleLanguageManagerService {
 
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
       if ("v8".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
-        ScriptRunnerFactory.setRunnerType(RunnerType.V8);
+        ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.V8);
       } else if ("graaljs".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
-        ScriptRunnerFactory.setRunnerType(RunnerType.GRAALJS);
+        ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.GRAALJS);
       } else {
-        ScriptRunnerFactory.setRunnerType(RunnerType.AUTO);
+        ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.AUTO);
       }
 
-      if (defaultLocale != null) {
+      if (null != defaultLocale) {
         citeproc = new CSL(itemDataProvider, citationStyle, defaultLocale);
       } else {
         citeproc = new CSL(itemDataProvider, citationStyle);
@@ -61,7 +62,7 @@ public class CitationStyleLanguageManagerService {
       for (String id : itemDataProvider.getIds()) {
         String citation = "";
         int citationPosition = biblIds.indexOf(id);
-        if (citationPosition != -1) {
+        if (-1 != citationPosition) {
           citation = bibl.getEntries()[citationPosition];
           if (citation.contains("<div class=\"csl-right-inline\">")) {
             citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
@@ -85,7 +86,7 @@ public class CitationStyleLanguageManagerService {
       logger.error("Error getting output", e);
       throw new CitationStyleLanguageException("Error getting output", e);
     } finally {
-      if (citeproc != null) {
+      if (null != citeproc) {
         citeproc.close();
       }
     }

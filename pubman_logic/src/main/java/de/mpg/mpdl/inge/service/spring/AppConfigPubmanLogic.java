@@ -63,7 +63,7 @@ public class AppConfigPubmanLogic {
 
   /**
    * Start and configure an ActiveMQ broker when Spring application is started
-   * 
+   *
    * @return
    * @throws Exception
    */
@@ -81,7 +81,7 @@ public class AppConfigPubmanLogic {
     config.setSecurityEnabled(false);
 
     String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
-    if (jbossHomeDir != null) {
+    if (null != jbossHomeDir) {
       config.setBrokerInstance(new File(jbossHomeDir + "/standalone/data/activemq"));
     } else {
       config.setBrokerInstance(new File(System.getProperty(PropertyReader.JAVA_IO_TMPDIR)));
@@ -146,7 +146,7 @@ public class AppConfigPubmanLogic {
 
   public static BeanFactory getRootContextBeanFactory() {
 
-    if (PUBMAN_LOGIC_BEAN_FACTORY == null) {
+    if (null == PUBMAN_LOGIC_BEAN_FACTORY) {
       PUBMAN_LOGIC_BEAN_FACTORY = new ClassPathXmlApplicationContext("beanRefContext.xml");
     }
 

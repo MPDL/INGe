@@ -33,9 +33,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Grant;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -62,24 +59,24 @@ public class IngeAaClientFinish extends FinalClient {
 
     AccountUserDbVO user = getUser(token);
 
-    if (user != null) {
+    if (null != user) {
       try {
 
         AuthenticationVO authenticationVO = new AuthenticationVO();
-        authenticationVO.setType(Type.USER);
+        authenticationVO.setType(AuthenticationVO.Type.USER);
         authenticationVO.setUsername(user.getLoginname());
         authenticationVO.setUserId(user.getObjectId());
         authenticationVO.setFullName(user.getName());
         authenticationVO.setToken(token);
 
         for (GrantVO grantVO : user.getGrantList()) {
-          if (grantVO.getObjectRef() == null) {
-            Role role = authenticationVO.new Role();
+          if (null == grantVO.getObjectRef()) {
+            AuthenticationVO.Role role = authenticationVO.new Role();
 
             role.setKey(grantVO.getRole());
             authenticationVO.getRoles().add(role);
           } else {
-            Grant grant = authenticationVO.new Grant();
+            AuthenticationVO.Grant grant = authenticationVO.new Grant();
             grant.setKey(grantVO.getRole());
             grant.setValue(grantVO.getObjectRef());
             authenticationVO.getGrants().add(grant);
@@ -115,7 +112,7 @@ public class IngeAaClientFinish extends FinalClient {
         .bodyString(pw, ContentType.TEXT_PLAIN).execute();
     HttpResponse httpResp = resp.returnResponse();
 
-    if (httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+    if (HttpStatus.SC_OK == httpResp.getStatusLine().getStatusCode()) {
 
       String token = httpResp.getLastHeader("Token").getValue();
       return token;
@@ -131,7 +128,7 @@ public class IngeAaClientFinish extends FinalClient {
         .addHeader("Authorization", token).execute();
     HttpResponse httpResp = resp.returnResponse();
 
-    if (httpResp.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+    if (HttpStatus.SC_OK != httpResp.getStatusLine().getStatusCode()) {
       throw new RuntimeException("Error while logging out");
 
     }

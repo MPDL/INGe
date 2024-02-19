@@ -49,7 +49,7 @@ public class IdentityHandler extends ShortContentHandler {
   protected int length = 0;
 
   public String getResult() {
-    return result.toString();
+    return this.result.toString();
   }
 
   // /**
@@ -66,11 +66,11 @@ public class IdentityHandler extends ShortContentHandler {
   public void endElement(String uri, String localName, String name) throws SAXException {
     super.endElement(uri, localName, name);
 
-    result.append("</");
+    this.result.append("</");
     this.length += 2;
-    result.append(name);
+    this.result.append(name);
     this.length += name.length();
-    result.append(">");
+    this.result.append(">");
     this.length += 1;
 
   }
@@ -80,24 +80,24 @@ public class IdentityHandler extends ShortContentHandler {
 
     super.startElement(uri, localName, name, attributes);
 
-    result.append("<");
+    this.result.append("<");
     this.length += 1;
-    result.append(name);
+    this.result.append(name);
     this.length += name.length();
     for (int i = 0; i < attributes.getLength(); i++) {
 
-      result.append(" ");
+      this.result.append(" ");
       this.length += 1;
-      result.append(attributes.getQName(i));
+      this.result.append(attributes.getQName(i));
       this.length += attributes.getQName(i).length();
-      result.append("=\"");
+      this.result.append("=\"");
       this.length += 2;
-      result.append(XmlUtilities.escape(attributes.getValue(i)));
+      this.result.append(XmlUtilities.escape(attributes.getValue(i)));
       this.length += XmlUtilities.escape(attributes.getValue(i)).length();
-      result.append("\"");
+      this.result.append("\"");
       this.length += 1;
     }
-    result.append(">");
+    this.result.append(">");
     this.length += 1;
   }
 
@@ -106,22 +106,22 @@ public class IdentityHandler extends ShortContentHandler {
   @Override
   public void content(String uri, String localName, String name, String content) throws SAXException {
     super.content(uri, localName, name, content);
-    result.append(XmlUtilities.escape(content));
+    this.result.append(XmlUtilities.escape(content));
     this.length += XmlUtilities.escape(content).length();
   }
 
   @Override
   public void processingInstruction(String name, String params) throws SAXException {
     super.processingInstruction(name, params);
-    result.append("<?");
+    this.result.append("<?");
     this.length += 2;
-    result.append(name);
+    this.result.append(name);
     this.length += name.length();
-    result.append(" ");
+    this.result.append(" ");
     this.length += 1;
-    result.append(params);
+    this.result.append(params);
     this.length += params.length();
-    result.append("?>");
+    this.result.append("?>");
     this.length += 2;
   }
 

@@ -63,11 +63,11 @@ public abstract class ValueObject implements Serializable {
       obj2 = ((String) obj2).replace("\r", "");
     }
 
-    if (obj1 != null) {
+    if (null != obj1) {
       if (!obj1.equals(obj2)) {
         return false;
       }
-    } else if (obj2 != null) {
+    } else if (null != obj2) {
       return false;
     }
     return true;
@@ -87,7 +87,7 @@ public abstract class ValueObject implements Serializable {
 
   public static List<Field> getAllFields(Class<?> type) {
     List<Field> fields = new ArrayList<>();
-    for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+    for (Class<?> c = type; null != c; c = c.getSuperclass()) {
       fields.addAll(Arrays.asList(c.getDeclaredFields()));
     }
     return fields;
@@ -98,14 +98,14 @@ public abstract class ValueObject implements Serializable {
     boolean empty = true;
 
 
-    if (obj != null) {
+    if (null != obj) {
       if (String.class.isAssignableFrom(obj.getClass())) {
         empty = ((String) obj).trim().isEmpty();
 
       } else if (Collection.class.isAssignableFrom(obj.getClass())) {
         Collection<?> coll = (Collection<?>) obj;
 
-        if (coll != null) {
+        if (null != coll) {
 
           Collection<Object> toBeRemoved = new ArrayList<>();
 
@@ -126,12 +126,12 @@ public abstract class ValueObject implements Serializable {
         }
       } else if (ValueObject.class.isAssignableFrom(obj.getClass())) {
         for (Field f : getAllFields(obj.getClass())) {
-          if ((!Modifier.isStatic(f.getModifiers())) && f.getAnnotation(IgnoreForCleanup.class) == null) {
+          if ((!Modifier.isStatic(f.getModifiers())) && null == f.getAnnotation(IgnoreForCleanup.class)) {
 
             f.setAccessible(true);
             Object fieldObject = f.get(obj);
             boolean fieldIsEmpty = isEmpty(fieldObject, cleanup, f);
-            if (cleanup && fieldIsEmpty && fieldObject != null && !Collection.class.isAssignableFrom(fieldObject.getClass())) {
+            if (cleanup && fieldIsEmpty && null != fieldObject && !Collection.class.isAssignableFrom(fieldObject.getClass())) {
               logger.debug("Cleaning up object" + obj.getClass().getCanonicalName() + " / " + f.getName());
               f.set(obj, null);
             }
@@ -142,7 +142,7 @@ public abstract class ValueObject implements Serializable {
         }
 
       } else if (Object.class.isAssignableFrom(obj.getClass())) {
-        empty = obj == null;
+        empty = null == obj;
 
       }
     }

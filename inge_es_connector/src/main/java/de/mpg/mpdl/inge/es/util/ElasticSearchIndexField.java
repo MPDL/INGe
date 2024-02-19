@@ -26,7 +26,7 @@ public class ElasticSearchIndexField {
 
 
   public String getIndexName() {
-    return indexName;
+    return this.indexName;
   }
 
 
@@ -38,7 +38,7 @@ public class ElasticSearchIndexField {
 
 
   public List<String> getNestedPaths() {
-    return nestedPaths;
+    return this.nestedPaths;
   }
 
 
@@ -50,7 +50,7 @@ public class ElasticSearchIndexField {
 
 
   public Type getType() {
-    return type;
+    return this.type;
   }
 
 
@@ -72,6 +72,8 @@ public class ElasticSearchIndexField {
    *
    */
   public static class Factory {
+
+    private Factory() {}
 
     public static Map<String, ElasticSearchIndexField> createIndexMapFromElasticsearch(Map<String, Property> resultMap) {
 
@@ -161,7 +163,7 @@ public class ElasticSearchIndexField {
       ElasticSearchIndexField indexField = new ElasticSearchIndexField();
 
       indexField.setIndexName(path);
-      if (nestedPath != null && !nestedPath.isEmpty()) {
+      if (null != nestedPath && !nestedPath.isEmpty()) {
         indexField.setNestedPaths(new ArrayList<>(nestedPath));
       }
       switch (type) {

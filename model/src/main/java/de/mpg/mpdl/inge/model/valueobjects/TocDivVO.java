@@ -50,7 +50,7 @@ public class TocDivVO extends ValueObject {
   private int order = -1;
 
   public List<TocDivVO> getTocDivList() {
-    return tocDivList;
+    return this.tocDivList;
   }
 
   public void setTocDivList(List<TocDivVO> tocDivList) {
@@ -58,7 +58,7 @@ public class TocDivVO extends ValueObject {
   }
 
   public List<TocPtrVO> getTocPtrList() {
-    return tocPtrList;
+    return this.tocPtrList;
   }
 
   public void setTocPtrList(List<TocPtrVO> tocPtrList) {
@@ -66,7 +66,7 @@ public class TocDivVO extends ValueObject {
   }
 
   public String getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(String id) {
@@ -74,7 +74,7 @@ public class TocDivVO extends ValueObject {
   }
 
   public String getLabel() {
-    return label;
+    return this.label;
   }
 
   public void setLabel(String label) {
@@ -82,7 +82,7 @@ public class TocDivVO extends ValueObject {
   }
 
   public String getOrderLabel() {
-    return orderLabel;
+    return this.orderLabel;
   }
 
   public void setOrderLabel(String orderLabel) {
@@ -90,7 +90,7 @@ public class TocDivVO extends ValueObject {
   }
 
   public int getOrder() {
-    return order;
+    return this.order;
   }
 
   public void setOrder(int order) {
@@ -98,7 +98,7 @@ public class TocDivVO extends ValueObject {
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(String type) {
@@ -106,7 +106,7 @@ public class TocDivVO extends ValueObject {
   }
 
   public String getVisible() {
-    return visible;
+    return this.visible;
   }
 
   public void setVisible(String visible) {

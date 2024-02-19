@@ -79,7 +79,7 @@ public class InternationalizationHelper implements Serializable {
     boolean found = false;
     while (supportedLocales.hasNext()) {
       final Locale supportedLocale = supportedLocales.next();
-      if (this.userLocale != null && supportedLocale.getLanguage().equals(this.userLocale.getLanguage())) {
+      if (null != this.userLocale && supportedLocale.getLanguage().equals(this.userLocale.getLanguage())) {
         found = true;
         break;
       }
@@ -105,7 +105,7 @@ public class InternationalizationHelper implements Serializable {
   public void changeLanguage(ValueChangeEvent event) {
     final FacesContext fc = FacesTools.getCurrentInstance();
 
-    if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue())) {
+    if (null != event.getOldValue() && !event.getOldValue().equals(event.getNewValue())) {
       Locale locale = null;
       final String language = event.getNewValue().toString();
       final String country = language.toUpperCase();
@@ -118,16 +118,16 @@ public class InternationalizationHelper implements Serializable {
         this.userLocale = locale;
         this.homeContent = "n/a";
         this.notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());
-        InternationalizationHelper.logger.debug("New locale: " + language + "_" + country + " : " + locale);
+        logger.debug("New locale: " + language + "_" + country + " : " + locale);
       } catch (final Exception e) {
-        InternationalizationHelper.logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
+        logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
       }
     }
   }
 
   public void notifyLanguageChanged(String oldLang, String newLang) {
     for (final LanguageChangeObserver obs : this.languageChangeObservers) {
-      if (obs != null) {
+      if (null != obs) {
         obs.languageChanged(oldLang, newLang);
       }
     }
@@ -163,7 +163,7 @@ public class InternationalizationHelper implements Serializable {
     SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
     for (int i = 0; i < valuesWithoutNull.length; i++) {
-      if (valuesWithoutNull[i] != null) {
+      if (null != valuesWithoutNull[i]) {
         final SelectItem selectItem =
             new SelectItem(valuesWithoutNull[i].toString(), this.getLabel(this.convertEnumToString(valuesWithoutNull[i])));
         selectItems[i] = selectItem;
@@ -180,7 +180,7 @@ public class InternationalizationHelper implements Serializable {
   private Object[] removeNullValues(Object[] values) {
     final List<Object> listWithoutNulls = new ArrayList<>();
     for (final Object o : values) {
-      if (o != null) {
+      if (null != o) {
         listWithoutNulls.add(o);
       }
     }
@@ -211,7 +211,7 @@ public class InternationalizationHelper implements Serializable {
    * @return the converted String for output
    */
   public String convertEnumToString(final Object enumObject) {
-    if (enumObject != null) {
+    if (null != enumObject) {
       return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
     }
 
@@ -424,12 +424,12 @@ public class InternationalizationHelper implements Serializable {
       try {
         final String contentUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HOME_CONTENT_URL);
 
-        if (contentUrl != null && !contentUrl.isEmpty()) {
+        if (null != contentUrl && !contentUrl.isEmpty()) {
           // Try if there's a specific local version
           this.homeContent = this.getContent(new URL(contentUrl + "." + this.locale));
 
           // If not try the url without locale
-          if (this.homeContent == null) {
+          if (null == this.homeContent) {
             this.homeContent = this.getContent(new URL(contentUrl));
           }
         } else {
@@ -437,7 +437,7 @@ public class InternationalizationHelper implements Serializable {
         }
 
       } catch (final Exception e) {
-        InternationalizationHelper.logger.error("Could not retrieve content for home page", e);
+        logger.error("Could not retrieve content for home page", e);
         this.homeContent = null;
       }
     }
@@ -451,15 +451,15 @@ public class InternationalizationHelper implements Serializable {
 
     httpClient.executeMethod(getMethod);
 
-    if (getMethod.getStatusCode() == 200) {
+    if (200 == getMethod.getStatusCode()) {
       final BufferedReader in = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
 
       String inputLine = "";
       String content = "";
 
-      while (inputLine != null) {
+      while (null != inputLine) {
         inputLine = in.readLine();
-        if (inputLine != null) {
+        if (null != inputLine) {
           content += inputLine + "  ";
         }
       }

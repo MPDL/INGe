@@ -108,7 +108,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @return Map filled with all content Categories
    */
   public static Map<String, String> getContentCategoryMap() {
-    if (PubFileVOPresentation.properties == null || PubFileVOPresentation.properties.isEmpty()) {
+    if (null == PubFileVOPresentation.properties || PubFileVOPresentation.properties.isEmpty()) {
       PubFileVOPresentation.properties = PubFileVOPresentation.loadContentCategoryProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -123,12 +123,12 @@ public class PubFileVOPresentation extends FacesBean {
    * @return URI depending on the key of the content category
    */
   public static String getContentCategoryUri(String key) {
-    if (PubFileVOPresentation.properties == null || PubFileVOPresentation.properties.isEmpty()) {
+    if (null == PubFileVOPresentation.properties || PubFileVOPresentation.properties.isEmpty()) {
       PubFileVOPresentation.properties = PubFileVOPresentation.loadContentCategoryProperties();
     }
 
     final String value = PubFileVOPresentation.properties.getProperty(key.toLowerCase());
-    if (value != null) {
+    if (null != value) {
       return value;
     }
 
@@ -150,7 +150,7 @@ public class PubFileVOPresentation extends FacesBean {
     URL contentCategoryURI = null;
     try {
       contentCategoryURI = PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
-      if (contentCategoryURI != null) {
+      if (null != contentCategoryURI) {
         LogManager.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         PubFileVOPresentation.properties.load(in);
@@ -201,8 +201,8 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The internationalized content-category.
    */
   public String getContentCategory() {
-    if (this.file.getMetadata().getContentCategory() != null) {
-      return file.getMetadata().getContentCategory();
+    if (null != this.file.getMetadata().getContentCategory()) {
+      return this.file.getMetadata().getContentCategory();
     }
     return "";
   }
@@ -213,8 +213,8 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The internationalized content-category.
    */
   public String getContentCategoryLabel() {
-    if (this.file.getMetadata().getContentCategory() != null) {
-      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
+    if (null != this.file.getMetadata().getContentCategory()) {
+      return this.getLabel("ENUM_CONTENTCATEGORY_" + this.file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
       /*
        * @SuppressWarnings({"unchecked", "rawtypes"}) final Map<String, String> propertiesMap = new
        * HashMap<String, String>((Map) PubFileVOPresentation.properties); for (final
@@ -230,7 +230,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String getOaStatus() {
     String oaStatus = "";
-    if (this.file.getMetadata().getOaStatus() != null) {
+    if (null != this.file.getMetadata().getOaStatus()) {
       oaStatus = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
     } else {
       this.file.getMetadata().setOaStatus(MdsFileVO.OA_STATUS.NOT_SPECIFIED);
@@ -241,7 +241,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   private void setOaStatus() {
-    if (this.file.getMetadata().getOaStatus() == null && FileDbVO.Visibility.PUBLIC.equals(this.file.getVisibility())) {
+    if (null == this.file.getMetadata().getOaStatus() && FileDbVO.Visibility.PUBLIC.equals(this.file.getVisibility())) {
       this.file.getMetadata().setOaStatus(MdsFileVO.OA_STATUS.NOT_SPECIFIED);
     } else if (!FileDbVO.Visibility.PUBLIC.equals(this.file.getVisibility())) {
       this.file.getMetadata().setOaStatus(null);
@@ -272,7 +272,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The number of bytes.
    */
   public int getSize() {
-    if (this.file.getMetadata() != null) {
+    if (null != this.file.getMetadata()) {
       return this.file.getMetadata().getSize();
     }
 
@@ -280,7 +280,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getDescription() {
-    if (this.file.getMetadata() != null) {
+    if (null != this.file.getMetadata()) {
       return this.file.getMetadata().getDescription();
     }
 
@@ -288,7 +288,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public void setDescription(String description) {
-    if (this.file.getMetadata() != null) {
+    if (null != this.file.getMetadata()) {
       this.file.getMetadata().setDescription(description);
     } else {
       this.file.setMetadata(new MdsFileVO());
@@ -298,7 +298,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String getVisibility() {
     String visibility = "";
-    if (this.file.getVisibility() != null) {
+    if (null != this.file.getVisibility()) {
       visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     } else {
       this.file.setVisibility(FileDbVO.Visibility.PUBLIC);
@@ -309,13 +309,13 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   private void setVisibility() {
-    if (this.file.getVisibility() == null) {
+    if (null == this.file.getVisibility()) {
       this.file.setVisibility(FileDbVO.Visibility.PUBLIC);
     }
   }
 
   public void setMimeType(String mimeType) {
-    if (this.file.getMetadata() == null) {
+    if (null == this.file.getMetadata()) {
       this.file.setMetadata(new MdsFileVO());
     }
 
@@ -340,7 +340,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getMimeType() {
-    if (this.file.getMetadata() == null) {
+    if (null == this.file.getMetadata()) {
       return null;
     }
 

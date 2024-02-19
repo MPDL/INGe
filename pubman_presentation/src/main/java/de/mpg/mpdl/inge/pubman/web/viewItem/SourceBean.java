@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -131,7 +131,7 @@ public class SourceBean extends FacesBean {
       final ViewItemCreators creator = new ViewItemCreators();
 
       // if the creator is a person add his organization to the sorted organization list
-      if (creator1.getPerson() != null) {
+      if (null != creator1.getPerson()) {
         // if there is affiliated organization for this creator
         if (!creator1.getPerson().getOrganizations().isEmpty()) {
           // add each affiliated organization of the creator to the temporary organization list
@@ -153,7 +153,7 @@ public class SourceBean extends FacesBean {
         formattedCreator = formatter.formatCreator(creator1, ViewItemFull.formatCreatorOrganizationIndex(creator1, sortOrganizationList));
         creatorDisplay.setFormattedDisplay(formattedCreator);
 
-        if (creator1.getPerson().getIdentifier() != null && (creator1.getPerson().getIdentifier().getType() == IdType.CONE)) {
+        if (null != creator1.getPerson().getIdentifier() && (IdentifierVO.IdType.CONE == creator1.getPerson().getIdentifier().getType())) {
           try {
             creatorDisplay.setPortfolioLink(ConeUtils.makeConePersonsLinkFull(creator1.getPerson().getIdentifier().getId()));
           } catch (final Exception e) {
@@ -161,7 +161,7 @@ public class SourceBean extends FacesBean {
           }
         }
 
-        if (creator1.getPerson().getOrcid() != null) {
+        if (null != creator1.getPerson().getOrcid()) {
           try {
             creatorDisplay.setOrcid(creator1.getPerson().getOrcid());
           } catch (final Exception e) {
@@ -176,7 +176,7 @@ public class SourceBean extends FacesBean {
         this.sourceCreatorArray.add(creator);
       } // end if creator is a person
 
-      if (creator1.getOrganization() != null) {
+      if (null != creator1.getOrganization()) {
         formattedCreator = formatter.formatCreator(creator1, "");
         creatorDisplay.setFormattedDisplay(formattedCreator);
         final ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
@@ -196,7 +196,7 @@ public class SourceBean extends FacesBean {
       this.setSourceAffiliatedOrganizationsList(sortOrganizationList);
       // generate a 'well-formed' list for presentation in the jsp
       for (int k = 0; k < sortOrganizationList.size(); k++) {
-        final String name = sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName() : "";
+        final String name = null != sortOrganizationList.get(k).getName() ? sortOrganizationList.get(k).getName() : "";
         formattedOrganization = "<p>" + (k + 1) + ": " + name + "</p>" + "<p>" + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"
             + sortOrganizationList.get(k).getIdentifier() + "</p>";
         this.sourceOrganizationArray.add(formattedOrganization);
@@ -213,33 +213,33 @@ public class SourceBean extends FacesBean {
 
 
     final StringBuilder publishingInfo = new StringBuilder();
-    if (source.getPublishingInfo() != null) {
+    if (null != source.getPublishingInfo()) {
 
       // Place
-      if (source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().isEmpty()) {
+      if (null != source.getPublishingInfo().getPlace() && !source.getPublishingInfo().getPlace().isEmpty()) {
         publishingInfo.append(source.getPublishingInfo().getPlace().trim());
       }
 
       // colon
-      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().isEmpty()
-          && source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().isEmpty()) {
+      if (null != source.getPublishingInfo().getPublisher() && !source.getPublishingInfo().getPublisher().trim().isEmpty()
+          && null != source.getPublishingInfo().getPlace() && !source.getPublishingInfo().getPlace().trim().isEmpty()) {
         publishingInfo.append(" : ");
       }
 
       // Publisher
-      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().isEmpty()) {
+      if (null != source.getPublishingInfo().getPublisher() && !source.getPublishingInfo().getPublisher().isEmpty()) {
         publishingInfo.append(source.getPublishingInfo().getPublisher().trim());
       }
 
       // Comma
-      if ((source.getPublishingInfo().getEdition() != null && !source.getPublishingInfo().getEdition().trim().isEmpty())
-          && ((source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().isEmpty())
-              || (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().isEmpty()))) {
+      if ((null != source.getPublishingInfo().getEdition() && !source.getPublishingInfo().getEdition().trim().isEmpty())
+          && ((null != source.getPublishingInfo().getPlace() && !source.getPublishingInfo().getPlace().trim().isEmpty())
+              || (null != source.getPublishingInfo().getPublisher() && !source.getPublishingInfo().getPublisher().trim().isEmpty()))) {
         publishingInfo.append(", ");
       }
 
       // Edition
-      if (source.getPublishingInfo().getEdition() != null) {
+      if (null != source.getPublishingInfo().getEdition()) {
         publishingInfo.append(source.getPublishingInfo().getEdition());
       }
 
@@ -255,16 +255,16 @@ public class SourceBean extends FacesBean {
   private String getStartEndPage(SourceVO source) {
     final StringBuilder startEndPage = new StringBuilder();
 
-    if (source.getStartPage() != null) {
+    if (null != source.getStartPage()) {
       startEndPage.append(source.getStartPage());
     }
 
-    if (source.getEndPage() != null) {
+    if (null != source.getEndPage()) {
       startEndPage.append(" - ");
       startEndPage.append(source.getEndPage());
     }
 
-    if (startEndPage.toString().equals(" - ")) {
+    if (" - ".contentEquals(startEndPage)) {
       return "";
     }
 

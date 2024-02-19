@@ -53,7 +53,7 @@ public class BaseImportLog {
   }
 
   public synchronized String getEndDateFormatted() {
-    if (this.endDate != null) {
+    if (null != this.endDate) {
       return BaseImportLog.DATE_FORMAT.format(this.endDate);
     }
 
@@ -86,7 +86,7 @@ public class BaseImportLog {
   }
 
   public synchronized String getStartDateFormatted() {
-    if (this.startDate != null) {
+    if (null != this.startDate) {
       String startDateFormatted = BaseImportLog.DATE_FORMAT.format(this.startDate);
       return startDateFormatted;
     }
@@ -103,12 +103,10 @@ public class BaseImportLog {
   }
 
   public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel) {
-    if (this.errorLevel == null || errorLevel == BaseImportLog.ErrorLevel.FATAL
-        || (errorLevel == BaseImportLog.ErrorLevel.ERROR && this.errorLevel != BaseImportLog.ErrorLevel.FATAL)
-        || (errorLevel == BaseImportLog.ErrorLevel.PROBLEM && this.errorLevel != BaseImportLog.ErrorLevel.FATAL
-            && this.errorLevel != BaseImportLog.ErrorLevel.ERROR)
-        || (errorLevel == BaseImportLog.ErrorLevel.WARNING && this.errorLevel != BaseImportLog.ErrorLevel.FATAL
-            && this.errorLevel != BaseImportLog.ErrorLevel.ERROR && this.errorLevel != BaseImportLog.ErrorLevel.PROBLEM)) {
+    if (null == this.errorLevel || ErrorLevel.FATAL == errorLevel || (ErrorLevel.ERROR == errorLevel && ErrorLevel.FATAL != this.errorLevel)
+        || (ErrorLevel.PROBLEM == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel)
+        || (ErrorLevel.WARNING == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel
+            && ErrorLevel.PROBLEM != this.errorLevel)) {
       this.errorLevel = errorLevel;
     }
   }

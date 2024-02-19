@@ -54,14 +54,14 @@
 
 <%
 String message = null;
-if(request.getParameter("username")!=null) {
-  
+if(null != request.getParameter("username")) {
+
   //TODO login
   String username = request.getParameter("username");
   String password = request.getParameter("password");
-  
+
   String token = IngeAaClientFinish.loginInInge(username, password);
-      if(token !=null)
+      if(null != token)
       {
         String target = request.getParameter("target");
      	response.sendRedirect(target + "&token=" + token);
@@ -129,7 +129,7 @@ if(request.getParameter("username")!=null) {
 								</h5>
 							</div>
 							<div class="third_area0_p6">
-							<p><% if(message!=null) out.println(message); %></p>
+							<p><% if(null != message) out.println(message); %></p>
 							<form method="post">
 								<span class="quad_area0_p8 xTiny_marginLExcl endline">
 									<span class="double_label">Username</span>

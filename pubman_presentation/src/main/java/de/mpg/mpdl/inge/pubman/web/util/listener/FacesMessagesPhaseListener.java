@@ -38,7 +38,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
    */
   @Override
   public synchronized void afterPhase(PhaseEvent event) {
-    FacesMessagesPhaseListener.logger.trace(event.getPhaseId().toString() + " - After Phase");
+    logger.trace(event.getPhaseId().toString() + " - After Phase");
     if (event.getPhaseId() == PhaseId.INVOKE_APPLICATION) {
       this.cacheMessages(event.getFacesContext());
     } else if (event.getPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -51,7 +51,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
    */
   @Override
   public synchronized void beforePhase(PhaseEvent event) {
-    FacesMessagesPhaseListener.logger.trace(event.getPhaseId().toString() + " - Before Phase");
+    logger.trace(event.getPhaseId().toString() + " - Before Phase");
     if (event.getPhaseId() == PhaseId.RESTORE_VIEW) {
       this.restoreMessages(event.getFacesContext());
     }
@@ -64,7 +64,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
    */
   private void removeFromCache(FacesContext context) {
     this.getMessageCache(context).clear();
-    FacesMessagesPhaseListener.logger.trace("Message Cache cleared");
+    logger.trace("Message Cache cleared");
   }
 
   /**
@@ -86,7 +86,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
         }
       }
     }
-    FacesMessagesPhaseListener.logger.trace("Saved " + cachedCount + " messages in cache");
+    logger.trace("Saved " + cachedCount + " messages in cache");
   }
 
   /**
@@ -101,7 +101,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
           context.addMessage(clientId, message);
         }
       }
-      FacesMessagesPhaseListener.logger.trace("Restored Messages from Cache");
+      logger.trace("Restored Messages from Cache");
     }
   }
 
@@ -111,7 +111,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
   }
 
   private Map<String, Collection<FacesMessage>> getMessageCache(FacesContext context) {
-    if (context.getExternalContext().getSessionMap().get(FacesMessagesPhaseListener.sessionToken) != null) {
+    if (null != context.getExternalContext().getSessionMap().get(FacesMessagesPhaseListener.sessionToken)) {
       return (Map<String, Collection<FacesMessage>>) context.getExternalContext().getSessionMap()
           .get(FacesMessagesPhaseListener.sessionToken);
     } else {

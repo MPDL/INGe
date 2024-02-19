@@ -31,7 +31,6 @@ import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
@@ -86,17 +85,17 @@ public class CreateItem extends FacesBean {
     // if there is only one context for this user we can skip the CreateItem-Dialog and
     // create the new item directly
     if (this.getContextListSessionBean().getDepositorContextList().isEmpty()) {
-      CreateItem.logger.warn("The user does not have privileges for any context.");
+      logger.warn("The user does not have privileges for any context.");
       return null;
     }
 
-    if (this.getContextListSessionBean().getDepositorContextList().size() == 1
+    if (1 == this.getContextListSessionBean().getDepositorContextList().size()
         && this.getContextListSessionBean().getOpenContextsAvailable()) {
       final ContextDbVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
       navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, contextVO);
 
       // re-init the edit item bean to make sure that all data is removed
-      if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {
+      if (null != this.getItemControllerSessionBean().getCurrentPubItem()) {
         if (!contextVO.getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE)) {
           this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAllowedGenres().get(0));
         } else {
@@ -114,8 +113,8 @@ public class CreateItem extends FacesBean {
           this.getContextListSessionBean().getDepositorContextList().get(0));
 
       // re-init the edit item bean to make sure that all data is removed
-      if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {
-        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
+      if (null != this.getItemControllerSessionBean().getCurrentPubItem()) {
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
         this.getEditItemSessionBean().setGenreBundle(genreBundle);
         this.getEditItem().setItem(null);
         this.getEditItem().init();
@@ -130,7 +129,7 @@ public class CreateItem extends FacesBean {
   }
 
   public boolean getMultiple() {
-    return (this.getMethod() == SubmissionMethod.MULTIPLE_IMPORT);
+    return (SubmissionMethod.MULTIPLE_IMPORT == this.getMethod());
   }
 
   /**

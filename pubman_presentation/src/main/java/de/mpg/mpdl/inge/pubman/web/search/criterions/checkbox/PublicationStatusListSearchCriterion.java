@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
@@ -74,7 +73,7 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
     if (!this.isEmpty(QueryType.CQL)) {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+      for (final Map.Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
 
         if (entry.getValue()) {

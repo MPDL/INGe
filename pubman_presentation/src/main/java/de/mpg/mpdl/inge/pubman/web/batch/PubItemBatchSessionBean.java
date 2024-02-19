@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,17 +17,14 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -40,7 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
-import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -189,19 +185,19 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     // Genres
     final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
     final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
-    List<Genre> allowedGenresForContext = new ArrayList<>();
-    List<Genre> allowedGenres = new ArrayList<>();
-    Genre genreToCheck = null;
+    List<MdsPublicationVO.Genre> allowedGenresForContext = new ArrayList<>();
+    List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<>();
+    MdsPublicationVO.Genre genreToCheck = null;
     this.changeGenreSelectItems = new ArrayList<>();
     for (PubContextVOPresentation pubContextVOPresentation : contextVOList) {
       String workflow = "null";
-      if (pubContextVOPresentation.getWorkflow() != null) {
+      if (null != pubContextVOPresentation.getWorkflow()) {
         workflow = pubContextVOPresentation.getWorkflow().toString();
       }
       this.contextSelectItems
           .add(new SelectItem(pubContextVOPresentation.getObjectId(), pubContextVOPresentation.getName() + " -- " + workflow));
       allowedGenresForContext = pubContextVOPresentation.getAllowedGenres();
-      for (Genre genre : allowedGenresForContext) {
+      for (MdsPublicationVO.Genre genre : allowedGenresForContext) {
         genreToCheck = genre;
         if (!allowedGenres.contains(genreToCheck)) {
           allowedGenres.add(genreToCheck);
@@ -233,7 +229,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
     // IP Range
     this.changeFilesAudienceSelectItems = new ArrayList<>();
-    for (IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
+    for (IpListProvider.IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
       this.changeFilesAudienceSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
     }
 
@@ -249,7 +245,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeExternalReferencesContentCategoryTo = null;
 
     // Orcid
-    this.criterion = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
+    this.criterion = new PersonSearchCriterion(SearchCriterionBase.SearchCriterion.ANYPERSON);
     this.orcid = null;
 
     // Review
@@ -271,24 +267,25 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
     // Genre source
     final Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
-    changeSourceGenreSelectItems = new ArrayList<>();
-    changeSourceGenreSelectItems.add(new SelectItem("", this.getLabel("BatchWorkspace_lblNoItemsSet")));
+    this.changeSourceGenreSelectItems = new ArrayList<>();
+    this.changeSourceGenreSelectItems.add(new SelectItem("", this.getLabel("BatchWorkspace_lblNoItemsSet")));
     for (final SourceVO.Genre value : SourceVO.Genre.values()) {
-      changeSourceGenreSelectItems.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
+      this.changeSourceGenreSelectItems.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
     }
     String uri = "";
     int i = 0;
-    while (i < changeSourceGenreSelectItems.size()) {
-      if (changeSourceGenreSelectItems.get(i).getValue() != null && !("").equals(changeSourceGenreSelectItems.get(i).getValue())) {
-        uri = ((SourceVO.Genre) changeSourceGenreSelectItems.get(i).getValue()).getUri();
+    while (i < this.changeSourceGenreSelectItems.size()) {
+      if (null != this.changeSourceGenreSelectItems.get(i).getValue()
+          && !("").equals(this.changeSourceGenreSelectItems.get(i).getValue())) {
+        uri = ((SourceVO.Genre) this.changeSourceGenreSelectItems.get(i).getValue()).getUri();
       }
       if (excludedSourceGenres.containsValue(uri)) {
-        changeSourceGenreSelectItems.remove(i);
+        this.changeSourceGenreSelectItems.remove(i);
       } else {
         i++;
       }
     }
-    changeSourceGenreSelectItems.toArray(new SelectItem[0]);
+    this.changeSourceGenreSelectItems.toArray(new SelectItem[0]);
     this.changeSourceGenreFrom = null;
     this.changeSourceGenreTo = null;
 
@@ -321,7 +318,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   @PostConstruct
   private void postConstruct() {
-    this.batchProcessLog = this.pubItemBatchService.getBatchProcessLogForCurrentUser(loginHelper.getAccountUser());
+    this.batchProcessLog = this.pubItemBatchService.getBatchProcessLogForCurrentUser(this.loginHelper.getAccountUser());
     this.getI18nHelper().addLanguageChangeObserver(this);
   }
 
@@ -343,7 +340,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeExternalReferencesContentCategoryFrom() {
-    return changeExternalReferencesContentCategoryFrom;
+    return this.changeExternalReferencesContentCategoryFrom;
   }
 
   public void setChangeExternalReferencesContentCategoryFrom(String changeExternalReferencesContentCategoryFrom) {
@@ -351,7 +348,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeExternalReferencesContentCategorySelectItems() {
-    return changeExternalReferencesContentCategorySelectItems;
+    return this.changeExternalReferencesContentCategorySelectItems;
   }
 
   public void setChangeExternalReferencesContentCategorySelectItems(
@@ -360,7 +357,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeExternalReferencesContentCategoryTo() {
-    return changeExternalReferencesContentCategoryTo;
+    return this.changeExternalReferencesContentCategoryTo;
   }
 
   public void setChangeExternalReferencesContentCategoryTo(String changeExternalReferencesContentCategoryTo) {
@@ -368,7 +365,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeFilesAudienceSelectItems() {
-    return changeFilesAudienceSelectItems;
+    return this.changeFilesAudienceSelectItems;
   }
 
   public void setChangeFilesAudienceSelectItems(ArrayList<SelectItem> changeFilesAudienceSelectItems) {
@@ -376,7 +373,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeFilesContentCategoryFrom() {
-    return changeFilesContentCategoryFrom;
+    return this.changeFilesContentCategoryFrom;
   }
 
   public void setChangeFilesContentCategoryFrom(String changeFilesContentCategoryFrom) {
@@ -384,7 +381,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeFilesContentCategoryTo() {
-    return changeFilesContentCategoryTo;
+    return this.changeFilesContentCategoryTo;
   }
 
   public void setChangeFilesContentCategoryTo(String changeFilesContentCategoryTo) {
@@ -392,7 +389,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeFilesContentCategorySelectItems() {
-    return changeFilesContentCategorySelectItems;
+    return this.changeFilesContentCategorySelectItems;
   }
 
   public void setChangeFilesContentCategorySelectItems(ArrayList<SelectItem> changeFilesContentCategorySelectItems) {
@@ -400,7 +397,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeFilesVisibilityFrom() {
-    return changeFilesVisibilityFrom;
+    return this.changeFilesVisibilityFrom;
   }
 
   public void setChangeFilesVisibilityFrom(String changeFilesVisibilityFrom) {
@@ -408,7 +405,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeFilesVisibilityTo() {
-    return changeFilesVisibilityTo;
+    return this.changeFilesVisibilityTo;
   }
 
   public void setChangeFilesVisibilityTo(String changeFilesVisibilityTo) {
@@ -416,7 +413,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeFilesVisibilitySelectItems() {
-    return changeFilesVisibilitySelectItems;
+    return this.changeFilesVisibilitySelectItems;
   }
 
   public void setChangeFilesVisibilitySelectItems(ArrayList<SelectItem> changeFilesVisibilitySelectItems) {
@@ -424,7 +421,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeGenreFrom() {
-    return changeGenreFrom;
+    return this.changeGenreFrom;
   }
 
   public void setChangeGenreFrom(String changeGenreFrom) {
@@ -432,7 +429,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeGenreSelectItems() {
-    return changeGenreSelectItems;
+    return this.changeGenreSelectItems;
   }
 
   public void setChangeGenreSelectItems(ArrayList<SelectItem> changeGenreSelectItems) {
@@ -440,7 +437,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeGenreThesisTypeSelectItems() {
-    return changeGenreThesisTypeSelectItems;
+    return this.changeGenreThesisTypeSelectItems;
   }
 
   public void setChangeGenreThesisTypeSelectItems(ArrayList<SelectItem> changeGenreThesisTypeSelectItems) {
@@ -448,7 +445,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeGenreThesisType() {
-    return changeGenreThesisType;
+    return this.changeGenreThesisType;
   }
 
   public void setChangeGenreThesisType(String changeGenreThesisType) {
@@ -456,11 +453,11 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeGenreTo() {
-    return changeGenreTo;
+    return this.changeGenreTo;
   }
 
   public ReplaceType getChangePublicationKeywordsReplaceType() {
-    return changePublicationKeywordsReplaceType;
+    return this.changePublicationKeywordsReplaceType;
   }
 
   public void setChangePublicationKeywordsReplaceType(ReplaceType changePublicationKeywordsReplaceType) {
@@ -468,7 +465,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public List<SelectItem> getChangePublicationKeywordsReplaceTypeSelectItems() {
-    return changePublicationKeywordsReplaceTypeSelectItems;
+    return this.changePublicationKeywordsReplaceTypeSelectItems;
   }
 
   public void setChangePublicationKeywordsReplaceTypeSelectItems(List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems) {
@@ -476,7 +473,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangePublicationKeywordsAddInput() {
-    return changePublicationKeywordsAddInput;
+    return this.changePublicationKeywordsAddInput;
   }
 
   public void setChangePublicationKeywordsAddInput(String changePublicationKeywordsAddInput) {
@@ -484,7 +481,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangePublicationKeywordsReplaceFrom() {
-    return changePublicationKeywordsReplaceFrom;
+    return this.changePublicationKeywordsReplaceFrom;
   }
 
   public void setChangePublicationKeywordsReplaceFrom(String changePublicationKeywordsReplaceFrom) {
@@ -492,7 +489,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangePublicationKeywordsReplaceTo() {
-    return changePublicationKeywordsReplaceTo;
+    return this.changePublicationKeywordsReplaceTo;
   }
 
   public void setChangePublicationKeywordsReplaceTo(String changePublicationKeywordsReplaceTo) {
@@ -500,7 +497,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeReviewMethodFrom() {
-    return changeReviewMethodFrom;
+    return this.changeReviewMethodFrom;
   }
 
   public void setChangeReviewMethodFrom(String changeReviewMethodFrom) {
@@ -508,7 +505,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeReviewMethodSelectItems() {
-    return changeReviewMethodSelectItems;
+    return this.changeReviewMethodSelectItems;
   }
 
   public void setChangeReviewMethodSelectItems(ArrayList<SelectItem> changeReviewMethodSelectItems) {
@@ -516,7 +513,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeReviewMethodTo() {
-    return changeReviewMethodTo;
+    return this.changeReviewMethodTo;
   }
 
   public void setChangeReviewMethodTo(String changeReviewMethodTo) {
@@ -524,7 +521,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceGenreFrom() {
-    return changeSourceGenreFrom;
+    return this.changeSourceGenreFrom;
   }
 
   public void setChangeSourceGenreFrom(String changeSourceGenreFrom) {
@@ -532,11 +529,11 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getInputChangeSourceEdition() {
-    return inputChangeSourceEdition;
+    return this.inputChangeSourceEdition;
   }
 
   public boolean getDisabledKeywordInput() {
-    return disabledKeywordInput;
+    return this.disabledKeywordInput;
   }
 
   public void setDisabledKeywordInput(boolean disabledKeywordInput) {
@@ -548,7 +545,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getChangeSourceGenreSelectItems() {
-    return changeSourceGenreSelectItems;
+    return this.changeSourceGenreSelectItems;
   }
 
   public void setChangeSourceGenreSelectItems(ArrayList<SelectItem> changeSourceGenreSelectItems) {
@@ -556,7 +553,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceGenreTo() {
-    return changeSourceGenreTo;
+    return this.changeSourceGenreTo;
   }
 
   public void setChangeSourceGenreTo(String changeSourceGenreTo) {
@@ -568,7 +565,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSoureIdAddNumber() {
-    return changeSoureIdAddNumber;
+    return this.changeSoureIdAddNumber;
   }
 
   public void setChangeSoureIdAddNumber(String changeSoureIdAddNumber) {
@@ -576,7 +573,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceIdAdd() {
-    return changeSourceIdAdd;
+    return this.changeSourceIdAdd;
   }
 
   public void setChangeSourceIdAdd(String changeSourceIdAdd) {
@@ -584,7 +581,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceIdReplaceFrom() {
-    return changeSourceIdReplaceFrom;
+    return this.changeSourceIdReplaceFrom;
   }
 
   public void setChangeSourceIdReplaceFrom(String changeSourceIdReplaceFrom) {
@@ -592,7 +589,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceIdReplaceTo() {
-    return changeSourceIdReplaceTo;
+    return this.changeSourceIdReplaceTo;
   }
 
   public void setChangeSourceIdReplaceTo(String changeSourceIdReplaceTo) {
@@ -600,7 +597,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceIdReplaceNumber() {
-    return changeSourceIdReplaceNumber;
+    return this.changeSourceIdReplaceNumber;
   }
 
   public void setChangeSourceIdReplaceNumber(String changeSourceIdReplaceNumber) {
@@ -608,7 +605,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceIdTypeReplace() {
-    return changeSourceIdTypeReplace;
+    return this.changeSourceIdTypeReplace;
   }
 
   public void setChangeSourceIdTypeReplace(String changeSourceIdTypeReplace) {
@@ -616,7 +613,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSourceIdTypeAdd() {
-    return changeSourceIdTypeAdd;
+    return this.changeSourceIdTypeAdd;
   }
 
   public void setChangeSourceIdTypeAdd(String changeSourceIdTypeAdd) {
@@ -624,7 +621,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public List<SelectItem> getChangeSourceIdTypeSelectItems() {
-    return changeSourceIdTypeSelectItems;
+    return this.changeSourceIdTypeSelectItems;
   }
 
   public void setChangeSourceIdTypeSelectItems(List<SelectItem> changeSourceIdTypeSelectItems) {
@@ -632,7 +629,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getChangeSoureEditionNumber() {
-    return changeSoureEditionNumber;
+    return this.changeSoureEditionNumber;
   }
 
   public void setChangeSoureEditionNumber(String changeSoureEditionSoure) {
@@ -640,7 +637,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public List<SelectItem> getChangeSourceNumberSelectItems() {
-    return changeSourceNumberSelectItems;
+    return this.changeSourceNumberSelectItems;
   }
 
   public void setChangeSourceNumberSelectItems(List<SelectItem> changeSourceEditionSourceSelectItems) {
@@ -648,7 +645,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public ArrayList<SelectItem> getContextSelectItems() {
-    return contextSelectItems;
+    return this.contextSelectItems;
   }
 
   public void setContextSelectItems(ArrayList<SelectItem> contextSelectItems) {
@@ -668,7 +665,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getInputChangeLocalTagsReplaceFrom() {
-    return inputChangeLocalTagsReplaceFrom;
+    return this.inputChangeLocalTagsReplaceFrom;
   }
 
   public void setInputChangeLocalTagsReplaceFrom(String inputChangeLocalTagsReplaceFrom) {
@@ -676,7 +673,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getInputChangeLocalTagsReplaceTo() {
-    return inputChangeLocalTagsReplaceTo;
+    return this.inputChangeLocalTagsReplaceTo;
   }
 
   public void setInputChangeLocalTagsReplaceTo(String inputChangeLocalTagsReplaceTo) {
@@ -685,7 +682,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
 
   public List<String> getIpRangeToAdd() {
-    return ipRangeToAdd;
+    return this.ipRangeToAdd;
   }
 
   public void setIpRangeToAdd(List<String> localTagsToAdd) {
@@ -714,7 +711,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public List<String> getLocalTagsToAdd() {
-    return localTagsToAdd;
+    return this.localTagsToAdd;
   }
 
   public void setLocalTagsToAdd(List<String> localTagsToAdd) {
@@ -722,7 +719,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public LoginHelper getLoginHelper() {
-    return loginHelper;
+    return this.loginHelper;
   }
 
   public void setLoginHelper(LoginHelper loginHelper) {
@@ -765,7 +762,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public PubItemBatchService getPubItemBatchService() {
-    return pubItemBatchService;
+    return this.pubItemBatchService;
   }
 
   public void setPubItemBatchService(PubItemBatchService pubItemBatchService) {
@@ -773,7 +770,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getSelectedContextNew() {
-    return selectedContextNew;
+    return this.selectedContextNew;
   }
 
   public void setSelectedContextNew(String selectedContextNew) {
@@ -781,7 +778,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public String getSelectedContextOld() {
-    return selectedContextOld;
+    return this.selectedContextOld;
   }
 
   public void setSelectedContextOld(String selectedContextOld) {
@@ -868,18 +865,18 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
 
-    if (localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
+    if (null != this.localTagsToAdd && !this.localTagsToAdd.isEmpty()) {
       List<String> pubItemObjectIdList = new ArrayList<>();
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.addLocalTags(pubItemObjectIdList, localTagsToAdd,
-          "batch add local tags " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-          loginHelper.getAccountUser());
+      this.batchProcessLog = this.pubItemBatchService.addLocalTags(pubItemObjectIdList, this.localTagsToAdd,
+          "batch add local tags " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+          this.loginHelper.getAccountUser());
       writeSuccessAndErrorMessages();
-      pubItemListSessionBean.changeSubmenuToProcessLog();
+      this.pubItemListSessionBean.changeSubmenuToProcessLog();
     } else {
-      warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
+      warn(this.internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
 
     return null;
@@ -891,13 +888,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.changeContext(pubItemObjectIdList, selectedContextOld, selectedContextNew,
-        "batch change context " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    this.batchProcessLog = this.pubItemBatchService.changeContext(pubItemObjectIdList, this.selectedContextOld, this.selectedContextNew,
+        "batch change context " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+        this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -908,20 +906,20 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    if (changeExternalReferencesContentCategoryFrom != null && changeExternalReferencesContentCategoryTo != null) {
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    if (null != this.changeExternalReferencesContentCategoryFrom && null != this.changeExternalReferencesContentCategoryTo) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.changeExternalReferenceContentCategory(pubItemObjectIdList,
-          changeExternalReferencesContentCategoryFrom, changeExternalReferencesContentCategoryTo,
-          "batch change external references content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-          loginHelper.getAccountUser());
+      this.batchProcessLog = this.pubItemBatchService.changeExternalReferenceContentCategory(pubItemObjectIdList,
+          this.changeExternalReferencesContentCategoryFrom, this.changeExternalReferencesContentCategoryTo,
+          "batch change external references content category " + formatter.format(calendar.getTime()),
+          this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     } else {
-      error(internationalizationHelper.getMessage("batch_ErrorMissingValues"));
+      error(this.internationalizationHelper.getMessage("batch_ErrorMissingValues"));
       return null;
     }
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -931,31 +929,31 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     final SearchCriterionBase sc = this.criterion;
     final StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
     if (ValidationTools.isEmpty(hiddenSc.getHiddenId())) {
-      error(internationalizationHelper.getMessage("batch_ErrorMissingValues"));
+      error(this.internationalizationHelper.getMessage("batch_ErrorMissingValues"));
       return null;
     }
     if (ValidationTools.isEmpty(this.orcid)) {
-      error(internationalizationHelper.getMessage("batch_ErrorNoOrcid").replace("$2", hiddenSc.getSearchString()));
+      error(this.internationalizationHelper.getMessage("batch_ErrorNoOrcid").replace("$2", hiddenSc.getSearchString()));
       return null;
     }
     if (!this.orcid.startsWith(ValidationTools.ORCID_HTTPS)
         || (!this.orcid.substring(ValidationTools.ORCID_HTTPS.length()).matches(ValidationTools.ORCID_REGEX))) {
-      error(internationalizationHelper.getMessage("batch_ErrorInvalidOrcid").replace("$1", this.orcid).replace("$2",
+      error(this.internationalizationHelper.getMessage("batch_ErrorInvalidOrcid").replace("$1", this.orcid).replace("$2",
           hiddenSc.getSearchString()));
       return null;
     }
 
     List<String> pubItemObjectIdList = new ArrayList<>();
 
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
 
-    this.batchProcessLog = pubItemBatchService.changeOrcid(pubItemObjectIdList, hiddenSc.getHiddenId(), this.orcid, "batch change orcid ",
-        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    this.batchProcessLog = this.pubItemBatchService.changeOrcid(pubItemObjectIdList, hiddenSc.getHiddenId(), this.orcid,
+        "batch change orcid ", this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
 
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -966,14 +964,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.changeFileAudience(pubItemObjectIdList, ipRangeToAdd,
-        "batch change file audience " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-        loginHelper.getAccountUser());
+    this.batchProcessLog = this.pubItemBatchService.changeFileAudience(pubItemObjectIdList, this.ipRangeToAdd,
+        "batch change file audience " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+        this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -984,19 +982,19 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    if (changeFilesContentCategoryFrom != null && changeFilesContentCategoryTo != null) {
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    if (null != this.changeFilesContentCategoryFrom && null != this.changeFilesContentCategoryTo) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.changeFileContentCategory(pubItemObjectIdList, changeFilesContentCategoryFrom,
-          changeFilesContentCategoryTo, "batch change file content category " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+      this.batchProcessLog = this.pubItemBatchService.changeFileContentCategory(pubItemObjectIdList, this.changeFilesContentCategoryFrom,
+          this.changeFilesContentCategoryTo, "batch change file content category " + formatter.format(calendar.getTime()),
+          this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     } else {
-      error(internationalizationHelper.getMessage("batch_ErrorMissingValues"));
+      error(this.internationalizationHelper.getMessage("batch_ErrorMissingValues"));
       return null;
     }
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1007,15 +1005,15 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.changeFileVisibility(pubItemObjectIdList, Visibility.valueOf(changeFilesVisibilityFrom),
-        Visibility.valueOf(changeFilesVisibilityTo), loginHelper.getCurrentIp(),
-        "batch change file visibility " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-        loginHelper.getAccountUser());
+    this.batchProcessLog = this.pubItemBatchService.changeFileVisibility(pubItemObjectIdList,
+        FileVO.Visibility.valueOf(this.changeFilesVisibilityFrom), FileVO.Visibility.valueOf(this.changeFilesVisibilityTo),
+        this.loginHelper.getCurrentIp(), "batch change file visibility " + formatter.format(calendar.getTime()),
+        this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1026,18 +1024,19 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    Genre genreOld = Genre.valueOf(this.changeGenreFrom);
-    Genre genreNew = Genre.valueOf(this.changeGenreTo);
-    DegreeType degree = null;
-    if (this.changeGenreThesisType != null) {
-      degree = DegreeType.valueOf(this.changeGenreThesisType);
+    MdsPublicationVO.Genre genreOld = MdsPublicationVO.Genre.valueOf(this.changeGenreFrom);
+    MdsPublicationVO.Genre genreNew = MdsPublicationVO.Genre.valueOf(this.changeGenreTo);
+    MdsPublicationVO.DegreeType degree = null;
+    if (null != this.changeGenreThesisType) {
+      degree = MdsPublicationVO.DegreeType.valueOf(this.changeGenreThesisType);
     }
-    this.batchProcessLog = pubItemBatchService.changeGenre(pubItemObjectIdList, genreOld, genreNew, degree,
-        "batch change genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.batchProcessLog = this.pubItemBatchService.changeGenre(pubItemObjectIdList, genreOld, genreNew, degree,
+        "batch change genre " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+        this.loginHelper.getAccountUser());
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1047,18 +1046,18 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (changePublicationKeywordsAddInput != null && !changePublicationKeywordsAddInput.trim().isEmpty()) {
+    if (null != this.changePublicationKeywordsAddInput && !this.changePublicationKeywordsAddInput.trim().isEmpty()) {
       List<String> pubItemObjectIdList = new ArrayList<>();
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.addKeywords(pubItemObjectIdList, changePublicationKeywordsAddInput,
-          "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-          loginHelper.getAccountUser());
+      this.batchProcessLog = this.pubItemBatchService.addKeywords(pubItemObjectIdList, this.changePublicationKeywordsAddInput,
+          "batch add keywords method " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+          this.loginHelper.getAccountUser());
       writeSuccessAndErrorMessages();
-      pubItemListSessionBean.changeSubmenuToProcessLog();
+      this.pubItemListSessionBean.changeSubmenuToProcessLog();
     } else {
-      warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
+      warn(this.internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
 
     return null;
@@ -1070,20 +1069,20 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    if (ReplaceType.REPLACE_BY_VALUE.equals(changePublicationKeywordsReplaceType)) {
-      this.batchProcessLog = pubItemBatchService.changeKeywords(pubItemObjectIdList, changePublicationKeywordsReplaceFrom,
-          changePublicationKeywordsReplaceTo, "batch change keywords " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    if (ReplaceType.REPLACE_BY_VALUE.equals(this.changePublicationKeywordsReplaceType)) {
+      this.batchProcessLog = this.pubItemBatchService.changeKeywords(pubItemObjectIdList, this.changePublicationKeywordsReplaceFrom,
+          this.changePublicationKeywordsReplaceTo, "batch change keywords " + formatter.format(calendar.getTime()),
+          this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     } else {
-      this.batchProcessLog = pubItemBatchService.replaceAllKeywords(pubItemObjectIdList, changePublicationKeywordsReplaceTo,
-          "batch replace keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-          loginHelper.getAccountUser());
+      this.batchProcessLog = this.pubItemBatchService.replaceAllKeywords(pubItemObjectIdList, this.changePublicationKeywordsReplaceTo,
+          "batch replace keywords " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+          this.loginHelper.getAccountUser());
     }
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1094,14 +1093,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.changeReviewMethod(pubItemObjectIdList, changeReviewMethodFrom, changeReviewMethodTo,
-        "batch change review method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-        loginHelper.getAccountUser());
+    this.batchProcessLog = this.pubItemBatchService.changeReviewMethod(pubItemObjectIdList, this.changeReviewMethodFrom,
+        this.changeReviewMethodTo, "batch change review method " + formatter.format(calendar.getTime()),
+        this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1112,19 +1111,20 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    if (changeSourceGenreFrom != null && changeSourceGenreTo != null) {
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    if (null != this.changeSourceGenreFrom && null != this.changeSourceGenreTo) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.changeSourceGenre(pubItemObjectIdList, SourceVO.Genre.valueOf(this.changeSourceGenreFrom),
-          SourceVO.Genre.valueOf(this.changeSourceGenreTo), "batch change source genre " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+      this.batchProcessLog =
+          this.pubItemBatchService.changeSourceGenre(pubItemObjectIdList, SourceVO.Genre.valueOf(this.changeSourceGenreFrom),
+              SourceVO.Genre.valueOf(this.changeSourceGenreTo), "batch change source genre " + formatter.format(calendar.getTime()),
+              this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     } else {
-      error(internationalizationHelper.getMessage("batch_ErrorMissingValues"));
+      error(this.internationalizationHelper.getMessage("batch_ErrorMissingValues"));
       return null;
     }
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1134,19 +1134,19 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (changeSourceIdAdd != null && !changeSourceIdAdd.trim().isEmpty() && changeSourceIdTypeAdd != null) {
+    if (null != this.changeSourceIdAdd && !this.changeSourceIdAdd.trim().isEmpty() && null != this.changeSourceIdTypeAdd) {
       List<String> pubItemObjectIdList = new ArrayList<>();
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.addSourceId(pubItemObjectIdList, this.changeSoureIdAddNumber,
+      this.batchProcessLog = this.pubItemBatchService.addSourceId(pubItemObjectIdList, this.changeSoureIdAddNumber,
           IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd), this.changeSourceIdAdd,
-          "batch add source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-          loginHelper.getAccountUser());
+          "batch add source id " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+          this.loginHelper.getAccountUser());
       writeSuccessAndErrorMessages();
-      pubItemListSessionBean.changeSubmenuToProcessLog();
+      this.pubItemListSessionBean.changeSubmenuToProcessLog();
     } else {
-      warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
+      warn(this.internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
 
     return null;
@@ -1157,19 +1157,20 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (changeSourceIdReplaceFrom != null && !changeSourceIdReplaceFrom.trim().isEmpty() && changeSourceIdTypeReplace != null) {
+    if (null != this.changeSourceIdReplaceFrom && !this.changeSourceIdReplaceFrom.trim().isEmpty()
+        && null != this.changeSourceIdTypeReplace) {
       List<String> pubItemObjectIdList = new ArrayList<>();
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.changeSourceIdReplace(pubItemObjectIdList, this.changeSourceIdReplaceNumber,
+      this.batchProcessLog = this.pubItemBatchService.changeSourceIdReplace(pubItemObjectIdList, this.changeSourceIdReplaceNumber,
           IdentifierVO.IdType.valueOf(this.changeSourceIdTypeReplace), this.changeSourceIdReplaceFrom, this.changeSourceIdReplaceTo,
-          "batch replace source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-          loginHelper.getAccountUser());
+          "batch replace source id " + formatter.format(calendar.getTime()), this.loginHelper.getAuthenticationToken(),
+          this.loginHelper.getAccountUser());
       writeSuccessAndErrorMessages();
-      pubItemListSessionBean.changeSubmenuToProcessLog();
+      this.pubItemListSessionBean.changeSubmenuToProcessLog();
     } else {
-      warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
+      warn(this.internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
 
     return null;
@@ -1181,14 +1182,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.changeSourceEdition(pubItemObjectIdList, changeSoureEditionNumber, inputChangeSourceEdition,
-        "batch change source edition " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-        loginHelper.getAccountUser());
+    this.batchProcessLog = this.pubItemBatchService.changeSourceEdition(pubItemObjectIdList, this.changeSoureEditionNumber,
+        this.inputChangeSourceEdition, "batch change source edition " + formatter.format(calendar.getTime()),
+        this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1199,13 +1200,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.deletePubItems(pubItemObjectIdList, "batch delete " + formatter.format(calendar.getTime()),
-        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    this.batchProcessLog =
+        this.pubItemBatchService.deletePubItems(pubItemObjectIdList, "batch delete " + formatter.format(calendar.getTime()),
+            this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1216,13 +1218,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.releasePubItems(pubItemObjectIdList, "batch release " + formatter.format(calendar.getTime()),
-        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    this.batchProcessLog =
+        this.pubItemBatchService.releasePubItems(pubItemObjectIdList, "batch release " + formatter.format(calendar.getTime()),
+            this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1232,18 +1235,18 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (inputChangeLocalTagsReplaceFrom != null && !inputChangeLocalTagsReplaceFrom.trim().isEmpty()) {
+    if (null != this.inputChangeLocalTagsReplaceFrom && !this.inputChangeLocalTagsReplaceFrom.trim().isEmpty()) {
       List<String> pubItemObjectIdList = new ArrayList<>();
-      for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.replaceLocalTags(pubItemObjectIdList, inputChangeLocalTagsReplaceFrom,
-          inputChangeLocalTagsReplaceTo, "batch replacing local tags " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
-      pubItemListSessionBean.changeSubmenuToProcessLog();
+      this.batchProcessLog = this.pubItemBatchService.replaceLocalTags(pubItemObjectIdList, this.inputChangeLocalTagsReplaceFrom,
+          this.inputChangeLocalTagsReplaceTo, "batch replacing local tags " + formatter.format(calendar.getTime()),
+          this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
+      this.pubItemListSessionBean.changeSubmenuToProcessLog();
       writeSuccessAndErrorMessages();
     } else {
-      warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
+      warn(this.internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
 
     return null;
@@ -1255,13 +1258,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.revisePubItems(pubItemObjectIdList, "batch revise " + formatter.format(calendar.getTime()),
-        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    this.batchProcessLog =
+        this.pubItemBatchService.revisePubItems(pubItemObjectIdList, "batch revise " + formatter.format(calendar.getTime()),
+            this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1272,13 +1276,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.submitPubItems(pubItemObjectIdList, "batch submit " + formatter.format(calendar.getTime()),
-        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    this.batchProcessLog =
+        this.pubItemBatchService.submitPubItems(pubItemObjectIdList, "batch submit " + formatter.format(calendar.getTime()),
+            this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
@@ -1289,19 +1294,20 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     List<String> pubItemObjectIdList = new ArrayList<>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+    for (Map.Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.withdrawPubItems(pubItemObjectIdList,
-        "batch withdraw " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    this.batchProcessLog =
+        this.pubItemBatchService.withdrawPubItems(pubItemObjectIdList, "batch withdraw " + formatter.format(calendar.getTime()),
+            this.loginHelper.getAuthenticationToken(), this.loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
-    pubItemListSessionBean.changeSubmenuToProcessLog();
+    this.pubItemListSessionBean.changeSubmenuToProcessLog();
 
     return null;
   }
 
   public void handleGenreThesisTypeChange() {
-    if (Genre.THESIS.equals(Genre.valueOf(this.changeGenreTo))) {
+    if (MdsPublicationVO.Genre.THESIS.equals(MdsPublicationVO.Genre.valueOf(this.changeGenreTo))) {
       this.setShowThesisType(true);
     } else {
       this.setShowThesisType(false);
@@ -1309,7 +1315,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public boolean getShowThesisType() {
-    return showThesisType;
+    return this.showThesisType;
   }
 
   public void setShowThesisType(boolean showThesisType) {
@@ -1325,14 +1331,14 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public void writeSuccessAndErrorMessages() {
-    if (getProcessLogSuccessCount() > 0) {
-      info((internationalizationHelper.getMessage("batch_SuccesCount")).replace("$1", Integer.toString(getProcessLogSuccessCount())));
+    if (0 < getProcessLogSuccessCount()) {
+      info((this.internationalizationHelper.getMessage("batch_SuccesCount")).replace("$1", Integer.toString(getProcessLogSuccessCount())));
     }
-    if (getProcessLogErrorCount() > 0) {
-      error((internationalizationHelper.getMessage("batch_ErrorCount")).replace("$1", Integer.toString(getProcessLogErrorCount())));
+    if (0 < getProcessLogErrorCount()) {
+      error((this.internationalizationHelper.getMessage("batch_ErrorCount")).replace("$1", Integer.toString(getProcessLogErrorCount())));
     }
-    if (getProcessLogWarningCount() > 0) {
-      warn((internationalizationHelper.getMessage("batch_WarningCount")).replace("$1", Integer.toString(getProcessLogWarningCount())));
+    if (0 < getProcessLogWarningCount()) {
+      warn((this.internationalizationHelper.getMessage("batch_WarningCount")).replace("$1", Integer.toString(getProcessLogWarningCount())));
     }
   }
 
@@ -1370,6 +1376,6 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   @Override
   public String getMessage() {
-    return message;
+    return this.message;
   }
 }}

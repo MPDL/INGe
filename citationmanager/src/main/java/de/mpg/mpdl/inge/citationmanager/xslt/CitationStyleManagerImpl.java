@@ -150,7 +150,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     String cs = null;
     String task = null;
 
-    if (args.length == 0) {
+    if (0 == args.length) {
       usage();
       return;
     }
@@ -170,20 +170,20 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     }
 
     // if ( task.equals(TASKS.validate.toString()))
-    if (TASKS.valueOf(task) == TASKS.validate) {
+    if (TASKS.validate == TASKS.valueOf(task)) {
       String report = csm.validate(cs);
-      if (report == null)
+      if (null == report)
         System.out.println(cs + " Citation Style XML for is valid.");
       else
         System.out.println(cs + " Citation Style XML for is not valid:\n" + report);
 
-    } else if (TASKS.valueOf(task) == TASKS.compile) {
+    } else if (TASKS.compile == TASKS.valueOf(task)) {
       System.out.println(cs + " Citation Style compilation.");
       csm.compile(cs);
       System.out.println("OK");
     }
     // all other tasks
-    else if (TASKS.valueOf(task) != null) {
+    else if (null != TASKS.valueOf(task)) {
       String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
       String escidocXml = ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader());

@@ -97,7 +97,7 @@ public class ExportItems extends FacesBean {
     citationGroup.setSelectItems(new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED,
         FILEFORMAT_JSON_CITATION, FILEFORMAT_ESCIDOC_SNIPPET});
 
-    final SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[] { //
+    final SelectItem[] EXPORTFORMAT_OPTIONS = { //
         exportGroup, citationGroup};
 
     return EXPORTFORMAT_OPTIONS;
@@ -171,14 +171,14 @@ public class ExportItems extends FacesBean {
     final String senderAddress = this.getExportItemsSessionBean().getEmailSenderProp();// someone@web.de
     final String subject = this.getExportItemsSessionBean().getExportEmailSubject();
     final String text = this.getExportItemsSessionBean().getExportEmailTxt();
-    final String[] replyToAddresses = new String[] {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
-    final String[] attachments = new String[] {this.getExportItemsSessionBean().getAttExportFile().getPath()};
+    final String[] replyToAddresses = {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
+    final String[] attachments = {this.getExportItemsSessionBean().getAttExportFile().getPath()};
     final String recipientsAddressesStr = this.getExportItemsSessionBean().getEmailRecipients();
     final String recipientsCCAddressesStr = this.getExportItemsSessionBean().getEmailCCRecipients();
 
     String[] recipientsAddresses = null;
     boolean OK = false;
-    if (recipientsAddressesStr != null && !recipientsAddressesStr.trim().isEmpty()) {
+    if (null != recipientsAddressesStr && !recipientsAddressesStr.trim().isEmpty()) {
       recipientsAddresses = recipientsAddressesStr.split(",");
       for (final String ra : recipientsAddresses) {
         if (!ra.trim().isEmpty()) {
@@ -200,7 +200,7 @@ public class ExportItems extends FacesBean {
           replyToAddresses, subject, text, attachments);
       this.cleanUpEmailFields();
     } catch (final TechnicalException e) {
-      ExportItems.logger.error("Could not send the export formats." + "\n" + e);
+      logger.error("Could not send the export formats." + "\n" + e);
       // normal
       final Throwable ecc = e.getCause().getCause();
       /*
@@ -215,8 +215,8 @@ public class ExportItems extends FacesBean {
       return ErrorPage.LOAD_ERRORPAGE;
     }
 
-    if (status.equals("sent")) {
-      ExportItems.logger.debug(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
+    if ("sent".equals(status)) {
+      logger.debug(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
       this.info(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
 
       // redirect to last breadcrumb

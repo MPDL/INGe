@@ -34,7 +34,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import de.mpg.mpdl.inge.model.util.MapperFactory;
@@ -60,7 +59,7 @@ import jakarta.persistence.Transient;
  * @updated 07-Sep-2007 13:27:29
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @Entity
 @Table(name = "organization")
 //@TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
@@ -188,10 +187,10 @@ public class AffiliationDbVO extends AffiliationDbRO {
     final int prime = 31;
     int result = super.hashCode();
     result = prime * result + (this.hasChildren ? 1231 : 1237);
-    result = prime * result + ((this.metadata == null) ? 0 : this.metadata.hashCode());
-    result = prime * result + ((this.parentAffiliation == null) ? 0 : this.parentAffiliation.hashCode());
-    result = prime * result + ((this.predecessorAffiliations == null) ? 0 : this.predecessorAffiliations.hashCode());
-    result = prime * result + ((this.publicStatus == null) ? 0 : this.publicStatus.hashCode());
+    result = prime * result + ((null == this.metadata) ? 0 : this.metadata.hashCode());
+    result = prime * result + ((null == this.parentAffiliation) ? 0 : this.parentAffiliation.hashCode());
+    result = prime * result + ((null == this.predecessorAffiliations) ? 0 : this.predecessorAffiliations.hashCode());
+    result = prime * result + ((null == this.publicStatus) ? 0 : this.publicStatus.hashCode());
     return result;
   }
 
@@ -206,18 +205,18 @@ public class AffiliationDbVO extends AffiliationDbRO {
     AffiliationDbVO other = (AffiliationDbVO) obj;
     if (this.hasChildren != other.hasChildren)
       return false;
-    if (this.metadata == null) {
-      if (other.metadata != null)
+    if (null == this.metadata) {
+      if (null != other.metadata)
         return false;
     } else if (!this.metadata.equals(other.metadata))
       return false;
-    if (this.parentAffiliation == null) {
-      if (other.parentAffiliation != null)
+    if (null == this.parentAffiliation) {
+      if (null != other.parentAffiliation)
         return false;
     } else if (!this.parentAffiliation.equals(other.parentAffiliation))
       return false;
-    if (this.predecessorAffiliations == null) {
-      if (other.predecessorAffiliations != null)
+    if (null == this.predecessorAffiliations) {
+      if (null != other.predecessorAffiliations)
         return false;
     } else if (!this.predecessorAffiliations.equals(other.predecessorAffiliations))
       return false;

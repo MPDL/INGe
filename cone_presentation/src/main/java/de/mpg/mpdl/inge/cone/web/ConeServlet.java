@@ -66,7 +66,6 @@ import de.mpg.mpdl.inge.aa.TanStore;
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.Pair;
 import de.mpg.mpdl.inge.cone.Querier;
 import de.mpg.mpdl.inge.cone.QuerierFactory;
@@ -137,7 +136,7 @@ public class ConeServlet extends HttpServlet {
 
     // LoggedIn
     boolean loggedIn = false;
-    if (request.getSession().getAttribute("logged_in") == null || !(Boolean) request.getSession().getAttribute("logged_in")) {
+    if (null == request.getSession().getAttribute("logged_in") || !(Boolean) request.getSession().getAttribute("logged_in")) {
       Login.checkLogin(request, false);
       loggedIn = getLoggedIn(request);
     } else {
@@ -147,7 +146,7 @@ public class ConeServlet extends HttpServlet {
     // CONE Zugriff im LoggedIn Modus (obwohl nicht eingelogged)
     if (!loggedIn) {
       String tan = request.getParameter("tan4directLogin");
-      if (tan != null && TanStore.checkTan(tan)) {
+      if (null != tan && TanStore.checkTan(tan)) {
         loggedIn = true;
       }
     }
@@ -156,19 +155,19 @@ public class ConeServlet extends HttpServlet {
     String action = null;
     String modelName = null;
     String[] path = request.getServletPath().split("/", 4);
-    if (path.length == 3 && "".equals(path[2])) {
+    if (3 == path.length && "".equals(path[2])) {
       action = path[1];
-    } else if (path.length > 2) {
+    } else if (2 < path.length) {
       modelName = path[1];
-      if (path.length >= 3) {
+      if (3 <= path.length) {
         action = path[2];
       }
     }
 
     // Format
     String format = DEFAULT_FORMAT;
-    if (request.getParameter("format") != null || request.getParameter("f") != null) {
-      format = (request.getParameter("format") != null ? request.getParameter("format") : request.getParameter("f"));
+    if (null != request.getParameter("format") || null != request.getParameter("f")) {
+      format = (null != request.getParameter("format") ? request.getParameter("format") : request.getParameter("f"));
     } else {
       ModelList modelList;
       try {
@@ -178,7 +177,7 @@ public class ConeServlet extends HttpServlet {
       }
       boolean found = false;
       String acceptHeader = request.getHeader("Accept");
-      if (acceptHeader != null) {
+      if (null != acceptHeader) {
         String[] types = acceptHeader.split(",");
         for (String type : types) {
           for (String key : modelList.getFormatMimetypes().keySet()) {
@@ -206,8 +205,8 @@ public class ConeServlet extends HttpServlet {
 
     // Mode
     Querier.ModeType modeType;
-    if (request.getParameter("mode") != null && "full".equalsIgnoreCase(request.getParameter("mode"))
-        || request.getParameter("m") != null && "full".equalsIgnoreCase(request.getParameter("m"))) {
+    if (null != request.getParameter("mode") && "full".equalsIgnoreCase(request.getParameter("mode"))
+        || null != request.getParameter("m") && "full".equalsIgnoreCase(request.getParameter("m"))) {
       modeType = Querier.ModeType.FULL;
     } else {
       modeType = Querier.ModeType.FAST;
@@ -215,9 +214,9 @@ public class ConeServlet extends HttpServlet {
 
     // Lang
     String language;
-    if (request.getParameter("language") != null) {
+    if (null != request.getParameter("language")) {
       language = request.getParameter("language");
-    } else if (request.getParameter("l") != null) {
+    } else if (null != request.getParameter("l")) {
       language = request.getParameter("l");
     } else {
       language = PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT);
@@ -228,14 +227,14 @@ public class ConeServlet extends HttpServlet {
     if ("query".equals(action)) {
       String queryString;
       queryString =
-          UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
+          UrlHelper.fixURLEncoding(null != request.getParameter("query") ? request.getParameter("query") : request.getParameter("q"));
 
       // Limit
       int limit;
       try {
-        if (request.getParameter("number") != null) {
+        if (null != request.getParameter("number")) {
           limit = Integer.parseInt(request.getParameter("number"));
-        } else if (request.getParameter("n") != null) {
+        } else if (null != request.getParameter("n")) {
           limit = Integer.parseInt(request.getParameter("n"));
         } else {
           limit = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_RESULTS_DEFAULT));
@@ -245,7 +244,7 @@ public class ConeServlet extends HttpServlet {
       }
 
       try {
-        if (queryString != null) {
+        if (null != queryString) {
           queryAction(queryString, limit, language, modeType, response, formatter, modelName, loggedIn);
         } else {
           ArrayList<Pair<String>> searchFields = new ArrayList<>();
@@ -269,7 +268,7 @@ public class ConeServlet extends HttpServlet {
 
     } else if ("resource".equals(action)) {
       String id = null;
-      if (path.length >= 4) {
+      if (4 <= path.length) {
         id = ConeUtils.makeConePersonsLinkRelative(path);
       }
       try {
@@ -301,11 +300,11 @@ public class ConeServlet extends HttpServlet {
 
   private void allAction(String language, Querier.ModeType modeType, HttpServletResponse response, AbstractFormatter formatter,
       String modelName, boolean loggedIn) throws Exception {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
     response.setContentType(formatter.getContentType());
     Querier querier = QuerierFactory.newQuerier(loggedIn);
 
-    if (querier == null) {
+    if (null == querier) {
       reportMissingQuerier(response);
     } else {
       List<? extends Describable> result = null;
@@ -325,14 +324,14 @@ public class ConeServlet extends HttpServlet {
 
   private void detailAction(String id, String language, HttpServletResponse response, AbstractFormatter formatter, PrintWriter out,
       String modelName, boolean loggedIn) throws Exception {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
     response.setContentType(formatter.getContentType());
 
-    if (id == null) {
+    if (null == id) {
       reportMissingParameter("id", response);
     } else {
       Querier querier = QuerierFactory.newQuerier(loggedIn);
-      if (querier == null) {
+      if (null == querier) {
         reportMissingQuerier(response);
       } else {
         TreeFragment result = null;
@@ -349,17 +348,17 @@ public class ConeServlet extends HttpServlet {
 
   private void queryAction(String queryString, int limit, String language, Querier.ModeType modeType, HttpServletResponse response,
       AbstractFormatter formatter, String modelName, boolean loggedIn) throws ConeException {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     try {
       response.setContentType(formatter.getContentType());
 
-      if (queryString == null) {
+      if (null == queryString) {
         reportMissingParameter("q", response);
       } else {
         Querier querier = QuerierFactory.newQuerier(loggedIn);
 
-        if (querier == null) {
+        if (null == querier) {
           reportMissingQuerier(response);
         } else {
           List<? extends Describable> result = null;
@@ -372,7 +371,7 @@ public class ConeServlet extends HttpServlet {
 
           response.getWriter().print(formatter.formatQuery(result, model));
         }
-        if (querier != null) {
+        if (null != querier) {
           querier.release();
         }
       }
@@ -383,14 +382,14 @@ public class ConeServlet extends HttpServlet {
 
   private void queryFieldsAction(Pair[] searchFields, int limit, String language, Querier.ModeType modeType, HttpServletResponse response,
       AbstractFormatter formatter, String modelName, boolean loggedIn) throws ConeException {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     try {
       response.setContentType(formatter.getContentType());
 
       Querier querier = QuerierFactory.newQuerier(loggedIn);
 
-      if (querier == null) {
+      if (null == querier) {
         reportMissingQuerier(response);
       } else {
         List<? extends Describable> result = null;
@@ -420,6 +419,6 @@ public class ConeServlet extends HttpServlet {
   }
 
   private boolean getLoggedIn(HttpServletRequest request) {
-    return (request.getSession().getAttribute("logged_in") != null && (Boolean) request.getSession().getAttribute("logged_in"));
+    return (null != request.getSession().getAttribute("logged_in") && (Boolean) request.getSession().getAttribute("logged_in"));
   }
 }

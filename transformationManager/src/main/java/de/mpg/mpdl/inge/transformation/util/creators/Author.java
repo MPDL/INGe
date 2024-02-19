@@ -47,7 +47,7 @@ public class Author {
   private final Map<String, String> tags = new HashMap<>();
 
   public String getSurname() {
-    return surname;
+    return this.surname;
   }
 
   public void setSurname(String surname) {
@@ -55,7 +55,7 @@ public class Author {
   }
 
   public String getGivenName() {
-    return givenName;
+    return this.givenName;
   }
 
   /**
@@ -91,7 +91,7 @@ public class Author {
   }
 
   public String getInitial() {
-    return initial;
+    return this.initial;
   }
 
   public void setInitial(String initial) {
@@ -99,15 +99,16 @@ public class Author {
   }
 
   public String toString() {
-    return "[Author: givenName=" + givenName + ", initial=" + initial + ", sn=" + surname + "(" + format.getName() + ")]";
+    return "[Author: givenName=" + this.givenName + ", initial=" + this.initial + ", sn=" + this.surname + "(" + this.format.getName()
+        + ")]";
   }
 
   public boolean equals(Object obj) {
     if (obj instanceof Author other) {
 
       // givenName
-      if (this.givenName == null) {
-        if (other.givenName != null) {
+      if (null == this.givenName) {
+        if (null != other.givenName) {
           return false;
         }
       } else {
@@ -117,8 +118,8 @@ public class Author {
       }
 
       // surname
-      if (this.surname == null) {
-        if (other.surname != null) {
+      if (null == this.surname) {
+        if (null != other.surname) {
           return false;
         }
       } else {
@@ -128,8 +129,8 @@ public class Author {
       }
 
       // initial
-      if (this.initial == null) {
-        if (other.initial != null) {
+      if (null == this.initial) {
+        if (null != other.initial) {
           return false;
         }
       } else {
@@ -146,7 +147,7 @@ public class Author {
   }
 
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   public void setTitle(String title) {
@@ -154,7 +155,7 @@ public class Author {
   }
 
   public String getPrefix() {
-    return prefix;
+    return this.prefix;
   }
 
   public void setPrefix(String prefix) {
@@ -162,7 +163,7 @@ public class Author {
   }
 
   public AuthorFormat getFormat() {
-    return format;
+    return this.format;
   }
 
   public void setFormat(AuthorFormat format) {
@@ -170,11 +171,11 @@ public class Author {
   }
 
   public void addTag(final String key, final String value) {
-    tags.put(key, value);
+    this.tags.put(key, value);
   }
 
   public Map<String, String> getTags() {
-    return tags;
+    return this.tags;
   }
 
 }

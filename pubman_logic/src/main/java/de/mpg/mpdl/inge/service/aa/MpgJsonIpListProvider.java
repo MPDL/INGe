@@ -24,14 +24,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @inheritDoc
- * 
+ *
  *             Implementation of IpListProvider for JSON EXAMPLE: { "details": [ { "100": {
  *             "ip_ranges": [ "123.123.123.123/31", "234.123.123.123/32", ], "inst_name_de":
  *             "Generalverwaltung der Max-Planck-Gesellschaft", "domains": [ "gv.mpg.de" ],
  *             "inst_code": "MMGV" } }, { "200": { "domains": [ "mpdl.mpg.de" ], "inst_code":
  *             "MMDL", "ip_ranges": [ "123.123.123.123/29", "234.123.123.123/29", ], "inst_name_de":
  *             "Max Planck Digital Library" } } ] }
- * 
+ *
  * @author walter
  *
  */
@@ -54,7 +54,7 @@ public class MpgJsonIpListProvider implements IpListProvider {
    */
   @Scheduled(cron = "0 0 2 * * ?")
   private void init() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE).equalsIgnoreCase("true")) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE))) {
       logger
           .info("CRON: (re-)initializing IP List from <" + PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL) + ">");
       HttpURLConnection conn = null;
@@ -68,7 +68,7 @@ public class MpgJsonIpListProvider implements IpListProvider {
         BufferedReader streamReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder responseStrBuilder = new StringBuilder();
         String inputStr;
-        while ((inputStr = streamReader.readLine()) != null) {
+        while (null != (inputStr = streamReader.readLine())) {
           responseStrBuilder.append(inputStr);
         }
 
@@ -122,10 +122,10 @@ public class MpgJsonIpListProvider implements IpListProvider {
       } catch (Exception e) {
         logger.error("Problem with parsing ip list file", e);
       } finally {
-        if (conn != null) {
+        if (null != conn) {
           conn.disconnect();
         }
-        if (ipRangeMap == null || ipRangeMap.isEmpty()) {
+        if (null == this.ipRangeMap || this.ipRangeMap.isEmpty()) {
           logger.warn("No IP RANGES found! - List is empty");
         }
 
@@ -145,7 +145,7 @@ public class MpgJsonIpListProvider implements IpListProvider {
 
   @Override
   public IpRange getMatch(String adress) {
-    for (IpRange ipRange : ipRangeMap.values()) {
+    for (IpRange ipRange : this.ipRangeMap.values()) {
       if (!"mpg".equals(ipRange.getId())) {
         for (String ipPattern : ipRange.getIpRanges()) {
           if (NetworkUtils.checkIPMatching(ipPattern, adress)) {

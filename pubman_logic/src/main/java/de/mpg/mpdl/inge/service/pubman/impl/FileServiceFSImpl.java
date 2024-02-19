@@ -47,12 +47,10 @@ import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -122,9 +120,9 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     logger.info("Trying to read file " + fileId + " in item " + itemId + " with authenticationToken " + authenticationToken);
     // Item-based aa covered by this method
-    ItemVersionVO item = pubItemService.get(itemId, authenticationToken);
+    ItemVersionVO item = this.pubItemService.get(itemId, authenticationToken);
 
-    if (item == null) {
+    if (null == item) {
       throw new IngeApplicationException("File with id [" + fileId + "] not found, because itemId [" + itemId + "] not found.");
     }
 
@@ -137,26 +135,26 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     }
 
-    FileDbVO fileDbVO = fr.findById(fileId).orElse(null);
+    FileDbVO fileDbVO = this.fr.findById(fileId).orElse(null);
 
-    if (selectedFile == null || fileDbVO == null || fileDbVO.getLocalFileIdentifier() == null) {
+    if (null == selectedFile || null == fileDbVO || null == fileDbVO.getLocalFileIdentifier()) {
       throw new IngeApplicationException("File with id [" + fileId + "] not found in item [ " + itemId + "].");
     }
     Principal user = null;
-    if (authenticationToken != null) {
-      user = aaService.checkLoginRequired(authenticationToken);
+    if (null != authenticationToken) {
+      user = this.aaService.checkLoginRequired(authenticationToken);
     }
     checkAa("readFile", user, selectedFile, item);
 
 
     // fsi.readFile(fileDbVO.getLocalFileIdentifier(), out);
 
-    return new FileVOWrapper(fileDbVO.getLocalFileIdentifier(), selectedFile, fsi);
+    return new FileVOWrapper(fileDbVO.getLocalFileIdentifier(), selectedFile, this.fsi);
   }
 
   @Override
   public void deleteFile(String filePath) throws IngeTechnicalException {
-    fsi.deleteFile(filePath);
+    this.fsi.deleteFile(filePath);
   }
 
   /*
@@ -170,8 +168,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException {
 
-    Principal user = aaService.checkLoginRequired(authenticationToken);
-    if (fileName == null || fileName.trim().isEmpty()) {
+    Principal user = this.aaService.checkLoginRequired(authenticationToken);
+    if (null == fileName || fileName.trim().isEmpty()) {
       throw new IngeTechnicalException("No filename defined.");
     }
 
@@ -196,7 +194,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       }
     }
 
-    stagedFileVo = stagedFileRepository.save(stagedFileVo);
+    stagedFileVo = this.stagedFileRepository.save(stagedFileVo);
     return stagedFileVo;
 
 
@@ -214,7 +212,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
       throws IngeTechnicalException, IngeApplicationException {
 
-    if (fileVO.getContent() == null || fileVO.getContent().trim().isEmpty()) {
+    if (null == fileVO.getContent() || fileVO.getContent().trim().isEmpty()) {
       throw new IngeApplicationException("A file content containing the id of the staged file has to be provided");
     }
 
@@ -225,7 +223,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       //if content is an url, download content and create staged file
       if (fileVO.getContent().startsWith("http")) {
         HttpResponse resp = Request.Get(fileVO.getContent()).execute().returnResponse();
-        if (resp.getStatusLine().getStatusCode() != 200) {
+        if (200 != resp.getStatusLine().getStatusCode()) {
           throw new IngeApplicationException(
               "Could not download file from " + fileVO.getContent() + ". Status " + resp.getStatusLine().getStatusCode());
         } else {
@@ -235,11 +233,11 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
             //First try to get filename as Content-Disposition header
 
             Header header = resp.getFirstHeader("Content-Disposition");
-            if (header != null) {
+            if (null != header) {
               for (HeaderElement e : header.getElements()) {
 
                 try {
-                  if (e.getParameterByName("filename*") != null) {
+                  if (null != e.getParameterByName("filename*")) {
                     String[] utf8filename = e.getParameterByName("filename*").getValue().split("''");
                     filename = URLDecoder.decode(utf8filename[1], utf8filename[0]);
                     break;
@@ -248,7 +246,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
                   logger.warn("Could not read 'filename*' HTTP Content-Dispositon header from " + fileVO.getContent(), e1);
                 }
 
-                if (e.getParameterByName("filename") != null) {
+                if (null != e.getParameterByName("filename")) {
                   filename = e.getParameterByName("filename").getValue();
                 }
               }
@@ -256,7 +254,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
             }
 
             //If no header was found, use last part of url as filename
-            if (filename == null || filename.trim().isEmpty()) {
+            if (null == filename || filename.trim().isEmpty()) {
               String[] parts = fileVO.getContent().split("/");
               filename = parts[parts.length - 1];
             }
@@ -269,7 +267,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       //else get staged file from database
       else {
         try {
-          stagedFileVo = stagedFileRepository.findById(Integer.parseInt(fileVO.getContent())).orElse(null);
+          stagedFileVo = this.stagedFileRepository.findById(Integer.parseInt(fileVO.getContent())).orElse(null);
         } catch (Exception e) {
           throw new IngeApplicationException("Given file id " + fileVO.getContent() + " is invalid!");
         }
@@ -277,7 +275,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
 
-      if (stagedFileVo == null) {
+      if (null == stagedFileVo) {
         throw new IngeApplicationException("No staged file with the given id " + fileVO.getContent() + " was found in the database");
       }
 
@@ -302,12 +300,12 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       //Uploading file
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
 
-        if (forcedFileName == null) {
+        if (null == forcedFileName) {
           forcedFileName = stagedFileVo.getFilename();
         }
 
         if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
-          String relativePath = fsi.createFile(stagedFileStream, forcedFileName);
+          String relativePath = this.fsi.createFile(stagedFileStream, forcedFileName);
           fileVO.setLocalFileIdentifier(relativePath);
         } else {
           Request request = Request
@@ -325,7 +323,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
       fileVO.setName(stagedFileVo.getFilename());
-      fileVO.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
+      fileVO.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.MD5);
       fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));
 
     } catch (FileNotFoundException e) {
@@ -377,7 +375,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     try {
       if (Files.exists(Paths.get(stagedFileVO.getPath()))) {
         Files.deleteIfExists(Paths.get(stagedFileVO.getPath()));
-        stagedFileRepository.delete(stagedFileVO);
+        this.stagedFileRepository.delete(stagedFileVO);
       } else {
         logger.warn("Staged File " + stagedFileVO.getId() + " / Name: " + stagedFileVO.getFilename() + " / Path: " + stagedFileVO.getPath()
             + " does not exist");
@@ -441,17 +439,17 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   protected void checkAa(String method, Principal userAccount, Object... objects)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    if (objects == null) {
+    if (null == objects) {
       objects = new Object[0];
     }
     objects = Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
+    this.aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
   }
 
 
-  public boolean checkAccess(AccessType at, Principal principal, ItemVersionVO item, FileDbVO file)
+  public boolean checkAccess(AuthorizationService.AccessType at, Principal principal, ItemVersionVO item, FileDbVO file)
       throws IngeApplicationException, IngeTechnicalException {
-    if (pubItemService.checkAccess(AccessType.GET, principal, item)) {
+    if (this.pubItemService.checkAccess(AuthorizationService.AccessType.GET, principal, item)) {
       try {
         checkAa(at.getMethodName(), principal, file, item);
       } catch (AuthenticationException | AuthorizationException e) {
@@ -476,7 +474,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       int bytesCount = 0;
 
       // Read file data and update in message digest
-      while ((bytesCount = fis.read(byteArray)) != -1) {
+      while (-1 != (bytesCount = fis.read(byteArray))) {
         digest.update(byteArray, 0, bytesCount);
       }
 
@@ -503,7 +501,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     Date old = Date.from(ZonedDateTime.now().minusHours(6).toInstant());
     logger.info("CRON: Deleting unused staging files since " + old);
-    List<StagedFileDbVO> fileList = stagedFileRepository.findByCreationDateBefore(old);
+    List<StagedFileDbVO> fileList = this.stagedFileRepository.findByCreationDateBefore(old);
     for (StagedFileDbVO stagedFile : fileList) {
 
       try {

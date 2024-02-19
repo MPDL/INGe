@@ -32,7 +32,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.rest.web.controller.ItemRestController;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -82,7 +81,7 @@ public class UtilServiceBean {
     String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
     long scrollTime = -1;
 
-    if (scrollTimeValue != null) {
+    if (null != scrollTimeValue) {
 
       scrollTime = Long.parseLong(scrollTimeValue); //TimeValue.parseTimeValue(scrollTimeValue, "test").millis();
     }
@@ -126,7 +125,7 @@ public class UtilServiceBean {
     int offset = 0;
 
     JsonNode queryNode = query.get("query");
-    if (queryNode != null) {
+    if (null != queryNode) {
       ObjectMapper mapper = new ObjectMapper();
       Object queryObject = mapper.treeToValue(queryNode, Object.class);
       String queryString = mapper.writeValueAsString(queryObject);
@@ -136,22 +135,22 @@ public class UtilServiceBean {
     }
 
     JsonNode sorting = query.get("sort");
-    if (sorting != null) {
+    if (null != sorting) {
       if (sorting.isArray()) {
-        sorting.forEach(node -> node.fieldNames().forEachRemaining(field -> sortCriterias
-            .add(new SearchSortCriteria(field, SortOrder.valueOf(node.get(field).get("order").textValue().toUpperCase())))));
+        sorting.forEach(node -> node.fieldNames().forEachRemaining(field -> sortCriterias.add(
+            new SearchSortCriteria(field, SearchSortCriteria.SortOrder.valueOf(node.get(field).get("order").textValue().toUpperCase())))));
       } else {
         String key = sorting.fieldNames().next();
         String value = sorting.get(key).get("order").textValue().toUpperCase();
-        sortCriterias.add(new SearchSortCriteria(key, SortOrder.valueOf(value)));
+        sortCriterias.add(new SearchSortCriteria(key, SearchSortCriteria.SortOrder.valueOf(value)));
       }
     }
 
-    if (query.get("size") != null) {
+    if (null != query.get("size")) {
       limit = query.get("size").asInt();
     }
 
-    if (query.get("from") != null) {
+    if (null != query.get("from")) {
       offset = query.get("from").asInt();
     }
 
@@ -237,8 +236,8 @@ public class UtilServiceBean {
       srRequest.setScrollTime(ItemRestController.DEFAULT_SCROLL_TIME);
     }
 
-    if (format == null || format.equals(TransformerFactory.JSON)) {
-      SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
+    if (null == format || format.equals(TransformerFactory.JSON)) {
+      SearchRetrieveResponseVO<ItemVersionVO> srResponse = this.pis.search(srRequest, token);
       HttpHeaders headers = new HttpHeaders();
       headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
       if (scroll) {

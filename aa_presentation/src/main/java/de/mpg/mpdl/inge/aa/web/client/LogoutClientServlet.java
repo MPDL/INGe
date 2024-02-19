@@ -22,7 +22,7 @@ public class LogoutClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
     try {
       String clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_LOGOUT_CLASS);
-      if (clientClassName != null) {
+      if (null != clientClassName) {
 
         Class<?> clientClass = Class.forName(clientClassName);
         LogoutClient client = (LogoutClient) clientClass.newInstance();

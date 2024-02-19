@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
@@ -65,7 +64,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   public void initEnumMap(Map<String, Boolean> preSelectionMap) {
 
     for (final String v : this.getValueMap().keySet()) {
-      if (preSelectionMap == null || !preSelectionMap.containsKey(v)) {
+      if (null == preSelectionMap || !preSelectionMap.containsKey(v)) {
         this.enumMap.put(v, false);
       } else {
         this.enumMap.put(v, preSelectionMap.get(v));
@@ -78,7 +77,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   public Map<String, Boolean> initRemoveSelctedEnumMap(Map<String, Boolean> preSelectionMap) {
 
     for (final String v : this.getValueMap().keySet()) {
-      if (preSelectionMap == null || preSelectionMap.containsKey(v)) {
+      if (null == preSelectionMap || preSelectionMap.containsKey(v)) {
         this.enumMap.remove(v, preSelectionMap.get(v));
       }
     }
@@ -165,9 +164,9 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
     final StringBuilder sb = new StringBuilder();
 
     int i = 0;
-    for (final Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
-        if (i > 0) {
+        if (0 < i) {
           sb.append("|");
         }
 
@@ -184,7 +183,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   @Override
   public void parseQueryStringContent(String content) {
 
-    for (final Entry<String, Boolean> e : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<String, Boolean> e : this.getEnumMap().entrySet()) {
       e.setValue(false);
     }
 
@@ -197,7 +196,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
        * T v = Enum.valueOf(enumClass, part); if(v==null) { throw new
        * RuntimeException("Invalid visibility: " + part); }
        */
-      if (part != null && !part.trim().isEmpty()) {
+      if (null != part && !part.trim().isEmpty()) {
         this.getEnumMap().put(part, true);
       }
 
@@ -251,7 +250,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
     if (!this.isEmpty(QueryType.CQL)) {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+      for (final Map.Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
 
         if (entry.getValue()) {

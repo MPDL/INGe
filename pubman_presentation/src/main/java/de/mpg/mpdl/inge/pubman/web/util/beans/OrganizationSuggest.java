@@ -61,7 +61,7 @@ public class OrganizationSuggest {
 
 
     // Perform search request
-    if (query != null) {
+    if (null != query) {
 
 
       OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
@@ -90,15 +90,15 @@ public class OrganizationSuggest {
           final String countryCode = affiliationVO.getMetadata().getCountryCode();
           String address = "";
 
-          if (city != null) {
+          if (null != city) {
             address += city;
           }
 
-          if (city != null && countryCode != null) {
+          if (null != city && null != countryCode) {
             address += ", ";
           }
 
-          if (countryCode != null) {
+          if (null != countryCode) {
             address += countryCode;
           }
 
@@ -124,8 +124,8 @@ public class OrganizationSuggest {
     final List<List<AffiliationDbVO>> result = new ArrayList<>();
     final AffiliationDbVO affiliationVO = currentPath.get(currentPath.size() - 1);
 
-    if (affiliationVO != null) {
-      if (affiliationVO.getParentAffiliation() == null) {
+    if (null != affiliationVO) {
+      if (null == affiliationVO.getParentAffiliation()) {
         result.add(currentPath);
       } else {
 
@@ -151,7 +151,7 @@ public class OrganizationSuggest {
   }
 
   public List<OrganizationVOPresentation> getResults() {
-    return results;
+    return this.results;
   }
 
   public void setResults(List<OrganizationVOPresentation> results) {

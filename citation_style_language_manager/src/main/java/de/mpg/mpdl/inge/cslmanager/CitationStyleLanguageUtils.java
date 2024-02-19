@@ -29,6 +29,8 @@ import de.mpg.mpdl.inge.util.DOMUtilities;
 public class CitationStyleLanguageUtils {
   private static final Logger logger = LogManager.getLogger(CitationStyleLanguageUtils.class);
 
+  private CitationStyleLanguageUtils() {}
+
   //  /**
   //   * gets a csl style from a url
   //   *
@@ -63,7 +65,7 @@ public class CitationStyleLanguageUtils {
       JsonFactory jfactory = new JsonFactory();
       // read JSON from url
       JsonParser jParser = jfactory.createParser(new URL(url + "?format=json"));
-      while (jParser.nextToken() != null && jParser.nextToken() != JsonToken.END_OBJECT) {
+      while (null != jParser.nextToken() && JsonToken.END_OBJECT != jParser.nextToken()) {
         String fieldname = jParser.getCurrentName();
         if ("http_www_w3_org_1999_02_22_rdf_syntax_ns_value".equals(fieldname)) {
           // current token is "name",
@@ -97,7 +99,7 @@ public class CitationStyleLanguageUtils {
     try {
       Document doc = DOMUtilities.createDocument(style);
       NodeList styleTagList = doc.getElementsByTagName("style");
-      if (styleTagList != null && styleTagList.getLength() != 0) {
+      if (null != styleTagList && 0 != styleTagList.getLength()) {
         defaultLocale = styleTagList.item(0).getAttributes().getNamedItem("default-locale").getNodeValue();
       }
     } catch (ParserConfigurationException e) {

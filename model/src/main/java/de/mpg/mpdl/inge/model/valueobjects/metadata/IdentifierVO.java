@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
@@ -41,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
  * @updated 05-Sep-2007 12:59:09
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class IdentifierVO extends ValueObject implements Cloneable {
   /**
    * The possible types of the identifier.
@@ -101,7 +100,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }}
 
   private String id;
@@ -130,14 +129,14 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * Delivers the identifier.
    */
   public String getId() {
-    return id;
+    return this.id;
   }
 
   /**
    * Delivers the type of the identifier.
    */
   public IdType getType() {
-    return type;
+    return this.type;
   }
 
   /**
@@ -146,7 +145,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setId(String newVal) {
-    id = newVal;
+    this.id = newVal;
   }
 
   /**
@@ -155,13 +154,13 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setType(IdType newVal) {
-    type = newVal;
+    this.type = newVal;
   }
 
   public IdentifierVO clone() {
     try {
       IdentifierVO clone = (IdentifierVO) super.clone();
-      if (clone.type != null) {
+      if (null != clone.type) {
         clone.type = this.type;
       }
       return clone;
@@ -174,8 +173,8 @@ public class IdentifierVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((null == this.id) ? 0 : this.id.hashCode());
+    result = prime * result + ((null == this.type) ? 0 : this.type.hashCode());
     return result;
   }
 
@@ -184,7 +183,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -192,13 +191,13 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
     IdentifierVO other = (IdentifierVO) obj;
 
-    if (id == null) {
-      if (other.id != null)
+    if (null == this.id) {
+      if (null != other.id)
         return false;
-    } else if (!id.equals(other.id))
+    } else if (!this.id.equals(other.id))
       return false;
 
-    if (type != other.type)
+    if (this.type != other.type)
       return false;
 
     return true;
@@ -212,7 +211,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getTypeString() {
-    if (getType() == null || getType().toString() == null) {
+    if (null == getType() || null == getType().toString()) {
       return "";
     }
     return getType().toString();
@@ -225,7 +224,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public void setTypeString(String newValString) {
-    if (newValString == null || newValString.isEmpty()) {
+    if (null == newValString || newValString.isEmpty()) {
       setType(null);
     } else {
       IdentifierVO.IdType newVal = IdentifierVO.IdType.valueOf(newValString);

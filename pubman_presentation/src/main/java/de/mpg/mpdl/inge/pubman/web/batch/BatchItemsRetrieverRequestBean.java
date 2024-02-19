@@ -19,10 +19,10 @@ import co.elastic.clients.elasticsearch._types.query_dsl.TermsQueryField;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
-import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -43,7 +43,8 @@ import jakarta.faces.bean.ManagedBean;
  */
 @ManagedBean(name = "BatchItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class BatchItemsRetrieverRequestBean
+    extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = LogManager.getLogger(BatchItemsRetrieverRequestBean.class);
 
   public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBatchOrBasket_NoItemSelected";
@@ -81,7 +82,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
    * Retrieves the list of item in the batch workspace.
    */
   @Override
-  public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
+  public List<PubItemVOPresentation> retrieveList(int offset, int limit, PubItemListSessionBean.SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<>();
 
 
@@ -111,7 +112,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
         for (String index : sc.getIndex()) {
           if (!index.isEmpty()) {
             FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                SearchSortCriteria.SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
                     : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
             srb.sort(SortOptions.of(so -> so.field(fs)));
           }
@@ -131,7 +132,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
       }
 
       pbsb.setDiffDisplayNumber(pbsb.getBatchPubItemsSize() - this.numberOfRecords);
-      if (pbsb.getDiffDisplayNumber() > 0) {
+      if (0 < pbsb.getDiffDisplayNumber()) {
 
         this.error(pbsb.getDiffDisplayNumber() + " " + this.getMessage("basketAndBatch_ItemsChanged"));
       }
@@ -140,7 +141,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
 
     } catch (final Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
-      BatchItemsRetrieverRequestBean.logger.error("Error while retrieving items for batch", e);
+      logger.error("Error while retrieving items for batch", e);
     }
     return returnList;
   }
@@ -160,7 +161,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
         pbsb.getStoredPubItems().remove(pubItem.getObjectId());
       }
     }
-    if (countSelected == 0) {
+    if (0 == countSelected) {
       this.error(this.getMessage(BatchItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
     }
 

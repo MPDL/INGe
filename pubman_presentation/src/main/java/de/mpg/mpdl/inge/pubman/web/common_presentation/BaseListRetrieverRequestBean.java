@@ -48,7 +48,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, SortCriteria
     try {
       this.unapiURLview = PropertyReader.getProperty(PropertyReader.INGE_UNAPI_SERVICE_URL);
     } catch (final Exception e) {
-      BaseListRetrieverRequestBean.logger.warn("Reading in unAPI server URL from properties failed.", e);
+      logger.warn("Reading in unAPI server URL from properties failed.", e);
     }
 
     this.basePaginatorListSessionBean = plb;

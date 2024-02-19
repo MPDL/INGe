@@ -56,11 +56,11 @@ public class Header extends FacesBean {
   public String getServerLogo() {
     String serverLogo = "";
     try {
-      if (this.getType().equals("dev")) {
+      if ("dev".equals(this.getType())) {
         serverLogo = Header.LOGO_DEV;
-      } else if (this.getType().equals("test")) {
+      } else if ("test".equals(this.getType())) {
         serverLogo = Header.LOGO_TEST;
-      } else if (this.getType().equals("qa")) {
+      } else if ("qa".equals(this.getType())) {
         serverLogo = Header.LOGO_QA;
       }
     } catch (final Exception e) {
@@ -75,9 +75,9 @@ public class Header extends FacesBean {
    * @return A string representing the instance type, e.g. "dev", "qa".
    */
   public String getType() {
-    if (this.type == null) {
+    if (null == this.type) {
       this.type = PropertyReader.getProperty(PropertyReader.INGE_SYSTEMTYPE);
-      if (this.type == null) {
+      if (null == this.type) {
         this.type = "";
       }
     }

@@ -64,15 +64,15 @@ public class AuthenticationVO implements Serializable {
     private String value;
 
     public String toString() {
-      if (value == null) {
-        return key;
+      if (null == this.value) {
+        return this.key;
       } else {
-        return key + "=" + value;
+        return this.key + "=" + this.value;
       }
     }
 
     public String getKey() {
-      return key;
+      return this.key;
     }
 
     public void setKey(String key) {
@@ -80,7 +80,7 @@ public class AuthenticationVO implements Serializable {
     }
 
     public String getValue() {
-      return value;
+      return this.value;
     }
 
     public void setValue(String value) {
@@ -93,7 +93,7 @@ public class AuthenticationVO implements Serializable {
     private String key;
 
     public String getKey() {
-      return key;
+      return this.key;
     }
 
     public void setKey(String key) {
@@ -101,7 +101,7 @@ public class AuthenticationVO implements Serializable {
     }
 
     public String toString() {
-      return key;
+      return this.key;
     }
   }
 
@@ -114,28 +114,28 @@ public class AuthenticationVO implements Serializable {
       super.startElement(uri, localName, name, attributes);
 
       if ("authentication-object".equals(getLocalStack().toString())) {
-        tan = attributes.getValue("tan");
-        type = Type.valueOf(attributes.getValue("type"));
+        AuthenticationVO.this.tan = attributes.getValue("tan");
+        AuthenticationVO.this.type = Type.valueOf(attributes.getValue("type"));
       } else if ("grant".equals(name)) {
-        currentGrant = new Grant();
-        currentGrant.setKey(attributes.getValue("key"));
+        this.currentGrant = new Grant();
+        this.currentGrant.setKey(attributes.getValue("key"));
       } else if ("role".equals(name)) {
-        currentRole = new Role();
+        this.currentRole = new Role();
       }
     }
 
     @Override
     public void content(String uri, String localName, String name, String content) {
       if ("authentication-object/userid".equals(getLocalStack().toString())) {
-        userId = content;
+        AuthenticationVO.this.userId = content;
       } else if ("authentication-object/username".equals(getLocalStack().toString())) {
-        username = content;
+        AuthenticationVO.this.username = content;
       } else if ("authentication-object/fullname".equals(getLocalStack().toString())) {
-        fullName = content;
-      } else if ("grant".equals(name) && currentGrant != null) {
-        currentGrant.setValue(content);
-      } else if ("role".equals(name) && currentRole != null) {
-        currentRole.setKey(content);
+        AuthenticationVO.this.fullName = content;
+      } else if ("grant".equals(name) && null != this.currentGrant) {
+        this.currentGrant.setValue(content);
+      } else if ("role".equals(name) && null != this.currentRole) {
+        this.currentRole.setKey(content);
       }
     }
 
@@ -143,12 +143,12 @@ public class AuthenticationVO implements Serializable {
     public void endElement(String uri, String localName, String name) throws SAXException {
       super.endElement(uri, localName, name);
 
-      if ("grant".equals(name) && currentGrant != null) {
-        grants.add(currentGrant);
-        currentGrant = null;
-      } else if ("role".equals(name) && currentRole != null) {
-        roles.add(currentRole);
-        currentRole = null;
+      if ("grant".equals(name) && null != this.currentGrant) {
+        AuthenticationVO.this.grants.add(this.currentGrant);
+        this.currentGrant = null;
+      } else if ("role".equals(name) && null != this.currentRole) {
+        AuthenticationVO.this.roles.add(this.currentRole);
+        this.currentRole = null;
       }
 
     }
@@ -181,26 +181,26 @@ public class AuthenticationVO implements Serializable {
     StringWriter writer = new StringWriter();
     writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     writer.append("<authentication-object type=\"");
-    writer.append(type.toString());
+    writer.append(this.type.toString());
     writer.append("\" tan=\"");
-    writer.append(tan);
+    writer.append(this.tan);
     writer.append("\">\n");
 
     writer.append("\t<userid>");
-    writer.append(userId);
+    writer.append(this.userId);
     writer.append("</userid>\n");
 
     writer.append("\t<username>");
-    writer.append(username);
+    writer.append(this.username);
     writer.append("</username>\n");
 
     writer.append("\t<fullname>");
-    writer.append(fullName);
+    writer.append(this.fullName);
     writer.append("</fullname>\n");
 
-    if (!roles.isEmpty()) {
+    if (!this.roles.isEmpty()) {
       writer.append("\t<roles>\n");
-      for (Role role : roles) {
+      for (Role role : this.roles) {
         writer.append("\t\t<role>");
         writer.append(role.getKey());
         writer.append("</role>\n");
@@ -208,10 +208,10 @@ public class AuthenticationVO implements Serializable {
       writer.append("\t</roles>\n");
     }
 
-    if (!grants.isEmpty()) {
+    if (!this.grants.isEmpty()) {
       writer.append("\t<grants>\n");
-      for (Grant grant : grants) {
-        if (grant.getValue() == null) {
+      for (Grant grant : this.grants) {
+        if (null == grant.getValue()) {
           writer.append("\t\t<grant key=\"");
           writer.append(grant.getKey());
           writer.append("\"/>\n");
@@ -236,7 +236,7 @@ public class AuthenticationVO implements Serializable {
   }
 
   public String getTan() {
-    return tan;
+    return this.tan;
   }
 
   public void setTan(String tan) {
@@ -244,7 +244,7 @@ public class AuthenticationVO implements Serializable {
   }
 
   public Type getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(Type type) {
@@ -252,7 +252,7 @@ public class AuthenticationVO implements Serializable {
   }
 
   public String getUsername() {
-    return username;
+    return this.username;
   }
 
   public void setUsername(String username) {
@@ -260,15 +260,15 @@ public class AuthenticationVO implements Serializable {
   }
 
   public Set<Grant> getGrants() {
-    return grants;
+    return this.grants;
   }
 
   public Set<Role> getRoles() {
-    return roles;
+    return this.roles;
   }
 
   public String getUserId() {
-    return userId;
+    return this.userId;
   }
 
   public void setUserId(String userId) {
@@ -276,7 +276,7 @@ public class AuthenticationVO implements Serializable {
   }
 
   public String getFullName() {
-    return fullName;
+    return this.fullName;
   }
 
   public void setFullName(String fullName) {
@@ -284,7 +284,7 @@ public class AuthenticationVO implements Serializable {
   }
 
   public String getToken() {
-    return token;
+    return this.token;
   }
 
   public void setToken(String token) {

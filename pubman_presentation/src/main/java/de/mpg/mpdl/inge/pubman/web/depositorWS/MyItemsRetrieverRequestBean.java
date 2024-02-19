@@ -24,10 +24,9 @@ import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -135,7 +134,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         importSelectItems.add(selectItem);
       }
     } catch (final Exception e) {
-      MyItemsRetrieverRequestBean.logger.error("Error getting imports from database", e);
+      logger.error("Error getting imports from database", e);
       this.error(this.getMessage("ImportDatabaseError"));
     } finally {
       // DbTools.closeResultSet(rs);
@@ -152,7 +151,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   }
 
   @Override
-  public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
+  public List<PubItemVOPresentation> retrieveList(int offset, int limit, PubItemListSessionBean.SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<>();
 
     // Return empty list if the user is not logged in, needed to avoid exceptions
@@ -174,11 +173,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
           + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
       bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.inline(is))))._toQuery());
 
-      if (this.selectedItemState.equalsIgnoreCase("withdrawn")) {
+      if ("withdrawn".equalsIgnoreCase(this.selectedItemState)) {
         bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
-      else if (this.selectedItemState.equalsIgnoreCase("all")) {
+      else if ("all".equalsIgnoreCase(this.selectedItemState)) {
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
@@ -189,7 +188,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
-      if (!this.getSelectedImport().equalsIgnoreCase("all")) {
+      if (!"all".equalsIgnoreCase(this.getSelectedImport())) {
         bq.must(MatchQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()).operator(Operator.And))
             ._toQuery());
       }
@@ -201,7 +200,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
           FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-              SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+              SearchSortCriteria.SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
                   : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
           srb.sort(SortOptions.of(so -> so.field(fs)));
         }
@@ -220,7 +219,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
-      MyItemsRetrieverRequestBean.logger.error("Error in retrieving items", e);
+      logger.error("Error in retrieving items", e);
       this.error(this.getMessage("ItemsRetrieveError"));
       this.numberOfRecords = 0;
     }
@@ -234,8 +233,8 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
    *
    * @param sc The sorting criteria to be checked
    */
-  protected void checkSortCriterias(SORT_CRITERIA sc) {
-    if (sc.getIndex() == null || sc.getIndex().length == 0) {
+  protected void checkSortCriterias(PubItemListSessionBean.SORT_CRITERIA sc) {
+    if (null == sc.getIndex() || 0 == sc.getIndex().length) {
       this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1", this.getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }
@@ -315,7 +314,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
    */
   public String getSelectedItemStateLabel() {
     String returnString = "";
-    if (this.getSelectedItemState() != null && !this.getSelectedItemState().equals("all")) {
+    if (null != this.getSelectedItemState() && !"all".equals(this.getSelectedItemState())) {
       returnString = this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.valueOf(this.getSelectedItemState())));
     }
     return returnString;
@@ -332,7 +331,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      MyItemsRetrieverRequestBean.logger.error("Error during redirection.", e);
+      logger.error("Error during redirection.", e);
       this.error(this.getMessage("NoRedirect"));
     }
 

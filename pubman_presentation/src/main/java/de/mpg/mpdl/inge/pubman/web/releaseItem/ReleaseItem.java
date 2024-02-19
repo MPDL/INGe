@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
@@ -39,13 +38,13 @@ public class ReleaseItem extends FacesBean {
         creators.append("; ");
       }
 
-      if (creator.getType() == CreatorVO.CreatorType.PERSON) {
+      if (CreatorVO.CreatorType.PERSON == creator.getType()) {
         creators.append(creator.getPerson().getFamilyName());
-        if (creator.getPerson().getGivenName() != null) {
+        if (null != creator.getPerson().getGivenName()) {
           creators.append(", ");
           creators.append(creator.getPerson().getGivenName());
         }
-      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION && creator.getOrganization().getName() != null) {
+      } else if (CreatorVO.CreatorType.ORGANIZATION == creator.getType() && null != creator.getOrganization().getName()) {
         creators.append(creator.getOrganization().getName());
       }
     }
@@ -58,7 +57,7 @@ public class ReleaseItem extends FacesBean {
       FacesTools.getExternalContext()
           .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
     } catch (final IOException e) {
-      ReleaseItem.logger.error("Could not redirect to View Item Page", e);
+      logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
@@ -66,7 +65,7 @@ public class ReleaseItem extends FacesBean {
 
   public boolean getHasAudienceFiles() {
     for (final FileDbVO file : this.getPubItem().getFiles()) {
-      if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
+      if (null != file.getVisibility() && file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
         return true;
       }
     }
@@ -81,9 +80,9 @@ public class ReleaseItem extends FacesBean {
    */
   public boolean getHasRightsInformation() {
     for (final FileDbVO file : this.getPubItem().getFiles()) {
-      if ((file.getMetadata().getCopyrightDate() != null && !"".equals(file.getMetadata().getCopyrightDate()))
-          || (file.getMetadata().getLicense() != null && !"".equals(file.getMetadata().getLicense()))
-          || (file.getMetadata().getRights() != null && !"".equals(file.getMetadata().getRights()))) {
+      if ((null != file.getMetadata().getCopyrightDate() && !"".equals(file.getMetadata().getCopyrightDate()))
+          || (null != file.getMetadata().getLicense() && !"".equals(file.getMetadata().getLicense()))
+          || (null != file.getMetadata().getRights() && !"".equals(file.getMetadata().getRights()))) {
         return true;
       }
     }

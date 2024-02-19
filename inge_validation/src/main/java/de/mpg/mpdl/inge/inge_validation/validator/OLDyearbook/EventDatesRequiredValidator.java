@@ -16,7 +16,7 @@ public class EventDatesRequiredValidator extends ValidatorHandler<EventVO> imple
 
     boolean ok = true;
 
-    if (e != null) {
+    if (null != e) {
 
       if (ValidationTools.isEmpty(e.getStartDate())) {
         context.addError(ValidationError.create(ErrorMessages.EVENT_START_DATE_REQUIRED).setErrorCode(ErrorMessages.WARNING));

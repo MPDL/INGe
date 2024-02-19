@@ -55,7 +55,7 @@ public class RisProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    return (this.items != null && this.counter < this.length);
+    return (null != this.items && this.counter < this.length);
   }
 
   @Override
@@ -63,7 +63,7 @@ public class RisProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    if (this.items != null && this.counter < this.length) {
+    if (null != this.items && this.counter < this.length) {
       this.counter++;
       return this.items[this.counter - 1];
     } else {
@@ -90,14 +90,14 @@ public class RisProcessor extends FormatProcessor {
       StringWriter stringWriter = new StringWriter();
       final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-      while ((line = bufferedReader.readLine()) != null) {
+      while (null != (line = bufferedReader.readLine())) {
         stringWriter.write(line);
         stringWriter.write("\n");
 
         byteArrayOutputStream.write(line.getBytes(this.getEncoding()));
         byteArrayOutputStream.write("\n".getBytes(this.getEncoding()));
 
-        if (line.isEmpty() && lastLine != null && lastLine.matches("ER\\s+-\\s*")) {
+        if (line.isEmpty() && null != lastLine && lastLine.matches("ER\\s+-\\s*")) {
           itemList.add(stringWriter.toString());
           lastLine = null;
           stringWriter = new StringWriter();
@@ -108,7 +108,7 @@ public class RisProcessor extends FormatProcessor {
 
       bufferedReader.close();
 
-      if (lastLine != null && lastLine.matches("ER\\s+-\\s*")) {
+      if (null != lastLine && lastLine.matches("ER\\s+-\\s*")) {
         itemList.add(stringWriter.toString());
       }
 
@@ -133,7 +133,7 @@ public class RisProcessor extends FormatProcessor {
 
   @Override
   public String getDataAsBase64() {
-    if (this.originalData == null) {
+    if (null == this.originalData) {
       return null;
     }
 

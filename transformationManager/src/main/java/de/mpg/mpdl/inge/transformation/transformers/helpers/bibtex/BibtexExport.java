@@ -842,9 +842,11 @@ public class BibtexExport {
     }
   };
 
+  private BibtexExport() {}
+
   public static String texString(String str) {
     StringBuilder retstr = new StringBuilder();
-    if (str == null || str.trim().isEmpty()) {
+    if (null == str || str.trim().isEmpty()) {
       return null;
     }
     int len = str.length();

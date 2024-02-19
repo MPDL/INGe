@@ -29,9 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
@@ -72,12 +70,12 @@ public class CreatorBean extends FacesBean {
   }
 
   public void setCreator(CreatorVO creator) {
-    if (this.creator.getType() == null) {
+    if (null == this.creator.getType()) {
       this.creator.setType(CreatorVO.CreatorType.PERSON);
     }
     if (CreatorVO.CreatorType.PERSON.equals(creator.getType())
-        && (this.creator.getPerson() == null || this.creator.getPerson().getOrganizations().isEmpty())) {
-      if (this.creator.getPerson() == null) {
+        && (null == this.creator.getPerson() || this.creator.getPerson().getOrganizations().isEmpty())) {
+      if (null == this.creator.getPerson()) {
         this.creator.setPerson(new PersonVO());
       }
       if (this.creator.getPerson().getOrganizations().isEmpty()) {
@@ -87,13 +85,13 @@ public class CreatorBean extends FacesBean {
         this.creator.getPerson().getOrganizations().add(newPersonOrganization);
       }
     } else if (CreatorVO.CreatorType.ORGANIZATION.equals(this.creator.getType())) {
-      if (this.creator.getOrganization() == null) {
+      if (null == this.creator.getOrganization()) {
         final OrganizationVO newOrga = new OrganizationVO();
         newOrga.setName("");
 
         this.creator.setOrganization(newOrga);
       }
-      if (this.creator.getOrganization() != null && this.creator.getOrganization().getName() == null) {
+      if (null != this.creator.getOrganization() && null == this.creator.getOrganization().getName()) {
         this.creator.getOrganization().setName("");
       }
     }
@@ -162,7 +160,7 @@ public class CreatorBean extends FacesBean {
    * @return
    */
   public String selectOrganisation() {
-    if (this.creator.getOrganization() == null) {
+    if (null == this.creator.getOrganization()) {
       this.creator.setOrganization(new OrganizationVO());
     }
 
@@ -182,7 +180,7 @@ public class CreatorBean extends FacesBean {
    * @return
    */
   public String selectOrganisationEasySubmission() {
-    if (this.creator.getOrganization() == null) {
+    if (null == this.creator.getOrganization()) {
       this.creator.setOrganization(new OrganizationVO());
     }
 
@@ -233,7 +231,7 @@ public class CreatorBean extends FacesBean {
     }
 
     public List<OrganizationVO> getDataListFromVO() {
-      if (this.parentVO == null) {
+      if (null == this.parentVO) {
         return null;
       }
 
@@ -243,7 +241,7 @@ public class CreatorBean extends FacesBean {
     public void setParentVO(PersonVO parentVO) {
       this.parentVO = parentVO;
       for (final OrganizationVO orgaVO : parentVO.getOrganizations()) {
-        if (orgaVO.getName() == null) {
+        if (null == orgaVO.getName()) {
           orgaVO.setName("");
         }
       }
@@ -265,11 +263,11 @@ public class CreatorBean extends FacesBean {
   }
 
   public boolean isPersonType() {
-    return (this.creator.getType() == CreatorType.PERSON);
+    return (CreatorVO.CreatorType.PERSON == this.creator.getType());
   }
 
   public void setPersonType(final boolean personType) {
-    this.creator.setType(CreatorType.PERSON);
+    this.creator.setType(CreatorVO.CreatorType.PERSON);
   }
 
   public OrganizationVO getCurrentOrgaForSelection() {
@@ -281,11 +279,11 @@ public class CreatorBean extends FacesBean {
   }
 
   public boolean isOrganisationType() {
-    return (this.creator.getType() == CreatorType.ORGANIZATION);
+    return (CreatorVO.CreatorType.ORGANIZATION == this.creator.getType());
   }
 
   public void setOrganisationType(final boolean organisationType) {
-    this.creator.setType(CreatorType.ORGANIZATION);
+    this.creator.setType(CreatorVO.CreatorType.ORGANIZATION);
   }
 
   /**
@@ -307,8 +305,8 @@ public class CreatorBean extends FacesBean {
   }
 
   public String getIdentifierValue() {
-    if (this.isPersonType() && this.getCreator() != null && this.creator.getPerson() != null
-        && this.creator.getPerson().getIdentifier() != null) {
+    if (this.isPersonType() && null != this.getCreator() && null != this.creator.getPerson()
+        && null != this.creator.getPerson().getIdentifier()) {
       return this.creator.getPerson().getIdentifier().getId();
     }
 
@@ -316,13 +314,13 @@ public class CreatorBean extends FacesBean {
   }
 
   public void setIdentifierValue(String newValue) {
-    if (newValue != null && !newValue.isEmpty()) {
-      if (this.isPersonType() && this.getCreator() != null && this.creator.getPerson() != null) {
-        if (this.creator.getPerson().getIdentifier() == null) {
+    if (null != newValue && !newValue.isEmpty()) {
+      if (this.isPersonType() && null != this.getCreator() && null != this.creator.getPerson()) {
+        if (null == this.creator.getPerson().getIdentifier()) {
           this.creator.getPerson().setIdentifier(new IdentifierVO());
         }
         this.creator.getPerson().getIdentifier().setId(newValue);
-        this.creator.getPerson().getIdentifier().setType(IdType.CONE);
+        this.creator.getPerson().getIdentifier().setType(IdentifierVO.IdType.CONE);
       }
     } else {
       this.creator.getPerson().setIdentifier(null);
@@ -330,11 +328,11 @@ public class CreatorBean extends FacesBean {
   }
 
   public String getOuNumbers() {
-    if (this.personType && this.ouNumber == null) {
+    if (this.personType && null == this.ouNumber) {
       final EditItemSessionBean editItemSessionBean = FacesTools.findBean("EditItemSessionBean");
       final List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
       for (final OrganizationVO organization : this.creator.getPerson().getOrganizations()) {
-        if (this.ouNumber == null) {
+        if (null == this.ouNumber) {
           this.ouNumber = "";
         } else {
           this.ouNumber += ",";

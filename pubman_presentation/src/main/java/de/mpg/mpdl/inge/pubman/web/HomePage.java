@@ -38,7 +38,7 @@ import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -91,7 +91,7 @@ public class HomePage extends BreadcrumbPage {
     PubItemService pi = ApplicationBean.INSTANCE.getPubItemService();
     BoolQuery.Builder bqb = new BoolQuery.Builder();
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-        State.RELEASED.name()));
+        ItemVersionRO.State.RELEASED.name()));
 
     SearchRequest.Builder ssb = new SearchRequest.Builder();
     ssb.query(bqb.build()._toQuery());

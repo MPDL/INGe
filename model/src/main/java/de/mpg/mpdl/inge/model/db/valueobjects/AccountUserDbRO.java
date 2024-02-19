@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -29,19 +29,18 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * This is a dump relation object. There is no foreign key generated in the DB. !!!Because of that
  * it is NOT the RO for the AccountUserDbVO!!!
- * 
+ *
  * @revised by MuJ: 27.08.2007
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * @updated 21-Nov-2007 12:08:27
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class AccountUserDbRO implements Serializable {
   private String name;
 
@@ -55,7 +54,7 @@ public class AccountUserDbRO implements Serializable {
 
 
   public String getObjectId() {
-    return objectId;
+    return this.objectId;
   }
 
 
@@ -67,7 +66,7 @@ public class AccountUserDbRO implements Serializable {
 
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
 
@@ -82,8 +81,8 @@ public class AccountUserDbRO implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
+    result = prime * result + ((null == this.name) ? 0 : this.name.hashCode());
+    result = prime * result + ((null == this.objectId) ? 0 : this.objectId.hashCode());
     return result;
   }
 
@@ -93,20 +92,20 @@ public class AccountUserDbRO implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     AccountUserDbRO other = (AccountUserDbRO) obj;
-    if (name == null) {
-      if (other.name != null)
+    if (null == this.name) {
+      if (null != other.name)
         return false;
-    } else if (!name.equals(other.name))
+    } else if (!this.name.equals(other.name))
       return false;
-    if (objectId == null) {
-      if (other.objectId != null)
+    if (null == this.objectId) {
+      if (null != other.objectId)
         return false;
-    } else if (!objectId.equals(other.objectId))
+    } else if (!this.objectId.equals(other.objectId))
       return false;
     return true;
   }

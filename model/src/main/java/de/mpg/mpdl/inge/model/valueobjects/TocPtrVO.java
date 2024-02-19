@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -37,7 +37,7 @@ public class TocPtrVO extends ValueObject {
   private String linkType;
 
   public String getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(String id) {
@@ -45,7 +45,7 @@ public class TocPtrVO extends ValueObject {
   }
 
   public String getLoctype() {
-    return loctype;
+    return this.loctype;
   }
 
   public void setLoctype(String loctype) {
@@ -53,7 +53,7 @@ public class TocPtrVO extends ValueObject {
   }
 
   public String getUse() {
-    return use;
+    return this.use;
   }
 
   public void setUse(String use) {
@@ -61,7 +61,7 @@ public class TocPtrVO extends ValueObject {
   }
 
   public String getMimetype() {
-    return mimetype;
+    return this.mimetype;
   }
 
   public void setMimetype(String mimetype) {
@@ -69,7 +69,7 @@ public class TocPtrVO extends ValueObject {
   }
 
   public String getLinkType() {
-    return linkType;
+    return this.linkType;
   }
 
   public void setLinkType(String linkType) {
@@ -77,7 +77,7 @@ public class TocPtrVO extends ValueObject {
   }
 
   public String getLinkRef() {
-    return linkRef;
+    return this.linkRef;
   }
 
   public void setLinkRef(String linkRef) {
@@ -85,7 +85,7 @@ public class TocPtrVO extends ValueObject {
   }
 
   public String getLinkTitle() {
-    return linkTitle;
+    return this.linkTitle;
   }
 
   public void setLinkTitle(String linkTitle) {

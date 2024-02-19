@@ -30,12 +30,10 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
@@ -47,8 +45,8 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 @SuppressWarnings("serial")
 public class GenreListSearchCriterion extends SearchCriterionBase {
-  private Map<Genre, Boolean> genreMap = new LinkedHashMap<>();
-  private Map<DegreeType, Boolean> degreeMap = new LinkedHashMap<>();
+  private Map<MdsPublicationVO.Genre, Boolean> genreMap = new LinkedHashMap<>();
+  private Map<MdsPublicationVO.DegreeType, Boolean> degreeMap = new LinkedHashMap<>();
 
   public GenreListSearchCriterion() {
     this.initGenreMap();
@@ -62,27 +60,27 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   public void initGenreMap() {
 
     // first create a map with genre as key and the label as value
-    final Map<Genre, String> genreLabelMap = new LinkedHashMap<>();
+    final Map<MdsPublicationVO.Genre, String> genreLabelMap = new LinkedHashMap<>();
     final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
-    for (final Genre g : Genre.values()) {
+    for (final MdsPublicationVO.Genre g : MdsPublicationVO.Genre.values()) {
       genreLabelMap.put(g, i18nHelper.getLabel("ENUM_GENRE_" + g.name()));
     }
 
 
     // Then create a list with the map entries and sort the list by the label
-    final List<Map.Entry<Genre, String>> sortedGenreList = new LinkedList<>(genreLabelMap.entrySet());
-    sortedGenreList.sort(Entry.comparingByValue());
+    final List<Map.Entry<MdsPublicationVO.Genre, String>> sortedGenreList = new LinkedList<>(genreLabelMap.entrySet());
+    sortedGenreList.sort(Map.Entry.comparingByValue());
 
 
     // now fill the genre map with the ordered genres
     // genreMap = new LinkedHashMap<Genre, Boolean>();
 
-    final Map<Genre, Boolean> oldValMap = new LinkedHashMap<>(this.genreMap);
+    final Map<MdsPublicationVO.Genre, Boolean> oldValMap = new LinkedHashMap<>(this.genreMap);
     this.genreMap.clear();
-    Entry<Genre, String> thesisEntry = null;
-    for (final Entry<Genre, String> entry : sortedGenreList) {
-      if (!entry.getKey().equals(Genre.THESIS)) {
-        if (oldValMap.get(entry.getKey()) == null) {
+    Map.Entry<MdsPublicationVO.Genre, String> thesisEntry = null;
+    for (final Map.Entry<MdsPublicationVO.Genre, String> entry : sortedGenreList) {
+      if (!entry.getKey().equals(MdsPublicationVO.Genre.THESIS)) {
+        if (null == oldValMap.get(entry.getKey())) {
           this.genreMap.put(entry.getKey(), false);
         } else {
           this.genreMap.put(entry.getKey(), oldValMap.get(entry.getKey()));
@@ -92,8 +90,8 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
       }
 
     }
-    if (thesisEntry != null) {
-      if (oldValMap.get(thesisEntry.getKey()) == null) {
+    if (null != thesisEntry) {
+      if (null == oldValMap.get(thesisEntry.getKey())) {
         this.genreMap.put(thesisEntry.getKey(), false);
       } else {
         this.genreMap.put(thesisEntry.getKey(), oldValMap.get(thesisEntry.getKey()));
@@ -105,7 +103,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   private void initDegreeMap() {
 
     // degreeMap = new LinkedHashMap<DegreeType, Boolean>();
-    for (final DegreeType dt : DegreeType.values()) {
+    for (final MdsPublicationVO.DegreeType dt : MdsPublicationVO.DegreeType.values()) {
       this.degreeMap.put(dt, false);
     }
   }
@@ -113,13 +111,13 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
 
   // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten
-  public synchronized Genre[] getGenreList() {
-    final Genre[] genreArray = new Genre[0];
+  public synchronized MdsPublicationVO.Genre[] getGenreList() {
+    final MdsPublicationVO.Genre[] genreArray = new MdsPublicationVO.Genre[0];
     return this.genreMap.keySet().toArray(genreArray);
   }
 
-  public DegreeType[] getDegreeList() {
-    final DegreeType[] degreeArray = new DegreeType[0];
+  public MdsPublicationVO.DegreeType[] getDegreeList() {
+    final MdsPublicationVO.DegreeType[] degreeArray = new MdsPublicationVO.DegreeType[0];
     return this.degreeMap.keySet().toArray(degreeArray);
   }
 
@@ -138,9 +136,9 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     boolean allDegrees = true;
 
     int i = 0;
-    for (final Entry<Genre, Boolean> entry : this.genreMap.entrySet()) {
+    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
       if (entry.getValue()) {
-        if (i > 0) {
+        if (0 < i) {
           sb.append("|");
         }
 
@@ -153,12 +151,12 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
 
 
-    if (this.genreMap.get(Genre.THESIS)) {
+    if (this.genreMap.get(MdsPublicationVO.Genre.THESIS)) {
       sb.append("||");
       int j = 0;
-      for (final Entry<DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
+      for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
         if (entry.getValue()) {
-          if (j > 0) {
+          if (0 < j) {
             sb.append("|");
           }
 
@@ -189,29 +187,29 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
 
 
-    for (final Entry<Genre, Boolean> e : this.genreMap.entrySet()) {
+    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> e : this.genreMap.entrySet()) {
       e.setValue(false);
     }
 
-    for (final Entry<DegreeType, Boolean> e : this.degreeMap.entrySet()) {
+    for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> e : this.degreeMap.entrySet()) {
       e.setValue(false);
     }
 
     // Split by '|', which have no backslash before and no other '|' after
     final String[] genreParts = genreDegreeParts[0].split("(?<!\\\\)\\|(?!\\|)");
     for (final String genre : genreParts) {
-      final Genre g = Genre.valueOf(genre);
-      if (g == null) {
+      final MdsPublicationVO.Genre g = MdsPublicationVO.Genre.valueOf(genre);
+      if (null == g) {
         throw new RuntimeException("Invalid genre: " + genre);
       }
       this.genreMap.put(g, true);
     }
 
-    if (genreDegreeParts.length > 1 && !genreDegreeParts[1].trim().isEmpty()) {
+    if (1 < genreDegreeParts.length && !genreDegreeParts[1].trim().isEmpty()) {
       final String[] degreeParts = genreDegreeParts[1].split("(?<!\\\\)\\|(?!\\|)");
       for (final String degree : degreeParts) {
-        final DegreeType d = DegreeType.valueOf(degree);
-        if (d == null) {
+        final MdsPublicationVO.DegreeType d = MdsPublicationVO.DegreeType.valueOf(degree);
+        if (null == d) {
           throw new RuntimeException("Invalid degree type: " + degree);
         }
         this.degreeMap.put(d, true);
@@ -232,7 +230,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     boolean genreDeselected = false;
     boolean degreeSelected = false;
     boolean degreeDeselected = false;
-    for (final Entry<Genre, Boolean> entry : this.genreMap.entrySet()) {
+    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
       if (entry.getValue()) {
         genreSelected = true;
       } else {
@@ -240,8 +238,8 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
       }
     }
 
-    if (this.genreMap.get(Genre.THESIS)) {
-      for (final Entry<DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
+    if (this.genreMap.get(MdsPublicationVO.Genre.THESIS)) {
+      for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
         if (entry.getValue()) {
           degreeSelected = true;
         } else {
@@ -286,8 +284,8 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     final List<SearchCriterionBase> degreeCriterionsList = new ArrayList<>();
     returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     int i = 0;
-    for (final Entry<Genre, Boolean> entry : this.genreMap.entrySet()) {
-      if (entry.getValue() && i > 0) {
+    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
+      if (entry.getValue() && 0 < i) {
         returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
       }
 
@@ -295,14 +293,14 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
 
 
-        if (Genre.THESIS.equals(entry.getKey())) {
+        if (MdsPublicationVO.Genre.THESIS.equals(entry.getKey())) {
 
           degreeCriterionsList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
           degreeCriterionsList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
 
           int j = 0;
-          for (final Entry<DegreeType, Boolean> degreeEntry : this.degreeMap.entrySet()) {
-            if (degreeEntry.getValue() && j > 0) {
+          for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> degreeEntry : this.degreeMap.entrySet()) {
+            if (degreeEntry.getValue() && 0 < j) {
               degreeCriterionsList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
             }
 
@@ -324,7 +322,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
 
 
-        if (Genre.THESIS.equals(entry.getKey()) && (degreeSelected && degreeDeselected)) {
+        if (MdsPublicationVO.Genre.THESIS.equals(entry.getKey()) && (degreeSelected && degreeDeselected)) {
           returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
 
 
@@ -337,7 +335,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
         i++;
 
 
-        if (Genre.THESIS.equals(entry.getKey()) && (degreeSelected && degreeDeselected)) {
+        if (MdsPublicationVO.Genre.THESIS.equals(entry.getKey()) && (degreeSelected && degreeDeselected)) {
           returnList.addAll(degreeCriterionsList);
           returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
@@ -362,22 +360,22 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   }
 
   // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten
-  public synchronized Map<Genre, Boolean> getGenreMap() {
+  public synchronized Map<MdsPublicationVO.Genre, Boolean> getGenreMap() {
     this.initGenreMap();
     return this.genreMap;
   }
 
 
-  public void setGenreMap(Map<Genre, Boolean> genreMap) {
+  public void setGenreMap(Map<MdsPublicationVO.Genre, Boolean> genreMap) {
     this.genreMap = genreMap;
   }
 
 
-  public Map<DegreeType, Boolean> getDegreeMap() {
+  public Map<MdsPublicationVO.DegreeType, Boolean> getDegreeMap() {
     return this.degreeMap;
   }
 
-  public void setDegreeMap(Map<DegreeType, Boolean> degreeMap) {
+  public void setDegreeMap(Map<MdsPublicationVO.DegreeType, Boolean> degreeMap) {
     this.degreeMap = degreeMap;
   }
 

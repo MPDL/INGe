@@ -60,17 +60,13 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -129,7 +125,7 @@ public class Bibtex implements BibtexInterface {
     itemVO.setMetadata(mds);
     List<?> entries = file.getEntries();
     boolean entryFound = false;
-    if (entries == null || entries.isEmpty()) {
+    if (null == entries || entries.isEmpty()) {
       logger.warn("No entry found in BibTex record.");
       throw new RuntimeException();
     }
@@ -155,8 +151,8 @@ public class Bibtex implements BibtexInterface {
         Map<?, ?> fields = entry.getFields();
         // Mapping of BibTeX Standard Entries
         // title
-        if (fields.get("title") != null) {
-          if (fields.get("chapter") != null) {
+        if (null != fields.get("title")) {
+          if (null != fields.get("chapter")) {
             mds.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("chapter").toString()), false) + " - "
                 + BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("title").toString()), false));
           } else {
@@ -164,55 +160,56 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // booktitle
-        if (fields.get("booktitle") != null) {
-          if (bibGenre == BibTexUtil.Genre.book) {
+        if (null != fields.get("booktitle")) {
+          if (BibTexUtil.Genre.book == bibGenre) {
             mds.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false));
-          } else if (bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.inbook
-              || bibGenre == BibTexUtil.Genre.incollection || bibGenre == BibTexUtil.Genre.inproceedings) {
+          } else if (BibTexUtil.Genre.conference == bibGenre || BibTexUtil.Genre.inbook == bibGenre
+              || BibTexUtil.Genre.incollection == bibGenre || BibTexUtil.Genre.inproceedings == bibGenre) {
             sourceVO.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("booktitle").toString()), false));
-            if (bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.inproceedings) {
-              sourceVO.setGenre(Genre.PROCEEDINGS);
-            } else if (bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.incollection) {
-              sourceVO.setGenre(Genre.BOOK);
+            if (BibTexUtil.Genre.conference == bibGenre || BibTexUtil.Genre.inproceedings == bibGenre) {
+              sourceVO.setGenre(SourceVO.Genre.PROCEEDINGS);
+            } else if (BibTexUtil.Genre.inbook == bibGenre || BibTexUtil.Genre.incollection == bibGenre) {
+              sourceVO.setGenre(SourceVO.Genre.BOOK);
             }
           }
         }
         // fjournal, journal
-        if (fields.get("fjournal") != null) {
-          if (bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.misc || bibGenre == BibTexUtil.Genre.unpublished) {
+        if (null != fields.get("fjournal")) {
+          if (BibTexUtil.Genre.article == bibGenre || BibTexUtil.Genre.misc == bibGenre || BibTexUtil.Genre.unpublished == bibGenre) {
             sourceVO.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("fjournal").toString()), false));
             sourceVO.setGenre(SourceVO.Genre.JOURNAL);
-            if (fields.get("journal") != null) {
+            if (null != fields.get("journal")) {
               sourceVO.getAlternativeTitles()
                   .add(new AlternativeTitleVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("journal").toString()), false)));
             }
           }
-        } else if (fields.get("journal") != null) {
-          if (bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.misc || bibGenre == BibTexUtil.Genre.unpublished
-              || bibGenre == BibTexUtil.Genre.inproceedings) {
+        } else if (null != fields.get("journal")) {
+          if (BibTexUtil.Genre.article == bibGenre || BibTexUtil.Genre.misc == bibGenre || BibTexUtil.Genre.unpublished == bibGenre
+              || BibTexUtil.Genre.inproceedings == bibGenre) {
             sourceVO.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("journal").toString()), false));
             sourceVO.setGenre(SourceVO.Genre.JOURNAL);
           }
         }
         // number
-        if (fields.get("number") != null && bibGenre != BibTexUtil.Genre.techreport) {
+        if (null != fields.get("number") && BibTexUtil.Genre.techreport != bibGenre) {
           sourceVO.setIssue(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("number").toString()), false));
-        } else if (fields.get("number") != null && bibGenre == BibTexUtil.Genre.techreport) {
+        } else if (null != fields.get("number") && BibTexUtil.Genre.techreport == bibGenre) {
           {
             mds.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.REPORT_NR,
                 BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("number").toString()), false)));
           }
         }
         // pages
-        if (fields.get("pages") != null) {
-          if (bibGenre == BibTexUtil.Genre.book || bibGenre == BibTexUtil.Genre.proceedings) {
+        if (null != fields.get("pages")) {
+          if (BibTexUtil.Genre.book == bibGenre || BibTexUtil.Genre.proceedings == bibGenre) {
             mds.setTotalNumberOfPages(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("pages").toString()), false));
           } else {
             BibTexUtil.fillSourcePages(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("pages").toString()), false), sourceVO);
-            if (bibGenre == BibTexUtil.Genre.inproceedings && (fields.get("booktitle") == null || fields.get("booktitle").toString() == "")
-                && (fields.get("event_name") != null && fields.get("event_name").toString() != "")) {
+            if (BibTexUtil.Genre.inproceedings == bibGenre && (null == fields.get("booktitle") || "".equals(
+                fields.get("booktitle").toString()))
+                && (null != fields.get("event_name") && !"".equals(fields.get("event_name").toString()))) {
               sourceVO.setTitle(BibTexUtil.stripBraces(fields.get("event_name").toString(), false));
-              sourceVO.setGenre(Genre.PROCEEDINGS);
+              sourceVO.setGenre(SourceVO.Genre.PROCEEDINGS);
             }
           }
         }
@@ -220,13 +217,13 @@ public class Bibtex implements BibtexInterface {
         PublishingInfoVO publishingInfoVO = new PublishingInfoVO();
         mds.setPublishingInfo(publishingInfoVO);
         // address
-        if (fields.get("address") != null) {
-          if (!(bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.inproceedings
-              || bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.incollection)
-              && sourceVO.getTitle() == null) {
+        if (null != fields.get("address")) {
+          if (!(BibTexUtil.Genre.article == bibGenre || BibTexUtil.Genre.inbook == bibGenre || BibTexUtil.Genre.inproceedings == bibGenre
+              || BibTexUtil.Genre.conference == bibGenre || BibTexUtil.Genre.incollection == bibGenre)
+              && null == sourceVO.getTitle()) {
             publishingInfoVO.setPlace(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("address").toString()), false));
           } else {
-            if (sourceVO.getPublishingInfo() == null) {
+            if (null == sourceVO.getPublishingInfo()) {
               PublishingInfoVO sourcePublishingInfoVO = new PublishingInfoVO();
               sourceVO.setPublishingInfo(sourcePublishingInfoVO);
             }
@@ -234,57 +231,57 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // edition
-        if (fields.get("edition") != null) {
+        if (null != fields.get("edition")) {
           publishingInfoVO.setEdition(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("edition").toString()), false));
         }
         // publisher
-        if (!(bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.inproceedings
-            || bibGenre == BibTexUtil.Genre.conference || bibGenre == BibTexUtil.Genre.incollection)
-            && sourceVO.getTitle() == null) {
-          if (fields.get("publisher") != null) {
+        if (!(BibTexUtil.Genre.article == bibGenre || BibTexUtil.Genre.inbook == bibGenre || BibTexUtil.Genre.inproceedings == bibGenre
+            || BibTexUtil.Genre.conference == bibGenre || BibTexUtil.Genre.incollection == bibGenre)
+            && null == sourceVO.getTitle()) {
+          if (null != fields.get("publisher")) {
             publishingInfoVO.setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("publisher").toString()), false));
-          } else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis
-              || bibGenre == BibTexUtil.Genre.techreport)) {
+          } else if (null != fields.get("school") && (BibTexUtil.Genre.mastersthesis == bibGenre || BibTexUtil.Genre.phdthesis == bibGenre
+              || BibTexUtil.Genre.techreport == bibGenre)) {
             publishingInfoVO.setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("school").toString()), false));
-          } else if (fields.get("institution") != null) {
+          } else if (null != fields.get("institution")) {
             publishingInfoVO.setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("institution").toString()), false));
-          } else if (fields.get("publisher") == null && fields.get("school") == null && fields.get("institution") == null
-              && fields.get("address") != null) {
+          } else if (null == fields.get("publisher") && null == fields.get("school") && null == fields.get("institution")
+              && null != fields.get("address")) {
             publishingInfoVO.setPublisher("ANY PUBLISHER");
           }
         } else {
-          if (sourceVO.getPublishingInfo() == null) {
+          if (null == sourceVO.getPublishingInfo()) {
             PublishingInfoVO sourcePublishingInfoVO = new PublishingInfoVO();
             sourceVO.setPublishingInfo(sourcePublishingInfoVO);
           }
-          if (fields.get("publisher") != null) {
+          if (null != fields.get("publisher")) {
             sourceVO.getPublishingInfo()
                 .setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("publisher").toString()), false));
-          } else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis
-              || bibGenre == BibTexUtil.Genre.techreport)) {
+          } else if (null != fields.get("school") && (BibTexUtil.Genre.mastersthesis == bibGenre || BibTexUtil.Genre.phdthesis == bibGenre
+              || BibTexUtil.Genre.techreport == bibGenre)) {
             sourceVO.getPublishingInfo()
                 .setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("school").toString()), false));
-          } else if (fields.get("institution") != null) {
+          } else if (null != fields.get("institution")) {
             sourceVO.getPublishingInfo()
                 .setPublisher(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("institution").toString()), false));
-          } else if (fields.get("publisher") == null && fields.get("school") == null && fields.get("institution") == null
-              && fields.get("address") != null) {
+          } else if (null == fields.get("publisher") && null == fields.get("school") && null == fields.get("institution")
+              && null != fields.get("address")) {
             sourceVO.getPublishingInfo().setPublisher("ANY PUBLISHER");
           }
         }
         // series
-        if (fields.get("series") != null) {
-          if (bibGenre == BibTexUtil.Genre.book || bibGenre == BibTexUtil.Genre.misc || bibGenre == BibTexUtil.Genre.techreport) {
+        if (null != fields.get("series")) {
+          if (BibTexUtil.Genre.book == bibGenre || BibTexUtil.Genre.misc == bibGenre || BibTexUtil.Genre.techreport == bibGenre) {
             sourceVO.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false));
             sourceVO.setGenre(SourceVO.Genre.SERIES);
-          } else if (bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.incollection
-              || bibGenre == BibTexUtil.Genre.inproceedings || bibGenre == BibTexUtil.Genre.conference) {
+          } else if (BibTexUtil.Genre.inbook == bibGenre || BibTexUtil.Genre.incollection == bibGenre
+              || BibTexUtil.Genre.inproceedings == bibGenre || BibTexUtil.Genre.conference == bibGenre) {
             secondSourceVO.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("series").toString()), false));
             secondSourceVO.setGenre(SourceVO.Genre.SERIES);
           }
         }
         // type --> degree
-        if (fields.get("type") != null && bibGenre == BibTexUtil.Genre.mastersthesis) {
+        if (null != fields.get("type") && BibTexUtil.Genre.mastersthesis == bibGenre) {
           if (fields.get("type").toString().toLowerCase().contains("master") || fields.get("type").toString().toLowerCase().contains("m.a.")
               || fields.get("type").toString().toLowerCase().contains("m.s.")
               || fields.get("type").toString().toLowerCase().contains("m.sc.")) {
@@ -303,7 +300,7 @@ public class Bibtex implements BibtexInterface {
               || fields.get("type").toString().toLowerCase().contains("state examination")) {
             mds.setDegree(MdsPublicationVO.DegreeType.DIPLOMA);
           }
-        } else if (fields.get("type") != null && bibGenre == BibTexUtil.Genre.phdthesis) {
+        } else if (null != fields.get("type") && BibTexUtil.Genre.phdthesis == bibGenre) {
           if (fields.get("type").toString().toLowerCase().contains("phd")
               || fields.get("type").toString().toLowerCase().contains("dissertation")
               || fields.get("type").toString().toLowerCase().contains("doktor")
@@ -314,12 +311,12 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // volume
-        if (fields.get("volume") != null) {
-          if (bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.book) {
+        if (null != fields.get("volume")) {
+          if (BibTexUtil.Genre.article == bibGenre || BibTexUtil.Genre.book == bibGenre) {
             sourceVO.setVolume(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("volume").toString()), false));
-          } else if (bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.inproceedings
-              || bibGenre == BibTexUtil.Genre.incollection || bibGenre == BibTexUtil.Genre.conference) {
-            if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty()) {
+          } else if (BibTexUtil.Genre.inbook == bibGenre || BibTexUtil.Genre.inproceedings == bibGenre
+              || BibTexUtil.Genre.incollection == bibGenre || BibTexUtil.Genre.conference == bibGenre) {
+            if (null != sourceVO.getSources() && !sourceVO.getSources().isEmpty()) {
               sourceVO.getSources().get(0)
                   .setVolume(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("volume").toString()), false));
             } else {
@@ -328,29 +325,29 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // event infos
-        if (bibGenre != null && (bibGenre.equals(BibTexUtil.Genre.inproceedings) || bibGenre.equals(BibTexUtil.Genre.proceedings)
+        if (null != bibGenre && (bibGenre.equals(BibTexUtil.Genre.inproceedings) || bibGenre.equals(BibTexUtil.Genre.proceedings)
             || bibGenre.equals(BibTexUtil.Genre.conference) || bibGenre.equals(BibTexUtil.Genre.poster)
             || bibGenre.equals(BibTexUtil.Genre.talk))) {
           EventVO event = new EventVO();
           boolean eventNotEmpty = false;
           // event location
-          if (fields.get("location") != null) {
+          if (null != fields.get("location")) {
             event.setPlace(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("location").toString()), false));
             eventNotEmpty = true;
           }
           // event place
-          else if (fields.get("event_place") != null) {
+          else if (null != fields.get("event_place")) {
             event.setPlace(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("event_place").toString()), false));
             eventNotEmpty = true;
           }
           // event name/title
-          if (fields.get("event_name") != null) {
+          if (null != fields.get("event_name")) {
             event.setTitle(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("event_name").toString()), false));
             eventNotEmpty = true;
           }
           // event will be set only it's not empty
-          if (eventNotEmpty == true) {
-            if (event.getTitle() == null) {
+          if (true == eventNotEmpty) {
+            if (null == event.getTitle()) {
               event.setTitle("");
             }
             mds.setEvent(event);
@@ -358,13 +355,13 @@ public class Bibtex implements BibtexInterface {
         }
         // year, month
         String dateString = null;
-        if (fields.get("year") != null) {
+        if (null != fields.get("year")) {
           dateString = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("year").toString()), false);
-          if (fields.get("month") != null) {
+          if (null != fields.get("month")) {
             String month = BibTexUtil.parseMonth(fields.get("month").toString());
             dateString += "-" + month;
           }
-          if (bibGenre == BibTexUtil.Genre.unpublished) {
+          if (BibTexUtil.Genre.unpublished == bibGenre) {
             mds.setDateCreated(dateString);
           } else {
             mds.setDatePublishedInPrint(dateString);
@@ -373,16 +370,16 @@ public class Bibtex implements BibtexInterface {
         String affiliation = null;
         String affiliationAddress = null;
         // affiliation
-        if (fields.get("affiliation") != null) {
+        if (null != fields.get("affiliation")) {
           affiliation = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("affiliation").toString()), false);
         }
         // affiliationaddress
-        if (fields.get("affiliationaddress") != null) {
+        if (null != fields.get("affiliationaddress")) {
           affiliationAddress = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("affiliationaddress").toString()), false);
         }
         // author
         boolean noConeAuthorFound = true;
-        if (fields.get("author") != null) {
+        if (null != fields.get("author")) {
           if (fields.get("author") instanceof BibtexPersonList authors) {
             for (Object author : authors.getList()) {
               if (author instanceof BibtexPerson) {
@@ -419,12 +416,12 @@ public class Bibtex implements BibtexInterface {
                 }
               }
               decoder = new AuthorDecoder(authorString, false);
-              if (decoder.getBestFormat() != null) {
+              if (null != decoder.getBestFormat()) {
                 List<Author> authors = decoder.getAuthorListList().get(0);
                 for (Author author : authors) {
                   PersonVO personVO = new PersonVO();
                   personVO.setFamilyName(author.getSurname());
-                  if (author.getGivenName() != null) {
+                  if (null != author.getGivenName()) {
                     personVO.setGivenName(author.getGivenName());
                   } else {
                     personVO.setGivenName(author.getInitial());
@@ -433,13 +430,13 @@ public class Bibtex implements BibtexInterface {
                    * Case for MPI-KYB (Biological Cybernetics) with CoNE identifier in brackets and
                    * affiliations to adopt from CoNE for each author (also in brackets)
                    */
-                  if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                      && (author.getTags().get("identifier") != null)) {
+                  if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("identifier and affiliation in brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (null != author.getTags().get("identifier"))) {
                     String query = author.getTags().get("identifier");
                     int affiliationsCount = Integer.parseInt(author.getTags().get("affiliationsCount"));
-                    if (affiliationsCount > 0 || configuration.get("OrganizationalUnit") != null) {
-                      for (int ouCount = 0; ouCount < (affiliationsCount > 0 ? affiliationsCount : 1); ouCount++) // 1
+                    if (0 < affiliationsCount || null != this.configuration.get("OrganizationalUnit")) {
+                      for (int ouCount = 0; ouCount < (0 < affiliationsCount ? affiliationsCount : 1); ouCount++) // 1
                                                                                                                   // is
                                                                                                                   // for
                                                                                                                   // the
@@ -449,13 +446,13 @@ public class Bibtex implements BibtexInterface {
                                                                                                                   // null
                       {
                         String organizationalUnit =
-                            (author.getTags().get("affiliation" + ouCount) != null ? author.getTags().get("affiliation" + ouCount)
-                                : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                            (null != author.getTags().get("affiliation" + ouCount) ? author.getTags().get("affiliation" + ouCount)
+                                : (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                         Node coneEntries = null;
                         if (query.equals(author.getTags().get("identifier"))) {
                           coneEntries = Util.queryConeExactWithIdentifier("persons", query, organizationalUnit);
                           // for MPIKYB due to OUs which do not occur in CoNE
-                          if (coneEntries.getFirstChild().getFirstChild() == null) {
+                          if (null == coneEntries.getFirstChild().getFirstChild()) {
                             logger.error("No Person with Identifier (" + author.getTags().get("identifier") + ") and OU ("
                                 + organizationalUnit + ") found in CoNE for Publication \"" + fields.get("title") + "\"");
                           }
@@ -463,16 +460,16 @@ public class Bibtex implements BibtexInterface {
                           coneEntries = Util.queryConeExact("persons", query, organizationalUnit);
                         }
                         Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                        if (coneNode != null) {
+                        if (null != coneNode) {
                           Node currentNode = coneNode.getFirstChild();
                           boolean first = true;
-                          while (currentNode != null) {
-                            if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                          while (null != currentNode) {
+                            if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                               first = false;
                               noConeAuthorFound = false;
                               Node coneEntry = currentNode;
                               String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                              personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                              personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
                               for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++) {
                                 Node posNode = coneEntry.getChildNodes().item(i);
                                 if ("escidoc:position".equals(posNode.getNodeName())) {
@@ -481,7 +478,7 @@ public class Bibtex implements BibtexInterface {
                                   String name = null;
                                   String id = null;
                                   Node node = posNode.getFirstChild().getFirstChild();
-                                  while (node != null) {
+                                  while (null != node) {
                                     switch (node.getNodeName()) {
                                       case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
                                       case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
@@ -498,7 +495,7 @@ public class Bibtex implements BibtexInterface {
                                   }
                                 }
                               }
-                            } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                            } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                               throw new RuntimeException("Ambigous CoNE entries for " + query);
                             }
                             currentNode = currentNode.getNextSibling();
@@ -513,27 +510,27 @@ public class Bibtex implements BibtexInterface {
                    * Case for MPI-Microstructure Physics with affiliation identifier in brackets and
                    * affiliations to adopt from CoNE for each author (also in brackets)
                    */
-                  else if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("affiliation id in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                      && (author.getTags().get("identifier") != null)) {
+                  else if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("affiliation id in brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (null != author.getTags().get("identifier"))) {
                     String identifier = author.getTags().get("identifier");
                     String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                     if (!("extern".equals(identifier))) {
                       Node coneEntries = null;
                       coneEntries = Util.queryConeExact("persons", query,
-                          (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                          (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                       Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                      if (coneNode != null) {
+                      if (null != coneNode) {
                         Node currentNode = coneNode.getFirstChild();
                         boolean first = true;
-                        while (currentNode != null) {
-                          if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                        while (null != currentNode) {
+                          if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                             first = false;
                             noConeAuthorFound = false;
                             Node coneEntry = currentNode;
                             String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                            personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
-                            if (identifier != null && !("".equals(identifier))) {
+                            personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
+                            if (null != identifier && !("".equals(identifier))) {
                               try {
                                 String ouSubTitle = identifier.substring(0, identifier.indexOf(","));
                                 Document document = Util.queryFramework("/oum/organizational-units?query="
@@ -552,7 +549,7 @@ public class Bibtex implements BibtexInterface {
                                 throw new RuntimeException("Error getting Organizational Unit for " + identifier);
                               }
                             }
-                          } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                          } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                             throw new RuntimeException("Ambigous CoNE entries for " + query);
                           }
                           currentNode = currentNode.getNextSibling();
@@ -561,23 +558,23 @@ public class Bibtex implements BibtexInterface {
                         throw new RuntimeException("Missing CoNE entry for " + query);
                       }
                     }
-                  } else if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("empty brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors"))
-                          && (author.getTags().get("brackets") != null))) {
+                  } else if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("empty brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors"))
+                          && (null != author.getTags().get("brackets")))) {
                     String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                     Node coneEntries = Util.queryConeExact("persons", query,
-                        (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                        (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                     Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                    if (coneNode != null) {
+                    if (null != coneNode) {
                       Node currentNode = coneNode.getFirstChild();
                       boolean first = true;
-                      while (currentNode != null) {
-                        if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                      while (null != currentNode) {
+                        if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                           first = false;
                           noConeAuthorFound = false;
                           Node coneEntry = currentNode;
                           String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                          personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                          personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
                           for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++) {
                             Node posNode = coneEntry.getChildNodes().item(i);
                             if ("escidoc:position".equals(posNode.getNodeName())) {
@@ -586,7 +583,7 @@ public class Bibtex implements BibtexInterface {
                               String name = null;
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
-                              while (node != null) {
+                              while (null != node) {
                                 switch (node.getNodeName()) {
                                   case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
                                   case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
@@ -603,7 +600,7 @@ public class Bibtex implements BibtexInterface {
                               }
                             }
                           }
-                        } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                        } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                           throw new RuntimeException("Ambigous CoNE entries for " + query);
                         }
                         currentNode = currentNode.getNextSibling();
@@ -611,22 +608,22 @@ public class Bibtex implements BibtexInterface {
                     } else {
                       throw new RuntimeException("Missing CoNE entry for " + query);
                     }
-                  } else if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("no".equals(configuration.get("CurlyBracketsForCoNEAuthors")))) {
+                  } else if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("no".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))) {
                     String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                     Node coneEntries = Util.queryConeExact("persons", query,
-                        (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                        (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                     Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                    if (coneNode != null) {
+                    if (null != coneNode) {
                       Node currentNode = coneNode.getFirstChild();
                       boolean first = true;
-                      while (currentNode != null) {
-                        if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                      while (null != currentNode) {
+                        if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                           first = false;
                           noConeAuthorFound = false;
                           Node coneEntry = currentNode;
                           String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                          personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                          personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
                           for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++) {
                             Node posNode = coneEntry.getChildNodes().item(i);
                             if ("escidoc:position".equals(posNode.getNodeName())) {
@@ -635,7 +632,7 @@ public class Bibtex implements BibtexInterface {
                               String name = null;
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
-                              while (node != null) {
+                              while (null != node) {
                                 switch (node.getNodeName()) {
                                   case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
                                   case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
@@ -652,7 +649,7 @@ public class Bibtex implements BibtexInterface {
                               }
                             }
                           }
-                        } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                        } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                           throw new RuntimeException("Ambigous CoNE entries for " + query);
                         }
                         currentNode = currentNode.getNextSibling();
@@ -663,9 +660,9 @@ public class Bibtex implements BibtexInterface {
                    * Case for MPI-RA (Radio Astronomy) with identifier and affiliation in brackets
                    * This Case is using NO CoNE!
                    */
-                  if (configuration != null && "false".equals(configuration.get("CoNE"))
-                      && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                      && (author.getTags().get("identifier") != null)) {
+                  if (null != this.configuration && "false".equals(this.configuration.get("CoNE"))
+                      && ("identifier and affiliation in brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (null != author.getTags().get("identifier"))) {
                     String identifier = author.getTags().get("identifier");
                     String authoAffiliation = author.getTags().get("affiliation0");
                     OrganizationVO org = new OrganizationVO();
@@ -673,7 +670,7 @@ public class Bibtex implements BibtexInterface {
                     org.setIdentifier(identifier);
                     personVO.getOrganizations().add(org);
                   }
-                  if (affiliation != null) {
+                  if (null != affiliation) {
                     OrganizationVO organization = new OrganizationVO();
                     organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
                     organization.setName(affiliation);
@@ -695,7 +692,7 @@ public class Bibtex implements BibtexInterface {
         }
         // editor
         boolean noConeEditorFound = false;
-        if (fields.get("editor") != null) {
+        if (null != fields.get("editor")) {
           logger.debug("fields.get(\"editor\"): " + fields.get("editor").getClass());
           if (fields.get("editor") instanceof BibtexPersonList editors) {
             for (Object editor : editors.getList()) {
@@ -733,12 +730,12 @@ public class Bibtex implements BibtexInterface {
                 }
               }
               decoder = new AuthorDecoder(editorString, false);
-              if (decoder.getBestFormat() != null) {
+              if (null != decoder.getBestFormat()) {
                 List<Author> editors = decoder.getAuthorListList().get(0);
                 for (Author editor : editors) {
                   PersonVO personVO = new PersonVO();
                   personVO.setFamilyName(editor.getSurname());
-                  if (editor.getGivenName() != null) {
+                  if (null != editor.getGivenName()) {
                     personVO.setGivenName(editor.getGivenName());
                   } else {
                     personVO.setGivenName(editor.getInitial());
@@ -747,13 +744,13 @@ public class Bibtex implements BibtexInterface {
                    * Case for MPI-KYB (Biological Cybernetics) with CoNE identifier in brackets and
                    * affiliations to adopt from CoNE for each author (also in brackets)
                    */
-                  if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                      && (editor.getTags().get("identifier") != null)) {
+                  if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("identifier and affiliation in brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (null != editor.getTags().get("identifier"))) {
                     String query = editor.getTags().get("identifier");
                     int affiliationsCount = Integer.parseInt(editor.getTags().get("affiliationsCount"));
-                    if (affiliationsCount > 0 || configuration.get("OrganizationalUnit") != null) {
-                      for (int ouCount = 0; ouCount < (affiliationsCount > 0 ? affiliationsCount : 1); ouCount++) // 1
+                    if (0 < affiliationsCount || null != this.configuration.get("OrganizationalUnit")) {
+                      for (int ouCount = 0; ouCount < (0 < affiliationsCount ? affiliationsCount : 1); ouCount++) // 1
                                                                                                                   // is
                                                                                                                   // for
                                                                                                                   // the
@@ -763,13 +760,13 @@ public class Bibtex implements BibtexInterface {
                                                                                                                   // null
                       {
                         String organizationalUnit =
-                            (editor.getTags().get("affiliation" + ouCount) != null ? editor.getTags().get("affiliation" + ouCount)
-                                : (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                            (null != editor.getTags().get("affiliation" + ouCount) ? editor.getTags().get("affiliation" + ouCount)
+                                : (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                         Node coneEntries = null;
                         if (query.equals(editor.getTags().get("identifier"))) {
                           coneEntries = Util.queryConeExactWithIdentifier("persons", query, organizationalUnit);
                           // for MPIKYB due to OUs which do not occur in CoNE
-                          if (coneEntries.getFirstChild().getFirstChild() == null) {
+                          if (null == coneEntries.getFirstChild().getFirstChild()) {
                             logger.error("No Person with Identifier (" + editor.getTags().get("identifier") + ") and OU ("
                                 + organizationalUnit + ") found in CoNE for Publication \"" + fields.get("title") + "\"");
                           }
@@ -777,16 +774,16 @@ public class Bibtex implements BibtexInterface {
                           coneEntries = Util.queryConeExact("persons", query, organizationalUnit);
                         }
                         Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                        if (coneNode != null) {
+                        if (null != coneNode) {
                           Node currentNode = coneNode.getFirstChild();
                           boolean first = true;
-                          while (currentNode != null) {
-                            if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                          while (null != currentNode) {
+                            if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                               first = false;
                               noConeEditorFound = false;
                               Node coneEntry = currentNode;
                               String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                              personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                              personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
                               for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++) {
                                 Node posNode = coneEntry.getChildNodes().item(i);
                                 if ("escidoc:position".equals(posNode.getNodeName())) {
@@ -795,7 +792,7 @@ public class Bibtex implements BibtexInterface {
                                   String name = null;
                                   String id = null;
                                   Node node = posNode.getFirstChild().getFirstChild();
-                                  while (node != null) {
+                                  while (null != node) {
                                     switch (node.getNodeName()) {
                                       case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
                                       case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
@@ -812,7 +809,7 @@ public class Bibtex implements BibtexInterface {
                                   }
                                 }
                               }
-                            } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                            } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                               throw new RuntimeException("Ambigous CoNE entries for " + query);
                             }
                             currentNode = currentNode.getNextSibling();
@@ -827,27 +824,27 @@ public class Bibtex implements BibtexInterface {
                    * Case for MPI-Microstructure Physics with affiliation identifier in brackets and
                    * affiliations to adopt from CoNE for each author (also in brackets)
                    */
-                  else if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("affiliation id in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                      && (editor.getTags().get("identifier") != null)) {
+                  else if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("affiliation id in brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (null != editor.getTags().get("identifier"))) {
                     String identifier = editor.getTags().get("identifier");
                     String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                     if (!("extern".equals(identifier))) {
                       Node coneEntries = null;
                       coneEntries = Util.queryConeExact("persons", query,
-                          (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                          (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                       Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                      if (coneNode != null) {
+                      if (null != coneNode) {
                         Node currentNode = coneNode.getFirstChild();
                         boolean first = true;
-                        while (currentNode != null) {
-                          if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                        while (null != currentNode) {
+                          if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                             first = false;
                             noConeAuthorFound = false;
                             Node coneEntry = currentNode;
                             String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                            personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
-                            if (identifier != null && !("".equals(identifier))) {
+                            personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
+                            if (null != identifier && !("".equals(identifier))) {
                               try {
                                 String ouSubTitle = identifier.substring(0, identifier.indexOf(","));
                                 Document document = Util.queryFramework("/oum/organizational-units?query="
@@ -866,7 +863,7 @@ public class Bibtex implements BibtexInterface {
                                 throw new RuntimeException("Error getting Organizational Unit for " + identifier);
                               }
                             }
-                          } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                          } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                             throw new RuntimeException("Ambigous CoNE entries for " + query);
                           }
                           currentNode = currentNode.getNextSibling();
@@ -875,23 +872,23 @@ public class Bibtex implements BibtexInterface {
                         throw new RuntimeException("Missing CoNE entry for " + query);
                       }
                     }
-                  } else if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("empty brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors"))
-                          && (editor.getTags().get("brackets") != null))) {
+                  } else if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("empty brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors"))
+                          && (null != editor.getTags().get("brackets")))) {
                     String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                     Node coneEntries = Util.queryConeExact("persons", query,
-                        (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                        (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                     Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                    if (coneNode != null) {
+                    if (null != coneNode) {
                       Node currentNode = coneNode.getFirstChild();
                       boolean first = true;
-                      while (currentNode != null) {
-                        if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                      while (null != currentNode) {
+                        if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                           first = false;
                           noConeEditorFound = false;
                           Node coneEntry = currentNode;
                           String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                          personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                          personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
                           for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++) {
                             Node posNode = coneEntry.getChildNodes().item(i);
                             if ("escidoc:position".equals(posNode.getNodeName())) {
@@ -900,7 +897,7 @@ public class Bibtex implements BibtexInterface {
                               String name = null;
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
-                              while (node != null) {
+                              while (null != node) {
                                 switch (node.getNodeName()) {
                                   case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
                                   case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
@@ -917,7 +914,7 @@ public class Bibtex implements BibtexInterface {
                               }
                             }
                           }
-                        } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                        } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                           throw new RuntimeException("Ambigous CoNE entries for " + query);
                         }
                         currentNode = currentNode.getNextSibling();
@@ -925,22 +922,22 @@ public class Bibtex implements BibtexInterface {
                     } else {
                       throw new RuntimeException("Missing CoNE entry for " + query);
                     }
-                  } else if (configuration != null && "true".equals(configuration.get("CoNE"))
-                      && ("no".equals(configuration.get("CurlyBracketsForCoNEAuthors")))) {
+                  } else if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))
+                      && ("no".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))) {
                     String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                     Node coneEntries = Util.queryConeExact("persons", query,
-                        (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                        (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : ""));
                     Node coneNode = coneEntries.getFirstChild().getFirstChild();
-                    if (coneNode != null) {
+                    if (null != coneNode) {
                       Node currentNode = coneNode.getFirstChild();
                       boolean first = true;
-                      while (currentNode != null) {
-                        if (currentNode.getNodeType() == Node.ELEMENT_NODE && first) {
+                      while (null != currentNode) {
+                        if (Node.ELEMENT_NODE == currentNode.getNodeType() && first) {
                           first = false;
                           noConeEditorFound = false;
                           Node coneEntry = currentNode;
                           String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
-                          personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                          personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneId));
                           for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++) {
                             Node posNode = coneEntry.getChildNodes().item(i);
                             if ("escidoc:position".equals(posNode.getNodeName())) {
@@ -949,7 +946,7 @@ public class Bibtex implements BibtexInterface {
                               String name = null;
                               String id = null;
                               Node node = posNode.getFirstChild().getFirstChild();
-                              while (node != null) {
+                              while (null != node) {
                                 switch (node.getNodeName()) {
                                   case "eprints:affiliatedInstitution" -> name = node.getFirstChild().getNodeValue();
                                   case "escidoc:start-date" -> from = node.getFirstChild().getNodeValue();
@@ -966,7 +963,7 @@ public class Bibtex implements BibtexInterface {
                               }
                             }
                           }
-                        } else if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                        } else if (Node.ELEMENT_NODE == currentNode.getNodeType()) {
                           throw new RuntimeException("Ambigous CoNE entries for " + query);
                         }
                         currentNode = currentNode.getNextSibling();
@@ -977,9 +974,9 @@ public class Bibtex implements BibtexInterface {
                    * Case for MPI-RA (Radio Astronomy) with identifier and affiliation in brackets
                    * This Case is using NO CoNE!
                    */
-                  if (configuration != null && "false".equals(configuration.get("CoNE"))
-                      && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                      && (editor.getTags().get("identifier") != null)) {
+                  if (null != this.configuration && "false".equals(this.configuration.get("CoNE"))
+                      && ("identifier and affiliation in brackets".equals(this.configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (null != editor.getTags().get("identifier"))) {
                     String identifier = editor.getTags().get("identifier");
                     String authoAffiliation = editor.getTags().get("affiliation0");
                     OrganizationVO org = new OrganizationVO();
@@ -987,7 +984,7 @@ public class Bibtex implements BibtexInterface {
                     org.setIdentifier(identifier);
                     personVO.getOrganizations().add(org);
                   }
-                  if (affiliation != null) {
+                  if (null != affiliation) {
                     OrganizationVO organization = new OrganizationVO();
                     organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
                     organization.setName(affiliation);
@@ -995,9 +992,9 @@ public class Bibtex implements BibtexInterface {
                     personVO.getOrganizations().add(organization);
                   }
                   CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.EDITOR);
-                  if ((bibGenre == BibTexUtil.Genre.article || bibGenre == BibTexUtil.Genre.inbook
-                      || bibGenre == BibTexUtil.Genre.inproceedings || bibGenre == BibTexUtil.Genre.conference
-                      || bibGenre == BibTexUtil.Genre.incollection) && (sourceVO.getTitle() != null || sourceVO.getTitle() == null)) {
+                  if ((BibTexUtil.Genre.article == bibGenre || BibTexUtil.Genre.inbook == bibGenre
+                      || BibTexUtil.Genre.inproceedings == bibGenre || BibTexUtil.Genre.conference == bibGenre
+                      || BibTexUtil.Genre.incollection == bibGenre) && (null != sourceVO.getTitle() || null == sourceVO.getTitle())) {
                     sourceVO.getCreators().add(creatorVO);
                   } else {
                     mds.getCreators().add(creatorVO);
@@ -1014,15 +1011,15 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // No CoNE Author or Editor Found
-        if (noConeAuthorFound == true && noConeEditorFound == true && configuration != null && "true".equals(configuration.get("CoNE"))) {
+        if (true == noConeAuthorFound && true == noConeEditorFound && null != this.configuration && "true".equals(this.configuration.get("CoNE"))) {
           throw new RuntimeException("No CoNE-Author and no CoNE-Editor was found");
         }
         // If no affiliation is given, set the first author to "external"
         boolean affiliationFound = false;
         for (CreatorVO creator : mds.getCreators()) {
-          if (creator.getPerson() != null && creator.getPerson().getOrganizations() != null) {
+          if (null != creator.getPerson() && null != creator.getPerson().getOrganizations()) {
             for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
-              if (organization.getIdentifier() != null) {
+              if (null != organization.getIdentifier()) {
                 affiliationFound = true;
                 break;
               }
@@ -1037,24 +1034,24 @@ public class Bibtex implements BibtexInterface {
           } catch (Exception e) {
             throw new RuntimeException("Property inge.pubman.external.organisation.id not found", e);
           }
-          if (mds.getCreators().get(0).getPerson() != null) {
+          if (null != mds.getCreators().get(0).getPerson()) {
             mds.getCreators().get(0).getPerson().getOrganizations().add(externalOrganization);
           }
         }
         // Mapping of "common" (maybe relevant), non standard BibTeX Entries
         // abstract
-        if (fields.get("abstract") != null) {
+        if (null != fields.get("abstract")) {
           mds.getAbstracts().add(new AbstractVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("abstract").toString()), false)));
         }
         // contents
-        if (fields.get("contents") != null) {
+        if (null != fields.get("contents")) {
           mds.setTableOfContents(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("contents").toString()), false));
         }
         // isbn
-        if (fields.get("isbn") != null) {
-          if (bibGenre == BibTexUtil.Genre.inproceedings || bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.incollection
-              || bibGenre == BibTexUtil.Genre.conference) {
-            if (sourceVO != null) {
+        if (null != fields.get("isbn")) {
+          if (BibTexUtil.Genre.inproceedings == bibGenre || BibTexUtil.Genre.inbook == bibGenre || BibTexUtil.Genre.incollection == bibGenre
+              || BibTexUtil.Genre.conference == bibGenre) {
+            if (null != sourceVO) {
               sourceVO.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ISBN,
                   BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("isbn").toString()), false)));
             }
@@ -1064,15 +1061,15 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // issn
-        if (fields.get("issn") != null) {
-          if (bibGenre == BibTexUtil.Genre.inproceedings || bibGenre == BibTexUtil.Genre.inbook || bibGenre == BibTexUtil.Genre.incollection
-              || bibGenre == BibTexUtil.Genre.conference) {
-            if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty()) {
+        if (null != fields.get("issn")) {
+          if (BibTexUtil.Genre.inproceedings == bibGenre || BibTexUtil.Genre.inbook == bibGenre || BibTexUtil.Genre.incollection == bibGenre
+              || BibTexUtil.Genre.conference == bibGenre) {
+            if (null != sourceVO.getSources() && !sourceVO.getSources().isEmpty()) {
               sourceVO.getSources().get(0).getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ISSN,
                   BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("issn").toString()), false)));
             }
-          } else if (bibGenre == BibTexUtil.Genre.article) {
-            if (sourceVO != null) {
+          } else if (BibTexUtil.Genre.article == bibGenre) {
+            if (null != sourceVO) {
               sourceVO.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ISSN,
                   BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("issn").toString()), false)));
             }
@@ -1082,7 +1079,7 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // keywords
-        if (fields.get("keywords") != null) {
+        if (null != fields.get("keywords")) {
           mds.setFreeKeywords(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("keywords").toString()), false));
         }
         // language
@@ -1092,12 +1089,12 @@ public class Bibtex implements BibtexInterface {
          * .bibtexDecode(fields.get("language").toString ()), false)); }
          */
         // subtitle
-        if (fields.get("subtitle") != null) {
+        if (null != fields.get("subtitle")) {
           mds.getAlternativeTitles()
               .add(new AlternativeTitleVO(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("subtitle").toString()), false)));
         }
         // url is now mapped to locator
-        if (fields.get("url") != null) {
+        if (null != fields.get("url")) {
           // mds.getIdentifiers().add(
           // new IdentifierVO(
           // IdentifierVO.IdType.URI,
@@ -1115,99 +1112,99 @@ public class Bibtex implements BibtexInterface {
           itemVO.getFiles().add(locator);
         }
         // web_url as URI-Identifier
-        else if (fields.get("web_url") != null) {
+        else if (null != fields.get("web_url")) {
           mds.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI,
               BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("web_url").toString()), false)));
         }
         // Prevent the creation of an empty source
-        if (sourceVO.getTitle() != null && sourceVO.getTitle() != null && !sourceVO.getTitle().equals("") && sourceVO.getGenre() != null) {
+        if (null != sourceVO.getTitle() && null != sourceVO.getTitle() && !"".equals(sourceVO.getTitle()) && null != sourceVO.getGenre()) {
           mds.getSources().add(sourceVO);
           // Prevent the creation of an empty second
-          if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty() && sourceVO.getSources().get(0) != null
-              && sourceVO.getSources().get(0).getTitle() != null && sourceVO.getSources().get(0).getTitle() != null
-              && !sourceVO.getSources().get(0).getTitle().equals("")) {
+          if (null != sourceVO.getSources() && !sourceVO.getSources().isEmpty() && null != sourceVO.getSources().get(0)
+              && null != sourceVO.getSources().get(0).getTitle() && null != sourceVO.getSources().get(0).getTitle()
+              && !"".equals(sourceVO.getSources().get(0).getTitle())) {
             mds.getSources().add(sourceVO.getSources().get(0));
           }
         }
         // Prevent the creation of an empty second source
-        if (secondSourceVO.getTitle() != null && secondSourceVO.getTitle() != null && !secondSourceVO.getTitle().equals("")
-            && secondSourceVO.getGenre() != null) {
+        if (null != secondSourceVO.getTitle() && null != secondSourceVO.getTitle() && !"".equals(secondSourceVO.getTitle())
+            && null != secondSourceVO.getGenre()) {
           mds.getSources().add(secondSourceVO);
           // Prevent the creation of an empty second
-          if (secondSourceVO.getSources() != null && !secondSourceVO.getSources().isEmpty() && secondSourceVO.getSources().get(0) != null
-              && secondSourceVO.getSources().get(0).getTitle() != null && secondSourceVO.getSources().get(0).getTitle() != null
-              && !secondSourceVO.getSources().get(0).getTitle().equals("")) {
+          if (null != secondSourceVO.getSources() && !secondSourceVO.getSources().isEmpty() && null != secondSourceVO.getSources().get(0)
+              && null != secondSourceVO.getSources().get(0).getTitle() && null != secondSourceVO.getSources().get(0).getTitle()
+              && !"".equals(secondSourceVO.getSources().get(0).getTitle())) {
             mds.getSources().add(secondSourceVO.getSources().get(0));
           }
         }
         // New mapping for MPIS
         // DOI
-        if (fields.get("doi") != null) {
+        if (null != fields.get("doi")) {
           mds.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.DOI,
               BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("doi").toString()), false)));
         }
         // eid
-        if (fields.get("eid") != null) {
-          if (mds.getSources().size() == 1) {
+        if (null != fields.get("eid")) {
+          if (1 == mds.getSources().size()) {
             mds.getSources().get(0).setSequenceNumber(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("eid").toString()), false));
           }
         }
         // rev
-        if (fields.get("rev") != null) {
+        if (null != fields.get("rev")) {
           if ("Peer".equals(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("rev").toString()), false))) {
-            mds.setReviewMethod(ReviewMethod.PEER);
+            mds.setReviewMethod(MdsPublicationVO.ReviewMethod.PEER);
           } else if ("No review".equals(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("rev").toString()), false))) {
-            mds.setReviewMethod(ReviewMethod.NO_REVIEW);
+            mds.setReviewMethod(MdsPublicationVO.ReviewMethod.NO_REVIEW);
           }
         }
         // MPG-Affil
-        if (fields.get("MPG-Affil") != null) {
+        if (null != fields.get("MPG-Affil")) {
           if ("Peer".equals(BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("MPG-Affil").toString()), false))) {
             // TODO
           }
         }
         // MPIS Groups
-        if (fields.get("group") != null) {
+        if (null != fields.get("group")) {
           String[] groups = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("group").toString()), false).split(",");
           for (String group : groups) {
             group = group.trim();
             if (!"".equals(group)) {
-              if (groupSet == null) {
+              if (null == this.groupSet) {
                 try {
-                  groupSet = loadGroupSet();
+                  this.groupSet = loadGroupSet();
                 } catch (Exception e) {
                   throw new RuntimeException(e);
                 }
               }
-              if (!groupSet.contains(group)) {
+              if (!this.groupSet.contains(group)) {
                 throw new RuntimeException("Group '" + group + "' not found.");
               }
-              mds.getSubjects().add(new SubjectVO(group, null, SubjectClassification.MPIS_GROUPS.toString()));
+              mds.getSubjects().add(new SubjectVO(group, null, MdsPublicationVO.SubjectClassification.MPIS_GROUPS.toString()));
             }
           }
         }
         // MPIS Projects
-        if (fields.get("project") != null) {
+        if (null != fields.get("project")) {
           String[] projects = BibTexUtil.stripBraces(BibTexUtil.bibtexDecode(fields.get("project").toString()), false).split(",");
           for (String project : projects) {
             project = project.trim();
             if (!"".equals(project)) {
-              if (projectSet == null) {
+              if (null == this.projectSet) {
                 try {
-                  projectSet = loadProjectSet();
+                  this.projectSet = loadProjectSet();
                 } catch (Exception e) {
                   throw new RuntimeException(e);
                 }
               }
-              if (!projectSet.contains(project)) {
+              if (!this.projectSet.contains(project)) {
                 throw new RuntimeException("Project '" + project + "' not found.");
               }
-              mds.getSubjects().add(new SubjectVO(project, null, SubjectClassification.MPIS_PROJECTS.toString()));
+              mds.getSubjects().add(new SubjectVO(project, null, MdsPublicationVO.SubjectClassification.MPIS_PROJECTS.toString()));
             }
           }
         }
         // Cite Key
-        mds.getIdentifiers().add(new IdentifierVO(IdType.BIBTEX_CITEKEY, entry.getEntryKey()));
+        mds.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.BIBTEX_CITEKEY, entry.getEntryKey()));
       } else if (object instanceof BibtexToplevelComment) {
         logger.debug("Comment found: " + ((BibtexToplevelComment) object).getContent());
       }
@@ -1228,20 +1225,20 @@ public class Bibtex implements BibtexInterface {
   private void addCreator(MdsPublicationVO publicationVO, BibtexPerson person, CreatorVO.CreatorRole role, String affiliation,
       String affiliationAddress) throws RuntimeException {
     PersonVO personVO = new PersonVO();
-    personVO.setFamilyName(BibTexUtil.bibtexDecode(person.getLast() + (person.getLineage() != null ? " " + person.getLineage() : "")
-        + (person.getPreLast() != null ? ", " + person.getPreLast() : "")));
+    personVO.setFamilyName(BibTexUtil.bibtexDecode(person.getLast() + (null != person.getLineage() ? " " + person.getLineage() : "")
+        + (null != person.getPreLast() ? ", " + person.getPreLast() : "")));
     personVO.setGivenName(BibTexUtil.bibtexDecode(person.getFirst()));
-    if (configuration != null && "true".equals(configuration.get("CoNE"))) {
+    if (null != this.configuration && "true".equals(this.configuration.get("CoNE"))) {
       String query = personVO.getFamilyName() + " " + personVO.getGivenName() + " "
-          + (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : "");
+          + (null != this.configuration.get("OrganizationalUnit") ? this.configuration.get("OrganizationalUnit") : "");
       List<String> coneEntries = Util.queryConeForJava("persons", query);
-      if (coneEntries.size() == 1) {
-        personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneEntries.get(0)));
+      if (1 == coneEntries.size()) {
+        personVO.setIdentifier(new IdentifierVO(IdentifierVO.IdType.CONE, coneEntries.get(0)));
       } else {
         throw new RuntimeException("Ambigous CoNE entry for " + query + ": " + coneEntries);
       }
     }
-    if (affiliation != null || affiliationAddress != null) {
+    if (null != affiliation || null != affiliationAddress) {
       OrganizationVO organization = new OrganizationVO();
       organization.setName(affiliation);
       organization.setAddress(affiliationAddress);
@@ -1264,12 +1261,12 @@ public class Bibtex implements BibtexInterface {
    * @return Returns true if date1 is before date2
    */
   private boolean smaller(String date1, String date2) {
-    if (date1 == null || date1.isEmpty() || date2 == null || date2.isEmpty()) {
+    if (null == date1 || date1.isEmpty() || null == date2 || date2.isEmpty()) {
       return true;
     }
     date1 = (date1 + "-01-01").substring(0, 10);
     date2 = (date2 + "-ZZ-ZZ").substring(0, 10);
-    return date1.compareTo(date2) <= 0;
+    return 0 >= date1.compareTo(date2);
   }
 
   /**
@@ -1286,7 +1283,7 @@ public class Bibtex implements BibtexInterface {
     String line;
     Set<String> result = new HashSet<>();
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-    while ((line = bufferedReader.readLine()) != null) {
+    while (null != (line = bufferedReader.readLine())) {
       // result.add(line.replaceAll("(\\d|_)+\\|", ""));
       try {
         result.add(line.substring(line.indexOf("|") + 1));
@@ -1311,7 +1308,7 @@ public class Bibtex implements BibtexInterface {
     String line;
     Set<String> result = new HashSet<>();
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-    while ((line = bufferedReader.readLine()) != null) {
+    while (null != (line = bufferedReader.readLine())) {
       try {
         result.add(line.substring(line.indexOf("|") + 1));
       } catch (IndexOutOfBoundsException e) {

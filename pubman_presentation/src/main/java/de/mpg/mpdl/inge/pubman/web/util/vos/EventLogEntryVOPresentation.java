@@ -53,7 +53,7 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO {
   }
 
   public String getCurrentTypeLabel() {
-    if (this.getType() != null) {
+    if (null != this.getType()) {
       return switch (this.getType()) {
         case CREATE -> this.i18nHelper.getLabel("ViewItemLog_lblCreate");
         case RELEASE -> this.i18nHelper.getLabel("ViewItemLog_lblRelease");

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO.Method;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
@@ -20,8 +19,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -74,7 +71,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   }
 
   @Override
-  public void addLocalTags(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+  public void addLocalTags(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
@@ -89,9 +87,9 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
-    if (currentSourceList != null && currentSourceList.size() >= this.sourceNumber
-        && currentSourceList.get(this.sourceNumber - 1) != null) {
-      if (currentSourceList.get(this.sourceNumber - 1).getIdentifiers() != null) {
+    if (null != currentSourceList && currentSourceList.size() >= this.sourceNumber
+        && null != currentSourceList.get(this.sourceNumber - 1)) {
+      if (null != currentSourceList.get(this.sourceNumber - 1).getIdentifiers()) {
         currentSourceList.get(this.sourceNumber - 1).getIdentifiers()
             .add(new IdentifierVO(this.sourceIdentifierType, this.sourceIdentifer));
         this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
@@ -134,16 +132,17 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   }
 
   @Override
-  public void changeContext(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
+  public void changeContext(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
+      ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     if (this.contextFrom.equals(itemVersionVO.getObject().getContext().getObjectId())) {
       ContextDbVO contextDbVOTo = this.contextService.get(this.contextTo, token);
-      if (contextDbVOTo == null) {
+      if (null == contextDbVOTo) {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.CONTEXT_NOT_FOUND);
-      } else if (itemVersionVO.getMetadata() != null && itemVersionVO.getMetadata().getGenre() != null
-          && contextDbVOTo.getAllowedGenres() != null && !contextDbVOTo.getAllowedGenres().isEmpty()
+      } else if (null != itemVersionVO.getMetadata() && null != itemVersionVO.getMetadata().getGenre()
+          && null != contextDbVOTo.getAllowedGenres() && !contextDbVOTo.getAllowedGenres().isEmpty()
           && contextDbVOTo.getAllowedGenres().contains(itemVersionVO.getMetadata().getGenre())) {
         itemVersionVO.getObject().setContext(contextDbVOTo);
         if (!((ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getObject().getPublicState())
@@ -165,12 +164,12 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   }
 
   @Override
-  public void changeFileVisibility(Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO)
+  public void changeFileVisibility(BatchProcessLogHeaderDbVO.Method method, String token,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     String ipRangeToSet = null;
-    if (this.userAccountIpRange != null && this.userAccountIpRange.getId() != null) {
+    if (null != this.userAccountIpRange && null != this.userAccountIpRange.getId()) {
       ipRangeToSet = this.userAccountIpRange.getId();
     }
 
@@ -179,16 +178,16 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && file.getVisibility().equals(this.visibilityFrom)) {
         file.setVisibility(this.visibilityTo);
         if (FileDbVO.Visibility.AUDIENCE.equals(this.visibilityTo)) {
-          if (file.getAllowedAudienceIds() != null && ipRangeToSet != null) {
+          if (null != file.getAllowedAudienceIds() && null != ipRangeToSet) {
             file.getAllowedAudienceIds().add(ipRangeToSet);
-          } else if (file.getAllowedAudienceIds() == null) {
+          } else if (null == file.getAllowedAudienceIds()) {
             file.setAllowedAudienceIds(new ArrayList<>());
-            if (ipRangeToSet != null) {
+            if (null != ipRangeToSet) {
               file.getAllowedAudienceIds().add(ipRangeToSet);
             }
           }
         }
-        if (FileDbVO.Visibility.PUBLIC.equals(this.visibilityTo) && file.getMetadata().getEmbargoUntil() != null) {
+        if (FileDbVO.Visibility.PUBLIC.equals(this.visibilityTo) && null != file.getMetadata().getEmbargoUntil()) {
           file.getMetadata().setEmbargoUntil(null);
         }
         anyFilesChanged = true;
@@ -208,15 +207,15 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     ContextDbVO contextDbVOTo = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
-    if (contextDbVOTo.getAllowedGenres() != null && !contextDbVOTo.getAllowedGenres().isEmpty()
+    if (null != contextDbVOTo.getAllowedGenres() && !contextDbVOTo.getAllowedGenres().isEmpty()
         && contextDbVOTo.getAllowedGenres().contains(itemVersionVO.getMetadata().getGenre())) {
-      Genre currentPubItemGenre = itemVersionVO.getMetadata().getGenre();
+      MdsPublicationVO.Genre currentPubItemGenre = itemVersionVO.getMetadata().getGenre();
       if (currentPubItemGenre.equals(this.genreFrom)) {
-        if (!Genre.THESIS.equals(this.genreTo)) {
+        if (!MdsPublicationVO.Genre.THESIS.equals(this.genreTo)) {
           itemVersionVO.getMetadata().setGenre(this.genreTo);
 
           this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
-        } else if (Genre.THESIS.equals(this.genreTo) && this.degreeType != null) {
+        } else if (MdsPublicationVO.Genre.THESIS.equals(this.genreTo) && null != this.degreeType) {
           itemVersionVO.getMetadata().setGenre(this.genreTo);
           itemVersionVO.getMetadata().setDegree(this.degreeType);
 
@@ -244,7 +243,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     char splittingChar = ',';
     String currentKeywords = itemVersionVO.getMetadata().getFreeKeywords();
     String[] keywordArray = new String[1];
-    if (currentKeywords != null) {
+    if (null != currentKeywords) {
       if (currentKeywords.contains(",")) {
         keywordArray = currentKeywords.split(",");
       } else if (currentKeywords.contains(";")) {
@@ -259,7 +258,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       StringBuilder keywordString = new StringBuilder();
       for (int i = 0; i < keywordArray.length; i++) {
         String keyword = keywordArray[i].trim();
-        if (i != 0) {
+        if (0 != i) {
           keywordString.append(splittingChar);
         }
         if (!keyword.isEmpty() && this.keywordsFrom.equals(keyword)) {
@@ -287,7 +286,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    if (itemVersionVO.getObject().getLocalTags() != null && itemVersionVO.getObject().getLocalTags().contains(this.localTagFrom)) {
+    if (null != itemVersionVO.getObject().getLocalTags() && itemVersionVO.getObject().getLocalTags().contains(this.localTagFrom)) {
       List<String> localTagList = itemVersionVO.getObject().getLocalTags();
       localTagList.remove(this.localTagFrom);
       localTagList.add(this.localTagTo);
@@ -304,9 +303,9 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    ReviewMethod currentReviewMethod = itemVersionVO.getMetadata().getReviewMethod();
-    if ((currentReviewMethod == null && this.reviewMethodFrom == null && this.reviewMethodTo != null)
-        || (currentReviewMethod != null && currentReviewMethod.equals(this.reviewMethodFrom))) {
+    MdsPublicationVO.ReviewMethod currentReviewMethod = itemVersionVO.getMetadata().getReviewMethod();
+    if ((null == currentReviewMethod && null == this.reviewMethodFrom && null != this.reviewMethodTo)
+        || (null != currentReviewMethod && currentReviewMethod.equals(this.reviewMethodFrom))) {
       itemVersionVO.getMetadata().setReviewMethod(this.reviewMethodTo);
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
@@ -350,12 +349,12 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
     boolean sourceChanged = false;
     List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
-    if (currentSourceList != null && currentSourceList.size() >= this.sourceNumber && currentSourceList.get(this.sourceNumber - 1) != null
-        && currentSourceList.get(this.sourceNumber - 1).getIdentifiers() != null) {
+    if (null != currentSourceList && currentSourceList.size() >= this.sourceNumber && null != currentSourceList.get(this.sourceNumber - 1)
+        && null != currentSourceList.get(this.sourceNumber - 1).getIdentifiers()) {
       for (int i = 0; i < currentSourceList.get(this.sourceNumber - 1).getIdentifiers().size(); i++) {
         IdentifierVO identifier = currentSourceList.get(this.sourceNumber - 1).getIdentifiers().get(i);
         if (this.sourceIdentifierType.equals(identifier.getType()) && this.sourceIdentiferFrom.equals(identifier.getId())) {
-          if (this.sourceIdentiferTo != null && !this.sourceIdentiferTo.trim().isEmpty()) {
+          if (null != this.sourceIdentiferTo && !this.sourceIdentiferTo.trim().isEmpty()) {
             identifier.setId(this.sourceIdentiferTo);
             currentSourceList.get(this.sourceNumber - 1).getIdentifiers().set(i, identifier);
           } else {
@@ -383,7 +382,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
     String currentKeywords = null;
     if (BatchProcessLogHeaderDbVO.Method.ADD_KEYWORDS.equals(method)
-        && (currentKeywords = itemVersionVO.getMetadata().getFreeKeywords()) != null) {
+        && null != (currentKeywords = itemVersionVO.getMetadata().getFreeKeywords())) {
       if (currentKeywords.contains(",")) {
         itemVersionVO.getMetadata().setFreeKeywords(currentKeywords + ", " + this.keywords);
       } else if (currentKeywords.contains(";")) {
@@ -406,7 +405,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
     boolean anyFilesChanged = false;
     for (FileDbVO file : itemVersionVO.getFiles()) {
-      List<String> audienceList = file.getAllowedAudienceIds() != null ? file.getAllowedAudienceIds() : new ArrayList<>();
+      List<String> audienceList = null != file.getAllowedAudienceIds() ? file.getAllowedAudienceIds() : new ArrayList<>();
       if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && FileDbVO.Visibility.AUDIENCE.equals(file.getVisibility())) {
         audienceList.clear();
         audienceList.addAll(this.audiences);
@@ -430,8 +429,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     boolean anyOrcidChanged = false;
     for (CreatorVO creator : itemVersionVO.getMetadata().getCreators()) {
       PersonVO person = creator.getPerson();
-      if (person != null && person.getIdentifier() != null) {
-        if (creatorId.equals(person.getIdentifier().getId())) {
+      if (null != person && null != person.getIdentifier()) {
+        if (this.creatorId.equals(person.getIdentifier().getId())) {
           if (!this.orcid.equals(person.getOrcid())) {
             person.setOrcid(this.orcid);
             anyOrcidChanged = true;
@@ -443,8 +442,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     for (SourceVO source : sources) {
       for (CreatorVO creator : source.getCreators()) {
         PersonVO person = creator.getPerson();
-        if (person != null && person.getIdentifier() != null) {
-          if (creatorId.equals(person.getIdentifier().getId())) {
+        if (null != person && null != person.getIdentifier()) {
+          if (this.creatorId.equals(person.getIdentifier().getId())) {
             if (!this.orcid.equals(person.getOrcid())) {
               person.setOrcid(this.orcid);
               anyOrcidChanged = true;
@@ -467,9 +466,9 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
-    if (currentSourceList != null && currentSourceList.size() >= this.sourceNumber
-        && currentSourceList.get(this.sourceNumber - 1) != null) {
-      if (currentSourceList.get(this.sourceNumber - 1).getPublishingInfo() != null) {
+    if (null != currentSourceList && currentSourceList.size() >= this.sourceNumber
+        && null != currentSourceList.get(this.sourceNumber - 1)) {
+      if (null != currentSourceList.get(this.sourceNumber - 1).getPublishingInfo()) {
         currentSourceList.get(this.sourceNumber - 1).getPublishingInfo().setEdition(this.edition);
         this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
       } else {

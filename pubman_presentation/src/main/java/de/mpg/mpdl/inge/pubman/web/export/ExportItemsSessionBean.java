@@ -33,8 +33,6 @@ import org.apache.logging.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
@@ -92,7 +90,7 @@ public class ExportItemsSessionBean extends FacesBean {
       this.emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
       this.emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
     } catch (final Exception e) {
-      ExportItemsSessionBean.logger.warn("Propertyfile not readable for emailserver  properties'");
+      logger.warn("Propertyfile not readable for emailserver  properties'");
     }
   }
 
@@ -113,8 +111,8 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setExportFormatName(String exportFormatName) {
-    FORMAT format = TransformerFactory.getFormat(exportFormatName);
-    String citations = curExportFormatVO.getCitationName();
+    TransformerFactory.FORMAT format = TransformerFactory.getFormat(exportFormatName);
+    String citations = this.curExportFormatVO.getCitationName();
 
     this.curExportFormatVO.setFormat(exportFormatName);
 
@@ -123,7 +121,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
     if (TransformerFactory.VALID_CITATION_OUTPUT.contains(format)) {
       this.setEnableFileFormats(true);
-      if (CitationTypes.CSL.getCitationName().equals(citations)) {
+      if (TransformerFactory.CitationTypes.CSL.getCitationName().equals(citations)) {
         this.setEnableCslAutosuggest(true);
       } else {
         this.curExportFormatVO.setId(null);

@@ -70,15 +70,15 @@ public class FontStylesCollection {
   }
 
   public void setName(String newName) {
-    name = newName;
+    this.name = newName;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public List<FontStyle> getFontStyles() {
-    return fontStyles;
+    return this.fontStyles;
   }
 
   public void setFontStyles(List<FontStyle> fontStyles) {
@@ -87,16 +87,16 @@ public class FontStylesCollection {
 
   public void addFontStyle(FontStyle fs) {
     String name = fs.getName();
-    if (namesMap.containsKey(name)) {
+    if (this.namesMap.containsKey(name)) {
       return;
     }
-    namesMap.put(name, fs);
+    this.namesMap.put(name, fs);
 
-    fontStyles.add(fs);
+    this.fontStyles.add(fs);
 
     String cssn = fs.getCssClass();
     if (StringUtils.isNotEmpty(StringUtils.strip(cssn))) {
-      cssMap.put(cssn, fs);
+      this.cssMap.put(cssn, fs);
     }
   }
 
@@ -105,11 +105,11 @@ public class FontStylesCollection {
   }
 
   public FontStyle getDefaultFontStyle() {
-    return defaultFontStyle;
+    return this.defaultFontStyle;
   }
 
   public void findDefaultFontStyle() {
-    for (FontStyle fs : fontStyles) {
+    for (FontStyle fs : this.fontStyles) {
       if (fs.getDef()) {
         setDefaultFontStyle(fs);
         break;
@@ -118,15 +118,15 @@ public class FontStylesCollection {
   }
 
   public FontStyle getFontStyleByName(String name) {
-    return StringUtils.isNotEmpty(StringUtils.strip(name)) ? namesMap.get(name) : null;
+    return StringUtils.isNotEmpty(StringUtils.strip(name)) ? this.namesMap.get(name) : null;
   }
 
   public FontStyle getFontStyleByCssClass(String name) {
-    return StringUtils.isNotEmpty(StringUtils.strip(name)) ? cssMap.get(name) : null;
+    return StringUtils.isNotEmpty(StringUtils.strip(name)) ? this.cssMap.get(name) : null;
   }
 
   public void removeCssClass() {
-    for (FontStyle fs : fontStyles) {
+    for (FontStyle fs : this.fontStyles) {
       fs.setCssClass(null);
     }
   }
@@ -134,11 +134,11 @@ public class FontStylesCollection {
   public String toString() {
     String str = "";
     int i = 0;
-    for (FontStyle fs : fontStyles) {
+    for (FontStyle fs : this.fontStyles) {
       i++;
       str += i + ")" + fs + "\n";
     }
-    return str + "\nDefault font:" + defaultFontStyle;
+    return str + "\nDefault font:" + this.defaultFontStyle;
   }
 
   /**

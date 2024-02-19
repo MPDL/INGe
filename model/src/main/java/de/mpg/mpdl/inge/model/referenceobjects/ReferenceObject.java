@@ -53,7 +53,7 @@ public abstract class ReferenceObject implements Serializable {
    * Creates a new instance.
    */
   public ReferenceObject() {
-    objectId = null;
+    this.objectId = null;
   }
 
   /**
@@ -80,7 +80,7 @@ public abstract class ReferenceObject implements Serializable {
    * Delivers the technical objectId-attribute of corresponding ValueObject.
    */
   public String getObjectId() {
-    return objectId;
+    return this.objectId;
   }
 
   /**
@@ -96,8 +96,8 @@ public abstract class ReferenceObject implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
-    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((null == this.objectId) ? 0 : this.objectId.hashCode());
+    result = prime * result + ((null == this.title) ? 0 : this.title.hashCode());
     return result;
   }
 
@@ -106,7 +106,7 @@ public abstract class ReferenceObject implements Serializable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -114,17 +114,17 @@ public abstract class ReferenceObject implements Serializable {
 
     ReferenceObject other = (ReferenceObject) obj;
 
-    if (objectId == null) {
-      if (other.objectId != null)
+    if (null == this.objectId) {
+      if (null != other.objectId)
         return false;
 
-    } else if (!objectId.equals(other.objectId))
+    } else if (!this.objectId.equals(other.objectId))
       return false;
 
-    if (title == null) {
-      if (other.title != null)
+    if (null == this.title) {
+      if (null != other.title)
         return false;
-    } else if (!title.equals(other.title))
+    } else if (!this.title.equals(other.title))
       return false;
 
     return true;
@@ -135,7 +135,7 @@ public abstract class ReferenceObject implements Serializable {
    */
   @Override
   public String toString() {
-    return getClass().getName() + ':' + objectId;
+    return getClass().getName() + ':' + this.objectId;
   }
 
   public void setTitle(String title) {
@@ -143,7 +143,7 @@ public abstract class ReferenceObject implements Serializable {
   }
 
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
 }

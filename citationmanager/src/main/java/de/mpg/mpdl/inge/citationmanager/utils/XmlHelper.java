@@ -108,7 +108,7 @@ public class XmlHelper {
    */
   private static FontStylesCollection loadFontStylesCollection(String cs) {
     // get default FontStyleCollection from __Default__ element for empty cs
-    if (cs == null || cs.trim().isEmpty())
+    if (null == cs || cs.trim().isEmpty())
       return loadFontStylesCollection("__Default__");
     if (fsc.containsKey(cs))
       return fsc.get(cs);
@@ -120,7 +120,7 @@ public class XmlHelper {
         InputStream inputStream = ResourceUtil.getResourceAsStream(CitationUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE,
             XmlHelper.class.getClassLoader());
         // get specific FontStyleCollection for citation style if exists
-        if (inputStream != null) {
+        if (null != inputStream) {
           fsc.put(cs, FontStylesCollection.loadFromXml(inputStream));
         }
         // otherwise: get __Default_ one
@@ -154,7 +154,7 @@ public class XmlHelper {
     InputStream is = ResourceUtil.getResourceAsStream(path, XmlHelper.class.getClassLoader());
 
     Templates x = templCache.get(path);
-    if (x == null) {
+    if (null == x) {
       x = TF.newTemplates(new StreamSource(is));
       templCache.put(path, x);
     }
@@ -206,7 +206,7 @@ public class XmlHelper {
     logger.info("XML Schema validation...");
     String report =
         validateSchema(CitationUtil.getUriToResources() + CitationUtil.SCHEMAS_DIRECTORY + CITATIONSTYLE_XML_SCHEMA_FILE, csFile);
-    if (report != null) {
+    if (null != report) {
       return report;
     }
     logger.info("OK");
@@ -226,7 +226,7 @@ public class XmlHelper {
     } catch (Exception e1) {
       return "Schematron validation problem: " + e1.getMessage();
     }
-    if (report != null && report.contains("Report: ")) {
+    if (null != report && report.contains("Report: ")) {
       return report;
     }
     logger.info("OK");
@@ -242,13 +242,13 @@ public class XmlHelper {
     public SAXParseException saxParseException = null;
 
     public void error(SAXParseException exception) {
-      validationError = true;
-      saxParseException = exception;
+      this.validationError = true;
+      this.saxParseException = exception;
     }
 
     public void fatalError(SAXParseException exception) {
-      validationError = true;
-      saxParseException = exception;
+      this.validationError = true;
+      this.saxParseException = exception;
     }
 
   }
@@ -323,7 +323,7 @@ public class XmlHelper {
    */
   public static HashMap<String, String[]> getOutputFormatsHash() {
 
-    if (outputFormatsHash == null) {
+    if (null == outputFormatsHash) {
       NodeList nl = null;
       try {
         nl = xpathNodeList("/export-formats/output-formats/output-format",
@@ -342,7 +342,7 @@ public class XmlHelper {
         for (int ii = 0; ii < nll.getLength(); ii++) {
           Node nn = nll.item(ii);
 
-          if (nn.getNodeType() == Node.ELEMENT_NODE) {
+          if (Node.ELEMENT_NODE == nn.getNodeType()) {
             String nodeName = nn.getNodeName();
             if ("dc:title".equals(nodeName)) {
               name = nn.getTextContent();
@@ -373,7 +373,7 @@ public class XmlHelper {
    * @return citationStylesHash
    */
   public static HashMap<String, HashMap<String, String[]>> getCitationStylesHash() {
-    if (citationStylesHash == null) {
+    if (null == citationStylesHash) {
       NodeList nl;
       try {
         nl = xpathNodeList("/export-formats/export-format/identifier",
@@ -396,7 +396,7 @@ public class XmlHelper {
 
         // if no export format identifier found, continue for
         HashMap<String, String[]> formatsHash = new HashMap<>();
-        if (!(outputFormatsNode == null || outputFormatsNode.getTextContent() == null)) {
+        if (!(null == outputFormatsNode || null == outputFormatsNode.getTextContent())) {
           String refs = outputFormatsNode.getAttributes().getNamedItem("refs").getTextContent();
 
           for (String outputFormat : refs.split("\\s+")) {
@@ -423,7 +423,7 @@ public class XmlHelper {
     Node curNode;
     for (int i = 0; i < nodeList.getLength(); i++) {
       curNode = nodeList.item(i);
-      if (curNode.getNodeType() == Node.ELEMENT_NODE && nodeName.equals(curNode.getNodeName())) {
+      if (Node.ELEMENT_NODE == curNode.getNodeType() && nodeName.equals(curNode.getNodeName())) {
         return curNode;
       }
     }
@@ -459,7 +459,7 @@ class ExportFormatNodeFilter implements NodeFilter {
   @Override
   public short acceptNode(Node n) {
     Node parent = n.getParentNode();
-    if ("identifier".equals(n.getLocalName()) && DC_NS.equals(n.getNamespaceURI()) && parent != null
+    if ("identifier".equals(n.getLocalName()) && DC_NS.equals(n.getNamespaceURI()) && null != parent
         && "export-format".equals(parent.getLocalName())) {
       return FILTER_ACCEPT;
     }

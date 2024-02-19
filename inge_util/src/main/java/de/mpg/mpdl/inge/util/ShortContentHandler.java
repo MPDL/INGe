@@ -25,17 +25,17 @@ public class ShortContentHandler extends DefaultHandler {
   @Override
   public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
     Map<String, String> formerNamespaces;
-    if (namespacesMap.get(stack.toString()) != null) {
-      formerNamespaces = namespacesMap.get(stack.toString());
+    if (null != this.namespacesMap.get(this.stack.toString())) {
+      formerNamespaces = this.namespacesMap.get(this.stack.toString());
     } else {
       formerNamespaces = new HashMap<>();
     }
 
-    stack.push(name);
+    this.stack.push(name);
     if (name.contains(":")) {
-      localStack.push(name.substring(name.indexOf(":") + 1));
+      this.localStack.push(name.substring(name.indexOf(":") + 1));
     } else {
-      localStack.push(name);
+      this.localStack.push(name);
     }
 
     Map<String, String> currentNamespaces = new HashMap<>(formerNamespaces);
@@ -45,26 +45,26 @@ public class ShortContentHandler extends DefaultHandler {
         String prefix = attributes.getQName(i).substring(6);
         String nsUri = attributes.getValue(i);
         currentNamespaces.put(prefix, nsUri);
-      } else if (attributes.getQName(i).equals("xmlns")) {
+      } else if ("xmlns".equals(attributes.getQName(i))) {
         String nsUri = attributes.getValue(i);
         currentNamespaces.put("", nsUri);
       }
     }
 
-    namespacesMap.put(stack.toString(), currentNamespaces);
+    this.namespacesMap.put(this.stack.toString(), currentNamespaces);
     this.namespaces = currentNamespaces;
 
-    currentContent = new StringBuilder();
+    this.currentContent = new StringBuilder();
   }
 
   @Override
   public void endElement(String uri, String localName, String name) throws SAXException {
-    if (currentContent != null) {
-      content(uri, localName, name, currentContent.toString());
+    if (null != this.currentContent) {
+      content(uri, localName, name, this.currentContent.toString());
     }
-    currentContent = null;
-    stack.pop();
-    localStack.pop();
+    this.currentContent = null;
+    this.stack.pop();
+    this.localStack.pop();
   }
 
   /**
@@ -72,8 +72,8 @@ public class ShortContentHandler extends DefaultHandler {
    */
   @Override
   public final void characters(char[] ch, int start, int length) {
-    if (currentContent != null) {
-      currentContent.append(ch, start, length);
+    if (null != this.currentContent) {
+      this.currentContent.append(ch, start, length);
     }
   }
 
@@ -115,7 +115,7 @@ public class ShortContentHandler extends DefaultHandler {
   }
 
   public XMLStack getStack() {
-    return stack;
+    return this.stack;
   }
 
   // public XMLStack getLocalStack() {
@@ -123,7 +123,7 @@ public class ShortContentHandler extends DefaultHandler {
   // }
 
   public Map<String, String> getNamespaces() {
-    return namespaces;
+    return this.namespaces;
   }
 
   /**

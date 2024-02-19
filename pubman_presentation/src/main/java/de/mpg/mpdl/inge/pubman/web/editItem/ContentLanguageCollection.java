@@ -78,7 +78,7 @@ public class ContentLanguageCollection {
     }
 
     public List<String> getDataListFromVO() {
-      if (this.parentVO == null) {
+      if (null == this.parentVO) {
         return null;
       }
 

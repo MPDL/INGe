@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
@@ -40,7 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
  * @version $Revision$ $LastChangedDate$
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class AbstractVO extends ValueObject implements Cloneable {
 
   @IgnoreForCleanup
@@ -93,7 +92,7 @@ public class AbstractVO extends ValueObject implements Cloneable {
    * @param newVal newVal
    */
   public void setValue(String newVal) {
-    this.value = (newVal != null ? newVal.replaceAll("\r\n", "<br>") : newVal);
+    this.value = (null != newVal ? newVal.replaceAll("\r\n", "<br>") : newVal);
   }
 
   public String getValue() {
@@ -114,8 +113,8 @@ public class AbstractVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((language == null) ? 0 : language.hashCode());
-    result = prime * result + ((value == null) ? 0 : value.hashCode());
+    result = prime * result + ((null == this.language) ? 0 : this.language.hashCode());
+    result = prime * result + ((null == this.value) ? 0 : this.value.hashCode());
     return result;
   }
 
@@ -124,7 +123,7 @@ public class AbstractVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -132,16 +131,16 @@ public class AbstractVO extends ValueObject implements Cloneable {
 
     AbstractVO other = (AbstractVO) obj;
 
-    if (language == null) {
-      if (other.language != null)
+    if (null == this.language) {
+      if (null != other.language)
         return false;
-    } else if (!language.equals(other.language))
+    } else if (!this.language.equals(other.language))
       return false;
 
-    if (value == null) {
-      if (other.value != null)
+    if (null == this.value) {
+      if (null != other.value)
         return false;
-    } else if (!value.equals(other.value))
+    } else if (!this.value.equals(other.value))
       return false;
 
     return true;
@@ -154,6 +153,6 @@ public class AbstractVO extends ValueObject implements Cloneable {
    */
   @Override
   public String toString() {
-    return value;
+    return this.value;
   }
 }

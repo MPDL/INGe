@@ -99,14 +99,14 @@ public class ItemRootVO implements Serializable {
    * Delivers the technical objectId-attribute of corresponding ValueObject.
    */
   public String getObjectId() {
-    return objectId;
+    return this.objectId;
   }
 
   /**
    * Helper method for JiBX transformations.
    */
   boolean hasPID() {
-    return (this.objectPid != null);
+    return (null != this.objectPid);
   }
 
 
@@ -169,7 +169,7 @@ public class ItemRootVO implements Serializable {
 
 
   public ItemVersionRO.State getPublicState() {
-    return publicState;
+    return this.publicState;
   }
 
   public void setPublicState(ItemVersionRO.State publicStatus) {
@@ -195,7 +195,7 @@ public class ItemRootVO implements Serializable {
    * ((publicStatusComment == null) ? 0 : publicStatusComment.hashCode()); return result; }
    */
   public Date getLastModificationDate() {
-    return lastModificationDate;
+    return this.lastModificationDate;
   }
 
   public void setLastModificationDate(Date lastModificationDate) {
@@ -204,7 +204,7 @@ public class ItemRootVO implements Serializable {
 
 
   public ContextDbRO getContext() {
-    return context;
+    return this.context;
   }
 
   public void setContext(ContextDbRO context) {
@@ -216,7 +216,7 @@ public class ItemRootVO implements Serializable {
   }
 
   public AccountUserDbRO getCreator() {
-    return creator;
+    return this.creator;
   }
 
   public void setCreator(AccountUserDbRO creator) {
@@ -227,16 +227,16 @@ public class ItemRootVO implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((context == null) ? 0 : context.hashCode());
-    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-    result = prime * result + ((creator == null) ? 0 : creator.hashCode());
-    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
-    result = prime * result + ((latestRelease == null) ? 0 : latestRelease.hashCode());
-    result = prime * result + ((latestVersion == null) ? 0 : latestVersion.hashCode());
-    result = prime * result + ((localTags == null) ? 0 : localTags.hashCode());
-    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
-    result = prime * result + ((objectPid == null) ? 0 : objectPid.hashCode());
-    result = prime * result + ((publicState == null) ? 0 : publicState.hashCode());
+    result = prime * result + ((null == this.context) ? 0 : this.context.hashCode());
+    result = prime * result + ((null == this.creationDate) ? 0 : this.creationDate.hashCode());
+    result = prime * result + ((null == this.creator) ? 0 : this.creator.hashCode());
+    result = prime * result + ((null == this.lastModificationDate) ? 0 : this.lastModificationDate.hashCode());
+    result = prime * result + ((null == this.latestRelease) ? 0 : this.latestRelease.hashCode());
+    result = prime * result + ((null == this.latestVersion) ? 0 : this.latestVersion.hashCode());
+    result = prime * result + ((null == this.localTags) ? 0 : this.localTags.hashCode());
+    result = prime * result + ((null == this.objectId) ? 0 : this.objectId.hashCode());
+    result = prime * result + ((null == this.objectPid) ? 0 : this.objectPid.hashCode());
+    result = prime * result + ((null == this.publicState) ? 0 : this.publicState.hashCode());
     return result;
   }
 
@@ -244,57 +244,57 @@ public class ItemRootVO implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     ItemRootVO other = (ItemRootVO) obj;
-    if (context == null) {
-      if (other.context != null)
+    if (null == this.context) {
+      if (null != other.context)
         return false;
-    } else if (!context.equals(other.context))
+    } else if (!this.context.equals(other.context))
       return false;
-    if (creationDate == null) {
-      if (other.creationDate != null)
+    if (null == this.creationDate) {
+      if (null != other.creationDate)
         return false;
-    } else if (!creationDate.equals(other.creationDate))
+    } else if (!this.creationDate.equals(other.creationDate))
       return false;
-    if (creator == null) {
-      if (other.creator != null)
+    if (null == this.creator) {
+      if (null != other.creator)
         return false;
-    } else if (!creator.equals(other.creator))
+    } else if (!this.creator.equals(other.creator))
       return false;
-    if (lastModificationDate == null) {
-      if (other.lastModificationDate != null)
+    if (null == this.lastModificationDate) {
+      if (null != other.lastModificationDate)
         return false;
-    } else if (!lastModificationDate.equals(other.lastModificationDate))
+    } else if (!this.lastModificationDate.equals(other.lastModificationDate))
       return false;
-    if (latestRelease == null) {
-      if (other.latestRelease != null)
+    if (null == this.latestRelease) {
+      if (null != other.latestRelease)
         return false;
-    } else if (!latestRelease.equals(other.latestRelease))
+    } else if (!this.latestRelease.equals(other.latestRelease))
       return false;
-    if (latestVersion == null) {
-      if (other.latestVersion != null)
+    if (null == this.latestVersion) {
+      if (null != other.latestVersion)
         return false;
-    } else if (!latestVersion.equals(other.latestVersion))
+    } else if (!this.latestVersion.equals(other.latestVersion))
       return false;
-    if (localTags == null) {
-      if (other.localTags != null)
+    if (null == this.localTags) {
+      if (null != other.localTags)
         return false;
-    } else if (!localTags.equals(other.localTags))
+    } else if (!this.localTags.equals(other.localTags))
       return false;
-    if (objectId == null) {
-      if (other.objectId != null)
+    if (null == this.objectId) {
+      if (null != other.objectId)
         return false;
-    } else if (!objectId.equals(other.objectId))
+    } else if (!this.objectId.equals(other.objectId))
       return false;
-    if (objectPid == null) {
-      if (other.objectPid != null)
+    if (null == this.objectPid) {
+      if (null != other.objectPid)
         return false;
-    } else if (!objectPid.equals(other.objectPid))
+    } else if (!this.objectPid.equals(other.objectPid))
       return false;
-    if (publicState != other.publicState)
+    if (this.publicState != other.publicState)
       return false;
     return true;
   }

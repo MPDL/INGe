@@ -1,27 +1,27 @@
 package de.mpg.mpdl.inge.transformation.util;
 
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 
 public class SourceTargetPair {
-  private FORMAT source;
-  private FORMAT target;
+  private TransformerFactory.FORMAT source;
+  private TransformerFactory.FORMAT target;
 
-  public SourceTargetPair(FORMAT s, FORMAT t) {
+  public SourceTargetPair(TransformerFactory.FORMAT s, TransformerFactory.FORMAT t) {
     this.setSource(s);
     this.setTarget(t);
   }
 
   @Override
   public boolean equals(Object other) {
-    if (other == null) {
+    if (null == other) {
       return false;
     } else if (!(other instanceof SourceTargetPair)) {
       return false;
     } else {
-      return (this.getSource() == null ? ((SourceTargetPair) other).getSource() == null
+      return (null == this.getSource() ? null == ((SourceTargetPair) other).getSource()
           : this.getSource().equals(((SourceTargetPair) other).getSource()))
-          && (this.getTarget() == null ? ((SourceTargetPair) other).getTarget() == null
+          && (null == this.getTarget() ? null == ((SourceTargetPair) other).getTarget()
               : this.getTarget().equals(((SourceTargetPair) other).getTarget()));
 
     }
@@ -32,19 +32,19 @@ public class SourceTargetPair {
     return this.getSource().hashCode() * this.getTarget().hashCode();
   }
 
-  public FORMAT getTarget() {
-    return target;
+  public TransformerFactory.FORMAT getTarget() {
+    return this.target;
   }
 
-  public void setTarget(FORMAT target) {
+  public void setTarget(TransformerFactory.FORMAT target) {
     this.target = target;
   }
 
-  public FORMAT getSource() {
-    return source;
+  public TransformerFactory.FORMAT getSource() {
+    return this.source;
   }
 
-  public void setSource(FORMAT source) {
+  public void setSource(TransformerFactory.FORMAT source) {
     this.source = source;
   }
 }

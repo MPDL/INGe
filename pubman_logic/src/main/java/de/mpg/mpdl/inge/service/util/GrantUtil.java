@@ -2,18 +2,19 @@ package de.mpg.mpdl.inge.service.util;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 
 public class GrantUtil {
 
-  public static boolean hasRole(AccountUserDbVO userAccount, PredefinedRoles role) {
+  private GrantUtil() {}
+
+  public static boolean hasRole(AccountUserDbVO userAccount, GrantVO.PredefinedRoles role) {
     return hasRole(userAccount, role, null);
   }
 
-  public static boolean hasRole(AccountUserDbVO userAccount, PredefinedRoles role, String grantOn) {
+  public static boolean hasRole(AccountUserDbVO userAccount, GrantVO.PredefinedRoles role, String grantOn) {
     for (GrantVO grant : userAccount.getGrantList()) {
-      if (grant != null && grant.getRole() != null) {
-        if (grant.getRole().equals(role.frameworkValue()) && (grantOn == null || grantOn.equals(grant.getObjectRef()))) {
+      if (null != grant && null != grant.getRole()) {
+        if (grant.getRole().equals(role.frameworkValue()) && (null == grantOn || grantOn.equals(grant.getObjectRef()))) {
           return true;
         }
       }

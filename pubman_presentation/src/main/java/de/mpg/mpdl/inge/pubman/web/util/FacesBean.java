@@ -36,7 +36,6 @@ import org.apache.logging.log4j.Logger;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.component.UIComponent;
 
@@ -245,10 +244,10 @@ public class FacesBean implements Serializable {
    *
    * @param summary summary text
    */
-  public void message(String summary, String detail, UIComponent component, Severity severity) {
+  public void message(String summary, String detail, UIComponent component, FacesMessage.Severity severity) {
     final FacesMessage fm = new FacesMessage(severity, summary, StringEscapeUtils.escapeHtml4(detail));
 
-    if (component == null) {
+    if (null == component) {
       FacesTools.getCurrentInstance().addMessage(null, fm);
     } else {
       FacesTools.getCurrentInstance().addMessage(component.getId(), fm);
@@ -263,7 +262,7 @@ public class FacesBean implements Serializable {
     for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
       final FacesMessage fm = i.next();
 
-      FacesBean.logger.info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n" + fm.getDetail());
+      logger.info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n" + fm.getDetail());
 
       if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR) || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN)
           || fm.getSeverity().equals(FacesMessage.SEVERITY_FATAL)) {

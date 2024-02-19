@@ -57,7 +57,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -85,6 +84,8 @@ public class CommonUtils {
   private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "'", "\r\n", "\n", "\r", "\t"};
   private static final String[] ESCAPED_CHARACTERS =
       {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
+
+  private CommonUtils() {}
 
   /**
    * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -156,11 +157,11 @@ public class CommonUtils {
 
     String locale = Locale.getDefault().getLanguage();
 
-    if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja"))) {
+    if (!("en".equals(locale) || "de".equals(locale) || "ja".equals(locale))) {
       locale = "en";
     }
 
-    if (applicationBean.getLanguageSelectItems().get(locale) != null && applicationBean.getLanguageSelectItems().get(locale).length > 0) {
+    if (null != applicationBean.getLanguageSelectItems().get(locale) && 0 < applicationBean.getLanguageSelectItems().get(locale).length) {
       return applicationBean.getLanguageSelectItems().get(locale);
     } else {
       final SelectItem[] languageSelectItems = CommonUtils.retrieveLanguageOptions(locale);
@@ -183,16 +184,16 @@ public class CommonUtils {
           + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
-      if (getMethod.getStatusCode() == 200) {
+      if (200 == getMethod.getStatusCode()) {
         String line;
         final BufferedReader reader =
             new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream(), StandardCharsets.UTF_8));
-        while ((line = reader.readLine()) != null) {
+        while (null != (line = reader.readLine())) {
           final String[] pieces = line.split("\\|");
           result.put(pieces[0], pieces[1]);
         }
       } else {
-        CommonUtils.logger.error("Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
+        logger.error("Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
       }
     } catch (final Exception e) {
       return new SelectItem[0];
@@ -223,7 +224,7 @@ public class CommonUtils {
         options[3] = new SelectItem("jpn", "jpn - 日本語");
       }
       default -> {
-        CommonUtils.logger.error("Language not supported: " + locale);
+        logger.error("Language not supported: " + locale);
         // Using english as default
         options[1] = new SelectItem("eng", "eng - English");
         options[2] = new SelectItem("deu", "deu - German");
@@ -247,8 +248,8 @@ public class CommonUtils {
   }
 
   public static String getConeLanguageName(String code, String locale) throws Exception {
-    if (code != null && !"".equals(code.trim())) {
-      if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja"))) {
+    if (null != code && !"".equals(code.trim())) {
+      if (!("en".equals(locale) || "de".equals(locale) || "ja".equals(locale))) {
         locale = "en";
       }
 
@@ -281,8 +282,8 @@ public class CommonUtils {
   }
 
   public static String getUIValue(HtmlSelectOneRadio radioButton) {
-    if (radioButton.getSubmittedValue() != null && radioButton.getSubmittedValue() instanceof String[]
-        && ((String[]) radioButton.getSubmittedValue()).length > 0) {
+    if (null != radioButton.getSubmittedValue() && radioButton.getSubmittedValue() instanceof String[]
+        && 0 < ((String[]) radioButton.getSubmittedValue()).length) {
       return ((String[]) radioButton.getSubmittedValue())[0];
     }
 
@@ -321,7 +322,7 @@ public class CommonUtils {
    * @return The escaped string.
    */
   public static String htmlEscape(String cdata) {
-    if (cdata == null) {
+    if (null == cdata) {
       return null;
     }
 
@@ -340,7 +341,7 @@ public class CommonUtils {
    * @return The escaped string.
    */
   public static String javascriptEscape(String cdata) {
-    if (cdata == null) {
+    if (null == cdata) {
       return null;
     }
 
@@ -436,7 +437,7 @@ public class CommonUtils {
   public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationDbVO> list) {
     final List<AffiliationVOPresentation> affiliationList = new ArrayList<>();
     for (AffiliationDbVO affiliationDbVO : list) {
-      if (affiliationDbVO != null
+      if (null != affiliationDbVO
           && PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID).equals(affiliationDbVO.getObjectId())) {
         affiliationList.add(0, new AffiliationVOPresentation(affiliationDbVO));
       } else {
@@ -458,15 +459,15 @@ public class CommonUtils {
   public static boolean getIsUriValidUrl(IdentifierVO id) {
     boolean valid = false;
     try {
-      if (id.getType() == null) {
+      if (null == id.getType()) {
         return false;
       }
-      if (id.getType().equals(IdType.URI) || id.getType().equals(IdType.CONE)) {
+      if (id.getType().equals(IdentifierVO.IdType.URI) || id.getType().equals(IdentifierVO.IdType.CONE)) {
         new URL(id.getId());
         valid = true;
       }
     } catch (final MalformedURLException e) {
-      CommonUtils.logger.warn("URI: " + id.getId() + " is no valid URL");
+      logger.warn("URI: " + id.getId() + " is no valid URL");
       return false;
     }
 
@@ -474,14 +475,14 @@ public class CommonUtils {
   }
 
   public static Map<String, String> getDecodedUrlParameterMap(String query) {
-    CommonUtils.logger.info("query: " + query);
+    logger.info("query: " + query);
     final Map<String, String> parameterMap = new HashMap<>();
 
-    if (query != null) {
+    if (null != query) {
       final String[] parameters = query.split("&");
       for (final String param : parameters) {
         String[] keyValueParts = param.split("=");
-        if (keyValueParts.length == 1) {
+        if (1 == keyValueParts.length) {
           keyValueParts = new String[] {keyValueParts[0], ""};
         }
         parameterMap.put(keyValueParts[0], URLDecoder.decode(keyValueParts[1], StandardCharsets.UTF_8));
@@ -492,7 +493,7 @@ public class CommonUtils {
   }
 
   public static String fixURLEncoding(String input) {
-    if (input != null) {
+    if (null != input) {
       final String utf8 = new String(input.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
       if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
         return input;
@@ -505,10 +506,10 @@ public class CommonUtils {
   }
 
   public static String getGenericItemLink(String objectId, int version) {
-    if (objectId != null) {
+    if (null != objectId) {
       return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
           + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader
-              .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", objectId + (version != 0 ? "_" + version : ""));
+              .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", objectId + (0 != version ? "_" + version : ""));
     }
 
     return null;

@@ -38,13 +38,13 @@ public class SubmitItem extends FacesBean {
         creators.append("; ");
       }
 
-      if (creator.getType() == CreatorVO.CreatorType.PERSON) {
+      if (CreatorVO.CreatorType.PERSON == creator.getType()) {
         creators.append(creator.getPerson().getFamilyName());
-        if (creator.getPerson().getGivenName() != null) {
+        if (null != creator.getPerson().getGivenName()) {
           creators.append(", ");
           creators.append(creator.getPerson().getGivenName());
         }
-      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION && creator.getOrganization().getName() != null) {
+      } else if (CreatorVO.CreatorType.ORGANIZATION == creator.getType() && null != creator.getOrganization().getName()) {
         creators.append(creator.getOrganization().getName());
       }
     }
@@ -57,7 +57,7 @@ public class SubmitItem extends FacesBean {
       FacesTools.getExternalContext()
           .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
     } catch (final IOException e) {
-      SubmitItem.logger.error("Could not redirect to View Item Page", e);
+      logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
@@ -80,9 +80,9 @@ public class SubmitItem extends FacesBean {
    */
   public boolean getHasRightsInformation() {
     for (final FileDbVO file : this.getPubItem().getFiles()) {
-      if ((file.getMetadata().getCopyrightDate() != null && !"".equals(file.getMetadata().getCopyrightDate()))
-          || (file.getMetadata().getLicense() != null && !"".equals(file.getMetadata().getLicense()))
-          || (file.getMetadata().getRights() != null && !"".equals(file.getMetadata().getRights()))) {
+      if ((null != file.getMetadata().getCopyrightDate() && !"".equals(file.getMetadata().getCopyrightDate()))
+          || (null != file.getMetadata().getLicense() && !"".equals(file.getMetadata().getLicense()))
+          || (null != file.getMetadata().getRights() && !"".equals(file.getMetadata().getRights()))) {
         return true;
       }
     }

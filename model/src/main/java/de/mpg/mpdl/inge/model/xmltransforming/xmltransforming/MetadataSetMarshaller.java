@@ -35,15 +35,15 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
   private final String m_name;
 
   public MetadataSetMarshaller() {
-    m_uri = null;
-    m_index = 0;
-    m_name = "md-records";
+    this.m_uri = null;
+    this.m_index = 0;
+    this.m_name = "md-records";
   }
 
   public MetadataSetMarshaller(String uri, int index, String name) {
-    m_uri = uri;
-    m_index = index;
-    m_name = name;
+    this.m_uri = uri;
+    this.m_index = index;
+    this.m_name = name;
   }
 
   public boolean isExtension(int index) {
@@ -63,16 +63,16 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
       // start by generating start tag for container
       List<MetadataSetVO> list = (List<MetadataSetVO>) obj;
       if (!list.isEmpty()) {
-        ctx.startTagAttributes(m_index, m_name).closeStartContent();
+        ctx.startTagAttributes(this.m_index, this.m_name).closeStartContent();
 
         // loop through all entries in hashmap
         Iterator<MetadataSetVO> iter = list.iterator();
         boolean first = true;
         while (iter.hasNext()) {
           MetadataSetVO entry = iter.next();
-          ctx.startTagAttributes(m_index, RECORD_ELEMENT_NAME);
+          ctx.startTagAttributes(this.m_index, RECORD_ELEMENT_NAME);
 
-          logger.debug("m_index: " + m_index);
+          logger.debug("m_index: " + this.m_index);
 
           if (first) {
             ctx.attribute(0, NAME_ATTRIBUTE_NAME, "escidoc");
@@ -80,7 +80,7 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
           ctx.closeStartContent();
           if (entry instanceof IMarshallable) {
             ((IMarshallable) entry).marshal(ctx);
-            ctx.endTag(m_index, RECORD_ELEMENT_NAME);
+            ctx.endTag(this.m_index, RECORD_ELEMENT_NAME);
           } else {
             throw new JiBXException("Mapped value is not marshallable (" + entry.getClass().getSimpleName() + ")");
           }
@@ -88,13 +88,13 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
         }
 
         // finish with end tag for container element
-        ctx.endTag(m_index, m_name);
+        ctx.endTag(this.m_index, this.m_name);
       }
     }
   }
 
   public boolean isPresent(IUnmarshallingContext ictx) throws JiBXException {
-    return ictx.isAt(m_uri, m_name);
+    return ictx.isAt(this.m_uri, this.m_name);
   }
 
   @Override

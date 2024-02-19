@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.pubman.web.util.converter;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import jakarta.faces.model.SelectItem;
@@ -11,11 +10,11 @@ import jakarta.faces.model.SelectItem;
  * @author haarlae1
  *
  */
-public class SelectItemComparator implements Comparator<SelectItem>, Serializable {
+public class SelectItemComparator implements Comparator<SelectItem> {
   @Override
   public int compare(SelectItem si1, SelectItem si2) {
 
-    if (si1.getLabel() != null && si2.getLabel() != null) {
+    if (null != si1.getLabel() && null != si2.getLabel()) {
       return si1.getLabel().toLowerCase().compareTo(si2.getLabel().toLowerCase());
     }
 

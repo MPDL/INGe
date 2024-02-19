@@ -43,7 +43,7 @@ public class DataSourceHandlerService {
    */
   public DataSourceHandlerService() {
     this.sourceXmlPath = PropertyReader.getProperty(PropertyReader.INGE_IMPORT_SOURCES_XML);
-    DataSourceHandlerService.logger.info("SourcesXml-Property: " + this.sourceXmlPath);
+    logger.info("SourcesXml-Property: " + this.sourceXmlPath);
   }
 
   /**
@@ -93,7 +93,7 @@ public class DataSourceHandlerService {
           sourceVO.setIdentifierExample(idExVec);
           sourceVO.setLicense(sourceType.getLicense());
           sourceVO.setCopyright(sourceType.getCopyright());
-          if (sourceType.getItemUrl() != null) {
+          if (null != sourceType.getItemUrl()) {
             sourceVO.setItemUrl(new URL(simpleLiteralTostring(sourceType.getItemUrl())));
           }
 
@@ -102,7 +102,7 @@ public class DataSourceHandlerService {
           MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
           for (MDFetchSettingType mdf : mdfArray) {
             MetadataVO mdVO = new MetadataVO();
-            if (mdf.getDescription() != null) {
+            if (null != mdf.getDescription()) {
               mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
             }
             mdVO.setMdUrl(new URL(simpleLiteralTostring(mdf.getIdentifier())));
@@ -120,7 +120,7 @@ public class DataSourceHandlerService {
           FTFetchSettingType[] ftfArray = ftfs.getFTFetchSettingArray();
           for (FTFetchSettingType ftf : ftfArray) {
             FullTextVO fulltextVO = new FullTextVO();
-            if (ftf.getDescription() != null) {
+            if (null != ftf.getDescription()) {
               fulltextVO.setFtDesc(simpleLiteralTostring(ftf.getDescription()));
             }
             fulltextVO.setFtUrl(new URL(simpleLiteralTostring(ftf.getIdentifier())));
@@ -136,7 +136,7 @@ public class DataSourceHandlerService {
           sourceVO.setFtFormats(fulltextVec);
 
           // Check if a transformation for the default MD format is possible
-          if (transformationFormat != null) {
+          if (null != transformationFormat) {
             for (int x = 0; x < sourceVO.getMdFormats().size(); x++) {
               MetadataVO md = sourceVO.getMdFormats().get(x);
               if (md.isMdDefault()) {
@@ -154,10 +154,10 @@ public class DataSourceHandlerService {
         }
       }
     } catch (MalformedURLException e) {
-      DataSourceHandlerService.logger.error("Processing the source URL caused an error", e);
+      logger.error("Processing the source URL caused an error", e);
       throw new RuntimeException(e);
     } catch (Exception e) {
-      DataSourceHandlerService.logger.error("Parsing sources.xml caused an error", e);
+      logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
 
@@ -165,7 +165,7 @@ public class DataSourceHandlerService {
   }
 
   private InputStream getSourceInputStream() {
-    if (this.sourceInputStream == null) {
+    if (null == this.sourceInputStream) {
       ClassLoader cl = this.getClass().getClassLoader();
       this.sourceInputStream = cl.getResourceAsStream(this.sourceXmlPath);
     }
@@ -174,11 +174,11 @@ public class DataSourceHandlerService {
   }
 
   private ImportSourcesDocument getImportSourcesDocument() {
-    if (this.importSourcesDocument == null) {
+    if (null == this.importSourcesDocument) {
       try {
         this.importSourcesDocument = ImportSourcesDocument.Factory.parse(getSourceInputStream());
       } catch (Exception e) {
-        DataSourceHandlerService.logger.error("Parsing sources.xml caused an error", e);
+        logger.error("Parsing sources.xml caused an error", e);
         throw new RuntimeException(e);
       }
     }
@@ -187,7 +187,7 @@ public class DataSourceHandlerService {
   }
 
   private ImportSourceType[] getImportSourceTypes() {
-    if (this.sourceType == null) {
+    if (null == this.sourceType) {
       this.sourceType = getImportSourcesDocument().getImportSources();
     }
 
@@ -247,7 +247,7 @@ public class DataSourceHandlerService {
         sourceVO.setLicense(sourceType.getLicense());
         sourceVO.setCopyright(sourceType.getCopyright());
 
-        if (sourceType.getItemUrl() != null) {
+        if (null != sourceType.getItemUrl()) {
           sourceVO.setItemUrl(new URL(simpleLiteralTostring(sourceType.getItemUrl())));
         }
 
@@ -256,7 +256,7 @@ public class DataSourceHandlerService {
         MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
         for (MDFetchSettingType mdf : mdfArray) {
           MetadataVO mdVO = new MetadataVO();
-          if (mdf.getDescription() != null) {
+          if (null != mdf.getDescription()) {
             mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
           }
           mdVO.setMdUrl(new URL(simpleLiteralTostring(mdf.getIdentifier())));
@@ -274,7 +274,7 @@ public class DataSourceHandlerService {
         FTFetchSettingType[] ftfArray = ftfs.getFTFetchSettingArray();
         for (FTFetchSettingType ftf : ftfArray) {
           FullTextVO fulltextVO = new FullTextVO();
-          if (ftf.getDescription() != null) {
+          if (null != ftf.getDescription()) {
             fulltextVO.setFtDesc(simpleLiteralTostring(ftf.getDescription()));
           }
           fulltextVO.setFtUrl(new URL(simpleLiteralTostring(ftf.getIdentifier())));
@@ -290,10 +290,10 @@ public class DataSourceHandlerService {
         sourceVO.setFtFormats(fulltextVec);
       }
     } catch (MalformedURLException e) {
-      DataSourceHandlerService.logger.error("Processing the source URL caused an error", e);
+      logger.error("Processing the source URL caused an error", e);
       throw new RuntimeException(e);
     } catch (Exception e) {
-      DataSourceHandlerService.logger.error("Parsing sources.xml caused an error", e);
+      logger.error("Parsing sources.xml caused an error", e);
       throw new RuntimeException(e);
     }
 
@@ -400,7 +400,7 @@ public class DataSourceHandlerService {
   public DataSourceVO updateMdEntry(DataSourceVO source, MetadataVO md) {
     List<MetadataVO> mdv = source.getMdFormats();
 
-    if (md != null) {
+    if (null != md) {
       for (int i = 0; i < mdv.size(); i++) {
         MetadataVO mdVO = source.getMdFormats().get(i);
         if (mdVO.getName().equalsIgnoreCase(md.getName())) {

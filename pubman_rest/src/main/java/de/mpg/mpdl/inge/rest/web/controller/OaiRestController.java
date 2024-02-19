@@ -59,7 +59,7 @@ public class OaiRestController {
     int countInterval = 0;
     int upperBorder = 500;
     int readSize = 1000;
-    int maxIntervals = max != null ? max : upperBorder; // -> max 500.000 Datensätze
+    int maxIntervals = null != max ? max : upperBorder; // -> max 500.000 Datensätze
 
     logger.info("Es werden maximal " + (readSize * upperBorder) + " Datensätze generiert");
 
@@ -70,7 +70,7 @@ public class OaiRestController {
     //   .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
     SearchRequest srr = SearchRequest.of(sr -> sr.size(readSize).query(q).scroll(Time.of(t -> t.time("60000ms"))));
 
-    ResponseBody scrollResp = pubItemService.searchDetailed(srr, 60000, null);
+    ResponseBody scrollResp = this.pubItemService.searchDetailed(srr, 60000, null);
 
     /*
     SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME))
@@ -119,7 +119,7 @@ public class OaiRestController {
 
       countInterval++;
 
-      scrollResp = pubItemService.scrollOn(scrollResp.scrollId(), 60000);
+      scrollResp = this.pubItemService.scrollOn(scrollResp.scrollId(), 60000);
       results = SearchUtils.getRecordListFromElasticSearchResponse(scrollResp, ItemVersionVO.class);
       /*
       scrollResp = this.client.getClient().prepareSearchScroll(scrollResp.getScrollId()) //
@@ -129,8 +129,8 @@ public class OaiRestController {
           */
     } while (!results.isEmpty() && countInterval < maxIntervals);
 
-    if (scrollResp != null) {
-      pubItemDao.clearScroll(scrollResp.scrollId());
+    if (null != scrollResp) {
+      this.pubItemDao.clearScroll(scrollResp.scrollId());
     }
 
     String srResponse = "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";

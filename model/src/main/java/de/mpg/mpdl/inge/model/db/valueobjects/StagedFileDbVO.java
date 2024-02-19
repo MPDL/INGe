@@ -31,7 +31,7 @@ public class StagedFileDbVO implements Serializable {
   private String filename;
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(int id) {
@@ -39,7 +39,7 @@ public class StagedFileDbVO implements Serializable {
   }
 
   public Date getCreationDate() {
-    return creationDate;
+    return this.creationDate;
   }
 
   public void setCreationDate(Date creationDate) {
@@ -47,7 +47,7 @@ public class StagedFileDbVO implements Serializable {
   }
 
   public String getPath() {
-    return path;
+    return this.path;
   }
 
   public void setPath(String path) {
@@ -55,7 +55,7 @@ public class StagedFileDbVO implements Serializable {
   }
 
   public String getFilename() {
-    return filename;
+    return this.filename;
   }
 
   public void setFilename(String filename) {
@@ -64,7 +64,7 @@ public class StagedFileDbVO implements Serializable {
 
 
   public String getCreatorId() {
-    return creatorId;
+    return this.creatorId;
   }
 
   public void setCreatorId(String creatorId) {

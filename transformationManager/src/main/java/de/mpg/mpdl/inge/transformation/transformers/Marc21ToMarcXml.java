@@ -15,7 +15,6 @@ import org.marc4j.marc.Record;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -24,7 +23,8 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.marc.MarcXmlWriterNSFix;
 
-@TransformerModule(sourceFormat = FORMAT.MARC_21_STRING, targetFormat = FORMAT.MARC_XML)
+@TransformerModule(sourceFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.MARC_21_STRING,
+    targetFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.MARC_XML)
 public class Marc21ToMarcXml extends SingleTransformer implements ChainableTransformer {
 
   @Override

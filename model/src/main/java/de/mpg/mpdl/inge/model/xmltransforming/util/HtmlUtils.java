@@ -43,8 +43,6 @@ public class HtmlUtils {
 
   private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
 
-
-
   /**
    * Check of the balanced tags sup/sub
    *
@@ -52,7 +50,7 @@ public class HtmlUtils {
    * @return <code>true</code> if balanced, <code>false</code> otherwise
    */
   public static boolean isBalanced(String snippet) {
-    if (snippet == null)
+    if (null == snippet)
       return true;
 
     Stack<String> s = new Stack<>();
@@ -97,14 +95,14 @@ public class HtmlUtils {
 
         TagType tagType = null;
 
-        if (slash == null || slash.isEmpty()) {
+        if (null == slash || slash.isEmpty()) {
           tagType = TagType.BEGIN;
 
-        } else if (slash.equals("/")) {
+        } else if ("/".equals(slash)) {
           tagType = TagType.END;
         }
 
-        SubSupTag subSupTag = new HtmlUtils().new SubSupTag(tag, tagType, m.start(), m.end());
+        SubSupTag subSupTag = new SubSupTag(tag, tagType, m.start(), m.end());
 
         if (TagType.BEGIN.equals(subSupTag.getTagType())) {
           s.push(subSupTag);
@@ -168,13 +166,13 @@ public class HtmlUtils {
       if (tagsNotToBeEscaped.contains(tag)) {
         TagType tagType = null;
 
-        if (slash == null || slash.isEmpty()) {
+        if (null == slash || slash.isEmpty()) {
           tagType = TagType.BEGIN;
-        } else if (slash.equals("/")) {
+        } else if ("/".equals(slash)) {
           tagType = TagType.END;
         }
 
-        SubSupTag subSupTag = new HtmlUtils().new SubSupTag(tag, tagType, m.start(), m.end());
+        SubSupTag subSupTag = new SubSupTag(tag, tagType, m.start(), m.end());
 
         if (TagType.BEGIN.equals(subSupTag.getTagType())) {
           if (!tagsNotToBeBalanced.contains(tag)) {
@@ -224,16 +222,16 @@ public class HtmlUtils {
     snippet = Pattern.compile("\\&(?!amp;)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet).replaceAll("&amp;");
 
     StringBuilder exceptions = new StringBuilder();
-    if (tagNameExceptions != null) {
+    if (null != tagNameExceptions) {
       for (int i = 0; i < tagNameExceptions.size(); i++) {
-        if (i > 0) {
+        if (0 < i) {
           exceptions.append("|");
         }
         exceptions.append(tagNameExceptions.get(i));
       }
     }
 
-    if (tagNameExceptions != null && !tagNameExceptions.isEmpty()) {
+    if (null != tagNameExceptions && !tagNameExceptions.isEmpty()) {
       snippet = Pattern.compile("\\<(?!(\\/?(" + exceptions + ")))", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
     } else {
       snippet = Pattern.compile("\\<", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
@@ -263,7 +261,7 @@ public class HtmlUtils {
     BEGIN, END
   }
 
-  private class SubSupTag {
+  private static class SubSupTag {
 
     // private int startPosition;
 
@@ -275,7 +273,7 @@ public class HtmlUtils {
 
 
 
-    public SubSupTag(String tagContent, TagType tagType, int startPosition, int endPosition) {
+    private SubSupTag(String tagContent, TagType tagType, int startPosition, int endPosition) {
       // this.startPosition = startPosition;
       this.endPosition = endPosition;
       this.tagContent = tagContent;
@@ -291,7 +289,7 @@ public class HtmlUtils {
     // }
 
     public int getEndPosition() {
-      return endPosition;
+      return this.endPosition;
     }
 
     // public void setEndPosition(int endPosition) {
@@ -299,7 +297,7 @@ public class HtmlUtils {
     // }
 
     public TagType getTagType() {
-      return tagType;
+      return this.tagType;
     }
 
     // public void setTagType(TagType tagType) {
@@ -309,17 +307,17 @@ public class HtmlUtils {
     public String toHtml() {
       StringBuilder buffer = new StringBuilder();
       buffer.append("<");
-      if (TagType.END.equals(tagType)) {
+      if (TagType.END.equals(this.tagType)) {
         buffer.append("/");
       }
-      buffer.append(tagContent);
+      buffer.append(this.tagContent);
       buffer.append(">");
       return buffer.toString();
 
     }
 
     public String getTagContent() {
-      return tagContent;
+      return this.tagContent;
     }
 
     // public void setTagContent(String tagContent) {

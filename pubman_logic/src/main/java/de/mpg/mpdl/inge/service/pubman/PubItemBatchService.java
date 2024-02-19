@@ -4,12 +4,11 @@ import java.util.List;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 
 /**
  * Interface defining the batch functions for PubItems
@@ -38,8 +37,8 @@ public interface PubItemBatchService {
    * @param accountUser
    * @return
    */
-  BatchProcessLogDbVO addSourceId(List<String> pubItemObjectIdList, String sourceNumber, IdType sourceIdType, String idNew, String message,
-      String authenticationToken, AccountUserDbVO accountUser);
+  BatchProcessLogDbVO addSourceId(List<String> pubItemObjectIdList, String sourceNumber, IdentifierVO.IdType sourceIdType, String idNew,
+      String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**
    * change the context of multiple Items within a list of objectIds from contextOld to contextNew
@@ -103,8 +102,9 @@ public interface PubItemBatchService {
    * @param accountUser
    * @return BatchProcessLogDbVO
    */
-  BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, Visibility visibilityNew, Visibility visibilityOld,
-      IpRange userAccountIpRange, String message, String authenticationToken, AccountUserDbVO accountUser);
+  BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, FileVO.Visibility visibilityNew,
+      FileVO.Visibility visibilityOld, IpListProvider.IpRange userAccountIpRange, String message, String authenticationToken,
+      AccountUserDbVO accountUser);
 
   /**
    * change genre for multiple items within a list of objectIds and return a BatchProcessLogDbVO
@@ -118,8 +118,8 @@ public interface PubItemBatchService {
    * @param accountUser
    * @return
    */
-  BatchProcessLogDbVO changeGenre(List<String> pubItemObjectIdList, Genre genreOld, Genre genreNew, DegreeType degree, String message,
-      String authenticationToken, AccountUserDbVO accountUser);
+  BatchProcessLogDbVO changeGenre(List<String> pubItemObjectIdList, MdsPublicationVO.Genre genreOld, MdsPublicationVO.Genre genreNew,
+      MdsPublicationVO.DegreeType degree, String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**
    * replace one specific keyword for multiple items within a list of objectIds and return a
@@ -180,8 +180,8 @@ public interface PubItemBatchService {
    * @param accountUser
    * @return
    */
-  BatchProcessLogDbVO changeSourceIdReplace(List<String> pubItemObjectIdList, String sourceNumber, IdType sourceIdType, String idOld,
-      String idNew, String message, String authenticationToken, AccountUserDbVO accountUser);
+  BatchProcessLogDbVO changeSourceIdReplace(List<String> pubItemObjectIdList, String sourceNumber, IdentifierVO.IdType sourceIdType,
+      String idOld, String idNew, String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**
    * change source edition for multiple items within a list of objectIds and return a

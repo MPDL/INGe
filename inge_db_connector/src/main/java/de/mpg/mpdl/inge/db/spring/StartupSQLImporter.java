@@ -50,7 +50,7 @@ public class StartupSQLImporter {
           //Escape double colons
           sqlStatement = sqlStatement.replaceAll("::", "\\\\:\\\\:");
           logger.info("Executing: [" + sqlStatement + "]");
-          updated += entityManager.createNativeQuery(sqlStatement).executeUpdate();
+          updated += this.entityManager.createNativeQuery(sqlStatement).executeUpdate();
         }
 
         //entityManager.getTransaction().commit();

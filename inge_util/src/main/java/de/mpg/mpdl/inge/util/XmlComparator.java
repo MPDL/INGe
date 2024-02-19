@@ -84,16 +84,16 @@ public class XmlComparator {
   }
 
   public boolean equal() {
-    return (errors.isEmpty());
+    return (this.errors.isEmpty());
   }
 
   public List<String> getErrors() {
-    return errors;
+    return this.errors;
   }
 
   public String listErrors() {
     StringBuilder sb = new StringBuilder();
-    for (String error : errors) {
+    for (String error : this.errors) {
       sb.append(error);
       sb.append("\n");
     }
@@ -102,7 +102,7 @@ public class XmlComparator {
   }
 
   private void addElementsToIgnore(List<String> elements) {
-    if (elements == null) {
+    if (null == elements) {
       return;
     }
 
@@ -111,7 +111,7 @@ public class XmlComparator {
       String name = components[0].trim();
       Map<String, String> attributeMap = new HashMap<>();
 
-      if (components.length >= 1 && components[1] != null && components[1].contains("=")) {
+      if (1 <= components.length && null != components[1] && components[1].contains("=")) {
         String[] attributeListToAdd = components[1].trim().split(" ");
         for (String attributeToAdd : attributeListToAdd) {
           String[] tag = StringUtils.split(attributeToAdd.trim(), "=");
@@ -120,12 +120,12 @@ public class XmlComparator {
       }
 
       String nameSpace = null;
-      if (components.length >= 2 && components[2] != null && !"".contentEquals(components[2].trim())) {
+      if (2 <= components.length && null != components[2] && !"".contentEquals(components[2].trim())) {
         nameSpace = components[2].trim();
       }
 
       XmlNode node = new XmlNode(attributeMap, name, nameSpace);
-      elementsToIgnore.add(node);
+      this.elementsToIgnore.add(node);
     }
   }
 
@@ -135,7 +135,7 @@ public class XmlComparator {
     @Override
     public void content(String uri, String localName, String name, String content) throws SAXException {
       super.content(uri, localName, name, content);
-      nodeList.add(new TextNode(content));
+      this.nodeList.add(new TextNode(content));
     }
 
     @Override
@@ -168,10 +168,10 @@ public class XmlComparator {
 
       }
       if (name.contains(":")) {
-        nodeList.add(
+        this.nodeList.add(
             new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(name.substring(0, name.indexOf(":")))));
       } else {
-        nodeList.add(new XmlNode(attributeMap, name, null));
+        this.nodeList.add(new XmlNode(attributeMap, name, null));
       }
     }
   }
@@ -187,10 +187,10 @@ public class XmlComparator {
     public void content(String uri, String localName, String name, String content) throws SAXException {
       super.content(uri, localName, name, content);
       TextNode textNode = new TextNode(content);
-      Node other = firstXmlHandler.nodeList.poll();
+      Node other = this.firstXmlHandler.nodeList.poll();
 
-      if (!textNode.equals(other) && !omit) {
-        errors.add("Difference at " + stack + ": " + other + " != " + textNode);
+      if (!textNode.equals(other) && !XmlComparator.this.omit) {
+        XmlComparator.this.errors.add("Difference at " + this.stack + ": " + other + " != " + textNode);
       }
     }
 
@@ -227,15 +227,15 @@ public class XmlComparator {
         xmlNode = new XmlNode(attributeMap, name, null);
       }
 
-      if (elementsToIgnore.contains(xmlNode)) {
+      if (XmlComparator.this.elementsToIgnore.contains(xmlNode)) {
         logger.debug("omitting <" + xmlNode + ">");
-        omit = true;
+        XmlComparator.this.omit = true;
       }
 
-      Node other = firstXmlHandler.nodeList.poll();
+      Node other = this.firstXmlHandler.nodeList.poll();
 
-      if (!xmlNode.equals(other) && !omit) {
-        errors.add("Difference at " + stack + ": " + other + " != " + xmlNode);
+      if (!xmlNode.equals(other) && !XmlComparator.this.omit) {
+        XmlComparator.this.errors.add("Difference at " + this.stack + ": " + other + " != " + xmlNode);
       }
     }
 
@@ -244,12 +244,12 @@ public class XmlComparator {
 
       List<String> namesOfElementsToIgnore = new ArrayList<>();
 
-      for (XmlNode node : elementsToIgnore) {
+      for (XmlNode node : XmlComparator.this.elementsToIgnore) {
         namesOfElementsToIgnore.add(node.name);
       }
       super.endElement(uri, localName, name);
-      if (omit && namesOfElementsToIgnore.contains(name.substring(name.indexOf(":") + 1))) {
-        omit = false;
+      if (XmlComparator.this.omit && namesOfElementsToIgnore.contains(name.substring(name.indexOf(":") + 1))) {
+        XmlComparator.this.omit = false;
       }
     }
 
@@ -265,7 +265,7 @@ public class XmlComparator {
     private final String name;
     private final String namespace;
 
-    public XmlNode(Map<String, String> attributes, String name, String namespace) {
+    private XmlNode(Map<String, String> attributes, String name, String namespace) {
       this.attributes = attributes;
       this.name = name;
       this.namespace = namespace;
@@ -273,19 +273,20 @@ public class XmlComparator {
 
     @Override
     public boolean equals(Object other) {
-      if (other == null || !(other instanceof XmlNode)) {
+      if (null == other || !(other instanceof XmlNode)) {
         return false;
       } else {
-        for (String attributeName : this.attributes.keySet()) {
-          if (!attributeName.startsWith("xmlns:") && !attributeName.equals("xsi")
-              && !this.attributes.get(attributeName).equals(((XmlNode) other).attributes.get(attributeName))) {
+        for (Map.Entry<String, String> entry : this.attributes.entrySet()) {
+          String attributeName = entry.getKey();
+          if (!attributeName.startsWith("xmlns:") && !"xsi".equals(attributeName)
+              && !entry.getValue().equals(((XmlNode) other).attributes.get(attributeName))) {
             return false;
           }
         }
 
-        for (String attributeName : ((XmlNode) other).attributes.keySet()) {
-          if (!attributeName.startsWith("xmlns:")
-              && !((XmlNode) other).attributes.get(attributeName).equals(this.attributes.get(attributeName))) {
+        for (Map.Entry<String, String> entry : ((XmlNode) other).attributes.entrySet()) {
+          String attributeName = entry.getKey();
+          if (!attributeName.startsWith("xmlns:") && !entry.getValue().equals(this.attributes.get(attributeName))) {
             return false;
           }
         }
@@ -307,12 +308,12 @@ public class XmlComparator {
 
     @Override
     public boolean equals(Object other) {
-      if (other == null || !(other instanceof TextNode)) {
+      if (null == other || !(other instanceof TextNode)) {
         return false;
-      } else if (this.content == null) {
-        return (((TextNode) other).content == null);
+      } else if (null == this.content) {
+        return (null == ((TextNode) other).content);
       } else if (this.content.matches("^\\s*$")) {
-        return (((TextNode) other).content == null || ((TextNode) other).content.matches("^\\s*$"));
+        return (null == ((TextNode) other).content || ((TextNode) other).content.matches("^\\s*$"));
       } else {
         return this.content.equals(((TextNode) other).content);
       }

@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -46,7 +45,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
       TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
 
       URIResolver uriRes = getURIResolver();
-      if (uriRes != null) {
+      if (null != uriRes) {
         xslTransformerFactory.setURIResolver(uriRes);
       }
 
@@ -54,16 +53,16 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
       Map<String, String> outputKeys = getOutputKeys();
 
-      if (outputKeys != null) {
-        for (Entry<String, String> entry : outputKeys.entrySet()) {
+      if (null != outputKeys) {
+        for (Map.Entry<String, String> entry : outputKeys.entrySet()) {
           xslTransformer.setOutputProperty(entry.getKey(), entry.getValue());
         }
       }
 
       Map<String, Object> parameters = getParameters();
-      if (parameters != null) {
-        for (Entry<String, Object> entry : parameters.entrySet()) {
-          if (entry.getValue() != null) {
+      if (null != parameters) {
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+          if (null != entry.getValue()) {
             xslTransformer.setParameter(entry.getKey(), entry.getValue());
           } else {
           }
@@ -71,8 +70,8 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
       }
 
       Map<String, String> config = getConfiguration();
-      if (config != null && config.entrySet() != null) {
-        for (Entry<String, String> entry : config.entrySet()) {
+      if (null != config && null != config.entrySet()) {
+        for (Map.Entry<String, String> entry : config.entrySet()) {
           xslTransformer.setParameter(entry.getKey(), entry.getValue());
         }
       }

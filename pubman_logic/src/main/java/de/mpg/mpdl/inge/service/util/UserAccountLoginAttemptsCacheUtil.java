@@ -16,11 +16,11 @@ public class UserAccountLoginAttemptsCacheUtil {
 
   private static final Logger logger = LogManager.getLogger(UserAccountLoginAttemptsCacheUtil.class);
 
-  public final int ATTEMPT_TIMER = 30; // in Minutes
+  public static final int ATTEMPT_TIMER = 30; // in Minutes
   private final LoadingCache<String, Integer> attemptsCache;
 
   public UserAccountLoginAttemptsCacheUtil() {
-    attemptsCache = CacheBuilder.newBuilder().expireAfterWrite(ATTEMPT_TIMER, TimeUnit.MINUTES).build(new CacheLoader<>() {
+    this.attemptsCache = CacheBuilder.newBuilder().expireAfterWrite(this.ATTEMPT_TIMER, TimeUnit.MINUTES).build(new CacheLoader<>() {
       public Integer load(String key) {
         return 0;
       }
@@ -28,28 +28,28 @@ public class UserAccountLoginAttemptsCacheUtil {
   }
 
   public void loginSucceeded(String key) {
-    attemptsCache.invalidate(key);
+    this.attemptsCache.invalidate(key);
   }
 
   public void loginFailed(String key) {
     int attempts = 0;
     try {
-      attempts = attemptsCache.get(key);
+      attempts = this.attemptsCache.get(key);
     } catch (ExecutionException e) {
       attempts = 0;
     }
     attempts++;
-    attemptsCache.put(key, attempts);
+    this.attemptsCache.put(key, attempts);
   }
 
   public boolean isBlocked(String key) {
     try {
       int MAX_ATTEMPT = 10;
-      if (attemptsCache.get(key) >= MAX_ATTEMPT) {
+      if (this.attemptsCache.get(key) >= MAX_ATTEMPT) {
         logger.info(key + " is blocked for the moment");
         return true;
       }
-      return attemptsCache.get(key) >= MAX_ATTEMPT;
+      return this.attemptsCache.get(key) >= MAX_ATTEMPT;
     } catch (ExecutionException e) {
       return false;
     }

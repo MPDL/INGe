@@ -10,7 +10,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import jakarta.persistence.Column;
@@ -31,7 +30,7 @@ import jakarta.validation.constraints.Size;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "batch_process_log_detail")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class BatchProcessLogDetailDbVO implements Serializable {
 
   public enum State
@@ -74,7 +73,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
 
   @Override
     public String getMessage() {
-      return message;
+      return this.message;
     }}
 
   @Id
@@ -187,22 +186,22 @@ public class BatchProcessLogDetailDbVO implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(batchProcessLogDetailId, batchProcessLogHeaderDbVO, endDate, itemObjectId, itemVersionnumber, message, startDate,
-        state);
+    return Objects.hash(this.batchProcessLogDetailId, this.batchProcessLogHeaderDbVO, this.endDate, this.itemObjectId,
+        this.itemVersionnumber, this.message, this.startDate, this.state);
   }
 
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     BatchProcessLogDetailDbVO other = (BatchProcessLogDetailDbVO) obj;
-    return batchProcessLogDetailId == other.batchProcessLogDetailId
-        && Objects.equals(batchProcessLogHeaderDbVO, other.batchProcessLogHeaderDbVO) && Objects.equals(endDate, other.endDate)
-        && Objects.equals(itemObjectId, other.itemObjectId) && Objects.equals(itemVersionnumber, other.itemVersionnumber)
-        && message == other.message && Objects.equals(startDate, other.startDate) && state == other.state;
+    return this.batchProcessLogDetailId == other.batchProcessLogDetailId
+        && Objects.equals(this.batchProcessLogHeaderDbVO, other.batchProcessLogHeaderDbVO) && Objects.equals(this.endDate, other.endDate)
+        && Objects.equals(this.itemObjectId, other.itemObjectId) && Objects.equals(this.itemVersionnumber, other.itemVersionnumber)
+        && this.message == other.message && Objects.equals(this.startDate, other.startDate) && this.state == other.state;
   }
 }

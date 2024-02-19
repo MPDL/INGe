@@ -24,6 +24,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,8 +34,6 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -58,7 +57,7 @@ public class SQLQuerier implements Querier {
    */
   public SQLQuerier() throws Exception {
     Class.forName(PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_DRIVER_CLASS));
-    connection = DriverManager.getConnection(
+    this.connection = DriverManager.getConnection(
         "jdbc:postgresql://" + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_NAME) + ":"
             + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_PORT) + "/"
             + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_NAME),
@@ -77,9 +76,9 @@ public class SQLQuerier implements Querier {
 
   public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType, int limit)
       throws ConeException {
-    if (modeType == ModeType.FAST) {
+    if (ModeType.FAST == modeType) {
       return queryFast(modelName, searchString, language, limit);
-    } else if (modeType == ModeType.FULL) {
+    } else if (ModeType.FULL == modeType) {
       return queryFull(modelName, searchString, language, limit);
     } else {
       throw new ConeException("Mode " + modeType + " not supported.");
@@ -88,9 +87,9 @@ public class SQLQuerier implements Querier {
 
   public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs, String language, ModeType modeType, int limit)
       throws ConeException {
-    if (modeType == ModeType.FAST) {
+    if (ModeType.FAST == modeType) {
       return queryFast(modelName, searchPairs, language, limit);
-    } else if (modeType == ModeType.FULL) {
+    } else if (ModeType.FULL == modeType) {
       return queryFull(modelName, searchPairs, language, limit);
     } else {
       throw new ConeException("Mode " + modeType + " not supported.");
@@ -100,7 +99,7 @@ public class SQLQuerier implements Querier {
   private List<? extends Describable> queryFast(String modelName, String searchString, String language, int limit) throws ConeException {
     String query = null;
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
@@ -130,14 +129,14 @@ public class SQLQuerier implements Querier {
             + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
-      if (limit > 0) {
+      if (0 < limit) {
         query += " limit " + limit;
       }
 
       query += ";";
       // logger.info("CoNE query: " + query);
 
-      Statement statement = connection.createStatement();
+      Statement statement = this.connection.createStatement();
       ResultSet result = statement.executeQuery(query);
       List<Pair<LocalizedString>> resultSet = new ArrayList<>();
       while (result.next()) {
@@ -165,7 +164,7 @@ public class SQLQuerier implements Querier {
       throws ConeException {
     String query = null;
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
@@ -192,14 +191,14 @@ public class SQLQuerier implements Querier {
             + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
-      if (limit > 0) {
+      if (0 < limit) {
         query += " limit " + limit;
       }
 
       query += ";";
       // logger.info("CoNE query: " + query);
 
-      Statement statement = connection.createStatement();
+      Statement statement = this.connection.createStatement();
       ResultSet result = statement.executeQuery(query);
       List<Pair<LocalizedString>> resultSet = new ArrayList<>();
       while (result.next()) {
@@ -235,7 +234,7 @@ public class SQLQuerier implements Querier {
   private List<? extends Describable> queryFull(String modelName, String searchString, String language, int limit) throws ConeException {
     String query = null;
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
@@ -264,14 +263,14 @@ public class SQLQuerier implements Querier {
       }
       query += " order by " + order1 + order2 + "r1.value, r1.id";
 
-      if (limit > 0) {
+      if (0 < limit) {
         query += " limit " + limit;
       }
 
       query += ";";
       // logger.info("CoNE query: " + query);
 
-      Statement statement = connection.createStatement();
+      Statement statement = this.connection.createStatement();
       ResultSet result = statement.executeQuery(query);
       List<TreeFragment> resultSet = new ArrayList<>();
       while (result.next()) {
@@ -295,7 +294,7 @@ public class SQLQuerier implements Querier {
       throws ConeException {
     String query = null;
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
@@ -322,14 +321,14 @@ public class SQLQuerier implements Querier {
             + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       query += " order by " + order1 + order2 + "r1.value, r1.id";
-      if (limit > 0) {
+      if (0 < limit) {
         query += " limit " + limit;
       }
 
       query += ";";
       // logger.info("CoNE query: " + query);
 
-      Statement statement = connection.createStatement();
+      Statement statement = this.connection.createStatement();
       ResultSet result = statement.executeQuery(query);
       List<TreeFragment> resultSet = new ArrayList<>();
       while (result.next()) {
@@ -367,7 +366,7 @@ public class SQLQuerier implements Querier {
     return getSubqueries(modelName, searchPairs, null, level, 0);
   }
 
-  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, Predicate parentPredicate, int level, int counter)
+  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, ModelList.Predicate parentPredicate, int level, int counter)
       throws ConeException {
     String fromExtension = "";
     String subQuery = "";
@@ -388,11 +387,11 @@ public class SQLQuerier implements Querier {
         joinClause += " inner join triples " + table + " on triples" + (counter - 1) + "_" + level + ".subject = " + table + ".subject ";
       }
 
-      if (counter > 0 || level > 0) {
+      if (0 < counter || 0 < level) {
         subQuery += " and ";
       }
 
-      if (modelName == null) {
+      if (null == modelName) {
         subQuery += table + ".model is null ";
       } else {
         subQuery += table + ".model = '" + modelName + "' ";
@@ -409,14 +408,14 @@ public class SQLQuerier implements Querier {
         }
       }
 
-      List<Predicate> predicateList = null;
-      if (modelName != null) {
+      List<ModelList.Predicate> predicateList = null;
+      if (null != modelName) {
         predicateList = ModelList.getInstance().getModelByAlias(modelName).getPredicates();
       } else {
         predicateList = parentPredicate.getPredicates();
       }
 
-      for (Predicate predicate : predicateList) {
+      for (ModelList.Predicate predicate : predicateList) {
         if (key.equals(predicate.getId())) {
           subQuery += " and " + table + ".predicate = '" + key + "' ";
           String[] results = formatSearchString(pair.getValue());
@@ -496,15 +495,15 @@ public class SQLQuerier implements Querier {
 
   public TreeFragment details(String modelName, String id, String language) throws ConeException {
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
-      if (modelName != null) {
+      if (null != modelName) {
         Stack<String> idStack = new Stack<>();
         idStack.push(id);
 
-        TreeFragment result = details(modelName, id, language, idStack, connection);
+        TreeFragment result = details(modelName, id, language, idStack, this.connection);
 
         return result;
       } else {
@@ -517,12 +516,12 @@ public class SQLQuerier implements Querier {
 
   public TreeFragment details(String modelName, String id, String language, Stack<String> idStack, Connection connection)
       throws ConeException {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     return details(modelName, model.getPredicates(), id, language, idStack, connection);
   }
 
-  public TreeFragment details(String modelName, List<Predicate> predicates, String id, String language, Stack<String> idStack,
+  public TreeFragment details(String modelName, List<ModelList.Predicate> predicates, String id, String language, Stack<String> idStack,
       Connection connection) throws ConeException {
     String query = null;
     try {
@@ -533,7 +532,7 @@ public class SQLQuerier implements Querier {
       id = escape(id);
       query = "select distinct object, predicate, lang from triples where ";
 
-      if (modelName != null) {
+      if (null != modelName) {
         query += " model = '" + modelName + "' and";
       }
 
@@ -559,15 +558,15 @@ public class SQLQuerier implements Querier {
         LocalizedTripleObject localizedTripleObject = null;
 
         boolean found = false;
-        for (Predicate predicate : predicates) {
+        for (ModelList.Predicate predicate : predicates) {
           if (predicate.getId().equals(predicateValue)) {
-            if (!predicate.isRestricted() || loggedIn) {
+            if (!predicate.isRestricted() || this.loggedIn) {
               if (predicate.isResource() && !(idStack.contains(object)) && predicate.isIncludeResource()) {
                 idStack.push(object);
                 localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
                 idStack.pop();
                 localizedTripleObject.setLanguage(lang);
-              } else if (!predicate.isResource() && predicate.getPredicates() != null && !predicate.getPredicates().isEmpty()) {
+              } else if (!predicate.isResource() && null != predicate.getPredicates() && !predicate.getPredicates().isEmpty()) {
                 localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
                 localizedTripleObject.setLanguage(lang);
               } else {
@@ -617,19 +616,19 @@ public class SQLQuerier implements Querier {
 
   public void create(String modelName, String id, TreeFragment values) throws ConeException {
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
       String query = "select count(subject) as cnt from triples where subject = ?";
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = this.connection.prepareStatement(query);
       statement.setString(1, id);
 
       ResultSet result = statement.executeQuery();
       if (result.next()) {
         int count = result.getInt("cnt");
-        if (count > 0) {
-          if (modelName != null) {
+        if (0 < count) {
+          if (null != modelName) {
             throw new ConeException("Trying to create a resource that is already existing: " + modelName + " " + id);
           } else {
             // Won't update an existing resource linked from this resource
@@ -646,14 +645,14 @@ public class SQLQuerier implements Querier {
 
       result.close();
       statement.close();
-      statement = connection.prepareStatement(query);
+      statement = this.connection.prepareStatement(query);
 
-      for (String predicate : values.keySet()) {
+      for (Map.Entry<String, List<LocalizedTripleObject>> entry : values.entrySet()) {
         statement.setString(1, id);
-        statement.setString(2, predicate);
+        statement.setString(2, entry.getKey());
         statement.setString(5, modelName);
 
-        for (LocalizedTripleObject object : values.get(predicate)) {
+        for (LocalizedTripleObject object : entry.getValue()) {
           if (object instanceof LocalizedString && !"".equals(((LocalizedString) object).getValue())) {
             statement.setString(3, ((LocalizedString) object).getValue());
           } else if (object instanceof TreeFragment) {
@@ -663,7 +662,7 @@ public class SQLQuerier implements Querier {
             continue;
           }
 
-          if (object.getLanguage() == null || "".equals(object.getLanguage())) {
+          if (null == object.getLanguage() || "".equals(object.getLanguage())) {
             statement.setString(4, null);
           } else {
             statement.setString(4, object.getLanguage());
@@ -672,20 +671,20 @@ public class SQLQuerier implements Querier {
         }
       }
 
-      if (modelName != null) {
+      if (null != modelName) {
         query = "insert into results (id, value, lang, type, sort) values (?, ?, ?, ?, ?)";
         statement.close();
-        statement = connection.prepareStatement(query);
+        statement = this.connection.prepareStatement(query);
 
         statement.setString(1, id);
 
-        List<Pair<ResultEntry>> results = ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
+        List<Pair<ResultEntry>> results = ModelHelper.buildObjectFromPatternNew(modelName, id, values, this.loggedIn);
 
         for (Pair<ResultEntry> pair : results) {
-          if (pair.getValue() != null) {
+          if (null != pair.getValue()) {
             statement.setString(2, pair.getValue().getValue());
 
-            if (pair.getValue().getLanguage() != null && "".equals(pair.getValue().getLanguage())) {
+            if (null != pair.getValue().getLanguage() && "".equals(pair.getValue().getLanguage())) {
               statement.setString(3, null);
             } else {
               statement.setString(3, pair.getValue().getLanguage());
@@ -700,17 +699,17 @@ public class SQLQuerier implements Querier {
 
         query = "insert into matches (id, value, lang, model) values (?, ?, ?, ?)";
         statement.close();
-        statement = connection.prepareStatement(query);
+        statement = this.connection.prepareStatement(query);
 
         statement.setString(1, id);
         statement.setString(4, modelName);
 
-        List<Pair<LocalizedString>> matchResults = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
+        List<Pair<LocalizedString>> matchResults = ModelHelper.buildMatchStringFromModel(modelName, id, values, this.loggedIn);
 
         for (Pair<LocalizedString> pair : matchResults) {
-          if (pair.getValue() != null) {
+          if (null != pair.getValue()) {
             statement.setString(2, pair.getValue().getValue());
-            if (pair.getKey() != null && "".equals(pair.getKey())) {
+            if (null != pair.getKey() && "".equals(pair.getKey())) {
               statement.setString(3, null);
             } else {
               statement.setString(3, pair.getKey());
@@ -726,22 +725,22 @@ public class SQLQuerier implements Querier {
   }
 
   public void delete(String modelName, String id) throws ConeException {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
-    List<Predicate> predicates = model.getPredicates();
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
+    List<ModelList.Predicate> predicates = model.getPredicates();
     delete(predicates, id);
   }
 
-  public void delete(List<Predicate> predicates, String id) throws ConeException {
+  public void delete(List<ModelList.Predicate> predicates, String id) throws ConeException {
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
       String query = "select distinct object from triples where subject = ? and predicate = ?";
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = this.connection.prepareStatement(query);
 
-      for (Predicate predicate : predicates) {
-        if (!predicate.isResource() && predicate.getPredicates() != null && !predicate.getPredicates().isEmpty()) {
+      for (ModelList.Predicate predicate : predicates) {
+        if (!predicate.isResource() && null != predicate.getPredicates() && !predicate.getPredicates().isEmpty()) {
 
           statement.setString(1, id);
           statement.setString(2, predicate.getId());
@@ -759,19 +758,19 @@ public class SQLQuerier implements Querier {
 
       statement.close();
       query = "delete from triples where subject = ?";
-      statement = connection.prepareStatement(query);
+      statement = this.connection.prepareStatement(query);
       statement.setString(1, id);
       statement.executeUpdate();
 
       statement.close();
       query = "delete from results where id = ?";
-      statement = connection.prepareStatement(query);
+      statement = this.connection.prepareStatement(query);
       statement.setString(1, id);
       statement.executeUpdate();
 
       statement.close();
       query = "delete from matches where id = ?";
-      statement = connection.prepareStatement(query);
+      statement = this.connection.prepareStatement(query);
       statement.setString(1, id);
       statement.executeUpdate();
 
@@ -785,12 +784,12 @@ public class SQLQuerier implements Querier {
 
   public synchronized String createUniqueIdentifier(String modelName) throws ConeException {
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
       String query = "select value from properties where name = 'max_id'";
-      Statement statement = connection.createStatement();
+      Statement statement = this.connection.createStatement();
       ResultSet result = statement.executeQuery(query);
 
       if (result.next()) {
@@ -801,7 +800,7 @@ public class SQLQuerier implements Querier {
         statement.executeUpdate(query);
 
         String uid;
-        if (modelName == null) {
+        if (null == modelName) {
           uid = "genid:" + maxId;
         } else {
           uid = modelName + "/resource/" + modelName + maxId;
@@ -837,17 +836,17 @@ public class SQLQuerier implements Querier {
 
   public List<String> getAllIds(String modelName, int hits) throws ConeException {
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
       String query = "select distinct subject from triples where model = ?";
-      if (hits > 0) {
+      if (0 < hits) {
         query += " limit ?";
       }
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = this.connection.prepareStatement(query);
       statement.setString(1, modelName);
-      if (hits > 0) {
+      if (0 < hits) {
         statement.setInt(2, hits);
       }
       ResultSet result = statement.executeQuery();
@@ -868,12 +867,12 @@ public class SQLQuerier implements Querier {
   @Override
   protected void finalize() throws Throwable {
     super.finalize();
-    connection.close();
+    this.connection.close();
   }
 
   public void release() throws ConeException {
     try {
-      connection.close();
+      this.connection.close();
     } catch (SQLException e) {
       throw new ConeException(e);
     }
@@ -889,18 +888,18 @@ public class SQLQuerier implements Querier {
 
   public void cleanup() throws ConeException {
     try {
-      if (connection.isClosed()) {
+      if (this.connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
       String query =
           "delete from matches m1 where m1.id in ( select id from matches left join triples on id = subject where subject is null)";
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = this.connection.prepareStatement(query);
       statement.executeUpdate();
       statement.close();
 
       query = "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
-      statement = connection.prepareStatement(query);
+      statement = this.connection.prepareStatement(query);
       statement.executeUpdate();
 
       statement.close();

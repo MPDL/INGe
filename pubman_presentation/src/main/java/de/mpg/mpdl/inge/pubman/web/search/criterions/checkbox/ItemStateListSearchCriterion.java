@@ -2,16 +2,13 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.MapListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
@@ -94,9 +91,9 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    if (queryType == QueryType.CQL) {
+    if (QueryType.CQL == queryType) {
       return super.isEmpty(queryType);
-    } else if (queryType == QueryType.INTERNAL) {
+    } else if (QueryType.INTERNAL == queryType) {
       return false;
     }
 
@@ -121,10 +118,10 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
    * @return
    * @throws IngeTechnicalException
    */
-  public static Query filterOut(AccountUserDbVO user, State s) throws IngeTechnicalException {
+  public static Query filterOut(AccountUserDbVO user, ItemVersionRO.State s) throws IngeTechnicalException {
     BoolQuery.Builder filterOutQuery = new BoolQuery.Builder();
 
-    filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+    filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVersionRO.State.RELEASED.name()));
 
     // filterOutQuery.must(QueryBuilders.scriptQuery(new Script("doc['" +
     // PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']!=doc['" +
@@ -138,7 +135,8 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     subQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, user.getObjectId()));
 
     // Filter out released items where user is moderator
-    if (GrantUtil.hasRole(user, PredefinedRoles.MODERATOR) && (State.SUBMITTED.equals(s) || State.IN_REVISION.equals(s))) {
+    if (GrantUtil.hasRole(user, GrantVO.PredefinedRoles.MODERATOR)
+        && (ItemVersionRO.State.SUBMITTED.equals(s) || ItemVersionRO.State.IN_REVISION.equals(s))) {
       BoolQuery.Builder contextModeratorQuery = new BoolQuery.Builder();
 
       for (GrantVO grant : user.getGrantList()) {
@@ -157,13 +155,14 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     if (!this.isEmpty(QueryType.CQL)) {
       LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
+      for (final Map.Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
         if (entry.getValue()) {
           switch (ItemVersionRO.State.valueOf(entry.getKey())) {
             case RELEASED: {
               BoolQuery.Builder subBuilder = new BoolQuery.Builder();
               subBuilder.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
-              subBuilder.mustNot(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.WITHDRAWN.name()));
+              subBuilder
+                  .mustNot(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVersionRO.State.WITHDRAWN.name()));
               bq.should(subBuilder.build()._toQuery());
               break;
             }
@@ -172,9 +171,10 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
             case IN_REVISION: {
               BoolQuery.Builder subBuilder = new BoolQuery.Builder();
               subBuilder.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
-              subBuilder.mustNot(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.WITHDRAWN.name()));
+              subBuilder
+                  .mustNot(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVersionRO.State.WITHDRAWN.name()));
               bq.should(subBuilder.build()._toQuery());
-              bq.mustNot(filterOut(loginHelper.getAccountUser(), State.valueOf(entry.getKey())));
+              bq.mustNot(filterOut(loginHelper.getAccountUser(), ItemVersionRO.State.valueOf(entry.getKey())));
 
               break;
             }

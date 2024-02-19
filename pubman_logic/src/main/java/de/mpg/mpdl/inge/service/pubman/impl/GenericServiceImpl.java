@@ -54,7 +54,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Override
   public ModelObject create(ModelObject object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Principal principal = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToCreate = createEmptyDbObject();
     List<Id> reindexList = updateObjectWithValues(object, objectToCreate, principal.getUserAccount(), true);
     updateWithTechnicalMetadata(objectToCreate, principal.getUserAccount(), true);
@@ -65,14 +65,14 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       handleDBException(e);
     }
 
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
       getElasticDao().createImmediately(objectToCreate.getObjectId(), objectToCreate);
     }
 
-    if (reindexList != null) {
+    if (null != reindexList) {
       // ACHTUNG: siehe Kommentar bei AffiliationDbVO @Formula
-      entityManager.flush();
-      entityManager.clear();
+      this.entityManager.flush();
+      this.entityManager.clear();
       reindex(reindexList);
     }
     return objectToCreate;
@@ -82,9 +82,9 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Override
   public ModelObject update(ModelObject object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Principal principal = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToBeUpdated = getDbRepository().findById(getObjectId(object)).orElse(null);
-    if (objectToBeUpdated == null) {
+    if (null == objectToBeUpdated) {
       throw new IngeApplicationException("Object with given id not found.");
     }
     checkEqualModificationDate(getModificationDate(object), getModificationDate(objectToBeUpdated));
@@ -98,10 +98,10 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       handleDBException(e);
     }
 
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
       getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToBeUpdated);
     }
-    if (reindexList != null) {
+    if (null != reindexList) {
       reindex(reindexList);
     }
     return objectToBeUpdated;
@@ -113,14 +113,14 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Override
   public void delete(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Principal principal = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToBeDeleted = getDbRepository().findById(id).orElse(null);
-    if (objectToBeDeleted == null) {
+    if (null == objectToBeDeleted) {
       throw new IngeApplicationException("Object with given id not found.");
     }
     checkAa("delete", principal, objectToBeDeleted);
     getDbRepository().deleteById(id);
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
       getElasticDao().deleteImmediatly(getIdForElasticSearch(id));
     }
 
@@ -132,11 +132,11 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = null;
     ModelObject object = getDbRepository().findById(id).orElse(null);
-    if (object == null) {
+    if (null == object) {
       return null;
     }
-    if (authenticationToken != null) {
-      principal = aaService.checkLoginRequired(authenticationToken);
+    if (null != authenticationToken) {
+      principal = this.aaService.checkLoginRequired(authenticationToken);
     }
 
     checkAa("get", principal, object);
@@ -183,7 +183,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
 
   protected void reindex(List<Id> idList) throws IngeTechnicalException {
     // Reindex old and new Parents
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
       for (Id id : idList) {
         reindex(id, true);
       }
@@ -195,7 +195,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Transactional(readOnly = true)
   protected void reindex(Id id, boolean immediate) throws IngeTechnicalException {
     // Reindex old and new Parents
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
       ModelObject vo = getDbRepository().findById(id).orElse(null);
       logger.info("Reindexing object " + vo.getObjectId());
       if (immediate) {
@@ -219,13 +219,13 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   public void reindexAll(String authenticationToken) {
 
     // TODO AA
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
       String entityName =
           ((Class<ModelObject>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getSimpleName();
 
 
 
-      Query<Id> query = (Query<Id>) entityManager.createQuery("SELECT e.objectId FROM " + entityName + " e");
+      Query<Id> query = (Query<Id>) this.entityManager.createQuery("SELECT e.objectId FROM " + entityName + " e");
       query.setReadOnly(true);
       query.setFetchSize(500);
       query.setCacheMode(CacheMode.IGNORE);
@@ -237,16 +237,16 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       while (results.next()) {
         try {
           // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-          if (count % 1000 == 0) {
+          if (0 == count % 1000) {
             logger.info("Clearing entity manager while reindexing");
-            entityManager.flush();
-            entityManager.clear();
+            this.entityManager.flush();
+            this.entityManager.clear();
           }
           count++;
 
           Id id = results.get();
 
-          queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
+          this.queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
 
           //          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
           //          if (count % 1000 == 0) {
@@ -265,7 +265,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   }
 
   protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
-    if (date1 == null || date2 == null || !date1.equals(date2)) {
+    if (null == date1 || null == date2 || !date1.equals(date2)) {
       throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2);
     }
   }
@@ -280,7 +280,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     } catch (DataIntegrityViolationException ex) {
       StringBuilder message = new StringBuilder("Object already exists.");
       // Get message from
-      if (ex.getCause() != null && ex.getCause().getCause() != null) {
+      if (null != ex.getCause() && null != ex.getCause().getCause()) {
         message.append(" ").append(ex.getCause().getCause().getMessage());
       }
       throw new IngeApplicationException(message.toString(), ex);

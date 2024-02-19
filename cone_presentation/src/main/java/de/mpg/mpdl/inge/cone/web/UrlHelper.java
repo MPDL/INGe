@@ -19,7 +19,7 @@ public class UrlHelper {
   private UrlHelper() {}
 
   public static String fixURLEncoding(String input) {
-    if (input != null) {
+    if (null != input) {
       String utf8 = new String(input.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
       if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
         return input;

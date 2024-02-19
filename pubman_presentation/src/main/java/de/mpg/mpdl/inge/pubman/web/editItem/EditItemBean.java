@@ -7,8 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
@@ -63,13 +61,13 @@ public class EditItemBean extends FacesBean {
   public void initOrganizationsFromCreators() {
     final List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<>();
     for (final CreatorVOPresentation creator : this.creators) {
-      if (creator.getType() == CreatorType.PERSON) {
+      if (CreatorVO.CreatorType.PERSON == creator.getType()) {
         for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
           if (!creatorOrganizations.contains(organization)) {
             final OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
             if (!organizationPresentation.isEmpty()) {
               organizationPresentation.setBean(this);
-              if (organizationPresentation.getName() == null) {
+              if (null == organizationPresentation.getName()) {
                 organizationPresentation.setName("");
               }
               creatorOrganizations.add(organizationPresentation);
@@ -157,7 +155,7 @@ public class EditItemBean extends FacesBean {
 
     for (final CreatorVO creator : creatorList) {
       final CreatorVOPresentation beanCreator = new CreatorVOPresentation(creators, this, creator);
-      if (beanCreator.getPerson() != null && beanCreator.getPerson().getIdentifier() == null) {
+      if (null != beanCreator.getPerson() && null == beanCreator.getPerson().getIdentifier()) {
         beanCreator.getPerson().setIdentifier(new IdentifierVO());
       }
       creators.add(beanCreator);
@@ -168,7 +166,7 @@ public class EditItemBean extends FacesBean {
     creators.clear();
     for (final CreatorVOPresentation creatorVOPresentation : this.getCreators()) {
       CreatorVO creatorVO;
-      if (CreatorType.ORGANIZATION == creatorVOPresentation.getType()) {
+      if (CreatorVO.CreatorType.ORGANIZATION == creatorVOPresentation.getType()) {
         creatorVO = new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
       } else {
         creatorVO = new CreatorVO(creatorVOPresentation.getPerson(), creatorVOPresentation.getRole());
@@ -185,8 +183,8 @@ public class EditItemBean extends FacesBean {
     if (creator.isPersonType()) {
       final PersonVO person = creator.getPerson();
       final List<OrganizationVO> personOrgs = person.getOrganizations();
-      String[] orgArr = new String[] {};
-      if (creator.getOuNumbers() != null) {
+      String[] orgArr = {};
+      if (null != creator.getOuNumbers()) {
         orgArr = creator.getOuNumbers().split(",");
       }
       personOrgs.clear();
@@ -205,7 +203,7 @@ public class EditItemBean extends FacesBean {
         this.error(this.getMessage("EntryIsNotInValidRange").replace("$1", creator.getOuNumbers()));
         return false;
       } catch (final Exception e) {
-        EditItemBean.logger.error("Unexpected error evaluation creator organizations", e);
+        logger.error("Unexpected error evaluation creator organizations", e);
         this.error(this.getMessage("ErrorInOrganizationAssignment").replace("$1", creator.getOuNumbers()));
         return false;
       }
@@ -219,7 +217,7 @@ public class EditItemBean extends FacesBean {
   }
 
   public void readPastedOrganizations() {
-    EditItemBean.logger.debug("readPastedOrganizations");
+    logger.debug("readPastedOrganizations");
     this.organizationPasted = false;
   }
 
@@ -251,7 +249,7 @@ public class EditItemBean extends FacesBean {
     final AuthorDecoder authDec = new AuthorDecoder(creatorString);
 
     final List<Author> authorList = authDec.getBestAuthorList();
-    if (authorList == null || authorList.isEmpty()) {
+    if (null == authorList || authorList.isEmpty()) {
       throw new Exception(this.getMessage("EditItemBean_errorParseCreator"));
     }
 
@@ -263,14 +261,14 @@ public class EditItemBean extends FacesBean {
     if (!this.getCreators().isEmpty()) {
       final CreatorVOPresentation creatorVO = this.getCreators().get(this.getCreators().size() - 1);
       // creator is a person
-      if (creatorVO.isPersonType() && creatorVO.getPerson() != null && "".equals(creatorVO.getPerson().getFamilyName())
+      if (creatorVO.isPersonType() && null != creatorVO.getPerson() && "".equals(creatorVO.getPerson().getFamilyName())
           && "".equals(creatorVO.getPerson().getGivenName())
-          && (creatorVO.getPerson().getOrganizations().isEmpty() || creatorVO.getPerson().getOrganizations().get(0).getName() == null
+          && (creatorVO.getPerson().getOrganizations().isEmpty() || null == creatorVO.getPerson().getOrganizations().get(0).getName()
               || "".equals(creatorVO.getPerson().getOrganizations().get(0).getName()))) {
         this.getCreators().remove(creatorVO);
       }
       // creator is an organisation
-      else if (creatorVO.isOrganizationType() && creatorVO.getOrganization() != null && "".equals(creatorVO.getOrganization().getName())) {
+      else if (creatorVO.isOrganizationType() && null != creatorVO.getOrganization() && "".equals(creatorVO.getOrganization().getName())) {
         this.getCreators().remove(creatorVO);
       }
     }
@@ -283,15 +281,15 @@ public class EditItemBean extends FacesBean {
       creator.setOuNumbers("");
       this.getCreators().add(creator);
 
-      if (author.getPrefix() != null && !"".equals(author.getPrefix())) {
+      if (null != author.getPrefix() && !"".equals(author.getPrefix())) {
         creator.getPerson().setFamilyName(author.getPrefix() + " " + author.getSurname());
       } else {
         creator.getPerson().setFamilyName(author.getSurname());
       }
       creator.getPerson().setGivenName(author.getGivenName());
 
-      creator.setRole(CreatorRole.AUTHOR);
-      creator.setType(CreatorType.PERSON);
+      creator.setRole(CreatorVO.CreatorRole.AUTHOR);
+      creator.setType(CreatorVO.CreatorType.PERSON);
     }
   }
 }

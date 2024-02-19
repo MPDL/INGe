@@ -28,7 +28,7 @@ public class LogoutClient extends Client {
   protected String getLogoutUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String target = request.getParameter("target");
 
-    if (target != null) {
+    if (null != target) {
       return target;
     } else {
       logger.warn("No query parameter 'target' found for logging out.");

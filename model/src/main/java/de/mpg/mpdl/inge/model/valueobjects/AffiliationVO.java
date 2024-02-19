@@ -31,7 +31,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -48,7 +47,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @updated 07-Sep-2007 13:27:29
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class AffiliationVO extends ValueObject implements Searchable {
   private final java.util.List<AffiliationRO> childAffiliations = new java.util.ArrayList<>();
 
@@ -79,7 +78,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * 'create' or an 'update' transformation.
    */
   boolean alreadyExistsInFramework() {
-    return (this.reference != null);
+    return (null != this.reference);
   }
 
   /**
@@ -94,7 +93,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * Delivers the list of the affiliations' child affiliations.
    */
   public java.util.List<AffiliationRO> getChildAffiliations() {
-    return childAffiliations;
+    return this.childAffiliations;
   }
 
   /**
@@ -104,8 +103,8 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @return A {@link MdsOrganizationalUnitDetailsVO}.
    */
   public MdsOrganizationalUnitDetailsVO getDefaultMetadata() {
-    if (!metadataSets.isEmpty() && metadataSets.get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      return (MdsOrganizationalUnitDetailsVO) metadataSets.get(0);
+    if (!this.metadataSets.isEmpty() && this.metadataSets.get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+      return (MdsOrganizationalUnitDetailsVO) this.metadataSets.get(0);
     } else {
       return null;
     }
@@ -117,10 +116,10 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @param detailsVO A {@link MdsOrganizationalUnitDetailsVO} containing the default metadata.
    */
   public void setDefaultMetadata(MdsOrganizationalUnitDetailsVO detailsVO) {
-    if (metadataSets.isEmpty()) {
-      metadataSets.add(detailsVO);
+    if (this.metadataSets.isEmpty()) {
+      this.metadataSets.add(detailsVO);
     } else {
-      metadataSets.set(0, detailsVO);
+      this.metadataSets.set(0, detailsVO);
     }
   }
 
@@ -129,7 +128,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * organizational unit is created.
    */
   public java.util.Date getCreationDate() {
-    return creationDate;
+    return this.creationDate;
   }
 
   /**
@@ -137,21 +136,21 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * the system.
    */
   public AccountUserRO getCreator() {
-    return creator;
+    return this.creator;
   }
 
   /**
    * Delivers the date if the last modification of the affiliation in the system.
    */
   public java.util.Date getLastModificationDate() {
-    return lastModificationDate;
+    return this.lastModificationDate;
   }
 
   /**
    * Delivers the list of the affiliations' parent affiliations.
    */
   public java.util.List<AffiliationRO> getParentAffiliations() {
-    return parentAffiliations;
+    return this.parentAffiliations;
   }
 
   public void setParentAffiliations(java.util.List<AffiliationRO> parentAffiliations) {
@@ -164,7 +163,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @see de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
    */
   public AffiliationRO getReference() {
-    return reference;
+    return this.reference;
   }
 
   /**
@@ -211,7 +210,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * by the system.
    */
   public String getPublicStatus() {
-    return publicStatus;
+    return this.publicStatus;
   }
 
   /**
@@ -221,7 +220,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setPublicStatus(String newVal) {
-    publicStatus = newVal;
+    this.publicStatus = newVal;
   }
 
   /**
@@ -230,7 +229,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setHasChildren(boolean newVal) {
-    hasChildren = newVal;
+    this.hasChildren = newVal;
   }
 
   /**
@@ -248,16 +247,16 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @return true if the affiliation has child affiliations.
    */
   public boolean getHasChildren() {
-    return hasChildren;
+    return this.hasChildren;
   }
 
   @JsonIgnore
   public List<MetadataSetVO> getMetadataSets() {
-    return metadataSets;
+    return this.metadataSets;
   }
 
   public AccountUserRO getModifiedBy() {
-    return modifiedBy;
+    return this.modifiedBy;
   }
 
   public void setModifiedBy(AccountUserRO modifiedBy) {
@@ -268,7 +267,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @return the predecessorAffiliations
    */
   public java.util.List<AffiliationRO> getPredecessorAffiliations() {
-    return predecessorAffiliations;
+    return this.predecessorAffiliations;
   }
 
   /**
@@ -291,17 +290,17 @@ public class AffiliationVO extends ValueObject implements Searchable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((childAffiliations == null) ? 0 : childAffiliations.hashCode());
-    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-    result = prime * result + ((creator == null) ? 0 : creator.hashCode());
-    result = prime * result + (hasChildren ? 1231 : 1237);
-    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
-    result = prime * result + ((metadataSets == null) ? 0 : metadataSets.hashCode());
-    result = prime * result + ((modifiedBy == null) ? 0 : modifiedBy.hashCode());
-    result = prime * result + ((parentAffiliations == null) ? 0 : parentAffiliations.hashCode());
-    result = prime * result + ((predecessorAffiliations == null) ? 0 : predecessorAffiliations.hashCode());
-    result = prime * result + ((publicStatus == null) ? 0 : publicStatus.hashCode());
-    result = prime * result + ((reference == null) ? 0 : reference.hashCode());
+    result = prime * result + ((null == this.childAffiliations) ? 0 : this.childAffiliations.hashCode());
+    result = prime * result + ((null == this.creationDate) ? 0 : this.creationDate.hashCode());
+    result = prime * result + ((null == this.creator) ? 0 : this.creator.hashCode());
+    result = prime * result + (this.hasChildren ? 1231 : 1237);
+    result = prime * result + ((null == this.lastModificationDate) ? 0 : this.lastModificationDate.hashCode());
+    result = prime * result + ((null == this.metadataSets) ? 0 : this.metadataSets.hashCode());
+    result = prime * result + ((null == this.modifiedBy) ? 0 : this.modifiedBy.hashCode());
+    result = prime * result + ((null == this.parentAffiliations) ? 0 : this.parentAffiliations.hashCode());
+    result = prime * result + ((null == this.predecessorAffiliations) ? 0 : this.predecessorAffiliations.hashCode());
+    result = prime * result + ((null == this.publicStatus) ? 0 : this.publicStatus.hashCode());
+    result = prime * result + ((null == this.reference) ? 0 : this.reference.hashCode());
     return result;
   }
 
@@ -310,7 +309,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -318,83 +317,83 @@ public class AffiliationVO extends ValueObject implements Searchable {
 
     AffiliationVO other = (AffiliationVO) obj;
 
-    if (childAffiliations == null) {
-      if (other.childAffiliations != null)
+    if (null == this.childAffiliations) {
+      if (null != other.childAffiliations)
         return false;
-    } else if (other.childAffiliations == null)
+    } else if (null == other.childAffiliations)
       return false;
-    else if (!new HashSet<>(childAffiliations).containsAll(other.childAffiliations) //
-        || !new HashSet<>(other.childAffiliations).containsAll(childAffiliations)) {
+    else if (!new HashSet<>(this.childAffiliations).containsAll(other.childAffiliations) //
+        || !new HashSet<>(other.childAffiliations).containsAll(this.childAffiliations)) {
       return false;
     }
 
-    if (creationDate == null) {
-      if (other.creationDate != null)
+    if (null == this.creationDate) {
+      if (null != other.creationDate)
         return false;
-    } else if (!creationDate.equals(other.creationDate))
+    } else if (!this.creationDate.equals(other.creationDate))
       return false;
 
-    if (creator == null) {
-      if (other.creator != null)
+    if (null == this.creator) {
+      if (null != other.creator)
         return false;
-    } else if (!creator.equals(other.creator))
+    } else if (!this.creator.equals(other.creator))
       return false;
 
-    if (hasChildren != other.hasChildren)
+    if (this.hasChildren != other.hasChildren)
       return false;
 
-    if (lastModificationDate == null) {
-      if (other.lastModificationDate != null)
+    if (null == this.lastModificationDate) {
+      if (null != other.lastModificationDate)
         return false;
-    } else if (!lastModificationDate.equals(other.lastModificationDate))
+    } else if (!this.lastModificationDate.equals(other.lastModificationDate))
       return false;
 
-    if (metadataSets == null) {
-      if (other.metadataSets != null)
+    if (null == this.metadataSets) {
+      if (null != other.metadataSets)
         return false;
-    } else if (other.metadataSets == null)
+    } else if (null == other.metadataSets)
       return false;
-    else if (!new HashSet<>(metadataSets).containsAll(other.metadataSets) //
-        || !new HashSet<>(other.metadataSets).containsAll(metadataSets)) {
+    else if (!new HashSet<>(this.metadataSets).containsAll(other.metadataSets) //
+        || !new HashSet<>(other.metadataSets).containsAll(this.metadataSets)) {
       return false;
     }
 
-    if (modifiedBy == null) {
-      if (other.modifiedBy != null)
+    if (null == this.modifiedBy) {
+      if (null != other.modifiedBy)
         return false;
-    } else if (!modifiedBy.equals(other.modifiedBy))
+    } else if (!this.modifiedBy.equals(other.modifiedBy))
       return false;
 
-    if (parentAffiliations == null) {
-      if (other.parentAffiliations != null)
+    if (null == this.parentAffiliations) {
+      if (null != other.parentAffiliations)
         return false;
-    } else if (other.parentAffiliations == null)
+    } else if (null == other.parentAffiliations)
       return false;
-    else if (!new HashSet<>(parentAffiliations).containsAll(other.parentAffiliations) //
-        || !new HashSet<>(other.parentAffiliations).containsAll(parentAffiliations)) {
+    else if (!new HashSet<>(this.parentAffiliations).containsAll(other.parentAffiliations) //
+        || !new HashSet<>(other.parentAffiliations).containsAll(this.parentAffiliations)) {
       return false;
     }
 
-    if (predecessorAffiliations == null) {
-      if (other.predecessorAffiliations != null)
+    if (null == this.predecessorAffiliations) {
+      if (null != other.predecessorAffiliations)
         return false;
-    } else if (other.predecessorAffiliations == null)
+    } else if (null == other.predecessorAffiliations)
       return false;
-    else if (!new HashSet<>(predecessorAffiliations).containsAll(other.predecessorAffiliations) //
-        || !new HashSet<>(other.predecessorAffiliations).containsAll(predecessorAffiliations)) {
+    else if (!new HashSet<>(this.predecessorAffiliations).containsAll(other.predecessorAffiliations) //
+        || !new HashSet<>(other.predecessorAffiliations).containsAll(this.predecessorAffiliations)) {
       return false;
     }
 
-    if (publicStatus == null) {
-      if (other.publicStatus != null)
+    if (null == this.publicStatus) {
+      if (null != other.publicStatus)
         return false;
-    } else if (!publicStatus.equals(other.publicStatus))
+    } else if (!this.publicStatus.equals(other.publicStatus))
       return false;
 
-    if (reference == null) {
-      if (other.reference != null)
+    if (null == this.reference) {
+      if (null != other.reference)
         return false;
-    } else if (!reference.equals(other.reference))
+    } else if (!this.reference.equals(other.reference))
       return false;
 
     return true;

@@ -28,7 +28,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
     boolean ok = true;
 
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true")) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
 
       if (ValidationTools.isNotEmpty(languages)) {
 
@@ -42,7 +42,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
         int i = 1;
         for (final String language : languages) {
 
-          if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true")
+          if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))
               && !iso639_3_IdentifierSet.contains(language)) {
             context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField("language[" + i + "]"));
             ok = false;

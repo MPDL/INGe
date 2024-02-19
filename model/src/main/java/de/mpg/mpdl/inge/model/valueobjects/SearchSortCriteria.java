@@ -18,7 +18,7 @@ public class SearchSortCriteria extends ValueObject {
   }
 
   public String getIndexField() {
-    return indexField;
+    return this.indexField;
   }
 
   public void setIndexField(String indexField) {
@@ -26,7 +26,7 @@ public class SearchSortCriteria extends ValueObject {
   }
 
   public SortOrder getSortOrder() {
-    return sortOrder;
+    return this.sortOrder;
   }
 
   public void setSortOrder(SortOrder sortOrder) {

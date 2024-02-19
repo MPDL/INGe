@@ -54,7 +54,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
   private byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> itemList,
       SearchRetrieveResponseVO<ItemVersionVO> searchResult) throws IngeTechnicalException {
     try {
-      if (searchResult == null) {
+      if (null == searchResult) {
         searchResult = new SearchRetrieveResponseVO<>();
         searchResult.setNumberOfRecords(itemList.size());
         List<SearchRetrieveRecordVO<ItemVersionVO>> recordList = new ArrayList<>();
@@ -114,7 +114,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
 
     final Transformer t = TransformerFactory.newTransformer(source, target);
 
-    if (configuration != null) {
+    if (null != configuration) {
       t.mergeConfiguration(configuration);
     }
 

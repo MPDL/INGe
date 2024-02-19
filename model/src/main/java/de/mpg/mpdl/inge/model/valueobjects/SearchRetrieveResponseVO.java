@@ -4,12 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class SearchRetrieveResponseVO<T> extends ValueObject {
 
   private String version;
@@ -23,7 +22,7 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
 
 
   public String getVersion() {
-    return version;
+    return this.version;
   }
 
   public void setVersion(String version) {
@@ -31,7 +30,7 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
   }
 
   public int getNumberOfRecords() {
-    return numberOfRecords;
+    return this.numberOfRecords;
   }
 
   public void setNumberOfRecords(int numberOfRecords) {
@@ -39,7 +38,7 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
   }
 
   public List<SearchRetrieveRecordVO<T>> getRecords() {
-    return records;
+    return this.records;
   }
 
   public void setRecords(List<SearchRetrieveRecordVO<T>> records) {
@@ -47,7 +46,7 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
   }
 
   public ResponseBody<T> getOriginalResponse() {
-    return originalResponse;
+    return this.originalResponse;
   }
 
   public void setOriginalResponse(ResponseBody<T> originalResponse) {
@@ -55,7 +54,7 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
   }
 
   public String getScrollId() {
-    return scrollId;
+    return this.scrollId;
   }
 
   public void setScrollId(String scrollId) {

@@ -37,13 +37,13 @@ public class WithdrawItem extends FacesBean {
         creators.append("; ");
       }
 
-      if (creator.getType() == CreatorVO.CreatorType.PERSON) {
+      if (CreatorVO.CreatorType.PERSON == creator.getType()) {
         creators.append(creator.getPerson().getFamilyName());
-        if (creator.getPerson().getGivenName() != null) {
+        if (null != creator.getPerson().getGivenName()) {
           creators.append(", ");
           creators.append(creator.getPerson().getGivenName());
         }
-      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION && creator.getOrganization().getName() != null) {
+      } else if (CreatorVO.CreatorType.ORGANIZATION == creator.getType() && null != creator.getOrganization().getName()) {
         creators.append(creator.getOrganization().getName());
       }
     }
@@ -56,7 +56,7 @@ public class WithdrawItem extends FacesBean {
       FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
           + this.getItemControllerSessionBean().getCurrentPubItem().getObjectId());
     } catch (final IOException e) {
-      WithdrawItem.logger.error("Could not redirect to View Item Page", e);
+      logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
@@ -91,7 +91,7 @@ public class WithdrawItem extends FacesBean {
   }
 
   public String withdraw() {
-    if (this.withdrawalComment == null || this.withdrawalComment.trim().isEmpty()) {
+    if (null == this.withdrawalComment || this.withdrawalComment.trim().isEmpty()) {
       this.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
       return null;
     }
@@ -108,7 +108,7 @@ public class WithdrawItem extends FacesBean {
         FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
             + this.getItemControllerSessionBean().getCurrentPubItem().getObjectId());
       } catch (final IOException e) {
-        WithdrawItem.logger.error("Could not redirect to View Item Page", e);
+        logger.error("Could not redirect to View Item Page", e);
       }
     }
 

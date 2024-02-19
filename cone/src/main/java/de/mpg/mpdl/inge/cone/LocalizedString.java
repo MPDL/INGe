@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.cone;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-
 
 /**
  * A string with a language.
@@ -72,7 +70,7 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
   }
 
   public String getValue() {
-    return value;
+    return this.value;
   }
 
   public void setValue(String value) {
@@ -80,7 +78,7 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
   }
 
   public String getLanguage() {
-    return language;
+    return this.language;
   }
 
   public void setLanguage(String language) {
@@ -90,15 +88,15 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
   public boolean equals(Object obj) {
     if (!(obj instanceof LocalizedString)) {
       return false;
-    } else if (obj == null) {
+    } else if (null == obj) {
       return false;
-    } else if (this.value == null && ((LocalizedString) obj).getValue() != null) {
+    } else if (null == this.value && null != ((LocalizedString) obj).getValue()) {
       return false;
-    } else if (this.language == null && ((LocalizedString) obj).getLanguage() != null) {
+    } else if (null == this.language && null != ((LocalizedString) obj).getLanguage()) {
       return false;
-    } else if (this.value != null && !this.value.equals(((LocalizedString) obj).getValue())) {
+    } else if (null != this.value && !this.value.equals(((LocalizedString) obj).getValue())) {
       return false;
-    } else if (this.language != null && !this.language.equals(((LocalizedString) obj).getLanguage())) {
+    } else if (null != this.language && !this.language.equals(((LocalizedString) obj).getLanguage())) {
       return false;
     } else {
       return true;
@@ -108,31 +106,31 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
 
   @Override
   public int hashCode() {
-    if (value == null) {
+    if (null == this.value) {
       return super.hashCode();
     } else {
-      return (value + ":" + language).hashCode();
+      return (this.value + ":" + this.language).hashCode();
     }
   }
 
   public boolean hasValue() {
-    return (value != null && !value.isEmpty());
+    return (null != this.value && !this.value.isEmpty());
   }
 
   public String toString() {
-    return value;
+    return this.value;
   }
 
   public char charAt(int index) {
-    return value.charAt(index);
+    return this.value.charAt(index);
   }
 
   public int length() {
-    return value.length();
+    return this.value.length();
   }
 
   public CharSequence subSequence(int start, int end) {
-    return value.subSequence(start, end);
+    return this.value.subSequence(start, end);
   }
 
   /**
@@ -146,7 +144,7 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
     return new LocalizedString(this.value + other.value, this.language);
   }
 
-  public String toRdf(Model model) {
+  public String toRdf(ModelList.Model model) {
     return StringEscapeUtils.escapeXml10(getValue());
   }
 

@@ -29,8 +29,8 @@ public class SwaggerConfiguration {
   public OpenAPI customOpenAPI() {
 
     OpenAPI openAPI = new OpenAPI();
-    openAPI.info(new Info().title("PubMan REST API").description(apiDescription).version("1.0"));
-    openAPI.servers(Collections.singletonList(new Server().url(restServiceUrl)));
+    openAPI.info(new Info().title("PubMan REST API").description(this.apiDescription).version("1.0"));
+    openAPI.servers(Collections.singletonList(new Server().url(this.restServiceUrl)));
 
     return openAPI;
   }

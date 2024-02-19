@@ -38,7 +38,7 @@ public class WoSImport {
 
     String[] itemList = getItemListFromString(file, "(\nER\n+EF\n)|(\nER\n)");
     List<List<Pair>> items = new ArrayList<>();
-    if (itemList != null && itemList.length > 1) { // transform items to XML
+    if (null != itemList && 1 < itemList.length) { // transform items to XML
 
       for (String item : itemList) {
         List<Pair> itemPairs = getItemPairs(getItemFromString(item + "\n"));
@@ -47,7 +47,7 @@ public class WoSImport {
       }
       result = transformItemListToXML(items);
 
-    } else if (itemList != null && itemList.length == 1) {
+    } else if (null != itemList && 1 == itemList.length) {
       List<Pair> item = getItemPairs(getItemFromString(itemList[0] + "\n"));
       result = transformItemToXML(item);
     }
@@ -64,21 +64,21 @@ public class WoSImport {
       input = new BufferedReader(fileReader);
 
       String str;
-      while ((str = input.readLine()) != null) {
+      while (null != (str = input.readLine())) {
         file = file + "\n" + str;
       }
     } catch (IOException e) {
       logger.error("An error occurred while reading WOS file.", e);
       throw new RuntimeException(e);
     } finally {
-      if (input != null) {
+      if (null != input) {
         try {
           input.close();
         } catch (IOException e) {
           logger.error("An error occurred while reading WOS file.", e);
           throw new RuntimeException(e);
         } finally {
-          if (fileReader != null) {
+          if (null != fileReader) {
             try {
               fileReader.close();
             } catch (IOException e) {
@@ -124,7 +124,7 @@ public class WoSImport {
   public List<Pair> getItemPairs(List<String> lines) {
     List<Pair> pairList = new ArrayList<>();
 
-    if (lines != null) {
+    if (null != lines) {
       for (String line : lines) {
         Pair pair = createWoSPairByString(line);
         pairList.add(pair);
@@ -150,7 +150,7 @@ public class WoSImport {
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
-    if (item != null && !item.isEmpty()) {
+    if (null != item && !item.isEmpty()) {
       return createXMLElement("item", transformItemSubelementsToXML(item));
     }
 
@@ -160,7 +160,7 @@ public class WoSImport {
   public String transformItemListToXML(List<List<Pair>> itemList) {
     String xml = "<item-list>";
 
-    if (itemList != null && !itemList.isEmpty()) {
+    if (null != itemList && !itemList.isEmpty()) {
       for (List<Pair> item : itemList) {
         xml = xml + "\n" + transformItemToXML(item);
       }
@@ -179,7 +179,7 @@ public class WoSImport {
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && !item.isEmpty()) {
+    if (null != item && !item.isEmpty()) {
       for (Pair pair : item) {
         xml = xml + createXMLElement(pair.getKey(), pair.getValue());
       }
@@ -196,7 +196,7 @@ public class WoSImport {
    * @return xml element as string
    */
   public String createXMLElement(String tag, String value) {
-    if (tag != null && !tag.equals("")) {
+    if (null != tag && !tag.isEmpty()) {
       return "<" + tag + ">" + value + "</" + tag + ">";
     }
 
@@ -210,7 +210,7 @@ public class WoSImport {
    * @return string with escaped characters
    */
   public String escape(String input) {
-    if (input != null) {
+    if (null != input) {
       input = input.replace("&", "&amp;");
       input = input.replace("<", "&lt;");
       input = input.replace(">", "&gt;");

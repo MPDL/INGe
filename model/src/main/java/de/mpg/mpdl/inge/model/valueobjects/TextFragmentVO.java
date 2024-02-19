@@ -49,14 +49,14 @@ public class TextFragmentVO extends ValueObject {
    * Delivers the text fragment of the search hit.
    */
   public String getData() {
-    return data;
+    return this.data;
   }
 
   /**
    * Delivers the list of hitwords.
    */
   public java.util.List<HitwordVO> getHitwordList() {
-    return hitwordList;
+    return this.hitwordList;
   }
 
   /**
@@ -65,6 +65,6 @@ public class TextFragmentVO extends ValueObject {
    * @param newVal newVal
    */
   public void setData(String newVal) {
-    data = newVal;
+    this.data = newVal;
   }
 }

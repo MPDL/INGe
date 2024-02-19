@@ -64,7 +64,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
 
     try {
       System.out.println("Trying to create new File [" + fileName + "] on host " + httpPost.getURI());
-      response = httpClient.execute(httpPost);
+      response = this.httpClient.execute(httpPost);
       logger.info(response.getStatusLine());
       HttpEntity responseEntity = response.getEntity();
       String resp = EntityUtils.toString(responseEntity);
@@ -126,15 +126,15 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       HttpDelete httpDelete = new HttpDelete(SEAWEED_MASTER_URL + "/" + URLEncoder.encode(fileId, StandardCharsets.UTF_8));
       logger.info("Delete request: " + httpDelete.getURI().toString());
 
-      response = httpClient.execute(httpDelete);
+      response = this.httpClient.execute(httpDelete);
       logger.info(response.getStatusLine());
       logger.info(response.getFirstHeader("Location"));
-      if (response.getStatusLine().getStatusCode() == 301) {
+      if (301 == response.getStatusLine().getStatusCode()) {
         logger.info("Redirecting delete manually");
         httpDelete.setURI(new URI(response.getFirstHeader("Location").getValue()));
         response.close();
         System.out.println("[" + httpDelete + "]");
-        response = httpClient.execute(httpDelete);
+        response = this.httpClient.execute(httpDelete);
       }
       HttpEntity responseEntity = response.getEntity();
       InputStream retrievedFileInputStream = responseEntity.getContent();

@@ -63,7 +63,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @return the filter
    */
   public List<Filter> getFilterList() {
-    return filterList;
+    return this.filterList;
   }
 
   /*
@@ -83,10 +83,10 @@ public class FilterTaskParamVO extends ValueObject {
     // so filters of the same type occur one after another in the List after sorting.
     // Filter of the same class are composed by "or" in the query, filters of different classes by
     // "and".
-    Collections.sort(filterList);
+    Collections.sort(this.filterList);
 
     // loop through all entries in the filter list
-    for (Filter filter : filterList) {
+    for (Filter filter : this.filterList) {
       if (filter instanceof OffsetFilter offsetFilter) {
         String offset = offsetFilter.getOffset();
         int newOffset = Integer.parseInt(offset) + 1;
@@ -157,7 +157,7 @@ public class FilterTaskParamVO extends ValueObject {
           enhanceQuery(queryBuffer, "\"/md-records/md-record/publication/creator/person/organization/identifier\"="
               + ((PersonsOrganizationsFilter) filter).getOrgUnitId(), previousFilter, filter);
         } else if (filter instanceof StandardFilter standardFilter) {
-          if (standardFilter.getOperator() != null) {
+          if (null != standardFilter.getOperator()) {
             enhanceQuery(queryBuffer,
                 "\"" + standardFilter.getFilterName() + "\"" + standardFilter.getOperator() + standardFilter.getValue(), previousFilter,
                 filter);
@@ -182,22 +182,22 @@ public class FilterTaskParamVO extends ValueObject {
 
   private void enhanceQuery(StringBuffer b, String querySnippet, Filter previousFilter, Filter filter) {
     logger.debug("snippet " + querySnippet);
-    if (querySnippet == null)
+    if (null == querySnippet)
       return;
 
-    if (previousFilter == null && filter != null) {
+    if (null == previousFilter && null != filter) {
       b.append(LEFT_PARANTHESIS);
       doAppend(b, querySnippet, filter);
       return;
     }
 
-    if (previousFilter != null && filter == null) {
+    if (null != previousFilter && null == filter) {
       // end ??
       return;
     }
 
 
-    if (filter.compareTo(previousFilter) != 0) {
+    if (0 != filter.compareTo(previousFilter)) {
       // filter has changed - close the previous one, connect snippets with AND and brackets if
       // query has already been started
       if (!b.isEmpty()) {
@@ -211,7 +211,7 @@ public class FilterTaskParamVO extends ValueObject {
       // filter has not changed - connect snippets with OR without brackets (except for RoleFilters)
       if (filter instanceof RoleFilter)
         b.append(AND);
-      else if (filter instanceof StandardFilter && ((StandardFilter) filter).getLogicalOperator() != null
+      else if (filter instanceof StandardFilter && null != ((StandardFilter) filter).getLogicalOperator()
           && "and".equalsIgnoreCase(((StandardFilter) filter).getLogicalOperator())) {
         b.append(AND);
       } else
@@ -260,9 +260,9 @@ public class FilterTaskParamVO extends ValueObject {
   }
 
   public String getOperator(Filter filter, Filter previousFilter) {
-    if (filter == null || previousFilter == null)
+    if (null == filter || null == previousFilter)
       return "";
-    if (filter.compareTo(previousFilter) == 0)
+    if (0 == filter.compareTo(previousFilter))
       return OR;
 
     return AND;
@@ -292,7 +292,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getCql() {
-      return cql;
+      return this.cql;
     }
 
     public void setCql(String cql) {
@@ -320,7 +320,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the userRef
      */
     public AccountUserRO getUserRef() {
-      return userRef;
+      return this.userRef;
     }
 
     /**
@@ -357,7 +357,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the idList
      */
     public List<ItemRO> getIdList() {
-      return idList;
+      return this.idList;
     }
   }
 
@@ -387,7 +387,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the idList
      */
     public List<ItemRO> getIdList() {
-      return idList;
+      return this.idList;
     }
   }
 
@@ -415,7 +415,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the state
      */
     public ContextVO.State getState() {
-      return state;
+      return this.state;
     }
 
     /**
@@ -449,7 +449,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the state
      */
     public ItemVO.State getState() {
-      return state;
+      return this.state;
     }
 
     /**
@@ -485,7 +485,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the state
      */
     public ItemVO.State getState() {
-      return state;
+      return this.state;
     }
 
     /**
@@ -525,7 +525,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the role
      */
     public String getRole() {
-      return role;
+      return this.role;
     }
 
     /**
@@ -539,7 +539,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the user
      */
     public AccountUserRO getUserRef() {
-      return userRef;
+      return this.userRef;
     }
 
     /**
@@ -573,7 +573,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return The framework item (content) type to filter for.
      */
     public String getType() {
-      return type;
+      return this.type;
     }
 
     /**
@@ -609,7 +609,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return The framework context type to filter for.
      */
     public String getType() {
-      return type;
+      return this.type;
     }
 
     /**
@@ -640,7 +640,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the idList
      */
     public List<AffiliationRO> getIdList() {
-      return idList;
+      return this.idList;
     }
   }
 
@@ -666,9 +666,9 @@ public class FilterTaskParamVO extends ValueObject {
    */
   public class ObjectTypeFilter extends AbstractFilter implements Filter {
 
-    public final static String OBJECT_TYPE_ITEM = "http://escidoc.de/core/01/resources/Item";
-    public final static String OBJECT_TYPE_CONTAINER = "http://escidoc.de/core/01/resources/Container";
-    public final static String OBJECT_TYPE_ORGANIZATIONAL_UNIT = "http://escidoc.de/core/01/resources/OrganizationalUnit";
+    public static final String OBJECT_TYPE_ITEM = "http://escidoc.de/core/01/resources/Item";
+    public static final String OBJECT_TYPE_CONTAINER = "http://escidoc.de/core/01/resources/Container";
+    public static final String OBJECT_TYPE_ORGANIZATIONAL_UNIT = "http://escidoc.de/core/01/resources/OrganizationalUnit";
 
 
     private String objectType;
@@ -678,7 +678,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getObjectType() {
-      return objectType;
+      return this.objectType;
     }
 
     public void setObjectType(String objectType) {
@@ -704,7 +704,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getOffset() {
-      return offset;
+      return this.offset;
     }
 
     public void setOffset(String offset) {
@@ -731,7 +731,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getLimit() {
-      return limit;
+      return this.limit;
     }
 
     public void setLimit(String limit) {
@@ -749,9 +749,9 @@ public class FilterTaskParamVO extends ValueObject {
    *
    */
   public class OrderFilter extends AbstractFilter implements Filter {
-    public final static String ORDER_ASCENDING = "sort.ascending";
-    public final static String ORDER_DESCENDING = "sort.descending";
-    public final static String SORTBY = "sortby";
+    public static final String ORDER_ASCENDING = "sort.ascending";
+    public static final String ORDER_DESCENDING = "sort.descending";
+    public static final String SORTBY = "sortby";
     private String property;
     private String sortOrder;
 
@@ -761,7 +761,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getProperty() {
-      return property;
+      return this.property;
     }
 
     public void setProperty(String property) {
@@ -769,7 +769,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getSortOrder() {
-      return sortOrder;
+      return this.sortOrder;
     }
 
     public void setSortOrder(String sortOrder) {
@@ -795,7 +795,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getContextId() {
-      return contextId;
+      return this.contextId;
     }
 
     public void setContextId(String contextId) {
@@ -824,7 +824,7 @@ public class FilterTaskParamVO extends ValueObject {
      * @return the localTagId
      */
     public String getLocalTagId() {
-      return localTagId;
+      return this.localTagId;
     }
 
     /**
@@ -850,7 +850,7 @@ public class FilterTaskParamVO extends ValueObject {
     private boolean active;
 
     public boolean getActive() {
-      return active;
+      return this.active;
     }
 
     public void setActive(boolean active) {
@@ -881,7 +881,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getOrgUnitId() {
-      return orgUnitId;
+      return this.orgUnitId;
     }
 
     public void setOrgUnitId(String contextId) {
@@ -929,7 +929,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getFilterName() {
-      return filterName;
+      return this.filterName;
     }
 
     public void setFilterName(String filterName) {
@@ -937,7 +937,7 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     public String getValue() {
-      return value;
+      return this.value;
     }
 
     public void setValue(String value) {

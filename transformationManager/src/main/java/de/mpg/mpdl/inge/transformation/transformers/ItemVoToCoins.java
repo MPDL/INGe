@@ -10,7 +10,6 @@ import javax.xml.transform.TransformerFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -18,7 +17,8 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.coins.CoinsTransformation;
 
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_VO, targetFormat = FORMAT.COINS_STRING)
+@TransformerModule(sourceFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEM_VO,
+    targetFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.COINS_STRING)
 public class ItemVoToCoins extends SingleTransformer implements ChainableTransformer {
 
   @Override

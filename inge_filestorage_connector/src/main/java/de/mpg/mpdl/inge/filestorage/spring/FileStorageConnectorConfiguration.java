@@ -31,7 +31,7 @@ public class FileStorageConnectorConfiguration {
 
   @Bean
   public CloseableHttpClient httpClient() {
-    return httpClient;
+    return this.httpClient;
   }
 
 }

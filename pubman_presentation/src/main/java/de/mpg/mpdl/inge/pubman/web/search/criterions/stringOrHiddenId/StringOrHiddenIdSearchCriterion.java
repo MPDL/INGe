@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -56,7 +56,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return (searchString == null || searchString.trim().isEmpty()) && (hiddenId == null || hiddenId.trim().isEmpty());
+    return (null == this.searchString || this.searchString.trim().isEmpty()) && (null == this.hiddenId || this.hiddenId.trim().isEmpty());
     //    return (this.searchString == null || this.searchString.trim().isEmpty());
   }
 
@@ -83,7 +83,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 
   @Override
   public Query toElasticSearchQuery() throws IngeTechnicalException {
-    if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
+    if (null != this.hiddenId && !this.hiddenId.trim().isEmpty()) {
       return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.hiddenId);
     } else {
       return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(), this.searchString);
@@ -102,7 +102,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
     final String[] parts = content.split("(?<!\\\\)\\|\\|");
 
     this.searchString = SearchCriterionBase.unescapeForQueryString(parts[0]);
-    if (parts.length > 1) {
+    if (1 < parts.length) {
       this.hiddenId = SearchCriterionBase.unescapeForQueryString(parts[1]);
     }
 

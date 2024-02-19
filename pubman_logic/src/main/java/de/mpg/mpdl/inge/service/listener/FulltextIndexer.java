@@ -13,8 +13,6 @@ import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import jakarta.jms.ObjectMessage;
@@ -39,19 +37,19 @@ public class FulltextIndexer {
 
       //Delete all fulltexts for this item
       Query q = Query.of(i -> i.term(t -> t.field(PubItemServiceDbImpl.INDEX_FULLTEXT_ITEM_ID).value(item.getObjectIdAndVersion())));
-      pubItemDao.deleteByQuery(q, 1000);
+      this.pubItemDao.deleteByQuery(q, 1000);
 
-      if (item.getFiles() != null) {
+      if (null != item.getFiles()) {
         for (FileDbVO fileVO : item.getFiles()) {
-          if (Storage.INTERNAL_MANAGED.equals(fileVO.getStorage()) && Visibility.PUBLIC.equals(fileVO.getVisibility())) {
+          if (FileDbVO.Storage.INTERNAL_MANAGED.equals(fileVO.getStorage()) && FileDbVO.Visibility.PUBLIC.equals(fileVO.getVisibility())) {
             long start = System.currentTimeMillis();
             logger.info("Index fulltext for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId() + " - "
                 + fileVO.getLocalFileIdentifier() + " - " + fileVO.getSize());
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            fsi.readFile(fileVO.getLocalFileIdentifier(), bos);
+            this.fsi.readFile(fileVO.getLocalFileIdentifier(), bos);
             bos.flush();
             bos.close();
-            pubItemDao.createFulltext(item.getObjectIdAndVersion(), fileVO.getObjectId(), bos.toByteArray());
+            this.pubItemDao.createFulltext(item.getObjectIdAndVersion(), fileVO.getObjectId(), bos.toByteArray());
             long time = System.currentTimeMillis() - start;
             logger.info("Finished fulltext indexing for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId() + " - "
                 + fileVO.getLocalFileIdentifier() + " - " + fileVO.getSize() + " - " + time + " ms");

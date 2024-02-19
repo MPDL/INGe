@@ -65,7 +65,7 @@ public class AuthorDecoder {
      *
      * for (String string : prefixes2) { System.out.println(string); }
      */
-    if (args == null || args.length == 0) {
+    if (null == args || 0 == args.length) {
       System.out.println("usage: java de.mpg.escidoc.services.util.AuthorDecoder author_string");
       System.out.println("Please make sure your classpath points to a valid log4j configuration.");
     } else {
@@ -141,12 +141,12 @@ public class AuthorDecoder {
         // Matcher matcher = pattern.matcher(authors);
 
         List<Author> authorList = authorFormat.getAuthors(authorFormat.normalize(authors));
-        if (authorList != null) {
+        if (null != authorList) {
           logger.debug("Pattern found!");
           analyzeAuthors(authorList);
-          authorListList.add(authorList);
-          if (bestFormat == null) {
-            bestFormat = authorFormat;
+          this.authorListList.add(authorList);
+          if (null == this.bestFormat) {
+            this.bestFormat = authorFormat;
             if (bestOnly) {
               break;
             }
@@ -170,18 +170,18 @@ public class AuthorDecoder {
 
 
   public void displayAuthors() {
-    if (bestFormat != null) {
-      logger.info("Best result (" + bestFormat.getName() + "):");
-      for (Author author : authorListList.get(0)) {
+    if (null != this.bestFormat) {
+      logger.info("Best result (" + this.bestFormat.getName() + "):");
+      for (Author author : this.authorListList.get(0)) {
         logger.info(author);
       }
 
-      if (authorListList.size() > 1) {
-        List<Author> bestList = authorListList.get(0);
+      if (1 < this.authorListList.size()) {
+        List<Author> bestList = this.authorListList.get(0);
 
         boolean alternative = false;
 
-        for (List<Author> list : authorListList) {
+        for (List<Author> list : this.authorListList) {
           if (list != bestList) {
             if (!alternative) {
               logger.info("There are alternative interpretations:");
@@ -204,7 +204,7 @@ public class AuthorDecoder {
   }
 
   public List<List<Author>> getAuthorListList() {
-    return authorListList;
+    return this.authorListList;
   }
 
   public void setAuthorListList(List<List<Author>> authorListList) {
@@ -212,7 +212,7 @@ public class AuthorDecoder {
   }
 
   public AuthorFormat getBestFormat() {
-    return bestFormat;
+    return this.bestFormat;
   }
 
   public void setBestFormat(AuthorFormat bestFormat) {
@@ -244,30 +244,30 @@ public class AuthorDecoder {
     try {
       AuthorDecoder authorDecoder = new AuthorDecoder(authors);
       List<Author> authorList = authorDecoder.getBestAuthorList();
-      if (authorList != null) {
+      if (null != authorList) {
         for (Author author : authorList) {
           Element authorElement = document.createElement("author");
           element.appendChild(authorElement);
 
-          if (author.getSurname() != null) {
+          if (null != author.getSurname()) {
             Element familyNameElement = document.createElement("familyname");
             familyNameElement.setTextContent(author.getSurname());
             authorElement.appendChild(familyNameElement);
           }
 
-          if (author.getGivenName() != null) {
+          if (null != author.getGivenName()) {
             Element givenNameElement = document.createElement("givenname");
             givenNameElement.setTextContent(author.getGivenName());
             authorElement.appendChild(givenNameElement);
           }
 
-          if (author.getPrefix() != null) {
+          if (null != author.getPrefix()) {
             Element prefixElement = document.createElement("prefix");
             prefixElement.setTextContent(author.getPrefix());
             authorElement.appendChild(prefixElement);
           }
 
-          if (author.getTitle() != null) {
+          if (null != author.getTitle()) {
             Element titleElement = document.createElement("title");
             titleElement.setTextContent(author.getTitle());
             authorElement.appendChild(titleElement);

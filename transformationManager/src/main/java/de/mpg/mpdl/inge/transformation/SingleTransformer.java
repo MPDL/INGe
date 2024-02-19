@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -36,8 +35,8 @@ public abstract class SingleTransformer implements Transformer {
 
   public Map<String, String> getConfiguration() {
     logger.debug("Singletransformer");
-    if (this.configuration != null && this.configuration.entrySet() != null) {
-      for (Entry<String, String> entry : this.configuration.entrySet()) {
+    if (null != this.configuration && null != this.configuration.entrySet()) {
+      for (Map.Entry<String, String> entry : this.configuration.entrySet()) {
         logger.debug("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
       }
     }
@@ -50,8 +49,8 @@ public abstract class SingleTransformer implements Transformer {
   }
 
   public void mergeConfiguration(Map<String, String> givenConfiguration) {
-    if (givenConfiguration != null) {
-      if (this.configuration != null) {
+    if (null != givenConfiguration) {
+      if (null != this.configuration) {
         this.configuration.putAll(givenConfiguration);
       } else {
         this.configuration = new HashMap<>();
@@ -79,7 +78,7 @@ public abstract class SingleTransformer implements Transformer {
   protected static Map<String, String> getDefaultConfigurationFromProperty(String property) throws TransformationException {
     String propertyFileName = PropertyReader.getProperty(property);
 
-    if (propertyFileName == null) {
+    if (null == propertyFileName) {
       logger.warn("No property configuration file found for transformer. Property " + property + " not set.");
       return null;
     } else {
@@ -92,7 +91,7 @@ public abstract class SingleTransformer implements Transformer {
         String[] defaultConfValues = props.getProperty("configuration").split(",");
         for (String field : defaultConfValues) {
           String[] fieldArr = field.split("=", 2);
-          config.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
+          config.put(fieldArr[0], null == fieldArr[1] ? "" : fieldArr[1]);
         }
 
         return config;
@@ -105,7 +104,7 @@ public abstract class SingleTransformer implements Transformer {
   protected static Map<String, List<String>> getAllConfigurationValuesFromProperty(String property) throws TransformationException {
     String propertyFileName = PropertyReader.getProperty(property);
 
-    if (propertyFileName == null) {
+    if (null == propertyFileName) {
       logger.warn("No property configuration file found for transformer. Property " + property + " not set.");
       return null;
     } else {
@@ -142,10 +141,10 @@ public abstract class SingleTransformer implements Transformer {
 
     Scanner scanner;
 
-    if (s.getInputStream() != null) {
+    if (null != s.getInputStream()) {
       scanner = new Scanner(s.getInputStream(), StandardCharsets.UTF_8);
 
-    } else if (s.getReader() != null) {
+    } else if (null != s.getReader()) {
       scanner = new Scanner(s.getReader());
     } else {
       throw new TransformationException("The source does not contain a input stream or a reader");
@@ -165,14 +164,14 @@ public abstract class SingleTransformer implements Transformer {
       throw new TransformationException("Wrong result type, expected a TransformerStreamResult", e1);
     }
 
-    if (res.getOutputStream() != null) {
+    if (null != res.getOutputStream()) {
       try {
         res.getOutputStream().write(s.getBytes(StandardCharsets.UTF_8));
         res.getOutputStream().close();
       } catch (IOException e) {
         throw new TransformationException("Could not write to output stream", e);
       }
-    } else if (res.getWriter() != null) {
+    } else if (null != res.getWriter()) {
       try {
         res.getWriter().write(s);
         res.getWriter().close();
@@ -192,7 +191,7 @@ public abstract class SingleTransformer implements Transformer {
       throw new TransformationException("Wrong result type, expected a TransformerStreamResult", e1);
     }
 
-    if (res.getOutputStream() != null) {
+    if (null != res.getOutputStream()) {
       try {
         res.getOutputStream().write(content);
         res.getOutputStream().close();
@@ -200,7 +199,7 @@ public abstract class SingleTransformer implements Transformer {
         throw new TransformationException("Could not write to output stream", e);
       }
 
-    } else if (res.getWriter() != null) {
+    } else if (null != res.getWriter()) {
       try {
         res.getWriter().write(new String(content));
         res.getWriter().close();

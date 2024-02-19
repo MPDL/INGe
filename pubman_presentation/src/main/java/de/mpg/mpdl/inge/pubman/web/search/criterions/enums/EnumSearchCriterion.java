@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -68,7 +68,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   public void parseQueryStringContent(String content) {
 
     this.selectedEnum = Enum.valueOf(this.enumClass, content);
-    if (this.selectedEnum == null) {
+    if (null == this.selectedEnum) {
       throw new RuntimeException("Invalid enum: " + content + " for class " + this.enumClass);
     }
   }
@@ -78,7 +78,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
    */
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return this.getSelectedEnum() == null;
+    return null == this.getSelectedEnum();
   }
 
   public T getSelectedEnum() {
@@ -90,7 +90,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   }
 
   public String getSelectedEnumString() {
-    if (this.selectedEnum != null) {
+    if (null != this.selectedEnum) {
       return this.selectedEnum.name();
     }
 

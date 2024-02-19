@@ -59,7 +59,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
     // Split by '||', which have no backslash before
     final String[] dateParts = content.split("(?<!\\\\)\\|");
     this.from = SearchCriterionBase.unescapeForQueryString(dateParts[0]);
-    if (dateParts.length > 1) {
+    if (1 < dateParts.length) {
       this.to = SearchCriterionBase.unescapeForQueryString(dateParts[1]);
     }
 
@@ -70,7 +70,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return (this.from == null || this.from.trim().isEmpty()) && (this.to == null || this.to.trim().isEmpty());
+    return (null == this.from || this.from.trim().isEmpty()) && (null == this.to || this.to.trim().isEmpty());
   }
 
   public String getFrom() {
@@ -343,10 +343,10 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
     RangeQuery.Builder qb = new RangeQuery.Builder();
     qb.field(index);
-    if (from != null && !from.trim().isEmpty()) {
+    if (null != from && !from.trim().isEmpty()) {
       qb.gte(JsonData.of(roundDateString(from)));
     }
-    if (to != null && !to.trim().isEmpty()) {
+    if (null != to && !to.trim().isEmpty()) {
       qb.lte(JsonData.of(roundDateString(to)));
     }
     return qb.build()._toQuery();
@@ -355,7 +355,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String getElasticSearchNestedPath() {
-    if (this.getSearchCriterion() == SearchCriterion.COMPONENT_EMBARGO_DATE) {
+    if (SearchCriterion.COMPONENT_EMBARGO_DATE == this.getSearchCriterion()) {
       return "files";
     }
     return null;
@@ -363,7 +363,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
 
   public static String roundDateString(String toQuery) {
-    if (toQuery == null) {
+    if (null == toQuery) {
       return null;
     } else if (toQuery.matches("\\d\\d\\d\\d")) {
       return toQuery + "||/y";

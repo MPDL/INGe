@@ -42,18 +42,18 @@ public class BatchProcessUserLockDbVO implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(lockDate, userAccountObjectId);
+    return Objects.hash(this.lockDate, this.userAccountObjectId);
   }
 
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     BatchProcessUserLockDbVO other = (BatchProcessUserLockDbVO) obj;
-    return Objects.equals(lockDate, other.lockDate) && Objects.equals(userAccountObjectId, other.userAccountObjectId);
+    return Objects.equals(this.lockDate, other.lockDate) && Objects.equals(this.userAccountObjectId, other.userAccountObjectId);
   }
 }

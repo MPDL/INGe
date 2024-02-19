@@ -66,6 +66,8 @@ public class Util {
   private static final String coneRel1 = "/resource/";
   private static final String coneRel2 = "?format=rdf";
 
+  private Util() {}
+
   public static MetadataVO getMdObjectToFetch(DataSourceVO dataSourceVO, TransformerFactory.FORMAT format) {
     MetadataVO sourceMd = null;
 
@@ -81,7 +83,7 @@ public class Util {
         continue;
       }
 
-      if ((!sourceMd.getEncoding().equals("*")) && (!format.getFileFormat().getCharSet().equals("*"))) {
+      if ((!"*".equals(sourceMd.getEncoding())) && (!"*".equals(format.getFileFormat().getCharSet()))) {
         if (!sourceMd.getEncoding().equalsIgnoreCase(format.getFileFormat().getCharSet())) {
           continue;
         }
@@ -188,7 +190,7 @@ public class Util {
       BufferedReader bReader = new BufferedReader(isReader);
 
       String line = "";
-      while ((line = bReader.readLine()) != null) {
+      while (null != (line = bReader.readLine())) {
         if (line.contains("<escidoc:suffix>")) {
           suffix = line.substring(line.indexOf("<escidoc:suffix>") + "<escidoc:suffix>".length(), line.indexOf("</escidoc:suffix>"));
         }

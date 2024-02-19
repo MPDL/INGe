@@ -57,23 +57,23 @@
 <%@ page import="de.mpg.mpdl.inge.cone.RDFHandler"%>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate"%>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList"%>
+<%@ page import="java.util.Map" %>
 
 <%!
-	private void removeIdentifierPrefixes(TreeFragment fragment, Model model) throws Exception
+	private void removeIdentifierPrefixes(TreeFragment fragment, ModelList.Model model) throws Exception
 	{
-		for (String nodeName : fragment.keySet())
+		for (Map.Entry<String, List<LocalizedTripleObject>> entry : fragment.entrySet())
 		{
-			if (model.getPredicate(nodeName)==null)
+            String nodeName = entry.getKey();
+            if (null == model.getPredicate(nodeName))
 			{
 				throw new RuntimeException("Predicate for node \"" + nodeName + "\" not found in model " + model.getName());
 			}
 			if (model.getPredicate(nodeName).isResource())
 			{
-				for (LocalizedTripleObject listItem : fragment.get(nodeName))
+				for (LocalizedTripleObject listItem : entry.getValue())
 				{
 					if (listItem instanceof TreeFragment && ((TreeFragment) listItem).getSubject().startsWith(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)))
 				    {
@@ -180,12 +180,12 @@
 											{
 												out.println("Importing item");
 												String id;
-												if ((((TreeFragment) result).getSubject() == null) && model.isGenerateIdentifier())
+												if ((null == ((TreeFragment) result).getSubject()) && model.isGenerateIdentifier())
 												{
 													id = model.getSubjectPrefix() + querier.createUniqueIdentifier(model.getName());
 													out.println(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id + " (generated)");
 												}
-												else if (((TreeFragment) result).getSubject() != null)
+												else if (null != ((TreeFragment) result).getSubject())
 												{
 												    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)))
 												    {
@@ -193,18 +193,18 @@
 												        TreeFragment existingObject = querier.details(model.getName(), id, "*");
 												        out.println(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id);
 
-												        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
+												        if (null != existingObject && !existingObject.isEmpty() && "skip".equals(workflow))
 												        {
 											        		out.println(" (skipped)<br/>");
 											        		continue;
 												        }
-												        else if (existingObject != null && !existingObject.isEmpty() && "overwrite".equals(workflow))
+												        else if (null != existingObject && !existingObject.isEmpty() && "overwrite".equals(workflow))
 														{
 												        	out.println(" ... deleting existing object ...");
 															querier.delete(model.getName(), id);
 															out.println(" (replaced)");
 														}
-												        else if (existingObject != null && "update-overwrite".equals(workflow))
+												        else if (null != existingObject && "update-overwrite".equals(workflow))
 														{
 												        	out.println(" ... updating existing object ...");
 												        	existingObject.merge((TreeFragment) result, true);
@@ -212,10 +212,10 @@
 															querier.delete(model.getName(), id);
 															out.println(" (updated)");
 														}
-												        else if (existingObject != null && "update-add".equals(workflow))
+												        else if (null != existingObject && "update-add".equals(workflow))
 														{
 												        	out.println(" ... updating existing object ...");
-												        	for (Predicate predicate : model.getPredicates())
+												        	for (ModelList.Predicate predicate : model.getPredicates())
 												        	{
 												        	    if (!predicate.isMultiple() && ((TreeFragment) result).containsKey(predicate.getId()) && existingObject.containsKey(predicate.getId()))
 												        	    {
@@ -223,7 +223,7 @@
 												        	        {
 												        	            for (LocalizedTripleObject existing : existingObject.get(predicate.getId()))
 													        	        {
-												        	                if ((existing.getLanguage() == null && res.getLanguage() == null) || existing.getLanguage().equals(res.getLanguage()))
+												        	                if ((null == existing.getLanguage() && null == res.getLanguage()) || existing.getLanguage().equals(res.getLanguage()))
 												        	                {
 												        	                    existingObject.get(predicate.getId()).remove(existing);
 												        	                    break;
@@ -250,18 +250,18 @@
 
 													        out.println(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id);
 
-													        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
+													        if (null != existingObject && !existingObject.isEmpty() && "skip".equals(workflow))
 													        {
 												        		out.println(" (skipped)<br/>");
 												        		continue;
 													        }
-													        else if (existingObject != null && !existingObject.isEmpty() && "overwrite".equals(workflow))
+													        else if (null != existingObject && !existingObject.isEmpty() && "overwrite".equals(workflow))
 															{
 													        	out.println(" ... deleting existing object ...");
 																querier.delete(model.getName(), id);
 																out.println(" (replaced)");
 															}
-													        else if (existingObject != null && "update-overwrite".equals(workflow))
+													        else if (null != existingObject && "update-overwrite".equals(workflow))
 															{
 													        	out.println(" ... updating existing object ...");
 													        	existingObject.merge((TreeFragment) result, true);
@@ -269,10 +269,10 @@
 																querier.delete(model.getName(), id);
 																out.println(" (updated)");
 															}
-													        else if (existingObject != null && "update-add".equals(workflow))
+													        else if (null != existingObject && "update-add".equals(workflow))
 															{
 													        	out.println(" ... updating existing object ...");
-													        	for (Predicate predicate : model.getPredicates())
+													        	for (ModelList.Predicate predicate : model.getPredicates())
 													        	{
 													        	    if (!predicate.isMultiple() && ((TreeFragment) result).containsKey(predicate.getId()) && existingObject.containsKey(predicate.getId()))
 													        	    {
@@ -280,7 +280,7 @@
 													        	        {
 													        	            for (LocalizedTripleObject existing : existingObject.get(predicate.getId()))
 														        	        {
-													        	                if ((existing.getLanguage() == null && res.getLanguage() == null) || existing.getLanguage().equals(res.getLanguage()))
+													        	                if ((null == existing.getLanguage() && null == res.getLanguage()) || existing.getLanguage().equals(res.getLanguage()))
 													        	                {
 													        	                    existingObject.get(predicate.getId()).remove(existing);
 													        	                    break;
@@ -335,7 +335,7 @@
 								<hr/>
 								<%
 
-									if (errors!=null && !errors.isEmpty()) { %>
+									if (null != errors && !errors.isEmpty()) { %>
 									<ul>
 										<% for (String error : errors) { %>
 											<li class="messageError"><b>Error: </b><%= error %></li>

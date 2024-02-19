@@ -29,6 +29,8 @@ public class EntityTransformer {
 
   private static final MapStructMapper MAPPER = MapperFactory.STRUCT_MAP_MAPPER;
 
+  private EntityTransformer() {}
+
   public static ContextDbVO transformToNew(ContextVO contextVo) {
     return MAPPER.toContextDbVO(contextVo);
     //return dozerMapper.map(contextVo, ContextDbVO.class);
@@ -131,7 +133,7 @@ public class EntityTransformer {
 
 
   private static AccountUserRO transformToOld(AccountUserDbRO newAccountUserRo) {
-    if (newAccountUserRo == null) {
+    if (null == newAccountUserRo) {
       return null;
     }
 
@@ -205,7 +207,7 @@ public class EntityTransformer {
   }
 
   public static PubItemVO transformToOld(ItemVersionVO itemVo) {
-    if (itemVo == null) {
+    if (null == itemVo) {
       return null;
     }
 
@@ -247,7 +249,7 @@ public class EntityTransformer {
 
   public static List<ItemVersionVO> transformToNew(List<PubItemVO> oldItemList) {
     List<ItemVersionVO> newItemList = new ArrayList<>();
-    if (oldItemList != null) {
+    if (null != oldItemList) {
       for (PubItemVO itemVO : oldItemList) {
         newItemList.add(transformToNew(itemVO));
       }
@@ -257,7 +259,7 @@ public class EntityTransformer {
 
   public static List<PubItemVO> transformToOld(List<ItemVersionVO> newItemList) {
     List<PubItemVO> oldList = new ArrayList<>();
-    if (newItemList != null) {
+    if (null != newItemList) {
       for (ItemVersionVO itemVO : newItemList) {
         oldList.add(transformToOld(itemVO));
       }
@@ -266,7 +268,7 @@ public class EntityTransformer {
   }
 
   public static ContextVO transformToOld(ContextDbVO newContextVo) {
-    if (newContextVo == null) {
+    if (null == newContextVo) {
       return null;
     }
     return MAPPER.toContextVO(newContextVo);
@@ -297,7 +299,7 @@ public class EntityTransformer {
   }
 
   private static AffiliationRO transformToOld(AffiliationDbRO newAffiliationRO) {
-    if (newAffiliationRO == null) {
+    if (null == newAffiliationRO) {
       return null;
     }
 
@@ -309,7 +311,7 @@ public class EntityTransformer {
   }
 
   public static AffiliationVO transformToOld(AffiliationDbVO newAffVo) {
-    if (newAffVo == null) {
+    if (null == newAffVo) {
       return null;
     }
     return MAPPER.toAffiliationVO(newAffVo);
@@ -339,7 +341,7 @@ public class EntityTransformer {
   }
 
   public static List<VersionHistoryEntryVO> transformToVersionHistory(List<AuditDbVO> auditList) {
-    if (auditList == null) {
+    if (null == auditList) {
       return null;
     }
 
@@ -349,7 +351,7 @@ public class EntityTransformer {
 
     for (AuditDbVO audit : auditList) {
 
-      if (vhEntry == null || audit.getPubItem().getVersionNumber() != vhEntry.getReference().getVersionNumber()) {
+      if (null == vhEntry || audit.getPubItem().getVersionNumber() != vhEntry.getReference().getVersionNumber()) {
 
         vhEntry = new VersionHistoryEntryVO();
         vhEntry.setModificationDate(audit.getModificationDate());

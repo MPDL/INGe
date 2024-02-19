@@ -18,8 +18,8 @@ public class ValidationException extends Exception {
 
   public String getMessage() {
     StringBuilder sb = new StringBuilder();
-    if (report != null) {
-      for (ValidationReportItemVO item : report.getItems()) {
+    if (null != this.report) {
+      for (ValidationReportItemVO item : this.report.getItems()) {
         sb.append(item.toString());
         sb.append(" ");
       }

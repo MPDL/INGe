@@ -14,7 +14,7 @@ public class UtilBean {
   }
 
   public String getPidWithoutPrefix(String pidWithPrefix) {
-    if (pidWithPrefix != null && pidWithPrefix.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+    if (null != pidWithPrefix && pidWithPrefix.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
       return pidWithPrefix.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
       return pidWithPrefix;

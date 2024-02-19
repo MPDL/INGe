@@ -60,7 +60,7 @@ public class MabProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    return (this.items != null && this.counter < this.length);
+    return (null != this.items && this.counter < this.length);
   }
 
   /*
@@ -73,7 +73,7 @@ public class MabProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    if (this.items != null && this.counter < this.length) {
+    if (null != this.items && this.counter < this.length) {
       this.counter++;
       return this.items[this.counter - 1];
     } else {
@@ -103,14 +103,14 @@ public class MabProcessor extends FormatProcessor {
       final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       int lineBreakCount = 0;
 
-      while ((line = bufferedReader.readLine()) != null) {
+      while (null != (line = bufferedReader.readLine())) {
         stringWriter.write(line);
         stringWriter.write("\n");
 
         byteArrayOutputStream.write(line.getBytes(this.getEncoding()));
         byteArrayOutputStream.write("\n".getBytes(this.getEncoding()));
 
-        if (line.isEmpty() && lineBreakCount == 6) {
+        if (line.isEmpty() && 6 == lineBreakCount) {
           itemList.add(stringWriter.toString().trim());
           stringWriter = new StringWriter();
         } else if (line.isEmpty()) {
@@ -147,7 +147,7 @@ public class MabProcessor extends FormatProcessor {
 
   @Override
   public String getDataAsBase64() {
-    if (this.originalData == null) {
+    if (null == this.originalData) {
       return null;
     }
 

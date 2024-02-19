@@ -56,7 +56,7 @@ public class UserAccountOptions extends FacesBean {
   private String secondPassword;
 
   public String getCurrentPassword() {
-    return currentPassword;
+    return this.currentPassword;
   }
 
   public void setCurrentPassword(String currentPassword) {
@@ -64,7 +64,7 @@ public class UserAccountOptions extends FacesBean {
   }
 
   public String getLoginName() {
-    return loginName;
+    return this.loginName;
   }
 
   public void setLoginName(String loginName) {
@@ -89,7 +89,7 @@ public class UserAccountOptions extends FacesBean {
 
   public String updatePassword() {
     try {
-      if (this.password != null && !this.password.trim().isEmpty()) {
+      if (null != this.password && !this.password.trim().isEmpty()) {
         if (this.password.equals(this.secondPassword)) {
           this.loginHelper = FacesTools.findBean("LoginHelper");
           UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();
@@ -116,12 +116,12 @@ public class UserAccountOptions extends FacesBean {
 
   public String updatePasswordNoLogin() {
     try {
-      if (this.password != null && !this.password.trim().isEmpty()) {
+      if (null != this.password && !this.password.trim().isEmpty()) {
         if (this.password.equals(this.secondPassword)) {
           this.loginHelper = FacesTools.findBean("LoginHelper");
           UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();
           Principal principal = userAccountService.loginForPasswordChange(this.loginName, this.currentPassword);
-          if (principal != null) {
+          if (null != principal) {
             userAccountService.changePassword(principal.getUserAccount().getObjectId(),
                 principal.getUserAccount().getLastModificationDate(), this.password, true, principal.getJwToken());
             info(getMessage("userAccountOptions_PasswordUpdated"));

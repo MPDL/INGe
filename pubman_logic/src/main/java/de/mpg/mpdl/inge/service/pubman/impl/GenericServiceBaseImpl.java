@@ -72,14 +72,15 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO srr, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
 
       //ObjectNode queryNode = (ObjectNode) ElasticSearchGenericDAOImpl.toJsonNode(srr.getQueryBuilder());
       Query query = srr.getQueryBuilder();
-      if (authenticationToken != null) {
-        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, aaService.checkLoginRequired(authenticationToken));
+      if (null != authenticationToken) {
+        query = this.aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query,
+            this.aaService.checkLoginRequired(authenticationToken));
       } else {
-        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, (Object[]) null);
+        query = this.aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, (Object[]) null);
       }
 
       srr.setQueryBuilder(query);
@@ -94,16 +95,17 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   public ResponseBody<ObjectNode> searchDetailed(SearchRequest ssb, long scrollTime, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    if (getElasticDao() != null) {
+    if (null != getElasticDao()) {
 
       Query query = ssb.query();
 
 
       //ObjectNode queryNode = (ObjectNode) searchRequestNode.get("query");
-      if (authenticationToken != null) {
-        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, aaService.checkLoginRequired(authenticationToken));
+      if (null != authenticationToken) {
+        query = this.aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query,
+            this.aaService.checkLoginRequired(authenticationToken));
       } else {
-        query = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, (Object[]) null);
+        query = this.aaService.modifyQueryForAa(this.getClass().getCanonicalName(), query, (Object[]) null);
       }
 
       ObjectNode searchRequestNode = (ObjectNode) ElasticSearchGenericDAOImpl.toJsonNode(ssb);
@@ -129,11 +131,11 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
   protected void checkAa(String method, Principal userAccount, Object... objects)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    if (objects == null) {
+    if (null == objects) {
       objects = new Object[0];
     }
     objects = Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
+    this.aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
   }
 
 
@@ -143,7 +145,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
 
   protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
-    if (date1 == null || date2 == null || !new Date(date1.getTime()).equals(new Date(date2.getTime()))) {
+    if (null == date1 || null == date2 || !new Date(date1.getTime()).equals(new Date(date2.getTime()))) {
       throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2);
     }
   }
@@ -159,7 +161,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
     } catch (DataIntegrityViolationException ex) {
       StringBuilder message = new StringBuilder("Object already exists.");
       // Get message from
-      if (ex.getCause() != null && ex.getCause().getCause() != null) {
+      if (null != ex.getCause() && null != ex.getCause().getCause()) {
         message.append(" ").append(ex.getCause().getCause().getMessage());
       }
       throw new IngeApplicationException(message.toString(), ex);

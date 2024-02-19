@@ -36,11 +36,13 @@ public class DOMUtilities {
 
   // List of CDATA elements
   // todo transfer to some citation project
-  public final static String CDATAElements = "valid-if max-count max-length variable " + // CitationStyle
+  public static final String CDATAElements = "valid-if max-count max-length variable " + // CitationStyle
                                                                                          // definition
 
       "{http://purl.org/dc/terms/}bibliographicCitation" // Snippet output
   ;
+
+  private DOMUtilities() {}
 
   /**
    * Builds new DocumentBuilder
@@ -126,7 +128,7 @@ public class DOMUtilities {
 
     Document doc = createDocument();
     Node source;
-    if (sourceNode.getNodeType() == Node.DOCUMENT_NODE) {
+    if (Node.DOCUMENT_NODE == sourceNode.getNodeType()) {
       source = ((Document) sourceNode).getDocumentElement();
     } else {
       source = sourceNode;
@@ -337,7 +339,7 @@ public class DOMUtilities {
    * @throws Exception If anything fails.
    */
   protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception {
-    if (xml == null) {
+    if (null == xml) {
       throw new IllegalArgumentException("toString:xml is null");
     }
     String result = null;

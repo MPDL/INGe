@@ -1,21 +1,19 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class ProjectInfoVO extends ValueObject implements Cloneable {
   private String title;
-  private IdentifierVO grantIdentifier = new IdentifierVO(IdType.GRANT_ID, "");
+  private IdentifierVO grantIdentifier = new IdentifierVO(IdentifierVO.IdType.GRANT_ID, "");
   private FundingInfoVO fundingInfo = new FundingInfoVO();
 
 
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   public void setTitle(String title) {
@@ -24,7 +22,7 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
 
 
   public FundingInfoVO getFundingInfo() {
-    return fundingInfo;
+    return this.fundingInfo;
   }
 
   public void setFundingInfo(FundingInfoVO fundingInfo) {
@@ -32,7 +30,7 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
   }
 
   public IdentifierVO getGrantIdentifier() {
-    return grantIdentifier;
+    return this.grantIdentifier;
   }
 
   public void setGrantIdentifier(IdentifierVO grantIdentifier) {
@@ -43,10 +41,10 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
   public ProjectInfoVO clone() {
     try {
       ProjectInfoVO clone = (ProjectInfoVO) super.clone();
-      if (clone.fundingInfo != null) {
+      if (null != clone.fundingInfo) {
         clone.fundingInfo = this.fundingInfo.clone();
       }
-      if (clone.grantIdentifier != null) {
+      if (null != clone.grantIdentifier) {
         clone.grantIdentifier = this.grantIdentifier.clone();
       }
       return clone;
@@ -59,9 +57,9 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((fundingInfo == null) ? 0 : fundingInfo.hashCode());
-    result = prime * result + ((grantIdentifier == null) ? 0 : grantIdentifier.hashCode());
-    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((null == this.fundingInfo) ? 0 : this.fundingInfo.hashCode());
+    result = prime * result + ((null == this.grantIdentifier) ? 0 : this.grantIdentifier.hashCode());
+    result = prime * result + ((null == this.title) ? 0 : this.title.hashCode());
     return result;
   }
 
@@ -70,7 +68,7 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -78,22 +76,22 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
 
     ProjectInfoVO other = (ProjectInfoVO) obj;
 
-    if (fundingInfo == null) {
-      if (other.fundingInfo != null)
+    if (null == this.fundingInfo) {
+      if (null != other.fundingInfo)
         return false;
-    } else if (!fundingInfo.equals(other.fundingInfo))
+    } else if (!this.fundingInfo.equals(other.fundingInfo))
       return false;
 
-    if (grantIdentifier == null) {
-      if (other.grantIdentifier != null)
+    if (null == this.grantIdentifier) {
+      if (null != other.grantIdentifier)
         return false;
-    } else if (!grantIdentifier.equals(other.grantIdentifier))
+    } else if (!this.grantIdentifier.equals(other.grantIdentifier))
       return false;
 
-    if (title == null) {
-      if (other.title != null)
+    if (null == this.title) {
+      if (null != other.title)
         return false;
-    } else if (!title.equals(other.title))
+    } else if (!this.title.equals(other.title))
       return false;
 
     return true;

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
-import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -36,9 +35,9 @@ import jakarta.persistence.PersistenceContext;
 public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String> implements ContextService, ReindexListener {
   private static final Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
-  public final static String INDEX_OBJECT_ID = "objectId";
-  public final static String INDEX_STATE = "state";
-  public final static String INDEX_AFILLIATIONS_OBJECT_ID = "responsibleAffiliations.objectId";
+  public static final String INDEX_OBJECT_ID = "objectId";
+  public static final String INDEX_STATE = "state";
+  public static final String INDEX_AFILLIATIONS_OBJECT_ID = "responsibleAffiliations.objectId";
 
   @Autowired
   private AuthorizationService aaService;
@@ -74,22 +73,22 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
   private ContextDbVO changeState(String id, Date modificationDate, String authenticationToken, ContextDbVO.State state)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Principal principal = aaService.checkLoginRequired(authenticationToken);
-    ContextDbVO contextDbToBeUpdated = contextRepository.findById(id).orElse(null);
-    if (contextDbToBeUpdated == null) {
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+    ContextDbVO contextDbToBeUpdated = this.contextRepository.findById(id).orElse(null);
+    if (null == contextDbToBeUpdated) {
       throw new IngeApplicationException("Context with given id " + id + " not found.");
     }
 
 
     checkEqualModificationDate(modificationDate, contextDbToBeUpdated.getLastModificationDate());
 
-    checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), principal, contextDbToBeUpdated);
+    checkAa((ContextDbVO.State.OPENED == state ? "open" : "close"), principal, contextDbToBeUpdated);
 
     contextDbToBeUpdated.setState(state);
     updateWithTechnicalMetadata(contextDbToBeUpdated, principal.getUserAccount(), false);
 
     try {
-      contextDbToBeUpdated = contextRepository.saveAndFlush(contextDbToBeUpdated);
+      contextDbToBeUpdated = this.contextRepository.saveAndFlush(contextDbToBeUpdated);
     } catch (DataAccessException e) {
       handleDBException(e);
     }
@@ -121,21 +120,21 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
     toBeUpdatedContext.setResponsibleAffiliations(givenContext.getResponsibleAffiliations());
 
-    if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {
+    if (null == givenContext.getName() || givenContext.getName().trim().isEmpty()) {
       throw new IngeApplicationException("A name is required");
     }
-    if (givenContext.getWorkflow() == null) {
+    if (null == givenContext.getWorkflow()) {
       throw new IngeApplicationException("A workflow is required");
     }
 
-    if (givenContext.getResponsibleAffiliations() == null || givenContext.getResponsibleAffiliations().isEmpty()) {
+    if (null == givenContext.getResponsibleAffiliations() || givenContext.getResponsibleAffiliations().isEmpty()) {
       throw new IngeApplicationException("A responsible affiliation is required");
     }
 
 
 
     if (createNew) {
-      toBeUpdatedContext.setObjectId(idProviderService.getNewId(ID_PREFIX.CONTEXT));
+      toBeUpdatedContext.setObjectId(this.idProviderService.getNewId(IdentifierProviderServiceImpl.ID_PREFIX.CONTEXT));
       toBeUpdatedContext.setState(ContextDbVO.State.OPENED);
     }
 
@@ -147,7 +146,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
   @Override
   protected JpaRepository<ContextDbVO, String> getDbRepository() {
-    return contextRepository;
+    return this.contextRepository;
   }
 
 
@@ -161,7 +160,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
   @Override
   protected GenericDaoEs<ContextDbVO> getElasticDao() {
-    return contextDao;
+    return this.contextDao;
   }
 
 

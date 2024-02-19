@@ -6,7 +6,7 @@ import java.util.List;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -27,7 +27,8 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
 
   List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken);
 
-  boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item) throws IngeApplicationException, IngeTechnicalException;
+  boolean checkAccess(AuthorizationService.AccessType at, Principal userAccount, ItemVersionVO item)
+      throws IngeApplicationException, IngeTechnicalException;
 
   void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException;
 }

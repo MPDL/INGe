@@ -5,7 +5,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /*
  * <!-- Genre is required --> <iso:pattern name="genre_required" id="genre_required"> <iso:rule
@@ -13,12 +13,12 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
  * </iso:rule> </iso:pattern>
  */
 
-public class GenreRequiredValidator extends ValidatorHandler<Genre> implements Validator<Genre> {
+public class GenreRequiredValidator extends ValidatorHandler<MdsPublicationVO.Genre> implements Validator<MdsPublicationVO.Genre> {
 
   @Override
-  public boolean validate(ValidatorContext context, Genre genre) {
+  public boolean validate(ValidatorContext context, MdsPublicationVO.Genre genre) {
 
-    if (genre == null) {
+    if (null == genre) {
       context.addErrorMsg(ErrorMessages.GENRE_NOT_PROVIDED);
       return false;
     }

@@ -23,7 +23,7 @@ public class EventLogEntryVO extends ValueObject {
   private String comment;
 
   public EventType getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(EventType type) {
@@ -31,7 +31,7 @@ public class EventLogEntryVO extends ValueObject {
   }
 
   public Date getDate() {
-    return date;
+    return this.date;
   }
 
   public void setDate(Date date) {
@@ -39,7 +39,7 @@ public class EventLogEntryVO extends ValueObject {
   }
 
   public String getComment() {
-    return comment;
+    return this.comment;
   }
 
   public void setComment(String comment) {

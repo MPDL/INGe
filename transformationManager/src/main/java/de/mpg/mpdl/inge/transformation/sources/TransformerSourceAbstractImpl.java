@@ -12,7 +12,7 @@ public abstract class TransformerSourceAbstractImpl<S> implements TransformerSou
   }
 
   public S getSource() {
-    return source;
+    return this.source;
   }
 
   public void setSource(S source) {

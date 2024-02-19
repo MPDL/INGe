@@ -88,15 +88,15 @@ public class Pair {
 
 
   public String getKey() {
-    return key;
+    return this.key;
   }
 
   public String getXmlTag() {
-    return KEY_MAPPING.get(key);
+    return KEY_MAPPING.get(this.key);
   }
 
   public String getValue() {
-    return value;
+    return this.value;
   }
 
   public void setKey(String key) {

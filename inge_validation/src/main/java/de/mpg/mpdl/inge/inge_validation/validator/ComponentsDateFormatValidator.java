@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
  * <iso:assert
  * test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(.,'-01-01'), 1, 10) castable as xs:date)"
  * > DateFormatIncorrect </iso:assert> </iso:rule>
- * 
+ *
  * <iso:rule context="dcterms:dateCopyrighted"> <iso:assert
  * test=". = '' or (matches(.,'^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)"
  * > DateFormatIncorrect </iso:assert> </iso:rule> </iso:pattern>
@@ -34,7 +34,7 @@ public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileDbV
 
       for (final FileDbVO fileDbVO : files) {
 
-        if (fileDbVO != null && fileDbVO.getMetadata() != null) {
+        if (null != fileDbVO && null != fileDbVO.getMetadata()) {
 
           if (!ValidationTools.checkDate(fileDbVO.getMetadata().getCopyrightDate())) {
             context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("copyrightDate"));

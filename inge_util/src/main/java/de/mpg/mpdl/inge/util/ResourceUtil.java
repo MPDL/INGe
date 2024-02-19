@@ -57,6 +57,8 @@ import org.apache.logging.log4j.Logger;
 public class ResourceUtil {
   private static final Logger logger = LogManager.getLogger(ResourceUtil.class);
 
+  private ResourceUtil() {}
+
   /**
    * Gets a resource as InputStream.
    *
@@ -68,12 +70,12 @@ public class ResourceUtil {
     URL url = classLoader.getResource(resolveFileName(fileName));
 
     // Maybe it's in a WAR file
-    if (url == null) {
+    if (null == url) {
       url = classLoader.getResource(resolveFileName("WEB-INF/classes/" + fileName));
     }
 
     File file = null;
-    if (url != null) {
+    if (null != url) {
       logger.debug("Resource found: " + url.getFile());
       try {
         // Decode necessary for windows paths
@@ -83,7 +85,7 @@ public class ResourceUtil {
       }
     }
 
-    if (file == null) {
+    if (null == file) {
 
       logger.debug("Resource not found, getting file.");
 
@@ -109,11 +111,11 @@ public class ResourceUtil {
     fileIn = classLoader.getResourceAsStream(resolveFileName(fileName));
 
     // Maybe it's in a WAR file
-    if (fileIn == null) {
+    if (null == fileIn) {
       fileIn = classLoader.getResourceAsStream(resolveFileName("WEB-INF/classes/" + fileName));
     }
 
-    if (fileIn == null) {
+    if (null == fileIn) {
       fileIn = new FileInputStream(resolveFileName(fileName));
     }
 
@@ -133,7 +135,7 @@ public class ResourceUtil {
     String line = null;
     StringBuilder result = new StringBuilder();
 
-    while ((line = br.readLine()) != null) {
+    while (null != (line = br.readLine())) {
       result.append(line);
       result.append("\n");
     }
@@ -153,7 +155,7 @@ public class ResourceUtil {
     String line = null;
     StringBuilder result = new StringBuilder();
 
-    while ((line = br.readLine()) != null) {
+    while (null != (line = br.readLine())) {
       result.append(line);
       result.append("\n");
     }
@@ -176,7 +178,7 @@ public class ResourceUtil {
     int read;
     ByteArrayOutputStream result = new ByteArrayOutputStream();
 
-    while ((read = fileIn.read(buffer)) != -1) {
+    while (-1 != (read = fileIn.read(buffer))) {
       result.write(buffer, 0, read);
     }
 
@@ -193,7 +195,7 @@ public class ResourceUtil {
   public static File[] getFilenamesInDirectory(String dir, ClassLoader classLoader) throws IOException {
     File dirFile = getResourceAsFile(resolveFileName(dir), classLoader);
 
-    if (dirFile == null) {
+    if (null == dirFile) {
       return null;
     }
 
@@ -224,7 +226,7 @@ public class ResourceUtil {
    * @return
    */
   public static String resolveFileName(String name) {
-    if (name != null && (name.contains("/..") || name.contains("\\.."))) {
+    if (null != name && (name.contains("/..") || name.contains("\\.."))) {
       Pattern pattern1 = Pattern.compile("(\\\\|/)\\.\\.");
       Matcher matcher1 = pattern1.matcher(name);
       if (matcher1.find()) {

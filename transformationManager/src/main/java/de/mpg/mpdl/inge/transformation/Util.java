@@ -96,13 +96,13 @@ public class Util {
    */
   public static String normalizeMimeType(String mimetype) {
     String thisMimetype = mimetype;
-    if (mimetype.equalsIgnoreCase("text/xml")) {
+    if ("text/xml".equalsIgnoreCase(mimetype)) {
       thisMimetype = "application/xml";
     }
-    if (mimetype.equalsIgnoreCase("text/rtf")) {
+    if ("text/rtf".equalsIgnoreCase(mimetype)) {
       thisMimetype = "application/rtf";
     }
-    if (mimetype.equalsIgnoreCase("text/richtext")) {
+    if ("text/richtext".equalsIgnoreCase(mimetype)) {
       thisMimetype = "application/rtf";
     }
     return thisMimetype;
@@ -141,7 +141,7 @@ public class Util {
       logger.info("CoNE query: " + queryUrl);
       client.executeMethod(method);
 
-      if (method.getStatusCode() == 200) {
+      if (200 == method.getStatusCode()) {
         String[] results = method.getResponseBodyAsString().split("\n");
         for (String result : results) {
           if (!result.trim().isEmpty()) {
@@ -160,7 +160,7 @@ public class Util {
             client.getState().clearCookies();
             client.executeMethod(detailMethod);
 
-            if (detailMethod.getStatusCode() == 200) {
+            if (200 == detailMethod.getStatusCode()) {
               Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
               element.appendChild(document.importNode(details.getFirstChild(), true));
             } else {
@@ -200,7 +200,7 @@ public class Util {
       //      }
       client.executeMethod(method);
 
-      if (method.getStatusCode() == 200) {
+      if (200 == method.getStatusCode()) {
         String[] results = method.getResponseBodyAsString().split("\n");
         for (String result : results) {
           if (!result.trim().isEmpty()) {
@@ -249,7 +249,7 @@ public class Util {
       HttpClient client = new HttpClient();
       GetMethod getMethod = new GetMethod(url);
       int statusCode = client.executeMethod(getMethod);
-      if (statusCode == 200) {
+      if (200 == statusCode) {
         InputStream input = getMethod.getResponseBodyAsStream();
         document = documentBuilder.parse(input);
       } else {
@@ -328,7 +328,7 @@ public class Util {
       //      }
       logger.info("CoNE query: " + queryUrl);
       client.executeMethod(method);
-      if (method.getStatusCode() == 200) {
+      if (200 == method.getStatusCode()) {
         ArrayList<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
         queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("dcterms:alternative", StandardCharsets.UTF_8) + "="
@@ -342,7 +342,7 @@ public class Util {
         //        }
         client.executeMethod(method);
         logger.info("CoNE query: " + queryUrl);
-        if (method.getStatusCode() == 200) {
+        if (200 == method.getStatusCode()) {
           results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
           Set<String> oldIds = new HashSet<>();
           for (String result : results) {
@@ -360,7 +360,7 @@ public class Util {
                     .info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn returned " + detailMethod.getResponseBodyAsString());
                 client.getState().clearCookies();
                 client.executeMethod(detailMethod);
-                if (detailMethod.getStatusCode() == 200) {
+                if (200 == detailMethod.getStatusCode()) {
                   Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                   element.appendChild(document.importNode(details.getFirstChild(), true));
                 } else {
@@ -412,7 +412,7 @@ public class Util {
       //      }
       client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl);
-      if (method.getStatusCode() == 200) {
+      if (200 == method.getStatusCode()) {
         ArrayList<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
         Set<String> oldIds = new HashSet<>();
         for (String result : results) {
@@ -428,7 +428,7 @@ public class Util {
               client.getState().clearCookies();
               client.executeMethod(detailMethod);
               logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
-              if (detailMethod.getStatusCode() == 200) {
+              if (200 == detailMethod.getStatusCode()) {
                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                 element.appendChild(document.importNode(details.getFirstChild(), true));
               } else {
@@ -516,7 +516,7 @@ public class Util {
       GetMethod method = new GetMethod(queryUrl);
       client.executeMethod(method);
 
-      if (method.getStatusCode() == 200) {
+      if (200 == method.getStatusCode()) {
         String[] results = method.getResponseBodyAsString().split("\n");
         for (String result : results) {
           if (!result.trim().isEmpty()) {
@@ -527,7 +527,7 @@ public class Util {
               previousUrl = detailsUrl;
               client.executeMethod(detailMethod);
 
-              if (detailMethod.getStatusCode() == 200) {
+              if (200 == detailMethod.getStatusCode()) {
                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                 element.appendChild(document.importNode(details.getFirstChild(), true));
               } else {
@@ -562,7 +562,7 @@ public class Util {
       document.appendChild(element);
       GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
       client.executeMethod(detailMethod);
-      if (detailMethod.getStatusCode() == 200) {
+      if (200 == detailMethod.getStatusCode()) {
         Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
         element.appendChild(document.importNode(details.getFirstChild(), true));
         return document;
@@ -590,7 +590,7 @@ public class Util {
 
       httpClient.executeMethod(headMethod);
 
-      if (headMethod.getStatusCode() != 200) {
+      if (200 != headMethod.getStatusCode()) {
         logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
       }
 
@@ -599,8 +599,8 @@ public class Util {
       Element element = document.createElement("size");
       document.appendChild(element);
       Header header = headMethod.getResponseHeader("Content-Length");
-      logger.info("HEAD Request to " + url + " returned Content-Length: " + (header != null ? header.getValue() : null));
-      if (header != null) {
+      logger.info("HEAD Request to " + url + " returned Content-Length: " + (null != header ? header.getValue() : null));
+      if (null != header) {
         element.setTextContent(header.getValue());
         return document;
       } else {
@@ -613,14 +613,14 @@ public class Util {
         GetMethod getMethod = new GetMethod(url);
         httpClient.executeMethod(getMethod);
 
-        if (getMethod.getStatusCode() != 200) {
+        if (200 != getMethod.getStatusCode()) {
           logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);
         }
 
         InputStream is = getMethod.getResponseBodyAsStream();
         long size = 0;
 
-        while (is.read() != -1) {
+        while (-1 != is.read()) {
           size++;
         }
         is.close();
@@ -649,7 +649,7 @@ public class Util {
   }
 
   public static String stripHtml(String text) {
-    if (text != null) {
+    if (null != text) {
       return new HtmlToPlainText().getPlainText(Jsoup.parse(text));
     }
 

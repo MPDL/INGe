@@ -37,17 +37,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO.OA_STATUS;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
-import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import jakarta.faces.event.ValueChangeEvent;
 
 /**
@@ -84,12 +82,12 @@ public class FileBean extends FacesBean {
   private void initializeFileAccessGranted() {
     // examine weather the user holds an audience Grant for the current file or not
     //TODO
-    if (this.file.getObjectId() != null && this.file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
+    if (null != this.file.getObjectId() && this.file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
       try {
-        fileAccessGranted =
-            ApplicationBean.INSTANCE.getFileService().checkAccess(AccessType.READ_FILE, getLoginHelper().getPrincipal(), item, file);
+        this.fileAccessGranted = ApplicationBean.INSTANCE.getFileService().checkAccess(AuthorizationService.AccessType.READ_FILE,
+            getLoginHelper().getPrincipal(), this.item, this.file);
       } catch (Exception e) {
-        fileAccessGranted = false;
+        this.fileAccessGranted = false;
       }
 
 
@@ -213,8 +211,8 @@ public class FileBean extends FacesBean {
    * @return The internationalized content-category.
    */
   public String getContentCategory() {
-    if (this.file.getMetadata().getContentCategory() != null) {
-      return file.getMetadata().getContentCategory();
+    if (null != this.file.getMetadata().getContentCategory()) {
+      return this.file.getMetadata().getContentCategory();
     }
 
     return "";
@@ -226,8 +224,8 @@ public class FileBean extends FacesBean {
    * @return The internationalized content-category.
    */
   public String getContentCategoryLabel() {
-    if (this.file.getMetadata().getContentCategory() != null) {
-      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
+    if (null != this.file.getMetadata().getContentCategory()) {
+      return this.getLabel("ENUM_CONTENTCATEGORY_" + this.file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
       /*
        * /* for (final Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap()
        * .entrySet()) { if (contcat.getValue().equals(this.file.getContentCategory())) { return
@@ -240,7 +238,7 @@ public class FileBean extends FacesBean {
   }
 
   public String getVisibility() {
-    if (this.file.getVisibility() != null) {
+    if (null != this.file.getVisibility()) {
       return this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
 
@@ -248,12 +246,12 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getItemWithdrawn() {
-    return ItemVersionRO.State.WITHDRAWN.equals(item.getObject().getPublicState());
+    return ItemVersionRO.State.WITHDRAWN.equals(this.item.getObject().getPublicState());
 
   }
 
   public boolean getShowSearchHits() {
-    if (this.searchHits != null && !this.searchHits.isEmpty()) {
+    if (null != this.searchHits && !this.searchHits.isEmpty()) {
       return true;
     }
 
@@ -265,7 +263,7 @@ public class FileBean extends FacesBean {
   }
 
   public String getFileName() {
-    return file.getName();
+    return this.file.getName();
     /*
     if (this.file.getMetadata() != null && this.file.getMetadata().getTitle() != null) {
       return this.file.getMetadata().getTitle();
@@ -277,7 +275,7 @@ public class FileBean extends FacesBean {
 
 
   public String getFileDescription() {
-    if (this.file.getMetadata() != null && this.file.getMetadata().getDescription() != null) {
+    if (null != this.file.getMetadata() && null != this.file.getMetadata().getDescription()) {
       return this.file.getMetadata().getDescription();
     }
 
@@ -294,7 +292,7 @@ public class FileBean extends FacesBean {
   }
 
   public String getLocator() {
-    if (this.file.getMetadata() != null && this.file.getMetadata().getTitle() != null) {
+    if (null != this.file.getMetadata() && null != this.file.getMetadata().getTitle()) {
       return this.file.getMetadata().getTitle();
     }
 
@@ -310,7 +308,7 @@ public class FileBean extends FacesBean {
   }
 
   public String getFileSize() {
-    return this.computeFileSize(file.getSize());
+    return this.computeFileSize(this.file.getSize());
   }
 
   public List<String> getSearchHits() {
@@ -326,7 +324,7 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getLocatorIsLink() {
-    return ((this.getFile().getStorage() == FileDbVO.Storage.EXTERNAL_URL) //
+    return ((FileDbVO.Storage.EXTERNAL_URL == this.getFile().getStorage()) //
         && (this.getFile().getContent().startsWith("http://") || this.getFile().getContent().startsWith("https://")
             || this.getFile().getContent().startsWith("ftp://")));
   }
@@ -347,10 +345,10 @@ public class FileBean extends FacesBean {
    */
   public String getUrlToLicenceImage() {
     try {
-      if (this.file.getMetadata() != null && this.file.getMetadata().getLicense() != null) {
+      if (null != this.file.getMetadata() && null != this.file.getMetadata().getLicense()) {
         final String licenceURL = this.file.getMetadata().getLicense().toLowerCase();
 
-        if (licenceURL != null && !licenceURL.trim().isEmpty() && licenceURL.contains("creative") && licenceURL.contains("commons")) {
+        if (null != licenceURL && !licenceURL.trim().isEmpty() && licenceURL.contains("creative") && licenceURL.contains("commons")) {
           final String[] splittedURL = licenceURL.split("\\/");
           // Change for dettecting license url in a string
           int start = 0;
@@ -391,12 +389,12 @@ public class FileBean extends FacesBean {
   }
 
   public void setUpdateVisibility(ValueChangeEvent event) {
-    final Visibility newVisibility = (Visibility) event.getNewValue();
+    final FileDbVO.Visibility newVisibility = (FileDbVO.Visibility) event.getNewValue();
     this.file.setVisibility(newVisibility);
   }
 
   public String getOaStatus() {
-    if (this.file.getMetadata() != null && this.file.getMetadata().getOaStatus() != null) {
+    if (null != this.file.getMetadata() && null != this.file.getMetadata().getOaStatus()) {
       return this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
     }
 
@@ -404,7 +402,7 @@ public class FileBean extends FacesBean {
   }
 
   public void setUpdateOaStatus(ValueChangeEvent event) {
-    final OA_STATUS newOaStatus = (OA_STATUS) event.getNewValue();
+    final MdsFileVO.OA_STATUS newOaStatus = (MdsFileVO.OA_STATUS) event.getNewValue();
     this.file.getMetadata().setOaStatus(newOaStatus);
   }
 
@@ -414,7 +412,7 @@ public class FileBean extends FacesBean {
    * @return
    */
   public String getChecksumAlgorithmAsString() {
-    if (this.file.getChecksumAlgorithm() != null) {
+    if (null != this.file.getChecksumAlgorithm()) {
       return this.file.getChecksumAlgorithm().toString();
     }
 
@@ -428,12 +426,12 @@ public class FileBean extends FacesBean {
    * @return
    */
   public void displayChecksum() {
-    if (this.file.getChecksum() != null && this.file.getChecksumAlgorithm() != null) {
+    if (null != this.file.getChecksum() && null != this.file.getChecksumAlgorithm()) {
       FacesTools.getResponse().setContentLength(this.file.getChecksum().length());
       FacesTools.getResponse().setContentType("text/plain");
       try {
         String filename = this.file.getName();
-        if (filename != null) {
+        if (null != filename) {
           filename = filename.replace(" ", "_");
         } else {
           filename = "";
@@ -450,11 +448,11 @@ public class FileBean extends FacesBean {
         out.close();
       } catch (final Exception e) {
         this.error(this.getMessage("File_noCheckSum"));
-        FileBean.logger.error("Could not display checksum of file", e);
+        logger.error("Could not display checksum of file", e);
       }
     } else {
       this.error(this.getMessage("File_noCheckSum"));
-      FileBean.logger.error("File checksum is null");
+      logger.error("File checksum is null");
     }
   }
 
@@ -478,9 +476,9 @@ public class FileBean extends FacesBean {
    * @return A string representing the file size in a readable format.
    */
   public String computeFileSize(long size) {
-    if (size < 1024) {
+    if (1024 > size) {
       return size + this.getLabel("ViewItemMedium_lblFileSizeB");
-    } else if (size < 1024 * 1024) {
+    } else if (1024 * 1024 > size) {
       return ((size - 1) / 1024 + 1) + this.getLabel("ViewItemMedium_lblFileSizeKB");
     } else {
       return ((size - 1) / (1024 * 1024) + 1) + this.getLabel("ViewItemMedium_lblFileSizeMB");
@@ -519,13 +517,13 @@ public class FileBean extends FacesBean {
   }
 
   public String getAudienceOrganizations() {
-    if (Visibility.AUDIENCE.equals(file.getVisibility())) {
+    if (FileDbVO.Visibility.AUDIENCE.equals(this.file.getVisibility())) {
       IpListProvider ipListProvider = ApplicationBean.INSTANCE.getIpListProvider();
       StringBuilder sb = new StringBuilder();
-      if (file.getAllowedAudienceIds() != null) {
-        for (String audienceId : file.getAllowedAudienceIds()) {
-          IpRange ipRange = ipListProvider.get(audienceId);
-          if (ipRange != null) {
+      if (null != this.file.getAllowedAudienceIds()) {
+        for (String audienceId : this.file.getAllowedAudienceIds()) {
+          IpListProvider.IpRange ipRange = ipListProvider.get(audienceId);
+          if (null != ipRange) {
             sb.append(ipRange.getName());
           } else {
             sb.append("UNKNOWN id " + audienceId);

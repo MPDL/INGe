@@ -6,13 +6,13 @@ import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-@TransformerModule(sourceFormat = FORMAT.MODS_XML, targetFormat = FORMAT.MARC_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.MODS_XML, targetFormat = TransformerFactory.FORMAT.MARC_XML)
 public class ModsXmlToMarcXml extends XslTransformer implements ChainableTransformer {
 
   @Override

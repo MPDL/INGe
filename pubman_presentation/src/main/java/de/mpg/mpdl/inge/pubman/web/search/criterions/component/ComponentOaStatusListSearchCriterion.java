@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
@@ -58,13 +57,13 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
     final Map<String, String> newMap = new LinkedHashMap<>();
 
     for (MdsFileVO.OA_STATUS value : values) {
-      if (reducedListFlag == true && MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(value.name())) {
+      if (true == reducedListFlag && MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(value.name())) {
 
       } else {
         oaMap.put(value.name(), i18nHelper.convertEnumToString(value));
       }
     }
-    for (final Entry<String, String> entry : oaMap.entrySet()) {
+    for (final Map.Entry<String, String> entry : oaMap.entrySet()) {
       newMap.put(entry.getKey(), entry.getKey().toLowerCase());
     }
 
@@ -93,7 +92,7 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
     if (!this.isEmpty(QueryType.CQL)) {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+      for (final Map.Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
         if (entry.getValue()) {
           final String value = this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(entry.getKey()));

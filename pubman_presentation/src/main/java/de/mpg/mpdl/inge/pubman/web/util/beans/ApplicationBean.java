@@ -297,7 +297,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public synchronized Map<String, String> getContentCategoryMap() {
-    if (this.contentCategoryMap == null) {
+    if (null == this.contentCategoryMap) {
       this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
     }
 
@@ -313,7 +313,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public synchronized Map<String, String> getCreatorRoleMap() {
-    if (this.creatorRoleMap == null) {
+    if (null == this.creatorRoleMap) {
       this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
     }
 
@@ -329,7 +329,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public synchronized Map<String, String> getExcludedSourceGenreMap() {
-    if (this.excludedSourceGenreMap == null) {
+    if (null == this.excludedSourceGenreMap) {
       this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
     }
 
@@ -431,30 +431,30 @@ public class ApplicationBean extends FacesBean {
 
       this.appTitle = this.getLabel("Pubman_browserTitle");
       // hide the version information if system type is production
-      if (!this.getSystemTypeFromProperty().equals(SystemType.Production_Server) && this.getVersion() != null) {
+      if (!this.getSystemTypeFromProperty().equals(SystemType.Production_Server) && null != this.getVersion()) {
         this.appTitle += " " + this.getVersion() + " " + buildDate;
       }
 
       this.pubmanInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
       this.pubmanBlogBaseUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_BASEURL);
-      if (this.pubmanBlogBaseUrl == null) {
+      if (null == this.pubmanBlogBaseUrl) {
         this.pubmanBlogBaseUrl = "";
       }
 
       this.pubmanBlogFeedUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_NEWS);
-      if (this.pubmanBlogFeedUrl == null) {
+      if (null == this.pubmanBlogFeedUrl) {
         this.pubmanBlogFeedUrl = "";
       }
 
       try {
         this.pubmanStyleTags = this.buildPubmanStyleTags();
       } catch (final Exception e) {
-        ApplicationBean.logger.error("Error while building style tags", e);
+        logger.error("Error while building style tags", e);
       }
 
       this.cookieVersion = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COOKIE_VERSION);
-      if (this.cookieVersion == null) {
+      if (null == this.cookieVersion) {
         this.cookieVersion = "";
       }
 
@@ -465,7 +465,7 @@ public class ApplicationBean extends FacesBean {
       this.logoUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_LOGO_URL);
 
       this.additionalLogoCss = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_LOGO_CSS);
-      if (this.additionalLogoCss == null) {
+      if (null == this.additionalLogoCss) {
         this.additionalLogoCss = "";
       }
 
@@ -473,11 +473,11 @@ public class ApplicationBean extends FacesBean {
 
       final String footerFileName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FOOTER_FILENAME);
       try {
-        if (footerFileName != null && !footerFileName.isEmpty()) {
+        if (null != footerFileName && !footerFileName.isEmpty()) {
           this.footerSnippet = ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
         }
       } catch (final Exception e) {
-        ApplicationBean.logger.error("Error while reading footer file: " + footerFileName);
+        logger.error("Error while reading footer file: " + footerFileName);
       }
 
       this.cslEditorInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CSL_EDITOR_INSTANCE);
@@ -486,7 +486,7 @@ public class ApplicationBean extends FacesBean {
 
       this.pubmanRootOrganizationName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_NAME);
     } catch (final Exception e) {
-      ApplicationBean.logger.error("Error while reading properties", e);
+      logger.error("Error while reading properties", e);
     }
   }
 
@@ -547,7 +547,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public IpListProvider getIpListProvider() {
-    return ipListProvider;
+    return this.ipListProvider;
   }
 
   public void setIpListProvider(IpListProvider ipListProvider) {
@@ -555,7 +555,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public ItemTransformingService getItemTransformingService() {
-    return itemTransformingService;
+    return this.itemTransformingService;
   }
 
   public void setItemTransformingService(ItemTransformingService itemTransformingService) {
@@ -563,7 +563,7 @@ public class ApplicationBean extends FacesBean {
   }
 
   public String getVersion() {
-    return version;
+    return this.version;
   }
 
   public void setVersion(String version) {

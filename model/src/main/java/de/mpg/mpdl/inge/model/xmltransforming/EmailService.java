@@ -58,6 +58,8 @@ import jakarta.mail.internet.MimeMultipart;
 public class EmailService {
   private static final Logger logger = LogManager.getLogger(EmailService.class);
 
+  private EmailService() {}
+
   public static String sendMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
       String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,
       String subject, String text, String[] attachments) throws TechnicalException {
@@ -79,38 +81,38 @@ public class EmailService {
 
       // add TO recipients
       for (String ra : recipientsAddresses) {
-        if (ra != null && !ra.trim().isEmpty()) {
+        if (null != ra && !ra.trim().isEmpty()) {
           message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
         }
       }
 
       // add CC recipients
-      if (recipientsCCAddresses != null)
+      if (null != recipientsCCAddresses)
         for (String racc : recipientsCCAddresses) {
-          if (racc != null && !racc.trim().isEmpty()) {
+          if (null != racc && !racc.trim().isEmpty()) {
             message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
           }
         }
 
       // add BCC recipients
-      if (recipientsBCCAddresses != null)
+      if (null != recipientsBCCAddresses)
         for (String rabcc : recipientsBCCAddresses) {
-          if (rabcc != null && !rabcc.trim().isEmpty()) {
+          if (null != rabcc && !rabcc.trim().isEmpty()) {
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
           }
         }
 
       // add replyTo
-      if (replytoAddresses != null) {
+      if (null != replytoAddresses) {
         InternetAddress[] adresses = new InternetAddress[recipientsAddresses.length];
         int i = 0;
         for (String a : replytoAddresses) {
-          if (a != null && !a.trim().isEmpty()) {
+          if (null != a && !a.trim().isEmpty()) {
             adresses[i] = new InternetAddress(a);
             i++;
           }
         }
-        if (i > 0)
+        if (0 < i)
           message.setReplyTo(adresses);
       }
 
@@ -205,38 +207,38 @@ public class EmailService {
 
       // add TO recipients
       for (String ra : recipientsAddresses) {
-        if (ra != null && !ra.trim().isEmpty()) {
+        if (null != ra && !ra.trim().isEmpty()) {
           message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
         }
       }
 
       // add CC recipients
-      if (recipientsCCAddresses != null)
+      if (null != recipientsCCAddresses)
         for (String racc : recipientsCCAddresses) {
-          if (racc != null && !racc.trim().isEmpty()) {
+          if (null != racc && !racc.trim().isEmpty()) {
             message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
           }
         }
 
       // add BCC recipients
-      if (recipientsBCCAddresses != null)
+      if (null != recipientsBCCAddresses)
         for (String rabcc : recipientsBCCAddresses) {
-          if (rabcc != null && !rabcc.trim().isEmpty()) {
+          if (null != rabcc && !rabcc.trim().isEmpty()) {
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
           }
         }
 
       // add replyTo
-      if (replytoAddresses != null) {
+      if (null != replytoAddresses) {
         InternetAddress[] adresses = new InternetAddress[recipientsAddresses.length];
         int i = 0;
         for (String a : replytoAddresses) {
-          if (a != null && !a.trim().isEmpty()) {
+          if (null != a && !a.trim().isEmpty()) {
             adresses[i] = new InternetAddress(a);
             i++;
           }
         }
-        if (i > 0)
+        if (0 < i)
           message.setReplyTo(adresses);
       }
 

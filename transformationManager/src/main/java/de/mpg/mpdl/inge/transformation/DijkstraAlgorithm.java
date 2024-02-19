@@ -9,58 +9,56 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-
 public class DijkstraAlgorithm {
 
   private final List<TransformerEdge> edges;
 
-  private Set<FORMAT> settledNodes;
-  private Set<FORMAT> unSettledNodes;
+  private Set<TransformerFactory.FORMAT> settledNodes;
+  private Set<TransformerFactory.FORMAT> unSettledNodes;
 
-  private Map<FORMAT, FORMAT> predecessors;
-  private Map<FORMAT, TransformerEdge> predecessorEdges;
-  private Map<FORMAT, Integer> distance;
+  private Map<TransformerFactory.FORMAT, TransformerFactory.FORMAT> predecessors;
+  private Map<TransformerFactory.FORMAT, TransformerEdge> predecessorEdges;
+  private Map<TransformerFactory.FORMAT, Integer> distance;
 
-  public DijkstraAlgorithm(List<FORMAT> formatList, List<TransformerEdge> transformerList) {
+  public DijkstraAlgorithm(List<TransformerFactory.FORMAT> formatList, List<TransformerEdge> transformerList) {
     // create a copy of the array so that we can operate on this array
     this.edges = new ArrayList<>(transformerList);
   }
 
-  public void execute(FORMAT source) {
-    settledNodes = new HashSet<>();
-    unSettledNodes = new HashSet<>();
+  public void execute(TransformerFactory.FORMAT source) {
+    this.settledNodes = new HashSet<>();
+    this.unSettledNodes = new HashSet<>();
 
-    distance = new HashMap<>();
-    predecessors = new HashMap<>();
-    predecessorEdges = new HashMap<>();
-    distance.put(source, 0);
-    unSettledNodes.add(source);
-    while (!unSettledNodes.isEmpty()) {
-      FORMAT node = getMinimum(unSettledNodes);
-      settledNodes.add(node);
-      unSettledNodes.remove(node);
+    this.distance = new HashMap<>();
+    this.predecessors = new HashMap<>();
+    this.predecessorEdges = new HashMap<>();
+    this.distance.put(source, 0);
+    this.unSettledNodes.add(source);
+    while (!this.unSettledNodes.isEmpty()) {
+      TransformerFactory.FORMAT node = getMinimum(this.unSettledNodes);
+      this.settledNodes.add(node);
+      this.unSettledNodes.remove(node);
       findMinimalDistances(node);
     }
   }
 
-  private void findMinimalDistances(FORMAT node) {
+  private void findMinimalDistances(TransformerFactory.FORMAT node) {
     List<TransformerEdge> adjacentNodes = getNeighbors(node);
     for (TransformerEdge edge : adjacentNodes) {
       if (getShortestDistance(edge.getTargetFormat()) > getShortestDistance(node) + getDistance(node, edge.getTargetFormat())) {
-        distance.put(edge.getTargetFormat(), getShortestDistance(node) + getDistance(node, edge.getTargetFormat()));
+        this.distance.put(edge.getTargetFormat(), getShortestDistance(node) + getDistance(node, edge.getTargetFormat()));
 
-        predecessors.put(edge.getTargetFormat(), node);
-        predecessorEdges.put(edge.getTargetFormat(), edge);
+        this.predecessors.put(edge.getTargetFormat(), node);
+        this.predecessorEdges.put(edge.getTargetFormat(), edge);
 
-        unSettledNodes.add(edge.getTargetFormat());
+        this.unSettledNodes.add(edge.getTargetFormat());
       }
     }
 
   }
 
-  private int getDistance(FORMAT node, FORMAT target) {
-    for (TransformerEdge edge : edges) {
+  private int getDistance(TransformerFactory.FORMAT node, TransformerFactory.FORMAT target) {
+    for (TransformerEdge edge : this.edges) {
       if (edge.getSourceFormat().equals(node) && edge.getTargetFormat().equals(target)) {
         // All have the same weight for now
         return 1;
@@ -69,9 +67,9 @@ public class DijkstraAlgorithm {
     throw new RuntimeException("Should not happen");
   }
 
-  private List<TransformerEdge> getNeighbors(FORMAT node) {
+  private List<TransformerEdge> getNeighbors(TransformerFactory.FORMAT node) {
     List<TransformerEdge> neighbors = new ArrayList<>();
-    for (TransformerEdge edge : edges) {
+    for (TransformerEdge edge : this.edges) {
       if (edge.getSourceFormat().equals(node) && !isSettled(edge.getTargetFormat())) {
         neighbors.add(edge);
       }
@@ -79,10 +77,10 @@ public class DijkstraAlgorithm {
     return neighbors;
   }
 
-  private FORMAT getMinimum(Set<FORMAT> FORMATes) {
-    FORMAT minimum = null;
-    for (FORMAT FORMAT : FORMATes) {
-      if (minimum == null) {
+  private TransformerFactory.FORMAT getMinimum(Set<TransformerFactory.FORMAT> FORMATes) {
+    TransformerFactory.FORMAT minimum = null;
+    for (TransformerFactory.FORMAT FORMAT : FORMATes) {
+      if (null == minimum) {
         minimum = FORMAT;
       } else {
         if (getShortestDistance(FORMAT) < getShortestDistance(minimum)) {
@@ -93,13 +91,13 @@ public class DijkstraAlgorithm {
     return minimum;
   }
 
-  private boolean isSettled(FORMAT FORMAT) {
-    return settledNodes.contains(FORMAT);
+  private boolean isSettled(TransformerFactory.FORMAT FORMAT) {
+    return this.settledNodes.contains(FORMAT);
   }
 
-  private int getShortestDistance(FORMAT destination) {
-    Integer d = distance.get(destination);
-    if (d == null) {
+  private int getShortestDistance(TransformerFactory.FORMAT destination) {
+    Integer d = this.distance.get(destination);
+    if (null == d) {
       return Integer.MAX_VALUE;
     } else {
       return d;
@@ -109,23 +107,23 @@ public class DijkstraAlgorithm {
   /*
    * This method returns the path from the source to the selected target and NULL if no path exists
    */
-  public List<TransformerEdge> getPath(FORMAT target) {
-    LinkedList<FORMAT> path = new LinkedList<>();
+  public List<TransformerEdge> getPath(TransformerFactory.FORMAT target) {
+    LinkedList<TransformerFactory.FORMAT> path = new LinkedList<>();
     LinkedList<TransformerEdge> edgesPath = new LinkedList<>();
-    FORMAT step = target;
+    TransformerFactory.FORMAT step = target;
     // check if a path exists
-    if (predecessors.get(step) == null) {
+    if (null == this.predecessors.get(step)) {
       return null;
     }
     path.add(step);
-    edgesPath.add(predecessorEdges.get(step));
+    edgesPath.add(this.predecessorEdges.get(step));
 
-    while (predecessors.get(step) != null) {
-      step = predecessors.get(step);
+    while (null != this.predecessors.get(step)) {
+      step = this.predecessors.get(step);
       path.add(step);
 
-      TransformerEdge predecessorEdge = predecessorEdges.get(step);
-      if (predecessorEdge != null) {
+      TransformerEdge predecessorEdge = this.predecessorEdges.get(step);
+      if (null != predecessorEdge) {
         edgesPath.add(predecessorEdge);
       }
 

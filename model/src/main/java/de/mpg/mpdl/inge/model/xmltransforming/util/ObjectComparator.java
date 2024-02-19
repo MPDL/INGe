@@ -72,12 +72,12 @@ public class ObjectComparator {
    * @throws IllegalAccessException
    */
   public ObjectComparator(Object o1, Object o2) throws IllegalAccessException {
-    if (o1 == null) {
-      if (o2 != null) {
-        diffs.add(FIRST_VALUE_NULL.format(new Object[] {o2.toString()}));
+    if (null == o1) {
+      if (null != o2) {
+        this.diffs.add(FIRST_VALUE_NULL.format(new Object[] {o2.toString()}));
       }
-    } else if (o2 == null) {
-      diffs.add(SECOND_VALUE_NULL.format(new Object[] {o1.toString()}));
+    } else if (null == o2) {
+      this.diffs.add(SECOND_VALUE_NULL.format(new Object[] {o1.toString()}));
     } else {
       compareObjects(o1, o2, "", "root");
     }
@@ -89,7 +89,7 @@ public class ObjectComparator {
    * @return true if the two objects are equal otherwise false.
    */
   public boolean isEqual() {
-    if (diffs.isEmpty()) {
+    if (this.diffs.isEmpty()) {
       return true;
     }
     return false;
@@ -101,7 +101,7 @@ public class ObjectComparator {
    * @return the list of differences. If no differences were detected an empty list is returned.
    */
   public List<String> getDiffs() {
-    return diffs;
+    return this.diffs;
   }
 
   /**
@@ -111,18 +111,18 @@ public class ObjectComparator {
    */
   public String toString() {
     StringBuilder result = new StringBuilder();
-    for (String string : diffs) {
+    for (String string : this.diffs) {
       result.append(string).append("\n");
     }
     return result.toString();
   }
 
   protected boolean equals(Object obj1, Object obj2) {
-    if (obj1 != null) {
+    if (null != obj1) {
       if (!obj1.equals(obj2)) {
         return false;
       }
-    } else if (obj2 != null) {
+    } else if (null != obj2) {
       return false;
     }
     return true;
@@ -144,19 +144,19 @@ public class ObjectComparator {
 
     if (fieldValue1 == fieldValue2) {
       return;
-    } else if (compared.contains(fieldValue1)) {
+    } else if (this.compared.contains(fieldValue1)) {
       return;
     }
     // compared.add(fieldValue1);
 
-    fieldnames.add(fieldname);
+    this.fieldnames.add(fieldname);
     try {
       // check for null
-      if (fieldValue1 == null && fieldValue2 == null) {
+      if (null == fieldValue1 && null == fieldValue2) {
         return;
       }
-      if (fieldValue1 == null || fieldValue2 == null) {
-        diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(), fieldValue1, fieldValue2}));
+      if (null == fieldValue1 || null == fieldValue2) {
+        this.diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(), fieldValue1, fieldValue2}));
         return;
       }
 
@@ -168,13 +168,13 @@ public class ObjectComparator {
       // check if objects can be compared by simple equals call
       if (isSimpleComparableType(fieldValue1)) {
         if (!equals(fieldValue1, fieldValue2)) {
-          diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(), fieldValue1, fieldValue2}));
+          this.diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(), fieldValue1, fieldValue2}));
         }
       } else if (fieldValue1 instanceof List<?> list1) {
         // Check type of list
         List<?> list2 = (List<?>) fieldValue2;
         if (list1.size() != list2.size()) {
-          diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.size(), list2.size()}));
+          this.diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.size(), list2.size()}));
           return;
         }
         if (!list1.isEmpty()) {
@@ -182,7 +182,7 @@ public class ObjectComparator {
           // boolean isSimpleTypeList = isSimpleComparableType(listObject);
           for (int i = 0; i < list1.size(); i++) {
             if (!list2.contains(list1.get(i))) {
-              diffs.add(DIFFERENT_FIELD_VALUE_IN_LIST.format(new Object[] {enclosingClass, getFieldNames(), list1, list2, i}));
+              this.diffs.add(DIFFERENT_FIELD_VALUE_IN_LIST.format(new Object[] {enclosingClass, getFieldNames(), list1, list2, i}));
             }
           }
         }
@@ -191,16 +191,16 @@ public class ObjectComparator {
         Object[] list1 = (Object[]) fieldValue1;
         Object[] list2 = (Object[]) fieldValue2;
         if (list1.length != list2.length) {
-          diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.length, list2.length}));
+          this.diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.length, list2.length}));
           return;
         }
-        if (list1.length > 0) {
+        if (0 < list1.length) {
           for (int i = 0; i < list1.length; i++) {
             Object listObject1 = list1[i];
             Object listObject2 = list2[i];
             if (isSimpleComparableType(listObject1)) {
               if (!equals(listObject1, listObject2)) {
-                diffs.add(
+                this.diffs.add(
                     DIFFERENT_FIELD_VALUE_IN_ARRAY.format(new Object[] {enclosingClass, getFieldNames(), listObject1, listObject2, i}));
               }
             } else {
@@ -212,7 +212,7 @@ public class ObjectComparator {
         checkAllFieldsForClass(fieldValue1.getClass(), fieldValue1, fieldValue2);
       }
     } finally {
-      fieldnames.remove(fieldname);
+      this.fieldnames.remove(fieldname);
     }
   }
 
@@ -224,14 +224,14 @@ public class ObjectComparator {
       Object fieldValue2 = field.get(o2);
       compareObjects(fieldValue1, fieldValue2, field.getName(), field.getDeclaringClass().toString());
     }
-    if (theClass.getSuperclass() != null) {
+    if (null != theClass.getSuperclass()) {
       checkAllFieldsForClass(theClass.getSuperclass(), o1, o2);
     }
   }
 
   private String getFieldNames() {
     StringBuilder s = new StringBuilder();
-    for (String element : fieldnames) {
+    for (String element : this.fieldnames) {
       if (!element.isEmpty()) {
         if (!s.isEmpty() && (!element.startsWith("["))) {
           s.append(".");

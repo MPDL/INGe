@@ -62,7 +62,7 @@ public class AuditDbVO implements Serializable {
   private ItemVersionVO pubItem;
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(int id) {
@@ -70,7 +70,7 @@ public class AuditDbVO implements Serializable {
   }
 
   public Date getModificationDate() {
-    return modificationDate;
+    return this.modificationDate;
   }
 
   public void setModificationDate(Date modificationDate) {
@@ -78,7 +78,7 @@ public class AuditDbVO implements Serializable {
   }
 
   public EventType getEvent() {
-    return event;
+    return this.event;
   }
 
   public void setEvent(EventType event) {
@@ -86,7 +86,7 @@ public class AuditDbVO implements Serializable {
   }
 
   public AccountUserDbRO getModifier() {
-    return modifier;
+    return this.modifier;
   }
 
   public void setModifier(AccountUserDbRO modifier) {
@@ -94,7 +94,7 @@ public class AuditDbVO implements Serializable {
   }
 
   public String getComment() {
-    return comment;
+    return this.comment;
   }
 
   public void setComment(String comment) {
@@ -102,7 +102,7 @@ public class AuditDbVO implements Serializable {
   }
 
   public ItemVersionVO getPubItem() {
-    return pubItem;
+    return this.pubItem;
   }
 
   public void setPubItem(ItemVersionVO pubItem) {
@@ -113,12 +113,12 @@ public class AuditDbVO implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-    result = prime * result + ((event == null) ? 0 : event.hashCode());
-    result = prime * result + id;
-    result = prime * result + ((modificationDate == null) ? 0 : modificationDate.hashCode());
-    result = prime * result + ((modifier == null) ? 0 : modifier.hashCode());
-    result = prime * result + ((pubItem == null) ? 0 : pubItem.hashCode());
+    result = prime * result + ((null == this.comment) ? 0 : this.comment.hashCode());
+    result = prime * result + ((null == this.event) ? 0 : this.event.hashCode());
+    result = prime * result + this.id;
+    result = prime * result + ((null == this.modificationDate) ? 0 : this.modificationDate.hashCode());
+    result = prime * result + ((null == this.modifier) ? 0 : this.modifier.hashCode());
+    result = prime * result + ((null == this.pubItem) ? 0 : this.pubItem.hashCode());
     return result;
   }
 
@@ -126,34 +126,34 @@ public class AuditDbVO implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     AuditDbVO other = (AuditDbVO) obj;
-    if (comment == null) {
-      if (other.comment != null)
+    if (null == this.comment) {
+      if (null != other.comment)
         return false;
-    } else if (!comment.equals(other.comment))
+    } else if (!this.comment.equals(other.comment))
       return false;
-    if (event != other.event)
+    if (this.event != other.event)
       return false;
-    if (id != other.id)
+    if (this.id != other.id)
       return false;
-    if (modificationDate == null) {
-      if (other.modificationDate != null)
+    if (null == this.modificationDate) {
+      if (null != other.modificationDate)
         return false;
-    } else if (!modificationDate.equals(other.modificationDate))
+    } else if (!this.modificationDate.equals(other.modificationDate))
       return false;
-    if (modifier == null) {
-      if (other.modifier != null)
+    if (null == this.modifier) {
+      if (null != other.modifier)
         return false;
-    } else if (!modifier.equals(other.modifier))
+    } else if (!this.modifier.equals(other.modifier))
       return false;
-    if (pubItem == null) {
-      if (other.pubItem != null)
+    if (null == this.pubItem) {
+      if (null != other.pubItem)
         return false;
-    } else if (!pubItem.equals(other.pubItem))
+    } else if (!this.pubItem.equals(other.pubItem))
       return false;
     return true;
   }

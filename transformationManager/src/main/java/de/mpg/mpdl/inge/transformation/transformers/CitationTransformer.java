@@ -25,7 +25,7 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
 import org.docx4j.wml.PPr;
-import org.docx4j.wml.PPrBase.Spacing;
+import org.docx4j.wml.PPrBase;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -105,7 +105,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     ItemVOListWrapper listWrapper = new ItemVOListWrapper();
     listWrapper.setItemVOList(transformedList);
 
-    if (searchResult != null) {
+    if (null != searchResult) {
       listWrapper.setNumberOfRecords(String.valueOf(searchResult.getNumberOfRecords()));
     }
 
@@ -122,9 +122,9 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     String escidocSnippet = escidocSnippetWriter.toString();
 
     if (TransformerFactory.FORMAT.JSON_CITATION.equals(getTargetFormat())) {
-      if (searchResult != null) {
+      if (null != searchResult) {
         JsonNode node = MapperFactory.getObjectMapper().valueToTree(searchResult);
-        if (searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
+        if (null != searchResult.getRecords() && !searchResult.getRecords().isEmpty()) {
           int i = 0;
           for (JsonNode itemNode : node.get("records").findValues("data")) {
             ((ObjectNode) itemNode).put("bibliographicCitation", citationList.get(i));
@@ -185,7 +185,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
       // Set global space after each paragrap
       PPr ppr = new PPr();
-      Spacing spacing = new Spacing();
+      PPrBase.Spacing spacing = new PPrBase.Spacing();
       spacing.setAfter(BigInteger.valueOf(400));
       ppr.setSpacing(spacing);
       mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);

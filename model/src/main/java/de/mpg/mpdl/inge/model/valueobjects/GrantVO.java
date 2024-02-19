@@ -30,7 +30,6 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.referenceobjects.GrantRO;
 
@@ -43,7 +42,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.GrantRO;
  * @updated 05-Sep-2007 10:46:17
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class GrantVO extends ValueObject {
   /**
    * The role that is granted. The value of this attribute matches the value the framework gives
@@ -97,7 +96,7 @@ public class GrantVO extends ValueObject {
     }
 
   public String frameworkValue() {
-    return frameworkValue;
+    return this.frameworkValue;
   }
 
   }
@@ -132,7 +131,7 @@ public class GrantVO extends ValueObject {
    * Delivers the object reference of the object the rights are granted for.
    */
   public String getObjectRef() {
-    return objectRef;
+    return this.objectRef;
   }
 
   /**
@@ -141,7 +140,7 @@ public class GrantVO extends ValueObject {
    * predefined role, use the according isPredefinedRole() method instead.
    */
   public String getRole() {
-    return role;
+    return this.role;
   }
 
   /**
@@ -164,11 +163,11 @@ public class GrantVO extends ValueObject {
   }
 
   public String toString() {
-    return "[" + objectRef + " : " + role + "]";
+    return "[" + this.objectRef + " : " + this.role + "]";
   }
 
   public GrantRO getReference() {
-    return reference;
+    return this.reference;
   }
 
   public void setReference(GrantRO reference) {
@@ -176,7 +175,7 @@ public class GrantVO extends ValueObject {
   }
 
   public Date getLastModificationDate() {
-    return lastModificationDate;
+    return this.lastModificationDate;
   }
 
   public void setLastModificationDate(Date lastModificationDate) {
@@ -184,7 +183,7 @@ public class GrantVO extends ValueObject {
   }
 
   public String getGrantedTo() {
-    return grantedTo;
+    return this.grantedTo;
   }
 
   public void setGrantedTo(String grantedTo) {
@@ -192,7 +191,7 @@ public class GrantVO extends ValueObject {
   }
 
   public String getGrantType() {
-    return grantType;
+    return this.grantType;
   }
 
   public void setGrantType(String grantType) {
@@ -203,12 +202,12 @@ public class GrantVO extends ValueObject {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((grantType == null) ? 0 : grantType.hashCode());
-    result = prime * result + ((grantedTo == null) ? 0 : grantedTo.hashCode());
-    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
-    result = prime * result + ((objectRef == null) ? 0 : objectRef.hashCode());
-    result = prime * result + ((reference == null) ? 0 : reference.hashCode());
-    result = prime * result + ((role == null) ? 0 : role.hashCode());
+    result = prime * result + ((null == this.grantType) ? 0 : this.grantType.hashCode());
+    result = prime * result + ((null == this.grantedTo) ? 0 : this.grantedTo.hashCode());
+    result = prime * result + ((null == this.lastModificationDate) ? 0 : this.lastModificationDate.hashCode());
+    result = prime * result + ((null == this.objectRef) ? 0 : this.objectRef.hashCode());
+    result = prime * result + ((null == this.reference) ? 0 : this.reference.hashCode());
+    result = prime * result + ((null == this.role) ? 0 : this.role.hashCode());
     return result;
   }
 
@@ -217,7 +216,7 @@ public class GrantVO extends ValueObject {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -225,40 +224,40 @@ public class GrantVO extends ValueObject {
 
     GrantVO other = (GrantVO) obj;
 
-    if (grantType == null) {
-      if (other.grantType != null)
+    if (null == this.grantType) {
+      if (null != other.grantType)
         return false;
-    } else if (!grantType.equals(other.grantType))
+    } else if (!this.grantType.equals(other.grantType))
       return false;
 
-    if (grantedTo == null) {
-      if (other.grantedTo != null)
+    if (null == this.grantedTo) {
+      if (null != other.grantedTo)
         return false;
-    } else if (!grantedTo.equals(other.grantedTo))
+    } else if (!this.grantedTo.equals(other.grantedTo))
       return false;
 
-    if (lastModificationDate == null) {
-      if (other.lastModificationDate != null)
+    if (null == this.lastModificationDate) {
+      if (null != other.lastModificationDate)
         return false;
-    } else if (!lastModificationDate.equals(other.lastModificationDate))
+    } else if (!this.lastModificationDate.equals(other.lastModificationDate))
       return false;
 
-    if (objectRef == null) {
-      if (other.objectRef != null)
+    if (null == this.objectRef) {
+      if (null != other.objectRef)
         return false;
-    } else if (!objectRef.equals(other.objectRef))
+    } else if (!this.objectRef.equals(other.objectRef))
       return false;
 
-    if (reference == null) {
-      if (other.reference != null)
+    if (null == this.reference) {
+      if (null != other.reference)
         return false;
-    } else if (!reference.equals(other.reference))
+    } else if (!this.reference.equals(other.reference))
       return false;
 
-    if (role == null) {
-      if (other.role != null)
+    if (null == this.role) {
+      if (null != other.role)
         return false;
-    } else if (!role.equals(other.role))
+    } else if (!this.role.equals(other.role))
       return false;
 
     return true;

@@ -10,7 +10,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
@@ -31,11 +30,11 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
           int j = 1;
           for (final CreatorVO creatorVO : sourceVO.getCreators()) {
 
-            if (creatorVO != null && CreatorType.PERSON.equals(creatorVO.getType())) {
+            if (null != creatorVO && CreatorVO.CreatorType.PERSON.equals(creatorVO.getType())) {
 
               final PersonVO p = creatorVO.getPerson();
 
-              if (p != null) {
+              if (null != p) {
 
                 if (ValidationTools.isEmpty(p.getFamilyName())) {
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED)

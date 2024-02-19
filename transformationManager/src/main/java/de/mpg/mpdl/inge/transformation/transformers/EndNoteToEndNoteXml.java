@@ -12,7 +12,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -21,7 +21,7 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.endnote.EndNoteImport;
 import net.sf.saxon.TransformerFactoryImpl;
 
-@TransformerModule(sourceFormat = FORMAT.ENDNOTE_STRING, targetFormat = FORMAT.ENDNOTE_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.ENDNOTE_STRING, targetFormat = TransformerFactory.FORMAT.ENDNOTE_XML)
 public class EndNoteToEndNoteXml extends SingleTransformer implements ChainableTransformer {
 
   @Override

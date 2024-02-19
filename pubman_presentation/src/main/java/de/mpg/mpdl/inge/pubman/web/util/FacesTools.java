@@ -36,6 +36,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class FacesTools {
+  private FacesTools() {}
+
   @SuppressWarnings("unchecked")
   public static <T> T findBean(String beanName) {
     final FacesContext context = FacesContext.getCurrentInstance();

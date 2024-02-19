@@ -58,9 +58,11 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOLis
 public class XmlTransformingService {
   private static final Logger logger = LogManager.getLogger(XmlTransformingService.class);
 
+  private XmlTransformingService() {}
+
   public static String transformToItem(ItemVO itemVO) throws TechnicalException {
     logger.debug("transformToItem(PubItemVO)");
-    if (itemVO == null) {
+    if (null == itemVO) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToItem:pubItemVO is null");
     }
     String utf8item = null;
@@ -88,7 +90,7 @@ public class XmlTransformingService {
 
   public static ItemVO transformToItem(String item) throws TechnicalException {
     logger.debug("transformToPubItem(String) - String item=" + item);
-    if (item == null) {
+    if (null == item) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToPubItem:item is null");
     }
     ItemVO itemVO = null;
@@ -110,7 +112,7 @@ public class XmlTransformingService {
 
   private static List<? extends ItemVO> transformToItemList(String itemListXml) throws TechnicalException {
     logger.debug("transformToPubItemList(String) - String itemList=\n" + itemListXml);
-    if (itemListXml == null) {
+    if (null == itemListXml) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToPubItemList:itemList is null");
     }
     ItemVOListWrapper itemVOListWrapper = null;
@@ -136,7 +138,7 @@ public class XmlTransformingService {
 
   public static String transformToItemList(List<? extends ItemVO> itemVOList) throws TechnicalException {
     logger.debug("transformToItemList(List<ItemVO>)");
-    if (itemVOList == null) {
+    if (null == itemVOList) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformToItemList:pubItemVOList is null");
     }
     // wrap the item list into the according wrapper class
@@ -202,7 +204,7 @@ public class XmlTransformingService {
 
   public static FileVO transformToFileVO(String fileXML) throws TechnicalException {
     logger.debug("transformToFileVO(String) - String file=\n" + fileXML);
-    if (fileXML == null) {
+    if (null == fileXML) {
       throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName() + ":transformTofileVO: fileXML is null");
     }
     FileVO fileVO = null;
@@ -225,7 +227,7 @@ public class XmlTransformingService {
 
   public static PidServiceResponseVO transformToPidServiceResponse(String pidServiceResponseXml) throws TechnicalException {
     logger.debug("transformToPidServiceResponse(String) - String pidServiceResponse=\n" + pidServiceResponseXml);
-    if (pidServiceResponseXml == null) {
+    if (null == pidServiceResponseXml) {
       throw new IllegalArgumentException(
           XmlTransformingService.class.getSimpleName() + ":transformToPidServiceResponse: pidServiceResponseXml is null");
     }

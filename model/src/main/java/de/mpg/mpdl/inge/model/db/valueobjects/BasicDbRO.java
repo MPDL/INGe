@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
@@ -40,14 +39,14 @@ import jakarta.persistence.MappedSuperclass;
 
 /**
  * The class for AccountUser references.
- * 
+ *
  * @revised by MuJ: 27.08.2007
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * @updated 21-Nov-2007 12:08:27
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @MappedSuperclass
 public class BasicDbRO implements Serializable {
   @Id
@@ -80,7 +79,7 @@ public class BasicDbRO implements Serializable {
 
 
   public String getObjectId() {
-    return objectId;
+    return this.objectId;
   }
 
 
@@ -92,7 +91,7 @@ public class BasicDbRO implements Serializable {
 
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
 
@@ -104,7 +103,7 @@ public class BasicDbRO implements Serializable {
 
 
   public java.util.Date getCreationDate() {
-    return creationDate;
+    return this.creationDate;
   }
 
 
@@ -116,7 +115,7 @@ public class BasicDbRO implements Serializable {
 
 
   public java.util.Date getLastModificationDate() {
-    return lastModificationDate;
+    return this.lastModificationDate;
   }
 
 
@@ -128,7 +127,7 @@ public class BasicDbRO implements Serializable {
 
 
   public AccountUserDbRO getCreator() {
-    return creator;
+    return this.creator;
   }
 
 
@@ -140,7 +139,7 @@ public class BasicDbRO implements Serializable {
 
 
   public AccountUserDbRO getModifier() {
-    return modifier;
+    return this.modifier;
   }
 
 
@@ -155,12 +154,12 @@ public class BasicDbRO implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-    result = prime * result + ((creator == null) ? 0 : creator.hashCode());
-    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
-    result = prime * result + ((modifier == null) ? 0 : modifier.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
+    result = prime * result + ((null == this.creationDate) ? 0 : this.creationDate.hashCode());
+    result = prime * result + ((null == this.creator) ? 0 : this.creator.hashCode());
+    result = prime * result + ((null == this.lastModificationDate) ? 0 : this.lastModificationDate.hashCode());
+    result = prime * result + ((null == this.modifier) ? 0 : this.modifier.hashCode());
+    result = prime * result + ((null == this.name) ? 0 : this.name.hashCode());
+    result = prime * result + ((null == this.objectId) ? 0 : this.objectId.hashCode());
     return result;
   }
 
@@ -170,40 +169,40 @@ public class BasicDbRO implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     BasicDbRO other = (BasicDbRO) obj;
-    if (creationDate == null) {
-      if (other.creationDate != null)
+    if (null == this.creationDate) {
+      if (null != other.creationDate)
         return false;
-    } else if (!creationDate.equals(other.creationDate))
+    } else if (!this.creationDate.equals(other.creationDate))
       return false;
-    if (creator == null) {
-      if (other.creator != null)
+    if (null == this.creator) {
+      if (null != other.creator)
         return false;
-    } else if (!creator.equals(other.creator))
+    } else if (!this.creator.equals(other.creator))
       return false;
-    if (lastModificationDate == null) {
-      if (other.lastModificationDate != null)
+    if (null == this.lastModificationDate) {
+      if (null != other.lastModificationDate)
         return false;
-    } else if (!lastModificationDate.equals(other.lastModificationDate))
+    } else if (!this.lastModificationDate.equals(other.lastModificationDate))
       return false;
-    if (modifier == null) {
-      if (other.modifier != null)
+    if (null == this.modifier) {
+      if (null != other.modifier)
         return false;
-    } else if (!modifier.equals(other.modifier))
+    } else if (!this.modifier.equals(other.modifier))
       return false;
-    if (name == null) {
-      if (other.name != null)
+    if (null == this.name) {
+      if (null != other.name)
         return false;
-    } else if (!name.equals(other.name))
+    } else if (!this.name.equals(other.name))
       return false;
-    if (objectId == null) {
-      if (other.objectId != null)
+    if (null == this.objectId) {
+      if (null != other.objectId)
         return false;
-    } else if (!objectId.equals(other.objectId))
+    } else if (!this.objectId.equals(other.objectId))
       return false;
     return true;
   }

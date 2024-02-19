@@ -34,7 +34,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.ModelList;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -83,7 +83,7 @@ public abstract class AbstractFormatter {
    * @throws IOException From XSLT transformation.
    * @throws ConeException
    */
-  public abstract String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException;
+  public abstract String formatQuery(List<? extends Describable> pairs, ModelList.Model model) throws ConeException;
 
   /**
    * Format the results of the details action.
@@ -97,7 +97,7 @@ public abstract class AbstractFormatter {
    * @throws IOException From XSLT transformation.
    * @throws ConeException
    */
-  public abstract String formatDetails(String id, Model model, TreeFragment triples, String lang) throws ConeException;
+  public abstract String formatDetails(String id, ModelList.Model model, TreeFragment triples, String lang) throws ConeException;
 
   /**
    * An implementing servlet should return the "Content-Type" header value of its format (e.g.

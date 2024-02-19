@@ -52,7 +52,7 @@ public class StartClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
     try {
       String clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
-      if (clientClassName == null || clientClassName.isEmpty()) {
+      if (null == clientClassName || clientClassName.isEmpty()) {
         clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_START_CLASS);
         Class<?> clientClass = Class.forName(clientClassName);
         StartClient client = (StartClient) clientClass.newInstance();

@@ -37,13 +37,13 @@ public class ReviseItem extends FacesBean {
         creators.append("; ");
       }
 
-      if (creator.getType() == CreatorVO.CreatorType.PERSON) {
+      if (CreatorVO.CreatorType.PERSON == creator.getType()) {
         creators.append(creator.getPerson().getFamilyName());
-        if (creator.getPerson().getGivenName() != null) {
+        if (null != creator.getPerson().getGivenName()) {
           creators.append(", ");
           creators.append(creator.getPerson().getGivenName());
         }
-      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION && creator.getOrganization().getName() != null) {
+      } else if (CreatorVO.CreatorType.ORGANIZATION == creator.getType() && null != creator.getOrganization().getName()) {
         creators.append(creator.getOrganization().getName());
       }
     }
@@ -56,7 +56,7 @@ public class ReviseItem extends FacesBean {
       FacesTools.getExternalContext()
           .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
     } catch (final IOException e) {
-      ReviseItem.logger.error("Could not redirect to View Item Page", e);
+      logger.error("Could not redirect to View Item Page", e);
     }
 
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
@@ -103,7 +103,7 @@ public class ReviseItem extends FacesBean {
         FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
             + this.getItemControllerSessionBean().getCurrentPubItem().getObjectId());
       } catch (final IOException e) {
-        ReviseItem.logger.error("Could not redirect to View Item Page", e);
+        logger.error("Could not redirect to View Item Page", e);
       }
     }
 

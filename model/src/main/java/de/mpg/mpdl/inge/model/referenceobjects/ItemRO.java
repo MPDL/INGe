@@ -31,7 +31,6 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -45,7 +44,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @updated 21-Nov-2007 12:37:07
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class ItemRO extends ReferenceObject implements Cloneable {
   /**
    * The version number of the referenced item. This attribute is optional.
@@ -123,8 +122,8 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    * @return A String in the form objid:versionNumber e.g. "escidoc:345:2"
    */
   public String getObjectIdAndVersion() {
-    if (versionNumber != 0) {
-      return getObjectId() + "_" + versionNumber;
+    if (0 != this.versionNumber) {
+      return getObjectId() + "_" + this.versionNumber;
     } else {
       return getObjectId();
     }
@@ -139,12 +138,12 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   @JsonIgnore
   public void setObjectIdAndVersion(String idString) {
     int ix = idString.lastIndexOf(":");
-    if (ix == -1) {
+    if (-1 == ix) {
       setObjectId(idString);
-      versionNumber = 0;
+      this.versionNumber = 0;
     } else {
       setObjectId(idString.substring(0, ix));
-      versionNumber = Integer.parseInt(idString.substring(ix + 1));
+      this.versionNumber = Integer.parseInt(idString.substring(ix + 1));
     }
   }
 
@@ -152,7 +151,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    * The version number of the referenced item. This attribute is optional.
    */
   public int getVersionNumber() {
-    return versionNumber;
+    return this.versionNumber;
   }
 
   /**
@@ -161,11 +160,11 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    * @param newVal
    */
   public void setVersionNumber(int newVal) {
-    versionNumber = newVal;
+    this.versionNumber = newVal;
   }
 
   public Date getModificationDate() {
-    return modificationDate;
+    return this.modificationDate;
   }
 
   public void setModificationDate(Date modificationDate) {
@@ -173,7 +172,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   }
 
   public String getLastMessage() {
-    return lastMessage;
+    return this.lastMessage;
   }
 
   public void setLastMessage(String lastMessage) {
@@ -186,7 +185,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    * @return The current State.
    */
   public ItemVO.State getState() {
-    return state;
+    return this.state;
   }
 
   /**
@@ -195,12 +194,12 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    * @param newVal The new state.
    */
   public void setState(ItemVO.State newVal) {
-    state = newVal;
+    this.state = newVal;
   }
 
   @JsonProperty("modifiedBy")
   public AccountUserRO getModifiedByRO() {
-    return modifiedByRO;
+    return this.modifiedByRO;
   }
 
   @JsonProperty("modifiedBy")
@@ -209,16 +208,16 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   }
 
   public String getPid() {
-    return pid;
+    return this.pid;
   }
 
   // remove "hdl:" if possible (needed for URLs including a handle-resolver)
   @JsonIgnore
   public String getPidWithoutPrefix() {
-    if (pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
-      return pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
+    if (this.pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return this.pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
-      return pid;
+      return this.pid;
     }
   }
 
@@ -230,12 +229,12 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((lastMessage == null) ? 0 : lastMessage.hashCode());
-    result = prime * result + ((modificationDate == null) ? 0 : modificationDate.hashCode());
-    result = prime * result + ((modifiedByRO == null) ? 0 : modifiedByRO.hashCode());
-    result = prime * result + ((pid == null) ? 0 : pid.hashCode());
-    result = prime * result + ((state == null) ? 0 : state.hashCode());
-    result = prime * result + versionNumber;
+    result = prime * result + ((null == this.lastMessage) ? 0 : this.lastMessage.hashCode());
+    result = prime * result + ((null == this.modificationDate) ? 0 : this.modificationDate.hashCode());
+    result = prime * result + ((null == this.modifiedByRO) ? 0 : this.modifiedByRO.hashCode());
+    result = prime * result + ((null == this.pid) ? 0 : this.pid.hashCode());
+    result = prime * result + ((null == this.state) ? 0 : this.state.hashCode());
+    result = prime * result + this.versionNumber;
     return result;
   }
 
@@ -252,34 +251,34 @@ public class ItemRO extends ReferenceObject implements Cloneable {
 
     ItemRO other = (ItemRO) obj;
 
-    if (lastMessage == null) {
-      if (other.lastMessage != null)
+    if (null == this.lastMessage) {
+      if (null != other.lastMessage)
         return false;
-    } else if (!lastMessage.equals(other.lastMessage))
+    } else if (!this.lastMessage.equals(other.lastMessage))
       return false;
 
-    if (modificationDate == null) {
-      if (other.modificationDate != null)
+    if (null == this.modificationDate) {
+      if (null != other.modificationDate)
         return false;
-    } else if (!modificationDate.equals(other.modificationDate))
+    } else if (!this.modificationDate.equals(other.modificationDate))
       return false;
 
-    if (modifiedByRO == null) {
-      if (other.modifiedByRO != null)
+    if (null == this.modifiedByRO) {
+      if (null != other.modifiedByRO)
         return false;
-    } else if (!modifiedByRO.equals(other.modifiedByRO))
+    } else if (!this.modifiedByRO.equals(other.modifiedByRO))
       return false;
 
-    if (pid == null) {
-      if (other.pid != null)
+    if (null == this.pid) {
+      if (null != other.pid)
         return false;
-    } else if (!pid.equals(other.pid))
+    } else if (!this.pid.equals(other.pid))
       return false;
 
-    if (state != other.state)
+    if (this.state != other.state)
       return false;
 
-    if (versionNumber != other.versionNumber)
+    if (this.versionNumber != other.versionNumber)
       return false;
 
     return true;
@@ -287,8 +286,8 @@ public class ItemRO extends ReferenceObject implements Cloneable {
 
   @JsonIgnore
   public int getVersionNumberForXml() {
-    if (versionNumber > 0) {
-      return versionNumber;
+    if (0 < this.versionNumber) {
+      return this.versionNumber;
     } else {
       return 1;
     }
@@ -296,34 +295,30 @@ public class ItemRO extends ReferenceObject implements Cloneable {
 
   @JsonIgnore
   public Date getModificationDateForXml() {
-    return Objects.requireNonNullElseGet(modificationDate, Date::new);
+    return Objects.requireNonNullElseGet(this.modificationDate, Date::new);
   }
 
   @JsonIgnore
   public ItemVO.State getStateForXml() {
-    if (state == null) {
-      return ItemVO.State.PENDING;
-    } else {
-      return state;
-    }
+    return Objects.requireNonNullElse(this.state, ItemVO.State.PENDING);
   }
 
   @JsonIgnore
   public AccountUserRO getModifiedByForXml() {
-    return Objects.requireNonNullElseGet(modifiedByRO, AccountUserRO::new);
+    return Objects.requireNonNullElseGet(this.modifiedByRO, AccountUserRO::new);
   }
 
   @JsonIgnore
   public String getLastMessageForXml() {
-    return Objects.requireNonNullElse(lastMessage, "");
+    return Objects.requireNonNullElse(this.lastMessage, "");
   }
 
   @Override
   public void setObjectId(String objectId) {
-    if (objectId != null && objectId.contains(":") && objectId.substring(objectId.indexOf(":") + 1).contains(":")) {
+    if (null != objectId && objectId.contains(":") && objectId.substring(objectId.indexOf(":") + 1).contains(":")) {
       super.setObjectId(objectId.substring(0, objectId.lastIndexOf(":")));
       setVersionNumber(Integer.parseInt(objectId.substring(objectId.lastIndexOf(":") + 1)));
-    } else if (objectId != null && objectId.contains("_") && objectId.substring(objectId.indexOf("_") + 1).contains("_")) {
+    } else if (null != objectId && objectId.contains("_") && objectId.substring(objectId.indexOf("_") + 1).contains("_")) {
       super.setObjectId(objectId.substring(0, objectId.lastIndexOf("_")));
       setVersionNumber(Integer.parseInt(objectId.substring(objectId.lastIndexOf("_") + 1)));
     } else {
@@ -332,7 +327,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   }
 
   public void setHref(String href) {
-    if (href == null) {
+    if (null == href) {
       return;
     }
     if (href.contains("/")) {

@@ -162,22 +162,22 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param other The instance to copy.
    */
   public FileVO(FileVO other) {
-    content = other.content;
-    contentCategory = other.contentCategory;
-    creationDate = other.creationDate;
-    createdByRO = other.createdByRO;
-    description = other.description;
-    lastModificationDate = other.lastModificationDate;
-    mimeType = other.mimeType;
-    name = other.name;
-    pid = other.pid;
-    reference = other.reference;
+    this.content = other.content;
+    this.contentCategory = other.contentCategory;
+    this.creationDate = other.creationDate;
+    this.createdByRO = other.createdByRO;
+    this.description = other.description;
+    this.lastModificationDate = other.lastModificationDate;
+    this.mimeType = other.mimeType;
+    this.name = other.name;
+    this.pid = other.pid;
+    this.reference = other.reference;
     // size = other.size;
-    visibility = other.visibility;
-    storage = other.storage;
-    metadataSets = other.metadataSets;
-    checksum = other.checksum;
-    checksumAlgorithm = other.checksumAlgorithm;
+    this.visibility = other.visibility;
+    this.storage = other.storage;
+    this.metadataSets = other.metadataSets;
+    this.checksum = other.checksum;
+    this.checksumAlgorithm = other.checksumAlgorithm;
   }
 
   public FileVO clone()
@@ -193,13 +193,13 @@ public class FileVO extends ValueObject implements Cloneable {
    *         set)
    */
   boolean alreadyExistsInFramework() {
-    return (this.creationDate != null);
+    return (null != this.creationDate);
   }
 
   @JsonProperty("metadata")
   public MdsFileVO getDefaultMetadata() {
-    if (!metadataSets.isEmpty() && metadataSets.get(0) instanceof MdsFileVO) {
-      return (MdsFileVO) metadataSets.get(0);
+    if (!this.metadataSets.isEmpty() && this.metadataSets.get(0) instanceof MdsFileVO) {
+      return (MdsFileVO) this.metadataSets.get(0);
     } else {
       return null;
     }
@@ -207,10 +207,10 @@ public class FileVO extends ValueObject implements Cloneable {
 
   @JsonProperty("metadata")
   public void setDefaultMetadata(MdsFileVO mdsFileVO) {
-    if (metadataSets.isEmpty()) {
-      metadataSets.add(mdsFileVO);
+    if (this.metadataSets.isEmpty()) {
+      this.metadataSets.add(mdsFileVO);
     } else {
-      metadataSets.set(0, mdsFileVO);
+      this.metadataSets.set(0, mdsFileVO);
     }
   }
 
@@ -220,7 +220,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * @see de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
    */
   public FileRO getReference() {
-    return reference;
+    return this.reference;
   }
 
   /**
@@ -231,14 +231,14 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setReference(FileRO newVal) {
-    reference = newVal;
+    this.reference = newVal;
   }
 
   /**
    * Delivers the name of the file including the extension.
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -247,14 +247,14 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setName(String newVal) {
-    name = newVal;
+    this.name = newVal;
   }
 
   /**
    * Delivers the persistent identifier of the file.
    */
   public String getPid() {
-    return pid;
+    return this.pid;
   }
 
   /**
@@ -262,10 +262,10 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getPidWithoutPrefix() {
-    if (pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
-      return pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
+    if (this.pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return this.pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
-      return pid;
+      return this.pid;
     }
   }
 
@@ -275,14 +275,14 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setPid(String newVal) {
-    pid = newVal;
+    this.pid = newVal;
   }
 
   /**
    * Delivers the description of the file, i. e. a short description of the file.
    */
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   /**
@@ -291,11 +291,11 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setDescription(String newVal) {
-    description = newVal;
+    this.description = newVal;
   }
 
   public AccountUserRO getCreatedByRO() {
-    return createdByRO;
+    return this.createdByRO;
   }
 
   public void setCreatedByRO(AccountUserRO createdByRO) {
@@ -306,7 +306,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * Delivers a reference to the content of the file, i. e. to the data of the file.
    */
   public String getContent() {
-    return content;
+    return this.content;
   }
 
   /**
@@ -322,7 +322,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * Delivers the content type of the file.
    */
   public String getContentCategory() {
-    return contentCategory;
+    return this.contentCategory;
   }
 
   /**
@@ -331,14 +331,14 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setContentCategory(String newVal) {
-    contentCategory = newVal;
+    this.contentCategory = newVal;
   }
 
   /**
    * Delivers the visibility of the file.
    */
   public FileVO.Visibility getVisibility() {
-    return visibility;
+    return this.visibility;
   }
 
   /**
@@ -347,7 +347,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setVisibility(FileVO.Visibility newVal) {
-    visibility = newVal;
+    this.visibility = newVal;
   }
 
   /**
@@ -355,7 +355,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * http://www.iana.org/assignments/media-types/
    */
   public String getMimeType() {
-    return mimeType;
+    return this.mimeType;
   }
 
   /**
@@ -365,14 +365,14 @@ public class FileVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setMimeType(String newVal) {
-    mimeType = newVal;
+    this.mimeType = newVal;
   }
 
   /**
    * Delivers the creation date of the file.
    */
   public java.util.Date getCreationDate() {
-    return creationDate;
+    return this.creationDate;
   }
 
   /**
@@ -388,7 +388,7 @@ public class FileVO extends ValueObject implements Cloneable {
    * Delivers the date of the last modification of the file.
    */
   public java.util.Date getLastModificationDate() {
-    return lastModificationDate;
+    return this.lastModificationDate;
   }
 
   /**
@@ -406,10 +406,10 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getContentCategoryString() {
-    if (contentCategory == null) {
+    if (null == this.contentCategory) {
       return "";
     }
-    return contentCategory;
+    return this.contentCategory;
   }
 
   /**
@@ -419,7 +419,7 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public void setContentCategoryString(String newValString) {
-    contentCategory = newValString;
+    this.contentCategory = newValString;
   }
 
   /**
@@ -428,10 +428,10 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getVisibilityString() {
-    if (visibility == null || visibility.toString() == null) {
+    if (null == this.visibility || null == this.visibility.toString()) {
       return "";
     }
-    return visibility.toString();
+    return this.visibility.toString();
   }
 
   /**
@@ -441,16 +441,16 @@ public class FileVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public void setVisibilityString(String newValString) {
-    if (newValString == null || newValString.isEmpty()) {
-      visibility = null;
+    if (null == newValString || newValString.isEmpty()) {
+      this.visibility = null;
     } else {
       FileVO.Visibility newVal = FileVO.Visibility.valueOf(newValString);
-      visibility = newVal;
+      this.visibility = newVal;
     }
   }
 
   public FileVO.Storage getStorage() {
-    return storage;
+    return this.storage;
   }
 
   public void setStorage(FileVO.Storage storage) {
@@ -459,29 +459,29 @@ public class FileVO extends ValueObject implements Cloneable {
 
   @JsonIgnore
   public String getStorageString() {
-    if (storage == null || storage.toString() == null) {
+    if (null == this.storage || null == this.storage.toString()) {
       return "";
     }
-    return storage.toString();
+    return this.storage.toString();
   }
 
   @JsonIgnore
   public void setStorageString(String newValString) {
-    if (newValString == null || newValString.isEmpty()) {
-      storage = null;
+    if (null == newValString || newValString.isEmpty()) {
+      this.storage = null;
     } else {
       FileVO.Storage newVal = FileVO.Storage.valueOf(newValString);
-      storage = newVal;
+      this.storage = newVal;
     }
   }
 
   @JsonIgnore
   public List<MetadataSetVO> getMetadataSets() {
-    return metadataSets;
+    return this.metadataSets;
   }
 
   public String getChecksum() {
-    return checksum;
+    return this.checksum;
   }
 
   public void setChecksum(String checksum) {
@@ -489,7 +489,7 @@ public class FileVO extends ValueObject implements Cloneable {
   }
 
   public ChecksumAlgorithm getChecksumAlgorithm() {
-    return checksumAlgorithm;
+    return this.checksumAlgorithm;
   }
 
   public void setChecksumAlgorithm(ChecksumAlgorithm checksumAlgorithm) {
@@ -497,7 +497,7 @@ public class FileVO extends ValueObject implements Cloneable {
   }
 
   public String getLocalFileIdentifier() {
-    return localFileIdentifier;
+    return this.localFileIdentifier;
   }
 
   public void setLocalFileIdentifier(String localFileIdentifier) {
@@ -508,21 +508,21 @@ public class FileVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((checksum == null) ? 0 : checksum.hashCode());
-    result = prime * result + ((checksumAlgorithm == null) ? 0 : checksumAlgorithm.hashCode());
-    result = prime * result + ((content == null) ? 0 : content.hashCode());
-    result = prime * result + ((contentCategory == null) ? 0 : contentCategory.hashCode());
-    result = prime * result + ((createdByRO == null) ? 0 : createdByRO.hashCode());
-    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
-    result = prime * result + ((metadataSets == null) ? 0 : metadataSets.hashCode());
-    result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((pid == null) ? 0 : pid.hashCode());
-    result = prime * result + ((reference == null) ? 0 : reference.hashCode());
-    result = prime * result + ((storage == null) ? 0 : storage.hashCode());
-    result = prime * result + ((visibility == null) ? 0 : visibility.hashCode());
+    result = prime * result + ((null == this.checksum) ? 0 : this.checksum.hashCode());
+    result = prime * result + ((null == this.checksumAlgorithm) ? 0 : this.checksumAlgorithm.hashCode());
+    result = prime * result + ((null == this.content) ? 0 : this.content.hashCode());
+    result = prime * result + ((null == this.contentCategory) ? 0 : this.contentCategory.hashCode());
+    result = prime * result + ((null == this.createdByRO) ? 0 : this.createdByRO.hashCode());
+    result = prime * result + ((null == this.creationDate) ? 0 : this.creationDate.hashCode());
+    result = prime * result + ((null == this.description) ? 0 : this.description.hashCode());
+    result = prime * result + ((null == this.lastModificationDate) ? 0 : this.lastModificationDate.hashCode());
+    result = prime * result + ((null == this.metadataSets) ? 0 : this.metadataSets.hashCode());
+    result = prime * result + ((null == this.mimeType) ? 0 : this.mimeType.hashCode());
+    result = prime * result + ((null == this.name) ? 0 : this.name.hashCode());
+    result = prime * result + ((null == this.pid) ? 0 : this.pid.hashCode());
+    result = prime * result + ((null == this.reference) ? 0 : this.reference.hashCode());
+    result = prime * result + ((null == this.storage) ? 0 : this.storage.hashCode());
+    result = prime * result + ((null == this.visibility) ? 0 : this.visibility.hashCode());
     return result;
   }
 
@@ -531,7 +531,7 @@ public class FileVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -539,89 +539,89 @@ public class FileVO extends ValueObject implements Cloneable {
 
     FileVO other = (FileVO) obj;
 
-    if (checksum == null) {
-      if (other.checksum != null)
+    if (null == this.checksum) {
+      if (null != other.checksum)
         return false;
-    } else if (!checksum.equals(other.checksum))
+    } else if (!this.checksum.equals(other.checksum))
       return false;
 
-    if (checksumAlgorithm != other.checksumAlgorithm)
+    if (this.checksumAlgorithm != other.checksumAlgorithm)
       return false;
 
-    if (content == null) {
-      if (other.content != null)
+    if (null == this.content) {
+      if (null != other.content)
         return false;
-    } else if (!content.equals(other.content))
+    } else if (!this.content.equals(other.content))
       return false;
 
-    if (contentCategory == null) {
-      if (other.contentCategory != null)
+    if (null == this.contentCategory) {
+      if (null != other.contentCategory)
         return false;
-    } else if (!contentCategory.equals(other.contentCategory))
+    } else if (!this.contentCategory.equals(other.contentCategory))
       return false;
 
-    if (createdByRO == null) {
-      if (other.createdByRO != null)
+    if (null == this.createdByRO) {
+      if (null != other.createdByRO)
         return false;
-    } else if (!createdByRO.equals(other.createdByRO))
+    } else if (!this.createdByRO.equals(other.createdByRO))
       return false;
 
-    if (creationDate == null) {
-      if (other.creationDate != null)
+    if (null == this.creationDate) {
+      if (null != other.creationDate)
         return false;
-    } else if (!creationDate.equals(other.creationDate))
+    } else if (!this.creationDate.equals(other.creationDate))
       return false;
 
-    if (description == null) {
-      if (other.description != null)
+    if (null == this.description) {
+      if (null != other.description)
         return false;
-    } else if (!description.equals(other.description))
+    } else if (!this.description.equals(other.description))
       return false;
 
-    if (lastModificationDate == null) {
-      if (other.lastModificationDate != null)
+    if (null == this.lastModificationDate) {
+      if (null != other.lastModificationDate)
         return false;
-    } else if (!lastModificationDate.equals(other.lastModificationDate))
+    } else if (!this.lastModificationDate.equals(other.lastModificationDate))
       return false;
 
-    if (metadataSets == null) {
-      if (other.metadataSets != null)
+    if (null == this.metadataSets) {
+      if (null != other.metadataSets)
         return false;
-    } else if (other.metadataSets == null)
+    } else if (null == other.metadataSets)
       return false;
-    else if (!new HashSet<>(metadataSets).containsAll(other.metadataSets) //
-        || !new HashSet<>(other.metadataSets).containsAll(metadataSets)) {
+    else if (!new HashSet<>(this.metadataSets).containsAll(other.metadataSets) //
+        || !new HashSet<>(other.metadataSets).containsAll(this.metadataSets)) {
       return false;
     }
 
-    if (mimeType == null) {
-      if (other.mimeType != null)
+    if (null == this.mimeType) {
+      if (null != other.mimeType)
         return false;
-    } else if (!mimeType.equals(other.mimeType))
+    } else if (!this.mimeType.equals(other.mimeType))
       return false;
 
-    if (name == null) {
-      if (other.name != null)
+    if (null == this.name) {
+      if (null != other.name)
         return false;
-    } else if (!name.equals(other.name))
+    } else if (!this.name.equals(other.name))
       return false;
 
-    if (pid == null) {
-      if (other.pid != null)
+    if (null == this.pid) {
+      if (null != other.pid)
         return false;
-    } else if (!pid.equals(other.pid))
+    } else if (!this.pid.equals(other.pid))
       return false;
 
-    if (reference == null) {
-      if (other.reference != null)
+    if (null == this.reference) {
+      if (null != other.reference)
         return false;
-    } else if (!reference.equals(other.reference))
+    } else if (!this.reference.equals(other.reference))
       return false;
 
-    if (storage != other.storage)
+    if (this.storage != other.storage)
       return false;
 
-    if (visibility != other.visibility)
+    if (this.visibility != other.visibility)
       return false;
 
     return true;

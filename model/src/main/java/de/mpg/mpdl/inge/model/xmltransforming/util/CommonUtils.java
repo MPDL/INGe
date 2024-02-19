@@ -41,6 +41,8 @@ import java.util.Properties;
  * @revised by MuJ: 03.09.2007
  */
 public class CommonUtils {
+  private CommonUtils() {}
+
   /**
    * Searches for a file name in the classpath and gives back the URL.
    *
@@ -50,7 +52,7 @@ public class CommonUtils {
    */
   public static URL findURLInClasspath(String fileName) throws FileNotFoundException {
     URL url = CommonUtils.class.getClassLoader().getResource(fileName);
-    if (url == null) {
+    if (null == url) {
       throw new FileNotFoundException(fileName);
     }
     return url;

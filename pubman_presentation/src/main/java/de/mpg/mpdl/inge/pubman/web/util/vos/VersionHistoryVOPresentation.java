@@ -49,7 +49,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
    * @return Nothing
    */
   public String rollback() throws Exception {
-    VersionHistoryVOPresentation.logger.info("Rollback to version " + this.getReference().getVersionNumber());
+    logger.info("Rollback to version " + this.getReference().getVersionNumber());
 
     final LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
     final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();

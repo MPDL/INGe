@@ -65,6 +65,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class CitationStyleExecuterService {
   private static final Logger logger = LogManager.getLogger(CitationStyleExecuterService.class);
 
+  private CitationStyleExecuterService() {}
+
   public static String explainStyles() throws CitationStyleManagerException {
     return CitationUtil.getExplainStyles();
   }
@@ -74,7 +76,7 @@ public class CitationStyleExecuterService {
   }
 
   public static List<String> getOutput(List<ItemVersionVO> itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
-    if (itemList == null || itemList.isEmpty())
+    if (null == itemList || itemList.isEmpty())
       return new ArrayList<>();
 
     try {
@@ -84,7 +86,7 @@ public class CitationStyleExecuterService {
       long start = System.currentTimeMillis();
 
       if (XmlHelper.CSL.equals(exportFormat.getCitationName())) {
-        if (exportFormat.getId() == null || exportFormat.getId().isEmpty()) {
+        if (null == exportFormat.getId() || exportFormat.getId().isEmpty()) {
           throw new CitationStyleManagerException("CSL id is required!");
         }
         return CitationStyleLanguageManagerService.getOutput(exportFormat, escidocXmlList);
@@ -121,9 +123,9 @@ public class CitationStyleExecuterService {
       XPathExpression exp = xPath.compile("//dcterms:bibliographicCitation");
       NodeList nl = (NodeList) exp.evaluate(new InputSource(new StringReader(snippet)), XPathConstants.NODESET);
 
-      if (nl != null) {
+      if (null != nl) {
         for (int i = 0; i < nl.getLength(); i++) {
-          if (nl.item(i) != null) {
+          if (null != nl.item(i)) {
             citationList.add(nl.item(i).getTextContent());
           } else {
             citationList.add("");

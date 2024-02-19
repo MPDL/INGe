@@ -60,7 +60,7 @@ public class Marc21Processor extends FormatProcessor {
     MarcXmlWriter writer;
     try {
       final InputStream is = new FileInputStream(this.getSourceFile());
-      if (this.encoding == null || this.encoding.trim().isEmpty() || this.encoding.trim().equals("*")) {
+      if (null == this.encoding || this.encoding.trim().isEmpty() || "*".equals(this.encoding.trim())) {
         reader = new MarcStreamReader(is);
       } else {
         reader = new MarcStreamReader(is, this.encoding);
@@ -135,7 +135,7 @@ public class Marc21Processor extends FormatProcessor {
 
   @Override
   public String getDataAsBase64() {
-    if (this.getSourceFile() == null) {
+    if (null == this.getSourceFile()) {
       return null;
     }
 

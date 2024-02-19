@@ -45,7 +45,7 @@ public class MABImport {
                                                                                                                           // // System.out.print(item+"\n*******************************************");
                                                                                                                           // }
     List<List<Pair>> items = new ArrayList<>();
-    if (itemList != null && itemList.length > 1) { // transform items to XML
+    if (null != itemList && 1 < itemList.length) { // transform items to XML
 
       for (String item : itemList) {
         List<Pair> itemPairs =
@@ -57,7 +57,7 @@ public class MABImport {
       }
       result = transformItemListToXML(items);
 
-    } else if (itemList != null && itemList.length == 1) {
+    } else if (null != itemList && 1 == itemList.length) {
       List<Pair> item =
           getItemPairs(getItemFromString(itemList[0], "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
       result = transformItemToXML(item);
@@ -76,21 +76,21 @@ public class MABImport {
       input = new BufferedReader(fileReader);
 
       String str;
-      while ((str = input.readLine()) != null) {
+      while (null != (str = input.readLine())) {
         file = file + "\n" + str;
       }
     } catch (IOException e) {
       logger.error("An error occurred while reading MAB file.", e);
       throw new RuntimeException(e);
     } finally {
-      if (input != null) {
+      if (null != input) {
         try {
           input.close();
         } catch (IOException e) {
           logger.error("An error occurred while reading MAB file.", e);
           throw new RuntimeException(e);
         } finally {
-          if (fileReader != null) {
+          if (null != fileReader) {
             try {
               fileReader.close();
             } catch (IOException e) {
@@ -141,7 +141,7 @@ public class MABImport {
   public List<Pair> getItemPairs(List<String> lines) {
     List<Pair> pairList = new ArrayList<>();
 
-    if (lines != null && !lines.isEmpty()) {
+    if (null != lines && !lines.isEmpty()) {
       String line1 = lines.get(0);
       Pair pair1 = createMABPairByString(line1, "(\\s{6})###\\s*");
       pairList.add(pair1);
@@ -160,10 +160,10 @@ public class MABImport {
     // String[] lineArr = line.split("([0-9]{3}\\s{5}|[0-9]\\s[a-z]\\s{3})");
     String[] lineArr = line.split(regex);
     Pair pair = null;
-    if (lineArr.length > 1) {
-      if (lineArr[0] != null && lineArr[1] != null) {
+    if (1 < lineArr.length) {
+      if (null != lineArr[0] && null != lineArr[1]) {
         String key = line.substring(0, 13).trim().replaceAll("\\s", "_").replaceAll("###", "raute");
-        pair = new Pair("mab".concat(key), lineArr[1].trim());
+        pair = new Pair("mab" + key, lineArr[1].trim());
         // System.out.print(pair.getKey()+" ::: "+pair.getValue()+"\n");
       }
     }
@@ -178,7 +178,7 @@ public class MABImport {
    * @return xml string of the whole item list
    */
   public String transformItemToXML(List<Pair> item) {
-    if (item != null && !item.isEmpty()) {
+    if (null != item && !item.isEmpty()) {
       return createXMLElement("item", transformItemSubelementsToXML(item));
     }
 
@@ -188,7 +188,7 @@ public class MABImport {
   public String transformItemListToXML(List<List<Pair>> itemList) {
     String xml = "<item-list>";
 
-    if (itemList != null && !itemList.isEmpty()) {
+    if (null != itemList && !itemList.isEmpty()) {
       for (List<Pair> item : itemList) {
         xml = xml + "\n" + transformItemToXML(item);
       }
@@ -207,17 +207,17 @@ public class MABImport {
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && !item.isEmpty()) {
+    if (null != item && !item.isEmpty()) {
       for (Pair pair : item) {
         String key = "";
         String value = "";
 
-        if (pair != null) {
-          if (pair.getKey() != null) {
+        if (null != pair) {
+          if (null != pair.getKey()) {
             key = pair.getKey();
           }
 
-          if (pair.getValue() != null) {
+          if (null != pair.getValue()) {
             value = pair.getValue();
           }
         }
@@ -237,7 +237,7 @@ public class MABImport {
    * @return xml element as string
    */
   public String createXMLElement(String tag, String value) {
-    if (tag != null && !tag.equals("")) {
+    if (null != tag && !tag.isEmpty()) {
       return "<" + tag + ">" + value + "</" + tag + ">";
     }
 
@@ -251,7 +251,7 @@ public class MABImport {
    * @return string with escaped characters
    */
   public String escape(String input) {
-    if (input != null) {
+    if (null != input) {
       input = input.replace("&", "&amp;");
       input = input.replace("<", "&lt;");
       input = input.replace("\"", "&quot;");

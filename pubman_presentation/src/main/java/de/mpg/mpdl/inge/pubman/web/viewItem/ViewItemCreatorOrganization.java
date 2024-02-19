@@ -92,7 +92,7 @@ public class ViewItemCreatorOrganization {
   // the information page (popup window)
   public void setOrganizationInfoPage(String organizationName, String organizationAddress) {
     String addr = "";
-    if (organizationAddress != null) {
+    if (null != organizationAddress) {
       addr = organizationAddress;
     }
 

@@ -36,7 +36,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import de.mpg.mpdl.inge.model.util.MapperFactory;
@@ -61,7 +60,7 @@ import jakarta.persistence.Table;
  * @updated 05-Sep-2007 11:14:08
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @Entity
 @Table(name = "context")
 //@TypeDef(name = "SubjectClassificationListJsonUserType", typeClass = SubjectClassificationListJsonUserType.class)
@@ -135,14 +134,14 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    * collection policy.
    */
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   /**
    * Delivers the state of the collection.
    */
   public ContextDbVO.State getState() {
-    return state;
+    return this.state;
   }
 
   /**
@@ -152,7 +151,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    * @param newVal
    */
   public void setDescription(String newVal) {
-    description = newVal;
+    this.description = newVal;
   }
 
   /**
@@ -161,14 +160,14 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    * @param newVal
    */
   public void setState(ContextDbVO.State newVal) {
-    state = newVal;
+    this.state = newVal;
   }
 
   /**
    * Delivers the list of affiliations which are responsible for this collection.
    */
   public java.util.List<AffiliationDbRO> getResponsibleAffiliations() {
-    return responsibleAffiliations;
+    return this.responsibleAffiliations;
   }
 
   public void setResponsibleAffiliations(java.util.List<AffiliationDbRO> responsibleAffiliations) {
@@ -176,7 +175,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   }
 
   public List<MdsPublicationVO.Genre> getAllowedGenres() {
-    return allowedGenres;
+    return this.allowedGenres;
   }
 
   public void setAllowedGenres(List<MdsPublicationVO.Genre> allowedGenres) {
@@ -184,7 +183,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   }
 
   public List<MdsPublicationVO.SubjectClassification> getAllowedSubjectClassifications() {
-    return allowedSubjectClassifications;
+    return this.allowedSubjectClassifications;
   }
 
   public void setAllowedSubjectClassifications(List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications) {
@@ -192,7 +191,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   }
 
   public Workflow getWorkflow() {
-    return workflow;
+    return this.workflow;
   }
 
   public void setWorkflow(Workflow workflow) {
@@ -200,7 +199,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   }
 
   public String getContactEmail() {
-    return contactEmail;
+    return this.contactEmail;
   }
 
   public void setContactEmail(String contactEmail) {
@@ -211,13 +210,13 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((allowedGenres == null) ? 0 : allowedGenres.hashCode());
-    result = prime * result + ((allowedSubjectClassifications == null) ? 0 : allowedSubjectClassifications.hashCode());
-    result = prime * result + ((contactEmail == null) ? 0 : contactEmail.hashCode());
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
-    result = prime * result + ((state == null) ? 0 : state.hashCode());
-    result = prime * result + ((workflow == null) ? 0 : workflow.hashCode());
+    result = prime * result + ((null == this.allowedGenres) ? 0 : this.allowedGenres.hashCode());
+    result = prime * result + ((null == this.allowedSubjectClassifications) ? 0 : this.allowedSubjectClassifications.hashCode());
+    result = prime * result + ((null == this.contactEmail) ? 0 : this.contactEmail.hashCode());
+    result = prime * result + ((null == this.description) ? 0 : this.description.hashCode());
+    result = prime * result + ((null == this.responsibleAffiliations) ? 0 : this.responsibleAffiliations.hashCode());
+    result = prime * result + ((null == this.state) ? 0 : this.state.hashCode());
+    result = prime * result + ((null == this.workflow) ? 0 : this.workflow.hashCode());
     return result;
   }
 
@@ -230,34 +229,34 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
     if (getClass() != obj.getClass())
       return false;
     ContextDbVO other = (ContextDbVO) obj;
-    if (allowedGenres == null) {
-      if (other.allowedGenres != null)
+    if (null == this.allowedGenres) {
+      if (null != other.allowedGenres)
         return false;
-    } else if (!allowedGenres.equals(other.allowedGenres))
+    } else if (!this.allowedGenres.equals(other.allowedGenres))
       return false;
-    if (allowedSubjectClassifications == null) {
-      if (other.allowedSubjectClassifications != null)
+    if (null == this.allowedSubjectClassifications) {
+      if (null != other.allowedSubjectClassifications)
         return false;
-    } else if (!allowedSubjectClassifications.equals(other.allowedSubjectClassifications))
+    } else if (!this.allowedSubjectClassifications.equals(other.allowedSubjectClassifications))
       return false;
-    if (contactEmail == null) {
-      if (other.contactEmail != null)
+    if (null == this.contactEmail) {
+      if (null != other.contactEmail)
         return false;
-    } else if (!contactEmail.equals(other.contactEmail))
+    } else if (!this.contactEmail.equals(other.contactEmail))
       return false;
-    if (description == null) {
-      if (other.description != null)
+    if (null == this.description) {
+      if (null != other.description)
         return false;
-    } else if (!description.equals(other.description))
+    } else if (!this.description.equals(other.description))
       return false;
-    if (responsibleAffiliations == null) {
-      if (other.responsibleAffiliations != null)
+    if (null == this.responsibleAffiliations) {
+      if (null != other.responsibleAffiliations)
         return false;
-    } else if (!responsibleAffiliations.equals(other.responsibleAffiliations))
+    } else if (!this.responsibleAffiliations.equals(other.responsibleAffiliations))
       return false;
-    if (state != other.state)
+    if (this.state != other.state)
       return false;
-    if (workflow != other.workflow)
+    if (this.workflow != other.workflow)
       return false;
     return true;
   }

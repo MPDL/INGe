@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -28,11 +28,11 @@ package de.mpg.mpdl.inge.cone.util;
 
 /**
  * A triple consisting of subject,, predicate and object.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public class Triple {
   private String subject;
@@ -48,7 +48,7 @@ public class Triple {
 
   /**
    * Constructor with fields.
-   * 
+   *
    * @param subject The identifier
    * @param predicate The attribute
    * @param object The value
@@ -60,7 +60,7 @@ public class Triple {
   }
 
   public String getSubject() {
-    return subject;
+    return this.subject;
   }
 
   public void setSubject(String subject) {
@@ -68,7 +68,7 @@ public class Triple {
   }
 
   public String getPredicate() {
-    return predicate;
+    return this.predicate;
   }
 
   public void setPredicate(String predicate) {
@@ -76,7 +76,7 @@ public class Triple {
   }
 
   public String getObject() {
-    return object;
+    return this.object;
   }
 
   public void setObject(String object) {

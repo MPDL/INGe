@@ -39,10 +39,8 @@ import org.hibernate.type.SqlTypes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import jakarta.persistence.Access;
@@ -70,7 +68,7 @@ import jakarta.persistence.Table;
  */
 @SuppressWarnings("serial")
 @Entity
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @Table(name = "item_version")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
@@ -114,9 +112,9 @@ public class ItemVersionVO extends ItemVersionRO {
 
 
   public void setFileLinks() {
-    if (files != null) {
-      for (FileDbVO file : files) {
-        if (file != null && Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+    if (null != this.files) {
+      for (FileDbVO file : this.files) {
+        if (null != file && FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
           file.setContent("/rest/items/" + getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content");
         }
       }
@@ -125,7 +123,7 @@ public class ItemVersionVO extends ItemVersionRO {
   }
 
   public ItemRootVO getObject() {
-    return object;
+    return this.object;
   }
 
   public void setObject(ItemRootVO object) {
@@ -133,7 +131,7 @@ public class ItemVersionVO extends ItemVersionRO {
   }
 
   public MdsPublicationVO getMetadata() {
-    return metadata;
+    return this.metadata;
   }
 
   public void setMetadata(MdsPublicationVO metadata) {
@@ -182,7 +180,7 @@ public class ItemVersionVO extends ItemVersionRO {
   }
 
   public String getMessage() {
-    return message;
+    return this.message;
   }
 
   public void setMessage(String lastMessage) {
@@ -191,17 +189,17 @@ public class ItemVersionVO extends ItemVersionRO {
 
   @JsonIgnore
   public String getLastMessageForXml() {
-    return Objects.requireNonNullElse(message, "");
+    return Objects.requireNonNullElse(this.message, "");
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((files == null) ? 0 : files.hashCode());
-    result = prime * result + ((message == null) ? 0 : message.hashCode());
-    result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
-    result = prime * result + ((object == null) ? 0 : object.hashCode());
+    result = prime * result + ((null == this.files) ? 0 : this.files.hashCode());
+    result = prime * result + ((null == this.message) ? 0 : this.message.hashCode());
+    result = prime * result + ((null == this.metadata) ? 0 : this.metadata.hashCode());
+    result = prime * result + ((null == this.object) ? 0 : this.object.hashCode());
     return result;
   }
 
@@ -214,25 +212,25 @@ public class ItemVersionVO extends ItemVersionRO {
     if (getClass() != obj.getClass())
       return false;
     ItemVersionVO other = (ItemVersionVO) obj;
-    if (files == null) {
-      if (other.files != null)
+    if (null == this.files) {
+      if (null != other.files)
         return false;
-    } else if (!files.equals(other.files))
+    } else if (!this.files.equals(other.files))
       return false;
-    if (message == null) {
-      if (other.message != null)
+    if (null == this.message) {
+      if (null != other.message)
         return false;
-    } else if (!message.equals(other.message))
+    } else if (!this.message.equals(other.message))
       return false;
-    if (metadata == null) {
-      if (other.metadata != null)
+    if (null == this.metadata) {
+      if (null != other.metadata)
         return false;
-    } else if (!metadata.equals(other.metadata))
+    } else if (!this.metadata.equals(other.metadata))
       return false;
-    if (object == null) {
-      if (other.object != null)
+    if (null == this.object) {
+      if (null != other.object)
         return false;
-    } else if (!object.equals(other.object))
+    } else if (!this.object.equals(other.object))
       return false;
     return true;
   }

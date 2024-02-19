@@ -17,7 +17,6 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO.BatchProcessMessages;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -25,16 +24,13 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
-import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -78,7 +74,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
 
-    if (keywordsNew != null && !keywordsNew.trim().isEmpty()) {
+    if (null != keywordsNew && !keywordsNew.trim().isEmpty()) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -86,7 +82,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
             String currentKeywords = null;
-            if ((currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
+            if (null != (currentKeywords = pubItemVO.getMetadata().getFreeKeywords())) {
               if (currentKeywords.contains(",")) {
                 pubItemVO.getMetadata().setFreeKeywords(currentKeywords + ", " + keywordsNew);
               } else if (currentKeywords.contains(";")) {
@@ -99,7 +95,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             } else {
               pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
             }
-            if (pubItemVO.getObject().getLocalTags() != null) {
+            if (null != pubItemVO.getObject().getLocalTags()) {
               pubItemVO.getObject().getLocalTags().add(message);
             } else {
               pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -134,11 +130,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -153,14 +149,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
+    if (null != localTagsToAdd && !localTagsToAdd.isEmpty()) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
-            if (itemId != null && localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
+            if (null != itemId && null != localTagsToAdd && !localTagsToAdd.isEmpty()) {
               List<String> localTags = pubItemVO.getObject().getLocalTags();
               localTags.addAll(localTagsToAdd);
               localTags.add(message);
@@ -199,11 +195,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -219,7 +215,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ContextDbVO contextVO = null;
-    if (contextNew != null) {
+    if (null != contextNew) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -227,14 +223,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           contextVO = this.contextService.get(contextNew, authenticationToken);
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
-            if (itemId != null && contextOld.equals(pubItemVO.getObject().getContext().getObjectId())) {
-              if (pubItemVO.getMetadata() != null && pubItemVO.getMetadata().getGenre() != null && contextVO.getAllowedGenres() != null
+            if (null != itemId && contextOld.equals(pubItemVO.getObject().getContext().getObjectId())) {
+              if (null != pubItemVO.getMetadata() && null != pubItemVO.getMetadata().getGenre() && null != contextVO.getAllowedGenres()
                   && !contextVO.getAllowedGenres().isEmpty() && contextVO.getAllowedGenres().contains(pubItemVO.getMetadata().getGenre())) {
                 pubItemVO.getObject().setContext(contextVO);
                 if (!((ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getObject().getPublicState())
                     || ItemVersionRO.State.IN_REVISION.equals(pubItemVO.getVersionState()))
                     && ContextDbVO.Workflow.SIMPLE.equals(contextVO.getWorkflow()))) {
-                  if (pubItemVO.getObject().getLocalTags() != null) {
+                  if (null != pubItemVO.getObject().getLocalTags()) {
                     pubItemVO.getObject().getLocalTags().add(message);
                   } else {
                     pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -282,11 +278,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -302,7 +298,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (contentCategoryOld != null && contentCategoryNew != null && !contentCategoryOld.equals(contentCategoryNew)) {
+    if (null != contentCategoryOld && null != contentCategoryNew && !contentCategoryOld.equals(contentCategoryNew)) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -317,8 +313,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 anyFilesChanged = true;
               }
             }
-            if (anyFilesChanged == true) {
-              if (pubItemVO.getObject().getLocalTags() != null) {
+            if (true == anyFilesChanged) {
+              if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
                 pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -358,11 +354,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -387,7 +383,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           boolean anyOrcidChanged = false;
           for (CreatorVO creator : pubItemVO.getMetadata().getCreators()) {
             PersonVO person = creator.getPerson();
-            if (person != null && person.getIdentifier() != null) {
+            if (null != person && null != person.getIdentifier()) {
               if (creatorId.equals(person.getIdentifier().getId())) {
                 if (!orcidNew.equals(person.getOrcid())) {
                   person.setOrcid(orcidNew);
@@ -400,7 +396,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           for (SourceVO source : sources) {
             for (CreatorVO creator : source.getCreators()) {
               PersonVO person = creator.getPerson();
-              if (person != null && person.getIdentifier() != null) {
+              if (null != person && null != person.getIdentifier()) {
                 if (creatorId.equals(person.getIdentifier().getId())) {
                   if (!orcidNew.equals(person.getOrcid())) {
                     person.setOrcid(orcidNew);
@@ -410,8 +406,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
             }
           }
-          if (anyOrcidChanged == true) {
-            if (pubItemVO.getObject().getLocalTags() != null) {
+          if (true == anyOrcidChanged) {
+            if (null != pubItemVO.getObject().getLocalTags()) {
               pubItemVO.getObject().getLocalTags().add(message);
             } else {
               pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -449,11 +445,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -468,7 +464,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (audienceListNew != null && !audienceListNew.isEmpty()) {
+    if (null != audienceListNew && !audienceListNew.isEmpty()) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -477,7 +473,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
             boolean anyFilesChanged = false;
             for (FileDbVO file : pubItemVO.getFiles()) {
-              List<String> audienceList = file.getAllowedAudienceIds() != null ? file.getAllowedAudienceIds() : new ArrayList<>();
+              List<String> audienceList = null != file.getAllowedAudienceIds() ? file.getAllowedAudienceIds() : new ArrayList<>();
               if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
                   && FileDbVO.Visibility.AUDIENCE.equals(file.getVisibility())) {
                 audienceList.clear();
@@ -486,8 +482,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 anyFilesChanged = true;
               }
             }
-            if (anyFilesChanged == true) {
-              if (pubItemVO.getObject().getLocalTags() != null) {
+            if (true == anyFilesChanged) {
+              if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
                 pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -526,11 +522,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -547,7 +543,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (contentCategoryOld != null && contentCategoryNew != null && !contentCategoryOld.equals(contentCategoryNew)) {
+    if (null != contentCategoryOld && null != contentCategoryNew && !contentCategoryOld.equals(contentCategoryNew)) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -562,8 +558,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 anyFilesChanged = true;
               }
             }
-            if (anyFilesChanged == true) {
-              if (pubItemVO.getObject().getLocalTags() != null) {
+            if (true == anyFilesChanged) {
+              if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
                 pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -602,11 +598,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -618,14 +614,15 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility, java.lang.String, java.lang.String)
    */
   @Override
-  public BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, Visibility visibilityOld, Visibility visibilityNew,
-      IpRange userAccountIpRange, String message, String authenticationToken, AccountUserDbVO accountUser) {
+  public BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, FileVO.Visibility visibilityOld,
+      FileVO.Visibility visibilityNew, IpListProvider.IpRange userAccountIpRange, String message, String authenticationToken,
+      AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (visibilityOld != null && visibilityNew != null && !visibilityOld.equals(visibilityNew)) {
+    if (null != visibilityOld && null != visibilityNew && !visibilityOld.equals(visibilityNew)) {
       ItemVersionVO pubItemVO = null;
       String ipRangeToSet = null;
-      if (userAccountIpRange != null && userAccountIpRange.getId() != null) {
+      if (null != userAccountIpRange && null != userAccountIpRange.getId()) {
         ipRangeToSet = userAccountIpRange.getId();
       }
       for (String itemId : pubItemObjectIdList) {
@@ -639,23 +636,23 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   && file.getVisibility().toString().equals(visibilityOld.toString())) {
                 file.setVisibility(FileDbVO.Visibility.valueOf(visibilityNew.toString()));
                 if (FileVO.Visibility.AUDIENCE.equals(visibilityNew)) {
-                  if (file.getAllowedAudienceIds() != null && ipRangeToSet != null) {
+                  if (null != file.getAllowedAudienceIds() && null != ipRangeToSet) {
                     file.getAllowedAudienceIds().add(ipRangeToSet);
-                  } else if (file.getAllowedAudienceIds() == null) {
+                  } else if (null == file.getAllowedAudienceIds()) {
                     file.setAllowedAudienceIds(new ArrayList<>());
-                    if (ipRangeToSet != null) {
+                    if (null != ipRangeToSet) {
                       file.getAllowedAudienceIds().add(ipRangeToSet);
                     }
                   }
                 }
-                if (FileVO.Visibility.PUBLIC.equals(visibilityNew) && file.getMetadata().getEmbargoUntil() != null) {
+                if (FileVO.Visibility.PUBLIC.equals(visibilityNew) && null != file.getMetadata().getEmbargoUntil()) {
                   file.getMetadata().setEmbargoUntil(null);
                 }
                 anyFilesChanged = true;
               }
             }
-            if (anyFilesChanged == true) {
-              if (pubItemVO.getObject().getLocalTags() != null) {
+            if (true == anyFilesChanged) {
+              if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
                 pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -694,11 +691,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -711,11 +708,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String)
    */
   @Override
-  public BatchProcessLogDbVO changeGenre(List<String> pubItemObjectIdList, Genre genreOld, Genre genreNew, DegreeType degree,
-      String message, String authenticationToken, AccountUserDbVO accountUser) {
+  public BatchProcessLogDbVO changeGenre(List<String> pubItemObjectIdList, MdsPublicationVO.Genre genreOld, MdsPublicationVO.Genre genreNew,
+      MdsPublicationVO.DegreeType degree, String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (genreOld != null && genreNew != null) {
+    if (null != genreOld && null != genreNew) {
       ItemVersionVO pubItemVO = null;
       ContextDbVO contextVO = null;
       for (String itemId : pubItemObjectIdList) {
@@ -724,25 +721,25 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           contextVO = this.contextService.get(pubItemVO.getObject().getContext().getObjectId(), authenticationToken);
-          Genre currentPubItemGenre = pubItemVO.getMetadata().getGenre();
+          MdsPublicationVO.Genre currentPubItemGenre = pubItemVO.getMetadata().getGenre();
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
-            if (contextVO.getAllowedGenres() != null && !contextVO.getAllowedGenres().isEmpty()
+            if (null != contextVO.getAllowedGenres() && !contextVO.getAllowedGenres().isEmpty()
                 && contextVO.getAllowedGenres().contains(pubItemVO.getMetadata().getGenre())) {
               if (currentPubItemGenre.equals(genreOld)) {
                 if (!genreOld.equals(genreNew)) {
-                  if (!Genre.THESIS.equals(genreNew)) {
+                  if (!MdsPublicationVO.Genre.THESIS.equals(genreNew)) {
                     pubItemVO.getMetadata().setGenre(genreNew);
-                    if (pubItemVO.getObject().getLocalTags() != null) {
+                    if (null != pubItemVO.getObject().getLocalTags()) {
                       pubItemVO.getObject().getLocalTags().add(message);
                     } else {
                       pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
                     }
                     resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                         BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
-                  } else if (Genre.THESIS.equals(genreNew) && degree != null) {
+                  } else if (MdsPublicationVO.Genre.THESIS.equals(genreNew) && null != degree) {
                     pubItemVO.getMetadata().setGenre(genreNew);
                     pubItemVO.getMetadata().setDegree(degree);
-                    if (pubItemVO.getObject().getLocalTags() != null) {
+                    if (null != pubItemVO.getObject().getLocalTags()) {
                       pubItemVO.getObject().getLocalTags().add(message);
                     } else {
                       pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -784,18 +781,18 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
           logger.error("Could not change genre for item " + itemId + " due to an internal application error", e);
-          BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
-          if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+          BatchProcessItemVO.BatchProcessMessages batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR;
+          if (null != e.getCause() && ValidationException.class.equals(e.getCause().getClass())) {
             ValidationException validationException = (ValidationException) e.getCause();
             ValidationReportVO validationReport = validationException.getReport();
 
             if (validationReport.hasItems()) {
               for (ValidationReportItemVO validationItem : validationReport.getItems()) {
                 if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
-                  batchProcessMessage = BatchProcessMessages.VALIDATION_NO_SOURCE;
+                  batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.VALIDATION_NO_SOURCE;
                   break;
                 } else {
-                  batchProcessMessage = BatchProcessMessages.VALIDATION_GLOBAL;
+                  batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.VALIDATION_GLOBAL;
                   // no break: anther report Item could set a finer message
                 }
               }
@@ -810,11 +807,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -829,7 +826,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (keywordsNew != null) {
+    if (null != keywordsNew) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -840,8 +837,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             char splittingChar = ',';
             String currentKeywords = null;
             String[] keywordArray = new String[1];
-            if (keywordsOld != null && !keywordsOld.trim().isEmpty()
-                && (currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
+            if (null != keywordsOld && !keywordsOld.trim().isEmpty()
+                && null != (currentKeywords = pubItemVO.getMetadata().getFreeKeywords())) {
 
               if (currentKeywords.contains(",")) {
                 keywordArray = currentKeywords.split(",");
@@ -857,10 +854,10 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               StringBuilder keywordString = new StringBuilder();
               for (int i = 0; i < keywordArray.length; i++) {
                 String keyword = keywordArray[i].trim();
-                if (i != 0) {
+                if (0 != i) {
                   keywordString.append(splittingChar);
                 }
-                if (!keyword.equals("") && keywordsOld.equals(keyword)) {
+                if (!keyword.isEmpty() && keywordsOld.equals(keyword)) {
                   keywordString.append(keywordsNew);
                   keywordsChanged = true;
                 } else {
@@ -869,7 +866,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
               if (keywordsChanged) {
                 pubItemVO.getMetadata().setFreeKeywords(keywordString.toString());
-                if (pubItemVO.getObject().getLocalTags() != null) {
+                if (null != pubItemVO.getObject().getLocalTags()) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
                   pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -912,11 +909,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -938,16 +935,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       try {
         pubItemVO = this.pubItemService.get(itemId, authenticationToken);
         if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
-          ReviewMethod currentReviewMethod = pubItemVO.getMetadata().getReviewMethod();
-          if (reviewMethodOld == null || !reviewMethodOld.equals(reviewMethodNew)) {
-            if ((currentReviewMethod == null && reviewMethodOld == null && reviewMethodNew != null) || (currentReviewMethod != null
-                && reviewMethodOld != null && currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld)))) {
-              if (reviewMethodNew != null) {
-                pubItemVO.getMetadata().setReviewMethod(ReviewMethod.valueOf(reviewMethodNew));
+          MdsPublicationVO.ReviewMethod currentReviewMethod = pubItemVO.getMetadata().getReviewMethod();
+          if (null == reviewMethodOld || !reviewMethodOld.equals(reviewMethodNew)) {
+            if ((null == currentReviewMethod && null == reviewMethodOld && null != reviewMethodNew) || (null != currentReviewMethod
+                && null != reviewMethodOld && currentReviewMethod.equals(MdsPublicationVO.ReviewMethod.valueOf(reviewMethodOld)))) {
+              if (null != reviewMethodNew) {
+                pubItemVO.getMetadata().setReviewMethod(MdsPublicationVO.ReviewMethod.valueOf(reviewMethodNew));
               } else {
                 pubItemVO.getMetadata().setReviewMethod(null);
               }
-              if (pubItemVO.getObject().getLocalTags() != null) {
+              if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
                 pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -990,11 +987,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     }
     // }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1011,7 +1008,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (genreOld != null && genreNew != null) {
+    if (null != genreOld && null != genreNew) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -1029,8 +1026,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
                 }
               }
-              if (sourceChanged == true) {
-                if (pubItemVO.getObject().getLocalTags() != null) {
+              if (true == sourceChanged) {
+                if (null != pubItemVO.getObject().getLocalTags()) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
                   pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -1073,11 +1070,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1093,21 +1090,21 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String idNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (idNew != null) {
+    if (null != idNew) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
-            if (itemId != null) {
+            if (null != itemId) {
               List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
               int sourceNumberInt = Integer.parseInt(sourceNumber);
-              if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
-                  && currentSourceList.get(sourceNumberInt - 1) != null) {
-                if (currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
+              if (null != currentSourceList && currentSourceList.size() >= sourceNumberInt
+                  && null != currentSourceList.get(sourceNumberInt - 1)) {
+                if (null != currentSourceList.get(sourceNumberInt - 1).getIdentifiers()) {
                   currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
-                  if (pubItemVO.getObject().getLocalTags() != null) {
+                  if (null != pubItemVO.getObject().getLocalTags()) {
                     pubItemVO.getObject().getLocalTags().add(message);
                   } else {
                     pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -1148,11 +1145,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1168,7 +1165,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String idOld, String idNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (sourceNumber != null && sourceIdType != null && idOld != null && !idOld.trim().isEmpty()) {
+    if (null != sourceNumber && null != sourceIdType && null != idOld && !idOld.trim().isEmpty()) {
       ItemVersionVO pubItemVO = null;
       boolean sourceChanged = false;
       for (String itemId : pubItemObjectIdList) {
@@ -1179,13 +1176,13 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
             List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
             int sourceNumberInt = Integer.parseInt(sourceNumber);
-            if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
-                && currentSourceList.get(sourceNumberInt - 1) != null
-                && currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
+            if (null != currentSourceList && currentSourceList.size() >= sourceNumberInt
+                && null != currentSourceList.get(sourceNumberInt - 1)
+                && null != currentSourceList.get(sourceNumberInt - 1).getIdentifiers()) {
               for (int i = 0; i < currentSourceList.get(sourceNumberInt - 1).getIdentifiers().size(); i++) {
                 IdentifierVO identifier = currentSourceList.get(sourceNumberInt - 1).getIdentifiers().get(i);
                 if (sourceIdType.equals(identifier.getType()) && idOld.equals(identifier.getId())) {
-                  if (idNew != null && !idNew.trim().isEmpty()) {
+                  if (null != idNew && !idNew.trim().isEmpty()) {
                     identifier.setId(idNew);
                     currentSourceList.get(sourceNumberInt - 1).getIdentifiers().set(i, identifier);
                   } else {
@@ -1194,8 +1191,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   sourceChanged = true;
                 }
               }
-              if (sourceChanged == true) {
-                if (pubItemVO.getObject().getLocalTags() != null) {
+              if (true == sourceChanged) {
+                if (null != pubItemVO.getObject().getLocalTags()) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
                   pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -1238,11 +1235,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1257,7 +1254,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (sourceNumber != null) {
+    if (null != sourceNumber) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -1266,11 +1263,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
             List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
             int sourceNumberInt = Integer.parseInt(sourceNumber);
-            if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
-                && currentSourceList.get(sourceNumberInt - 1) != null) {
-              if (currentSourceList.get(sourceNumberInt - 1).getPublishingInfo() != null) {
+            if (null != currentSourceList && currentSourceList.size() >= sourceNumberInt
+                && null != currentSourceList.get(sourceNumberInt - 1)) {
+              if (null != currentSourceList.get(sourceNumberInt - 1).getPublishingInfo()) {
                 currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
-                if (pubItemVO.getObject().getLocalTags() != null) {
+                if (null != pubItemVO.getObject().getLocalTags()) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
                   pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -1280,7 +1277,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               } else {
                 currentSourceList.get(sourceNumberInt - 1).setPublishingInfo(new PublishingInfoVO());
                 currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
-                if (pubItemVO.getObject().getLocalTags() != null) {
+                if (null != pubItemVO.getObject().getLocalTags()) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
                   pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -1320,11 +1317,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1341,13 +1338,13 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
-    if (localTagOld != null && localTagNew != null && !localTagOld.trim().isEmpty()) {
+    if (null != localTagOld && null != localTagNew && !localTagOld.trim().isEmpty()) {
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
-            if (pubItemVO.getObject().getLocalTags() != null && pubItemVO.getObject().getLocalTags().contains(localTagOld)) {
+            if (null != pubItemVO.getObject().getLocalTags() && pubItemVO.getObject().getLocalTags().contains(localTagOld)) {
               List<String> localTagList = pubItemVO.getObject().getLocalTags();
               localTagList.remove(localTagOld);
               localTagList.add(localTagNew);
@@ -1389,11 +1386,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     }
 
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1441,18 +1438,18 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
         logger.error("Could not submit item " + itemId + " due to an internal application error", e);
-        BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
-        if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+        BatchProcessItemVO.BatchProcessMessages batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR;
+        if (null != e.getCause() && ValidationException.class.equals(e.getCause().getClass())) {
           ValidationException validationException = (ValidationException) e.getCause();
           ValidationReportVO validationReport = validationException.getReport();
 
           if (validationReport.hasItems()) {
             for (ValidationReportItemVO validationItem : validationReport.getItems()) {
               if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
-                batchProcessMessage = BatchProcessMessages.VALIDATION_NO_SOURCE;
+                batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.VALIDATION_NO_SOURCE;
                 break;
               } else {
-                batchProcessMessage = BatchProcessMessages.VALIDATION_GLOBAL;
+                batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.VALIDATION_GLOBAL;
                 // no break: anther report Item could set a finer message
               }
             }
@@ -1466,11 +1463,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
 
 
@@ -1481,14 +1478,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (keywordsNew != null) {
+    if (null != keywordsNew) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
-          if (pubItemVO.getObject().getLocalTags() != null) {
+          if (null != pubItemVO.getObject().getLocalTags()) {
             pubItemVO.getObject().getLocalTags().add(message);
           } else {
             pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
@@ -1519,19 +1516,19 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
   @Override
   public BatchProcessLogDbVO getBatchProcessLogForCurrentUser(AccountUserDbVO accountUser) {
     BatchProcessLogDbVO resultBatchProcessLog = null;
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      resultBatchProcessLog = batchRepository.findById(accountUser.getObjectId()).orElse(null);
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      resultBatchProcessLog = this.batchRepository.findById(accountUser.getObjectId()).orElse(null);
     }
     return resultBatchProcessLog;
   }
@@ -1582,18 +1579,18 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
         logger.error("Could release item " + itemId + " due to an internal application error", e);
-        BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
-        if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+        BatchProcessItemVO.BatchProcessMessages batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR;
+        if (null != e.getCause() && ValidationException.class.equals(e.getCause().getClass())) {
           ValidationException validationException = (ValidationException) e.getCause();
           ValidationReportVO validationReport = validationException.getReport();
 
           if (validationReport.hasItems()) {
             for (ValidationReportItemVO validationItem : validationReport.getItems()) {
               if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
-                batchProcessMessage = BatchProcessMessages.VALIDATION_NO_SOURCE;
+                batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.VALIDATION_NO_SOURCE;
                 break;
               } else {
-                batchProcessMessage = BatchProcessMessages.VALIDATION_GLOBAL;
+                batchProcessMessage = BatchProcessItemVO.BatchProcessMessages.VALIDATION_GLOBAL;
                 // no break: anther report Item could set a finer message
               }
             }
@@ -1607,11 +1604,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1663,11 +1660,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1721,11 +1718,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 
@@ -1777,11 +1774,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
-    if (batchRepository.existsById(accountUser.getObjectId())) {
-      batchRepository.deleteById(accountUser.getObjectId());
+    if (this.batchRepository.existsById(accountUser.getObjectId())) {
+      this.batchRepository.deleteById(accountUser.getObjectId());
     }
-    batchRepository.save(resultLog);
-    batchRepository.flush();
+    this.batchRepository.save(resultLog);
+    this.batchRepository.flush();
     return resultLog;
   }
 }

@@ -32,7 +32,7 @@ public class PubItemVO extends ItemVO {
   }
 
   public MdsPublicationVO getMetadata() {
-    if (getMetadataSets() != null && !getMetadataSets().isEmpty() && getMetadataSets().get(0) instanceof MdsPublicationVO) {
+    if (null != getMetadataSets() && !getMetadataSets().isEmpty() && getMetadataSets().get(0) instanceof MdsPublicationVO) {
       return (MdsPublicationVO) getMetadataSets().get(0);
     } else {
       return null;
@@ -42,7 +42,7 @@ public class PubItemVO extends ItemVO {
   public void setMetadata(MdsPublicationVO mdsPublicationVO) {
     if (!getMetadataSets().isEmpty() && getMetadataSets().get(0) instanceof MdsPublicationVO) {
       getMetadataSets().set(0, mdsPublicationVO);
-    } else if (getMetadataSets() != null) {
+    } else if (null != getMetadataSets()) {
       getMetadataSets().add(mdsPublicationVO);
     }
   }

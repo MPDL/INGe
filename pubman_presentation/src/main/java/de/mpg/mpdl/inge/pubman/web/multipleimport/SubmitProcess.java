@@ -102,10 +102,10 @@ public class SubmitProcess extends Thread {
     try {
       int itemCount = 0;
       for (final ImportLogItem item : this.importLog.getItems()) {
-        if (item.getItemId() != null && !"".equals(item.getItemId())) {
+        if (null != item.getItemId() && !"".equals(item.getItemId())) {
           itemCount++;
           this.importLog.activateItem(item);
-          switch (modus) {
+          switch (this.modus) {
             case SUBMIT:
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_schedule_submit", this.connection);
               break;
@@ -124,13 +124,13 @@ public class SubmitProcess extends Thread {
       int counter = 0;
 
       for (final ImportLogItem item : this.importLog.getItems()) {
-        if (item.getItemId() != null && !"".equals(item.getItemId())) {
+        if (null != item.getItemId() && !"".equals(item.getItemId())) {
           this.importLog.activateItem(item);
 
           try {
             final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
             final ItemVersionVO itemVersionVO = pubItemService.get(item.getItemId(), this.authenticationToken);
-            switch (modus) {
+            switch (this.modus) {
               case SUBMIT:
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_item", this.connection);
                 pubItemService.submitPubItem(item.getItemId(), itemVersionVO.getModificationDate(),
@@ -155,7 +155,7 @@ public class SubmitProcess extends Thread {
             }
             this.importLog.finishItem(this.connection);
           } catch (final Exception e) {
-            switch (modus) {
+            switch (this.modus) {
               case SUBMIT:
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_submit_failed", this.connection);
                 break;
@@ -176,7 +176,7 @@ public class SubmitProcess extends Thread {
         }
       }
 
-      switch (modus) {
+      switch (this.modus) {
         case SUBMIT:
           this.importLog.startItem("import_process_submit_finished", this.connection);
           break;

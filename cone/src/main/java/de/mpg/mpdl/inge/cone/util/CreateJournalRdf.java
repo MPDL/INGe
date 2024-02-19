@@ -79,29 +79,29 @@ public class CreateJournalRdf {
       fileWriter.append("\t\t<dc:identifier>");
       fileWriter.append(xmlFormat(sfxId));
       fileWriter.append("</dc:identifier>\n");
-      if (eDocTitle != null && !eDocTitle.isEmpty()) {
+      if (null != eDocTitle && !eDocTitle.isEmpty()) {
         fileWriter.append("\t\t<dc:title>");
         fileWriter.append(xmlFormat(eDocTitle));
         fileWriter.append("</dc:title>\n");
       } else {
         throw new RuntimeException("Empty title: sfxid=" + sfxId);
       }
-      if (eDocAbbrev != null && !eDocAbbrev.isEmpty()) {
+      if (null != eDocAbbrev && !eDocAbbrev.isEmpty()) {
         fileWriter.append("\t\t<dcterms:alternative>");
         fileWriter.append(xmlFormat(eDocAbbrev));
         fileWriter.append("</dcterms:alternative>\n");
       }
-      if (sfxPublisher != null && !sfxPublisher.isEmpty()) {
+      if (null != sfxPublisher && !sfxPublisher.isEmpty()) {
         fileWriter.append("\t\t<dc:publisher>");
         fileWriter.append(xmlFormat(sfxPublisher));
         fileWriter.append("</dc:publisher>\n");
       }
-      if (sfxPlace != null && !sfxPlace.isEmpty()) {
+      if (null != sfxPlace && !sfxPlace.isEmpty()) {
         fileWriter.append("\t\t<dcterms:publisher>");
         fileWriter.append(xmlFormat(sfxPlace));
         fileWriter.append("</dcterms:publisher>\n");
       }
-      if (sfxIssn != null && !sfxIssn.isEmpty()) {
+      if (null != sfxIssn && !sfxIssn.isEmpty()) {
         fileWriter.append("\t\t<dcterms:identifier>");
         fileWriter.append(xmlFormat(sfxIssn));
         fileWriter.append("</dcterms:identifier>\n");

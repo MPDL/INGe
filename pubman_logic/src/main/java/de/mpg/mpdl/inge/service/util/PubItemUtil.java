@@ -10,16 +10,13 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.ConeUtils;
@@ -28,6 +25,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class PubItemUtil {
 
   private static final Logger logger = LogManager.getLogger(PubItemUtil.class);
+
+  private PubItemUtil() {}
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
@@ -39,12 +38,12 @@ public class PubItemUtil {
       pubItem.getMetadata().cleanup();
 
       // delete unfilled file
-      if (pubItem.getFiles() != null) {
-        for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--) {
+      if (null != pubItem.getFiles()) {
+        for (int i = (pubItem.getFiles().size() - 1); 0 <= i; i--) {
           // Cleanup MD
           pubItem.getFiles().get(i).getMetadata().cleanup();
-          if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName().isEmpty())
-              && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i).getContent().isEmpty())) {
+          if ((null == pubItem.getFiles().get(i).getName() || pubItem.getFiles().get(i).getName().isEmpty())
+              && (null == pubItem.getFiles().get(i).getContent() || pubItem.getFiles().get(i).getContent().isEmpty())) {
             pubItem.getFiles().remove(i);
           }
         }
@@ -61,7 +60,7 @@ public class PubItemUtil {
         adaptConeLinks(creator);
       }
 
-      if (pubItem.getMetadata().getSources() != null) {
+      if (null != pubItem.getMetadata().getSources()) {
         for (final SourceVO source : pubItem.getMetadata().getSources()) {
           for (final CreatorVO creator : source.getCreators()) {
             adaptConeLinks(creator);
@@ -70,10 +69,10 @@ public class PubItemUtil {
       }
 
       // remove empty tags
-      if (pubItem.getObject().getLocalTags() != null) {
+      if (null != pubItem.getObject().getLocalTags()) {
         final List<String> emptyTags = new ArrayList<>();
         for (final String tag : pubItem.getObject().getLocalTags()) {
-          if (tag == null || tag.isEmpty()) {
+          if (null == tag || tag.isEmpty()) {
             emptyTags.add(tag);
           }
         }
@@ -88,10 +87,10 @@ public class PubItemUtil {
   }
 
   private static void adaptConeLinks(final CreatorVO creator) {
-    if (creator.getPerson() != null) {
+    if (null != creator.getPerson()) {
       //Make CoNE link relative
-      if (creator.getPerson().getIdentifier() != null && creator.getPerson().getIdentifier().getId() != null
-          && creator.getPerson().getIdentifier().getType() == IdType.CONE) {
+      if (null != creator.getPerson().getIdentifier() && null != creator.getPerson().getIdentifier().getId()
+          && IdentifierVO.IdType.CONE == creator.getPerson().getIdentifier().getType()) {
         String personsIdentifier = creator.getPerson().getIdentifier().getId();
         if (personsIdentifier.startsWith("http")) {
           creator.getPerson().getIdentifier().setId(ConeUtils.makeConePersonsLinkRelative(personsIdentifier));
@@ -99,13 +98,13 @@ public class PubItemUtil {
       }
 
       for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
-        if (organization.getIdentifier() == null || organization.getIdentifier().isEmpty()) {
+        if (null == organization.getIdentifier() || organization.getIdentifier().isEmpty()) {
           organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
         }
       }
     } else {
-      if (creator.getOrganization() != null
-          && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().isEmpty())) {
+      if (null != creator.getOrganization()
+          && (null == creator.getOrganization().getIdentifier() || creator.getOrganization().getIdentifier().isEmpty())) {
         creator.getOrganization().setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
       }
     }
@@ -126,7 +125,7 @@ public class PubItemUtil {
       copiedPubItem.getMetadata().getCreators().add(creator.clone());
     }
 
-    if (originalPubItem.getMetadata().getTitle() != null) {
+    if (null != originalPubItem.getMetadata().getTitle()) {
       copiedPubItem.getMetadata().setTitle(originalPubItem.getMetadata().getTitle());
     }
 
@@ -138,11 +137,11 @@ public class PubItemUtil {
       copiedPubItem.getMetadata().getAlternativeTitles().add(title.clone());
     }
 
-    if (originalPubItem.getMetadata().getFreeKeywords() != null) {
+    if (null != originalPubItem.getMetadata().getFreeKeywords()) {
       copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
     }
 
-    if (originalPubItem.getMetadata().getSubjects() != null) {
+    if (null != originalPubItem.getMetadata().getSubjects()) {
       for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
         copiedPubItem.getMetadata().getSubjects().add(subject);
       }
@@ -160,14 +159,13 @@ public class PubItemUtil {
 
 
 
-  public static void setOrganizationIdPathInItem(ItemVersionVO pubItem, OrganizationService ouService)
-      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
-    if (pubItem.getMetadata() != null) {
-      if (pubItem.getMetadata().getCreators() != null) {
+  public static void setOrganizationIdPathInItem(ItemVersionVO pubItem, OrganizationService ouService) throws IngeApplicationException {
+    if (null != pubItem.getMetadata()) {
+      if (null != pubItem.getMetadata().getCreators()) {
         setOrganizationIdPathsInCreators(pubItem.getMetadata().getCreators(), ouService);
       }
 
-      if (pubItem.getMetadata().getSources() != null) {
+      if (null != pubItem.getMetadata().getSources()) {
         for (SourceVO source : pubItem.getMetadata().getSources()) {
           setOrganizationIdPathsInCreators(source.getCreators(), ouService);
         }
@@ -179,12 +177,12 @@ public class PubItemUtil {
       throws IngeApplicationException {
 
     for (CreatorVO creator : creatorList) {
-      if (creator.getPerson() != null) {
+      if (null != creator.getPerson()) {
         for (OrganizationVO ou : creator.getPerson().getOrganizations()) {
           setOrganizationIdPathInOrganization(ou, ouService);
         }
 
-      } else if (creator.getOrganization() != null) {
+      } else if (null != creator.getOrganization()) {
         setOrganizationIdPathInOrganization(creator.getOrganization(), ouService);
       }
     }
@@ -195,7 +193,7 @@ public class PubItemUtil {
   private static void setOrganizationIdPathInOrganization(OrganizationVO ou, OrganizationService ouService)
       throws IngeApplicationException {
 
-    if (ou.getIdentifier() != null && !ou.getIdentifier().trim().isEmpty()) {
+    if (null != ou.getIdentifier() && !ou.getIdentifier().trim().isEmpty()) {
       List<String> ouPath = ouService.getIdPath(ou.getIdentifier().trim());
       ou.setIdentifierPath(ouPath.toArray(new String[] {}));
     } else {

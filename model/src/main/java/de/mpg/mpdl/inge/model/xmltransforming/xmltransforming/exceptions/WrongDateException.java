@@ -49,7 +49,7 @@ public class WrongDateException extends UnmarshallingException {
    * @param cause The Throwable.
    */
   public WrongDateException(String dateString, Throwable cause) {
-    super((dateString == null ? "The date string is null!" : "The following date cannot be transformed: '" + dateString + "'."), cause);
+    super((null == dateString ? "The date string is null!" : "The following date cannot be transformed: '" + dateString + "'."), cause);
     this.dateString = dateString;
   }
 
@@ -59,6 +59,6 @@ public class WrongDateException extends UnmarshallingException {
    * @return the readString
    */
   public String getDateString() {
-    return dateString;
+    return this.dateString;
   }
 }

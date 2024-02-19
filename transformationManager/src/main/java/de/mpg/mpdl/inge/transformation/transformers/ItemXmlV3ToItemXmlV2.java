@@ -6,13 +6,15 @@ import java.util.Map;
 import javax.xml.transform.Source;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V2_XML)
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V2_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+    targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V2_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML,
+    targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V2_XML)
 public class ItemXmlV3ToItemXmlV2 extends XslTransformer implements ChainableTransformer {
 
   @Override
@@ -24,9 +26,9 @@ public class ItemXmlV3ToItemXmlV2 extends XslTransformer implements ChainableTra
   public Map<String, Object> getParameters() {
     Map<String, Object> map = new HashMap<>();
 
-    if (FORMAT.ESCIDOC_ITEM_V2_XML.equals(getTargetFormat())) {
+    if (TransformerFactory.FORMAT.ESCIDOC_ITEM_V2_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.FALSE);
-    } else if (FORMAT.ESCIDOC_ITEMLIST_V2_XML.equals(getTargetFormat())) {
+    } else if (TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V2_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
 

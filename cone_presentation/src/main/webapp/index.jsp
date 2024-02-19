@@ -35,7 +35,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList"%>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
@@ -61,11 +60,11 @@
 				</div>
 				<div class="full_area0">
 					<%
-						Set<Model> modelList = ModelList.getInstance().getList();
+						Set<ModelList.Model> modelList = ModelList.getInstance().getList();
 						boolean loggedIn = Login.getLoggedIn(request);
-						boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+						boolean editOpen = (null != request.getSession().getAttribute("edit_open_vocabulary") && (Boolean) request.getSession()
                                 .getAttribute("edit_open_vocabulary"));
-						boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+						boolean editClosed = (null != request.getSession().getAttribute("edit_closed_vocabulary") && (Boolean) request.getSession()
                                 .getAttribute("edit_closed_vocabulary"));
 
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
@@ -83,7 +82,7 @@
 							</span>
 						</div>
 					</div>
-					<% for (Model model : modelList) {
+					<% for (ModelList.Model model : modelList) {
 							List<String> ids = querier.getAllIds(model.getName(), 1);
 							%>
 						<div class="full_area0 itemBlock">

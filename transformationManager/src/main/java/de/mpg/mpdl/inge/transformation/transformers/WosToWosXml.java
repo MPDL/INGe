@@ -13,7 +13,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -21,7 +20,8 @@ import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.wos.WoSImport;
 
-@TransformerModule(sourceFormat = FORMAT.WOS_STRING, targetFormat = FORMAT.WOS_XML)
+@TransformerModule(sourceFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.WOS_STRING,
+    targetFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.WOS_XML)
 public class WosToWosXml extends SingleTransformer implements ChainableTransformer {
 
   @Override

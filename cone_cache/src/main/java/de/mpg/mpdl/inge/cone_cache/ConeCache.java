@@ -82,7 +82,7 @@ public class ConeCache {
     logger.info("*** Start refresh: " + queryUrl);
     try {
       final Set<String> result = ConeCache.getData(handler, queryUrl);
-      if (result == null) {
+      if (null == result) {
         logger.info("*** Not used");
         return;
       }
@@ -99,7 +99,7 @@ public class ConeCache {
         }
       }
     } catch (IOException | ParserConfigurationException | SAXException | ConeCacheException e) {
-      if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true")) {
+      if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
         logger.error("Could not refresh Cone Set with Url: " + queryUrl, e);
         if (coneSet.set().isEmpty()) {
           logger.error("Cone Set is empty: Url: " + queryUrl);
@@ -116,13 +116,13 @@ public class ConeCache {
 
     client.executeMethod(method);
 
-    if (method.getStatusCode() == 200) {
+    if (200 == method.getStatusCode()) {
       final SAXParserFactory factory = SAXParserFactory.newInstance();
       final SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(method.getResponseBodyAsStream(), handler);
       return handler.getResult();
     } else {
-      if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true")) {
+      if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
         logger.error("Could not load CONE attributes:" + method.getStatusCode());
         throw new ConeCacheException("Could not load CONE attributes: " + method.getStatusCode());
       } else {
@@ -132,7 +132,7 @@ public class ConeCache {
   }
 
   public Set<String> getDdcTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && ddcTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && ddcTitle.set().isEmpty()) {
       logger.error("CONE ddcTitleSet is empty.");
     }
 
@@ -140,7 +140,7 @@ public class ConeCache {
   }
 
   public Set<String> getIso639_3_IdentifierSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && iso639_3_Identifier.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && iso639_3_Identifier.set().isEmpty()) {
       logger.error("CONE iso639_3_IdentifierSet is empty.");
     }
 
@@ -148,7 +148,7 @@ public class ConeCache {
   }
 
   public Set<String> getIso639_3_TitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && iso639_3_Title.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && iso639_3_Title.set().isEmpty()) {
       logger.error("CONE iso639_3_TitleSet is empty.");
     }
 
@@ -156,7 +156,7 @@ public class ConeCache {
   }
 
   public Set<String> getJelTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && jelTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && jelTitle.set().isEmpty()) {
       logger.error("CONE jelTitleSet is empty.");
     }
 
@@ -164,7 +164,7 @@ public class ConeCache {
   }
 
   public Set<String> getMpiccProjectsTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && mpiccProjectsTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && mpiccProjectsTitle.set().isEmpty()) {
       logger.error("CONE mpiccTitleSet is empty.");
     }
 
@@ -172,7 +172,7 @@ public class ConeCache {
   }
 
   public Set<String> getMpinpTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && mpinpTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && mpinpTitle.set().isEmpty()) {
       logger.error("CONE mpinpTitleSet is empty.");
     }
 
@@ -180,7 +180,7 @@ public class ConeCache {
   }
 
   public Set<String> getMpipksTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && mpipksTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && mpipksTitle.set().isEmpty()) {
       logger.error("CONE mpipksTitleSet is empty.");
     }
 
@@ -188,7 +188,7 @@ public class ConeCache {
   }
 
   public Set<String> getMpirgTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && mpirgTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && mpirgTitle.set().isEmpty()) {
       logger.error("CONE mpirgTitleSet is empty.");
     }
 
@@ -196,7 +196,7 @@ public class ConeCache {
   }
 
   public Set<String> getMpisGroupsTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && mpisGroupsTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && mpisGroupsTitle.set().isEmpty()) {
       logger.error("CONE mpisGroupsTitleSet is empty.");
     }
 
@@ -204,7 +204,7 @@ public class ConeCache {
   }
 
   public Set<String> getMpisProjectsTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && mpisProjectsTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && mpisProjectsTitle.set().isEmpty()) {
       logger.error("CONE mpisProjectTitleSet is empty.");
     }
 
@@ -212,7 +212,7 @@ public class ConeCache {
   }
 
   public Set<String> getMpiwgProjectsTitleSet() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true") && mpiwgProjectsTitle.set().isEmpty()) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE)) && mpiwgProjectsTitle.set().isEmpty()) {
       logger.error("CONE mpiwgProjectTitleSet is empty.");
     }
 

@@ -32,9 +32,9 @@ public class HtmlToPlainText {
       String name = node.nodeName();
       if (node instanceof TextNode)
         append(((TextNode) node).text()); // TextNodes carry all user-readable text in the DOM.
-      else if (name.equals("li"))
+      else if ("li".equals(name))
         append("\n * ");
-      else if (name.equals("dt"))
+      else if ("dt".equals(name))
         append("  ");
       else if (StringUtil.in(name, "p", "h1", "h2", "h3", "h4", "h5", "tr"))
         append("\n");
@@ -45,41 +45,41 @@ public class HtmlToPlainText {
       String name = node.nodeName();
       if (StringUtil.in(name, "br", "dd", "dt", "p", "h1", "h2", "h3", "h4", "h5"))
         append("\n");
-      else if (name.equals("a"))
+      else if ("a".equals(name))
         append(String.format(" <%s>", node.absUrl("href")));
     }
 
     // appends text to the string builder with a simple word wrap method
     private void append(String text) {
       if (text.startsWith("\n"))
-        width = 0; // reset counter if starts with a newline. only from formats above, not in natural text
-      if (text.equals(" ") && (accum.isEmpty() || StringUtil.in(accum.substring(accum.length() - 1), " ", "\n")))
+        this.width = 0; // reset counter if starts with a newline. only from formats above, not in natural text
+      if (" ".equals(text) && (this.accum.isEmpty() || StringUtil.in(this.accum.substring(this.accum.length() - 1), " ", "\n")))
         return; // don't accumulate long runs of empty spaces
 
-      if (text.length() + width > maxWidth) { // won't fit, needs to wrap
+      if (maxWidth < text.length() + this.width) { // won't fit, needs to wrap
         String[] words = text.split("\\s+");
         for (int i = 0; i < words.length; i++) {
           String word = words[i];
           boolean last = i == words.length - 1;
           if (!last) // insert a space if not the last word
             word = word + " ";
-          if (word.length() + width > maxWidth) { // wrap and reset counter
-            accum.append("\n").append(word);
-            width = word.length();
+          if (maxWidth < word.length() + this.width) { // wrap and reset counter
+            this.accum.append("\n").append(word);
+            this.width = word.length();
           } else {
-            accum.append(word);
-            width += word.length();
+            this.accum.append(word);
+            this.width += word.length();
           }
         }
       } else { // fits as is, without need to wrap text
-        accum.append(text);
-        width += text.length();
+        this.accum.append(text);
+        this.width += text.length();
       }
     }
 
     @Override
     public String toString() {
-      return accum.toString();
+      return this.accum.toString();
     }
   }
 }

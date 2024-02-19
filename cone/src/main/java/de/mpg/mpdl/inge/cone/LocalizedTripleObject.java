@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.cone;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-
 /**
  * Indicates whether an object can be an object of an s-p-o triple.
  *
@@ -66,7 +64,7 @@ public interface LocalizedTripleObject extends Describable {
    * @return The object as RDF
    * @throws ConeException
    */
-  String toRdf(Model model) throws ConeException;
+  String toRdf(ModelList.Model model) throws ConeException;
 
   /**
    * Display this object as JSON object.

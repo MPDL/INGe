@@ -54,7 +54,7 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileD
       int i = 1;
       for (final FileDbVO fileDbVO : files) {
 
-        if (fileDbVO != null) {
+        if (null != fileDbVO) {
 
           //External reference with missing content
           if ((FileDbVO.Storage.EXTERNAL_URL.equals(fileDbVO.getStorage()) && ValidationTools.isEmpty(fileDbVO.getContent()))) {
@@ -69,7 +69,7 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileD
             ok = false;
           }
 
-          if (fileDbVO.getMetadata() != null //
+          if (null != fileDbVO.getMetadata() //
               && ValidationTools.isEmpty(fileDbVO.getMetadata().getTitle())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_FILE_NAME_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
@@ -80,7 +80,7 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileD
             ok = false;
           }
 
-          if (!FileDbVO.Storage.EXTERNAL_URL.equals(fileDbVO.getStorage()) && fileDbVO.getVisibility() == null) {
+          if (!FileDbVO.Storage.EXTERNAL_URL.equals(fileDbVO.getStorage()) && null == fileDbVO.getVisibility()) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_VISIBILITY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }

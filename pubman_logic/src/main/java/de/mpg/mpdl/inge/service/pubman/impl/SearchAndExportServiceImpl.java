@@ -20,7 +20,6 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 
 @Service
 @Primary
@@ -43,7 +42,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     int totalNumberOfRecords = saerrVO.getSearchRetrieveReponseVO().getNumberOfRecords();
 
     result = this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), saerrVO.getSearchRetrieveReponseVO());
-    FORMAT format = TransformerFactory.getFormat(saerrVO.getExportFormat().getFormat());
+    TransformerFactory.FORMAT format = TransformerFactory.getFormat(saerrVO.getExportFormat().getFormat());
 
     fileName = saerrVO.getExportFormat().getFormat() + "." + format.getFileFormat().getExtension();
     targetMimeType = format.getFileFormat().getMimeType();

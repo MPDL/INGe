@@ -84,7 +84,7 @@ public class MpiKybFormat extends AuthorFormat {
       if (authorString.contains("{")) {
         identifier = authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
         String affiliationsString = null;
-        if (authorString.indexOf("{", authorString.indexOf("}")) != -1) {
+        if (-1 != authorString.indexOf("{", authorString.indexOf("}"))) {
           affiliationsString = authorString.substring(authorString.indexOf("{", authorString.indexOf("}")));
           while (affiliationsString.contains("{")) {
             affiliations.add(affiliationsString.substring(affiliationsString.indexOf("{") + 1, affiliationsString.indexOf("}")));
@@ -98,20 +98,20 @@ public class MpiKybFormat extends AuthorFormat {
       parts = authorString.split(separator);
       String initials = parts[parts.length - 1];
       String surname = "";
-      for (int i = parts.length - 2; i >= 0; i--) {
+      for (int i = parts.length - 2; 0 <= i; i--) {
         surname = parts[i] + " " + surname;
       }
       Author author = new Author();
-      if (surname != null && !(surname.equalsIgnoreCase(""))) {
+      if (null != surname && !("".equalsIgnoreCase(surname))) {
         author.setInitial(initials.trim());
       } else {
         surname = initials;
       }
       author.setSurname(surname.trim());
-      if (identifier != null) {
+      if (null != identifier) {
         author.addTag(IDENTIFIER, identifier);
       }
-      if (affiliations != null) {
+      if (null != affiliations) {
         author.addTag(AFFILIATION_COUNT, String.valueOf(affiliationCount));
         for (int j = 0; j < affiliationCount; j++) {
           author.addTag(AFFILIATION + affiliationCount, affiliations.get(j));

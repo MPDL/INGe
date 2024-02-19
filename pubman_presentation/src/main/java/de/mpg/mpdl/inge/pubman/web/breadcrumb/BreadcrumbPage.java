@@ -35,7 +35,7 @@ public abstract class BreadcrumbPage extends FacesBean {
     final String pageName = page.substring(0, page.lastIndexOf("."));
 
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
-    if (FacesTools.getRequest().getQueryString() != null && !pageName.equals("HomePage")) {
+    if (null != FacesTools.getRequest().getQueryString() && !"HomePage".equals(pageName)) {
       page += "?" + FacesTools.getRequest().getQueryString();
     }
 
@@ -43,7 +43,7 @@ public abstract class BreadcrumbPage extends FacesBean {
     try {
       defaultAction = this.getDefaultAction();
     } catch (final NoSuchMethodException e) {
-      BreadcrumbPage.logger.error("Error getting default action", e);
+      logger.error("Error getting default action", e);
     }
 
     final BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
@@ -64,7 +64,7 @@ public abstract class BreadcrumbPage extends FacesBean {
     try {
       FacesTools.getExternalContext().redirect(ApplicationBean.INSTANCE.getAppContext() + result);
     } catch (final IOException e) {
-      BreadcrumbPage.logger.error("Error redirecting to previous page", e);
+      logger.error("Error redirecting to previous page", e);
     }
   }
 

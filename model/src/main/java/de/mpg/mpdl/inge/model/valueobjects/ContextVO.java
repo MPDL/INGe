@@ -32,7 +32,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -51,7 +50,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
  * @updated 05-Sep-2007 11:14:08
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class ContextVO extends ValueObject implements Searchable {
   /**
    * The possible states of a collection.
@@ -109,7 +108,7 @@ public class ContextVO extends ValueObject implements Searchable {
    * 'create' or an 'update' transformation.
    */
   public boolean alreadyExistsInFramework() {
-    return (this.reference != null);
+    return (null != this.reference);
   }
 
   /**
@@ -117,14 +116,14 @@ public class ContextVO extends ValueObject implements Searchable {
    * collection policy.
    */
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   /**
    * Delivers the state of the collection.
    */
   public ContextVO.State getState() {
-    return state;
+    return this.state;
   }
 
   /**
@@ -134,7 +133,7 @@ public class ContextVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setDescription(String newVal) {
-    description = newVal;
+    this.description = newVal;
   }
 
   /**
@@ -143,14 +142,14 @@ public class ContextVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setState(ContextVO.State newVal) {
-    state = newVal;
+    this.state = newVal;
   }
 
   /**
    * Delivers the name of the collection, i. e. a unique name of the collection within the system.
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -159,7 +158,7 @@ public class ContextVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setName(String newVal) {
-    name = newVal;
+    this.name = newVal;
   }
 
   /**
@@ -168,7 +167,7 @@ public class ContextVO extends ValueObject implements Searchable {
    * @see de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject
    */
   public ContextRO getReference() {
-    return reference;
+    return this.reference;
   }
 
   /**
@@ -178,14 +177,14 @@ public class ContextVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setReference(ContextRO newVal) {
-    reference = newVal;
+    this.reference = newVal;
   }
 
   /**
    * Delivers the default metadata for items of the collection.
    */
   public MetadataSetVO getDefaultMetadata() {
-    return defaultMetadata;
+    return this.defaultMetadata;
   }
 
   /**
@@ -194,21 +193,21 @@ public class ContextVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setDefaultMetadata(MdsPublicationVO newVal) {
-    defaultMetadata = newVal;
+    this.defaultMetadata = newVal;
   }
 
   /**
    * Delivers the validation points of this collection.
    */
   public java.util.List<ValidationPointVO> getValidationPoints() {
-    return validationPoints;
+    return this.validationPoints;
   }
 
   /**
    * Delivers the reference of the creator of the collection.
    */
   public AccountUserRO getCreator() {
-    return creator;
+    return this.creator;
   }
 
   /**
@@ -217,19 +216,19 @@ public class ContextVO extends ValueObject implements Searchable {
    * @param newVal
    */
   public void setCreator(AccountUserRO newVal) {
-    creator = newVal;
+    this.creator = newVal;
   }
 
   /**
    * Delivers the list of affiliations which are responsible for this collection.
    */
   public java.util.List<AffiliationRO> getResponsibleAffiliations() {
-    return responsibleAffiliations;
+    return this.responsibleAffiliations;
   }
 
   @JsonIgnore
   public List<AdminDescriptorVO> getAdminDescriptors() {
-    return adminDescriptors;
+    return this.adminDescriptors;
   }
 
   public PublicationAdminDescriptorVO getAdminDescriptor() {
@@ -249,7 +248,7 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public java.util.Date getCreationDate() {
-    return creationDate;
+    return this.creationDate;
   }
 
   public void setCreationDate(java.util.Date creationDate) {
@@ -257,7 +256,7 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public java.util.Date getLastModificationDate() {
-    return lastModificationDate;
+    return this.lastModificationDate;
   }
 
   public void setLastModificationDate(java.util.Date lastModificationDate) {
@@ -265,7 +264,7 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public AccountUserRO getModifiedBy() {
-    return modifiedBy;
+    return this.modifiedBy;
   }
 
   public void setModifiedBy(AccountUserRO modifiedBy) {
@@ -273,7 +272,7 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(String type) {
@@ -284,16 +283,16 @@ public class ContextVO extends ValueObject implements Searchable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((adminDescriptors == null) ? 0 : adminDescriptors.hashCode());
-    result = prime * result + ((creator == null) ? 0 : creator.hashCode());
-    result = prime * result + ((defaultMetadata == null) ? 0 : defaultMetadata.hashCode());
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((reference == null) ? 0 : reference.hashCode());
-    result = prime * result + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
-    result = prime * result + ((state == null) ? 0 : state.hashCode());
-    result = prime * result + ((type == null) ? 0 : type.hashCode());
-    result = prime * result + ((validationPoints == null) ? 0 : validationPoints.hashCode());
+    result = prime * result + ((null == this.adminDescriptors) ? 0 : this.adminDescriptors.hashCode());
+    result = prime * result + ((null == this.creator) ? 0 : this.creator.hashCode());
+    result = prime * result + ((null == this.defaultMetadata) ? 0 : this.defaultMetadata.hashCode());
+    result = prime * result + ((null == this.description) ? 0 : this.description.hashCode());
+    result = prime * result + ((null == this.name) ? 0 : this.name.hashCode());
+    result = prime * result + ((null == this.reference) ? 0 : this.reference.hashCode());
+    result = prime * result + ((null == this.responsibleAffiliations) ? 0 : this.responsibleAffiliations.hashCode());
+    result = prime * result + ((null == this.state) ? 0 : this.state.hashCode());
+    result = prime * result + ((null == this.type) ? 0 : this.type.hashCode());
+    result = prime * result + ((null == this.validationPoints) ? 0 : this.validationPoints.hashCode());
     return result;
   }
 
@@ -302,7 +301,7 @@ public class ContextVO extends ValueObject implements Searchable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -310,72 +309,72 @@ public class ContextVO extends ValueObject implements Searchable {
 
     ContextVO other = (ContextVO) obj;
 
-    if (adminDescriptors == null) {
-      if (other.adminDescriptors != null)
+    if (null == this.adminDescriptors) {
+      if (null != other.adminDescriptors)
         return false;
-    } else if (other.adminDescriptors == null)
+    } else if (null == other.adminDescriptors)
       return false;
-    else if (!new HashSet<>(adminDescriptors).containsAll(other.adminDescriptors) //
-        || !new HashSet<>(other.adminDescriptors).containsAll(adminDescriptors)) {
+    else if (!new HashSet<>(this.adminDescriptors).containsAll(other.adminDescriptors) //
+        || !new HashSet<>(other.adminDescriptors).containsAll(this.adminDescriptors)) {
       return false;
     }
 
-    if (creator == null) {
-      if (other.creator != null)
+    if (null == this.creator) {
+      if (null != other.creator)
         return false;
-    } else if (!creator.equals(other.creator))
+    } else if (!this.creator.equals(other.creator))
       return false;
 
-    if (defaultMetadata == null) {
-      if (other.defaultMetadata != null)
+    if (null == this.defaultMetadata) {
+      if (null != other.defaultMetadata)
         return false;
-    } else if (!defaultMetadata.equals(other.defaultMetadata))
+    } else if (!this.defaultMetadata.equals(other.defaultMetadata))
       return false;
 
-    if (description == null) {
-      if (other.description != null)
+    if (null == this.description) {
+      if (null != other.description)
         return false;
-    } else if (!description.equals(other.description))
+    } else if (!this.description.equals(other.description))
       return false;
 
-    if (name == null) {
-      if (other.name != null)
+    if (null == this.name) {
+      if (null != other.name)
         return false;
-    } else if (!name.equals(other.name))
+    } else if (!this.name.equals(other.name))
       return false;
 
-    if (reference == null) {
-      if (other.reference != null)
+    if (null == this.reference) {
+      if (null != other.reference)
         return false;
-    } else if (!reference.equals(other.reference))
+    } else if (!this.reference.equals(other.reference))
       return false;
 
-    if (responsibleAffiliations == null) {
-      if (other.responsibleAffiliations != null)
+    if (null == this.responsibleAffiliations) {
+      if (null != other.responsibleAffiliations)
         return false;
-    } else if (other.responsibleAffiliations == null)
+    } else if (null == other.responsibleAffiliations)
       return false;
-    else if (!new HashSet<>(responsibleAffiliations).containsAll(other.responsibleAffiliations) //
-        || !new HashSet<>(other.responsibleAffiliations).containsAll(responsibleAffiliations)) {
+    else if (!new HashSet<>(this.responsibleAffiliations).containsAll(other.responsibleAffiliations) //
+        || !new HashSet<>(other.responsibleAffiliations).containsAll(this.responsibleAffiliations)) {
       return false;
     }
 
-    if (state != other.state)
+    if (this.state != other.state)
       return false;
 
-    if (type == null) {
-      if (other.type != null)
+    if (null == this.type) {
+      if (null != other.type)
         return false;
-    } else if (!type.equals(other.type))
+    } else if (!this.type.equals(other.type))
       return false;
 
-    if (validationPoints == null) {
-      if (other.validationPoints != null)
+    if (null == this.validationPoints) {
+      if (null != other.validationPoints)
         return false;
-    } else if (other.validationPoints == null)
+    } else if (null == other.validationPoints)
       return false;
-    else if (!new HashSet<>(validationPoints).containsAll(other.validationPoints) //
-        || !new HashSet<>(other.validationPoints).containsAll(validationPoints)) {
+    else if (!new HashSet<>(this.validationPoints).containsAll(other.validationPoints) //
+        || !new HashSet<>(other.validationPoints).containsAll(this.validationPoints)) {
       return false;
     }
 

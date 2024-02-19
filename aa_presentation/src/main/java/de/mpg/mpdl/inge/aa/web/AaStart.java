@@ -75,7 +75,7 @@ public class AaStart extends HttpServlet {
 
     String target = request.getParameter("target");
 
-    if (target == null) {
+    if (null == target) {
       target = PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
     }
 

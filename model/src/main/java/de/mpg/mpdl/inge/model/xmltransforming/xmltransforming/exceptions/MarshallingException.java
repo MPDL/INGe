@@ -48,7 +48,7 @@ public class MarshallingException extends TransformingException {
    */
   public MarshallingException(String marshalledObjectType, Throwable cause) {
     super(marshalledObjectType, cause);
-    m_marshalledObjectType = marshalledObjectType;
+    this.m_marshalledObjectType = marshalledObjectType;
   }
 
   /**
@@ -57,6 +57,6 @@ public class MarshallingException extends TransformingException {
    * @return The name of the object type
    */
   public String getMarshalledObjectType() {
-    return m_marshalledObjectType;
+    return this.m_marshalledObjectType;
   }
 }

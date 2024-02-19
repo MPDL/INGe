@@ -72,7 +72,7 @@ public class WrongEnumException extends TransformingException {
    * @return The name of the Enum or the name of the XML value that caused the exception
    */
   public String getEnumString() {
-    return enumString;
+    return this.enumString;
   }
 
 }

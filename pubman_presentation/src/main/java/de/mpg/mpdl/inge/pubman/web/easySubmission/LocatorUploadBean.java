@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -33,7 +32,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       fileVO.getMetadata().getFormats().add(formatVO);
       fileVO.setContent(this.getLocator());
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-      fileVO.setVisibility(Visibility.PUBLIC);
+      fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.getAllowedAudienceIds().add(null);
 
       final int index = this.getEasySubmissionSessionBean().getFiles().size();
@@ -44,7 +43,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
 
       this.getEasySubmissionSessionBean().setFiles(list);
     } catch (final Exception e) {
-      LocatorUploadBean.logger.error(e);
+      logger.error(e);
       this.error = this.getMessage("errorLocatorUploadFW");
     }
   }

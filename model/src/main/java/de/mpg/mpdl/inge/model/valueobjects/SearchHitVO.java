@@ -62,14 +62,14 @@ public class SearchHitVO extends ValueObject {
    * Delivers the list of text fragments belonging to this search hit.
    */
   public java.util.List<TextFragmentVO> getTextFragmentList() {
-    return textFragmentList;
+    return this.textFragmentList;
   }
 
   /**
    * Delivers the type of the search hit.
    */
   public SearchHitType getType() {
-    return type;
+    return this.type;
   }
 
   /**
@@ -78,7 +78,7 @@ public class SearchHitVO extends ValueObject {
    * @param newVal
    */
   public void setType(SearchHitType newVal) {
-    type = newVal;
+    this.type = newVal;
   }
 
   /**
@@ -86,7 +86,7 @@ public class SearchHitVO extends ValueObject {
    * metadata, this property should not be set.
    */
   public FileRO getHitReference() {
-    return hitReference;
+    return this.hitReference;
   }
 
   /**
@@ -96,6 +96,6 @@ public class SearchHitVO extends ValueObject {
    * @param newVal
    */
   public void setHitReference(FileRO newVal) {
-    hitReference = newVal;
+    this.hitReference = newVal;
   }
 }

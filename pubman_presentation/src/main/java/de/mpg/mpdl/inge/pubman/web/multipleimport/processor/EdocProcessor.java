@@ -80,7 +80,7 @@ public class EdocProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    return (this.originalData != null && this.counter < this.length);
+    return (null != this.originalData && this.counter < this.length);
   }
 
   @Override
@@ -88,7 +88,7 @@ public class EdocProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    if (this.originalData != null && this.counter < this.length) {
+    if (null != this.originalData && this.counter < this.length) {
       return this.items.get(this.counter++);
     } else {
       throw new NoSuchElementException("No more entries left");
@@ -133,7 +133,7 @@ public class EdocProcessor extends FormatProcessor {
 
   @Override
   public String getDataAsBase64() {
-    if (this.originalData == null) {
+    if (null == this.originalData) {
       return null;
     }
 
@@ -158,13 +158,13 @@ public class EdocProcessor extends FormatProcessor {
       if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
         InputStream is = response.getEntity().getContent();
         // try to retrive name - if this is not possible set dummy-name
-        if (file.getMetadata() != null && file.getMetadata().getTitle() != null) {
-          StagedFileDbVO stagedFile = fileService.createStageFile(is, file.getMetadata().getTitle(), authenticationToken);
+        if (null != file.getMetadata() && null != file.getMetadata().getTitle()) {
+          StagedFileDbVO stagedFile = this.fileService.createStageFile(is, file.getMetadata().getTitle(), authenticationToken);
           is.close();
           logger.info("StagedFilePath: " + stagedFile.getPath());
           file.setContent(stagedFile.getPath());
         } else {
-          StagedFileDbVO stagedFile = fileService.createStageFile(is, "defaultFileName", authenticationToken);
+          StagedFileDbVO stagedFile = this.fileService.createStageFile(is, "defaultFileName", authenticationToken);
           logger.info("ElseStagedFilePath: " + stagedFile.getPath());
           is.close();
           file.setContent(stagedFile.getPath());
@@ -245,7 +245,7 @@ public class EdocProcessor extends FormatProcessor {
      * @return The XML-escaped string
      */
     public String escape(String input) {
-      if (input != null) {
+      if (null != input) {
         input = input.replace("&", "&amp;");
         input = input.replace("<", "&lt;");
         input = input.replace("\"", "&quot;");

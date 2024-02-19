@@ -4,7 +4,6 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
@@ -15,7 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  *
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class LegalCaseVO extends ValueObject implements Cloneable {
   private String title;
   private String courtName;
@@ -23,7 +22,7 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
   private String datePublished;
 
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   public void setTitle(String newVal) {
@@ -31,7 +30,7 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
   }
 
   public String getIdentifier() {
-    return identifier;
+    return this.identifier;
   }
 
   public void setIdentifier(String newVal) {
@@ -39,7 +38,7 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
   }
 
   public String getDatePublished() {
-    return datePublished;
+    return this.datePublished;
   }
 
   public void setDatePublished(String newVal) {
@@ -47,7 +46,7 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
   }
 
   public String getCourtName() {
-    return courtName;
+    return this.courtName;
   }
 
   public void setCourtName(String newVal) {
@@ -67,10 +66,10 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((courtName == null) ? 0 : courtName.hashCode());
-    result = prime * result + ((datePublished == null) ? 0 : datePublished.hashCode());
-    result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((null == this.courtName) ? 0 : this.courtName.hashCode());
+    result = prime * result + ((null == this.datePublished) ? 0 : this.datePublished.hashCode());
+    result = prime * result + ((null == this.identifier) ? 0 : this.identifier.hashCode());
+    result = prime * result + ((null == this.title) ? 0 : this.title.hashCode());
     return result;
   }
 
@@ -79,7 +78,7 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -87,28 +86,28 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
 
     LegalCaseVO other = (LegalCaseVO) obj;
 
-    if (courtName == null) {
-      if (other.courtName != null)
+    if (null == this.courtName) {
+      if (null != other.courtName)
         return false;
-    } else if (!courtName.equals(other.courtName))
+    } else if (!this.courtName.equals(other.courtName))
       return false;
 
-    if (datePublished == null) {
-      if (other.datePublished != null)
+    if (null == this.datePublished) {
+      if (null != other.datePublished)
         return false;
-    } else if (!datePublished.equals(other.datePublished))
+    } else if (!this.datePublished.equals(other.datePublished))
       return false;
 
-    if (identifier == null) {
-      if (other.identifier != null)
+    if (null == this.identifier) {
+      if (null != other.identifier)
         return false;
-    } else if (!identifier.equals(other.identifier))
+    } else if (!this.identifier.equals(other.identifier))
       return false;
 
-    if (title == null) {
-      if (other.title != null)
+    if (null == this.title) {
+      if (null != other.title)
         return false;
-    } else if (!title.equals(other.title))
+    } else if (!this.title.equals(other.title))
       return false;
 
     return true;

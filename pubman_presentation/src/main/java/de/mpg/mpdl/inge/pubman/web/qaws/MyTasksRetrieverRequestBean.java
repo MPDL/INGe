@@ -22,13 +22,13 @@ import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermsQueryField;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.ItemStateListSearchCriterion;
@@ -94,11 +94,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   }
 
   @Override
-  public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
+  public List<PubItemVOPresentation> retrieveList(int offset, int limit, PubItemListSessionBean.SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<>();
 
     if (!this.getLoginHelper().isLoggedIn() || !this.getLoginHelper().getIsModerator()
-        || this.getLoginHelper().getAuthenticationToken() == null) {
+        || null == this.getLoginHelper().getAuthenticationToken()) {
       return returnList;
     }
 
@@ -107,17 +107,18 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
 
-      if (getSelectedItemState().equalsIgnoreCase("withdrawn")) {
+      if ("withdrawn".equalsIgnoreCase(getSelectedItemState())) {
         bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
-        if (getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name())
-            || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name())) {
+        if (getSelectedItemState().toLowerCase().equals(ItemVersionRO.State.SUBMITTED.name())
+            || getSelectedItemState().toLowerCase().equals(ItemVersionRO.State.IN_REVISION.name())) {
           // filter out possible duplicates
-          bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.valueOf(getSelectedItemState())));
+          bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(),
+              ItemVersionRO.State.valueOf(getSelectedItemState())));
         }
 
       }
 
-      else if (getSelectedItemState().equalsIgnoreCase("all")) {
+      else if ("all".equalsIgnoreCase(getSelectedItemState())) {
         List<FieldValue> states = new ArrayList<>();
         states.add(FieldValue.of("SUBMITTED"));
         states.add(FieldValue.of("RELEASED"));
@@ -128,21 +129,22 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
 
         // filter out duplicates
-        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.SUBMITTED));
-        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.IN_REVISION));
+        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), ItemVersionRO.State.SUBMITTED));
+        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), ItemVersionRO.State.IN_REVISION));
       }
 
       else {
-        bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(State.valueOf(getSelectedItemState()).name()))
+        bq.must(TermQuery
+            .of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_STATE).value(ItemVersionRO.State.valueOf(getSelectedItemState()).name()))
             ._toQuery());
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
-      if (!this.getSelectedImport().equalsIgnoreCase("all")) {
+      if (!"all".equalsIgnoreCase(this.getSelectedImport())) {
         bq.must(MatchPhraseQuery.of(m -> m.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()))._toQuery());
       }
 
-      if (this.getSelectedContext().equalsIgnoreCase("all")) {
+      if ("all".equalsIgnoreCase(this.getSelectedContext())) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
         // menu)
         List<FieldValue> fv = getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue()))
@@ -153,7 +155,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).value(getSelectedContext()))._toQuery());
       }
 
-      if (!this.getSelectedOrgUnit().equalsIgnoreCase("all")) {
+      if (!"all".equalsIgnoreCase(this.getSelectedOrgUnit())) {
 
         BoolQuery.Builder ouQuery = new BoolQuery.Builder();
         ouQuery.should(TermQuery
@@ -177,7 +179,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
           FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-              SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+              SearchSortCriteria.SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
                   : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
           srb.sort(SortOptions.of(so -> so.field(fs)));
         }
@@ -191,7 +193,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
-      MyTasksRetrieverRequestBean.logger.error("Error in retrieving items", e);
+      logger.error("Error in retrieving items", e);
       this.error(this.getMessage("ItemsRetrieveError"));
       this.numberOfRecords = 0;
     }
@@ -210,9 +212,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     final String context =
         FacesTools.getExternalContext().getRequestParameterMap().get(MyTasksRetrieverRequestBean.parameterSelectedContext);
 
-    if (context == null) {
+    if (null == context) {
       // select first context as default, if there's only one
-      if (this.getContextSelectItems().size() == 2) {
+      if (2 == this.getContextSelectItems().size()) {
         this.setSelectedContext((String) this.getContextSelectItems().get(1).getValue());
       } else {
         this.setSelectedContext((String) this.getContextSelectItems().get(0).getValue());
@@ -256,7 +258,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
    * @return
    */
   public String getSelectedContextLabel() {
-    if (!this.getSelectedContext().equals("all")) {
+    if (!"all".equals(this.getSelectedContext())) {
       final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
       final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
@@ -278,7 +280,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   public String getSelectedOrgUnitLabel() {
     final AffiliationBean affTree = FacesTools.findBean("AffiliationBean");
 
-    return (this.getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap().get(this.getSelectedOrgUnit()).getNamePath());
+    return (null == this.getSelectedOrgUnit() ? "" : affTree.getAffiliationMap().get(this.getSelectedOrgUnit()).getNamePath());
   }
 
   /**
@@ -289,14 +291,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     final List<SelectItem> itemStateSelectItems = new ArrayList<>();
 
     itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptPendingWithdrawn")));
-    itemStateSelectItems
-        .add(new SelectItem(State.SUBMITTED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.SUBMITTED))));
-    itemStateSelectItems
-        .add(new SelectItem(State.RELEASED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.RELEASED))));
-    itemStateSelectItems
-        .add(new SelectItem(State.IN_REVISION.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.IN_REVISION))));
-    itemStateSelectItems
-        .add(new SelectItem(State.WITHDRAWN.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.WITHDRAWN))));
+    itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.SUBMITTED.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.SUBMITTED))));
+    itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.RELEASED.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.RELEASED))));
+    itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.IN_REVISION.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.IN_REVISION))));
+    itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.WITHDRAWN.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.WITHDRAWN))));
     this.setItemStateSelectItems(itemStateSelectItems);
 
     return itemStateSelectItems;
@@ -328,7 +330,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     this.contextSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
     for (PubContextVOPresentation contextVOPresentation : contextVOList) {
       String workflow = "null";
-      if (contextVOPresentation.getWorkflow() != null) {
+      if (null != contextVOPresentation.getWorkflow()) {
         workflow = contextVOPresentation.getWorkflow().toString();
       }
       this.contextSelectItems.add(new SelectItem(contextVOPresentation.getObjectId(), contextVOPresentation.getName() + " -- " + workflow));
@@ -361,7 +363,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         importSelectItems.add(selectItem);
       }
     } catch (final Exception e) {
-      MyTasksRetrieverRequestBean.logger.error("Error getting imports from database", e);
+      logger.error("Error getting imports from database", e);
       this.error(this.getMessage("ImportDatabaseError"));
     } finally {
       // DbTools.closeResultSet(rs);
@@ -439,7 +441,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
   }
 
   private void addChildAffiliations(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception {
-    if (affs == null) {
+    if (null == affs) {
       return;
     }
 
@@ -456,7 +458,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
       final AffiliationBean affTree = FacesTools.findBean("AffiliationBean");
       affTree.getAffiliationMap().put(aff.getObjectId(), aff);
-      if (aff.getChildren() != null) {
+      if (null != aff.getChildren()) {
         this.addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);
       }
     }

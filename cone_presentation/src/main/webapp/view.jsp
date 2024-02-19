@@ -36,7 +36,6 @@
 
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
 <%@ page import="de.mpg.mpdl.inge.cone.LocalizedString" %>
@@ -52,11 +51,11 @@
 <%@ page import="org.apache.log4j.Logger"%>
 
 <%!
-	private String printPredicates(List<Predicate> predicates, TreeFragment resultNode, boolean loggedIn) throws Exception
+	private String printPredicates(List<ModelList.Predicate> predicates, TreeFragment resultNode, boolean loggedIn) throws Exception
 	{
 		StringWriter writer = new StringWriter();
-		for (Predicate predicate : predicates) {
-			if (resultNode.get(predicate.getId()) != null) {
+		for (ModelList.Predicate predicate : predicates) {
+			if (null != resultNode.get(predicate.getId())) {
 				List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
 				for (LocalizedTripleObject node : nodeList) {
 					if(!predicate.isRestricted() || loggedIn) {
@@ -66,7 +65,7 @@
 						writer.append("<span class=\"noDisplay\">: </span>");
 						writer.append("</b>");
 						writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
-						if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty() && node instanceof TreeFragment) {
+						if (null != predicate.getPredicates() && !predicate.getPredicates().isEmpty() && node instanceof TreeFragment) {
 							writer.append("<span class=\"xDouble_area0 singleItem endline\">");
 							writer.append("<span class=\"xDouble_area0\">");
 							writer.append("&#160;");
@@ -148,14 +147,14 @@
 							<div class="free_area0 sub">
 								<% if (Login.getLoggedIn(request)) { %>
 									<% if (model.isOpen() &&
-										(request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+										(null != request.getSession().getAttribute("edit_open_vocabulary") && (Boolean) request.getSession()
                                                 .getAttribute("edit_open_vocabulary"))) { %>
 										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
 											Edit Entity
 										</a>
 									<% } %>
 									<% if (!model.isOpen() &&
-										(request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+										(null != request.getSession().getAttribute("edit_closed_vocabulary") && (Boolean) request.getSession()
                                                 .getAttribute("edit_closed_vocabulary"))) { %>
 										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
 											Edit Entity
@@ -174,7 +173,7 @@
 							</h3>
 							<span class="seperator"></span>
 							<div class="free_area0 itemBlockContent endline">
-								<% if (uri != null) { %>
+								<% if (null != uri) { %>
 									<span class="free_area0 endline itemLine noTopBorder">
 										<b class="xLarge_area0_p8 endline labelLine clear">
 											URI<span class="noDisplay">: </span>
@@ -184,7 +183,7 @@
 										</span>
 									</span>
 								<% } %>
-								<% if (model != null) { %>
+								<% if (null != model) { %>
 									<%= printPredicates(model.getPredicates(), results, loggedIn) %>
 								<% } %>
 							</div>

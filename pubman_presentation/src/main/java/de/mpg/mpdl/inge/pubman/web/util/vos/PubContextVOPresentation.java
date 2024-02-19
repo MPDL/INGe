@@ -6,7 +6,6 @@ import java.util.Locale;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
-import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
@@ -49,10 +48,10 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
   public String select() {
     this.selected = true;
 
-    if (this.getCreateItem().getMethod() == SubmissionMethod.FULL_SUBMISSION) {
+    if (CreateItem.SubmissionMethod.FULL_SUBMISSION == this.getCreateItem().getMethod()) {
       this.getItemControllerSessionBean().getCurrentPubItem().getObject().setContext(this);
       return EditItem.LOAD_EDITITEM;
-    } else if (this.getCreateItem().getMethod() == SubmissionMethod.MULTIPLE_IMPORT) {
+    } else if (CreateItem.SubmissionMethod.MULTIPLE_IMPORT == this.getCreateItem().getMethod()) {
       final MultipleImport multipleImport = FacesTools.findBean("MultipleImport");
       multipleImport.setContext(this);
       return MultipleImport.LOAD_MULTIPLE_IMPORT;
@@ -65,7 +64,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
     this.selected = true;
 
     // deselect all other contexts
-    if (this.getContextListSessionBean().getDepositorContextList() != null) {
+    if (null != this.getContextListSessionBean().getDepositorContextList()) {
       for (int i = 0; i < this.getContextListSessionBean().getDepositorContextList().size(); i++) {
         this.getContextListSessionBean().getDepositorContextList().get(i).setSelected(false);
       }

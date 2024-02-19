@@ -156,7 +156,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   private BreadcrumbItem get(boolean remove) {
     BreadcrumbItem returnItem = null;
     final int index = this.breadcrumbs.size() - 1;
-    if (index >= 0) {
+    if (0 <= index) {
       returnItem = this.breadcrumbs.get(index);
       if (remove) {
         this.breadcrumbs.remove(index);
@@ -168,7 +168,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
 
   public List<BreadcrumbItem> getBreadcrumbItemHistory() {
     // return only the last 3 items of the breadcrumb list
-    if (this.breadcrumbs.size() > 3) {
+    if (3 < this.breadcrumbs.size()) {
       final List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<>();
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 3));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 2));
@@ -192,7 +192,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   }
 
   public BreadcrumbItem getPreviousItem() {
-    if (this.breadcrumbs.size() > 1) {
+    if (1 < this.breadcrumbs.size()) {
       return this.breadcrumbs.get(this.breadcrumbs.size() - 2);
     } else {
       return new BreadcrumbItem("HomePage", "HomePage", null, false);
@@ -220,11 +220,11 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
    * @return display value of the last breadcrumb entry
    */
   public boolean getPreviousPageIsListPage() {
-    if (this.breadcrumbs.size() > 1) {
+    if (1 < this.breadcrumbs.size()) {
       for (String itemListPage : this.itemListPages) {
         if (itemListPage.equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())) {
           return true;
-        } else if ((this.breadcrumbs.size() > 2 && itemListPage.equals(this.breadcrumbs.get(this.breadcrumbs.size() - 3).getDisplayValue()))
+        } else if ((2 < this.breadcrumbs.size() && itemListPage.equals(this.breadcrumbs.get(this.breadcrumbs.size() - 3).getDisplayValue()))
             && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue())
                 || "ViewItemOverviewPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 2).getDisplayValue()))
             && ("ViewItemFullPage".equals(this.breadcrumbs.get(this.breadcrumbs.size() - 1).getDisplayValue())

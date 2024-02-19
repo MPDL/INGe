@@ -20,11 +20,11 @@ public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> imple
   @Override
   public boolean validate(ValidatorContext context, EventVO e) {
 
-    if (e != null) {
+    if (null != e) {
 
       if (ValidationTools.isEmpty(e.getTitle()) //
           && (ValidationTools.isNotEmpty(e.getEndDate()) //
-              || e.getInvitationStatus() != null //
+              || null != e.getInvitationStatus() //
               || ValidationTools.isNotEmpty(e.getPlace()) //
               || ValidationTools.isNotEmpty(e.getStartDate()))) {
         context.addErrorMsg(ErrorMessages.EVENT_TITLE_NOT_PROVIDED);

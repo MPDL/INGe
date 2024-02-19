@@ -281,7 +281,7 @@ public class PropertyReader {
   }
 
   public static String getProperty(String key, String defaultValue) {
-    return PropertyReader.getInstance().doGetProperty(key) != null ? PropertyReader.getInstance().doGetProperty(key) : defaultValue;
+    return null != PropertyReader.getInstance().doGetProperty(key) ? PropertyReader.getInstance().doGetProperty(key) : defaultValue;
   }
 
   public static Properties getProperties() {
@@ -300,7 +300,7 @@ public class PropertyReader {
   private String doGetProperty(String key) {
     // First check system properties
     String value = System.getProperty(key);
-    if (value != null) {
+    if (null != value) {
       return value;
     }
 
@@ -323,7 +323,7 @@ public class PropertyReader {
 
     URL solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
 
-    if (solution != null) {
+    if (null != solution) {
       logger.info("Solution URI is <" + solution + ">");
 
       try {
@@ -389,12 +389,12 @@ public class PropertyReader {
     } catch (Exception e) {
       // try to get resource from classpath
       URL url = callingClass.getClassLoader().getResource(filepath);
-      if (url != null) {
+      if (null != url) {
         instream = url.openStream();
         fileLocation = url.getFile();
       }
     }
-    if (instream == null) {
+    if (null == instream) {
       throw new FileNotFoundException(filepath);
     }
     return instream;

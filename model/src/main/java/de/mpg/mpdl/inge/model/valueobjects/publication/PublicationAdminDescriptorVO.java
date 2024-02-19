@@ -125,12 +125,12 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((this.allowedGenres == null) ? 0 : this.allowedGenres.hashCode());
-    result = prime * result + ((this.allowedSubjectClassifications == null) ? 0 : this.allowedSubjectClassifications.hashCode());
-    result = prime * result + ((this.contactEmail == null) ? 0 : this.contactEmail.hashCode());
-    result = prime * result + ((this.templateItem == null) ? 0 : this.templateItem.hashCode());
-    result = prime * result + ((this.visibilityOfReferences == null) ? 0 : this.visibilityOfReferences.hashCode());
-    result = prime * result + ((this.workflow == null) ? 0 : this.workflow.hashCode());
+    result = prime * result + ((null == this.allowedGenres) ? 0 : this.allowedGenres.hashCode());
+    result = prime * result + ((null == this.allowedSubjectClassifications) ? 0 : this.allowedSubjectClassifications.hashCode());
+    result = prime * result + ((null == this.contactEmail) ? 0 : this.contactEmail.hashCode());
+    result = prime * result + ((null == this.templateItem) ? 0 : this.templateItem.hashCode());
+    result = prime * result + ((null == this.visibilityOfReferences) ? 0 : this.visibilityOfReferences.hashCode());
+    result = prime * result + ((null == this.workflow) ? 0 : this.workflow.hashCode());
     return result;
   }
 
@@ -140,7 +140,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
       return true;
     }
 
-    if (obj == null) {
+    if (null == obj) {
       return false;
     }
 
@@ -150,46 +150,46 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
 
     final PublicationAdminDescriptorVO other = (PublicationAdminDescriptorVO) obj;
 
-    if (this.allowedGenres == null) {
-      if (other.allowedGenres != null) {
+    if (null == this.allowedGenres) {
+      if (null != other.allowedGenres) {
         return false;
       }
-    } else if (other.allowedGenres == null) {
+    } else if (null == other.allowedGenres) {
       return false;
     } else if (!new HashSet<>(this.allowedGenres).containsAll(other.allowedGenres) //
         || !new HashSet<>(other.allowedGenres).containsAll(this.allowedGenres)) {
       return false;
     }
 
-    if (this.allowedSubjectClassifications == null) {
-      if (other.allowedSubjectClassifications != null) {
+    if (null == this.allowedSubjectClassifications) {
+      if (null != other.allowedSubjectClassifications) {
         return false;
       }
-    } else if (other.allowedSubjectClassifications == null) {
+    } else if (null == other.allowedSubjectClassifications) {
       return false;
     } else if (!new HashSet<>(this.allowedSubjectClassifications).containsAll(other.allowedSubjectClassifications) //
         || !new HashSet<>(other.allowedSubjectClassifications).containsAll(this.allowedSubjectClassifications)) {
       return false;
     }
 
-    if (this.contactEmail == null) {
-      if (other.contactEmail != null) {
+    if (null == this.contactEmail) {
+      if (null != other.contactEmail) {
         return false;
       }
     } else if (!this.contactEmail.equals(other.contactEmail)) {
       return false;
     }
 
-    if (this.templateItem == null) {
-      if (other.templateItem != null) {
+    if (null == this.templateItem) {
+      if (null != other.templateItem) {
         return false;
       }
     } else if (!this.templateItem.equals(other.templateItem)) {
       return false;
     }
 
-    if (this.visibilityOfReferences == null) {
-      if (other.visibilityOfReferences != null) {
+    if (null == this.visibilityOfReferences) {
+      if (null != other.visibilityOfReferences) {
         return false;
       }
     } else if (!this.visibilityOfReferences.equals(other.visibilityOfReferences)) {

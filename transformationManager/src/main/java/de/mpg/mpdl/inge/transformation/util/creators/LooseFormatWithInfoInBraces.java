@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class LooseFormatWithInfoInBraces extends AuthorFormat {
 
-  public final String BRACES_WITH_ANY_CONTENT = "\\s+\\(\\s*(\\s*\\S+)+\\s*\\)\\s*";
+  public static final String BRACES_WITH_ANY_CONTENT = "\\s+\\(\\s*(\\s*\\S+)+\\s*\\)\\s*";
 
   @Override
   public String getPattern() {
@@ -100,7 +100,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
       } else if (currentChar.matches(closedBracketsRegEx)) {
         brackets -= 1;
         currentString += currentChar;
-      } else if (currentChar.matches(seperatorsRegEX) && brackets == 0) {
+      } else if (currentChar.matches(seperatorsRegEX) && 0 == brackets) {
         parts.add(currentString);
         currentString = "";
 
@@ -133,8 +133,8 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
   private boolean testAuthors(List<Author> authorList) {
 
     for (Author a : authorList) {
-      if (a.getGivenName() == null || a.getGivenName().isEmpty() || a.getSurname() == null || a.getSurname().isEmpty()
-          || a.getSurname().trim().split(" ").length > 4) {
+      if (null == a.getGivenName() || a.getGivenName().isEmpty() || null == a.getSurname() || a.getSurname().isEmpty()
+          || 4 < a.getSurname().trim().split(" ").length) {
         return false;
       }
     }

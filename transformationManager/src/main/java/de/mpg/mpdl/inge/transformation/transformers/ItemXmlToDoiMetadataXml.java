@@ -5,12 +5,12 @@ import java.util.Map;
 import javax.xml.transform.Source;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.DOI_METADATA_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = TransformerFactory.FORMAT.DOI_METADATA_XML)
 public class ItemXmlToDoiMetadataXml extends XslTransformer implements ChainableTransformer {
 
   @Override

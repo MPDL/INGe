@@ -66,7 +66,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
   public ItemRelationVO clone() {
     try {
       ItemRelationVO clone = (ItemRelationVO) super.clone();
-      if (clone.targetItemRef != null) {
+      if (null != clone.targetItemRef) {
         clone.targetItemRef = this.targetItemRef.clone();
       }
       return clone;
@@ -79,14 +79,14 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
    * description of the content relation, e. g. the reason for the relation.
    */
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   /**
    * Describes the reference of the target item.
    */
   public ItemRO getTargetItemRef() {
-    return targetItemRef;
+    return this.targetItemRef;
   }
 
   /**
@@ -95,7 +95,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setTargetItemRef(ItemRO newVal) {
-    targetItemRef = newVal;
+    this.targetItemRef = newVal;
   }
 
   /**
@@ -104,14 +104,14 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setDescription(String newVal) {
-    description = newVal;
+    this.description = newVal;
   }
 
   /**
    * The type of the relation.
    */
   public String getType() {
-    return type;
+    return this.type;
   }
 
   /**
@@ -120,16 +120,16 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setType(String newVal) {
-    type = newVal;
+    this.type = newVal;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((targetItemRef == null) ? 0 : targetItemRef.hashCode());
-    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((null == this.description) ? 0 : this.description.hashCode());
+    result = prime * result + ((null == this.targetItemRef) ? 0 : this.targetItemRef.hashCode());
+    result = prime * result + ((null == this.type) ? 0 : this.type.hashCode());
     return result;
   }
 
@@ -138,7 +138,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -146,22 +146,22 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
 
     ItemRelationVO other = (ItemRelationVO) obj;
 
-    if (description == null) {
-      if (other.description != null)
+    if (null == this.description) {
+      if (null != other.description)
         return false;
-    } else if (!description.equals(other.description))
+    } else if (!this.description.equals(other.description))
       return false;
 
-    if (targetItemRef == null) {
-      if (other.targetItemRef != null)
+    if (null == this.targetItemRef) {
+      if (null != other.targetItemRef)
         return false;
-    } else if (!targetItemRef.equals(other.targetItemRef))
+    } else if (!this.targetItemRef.equals(other.targetItemRef))
       return false;
 
-    if (type == null) {
-      if (other.type != null)
+    if (null == this.type) {
+      if (null != other.type)
         return false;
-    } else if (!type.equals(other.type))
+    } else if (!this.type.equals(other.type))
       return false;
 
     return true;

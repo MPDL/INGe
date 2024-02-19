@@ -69,6 +69,6 @@ public enum CommonLogicMessages implements Messages {
 
   @Override
   public String getMessage() {
-    return message;
+    return this.message;
   }
 }

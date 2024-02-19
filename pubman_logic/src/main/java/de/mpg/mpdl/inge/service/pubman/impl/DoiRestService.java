@@ -17,13 +17,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -40,6 +38,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class DoiRestService {
 
   private static final Logger logger = LogManager.getLogger(DoiRestService.class);
+
+  private DoiRestService() {}
 
 
   /**
@@ -90,7 +90,7 @@ public class DoiRestService {
       int statusCode = client.executeMethod(putMethod);
 
       // throw Exception if the DOI service request fails
-      if (statusCode != 201) {
+      if (201 != statusCode) {
         String responseBody = putMethod.getResponseBodyAsString();
         logger.error("Error occured, when contacting DOxI. StatusCode=" + statusCode);
         logger.error(putMethod.getResponseBodyAsString());
@@ -120,25 +120,25 @@ public class DoiRestService {
   public static boolean isDoiReady(ItemVersionVO pubItem) {
     boolean doiReady = false;
     // useDOI must be true
-    if (!PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USE).equalsIgnoreCase("true")) {
+    if (!"true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USE))) {
       return false;
     }
 
     // Item must be released to create a DOI
-    if (State.RELEASED.equals(pubItem.getVersionState()) == false) {
+    if (false == ItemVersionRO.State.RELEASED.equals(pubItem.getVersionState())) {
       return false;
     }
 
     // Item must not contain any DOI to create a DOI
     for (IdentifierVO identifier : pubItem.getMetadata().getIdentifiers()) {
-      if (IdType.DOI.equals(identifier.getType())) {
+      if (IdentifierVO.IdType.DOI.equals(identifier.getType())) {
         return false;
       }
     }
 
     // Item must include at least one fulltext to create a DOI
     for (FileDbVO file : pubItem.getFiles()) {
-      if (file.getVisibility() == Visibility.PUBLIC && ("any-fulltext".equals(file.getMetadata().getContentCategory())
+      if (FileDbVO.Visibility.PUBLIC == file.getVisibility() && ("any-fulltext".equals(file.getMetadata().getContentCategory())
           || "pre-print".equals(file.getMetadata().getContentCategory()) || "post-print".equals(file.getMetadata().getContentCategory())
           || "publisher-version".equals(file.getMetadata().getContentCategory()) || "code".equals(file.getMetadata().getContentCategory())
           || "research-data".equals(file.getMetadata().getContentCategory())

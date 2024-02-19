@@ -22,7 +22,7 @@ public class VersionableId implements Serializable {
 
   public VersionableId(String objectIdWithVersion) {
     String[] parts = objectIdWithVersion.split("_");
-    if (parts.length != 3)
+    if (3 != parts.length)
       throw new IllegalArgumentException("Illegal Object id with version, must be in format item_123456_1");
 
     this.objectId = parts[0] + "_" + parts[1];
@@ -32,7 +32,7 @@ public class VersionableId implements Serializable {
   }
 
   public String getObjectId() {
-    return objectId;
+    return this.objectId;
   }
 
   public void setObjectId(String objectId) {
@@ -40,7 +40,7 @@ public class VersionableId implements Serializable {
   }
 
   public int getVersionNumber() {
-    return versionNumber;
+    return this.versionNumber;
   }
 
   public void setVersionNumber(int versionNumber) {
@@ -49,14 +49,14 @@ public class VersionableId implements Serializable {
 
   @Override
   public String toString() {
-    return objectId + "_" + versionNumber;
+    return this.objectId + "_" + this.versionNumber;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((this.objectId == null) ? 0 : this.objectId.hashCode());
+    result = prime * result + ((null == this.objectId) ? 0 : this.objectId.hashCode());
     result = prime * result + this.versionNumber;
     return result;
   }
@@ -65,13 +65,13 @@ public class VersionableId implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     VersionableId other = (VersionableId) obj;
-    if (this.objectId == null) {
-      if (other.objectId != null)
+    if (null == this.objectId) {
+      if (null != other.objectId)
         return false;
     } else if (!this.objectId.equals(other.objectId))
       return false;

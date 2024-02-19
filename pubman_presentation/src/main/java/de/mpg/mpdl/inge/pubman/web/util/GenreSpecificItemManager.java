@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -53,7 +54,7 @@ public class GenreSpecificItemManager {
     final List<Object> objs = new ArrayList<>();
     final LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
-    if (this.pubItem != null && this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getGenre() != null) {
+    if (null != this.pubItem && null != this.pubItem.getMetadata() && null != this.pubItem.getMetadata().getGenre()) {
       final String genre = this.pubItem.getMetadata().getGenre().name();
       final ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
       final Object javaObject = this.pubItem;
@@ -63,12 +64,13 @@ public class GenreSpecificItemManager {
         map.put(key, genreBundle.getString(key));
       }
 
-      for (final String mapKey : map.keySet()) {
+      for (final Map.Entry<String, String> entry : map.entrySet()) {
+        final String mapKey = entry.getKey();
         if (mapKey.endsWith("class_attribute")) {
           final String baseKey = mapKey.replace("class_attribute", "");
-          final String fullClassAttribute = map.get(mapKey);
+          final String fullClassAttribute = entry.getValue();
           // check if the property should be available in this genre or not
-          if (map.get(baseKey + "display").equals("false") && (map.get(baseKey + "form_id").equals(this.submissionMethod)
+          if ("false".equals(map.get(baseKey + "display")) && (map.get(baseKey + "form_id").equals(this.submissionMethod)
               || map.get(baseKey + "form_id").equals(GenreSpecificItemManager.SUBMISSION_METHOD_ALL))) {
             objs.addAll(this.getMappedObject(javaObject, fullClassAttribute));
           }
@@ -84,11 +86,11 @@ public class GenreSpecificItemManager {
     // first get all values in the class attribute String and eliminate the "."
     final String[] attributes = mappingString.split("\\.");
 
-    if (baseObject != null) {
+    if (null != baseObject) {
       final Object subObject = this.getObject(baseObject, attributes[0]);
       final int index = mappingString.indexOf(".");
 
-      if (index > 0) {
+      if (0 < index) {
         mappingString = mappingString.substring(index + 1);
         if (subObject instanceof List) {
           for (final Object subObjectElement : (ArrayList<?>) subObject) {
@@ -111,7 +113,7 @@ public class GenreSpecificItemManager {
         final Object javaObjectToNullify = this.getObject(baseObject, attributes[0]);
         Method method = null;
 
-        if (javaObjectToNullify != null) {
+        if (null != javaObjectToNullify) {
           if (javaObjectToNullify instanceof List) {
             if (!((List<?>) javaObjectToNullify).isEmpty()) {
               method = javaObjectToNullify.getClass().getMethod("clear");

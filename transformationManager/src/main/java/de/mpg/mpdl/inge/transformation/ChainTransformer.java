@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +28,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
       ChainableTransformer transformer = getTransformerChain().get(i);
 
       // First round
-      if (i == 0) {
+      if (0 == i) {
         currentSource = source;
       } else {
         currentSource = currentResult.createSourceFromInBetweenResult();
@@ -60,14 +59,14 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
 
     for (ChainableTransformer t : this.transformerChain) {
       Map<String, String> tConfig = t.getConfiguration();
-      if (tConfig != null) {
+      if (null != tConfig) {
         c.putAll(tConfig);
       }
     }
 
     logger.debug("Chaintransformer");
-    if (c != null && c.entrySet() != null) {
-      for (Entry<String, String> entry : c.entrySet()) {
+    if (null != c && null != c.entrySet()) {
+      for (Map.Entry<String, String> entry : c.entrySet()) {
         logger.debug("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
       }
     }
@@ -93,7 +92,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     List<String> v = new ArrayList<>();
     for (ChainableTransformer t : this.transformerChain) {
-      if (t.getAllConfigurationValuesFor(key) != null)
+      if (null != t.getAllConfigurationValuesFor(key))
         v.addAll(t.getAllConfigurationValuesFor(key));
     }
 
@@ -102,8 +101,8 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
 
   public String toString() {
     String chain = "";
-    if (this.transformerChain != null) {
-      chain = transformerChain.stream().map(Object::toString).collect(Collectors.joining(" -- "));
+    if (null != this.transformerChain) {
+      chain = this.transformerChain.stream().map(Object::toString).collect(Collectors.joining(" -- "));
     }
 
     return super.toString() + " via " + chain;

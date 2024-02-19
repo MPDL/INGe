@@ -73,8 +73,8 @@ public class ItemVersionRO implements Serializable {
   @Transient
   @JsonIgnore
   public String getObjectIdAndVersion() {
-    if (versionNumber != 0) {
-      return getObjectId() + "_" + versionNumber;
+    if (0 != this.versionNumber) {
+      return getObjectId() + "_" + this.versionNumber;
     } else {
       return getObjectId();
     }
@@ -82,7 +82,7 @@ public class ItemVersionRO implements Serializable {
   }
 
   public String getObjectId() {
-    return objectId;
+    return this.objectId;
   }
 
   public void setObjectId(String objectId) {
@@ -90,7 +90,7 @@ public class ItemVersionRO implements Serializable {
   }
 
   public AccountUserDbRO getModifier() {
-    return modifier;
+    return this.modifier;
   }
 
   public void setModifier(AccountUserDbRO modifier) {
@@ -105,7 +105,7 @@ public class ItemVersionRO implements Serializable {
    * The version number of the referenced item. This attribute is optional.
    */
   public int getVersionNumber() {
-    return versionNumber;
+    return this.versionNumber;
   }
 
   /**
@@ -114,11 +114,11 @@ public class ItemVersionRO implements Serializable {
    * @param newVal
    */
   public void setVersionNumber(int newVal) {
-    versionNumber = newVal;
+    this.versionNumber = newVal;
   }
 
   public Date getModificationDate() {
-    return modificationDate;
+    return this.modificationDate;
   }
 
   public void setModificationDate(Date modificationDate) {
@@ -142,19 +142,19 @@ public class ItemVersionRO implements Serializable {
    * @param newVal The new state.
    */
   public void setVersionState(ItemVersionRO.State newVal) {
-    versionState = newVal;
+    this.versionState = newVal;
   }
 
   public String getVersionPid() {
-    return versionPid;
+    return this.versionPid;
   }
 
   @JsonIgnore
   public String getVersionPidWithoutPrefix() {
-    if (versionPid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
-      return versionPid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
+    if (this.versionPid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return this.versionPid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
-      return versionPid;
+      return this.versionPid;
     }
   }
 
@@ -164,8 +164,8 @@ public class ItemVersionRO implements Serializable {
 
   @JsonIgnore
   public int getVersionNumberForXml() {
-    if (versionNumber > 0) {
-      return versionNumber;
+    if (0 < this.versionNumber) {
+      return this.versionNumber;
     } else {
       return 1;
     }
@@ -173,19 +173,19 @@ public class ItemVersionRO implements Serializable {
 
   @JsonIgnore
   public Date getModificationDateForXml() {
-    return Objects.requireNonNullElseGet(modificationDate, Date::new);
+    return Objects.requireNonNullElseGet(this.modificationDate, Date::new);
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((modificationDate == null) ? 0 : modificationDate.hashCode());
-    result = prime * result + ((modifier == null) ? 0 : modifier.hashCode());
-    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
-    result = prime * result + versionNumber;
-    result = prime * result + ((versionPid == null) ? 0 : versionPid.hashCode());
-    result = prime * result + ((versionState == null) ? 0 : versionState.hashCode());
+    result = prime * result + ((null == this.modificationDate) ? 0 : this.modificationDate.hashCode());
+    result = prime * result + ((null == this.modifier) ? 0 : this.modifier.hashCode());
+    result = prime * result + ((null == this.objectId) ? 0 : this.objectId.hashCode());
+    result = prime * result + this.versionNumber;
+    result = prime * result + ((null == this.versionPid) ? 0 : this.versionPid.hashCode());
+    result = prime * result + ((null == this.versionState) ? 0 : this.versionState.hashCode());
     return result;
   }
 
@@ -193,34 +193,34 @@ public class ItemVersionRO implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     ItemVersionRO other = (ItemVersionRO) obj;
-    if (modificationDate == null) {
-      if (other.modificationDate != null)
+    if (null == this.modificationDate) {
+      if (null != other.modificationDate)
         return false;
-    } else if (!modificationDate.equals(other.modificationDate))
+    } else if (!this.modificationDate.equals(other.modificationDate))
       return false;
-    if (modifier == null) {
-      if (other.modifier != null)
+    if (null == this.modifier) {
+      if (null != other.modifier)
         return false;
-    } else if (!modifier.equals(other.modifier))
+    } else if (!this.modifier.equals(other.modifier))
       return false;
-    if (objectId == null) {
-      if (other.objectId != null)
+    if (null == this.objectId) {
+      if (null != other.objectId)
         return false;
-    } else if (!objectId.equals(other.objectId))
+    } else if (!this.objectId.equals(other.objectId))
       return false;
-    if (versionNumber != other.versionNumber)
+    if (this.versionNumber != other.versionNumber)
       return false;
-    if (versionPid == null) {
-      if (other.versionPid != null)
+    if (null == this.versionPid) {
+      if (null != other.versionPid)
         return false;
-    } else if (!versionPid.equals(other.versionPid))
+    } else if (!this.versionPid.equals(other.versionPid))
       return false;
-    if (versionState != other.versionState)
+    if (this.versionState != other.versionState)
       return false;
     return true;
   }

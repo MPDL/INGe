@@ -39,13 +39,12 @@ import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSearchCriterion;
@@ -120,7 +119,7 @@ public class BrowseByPage extends BreadcrumbPage {
     final List<LinkVO> links = new ArrayList<>();
     try {
       String localLang = Locale.getDefault().getLanguage();
-      if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja"))) {
+      if (!("en".equals(localLang) || "de".equals(localLang) || "ja".equals(localLang))) {
         localLang = "en";
       }
       final URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + type + "/query?f=options&"
@@ -138,11 +137,11 @@ public class BrowseByPage extends BreadcrumbPage {
       final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
       final BufferedReader bReader = new BufferedReader(isReader);
       String line = "";
-      while ((line = bReader.readLine()) != null) {
+      while (null != (line = bReader.readLine())) {
         final String[] parts = line.split("\\|");
-        if (parts.length == 2) {
+        if (2 == parts.length) {
           final LinkVO link;
-          if (type.equals("persons")) {
+          if ("persons".equals(type)) {
             link = new LinkVO(parts[1], parts[0]);
           } else {
             link = new LinkVO(parts[1], parts[1]);
@@ -153,7 +152,7 @@ public class BrowseByPage extends BreadcrumbPage {
       isReader.close();
       httpConn.disconnect();
     } catch (final Exception e) {
-      BrowseByPage.logger.warn("An error occurred while calling the Cone service.", e);
+      logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
 
@@ -167,7 +166,7 @@ public class BrowseByPage extends BreadcrumbPage {
       final String searchPath = "/faces/SearchResultListPage.jsp?";
       return instanceUrl + searchPath;
     } catch (final Exception e) {
-      BrowseByPage.logger.warn("Could not read property: 'inge.pubman.instance.url'", e);
+      logger.warn("Could not read property: 'inge.pubman.instance.url'", e);
     }
 
     return "";
@@ -203,7 +202,7 @@ public class BrowseByPage extends BreadcrumbPage {
    */
   public String loadBrowseByCreator() {
     this.setSelectedValue("persons");
-    if (this.bbBean.getSearchResults() != null) {
+    if (null != this.bbBean.getSearchResults()) {
       this.bbBean.getSearchResults().clear();
     }
     this.bbBean.setCurrentCharacter("");
@@ -222,7 +221,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public String loadBrowseBySubject(String selSubject) {
     final String curSubject = selSubject;
     this.setSelectedValue(curSubject);
-    if (this.bbBean.getSearchResults() != null) {
+    if (null != this.bbBean.getSearchResults()) {
       this.bbBean.getSearchResults().clear();
     }
     this.bbBean.setCurrentCharacter("");
@@ -244,7 +243,7 @@ public class BrowseByPage extends BreadcrumbPage {
    */
   public String loadBrowseByYear() {
     this.setSelectedValue("year");
-    if (this.bbBean.getSearchResults() != null) {
+    if (null != this.bbBean.getSearchResults()) {
       this.bbBean.getSearchResults().clear();
     }
     this.bbBean.setCurrentCharacter("");
@@ -261,8 +260,8 @@ public class BrowseByPage extends BreadcrumbPage {
   }
 
   public SelectItem[] getDateOptions() {
-    SelectItem[] dateOptions = new SelectItem[] {new SelectItem("published", this.getLabel("dateOptionPublished")),
-        new SelectItem("any", this.getLabel("dateOptionAny"))};
+    SelectItem[] dateOptions =
+        {new SelectItem("published", this.getLabel("dateOptionPublished")), new SelectItem("any", this.getLabel("dateOptionAny"))};
 
     return dateOptions;
   }
@@ -305,7 +304,7 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public void searchForAnyYear(String year) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
-    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.ANYDATE);
+    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterionBase.SearchCriterion.ANYDATE);
     dsc1.setFrom(year);
     dsc1.setTo(year);
     scList.add(dsc1);
@@ -316,12 +315,12 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public void searchForPublishedYear(String year) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
-    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.PUBLISHEDPRINT);
+    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterionBase.SearchCriterion.PUBLISHEDPRINT);
     dsc1.setFrom(year);
     dsc1.setTo(year);
     scList.add(dsc1);
-    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
-    DateSearchCriterion dsc2 = new DateSearchCriterion(SearchCriterion.PUBLISHED);
+    scList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.OR_OPERATOR));
+    DateSearchCriterion dsc2 = new DateSearchCriterion(SearchCriterionBase.SearchCriterion.PUBLISHED);
     dsc2.setFrom(year);
     dsc2.setTo(year);
     scList.add(dsc2);
@@ -332,7 +331,7 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public void searchForPerson(LinkVO link) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
-    PersonSearchCriterion ps = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
+    PersonSearchCriterion ps = new PersonSearchCriterion(SearchCriterionBase.SearchCriterion.ANYPERSON);
     String personsId = ConeUtils.getConePersonsIdIdentifier() + link.getValue();
     ps.setHiddenId(personsId);
     ps.setSearchString(link.getLabel());
@@ -361,9 +360,9 @@ public class BrowseByPage extends BreadcrumbPage {
   private void search(Query qb) throws Exception {
     BoolQuery.Builder bqb = new BoolQuery.Builder();
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVersionRO.State.RELEASED.name()));
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+        PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVersionRO.State.RELEASED.name()));
     bqb.must(qb);
     Query query = bqb.build()._toQuery();
     FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(query.toString(), StandardCharsets.UTF_8));

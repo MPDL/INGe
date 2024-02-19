@@ -36,14 +36,14 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
       int i = 1;
       for (final CreatorVO creatorVO : creators) {
 
-        if (creatorVO != null && creatorVO.getRole() == null) {
+        if (null != creatorVO && null == creatorVO.getRole()) {
 
           switch (creatorVO.getType()) {
 
             case ORGANIZATION:
 
               final OrganizationVO o = creatorVO.getOrganization();
-              if (o != null) {
+              if (null != o) {
                 if (ValidationTools.isNotEmpty(o.getName()) //
                     || ValidationTools.isNotEmpty(o.getAddress())) {
                   context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]"));
@@ -56,7 +56,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
             case PERSON:
 
               final PersonVO p = creatorVO.getPerson();
-              if (p != null) {
+              if (null != p) {
                 if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                     || ValidationTools.isNotEmpty(p.getGivenName())) {
                   context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]"));
@@ -73,7 +73,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
                 int j = 1;
                 for (final OrganizationVO organizationVO : orgs) {
 
-                  if (organizationVO != null) {
+                  if (null != organizationVO) {
                     if (ValidationTools.isNotEmpty(organizationVO.getName()) //
                         || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
                       context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //

@@ -87,29 +87,29 @@ public class ImportWorkspace extends BreadcrumbPage {
     ImportWorkspace.SortColumn newColumn = null;
 
     final String sortColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
-    if (sortColumnString != null && !sortColumnString.isEmpty()) {
+    if (null != sortColumnString && !sortColumnString.isEmpty()) {
       newColumn = ImportWorkspace.SortColumn.valueOf(sortColumnString);
     }
 
     final String currentColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
-    if (currentColumnString != null && !currentColumnString.isEmpty()) {
+    if (null != currentColumnString && !currentColumnString.isEmpty()) {
       currentColumn = ImportWorkspace.SortColumn.valueOf(currentColumnString);
     }
 
     final String currentDirectionString = FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
 
-    if (currentDirectionString != null && !currentDirectionString.isEmpty()) {
+    if (null != currentDirectionString && !currentDirectionString.isEmpty()) {
       currentDirection = ImportWorkspace.SortDirection.valueOf(currentDirectionString);
     }
 
-    if (newColumn != null && newColumn.equals(currentColumn)) {
+    if (null != newColumn && newColumn.equals(currentColumn)) {
       this.sortColumn = newColumn;
-      if (currentDirection == ImportWorkspace.SortDirection.ASCENDING) {
+      if (SortDirection.ASCENDING == currentDirection) {
         this.sortDirection = ImportWorkspace.SortDirection.DESCENDING;
       } else {
         this.sortDirection = ImportWorkspace.SortDirection.ASCENDING;
       }
-    } else if (newColumn != null) {
+    } else if (null != newColumn) {
       this.sortColumn = newColumn;
       this.sortDirection = ImportWorkspace.SortDirection.ASCENDING;
     }
@@ -118,7 +118,7 @@ public class ImportWorkspace extends BreadcrumbPage {
   public List<ImportLog> getImports() {
     final AccountUserDbVO user = this.getLoginHelper().getAccountUser();
 
-    if (user != null) {
+    if (null != user) {
       final Connection connection = DbTools.getNewConnection();
       try {
         return ImportLog.getImportLogs(user, this.sortColumn, this.sortDirection, false, connection);
@@ -149,7 +149,7 @@ public class ImportWorkspace extends BreadcrumbPage {
   public String getFormatLabel(ImportLog currentImport) {
     String label = "n/a";
 
-    if (currentImport != null && currentImport.getFormat() != null) {
+    if (null != currentImport && null != currentImport.getFormat()) {
       label = currentImport.getFormat().getName();
       //      switch (currentImport.getFormat()) {
       //        case ARXIV_OAIPMH_XML:

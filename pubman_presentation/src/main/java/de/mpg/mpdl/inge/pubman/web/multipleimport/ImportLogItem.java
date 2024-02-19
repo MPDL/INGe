@@ -67,7 +67,7 @@ public class ImportLogItem extends BaseImportLog {
   }
 
   public String getLink() {
-    if (ImportLogItem.link == null) {
+    if (null == ImportLogItem.link) {
       try {
         ImportLogItem.link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
             + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
@@ -87,7 +87,7 @@ public class ImportLogItem extends BaseImportLog {
   public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel, Connection connection) {
     super.setErrorLevel(errorLevel);
 
-    if (this.parent != null && connection != null) {
+    if (null != this.parent && null != connection) {
       this.parent.setErrorLevel(errorLevel, connection);
     }
   }

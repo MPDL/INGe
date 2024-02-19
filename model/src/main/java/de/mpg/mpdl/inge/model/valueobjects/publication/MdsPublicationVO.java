@@ -31,7 +31,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
@@ -53,7 +52,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
  * @updated 21-Nov-2007 11:48:44
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * The possible degree types for an item.
@@ -77,7 +76,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }}
 
   /**
@@ -98,7 +97,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }}
 
   /**
@@ -163,7 +162,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }}
 
   public enum SubjectClassification{
@@ -188,7 +187,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }
 
   public String toString() {
@@ -298,31 +297,31 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     for (CreatorVO creator : other.getCreators()) {
       getCreators().add(creator.clone());
     }
-    if (other.getDateAccepted() != null) {
+    if (null != other.getDateAccepted()) {
       setDateAccepted(other.getDateAccepted());
     }
-    if (other.getDateCreated() != null) {
+    if (null != other.getDateCreated()) {
       setDateCreated(other.getDateCreated());
     }
-    if (other.getDateModified() != null) {
+    if (null != other.getDateModified()) {
       setDateModified(other.getDateModified());
     }
-    if (other.getDatePublishedInPrint() != null) {
+    if (null != other.getDatePublishedInPrint()) {
       setDatePublishedInPrint(other.getDatePublishedInPrint());
     }
     // DiT, 14.11.2007: added DatePublishedOnline
-    if (other.getDatePublishedOnline() != null) {
+    if (null != other.getDatePublishedOnline()) {
       setDatePublishedOnline(other.getDatePublishedOnline());
     }
-    if (other.getDateSubmitted() != null) {
+    if (null != other.getDateSubmitted()) {
       setDateSubmitted(other.getDateSubmitted());
     }
     setDegree(other.getDegree());
-    if (other.getEvent() != null) {
+    if (null != other.getEvent()) {
       setEvent(other.getEvent().clone());
     }
     // JUS BEGIN
-    if (other.getLegalCase() != null) {
+    if (null != other.getLegalCase()) {
       setLegalCase(other.getLegalCase().clone());
     }
     // JUS END
@@ -332,7 +331,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
     getLanguages().addAll(other.getLanguages());
     setLocation(other.getLocation());
-    if (other.getPublishingInfo() != null) {
+    if (null != other.getPublishingInfo()) {
       setPublishingInfo(other.getPublishingInfo().clone());
     }
     setReviewMethod(other.getReviewMethod());
@@ -340,7 +339,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
       getSources().add(source.clone());
     }
 
-    if (other.getFreeKeywords() != null) {
+    if (null != other.getFreeKeywords()) {
       setFreeKeywords(other.getFreeKeywords());
     }
 
@@ -351,13 +350,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     for (AbstractVO summary : other.getAbstracts()) {
       getAbstracts().add(summary.clone());
     }
-    if (other.getTableOfContents() != null) {
+    if (null != other.getTableOfContents()) {
       setTableOfContents(other.getTableOfContents());
     }
 
     setTotalNumberOfPages(other.getTotalNumberOfPages());
 
-    if (other.getProjectInfo() != null) {
+    if (null != other.getProjectInfo()) {
       for (ProjectInfoVO pi : other.getProjectInfo()) {
         getProjectInfo().add(pi.clone());
       }
@@ -370,7 +369,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * sub-titles.
    */
   public java.util.List<AlternativeTitleVO> getAlternativeTitles() {
-    return alternativeTitles;
+    return this.alternativeTitles;
   }
 
   /**
@@ -378,7 +377,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * participated in creating the content with a specific task, e. g. author, translator, editor.
    */
   public java.util.List<CreatorVO> getCreators() {
-    return creators;
+    return this.creators;
   }
 
   /**
@@ -386,7 +385,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * publication
    */
   public DegreeType getDegree() {
-    return degree;
+    return this.degree;
   }
 
   /**
@@ -394,7 +393,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * lecture series.
    */
   public EventVO getEvent() {
-    return event;
+    return this.event;
   }
 
   /**
@@ -402,7 +401,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * case information.
    */
   public LegalCaseVO getLegalCase() {
-    return legalCase;
+    return this.legalCase;
   }
 
   /**
@@ -410,7 +409,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * conference paper).
    */
   public MdsPublicationVO.Genre getGenre() {
-    return genre;
+    return this.genre;
   }
 
   /**
@@ -418,7 +417,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * e. g. the ISBN, report number.
    */
   public java.util.List<IdentifierVO> getIdentifiers() {
-    return identifiers;
+    return this.identifiers;
   }
 
   /**
@@ -426,7 +425,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * located.
    */
   public String getLocation() {
-    return location;
+    return this.location;
   }
 
   /**
@@ -435,7 +434,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * thesis has been created.
    */
   public PublishingInfoVO getPublishingInfo() {
-    return publishingInfo;
+    return this.publishingInfo;
   }
 
   /**
@@ -443,7 +442,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * described item.
    */
   public ReviewMethod getReviewMethod() {
-    return reviewMethod;
+    return this.reviewMethod;
   }
 
   /**
@@ -451,21 +450,21 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * published, e. g. journals, books, series or databases.
    */
   public java.util.List<SourceVO> getSources() {
-    return sources;
+    return this.sources;
   }
 
   /**
    * DDC keywords.
    */
   public List<SubjectVO> getSubjects() {
-    return subjects;
+    return this.subjects;
   }
 
   /**
    * Delivers the table of contents of the item.
    */
   public String getTableOfContents() {
-    return tableOfContents;
+    return this.tableOfContents;
   }
 
   /**
@@ -473,7 +472,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * part of the source container.
    */
   public String getTotalNumberOfPages() {
-    return totalNumberOfPages;
+    return this.totalNumberOfPages;
   }
 
   /**
@@ -483,7 +482,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal newVal
    */
   public void setDegree(DegreeType newVal) {
-    degree = newVal;
+    this.degree = newVal;
   }
 
   /**
@@ -493,7 +492,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal newVal
    */
   public void setEvent(EventVO newVal) {
-    event = newVal;
+    this.event = newVal;
   }
 
   /**
@@ -501,7 +500,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * information.
    */
   public void setLegalCase(LegalCaseVO newVal) {
-    legalCase = newVal;
+    this.legalCase = newVal;
   }
 
   /**
@@ -511,7 +510,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal newVal
    */
   public void setGenre(MdsPublicationVO.Genre newVal) {
-    genre = newVal;
+    this.genre = newVal;
   }
 
   /**
@@ -521,7 +520,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal newVal
    */
   public void setLocation(String newVal) {
-    location = newVal;
+    this.location = newVal;
   }
 
   /**
@@ -532,7 +531,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal newVal
    */
   public void setPublishingInfo(PublishingInfoVO newVal) {
-    publishingInfo = newVal;
+    this.publishingInfo = newVal;
   }
 
   /**
@@ -542,7 +541,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal newVal
    */
   public void setReviewMethod(ReviewMethod newVal) {
-    reviewMethod = newVal;
+    this.reviewMethod = newVal;
   }
 
   /**
@@ -551,7 +550,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal
    */
   public void setTableOfContents(String newVal) {
-    tableOfContents = newVal;
+    this.tableOfContents = newVal;
   }
 
   /**
@@ -561,7 +560,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal newVal
    */
   public void setTotalNumberOfPages(String newVal) {
-    totalNumberOfPages = newVal;
+    this.totalNumberOfPages = newVal;
   }
 
   public MdsPublicationVO clone() {
@@ -572,30 +571,30 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((abstracts == null) ? 0 : abstracts.hashCode());
-    result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
-    result = prime * result + ((creators == null) ? 0 : creators.hashCode());
-    result = prime * result + ((dateAccepted == null) ? 0 : dateAccepted.hashCode());
-    result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
-    result = prime * result + ((dateModified == null) ? 0 : dateModified.hashCode());
-    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
-    result = prime * result + ((datePublishedOnline == null) ? 0 : datePublishedOnline.hashCode());
-    result = prime * result + ((dateSubmitted == null) ? 0 : dateSubmitted.hashCode());
-    result = prime * result + ((degree == null) ? 0 : degree.hashCode());
-    result = prime * result + ((event == null) ? 0 : event.hashCode());
-    result = prime * result + ((freeKeywords == null) ? 0 : freeKeywords.hashCode());
-    result = prime * result + ((genre == null) ? 0 : genre.hashCode());
-    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
-    result = prime * result + ((languages == null) ? 0 : languages.hashCode());
-    result = prime * result + ((legalCase == null) ? 0 : legalCase.hashCode());
-    result = prime * result + ((location == null) ? 0 : location.hashCode());
-    result = prime * result + ((projectInfo == null) ? 0 : projectInfo.hashCode());
-    result = prime * result + ((publishingInfo == null) ? 0 : publishingInfo.hashCode());
-    result = prime * result + ((reviewMethod == null) ? 0 : reviewMethod.hashCode());
-    result = prime * result + ((sources == null) ? 0 : sources.hashCode());
-    result = prime * result + ((subjects == null) ? 0 : subjects.hashCode());
-    result = prime * result + ((tableOfContents == null) ? 0 : tableOfContents.hashCode());
-    result = prime * result + ((totalNumberOfPages == null) ? 0 : totalNumberOfPages.hashCode());
+    result = prime * result + ((null == this.abstracts) ? 0 : this.abstracts.hashCode());
+    result = prime * result + ((null == this.alternativeTitles) ? 0 : this.alternativeTitles.hashCode());
+    result = prime * result + ((null == this.creators) ? 0 : this.creators.hashCode());
+    result = prime * result + ((null == this.dateAccepted) ? 0 : this.dateAccepted.hashCode());
+    result = prime * result + ((null == this.dateCreated) ? 0 : this.dateCreated.hashCode());
+    result = prime * result + ((null == this.dateModified) ? 0 : this.dateModified.hashCode());
+    result = prime * result + ((null == this.datePublishedInPrint) ? 0 : this.datePublishedInPrint.hashCode());
+    result = prime * result + ((null == this.datePublishedOnline) ? 0 : this.datePublishedOnline.hashCode());
+    result = prime * result + ((null == this.dateSubmitted) ? 0 : this.dateSubmitted.hashCode());
+    result = prime * result + ((null == this.degree) ? 0 : this.degree.hashCode());
+    result = prime * result + ((null == this.event) ? 0 : this.event.hashCode());
+    result = prime * result + ((null == this.freeKeywords) ? 0 : this.freeKeywords.hashCode());
+    result = prime * result + ((null == this.genre) ? 0 : this.genre.hashCode());
+    result = prime * result + ((null == this.identifiers) ? 0 : this.identifiers.hashCode());
+    result = prime * result + ((null == this.languages) ? 0 : this.languages.hashCode());
+    result = prime * result + ((null == this.legalCase) ? 0 : this.legalCase.hashCode());
+    result = prime * result + ((null == this.location) ? 0 : this.location.hashCode());
+    result = prime * result + ((null == this.projectInfo) ? 0 : this.projectInfo.hashCode());
+    result = prime * result + ((null == this.publishingInfo) ? 0 : this.publishingInfo.hashCode());
+    result = prime * result + ((null == this.reviewMethod) ? 0 : this.reviewMethod.hashCode());
+    result = prime * result + ((null == this.sources) ? 0 : this.sources.hashCode());
+    result = prime * result + ((null == this.subjects) ? 0 : this.subjects.hashCode());
+    result = prime * result + ((null == this.tableOfContents) ? 0 : this.tableOfContents.hashCode());
+    result = prime * result + ((null == this.totalNumberOfPages) ? 0 : this.totalNumberOfPages.hashCode());
     return result;
   }
 
@@ -612,166 +611,167 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
 
     MdsPublicationVO other = (MdsPublicationVO) obj;
 
-    if (abstracts == null) {
-      if (other.abstracts != null)
+    if (null == this.abstracts) {
+      if (null != other.abstracts)
         return false;
-    } else if (other.abstracts == null)
+    } else if (null == other.abstracts)
       return false;
-    else if (!new HashSet<>(abstracts).containsAll(other.abstracts) //
-        || !new HashSet<>(other.abstracts).containsAll(abstracts)) {
+    else if (!new HashSet<>(this.abstracts).containsAll(other.abstracts) //
+        || !new HashSet<>(other.abstracts).containsAll(this.abstracts)) {
       return false;
     }
 
-    if (alternativeTitles == null) {
-      if (other.alternativeTitles != null)
+    if (null == this.alternativeTitles) {
+      if (null != other.alternativeTitles)
         return false;
-    } else if (other.alternativeTitles == null)
+    } else if (null == other.alternativeTitles)
       return false;
-    else if (!new HashSet<>(alternativeTitles).containsAll(other.alternativeTitles) //
-        || !new HashSet<>(other.alternativeTitles).containsAll(alternativeTitles)) {
+    else if (!new HashSet<>(this.alternativeTitles).containsAll(other.alternativeTitles) //
+        || !new HashSet<>(other.alternativeTitles).containsAll(this.alternativeTitles)) {
       return false;
     }
 
-    if (creators == null) {
-      if (other.creators != null)
+    if (null == this.creators) {
+      if (null != other.creators)
         return false;
-    } else if (other.creators == null)
+    } else if (null == other.creators)
       return false;
-    else if (!new HashSet<>(creators).containsAll(other.creators) //
-        || !new HashSet<>(other.creators).containsAll(creators)) {
+    else if (!new HashSet<>(this.creators).containsAll(other.creators) //
+        || !new HashSet<>(other.creators).containsAll(this.creators)) {
       return false;
     }
 
-    if (dateAccepted == null) {
-      if (other.dateAccepted != null)
+    if (null == this.dateAccepted) {
+      if (null != other.dateAccepted)
         return false;
-    } else if (!dateAccepted.equals(other.dateAccepted))
+    } else if (!this.dateAccepted.equals(other.dateAccepted))
       return false;
 
-    if (dateCreated == null) {
-      if (other.dateCreated != null)
+    if (null == this.dateCreated) {
+      if (null != other.dateCreated)
         return false;
-    } else if (!dateCreated.equals(other.dateCreated))
+    } else if (!this.dateCreated.equals(other.dateCreated))
       return false;
 
-    if (dateModified == null) {
-      if (other.dateModified != null)
+    if (null == this.dateModified) {
+      if (null != other.dateModified)
         return false;
-    } else if (!dateModified.equals(other.dateModified))
+    } else if (!this.dateModified.equals(other.dateModified))
       return false;
 
-    if (datePublishedInPrint == null) {
-      if (other.datePublishedInPrint != null)
+    if (null == this.datePublishedInPrint) {
+      if (null != other.datePublishedInPrint)
         return false;
-    } else if (!datePublishedInPrint.equals(other.datePublishedInPrint))
+    } else if (!this.datePublishedInPrint.equals(other.datePublishedInPrint))
       return false;
 
-    if (datePublishedOnline == null) {
-      if (other.datePublishedOnline != null)
+    if (null == this.datePublishedOnline) {
+      if (null != other.datePublishedOnline)
         return false;
-    } else if (!datePublishedOnline.equals(other.datePublishedOnline))
+    } else if (!this.datePublishedOnline.equals(other.datePublishedOnline))
       return false;
 
-    if (dateSubmitted == null) {
-      if (other.dateSubmitted != null)
+    if (null == this.dateSubmitted) {
+      if (null != other.dateSubmitted)
         return false;
-    } else if (!dateSubmitted.equals(other.dateSubmitted))
+    } else if (!this.dateSubmitted.equals(other.dateSubmitted))
       return false;
 
-    if (degree != other.degree)
+    if (this.degree != other.degree)
       return false;
 
-    if (event == null) {
-      if (other.event != null)
+    if (null == this.event) {
+      if (null != other.event)
         return false;
-    } else if (!event.equals(other.event))
+    } else if (!this.event.equals(other.event))
       return false;
 
-    if (freeKeywords == null) {
-      if (other.freeKeywords != null)
+    if (null == this.freeKeywords) {
+      if (null != other.freeKeywords)
         return false;
-    } else if (!freeKeywords.equals(other.freeKeywords))
+    } else if (!this.freeKeywords.equals(other.freeKeywords))
       return false;
 
-    if (genre != other.genre)
+    if (this.genre != other.genre)
       return false;
 
-    if (identifiers == null) {
-      if (other.identifiers != null)
+    if (null == this.identifiers) {
+      if (null != other.identifiers)
         return false;
-    } else if (other.identifiers == null)
+    } else if (null == other.identifiers)
       return false;
-    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
+    else if (!new HashSet<>(this.identifiers).containsAll(other.identifiers)
+        || !new HashSet<>(other.identifiers).containsAll(this.identifiers)) {
       return false;
     }
 
-    if (languages == null) {
-      if (other.languages != null)
+    if (null == this.languages) {
+      if (null != other.languages)
         return false;
-    } else if (other.languages == null)
+    } else if (null == other.languages)
       return false;
-    else if (!new HashSet<>(languages).containsAll(other.languages) //
-        || !new HashSet<>(other.languages).containsAll(languages)) {
+    else if (!new HashSet<>(this.languages).containsAll(other.languages) //
+        || !new HashSet<>(other.languages).containsAll(this.languages)) {
       return false;
     }
 
-    if (legalCase == null) {
-      if (other.legalCase != null)
+    if (null == this.legalCase) {
+      if (null != other.legalCase)
         return false;
-    } else if (!legalCase.equals(other.legalCase))
+    } else if (!this.legalCase.equals(other.legalCase))
       return false;
 
-    if (location == null) {
-      if (other.location != null)
+    if (null == this.location) {
+      if (null != other.location)
         return false;
-    } else if (!location.equals(other.location))
+    } else if (!this.location.equals(other.location))
       return false;
 
-    if (projectInfo == null) {
-      if (other.projectInfo != null)
+    if (null == this.projectInfo) {
+      if (null != other.projectInfo)
         return false;
-    } else if (!projectInfo.equals(other.projectInfo))
+    } else if (!this.projectInfo.equals(other.projectInfo))
       return false;
 
-    if (publishingInfo == null) {
-      if (other.publishingInfo != null)
+    if (null == this.publishingInfo) {
+      if (null != other.publishingInfo)
         return false;
-    } else if (!publishingInfo.equals(other.publishingInfo))
+    } else if (!this.publishingInfo.equals(other.publishingInfo))
       return false;
 
-    if (reviewMethod != other.reviewMethod)
+    if (this.reviewMethod != other.reviewMethod)
       return false;
 
-    if (sources == null) {
-      if (other.sources != null)
+    if (null == this.sources) {
+      if (null != other.sources)
         return false;
-    } else if (other.sources == null)
+    } else if (null == other.sources)
       return false;
-    else if (!new HashSet<>(sources).containsAll(other.sources) //
-        || !new HashSet<>(other.sources).containsAll(sources)) {
+    else if (!new HashSet<>(this.sources).containsAll(other.sources) //
+        || !new HashSet<>(other.sources).containsAll(this.sources)) {
       return false;
     }
 
-    if (subjects == null) {
-      if (other.subjects != null)
+    if (null == this.subjects) {
+      if (null != other.subjects)
         return false;
-    } else if (other.subjects == null)
+    } else if (null == other.subjects)
       return false;
-    else if (!new HashSet<>(subjects).containsAll(other.subjects) //
-        || !new HashSet<>(other.subjects).containsAll(subjects)) {
+    else if (!new HashSet<>(this.subjects).containsAll(other.subjects) //
+        || !new HashSet<>(other.subjects).containsAll(this.subjects)) {
       return false;
     }
 
-    if (tableOfContents == null) {
-      if (other.tableOfContents != null)
+    if (null == this.tableOfContents) {
+      if (null != other.tableOfContents)
         return false;
-    } else if (!tableOfContents.equals(other.tableOfContents))
+    } else if (!this.tableOfContents.equals(other.tableOfContents))
       return false;
 
-    if (totalNumberOfPages == null) {
-      if (other.totalNumberOfPages != null)
+    if (null == this.totalNumberOfPages) {
+      if (null != other.totalNumberOfPages)
         return false;
-    } else if (!totalNumberOfPages.equals(other.totalNumberOfPages))
+    } else if (!this.totalNumberOfPages.equals(other.totalNumberOfPages))
       return false;
 
     return true;
@@ -781,35 +781,35 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * Delivers the date when the item was accepted (for scientific check).
    */
   public String getDateAccepted() {
-    return dateAccepted;
+    return this.dateAccepted;
   }
 
   /**
    * Delivers the date when the item was created.
    */
   public String getDateCreated() {
-    return dateCreated;
+    return this.dateCreated;
   }
 
   /**
    * Delivers the date when the item was modified.
    */
   public String getDateModified() {
-    return dateModified;
+    return this.dateModified;
   }
 
   /**
    * Delivers the date when the item was published.
    */
   public String getDatePublishedInPrint() {
-    return datePublishedInPrint;
+    return this.datePublishedInPrint;
   }
 
   /**
    * Delivers the date when the item was submitted.
    */
   public String getDateSubmitted() {
-    return dateSubmitted;
+    return this.dateSubmitted;
   }
 
   /**
@@ -819,7 +819,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * http://www.loc.gov/standards/iso639-2/englangn.html
    */
   public java.util.List<String> getLanguages() {
-    return languages;
+    return this.languages;
   }
 
   /**
@@ -828,10 +828,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal
    */
   public void setDateAccepted(String newVal) {
-    if (newVal == null || newVal.isEmpty()) {
-      dateAccepted = null;
+    if (null == newVal || newVal.isEmpty()) {
+      this.dateAccepted = null;
     } else {
-      dateAccepted = newVal;
+      this.dateAccepted = newVal;
     }
 
   }
@@ -842,10 +842,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal
    */
   public void setDateCreated(String newVal) {
-    if (newVal == null || newVal.isEmpty()) {
-      dateCreated = null;
+    if (null == newVal || newVal.isEmpty()) {
+      this.dateCreated = null;
     } else {
-      dateCreated = newVal;
+      this.dateCreated = newVal;
     }
 
   }
@@ -856,10 +856,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal
    */
   public void setDateModified(String newVal) {
-    if (newVal == null || newVal.isEmpty()) {
-      dateModified = null;
+    if (null == newVal || newVal.isEmpty()) {
+      this.dateModified = null;
     } else {
-      dateModified = newVal;
+      this.dateModified = newVal;
     }
 
   }
@@ -870,10 +870,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal
    */
   public void setDatePublishedInPrint(String newVal) {
-    if (newVal == null || newVal.isEmpty()) {
-      datePublishedInPrint = null;
+    if (null == newVal || newVal.isEmpty()) {
+      this.datePublishedInPrint = null;
     } else {
-      datePublishedInPrint = newVal;
+      this.datePublishedInPrint = newVal;
     }
   }
 
@@ -883,10 +883,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal
    */
   public void setDateSubmitted(String newVal) {
-    if (newVal == null || newVal.isEmpty()) {
-      dateSubmitted = null;
+    if (null == newVal || newVal.isEmpty()) {
+      this.dateSubmitted = null;
     } else {
-      dateSubmitted = newVal;
+      this.dateSubmitted = newVal;
     }
   }
 
@@ -894,11 +894,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * Delivers the list of abstracts or short descriptions of the item.
    */
   public java.util.List<AbstractVO> getAbstracts() {
-    return abstracts;
+    return this.abstracts;
   }
 
   public String getFreeKeywords() {
-    return freeKeywords;
+    return this.freeKeywords;
   }
 
   public void setFreeKeywords(String freeKeywords) {
@@ -909,7 +909,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @return the datePublishedOnline
    */
   public String getDatePublishedOnline() {
-    return datePublishedOnline;
+    return this.datePublishedOnline;
   }
 
   /**
@@ -917,15 +917,15 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * @param newVal
    */
   public void setDatePublishedOnline(String newVal) {
-    if (newVal == null || newVal.isEmpty()) {
-      datePublishedOnline = null;
+    if (null == newVal || newVal.isEmpty()) {
+      this.datePublishedOnline = null;
     } else {
-      datePublishedOnline = newVal;
+      this.datePublishedOnline = newVal;
     }
   }
 
   public List<ProjectInfoVO> getProjectInfo() {
-    return projectInfo;
+    return this.projectInfo;
   }
 
   public void setProjectInfo(List<ProjectInfoVO> projectInfo) {

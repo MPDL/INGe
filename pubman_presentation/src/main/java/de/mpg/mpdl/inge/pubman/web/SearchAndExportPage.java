@@ -48,7 +48,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -89,7 +88,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    if (this.esQuery == null || this.esQuery.isEmpty()) {
+    if (null == this.esQuery || this.esQuery.isEmpty()) {
       this.esQuery = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY);
     }
 
@@ -97,7 +96,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
       this.esQuery = URLDecoder.decode(this.esQuery, StandardCharsets.UTF_8);
       this.esQuery = JsonUtil.prettifyJsonString(this.esQuery);
     } catch (final Exception e) {
-      SearchAndExportPage.logger.error("Error during decoding parameters.", e);
+      logger.error("Error during decoding parameters.", e);
     }
   }
 
@@ -108,7 +107,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     this.limit = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_MAXIMUM_RECORDS);
     this.offset = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_START_RECORD);
     this.sort.add(new MySort(PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY),
-        PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER).equalsIgnoreCase("ascending")
+        "ascending".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER))
             ? SearchSortCriteria.SortOrder.ASC
             : SearchSortCriteria.SortOrder.DESC));
   }
@@ -119,15 +118,15 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
   public void addSorting() {
-    SearchAndExportPage.logger.info("Added Sorting");
+    logger.info("Added Sorting");
     this.sort.add(new MySort("",
-        PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER).equalsIgnoreCase("ascending")
+        "ascending".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER))
             ? SearchSortCriteria.SortOrder.ASC
             : SearchSortCriteria.SortOrder.DESC));
   }
 
   public void removeSorting(MySort sort) {
-    SearchAndExportPage.logger.info("Removed Sorting");
+    logger.info("Removed Sorting");
     this.sort.remove(sort);
   }
 
@@ -179,7 +178,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     SearchAndExportResultVO searchAndExportResultVO = null;
 
     try {
-      searchAndExportResultVO = saes.searchAndExportItems(saerrVO, this.getLoginHelper().getAuthenticationToken());
+      searchAndExportResultVO = this.saes.searchAndExportItems(saerrVO, this.getLoginHelper().getAuthenticationToken());
     } catch (final Exception e) {
       throw new RuntimeException("Cannot retrieve export data", e);
     }
@@ -196,7 +195,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
       ArrayList<SearchSortCriteria> sortCriterias = new ArrayList<>();
       for (MySort sort : this.sort) {
-        if (sort.getKey() != null && !sort.getKey().isEmpty()) {
+        if (null != sort.getKey() && !sort.getKey().isEmpty()) {
           SearchSortCriteria searchSortCriteria = new SearchSortCriteria(sort.getKey(), sort.getOrder());
           sortCriterias.add(searchSortCriteria);
         }
@@ -247,7 +246,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     final SelectItem ascending = new SelectItem(SearchSortCriteria.SortOrder.ASC, "ascending");
     final SelectItem descending = new SelectItem(SearchSortCriteria.SortOrder.DESC, "descending");
 
-    final SelectItem[] sortOptions = new SelectItem[] { //
+    final SelectItem[] sortOptions = { //
         ascending, //
         descending};
 
@@ -259,7 +258,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
   public String getAtomFeedLink() {
-    if (this.esQuery == null) {
+    if (null == this.esQuery) {
       return null;
     }
 
@@ -283,12 +282,12 @@ public class SearchAndExportPage extends BreadcrumbPage {
     sb.append("?format=");
     sb.append(saerrVO.getExportFormat().getFormat());
 
-    if (saerrVO.getExportFormat().getCitationName() != null) {
+    if (null != saerrVO.getExportFormat().getCitationName()) {
       sb.append("&citation=");
       sb.append(saerrVO.getExportFormat().getCitationName());
     }
 
-    if (saerrVO.getExportFormat().getId() != null) {
+    if (null != saerrVO.getExportFormat().getId()) {
       sb.append("&cslConeId=");
       sb.append(saerrVO.getExportFormat().getId());
     }
@@ -305,8 +304,8 @@ public class SearchAndExportPage extends BreadcrumbPage {
     sb.append(this.esQuery);
 
     boolean doSort = false;
-    for (MySort mySort : sort) {
-      if (mySort.getKey() != null && !mySort.getKey().isEmpty()) {
+    for (MySort mySort : this.sort) {
+      if (null != mySort.getKey() && !mySort.getKey().isEmpty()) {
         doSort = true;
         break;
       }
@@ -318,8 +317,8 @@ public class SearchAndExportPage extends BreadcrumbPage {
       sb.append("\"sort\" : [");
       for (int i = 0; i < this.sort.size(); i++) {
         MySort mySort = this.sort.get(i);
-        if (mySort.getKey() != null && !mySort.getKey().isEmpty()) {
-          if (i > 0) {
+        if (null != mySort.getKey() && !mySort.getKey().isEmpty()) {
+          if (0 < i) {
             sb.append(",");
           }
           FieldSort fieldSort = SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), mySort.getKey(),
@@ -366,7 +365,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     // Test auf positive Zahl
-    if (offset_ < 0) {
+    if (0 > offset_) {
       msg = getMessage("searchAndExport_error_number_GE_0");
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
@@ -385,7 +384,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     // Test auf korrektes Intervall
-    if (limit_ <= 0 || limit_ > this.maxLimit) {
+    if (0 >= limit_ || limit_ > this.maxLimit) {
       msg = getMessage("searchAndExport_error_numberBetween_GT_LE").replace("$1", ("0")).replace("$2", "" + this.maxLimit);
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
@@ -407,7 +406,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     private String key;
     private SearchSortCriteria.SortOrder order;
 
-    public MySort(String key, SortOrder order) {
+    public MySort(String key, SearchSortCriteria.SortOrder order) {
       this.key = key;
       this.order = order;
     }

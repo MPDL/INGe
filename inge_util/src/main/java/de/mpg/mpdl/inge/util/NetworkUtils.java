@@ -13,6 +13,8 @@ public class NetworkUtils {
       //"^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[/?#]\\S*)?$",
       Pattern.CASE_INSENSITIVE);
 
+  private NetworkUtils() {}
+
 
 
   /**
@@ -24,7 +26,7 @@ public class NetworkUtils {
    */
   public static boolean checkIPMatching(String pattern, String address) {
 
-    if (pattern.equals("*.*.*.*") || pattern.equals("*"))
+    if ("*.*.*.*".equals(pattern) || "*".equals(pattern))
       return true;
     // pattern like 123.123.123.123/31
     if (pattern.contains("/")) {
@@ -41,7 +43,7 @@ public class NetworkUtils {
     String[] mask = pattern.split("\\.");
     String[] ip_address = address.split("\\.");
     for (int i = 0; i < mask.length; i++) {
-      if (mask[i].equals("*") || mask[i].equals(ip_address[i])) {
+      if ("*".equals(mask[i]) || mask[i].equals(ip_address[i])) {
       } else if (mask[i].contains("-")) {
         int min = Integer.parseInt(mask[i].split("-")[0]);
         int max = Integer.parseInt(mask[i].split("-")[1]);

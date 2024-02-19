@@ -75,8 +75,8 @@ public class CoinsTransformation {
    */
   public String getCOinS(PubItemVO pubitemVO) {
     StringBuilder coinsContent = new StringBuilder();
-    if (pubitemVO != null) {
-      if (pubitemVO.getMetadata() != null) {
+    if (null != pubitemVO) {
+      if (null != pubitemVO.getMetadata()) {
         String rftGenre = "";
         String rftAtitle = "";
         String rftTitle = "";
@@ -91,20 +91,20 @@ public class CoinsTransformation {
         String rftPages = "";
         String rftDate = "";
 
-        if (pubitemVO.getMetadata().getGenre() != null) {
+        if (null != pubitemVO.getMetadata().getGenre()) {
           rftGenre = RFT_GENRE_PREFIX + pubitemVO.getMetadata().getGenre().name();
         }
-        if (pubitemVO.getMetadata().getTitle() != null) {
+        if (null != pubitemVO.getMetadata().getTitle()) {
           rftAtitle = RFT_ATIITLE_PREFIX + this.htmlEscape(pubitemVO.getMetadata().getTitle());
-          rftAtitle = rftAtitle != null ? rftAtitle.replace(" ", "+") : "";
+          rftAtitle = null != rftAtitle ? rftAtitle.replace(" ", "+") : "";
         }
 
         // add the title of the first source
-        if (pubitemVO.getMetadata().getSources() != null) {
+        if (null != pubitemVO.getMetadata().getSources()) {
           if (!pubitemVO.getMetadata().getSources().isEmpty()) {
-            if (pubitemVO.getMetadata().getSources().get(0).getTitle() != null) {
+            if (null != pubitemVO.getMetadata().getSources().get(0).getTitle()) {
               rftTitle = RFT_TITLE_PREFIX + this.htmlEscape(pubitemVO.getMetadata().getSources().get(0).getTitle());
-              rftTitle = rftTitle != null ? rftTitle.replace(" ", "+") : "";
+              rftTitle = null != rftTitle ? rftTitle.replace(" ", "+") : "";
             }
           }
         }
@@ -155,10 +155,10 @@ public class CoinsTransformation {
    */
   private String getFirstName(PubItemVO pubitemVO) {
     String firstName = "";
-    if (pubitemVO.getMetadata().getCreators() != null) {
+    if (null != pubitemVO.getMetadata().getCreators()) {
       for (int i = 0; i < pubitemVO.getMetadata().getCreators().size(); i++) {
-        if (pubitemVO.getMetadata().getCreators().get(i).getPerson() != null) {
-          if (pubitemVO.getMetadata().getCreators().get(i).getPerson().getGivenName() != null) {
+        if (null != pubitemVO.getMetadata().getCreators().get(i).getPerson()) {
+          if (null != pubitemVO.getMetadata().getCreators().get(i).getPerson().getGivenName()) {
             firstName = pubitemVO.getMetadata().getCreators().get(i).getPerson().getGivenName();
             return firstName;
           }
@@ -176,10 +176,10 @@ public class CoinsTransformation {
    */
   private String getLastName(PubItemVO pubitemVO) {
     String lastame = "";
-    if (pubitemVO.getMetadata().getCreators() != null) {
+    if (null != pubitemVO.getMetadata().getCreators()) {
       for (int i = 0; i < pubitemVO.getMetadata().getCreators().size(); i++) {
-        if (pubitemVO.getMetadata().getCreators().get(i).getPerson() != null) {
-          if (pubitemVO.getMetadata().getCreators().get(i).getPerson().getFamilyName() != null) {
+        if (null != pubitemVO.getMetadata().getCreators().get(i).getPerson()) {
+          if (null != pubitemVO.getMetadata().getCreators().get(i).getPerson().getFamilyName()) {
             lastame = pubitemVO.getMetadata().getCreators().get(i).getPerson().getFamilyName();
             return lastame;
           }
@@ -196,21 +196,21 @@ public class CoinsTransformation {
    */
   private String getCompleteNames(PubItemVO pubitemVO) {
     StringBuilder completeNames = new StringBuilder();
-    if (pubitemVO.getMetadata().getCreators() != null) {
+    if (null != pubitemVO.getMetadata().getCreators()) {
       for (int i = 0; i < pubitemVO.getMetadata().getCreators().size(); i++) {
-        if (i > 0) {
+        if (0 < i) {
           completeNames.append(";+");
         }
-        if (pubitemVO.getMetadata().getCreators().get(i).getPerson() != null) {
-          if (pubitemVO.getMetadata().getCreators().get(i).getPerson().getGivenName() != null) {
+        if (null != pubitemVO.getMetadata().getCreators().get(i).getPerson()) {
+          if (null != pubitemVO.getMetadata().getCreators().get(i).getPerson().getGivenName()) {
             completeNames.append(pubitemVO.getMetadata().getCreators().get(i).getPerson().getGivenName());
             completeNames.append("+");
           }
-          if (pubitemVO.getMetadata().getCreators().get(i).getPerson().getFamilyName() != null) {
+          if (null != pubitemVO.getMetadata().getCreators().get(i).getPerson().getFamilyName()) {
             completeNames.append(pubitemVO.getMetadata().getCreators().get(i).getPerson().getFamilyName());
           }
-        } else if (pubitemVO.getMetadata().getCreators().get(i).getOrganization() != null
-            && pubitemVO.getMetadata().getCreators().get(i).getOrganization().getName() != null) {
+        } else if (null != pubitemVO.getMetadata().getCreators().get(i).getOrganization()
+            && null != pubitemVO.getMetadata().getCreators().get(i).getOrganization().getName()) {
           completeNames.append(pubitemVO.getMetadata().getCreators().get(i).getOrganization().getName());
         }
       }
@@ -224,11 +224,11 @@ public class CoinsTransformation {
    */
   private String getISSN(PubItemVO pubitemVO) {
     String issn = "";
-    if (pubitemVO.getMetadata().getIdentifiers() != null) {
+    if (null != pubitemVO.getMetadata().getIdentifiers()) {
       for (int i = 0; i < pubitemVO.getMetadata().getIdentifiers().size(); i++) {
-        if (pubitemVO.getMetadata().getIdentifiers().get(i).getType() != null) {
+        if (null != pubitemVO.getMetadata().getIdentifiers().get(i).getType()) {
           if (pubitemVO.getMetadata().getIdentifiers().get(i).getType().equals(IdentifierVO.IdType.ISSN)) {
-            if (pubitemVO.getMetadata().getIdentifiers().get(i).getId() != null) {
+            if (null != pubitemVO.getMetadata().getIdentifiers().get(i).getId()) {
               issn = pubitemVO.getMetadata().getIdentifiers().get(i).getId();
             }
             return issn;
@@ -245,11 +245,11 @@ public class CoinsTransformation {
    */
   private String getISBN(PubItemVO pubitemVO) {
     String isbn = "";
-    if (pubitemVO.getMetadata().getIdentifiers() != null) {
+    if (null != pubitemVO.getMetadata().getIdentifiers()) {
       for (int i = 0; i < pubitemVO.getMetadata().getIdentifiers().size(); i++) {
-        if (pubitemVO.getMetadata().getIdentifiers().get(i).getType() != null) {
+        if (null != pubitemVO.getMetadata().getIdentifiers().get(i).getType()) {
           if (pubitemVO.getMetadata().getIdentifiers().get(i).getType().equals(IdentifierVO.IdType.ISBN)) {
-            if (pubitemVO.getMetadata().getIdentifiers().get(i).getId() != null) {
+            if (null != pubitemVO.getMetadata().getIdentifiers().get(i).getId()) {
               isbn = pubitemVO.getMetadata().getIdentifiers().get(i).getId();
             }
             return isbn;
@@ -266,12 +266,12 @@ public class CoinsTransformation {
    */
   private String getSourceIdentifier(PubItemVO pubitemVO) {
     String sourceIdentifier = "";
-    if (pubitemVO.getMetadata().getSources() != null) {
+    if (null != pubitemVO.getMetadata().getSources()) {
       if (!pubitemVO.getMetadata().getSources().isEmpty()) {
-        if (pubitemVO.getMetadata().getSources().get(0).getIdentifiers() != null) {
+        if (null != pubitemVO.getMetadata().getSources().get(0).getIdentifiers()) {
           if (!pubitemVO.getMetadata().getSources().get(0).getIdentifiers().isEmpty()) {
             for (int i = 0; i < pubitemVO.getMetadata().getSources().get(0).getIdentifiers().size(); i++) {
-              if (pubitemVO.getMetadata().getSources().get(0).getIdentifiers().get(i).getType() != null) {
+              if (null != pubitemVO.getMetadata().getSources().get(0).getIdentifiers().get(i).getType()) {
                 if (pubitemVO.getMetadata().getSources().get(0).getIdentifiers().get(i).getType().equals(IdentifierVO.IdType.DOI)) {
                   sourceIdentifier = pubitemVO.getMetadata().getSources().get(0).getIdentifiers().get(i).getId();
                   return sourceIdentifier;
@@ -291,9 +291,9 @@ public class CoinsTransformation {
    */
   private String getSourceVolume(PubItemVO pubitemVO) {
     String sourceVolume = "";
-    if (pubitemVO.getMetadata().getSources() != null) {
-      if (!pubitemVO.getMetadata().getSources().isEmpty() && pubitemVO.getMetadata().getSources().get(0).getVolume() != null) {
-        if (pubitemVO.getMetadata().getSources().get(0).getVolume() != null) {
+    if (null != pubitemVO.getMetadata().getSources()) {
+      if (!pubitemVO.getMetadata().getSources().isEmpty() && null != pubitemVO.getMetadata().getSources().get(0).getVolume()) {
+        if (null != pubitemVO.getMetadata().getSources().get(0).getVolume()) {
           sourceVolume = pubitemVO.getMetadata().getSources().get(0).getVolume();
         }
       }
@@ -307,9 +307,9 @@ public class CoinsTransformation {
    */
   private String getSourceIssue(PubItemVO pubitemVO) {
     String sourceIssue = "";
-    if (pubitemVO.getMetadata().getSources() != null) {
-      if (!pubitemVO.getMetadata().getSources().isEmpty() && pubitemVO.getMetadata().getSources().get(0).getIssue() != null) {
-        if (pubitemVO.getMetadata().getSources().get(0).getIssue() != null) {
+    if (null != pubitemVO.getMetadata().getSources()) {
+      if (!pubitemVO.getMetadata().getSources().isEmpty() && null != pubitemVO.getMetadata().getSources().get(0).getIssue()) {
+        if (null != pubitemVO.getMetadata().getSources().get(0).getIssue()) {
           sourceIssue = pubitemVO.getMetadata().getSources().get(0).getIssue();
         }
       }
@@ -323,12 +323,12 @@ public class CoinsTransformation {
    */
   private String getSourcePages(PubItemVO pubitemVO) {
     String sourcePages = "";
-    if (pubitemVO.getMetadata().getSources() != null) {
-      if (!pubitemVO.getMetadata().getSources().isEmpty() && pubitemVO.getMetadata().getSources().get(0).getStartPage() != null) {
-        if (pubitemVO.getMetadata().getSources().get(0).getStartPage() != null) {
+    if (null != pubitemVO.getMetadata().getSources()) {
+      if (!pubitemVO.getMetadata().getSources().isEmpty() && null != pubitemVO.getMetadata().getSources().get(0).getStartPage()) {
+        if (null != pubitemVO.getMetadata().getSources().get(0).getStartPage()) {
           sourcePages = pubitemVO.getMetadata().getSources().get(0).getStartPage();
         }
-        if (pubitemVO.getMetadata().getSources().get(0).getEndPage() != null) {
+        if (null != pubitemVO.getMetadata().getSources().get(0).getEndPage()) {
           sourcePages = sourcePages + "-" + pubitemVO.getMetadata().getSources().get(0).getEndPage();
         }
       }
@@ -342,27 +342,27 @@ public class CoinsTransformation {
    */
   private String getDate(PubItemVO pubitemVO) {
     String date = "";
-    if (pubitemVO.getMetadata().getDatePublishedInPrint() != null) {
+    if (null != pubitemVO.getMetadata().getDatePublishedInPrint()) {
       date = pubitemVO.getMetadata().getDatePublishedInPrint();
       return date;
     }
-    if (pubitemVO.getMetadata().getDatePublishedOnline() != null) {
+    if (null != pubitemVO.getMetadata().getDatePublishedOnline()) {
       date = pubitemVO.getMetadata().getDatePublishedOnline();
       return date;
     }
-    if (pubitemVO.getMetadata().getDateAccepted() != null) {
+    if (null != pubitemVO.getMetadata().getDateAccepted()) {
       date = pubitemVO.getMetadata().getDateAccepted();
       return date;
     }
-    if (pubitemVO.getMetadata().getDateSubmitted() != null) {
+    if (null != pubitemVO.getMetadata().getDateSubmitted()) {
       date = pubitemVO.getMetadata().getDateSubmitted();
       return date;
     }
-    if (pubitemVO.getMetadata().getDateModified() != null) {
+    if (null != pubitemVO.getMetadata().getDateModified()) {
       date = pubitemVO.getMetadata().getDateModified();
       return date;
     }
-    if (pubitemVO.getMetadata().getDateCreated() != null) {
+    if (null != pubitemVO.getMetadata().getDateCreated()) {
       date = pubitemVO.getMetadata().getDateCreated();
       return date;
     }
@@ -397,13 +397,13 @@ public class CoinsTransformation {
    * @return The escaped string.
    */
   private String change(String in, String oldPat, String newPat) {
-    if (in == null) {
+    if (null == in) {
       return null;
     }
     if (oldPat.isEmpty()) {
       return in;
     }
-    if (oldPat.length() == 1 && newPat.length() == 1) {
+    if (1 == oldPat.length() && 1 == newPat.length()) {
       return in.replace(oldPat.charAt(0), newPat.charAt(0));
     }
     if (!in.contains(oldPat)) {
@@ -414,7 +414,7 @@ public class CoinsTransformation {
     StringBuilder newString = new StringBuilder();
     for (;;) {
       newIndex = in.indexOf(oldPat, lastIndex);
-      if (newIndex != -1) {
+      if (-1 != newIndex) {
         newString.append(in.substring(lastIndex, newIndex) + newPat);
         lastIndex = newIndex + oldPat.length();
 

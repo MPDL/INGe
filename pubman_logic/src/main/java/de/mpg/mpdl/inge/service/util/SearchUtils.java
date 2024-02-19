@@ -34,11 +34,13 @@ public class SearchUtils {
 
   private static final Logger logger = LogManager.getLogger(SearchUtils.class);
 
+  private SearchUtils() {}
+
   public static Query baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String[] indexFields,
       String... searchString) throws IngeTechnicalException {
 
 
-    if (indexFields.length == 1) {
+    if (1 == indexFields.length) {
 
 
       return baseElasticSearchQueryBuilder(indexMap, indexFields[0], searchString);
@@ -67,7 +69,7 @@ public class SearchUtils {
 
     switch (field.getType()) {
       case TEXT: {
-        if (value.length == 1) {
+        if (1 == value.length) {
           return checkMatchOrPhraseOrWildcardMatch(index, value[0]);
         } else {
           BoolQuery.Builder bq = new BoolQuery.Builder();
@@ -79,7 +81,7 @@ public class SearchUtils {
 
       }
       default: {
-        if (value.length == 1) {
+        if (1 == value.length) {
           return TermQuery.of(t -> t.field(index).value(value[0]))._toQuery();
         } else {
           List<FieldValue> fvList = new ArrayList<>();
@@ -91,9 +93,9 @@ public class SearchUtils {
   }
 
   private static Query checkMatchOrPhraseOrWildcardMatch(String index, String searchString) {
-    if (searchString != null && searchString.trim().startsWith("\"") && searchString.trim().endsWith("\"")) {
+    if (null != searchString && searchString.trim().startsWith("\"") && searchString.trim().endsWith("\"")) {
       return MatchPhraseQuery.of(mp -> mp.field(index).query(searchString.trim().substring(1, searchString.length() - 1)))._toQuery();
-    } else if (searchString != null && searchString.contains("*")) {
+    } else if (null != searchString && searchString.contains("*")) {
       return WildcardQuery.of(wq -> wq.field(index + ".keyword").value(searchString))._toQuery();
     } else {
       return MatchQuery.of(i -> i.field(index).query(searchString).operator(Operator.And))._toQuery();
@@ -120,7 +122,7 @@ public class SearchUtils {
     String finalIndexField = indexField;
     List<String> nestedPaths = field.getNestedPaths();
 
-    if (nestedPaths == null) {
+    if (null == nestedPaths) {
       fieldSort = FieldSort.of(fs -> fs.field(finalIndexField).order(order));
     } else {
       NestedSortValue nestedSortValue = NestedSortValue.of(nsv -> nsv.path(String.join(".", nestedPaths)));

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +21,7 @@ import jakarta.validation.constraints.Size;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "batch_process_log_header")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class BatchProcessLogHeaderDbVO implements Serializable {
 
   public enum State
@@ -141,20 +140,22 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(batchProcessLogHeaderId, endDate, method, numberOfItems, startDate, state, userAccountObjectId);
+    return Objects.hash(this.batchProcessLogHeaderId, this.endDate, this.method, this.numberOfItems, this.startDate, this.state,
+        this.userAccountObjectId);
   }
 
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
     if (getClass() != obj.getClass())
       return false;
     BatchProcessLogHeaderDbVO other = (BatchProcessLogHeaderDbVO) obj;
-    return batchProcessLogHeaderId == other.batchProcessLogHeaderId && Objects.equals(endDate, other.endDate) && method == other.method
-        && Objects.equals(numberOfItems, other.numberOfItems) && Objects.equals(startDate, other.startDate) && state == other.state
-        && Objects.equals(userAccountObjectId, other.userAccountObjectId);
+    return this.batchProcessLogHeaderId == other.batchProcessLogHeaderId && Objects.equals(this.endDate, other.endDate)
+        && this.method == other.method && Objects.equals(this.numberOfItems, other.numberOfItems)
+        && Objects.equals(this.startDate, other.startDate) && this.state == other.state
+        && Objects.equals(this.userAccountObjectId, other.userAccountObjectId);
   }
 }

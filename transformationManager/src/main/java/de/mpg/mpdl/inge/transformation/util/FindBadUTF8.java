@@ -13,6 +13,8 @@ public class FindBadUTF8 {
   private static final String URL =
       "C:\\Users\\haarlae1\\Documents\\Pubman\\Import files\\TestdatenBMC\\Testdaten Markus\\1752-1947-5-391.xml";
 
+  private FindBadUTF8() {}
+
   public static void main(String[] argv) throws IOException {
     try (InputStream inStream = new FileInputStream(URL)) {
       CharsetDecoder d = StandardCharsets.UTF_8.newDecoder();
@@ -24,16 +26,16 @@ public class FindBadUTF8 {
       while (true) {
         int read = inStream.read();
 
-        if (read != -1) {
+        if (-1 != read) {
           in.put((byte) read);
         }
 
         out.clear();
         in.flip();
-        CoderResult cr = d.decode(in, out, (read == -1));
+        CoderResult cr = d.decode(in, out, (-1 == read));
 
         if (cr.isError()) {
-          if (read != -1) {
+          if (-1 != read) {
             System.out.println("Error at offset " + offset + ": " + cr);
             return;
           } else {
@@ -49,7 +51,7 @@ public class FindBadUTF8 {
           in.clear();
         }
 
-        if (read == -1) {
+        if (-1 == read) {
           break;
         }
 

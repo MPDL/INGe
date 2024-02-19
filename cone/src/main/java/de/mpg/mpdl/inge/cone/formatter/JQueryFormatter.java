@@ -47,7 +47,7 @@ import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.ModelList;
 import de.mpg.mpdl.inge.cone.Pair;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.util.ConeUtils;
@@ -117,11 +117,11 @@ public class JQueryFormatter extends AbstractFormatter {
     return result;
   }
 
-  public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
+  public String formatQuery(List<? extends Describable> pairs, ModelList.Model model) throws ConeException {
 
     StringWriter result = new StringWriter();
 
-    if (pairs != null) {
+    if (null != pairs) {
       for (Describable pair : pairs) {
         if (pair instanceof Pair) {
           String key = ((Pair) pair).getKey();
@@ -143,7 +143,7 @@ public class JQueryFormatter extends AbstractFormatter {
     return result.toString();
   }
 
-  public String formatDetails(String id, Model model, TreeFragment triples, String lang) {
+  public String formatDetails(String id, ModelList.Model model, TreeFragment triples, String lang) {
     return triples.toJson();
   }
 

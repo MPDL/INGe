@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
@@ -41,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
  *
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class AlternativeTitleVO extends ValueObject implements Cloneable {
   @IgnoreForCleanup
   private String language;
@@ -89,14 +88,14 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
    * Delivers the language of the alternative title.
    */
   public String getLanguage() {
-    return language;
+    return this.language;
   }
 
   /**
    * Delivers the value of the alternative title.
    */
   public String getValue() {
-    return value;
+    return this.value;
   }
 
   /**
@@ -105,7 +104,7 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
    * @param newVal newVal
    */
   public void setLanguage(String newVal) {
-    language = newVal;
+    this.language = newVal;
   }
 
   /**
@@ -114,14 +113,14 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
    * @param newVal newVal
    */
   public void setValue(String newVal) {
-    value = newVal;
+    this.value = newVal;
   }
 
   /**
    * @return the type
    */
   public String getType() {
-    return type;
+    return this.type;
   }
 
   /**
@@ -144,9 +143,9 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((language == null) ? 0 : language.hashCode());
-    result = prime * result + ((type == null) ? 0 : type.hashCode());
-    result = prime * result + ((value == null) ? 0 : value.hashCode());
+    result = prime * result + ((null == this.language) ? 0 : this.language.hashCode());
+    result = prime * result + ((null == this.type) ? 0 : this.type.hashCode());
+    result = prime * result + ((null == this.value) ? 0 : this.value.hashCode());
     return result;
   }
 
@@ -155,7 +154,7 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -163,22 +162,22 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
 
     AlternativeTitleVO other = (AlternativeTitleVO) obj;
 
-    if (language == null) {
-      if (other.language != null)
+    if (null == this.language) {
+      if (null != other.language)
         return false;
-    } else if (!language.equals(other.language))
+    } else if (!this.language.equals(other.language))
       return false;
 
-    if (type == null) {
-      if (other.type != null)
+    if (null == this.type) {
+      if (null != other.type)
         return false;
-    } else if (!type.equals(other.type))
+    } else if (!this.type.equals(other.type))
       return false;
 
-    if (value == null) {
-      if (other.value != null)
+    if (null == this.value) {
+      if (null != other.value)
         return false;
-    } else if (!value.equals(other.value))
+    } else if (!this.value.equals(other.value))
       return false;
 
     return true;
@@ -191,6 +190,6 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
    */
   @Override
   public String toString() {
-    return value;
+    return this.value;
   }
 }

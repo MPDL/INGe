@@ -10,6 +10,8 @@ public class CSVUtils {
   private static final char DEFAULT_SEPARATOR = ';';
   private static final char DEFAULT_QUOTE = '"';
 
+  private CSVUtils() {}
+
   public static void main(String[] args) throws Exception {
 
     String csvFile = "/Users/mkyong/csv/country2.csv";
@@ -36,15 +38,15 @@ public class CSVUtils {
     List<String> result = new ArrayList<>();
 
     //if empty, return!
-    if (cvsLine == null || cvsLine.isEmpty()) {
+    if (null == cvsLine || cvsLine.isEmpty()) {
       return result;
     }
 
-    if (customQuote == ' ') {
+    if (' ' == customQuote) {
       customQuote = DEFAULT_QUOTE;
     }
 
-    if (separators == ' ') {
+    if (' ' == separators) {
       separators = DEFAULT_SEPARATOR;
     }
 
@@ -65,7 +67,7 @@ public class CSVUtils {
         } else {
 
           //Fixed : allow "" in custom quote enclosed
-          if (ch == '\"') {
+          if ('\"' == ch) {
             if (!doubleQuotesInColumn) {
               curVal.append(ch);
               doubleQuotesInColumn = true;
@@ -81,7 +83,7 @@ public class CSVUtils {
           inQuotes = true;
 
           //Fixed : allow "" in empty quote enclosed
-          if (chars[0] != '"' && customQuote == '\"') {
+          if ('"' != chars[0] && '\"' == customQuote) {
             curVal.append('"');
           }
 
@@ -97,9 +99,9 @@ public class CSVUtils {
           curVal = new StringBuilder();
           startCollectChar = false;
 
-        } else if (ch == '\r') {
+        } else if ('\r' == ch) {
           //ignore LF characters
-        } else if (ch == '\n') {
+        } else if ('\n' == ch) {
           //the end, break!
           break;
         } else {

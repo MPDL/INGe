@@ -23,7 +23,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -52,9 +51,9 @@ public class MetadataProvider implements ItemDataProvider {
   public MetadataProvider(String itemList) throws TechnicalException {
     try {
 
-      pubItemList = XmlTransformingService.transformToPubItemList(itemList);
-      for (PubItemVO pubItem : pubItemList) {
-        ids.add(pubItem.getVersion().getObjectId());
+      this.pubItemList = XmlTransformingService.transformToPubItemList(itemList);
+      for (PubItemVO pubItem : this.pubItemList) {
+        this.ids.add(pubItem.getVersion().getObjectId());
       }
     } catch (TechnicalException e) {
       logger.error("Unable to transform itemList", e);
@@ -69,7 +68,7 @@ public class MetadataProvider implements ItemDataProvider {
    */
   @Override
   public String[] getIds() {
-    return ids.toArray(new String[0]);
+    return this.ids.toArray(new String[0]);
   }
 
   /*
@@ -83,7 +82,7 @@ public class MetadataProvider implements ItemDataProvider {
     MdsPublicationVO metadata = null;
     CSLItemDataBuilder cslItem = null;
 
-    currentItem = pubItemList.get(ids.indexOf(id));
+    currentItem = this.pubItemList.get(this.ids.indexOf(id));
     metadata = currentItem.getMetadata();
     cslItem = new CSLItemDataBuilder().id(currentItem.getVersion().getObjectId());
 
@@ -179,7 +178,7 @@ public class MetadataProvider implements ItemDataProvider {
       }
 
       // Dates
-      if (metadata.getDateSubmitted() != null) // Submitted
+      if (null != metadata.getDateSubmitted()) // Submitted
       {
         for (String formatString : dateFormats) {
           try {
@@ -202,7 +201,7 @@ public class MetadataProvider implements ItemDataProvider {
         }
 
       }
-      if (metadata.getDatePublishedInPrint() != null) // Published in Print
+      if (null != metadata.getDatePublishedInPrint()) // Published in Print
       {
         for (String formatString : dateFormats) {
           try {
@@ -215,7 +214,7 @@ public class MetadataProvider implements ItemDataProvider {
               logger.debug("Error parsing date issued. Trying other dateformat");
           }
         }
-      } else if (metadata.getDatePublishedOnline() != null) // Published online
+      } else if (null != metadata.getDatePublishedOnline()) // Published online
       {
         for (String formatString : dateFormats) {
           try {
@@ -228,8 +227,8 @@ public class MetadataProvider implements ItemDataProvider {
               logger.debug("Error parsing date issued (published in print). Trying other dateformat");
           }
         }
-      } else if (metadata.getDateAccepted() != null && Genre.THESIS.equals(metadata.getGenre())) // Published
-                                                                                                 // online
+      } else if (null != metadata.getDateAccepted() && MdsPublicationVO.Genre.THESIS.equals(metadata.getGenre())) // Published
+      // online
       {
         for (String formatString : dateFormats) {
           try {
@@ -245,7 +244,7 @@ public class MetadataProvider implements ItemDataProvider {
       }
 
       // Degree
-      if (metadata.getDegree() != null) {
+      if (null != metadata.getDegree()) {
         switch (metadata.getDegree()) {
           case BACHELOR:
             cslItem.genre("Bachelor's Thesis");
@@ -272,11 +271,11 @@ public class MetadataProvider implements ItemDataProvider {
       }
 
       // URL / Files
-      if (currentItem.getFiles() != null && !currentItem.getFiles().isEmpty()) {
+      if (null != currentItem.getFiles() && !currentItem.getFiles().isEmpty()) {
         List<FileVO> fileList = null;
         fileList = currentItem.getFiles();
         fileList.sort(new FileUrlPriorityComparator());
-        if (fileList.get(0) != null) {
+        if (null != fileList.get(0)) {
           if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
               && ("any-fulltext".equals(fileList.get(0).getContentCategory()) || "post-print".equals(fileList.get(0).getContentCategory())
                   || "pre-print".equals(fileList.get(0).getContentCategory())
@@ -315,11 +314,11 @@ public class MetadataProvider implements ItemDataProvider {
           cslItem.PMID(identifier.getId());
         }
       }
-      if (metadata.getIdentifiers() != null && !metadata.getIdentifiers().isEmpty()) {
+      if (null != metadata.getIdentifiers() && !metadata.getIdentifiers().isEmpty()) {
         List<IdentifierVO> identifierList = metadata.getIdentifiers();
         identifierList.sort(new IdentfierPriorityComparator());
         IdentifierVO identifier = identifierList.get(0);
-        if (identifier != null && !IdentifierVO.IdType.DOI.equals(identifier.getType())
+        if (null != identifier && !IdentifierVO.IdType.DOI.equals(identifier.getType())
             && !IdentifierVO.IdType.ISBN.equals(identifier.getType()) && !IdentifierVO.IdType.ISSN.equals(identifier.getType())
             && !IdentifierVO.IdType.URI.equals(identifier.getType()) && !IdentifierVO.IdType.URN.equals(identifier.getType())
             && !IdentifierVO.IdType.ISSN.equals(identifier.getType()) && !IdentifierVO.IdType.CONE.equals(identifier.getType())
@@ -377,35 +376,35 @@ public class MetadataProvider implements ItemDataProvider {
       }
 
       // Keywords
-      if (metadata.getFreeKeywords() != null) {
+      if (null != metadata.getFreeKeywords()) {
         cslItem.keyword(metadata.getFreeKeywords());
       }
 
       // Abstract
-      if (metadata.getAbstracts() != null && !metadata.getAbstracts().isEmpty()) {
+      if (null != metadata.getAbstracts() && !metadata.getAbstracts().isEmpty()) {
         cslItem.abstrct(metadata.getAbstracts().get(0).getValue());
       }
 
       // Publisher / Publisher place / Edition
-      if (metadata.getPublishingInfo() != null) {
-        if (metadata.getPublishingInfo().getPublisher() != null) {
+      if (null != metadata.getPublishingInfo()) {
+        if (null != metadata.getPublishingInfo().getPublisher()) {
           cslItem.publisher(metadata.getPublishingInfo().getPublisher());
         }
-        if (metadata.getPublishingInfo().getPlace() != null) {
+        if (null != metadata.getPublishingInfo().getPlace()) {
           cslItem.publisherPlace(metadata.getPublishingInfo().getPlace());
         }
-        if (metadata.getPublishingInfo().getEdition() != null) {
+        if (null != metadata.getPublishingInfo().getEdition()) {
           cslItem.edition(metadata.getPublishingInfo().getEdition());
         }
       }
 
       // Number of pages
-      if (metadata.getTotalNumberOfPages() != null) {
+      if (null != metadata.getTotalNumberOfPages()) {
         cslItem.numberOfPages(metadata.getTotalNumberOfPages());
       }
 
       // Source
-      if (metadata.getSources() != null && !metadata.getSources().isEmpty()) {
+      if (null != metadata.getSources() && !metadata.getSources().isEmpty()) {
         SourceVO source = metadata.getSources().get(0);
         // Genre dependent choice
         if (SourceVO.Genre.SERIES.equals(source.getGenre())) {
@@ -460,7 +459,7 @@ public class MetadataProvider implements ItemDataProvider {
         }
 
         // Second Source
-        if (metadata.getSources().size() > 1 && metadata.getSources().get(1) != null) {
+        if (1 < metadata.getSources().size() && null != metadata.getSources().get(1)) {
           SourceVO secondSource = metadata.getSources().get(1);
           // Genre dependent choice
           if (SourceVO.Genre.SERIES.equals(secondSource.getGenre())) {
@@ -501,45 +500,45 @@ public class MetadataProvider implements ItemDataProvider {
         }
 
         // Source publisher / Source publisher place / Source edition (all from source)
-        if ((metadata.getPublishingInfo() == null || metadata.getPublishingInfo().getPublisher() == null)
-            && (source.getPublishingInfo() != null && source.getPublishingInfo().getPublisher() != null)) {
+        if ((null == metadata.getPublishingInfo() || null == metadata.getPublishingInfo().getPublisher())
+            && (null != source.getPublishingInfo() && null != source.getPublishingInfo().getPublisher())) {
           cslItem.publisher(source.getPublishingInfo().getPublisher());
         }
-        if ((metadata.getPublishingInfo() == null || metadata.getPublishingInfo().getPlace() == null)
-            && (source.getPublishingInfo() != null && source.getPublishingInfo().getPlace() != null)) {
+        if ((null == metadata.getPublishingInfo() || null == metadata.getPublishingInfo().getPlace())
+            && (null != source.getPublishingInfo() && null != source.getPublishingInfo().getPlace())) {
           cslItem.publisherPlace(source.getPublishingInfo().getPlace());
         }
-        if ((metadata.getPublishingInfo() == null || metadata.getPublishingInfo().getEdition() == null)
-            && (source.getPublishingInfo() != null && source.getPublishingInfo().getEdition() != null)) {
+        if ((null == metadata.getPublishingInfo() || null == metadata.getPublishingInfo().getEdition())
+            && (null != source.getPublishingInfo() && null != source.getPublishingInfo().getEdition())) {
           cslItem.edition(source.getPublishingInfo().getEdition());
         }
 
         // Source number of pages
-        if (metadata.getTotalNumberOfPages() == null && source.getTotalNumberOfPages() != null) {
+        if (null == metadata.getTotalNumberOfPages() && null != source.getTotalNumberOfPages()) {
           cslItem.numberOfPages(source.getTotalNumberOfPages());
         }
 
         // Source volume
-        if (source.getVolume() != null) {
+        if (null != source.getVolume()) {
           cslItem.volume(source.getVolume());
         }
 
         // Source issue
-        if (source.getIssue() != null) {
+        if (null != source.getIssue()) {
           cslItem.issue(source.getIssue());
         }
 
         // Source start page
-        if (source.getStartPage() != null) {
+        if (null != source.getStartPage()) {
           cslItem.pageFirst(source.getStartPage());
           // Source combined "start page - end page"
-          if (source.getEndPage() != null) {
+          if (null != source.getEndPage()) {
             cslItem.page(source.getStartPage() + "-" + source.getEndPage());
           }
         }
 
         // Source sequence number --> Locator
-        if (source.getSequenceNumber() != null) {
+        if (null != source.getSequenceNumber()) {
           cslItem.chapterNumber(source.getSequenceNumber());
         }
 
@@ -554,16 +553,16 @@ public class MetadataProvider implements ItemDataProvider {
       }
 
       // Event
-      if (metadata.getEvent() != null) {
+      if (null != metadata.getEvent()) {
         EventVO event = metadata.getEvent();
         // Event title
-        if (event.getTitle() != null) {
+        if (null != event.getTitle()) {
           cslItem.event(event.getTitle());
         }
-        if (event.getPlace() != null) {
+        if (null != event.getPlace()) {
           cslItem.eventPlace(event.getPlace());
         }
-        if (event.getStartDate() != null) {
+        if (null != event.getStartDate()) {
           for (String formatString : dateFormats) {
             try {
               Date date = new SimpleDateFormat(formatString).parse(event.getStartDate());
@@ -607,52 +606,60 @@ public class MetadataProvider implements ItemDataProvider {
     }
   }
 
-  private CSLType getCslGenre(Genre genre) {
+  private CSLType getCslGenre(MdsPublicationVO.Genre genre) {
     CSLType cslGenre = null;
-    if (Genre.ARTICLE.equals(genre) || Genre.REVIEW_ARTICLE.equals(genre)) {
+    if (MdsPublicationVO.Genre.ARTICLE.equals(genre) || MdsPublicationVO.Genre.REVIEW_ARTICLE.equals(genre)) {
       cslGenre = CSLType.ARTICLE_JOURNAL;
-    } else if (Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)
-        || Genre.PRE_REGISTRATION_PAPER.equals(genre) || Genre.REGISTERED_REPORT.equals(genre) || Genre.PREPRINT.equals(genre)
-        || Genre.SOFTWARE.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.EDITORIAL.equals(genre) || MdsPublicationVO.Genre.PAPER.equals(genre)
+        || MdsPublicationVO.Genre.OTHER.equals(genre) || MdsPublicationVO.Genre.PRE_REGISTRATION_PAPER.equals(genre)
+        || MdsPublicationVO.Genre.REGISTERED_REPORT.equals(genre) || MdsPublicationVO.Genre.PREPRINT.equals(genre)
+        || MdsPublicationVO.Genre.SOFTWARE.equals(genre)) {
       cslGenre = CSLType.ARTICLE;
-    } else if (Genre.BLOG_POST.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.BLOG_POST.equals(genre)) {
       cslGenre = CSLType.POST_WEBLOG;
-    } else if (Genre.BOOK.equals(genre) || Genre.COLLECTED_EDITION.equals(genre) || Genre.COMMENTARY.equals(genre)
-        || Genre.ENCYCLOPEDIA.equals(genre) || Genre.FESTSCHRIFT.equals(genre) || Genre.HANDBOOK.equals(genre) || Genre.ISSUE.equals(genre)
-        || Genre.JOURNAL.equals(genre) || Genre.MANUAL.equals(genre) || Genre.MONOGRAPH.equals(genre) || Genre.MULTI_VOLUME.equals(genre)
-        || Genre.NEWSPAPER.equals(genre) || Genre.PROCEEDINGS.equals(genre) || Genre.SERIES.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.BOOK.equals(genre) || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre)
+        || MdsPublicationVO.Genre.COMMENTARY.equals(genre) || MdsPublicationVO.Genre.ENCYCLOPEDIA.equals(genre)
+        || MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre) || MdsPublicationVO.Genre.HANDBOOK.equals(genre)
+        || MdsPublicationVO.Genre.ISSUE.equals(genre) || MdsPublicationVO.Genre.JOURNAL.equals(genre)
+        || MdsPublicationVO.Genre.MANUAL.equals(genre) || MdsPublicationVO.Genre.MONOGRAPH.equals(genre)
+        || MdsPublicationVO.Genre.MULTI_VOLUME.equals(genre) || MdsPublicationVO.Genre.NEWSPAPER.equals(genre)
+        || MdsPublicationVO.Genre.PROCEEDINGS.equals(genre) || MdsPublicationVO.Genre.SERIES.equals(genre)) {
       cslGenre = CSLType.BOOK;
-    } else if (Genre.BOOK_ITEM.equals(genre) || Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre)
-        || Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre) || Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre)
-        || Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.BOOK_ITEM.equals(genre) || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre)
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre)
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre)
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre)) {
       cslGenre = CSLType.CHAPTER;
-    } else if (Genre.BOOK_REVIEW.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre)) {
       cslGenre = CSLType.REVIEW_BOOK;
-    } else if (Genre.CONFERENCE_PAPER.equals(genre) || Genre.CONFERENCE_REPORT.equals(genre) || Genre.MEETING_ABSTRACT.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre) || MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre)
+        || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre)) {
       cslGenre = CSLType.PAPER_CONFERENCE;
-    } else if (Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre)) {
       cslGenre = CSLType.ENTRY_ENCYCLOPEDIA;
-    } else if (Genre.FILM.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.FILM.equals(genre)) {
       cslGenre = CSLType.MOTION_PICTURE;
-    } else if (Genre.INTERVIEW.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.INTERVIEW.equals(genre)) {
       cslGenre = CSLType.INTERVIEW;
-    } else if (Genre.MAGAZINE_ARTICLE.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.MAGAZINE_ARTICLE.equals(genre)) {
       cslGenre = CSLType.ARTICLE_MAGAZINE;
-    } else if (Genre.MANUSCRIPT.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.MANUSCRIPT.equals(genre)) {
       cslGenre = CSLType.MANUSCRIPT;
-    } else if (Genre.NEWSPAPER_ARTICLE.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre)) {
       cslGenre = CSLType.ARTICLE_NEWSPAPER;
-    } else if (Genre.PATENT.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.PATENT.equals(genre)) {
       cslGenre = CSLType.PATENT;
-    } else if (Genre.REPORT.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.REPORT.equals(genre)) {
       cslGenre = CSLType.REPORT;
-    } else if (Genre.TALK_AT_EVENT.equals(genre) || Genre.POSTER.equals(genre) || Genre.COURSEWARE_LECTURE.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.TALK_AT_EVENT.equals(genre) || MdsPublicationVO.Genre.POSTER.equals(genre)
+        || MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(genre)) {
       cslGenre = CSLType.SPEECH;
-    } else if (Genre.THESIS.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.THESIS.equals(genre)) {
       cslGenre = CSLType.THESIS;
-    } else if (Genre.CASE_NOTE.equals(genre) || Genre.CASE_STUDY.equals(genre) || Genre.OPINION.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.CASE_NOTE.equals(genre) || MdsPublicationVO.Genre.CASE_STUDY.equals(genre)
+        || MdsPublicationVO.Genre.OPINION.equals(genre)) {
       cslGenre = CSLType.LEGAL_CASE;
-    } else if (Genre.DATA_PUBLICATION.equals(genre)) {
+    } else if (MdsPublicationVO.Genre.DATA_PUBLICATION.equals(genre)) {
       cslGenre = CSLType.DATASET;
     }
     return cslGenre;

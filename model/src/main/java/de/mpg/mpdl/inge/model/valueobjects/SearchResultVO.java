@@ -49,11 +49,11 @@ public class SearchResultVO extends ValueObject implements SearchResultElement {
   private float score;
 
   public java.util.List<SearchHitVO> getSearchHitList() {
-    return searchHitList;
+    return this.searchHitList;
   }
 
   public Searchable getResultVO() {
-    return resultVO;
+    return this.resultVO;
   }
 
   public void setResultVO(Searchable resultVO) {
@@ -64,7 +64,7 @@ public class SearchResultVO extends ValueObject implements SearchResultElement {
    * @return the score
    */
   public float getScore() {
-    return score;
+    return this.score;
   }
 
   /**

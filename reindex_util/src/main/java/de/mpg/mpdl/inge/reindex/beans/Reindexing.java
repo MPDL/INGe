@@ -24,27 +24,27 @@ public class Reindexing {
   PubItemService itemService;
 
   public void reindexOus() throws Exception {
-    ouService.reindexAll(null);
+    this.ouService.reindexAll(null);
     Thread.sleep(300000);
   }
 
   public void reindexContexts() throws Exception {
-    ctxService.reindexAll(null);
+    this.ctxService.reindexAll(null);
     Thread.sleep(300000);
   }
 
   public void reindexUsers() throws Exception {
-    userService.reindexAll(null);
+    this.userService.reindexAll(null);
     Thread.sleep(300000);
   }
 
   // @Async
   public void reindexItems() throws Exception {
-    itemService.reindexAll(null);
+    this.itemService.reindexAll(null);
     Thread.sleep(28800000);
   }
 
   public void reindexItem(String id) throws Exception {
-    itemService.reindex(id, null);
+    this.itemService.reindex(id, null);
   }
 }

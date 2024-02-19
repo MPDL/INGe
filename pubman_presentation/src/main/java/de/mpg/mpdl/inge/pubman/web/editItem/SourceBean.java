@@ -31,15 +31,12 @@ import java.util.List;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO.Genre;
-import de.mpg.mpdl.inge.pubman.web.editItem.IdentifierCollection.IdentifierManager;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 import jakarta.faces.model.SelectItem;
@@ -93,7 +90,7 @@ public class SourceBean extends EditItemBean {
       this.bindCreatorsToBean(source.getCreators());
     }
     this.identifierCollection = new IdentifierCollection(source.getIdentifiers());
-    if (source.getPublishingInfo() == null) {
+    if (null == source.getPublishingInfo()) {
       source.setPublishingInfo(new PublishingInfoVO());
     }
     //    if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
@@ -116,8 +113,8 @@ public class SourceBean extends EditItemBean {
    * Adds the first alternative title for the source with no content
    */
   public void addSourceAlternativeTitle() {
-    if (this.getSource() != null) {
-      if (this.getSource().getAlternativeTitles() == null || this.getSource().getAlternativeTitles().isEmpty()) {
+    if (null != this.getSource()) {
+      if (null == this.getSource().getAlternativeTitles() || this.getSource().getAlternativeTitles().isEmpty()) {
         this.getSource().getAlternativeTitles().add(new AlternativeTitleVO());
       }
     }
@@ -127,7 +124,7 @@ public class SourceBean extends EditItemBean {
    * Adds an empty alternative title for the source after the current one
    */
   public void addSourceAlternativeTitleAtIndex(int index) {
-    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null && !this.getSource().getAlternativeTitles().isEmpty()) {
+    if (null != this.getSource() && null != this.getSource().getAlternativeTitles() && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
     }
   }
@@ -136,7 +133,7 @@ public class SourceBean extends EditItemBean {
    * Removes an alternative title from the current position of the source
    */
   public void removeSourceAlternativeTitleAtIndex(int index) {
-    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null && !this.getSource().getAlternativeTitles().isEmpty()) {
+    if (null != this.getSource() && null != this.getSource().getAlternativeTitles() && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().remove(index);
     }
   }
@@ -185,7 +182,7 @@ public class SourceBean extends EditItemBean {
     String uri = "";
     int i = 0;
     while (i < sourceGenres.size()) {
-      if (sourceGenres.get(i).getValue() != null && !("").equals(sourceGenres.get(i).getValue())) {
+      if (null != sourceGenres.get(i).getValue() && !("").equals(sourceGenres.get(i).getValue())) {
         uri = ((SourceVO.Genre) sourceGenres.get(i).getValue()).getUri();
       }
 
@@ -220,7 +217,7 @@ public class SourceBean extends EditItemBean {
     altTitleList.clear();
 
     // clear old identifiers
-    final IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
+    final IdentifierCollection.IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
     idManager.getObjectList().clear();
 
     if (!this.getHiddenAlternativeTitlesField().trim().isEmpty()) {
@@ -256,15 +253,15 @@ public class SourceBean extends EditItemBean {
       final String idComplete = s.trim();
       final String[] idParts = idComplete.split(SourceBean.HIDDEN_IDTYPE_DELIMITER);
       // id has no type, use type 'other'
-      if (idParts.length == 1 && !idParts[0].isEmpty()) {
-        final IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
+      if (1 == idParts.length && !idParts[0].isEmpty()) {
+        final IdentifierVO idVO = new IdentifierVO(IdentifierVO.IdType.OTHER, idParts[0].trim());
         list.add(idVO);
       }
       // Id has a type
-      else if (idParts.length == 2) {
-        IdType idType = IdType.OTHER;
+      else if (2 == idParts.length) {
+        IdentifierVO.IdType idType = IdentifierVO.IdType.OTHER;
 
-        for (final IdType id : IdType.values()) {
+        for (final IdentifierVO.IdType id : IdentifierVO.IdType.values()) {
           if (id.getUri().equals(idParts[0]) || id.name().equalsIgnoreCase(idParts[0])) {
             idType = id;
           }
@@ -295,7 +292,7 @@ public class SourceBean extends EditItemBean {
 
     final SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
     final CreatorVOPresentation newSourceCreator = new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
-    newSourceCreator.setType(CreatorType.PERSON);
+    newSourceCreator.setType(CreatorVO.CreatorType.PERSON);
     newSourceCreator.setPerson(new PersonVO());
     newSourceCreator.getPerson().setIdentifier(new IdentifierVO());
     newSourceCreator.getPerson().setOrganizations(new ArrayList<>());
@@ -314,11 +311,11 @@ public class SourceBean extends EditItemBean {
   }
 
   public boolean isSingleElement() {
-    return (this.list.size() == 1);
+    return (1 == this.list.size());
   }
 
   public String getJournalSuggestClass() {
-    if (this.source.getGenre() == Genre.JOURNAL) {
+    if (SourceVO.Genre.JOURNAL == this.source.getGenre()) {
       return " journalSuggest";
     } else {
       return "";

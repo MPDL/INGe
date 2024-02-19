@@ -122,7 +122,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
         queryString.append(" ( ");
         int i = 0;
         for (final AffiliationDbVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
-          if (i > 0) {
+          if (0 < i) {
             queryString.append(" OR ");
           }
           queryString.append(this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(aff.getName()) + "||"
@@ -145,13 +145,13 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
     final String[] parts = content.split("(?<!\\\\)\\|\\|");
 
     this.setSearchString(SearchCriterionBase.unescapeForQueryString(parts[0]));
-    if (parts.length > 1) {
+    if (1 < parts.length) {
       this.setHiddenId(SearchCriterionBase.unescapeForQueryString(parts[1]));
     }
 
-    if (parts.length > 2) {
+    if (2 < parts.length) {
 
-      if (parts[2].equals("includePresSuccs")) {
+      if ("includePresSuccs".equals(parts[2])) {
         this.includePredecessorsAndSuccessors = true;
       }
 
@@ -209,14 +209,14 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
   @Override
   public Query toElasticSearchQuery() throws IngeTechnicalException {
-    if (getHiddenId() != null && !getHiddenId().trim().isEmpty()) {
+    if (null != getHiddenId() && !getHiddenId().trim().isEmpty()) {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
       bq.should(SearchCriterionBase
           .baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, getHiddenId()));
       bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH,
           getHiddenId()));
-      if (includeSource) {
+      if (this.includeSource) {
         bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
             PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH, getHiddenId()));
       }
@@ -233,7 +233,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   }
 
   public boolean isIncludeSource() {
-    return includeSource;
+    return this.includeSource;
   }
 
   public void setIncludeSource(boolean includeSource) {

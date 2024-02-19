@@ -55,7 +55,7 @@ public class IdentifierSuggest {
     final String query = parameters.get("q");
 
     // Perform search request
-    if (query != null) {
+    if (null != query) {
       if (IdentifierSuggest.DIGITALAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.DIGITALAUTHORID);
       }

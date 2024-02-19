@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -27,12 +27,11 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class FormatVO extends ValueObject {
 
   private String value;
@@ -48,7 +47,7 @@ public class FormatVO extends ValueObject {
   }
 
   public String getValue() {
-    return value;
+    return this.value;
   }
 
   public void setValue(String value) {
@@ -56,7 +55,7 @@ public class FormatVO extends ValueObject {
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(String type) {
@@ -67,8 +66,8 @@ public class FormatVO extends ValueObject {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((type == null) ? 0 : type.hashCode());
-    result = prime * result + ((value == null) ? 0 : value.hashCode());
+    result = prime * result + ((null == this.type) ? 0 : this.type.hashCode());
+    result = prime * result + ((null == this.value) ? 0 : this.value.hashCode());
     return result;
   }
 
@@ -77,7 +76,7 @@ public class FormatVO extends ValueObject {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -85,16 +84,16 @@ public class FormatVO extends ValueObject {
 
     FormatVO other = (FormatVO) obj;
 
-    if (type == null) {
-      if (other.type != null)
+    if (null == this.type) {
+      if (null != other.type)
         return false;
-    } else if (!type.equals(other.type))
+    } else if (!this.type.equals(other.type))
       return false;
 
-    if (value == null) {
-      if (other.value != null)
+    if (null == this.value) {
+      if (null != other.value)
         return false;
-    } else if (!value.equals(other.value))
+    } else if (!this.value.equals(other.value))
       return false;
 
     return true;

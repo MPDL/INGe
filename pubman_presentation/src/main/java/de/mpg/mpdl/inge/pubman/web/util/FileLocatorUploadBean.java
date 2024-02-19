@@ -76,7 +76,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
    */
   public boolean checkLocator(String locator) {
     this.locator = locator;
-    if (locator != null) {
+    if (null != locator) {
       this.locator = this.locator.trim();
     }
     URLConnection conn = null;
@@ -125,12 +125,12 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     if (mimeType.contains(";")) {
       mimeType = mimeType.substring(0, mimeType.indexOf(";"));
     }
-    if (mimeType != null) {
+    if (null != mimeType) {
       this.setType(mimeType);
     }
     // Get File Name
     fileName = conn.getHeaderField("file-name");
-    if (fileName != null) {
+    if (null != fileName) {
       this.setName(fileName);
     } else {
       this.setName(locatorURL.toString());
@@ -140,7 +140,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       this.setSize(Integer.parseInt(conn.getHeaderField("Content-Length")));
     } catch (final NumberFormatException e) {
       input = this.fetchLocator(locatorURL);
-      if (input != null) {
+      if (null != input) {
         this.setSize(input.length);
       }
     }
@@ -180,7 +180,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
 
     final List<FileDbVO> files = item.getFiles();
     for (final FileDbVO currentFile : files) {
-      if (currentFile.getStorage() == FileDbVO.Storage.EXTERNAL_URL) {
+      if (FileDbVO.Storage.EXTERNAL_URL == currentFile.getStorage()) {
         locators.add(currentFile);
       }
     }
@@ -215,7 +215,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       }
     }
 
-    if (this.getError() != null) {
+    if (null != this.getError()) {
       this.error(this.getMessage("errorLocatorMain").replace("$1", this.getError()));
       return null;
     }

@@ -31,7 +31,6 @@ import java.util.HashSet;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
@@ -41,7 +40,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @updated 05-Sep-2007 12:48:57
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class PersonVO extends ValueObject implements Cloneable {
   private String completeName;
   private String givenName;
@@ -58,7 +57,7 @@ public class PersonVO extends ValueObject implements Cloneable {
    * name.
    */
   public String getCompleteName() {
-    return completeName;
+    return this.completeName;
   }
 
   /**
@@ -67,14 +66,14 @@ public class PersonVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setCompleteName(String newVal) {
-    completeName = newVal;
+    this.completeName = newVal;
   }
 
   /**
    * Delivers the given name of the person.
    */
   public String getGivenName() {
-    return givenName;
+    return this.givenName;
   }
 
   /**
@@ -83,14 +82,14 @@ public class PersonVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setGivenName(String newVal) {
-    givenName = newVal;
+    this.givenName = newVal;
   }
 
   /**
    * Delivers the family name of the person.
    */
   public String getFamilyName() {
-    return familyName;
+    return this.familyName;
   }
 
   /**
@@ -99,14 +98,14 @@ public class PersonVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setFamilyName(String newVal) {
-    familyName = newVal;
+    this.familyName = newVal;
   }
 
   /**
    * Delivers the list of organizational units the person was affiliated to when creating the item.
    */
   public java.util.List<OrganizationVO> getOrganizations() {
-    return organizations;
+    return this.organizations;
   }
 
   /**
@@ -123,21 +122,21 @@ public class PersonVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public int getOrganizationsSize() {
-    return organizations.size();
+    return this.organizations.size();
   }
 
   /**
    * Delivers the identifier in the Personennormdatei, provided by the Deutsche Nationalbibliothek.
    */
   public IdentifierVO getIdentifier() {
-    return identifier;
+    return this.identifier;
   }
 
   /**
    * Delivers the list of or stage names of the person.
    */
   public java.util.List<String> getPseudonyms() {
-    return pseudonyms;
+    return this.pseudonyms;
   }
 
   /**
@@ -146,27 +145,27 @@ public class PersonVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setIdentifier(IdentifierVO newVal) {
-    identifier = newVal;
+    this.identifier = newVal;
   }
 
   /**
    * Delivers the list of alternative names used for the person.
    */
   public java.util.List<String> getAlternativeNames() {
-    return alternativeNames;
+    return this.alternativeNames;
   }
 
   /**
    * Delivers the list of titles of the person.
    */
   public java.util.List<String> getTitles() {
-    return titles;
+    return this.titles;
   }
 
   public PersonVO clone() {
     try {
       PersonVO clone = (PersonVO) super.clone();
-      if (this.identifier != null) {
+      if (null != this.identifier) {
         clone.identifier = this.identifier.clone();
       }
       clone.alternativeNames = new ArrayList<>(this.alternativeNames);
@@ -185,15 +184,15 @@ public class PersonVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((alternativeNames == null) ? 0 : alternativeNames.hashCode());
-    result = prime * result + ((completeName == null) ? 0 : completeName.hashCode());
-    result = prime * result + ((familyName == null) ? 0 : familyName.hashCode());
-    result = prime * result + ((givenName == null) ? 0 : givenName.hashCode());
-    result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-    result = prime * result + ((organizations == null) ? 0 : organizations.hashCode());
-    result = prime * result + ((pseudonyms == null) ? 0 : pseudonyms.hashCode());
-    result = prime * result + ((titles == null) ? 0 : titles.hashCode());
-    result = prime * result + ((orcid == null) ? 0 : orcid.hashCode());
+    result = prime * result + ((null == this.alternativeNames) ? 0 : this.alternativeNames.hashCode());
+    result = prime * result + ((null == this.completeName) ? 0 : this.completeName.hashCode());
+    result = prime * result + ((null == this.familyName) ? 0 : this.familyName.hashCode());
+    result = prime * result + ((null == this.givenName) ? 0 : this.givenName.hashCode());
+    result = prime * result + ((null == this.identifier) ? 0 : this.identifier.hashCode());
+    result = prime * result + ((null == this.organizations) ? 0 : this.organizations.hashCode());
+    result = prime * result + ((null == this.pseudonyms) ? 0 : this.pseudonyms.hashCode());
+    result = prime * result + ((null == this.titles) ? 0 : this.titles.hashCode());
+    result = prime * result + ((null == this.orcid) ? 0 : this.orcid.hashCode());
     return result;
   }
 
@@ -202,7 +201,7 @@ public class PersonVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -210,74 +209,74 @@ public class PersonVO extends ValueObject implements Cloneable {
 
     PersonVO other = (PersonVO) obj;
 
-    if (alternativeNames == null) {
-      if (other.alternativeNames != null)
+    if (null == this.alternativeNames) {
+      if (null != other.alternativeNames)
         return false;
-    } else if (other.alternativeNames == null)
+    } else if (null == other.alternativeNames)
       return false;
-    else if (!new HashSet<>(alternativeNames).containsAll(other.alternativeNames) //
-        || !new HashSet<>(other.alternativeNames).containsAll(alternativeNames)) {
+    else if (!new HashSet<>(this.alternativeNames).containsAll(other.alternativeNames) //
+        || !new HashSet<>(other.alternativeNames).containsAll(this.alternativeNames)) {
       return false;
     }
 
-    if (completeName == null) {
-      if (other.completeName != null)
+    if (null == this.completeName) {
+      if (null != other.completeName)
         return false;
-    } else if (!completeName.equals(other.completeName))
+    } else if (!this.completeName.equals(other.completeName))
       return false;
 
-    if (familyName == null) {
-      if (other.familyName != null)
+    if (null == this.familyName) {
+      if (null != other.familyName)
         return false;
-    } else if (!familyName.equals(other.familyName))
+    } else if (!this.familyName.equals(other.familyName))
       return false;
 
-    if (givenName == null) {
-      if (other.givenName != null)
+    if (null == this.givenName) {
+      if (null != other.givenName)
         return false;
-    } else if (!givenName.equals(other.givenName))
+    } else if (!this.givenName.equals(other.givenName))
       return false;
 
-    if (identifier == null) {
-      if (other.identifier != null)
+    if (null == this.identifier) {
+      if (null != other.identifier)
         return false;
-    } else if (!identifier.equals(other.identifier))
+    } else if (!this.identifier.equals(other.identifier))
       return false;
 
-    if (organizations == null) {
-      if (other.organizations != null)
+    if (null == this.organizations) {
+      if (null != other.organizations)
         return false;
-    } else if (other.organizations == null)
+    } else if (null == other.organizations)
       return false;
-    else if (!new HashSet<>(organizations).containsAll(other.organizations) //
-        || !new HashSet<>(other.organizations).containsAll(organizations)) {
+    else if (!new HashSet<>(this.organizations).containsAll(other.organizations) //
+        || !new HashSet<>(other.organizations).containsAll(this.organizations)) {
       return false;
     }
 
-    if (pseudonyms == null) {
-      if (other.pseudonyms != null)
+    if (null == this.pseudonyms) {
+      if (null != other.pseudonyms)
         return false;
-    } else if (other.pseudonyms == null)
+    } else if (null == other.pseudonyms)
       return false;
-    else if (!new HashSet<>(pseudonyms).containsAll(other.pseudonyms) //
-        || !new HashSet<>(other.pseudonyms).containsAll(pseudonyms)) {
+    else if (!new HashSet<>(this.pseudonyms).containsAll(other.pseudonyms) //
+        || !new HashSet<>(other.pseudonyms).containsAll(this.pseudonyms)) {
       return false;
     }
 
-    if (titles == null) {
-      if (other.titles != null)
+    if (null == this.titles) {
+      if (null != other.titles)
         return false;
-    } else if (other.titles == null)
+    } else if (null == other.titles)
       return false;
-    else if (!new HashSet<>(titles).containsAll(other.titles) //
-        || !new HashSet<>(other.titles).containsAll(titles)) {
+    else if (!new HashSet<>(this.titles).containsAll(other.titles) //
+        || !new HashSet<>(other.titles).containsAll(this.titles)) {
       return false;
     }
 
-    if (orcid == null) {
-      if (other.orcid != null)
+    if (null == this.orcid) {
+      if (null != other.orcid)
         return false;
-    } else if (!orcid.equals(other.orcid))
+    } else if (!this.orcid.equals(other.orcid))
       return false;
 
     return true;

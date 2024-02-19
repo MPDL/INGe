@@ -26,7 +26,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -52,23 +52,23 @@ public class FeedServiceImpl {
 
   public SyndFeed recentReleases() throws Exception {
     BoolQuery.Builder qb = new BoolQuery.Builder();
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-        State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVO.State.RELEASED.name()));
     SyndFeed feed = getBasicSyndFeed("Recent releases in repository", "Recent releases in repository", qb.build()._toQuery());
     return feed;
   }
 
   public SyndFeed recentReleasesforOrganizationalUnit(String ouId) throws Exception {
     BoolQuery.Builder qb = new BoolQuery.Builder();
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-        State.RELEASED.name()));
-    String[] indexes = new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH,
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVO.State.RELEASED.name()));
+    String[] indexes = {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH,
         PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH};
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), indexes, ouId));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(), indexes, ouId));
 
     SyndFeed feed =
         getBasicSyndFeed("Recent releases for organization " + ouId, "Recent releases for organization " + ouId, qb.build()._toQuery());
@@ -77,10 +77,10 @@ public class FeedServiceImpl {
 
   public SyndFeed recentReleasesSearchQuery(Query givenQb) throws Exception {
     BoolQuery.Builder qb = new BoolQuery.Builder();
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-        State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVO.State.RELEASED.name()));
     qb.must(givenQb);
 
     SyndFeed feed = getBasicSyndFeed("Search result as feed", "", qb.build()._toQuery());
@@ -89,14 +89,14 @@ public class FeedServiceImpl {
 
   public SyndFeed recentReleasesOAPublications() throws Exception {
     BoolQuery.Builder qb = new BoolQuery.Builder();
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-        State.RELEASED.name()));
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVO.State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, FileVO.Visibility.PUBLIC.name()));
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_FILE_STORAGE,
-        FileVO.Storage.INTERNAL_MANAGED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(this.pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_FILE_STORAGE, FileVO.Storage.INTERNAL_MANAGED.name()));
 
     SyndFeed feed =
         getBasicSyndFeed("Recent Open Access Publications", "Feed for the Open Access Homepage of the MPG", qb.build()._toQuery());
@@ -113,7 +113,7 @@ public class FeedServiceImpl {
     srr.setSortKeys(new SearchSortCriteria[] {
         new SearchSortCriteria(PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE, SearchSortCriteria.SortOrder.DESC)});
 
-    SearchRetrieveResponseVO res = pubItemService.search(srr, null);
+    SearchRetrieveResponseVO res = this.pubItemService.search(srr, null);
 
     return res.getRecords();
   }
@@ -181,7 +181,7 @@ public class FeedServiceImpl {
 
       // Category
       String subj = md.getFreeKeywords();
-      if (subj != null && !subj.isEmpty()) {
+      if (null != subj && !subj.isEmpty()) {
         List<SyndCategory> categories = new ArrayList<>();
         SyndCategory scat = new SyndCategoryImpl();
         scat.setName(subj);
@@ -190,14 +190,14 @@ public class FeedServiceImpl {
       }
 
 
-      if (md.getCreators() != null && !md.getCreators().isEmpty()) {
+      if (null != md.getCreators() && !md.getCreators().isEmpty()) {
         List<SyndPerson> authors = new ArrayList<>();
         SyndPerson sp;
         StringBuilder allCrs = new StringBuilder();
         int counter = 0;
         for (CreatorVO creator : md.getCreators()) {
 
-          String crs = creator.getPerson() != null ? creator.getPerson().getFamilyName() + ", " + creator.getPerson().getGivenName()
+          String crs = null != creator.getPerson() ? creator.getPerson().getFamilyName() + ", " + creator.getPerson().getGivenName()
               : creator.getOrganization().getName();
 
           sp = new SyndPersonImpl();
@@ -232,12 +232,12 @@ public class FeedServiceImpl {
       se.setUri(se.getLink());
 
       // Entry UpdatedDate ???
-      if (item.getModificationDate() != null) { // gibt sonst NullPointerException
+      if (null != item.getModificationDate()) { // gibt sonst NullPointerException
         se.setUpdatedDate(item.getModificationDate());
       }
 
       // Entry PublishedDate ???
-      if (item.getModificationDate() != null) { // gibt sonst NullPointerException
+      if (null != item.getModificationDate()) { // gibt sonst NullPointerException
         se.setPublishedDate(item.getModificationDate());
       }
 

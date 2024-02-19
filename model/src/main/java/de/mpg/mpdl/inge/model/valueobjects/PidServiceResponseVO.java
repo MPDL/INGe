@@ -8,7 +8,7 @@ public class PidServiceResponseVO extends ValueObject {
   public PidServiceResponseVO() {}
 
   public String getUrl() {
-    return url;
+    return this.url;
   }
 
   public void setUrl(String url) {
@@ -16,7 +16,7 @@ public class PidServiceResponseVO extends ValueObject {
   }
 
   public String getIdentifier() {
-    return identifier;
+    return this.identifier;
   }
 
   public void setIdentifier(String identifier) {
@@ -25,6 +25,6 @@ public class PidServiceResponseVO extends ValueObject {
 
   @Override
   public String toString() {
-    return "PidServiceResponseVO [identifier=" + identifier + ", url=" + url + "]";
+    return "PidServiceResponseVO [identifier=" + this.identifier + ", url=" + this.url + "]";
   }
 }

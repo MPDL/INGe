@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.reindex.beans;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,24 +16,24 @@ public class Reindex {
   public boolean run(String what, String id) throws Exception {
     switch (what) {
       case "contexts_reindex":
-        reIndexing.reindexContexts();
+        this.reIndexing.reindexContexts();
         break;
       case "items_reindex":
-        reIndexing.reindexItems();
+        this.reIndexing.reindexItems();
         break;
       case "ous_reindex":
-        reIndexing.reindexOus();
+        this.reIndexing.reindexOus();
         break;
       case "single_reindex":
-        if (id != null && !id.isEmpty()) {
-          reIndexing.reindexItem(id);
+        if (null != id && !id.isEmpty()) {
+          this.reIndexing.reindexItem(id);
         } else {
           log.error("Invalid Id!!! [" + id + "]");
           return false;
         }
         break;
       case "users_reindex":
-        reIndexing.reindexUsers();
+        this.reIndexing.reindexUsers();
         break;
       default:
         log.error("You don't really know, what exactly you want to do!!! [" + what + "]");

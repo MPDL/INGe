@@ -22,6 +22,8 @@ public class OaiFileTools {
   private static final String OAI_FILESYSTEM_ROOT_PATH =
       System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_OAI_FILESYSTEM_PATH);
 
+  private OaiFileTools() {}
+
   public static void createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
     logger.info("OAI: Trying to create File [" + fileName + "]");
     Path directoryPath = Paths.get(OAI_FILESYSTEM_ROOT_PATH);
@@ -37,7 +39,7 @@ public class OaiFileTools {
 
     Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + fileName);
     try {
-      CopyOption[] options = new CopyOption[] {StandardCopyOption.REPLACE_EXISTING,};
+      CopyOption[] options = {StandardCopyOption.REPLACE_EXISTING,};
       Files.copy(fileInputStream, filePath, options);
       logger.info("OAI: File [" + filePath + "] created.");
     } catch (IOException e) {

@@ -94,7 +94,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
 
       Node root = document.getDocumentElement();
 
-      if (root != null) {
+      if (null != root) {
         this.addItems(root);
       }
 
@@ -140,7 +140,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
     if (!this.isInitialized) {
       this.initialize();
     }
-    if (this.items != null && this.counter < this.length) {
+    if (null != this.items && this.counter < this.length) {
       return this.items.get(this.counter++);
     } else {
       throw new NoSuchElementException("No more entries left");
@@ -163,7 +163,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
 
   @Override
   public String getDataAsBase64() {
-    if (this.getSourceFile() == null) {
+    if (null == this.getSourceFile()) {
       return null;
     }
 

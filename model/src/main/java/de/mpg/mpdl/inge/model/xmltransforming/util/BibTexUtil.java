@@ -46,6 +46,8 @@ public class BibTexUtil {
   public static final String ESCAPE_CHARACTERS = "$&%#_";
   public static final String HOPEFULLY_UNUSED_TOKEN = "<<<!!HOPEFULLY_UNUSED_TOKEN!!>>>";
 
+  private BibTexUtil() {}
+
   /**
    * Enum that lists all BibTeX genres.
    */
@@ -563,8 +565,8 @@ public class BibTexUtil {
    * @return A UTF-8 encoded string.
    */
   public static String bibtexDecode(String text, boolean stripBraces) {
-    for (String element : encodingTable.keySet()) {
-      text = text.replace(element, encodingTable.get(element));
+    for (Map.Entry<String, String> entry : encodingTable.entrySet()) {
+      text = text.replace(entry.getKey(), entry.getValue());
     }
 
     // normalize
@@ -590,7 +592,7 @@ public class BibTexUtil {
 
   private static String deEscapeCharacter(String text, String character) {
     int position = text.indexOf("\\" + character);
-    if (position >= 0) {
+    if (0 <= position) {
       return text.substring(0, position).replace(character, "") + character
           + deEscapeCharacter(text.substring(position + 2), character);
     } else {
@@ -654,7 +656,7 @@ public class BibTexUtil {
    */
   public static void fillSourcePages(String pagesString, SourceVO sourceVO) {
     String[] pieces = pagesString.split(" *-+ *");
-    if (pieces.length == 2) {
+    if (2 == pieces.length) {
       sourceVO.setStartPage(pieces[0]);
       sourceVO.setEndPage(pieces[1]);
     } else {

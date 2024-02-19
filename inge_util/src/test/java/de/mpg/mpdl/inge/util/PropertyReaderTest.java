@@ -24,7 +24,8 @@ public class PropertyReaderTest {
     FileUtils.writeStringToFile(propertiesFile, "test = http://dev-pubman.mpdl.mpg.de", true);
     FileUtils.writeStringToFile(propertiesFile, System.getProperty(PropertyReader.LINE_SEPARATOR), true);
 
-    LogManager.getLogger(PropertyReaderTest.class).info("pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
+    LogManager.getLogger(PropertyReaderTest.class)
+        .info("pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
   }
 
   @Ignore

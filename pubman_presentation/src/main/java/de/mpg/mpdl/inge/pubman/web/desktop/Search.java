@@ -38,7 +38,6 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldAndFulltextSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldSearchCriterion;
@@ -85,7 +84,7 @@ public class Search extends FacesBean {
       FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq="
           + URLEncoder.encode(JsonUtil.minifyJsonString(ElasticSearchGenericDAOImpl.toJson(qb)), StandardCharsets.UTF_8));
     } catch (final Exception e) {
-      Search.logger.error("Technical problem while retrieving the search results", e);
+      logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));
     }
   }
@@ -103,7 +102,7 @@ public class Search extends FacesBean {
       criteria.add(any);
     }
 
-    criteria.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    criteria.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.OR_OPERATOR));
 
     final IdentifierSearchCriterion identifier = new IdentifierSearchCriterion();
     identifier.setSearchString(searchString);
@@ -125,7 +124,7 @@ public class Search extends FacesBean {
       final String openSearchRequest = "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), StandardCharsets.UTF_8);
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
     } catch (final Exception e) {
-      Search.logger.error("Technical problem while retrieving the search results", e);
+      logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));
     }
 

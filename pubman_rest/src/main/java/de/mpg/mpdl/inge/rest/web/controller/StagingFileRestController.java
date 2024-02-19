@@ -52,7 +52,7 @@ public class StagingFileRestController {
       @PathVariable String componentName, HttpServletRequest request) throws IngeTechnicalException, AuthenticationException {
     int stagedFileId;
     try {
-      stagedFileId = fileService.createStageFile(request.getInputStream(), componentName, token).getId();
+      stagedFileId = this.fileService.createStageFile(request.getInputStream(), componentName, token).getId();
     } catch (IOException e) {
       logger.error("Error while opening input stream", e);
       throw new IngeTechnicalException("Error while opening input stream", e);

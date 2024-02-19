@@ -68,6 +68,8 @@ public class XsltHelper {
   private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile("\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))", FLAGS);
   private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
 
+  private XsltHelper() {}
+
   /**
    * Reads all CONE-entries with a citation-style field filled in. Generates a Map with citation
    * styles and idValue-Type-Pairs.
@@ -87,7 +89,7 @@ public class XsltHelper {
     BufferedReader buffer = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
     StringBuilder content = new StringBuilder();
     String line;
-    while ((line = buffer.readLine()) != null) {
+    while (null != (line = buffer.readLine())) {
       content.append(line);
     }
 
@@ -109,7 +111,7 @@ public class XsltHelper {
           String citation = journalObject.get("http_purl_org_escidoc_metadata_terms_0_1_citation_style").asText();
           citationStyleMap.put(new Pair("CONE", id.substring(id.lastIndexOf("/") + 1)), citation);
           JsonNode identifiers = journalObject.get("http_purl_org_dc_elements_1_1_identifier");
-          if (identifiers != null) {
+          if (null != identifiers) {
             if (identifiers.isArray()) {
               for (JsonNode identifier : identifiers) {
                 String value = identifier.get("http_www_w3_org_1999_02_22_rdf_syntax_ns_value").asText();
@@ -152,22 +154,22 @@ public class XsltHelper {
       citationStyle = "default";
     } else {
       // if the type is CoNE, take the ID from the URL
-      if (idType.equals("CONE")) {
+      if ("CONE".equals(idType)) {
         idValue = idValue.substring(idValue.lastIndexOf("/") + 1);
       }
       Pair keyValue = new Pair(idType, idValue);
       // Update citationMap if empty or if last update > 1h
       long timeSinceLastUpdate = System.currentTimeMillis() - lastCitationMapUpdate;
-      if (citationMap.isEmpty() || timeSinceLastUpdate > (3600 * 1000)) {
+      if (citationMap.isEmpty() || (3600 * 1000) < timeSinceLastUpdate) {
         getJournalsXML();
         lastCitationMapUpdate = System.currentTimeMillis();
       }
-      if (citationMap.get(keyValue) == null) {
+      if (null == citationMap.get(keyValue)) {
         citationStyle = "default";
       } else {
         citationStyle = citationMap.get(keyValue);
-        if (citationStyle.equalsIgnoreCase("Kurztitel_ZS Band, Heft (Jahr)") || citationStyle.equalsIgnoreCase("Titel_ZS Band, Heft (Jahr)")
-            || citationStyle.equalsIgnoreCase("(Jahr) Band, Heft Titel_ZS")) {
+        if ("Kurztitel_ZS Band, Heft (Jahr)".equalsIgnoreCase(citationStyle) || "Titel_ZS Band, Heft (Jahr)".equalsIgnoreCase(citationStyle)
+            || "(Jahr) Band, Heft Titel_ZS".equalsIgnoreCase(citationStyle)) {
         } else {
           // if the citation style is none of the three above, put it to default
           citationStyle = "default";
@@ -178,12 +180,12 @@ public class XsltHelper {
   }
 
   public static String[] escapeMarkupTags(String[] snippet) {
-    if (snippet == null) {
+    if (null == snippet) {
       return null;
     }
 
     for (int i = 0; i < snippet.length; i++) {
-      if (snippet[i] != null) {
+      if (null != snippet[i]) {
         // escape ampersands
         snippet[i] = Utils.replaceAllTotal(snippet[i], AMPS_ALONE, "&amp;");
         // escape tags except <style> and optionally <sub><sup>
@@ -202,7 +204,7 @@ public class XsltHelper {
    * @return <code>true</code> if balanced, <code>false</code> otherwise
    */
   public static boolean isBalanced(String snippet) {
-    if (snippet == null)
+    if (null == snippet)
       return true; // ????
     Stack<String> s = new Stack<>();
     Matcher m = SUBS_OR_SUPS.matcher(snippet);
@@ -223,7 +225,7 @@ public class XsltHelper {
   public static String convertSnippetToHtml(String snippet) {
     FontStyle fs;
     FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
-    if (!Utils.checkVal(snippet) || fsc == null)
+    if (!Utils.checkVal(snippet) || null == fsc)
       return snippet;
     StringBuilder sb = new StringBuilder();
     Matcher m = SPANS_WITH_CLASS.matcher(snippet);
@@ -231,7 +233,7 @@ public class XsltHelper {
       String cssClass = m.group(1);
       fs = fsc.getFontStyleByCssClass(cssClass);
       // Rigorous: if at list once no css class has been found return str as it is
-      if (fs == null) {
+      if (null == fs) {
         return snippet;
       } else {
         String str = "$2";
@@ -264,11 +266,11 @@ public class XsltHelper {
    *         <code>false</code>.
    */
   public static boolean isCJK(String str) {
-    if (str == null || str.trim().isEmpty())
+    if (null == str || str.trim().isEmpty())
       return false;
     for (int i = 0; i < str.length(); i++) {
       int codePoint = str.codePointAt(i);
-      if (codePoint >= 19968 && codePoint <= 40911)
+      if (19968 <= codePoint && 40911 >= codePoint)
         return true;
     }
     return false;

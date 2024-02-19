@@ -88,7 +88,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     String message = createMessage(method);
-    if (itemVersionVO.getObject().getLocalTags() != null) {
+    if (null != itemVersionVO.getObject().getLocalTags()) {
       itemVersionVO.getObject().getLocalTags().add(message);
     } else {
       itemVersionVO.getObject().setLocalTags(new ArrayList<>(List.of(message)));
@@ -125,7 +125,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       BatchProcessLogDetailDbVO.Message message) {
 
     batchProcessLogDetailDbVO.setState(state);
-    if (message != null) {
+    if (null != message) {
       batchProcessLogDetailDbVO.setMessage(message);
     }
     batchProcessLogDetailDbVO.setEndDate(new Date());
@@ -151,7 +151,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
 
       try {
         itemVersionVO = this.pubItemService.get(itemId, token);
-        if (itemVersionVO == null) {
+        if (null == itemVersionVO) {
           batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, null,
               BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND, new Date());
         } else {
@@ -160,15 +160,15 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
         }
       } catch (IngeTechnicalException | RuntimeException | IngeApplicationException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
+            null != itemVersionVO ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
       } catch (AuthenticationException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
+            null != itemVersionVO ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.AUTHENTICATION_ERROR, new Date());
       } catch (AuthorizationException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
-            itemVersionVO != null ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
+            null != itemVersionVO ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR, new Date());
       }
 

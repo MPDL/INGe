@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -40,7 +40,7 @@ public class PubManRequestBean extends FacesBean {
 
   /**
    * Reads the policy URL from the properties file.
-   * 
+   *
    * @return policyUrl as String
    */
   public String getPolicyUrl() {
@@ -48,7 +48,7 @@ public class PubManRequestBean extends FacesBean {
     try {
       url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_POLICY_URL);
     } catch (final Exception e) {
-      PubManRequestBean.logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_POLICY_URL + "' from properties file.", e);
+      logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_POLICY_URL + "' from properties file.", e);
     }
 
     return url;
@@ -56,7 +56,7 @@ public class PubManRequestBean extends FacesBean {
 
   /**
    * Reads the policy URL from the properties file.
-   * 
+   *
    * @return policyUrl as String
    */
   public String getPrivacyPolicyUrl() {
@@ -73,7 +73,7 @@ public class PubManRequestBean extends FacesBean {
 
   /**
    * Reads the help URL from the properties file.
-   * 
+   *
    * @return handbookUrl as String
    */
   public String getHelpUrl() {
@@ -81,7 +81,7 @@ public class PubManRequestBean extends FacesBean {
     try {
       url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HELP_URL);
     } catch (final Exception e) {
-      PubManRequestBean.logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_HELP_URL + "' from properties file.", e);
+      logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_HELP_URL + "' from properties file.", e);
     }
 
     return url;

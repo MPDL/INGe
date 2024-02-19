@@ -167,7 +167,7 @@ public abstract class MapStructMapper {
 
   @Named("firstElement")
   public AffiliationDbRO firstElement(List<AffiliationRO> value) {
-    if (value == null)
+    if (null == value)
       return null;
     if (value.isEmpty())
       return null;
@@ -176,7 +176,7 @@ public abstract class MapStructMapper {
 
   @Named("toList")
   public List<AffiliationRO> toList(AffiliationDbRO value) {
-    if (value == null)
+    if (null == value)
       return null;
     List<AffiliationRO> affList = new ArrayList<>();
     affList.add((AffiliationRO) toReferenceObject(value));

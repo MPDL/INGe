@@ -34,7 +34,7 @@ public class SearchAndExportRetrieveRequestVO extends ValueObject {
   }
 
   public ExportFormatVO getExportFormat() {
-    return exportFormat;
+    return this.exportFormat;
   }
 
   public void setExportFormat(ExportFormatVO exportFormat) {

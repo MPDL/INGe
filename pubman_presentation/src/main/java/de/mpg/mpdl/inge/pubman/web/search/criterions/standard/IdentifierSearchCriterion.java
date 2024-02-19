@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -30,7 +30,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.ChildScoreMode;
 import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -38,7 +38,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 public class IdentifierSearchCriterion extends StandardSearchCriterion {
 
 
-  private IdType selectedIdentifierType;
+  private IdentifierVO.IdType selectedIdentifierType;
 
 
 
@@ -46,7 +46,7 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
   public Query toElasticSearchQuery() throws IngeTechnicalException {
 
 
-    if (getSelectedIdentifierType() == null) {
+    if (null == getSelectedIdentifierType()) {
       return super.toElasticSearchQuery();
     } else {
 
@@ -112,20 +112,20 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
     return null;
   }
 
-  public IdType getSelectedIdentifierType() {
-    return selectedIdentifierType;
+  public IdentifierVO.IdType getSelectedIdentifierType() {
+    return this.selectedIdentifierType;
   }
 
-  public void setSelectedIdentifierType(IdType selectedIdentifierType) {
+  public void setSelectedIdentifierType(IdentifierVO.IdType selectedIdentifierType) {
     this.selectedIdentifierType = selectedIdentifierType;
   }
 
   @Override
   public String getQueryStringContent() {
-    if (this.selectedIdentifierType == null) {
+    if (null == this.selectedIdentifierType) {
       return super.getQueryStringContent();
     } else {
-      return (this.selectedIdentifierType == null ? "" : SearchCriterionBase.escapeForQueryString(this.selectedIdentifierType.name()))
+      return (null == this.selectedIdentifierType ? "" : SearchCriterionBase.escapeForQueryString(this.selectedIdentifierType.name()))
           + "||" + super.getQueryStringContent();
     }
   }
@@ -134,7 +134,7 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
   public void parseQueryStringContent(String content) {
     if (content.contains("||")) {
       String[] parts = content.split("(?<!\\\\)\\|\\|");
-      this.selectedIdentifierType = IdType.valueOf(unescapeForQueryString(parts[0]));
+      this.selectedIdentifierType = IdentifierVO.IdType.valueOf(unescapeForQueryString(parts[0]));
       super.parseQueryStringContent(parts[1]);
 
     } else {

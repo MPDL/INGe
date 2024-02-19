@@ -24,11 +24,11 @@ public class SourcesPublisherEditionRequiredValidator extends ValidatorHandler<L
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           PublishingInfoVO p = sourceVO.getPublishingInfo();
 
-          if (p == null || ValidationTools.isEmpty(p.getEdition())) {
+          if (null == p || ValidationTools.isEmpty(p.getEdition())) {
             context.addError(ValidationError.create(ErrorMessages.SOURCE_EDITION_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 

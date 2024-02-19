@@ -58,8 +58,7 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import co.elastic.clients.elasticsearch.core.search.SourceConfig;
 import co.elastic.clients.elasticsearch.core.search.SourceFilter;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -107,7 +106,7 @@ public class SiteMapTask {
 
   public void run() {
     try {
-      SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
+      logger.info("CRON: Starting to create Sitemap.");
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
       String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
@@ -127,7 +126,7 @@ public class SiteMapTask {
 
       new File(SiteMapTask.SITEMAP_PATH).mkdir();
 
-      if (this.files.size() == 1) {
+      if (1 == this.files.size()) {
         final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
         try {
           finalFile.delete();
@@ -169,19 +168,19 @@ public class SiteMapTask {
         indexFileWriter.close();
 
         final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
-        SiteMapTask.logger.info("Sitemap file: " + finalFile.getAbsolutePath());
+        logger.info("Sitemap file: " + finalFile.getAbsolutePath());
         try {
           finalFile.delete();
         } catch (final Exception e) {
           // Unable to delete file, it probably didn't exist
         }
         final boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
-        SiteMapTask.logger.debug("Renaming succeeded: " + success);
+        logger.debug("Renaming succeeded: " + success);
       }
 
-      SiteMapTask.logger.info("CRON: Finished creating Sitemap.");
+      logger.info("CRON: Finished creating Sitemap.");
     } catch (final Exception e) {
-      SiteMapTask.logger.error("Error creating Sitemap", e);
+      logger.error("Error creating Sitemap", e);
     }
 
 
@@ -206,19 +205,19 @@ public class SiteMapTask {
       out = new FileOutputStream(dest);
       while (true) {
         read = in.read(buffer);
-        if (read == -1) {
+        if (-1 == read) {
           break;
         }
         out.write(buffer, 0, read);
         successful = true;
       }
     } finally {
-      if (in != null) {
+      if (null != in) {
         try {
           in.close();
           successful |= src.delete();
         } finally {
-          if (out != null) {
+          if (null != out) {
             out.close();
           }
         }
@@ -231,7 +230,7 @@ public class SiteMapTask {
   private void addViewItemPages() {
     int firstRecord = 0;
     long totalRecords = 0;
-    writtenInCurrentFile = 0;
+    this.writtenInCurrentFile = 0;
 
 
     Query qb = BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
@@ -245,21 +244,21 @@ public class SiteMapTask {
 
         logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
 
-        if (resp == null) {
+        if (null == resp) {
           //SearchSourceBuilder ssb = new SearchSourceBuilder();
           SearchRequest.Builder sr = new SearchRequest.Builder();
 
 
-          String[] includes = new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
+          String[] includes = {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
               PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, PubItemServiceDbImpl.INDEX_FILE_OBJECT_ID,
               PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, PubItemServiceDbImpl.INDEX_FILE_STORAGE, PubItemServiceDbImpl.INDEX_FILE_NAME};
 
           SourceFilter sf = SourceFilter.of(s -> s.includes(Arrays.asList(includes)));
           sr.source(SourceConfig.of(sc -> sc.filter(sf))).query(qb).size(this.maxItemsPerRetrieve);
 
-          resp = pubItemService.searchDetailed(sr.build(), 120000, null);
+          resp = this.pubItemService.searchDetailed(sr.build(), 120000, null);
         } else {
-          resp = pubItemService.scrollOn(resp.scrollId(), 120000);
+          resp = this.pubItemService.scrollOn(resp.scrollId(), 120000);
         }
 
 
@@ -280,15 +279,15 @@ public class SiteMapTask {
             writeEntry(this.fileWriter, loc, lmd);
 
 
-            if (root.get("files") != null) {
+            if (null != root.get("files")) {
               ArrayNode fileList = (ArrayNode) root.get("files");
 
               for (JsonNode fileMap : fileList) {
                 ObjectNode file = (ObjectNode) fileMap;
                 String storage = file.get("storage").asText();
-                if (Storage.INTERNAL_MANAGED.name().equals(storage)) {
+                if (FileDbVO.Storage.INTERNAL_MANAGED.name().equals(storage)) {
                   String visibility = file.get("visibility").asText();
-                  if (Visibility.PUBLIC.name().equals(visibility)) {
+                  if (FileDbVO.Visibility.PUBLIC.name().equals(visibility)) {
                     String fileId = file.get("objectId").asText();
                     String fileName = file.get("name").asText();
                     String fileLoc = UriBuilder.getItemComponentLink(itemId, Integer.parseInt(version), fileId, fileName).toString();
@@ -302,7 +301,7 @@ public class SiteMapTask {
 
 
           } catch (final Exception e) {
-            SiteMapTask.logger.error("Error", e);
+            logger.error("Error", e);
           }
 
         }
@@ -313,7 +312,7 @@ public class SiteMapTask {
 
 
       } catch (final Exception e) {
-        SiteMapTask.logger.error(
+        logger.error(
             "Error while creating sitemap part for items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve),
             e);
       }
@@ -326,7 +325,7 @@ public class SiteMapTask {
 
   private void changeFile() {
     try {
-      if (this.fileWriter != null) {
+      if (null != this.fileWriter) {
         this.finishSitemap();
       }
 
@@ -336,7 +335,7 @@ public class SiteMapTask {
 
       this.startSitemap();
     } catch (final Exception e) {
-      SiteMapTask.logger.error("Error creating sitemap file.", e);
+      logger.error("Error creating sitemap file.", e);
     }
   }
 
@@ -358,7 +357,7 @@ public class SiteMapTask {
       this.fileWriter.flush();
       this.fileWriter.close();
     } catch (final Exception e) {
-      SiteMapTask.logger.error("Error", e);
+      logger.error("Error", e);
     }
   }
 
@@ -370,10 +369,10 @@ public class SiteMapTask {
     fw.write(lmd);
     fw.write("</lastmod>\n\t</url>\n");
 
-    writtenInCurrentFile++;
-    if (writtenInCurrentFile >= maxItemsPerFile) {
+    this.writtenInCurrentFile++;
+    if (this.writtenInCurrentFile >= this.maxItemsPerFile) {
       changeFile();
-      writtenInCurrentFile = 0;
+      this.writtenInCurrentFile = 0;
     }
 
   }

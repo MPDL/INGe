@@ -43,7 +43,7 @@ import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.ModelList;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.util.RdfHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -102,7 +102,7 @@ public class RdfFormatter extends AbstractFormatter {
    * @param pairs A list of key-value pairs
    * @return A String formatted as HTML
    */
-  public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
+  public String formatQuery(List<? extends Describable> pairs, ModelList.Model model) throws ConeException {
 
     String result = RdfHelper.formatList(pairs, model);
 
@@ -118,7 +118,7 @@ public class RdfFormatter extends AbstractFormatter {
    *
    * @throws IOException Any i/o exception
    */
-  public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws ConeException {
+  public String formatDetails(String id, ModelList.Model model, TreeFragment triples, String lang) throws ConeException {
 
     String result = RdfHelper.formatMap(id, triples, model);
 

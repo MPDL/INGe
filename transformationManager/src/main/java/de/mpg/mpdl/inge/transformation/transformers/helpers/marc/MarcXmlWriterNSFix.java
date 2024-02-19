@@ -244,17 +244,17 @@ public class MarcXmlWriterNSFix implements MarcWriter {
     /**
      * Character encoding. Default is UTF-8.
      */
-    if (out == null) {
+    if (null == out) {
       throw new NullPointerException("null OutputStream");
     }
-    if (encoding == null) {
+    if (null == encoding) {
       throw new NullPointerException("null encoding");
     }
     try {
       setIndent(indent);
-      writer = new OutputStreamWriter(out, encoding);
-      writer = new BufferedWriter(writer);
-      setHandler(new StreamResult(writer), null);
+      this.writer = new OutputStreamWriter(out, encoding);
+      this.writer = new BufferedWriter(this.writer);
+      setHandler(new StreamResult(this.writer), null);
     } catch (UnsupportedEncodingException e) {
       throw new MarcException(e.getMessage(), e);
     }
@@ -268,7 +268,7 @@ public class MarcXmlWriterNSFix implements MarcWriter {
    * @throws SAXException
    */
   public MarcXmlWriterNSFix(Result result) {
-    if (result == null)
+    if (null == result)
       throw new NullPointerException("null Result");
     setHandler(result, null);
     writeStartDocument();
@@ -291,9 +291,9 @@ public class MarcXmlWriterNSFix implements MarcWriter {
    * @throws SAXException
    */
   public MarcXmlWriterNSFix(Result result, Source stylesheet) {
-    if (stylesheet == null)
+    if (null == stylesheet)
       throw new NullPointerException("null Source");
-    if (result == null)
+    if (null == result)
       throw new NullPointerException("null Result");
     setHandler(result, stylesheet);
     writeStartDocument();
@@ -302,9 +302,9 @@ public class MarcXmlWriterNSFix implements MarcWriter {
   public void close() {
     writeEndDocument();
     try {
-      if (writer != null) {
-        writer.write("\n");
-        writer.close();
+      if (null != this.writer) {
+        this.writer.write("\n");
+        this.writer.close();
       }
     } catch (IOException e) {
       throw new MarcException(e.getMessage(), e);
@@ -317,7 +317,7 @@ public class MarcXmlWriterNSFix implements MarcWriter {
    * @return CharConverter the character converter
    */
   public CharConverter getConverter() {
-    return converter;
+    return this.converter;
   }
 
   /**
@@ -346,7 +346,7 @@ public class MarcXmlWriterNSFix implements MarcWriter {
    * @return boolean - true if this writer performs Unicode normalization, false otherwise.
    */
   public boolean getUnicodeNormalization() {
-    return normalize;
+    return this.normalize;
   }
 
   protected void setHandler(Result result, Source stylesheet) throws MarcException {
@@ -356,12 +356,12 @@ public class MarcXmlWriterNSFix implements MarcWriter {
         throw new UnsupportedOperationException("SAXTransformerFactory is not supported");
 
       SAXTransformerFactory saxFactory = (SAXTransformerFactory) factory;
-      if (stylesheet == null)
-        handler = saxFactory.newTransformerHandler();
+      if (null == stylesheet)
+        this.handler = saxFactory.newTransformerHandler();
       else
-        handler = saxFactory.newTransformerHandler(stylesheet);
-      handler.getTransformer().setOutputProperty(OutputKeys.METHOD, "xml");
-      handler.setResult(result);
+        this.handler = saxFactory.newTransformerHandler(stylesheet);
+      this.handler.getTransformer().setOutputProperty(OutputKeys.METHOD, "xml");
+      this.handler.setResult(result);
 
     } catch (Exception e) {
       throw new MarcException(e.getMessage(), e);
@@ -376,9 +376,9 @@ public class MarcXmlWriterNSFix implements MarcWriter {
   protected void writeStartDocument() {
     try {
       AttributesImpl atts = new AttributesImpl();
-      handler.startDocument();
-      handler.startPrefixMapping("", Constants.MARCXML_NS_URI);
-      handler.startElement(Constants.MARCXML_NS_URI, COLLECTION, COLLECTION, atts);
+      this.handler.startDocument();
+      this.handler.startPrefixMapping("", Constants.MARCXML_NS_URI);
+      this.handler.startElement(Constants.MARCXML_NS_URI, COLLECTION, COLLECTION, atts);
     } catch (SAXException e) {
       throw new MarcException("SAX error occured while writing start document", e);
     }
@@ -391,12 +391,12 @@ public class MarcXmlWriterNSFix implements MarcWriter {
    */
   protected void writeEndDocument() {
     try {
-      if (indent)
-        handler.ignorableWhitespace("\n".toCharArray(), 0, 1);
+      if (this.indent)
+        this.handler.ignorableWhitespace("\n".toCharArray(), 0, 1);
 
-      handler.endElement(Constants.MARCXML_NS_URI, COLLECTION, COLLECTION);
-      handler.endPrefixMapping("");
-      handler.endDocument();
+      this.handler.endElement(Constants.MARCXML_NS_URI, COLLECTION, COLLECTION);
+      this.handler.endPrefixMapping("");
+      this.handler.endDocument();
     } catch (SAXException e) {
       throw new MarcException("SAX error occured while writing end document", e);
     }
@@ -422,7 +422,7 @@ public class MarcXmlWriterNSFix implements MarcWriter {
    * @return boolean
    */
   public boolean hasIndent() {
-    return indent;
+    return this.indent;
   }
 
   /**
@@ -440,31 +440,31 @@ public class MarcXmlWriterNSFix implements MarcWriter {
     }
     char[] temp;
     AttributesImpl atts = new AttributesImpl();
-    if (indent)
-      handler.ignorableWhitespace("\n  ".toCharArray(), 0, 3);
+    if (this.indent)
+      this.handler.ignorableWhitespace("\n  ".toCharArray(), 0, 3);
 
-    handler.startElement(Constants.MARCXML_NS_URI, RECORD, RECORD, atts);
+    this.handler.startElement(Constants.MARCXML_NS_URI, RECORD, RECORD, atts);
 
-    if (indent)
-      handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
+    if (this.indent)
+      this.handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
 
-    handler.startElement(Constants.MARCXML_NS_URI, LEADER, LEADER, atts);
+    this.handler.startElement(Constants.MARCXML_NS_URI, LEADER, LEADER, atts);
     Leader leader = record.getLeader();
     temp = leader.toString().toCharArray();
-    handler.characters(temp, 0, temp.length);
-    handler.endElement(Constants.MARCXML_NS_URI, LEADER, LEADER);
+    this.handler.characters(temp, 0, temp.length);
+    this.handler.endElement(Constants.MARCXML_NS_URI, LEADER, LEADER);
 
     for (ControlField field : record.getControlFields()) {
       atts = new AttributesImpl();
       atts.addAttribute("", "tag", "tag", "CDATA", field.getTag());
 
-      if (indent)
-        handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
+      if (this.indent)
+        this.handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
 
-      handler.startElement(Constants.MARCXML_NS_URI, CONTROL_FIELD, CONTROL_FIELD, atts);
+      this.handler.startElement(Constants.MARCXML_NS_URI, CONTROL_FIELD, CONTROL_FIELD, atts);
       temp = getDataElement(field.getData());
-      handler.characters(temp, 0, temp.length);
-      handler.endElement(Constants.MARCXML_NS_URI, CONTROL_FIELD, CONTROL_FIELD);
+      this.handler.characters(temp, 0, temp.length);
+      this.handler.endElement(Constants.MARCXML_NS_URI, CONTROL_FIELD, CONTROL_FIELD);
     }
 
     for (DataField field : record.getDataFields()) {
@@ -473,42 +473,42 @@ public class MarcXmlWriterNSFix implements MarcWriter {
       atts.addAttribute("", "ind1", "ind1", "CDATA", String.valueOf(field.getIndicator1()));
       atts.addAttribute("", "ind2", "ind2", "CDATA", String.valueOf(field.getIndicator2()));
 
-      if (indent)
-        handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
+      if (this.indent)
+        this.handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
 
-      handler.startElement(Constants.MARCXML_NS_URI, DATA_FIELD, DATA_FIELD, atts);
+      this.handler.startElement(Constants.MARCXML_NS_URI, DATA_FIELD, DATA_FIELD, atts);
       for (Subfield subfield : field.getSubfields()) {
         atts = new AttributesImpl();
         atts.addAttribute("", "code", "code", "CDATA", String.valueOf(subfield.getCode()));
 
-        if (indent)
-          handler.ignorableWhitespace("\n      ".toCharArray(), 0, 7);
+        if (this.indent)
+          this.handler.ignorableWhitespace("\n      ".toCharArray(), 0, 7);
 
-        handler.startElement(Constants.MARCXML_NS_URI, SUBFIELD, SUBFIELD, atts);
+        this.handler.startElement(Constants.MARCXML_NS_URI, SUBFIELD, SUBFIELD, atts);
         temp = getDataElement(subfield.getData());
-        handler.characters(temp, 0, temp.length);
-        handler.endElement(Constants.MARCXML_NS_URI, SUBFIELD, SUBFIELD);
+        this.handler.characters(temp, 0, temp.length);
+        this.handler.endElement(Constants.MARCXML_NS_URI, SUBFIELD, SUBFIELD);
       }
 
-      if (indent)
-        handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
+      if (this.indent)
+        this.handler.ignorableWhitespace("\n    ".toCharArray(), 0, 5);
 
-      handler.endElement(Constants.MARCXML_NS_URI, DATA_FIELD, DATA_FIELD);
+      this.handler.endElement(Constants.MARCXML_NS_URI, DATA_FIELD, DATA_FIELD);
     }
 
-    if (indent)
-      handler.ignorableWhitespace("\n  ".toCharArray(), 0, 3);
+    if (this.indent)
+      this.handler.ignorableWhitespace("\n  ".toCharArray(), 0, 3);
 
-    handler.endElement(Constants.MARCXML_NS_URI, RECORD, RECORD);
+    this.handler.endElement(Constants.MARCXML_NS_URI, RECORD, RECORD);
   }
 
   protected char[] getDataElement(String data) {
     String dataElement = null;
-    if (converter == null)
+    if (null == this.converter)
       dataElement = data;
     else
-      dataElement = converter.convert(data);
-    if (normalize)
+      dataElement = this.converter.convert(data);
+    if (this.normalize)
       dataElement = Normalizer.normalize(dataElement, Normalizer.NFC);
     return dataElement.toCharArray();
   }

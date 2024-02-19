@@ -63,7 +63,7 @@ public class EndnoteProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    return (this.items != null && this.counter < this.items.length);
+    return (null != this.items && this.counter < this.items.length);
   }
 
   /*
@@ -76,7 +76,7 @@ public class EndnoteProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    if (this.items != null && this.counter < this.items.length) {
+    if (null != this.items && this.counter < this.items.length) {
       this.counter++;
       return this.items[this.counter - 1];
     } else {
@@ -102,7 +102,7 @@ public class EndnoteProcessor extends FormatProcessor {
     final byte[] buffer = new byte[2048];
     try {
       final InputStream is = new FileInputStream(this.getSourceFile());
-      while ((read = is.read(buffer)) != -1) {
+      while (-1 != (read = is.read(buffer))) {
         byteArrayOutputStream.write(buffer, 0, read);
       }
 
@@ -122,7 +122,7 @@ public class EndnoteProcessor extends FormatProcessor {
       StringBuilder sb = null;
       final List<String> l = new ArrayList<>();
 
-      while ((buff = reader.readLine()) != null) {
+      while (null != (buff = reader.readLine())) {
 
         if (buff.trim().isEmpty()) {
           count++;
@@ -133,7 +133,7 @@ public class EndnoteProcessor extends FormatProcessor {
             sb = new StringBuilder();
           }
           // new item
-          else if (count >= 1 && buff.startsWith("%0")) {
+          else if (1 <= count && buff.startsWith("%0")) {
             l.add(sb.toString().trim());
             count = 0;
             sb = new StringBuilder();
@@ -143,7 +143,7 @@ public class EndnoteProcessor extends FormatProcessor {
 
       }
       // add last item
-      if (sb != null) {
+      if (null != sb) {
         l.add(sb.toString().trim());
       }
 
@@ -178,7 +178,7 @@ public class EndnoteProcessor extends FormatProcessor {
    */
   @Override
   public String getDataAsBase64() {
-    if (this.originalData == null) {
+    if (null == this.originalData) {
       return null;
     }
 

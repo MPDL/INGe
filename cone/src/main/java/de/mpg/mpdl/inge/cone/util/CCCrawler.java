@@ -55,12 +55,14 @@ public class CCCrawler {
       "http://creativecommons.org/license/results-one?" + "q_1=2&q_1=1&field_format=&field_worktitle=&field_attribute_to_name=&"
           + "field_attribute_to_url=&field_sourceurl=&field_morepermissionsurl=&n_questions=3";
 
+  private CCCrawler() {}
+
   public enum YesNo
   {
     n, yes;
 
   public String toBoolean() {
-    return (this == YesNo.yes) + "";
+    return (YesNo.yes == this) + "";
   }}
 
   public enum Language{af,bg,ca,cs,da,de,en,en_CA,en_GB,en_HK,en_SG,en_US,eo,es,es_AR,es_CL,es_CO,es_EC,es_GT,es_MX,es_PE,eu,fi,fr,fr_CA,gl,he,hr,hu,it,ja,ko,mk,ms,nl,no,nso,pl,pt,ro,sl,sr,sr_LATN,st,sv,th,zh,zh_HK,zh_TW,zu}
@@ -97,7 +99,7 @@ public class CCCrawler {
 //          ProxyHelper.executeMethod(httpClient, method);
           httpClient.executeMethod(method);
 
-          if (method.getStatusCode() == 200) {
+          if (200 == method.getStatusCode()) {
             TreeFragment fragment = new TreeFragment();
 
             String key1 = "urn:cone:commercial";

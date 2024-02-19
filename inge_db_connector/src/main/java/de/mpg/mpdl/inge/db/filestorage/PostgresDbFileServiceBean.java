@@ -39,7 +39,7 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
 
   private PGConnection getConnection() throws Exception {
-    return DataSourceUtils.getConnection(dataSource).unwrap(PGConnection.class);
+    return DataSourceUtils.getConnection(this.dataSource).unwrap(PGConnection.class);
   }
 
   @Override
@@ -55,7 +55,7 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
       byte[] buf = new byte[2048];
       int s, tl = 0;
-      while ((s = fileInputStream.read(buf, 0, 2048)) > 0) {
+      while (0 < (s = fileInputStream.read(buf, 0, 2048))) {
         obj.write(buf, 0, s);
         tl += s;
       }
@@ -90,7 +90,7 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
       byte[] buf = new byte[2048];
       int s, tl = 0;
-      while ((s = obj.read(buf, 0, 2048)) > 0) {
+      while (0 < (s = obj.read(buf, 0, 2048))) {
         out.write(buf, 0, s);
         tl += s;
       }

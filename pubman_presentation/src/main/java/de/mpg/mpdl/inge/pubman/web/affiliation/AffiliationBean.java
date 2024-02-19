@@ -16,7 +16,7 @@ import org.primefaces.model.TreeNode;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
@@ -57,7 +57,7 @@ public class AffiliationBean extends FacesBean {
 
 
   public AffiliationBean() throws Exception {
-    affiliationMap = new HashMap<>();
+    this.affiliationMap = new HashMap<>();
     this.setTopLevelAffs(CommonUtils
         .convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations()));
 
@@ -79,21 +79,21 @@ public class AffiliationBean extends FacesBean {
 
 
   private void setAffiliationsPath() {
-    if (this.cache != null && this.cache instanceof OrganizationVO)
+    if (null != this.cache && this.cache instanceof OrganizationVO)
 
     {
       ((OrganizationVO) this.cache).setName(this.selectedAffiliation.getNamePath());
       ((OrganizationVO) this.cache).setIdentifier(this.selectedAffiliation.getObjectId());
       String address = "";
-      if (this.selectedAffiliation.getMetadata().getCity() != null) {
+      if (null != this.selectedAffiliation.getMetadata().getCity()) {
         address += this.selectedAffiliation.getMetadata().getCity();
       }
-      if (this.selectedAffiliation.getMetadata().getCity() != null && !this.selectedAffiliation.getMetadata().getCity().isEmpty()
-          && this.selectedAffiliation.getMetadata().getCountryCode() != null
+      if (null != this.selectedAffiliation.getMetadata().getCity() && !this.selectedAffiliation.getMetadata().getCity().isEmpty()
+          && null != this.selectedAffiliation.getMetadata().getCountryCode()
           && !this.selectedAffiliation.getMetadata().getCountryCode().isEmpty()) {
         address += ", ";
       }
-      if (this.selectedAffiliation.getMetadata().getCountryCode() != null) {
+      if (null != this.selectedAffiliation.getMetadata().getCountryCode()) {
         address += this.selectedAffiliation.getMetadata().getCountryCode();
       }
       ((OrganizationVO) this.cache).setAddress(address);
@@ -115,7 +115,7 @@ public class AffiliationBean extends FacesBean {
       return this.startSearchForAffiliation(this.selectedAffiliation);
     }
 
-    if (this.selectedAffiliation != null) {
+    if (null != this.selectedAffiliation) {
       return this.startSearchForAffiliation(this.selectedAffiliation);
     }
 
@@ -194,7 +194,7 @@ public class AffiliationBean extends FacesBean {
     // ((AffiliationVOPresentation)event.getTreeNode().getData()).getName());
     final List<TreeNode> children = event.getTreeNode().getChildren();
 
-    if (children != null) {
+    if (null != children) {
       for (final TreeNode childAff : children) {
         this.loadChildTreeNodes(childAff, false);
 
@@ -209,7 +209,7 @@ public class AffiliationBean extends FacesBean {
       final AffiliationVOPresentation parentAff = (AffiliationVOPresentation) parent.getData();
 
       final List<AffiliationVOPresentation> childList = parentAff.getChildren();
-      if (childList != null) {
+      if (null != childList) {
         for (final AffiliationVOPresentation childAff : childList) {
           final TreeNode childNode = new DefaultTreeNode(childAff, parent);
           childNode.setSelectable(false);
@@ -217,7 +217,7 @@ public class AffiliationBean extends FacesBean {
         }
       }
     } catch (final Exception e) {
-      AffiliationBean.logger.error("Error while loading child affiliations", e);
+      logger.error("Error while loading child affiliations", e);
     }
   }
 
@@ -239,9 +239,9 @@ public class AffiliationBean extends FacesBean {
 
       BoolQuery.Builder bqb = new BoolQuery.Builder();
       bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-          PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+          PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVersionRO.State.RELEASED.name()));
       bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-          PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+          PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVersionRO.State.RELEASED.name()));
       bqb.must(qb);
 
       qb = bqb.build()._toQuery();
@@ -250,7 +250,7 @@ public class AffiliationBean extends FacesBean {
           + "&" + SearchRetrieverRequestBean.parameterSearchType + "=org");
 
     } catch (final Exception e) {
-      AffiliationBean.logger.error("Could not search for items." + "\n" + e);
+      logger.error("Could not search for items." + "\n" + e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
       return ErrorPage.LOAD_ERRORPAGE;
@@ -278,7 +278,7 @@ public class AffiliationBean extends FacesBean {
 
 
 
-    if (this.affiliationSelectItems == null) {
+    if (null == this.affiliationSelectItems) {
 
       final List<SelectItem> list = new ArrayList<>();
       list.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
@@ -305,7 +305,7 @@ public class AffiliationBean extends FacesBean {
    */
   private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level)
       throws Exception {
-    if (affs == null) {
+    if (null == affs) {
       return;
     }
 
@@ -322,14 +322,14 @@ public class AffiliationBean extends FacesBean {
     for (final AffiliationVOPresentation aff : affs) {
       affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
       this.affiliationMap.put(aff.getObjectId(), aff);
-      if (aff.getChildren() != null) {
+      if (null != aff.getChildren()) {
         this.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
       }
     }
   }
 
   public Map<String, AffiliationVOPresentation> getAffiliationMap() {
-    return affiliationMap;
+    return this.affiliationMap;
   }
 
   public void setAffiliationMap(Map<String, AffiliationVOPresentation> affiliationMap) {

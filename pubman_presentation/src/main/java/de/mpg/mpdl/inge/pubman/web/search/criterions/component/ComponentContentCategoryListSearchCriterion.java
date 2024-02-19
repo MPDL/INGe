@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
@@ -42,7 +41,7 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
     final Map<String, String> ccMap = ApplicationBean.INSTANCE.getContentCategoryMap();
     final Map<String, String> newMap = new HashMap<>();
 
-    for (final Entry<String, String> entry : ccMap.entrySet()) {
+    for (final Map.Entry<String, String> entry : ccMap.entrySet()) {
       newMap.put(entry.getKey().toLowerCase().replace("_", "-"), entry.getKey().toLowerCase().replace("_", "-"));
     }
 

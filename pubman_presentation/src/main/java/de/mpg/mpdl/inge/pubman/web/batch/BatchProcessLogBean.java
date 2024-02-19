@@ -35,7 +35,7 @@ public class BatchProcessLogBean extends FacesBean {
   }
 
   public Status getBatchStatus() {
-    return batchStatus;
+    return this.batchStatus;
   }
 
   public List<BatchProcessItemVO> getBatchProcessLogItemList() {

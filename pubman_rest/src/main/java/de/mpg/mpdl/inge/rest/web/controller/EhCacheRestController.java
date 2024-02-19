@@ -33,10 +33,10 @@ public class EhCacheRestController {
     try {
 
 
-      for (String cacheName : cacheManager.getCacheNames()) {
-        Cache cache = cacheManager.getCache(cacheName);
+      for (String cacheName : this.cacheManager.getCacheNames()) {
+        Cache cache = this.cacheManager.getCache(cacheName);
 
-        if (name == null || cacheName.equals(name)) {
+        if (null == name || cacheName.equals(name)) {
           srResponse.append(cacheName + " : " + getSize(cache) + "\n");
         }
 
@@ -64,15 +64,15 @@ public class EhCacheRestController {
 
 
 
-      for (String cacheName : cacheManager.getCacheNames()) {
-        Cache cache = cacheManager.getCache(cacheName);
+      for (String cacheName : this.cacheManager.getCacheNames()) {
+        Cache cache = this.cacheManager.getCache(cacheName);
 
-        if (name == null || cacheName.equals(name)) {
+        if (null == name || cacheName.equals(name)) {
           srResponse.append(cacheName + " : " + getSize(cache));
           cache.clear();
           //cacheManager.clearAllStartingWith(cacheName);
           long newSize = getSize(cache);
-          srResponse.append(" -> " + (newSize == 0 ? "cleared" : newSize) + "\n");
+          srResponse.append(" -> " + (0 == newSize ? "cleared" : newSize) + "\n");
         }
       }
     } catch (Exception e) {

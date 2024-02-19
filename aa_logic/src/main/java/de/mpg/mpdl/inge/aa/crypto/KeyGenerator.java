@@ -43,6 +43,8 @@ import java.security.spec.RSAPublicKeySpec;
  * @version $Revision$ $LastChangedDate$
  */
 public class KeyGenerator {
+  private KeyGenerator() {}
+
   /**
    * @param args
    */

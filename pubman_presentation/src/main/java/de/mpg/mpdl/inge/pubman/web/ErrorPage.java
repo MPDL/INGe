@@ -72,9 +72,9 @@ public class ErrorPage extends BreadcrumbPage {
     // remove all elements
     this.panPageAlert.getChildren().clear();
 
-    if (this.exception == null) {
+    if (null == this.exception) {
       // no exception has been set before
-      ErrorPage.logger.warn("An errorPage should be displayed with no exception set before.");
+      logger.warn("An errorPage should be displayed with no exception set before.");
 
       this.summary = "The last operation did not complete for an unknown reason.";
       this.detail = "No Exception was set to display.";
@@ -91,10 +91,10 @@ public class ErrorPage extends BreadcrumbPage {
      */
     else {
       // an exception has been set before
-      if (this.exception != null && this.exception.getCause() != null) {
+      if (null != this.exception && null != this.exception.getCause()) {
         this.summary = this.exception.getCause().toString();
         this.detail = this.getStackTrace();
-      } else if (this.exception != null) {
+      } else if (null != this.exception) {
         this.summary = this.exception.toString();
         this.detail = this.getStackTrace();
       }
@@ -114,7 +114,7 @@ public class ErrorPage extends BreadcrumbPage {
 
   public String getStackTrace() {
     final StringBuilder buffer = new StringBuilder();
-    if (this.exception != null) {
+    if (null != this.exception) {
       final StackTraceElement[] stackTrace = this.exception.getStackTrace();
       for (final StackTraceElement stackTraceElement : stackTrace) {
         buffer.append(" at ");

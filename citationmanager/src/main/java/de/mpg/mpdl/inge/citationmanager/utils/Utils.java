@@ -38,6 +38,8 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
  *
  */
 public class Utils {
+  private Utils() {}
+
   /**
    * Returns true if val is not null && not empty String
    *
@@ -45,7 +47,7 @@ public class Utils {
    * @return first not null && not empty String
    */
   public static boolean checkVal(String val) {
-    return (val != null && !val.trim().isEmpty());
+    return (null != val && !val.trim().isEmpty());
   }
 
   public static void checkCondition(boolean cond, String message) throws CitationStyleManagerException {

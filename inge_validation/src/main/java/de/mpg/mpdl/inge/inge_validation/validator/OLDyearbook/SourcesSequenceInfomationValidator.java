@@ -23,7 +23,7 @@ public class SourcesSequenceInfomationValidator extends ValidatorHandler<List<So
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           if (ValidationTools.isEmpty(sourceVO.getSequenceNumber()) && ValidationTools.isEmpty(sourceVO.getStartPage())
               && ValidationTools.isEmpty(sourceVO.getEndPage())) {

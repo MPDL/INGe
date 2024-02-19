@@ -30,7 +30,6 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import jakarta.persistence.Entity;
@@ -54,7 +53,7 @@ import jakarta.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "batch_process_log_item")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class BatchProcessItemVO implements Serializable {
   @Id
   @GeneratedValue
@@ -82,7 +81,7 @@ public class BatchProcessItemVO implements Serializable {
   }
 
   public BatchProcessMessages getBatchProcessMessage() {
-    return batchProcessMessage;
+    return this.batchProcessMessage;
   }
 
   public void setBatchProcessMessage(BatchProcessMessages batchProcessMessage) {
@@ -90,7 +89,7 @@ public class BatchProcessItemVO implements Serializable {
   }
 
   public BatchProcessMessagesTypes getBatchProcessMessageType() {
-    return batchProcessMessageType;
+    return this.batchProcessMessageType;
   }
 
   public void setBatchProcessMessageType(BatchProcessMessagesTypes batchProcessMessageType) {
@@ -98,7 +97,7 @@ public class BatchProcessItemVO implements Serializable {
   }
 
   public ItemVersionVO getItemVersionVO() {
-    return itemVersionVO;
+    return this.itemVersionVO;
   }
 
   public void setItemVersionVO(ItemVersionVO itemVersionVO) {
@@ -155,7 +154,7 @@ public class BatchProcessItemVO implements Serializable {
 
   @Override
   public String getMessage() {
-    return message;
+    return this.message;
   }
 }
 

@@ -50,7 +50,7 @@ public class Aa {
     //      initConfig(request);
     //    }
     String[] encodedXml = request.getParameterValues("auth");
-    if (encodedXml != null) {
+    if (null != encodedXml) {
       String xml = de.mpg.mpdl.inge.aa.crypto.RSAEncoder.rsaDecrypt(encodedXml);
       AuthenticationVO authenticationVO = new AuthenticationVO(xml);
 
@@ -65,7 +65,7 @@ public class Aa {
   }
 
   public AuthenticationVO getAuthenticationVO() {
-    return authenticationVO;
+    return this.authenticationVO;
   }
 
   //  public static void initConfig(HttpServletRequest request) throws ServletException {
@@ -107,7 +107,7 @@ public class Aa {
     String page = PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
 
     String query = request.getQueryString();
-    if (query != null && !query.isEmpty()) {
+    if (null != query && !query.isEmpty()) {
       query = "?" + query;
     } else {
       query = "";

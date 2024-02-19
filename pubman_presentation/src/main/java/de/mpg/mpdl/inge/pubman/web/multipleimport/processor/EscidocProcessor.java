@@ -57,7 +57,7 @@ public class EscidocProcessor extends FormatProcessor {
 
   @Override
   public String getDataAsBase64() {
-    if (this.originalData == null) {
+    if (null == this.originalData) {
       return null;
     }
 
@@ -89,7 +89,7 @@ public class EscidocProcessor extends FormatProcessor {
   }
 
   private void initialize() {
-    if (this.getSourceFile() == null) {
+    if (null == this.getSourceFile()) {
       throw new RuntimeException("No input source");
     } else {
       this.init = true;
@@ -98,7 +98,7 @@ public class EscidocProcessor extends FormatProcessor {
       final byte[] buffer = new byte[2048];
       try {
         final InputStream is = new FileInputStream(this.getSourceFile());
-        while ((read = is.read(buffer)) != -1) {
+        while (-1 != (read = is.read(buffer))) {
           byteArrayOutputStream.write(buffer, 0, read);
         }
         is.close();

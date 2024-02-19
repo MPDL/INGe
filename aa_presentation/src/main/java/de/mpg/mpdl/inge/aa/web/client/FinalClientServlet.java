@@ -51,7 +51,7 @@ public class FinalClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
     try {
       String clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
-      if (clientClassName == null || clientClassName.isEmpty()) {
+      if (null == clientClassName || clientClassName.isEmpty()) {
         clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_FINISH_CLASS);
         Class<?> clientClass = Class.forName(clientClassName);
         FinalClient client = (FinalClient) clientClass.newInstance();

@@ -67,6 +67,8 @@ public class TransformerFactory {
   public static final String ZFN_TEI_XML = "ZfN_Tei_Xml";
   public static final String ZIM_XML = "Zim_Xml";
 
+  private TransformerFactory() {}
+
   public enum FORMAT
   {
     ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.FILE_FORMAT.XML), //
@@ -137,7 +139,7 @@ public class TransformerFactory {
 
   }
 
-  public final static List<FORMAT> VALID_CITATION_OUTPUT =
+  public static final List<FORMAT> VALID_CITATION_OUTPUT =
       Arrays.asList(FORMAT.JSON_CITATION, FORMAT.ESCIDOC_SNIPPET, FORMAT.HTML_PLAIN, FORMAT.HTML_LINKED, FORMAT.DOCX, FORMAT.PDF);
 
   public enum CitationTypes{
@@ -157,7 +159,7 @@ public class TransformerFactory {
     }
 
   public String getCitationName() {
-    return citationName;
+    return this.citationName;
   }
 
   public void setCitationName(String citationName) {
@@ -226,12 +228,12 @@ public class TransformerFactory {
 
     List<TransformerEdge> edges = TransformerCache.getTransformerEdges(sourceFormat, targetFormat);
 
-    if (edges == null || edges.isEmpty()) {
+    if (null == edges || edges.isEmpty()) {
       logger.info("No suitable transformer found");
       throw new TransformationException("No transformation chain found for " + sourceFormat + " --> " + targetFormat);
     }
 
-    if (edges.size() == 1) {
+    if (1 == edges.size()) {
       try {
         TransformerEdge edge = edges.get(0);
         Transformer t = edge.getTransformerClass().newInstance();

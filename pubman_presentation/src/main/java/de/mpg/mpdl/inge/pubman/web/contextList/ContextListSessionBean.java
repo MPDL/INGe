@@ -37,7 +37,6 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -75,7 +74,7 @@ public class ContextListSessionBean extends FacesBean {
     try {
       this.retrieveAllContextsForUser();
     } catch (final Exception e) {
-      ContextListSessionBean.logger.error("Could not create context list.", e);
+      logger.error("Could not create context list.", e);
     }
   }
 
@@ -84,11 +83,11 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public boolean getOpenContextsAvailable() {
-    return this.getDepositorContextList().isEmpty() == false;
+    return false == this.getDepositorContextList().isEmpty();
   }
 
   public int getDepositorContextListSize() {
-    return this.depositorContextList == null ? 0 : this.depositorContextList.size();
+    return null == this.depositorContextList ? 0 : this.depositorContextList.size();
   }
 
   public void setDepositorContextList(List<PubContextVOPresentation> contextList) {
@@ -110,7 +109,7 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public int getModeratorContextListSize() {
-    return this.moderatorContextList == null ? 0 : this.moderatorContextList.size();
+    return null == this.moderatorContextList ? 0 : this.moderatorContextList.size();
   }
 
   public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList) {
@@ -130,12 +129,12 @@ public class ContextListSessionBean extends FacesBean {
     this.depositorContextList = new ArrayList<>();
     this.moderatorContextList = new ArrayList<>();
 
-    if (this.getLoginHelper().isLoggedIn() && this.getLoginHelper().getAccountUser().getGrantList() != null) {
+    if (this.getLoginHelper().isLoggedIn() && null != this.getLoginHelper().getAccountUser().getGrantList()) {
       try {
         boolean hasGrants = false;
         final ArrayList<String> ctxIdList = new ArrayList<>();
         for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
-          if (grant.getObjectRef() != null) {
+          if (null != grant.getObjectRef()) {
             ctxIdList.add(grant.getObjectRef());
             hasGrants = true;
           }
@@ -162,12 +161,12 @@ public class ContextListSessionBean extends FacesBean {
 
           for (final PubContextVOPresentation context : allPrivilegedContextList) {
             for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
-              if ((grant.getObjectRef() != null) && !grant.getObjectRef().isEmpty()) {
+              if ((null != grant.getObjectRef()) && !grant.getObjectRef().isEmpty()) {
                 if (grant.getObjectRef().equals(context.getObjectId())
-                    && PredefinedRoles.DEPOSITOR.frameworkValue().contentEquals(grant.getRole())) {
+                    && GrantVO.PredefinedRoles.DEPOSITOR.frameworkValue().contentEquals(grant.getRole())) {
                   this.depositorContextList.add(context);
                 } else if (grant.getObjectRef().equals(context.getObjectId())
-                    && PredefinedRoles.MODERATOR.frameworkValue().contentEquals(grant.getRole())) {
+                    && GrantVO.PredefinedRoles.MODERATOR.frameworkValue().contentEquals(grant.getRole())) {
                   this.moderatorContextList.add(context);
                 }
               }

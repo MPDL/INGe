@@ -75,9 +75,9 @@ public class ModelList {
       ServiceListHandler listHandler = new ServiceListHandler();
       SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
       parser.parse(in, listHandler);
-      list = listHandler.getList();
-      logger.debug("Length: " + list.size());
-      for (Model model : list) {
+      this.list = listHandler.getList();
+      logger.debug("Length: " + this.list.size());
+      for (Model model : this.list) {
         if (logger.isDebugEnabled()) {
           logger.debug("Model:" + model.getName());
         }
@@ -95,7 +95,7 @@ public class ModelList {
    * @throws ConeException
    */
   public static synchronized ModelList getInstance() throws ConeException {
-    if (instance == null) {
+    if (null == instance) {
       instance = new ModelList();
     }
     return instance;
@@ -112,7 +112,7 @@ public class ModelList {
   }
 
   public Set<Model> getList() {
-    return list;
+    return this.list;
   }
 
   /**
@@ -133,7 +133,7 @@ public class ModelList {
   }
 
   public Map<String, String> getDefaultNamepaces() {
-    return defaultNamepaces;
+    return this.defaultNamepaces;
   }
 
   public void setDefaultNamepaces(Map<String, String> defaultNamepaces) {
@@ -141,7 +141,7 @@ public class ModelList {
   }
 
   public Map<String, Set<String>> getFormatMimetypes() {
-    return formatMimetypes;
+    return this.formatMimetypes;
   }
 
   public void setFormatMimetypes(Map<String, Set<String>> formatMimetypes) {
@@ -163,36 +163,36 @@ public class ModelList {
 
     @Override
     public void content(String uri, String localName, String name, String content) {
-      if ("models/model/name".equals(localStack.toString())) {
-        currentService.setName(content.trim());
-      } else if ("models/model/description".equals(localStack.toString())) {
-        currentService.setDescription(content.trim());
-      } else if ("models/model/aliases/alias".equals(localStack.toString())) {
-        currentService.getAliases().add(content.trim());
-      } else if ("models/model/open".equals(localStack.toString())) {
-        currentService.setOpen(Boolean.parseBoolean(content.trim()));
-      } else if ("models/model/rdf-about-tag".equals(localStack.toString())) {
+      if ("models/model/name".equals(this.localStack.toString())) {
+        this.currentService.setName(content.trim());
+      } else if ("models/model/description".equals(this.localStack.toString())) {
+        this.currentService.setDescription(content.trim());
+      } else if ("models/model/aliases/alias".equals(this.localStack.toString())) {
+        this.currentService.getAliases().add(content.trim());
+      } else if ("models/model/open".equals(this.localStack.toString())) {
+        this.currentService.setOpen(Boolean.parseBoolean(content.trim()));
+      } else if ("models/model/rdf-about-tag".equals(this.localStack.toString())) {
         String[] parts = content.split(":");
-        if (parts.length == 2) {
+        if (2 == parts.length) {
           String ns = getNamespaces().get(parts[0]);
-          currentService.setRdfAboutTag(new QName(ns, parts[1], parts[0]));
-        } else if (parts.length == 1) {
-          currentService.setRdfAboutTag(new QName(parts[0]));
+          this.currentService.setRdfAboutTag(new QName(ns, parts[1], parts[0]));
+        } else if (1 == parts.length) {
+          this.currentService.setRdfAboutTag(new QName(parts[0]));
         } else {
 
         }
 
-      } else if ("models/model/primary-identifier".equals(localStack.toString())) {
-        currentService.setIdentifier(content.trim().isEmpty() ? null : content.trim());
-      } else if ("models/model/results/result/result-pattern".equals(localStack.toString())) {
-        int resultSize = currentService.getResults().size();
-        currentService.getResults().get(resultSize - 1).setResultPattern(content.trim());
-      } else if ("models/model/results/result/sort-pattern".equals(localStack.toString())) {
-        int resultSize = currentService.getResults().size();
-        currentService.getResults().get(resultSize - 1).setSortPattern(content.trim());
-      } else if ("models/model/results/result/type".equals(localStack.toString())) {
-        int resultSize = currentService.getResults().size();
-        currentService.getResults().get(resultSize - 1).setType(content.trim());
+      } else if ("models/model/primary-identifier".equals(this.localStack.toString())) {
+        this.currentService.setIdentifier(content.trim().isEmpty() ? null : content.trim());
+      } else if ("models/model/results/result/result-pattern".equals(this.localStack.toString())) {
+        int resultSize = this.currentService.getResults().size();
+        this.currentService.getResults().get(resultSize - 1).setResultPattern(content.trim());
+      } else if ("models/model/results/result/sort-pattern".equals(this.localStack.toString())) {
+        int resultSize = this.currentService.getResults().size();
+        this.currentService.getResults().get(resultSize - 1).setSortPattern(content.trim());
+      } else if ("models/model/results/result/type".equals(this.localStack.toString())) {
+        int resultSize = this.currentService.getResults().size();
+        this.currentService.getResults().get(resultSize - 1).setType(content.trim());
       }
 
     }
@@ -200,31 +200,31 @@ public class ModelList {
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
       super.startElement(uri, localName, name, attributes);
-      if ("models/model".equals(localStack.toString())) {
-        currentService = new Model();
-      } else if ("models/model/predicates".equals(localStack.toString())) {
-        this.predicateStack.push(currentService.getPredicates());
-      } else if ("models/model/results/result".equals(localStack.toString())) {
-        currentService.getResults().add(new ModelResult());
+      if ("models/model".equals(this.localStack.toString())) {
+        this.currentService = new Model();
+      } else if ("models/model/predicates".equals(this.localStack.toString())) {
+        this.predicateStack.push(this.currentService.getPredicates());
+      } else if ("models/model/results/result".equals(this.localStack.toString())) {
+        this.currentService.getResults().add(new ModelResult());
       } else if ("predicate".equals(name)) {
-        if (attributes.getValue("value") == null) {
+        if (null == attributes.getValue("value")) {
           throw new SAXException(
-              "Predicate value for " + attributes.getValue("name") + " in model " + currentService.getName() + " must not be null");
+              "Predicate value for " + attributes.getValue("name") + " in model " + this.currentService.getName() + " must not be null");
         }
 
         // if parent is "predicates" (and therefore not another
         // sub-predicate) and value is same as
         // primary identifier
-        else if (localStack.size() > 1 && "predicates".equals(localStack.get(localStack.size() - 2))
-            && attributes.getValue("value").equals(currentService.getIdentifier())) {
+        else if (1 < this.localStack.size() && "predicates".equals(this.localStack.get(this.localStack.size() - 2))
+            && attributes.getValue("value").equals(this.currentService.getIdentifier())) {
           if (!Boolean.parseBoolean(attributes.getValue("mandatory"))) {
-            throw new SAXException(
-                "Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName() + " must be mandatory");
+            throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + this.currentService.getName()
+                + " must be mandatory");
           } else if (Boolean.parseBoolean(attributes.getValue("multiple"))) {
-            throw new SAXException(
-                "Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName() + " must not be multiple");
+            throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + this.currentService.getName()
+                + " must not be multiple");
           } else if (Boolean.parseBoolean(attributes.getValue("localized"))) {
-            throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName()
+            throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + this.currentService.getName()
                 + " must not be localized");
           }
         }
@@ -232,34 +232,34 @@ public class ModelList {
         Predicate predicate = new Predicate(attributes.getValue("value"), attributes.getValue("name"),
             Boolean.parseBoolean(attributes.getValue("multiple")), Boolean.parseBoolean(attributes.getValue("mandatory")),
             Boolean.parseBoolean(attributes.getValue("localized")), Boolean.parseBoolean(attributes.getValue("generateObject")),
-            (attributes.getValue("includeResource") == null ? true : Boolean.parseBoolean(attributes.getValue("includeResource"))),
+            (null == attributes.getValue("includeResource") ? true : Boolean.parseBoolean(attributes.getValue("includeResource"))),
             Boolean.parseBoolean(attributes.getValue("searchable")), Boolean.parseBoolean(attributes.getValue("restricted")),
             Boolean.parseBoolean(attributes.getValue("overwrite")), Boolean.parseBoolean(attributes.getValue("shouldBeUnique")),
-            (attributes.getValue("modify") == null ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
+            (null == attributes.getValue("modify") ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
             attributes.getValue("event"), attributes.getValue("resourceModel"), attributes.getValue("default"),
             attributes.getValue("suggest-url"), attributes.getValue("type"));
         this.predicateStack.peek().add(predicate);
         this.predicateStack.push(predicate.getPredicates());
-      } else if ("models/model/primary-identifier".equals(localStack.toString())) {
-        currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate-cone-id")));
-        currentService
-            .setIdentifierPrefix((attributes.getValue("identifier-prefix") == null ? "" : attributes.getValue("identifier-prefix")));
-        currentService.setSubjectPrefix((attributes.getValue("subject-prefix") == null ? "" : attributes.getValue("subject-prefix")));
-        currentService.setControlled(Boolean.parseBoolean(attributes.getValue("control")));
-      } else if ("models/config/default-namespace".equals(localStack.toString())) {
-        defaultNamepaces.put(attributes.getValue("uri"), attributes.getValue("prefix"));
-      } else if ("models/formats/format".equals(localStack.toString())) {
-        currentFormat = new HashSet<>();
-        formatMimetypes.put(attributes.getValue("id"), currentFormat);
-      } else if ("models/formats/format/mime-type".equals(localStack.toString())) {
-        currentFormat.add(attributes.getValue("id"));
+      } else if ("models/model/primary-identifier".equals(this.localStack.toString())) {
+        this.currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate-cone-id")));
+        this.currentService
+            .setIdentifierPrefix((null == attributes.getValue("identifier-prefix") ? "" : attributes.getValue("identifier-prefix")));
+        this.currentService.setSubjectPrefix((null == attributes.getValue("subject-prefix") ? "" : attributes.getValue("subject-prefix")));
+        this.currentService.setControlled(Boolean.parseBoolean(attributes.getValue("control")));
+      } else if ("models/config/default-namespace".equals(this.localStack.toString())) {
+        ModelList.this.defaultNamepaces.put(attributes.getValue("uri"), attributes.getValue("prefix"));
+      } else if ("models/formats/format".equals(this.localStack.toString())) {
+        this.currentFormat = new HashSet<>();
+        ModelList.this.formatMimetypes.put(attributes.getValue("id"), this.currentFormat);
+      } else if ("models/formats/format/mime-type".equals(this.localStack.toString())) {
+        this.currentFormat.add(attributes.getValue("id"));
       }
     }
 
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException {
-      if ("models/model".equals(localStack.toString())) {
-        list.add(currentService);
+      if ("models/model".equals(this.localStack.toString())) {
+        this.list.add(this.currentService);
       } else if ("predicate".equals(name)) {
         this.predicateStack.pop();
       }
@@ -272,7 +272,7 @@ public class ModelList {
 
       Stack<String> modelStack = new Stack<>();
 
-      for (Model model : list) {
+      for (Model model : this.list) {
         modelStack.push(model.getName());
         try {
           setI18nFlags(model, model.getPredicates(), modelStack);
@@ -310,11 +310,11 @@ public class ModelList {
            */
         }
 
-        if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty()) {
+        if (null != predicate.getPredicates() && !predicate.getPredicates().isEmpty()) {
           setI18nFlags(model, predicate.getPredicates(), modelStack);
         } else if (predicate.isResource()) {
           try {
-            for (Model nextModel : list) {
+            for (Model nextModel : this.list) {
               if (nextModel.getName().equals(predicate.getResourceModel())) {
                 if (!(modelStack.contains(nextModel.getName()))) {
                   modelStack.push(nextModel.getName());
@@ -334,7 +334,7 @@ public class ModelList {
     private boolean isSubResourceLocalized(String prefix, String modelName, String pattern, Stack<String> modelStack) throws SAXException {
       Model model = null;
       try {
-        for (Model existingModel : list) {
+        for (Model existingModel : this.list) {
           if (modelName.equals(existingModel.getName())) {
             model = existingModel;
             break;
@@ -356,7 +356,7 @@ public class ModelList {
     }
 
     public Set<Model> getList() {
-      return list;
+      return this.list;
     }
 
   }
@@ -386,7 +386,7 @@ public class ModelList {
     private boolean localizedMatches;
     private boolean globalMatches;
     private boolean open;
-    private QName rdfAboutTag = rdfDescriptionTag;
+    private QName rdfAboutTag = this.rdfDescriptionTag;
 
     /**
      * Default constructor.
@@ -446,7 +446,7 @@ public class ModelList {
     }
 
     public String getName() {
-      return name;
+      return this.name;
     }
 
     public void setName(String name) {
@@ -454,7 +454,7 @@ public class ModelList {
     }
 
     public String getDescription() {
-      return description;
+      return this.description;
     }
 
     public void setDescription(String description) {
@@ -462,7 +462,7 @@ public class ModelList {
     }
 
     public List<String> getAliases() {
-      return aliases;
+      return this.aliases;
     }
 
     public void setAliases(List<String> aliases) {
@@ -470,7 +470,7 @@ public class ModelList {
     }
 
     public List<Predicate> getPredicates() {
-      return predicates;
+      return this.predicates;
     }
 
     public void setPredicates(List<Predicate> predicates) {
@@ -478,7 +478,7 @@ public class ModelList {
     }
 
     public String getIdentifier() {
-      return identifier;
+      return this.identifier;
     }
 
     public void setIdentifier(String identifier) {
@@ -486,7 +486,7 @@ public class ModelList {
     }
 
     public boolean isGenerateIdentifier() {
-      return generateIdentifier;
+      return this.generateIdentifier;
     }
 
     public void setGenerateIdentifier(boolean generateIdentifier) {
@@ -494,7 +494,7 @@ public class ModelList {
     }
 
     public String getIdentifierPrefix() {
-      return identifierPrefix;
+      return this.identifierPrefix;
     }
 
     public void setIdentifierPrefix(String identifierPrefix) {
@@ -502,7 +502,7 @@ public class ModelList {
     }
 
     public boolean isLocalizedResultPattern() {
-      return localizedResultPattern;
+      return this.localizedResultPattern;
     }
 
     public void setLocalizedResultPattern(boolean localizedResultPattern) {
@@ -510,7 +510,7 @@ public class ModelList {
     }
 
     public boolean isGlobalResultPattern() {
-      return globalResultPattern;
+      return this.globalResultPattern;
     }
 
     public void setGlobalResultPattern(boolean globalResultPattern) {
@@ -518,7 +518,7 @@ public class ModelList {
     }
 
     public boolean isLocalizedMatches() {
-      return localizedMatches;
+      return this.localizedMatches;
     }
 
     public void setLocalizedMatches(boolean localizedMatches) {
@@ -526,7 +526,7 @@ public class ModelList {
     }
 
     public boolean isGlobalMatches() {
-      return globalMatches;
+      return this.globalMatches;
     }
 
     public void setGlobalMatches(boolean globalMatches) {
@@ -534,7 +534,7 @@ public class ModelList {
     }
 
     public String getSubjectPrefix() {
-      return subjectPrefix;
+      return this.subjectPrefix;
     }
 
     public void setSubjectPrefix(String subjectPrefix) {
@@ -542,7 +542,7 @@ public class ModelList {
     }
 
     public boolean isControlled() {
-      return controlled;
+      return this.controlled;
     }
 
     public void setControlled(boolean controlled) {
@@ -567,7 +567,7 @@ public class ModelList {
      * @throws ConeException
      */
     public Predicate getPredicate(String predicateId) throws ConeException {
-      if (predicateId == null) {
+      if (null == predicateId) {
         throw new ConeException("Empty predicate name");
       }
       for (Predicate predicate : getPredicates()) {
@@ -586,12 +586,12 @@ public class ModelList {
      */
     @Override
     public boolean equals(Object object) {
-      if (object == null) {
+      if (null == object) {
         return false;
       }
       if (object instanceof Model) {
-        if (((Model) object).name == null) {
-          return (this.name == null);
+        if (null == ((Model) object).name) {
+          return (null == this.name);
         } else {
           return (((Model) object).name.equals(this.name));
         }
@@ -608,11 +608,11 @@ public class ModelList {
      */
     @Override
     public int hashCode() {
-      return (this.name == null ? 0 : this.name.hashCode());
+      return (null == this.name ? 0 : this.name.hashCode());
     }
 
     public List<ModelResult> getResults() {
-      return results;
+      return this.results;
     }
 
     public void setResults(List<ModelResult> results) {
@@ -620,7 +620,7 @@ public class ModelList {
     }
 
     public QName getRdfAboutTag() {
-      return rdfAboutTag;
+      return this.rdfAboutTag;
     }
 
     public void setRdfAboutTag(QName rdfImportTag) {
@@ -705,20 +705,20 @@ public class ModelList {
       this.overwrite = overwrite;
       this.shouldBeUnique = shouldBeUnique;
       this.modify = modify;
-      if (eventString != null && !eventString.isEmpty()) {
+      if (null != eventString && !eventString.isEmpty()) {
         this.event = Event.valueOf(eventString.toUpperCase());
       }
       this.resourceModel = resourceModel;
       this.defaultValue = defaultValue;
       this.suggestUrl = suggestUrl;
 
-      if (typeString != null && !typeString.isEmpty()) {
+      if (null != typeString && !typeString.isEmpty()) {
         this.setType(Type.valueOf(typeString.toUpperCase()));
       }
     }
 
     public boolean isResource() {
-      return (resourceModel != null);
+      return (null != this.resourceModel);
     }
 
     /**
@@ -732,7 +732,7 @@ public class ModelList {
      * @throws ConeException
      */
     public Predicate getPredicate(String predicateId) throws ConeException {
-      if (predicateId == null) {
+      if (null == predicateId) {
         throw new ConeException("Empty predicate name");
       }
       for (Predicate predicate : getPredicates()) {
@@ -744,7 +744,7 @@ public class ModelList {
     }
 
     public String getDefault(HttpServletRequest request) throws ConeException {
-      if (this.defaultValue == null) {
+      if (null == this.defaultValue) {
         return null;
       } else if (this.defaultValue.startsWith("'") && this.defaultValue.endsWith("'")) {
         return this.defaultValue.substring(1, this.defaultValue.length() - 1);
@@ -762,7 +762,7 @@ public class ModelList {
     }
 
     public String getName() {
-      return name;
+      return this.name;
     }
 
     public void setName(String name) {
@@ -770,7 +770,7 @@ public class ModelList {
     }
 
     public String getId() {
-      return id;
+      return this.id;
     }
 
     public void setId(String id) {
@@ -778,7 +778,7 @@ public class ModelList {
     }
 
     public boolean isMultiple() {
-      return multiple;
+      return this.multiple;
     }
 
     public void setMultiple(boolean multiple) {
@@ -786,7 +786,7 @@ public class ModelList {
     }
 
     public boolean isMandatory() {
-      return mandatory;
+      return this.mandatory;
     }
 
     public void setMandatory(boolean mandatory) {
@@ -794,7 +794,7 @@ public class ModelList {
     }
 
     public boolean isLocalized() {
-      return localized;
+      return this.localized;
     }
 
     public void setLocalized(boolean localized) {
@@ -802,11 +802,11 @@ public class ModelList {
     }
 
     public List<Predicate> getPredicates() {
-      return predicates;
+      return this.predicates;
     }
 
     public boolean isIncludeResource() {
-      return includeResource;
+      return this.includeResource;
     }
 
     public void setIncludeResource(boolean includeResource) {
@@ -814,7 +814,7 @@ public class ModelList {
     }
 
     public boolean isGenerateObject() {
-      return generateObject;
+      return this.generateObject;
     }
 
     public void setGenerateObject(boolean generateObject) {
@@ -822,7 +822,7 @@ public class ModelList {
     }
 
     public String getResourceModel() {
-      return resourceModel;
+      return this.resourceModel;
     }
 
     public void setResourceModel(String resourceModel) {
@@ -834,7 +834,7 @@ public class ModelList {
     }
 
     public boolean isSearchable() {
-      return searchable;
+      return this.searchable;
     }
 
     public void setRestricted(boolean restricted) {
@@ -842,11 +842,11 @@ public class ModelList {
     }
 
     public boolean isRestricted() {
-      return restricted;
+      return this.restricted;
     }
 
     public boolean isOverwrite() {
-      return overwrite;
+      return this.overwrite;
     }
 
     public void setOverwrite(boolean overwrite) {
@@ -854,7 +854,7 @@ public class ModelList {
     }
 
     public boolean isShouldBeUnique() {
-      return shouldBeUnique;
+      return this.shouldBeUnique;
     }
 
     public void setShouldBeUnique(boolean shouldBeUnique) {
@@ -862,7 +862,7 @@ public class ModelList {
     }
 
     public String getDefaultValue() {
-      return defaultValue;
+      return this.defaultValue;
     }
 
     public void setDefaultValue(String defaultValue) {
@@ -870,7 +870,7 @@ public class ModelList {
     }
 
     public boolean isModify() {
-      return modify;
+      return this.modify;
     }
 
     public void setModify(boolean modify) {
@@ -878,7 +878,7 @@ public class ModelList {
     }
 
     public Event getEvent() {
-      return event;
+      return this.event;
     }
 
     public void setEvent(Event event) {
@@ -886,11 +886,11 @@ public class ModelList {
     }
 
     public String toString() {
-      return id;
+      return this.id;
     }
 
     public String getSuggestUrl() {
-      return suggestUrl;
+      return this.suggestUrl;
     }
 
     public void setSuggestUrl(String suggestUrl) {
@@ -898,7 +898,7 @@ public class ModelList {
     }
 
     public Type getType() {
-      return type;
+      return this.type;
     }
 
     public void setType(Type type) {
@@ -916,7 +916,7 @@ public class ModelList {
     private String type;
 
     public String getResultPattern() {
-      return resultPattern;
+      return this.resultPattern;
     }
 
     public void setResultPattern(String resultPattern) {
@@ -924,7 +924,7 @@ public class ModelList {
     }
 
     public String getSortPattern() {
-      return sortPattern;
+      return this.sortPattern;
     }
 
     public void setSortPattern(String sortPattern) {
@@ -932,7 +932,7 @@ public class ModelList {
     }
 
     public String getType() {
-      return type;
+      return this.type;
     }
 
     public void setType(String type) {

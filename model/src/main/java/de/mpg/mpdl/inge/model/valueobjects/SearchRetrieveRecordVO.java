@@ -2,10 +2,9 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class SearchRetrieveRecordVO<T> extends ValueObject {
 
   private String schema;
@@ -19,7 +18,7 @@ public class SearchRetrieveRecordVO<T> extends ValueObject {
   private String persistenceId;
 
   public String getSchema() {
-    return schema;
+    return this.schema;
   }
 
   public void setSchema(String schema) {
@@ -27,7 +26,7 @@ public class SearchRetrieveRecordVO<T> extends ValueObject {
   }
 
   public String getPacking() {
-    return packing;
+    return this.packing;
   }
 
   public void setPacking(String packing) {
@@ -35,7 +34,7 @@ public class SearchRetrieveRecordVO<T> extends ValueObject {
   }
 
   public int getPosition() {
-    return position;
+    return this.position;
   }
 
   public void setPosition(int position) {
@@ -43,7 +42,7 @@ public class SearchRetrieveRecordVO<T> extends ValueObject {
   }
 
   public T getData() {
-    return data;
+    return this.data;
   }
 
   public void setData(T data) {
@@ -51,7 +50,7 @@ public class SearchRetrieveRecordVO<T> extends ValueObject {
   }
 
   public String getPersistenceId() {
-    return persistenceId;
+    return this.persistenceId;
   }
 
   public void setPersistenceId(String persistenceId) {

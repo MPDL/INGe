@@ -39,7 +39,6 @@ import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
@@ -77,17 +76,17 @@ public class CreatorVOPresentation extends CreatorVO {
   public CreatorVOPresentation(List<CreatorVOPresentation> list, EditItemBean bean, CreatorVO creatorVO) {
     this.list = list;
     this.bean = bean;
-    if (creatorVO != null) {
+    if (null != creatorVO) {
       this.setOrganization(creatorVO.getOrganization());
       this.setPerson(creatorVO.getPerson());
       this.setRole(creatorVO.getRole());
       this.setType(creatorVO.getType());
 
-      if (this.getOrganization() != null && this.getOrganization().getName() == null) {
+      if (null != this.getOrganization() && null == this.getOrganization().getName()) {
         this.getOrganization().setName("");
       }
 
-      if (this.getPerson() != null && this.getPerson().getIdentifier() == null) {
+      if (null != this.getPerson() && null == this.getPerson().getIdentifier()) {
         this.getPerson().setIdentifier(new IdentifierVO());
       }
     }
@@ -100,7 +99,7 @@ public class CreatorVOPresentation extends CreatorVO {
    * @return Map filled with all creator roles, which will be excluded
    */
   public static Map<String, String> getCreatorRoleMap() {
-    if (CreatorVOPresentation.properties == null || CreatorVOPresentation.properties.isEmpty()) {
+    if (null == CreatorVOPresentation.properties || CreatorVOPresentation.properties.isEmpty()) {
       CreatorVOPresentation.properties = CreatorVOPresentation.loadCreatorRoleProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -119,7 +118,7 @@ public class CreatorVOPresentation extends CreatorVO {
     URL contentCategoryURI = null;
     try {
       contentCategoryURI = CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
-      if (contentCategoryURI != null) {
+      if (null != contentCategoryURI) {
         LogManager.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         CreatorVOPresentation.properties.load(in);
@@ -154,24 +153,24 @@ public class CreatorVOPresentation extends CreatorVO {
 
   @Override
   public String getTypeString() {
-    return (this.getType() == null ? "" : this.getType().toString());
+    return (null == this.getType() ? "" : this.getType().toString());
   }
 
   @Override
   public void setTypeString(String value) {
-    if (value != null) {
+    if (null != value) {
       this.init(CreatorType.valueOf(value));
     }
   }
 
   @Override
   public String getRoleString() {
-    return (this.getRole() == null ? "" : this.getRole().toString());
+    return (null == this.getRole() ? "" : this.getRole().toString());
   }
 
   @Override
   public void setRoleString(String value) {
-    if (value == null || value.isEmpty()) {
+    if (null == value || value.isEmpty()) {
       this.setRole(null);
     } else {
       this.setRole(CreatorRole.valueOf(value));
@@ -179,11 +178,11 @@ public class CreatorVOPresentation extends CreatorVO {
   }
 
   public boolean isPersonType() {
-    return (this.getType() == CreatorType.PERSON);
+    return (CreatorType.PERSON == this.getType());
   }
 
   public boolean isOrganizationType() {
-    return (this.getType() == CreatorType.ORGANIZATION);
+    return (CreatorType.ORGANIZATION == this.getType());
   }
 
   public boolean isLast() {
@@ -191,7 +190,7 @@ public class CreatorVOPresentation extends CreatorVO {
   }
 
   public boolean isSingleCreator() {
-    return (this.list.size() == 1);
+    return (1 == this.list.size());
   }
 
   public String getAutoPasteValue() {
@@ -205,7 +204,7 @@ public class CreatorVOPresentation extends CreatorVO {
 
   public void addOrganization() {
     if (!"".equals(this.autoPasteValue)) {
-      CreatorVOPresentation.logger.debug("Creating new OU from: " + this.autoPasteValue);
+      logger.debug("Creating new OU from: " + this.autoPasteValue);
       this.bean.setOrganizationPasted(true);
       final String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
       final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
@@ -221,10 +220,10 @@ public class CreatorVOPresentation extends CreatorVO {
   }
 
   public String getOuNumbers() {
-    if (this.isPersonType() && this.ouNumbers == null) {
+    if (this.isPersonType() && null == this.ouNumbers) {
       final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
       for (final OrganizationVO organization : this.getPerson().getOrganizations()) {
-        if (this.ouNumbers == null) {
+        if (null == this.ouNumbers) {
           this.ouNumbers = "";
         } else {
           this.ouNumbers += ",";
@@ -238,7 +237,7 @@ public class CreatorVOPresentation extends CreatorVO {
   }
 
   public int[] getOus() {
-    if (this.getOuNumbers() != null && !"".equals(this.getOuNumbers())) {
+    if (null != this.getOuNumbers() && !"".equals(this.getOuNumbers())) {
       final String[] orgArr = this.getOuNumbers().split(",");
       final int[] result = new int[orgArr.length];
 
@@ -268,7 +267,7 @@ public class CreatorVOPresentation extends CreatorVO {
   public void setOus(int[] values) {
     String result = "";
     for (int i = 0; i < values.length; i++) {
-      if (i > 0) {
+      if (0 < i) {
         result += ",";
       }
       result += values[i];
@@ -285,7 +284,7 @@ public class CreatorVOPresentation extends CreatorVO {
       this.setType(CreatorType.PERSON);
       this.setPerson(new PersonVO());
       this.getPerson().setIdentifier(new IdentifierVO());
-      this.getPerson().getIdentifier().setType(IdType.CONE);
+      this.getPerson().getIdentifier().setType(IdentifierVO.IdType.CONE);
       this.getPerson().setOrganizations(new ArrayList<>());
     } else if (CreatorType.ORGANIZATION == type) {
       this.setType(CreatorType.ORGANIZATION);

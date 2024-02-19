@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -25,8 +25,8 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex.Bibtex;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import net.sf.saxon.TransformerFactoryImpl;
 
-@TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
-@TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.BIBTEX_STRING, targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.BIBTEX_STRING, targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)
 public class BibtexToItemXml extends SingleTransformer implements ChainableTransformer {
 
   @Override
@@ -56,7 +56,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
   @Override
   public Map<String, String> getConfiguration() {
     Map<String, String> superConfig = super.getConfiguration();
-    if (superConfig == null || superConfig.isEmpty()) {
+    if (null == superConfig || superConfig.isEmpty()) {
       Map<String, String> c = new HashMap<>();
       try {
         c = getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BIBTEX_CONFIGURATION_FILENAME);

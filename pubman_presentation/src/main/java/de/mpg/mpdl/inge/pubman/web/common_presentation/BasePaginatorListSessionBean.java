@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -175,7 +174,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     final String elementsPerP =
         FacesTools.getExternalContext().getRequestParameterMap().get(BasePaginatorListSessionBean.parameterElementsPerPage);
 
-    if (elementsPerP != null) {
+    if (null != elementsPerP) {
       this.setElementsPerPage(Integer.parseInt(elementsPerP));
     } else {
       this.setElementsPerPage(25);
@@ -183,7 +182,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     final String currentPNumber =
         FacesTools.getExternalContext().getRequestParameterMap().get(BasePaginatorListSessionBean.parameterPageNumber);
-    if (currentPNumber != null) {
+    if (null != currentPNumber) {
       this.setCurrentPageNumber(Integer.parseInt(currentPNumber));
       this.setGoToPage(currentPNumber);
     } else {
@@ -192,13 +191,13 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     this.readOutParameters();
 
-    if (this.getListUpdate() && this.getPaginatorListRetriever() != null) {
+    if (this.getListUpdate() && null != this.getPaginatorListRetriever()) {
       this.currentPartList = this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage, this.getSortCriteria());
       this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
-      if (this.getTotalNumberOfElements() > 0 && this.getTotalNumberOfElements() <= this.getOffset()) {
+      if (0 < this.getTotalNumberOfElements() && this.getTotalNumberOfElements() <= this.getOffset()) {
         this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this.getElementsPerPage()) + 1);
         this.currentPartList =
             this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage, this.getSortCriteria());
@@ -231,7 +230,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
-      if (this.getTotalNumberOfElements() > 0 && this.getTotalNumberOfElements() <= this.getOffset()) {
+      if (0 < this.getTotalNumberOfElements() && this.getTotalNumberOfElements() <= this.getOffset()) {
         this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this.getElementsPerPage()) + 1);
         this.currentPartList =
             this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage, this.getSortCriteria());
@@ -389,7 +388,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     try {
       final int goToPage = Integer.parseInt(this.getGoToPageTop());
 
-      if (goToPage > 0 && goToPage <= this.getPaginatorPageSize()) {
+      if (0 < goToPage && goToPage <= this.getPaginatorPageSize()) {
         this.setCurrentPageNumber(goToPage);
         this.setGoToPageBottom(String.valueOf(goToPage));
       } else {
@@ -411,7 +410,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   public void doGoToPageBottom() {
     try {
       final int goToPage = Integer.parseInt(this.getGoToPageBottom());
-      if (goToPage > 0 && goToPage <= this.getPaginatorPageSize()) {
+      if (0 < goToPage && goToPage <= this.getPaginatorPageSize()) {
         this.setCurrentPageNumber(goToPage);
         this.setGoToPageTop(String.valueOf(goToPage));
       } else {
@@ -458,9 +457,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @return
    */
   public int getFirstPaginatorPageNumber() {
-    if (this.getPaginatorPageSize() > 7 && this.currentPageNumber > this.getPaginatorPageSize() - 4) {
+    if (7 < this.getPaginatorPageSize() && this.currentPageNumber > this.getPaginatorPageSize() - 4) {
       return this.getPaginatorPageSize() - 6;
-    } else if (this.getPaginatorPageSize() > 7 && this.currentPageNumber > 4) {
+    } else if (7 < this.getPaginatorPageSize() && 4 < this.currentPageNumber) {
       return this.currentPageNumber - 3;
     } else {
       return 1;
@@ -540,7 +539,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   public void redirect() {
     this.beforeRedirect();
     try {
-      BasePaginatorListSessionBean.logger.debug("redirectURL :" + this.getRedirectUrl());
+      logger.debug("redirectURL :" + this.getRedirectUrl());
       FacesTools.getExternalContext().redirect(this.getRedirectUrl());
     } catch (final IOException e) {
       this.error(this.getMessage("NoRedirect"));
@@ -560,8 +559,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   private String getUrlParameterString() {
 
     StringBuilder parameterUrlBuilder = new StringBuilder("?");
-    for (final Entry<String, String> entrySet : this.getParameterMap().entrySet()) {
-      if (entrySet.getValue() != null) {
+    for (final Map.Entry<String, String> entrySet : this.getParameterMap().entrySet()) {
+      if (null != entrySet.getValue()) {
         parameterUrlBuilder.append(URLEncoder.encode(entrySet.getKey(), StandardCharsets.UTF_8)).append("=")
             .append(URLEncoder.encode(entrySet.getValue(), StandardCharsets.UTF_8)).append("&");
       }
@@ -570,7 +569,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
     parameterUrl = parameterUrl.substring(0, parameterUrl.length() - 1);
 
-    BasePaginatorListSessionBean.logger.debug("parameterUrl: " + parameterUrl);
+    logger.debug("parameterUrl: " + parameterUrl);
 
     return parameterUrl;
   }
@@ -796,7 +795,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   }
 
   public Map<ListElementType, Boolean> getCurrentSelections() {
-    return currentSelections;
+    return this.currentSelections;
   }
 
   public void setCurrentSelections(Map<ListElementType, Boolean> currentSelections) {

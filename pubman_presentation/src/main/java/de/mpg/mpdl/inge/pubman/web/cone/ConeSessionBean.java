@@ -40,7 +40,7 @@ public class ConeSessionBean extends FacesBean {
   public ConeSessionBean() {}
 
   public String getSuggestConeUrl() {
-    if (this.suggestConeUrl == null) {
+    if (null == this.suggestConeUrl) {
       this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     }
 

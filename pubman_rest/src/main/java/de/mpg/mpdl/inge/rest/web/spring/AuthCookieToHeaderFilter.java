@@ -55,12 +55,13 @@ public class AuthCookieToHeaderFilter implements Filter {
 
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
     HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-    if (httpServletRequest.getHeader(AUTHZ_HEADER) == null || httpServletRequest.getHeader(AUTHZ_HEADER).isEmpty()) {
+    if (null == httpServletRequest.getHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER)
+        || httpServletRequest.getHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER).isEmpty()) {
 
       Cookie[] cookies = httpServletRequest.getCookies();
 
       boolean userCookieSet = false;
-      if (cookies != null) {
+      if (null != cookies) {
         for (Cookie cookie : cookies) {
           if (COOKIE_NAME.equals(cookie.getName())) {
 
@@ -68,11 +69,11 @@ public class AuthCookieToHeaderFilter implements Filter {
 
             try {
               //Add token from cookie as authorization header, only if it's valid and not an anonymous cookie (means claim 'id' is set)
-              DecodedJWT jwtToken = userAccountService.verifyToken(token);
+              DecodedJWT jwtToken = this.userAccountService.verifyToken(token);
               if (!jwtToken.getClaim("id").isNull()) {
                 logger.debug("Found valid token in cookie \"" + COOKIE_NAME + "\", copying it to Authorization header");
                 HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
-                requestWrapper.addHeader(AUTHZ_HEADER, token);
+                requestWrapper.addHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER, token);
                 request = requestWrapper;
                 userCookieSet = true;
               }
@@ -94,10 +95,10 @@ public class AuthCookieToHeaderFilter implements Filter {
       if (!userCookieSet) {
         try {
           logger.debug("Found no valid user cookie \"" + COOKIE_NAME + "\", trying to login as ip-based user");
-          Principal principal = userAccountService.login(httpServletRequest, (HttpServletResponse) response);
-          if (principal != null) {
+          Principal principal = this.userAccountService.login(httpServletRequest, (HttpServletResponse) response);
+          if (null != principal) {
             HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
-            requestWrapper.addHeader(AUTHZ_HEADER, principal.getJwToken());
+            requestWrapper.addHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER, principal.getJwToken());
             request = requestWrapper;
           }
 
@@ -150,14 +151,14 @@ public class AuthCookieToHeaderFilter implements Filter {
      * @param value
      */
     public void addHeader(String name, String value) {
-      headerMap.put(name, value);
+      this.headerMap.put(name, value);
     }
 
     @Override
     public String getHeader(String name) {
       String headerValue = super.getHeader(name);
-      if (headerMap.containsKey(name)) {
-        headerValue = headerMap.get(name);
+      if (this.headerMap.containsKey(name)) {
+        headerValue = this.headerMap.get(name);
       }
       return headerValue;
     }
@@ -168,15 +169,15 @@ public class AuthCookieToHeaderFilter implements Filter {
     @Override
     public Enumeration<String> getHeaderNames() {
       List<String> names = Collections.list(super.getHeaderNames());
-      names.addAll(headerMap.keySet());
+      names.addAll(this.headerMap.keySet());
       return Collections.enumeration(names);
     }
 
     @Override
     public Enumeration<String> getHeaders(String name) {
       List<String> values = Collections.list(super.getHeaders(name));
-      if (headerMap.containsKey(name)) {
-        values.add(headerMap.get(name));
+      if (this.headerMap.containsKey(name)) {
+        values.add(this.headerMap.get(name));
       }
       return Collections.enumeration(values);
     }

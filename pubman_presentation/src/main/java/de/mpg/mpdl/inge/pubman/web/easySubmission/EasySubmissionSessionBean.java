@@ -124,7 +124,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
 
   public void checkMinAnzLocators() {
     if (this.getLocators().isEmpty()
-        || !this.getLocators().isEmpty() && this.getLocators().get(this.getLocators().size() - 1).getFile().getSize() > 0) {
+        || !this.getLocators().isEmpty() && 0 < this.getLocators().get(this.getLocators().size() - 1).getFile().getSize()) {
       final FileDbVO newLocator = new FileDbVO();
       newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);

@@ -256,7 +256,7 @@ public class ImportLog extends BaseImportLog {
    * @param item The item to be activated
    */
   public void activateItem(ImportLogItem item) {
-    if (this.currentImportLogItem == null) {
+    if (null == this.currentImportLogItem) {
       this.currentImportLogItem = item;
     } else {
       throw new RuntimeException("Trying to start logging an item while another is not yet finished");
@@ -299,7 +299,7 @@ public class ImportLog extends BaseImportLog {
    *        duplicate)
    */
   public void addDetail(BaseImportLog.ErrorLevel errLevel, String msg, String detailId, Connection connection) {
-    if (this.currentImportLogItem == null) {
+    if (null == this.currentImportLogItem) {
       throw new RuntimeException("Trying to add a detail but no log item is started.");
     }
 
@@ -309,7 +309,7 @@ public class ImportLog extends BaseImportLog {
     importLogItemDetail.setStartDate(new Date());
     importLogItemDetail.setStatus(BaseImportLog.Status.FINISHED);
 
-    if (this.currentImportLogItem == null) {
+    if (null == this.currentImportLogItem) {
       this.startItem("", connection);
     }
 
@@ -356,7 +356,7 @@ public class ImportLog extends BaseImportLog {
    * removes the focus of the import.
    */
   public void finishItem(Connection connection) {
-    if (this.currentImportLogItem != null) {
+    if (null != this.currentImportLogItem) {
       this.currentImportLogItem.setEndDate(new Date());
       this.currentImportLogItem.setStatus(BaseImportLog.Status.FINISHED);
 
@@ -384,7 +384,7 @@ public class ImportLog extends BaseImportLog {
     final StringWriter stringWriter = new StringWriter();
     stringWriter.write(exception.getClass().getSimpleName());
 
-    if (exception.getMessage() != null) {
+    if (null != exception.getMessage()) {
       stringWriter.write(": ");
       stringWriter.write(exception.getMessage());
     }
@@ -401,7 +401,7 @@ public class ImportLog extends BaseImportLog {
     stringWriter.write(stackTraceElements[0].getLineNumber() + "");
     stringWriter.write(")\n");
 
-    if (exception.getCause() != null) {
+    if (null != exception.getCause()) {
       stringWriter.write(this.getExceptionMessage(exception.getCause()));
     }
 
@@ -409,7 +409,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   public boolean getFinished() {
-    return (this.status == BaseImportLog.Status.FINISHED);
+    return (Status.FINISHED == this.status);
   }
 
   public TransformerFactory.FORMAT getFormat() {
@@ -418,7 +418,7 @@ public class ImportLog extends BaseImportLog {
 
   public boolean getImportedItems() {
     for (final ImportLogItem item : this.importLogItems) {
-      if (item.getItemId() != null) {
+      if (null != item.getItemId()) {
         return true;
       }
     }
@@ -457,11 +457,11 @@ public class ImportLog extends BaseImportLog {
   }
 
   public boolean getSimpleWorkflow() {
-    return (this.getWorkflow() == ContextDbVO.Workflow.SIMPLE);
+    return (ContextDbVO.Workflow.SIMPLE == this.getWorkflow());
   }
 
   public boolean getStandardWorkflow() {
-    return (this.getWorkflow() == ContextDbVO.Workflow.STANDARD);
+    return (ContextDbVO.Workflow.STANDARD == this.getWorkflow());
   }
 
   public String getUser() {
@@ -469,7 +469,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   private ContextDbVO.Workflow getWorkflow() {
-    if (this.workflow == null) {
+    if (null == this.workflow) {
       try {
         final ContextDbVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
 
@@ -483,7 +483,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   public boolean isDone() {
-    return (this.status == BaseImportLog.Status.FINISHED);
+    return (Status.FINISHED == this.status);
   }
 
   /**
@@ -629,7 +629,7 @@ public class ImportLog extends BaseImportLog {
   public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel, Connection connection) {
     super.setErrorLevel(errorLevel);
 
-    if (connection != null) {
+    if (null != connection) {
       this.updateImportLog(connection);
     }
   }
@@ -671,7 +671,7 @@ public class ImportLog extends BaseImportLog {
   public void setPercentage(int percentage, Connection connection) {
     this.percentage = percentage;
 
-    if (connection != null) {
+    if (null != connection) {
       this.updateImportLog(connection);
     }
   }
@@ -703,7 +703,7 @@ public class ImportLog extends BaseImportLog {
    * @param itemId The eSciDoc id of the imported item
    */
   public void startItem(BaseImportLog.ErrorLevel errLevel, String msg, Date sDate, String itemId, Connection connection) {
-    if (this.currentImportLogItem != null) {
+    if (null != this.currentImportLogItem) {
       throw new RuntimeException("Trying to start logging an item while another is not yet finished");
     }
 
@@ -840,7 +840,7 @@ public class ImportLog extends BaseImportLog {
    * then suspended. In a second step, all items are imported into the repository.
    */
   public void suspendItem(Connection connection) {
-    if (this.currentImportLogItem != null) {
+    if (null != this.currentImportLogItem) {
       this.currentImportLogItem.setStatus(BaseImportLog.Status.SUSPENDED);
 
       this.updateImportLogItem(this.currentImportLogItem, connection);
@@ -858,7 +858,7 @@ public class ImportLog extends BaseImportLog {
     writer.write(" (");
     writer.write(BaseImportLog.DATE_FORMAT.format(this.getStartDate()));
     writer.write(" - ");
-    if (this.getEndDate() != null) {
+    if (null != this.getEndDate()) {
       writer.write(BaseImportLog.DATE_FORMAT.format(this.getEndDate()));
     }
     writer.write(") - ");
@@ -883,7 +883,7 @@ public class ImportLog extends BaseImportLog {
       ps.setString(2, this.errorLevel.toString());
       ps.setTimestamp(3, new Timestamp(this.startDate.getTime()));
 
-      if (this.endDate != null) {
+      if (null != this.endDate) {
         ps.setTimestamp(4, new Timestamp(this.endDate.getTime()));
       } else {
         ps.setTimestamp(4, null);
@@ -913,7 +913,7 @@ public class ImportLog extends BaseImportLog {
       ps.setString(2, importLogItem.getErrorLevel().toString());
       ps.setTimestamp(3, new Timestamp(importLogItem.getStartDate().getTime()));
 
-      if (importLogItem.getEndDate() != null) {
+      if (null != importLogItem.getEndDate()) {
         ps.setTimestamp(4, new Timestamp(importLogItem.getEndDate().getTime()));
       } else {
         ps.setTimestamp(4, null);

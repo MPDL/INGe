@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
@@ -39,7 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @updated 22-Okt-2007 15:27:10
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class OrganizationVO extends ValueObject implements Cloneable {
   private String address;
   private String identifier;
@@ -50,14 +49,14 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    * Delivers the address of the organization as used in the item.
    */
   public String getAddress() {
-    return address;
+    return this.address;
   }
 
   /**
    * Delivers the id of the corresponding affiliation in the system.
    */
   public String getIdentifier() {
-    return identifier;
+    return this.identifier;
   }
 
   /**
@@ -65,7 +64,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    */
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -74,7 +73,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setAddress(String newVal) {
-    address = newVal;
+    this.address = newVal;
   }
 
   /**
@@ -83,7 +82,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setName(String newVal) {
-    name = newVal;
+    this.name = newVal;
   }
 
   public OrganizationVO clone() {
@@ -100,10 +99,10 @@ public class OrganizationVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((address == null) ? 0 : address.hashCode());
-    result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-    result = prime * result + Arrays.hashCode(identifierPath);
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((null == this.address) ? 0 : this.address.hashCode());
+    result = prime * result + ((null == this.identifier) ? 0 : this.identifier.hashCode());
+    result = prime * result + Arrays.hashCode(this.identifierPath);
+    result = prime * result + ((null == this.name) ? 0 : this.name.hashCode());
     return result;
   }
 
@@ -111,7 +110,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (null == obj)
       return false;
 
     // Enabling comparison with super classes like OrganizationVOPresentation
@@ -119,22 +118,22 @@ public class OrganizationVO extends ValueObject implements Cloneable {
       return false;
 
     OrganizationVO other = (OrganizationVO) obj;
-    if (address == null) {
-      if (other.address != null)
+    if (null == this.address) {
+      if (null != other.address)
         return false;
-    } else if (!address.equals(other.address))
+    } else if (!this.address.equals(other.address))
       return false;
-    if (identifier == null) {
-      if (other.identifier != null)
+    if (null == this.identifier) {
+      if (null != other.identifier)
         return false;
-    } else if (!identifier.equals(other.identifier))
+    } else if (!this.identifier.equals(other.identifier))
       return false;
-    if (!Arrays.equals(identifierPath, other.identifierPath))
+    if (!Arrays.equals(this.identifierPath, other.identifierPath))
       return false;
-    if (name == null) {
-      if (other.name != null)
+    if (null == this.name) {
+      if (null != other.name)
         return false;
-    } else if (!name.equals(other.name))
+    } else if (!this.name.equals(other.name))
       return false;
     return true;
   }
@@ -145,11 +144,11 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setIdentifier(String newVal) {
-    identifier = newVal;
+    this.identifier = newVal;
   }
 
   public String[] getIdentifierPath() {
-    return identifierPath;
+    return this.identifierPath;
   }
 
   public void setIdentifierPath(String[] identifierPath) {

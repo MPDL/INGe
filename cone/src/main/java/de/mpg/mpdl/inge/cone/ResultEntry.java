@@ -31,7 +31,7 @@ public class ResultEntry extends LocalizedString {
 
 
   public Map<String, List<LocalizedTripleObject>> getValueMap() {
-    return valueMap;
+    return this.valueMap;
   }
 
   public void setValueMap(Map<String, List<LocalizedTripleObject>> valueMap) {
@@ -52,7 +52,7 @@ public class ResultEntry extends LocalizedString {
    */
 
   public String getSortResult() {
-    return sortResult;
+    return this.sortResult;
   }
 
   public void setSortResult(String sortResult) {
@@ -60,7 +60,7 @@ public class ResultEntry extends LocalizedString {
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(String type) {

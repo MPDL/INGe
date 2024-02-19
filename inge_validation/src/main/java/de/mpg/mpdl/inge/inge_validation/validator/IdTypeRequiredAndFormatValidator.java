@@ -16,7 +16,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
  * <iso:pattern name="id_type_required" id="id_type_required"> <iso:rule
  * context="publication:publication/dc:identifier"> <iso:assert test=". = '' or not(.) or @xsi:type
  * != ''"> IdTypeNotProvided</iso:assert> </iso:rule> </iso:pattern>
- * 
+ *
  * Additionally checking the format of specific IDs now
  */
 
@@ -32,9 +32,9 @@ public class IdTypeRequiredAndFormatValidator extends ValidatorHandler<List<Iden
       int i = 1;
       for (final IdentifierVO identifierVO : identifiers) {
 
-        if (identifierVO != null) {
+        if (null != identifierVO) {
           if (ValidationTools.isNotEmpty(identifierVO.getId())) //
-            if (identifierVO.getType() == null) {
+            if (null == identifierVO.getType()) {
               context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField("identifier[" + i + "]"));
               ok = false;
             } else { // Check format of the IDs

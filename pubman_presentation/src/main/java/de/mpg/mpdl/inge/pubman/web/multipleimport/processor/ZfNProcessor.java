@@ -97,12 +97,12 @@ public class ZfNProcessor extends FormatProcessor {
       ZipEntry zipentry;
       final ZipInputStream zipinputstream = new ZipInputStream(in);
 
-      while ((zipentry = zipinputstream.getNextEntry()) != null) {
+      while (null != (zipentry = zipinputstream.getNextEntry())) {
         count++;
         final StringWriter sw = new StringWriter();
         final Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, StandardCharsets.UTF_8));
 
-        while ((readReturn = reader.read(buffer)) != -1) {
+        while (-1 != (readReturn = reader.read(buffer))) {
           sw.write(buffer, 0, readReturn);
         }
 
@@ -140,7 +140,7 @@ public class ZfNProcessor extends FormatProcessor {
     this.setConfig(config);
     this.setCurrentFile(this.processZfnFileName(this.fileNames.get(0)));
 
-    if (this.getConfig() != null) {
+    if (null != this.getConfig()) {
       final InputStream in = this.fetchFile();
       return this.createPubFile(in, user);
     }
@@ -159,7 +159,7 @@ public class ZfNProcessor extends FormatProcessor {
 
     final String fileURL = this.uploadFile(in, mimeType, this.getCurrentFile(), user);
 
-    if (fileURL != null && !fileURL.trim().isEmpty()) {
+    if (null != fileURL && !fileURL.trim().isEmpty()) {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.setMetadata(mdSet);
@@ -169,11 +169,11 @@ public class ZfNProcessor extends FormatProcessor {
       fileVO.setContent(fileURL);
       fileVO.setSize(this.fileSize);
       String contentCategory = null;
-      if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
+      if (null != PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION")) {
         contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
       } else {
         final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
-        if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+        if (null != contentCategoryMap && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
           LogManager.getLogger(ZfNProcessor.class).warn("WARNING: no content-category has been defined in Genres.xml");
@@ -272,7 +272,7 @@ public class ZfNProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    final boolean next = this.items != null && this.counter < this.items.length;
+    final boolean next = null != this.items && this.counter < this.items.length;
     if (!this.init && !next) {
       try {
         this.closeFtpServer();
@@ -294,7 +294,7 @@ public class ZfNProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    if (this.items != null && this.counter < this.items.length) {
+    if (null != this.items && this.counter < this.items.length) {
       this.counter++;
       return this.items[this.counter - 1];
     } else {
@@ -320,7 +320,7 @@ public class ZfNProcessor extends FormatProcessor {
 
   @Override
   public String getDataAsBase64() {
-    if (this.originalData == null) {
+    if (null == this.originalData) {
       return null;
     }
 

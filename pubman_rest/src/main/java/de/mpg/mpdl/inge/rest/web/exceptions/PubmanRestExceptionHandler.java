@@ -27,19 +27,19 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
   private static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status) {
     logger.error("Error in REST", e);
-    if (status != null) {
+    if (null != status) {
       messageMap.put("timestamp", LocalDateTime.now());
       messageMap.put("status", status.value());
       messageMap.put("error", status.getReasonPhrase());
     }
 
     messageMap.put("exception", e.getClass().getCanonicalName());
-    if (e.getMessage() != null) {
+    if (null != e.getMessage()) {
       messageMap.put("message", e.getMessage());
     }
 
 
-    if (e.getCause() != null) {
+    if (null != e.getCause()) {
       Map<String, Object> subMap = new LinkedHashMap<>();
       messageMap.put("cause", subMap);
       buildExceptionMessage(e.getCause(), subMap, null);

@@ -23,7 +23,7 @@ public class ComponentsIpRangeRequiredValidator extends ValidatorHandler<List<Fi
       int i = 1;
       for (final FileDbVO fileDbVO : files) {
 
-        if (fileDbVO != null) {
+        if (null != fileDbVO) {
 
           //File with missing IP range
           if (FileDbVO.Storage.INTERNAL_MANAGED.equals(fileDbVO.getStorage())
@@ -32,7 +32,7 @@ public class ComponentsIpRangeRequiredValidator extends ValidatorHandler<List<Fi
             if (!isEmpty) {
               int countEmpty = 0;
               for (String audienceId : fileDbVO.getAllowedAudienceIds()) {
-                if (audienceId == null) {
+                if (null == audienceId) {
                   countEmpty++;
                 }
               }

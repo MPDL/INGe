@@ -30,6 +30,8 @@ public class XmlUtilities {
   private static final Logger logger = LogManager.getLogger(XmlUtilities.class);
   private static Map<String, Schema> schemas = null;
 
+  private XmlUtilities() {}
+
   /**
    * Assert that the XML is valid to the schema.
    *
@@ -38,11 +40,11 @@ public class XmlUtilities {
    */
   public static void assertXMLValid(final String xmlData) throws Exception {
 
-    if (xmlData == null) {
+    if (null == xmlData) {
       throw new IllegalArgumentException("assertXMLValid:xmlData is null");
     }
 
-    if (schemas == null) {
+    if (null == schemas) {
       initializeSchemas();
     }
 
@@ -73,27 +75,27 @@ public class XmlUtilities {
           private boolean found = false;
 
           public void startElement(String uri, String localName, String qName, Attributes attributes) {
-            if (!found) {
+            if (!this.found) {
               String tagName = null;
               int ix = qName.indexOf(":");
-              if (ix >= 0) {
+              if (0 <= ix) {
                 tagName = qName.substring(ix + 1);
               } else {
                 tagName = qName;
               }
               if ("schema".equals(tagName)) {
-                nameSpace = attributes.getValue("targetNamespace");
-                found = true;
+                this.nameSpace = attributes.getValue("targetNamespace");
+                this.found = true;
               }
             }
           }
 
           public String toString() {
-            return nameSpace;
+            return this.nameSpace;
           }
         };
         parser.parse(file, handler);
-        if (handler.toString() != null) {
+        if (null != handler.toString()) {
           schemas.put(handler.toString(), schema);
         } else {
           logger.warn("Error reading xml schema: " + file);
@@ -124,21 +126,21 @@ public class XmlUtilities {
       private boolean first = true;
 
       public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        if (first) {
+        if (this.first) {
           if (qName.contains(":")) {
             String prefix = qName.substring(0, qName.indexOf(":"));
             String attributeName = "xmlns:" + prefix;
-            nameSpace = attributes.getValue(attributeName);
+            this.nameSpace = attributes.getValue(attributeName);
           } else {
-            nameSpace = attributes.getValue("xmlns");
+            this.nameSpace = attributes.getValue("xmlns");
           }
-          first = false;
+          this.first = false;
         }
 
       }
 
       public String toString() {
-        return nameSpace;
+        return this.nameSpace;
       }
     };
     parser.parse(new ByteArrayInputStream(xmlData.getBytes(StandardCharsets.UTF_8)), handler);
@@ -153,7 +155,7 @@ public class XmlUtilities {
    * @return The XML-escaped string
    */
   public static String escape(String input) {
-    if (input != null) {
+    if (null != input) {
       input = input.replace("&", "&amp;");
       input = input.replace("<", "&lt;");
       input = input.replace("\"", "&quot;");

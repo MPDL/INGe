@@ -13,7 +13,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -21,7 +20,8 @@ import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.ris.RISImport;
 
-@TransformerModule(sourceFormat = FORMAT.RIS_STRING, targetFormat = FORMAT.RIS_XML)
+@TransformerModule(sourceFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.RIS_STRING,
+    targetFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.RIS_XML)
 public class RisToRisXml extends SingleTransformer implements ChainableTransformer {
 
   @Override

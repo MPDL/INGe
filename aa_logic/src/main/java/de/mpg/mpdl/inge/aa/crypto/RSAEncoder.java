@@ -71,7 +71,7 @@ public class RSAEncoder {
     int blockSize = 245;
     for (int i = 0; i < bytes.length; i += blockSize) {
       byte[] result = cipher.doFinal(bytes, i, (i + blockSize < bytes.length ? blockSize : bytes.length - i));
-      if (i > 0) {
+      if (0 < i) {
         resultWriter.write("&");
       }
       resultWriter.write("auth=");

@@ -56,7 +56,7 @@ public class ScienceDirectFormat extends AuthorFormat {
     String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
     List<String> newList = new ArrayList<>();
     for (int i = 0; i < authors.length; i++) {
-      if (i != 1 && i != 2) {
+      if (1 != i && 2 != i) {
         newList.add(authors[i]);
       }
     }

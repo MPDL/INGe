@@ -49,6 +49,8 @@ import net.sf.saxon.TransformerFactoryImpl;
  */
 public class Rdfs {
 
+  private Rdfs() {}
+
   /**
    * Create an RDFS out of a model definition from the models.xml.
    *
@@ -59,7 +61,7 @@ public class Rdfs {
     Source source = new StreamSource(
         ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_RDFS_TEMPLATE), Rdfs.class.getClassLoader()));
     Transformer transformer = new TransformerFactoryImpl().newTransformer(source);
-    if (modelname != null) {
+    if (null != modelname) {
       transformer.setParameter("model", modelname);
     }
     Writer writer = new StringWriter();
@@ -75,7 +77,7 @@ public class Rdfs {
    */
   public static void main(String[] args) throws Exception {
 
-    Writer writer = getModelAsRdfs(args.length == 0 ? null : args[0]);
+    Writer writer = getModelAsRdfs(0 == args.length ? null : args[0]);
     System.out.println(writer);
   }
 }

@@ -50,7 +50,7 @@ public class UnmarshallingException extends TransformingException {
    */
   public UnmarshallingException(String xml, Throwable cause) {
     super("The affected XML is as follows:\n" + xml, cause);
-    m_xml = xml;
+    this.m_xml = xml;
   }
 
   /**
@@ -59,6 +59,6 @@ public class UnmarshallingException extends TransformingException {
    * @return The xml
    */
   public String getXml() {
-    return m_xml;
+    return this.m_xml;
   }
 }

@@ -30,9 +30,9 @@ public class SourcesGenreRequiredValidator extends ValidatorHandler<List<SourceV
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
           if (ValidationTools.isNotEmpty(sourceVO.getTitle()) //
-              && sourceVO.getGenre() == null) {
+              && null == sourceVO.getGenre()) {
             context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_NOT_PROVIDED).setField("source[" + i + "]"));
             ok = false;
           }

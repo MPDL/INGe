@@ -57,7 +57,7 @@ public class Pair {
   }
 
   public String getKey() {
-    return key;
+    return this.key;
   }
 
   public void setKey(String key) {
@@ -65,7 +65,7 @@ public class Pair {
   }
 
   public String getValue() {
-    return value;
+    return this.value;
   }
 
   public void setValue(String value) {
@@ -73,14 +73,14 @@ public class Pair {
   }
 
   public boolean equals(Object other) {
-    if (other == null) {
+    if (null == other) {
       return false;
     } else if (!(other instanceof Pair)) {
       return false;
     }
     Pair otherPair = (Pair) other;
 
-    return (Objects.equals(key, otherPair.key)) && (Objects.equals(value, otherPair.value));
+    return (Objects.equals(this.key, otherPair.key)) && (Objects.equals(this.value, otherPair.value));
   }
 
   /**
@@ -88,6 +88,6 @@ public class Pair {
    */
   @Override
   public int hashCode() {
-    return key.hashCode();
+    return this.key.hashCode();
   }
 }

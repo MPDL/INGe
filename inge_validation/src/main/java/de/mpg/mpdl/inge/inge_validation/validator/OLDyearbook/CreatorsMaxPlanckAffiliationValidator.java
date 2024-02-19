@@ -10,7 +10,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
@@ -34,16 +33,16 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
 
       for (final CreatorVO creatorVO : creators) {
 
-        if (creatorVO != null) {
+        if (null != creatorVO) {
 
-          final CreatorType type = creatorVO.getType();
+          final CreatorVO.CreatorType type = creatorVO.getType();
           switch (type) {
 
             case ORGANIZATION:
 
               final OrganizationVO o = creatorVO.getOrganization();
 
-              if (o != null //
+              if (null != o //
                   && ValidationTools.isNotEmpty(o.getIdentifier()) //
                   && !this.childsOfMPG.contains(o.getIdentifier())) {
               } else {
@@ -56,11 +55,11 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
 
               final PersonVO p = creatorVO.getPerson();
 
-              if (p != null) {
+              if (null != p) {
 
                 for (final OrganizationVO op : p.getOrganizations()) {
 
-                  if (op != null //
+                  if (null != op //
                       && ValidationTools.isNotEmpty(op.getIdentifier()) //
                       && !this.childsOfMPG.contains(op.getIdentifier())) {
                   } else {

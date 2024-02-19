@@ -5,13 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.types.Coordinates;
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
 
   private String city;
@@ -62,7 +61,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   }
 
   public String getCity() {
-    return city;
+    return this.city;
   }
 
   public void setCity(String city) {
@@ -70,7 +69,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   }
 
   public Coordinates getCoordinates() {
-    return coordinates;
+    return this.coordinates;
   }
 
   public void setCoordinates(Coordinates coordinates) {
@@ -78,7 +77,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   }
 
   public String getCountryCode() {
-    return countryCode;
+    return this.countryCode;
   }
 
   public void setCountryCode(String countryCode) {
@@ -86,7 +85,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public void setName(String name) {
@@ -94,19 +93,19 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   }
 
   public List<String> getDescriptions() {
-    return descriptions;
+    return this.descriptions;
   }
 
   public List<IdentifierVO> getIdentifiers() {
-    return identifiers;
+    return this.identifiers;
   }
 
   public List<String> getAlternativeNames() {
-    return alternativeNames;
+    return this.alternativeNames;
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   public void setType(String type) {
@@ -118,7 +117,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   }
 
   public String getStartDate() {
-    return startDate;
+    return this.startDate;
   }
 
   public void setEndDate(String endDate) {
@@ -126,23 +125,23 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
   }
 
   public String getEndDate() {
-    return endDate;
+    return this.endDate;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((alternativeNames == null) ? 0 : alternativeNames.hashCode());
-    result = prime * result + ((city == null) ? 0 : city.hashCode());
-    result = prime * result + ((coordinates == null) ? 0 : coordinates.hashCode());
-    result = prime * result + ((countryCode == null) ? 0 : countryCode.hashCode());
-    result = prime * result + ((descriptions == null) ? 0 : descriptions.hashCode());
-    result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-    result = prime * result + ((type == null) ? 0 : type.hashCode());
+    result = prime * result + ((null == this.alternativeNames) ? 0 : this.alternativeNames.hashCode());
+    result = prime * result + ((null == this.city) ? 0 : this.city.hashCode());
+    result = prime * result + ((null == this.coordinates) ? 0 : this.coordinates.hashCode());
+    result = prime * result + ((null == this.countryCode) ? 0 : this.countryCode.hashCode());
+    result = prime * result + ((null == this.descriptions) ? 0 : this.descriptions.hashCode());
+    result = prime * result + ((null == this.endDate) ? 0 : this.endDate.hashCode());
+    result = prime * result + ((null == this.identifiers) ? 0 : this.identifiers.hashCode());
+    result = prime * result + ((null == this.name) ? 0 : this.name.hashCode());
+    result = prime * result + ((null == this.startDate) ? 0 : this.startDate.hashCode());
+    result = prime * result + ((null == this.type) ? 0 : this.type.hashCode());
     return result;
   }
 
@@ -159,76 +158,76 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
 
     MdsOrganizationalUnitDetailsVO other = (MdsOrganizationalUnitDetailsVO) obj;
 
-    if (alternativeNames == null) {
-      if (other.alternativeNames != null)
+    if (null == this.alternativeNames) {
+      if (null != other.alternativeNames)
         return false;
-    } else if (other.alternativeNames == null)
+    } else if (null == other.alternativeNames)
       return false;
-    else if (!new HashSet<>(alternativeNames).containsAll(other.alternativeNames) //
-        || !new HashSet<>(other.alternativeNames).containsAll(alternativeNames)) {
+    else if (!new HashSet<>(this.alternativeNames).containsAll(other.alternativeNames) //
+        || !new HashSet<>(other.alternativeNames).containsAll(this.alternativeNames)) {
       return false;
     }
 
-    if (city == null) {
-      if (other.city != null)
+    if (null == this.city) {
+      if (null != other.city)
         return false;
-    } else if (!city.equals(other.city))
+    } else if (!this.city.equals(other.city))
       return false;
 
-    if (coordinates == null) {
-      if (other.coordinates != null)
+    if (null == this.coordinates) {
+      if (null != other.coordinates)
         return false;
-    } else if (!coordinates.equals(other.coordinates))
+    } else if (!this.coordinates.equals(other.coordinates))
       return false;
 
-    if (countryCode == null) {
-      if (other.countryCode != null)
+    if (null == this.countryCode) {
+      if (null != other.countryCode)
         return false;
-    } else if (!countryCode.equals(other.countryCode))
+    } else if (!this.countryCode.equals(other.countryCode))
       return false;
 
-    if (descriptions == null) {
-      if (other.descriptions != null)
+    if (null == this.descriptions) {
+      if (null != other.descriptions)
         return false;
-    } else if (other.descriptions == null)
+    } else if (null == other.descriptions)
       return false;
-    else if (!new HashSet<>(descriptions).containsAll(other.descriptions) //
-        || !new HashSet<>(other.descriptions).containsAll(descriptions)) {
+    else if (!new HashSet<>(this.descriptions).containsAll(other.descriptions) //
+        || !new HashSet<>(other.descriptions).containsAll(this.descriptions)) {
       return false;
     }
 
-    if (endDate == null) {
-      if (other.endDate != null)
+    if (null == this.endDate) {
+      if (null != other.endDate)
         return false;
-    } else if (!endDate.equals(other.endDate))
+    } else if (!this.endDate.equals(other.endDate))
       return false;
 
-    if (identifiers == null) {
-      if (other.identifiers != null)
+    if (null == this.identifiers) {
+      if (null != other.identifiers)
         return false;
-    } else if (other.identifiers == null)
+    } else if (null == other.identifiers)
       return false;
-    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
-        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
+    else if (!new HashSet<>(this.identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(this.identifiers)) {
       return false;
     }
 
-    if (name == null) {
-      if (other.name != null)
+    if (null == this.name) {
+      if (null != other.name)
         return false;
-    } else if (!name.equals(other.name))
+    } else if (!this.name.equals(other.name))
       return false;
 
-    if (startDate == null) {
-      if (other.startDate != null)
+    if (null == this.startDate) {
+      if (null != other.startDate)
         return false;
-    } else if (!startDate.equals(other.startDate))
+    } else if (!this.startDate.equals(other.startDate))
       return false;
 
-    if (type == null) {
-      if (other.type != null)
+    if (null == this.type) {
+      if (null != other.type)
         return false;
-    } else if (!type.equals(other.type))
+    } else if (!this.type.equals(other.type))
       return false;
 
     return true;

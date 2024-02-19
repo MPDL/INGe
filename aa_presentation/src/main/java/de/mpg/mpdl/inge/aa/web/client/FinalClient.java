@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -37,11 +37,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * TODO Description
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 public abstract class FinalClient extends Client {
 
@@ -67,9 +67,9 @@ public abstract class FinalClient extends Client {
       try { // SP: the original target got lost (and I can't find out where...)
             //     now it contains only model and not uri or searchterm and not model
             //     in the first case you have to deliver uri and in second case model
-        if (uri != null) { // first case
+        if (null != uri) { // first case
           response.sendRedirect(target + "&uri=" + uri + separator + encodedXml);
-        } else if (model != null) { // second case
+        } else if (null != model) { // second case
           response.sendRedirect(target + "&model=" + model + separator + encodedXml);
         } else {
           response.sendRedirect(target + separator + encodedXml);

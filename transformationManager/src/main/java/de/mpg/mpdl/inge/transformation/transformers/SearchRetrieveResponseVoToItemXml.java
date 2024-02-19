@@ -20,7 +20,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -28,7 +27,8 @@ import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 
-@TransformerModule(sourceFormat = FORMAT.SEARCH_RESULT_VO, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
+@TransformerModule(sourceFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.SEARCH_RESULT_VO,
+    targetFormat = de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class SearchRetrieveResponseVoToItemXml extends SingleTransformer implements ChainableTransformer {
 
   public static final String CONFIGURATION_CITATION = "citation";
@@ -45,7 +45,7 @@ public class SearchRetrieveResponseVoToItemXml extends SingleTransformer impleme
       ItemVOListWrapper listWrapper = new ItemVOListWrapper();
       listWrapper.setItemVOList(transformedList);
 
-      if (searchResult != null) {
+      if (null != searchResult) {
         listWrapper.setNumberOfRecords(String.valueOf(searchResult.getNumberOfRecords()));
       }
 

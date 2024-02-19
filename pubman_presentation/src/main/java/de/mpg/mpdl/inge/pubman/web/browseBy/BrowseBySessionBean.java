@@ -52,7 +52,7 @@ import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramBucket;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -116,14 +116,14 @@ public class BrowseBySessionBean extends FacesBean {
     final List<String> vocabs = new ArrayList<>();
     try {
       final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
-      if (vocabsStr != null && !vocabsStr.trim().isEmpty()) {
+      if (null != vocabsStr && !vocabsStr.trim().isEmpty()) {
         final String[] vocabsArr = vocabsStr.split(";");
         for (String s : vocabsArr) {
           vocabs.add(s.trim());
         }
       }
     } catch (final Exception e) {
-      BrowseBySessionBean.logger.error("Could not read Property: '" + PropertyReader.INGE_CONE_SUBJECTVOCAB + "'", e);
+      logger.error("Could not read Property: '" + PropertyReader.INGE_CONE_SUBJECTVOCAB + "'", e);
     }
     return vocabs;
   }
@@ -168,12 +168,12 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public void setShowChars() {
-    if (this.selectedValue.equals("year")) {
+    if ("year".equals(this.selectedValue)) {
       this.showChars = false;
     } else {
-      this.showChars = this.selectedValue.equals("persons");
+      this.showChars = "persons".equals(this.selectedValue);
 
-      if (this.showChars == false) {
+      if (false == this.showChars) {
         final List<LinkVO> all = this.getConeAll();
         this.showChars = (all.size() > this.getMaxDisplay());
       }
@@ -213,7 +213,7 @@ public class BrowseBySessionBean extends FacesBean {
 
       switch (responseCode) {
         case 200:
-          BrowseBySessionBean.logger.debug("Cone Service responded with 200.");
+          logger.debug("Cone Service responded with 200.");
           break;
         default:
           throw new RuntimeException(
@@ -223,9 +223,9 @@ public class BrowseBySessionBean extends FacesBean {
       final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
       final BufferedReader bReader = new BufferedReader(isReader);
       String line = "";
-      while ((line = bReader.readLine()) != null) {
+      while (null != (line = bReader.readLine())) {
         final String[] parts = line.split("\\|");
-        if (parts.length == 2) {
+        if (2 == parts.length) {
           final LinkVO link = new LinkVO(parts[1], parts[1]);
           links.add(link);
         }
@@ -234,7 +234,7 @@ public class BrowseBySessionBean extends FacesBean {
       isReader.close();
       httpConn.disconnect();
     } catch (final Exception e) {
-      BrowseBySessionBean.logger.warn("An error occurred while calling the Cone service.", e);
+      logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
 
@@ -245,7 +245,7 @@ public class BrowseBySessionBean extends FacesBean {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Query queryBuilder =
         SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-            PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name());
+            PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVersionRO.State.RELEASED.name());
 
     //SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(queryBuilder, 0, 0); // Limit 0, da nur Aggregationen interessieren
 
@@ -260,23 +260,23 @@ public class BrowseBySessionBean extends FacesBean {
       AggregationBuilder aggBuilder =
           AggregationBuilders.dateHistogram(index).field(index).dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
       srr.getAggregationBuilders().add(aggBuilder);
-
+      
        */
     }
 
     ResponseBody<ObjectNode> resp = ApplicationBean.INSTANCE.getPubItemService().searchDetailed(sr.build(), null);
 
-    yearMap.clear();
+    this.yearMap.clear();
     for (String index : indexes) {
       DateHistogramAggregate ag = resp.aggregations().get(index).dateHistogram();
 
       for (DateHistogramBucket entry : ag.buckets().array()) {
 
         String year = entry.keyAsString().substring(0, 4);
-        if (yearMap.containsKey(year)) {
-          yearMap.put(year, yearMap.get(year) + entry.docCount());
+        if (this.yearMap.containsKey(year)) {
+          this.yearMap.put(year, this.yearMap.get(year) + entry.docCount());
         } else {
-          yearMap.put(year, entry.docCount());
+          this.yearMap.put(year, entry.docCount());
         }
       }
 
@@ -296,7 +296,7 @@ public class BrowseBySessionBean extends FacesBean {
     try {
       fillDateMap(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE);
     } catch (final Exception e) {
-      BrowseBySessionBean.logger.error("An error occurred while calling setYearPublished.", e);
+      logger.error("An error occurred while calling setYearPublished.", e);
     }
   }
 
@@ -306,7 +306,7 @@ public class BrowseBySessionBean extends FacesBean {
           PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED,
           PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED);
     } catch (final Exception e) {
-      BrowseBySessionBean.logger.error("An error occurred while calling setYearStartAny.", e);
+      logger.error("An error occurred while calling setYearStartAny.", e);
     }
   }
 

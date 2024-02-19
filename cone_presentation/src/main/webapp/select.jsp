@@ -35,7 +35,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList"%>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
@@ -61,7 +60,7 @@
 				</div>
 				<div class="full_area0">
 					<%
-						Set<Model> modelList = ModelList.getInstance().getList();
+						Set<ModelList.Model> modelList = ModelList.getInstance().getList();
 						boolean loggedIn = Login.getLoggedIn(request);
 
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
@@ -71,13 +70,13 @@
 
 						<% if (loggedIn) {
 
-							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+							boolean editOpen = (null != request.getSession().getAttribute("edit_open_vocabulary") && (Boolean) request.getSession()
                                     .getAttribute("edit_open_vocabulary"));
-							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+							boolean editClosed = (null != request.getSession().getAttribute("edit_closed_vocabulary") && (Boolean) request.getSession()
                                     .getAttribute("edit_closed_vocabulary"));
 
 							%>
-							<% for (Model model : ModelList.getInstance().getList()) { %>
+							<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
 								<% if ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed)) { %>
 									<div class="full_area0 itemHeader">
 										<span class="xLarge_area0 endline">

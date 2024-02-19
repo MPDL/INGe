@@ -48,7 +48,7 @@ import org.apache.logging.log4j.Logger;
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.LocalizedString;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
+import de.mpg.mpdl.inge.cone.ModelList;
 import de.mpg.mpdl.inge.cone.Pair;
 import de.mpg.mpdl.inge.cone.ResultEntry;
 import de.mpg.mpdl.inge.cone.TreeFragment;
@@ -124,13 +124,13 @@ public class JsonFormatter extends AbstractFormatter {
    * @param pairs The RDF.
    * @return A String formatted in JSON format.
    */
-  public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
+  public String formatQuery(List<? extends Describable> pairs, ModelList.Model model) throws ConeException {
 
     StringWriter result = new StringWriter();
 
     result.append("[\n");
 
-    if (pairs != null) {
+    if (null != pairs) {
       for (Describable pair : pairs) {
         if (pair instanceof Pair) {
           result.append("\t{\n");
@@ -145,13 +145,13 @@ public class JsonFormatter extends AbstractFormatter {
           }
           result.append("\",\n");
 
-          if (value instanceof LocalizedString && ((LocalizedString) value).getLanguage() != null) {
+          if (value instanceof LocalizedString && null != ((LocalizedString) value).getLanguage()) {
             result.append("\t\t\"language\" : \"");
             result.append(((LocalizedString) value).getLanguage().replace("\"", "\\\""));
             result.append("\",\n");
           }
 
-          if (value instanceof ResultEntry && ((ResultEntry) value).getType() != null) {
+          if (value instanceof ResultEntry && null != ((ResultEntry) value).getType()) {
             result.append("\t\t\"type\" : \"");
             result.append(((ResultEntry) value).getType().replace("\"", "\\\""));
             result.append("\",\n");
@@ -181,7 +181,7 @@ public class JsonFormatter extends AbstractFormatter {
           }
           result.append("\",\n");
 
-          if (value instanceof LocalizedString && ((LocalizedString) value).getLanguage() != null) {
+          if (value instanceof LocalizedString && null != ((LocalizedString) value).getLanguage()) {
             result.append("\t\t\"language\" : \"");
             result.append(((LocalizedString) value).getLanguage().replace("\"", "\\\""));
             result.append("\",\n");
@@ -209,7 +209,7 @@ public class JsonFormatter extends AbstractFormatter {
     return result.toString();
   }
 
-  public String formatDetails(String id, Model model, TreeFragment triples, String lang) {
+  public String formatDetails(String id, ModelList.Model model, TreeFragment triples, String lang) {
     return triples.toJson();
   }
 

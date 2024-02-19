@@ -16,15 +16,15 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * "dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted|escidoc:published-online"
  * > <iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(.,
  * '-01-01'), 1, 10) castable as xs:date)"> DateFormatIncorrect</iso:assert> </iso:rule>
- * 
+ *
  * <!-- Event dates --> <iso:rule context="escidoc:start-date"> <iso:assert test=". = '' or
  * (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as
  * xs:date)"> DateFormatIncorrect</iso:assert> </iso:rule>
- * 
+ *
  * <iso:rule context="escidoc:end-date"> <iso:assert test=". = '' or (matches(.,
  * '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">
  * DateFormatIncorrect</iso:assert>
- * 
+ *
  * <iso:assert test=". = '' or ../escidoc:start-date != ''"> EndDateWithoutStartDate</iso:assert>
  * </iso:rule>
  */
@@ -71,7 +71,7 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
       ok = false;
     }
 
-    if (m.getLegalCase() != null) {
+    if (null != m.getLegalCase()) {
 
       if (!ValidationTools.checkDate(m.getLegalCase().getDatePublished())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("datePublished")
@@ -81,7 +81,7 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
 
     } // if
 
-    if (m.getEvent() != null) {
+    if (null != m.getEvent()) {
 
       final String startDate = m.getEvent().getStartDate();
       final String endDate = m.getEvent().getEndDate();
@@ -96,7 +96,7 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
         ok = false;
       }
 
-      if (endDate != null && startDate == null) {
+      if (null != endDate && null == startDate) {
         context.addErrorMsg(ErrorMessages.END_DATE_WITHOUT_START_DATE);
         ok = false;
       }

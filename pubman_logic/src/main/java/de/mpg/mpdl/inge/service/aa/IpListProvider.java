@@ -28,7 +28,7 @@ public interface IpListProvider {
     }
 
     public String getName() {
-      return name;
+      return this.name;
     }
 
     public void setName(String name) {
@@ -36,7 +36,7 @@ public interface IpListProvider {
     }
 
     public String getId() {
-      return id;
+      return this.id;
     }
 
     public void setId(String id) {
@@ -44,7 +44,7 @@ public interface IpListProvider {
     }
 
     public List<String> getIpRanges() {
-      return ipRanges;
+      return this.ipRanges;
     }
 
     public void setIpRanges(List<String> ipRanges) {

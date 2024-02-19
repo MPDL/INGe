@@ -49,9 +49,9 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
     boolean ok = true;
 
-    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true")) {
+    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
 
-      if (subjects != null && subjects.isEmpty() == false) {
+      if (null != subjects && false == subjects.isEmpty()) {
 
         final ConeCache coneCache = ConeCache.getInstance();
 

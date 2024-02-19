@@ -16,7 +16,7 @@ public class PublisherAndPlaceRequiredValidator extends ValidatorHandler<Publish
 
     boolean ok = true;
 
-    if (publishingInfoVO != null) {
+    if (null != publishingInfoVO) {
 
       if (ValidationTools.isEmpty(publishingInfoVO.getPublisher())) {
         context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));

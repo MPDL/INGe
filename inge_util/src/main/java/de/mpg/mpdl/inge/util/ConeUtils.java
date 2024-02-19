@@ -2,6 +2,8 @@ package de.mpg.mpdl.inge.util;
 
 public class ConeUtils {
 
+  private ConeUtils() {}
+
   // used for writing relative person link into elastic search index (/persons/resources/...)
   public static String makeConePersonsLinkRelative(String conePersonsLink) {
     return conePersonsLink.substring(conePersonsLink.indexOf(ConeUtils.getConePersonsIdIdentifier()));

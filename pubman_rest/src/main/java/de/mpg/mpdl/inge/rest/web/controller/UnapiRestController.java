@@ -59,7 +59,7 @@ public class UnapiRestController {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     // public byte[] unapi()
-    if (identifier == null) {
+    if (null == identifier) {
       getFormatDescription(baos);
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
@@ -67,7 +67,7 @@ public class UnapiRestController {
       writeOutput(response, baos);
 
       // public byte[] unapi(String identifier, boolean show)
-    } else if (formatName == null) {
+    } else if (null == formatName) {
       getTargetFormats(identifier, show, baos);
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
@@ -105,7 +105,7 @@ public class UnapiRestController {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     // public byte[] unapi()
-    if (identifier == null) {
+    if (null == identifier) {
       getFormatDescription(baos);
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
@@ -113,7 +113,7 @@ public class UnapiRestController {
       writeOutput(response, baos);
 
       // public byte[] unapi(String identifier, boolean show)
-    } else if (formatName == null) {
+    } else if (null == formatName) {
       getTargetFormats(identifier, show, baos);
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
@@ -144,7 +144,7 @@ public class UnapiRestController {
     FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
     FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
 
-    if (show != null && show) {
+    if (null != show && show) {
       xmlFormats.setId(identifier);
     }
 

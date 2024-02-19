@@ -24,7 +24,7 @@ public class IdentifierProviderServiceImpl {
     }
 
   public String getPrefix() {
-      return prefix;
+      return this.prefix;
     }
 
   }
@@ -32,8 +32,8 @@ public class IdentifierProviderServiceImpl {
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public String getNewId(ID_PREFIX prefix) {
 
-    Long res = (Long) entityManager.createNativeQuery("SELECT current_id FROM id_provider FOR UPDATE;").getSingleResult();
-    entityManager.createNativeQuery("UPDATE id_provider SET current_id=current_id+1;").executeUpdate();
+    Long res = (Long) this.entityManager.createNativeQuery("SELECT current_id FROM id_provider FOR UPDATE;").getSingleResult();
+    this.entityManager.createNativeQuery("UPDATE id_provider SET current_id=current_id+1;").executeUpdate();
 
     return prefix.getPrefix() + "_" + res.intValue();
   }

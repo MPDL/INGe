@@ -27,11 +27,11 @@ public class FileVOWrapper {
   }
 
   public FileDbVO getFileVO() {
-    return fileVO;
+    return this.fileVO;
   }
 
   public void readFile(OutputStream outputStream) throws IngeTechnicalException {
-    fileStorageInterface.readFile(fileId, outputStream);
+    this.fileStorageInterface.readFile(this.fileId, outputStream);
 
   }
 

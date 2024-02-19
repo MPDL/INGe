@@ -90,7 +90,7 @@ public class ViewItemOrganization {
   // the information page (popup window)
   public void setOrganizationInfoPage(String organizationName, String organizationAddress) {
     String addr = "";
-    if (organizationAddress != null) {
+    if (null != organizationAddress) {
       addr = organizationAddress;
     }
     this.organizationInfoPage =
@@ -100,7 +100,7 @@ public class ViewItemOrganization {
   }
 
   public boolean getHasOrganizationalIdentifier() {
-    if (this.organizationIdentifier == null || this.organizationIdentifier.isEmpty()) {
+    if (null == this.organizationIdentifier || this.organizationIdentifier.isEmpty()) {
       return false;
     }
 
@@ -109,11 +109,11 @@ public class ViewItemOrganization {
 
   public void setOrganizationDescription(String organizationName, String organizationAddress, String organizationIdentifier) {
     String addr = organizationName;
-    if (organizationAddress != null && !organizationAddress.equals("")) {
+    if (null != organizationAddress && !organizationAddress.isEmpty()) {
       addr = addr + ", " + organizationAddress;
     }
 
-    if (organizationIdentifier != null && !organizationIdentifier.equals("")) {
+    if (null != organizationIdentifier && !organizationIdentifier.isEmpty()) {
       addr = addr + ", " + organizationIdentifier;
     }
 

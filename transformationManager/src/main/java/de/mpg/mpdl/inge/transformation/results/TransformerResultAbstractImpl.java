@@ -12,7 +12,7 @@ public abstract class TransformerResultAbstractImpl<R> implements TransformerRes
   }
 
   public R getResult() {
-    return result;
+    return this.result;
   }
 
   public void setResult(R result) {

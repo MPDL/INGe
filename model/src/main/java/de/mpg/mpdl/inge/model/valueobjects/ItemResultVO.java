@@ -57,11 +57,11 @@ public class ItemResultVO extends ItemVO implements SearchResultElement {
    * Delivers the list of search hits.
    */
   public java.util.List<SearchHitVO> getSearchHitList() {
-    return searchHitList;
+    return this.searchHitList;
   }
 
   public float getScore() {
-    return score;
+    return this.score;
   }
 
   public void setScore(float score) {

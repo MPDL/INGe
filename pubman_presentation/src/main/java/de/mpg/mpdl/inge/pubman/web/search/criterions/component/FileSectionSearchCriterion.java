@@ -4,10 +4,9 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.ChildScoreMode;
 import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentAvailableSearchCriterion.ComponentAvailability;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -15,9 +14,10 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
-  private Storage storageType = Storage.INTERNAL_MANAGED;
+  private FileDbVO.Storage storageType = FileDbVO.Storage.INTERNAL_MANAGED;
 
-  private ComponentAvailability selectedAvailability = ComponentAvailability.WHATEVER;
+  private ComponentAvailableSearchCriterion.ComponentAvailability selectedAvailability =
+      ComponentAvailableSearchCriterion.ComponentAvailability.WHATEVER;
 
   private ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion =
       new ComponentContentCategoryListSearchCriterion();
@@ -32,11 +32,11 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   public FileSectionSearchCriterion(SearchCriterion type) {
     super(type);
     if (SearchCriterion.FILE_SECTION.equals(type)) {
-      storageType = Storage.INTERNAL_MANAGED;
-      oaStatusListSearchCriterion = new ComponentOaStatusListSearchCriterion(true);
+      this.storageType = FileDbVO.Storage.INTERNAL_MANAGED;
+      this.oaStatusListSearchCriterion = new ComponentOaStatusListSearchCriterion(true);
     } else if (SearchCriterion.LOCATOR_SECTION.equals(type)) {
-      storageType = Storage.EXTERNAL_URL;
-      oaStatusListSearchCriterion = new ComponentOaStatusListSearchCriterion(false);
+      this.storageType = FileDbVO.Storage.EXTERNAL_URL;
+      this.oaStatusListSearchCriterion = new ComponentOaStatusListSearchCriterion(false);
     }
   }
 
@@ -55,26 +55,26 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
       case YES: {
-        bq.must(
-            SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE}, storageType.name()));
+        bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE},
+            this.storageType.name()));
 
-        if (!visibilityListSearchCriterion.isEmpty(QueryType.CQL)) {
-          bq.must(visibilityListSearchCriterion.toElasticSearchQuery());
+        if (!this.visibilityListSearchCriterion.isEmpty(QueryType.CQL)) {
+          bq.must(this.visibilityListSearchCriterion.toElasticSearchQuery());
         }
-        if (!embargoDateSearchCriterion.isEmpty(QueryType.CQL)) {
-          bq.must(embargoDateSearchCriterion.toElasticSearchQuery());
+        if (!this.embargoDateSearchCriterion.isEmpty(QueryType.CQL)) {
+          bq.must(this.embargoDateSearchCriterion.toElasticSearchQuery());
         }
-        if (!contentCategoryListSearchCriterion.isEmpty(QueryType.CQL)) {
-          bq.must(contentCategoryListSearchCriterion.toElasticSearchQuery());
+        if (!this.contentCategoryListSearchCriterion.isEmpty(QueryType.CQL)) {
+          bq.must(this.contentCategoryListSearchCriterion.toElasticSearchQuery());
         }
-        if (!oaStatusListSearchCriterion.isEmpty(QueryType.CQL)) {
-          bq.must(oaStatusListSearchCriterion.toElasticSearchQuery());
+        if (!this.oaStatusListSearchCriterion.isEmpty(QueryType.CQL)) {
+          bq.must(this.oaStatusListSearchCriterion.toElasticSearchQuery());
         }
         break;
       }
 
       case NO: {
-        bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, storageType.name()));
+        bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, this.storageType.name()));
         return bq.build()._toQuery();
         //break;
       }
@@ -97,20 +97,20 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
     StringBuilder sb = new StringBuilder();
     sb.append(this.getSelectedAvailability());
     sb.append("||");
-    if (!visibilityListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
-      sb.append(visibilityListSearchCriterion.getQueryStringContent());
+    if (!this.visibilityListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
+      sb.append(this.visibilityListSearchCriterion.getQueryStringContent());
     }
     sb.append("||");
-    if (!embargoDateSearchCriterion.isEmpty(QueryType.INTERNAL)) {
-      sb.append(embargoDateSearchCriterion.getQueryStringContent());
+    if (!this.embargoDateSearchCriterion.isEmpty(QueryType.INTERNAL)) {
+      sb.append(this.embargoDateSearchCriterion.getQueryStringContent());
     }
     sb.append("||");
-    if (!contentCategoryListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
-      sb.append(contentCategoryListSearchCriterion.getQueryStringContent());
+    if (!this.contentCategoryListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
+      sb.append(this.contentCategoryListSearchCriterion.getQueryStringContent());
     }
     sb.append("||");
-    if (!oaStatusListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
-      sb.append(oaStatusListSearchCriterion.getQueryStringContent());
+    if (!this.oaStatusListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
+      sb.append(this.oaStatusListSearchCriterion.getQueryStringContent());
     }
 
     return sb.toString();
@@ -120,7 +120,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   @Override
   public void parseQueryStringContent(String content) {
     String[] parts = content.split("\\|\\|", -1);
-    this.selectedAvailability = ComponentAvailability.valueOf(parts[0]);
+    this.selectedAvailability = ComponentAvailableSearchCriterion.ComponentAvailability.valueOf(parts[0]);
     this.visibilityListSearchCriterion.parseQueryStringContent(parts[1]);
     this.embargoDateSearchCriterion.parseQueryStringContent(parts[2]);
     this.contentCategoryListSearchCriterion.parseQueryStringContent(parts[3]);
@@ -130,19 +130,19 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return ComponentAvailability.WHATEVER.equals(this.selectedAvailability);
+    return ComponentAvailableSearchCriterion.ComponentAvailability.WHATEVER.equals(this.selectedAvailability);
   }
 
-  public ComponentAvailability getSelectedAvailability() {
-    return selectedAvailability;
+  public ComponentAvailableSearchCriterion.ComponentAvailability getSelectedAvailability() {
+    return this.selectedAvailability;
   }
 
-  public void setSelectedAvailability(ComponentAvailability selectedAvailability) {
+  public void setSelectedAvailability(ComponentAvailableSearchCriterion.ComponentAvailability selectedAvailability) {
     this.selectedAvailability = selectedAvailability;
   }
 
   public ComponentContentCategoryListSearchCriterion getContentCategoryListSearchCriterion() {
-    return contentCategoryListSearchCriterion;
+    return this.contentCategoryListSearchCriterion;
   }
 
   public void setContentCategoryListSearchCriterion(ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion) {
@@ -150,7 +150,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   }
 
   public ComponentOaStatusListSearchCriterion getOaStatusListSearchCriterion() {
-    return oaStatusListSearchCriterion;
+    return this.oaStatusListSearchCriterion;
   }
 
   public void setOaStatusListSearchCriterion(ComponentOaStatusListSearchCriterion oaStatusListSearchCriterion) {
@@ -158,7 +158,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   }
 
   public DateSearchCriterion getEmbargoDateSearchCriterion() {
-    return embargoDateSearchCriterion;
+    return this.embargoDateSearchCriterion;
   }
 
   public void setEmbargoDateSearchCriterion(DateSearchCriterion embargoDateSearchCriterion) {
@@ -166,7 +166,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   }
 
   public ComponentVisibilityListSearchCriterion getVisibilityListSearchCriterion() {
-    return visibilityListSearchCriterion;
+    return this.visibilityListSearchCriterion;
   }
 
   public void setVisibilityListSearchCriterion(ComponentVisibilityListSearchCriterion visibilityListSearchCriterion) {

@@ -36,7 +36,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
@@ -44,14 +44,11 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingOrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingProgramVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.LegalCaseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
@@ -60,11 +57,9 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
-import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -129,7 +124,7 @@ public class ItemControllerSessionBean extends FacesBean {
     // if there is only one context for this user we can skip the CreateItem-Dialog and create the
     // new item directly
     if (this.getContextListSessionBean().getDepositorContextList().isEmpty()) {
-      ItemControllerSessionBean.logger.warn("The user does not have privileges for any context.");
+      logger.warn("The user does not have privileges for any context.");
       this.error(this.getMessage("ViewItemFull_user_has_no_context"));
       return null;
     }
@@ -138,9 +133,9 @@ public class ItemControllerSessionBean extends FacesBean {
     newItem.setObjectId(null);
     newItem.getObject().setObjectPid(null);
     newItem.setVersionNumber(0);
-    newItem.setVersionState(State.PENDING);
+    newItem.setVersionState(ItemVersionRO.State.PENDING);
     newItem.setVersionPid(null);
-    newItem.getObject().setPublicState(State.PENDING);
+    newItem.getObject().setPublicState(ItemVersionRO.State.PENDING);
     AccountUserDbRO creator = new AccountUserDbRO();
     creator.setObjectId(getLoginHelper().getAccountUser().getObjectId());
     newItem.getObject().setCreator(creator);
@@ -156,7 +151,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     this.setCurrentPubItem(new PubItemVOPresentation(newItem));
 
-    if (this.getContextListSessionBean().getDepositorContextList().size() == 1) {
+    if (1 == this.getContextListSessionBean().getDepositorContextList().size()) {
       final ContextDbVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
       newItem.getObject().setContext(context);
 
@@ -171,7 +166,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(newItem));
 
       // Set submission method for correct redirect
-      ((CreateItem) FacesTools.findBean("CreateItem")).setMethod(SubmissionMethod.FULL_SUBMISSION);
+      ((CreateItem) FacesTools.findBean("CreateItem")).setMethod(CreateItem.SubmissionMethod.FULL_SUBMISSION);
 
       editItemSessionBean.initEmptyComponents();
       return CreateItem.LOAD_CREATEITEM;
@@ -213,13 +208,13 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(null);
       return navigationRuleWhenSuccessfull;
     } catch (final AuthenticationException | AuthorizationException e) {
-      ItemControllerSessionBean.logger.error("Authentication/Authorization error while deleting current PubItem", e);
+      logger.error("Authentication/Authorization error while deleting current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_noPermissionDelete") + e.getMessage());
     } catch (final IngeTechnicalException e) {
-      ItemControllerSessionBean.logger.error("Technical Error while deleting current PubItem", e);
+      logger.error("Technical Error while deleting current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_errorDelete") + e.getMessage());
     } catch (final IngeApplicationException e) {
-      ItemControllerSessionBean.logger.error("Application error while deleting current PubItem", e);
+      logger.error("Application error while deleting current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_applicationErrorDelete") + e.getMessage());
     }
 
@@ -233,8 +228,8 @@ public class ItemControllerSessionBean extends FacesBean {
   public ContextDbVO getCurrentContext() {
     // retrieve current context newly if the current item has changed or if the context has not been
     // retrieved so far
-    if (this.currentPubItem != null) {
-      if (this.currentContext == null
+    if (null != this.currentPubItem) {
+      if (null == this.currentContext
           || !(this.currentContext.getObjectId().equals(this.currentPubItem.getObject().getContext().getObjectId()))) {
         final ContextDbVO context = this.retrieveContext(this.currentPubItem.getObject().getContext().getObjectId());
         this.setCurrentCollection(context);
@@ -250,9 +245,9 @@ public class ItemControllerSessionBean extends FacesBean {
 
   public ContextDbVO.Workflow getCurrentWorkflow() {
     final ContextDbVO.Workflow workflow = this.getCurrentContext().getWorkflow();
-    if (workflow == null || workflow == ContextDbVO.Workflow.SIMPLE) {
+    if (null == workflow || ContextDbVO.Workflow.SIMPLE == workflow) {
       return ContextDbVO.Workflow.SIMPLE;
-    } else if (workflow == ContextDbVO.Workflow.STANDARD) {
+    } else if (ContextDbVO.Workflow.STANDARD == workflow) {
       return ContextDbVO.Workflow.STANDARD;
     }
 
@@ -303,26 +298,26 @@ public class ItemControllerSessionBean extends FacesBean {
 
 
     // Status
-    if (newPubItem.getVersionState() == null) {
-      newPubItem.setVersionState(State.PENDING);
+    if (null == newPubItem.getVersionState()) {
+      newPubItem.setVersionState(ItemVersionRO.State.PENDING);
     }
 
     // Status
-    if (newPubItem.getObject().getPublicState() == null) {
-      newPubItem.getObject().setPublicState(State.PENDING);
+    if (null == newPubItem.getObject().getPublicState()) {
+      newPubItem.getObject().setPublicState(ItemVersionRO.State.PENDING);
     }
 
     // Title
-    if (newPubItem.getMetadata().getTitle() == null) {
+    if (null == newPubItem.getMetadata().getTitle()) {
       newPubItem.getMetadata().setTitle("");
     }
 
     // Genre
-    if (newPubItem.getMetadata().getGenre() == null) {
+    if (null == newPubItem.getMetadata().getGenre()) {
       final ContextDbVO contextVO = this.retrieveContext(newPubItem.getObject().getContext().getObjectId());
 
-      if (contextVO.getAllowedGenres().contains(Genre.ARTICLE)) {
-        newPubItem.getMetadata().setGenre(Genre.ARTICLE);
+      if (contextVO.getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE)) {
+        newPubItem.getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
       } else if (!contextVO.getAllowedGenres().isEmpty()) {
         newPubItem.getMetadata().setGenre(contextVO.getAllowedGenres().get(0));
       }
@@ -333,12 +328,12 @@ public class ItemControllerSessionBean extends FacesBean {
     if (newPubItem.getMetadata().getCreators().isEmpty()) {
       final CreatorVO newCreator = new CreatorVO();
 
-      newCreator.setType(CreatorType.PERSON);
-      newCreator.setRole(CreatorRole.AUTHOR);
+      newCreator.setType(CreatorVO.CreatorType.PERSON);
+      newCreator.setRole(CreatorVO.CreatorRole.AUTHOR);
       // create a new Organization for this person
       final PersonVO newPerson = new PersonVO();
       newPerson.setIdentifier(new IdentifierVO());
-      newPerson.getIdentifier().setType(IdType.CONE);
+      newPerson.getIdentifier().setType(IdentifierVO.IdType.CONE);
       final OrganizationVO newPersonOrganization = new OrganizationVO();
       newPersonOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
       newPerson.getOrganizations().add(newPersonOrganization);
@@ -347,7 +342,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     // Publishing info
-    if (newPubItem.getMetadata().getPublishingInfo() == null) {
+    if (null == newPubItem.getMetadata().getPublishingInfo()) {
       newPubItem.getMetadata().setPublishingInfo(new PublishingInfoVO());
     }
 
@@ -377,10 +372,10 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     for (final SourceVO source : newPubItem.getMetadata().getSources()) {
-      if (source.getTitle() == null) {
+      if (null == source.getTitle()) {
         source.setTitle("");
       }
-      if (source.getPublishingInfo() == null) {
+      if (null == source.getPublishingInfo()) {
         final PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO();
         source.setPublishingInfo(newSourcePublishingInfo);
       }
@@ -403,31 +398,31 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // Event
     // add Event if needed to be able to bind uiComponents to it
-    if (newPubItem.getMetadata().getEvent() == null) {
+    if (null == newPubItem.getMetadata().getEvent()) {
       final EventVO eventVO = new EventVO();
       newPubItem.getMetadata().setEvent(eventVO);
     }
-    if (newPubItem.getMetadata().getEvent().getTitle() == null) {
+    if (null == newPubItem.getMetadata().getEvent().getTitle()) {
       newPubItem.getMetadata().getEvent().setTitle("");
     }
-    if (newPubItem.getMetadata().getEvent().getPlace() == null) {
+    if (null == newPubItem.getMetadata().getEvent().getPlace()) {
       newPubItem.getMetadata().getEvent().setPlace("");
     }
 
     // LegalCase
     // add LegalCase to be able to bind uiCompontents to it
-    if (newPubItem.getMetadata().getLegalCase() == null) {
+    if (null == newPubItem.getMetadata().getLegalCase()) {
       final LegalCaseVO legalCaseVO = new LegalCaseVO();
       newPubItem.getMetadata().setLegalCase(legalCaseVO);
     }
 
     // add subject if needed to be able to bind uiComponents to it
-    if (newPubItem.getMetadata().getFreeKeywords() == null) {
+    if (null == newPubItem.getMetadata().getFreeKeywords()) {
       newPubItem.getMetadata().setFreeKeywords("");
     }
 
     // add TOC if needed to be able to bind uiComponents to it
-    if (newPubItem.getMetadata().getTableOfContents() == null) {
+    if (null == newPubItem.getMetadata().getTableOfContents()) {
       newPubItem.getMetadata().setTableOfContents("");
     }
 
@@ -437,28 +432,28 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     for (ProjectInfoVO projectInfo : newPubItem.getMetadata().getProjectInfo()) {
-      if (projectInfo.getGrantIdentifier() == null) {
-        projectInfo.setGrantIdentifier(new IdentifierVO(IdType.GRANT_ID, null));
+      if (null == projectInfo.getGrantIdentifier()) {
+        projectInfo.setGrantIdentifier(new IdentifierVO(IdentifierVO.IdType.GRANT_ID, null));
       }
 
-      if (projectInfo.getFundingInfo() == null) {
+      if (null == projectInfo.getFundingInfo()) {
         projectInfo.setFundingInfo(new FundingInfoVO());
       }
 
-      if (projectInfo.getFundingInfo().getFundingOrganization() == null) {
+      if (null == projectInfo.getFundingInfo().getFundingOrganization()) {
         projectInfo.getFundingInfo().setFundingOrganization(new FundingOrganizationVO());
       }
 
       if (projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().isEmpty()) {
-        projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
+        projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.OPEN_AIRE, ""));
       }
 
-      if (projectInfo.getFundingInfo().getFundingProgram() == null) {
+      if (null == projectInfo.getFundingInfo().getFundingProgram()) {
         projectInfo.getFundingInfo().setFundingProgram(new FundingProgramVO());
       }
 
       if (projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().isEmpty()) {
-        projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
+        projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.OPEN_AIRE, ""));
       }
     }
 
@@ -481,7 +476,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
-      ItemControllerSessionBean.logger.error("Error while submitting current PubItem", e);
+      logger.error("Error while submitting current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_errorSubmit") + e.getMessage());
     }
 
@@ -500,7 +495,7 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       context = ApplicationBean.INSTANCE.getContextService().get(contextID, null);
     } catch (final Exception e) {
-      ItemControllerSessionBean.logger.debug(e.toString());
+      logger.debug(e.toString());
       this.getLoginHelper().logout();
     }
 
@@ -529,7 +524,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public PubItemVOPresentation retrieveItem(String itemID)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     ItemVersionVO itemVersionVO = ApplicationBean.INSTANCE.getPubItemService().get(itemID, this.getLoginHelper().getAuthenticationToken());
-    if (itemVersionVO != null) {
+    if (null != itemVersionVO) {
       return new PubItemVOPresentation(itemVersionVO);
     }
 
@@ -585,7 +580,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
       return navigationRuleWhenSuccesfull;
     } catch (final Exception e) {
-      ItemControllerSessionBean.logger.error("Error while revising current PubItem", e);
+      logger.error("Error while revising current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_errorRevise") + e.getMessage());
     }
 
@@ -605,7 +600,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
       ItemVersionVO updatedPubItem = null;
 
-      if (this.currentPubItem.getObjectId() == null) {
+      if (null == this.currentPubItem.getObjectId()) {
         updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().create(new ItemVersionVO(this.currentPubItem),
             this.getLoginHelper().getAuthenticationToken());
       } else {
@@ -618,16 +613,16 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final AuthenticationException | AuthorizationException e) {
       // TODO Auto-generated catch block
-      ItemControllerSessionBean.logger.error("Authentication error while saving current PubItem", e);
+      logger.error("Authentication error while saving current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_noPermissionSave") + e.getMessage());
     } catch (final IngeTechnicalException e) {
-      ItemControllerSessionBean.logger.error("Technical Error while saving current PubItem", e);
+      logger.error("Technical Error while saving current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_errorSave") + e.getMessage());
     } catch (final IngeApplicationException e) {
       if (e.getCause() instanceof ValidationException) {
         throw (ValidationException) e.getCause();
       } else {
-        ItemControllerSessionBean.logger.error("Application Error while saving current PubItem", e);
+        logger.error("Application Error while saving current PubItem", e);
         this.error(this.getMessage("ItemControllerSessionBean_applicationErrorSave") + e.getMessage());
       }
 
@@ -659,7 +654,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
-      ItemControllerSessionBean.logger.error("Error while releasing current PubItem", e);
+      logger.error("Error while releasing current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_errorRelease") + e.getMessage());
     }
 
@@ -682,7 +677,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
-      ItemControllerSessionBean.logger.error("Error while withdrawing current PubItem", e);
+      logger.error("Error while withdrawing current PubItem", e);
       this.error(this.getMessage("ItemControllerSessionBean_errorWithdraw") + e.getMessage());
     }
 

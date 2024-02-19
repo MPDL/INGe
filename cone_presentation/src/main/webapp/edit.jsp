@@ -40,9 +40,6 @@
 <%@ page import="de.mpg.mpdl.inge.cone.LocalizedString" %>
 <%@ page import="de.mpg.mpdl.inge.cone.LocalizedTripleObject" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Event"%>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Predicate" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
@@ -72,10 +69,10 @@
 	Querier querier = null;
 	String sessionAttributePrefix = "coneSubSession_";
 
-	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, String path, boolean loggedIn) throws ConeException
+	private String displayPredicates(ModelList.Model model, TreeFragment results, String uri, List<ModelList.Predicate> predicates, String prefix, String path, boolean loggedIn) throws ConeException
 	{
 		StringWriter out = new StringWriter();
-		for (Predicate predicate : predicates)
+		for (ModelList.Predicate predicate : predicates)
 		{
 				//Display name of predicate and mandatory status
 				out.append("\n<span class=\"free_area0 endline itemLine noTopBorder\">");
@@ -88,25 +85,28 @@
 				out.append("</b>");
 				out.append("\n<span class=\"xHuge_area0 singleItem endline\" style=\"overflow: visible;\">");
 				//If this predicate has the same identifier as the models primary identifier, display the primary identifier as value (or a message if no identifier is available yet for new entries)
-				if (model != null && predicate.getId().equals(model.getIdentifier()) && prefix.isEmpty())
+				if (null != model && predicate.getId().equals(model.getIdentifier()) && prefix.isEmpty())
 				{
 					List<LocalizedTripleObject> resList = results.get(predicate.getId());
-					if (results.get(predicate.getId()) != null && !resList.isEmpty())
+					if (null != results.get(predicate.getId()) && !resList.isEmpty())
 					{
 						for (LocalizedTripleObject object : resList)
 						{
 							out.append(HtmlUtils.escapeHtml(object.toString()));
 							if (object instanceof TreeFragment)
 							{
-								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((TreeFragment) object).getSubject());
+                                this.request.getSession().setAttribute(
+                                        this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((TreeFragment) object).getSubject());
 							}
 							else if (object instanceof LocalizedString)
 							{
-								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((LocalizedString) object).getValue());
+                                this.request.getSession().setAttribute(
+                                        this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((LocalizedString) object).getValue());
 							}
 							else
 							{
-								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), object.toString());
+                                this.request.getSession().setAttribute(
+                                        this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), object.toString());
 							}
 						}
 					}
@@ -119,11 +119,11 @@
 				else
 				{
 					//If a value for this predicate already exists
-					if (results != null && results.get(predicate.getId()) != null && !results.get(predicate.getId())
+					if (null != results && null != results.get(predicate.getId()) && !results.get(predicate.getId())
                             .isEmpty())
 					{
 						int counter = 0;
-						boolean multiValues = results.get(predicate.getId()).size() > 1;
+						boolean multiValues = 1 < results.get(predicate.getId()).size();
 						for (LocalizedTripleObject object : results.get(predicate.getId()))
 						{
 							out.append("\n<span class=\"xHuge_area0 endline inputField\" style=\"overflow: visible;\">");
@@ -131,9 +131,9 @@
 								if (predicate.isModify())
 								{
 									StringBuilder value = new StringBuilder();
-									if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
+									if (null != predicate.getDefaultValue() && ModelList.Event.ONLOAD == predicate.getEvent() && predicate.isOverwrite())
 									{
-										value.append(HtmlUtils.escapeHtml(predicate.getDefault(request)));
+										value.append(HtmlUtils.escapeHtml(predicate.getDefault(this.request)));
 									}
 									else
 									{
@@ -158,7 +158,7 @@
 									{
 										out.append("\n<input type=\"hidden\" class=\"noDisplay\"" + nameSnippet + " value=\"" + value + "\"/>");
 									}
-									else if(predicate.getType()!=null && predicate.getType() == ModelList.Type.XML)
+									else if(null != predicate.getType() && ModelList.Type.XML == predicate.getType())
 									{
 										out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
 										out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet  + ">" + value + "</textarea>");
@@ -172,36 +172,38 @@
 									{
 										out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 									}
-									if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
+									if(null != predicate.getSuggestUrl() && !predicate.getSuggestUrl().trim().isEmpty())
 									{
 										out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
 									}
 									if (predicate.isLocalized())
 									{
-										out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang\"  value=\"" + (object.getLanguage() != null ? HtmlUtils.escapeHtml(object.getLanguage()) : "") + "\"");
+										out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang\"  value=\"" + (
+                                                null != object.getLanguage()
+                                                        ? HtmlUtils.escapeHtml(object.getLanguage()) : "") + "\"");
 										out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang" + counter + "\"");
 										out.append("/>");
 										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang', 'iso639-1', true)</script>");
 									}
 									if (predicate.isMultiple())
 									{
-										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (null != predicate.getPredicates() && !predicate.getPredicates()
                                                 .isEmpty()) + ")\"/>");
 									}
 									else
 									{
 										if (predicate.isLocalized())
 										{
-											out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && !predicate.getPredicates()
+											out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (null != predicate.getPredicates() && !predicate.getPredicates()
                                                     .isEmpty()) + ")\"/>"  );
 										}
 									}
-									if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
+									if (1 < results.get(predicate.getId()).size() || !((null == object.getLanguage() || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 									{
-										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"removeLine(this, " + (predicate.getPredicates() != null && !predicate.getPredicates()
+										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"removeLine(this, " + (null != predicate.getPredicates() && !predicate.getPredicates()
                                                 .isEmpty()) + ");\"/>");
 									}
-									if (predicate.getPredicates() == null || predicate.getPredicates().isEmpty() || predicate.isResource())
+									if (null == predicate.getPredicates() || predicate.getPredicates().isEmpty() || predicate.isResource())
 									{
 										out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', " + (multiValues ? counter + "" : "null") + ", true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
 									}
@@ -209,35 +211,40 @@
 								//Value for predicate exists and it is not modifyable
 								else
 								{
-									if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
+									if (null != predicate.getDefaultValue() && ModelList.Event.ONLOAD == predicate.getEvent() && predicate.isOverwrite())
 									{
-										String defaultValue = predicate.getDefault(request);
-										out.append(predicate.getDefault(request));
-										request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), defaultValue);
+										String defaultValue = predicate.getDefault(this.request);
+										out.append(predicate.getDefault(this.request));
+                                        this.request.getSession().setAttribute(
+                                                this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), defaultValue);
 									}
 									else
 									{
 										out.append(object.toString());
 										if (object instanceof TreeFragment)
 										{
-											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((TreeFragment) object).getSubject());
+                                            this.request.getSession().setAttribute(
+                                                    this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((TreeFragment) object).getSubject());
 										}
 										else if (object instanceof LocalizedString)
 										{
-											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((LocalizedString) object).getValue());
+                                            this.request.getSession().setAttribute(
+                                                    this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((LocalizedString) object).getValue());
 										}
 										else
 										{
-											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), object.toString());
+                                            this.request.getSession().setAttribute(
+                                                    this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), object.toString());
 										}
 									}
 								}
 							//Predicate has child predicates
-							if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
+							if (null != predicate.getPredicates() && !predicate.getPredicates().isEmpty())
 							{
 								out.append("<br/>");
 								out.append("\n<span class=\"free_area0 clear\">");
-								out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_" + counter + "|", path + predicate.getId() + "/", Login.getLoggedIn(request)));
+								out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_" + counter + "|", path + predicate.getId() + "/", Login.getLoggedIn(
+                                        this.request)));
 								out.append("</span>");
 							}
 							out.append("</span>");
@@ -245,9 +252,9 @@
 						}
 					}
 					//A value for this predicate does not exist yet, it is modifyable
-					else if (predicate.isModify() && !(predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE))
+					else if (predicate.isModify() && !(null != predicate.getDefaultValue() && ModelList.Event.ONSAVE == predicate.getEvent()))
 					{
-						if (predicate.getPredicates() == null || predicate.getPredicates().isEmpty())
+						if (null == predicate.getPredicates() || predicate.getPredicates().isEmpty())
 						{
 								out.append("\n<span class=\"xHuge_area0 singleItem inputField endline\">");
 								String name = prefix + predicate.getId().replaceAll("[/:. ]", "_");
@@ -258,7 +265,7 @@
 								{
 									out.append("<input type=\"hidden\"" + nameSnippet +  "value=\"\"/>");
 								}
-								else if(predicate.getType()!=null && predicate.getType() == ModelList.Type.XML)
+								else if(null != predicate.getType() && ModelList.Type.XML == predicate.getType())
 								{
 									out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
 									out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + ">" +  "</textarea>");
@@ -272,7 +279,7 @@
 								{
 									out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 								}
-								if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
+								if(null != predicate.getSuggestUrl() && !predicate.getSuggestUrl().trim().isEmpty())
 								{
 									out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
 								}
@@ -285,14 +292,14 @@
 								}
 								if (predicate.isMultiple())
 								{
-									out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+									out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (null != predicate.getPredicates() && !predicate.getPredicates()
                                             .isEmpty()) + ")\"/>");
 								}
 								else
 								{
 									if (predicate.isLocalized())
 									{
-										out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && !predicate.getPredicates()
+										out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (null != predicate.getPredicates() && !predicate.getPredicates()
                                                 .isEmpty()) + ")\"/>");
 									}
 								}
@@ -302,32 +309,33 @@
 						else if (predicate.isMultiple())
 						{
 							out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (null != predicate.getPredicates() && !predicate.getPredicates()
                                     .isEmpty()) + ")\"/>");
 							out.append("</span>");
 						}
 						else if (predicate.isLocalized())
 						{
 							out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && !predicate.getPredicates()
+							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (null != predicate.getPredicates() && !predicate.getPredicates()
                                     .isEmpty()) + ")\"/>");
 							out.append("</span>");
 						}
 					}
 					//A value for this predicate does not exist yet and is automatically generated on load of this page
-					else if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD)
+					else if (null != predicate.getDefaultValue() && ModelList.Event.ONLOAD == predicate.getEvent())
 					{
-						String defaultValue = predicate.getDefault(request);
-						out.append(predicate.getDefault(request));
-						request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), defaultValue);
+						String defaultValue = predicate.getDefault(this.request);
+						out.append(predicate.getDefault(this.request));
+                        this.request.getSession().setAttribute(
+                                this.sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), defaultValue);
 					}
 					//A value for this predicate does not exist yet and is automatically generated on save of this page
-					else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
+					else if (null != predicate.getDefaultValue() && ModelList.Event.ONSAVE == predicate.getEvent())
 					{
 						//remove old session attributes which are not modifiable
 						if(!predicate.isModify())
 						{
-							request.getSession().removeAttribute(prefix + predicate.getId().replaceAll("[/:. ]", "_"));
+                            this.request.getSession().removeAttribute(prefix + predicate.getId().replaceAll("[/:. ]", "_"));
 						}
 						out.append("Will be generated automatically");
 					}
@@ -342,39 +350,41 @@
 		return out.toString();
 	}
 
-	private void mapFormValues(Model model, List<Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix) throws ConeException
+	private void mapFormValues(ModelList.Model model, List<ModelList.Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix) throws ConeException
 	{
-		for (Predicate predicate : predicates)
+		for (ModelList.Predicate predicate : predicates)
 		{
 			String paramName = prefix + predicate.getId().replaceAll("[/:. ]", "_");
 			String[] paramValues = request.getParameterValues(paramName);
-			if (!predicate.isModify() && predicate.getDefaultValue() != null && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
+			if (!predicate.isModify() && null != predicate.getDefaultValue() && null != request.getSession()
+                    .getAttribute(this.sessionAttributePrefix + paramName))
 			{
-				paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
+				paramValues = new String[]{(String) request.getSession().getAttribute(this.sessionAttributePrefix + paramName)};
 			}
-			else if (model.getIdentifier() != null && model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory() && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
+			else if (null != model.getIdentifier() && model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory() && null != request.getSession()
+                    .getAttribute(this.sessionAttributePrefix + paramName))
 			{
-				paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
+				paramValues = new String[]{(String) request.getSession().getAttribute(this.sessionAttributePrefix + paramName)};
 			}
 			String[] langValues = request.getParameterValues(paramName + "_lang");
 			List<LocalizedTripleObject> objects = new ArrayList<>();
-			if (paramValues != null)
+			if (null != paramValues)
 			{
 				for (int i = 0; i < paramValues.length; i++)
 				{
 					String paramValue = paramValues[i];
-					if (predicate.getDefaultValue() != null && predicate.isOverwrite() && predicate.getEvent() == Event.ONSAVE)
+					if (null != predicate.getDefaultValue() && predicate.isOverwrite() && ModelList.Event.ONSAVE == predicate.getEvent())
 					{
 						paramValue = predicate.getDefault(request);
 					}
 					String langValue = null;
-					if (langValues != null && langValues.length == paramValues.length)
+					if (null != langValues && langValues.length == paramValues.length)
 					{
 						langValue = langValues[i];
 					}
 					if (!"".equals(paramValue))
 					{
-						if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
+						if (null != predicate.getPredicates() && !predicate.getPredicates().isEmpty())
 						{
 							TreeFragment fragment = new TreeFragment(paramValue, langValue);
 							objects.add(fragment);
@@ -394,9 +404,9 @@
 					{
 						try
 						{
-							String generatedObject = querier.createUniqueIdentifier(null);
+							String generatedObject = this.querier.createUniqueIdentifier(null);
 							//System.out.println("Generating new identifier")
-							if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
+							if (null != predicate.getPredicates() && !predicate.getPredicates().isEmpty())
 							{
 								TreeFragment fragment = new TreeFragment(generatedObject, langValue);
 								objects.add(fragment);
@@ -418,9 +428,9 @@
 					}
 				}
 			}
-			else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
+			else if (null != predicate.getDefaultValue() && ModelList.Event.ONSAVE == predicate.getEvent())
 			{
-				if (predicate.getPredicates() != null && !predicate.getPredicates().isEmpty())
+				if (null != predicate.getPredicates() && !predicate.getPredicates().isEmpty())
 				{
 					TreeFragment fragment = new TreeFragment(predicate.getDefault(request), null);
 					objects.add(fragment);
@@ -430,7 +440,7 @@
 					objects.add(new LocalizedString(predicate.getDefault(request), null));
 				}
 			}
-			if (!predicate.isMultiple() && objects.size() > 1)
+			if (!predicate.isMultiple() && 1 < objects.size())
 			{
 				if (predicate.isLocalized())
 				{
@@ -439,7 +449,7 @@
 					{
 						if (languages.contains(tripleObject.getLanguage()))
 						{
-							errors.add("\"" + predicate.getName() + "\" must not have multiple values of the same language.");
+                            this.errors.add("\"" + predicate.getName() + "\" must not have multiple values of the same language.");
 							break;
 						}
 						else
@@ -450,14 +460,14 @@
 				}
 				else
 				{
-					errors.add("\"" + predicate.getName() + "\" must not have multiple values.");
+                    this.errors.add("\"" + predicate.getName() + "\" must not have multiple values.");
 				}
 			}
-			if ((model.getIdentifier() == null || !model.getIdentifier().equals(predicate.getId())) && predicate.isMandatory())
+			if ((null == model.getIdentifier() || !model.getIdentifier().equals(predicate.getId())) && predicate.isMandatory())
 			{
 				if (objects.isEmpty())
 				{
-					errors.add("\"" + predicate.getName() + "\" is mandatory.");
+                    this.errors.add("\"" + predicate.getName() + "\" is mandatory.");
 				}
 				else
 				{
@@ -472,7 +482,7 @@
 					}
 					if (empty)
 					{
-						errors.add("\"" + predicate.getName() + "\" is mandatory.");
+                        this.errors.add("\"" + predicate.getName() + "\" is mandatory.");
 					}
 				}
 			}
@@ -482,9 +492,9 @@
 %>
 
 <%
-	errors = new ArrayList<>();
-	messages = new ArrayList<>();
-	warning = false;
+    this.errors = new ArrayList<>();
+    this.messages = new ArrayList<>();
+    this.warning = false;
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
 	if (null == modelName || modelName.trim().isEmpty()) {
@@ -492,7 +502,7 @@
 	  logger.error(error);
 	  throw new RuntimeException(error);
 	}
-	if (uri != null && !uri.trim().isEmpty() && !UrlHelper.isValidParam(uri)) {
+	if (null != uri && !uri.trim().isEmpty() && !UrlHelper.isValidParam(uri)) {
 	  String error = "uri " + uri + " not valid";
 	  logger.error(error);
 	  throw new RuntimeException(error);
@@ -503,18 +513,18 @@
 	  throw new RuntimeException(error);
 	}
 	AuthenticationVO user = (AuthenticationVO) request.getSession().getAttribute("user");
-	Model model = null;
+	ModelList.Model model = null;
 	TreeFragment results = new TreeFragment();
 	Enumeration<String> paramNames = request.getParameterNames();
 	boolean loggedIn = Login.getLoggedIn(request);
-	querier = QuerierFactory.newQuerier(loggedIn);
-	if (modelName != null && !modelName.isEmpty())
+    this.querier = QuerierFactory.newQuerier(loggedIn);
+	if (null != modelName && !modelName.isEmpty())
 	{
 		model = ModelList.getInstance().getModelByAlias(modelName);
 	}
 	if ("true".equals(request.getParameter("form")))
 	{
-		if (!model.isGenerateIdentifier() && request.getParameter("cone_identifier") != null)
+		if (!model.isGenerateIdentifier() && null != request.getParameter("cone_identifier"))
 		{
 			results.setSubject(request.getParameter("cone_identifier"));
 		}
@@ -527,109 +537,109 @@
 		for(Enumeration e = request.getSession().getAttributeNames(); e.hasMoreElements(); )
 		{
 			String attrName = (String)e.nextElement();
-			if(attrName.startsWith(sessionAttributePrefix))
+			if(attrName.startsWith(this.sessionAttributePrefix))
 			{
 				request.getSession().removeAttribute(attrName);
 			}
 		}
 	}
 	boolean form = ("true".equals(request.getParameter("form")));
-	if (request.getParameter("workflow") != null)
+	if (null != request.getParameter("workflow"))
 	{
-		errors = new ArrayList<>();
-		messages = new ArrayList<>();
+        this.errors = new ArrayList<>();
+        this.messages = new ArrayList<>();
 		results = (TreeFragment) session.getAttribute("currentObject");
 		if ("change".equals(request.getParameter("workflow")))
 		{
-			results = querier.details(modelName, uri, "*");
+			results = this.querier.details(modelName, uri, "*");
 		}
 		else if ("overwrite".equals(request.getParameter("workflow")))
 		{
 			logger.info("Overwrite existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
-			querier.delete(modelName, uri);
-			querier.create(modelName, uri, results);
-			if (request.getSession().getAttribute("latestSearch") != null)
+            this.querier.delete(modelName, uri);
+            this.querier.create(modelName, uri, results);
+			if (null != request.getSession().getAttribute("latestSearch"))
 			{
 				response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
 				return;
 			}
-			messages.add("Entry saved.");
+            this.messages.add("Entry saved.");
 			logger.info("CoNE entry " + uri + " overwritten successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 		}
 		else if ("update-overwrite".equals(request.getParameter("workflow")))
 		{
 			logger.info("Merge existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
-			TreeFragment existingObject = querier.details(modelName, uri, "*");
+			TreeFragment existingObject = this.querier.details(modelName, uri, "*");
 			existingObject.merge(results, true);
 			results = existingObject;
-			querier.delete(modelName, uri);
-			querier.create(modelName, uri, results);
-			if (request.getSession().getAttribute("latestSearch") != null)
+            this.querier.delete(modelName, uri);
+            this.querier.create(modelName, uri, results);
+			if (null != request.getSession().getAttribute("latestSearch"))
 			{
 				response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
 				return;
 			}
-			messages.add("Entry saved.");
+            this.messages.add("Entry saved.");
 			logger.info("CoNE entry " + uri + " merged successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 		}
 	}
-	else if ((request.getParameter("delete") != null
-			|| request.getParameter("save") != null)
-			&& ((request.getSession().getAttribute("edit_open_vocabulary") == null)
-				&& (model != null && model.isOpen())
+	else if ((null != request.getParameter("delete")
+			|| null != request.getParameter("save"))
+			&& ((null == request.getSession().getAttribute("edit_open_vocabulary"))
+				&& (null != model && model.isOpen())
 			))
 	{
-		errors.add("Not authorized for this action.");
+        this.errors.add("Not authorized for this action.");
 	}
-	else if ((request.getParameter("delete") != null
-			|| request.getParameter("save") != null)
-			&& ((request.getSession().getAttribute("edit_closed_vocabulary") == null)
-			&& (model != null && !(Boolean)model.isOpen())))
+	else if ((null != request.getParameter("delete")
+			|| null != request.getParameter("save"))
+			&& ((null == request.getSession().getAttribute("edit_closed_vocabulary"))
+			&& (null != model && !(Boolean)model.isOpen())))
 	{
-		errors.add("Not authorized for this action.");
+        this.errors.add("Not authorized for this action.");
 	}
-	else if (request.getParameter("delete") != null)
+	else if (null != request.getParameter("delete"))
 	{
 		logger.info("Deleting existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
-		querier.delete(modelName, uri);
+        this.querier.delete(modelName, uri);
 		logger.info("CoNE entry " + uri + " deleted successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 		uri = null;
-		messages.add("Entry deleted successfully.");
+        this.messages.add("Entry deleted successfully.");
 	}
-	else if (request.getParameter("save") != null)
+	else if (null != request.getParameter("save"))
 	{
-		 if (errors.isEmpty())
+		 if (this.errors.isEmpty())
 		 {
-			if (uri == null)
+			if (null == uri)
 			{
 				String identifierValue;
 				if (model.isGenerateIdentifier())
 				{
-					identifierValue = querier.createUniqueIdentifier(modelName);
+					identifierValue = this.querier.createUniqueIdentifier(modelName);
 					uri = model.getSubjectPrefix() + identifierValue;
 				}
 				else
 				{
 					identifierValue = request.getParameter("cone_identifier");
 					//Check if identifier is null or not ASCII compatible
-					if (identifierValue != null && !identifierValue.isEmpty() && UrlHelper.isValidParam(identifierValue) && StandardCharsets.US_ASCII.newEncoder().canEncode(identifierValue))
+					if (null != identifierValue && !identifierValue.isEmpty() && UrlHelper.isValidParam(identifierValue) && StandardCharsets.US_ASCII.newEncoder().canEncode(identifierValue))
 					{
 						identifierValue = identifierValue.trim();
 						uri = model.getSubjectPrefix() + identifierValue;
-						TreeFragment result = querier.details(modelName, uri, "*");
+						TreeFragment result = this.querier.details(modelName, uri, "*");
 						if (result.exists())
 						{
-							warning = true;
+                            this.warning = true;
 							session.setAttribute("currentObject", results);
-							errors.add("This resource already exists.");
+                            this.errors.add("This resource already exists.");
 						}
 					}
 					else
 					{
-						errors.add("No primary key is provided or the key is invalid. Please do not use special characters or umlauts.");
+                        this.errors.add("No primary key is provided or the key is invalid. Please do not use special characters or umlauts.");
 					}
 				}
-				if (model.getIdentifier() != null)
+				if (null != model.getIdentifier())
 				{
 					List<LocalizedTripleObject> idList = new ArrayList<>();
 					idList.add(new LocalizedString(model.getIdentifierPrefix() + identifierValue));
@@ -641,15 +651,15 @@
 			{
 				if (!uri.startsWith(model.getSubjectPrefix()))
 				{
-					errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
+                    this.errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
 				}
 				logger.info("Modifying existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 			}
-			if (errors.isEmpty() && !warning)
+			if (this.errors.isEmpty() && !this.warning)
 			{
-				querier.delete(modelName, uri);
-				querier.create(modelName, uri, results);
-				messages.add("Entry saved.");
+                this.querier.delete(modelName, uri);
+                this.querier.create(modelName, uri, results);
+                this.messages.add("Entry saved.");
 				logger.info("CoNE entry " + uri + " saved successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
 				response.sendRedirect("view.jsp?model=" + modelName + "&uri=" + uri);
 				return;
@@ -657,15 +667,15 @@
 		 }
 	}
 	//Edit existing entity
-	else if (uri != null && !uri.isEmpty() && modelName != null && !modelName.isEmpty())
+	else if (null != uri && !uri.isEmpty() && null != modelName && !modelName.isEmpty())
 	{
 		//First call of edit existing entity (just GET request, no form submission)
 		if (!form)
 		{
-			results = querier.details(modelName, uri, "*");
+			results = this.querier.details(modelName, uri, "*");
 		}
-		errors = new ArrayList<>();
-		messages = new ArrayList<>();
+        this.errors = new ArrayList<>();
+        this.messages = new ArrayList<>();
 	}
 %>
 
@@ -679,7 +689,7 @@
 			<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
 				<form name="editform" action="edit.jsp" accept-charset="UTF-8" method="post">
 					<input type="hidden" name="form" value="true"/>
-					<% if (uri != null) { %>
+					<% if (null != uri) { %>
 						<input type="hidden" name="uri" value="<%= uri %>"/>
 					<% } %>
 					<input type="hidden" name="model" value="<%= modelName %>"/>
@@ -688,7 +698,7 @@
 							<div id="headLine" class="clear headLine">
 								<!-- Headline starts here -->
 								<h1>
-									<% if (uri != null) { %>
+									<% if (null != uri) { %>
 										Edit <%= modelName %>
 									<% } else { %>
 										New <%= modelName %>
@@ -704,16 +714,16 @@
 								</div>
 							</div>
 							<div class="subHeader">
-								<% if (!messages.isEmpty()) { %>
+								<% if (!this.messages.isEmpty()) { %>
 									<ul class="singleMessage">
-									<% for (String message : messages) { %>
+									<% for (String message : this.messages) { %>
 										<li class="messageStatus"><%= message %></li>
 									<% } %>
 									</ul>
 								<% } %>
-								<% if (request.getParameter("save") != null && !errors.isEmpty()) { %>
+								<% if (null != request.getParameter("save") && !this.errors.isEmpty()) { %>
 									<ul>
-										<% for (String error : errors) { %>
+										<% for (String error : this.errors) { %>
 											<li class="messageError"><b>Error: </b><%= error %></li>
 										<% } %>
 									</ul>
@@ -724,7 +734,7 @@
 					</div>
 					<div class="full_area0">
 						<div class="full_area0 fullItem">
-							<% if (uri != null) { %>
+							<% if (null != uri) { %>
 							<div class="full_area0 itemHeader">
 								<span class="xLarge_area0 endline">
 									&nbsp;
@@ -737,7 +747,7 @@
 								</span>
 							</div>
 							<% } %>
-							<% if (warning) { %>
+							<% if (this.warning) { %>
 								<div class="full_area0 itemBlock">
 									<h3 class="xLarge_area0_p8 endline blockHeader">
 										What do you want to do?
@@ -771,7 +781,7 @@
 											</b>
 											<span class="xHuge_area0 endline">
 												<%
-												if (uri == null)
+												if (null == uri)
 												{
 													if (model.isGenerateIdentifier())
 													{
@@ -782,7 +792,7 @@
 														out.append("<label class=\"free_area0\">"+model.getSubjectPrefix()+"</label>");
 														out.append("<input type=\"hidden\" name=\"cone_subject_prefix\" value=\""+model.getSubjectPrefix()+"\"/>");
 														String subject = "";
-														if (results.getSubject() != null)
+														if (null != results.getSubject())
 														{
 															subject = results.getSubject();
 														}
@@ -798,7 +808,7 @@
 												%>
 											</span>
 										</span>
-										<% if (model != null) { %>
+										<% if (null != model) { %>
 											<%= displayPredicates(model, results, uri, model.getPredicates(), "", "", Login.getLoggedIn(request)) %>
 										<% } %>
 									</div>
@@ -811,7 +821,7 @@
 					</div>
 					<div class="full_area0 formButtonArea">
 						<input class="free_txtBtn activeButton" type="submit" name="save" value="Save">
-						<% if (uri != null) { %>
+						<% if (null != uri) { %>
 							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
 						<% } %>
 

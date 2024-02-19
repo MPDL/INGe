@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.util.SourceTargetPair;
 
 public class TransformerCache {
@@ -32,10 +31,10 @@ public class TransformerCache {
     synchronized (transformerMap) {
       List<TransformerEdge> t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat));
 
-      if (t == null) {
+      if (null == t) {
         t = TransformerFactory.getShortestPath(sourceFormat, targetFormat);
 
-        if (t != null) {
+        if (null != t) {
           transformerMap.put(new SourceTargetPair(sourceFormat, targetFormat), t);
         }
       }
@@ -43,7 +42,7 @@ public class TransformerCache {
     }
   }
 
-  protected static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
+  protected static boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat) {
 
     if (sourceFormat.equals(targetFormat)) {
       return true;
@@ -52,13 +51,13 @@ public class TransformerCache {
     synchronized (transformerMap) {
 
       List<TransformerEdge> t = null;
-      if ((t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat))) != null)
+      if (null != (t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat))))
         return true;
 
-      if (t == null) {
+      if (null == t) {
         t = TransformerFactory.getShortestPath(sourceFormat, targetFormat);
 
-        if (t != null) {
+        if (null != t) {
           transformerMap.put(new SourceTargetPair(sourceFormat, targetFormat), t);
           return true;
         }
@@ -74,10 +73,10 @@ public class TransformerCache {
     synchronized (targetFormatsMap) {
       TransformerFactory.FORMAT[] targetFormats = targetFormatsMap.get(sourceFormat);
 
-      if (targetFormats == null) {
+      if (null == targetFormats) {
         targetFormats = TransformerFactory.findAllTargetFormats(sourceFormat);
 
-        if (targetFormats == null)
+        if (null == targetFormats)
           return null;
       }
 
@@ -92,10 +91,10 @@ public class TransformerCache {
     synchronized (sourceFormatsMap) {
       TransformerFactory.FORMAT[] sourceFormats = sourceFormatsMap.get(targetFormat);
 
-      if (sourceFormats == null) {
+      if (null == sourceFormats) {
         sourceFormats = TransformerFactory.findAllSourceFormats(targetFormat);
 
-        if (sourceFormats == null)
+        if (null == sourceFormats)
           return null;
       }
 

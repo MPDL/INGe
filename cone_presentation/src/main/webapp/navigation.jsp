@@ -79,15 +79,16 @@
 	<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 		<a href="index.jsp" class="free_area0 xTiny_marginRIncl<% if ("/index.jsp".equals(request.getServletPath())) { %> active<% } %>">Home</a>
 
-		<% if (request.getSession().getAttribute("latestSearch") != null) { %>
+		<% if (null != request.getSession().getAttribute("latestSearch")) { %>
 			<a href="<%= request.getSession().getAttribute("latestSearch") %>" class="free_area0 xTiny_marginRIncl<% if ("/search.jsp".equals(request.getServletPath())) { %> active<% } %>">Back to Search</a>
 		<% } else { %>
 			<a href="search.jsp" class="free_area0 xTiny_marginRIncl<% if ("/search.jsp".equals(request.getServletPath())) { %> active<% } %>">Search</a>
 		<% } %>
 
-		<% if ((request.getSession() != null && request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+		<% if ((null != request.getSession() && null != request.getSession().getAttribute("edit_open_vocabulary") && (Boolean) request.getSession()
                 .getAttribute("edit_open_vocabulary"))
-				|| (request.getSession() != null && request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+				|| (null != request.getSession() && null != request.getSession()
+                .getAttribute("edit_closed_vocabulary") && (Boolean) request.getSession()
                 .getAttribute("edit_closed_vocabulary"))) { %>
 			<a href="select.jsp" class="free_area0 xTiny_marginRIncl<% if ("/select.jsp".equals(request.getServletPath())) { %> active<% } %>">Enter New Entity</a>
 			<a href="import.jsp" class="free_area0 xTiny_marginRIncl<% if ("/import.jsp".equals(request.getServletPath())) { %> active<% } %>">Import</a>

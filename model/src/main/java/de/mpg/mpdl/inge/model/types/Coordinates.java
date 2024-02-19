@@ -48,13 +48,13 @@ public class Coordinates implements Serializable {
   }
 
   public Coordinates(String coordinates) {
-    if (coordinates != null && !coordinates.isEmpty()) {
+    if (null != coordinates && !coordinates.isEmpty()) {
       String[] coordinatesArray = coordinates.split(",");
-      if (coordinatesArray.length == 2) {
+      if (2 == coordinatesArray.length) {
         this.latitude = Double.parseDouble(coordinatesArray[0]);
         this.longitude = Double.parseDouble(coordinatesArray[1]);
         // this.altitudeSet = false;
-      } else if (coordinatesArray.length == 3) {
+      } else if (3 == coordinatesArray.length) {
         this.latitude = Double.parseDouble(coordinatesArray[0]);
         this.longitude = Double.parseDouble(coordinatesArray[1]);
         this.altitude = Double.parseDouble(coordinatesArray[2]);
@@ -74,7 +74,7 @@ public class Coordinates implements Serializable {
   // }
 
   public double getLatitude() {
-    return latitude;
+    return this.latitude;
   }
 
   public void setLatitude(double latitude) {
@@ -82,7 +82,7 @@ public class Coordinates implements Serializable {
   }
 
   public double getLongitude() {
-    return longitude;
+    return this.longitude;
   }
 
   public void setLongitude(double longitute) {
@@ -90,7 +90,7 @@ public class Coordinates implements Serializable {
   }
 
   public double getAltitude() {
-    return altitude;
+    return this.altitude;
   }
 
   public void setAltitude(double altitude) {
@@ -102,11 +102,11 @@ public class Coordinates implements Serializable {
     final int prime = 31;
     int result = 1;
     long temp;
-    temp = Double.doubleToLongBits(altitude);
+    temp = Double.doubleToLongBits(this.altitude);
     result = prime * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(latitude);
+    temp = Double.doubleToLongBits(this.latitude);
     result = prime * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(longitude);
+    temp = Double.doubleToLongBits(this.longitude);
     result = prime * result + (int) (temp ^ (temp >>> 32));
     return result;
   }
@@ -116,7 +116,7 @@ public class Coordinates implements Serializable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -124,13 +124,13 @@ public class Coordinates implements Serializable {
 
     Coordinates other = (Coordinates) obj;
 
-    if (Double.doubleToLongBits(altitude) != Double.doubleToLongBits(other.altitude))
+    if (Double.doubleToLongBits(this.altitude) != Double.doubleToLongBits(other.altitude))
       return false;
 
-    if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+    if (Double.doubleToLongBits(this.latitude) != Double.doubleToLongBits(other.latitude))
       return false;
 
-    if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
+    if (Double.doubleToLongBits(this.longitude) != Double.doubleToLongBits(other.longitude))
       return false;
 
     return true;

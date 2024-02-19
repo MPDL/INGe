@@ -45,7 +45,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
-import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -100,8 +99,8 @@ public class MultipleImport extends FacesBean {
   }
 
   public String uploadFile() throws Exception {
-    MultipleImport.logger.info(this.uploadedImportFile);
-    if (this.uploadedImportFile == null) {
+    logger.info(this.uploadedImportFile);
+    if (null == this.uploadedImportFile) {
       this.error(this.getMessage("UploadFileNotProvided"));
       return null;
     }
@@ -112,12 +111,12 @@ public class MultipleImport extends FacesBean {
   }
 
   public String getFileSize() {
-    if (this.uploadedFile != null) {
+    if (null != this.uploadedFile) {
       final long size = this.uploadedFile.length();
       logger.info("File uploaded of size <" + size + ">");
-      if (size < 1024) {
+      if (1024 > size) {
         return size + "B";
-      } else if (size < 1024 * 1024) {
+      } else if (1024 * 1024 > size) {
         return Math.round((float) size / 1024) + "KB";
       } else {
         return Math.round((float) size / (1024 * 1024)) + "MB";
@@ -170,25 +169,25 @@ public class MultipleImport extends FacesBean {
 
     // deselect the selected context
     final ContextListSessionBean contextListSessionBean = FacesTools.findBean("ContextListSessionBean");
-    if (contextListSessionBean.getDepositorContextList() != null) {
+    if (null != contextListSessionBean.getDepositorContextList()) {
       for (int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++) {
         contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
       }
     }
 
     // set the current submission step to step2
-    if (contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() > 1) {
+    if (null != contextListSessionBean.getDepositorContextList() && 1 < contextListSessionBean.getDepositorContextList().size()) {
       final CreateItem createItem = FacesTools.findBean("CreateItem");
       createItem.setTarget(MultipleImport.LOAD_MULTIPLE_IMPORT);
-      createItem.setMethod(SubmissionMethod.MULTIPLE_IMPORT);
+      createItem.setMethod(CreateItem.SubmissionMethod.MULTIPLE_IMPORT);
       return CreateItem.LOAD_CREATEITEM;
     }
     // Skip Collection selection for Import & Easy Sub if only one Collection
-    else if (contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() == 1) {
+    else if (null != contextListSessionBean.getDepositorContextList() && 1 == contextListSessionBean.getDepositorContextList().size()) {
       this.setContext(contextListSessionBean.getDepositorContextList().get(0));
       return MultipleImport.LOAD_MULTIPLE_IMPORT;
     } else {
-      MultipleImport.logger.warn("No context for this user, therefore no import mask");
+      logger.warn("No context for this user, therefore no import mask");
       return null;
     }
   }
@@ -197,27 +196,28 @@ public class MultipleImport extends FacesBean {
     Transformer transformer = null;
     Map<String, String> config = null;
 
-    if (this.format != null) {
+    if (null != this.format) {
       transformer = TransformerFactory.newTransformer(this.format, TransformerFactory.getInternalFormat());
-      MultipleImport.logger.info("Get Default Configuration:");
+      logger.info("Get Default Configuration:");
       config = transformer.getConfiguration();
     }
 
     this.configParameters = new ArrayList<>();
 
-    if (config != null) {
+    if (null != config) {
       this.parametersValues = new LinkedHashMap<>();
 
-      for (final String key : config.keySet()) {
+      for (final Map.Entry<String, String> entry : config.entrySet()) {
+        final String key = entry.getKey();
         final List<String> values = transformer.getAllConfigurationValuesFor(key);
         final List<SelectItem> list = new ArrayList<>();
-        if (values != null) {
+        if (null != values) {
           for (final String str : values) {
             list.add(new SelectItem(str, str));
           }
           this.parametersValues.put(key, list);
         }
-        this.configParameters.add(new SelectItem(config.get(key), key));
+        this.configParameters.add(new SelectItem(entry.getValue(), key));
       }
     }
 
@@ -304,7 +304,7 @@ public class MultipleImport extends FacesBean {
       fos.close();
       is.close();
     } catch (final Exception e) {
-      MultipleImport.logger.error("Error while uplaoding file", e);
+      logger.error("Error while uplaoding file", e);
     }
   }
 

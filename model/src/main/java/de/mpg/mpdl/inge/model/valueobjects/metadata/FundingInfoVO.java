@@ -1,13 +1,12 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class FundingInfoVO extends ValueObject implements Cloneable {
 
 
@@ -18,7 +17,7 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
   public FundingInfoVO() {}
 
   public FundingProgramVO getFundingProgram() {
-    return fundingProgram;
+    return this.fundingProgram;
   }
 
   public void setFundingProgram(FundingProgramVO fundingProgram) {
@@ -26,7 +25,7 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
   }
 
   public FundingOrganizationVO getFundingOrganization() {
-    return fundingOrganization;
+    return this.fundingOrganization;
   }
 
   public void setFundingOrganization(FundingOrganizationVO fundingOrganization) {
@@ -37,10 +36,10 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
   public FundingInfoVO clone() {
     try {
       FundingInfoVO clone = (FundingInfoVO) super.clone();
-      if (clone.fundingOrganization != null) {
+      if (null != clone.fundingOrganization) {
         clone.fundingOrganization = this.getFundingOrganization().clone();
       }
-      if (this.getFundingProgram() != null) {
+      if (null != this.getFundingProgram()) {
         clone.fundingProgram = this.fundingProgram.clone();
       }
       return clone;
@@ -53,8 +52,8 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((fundingOrganization == null) ? 0 : fundingOrganization.hashCode());
-    result = prime * result + ((fundingProgram == null) ? 0 : fundingProgram.hashCode());
+    result = prime * result + ((null == this.fundingOrganization) ? 0 : this.fundingOrganization.hashCode());
+    result = prime * result + ((null == this.fundingProgram) ? 0 : this.fundingProgram.hashCode());
     return result;
   }
 
@@ -63,7 +62,7 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -71,16 +70,16 @@ public class FundingInfoVO extends ValueObject implements Cloneable {
 
     FundingInfoVO other = (FundingInfoVO) obj;
 
-    if (fundingOrganization == null) {
-      if (other.fundingOrganization != null)
+    if (null == this.fundingOrganization) {
+      if (null != other.fundingOrganization)
         return false;
-    } else if (!fundingOrganization.equals(other.fundingOrganization))
+    } else if (!this.fundingOrganization.equals(other.fundingOrganization))
       return false;
 
-    if (fundingProgram == null) {
-      if (other.fundingProgram != null)
+    if (null == this.fundingProgram) {
+      if (null != other.fundingProgram)
         return false;
-    } else if (!fundingProgram.equals(other.fundingProgram))
+    } else if (!this.fundingProgram.equals(other.fundingProgram))
       return false;
 
     return true;

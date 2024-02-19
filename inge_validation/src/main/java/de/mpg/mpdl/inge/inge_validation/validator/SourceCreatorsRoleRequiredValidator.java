@@ -37,19 +37,19 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           int j = 1;
           for (final CreatorVO creatorVO : sourceVO.getCreators()) {
 
-            if (creatorVO != null && creatorVO.getRole() == null) {
+            if (null != creatorVO && null == creatorVO.getRole()) {
 
               switch (creatorVO.getType()) {
 
                 case ORGANIZATION:
 
                   final OrganizationVO o = creatorVO.getOrganization();
-                  if (o != null) {
+                  if (null != o) {
                     if (ValidationTools.isNotEmpty(o.getName()) //
                         || ValidationTools.isNotEmpty(o.getAddress())) {
                       context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
@@ -63,7 +63,7 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                 case PERSON:
 
                   final PersonVO p = creatorVO.getPerson();
-                  if (p != null) {
+                  if (null != p) {
                     if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                         || ValidationTools.isNotEmpty(p.getGivenName())) {
                       context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
@@ -81,7 +81,7 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                     int z = 1;
                     for (final OrganizationVO organizationVO : orgs) {
 
-                      if (organizationVO != null) {
+                      if (null != organizationVO) {
                         if (ValidationTools.isNotEmpty(organizationVO.getName()) //
                             || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
                           context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)

@@ -27,14 +27,14 @@ public class EndNoteImport {
     String result = "";
 
     List<String> itemList = splitItems(file);
-    if (itemList != null && itemList.size() > 1) { // transform items to XML
+    if (null != itemList && 1 < itemList.size()) { // transform items to XML
       List<List<Pair>> itemPairsList = new ArrayList<>();
       for (String s : itemList) {
         List<Pair> itemPairs = getItemPairs(splitItemElements(s));
         itemPairsList.add(itemPairs);
       }
       result = transformItemPairsListToXML(itemPairsList);
-    } else if (itemList != null && itemList.size() == 1) {
+    } else if (null != itemList && 1 == itemList.size()) {
       List<Pair> itemPairs = getItemPairs(splitItemElements(itemList.get(0)));
       result = transformItemToXML(itemPairs);
     }
@@ -56,7 +56,7 @@ public class EndNoteImport {
     BufferedReader reader = new BufferedReader(new StringReader(itemsStr));
 
     try {
-      while ((buff = reader.readLine()) != null) {
+      while (null != (buff = reader.readLine())) {
         if (!checkVal(buff)) {
           counter++;
         } else {
@@ -66,7 +66,7 @@ public class EndNoteImport {
             sb = new StringBuilder();
           }
           // new item
-          else if (counter >= 1 && buff.startsWith("%0")) {
+          else if (1 <= counter && buff.startsWith("%0")) {
             l.add(sb.toString().trim());
             counter = 0;
             sb = new StringBuilder();
@@ -76,7 +76,7 @@ public class EndNoteImport {
 
       }
       // add last item
-      if (sb != null) {
+      if (null != sb) {
         l.add(sb.toString().trim());
       }
 
@@ -106,10 +106,10 @@ public class EndNoteImport {
   public List<Pair> getItemPairs(List<String> lines) {
 
     List<Pair> pairList = new ArrayList<>();
-    if (lines != null) {
+    if (null != lines) {
       for (String line : lines) {
         Pair p = createEndNotePairByString(line);
-        if (p != null)
+        if (null != p)
           pairList.add(p);
       }
     }
@@ -133,7 +133,7 @@ public class EndNoteImport {
    */
   public String transformItemToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && !item.isEmpty()) {
+    if (null != item && !item.isEmpty()) {
       xml = createXMLElement("item", transformItemSubelementsToXML(item));
     }
     return xml;
@@ -141,7 +141,7 @@ public class EndNoteImport {
 
   public String transformItemPairsListToXML(List<List<Pair>> itemList) {
     String xml = "";
-    if (itemList != null && !itemList.isEmpty())
+    if (null != itemList && !itemList.isEmpty())
       for (List<Pair> lp : itemList)
         xml += transformItemToXML(lp);
     return createXMLElement("item-list", xml);
@@ -155,7 +155,7 @@ public class EndNoteImport {
    */
   public String transformItemSubelementsToXML(List<Pair> item) {
     String xml = "";
-    if (item != null && !item.isEmpty()) {
+    if (null != item && !item.isEmpty()) {
       for (Pair p : item)
         xml += createXMLElement(p.getXmlTag(), escape(p.getValue()));
     }
@@ -184,7 +184,7 @@ public class EndNoteImport {
    * @return string with escaped characters
    */
   public String escape(String input) {
-    if (input != null) {
+    if (null != input) {
       input = input.replace("&", "&amp;");
       input = input.replace("<", "&lt;");
       input = input.replace("\"", "&quot;");
@@ -193,11 +193,11 @@ public class EndNoteImport {
   }
 
   public static boolean checkVal(String val) {
-    return (val != null && !val.trim().isEmpty());
+    return (null != val && !val.trim().isEmpty());
   }
 
   public static boolean checkLen(String val) {
-    return (val != null && !val.isEmpty());
+    return (null != val && !val.isEmpty());
   }
 
 }

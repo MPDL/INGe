@@ -18,13 +18,13 @@ public class XsltUtils {
     yearMonthDayDf.setLenient(false);
 
     try {
-      if (date != null && date.trim().length() == 4) {
+      if (null != date && 4 == date.trim().length()) {
         yearDf.parse(date);
         return true;
-      } else if (date.trim().length() == 7) {
+      } else if (7 == date.trim().length()) {
         yearMonthDf.parse(date);
         return true;
-      } else if (date.trim().length() == 10) {
+      } else if (10 == date.trim().length()) {
         yearMonthDayDf.parse(date);
         return true;
       } else {

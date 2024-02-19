@@ -14,13 +14,12 @@ import org.apache.logging.log4j.Logger;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO.FILE_FORMAT;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.StateSearchCriterion;
@@ -34,7 +33,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.ConeUtils;
 import jakarta.faces.bean.ManagedBean;
@@ -64,7 +62,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
   public ReportWorkspaceBean() {
     final TransformerFactory.FORMAT[] targetFormats =
-        itemTransformingService.getAllTargetFormatsFor(TransformerFactory.FORMAT.JUS_SNIPPET_XML);
+        this.itemTransformingService.getAllTargetFormatsFor(TransformerFactory.FORMAT.JUS_SNIPPET_XML);
 
     for (TransformerFactory.FORMAT f : targetFormats) {
       if (!TransformerFactory.FORMAT.JUS_SNIPPET_XML.equals(f)) {
@@ -110,12 +108,12 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] itemListCS = null;
     byte[] itemListReportTransformed = null;
 
-    if ("".equals(this.organization.getIdentifier()) || this.organization.getIdentifier() == null) {
+    if ("".equals(this.organization.getIdentifier()) || null == this.organization.getIdentifier()) {
       this.error(this.getMessage("ReportOrgIdNotProvided"));
       return;
     }
 
-    if ("".equals(this.reportYear) || this.reportYear == null) {
+    if ("".equals(this.reportYear) || null == this.reportYear) {
       this.error(this.getMessage("ReportYearNotProvided"));
       return;
     }
@@ -133,18 +131,18 @@ public class ReportWorkspaceBean extends FacesBean {
 
       SearchRetrieveResponseVO<ItemVersionVO> itemListSearchResult = this.doSearchItems();
 
-      if (itemListSearchResult != null) {
+      if (null != itemListSearchResult) {
         itemListCS = this.doCitationStyle(itemListSearchResult);
       }
 
-      if (itemListCS != null) {
+      if (null != itemListCS) {
         itemListReportTransformed = this.doReportTransformation(itemListCS);
       }
 
-      if (itemListReportTransformed != null) {
+      if (null != itemListReportTransformed) {
         FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
 
-        final String fileName = format.name().contains("HTML") ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
+        final String fileName = this.format.name().contains("HTML") ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
         FacesTools.getResponse().addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
         final ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
@@ -152,7 +150,7 @@ public class ReportWorkspaceBean extends FacesBean {
         final BufferedInputStream buff = new BufferedInputStream(bais);
 
         int readBytes = 0;
-        while ((readBytes = buff.read()) != -1) {
+        while (-1 != (readBytes = buff.read())) {
           stream.write(readBytes);
         }
         stream.close();
@@ -196,34 +194,34 @@ public class ReportWorkspaceBean extends FacesBean {
      */
 
     List<SearchCriterionBase> scList = new ArrayList<>();
-    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.ANYDATE);
+    scList.add(new Parenthesis(SearchCriterionBase.SearchCriterion.OPENING_PARENTHESIS));
+    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterionBase.SearchCriterion.ANYDATE);
     dsc1.setFrom(this.reportYear);
     dsc1.setTo(this.reportYear);
     scList.add(dsc1);
-    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    scList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.OR_OPERATOR));
     GenreSearchCriterion gsc = new GenreSearchCriterion();
-    gsc.setSelectedEnum(Genre.JOURNAL);
+    gsc.setSelectedEnum(MdsPublicationVO.Genre.JOURNAL);
     scList.add(gsc);
-    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    scList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.OR_OPERATOR));
     GenreSearchCriterion gsc2 = new GenreSearchCriterion();
-    gsc2.setSelectedEnum(Genre.SERIES);
+    gsc2.setSelectedEnum(MdsPublicationVO.Genre.SERIES);
     scList.add(gsc2);
-    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-    scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+    scList.add(new Parenthesis(SearchCriterionBase.SearchCriterion.CLOSING_PARENTHESIS));
+    scList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.AND_OPERATOR));
     StateSearchCriterion ssc = new StateSearchCriterion(); //anonyme Suche -> Nur RELEASED und WITHDRAWN Stati zurückgegeben (s.u.)
     ssc.setSelectedEnum(ItemVO.State.RELEASED); // nur RELEASED ausgeben
     scList.add(ssc);
-    scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+    scList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.AND_OPERATOR));
+    scList.add(new Parenthesis(SearchCriterionBase.SearchCriterion.OPENING_PARENTHESIS));
 
     // when there are children, concat the org ids to the query (inclusive parent)
     try {
       this.allOUs = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(this.organization.getIdentifier());
       int i = 0;
       for (String childOU : this.allOUs) {
-        if (i > 0) {
-          scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+        if (0 < i) {
+          scList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.OR_OPERATOR));
         }
         OrganizationSearchCriterion csc = new OrganizationSearchCriterion();
         csc.setHiddenId(childOU);
@@ -236,7 +234,7 @@ public class ReportWorkspaceBean extends FacesBean {
       this.error(this.getMessage("ChildOuError"));
     }
 
-    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+    scList.add(new Parenthesis(SearchCriterionBase.SearchCriterion.CLOSING_PARENTHESIS));
 
     try {
       Query qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
@@ -246,7 +244,7 @@ public class ReportWorkspaceBean extends FacesBean {
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
       logger.info("Anzahl gefundener Sätze: " + resp.getNumberOfRecords());
 
-      if (totalNrOfSerchResultItems > 0) {
+      if (0 < totalNrOfSerchResultItems) {
         return resp;
       } else {
 
@@ -266,8 +264,8 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] exportData = null;
 
     try {
-      exportData = ApplicationBean.INSTANCE.getItemTransformingService().getOutputForExport(
-          new ExportFormatVO(FILE_FORMAT.ESCIDOC_SNIPPET.getName(), CitationTypes.JUS_Report.getCitationName()), searchResult);
+      exportData = ApplicationBean.INSTANCE.getItemTransformingService().getOutputForExport(new ExportFormatVO(
+          FileFormatVO.FILE_FORMAT.ESCIDOC_SNIPPET.getName(), TransformerFactory.CitationTypes.JUS_Report.getCitationName()), searchResult);
     } catch (final Exception e) {
       logger.error("Error when trying to find citation service.", e);
       this.error(this.getMessage("NoCitationService"));

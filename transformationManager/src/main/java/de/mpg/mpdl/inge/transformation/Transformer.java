@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.transformation;
 import java.util.List;
 import java.util.Map;
 
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
@@ -17,13 +16,13 @@ public interface Transformer {
 
   void mergeConfiguration(Map<String, String> config);
 
-  void setSourceFormat(FORMAT sourceFormat);
+  void setSourceFormat(TransformerFactory.FORMAT sourceFormat);
 
-  FORMAT getSourceFormat();
+  TransformerFactory.FORMAT getSourceFormat();
 
-  void setTargetFormat(FORMAT targetFormat);
+  void setTargetFormat(TransformerFactory.FORMAT targetFormat);
 
-  FORMAT getTargetFormat();
+  TransformerFactory.FORMAT getTargetFormat();
 
   List<String> getAllConfigurationValuesFor(String key) throws TransformationException;
 }

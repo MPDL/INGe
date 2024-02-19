@@ -52,7 +52,7 @@ public class Validation {
   public void validate(final ItemVersionVO pubItemVO, ValidationPoint validationPoint)
       throws ValidationServiceException, ValidationException {
 
-    if (pubItemVO instanceof ItemVersionVO == false) {
+    if (false == pubItemVO instanceof ItemVersionVO) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
     }
 
@@ -319,10 +319,10 @@ public class Validation {
   private void checkResult(ComplexResult complexResult) throws ValidationException {
     final ValidationReportVO v = new ValidationReportVO();
 
-    if (complexResult.isSuccess() == false) {
+    if (false == complexResult.isSuccess()) {
       for (final ValidationError error : complexResult.getErrors()) {
         final ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(),
-            (error.getErrorCode() == ErrorMessages.WARNING ? ValidationReportItemVO.Severity.WARNING
+            (ErrorMessages.WARNING == error.getErrorCode() ? ValidationReportItemVO.Severity.WARNING
                 : ValidationReportItemVO.Severity.ERROR));
         item.setElement(error.getField());
         v.addItem(item);

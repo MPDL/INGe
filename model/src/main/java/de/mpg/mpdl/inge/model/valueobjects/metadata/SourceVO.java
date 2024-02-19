@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.HashSet;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
@@ -43,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @updated 22-Okt-2007 14:35:53
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class SourceVO extends ValueObject implements Cloneable {
   private String title;
   private final java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<>();
@@ -91,7 +90,7 @@ public class SourceVO extends ValueObject implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }}
 
   /**
@@ -113,7 +112,7 @@ public class SourceVO extends ValueObject implements Cloneable {
     }
 
   public String getUri() {
-    return uri;
+    return this.uri;
   }
 
   }
@@ -136,7 +135,7 @@ public class SourceVO extends ValueObject implements Cloneable {
    * Delivers the title of the source, e.g. the title of the journal or the book.
    */
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   /**
@@ -145,7 +144,7 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setTitle(String newVal) {
-    title = newVal;
+    this.title = newVal;
   }
 
   /**
@@ -153,14 +152,14 @@ public class SourceVO extends ValueObject implements Cloneable {
    * forms of the title.
    */
   public java.util.List<AlternativeTitleVO> getAlternativeTitles() {
-    return alternativeTitles;
+    return this.alternativeTitles;
   }
 
   /**
    * Delivers the volume of the source in which the described item was published in.
    */
   public String getVolume() {
-    return volume;
+    return this.volume;
   }
 
   /**
@@ -169,14 +168,14 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setVolume(String newVal) {
-    volume = newVal;
+    this.volume = newVal;
   }
 
   /**
    * Delivers the issue of the source in which the described item was published in.
    */
   public String getIssue() {
-    return issue;
+    return this.issue;
   }
 
   /**
@@ -185,14 +184,14 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setIssue(String newVal) {
-    issue = newVal;
+    this.issue = newVal;
   }
 
   /**
    * Delivers the page where the described item starts.
    */
   public String getStartPage() {
-    return startPage;
+    return this.startPage;
   }
 
   /**
@@ -201,14 +200,14 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setStartPage(String newVal) {
-    startPage = newVal;
+    this.startPage = newVal;
   }
 
   /**
    * Delivers the page where the described item ends.
    */
   public String getEndPage() {
-    return endPage;
+    return this.endPage;
   }
 
   /**
@@ -217,14 +216,14 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setEndPage(String newVal) {
-    endPage = newVal;
+    this.endPage = newVal;
   }
 
   /**
    * Delivers the sequence number, i. e. the number of the described item within the source.
    */
   public String getSequenceNumber() {
-    return sequenceNumber;
+    return this.sequenceNumber;
   }
 
   /**
@@ -233,7 +232,7 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setSequenceNumber(String newVal) {
-    sequenceNumber = newVal;
+    this.sequenceNumber = newVal;
   }
 
   /**
@@ -242,7 +241,7 @@ public class SourceVO extends ValueObject implements Cloneable {
    * been created.
    */
   public PublishingInfoVO getPublishingInfo() {
-    return publishingInfo;
+    return this.publishingInfo;
   }
 
   /**
@@ -253,14 +252,14 @@ public class SourceVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setPublishingInfo(PublishingInfoVO newVal) {
-    publishingInfo = newVal;
+    this.publishingInfo = newVal;
   }
 
   /**
    * Delivers the list of creators of the source, e.g. the editor of a book or a book series.
    */
   public java.util.List<CreatorVO> getCreators() {
-    return creators;
+    return this.creators;
   }
 
   /**
@@ -268,14 +267,14 @@ public class SourceVO extends ValueObject implements Cloneable {
    * series.
    */
   public java.util.List<SourceVO> getSources() {
-    return sources;
+    return this.sources;
   }
 
   /**
    * Delivers the genre of the source.
    */
   public Genre getGenre() {
-    return genre;
+    return this.genre;
   }
 
   /**
@@ -327,20 +326,20 @@ public class SourceVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
-    result = prime * result + ((creators == null) ? 0 : creators.hashCode());
-    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
-    result = prime * result + ((endPage == null) ? 0 : endPage.hashCode());
-    result = prime * result + ((genre == null) ? 0 : genre.hashCode());
-    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
-    result = prime * result + ((issue == null) ? 0 : issue.hashCode());
-    result = prime * result + ((publishingInfo == null) ? 0 : publishingInfo.hashCode());
-    result = prime * result + ((sequenceNumber == null) ? 0 : sequenceNumber.hashCode());
-    result = prime * result + ((sources == null) ? 0 : sources.hashCode());
-    result = prime * result + ((startPage == null) ? 0 : startPage.hashCode());
-    result = prime * result + ((title == null) ? 0 : title.hashCode());
-    result = prime * result + ((totalNumberOfPages == null) ? 0 : totalNumberOfPages.hashCode());
-    result = prime * result + ((volume == null) ? 0 : volume.hashCode());
+    result = prime * result + ((null == this.alternativeTitles) ? 0 : this.alternativeTitles.hashCode());
+    result = prime * result + ((null == this.creators) ? 0 : this.creators.hashCode());
+    result = prime * result + ((null == this.datePublishedInPrint) ? 0 : this.datePublishedInPrint.hashCode());
+    result = prime * result + ((null == this.endPage) ? 0 : this.endPage.hashCode());
+    result = prime * result + ((null == this.genre) ? 0 : this.genre.hashCode());
+    result = prime * result + ((null == this.identifiers) ? 0 : this.identifiers.hashCode());
+    result = prime * result + ((null == this.issue) ? 0 : this.issue.hashCode());
+    result = prime * result + ((null == this.publishingInfo) ? 0 : this.publishingInfo.hashCode());
+    result = prime * result + ((null == this.sequenceNumber) ? 0 : this.sequenceNumber.hashCode());
+    result = prime * result + ((null == this.sources) ? 0 : this.sources.hashCode());
+    result = prime * result + ((null == this.startPage) ? 0 : this.startPage.hashCode());
+    result = prime * result + ((null == this.title) ? 0 : this.title.hashCode());
+    result = prime * result + ((null == this.totalNumberOfPages) ? 0 : this.totalNumberOfPages.hashCode());
+    result = prime * result + ((null == this.volume) ? 0 : this.volume.hashCode());
     return result;
   }
 
@@ -349,7 +348,7 @@ public class SourceVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -357,101 +356,101 @@ public class SourceVO extends ValueObject implements Cloneable {
 
     SourceVO other = (SourceVO) obj;
 
-    if (alternativeTitles == null) {
-      if (other.alternativeTitles != null)
+    if (null == this.alternativeTitles) {
+      if (null != other.alternativeTitles)
         return false;
-    } else if (other.alternativeTitles == null)
+    } else if (null == other.alternativeTitles)
       return false;
-    else if (!new HashSet<>(alternativeTitles).containsAll(other.alternativeTitles) //
-        || !new HashSet<>(other.alternativeTitles).containsAll(alternativeTitles)) {
+    else if (!new HashSet<>(this.alternativeTitles).containsAll(other.alternativeTitles) //
+        || !new HashSet<>(other.alternativeTitles).containsAll(this.alternativeTitles)) {
       return false;
     }
 
-    if (creators == null) {
-      if (other.creators != null)
+    if (null == this.creators) {
+      if (null != other.creators)
         return false;
-    } else if (other.creators == null)
+    } else if (null == other.creators)
       return false;
-    else if (!new HashSet<>(creators).containsAll(other.creators) //
-        || !new HashSet<>(other.creators).containsAll(creators)) {
+    else if (!new HashSet<>(this.creators).containsAll(other.creators) //
+        || !new HashSet<>(other.creators).containsAll(this.creators)) {
       return false;
     }
 
-    if (datePublishedInPrint == null) {
-      if (other.datePublishedInPrint != null)
+    if (null == this.datePublishedInPrint) {
+      if (null != other.datePublishedInPrint)
         return false;
-    } else if (!datePublishedInPrint.equals(other.datePublishedInPrint))
+    } else if (!this.datePublishedInPrint.equals(other.datePublishedInPrint))
       return false;
 
-    if (endPage == null) {
-      if (other.endPage != null)
+    if (null == this.endPage) {
+      if (null != other.endPage)
         return false;
-    } else if (!endPage.equals(other.endPage))
+    } else if (!this.endPage.equals(other.endPage))
       return false;
 
-    if (genre != other.genre)
+    if (this.genre != other.genre)
       return false;
 
-    if (identifiers == null) {
-      if (other.identifiers != null)
+    if (null == this.identifiers) {
+      if (null != other.identifiers)
         return false;
-    } else if (other.identifiers == null)
+    } else if (null == other.identifiers)
       return false;
-    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
-        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
+    else if (!new HashSet<>(this.identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(this.identifiers)) {
       return false;
     }
 
-    if (issue == null) {
-      if (other.issue != null)
+    if (null == this.issue) {
+      if (null != other.issue)
         return false;
-    } else if (!issue.equals(other.issue))
+    } else if (!this.issue.equals(other.issue))
       return false;
 
-    if (publishingInfo == null) {
-      if (other.publishingInfo != null)
+    if (null == this.publishingInfo) {
+      if (null != other.publishingInfo)
         return false;
-    } else if (!publishingInfo.equals(other.publishingInfo))
+    } else if (!this.publishingInfo.equals(other.publishingInfo))
       return false;
 
-    if (sequenceNumber == null) {
-      if (other.sequenceNumber != null)
+    if (null == this.sequenceNumber) {
+      if (null != other.sequenceNumber)
         return false;
-    } else if (!sequenceNumber.equals(other.sequenceNumber))
+    } else if (!this.sequenceNumber.equals(other.sequenceNumber))
       return false;
 
-    if (sources == null) {
-      if (other.sources != null)
+    if (null == this.sources) {
+      if (null != other.sources)
         return false;
-    } else if (other.sources == null)
+    } else if (null == other.sources)
       return false;
-    else if (!new HashSet<>(sources).containsAll(other.sources) //
-        || !new HashSet<>(other.sources).containsAll(sources)) {
+    else if (!new HashSet<>(this.sources).containsAll(other.sources) //
+        || !new HashSet<>(other.sources).containsAll(this.sources)) {
       return false;
     }
 
-    if (startPage == null) {
-      if (other.startPage != null)
+    if (null == this.startPage) {
+      if (null != other.startPage)
         return false;
-    } else if (!startPage.equals(other.startPage))
+    } else if (!this.startPage.equals(other.startPage))
       return false;
 
-    if (title == null) {
-      if (other.title != null)
+    if (null == this.title) {
+      if (null != other.title)
         return false;
-    } else if (!title.equals(other.title))
+    } else if (!this.title.equals(other.title))
       return false;
 
-    if (totalNumberOfPages == null) {
-      if (other.totalNumberOfPages != null)
+    if (null == this.totalNumberOfPages) {
+      if (null != other.totalNumberOfPages)
         return false;
-    } else if (!totalNumberOfPages.equals(other.totalNumberOfPages))
+    } else if (!this.totalNumberOfPages.equals(other.totalNumberOfPages))
       return false;
 
-    if (volume == null) {
-      if (other.volume != null)
+    if (null == this.volume) {
+      if (null != other.volume)
         return false;
-    } else if (!volume.equals(other.volume))
+    } else if (!this.volume.equals(other.volume))
       return false;
 
     return true;
@@ -462,6 +461,6 @@ public class SourceVO extends ValueObject implements Cloneable {
   }
 
   public Date getDatePublishedInPrint() {
-    return datePublishedInPrint;
+    return this.datePublishedInPrint;
   }
 }

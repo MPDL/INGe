@@ -10,7 +10,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
 public class CreatorsOrcidValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
@@ -25,11 +24,11 @@ public class CreatorsOrcidValidator extends ValidatorHandler<List<CreatorVO>> im
       int i = 1;
       for (final CreatorVO creatorVO : creators) {
 
-        if (creatorVO != null && CreatorType.PERSON.equals(creatorVO.getType())) {
+        if (null != creatorVO && CreatorVO.CreatorType.PERSON.equals(creatorVO.getType())) {
 
           final PersonVO p = creatorVO.getPerson();
 
-          if (p != null) {
+          if (null != p) {
 
             String orcid = p.getOrcid();
 

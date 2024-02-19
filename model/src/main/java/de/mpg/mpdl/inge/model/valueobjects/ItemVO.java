@@ -30,7 +30,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -45,7 +44,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
  * @updated 21-Nov-2007 11:52:58
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class ItemVO extends ValueObject implements Searchable {
   public enum ItemAction
   {
@@ -114,7 +113,7 @@ public class ItemVO extends ValueObject implements Searchable {
     this.setBaseUrl(other.getBaseUrl());
 
     for (FileVO file : other.getFiles()) {
-      this.getFiles().add((FileVO) file.clone());
+      this.getFiles().add(file.clone());
     }
 
     this.setLockStatus(other.getLockStatus());
@@ -125,29 +124,29 @@ public class ItemVO extends ValueObject implements Searchable {
       this.getMetadataSets().add(mds.clone());
     }
 
-    if (other.getOwner() != null) {
+    if (null != other.getOwner()) {
       this.setOwner(other.getOwner().clone());
     }
 
     this.setPid(other.getPid());
 
-    if (other.getContext() != null) {
+    if (null != other.getContext()) {
       this.setContext(other.getContext().clone());
     }
 
-    if (other.getContentModel() != null) {
+    if (null != other.getContentModel()) {
       this.setContentModel(other.getContentModel());
     }
 
-    if (other.getVersion() != null) {
+    if (null != other.getVersion()) {
       this.setVersion(other.getVersion().clone());
     }
 
-    if (other.getLatestVersion() != null) {
+    if (null != other.getLatestVersion()) {
       this.setLatestVersion(other.getLatestVersion().clone());
     }
 
-    if (other.getLatestRelease() != null) {
+    if (null != other.getLatestRelease()) {
       this.setLatestRelease(other.getLatestRelease().clone());
     }
 
@@ -173,7 +172,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * @return true, if this item already has a version object.
    */
   boolean alreadyExistsInFramework() {
-    return (this.version != null);
+    return (null != this.version);
   }
 
   /**
@@ -190,7 +189,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * Helper method for JiBX transformations.
    */
   boolean hasPID() {
-    return (this.pid != null);
+    return (null != this.pid);
   }
 
   /**
@@ -344,7 +343,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * @return The modification date as {@link Date}.
    */
   public Date getModificationDate() {
-    if (this.version != null) {
+    if (null != this.version) {
       return this.version.getModificationDate();
     }
 
@@ -376,7 +375,7 @@ public class ItemVO extends ValueObject implements Searchable {
   }
 
   public void setContentModelHref(String contentModelHref) {
-    if (contentModelHref == null) {
+    if (null == contentModelHref) {
       return;
     }
 
@@ -415,22 +414,22 @@ public class ItemVO extends ValueObject implements Searchable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((baseUrl == null) ? 0 : baseUrl.hashCode());
-    result = prime * result + ((contentModel == null) ? 0 : contentModel.hashCode());
-    result = prime * result + ((contextRO == null) ? 0 : contextRO.hashCode());
-    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-    result = prime * result + ((files == null) ? 0 : files.hashCode());
-    result = prime * result + ((latestRelease == null) ? 0 : latestRelease.hashCode());
-    result = prime * result + ((latestVersion == null) ? 0 : latestVersion.hashCode());
-    result = prime * result + ((localTags == null) ? 0 : localTags.hashCode());
-    result = prime * result + ((lockStatus == null) ? 0 : lockStatus.hashCode());
-    result = prime * result + ((metadataSets == null) ? 0 : metadataSets.hashCode());
-    result = prime * result + ((owner == null) ? 0 : owner.hashCode());
-    result = prime * result + ((pid == null) ? 0 : pid.hashCode());
-    result = prime * result + ((publicStatus == null) ? 0 : publicStatus.hashCode());
-    result = prime * result + ((publicStatusComment == null) ? 0 : publicStatusComment.hashCode());
-    result = prime * result + ((relations == null) ? 0 : relations.hashCode());
-    result = prime * result + ((version == null) ? 0 : version.hashCode());
+    result = prime * result + ((null == this.baseUrl) ? 0 : this.baseUrl.hashCode());
+    result = prime * result + ((null == this.contentModel) ? 0 : this.contentModel.hashCode());
+    result = prime * result + ((null == this.contextRO) ? 0 : this.contextRO.hashCode());
+    result = prime * result + ((null == this.creationDate) ? 0 : this.creationDate.hashCode());
+    result = prime * result + ((null == this.files) ? 0 : this.files.hashCode());
+    result = prime * result + ((null == this.latestRelease) ? 0 : this.latestRelease.hashCode());
+    result = prime * result + ((null == this.latestVersion) ? 0 : this.latestVersion.hashCode());
+    result = prime * result + ((null == this.localTags) ? 0 : this.localTags.hashCode());
+    result = prime * result + ((null == this.lockStatus) ? 0 : this.lockStatus.hashCode());
+    result = prime * result + ((null == this.metadataSets) ? 0 : this.metadataSets.hashCode());
+    result = prime * result + ((null == this.owner) ? 0 : this.owner.hashCode());
+    result = prime * result + ((null == this.pid) ? 0 : this.pid.hashCode());
+    result = prime * result + ((null == this.publicStatus) ? 0 : this.publicStatus.hashCode());
+    result = prime * result + ((null == this.publicStatusComment) ? 0 : this.publicStatusComment.hashCode());
+    result = prime * result + ((null == this.relations) ? 0 : this.relations.hashCode());
+    result = prime * result + ((null == this.version) ? 0 : this.version.hashCode());
     return result;
   }
 
@@ -439,7 +438,7 @@ public class ItemVO extends ValueObject implements Searchable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -447,110 +446,110 @@ public class ItemVO extends ValueObject implements Searchable {
 
     ItemVO other = (ItemVO) obj;
 
-    if (baseUrl == null) {
-      if (other.baseUrl != null)
+    if (null == this.baseUrl) {
+      if (null != other.baseUrl)
         return false;
-    } else if (!baseUrl.equals(other.baseUrl))
+    } else if (!this.baseUrl.equals(other.baseUrl))
       return false;
 
-    if (contentModel == null) {
-      if (other.contentModel != null)
+    if (null == this.contentModel) {
+      if (null != other.contentModel)
         return false;
-    } else if (!contentModel.equals(other.contentModel))
+    } else if (!this.contentModel.equals(other.contentModel))
       return false;
 
-    if (contextRO == null) {
-      if (other.contextRO != null)
+    if (null == this.contextRO) {
+      if (null != other.contextRO)
         return false;
-    } else if (!contextRO.equals(other.contextRO))
+    } else if (!this.contextRO.equals(other.contextRO))
       return false;
 
-    if (creationDate == null) {
-      if (other.creationDate != null)
+    if (null == this.creationDate) {
+      if (null != other.creationDate)
         return false;
-    } else if (!creationDate.equals(other.creationDate))
+    } else if (!this.creationDate.equals(other.creationDate))
       return false;
 
-    if (files == null) {
-      if (other.files != null)
+    if (null == this.files) {
+      if (null != other.files)
         return false;
-    } else if (other.files == null)
+    } else if (null == other.files)
       return false;
-    else if (!new HashSet<>(files).containsAll(other.files) //
-        || !new HashSet<>(other.files).containsAll(files)) {
+    else if (!new HashSet<>(this.files).containsAll(other.files) //
+        || !new HashSet<>(other.files).containsAll(this.files)) {
       return false;
     }
 
-    if (latestRelease == null) {
-      if (other.latestRelease != null)
+    if (null == this.latestRelease) {
+      if (null != other.latestRelease)
         return false;
-    } else if (!latestRelease.equals(other.latestRelease))
+    } else if (!this.latestRelease.equals(other.latestRelease))
       return false;
 
-    if (latestVersion == null) {
-      if (other.latestVersion != null)
+    if (null == this.latestVersion) {
+      if (null != other.latestVersion)
         return false;
-    } else if (!latestVersion.equals(other.latestVersion))
+    } else if (!this.latestVersion.equals(other.latestVersion))
       return false;
 
-    if (localTags == null) {
-      if (other.localTags != null)
+    if (null == this.localTags) {
+      if (null != other.localTags)
         return false;
-    } else if (other.localTags == null)
+    } else if (null == other.localTags)
       return false;
-    else if (!new HashSet<>(localTags).containsAll(other.localTags) //
-        || !new HashSet<>(other.localTags).containsAll(localTags)) {
+    else if (!new HashSet<>(this.localTags).containsAll(other.localTags) //
+        || !new HashSet<>(other.localTags).containsAll(this.localTags)) {
       return false;
     }
 
-    if (lockStatus != other.lockStatus)
+    if (this.lockStatus != other.lockStatus)
       return false;
 
-    if (metadataSets == null) {
-      if (other.metadataSets != null)
+    if (null == this.metadataSets) {
+      if (null != other.metadataSets)
         return false;
-    } else if (other.metadataSets == null)
+    } else if (null == other.metadataSets)
       return false;
-    else if (!new HashSet<>(metadataSets).containsAll(other.metadataSets) //
-        || !new HashSet<>(other.metadataSets).containsAll(metadataSets)) {
+    else if (!new HashSet<>(this.metadataSets).containsAll(other.metadataSets) //
+        || !new HashSet<>(other.metadataSets).containsAll(this.metadataSets)) {
       return false;
     }
 
-    if (owner == null) {
-      if (other.owner != null)
+    if (null == this.owner) {
+      if (null != other.owner)
         return false;
-    } else if (!owner.equals(other.owner))
+    } else if (!this.owner.equals(other.owner))
       return false;
 
-    if (pid == null) {
-      if (other.pid != null)
+    if (null == this.pid) {
+      if (null != other.pid)
         return false;
-    } else if (!pid.equals(other.pid))
+    } else if (!this.pid.equals(other.pid))
       return false;
 
-    if (publicStatus != other.publicStatus)
+    if (this.publicStatus != other.publicStatus)
       return false;
 
-    if (publicStatusComment == null) {
-      if (other.publicStatusComment != null)
+    if (null == this.publicStatusComment) {
+      if (null != other.publicStatusComment)
         return false;
-    } else if (!publicStatusComment.equals(other.publicStatusComment))
+    } else if (!this.publicStatusComment.equals(other.publicStatusComment))
       return false;
 
-    if (relations == null) {
-      if (other.relations != null)
+    if (null == this.relations) {
+      if (null != other.relations)
         return false;
-    } else if (other.relations == null)
+    } else if (null == other.relations)
       return false;
-    else if (!new HashSet<>(relations).containsAll(other.relations) //
-        || !new HashSet<>(other.relations).containsAll(relations)) {
+    else if (!new HashSet<>(this.relations).containsAll(other.relations) //
+        || !new HashSet<>(other.relations).containsAll(this.relations)) {
       return false;
     }
 
-    if (version == null) {
-      if (other.version != null)
+    if (null == this.version) {
+      if (null != other.version)
         return false;
-    } else if (!version.equals(other.version))
+    } else if (!this.version.equals(other.version))
       return false;
 
     return true;

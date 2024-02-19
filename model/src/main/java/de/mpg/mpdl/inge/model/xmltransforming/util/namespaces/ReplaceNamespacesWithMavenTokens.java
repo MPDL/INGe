@@ -49,17 +49,19 @@ public class ReplaceNamespacesWithMavenTokens {
 
   private static String POM_PATH = "../pom.xml";
 
+  private ReplaceNamespacesWithMavenTokens() {}
+
   /**
    * @param args
    */
   public static void main(String[] args) throws Exception {
-    if (args.length == 0) {
+    if (0 == args.length) {
       System.out.println("Usage: java ReplaceNamespacesWithMavenTokens xml1 [[,xml2] ...]");
       System.out.println("Optional: -Dpom=path_to_parent_pom");
       System.out
           .println("This will replace all namespaces that can be found in the input xml file with available tokens from the pom.xml.");
     } else {
-      if (System.getProperty(PropertyReader.POM) != null) {
+      if (null != System.getProperty(PropertyReader.POM)) {
         POM_PATH = System.getProperty(PropertyReader.POM);
       }
 
@@ -69,7 +71,7 @@ public class ReplaceNamespacesWithMavenTokens {
       BufferedReader bufferedReader = new BufferedReader(new FileReader(pom));
       String line;
       Pattern pattern = Pattern.compile("\\s*<(xsd.[^>]+)>([^<]+)</xsd.[^>]+>");
-      while ((line = bufferedReader.readLine()) != null) {
+      while (null != (line = bufferedReader.readLine())) {
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
           namespaces.put(matcher.group(2), matcher.group(1));
@@ -83,9 +85,9 @@ public class ReplaceNamespacesWithMavenTokens {
         File tempFile = File.createTempFile(fileName, ".tmp", folder);
         FileWriter fileWriter = new FileWriter(tempFile);
         bufferedReader = new BufferedReader(new FileReader(file));
-        while ((line = bufferedReader.readLine()) != null) {
-          for (String namespace : namespaces.keySet()) {
-            line = line.replace("=\"" + namespace + "\"", "=\"${" + namespaces.get(namespace) + "}\"");
+        while (null != (line = bufferedReader.readLine())) {
+          for (Map.Entry<String, String> entry : namespaces.entrySet()) {
+            line = line.replace("=\"" + entry.getKey() + "\"", "=\"${" + entry.getValue() + "}\"");
           }
           fileWriter.write(line);
           fileWriter.write("\n");

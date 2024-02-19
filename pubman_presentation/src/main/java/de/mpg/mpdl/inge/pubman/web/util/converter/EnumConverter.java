@@ -71,14 +71,14 @@ public class EnumConverter implements Converter {
 
     // try to guess the valueList if it has not been given in the constructor (the converter is
     // invoked by a JSP, not a JAVA class)
-    if (this.valueList == null && !string.isEmpty()) {
+    if (null == this.valueList && !string.isEmpty()) {
       this.valueList = this.guessValueList(string);
     }
 
-    if (this.valueList != null) {
+    if (null != this.valueList) {
       for (final Object valueListObject : this.valueList) {
         final String valueListString = valueListObject.toString();
-        if (valueListString.compareTo(string) == 0) {
+        if (0 == valueListString.compareTo(string)) {
           retVal = valueListObject;
           break;
         }
@@ -86,7 +86,7 @@ public class EnumConverter implements Converter {
     } else if (string.isEmpty()) {
       retVal = null;
     } else {
-      EnumConverter.logger.warn("ValueList is NULL. Cannot convert string '" + string + "' to object!");
+      logger.warn("ValueList is NULL. Cannot convert string '" + string + "' to object!");
     }
 
 
@@ -95,7 +95,7 @@ public class EnumConverter implements Converter {
 
   @Override
   public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object object) {
-    if (object == null) {
+    if (null == object) {
       return "";
     }
 
@@ -138,7 +138,7 @@ public class EnumConverter implements Converter {
     }
 
 
-    EnumConverter.logger.warn("ValueList for searchString '" + searchString
+    logger.warn("ValueList for searchString '" + searchString
         + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");
 
     return null;

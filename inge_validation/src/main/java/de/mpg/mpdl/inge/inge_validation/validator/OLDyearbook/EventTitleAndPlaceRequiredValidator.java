@@ -16,7 +16,7 @@ public class EventTitleAndPlaceRequiredValidator extends ValidatorHandler<EventV
 
     boolean ok = true;
 
-    if (e != null) {
+    if (null != e) {
 
       if (ValidationTools.isEmpty(e.getTitle())) {
         context.addError(ValidationError.create(ErrorMessages.EVENT_TITLE_REQUIRED).setErrorCode(ErrorMessages.WARNING));

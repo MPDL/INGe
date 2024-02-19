@@ -24,7 +24,7 @@ public class SourcesGenreProceedingsOrJournalValidator extends ValidatorHandler<
 
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           if (!SourceVO.Genre.PROCEEDINGS.equals(sourceVO.getGenre()) //
               && !SourceVO.Genre.JOURNAL.equals(sourceVO.getGenre())) {

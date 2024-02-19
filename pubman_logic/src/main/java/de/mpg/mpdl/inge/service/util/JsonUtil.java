@@ -16,6 +16,8 @@ public class JsonUtil {
 
   }
 
+  private JsonUtil() {}
+
   public static String minifyJsonString(String prettyJsonString) throws IOException {
     return DEFAULT_OBJECT_MAPPER.readValue(prettyJsonString, JsonNode.class).toString();
   }

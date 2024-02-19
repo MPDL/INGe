@@ -31,16 +31,16 @@ public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceV
       int i = 1;
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
           if (ValidationTools.isEmpty(sourceVO.getTitle()) && //
               (ValidationTools.isNotEmpty(sourceVO.getAlternativeTitles()) //
                   || ValidationTools.isNotEmpty(sourceVO.getCreators()) //
-                  || sourceVO.getDatePublishedInPrint() != null //
+                  || null != sourceVO.getDatePublishedInPrint() //
                   || ValidationTools.isNotEmpty(sourceVO.getEndPage()) //
-                  || sourceVO.getGenre() != null //
+                  || null != sourceVO.getGenre() //
                   || ValidationTools.isNotEmpty(sourceVO.getIdentifiers()) //
                   || ValidationTools.isNotEmpty(sourceVO.getIssue()) //
-                  || sourceVO.getPublishingInfo() != null //
+                  || null != sourceVO.getPublishingInfo() //
                   || ValidationTools.isNotEmpty(sourceVO.getSequenceNumber()) //
                   || ValidationTools.isNotEmpty(sourceVO.getSources()) //
                   || ValidationTools.isNotEmpty(sourceVO.getStartPage()) //

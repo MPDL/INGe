@@ -15,7 +15,7 @@ public class SiteMapTaskScheduler {
   @Scheduled(cron = "${inge.cron.pubman.sitemap}")
   public void createSiteMap() {
     //As SiteMapTask is in scope "prototype", it creates a new instance
-    applicationContext.getBean(SiteMapTask.class).run();
+    this.applicationContext.getBean(SiteMapTask.class).run();
   }
 
 }

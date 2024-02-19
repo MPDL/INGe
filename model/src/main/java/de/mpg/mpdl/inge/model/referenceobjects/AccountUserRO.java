@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.model.referenceobjects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * The class for AccountUser references.
@@ -38,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @updated 21-Nov-2007 12:08:27
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class AccountUserRO extends ReferenceObject implements Cloneable {
   /**
    * Creates a new instance.
@@ -72,7 +71,7 @@ public class AccountUserRO extends ReferenceObject implements Cloneable {
    * @return boolean true if the reference of this AffiliationVO is set
    */
   public boolean alreadyExistsInFramework() {
-    return (getObjectId() != null);
+    return (null != getObjectId());
   }
 
   /**

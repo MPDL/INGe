@@ -60,7 +60,7 @@
 	Enumeration params = request.getParameterNames();
 	while (params.hasMoreElements()) {
 		String param = params.nextElement().toString();
-		if (param.equals("searchterm") || param.equals("model") || param.equals("lang")) {
+		if ("searchterm".equals(param) || "model".equals(param) || "lang".equals(param)) {
 			queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)),
                     StandardCharsets.UTF_8);
 			if (params.hasMoreElements()) {
@@ -75,9 +75,9 @@
 	boolean loggedIn = Login.getLoggedIn(request);
 	String searchterm = UrlHelper.fixURLEncoding(request.getParameter("searchterm"));
 	pageContext.setAttribute("searchterm", searchterm);
-	if (searchterm != null && !searchterm.isEmpty()) {
+	if (null != searchterm && !searchterm.isEmpty()) {
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
-		if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang"))) {
+		if (null != request.getParameter("lang") && !"".equals(request.getParameter("lang"))) {
 			results = querier.query(request.getParameter("model"), searchterm, request.getParameter("lang"), Querier.ModeType.FAST);
 		} else {
 			results = querier.query(request.getParameter("model"), searchterm, Querier.ModeType.FAST);
@@ -131,7 +131,7 @@
 									</div>
 								</div>
 							</div>
-							<% if (results != null) { %>
+							<% if (null != results) { %>
 							<div class="full_area0 itemBlock">
 								<h3 class="xLarge_area0_p8 endline blockHeader">
 									Search results
@@ -152,7 +152,7 @@
 											<% int i = 0; %>
 											<% for (Describable desc : results) {
 												Pair pair = (Pair) desc; %>
-												<% if(i == 0) { %>
+												<% if(0 == i) { %>
 													<div class="free_area0 endline itemLine noTopBorder">
 												<% } else { %>
 													<div class="free_area0 endline itemLine">
@@ -173,14 +173,16 @@
 															<% if (loggedIn) { %>
 																<%
 																if((Boolean)request.getSession().getAttribute("open_model") &&
-																		(request.getSession().getAttribute("edit_open_vocabulary") != null && (Boolean) request.getSession()
+																		(null != request.getSession()
+                                                                                .getAttribute("edit_open_vocabulary") && (Boolean) request.getSession()
                                                                                 .getAttribute("edit_open_vocabulary"))) { %>
 																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
 																<% } %>
 
 																<%
 																if(!(Boolean)request.getSession().getAttribute("open_model") &&
-																		(request.getSession().getAttribute("edit_closed_vocabulary") != null && (Boolean) request.getSession()
+																		(null != request.getSession().getAttribute(
+                                                                                "edit_closed_vocabulary") && (Boolean) request.getSession()
                                                                                 .getAttribute("edit_closed_vocabulary"))) { %>
 																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
 																<% } %>

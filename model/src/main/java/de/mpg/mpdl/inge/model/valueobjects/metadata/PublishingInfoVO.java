@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
@@ -37,7 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @updated 05-Sep-2007 12:48:58
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class PublishingInfoVO extends ValueObject implements Cloneable {
   private String edition;
   private String place;
@@ -47,21 +46,21 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
    * Delivers the version of the described item.
    */
   public String getEdition() {
-    return edition;
+    return this.edition;
   }
 
   /**
    * Delivers the place where the item has been published.
    */
   public String getPlace() {
-    return place;
+    return this.place;
   }
 
   /**
    * Delivers the name of the institution who has published the item.
    */
   public String getPublisher() {
-    return publisher;
+    return this.publisher;
   }
 
   /**
@@ -70,7 +69,7 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setEdition(String newVal) {
-    edition = newVal;
+    this.edition = newVal;
   }
 
   /**
@@ -79,7 +78,7 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setPlace(String newVal) {
-    place = newVal;
+    this.place = newVal;
   }
 
   /**
@@ -88,7 +87,7 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setPublisher(String newVal) {
-    publisher = newVal;
+    this.publisher = newVal;
   }
 
   public PublishingInfoVO clone() {
@@ -104,9 +103,9 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((edition == null) ? 0 : edition.hashCode());
-    result = prime * result + ((place == null) ? 0 : place.hashCode());
-    result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
+    result = prime * result + ((null == this.edition) ? 0 : this.edition.hashCode());
+    result = prime * result + ((null == this.place) ? 0 : this.place.hashCode());
+    result = prime * result + ((null == this.publisher) ? 0 : this.publisher.hashCode());
     return result;
   }
 
@@ -115,7 +114,7 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -123,22 +122,22 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
 
     PublishingInfoVO other = (PublishingInfoVO) obj;
 
-    if (edition == null) {
-      if (other.edition != null)
+    if (null == this.edition) {
+      if (null != other.edition)
         return false;
-    } else if (!edition.equals(other.edition))
+    } else if (!this.edition.equals(other.edition))
       return false;
 
-    if (place == null) {
-      if (other.place != null)
+    if (null == this.place) {
+      if (null != other.place)
         return false;
-    } else if (!place.equals(other.place))
+    } else if (!this.place.equals(other.place))
       return false;
 
-    if (publisher == null) {
-      if (other.publisher != null)
+    if (null == this.publisher) {
+      if (null != other.publisher)
         return false;
-    } else if (!publisher.equals(other.publisher))
+    } else if (!this.publisher.equals(other.publisher))
       return false;
 
     return true;

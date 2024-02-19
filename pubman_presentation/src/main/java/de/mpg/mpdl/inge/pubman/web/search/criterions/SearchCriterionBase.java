@@ -601,12 +601,12 @@ public abstract class SearchCriterionBase implements Serializable {
 
       if (DisplayType.OPERATOR.equals(sc.getSearchCriterion().getDisplayType())) {
 
-        if (parenthesisOpened == 0) {
+        if (0 == parenthesisOpened) {
 
           final LogicalOperator op = (LogicalOperator) sc;
           mainOperators.add(op);
           //Check if this operator changes from last
-          if (lastOperator != null && ((lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
+          if (null != lastOperator && ((lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
               && !op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
               || (!lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
                   && op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
@@ -628,9 +628,9 @@ public abstract class SearchCriterionBase implements Serializable {
         // if all criterias have the same nested field and if it's different from the parent
         // nested
         // criteria, set a new nested query
-        if ((sharedNestedField != null && sharedNestedField.isEmpty()
-            && !(parentNestedPath != null && sc.getElasticSearchNestedPath().equals(parentNestedPath)))
-            || (sc.getElasticSearchNestedPath() != null && sc.getElasticSearchNestedPath().equals(sharedNestedField)
+        if ((null != sharedNestedField && sharedNestedField.isEmpty()
+            && !(null != parentNestedPath && sc.getElasticSearchNestedPath().equals(parentNestedPath)))
+            || (null != sc.getElasticSearchNestedPath() && sc.getElasticSearchNestedPath().equals(sharedNestedField)
                 && !sc.getElasticSearchNestedPath().equals(parentNestedPath))) {
           sharedNestedField = sc.getElasticSearchNestedPath();
         } else {
@@ -639,11 +639,11 @@ public abstract class SearchCriterionBase implements Serializable {
       }
     }
 
-    if (sharedNestedField != null) {
+    if (null != sharedNestedField) {
       SearchCriterionBase.logger.debug("Found common nested field: " + sharedNestedField);
     }
 
-    if (criterionList.size() == 1) {
+    if (1 == criterionList.size()) {
       resultedQueryBuilder = criterionList.get(0).toElasticSearchQuery();
 
     } else if (!mainOperators.isEmpty()) {
@@ -664,7 +664,7 @@ public abstract class SearchCriterionBase implements Serializable {
         final int nextIndexOfOperator =
             (mainOperators.size() > i + 1) ? criterionList.indexOf(mainOperators.get(i + 1)) : criterionList.size();
 
-        if (i == 0) {
+        if (0 == i) {
           final List<SearchCriterionBase> leftList = criterionList.subList(0, indexOfOperator);
 
           if (SearchCriterion.OR_OPERATOR.equals(op.getSearchCriterion())) {
@@ -701,7 +701,7 @@ public abstract class SearchCriterionBase implements Serializable {
     for (final SearchCriterionBase criterion : removedList) {
 
       final String query = criterion.toQueryString();
-      if (query != null) {
+      if (null != query) {
 
         sb.append(query);
 
@@ -724,20 +724,20 @@ public abstract class SearchCriterionBase implements Serializable {
       SearchCriterion currentSearchCriterionName = null;
       SearchCriterionBase currentSearchCriterion = null;
       final Stack<Parenthesis> parenthesisStack = new Stack<>();
-      while ((ch = sr.read()) != -1) {
+      while (-1 != (ch = sr.read())) {
 
-        if (ch == '=' && !substringBuffer.isEmpty() && substringBuffer.charAt(substringBuffer.length() - 1) != '\\') {
+        if ('=' == ch && !substringBuffer.isEmpty() && '\\' != substringBuffer.charAt(substringBuffer.length() - 1)) {
           currentSearchCriterionName = SearchCriterion.valueOf(substringBuffer.toString());
 
-          if (sr.read() != '"') {
+          if ('"' != sr.read()) {
             throw new RuntimeException("Search criterion name must be followed by an '=' and '\"' ");
           }
 
           int contentChar;
           final StringBuilder contentBuffer = new StringBuilder();
-          while ((contentChar = sr.read()) != -1) {
+          while (-1 != (contentChar = sr.read())) {
 
-            if (contentChar == '"' && !(!contentBuffer.isEmpty() && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
+            if ('"' == contentChar && !(!contentBuffer.isEmpty() && '\\' == contentBuffer.charAt(contentBuffer.length() - 1))) {
               // end of content
               currentSearchCriterion = SearchCriterionBase.initSearchCriterion(currentSearchCriterionName);
               try {
@@ -759,7 +759,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
         // Logical Operators
-        else if (ch == ' ') {
+        else if (' ' == ch) {
           if (!substringBuffer.isEmpty()) {
             switch (substringBuffer.toString().toLowerCase()) {
               case "and" -> {
@@ -781,13 +781,13 @@ public abstract class SearchCriterionBase implements Serializable {
 
         }
 
-        else if (ch == '(') {
+        else if ('(' == ch) {
           final Parenthesis p = new Parenthesis(SearchCriterion.OPENING_PARENTHESIS);
           scList.add(p);
           parenthesisStack.push(p);
         }
 
-        else if (ch == ')') {
+        else if (')' == ch) {
           final Parenthesis p = new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS);
           scList.add(p);
           Parenthesis openingParenthesis;
@@ -824,7 +824,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
   public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList, QueryType queryType) {
-    if (criterionList == null) {
+    if (null == criterionList) {
       return new ArrayList<>();
     } else {
 
@@ -855,9 +855,9 @@ public abstract class SearchCriterionBase implements Serializable {
     final int position = criterionList.indexOf(criterion);
     // try to delete
     boolean deleteBefore = true;
-    if (position == 0) {
+    if (0 == position) {
       deleteBefore = false;
-    } else if (position - 1 >= 0) {
+    } else if (0 <= position - 1) {
       final SearchCriterionBase scBefore = criterionList.get(position - 1);
 
       deleteBefore = !scBefore.getSearchCriterion().equals(SearchCriterion.OPENING_PARENTHESIS);
@@ -871,7 +871,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
     if (deleteBefore) {
-      for (int i = position; i >= 0; i--) {
+      for (int i = position; 0 <= i; i--) {
         final SearchCriterion sci = criterionList.get(i).getSearchCriterion();
         if (DisplayType.OPERATOR.equals(sci.getDisplayType())) {
           criterionList.remove(position);
@@ -916,7 +916,7 @@ public abstract class SearchCriterionBase implements Serializable {
     criterionList.removeAll(parenthesisToRemove);
 
     // if first criterion is an operand, remove it
-    if (criterionList != null && !criterionList.isEmpty()
+    if (null != criterionList && !criterionList.isEmpty()
         && DisplayType.OPERATOR.equals(criterionList.get(0).getSearchCriterion().getDisplayType())) {
       criterionList.remove(0);
     }

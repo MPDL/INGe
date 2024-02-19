@@ -56,7 +56,7 @@ public class MetadataSetVO extends ValueObject implements Cloneable {
    * Delivers the title.
    */
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   /**
@@ -65,7 +65,7 @@ public class MetadataSetVO extends ValueObject implements Cloneable {
    * @param newVal newVal
    */
   public void setTitle(String newVal) {
-    title = newVal;
+    this.title = newVal;
   }
 
   public MetadataSetVO clone() {
@@ -81,7 +81,7 @@ public class MetadataSetVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((null == this.title) ? 0 : this.title.hashCode());
     return result;
   }
 
@@ -90,7 +90,7 @@ public class MetadataSetVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -98,10 +98,10 @@ public class MetadataSetVO extends ValueObject implements Cloneable {
 
     MetadataSetVO other = (MetadataSetVO) obj;
 
-    if (title == null) {
-      if (other.title != null)
+    if (null == this.title) {
+      if (null != other.title)
         return false;
-    } else if (!title.equals(other.title))
+    } else if (!this.title.equals(other.title))
       return false;
 
     return true;

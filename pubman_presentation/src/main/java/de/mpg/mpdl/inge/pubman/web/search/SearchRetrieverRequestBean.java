@@ -19,13 +19,13 @@ import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -50,7 +50,7 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 @ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = LogManager.getLogger(SearchRetrieverRequestBean.class);
 
   //  /**
@@ -143,7 +143,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     final String query = paramMap.get(SearchRetrieverRequestBean.parameterQuery);
     final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
 
-    if (query != null || elasticSearchQuery != null) {
+    if (null != query || null != elasticSearchQuery) {
       this.setQueryStringUrlParam(query);
       this.setElasticSearchQueryUrlParam(elasticSearchQuery);
     } else {
@@ -154,7 +154,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     final String searchType = paramMap.get(SearchRetrieverRequestBean.parameterSearchType);
     this.setSearchType(Objects.requireNonNullElse(searchType, "simple"));
 
-    if ((elasticSearchQuery == null || elasticSearchQuery.isEmpty()) && (query == null || query.isEmpty())) {
+    if ((null == elasticSearchQuery || elasticSearchQuery.isEmpty()) && (null == query || query.isEmpty())) {
       this.error(this.getMessage("SearchQueryError"));
 
     }
@@ -163,7 +163,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
   @Override
-  public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
+  public List<PubItemVOPresentation> retrieveList(int offset, int limit, PubItemListSessionBean.SORT_CRITERIA sc) {
 
     List<PubItemVOPresentation> pubItemList = new ArrayList<>();
     // checkSortCriterias(sc);
@@ -178,7 +178,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         if (!index.isEmpty()) {
           if (!index.isEmpty()) {
             FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                SearchSortCriteria.SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
                     : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
             srb.sort(SortOptions.of(so -> so.field(fs)));
           }
@@ -186,7 +186,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       }
 
       Query escQueryBuilder = null;
-      if (getElasticSearchQueryUrlParam() == null) {
+      if (null == getElasticSearchQueryUrlParam()) {
         List<SearchCriterionBase> allCriterions = SearchCriterionBase.queryStringToScList(getQueryString());
         escQueryBuilder = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
 
@@ -194,9 +194,9 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
           //Search only for released items
           BoolQuery.Builder bqb = new BoolQuery.Builder();
           bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-              PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+              PubItemServiceDbImpl.INDEX_PUBLIC_STATE, ItemVersionRO.State.RELEASED.name()));
           bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-              PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+              PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVersionRO.State.RELEASED.name()));
           bqb.must(escQueryBuilder);
           escQueryBuilder = bqb.build()._toQuery();
         }
@@ -225,7 +225,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       }
     } catch (final Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
-      SearchRetrieverRequestBean.logger.error("Error in retrieving items", e);
+      logger.error("Error in retrieving items", e);
     }
 
     return pubItemList;
@@ -270,7 +270,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @return link to the atom feed for the current search
    */
   public String getAtomFeedLink() {
-    if (this.getElasticSearchQueryUrlParam() == null) {
+    if (null == this.getElasticSearchQueryUrlParam()) {
       return null;
     }
 
@@ -320,7 +320,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @return
    */
   public String getSearchType() {
-    if (this.searchType == null) {
+    if (null == this.searchType) {
       this.searchType = this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterSearchType);
     }
 
@@ -333,21 +333,21 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    *
    * @param sc The sorting criteria to be checked
    */
-  protected void checkSortCriterias(SORT_CRITERIA sc) {
-    if (sc.getIndex() == null || sc.getIndex().length == 0) {
+  protected void checkSortCriterias(PubItemListSessionBean.SORT_CRITERIA sc) {
+    if (null == sc.getIndex() || 0 == sc.getIndex().length) {
       this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1", this.getLabel("ENUM_CRITERIA_" + sc.name())));
     }
   }
 
   public String getQueryString() {
-    if (this.queryStringUrlParam == null) {
+    if (null == this.queryStringUrlParam) {
       this.queryStringUrlParam = this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterQuery);
     }
     return this.queryStringUrlParam;
   }
 
   public String getUrlEncodedQueryString() {
-    if (this.queryStringUrlParam != null) {
+    if (null != this.queryStringUrlParam) {
       return URLEncoder.encode(this.queryStringUrlParam, StandardCharsets.UTF_8);
     }
 
@@ -360,11 +360,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   }
 
   private String getElasticSearchQueryUrlParam() {
-    if (this.elasticSearchQueryUrlParam == null) {
+    if (null == this.elasticSearchQueryUrlParam) {
       this.elasticSearchQueryUrlParam =
           this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
     }
-    return this.elasticSearchQueryUrlParam != null ? this.elasticSearchQueryUrlParam.replace("Query: ", "") : null;
+    return null != this.elasticSearchQueryUrlParam ? this.elasticSearchQueryUrlParam.replace("Query: ", "") : null;
   }
 
   private void setElasticSearchQueryUrlParam(String elasticSearchQuery) {
@@ -375,7 +375,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
   public String getElasticSearchQuery() {
     try {
-      return this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : "";
+      return null != this.elasticSearchQueryBuilder ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : "";
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + this.elasticSearchQueryBuilder);
       return "";
@@ -384,8 +384,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
   public String getMinifiedUrlEncodedElasticSearchQuery() {
     try {
-      String json = this.elasticSearchQueryBuilder != null ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : null;
-      return json != null ? URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName()) : "";
+      String json = null != this.elasticSearchQueryBuilder ? ElasticSearchGenericDAOImpl.toJson(this.elasticSearchQueryBuilder) : null;
+      return null != json ? URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName()) : "";
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + this.elasticSearchQueryBuilder);
       return "";

@@ -1,6 +1,4 @@
 <%@page import="de.mpg.mpdl.inge.aa.Aa"%>
-<%@page import="de.mpg.mpdl.inge.aa.AuthenticationVO.Grant"%>
-<%@page import="de.mpg.mpdl.inge.aa.AuthenticationVO.Role"%>
 <%@page import="de.mpg.mpdl.inge.aa.AuthenticationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,7 +10,7 @@
 			.key {
 				font-weight: bold;
 			}
-			
+
 			.value {
 				color: blue;
 			}
@@ -22,22 +20,22 @@
 		<a href="login.jsp">Login</a>
 		<br>
 		<h1>Authentication</h1>
-		
+
 		<% Aa aa = new Aa(request);
 		AuthenticationVO auth = (AuthenticationVO) session.getAttribute("authentication"); %>
-		<% if (auth != null) { %>
+		<% if (null != auth) { %>
 			<div><span class="key">Type: </span><span class="value"><%= auth.getType() %></span></div>
 			<div><span class="key">Full user name: </span><span class="value"><%= auth.getFullName() %></span></div>
 			<div><span class="key">User-ID: </span><span class="value"><%= auth.getUserId() %></span></div>
 			<div><span class="key">Login name: </span><span class="value"><%= auth.getUsername() %></span></div>
 			<div><span class="key">Used TAN: </span><span class="value"><%= auth.getTan() %></span></div>
 			<div><h3>Roles</h3>
-				<% for (Role role : auth.getRoles()) { %>
+				<% for (AuthenticationVO.Role role : auth.getRoles()) { %>
 					<div><span class="key">Role: </span><span class="value"><%= role.getKey() %></span></div>
 				<% } %>
 			</div>
 			<div><h3>Grants</h3>
-				<% for (Grant grant : auth.getGrants()) { %>
+				<% for (AuthenticationVO.Grant grant : auth.getGrants()) { %>
 					<div><span class="key">Grant: </span><span class="value"><%= grant.getKey() %> on <%= grant.getValue() %></span></div>
 				<% } %>
 			</div>

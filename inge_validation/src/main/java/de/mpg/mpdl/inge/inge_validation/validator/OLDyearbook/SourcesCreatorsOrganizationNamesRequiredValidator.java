@@ -10,7 +10,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
@@ -32,11 +31,11 @@ public class SourcesCreatorsOrganizationNamesRequiredValidator extends Validator
           int j = 1;
           for (final CreatorVO creatorVO : sourceVO.getCreators()) {
 
-            if (creatorVO != null && CreatorType.ORGANIZATION.equals(creatorVO.getType())) {
+            if (null != creatorVO && CreatorVO.CreatorType.ORGANIZATION.equals(creatorVO.getType())) {
 
               final OrganizationVO o = creatorVO.getOrganization();
 
-              if (o != null) {
+              if (null != o) {
 
                 if (ValidationTools.isEmpty(o.getName())) {
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED)

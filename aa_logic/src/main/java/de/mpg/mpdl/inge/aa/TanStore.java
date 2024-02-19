@@ -44,6 +44,8 @@ import org.apache.commons.codec.binary.Base64;
 public class TanStore {
   private static final Set<String> tanSet = new HashSet<>();
 
+  private TanStore() {}
+
   public static boolean checkTan(String tan) {
     if (tanSet.contains(tan)) {
       // TAN found, now remove it

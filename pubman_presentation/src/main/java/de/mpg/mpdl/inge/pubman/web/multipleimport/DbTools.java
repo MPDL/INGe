@@ -7,6 +7,7 @@ import java.sql.Connection;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 
 public class DbTools {
+  private DbTools() {}
   // public static void closePreparedStatement(PreparedStatement ps) {
   // try {
   // if (ps != null && !ps.isClosed()) {
@@ -29,7 +30,7 @@ public class DbTools {
 
   public static void closeConnection(Connection connection) {
     try {
-      if (connection != null && !connection.isClosed()) {
+      if (null != connection && !connection.isClosed()) {
         connection.close();
       }
     } catch (final Exception e) {
@@ -41,7 +42,7 @@ public class DbTools {
     try {
       Connection connection = ApplicationBean.INSTANCE.getDataSource().getConnection();
 
-      if (connection != null && !connection.isClosed()) {
+      if (null != connection && !connection.isClosed()) {
         return connection;
       } else {
         throw new RuntimeException("Error creating database connection");

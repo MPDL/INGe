@@ -5,14 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class MdsFileVO extends MetadataSetVO {
   private String contentCategory;
   private String description;
@@ -74,7 +73,7 @@ public class MdsFileVO extends MetadataSetVO {
 	 */
 	@Deprecated
 	public int getSize() {
-		return size;
+		return this.size;
 	}
 
   /**
@@ -86,7 +85,7 @@ public class MdsFileVO extends MetadataSetVO {
   }
 
   public String getContentCategory() {
-    return contentCategory;
+    return this.contentCategory;
   }
 
   public void setContentCategory(String contentCategory) {
@@ -94,7 +93,7 @@ public class MdsFileVO extends MetadataSetVO {
   }
 
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   public void setDescription(String description) {
@@ -102,15 +101,15 @@ public class MdsFileVO extends MetadataSetVO {
   }
 
   public List<IdentifierVO> getIdentifiers() {
-    return identifiers;
+    return this.identifiers;
   }
 
   public List<FormatVO> getFormats() {
-    return formats;
+    return this.formats;
   }
 
   public String getRights() {
-    return rights;
+    return this.rights;
   }
 
   public void setRights(String rights) {
@@ -121,7 +120,7 @@ public class MdsFileVO extends MetadataSetVO {
    * @return the embargoUntil
    */
   public String getEmbargoUntil() {
-    return embargoUntil;
+    return this.embargoUntil;
   }
 
   /**
@@ -135,7 +134,7 @@ public class MdsFileVO extends MetadataSetVO {
    * @return the copyrightDate
    */
   public String getCopyrightDate() {
-    return copyrightDate;
+    return this.copyrightDate;
   }
 
   /**
@@ -149,7 +148,7 @@ public class MdsFileVO extends MetadataSetVO {
    * @return the license
    */
   public String getLicense() {
-    return license;
+    return this.license;
   }
 
   /**
@@ -160,7 +159,7 @@ public class MdsFileVO extends MetadataSetVO {
   }
 
   public OA_STATUS getOaStatus() {
-    return oaStatus;
+    return this.oaStatus;
   }
 
   public void setOaStatus(OA_STATUS oaStatus) {
@@ -171,16 +170,16 @@ public class MdsFileVO extends MetadataSetVO {
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((contentCategory == null) ? 0 : contentCategory.hashCode());
-    result = prime * result + ((copyrightDate == null) ? 0 : copyrightDate.hashCode());
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((embargoUntil == null) ? 0 : embargoUntil.hashCode());
-    result = prime * result + ((formats == null) ? 0 : formats.hashCode());
-    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
-    result = prime * result + ((license == null) ? 0 : license.hashCode());
-    result = prime * result + ((rights == null) ? 0 : rights.hashCode());
-    result = prime * result + ((oaStatus == null) ? 0 : oaStatus.hashCode());
-    result = prime * result + size;
+    result = prime * result + ((null == this.contentCategory) ? 0 : this.contentCategory.hashCode());
+    result = prime * result + ((null == this.copyrightDate) ? 0 : this.copyrightDate.hashCode());
+    result = prime * result + ((null == this.description) ? 0 : this.description.hashCode());
+    result = prime * result + ((null == this.embargoUntil) ? 0 : this.embargoUntil.hashCode());
+    result = prime * result + ((null == this.formats) ? 0 : this.formats.hashCode());
+    result = prime * result + ((null == this.identifiers) ? 0 : this.identifiers.hashCode());
+    result = prime * result + ((null == this.license) ? 0 : this.license.hashCode());
+    result = prime * result + ((null == this.rights) ? 0 : this.rights.hashCode());
+    result = prime * result + ((null == this.oaStatus) ? 0 : this.oaStatus.hashCode());
+    result = prime * result + this.size;
     return result;
   }
 
@@ -197,69 +196,69 @@ public class MdsFileVO extends MetadataSetVO {
 
     MdsFileVO other = (MdsFileVO) obj;
 
-    if (contentCategory == null) {
-      if (other.contentCategory != null)
+    if (null == this.contentCategory) {
+      if (null != other.contentCategory)
         return false;
-    } else if (!contentCategory.equals(other.contentCategory))
+    } else if (!this.contentCategory.equals(other.contentCategory))
       return false;
 
-    if (copyrightDate == null) {
-      if (other.copyrightDate != null)
+    if (null == this.copyrightDate) {
+      if (null != other.copyrightDate)
         return false;
-    } else if (!copyrightDate.equals(other.copyrightDate))
+    } else if (!this.copyrightDate.equals(other.copyrightDate))
       return false;
 
-    if (description == null) {
-      if (other.description != null)
+    if (null == this.description) {
+      if (null != other.description)
         return false;
-    } else if (!description.equals(other.description))
+    } else if (!this.description.equals(other.description))
       return false;
 
-    if (embargoUntil == null) {
-      if (other.embargoUntil != null)
+    if (null == this.embargoUntil) {
+      if (null != other.embargoUntil)
         return false;
-    } else if (!embargoUntil.equals(other.embargoUntil))
+    } else if (!this.embargoUntil.equals(other.embargoUntil))
       return false;
 
-    if (formats == null) {
-      if (other.formats != null)
+    if (null == this.formats) {
+      if (null != other.formats)
         return false;
-    } else if (other.formats == null)
+    } else if (null == other.formats)
       return false;
-    else if (!new HashSet<>(formats).containsAll(other.formats) //
-        || !new HashSet<>(other.formats).containsAll(formats)) {
+    else if (!new HashSet<>(this.formats).containsAll(other.formats) //
+        || !new HashSet<>(other.formats).containsAll(this.formats)) {
       return false;
     }
 
-    if (identifiers == null) {
-      if (other.identifiers != null)
+    if (null == this.identifiers) {
+      if (null != other.identifiers)
         return false;
-    } else if (other.identifiers == null)
+    } else if (null == other.identifiers)
       return false;
-    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
-        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
+    else if (!new HashSet<>(this.identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(this.identifiers)) {
       return false;
     }
 
-    if (license == null) {
-      if (other.license != null)
+    if (null == this.license) {
+      if (null != other.license)
         return false;
-    } else if (!license.equals(other.license))
+    } else if (!this.license.equals(other.license))
       return false;
 
-    if (rights == null) {
-      if (other.rights != null)
+    if (null == this.rights) {
+      if (null != other.rights)
         return false;
-    } else if (!rights.equals(other.rights))
+    } else if (!this.rights.equals(other.rights))
       return false;
 
-    if (oaStatus == null) {
-      if (other.oaStatus != null)
+    if (null == this.oaStatus) {
+      if (null != other.oaStatus)
         return false;
-    } else if (!oaStatus.equals(other.oaStatus))
+    } else if (!this.oaStatus.equals(other.oaStatus))
       return false;
 
-    if (size != other.size)
+    if (this.size != other.size)
       return false;
 
     return true;

@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,9 +39,6 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-import de.mpg.mpdl.inge.cone.ModelList.ModelResult;
-import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -59,7 +55,7 @@ public class ModelHelper {
 
   private static final String REGEX_BRACKETS = "<[^>]+>";
 
-  private static final ReplacePattern[] replacePattern = new ReplacePattern[] {new ReplacePattern("AND\\{[^,\\}]+(,[^,\\}]+)*\\}", "a"),
+  private static final ReplacePattern[] replacePattern = {new ReplacePattern("AND\\{[^,\\}]+(,[^,\\}]+)*\\}", "a"),
       new ReplacePattern("AND\\{,[^\\{\\}]*\\}|AND\\{[^\\{\\}]*,\\}|AND\\{[^\\{\\}]*,,[^\\{\\}]*\\}", ""),
       new ReplacePattern("OR\\{[^\\{\\}]*[^,\\{\\}]+[^\\{\\}]*\\}", "o"), new ReplacePattern("OR\\{,*\\}", ""),
       new ReplacePattern("NOT\\{\\}", "n"), new ReplacePattern("NOT\\{[^\\{\\}]+\\}", "")};
@@ -75,11 +71,11 @@ public class ModelHelper {
 
   public static List<Pair<ResultEntry>> buildObjectFromPatternNew(String modelName, String currentSubject, TreeFragment poMap,
       boolean loggedIn) throws ConeException {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
     List<Pair<ResultEntry>> results = new ArrayList<>();
     Set<String> languages = getLanguagesForResults(model, poMap, loggedIn);
 
-    for (ModelResult modelResult : model.getResults()) {
+    for (ModelList.ModelResult modelResult : model.getResults()) {
       if (languages.isEmpty()) {
         List<Map<String, List<LocalizedTripleObject>>> permutationMaps = getPermutations(model, poMap, modelResult, loggedIn, "");
         results.addAll(getReplaceResult(modelResult, permutationMaps, null));
@@ -100,7 +96,7 @@ public class ModelHelper {
 
 
 
-  private static List<Pair<ResultEntry>> getReplaceResult(ModelResult modelResult,
+  private static List<Pair<ResultEntry>> getReplaceResult(ModelList.ModelResult modelResult,
       List<Map<String, List<LocalizedTripleObject>>> permutationMaps, String lang) {
     List<ResultEntry> resList = new ArrayList<>();
     for (Map<String, List<LocalizedTripleObject>> map : permutationMaps) {
@@ -109,7 +105,7 @@ public class ModelHelper {
       replaceResult.setType(modelResult.getType());
       replaceResult.setLanguage(lang);
 
-      if (modelResult.getSortPattern() != null && !modelResult.getSortPattern().trim().isEmpty()) {
+      if (null != modelResult.getSortPattern() && !modelResult.getSortPattern().trim().isEmpty()) {
         String sortKey = getResultStringFromPattern(modelResult.getSortPattern(), map);
         replaceResult.setSortResult(sortKey);
       }
@@ -120,7 +116,7 @@ public class ModelHelper {
     // remove duplicates and empty results
     List<ResultEntry> resListWithoutDuplicates = new ArrayList<>();
     for (ResultEntry res : resList) {
-      if (!resListWithoutDuplicates.contains(res) && res.getValue() != null && !res.getValue().isEmpty()) {
+      if (!resListWithoutDuplicates.contains(res) && null != res.getValue() && !res.getValue().isEmpty()) {
         resListWithoutDuplicates.add(res);
       }
     }
@@ -135,8 +131,8 @@ public class ModelHelper {
   }
 
 
-  private static List<Map<String, List<LocalizedTripleObject>>> getPermutations(Model model, TreeFragment poMap, ModelResult modelResult,
-      boolean loggedIn, String lang) throws ConeException {
+  private static List<Map<String, List<LocalizedTripleObject>>> getPermutations(ModelList.Model model, TreeFragment poMap,
+      ModelList.ModelResult modelResult, boolean loggedIn, String lang) throws ConeException {
     // logger.info("----------------------------Get Permutations-----------------------------------\n"
     // + modelResult.getResultPattern() + "\n" +
     // "------------------------------------------------------------------------------");
@@ -146,8 +142,8 @@ public class ModelHelper {
   }
 
 
-  private static List<Map<String, List<LocalizedTripleObject>>> getPermutations(Model model, Predicate superPredicate, TreeFragment poMap,
-      ModelResult modelResult, boolean loggedIn, String lang, List<Map<String, List<LocalizedTripleObject>>> permutationList, String prefix)
+  private static List<Map<String, List<LocalizedTripleObject>>> getPermutations(ModelList.Model model, ModelList.Predicate superPredicate, TreeFragment poMap,
+      ModelList.ModelResult modelResult, boolean loggedIn, String lang, List<Map<String, List<LocalizedTripleObject>>> permutationList, String prefix)
       throws ConeException {
 
     for (String predicateName : poMap.keySet()) {
@@ -155,14 +151,14 @@ public class ModelHelper {
       Pattern p = Pattern.compile(regex);
       Matcher resultPatternMatcher = p.matcher(modelResult.getResultPattern());
       Matcher sortPatternMatcher = null;
-      if (modelResult.getSortPattern() != null) {
+      if (null != modelResult.getSortPattern()) {
         sortPatternMatcher = p.matcher(modelResult.getSortPattern());
       }
 
-      if (resultPatternMatcher.find() || (sortPatternMatcher != null && sortPatternMatcher.find())) {
+      if (resultPatternMatcher.find() || (null != sortPatternMatcher && sortPatternMatcher.find())) {
         // logger.info("Starting with predicate: " + predicateName);
-        Predicate predicate = null;
-        if (superPredicate != null) {
+        ModelList.Predicate predicate = null;
+        if (null != superPredicate) {
           predicate = superPredicate.getPredicate(predicateName);
         } else {
           predicate = model.getPredicate(predicateName);
@@ -173,7 +169,7 @@ public class ModelHelper {
 
         for (LocalizedTripleObject value : poMap.get(predicate.getId())) {
 
-          if (!predicate.isResource() && (value instanceof TreeFragment treeValue && (lang.equals(value.getLanguage()) || value.getLanguage() == null
+          if (!predicate.isResource() && (value instanceof TreeFragment treeValue && (lang.equals(value.getLanguage()) || null == value.getLanguage()
               || "".equals(value.getLanguage())
               || (lang.isEmpty() && value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT)))))) {
 
@@ -184,7 +180,7 @@ public class ModelHelper {
             Querier querier = QuerierFactory.newQuerier(loggedIn);
             TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((TreeFragment) value).getSubject(), lang);
             querier.release();
-            Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
+            ModelList.Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
 
             newPermutationList.addAll(getPermutations(newModel, null, treeFragment, modelResult, loggedIn, lang, permutationList,
                 prefix + predicate.getId() + "|"));
@@ -193,7 +189,7 @@ public class ModelHelper {
             Querier querier = QuerierFactory.newQuerier(loggedIn);
             TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((LocalizedString) value).getValue(), lang);
             querier.release();
-            Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
+            ModelList.Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
 
             newPermutationList.addAll(getPermutations(newModel, null, treeFragment, modelResult, loggedIn, lang, permutationList,
                 prefix + predicate.getId() + "|"));
@@ -201,7 +197,7 @@ public class ModelHelper {
           } else {
 
             if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage())
-                || (!predicate.isLocalized() && value.getLanguage() == null) || (lang.isEmpty() && (value.getLanguage() == null
+                || (!predicate.isLocalized() && null == value.getLanguage()) || (lang.isEmpty() && (null == value.getLanguage()
                     || value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT))))) {
 
               for (Map<String, List<LocalizedTripleObject>> currentMap : permutationList) {
@@ -235,10 +231,11 @@ public class ModelHelper {
       strings.add(new ResultEntry(line));
 
 
-      for (String predicateName : permutationMap.keySet()) {
+      for (Map.Entry<String, List<LocalizedTripleObject>> entry : permutationMap.entrySet()) {
+        String predicateName = entry.getKey();
         // List<String> strings = new ArrayList<String>();
         if (line.contains("<" + predicateName + ">")) {
-          for (LocalizedTripleObject value : permutationMap.get(predicateName)) {
+          for (LocalizedTripleObject value : entry.getValue()) {
             line = line.replace("<" + predicateName + ">", value.toString().replace(":", "&#x3A;").replace(",", "&#x2C;"));
           }
         }
@@ -268,21 +265,22 @@ public class ModelHelper {
     return result.toString();
   }
 
-  private static Set<String> getLanguagesForResults(Model model, TreeFragment poMap, boolean loggedIn) throws ConeException {
+  private static Set<String> getLanguagesForResults(ModelList.Model model, TreeFragment poMap, boolean loggedIn) throws ConeException {
     Set<String> languages = new HashSet<>();
 
     if (model.isLocalizedResultPattern()) {
-      for (String key : poMap.keySet()) {
-        List<LocalizedTripleObject> objects = poMap.get(key);
+      for (Map.Entry<String, List<LocalizedTripleObject>> entry : poMap.entrySet()) {
+        String key = entry.getKey();
+        List<LocalizedTripleObject> objects = entry.getValue();
         for (LocalizedTripleObject object : objects) {
-          if (object.getLanguage() == null) {
+          if (null == object.getLanguage()) {
             languages.add("");
           } else {
             languages.add(object.getLanguage());
           }
           if (object instanceof TreeFragment && model.getPredicate(key).isResource()) {
             Querier querier = QuerierFactory.newQuerier(loggedIn);
-            Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
+            ModelList.Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
             TreeFragment subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
             languages.addAll(getLanguagesForResults(subModel, subResource, loggedIn));
             querier.release();
@@ -296,21 +294,22 @@ public class ModelHelper {
     return languages;
   }
 
-  private static Set<String> getLanguagesForMatches(Model model, TreeFragment poMap, boolean loggedIn) throws ConeException {
+  private static Set<String> getLanguagesForMatches(ModelList.Model model, TreeFragment poMap, boolean loggedIn) throws ConeException {
     Set<String> languages = new HashSet<>();
 
     if (model.isLocalizedMatches()) {
-      for (String key : poMap.keySet()) {
-        List<LocalizedTripleObject> objects = poMap.get(key);
+      for (Map.Entry<String, List<LocalizedTripleObject>> entry : poMap.entrySet()) {
+        String key = entry.getKey();
+        List<LocalizedTripleObject> objects = entry.getValue();
         for (LocalizedTripleObject object : objects) {
-          if (object.getLanguage() == null) {
+          if (null == object.getLanguage()) {
             languages.add("");
           } else {
             languages.add(object.getLanguage());
           }
           if (object instanceof TreeFragment && model.getPredicate(key).isResource()) {
             Querier querier = QuerierFactory.newQuerier(loggedIn);
-            Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
+            ModelList.Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
             TreeFragment subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
             languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
             querier.release();
@@ -333,7 +332,7 @@ public class ModelHelper {
    */
   private static String replaceTokens(String string) {
 
-    if (string == null) {
+    if (null == string) {
       return null;
     }
     String newString;
@@ -353,7 +352,7 @@ public class ModelHelper {
 
   public static List<Pair<LocalizedString>> buildMatchStringFromModel(String modelName, String id, TreeFragment values, boolean loggedIn)
       throws ConeException {
-    Model model = ModelList.getInstance().getModelByAlias(modelName);
+    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
     List<Pair<LocalizedString>> results = new ArrayList<>();
     Set<String> languages = getLanguagesForMatches(model, values, loggedIn);
 
@@ -366,19 +365,19 @@ public class ModelHelper {
     return results;
   }
 
-  private static String getMatchString(List<Predicate> predicates, TreeFragment values, String lang, boolean loggedIn)
+  private static String getMatchString(List<ModelList.Predicate> predicates, TreeFragment values, String lang, boolean loggedIn)
       throws ConeException {
     StringWriter result = new StringWriter();
 
-    for (Predicate predicate : predicates) {
-      if (predicate.isSearchable() && values.get(predicate.getId()) != null && !values.get(predicate.getId()).isEmpty()) {
+    for (ModelList.Predicate predicate : predicates) {
+      if (predicate.isSearchable() && null != values.get(predicate.getId()) && !values.get(predicate.getId()).isEmpty()) {
         for (LocalizedTripleObject value : values.get(predicate.getId())) {
-          if (value.getLanguage() == null || "".equals(value.getLanguage()) || lang.equals(value.getLanguage())) {
+          if (null == value.getLanguage() || "".equals(value.getLanguage()) || lang.equals(value.getLanguage())) {
             if (predicate.isResource() && value instanceof TreeFragment) {
               Querier querier = QuerierFactory.newQuerier(loggedIn);
               String id = ((TreeFragment) value).getSubject();
               TreeFragment treeFragment = querier.details(predicate.getResourceModel(), id, "*");
-              Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
+              ModelList.Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
               result.append(getMatchString(newModel.getPredicates(), treeFragment, lang, loggedIn));
               querier.release();
             } else if (value instanceof LocalizedString) {
@@ -397,10 +396,10 @@ public class ModelHelper {
 
 
   public static void printOutMap(Map<String, TreeFragment> map) {
-    if (map != null) {
-      for (Entry<String, TreeFragment> entry : map.entrySet()) {
+    if (null != map) {
+      for (Map.Entry<String, TreeFragment> entry : map.entrySet()) {
         logger.info("Map Key: " + entry.getKey());
-        if (entry.getValue() != null) {
+        if (null != entry.getValue()) {
           logger.info("Map value: " + entry.getValue().toString2());
         } else {
           logger.info("Map value: " + entry.getValue());
@@ -421,13 +420,13 @@ public class ModelHelper {
      * @param patternString Will be converted to a @see java.util.regex.Pattern
      * @param replace The string the matching pattern will be substituted by.
      */
-    public ReplacePattern(String patternString, String replace) {
+    private ReplacePattern(String patternString, String replace) {
       this.pattern = Pattern.compile(patternString);
       this.replace = replace;
     }
 
     public Pattern getPattern() {
-      return pattern;
+      return this.pattern;
     }
 
     public void setPattern(Pattern pattern) {
@@ -435,7 +434,7 @@ public class ModelHelper {
     }
 
     public String getReplace() {
-      return replace;
+      return this.replace;
     }
 
     public void setReplace(String replace) {

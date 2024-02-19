@@ -37,7 +37,7 @@ public class ValidationReportItemVO extends ValueObject {
 
   @Override
   public String toString() {
-    return "Validation result [content=" + content + ", element=" + element + ", severity=" + severity + "]";
+    return "Validation result [content=" + this.content + ", element=" + this.element + ", severity=" + this.severity + "]";
   }
 
 }

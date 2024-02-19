@@ -78,7 +78,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
         ItemVersionVO itemVersionVO = null;
         try {
           itemVersionVO = this.pubItemService.get(itemId, token);
-          if (itemVersionVO == null) {
+          if (null == itemVersionVO) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                 BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
           } else if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
@@ -147,7 +147,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
           switch (method) {
             case CHANGE_FILE_VISIBILITY:
-              if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+              if (null != e.getCause() && ValidationException.class.equals(e.getCause().getClass())) {
                 ValidationException validationException = (ValidationException) e.getCause();
                 ValidationReportVO validationReport = validationException.getReport();
 
@@ -165,7 +165,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               }
               break;
             case CHANGE_GENRE:
-              if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+              if (null != e.getCause() && ValidationException.class.equals(e.getCause().getClass())) {
                 ValidationException validationException = (ValidationException) e.getCause();
                 ValidationReportVO validationReport = validationException.getReport();
 
@@ -183,7 +183,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               }
               break;
             case REPLACE_ORCID:
-              if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+              if (null != e.getCause() && ValidationException.class.equals(e.getCause().getClass())) {
                 ValidationException validationException = (ValidationException) e.getCause();
                 ValidationReportVO validationReport = validationException.getReport();
 
@@ -238,7 +238,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
         ContextDbVO contextDbVO = null;
         try {
           itemVersionVO = this.pubItemService.get(itemId, token);
-          if (itemVersionVO == null) {
+          if (null == itemVersionVO) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                 BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
           } else {
@@ -316,7 +316,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
           switch (method) {
             case RELEASE_PUBITEMS, SUBMIT_PUBITEMS:
-              if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+              if (null != e.getCause() && ValidationException.class.equals(e.getCause().getClass())) {
                 ValidationException validationException = (ValidationException) e.getCause();
                 ValidationReportVO validationReport = validationException.getReport();
                 if (validationReport.hasItems()) {

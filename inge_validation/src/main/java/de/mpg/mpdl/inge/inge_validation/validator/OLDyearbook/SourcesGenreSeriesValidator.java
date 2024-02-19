@@ -24,7 +24,7 @@ public class SourcesGenreSeriesValidator extends ValidatorHandler<List<SourceVO>
 
       for (final SourceVO sourceVO : sources) {
 
-        if (sourceVO != null) {
+        if (null != sourceVO) {
 
           if (!SourceVO.Genre.SERIES.equals(sourceVO.getGenre())) {
 

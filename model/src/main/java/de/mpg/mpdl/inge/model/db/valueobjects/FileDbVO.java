@@ -185,7 +185,7 @@ public class FileDbVO extends FileDbRO {
    * Delivers the persistent identifier of the file.
    */
   public String getPid() {
-    return pid;
+    return this.pid;
   }
 
   /**
@@ -193,10 +193,10 @@ public class FileDbVO extends FileDbRO {
    */
   @JsonIgnore
   public String getPidWithoutPrefix() {
-    if (pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
-      return pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
+    if (this.pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return this.pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
-      return pid;
+      return this.pid;
     }
   }
 
@@ -206,7 +206,7 @@ public class FileDbVO extends FileDbRO {
    * @param newVal
    */
   public void setPid(String newVal) {
-    pid = newVal;
+    this.pid = newVal;
   }
 
 
@@ -215,7 +215,7 @@ public class FileDbVO extends FileDbRO {
    * Delivers a reference to the content of the file, i. e. to the data of the file.
    */
   public String getContent() {
-    return content;
+    return this.content;
   }
 
   /**
@@ -232,7 +232,7 @@ public class FileDbVO extends FileDbRO {
    * Delivers the visibility of the file.
    */
   public Visibility getVisibility() {
-    return visibility;
+    return this.visibility;
   }
 
   /**
@@ -241,7 +241,7 @@ public class FileDbVO extends FileDbRO {
    * @param newVal
    */
   public void setVisibility(Visibility newVal) {
-    visibility = newVal;
+    this.visibility = newVal;
   }
 
   /**
@@ -249,7 +249,7 @@ public class FileDbVO extends FileDbRO {
    * http://www.iana.org/assignments/media-types/
    */
   public String getMimeType() {
-    return mimeType;
+    return this.mimeType;
   }
 
   /**
@@ -259,13 +259,13 @@ public class FileDbVO extends FileDbRO {
    * @param newVal
    */
   public void setMimeType(String newVal) {
-    mimeType = newVal;
+    this.mimeType = newVal;
   }
 
 
 
   public Storage getStorage() {
-    return storage;
+    return this.storage;
   }
 
   public void setStorage(Storage storage) {
@@ -274,7 +274,7 @@ public class FileDbVO extends FileDbRO {
 
 
   public String getChecksum() {
-    return checksum;
+    return this.checksum;
   }
 
   public void setChecksum(String checksum) {
@@ -282,7 +282,7 @@ public class FileDbVO extends FileDbRO {
   }
 
   public ChecksumAlgorithm getChecksumAlgorithm() {
-    return checksumAlgorithm;
+    return this.checksumAlgorithm;
   }
 
   public void setChecksumAlgorithm(ChecksumAlgorithm checksumAlgorithm) {
@@ -368,7 +368,7 @@ public class FileDbVO extends FileDbRO {
 
 
   public MdsFileVO getMetadata() {
-    return metadata;
+    return this.metadata;
   }
 
   public void setMetadata(MdsFileVO metadata) {
@@ -376,7 +376,7 @@ public class FileDbVO extends FileDbRO {
   }
 
   public String getLocalFileIdentifier() {
-    return localFileIdentifier;
+    return this.localFileIdentifier;
   }
 
   public void setLocalFileIdentifier(String localFileIdentifier) {
@@ -384,7 +384,7 @@ public class FileDbVO extends FileDbRO {
   }
 
   public long getSize() {
-    return size;
+    return this.size;
   }
 
   public void setSize(long size) {
@@ -394,7 +394,7 @@ public class FileDbVO extends FileDbRO {
 
 
   public List<String> getAllowedAudienceIds() {
-    return allowedAudienceIds;
+    return this.allowedAudienceIds;
   }
 
 
@@ -409,17 +409,17 @@ public class FileDbVO extends FileDbRO {
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((allowedAudienceIds == null) ? 0 : allowedAudienceIds.hashCode());
-    result = prime * result + ((checksum == null) ? 0 : checksum.hashCode());
-    result = prime * result + ((checksumAlgorithm == null) ? 0 : checksumAlgorithm.hashCode());
-    result = prime * result + ((content == null) ? 0 : content.hashCode());
-    result = prime * result + ((localFileIdentifier == null) ? 0 : localFileIdentifier.hashCode());
-    result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
-    result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
-    result = prime * result + ((pid == null) ? 0 : pid.hashCode());
-    result = prime * result + (int) (size ^ (size >>> 32));
-    result = prime * result + ((storage == null) ? 0 : storage.hashCode());
-    result = prime * result + ((visibility == null) ? 0 : visibility.hashCode());
+    result = prime * result + ((null == this.allowedAudienceIds) ? 0 : this.allowedAudienceIds.hashCode());
+    result = prime * result + ((null == this.checksum) ? 0 : this.checksum.hashCode());
+    result = prime * result + ((null == this.checksumAlgorithm) ? 0 : this.checksumAlgorithm.hashCode());
+    result = prime * result + ((null == this.content) ? 0 : this.content.hashCode());
+    result = prime * result + ((null == this.localFileIdentifier) ? 0 : this.localFileIdentifier.hashCode());
+    result = prime * result + ((null == this.metadata) ? 0 : this.metadata.hashCode());
+    result = prime * result + ((null == this.mimeType) ? 0 : this.mimeType.hashCode());
+    result = prime * result + ((null == this.pid) ? 0 : this.pid.hashCode());
+    result = prime * result + (int) (this.size ^ (this.size >>> 32));
+    result = prime * result + ((null == this.storage) ? 0 : this.storage.hashCode());
+    result = prime * result + ((null == this.visibility) ? 0 : this.visibility.hashCode());
     return result;
   }
 
@@ -434,48 +434,48 @@ public class FileDbVO extends FileDbRO {
     if (getClass() != obj.getClass())
       return false;
     FileDbVO other = (FileDbVO) obj;
-    if (allowedAudienceIds == null) {
-      if (other.allowedAudienceIds != null)
+    if (null == this.allowedAudienceIds) {
+      if (null != other.allowedAudienceIds)
         return false;
-    } else if (!allowedAudienceIds.equals(other.allowedAudienceIds))
+    } else if (!this.allowedAudienceIds.equals(other.allowedAudienceIds))
       return false;
-    if (checksum == null) {
-      if (other.checksum != null)
+    if (null == this.checksum) {
+      if (null != other.checksum)
         return false;
-    } else if (!checksum.equals(other.checksum))
+    } else if (!this.checksum.equals(other.checksum))
       return false;
-    if (checksumAlgorithm != other.checksumAlgorithm)
+    if (this.checksumAlgorithm != other.checksumAlgorithm)
       return false;
-    if (content == null) {
-      if (other.content != null)
+    if (null == this.content) {
+      if (null != other.content)
         return false;
-    } else if (!content.equals(other.content))
+    } else if (!this.content.equals(other.content))
       return false;
-    if (localFileIdentifier == null) {
-      if (other.localFileIdentifier != null)
+    if (null == this.localFileIdentifier) {
+      if (null != other.localFileIdentifier)
         return false;
-    } else if (!localFileIdentifier.equals(other.localFileIdentifier))
+    } else if (!this.localFileIdentifier.equals(other.localFileIdentifier))
       return false;
-    if (metadata == null) {
-      if (other.metadata != null)
+    if (null == this.metadata) {
+      if (null != other.metadata)
         return false;
-    } else if (!metadata.equals(other.metadata))
+    } else if (!this.metadata.equals(other.metadata))
       return false;
-    if (mimeType == null) {
-      if (other.mimeType != null)
+    if (null == this.mimeType) {
+      if (null != other.mimeType)
         return false;
-    } else if (!mimeType.equals(other.mimeType))
+    } else if (!this.mimeType.equals(other.mimeType))
       return false;
-    if (pid == null) {
-      if (other.pid != null)
+    if (null == this.pid) {
+      if (null != other.pid)
         return false;
-    } else if (!pid.equals(other.pid))
+    } else if (!this.pid.equals(other.pid))
       return false;
-    if (size != other.size)
+    if (this.size != other.size)
       return false;
-    if (storage != other.storage)
+    if (this.storage != other.storage)
       return false;
-    if (visibility != other.visibility)
+    if (this.visibility != other.visibility)
       return false;
     return true;
   }

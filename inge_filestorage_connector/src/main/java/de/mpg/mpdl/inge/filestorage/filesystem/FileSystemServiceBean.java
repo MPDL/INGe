@@ -82,7 +82,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
         }
 
         do {
-          if (fileSuffix != null) {
+          if (null != fileSuffix) {
             newFileName = nameOfTheFile + "_" + i + fileSuffix;
           } else {
             newFileName = nameOfTheFile + "_" + i;

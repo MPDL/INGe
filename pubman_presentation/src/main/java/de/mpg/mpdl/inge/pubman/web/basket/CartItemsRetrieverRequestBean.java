@@ -15,10 +15,10 @@ import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
-import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -38,7 +38,8 @@ import jakarta.faces.bean.ManagedBean;
  */
 @ManagedBean(name = "CartItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class CartItemsRetrieverRequestBean
+    extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = LogManager.getLogger(CartItemsRetrieverRequestBean.class);
 
   public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBatchOrBasket_NoItemSelected";
@@ -76,7 +77,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
    * Retrieves the list of item baskets.
    */
   @Override
-  public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
+  public List<PubItemVOPresentation> retrieveList(int offset, int limit, PubItemListSessionBean.SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<>();
 
 
@@ -95,7 +96,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         SearchRequest.Builder srb = new SearchRequest.Builder().query(idQuery).from(offset).size(limit);
         /*
         SearchSourceBuilder ssb = new SearchSourceBuilder();
-
+        
         ssb.query(idQuery);
         ssb.from(offset);
         ssb.size(limit);
@@ -105,7 +106,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         for (String index : sc.getIndex()) {
           if (!index.isEmpty()) {
             FieldSort fs = SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
-                SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
+                SearchSortCriteria.SortOrder.ASC.equals(sc.getSortOrder()) ? co.elastic.clients.elasticsearch._types.SortOrder.Asc
                     : co.elastic.clients.elasticsearch._types.SortOrder.Desc);
             srb.sort(SortOptions.of(so -> so.field(fs)));
           }
@@ -124,7 +125,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
       }
 
       pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - this.numberOfRecords);
-      if (pssb.getDiffDisplayNumber() > 0) {
+      if (0 < pssb.getDiffDisplayNumber()) {
 
         this.error(pssb.getDiffDisplayNumber() + " " + this.getMessage("basketAndBatch_ItemsChanged"));
       }
@@ -133,7 +134,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
     } catch (final Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
-      CartItemsRetrieverRequestBean.logger.error("Error while retrieving items for basket", e);
+      logger.error("Error while retrieving items for basket", e);
     }
     return returnList;
   }
@@ -153,7 +154,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         pssb.getStoredPubItems().remove(pubItem.getObjectIdAndVersion());
       }
     }
-    if (countSelected == 0) {
+    if (0 == countSelected) {
       this.error(this.getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
     }
 

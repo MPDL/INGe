@@ -52,7 +52,6 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -91,7 +90,7 @@ public class DataHandlerService {
     try {
       String textualData = this.fetchTextualData(source, identifier, dataSourceVO, targetFormat);
 
-      if (textualData != null) {
+      if (null != textualData) {
         fetchedData = textualData.getBytes();
       }
     } catch (Exception e) {
@@ -117,7 +116,7 @@ public class DataHandlerService {
       throws DataacquisitionException, TransformationException, UnsupportedEncodingException, MalformedURLException {
     MetadataVO metaDataVO = Util.getMdObjectToFetch(dataSourceVO, targetFormat);
 
-    if (metaDataVO == null) {
+    if (null == metaDataVO) {
       logger.warn("Requested metadata for identifier " + identifier + " not supported.");
       throw new DataacquisitionException("Requested metadata for identifier " + identifier + " not supported.");
     }
@@ -151,7 +150,7 @@ public class DataHandlerService {
     String itemAfterTransformaton = item;
 
     // Transform the itemXML if necessary
-    if (item != null) {
+    if (null != item) {
 
       TransformerFactory.FORMAT metaDataFormat;
       try {
@@ -176,14 +175,14 @@ public class DataHandlerService {
           Transformer componentTransformer =
               TransformerFactory.newTransformer(metaDataFormat, TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML);
 
-          if (componentTransformer != null) {
+          if (null != componentTransformer) {
             wr = new StringWriter();
 
             componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(fetchedItem.getBytes())),
                 new TransformerStreamResult(wr));
             byte[] componentBytes = wr.toString().getBytes();
 
-            if (componentBytes != null) {
+            if (null != componentBytes) {
               String componentXml = new String(componentBytes);
               this.componentVO = EntityTransformer.transformToNew(XmlTransformingService.transformToFileVO(componentXml));
             }
@@ -220,7 +219,7 @@ public class DataHandlerService {
         this.setFileProperties(fulltextVO);
 
         // If only one file => return it in fetched format
-        if (fileFormatNames.length == 1) {
+        if (1 == fileFormatNames.length) {
           return in;
         }
 
@@ -329,7 +328,7 @@ public class DataHandlerService {
 
         case 503:
           String retryAfterHeader = con.getHeaderField("Retry-After");
-          if (retryAfterHeader != null) {
+          if (null != retryAfterHeader) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             Date retryAfter = dateFormat.parse(retryAfterHeader);
             logger.debug("Source responded with 503, retry after " + retryAfter + ".");
@@ -349,7 +348,7 @@ public class DataHandlerService {
       BufferedReader bReader = new BufferedReader(isReader);
 
       String line = "";
-      while ((line = bReader.readLine()) != null) {
+      while (null != (line = bReader.readLine())) {
         itemXML.append(line + "\n");
       }
 
@@ -388,7 +387,7 @@ public class DataHandlerService {
     return this.contentCategorie;
   }
 
-  public Visibility getVisibility() {
+  public FileDbVO.Visibility getVisibility() {
     if (FileDbVO.Visibility.PUBLIC.name().equals(this.visibility)) {
       return FileDbVO.Visibility.PUBLIC;
     }
@@ -397,12 +396,12 @@ public class DataHandlerService {
   }
 
   public FileDbVO getComponentVO(DataSourceVO dataSourceVO) {
-    if (this.componentVO != null) {
-      if (this.componentVO.getMetadata().getRights() == null || this.componentVO.getMetadata().getRights().isEmpty()) {
+    if (null != this.componentVO) {
+      if (null == this.componentVO.getMetadata().getRights() || this.componentVO.getMetadata().getRights().isEmpty()) {
         this.componentVO.getMetadata().setRights(dataSourceVO.getCopyright());
       }
 
-      if (this.componentVO.getMetadata().getLicense() == null || this.componentVO.getMetadata().getLicense().isEmpty()) {
+      if (null == this.componentVO.getMetadata().getLicense() || this.componentVO.getMetadata().getLicense().isEmpty()) {
         this.componentVO.getMetadata().setLicense(dataSourceVO.getLicense());
       }
 

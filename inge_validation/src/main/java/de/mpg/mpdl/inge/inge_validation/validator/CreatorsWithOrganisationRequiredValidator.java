@@ -9,7 +9,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
@@ -21,10 +20,10 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
  * <iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '' or
  * escidoc:creator/organization:organization/dc:title != ''">
  * OrganizationalMetadataNotProvided</iso:assert> </iso:rule>
- * 
+ *
  * <iso:rule context="publication:publication/escidoc:creator/person:person"> <iso:assert
  * test="escidoc:family-name != ''"> CreatorFamilyNameNotProvided</iso:assert> </iso:rule>
- * 
+ *
  * <iso:rule context="publication:publication/escidoc:creator/organization:organization">
  * <iso:assert test="dc:title != ''"> CreatorOrganizationNameNotProvided</iso:assert> </iso:rule>
  * </iso:pattern>
@@ -35,7 +34,7 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {
 
-    if (creators == null || creators.isEmpty()) {
+    if (null == creators || creators.isEmpty()) {
       context.addErrorMsg(ErrorMessages.CREATOR_NOT_PROVIDED);
       return false;
     }
@@ -49,15 +48,15 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
 
     for (final CreatorVO creatorVO : creators) {
 
-      if (creatorVO != null) {
+      if (null != creatorVO) {
 
-        final CreatorType type = creatorVO.getType();
+        final CreatorVO.CreatorType type = creatorVO.getType();
         switch (type) {
 
           case ORGANIZATION:
 
             final OrganizationVO o = creatorVO.getOrganization();
-            if (o != null && ValidationTools.isNotEmpty(o.getName())) {
+            if (null != o && ValidationTools.isNotEmpty(o.getName())) {
               ok = true;
             } else {
               errorOrg = true;
@@ -68,16 +67,16 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
           case PERSON:
 
             final PersonVO p = creatorVO.getPerson();
-            if (p == null || ValidationTools.isEmpty(p.getFamilyName())) {
+            if (null == p || ValidationTools.isEmpty(p.getFamilyName())) {
               errorPers = true;
             }
 
-            if (p != null) {
+            if (null != p) {
               boolean personOrgsOk = true;
               final List<OrganizationVO> orgs = p.getOrganizations();
               if (ValidationTools.isNotEmpty(orgs)) {
                 for (final OrganizationVO organizationVO : orgs) {
-                  if (organizationVO != null && ValidationTools.isNotEmpty(organizationVO.getName())) {
+                  if (null != organizationVO && ValidationTools.isNotEmpty(organizationVO.getName())) {
                     ok = true;
                   } else {
                     personOrgsOk = false;

@@ -5,12 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class FundingProgramVO extends ValueObject implements Cloneable {
   private String title;
   private List<IdentifierVO> identifiers = new ArrayList<>();
@@ -18,7 +17,7 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
   public FundingProgramVO() {}
 
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   public void setTitle(String title) {
@@ -26,7 +25,7 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
   }
 
   public List<IdentifierVO> getIdentifiers() {
-    return identifiers;
+    return this.identifiers;
   }
 
   public void setIdentifiers(List<IdentifierVO> identifiers) {
@@ -49,8 +48,8 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
-    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((null == this.identifiers) ? 0 : this.identifiers.hashCode());
+    result = prime * result + ((null == this.title) ? 0 : this.title.hashCode());
     return result;
   }
 
@@ -59,7 +58,7 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -67,20 +66,20 @@ public class FundingProgramVO extends ValueObject implements Cloneable {
 
     FundingProgramVO other = (FundingProgramVO) obj;
 
-    if (identifiers == null) {
-      if (other.identifiers != null)
+    if (null == this.identifiers) {
+      if (null != other.identifiers)
         return false;
-    } else if (other.identifiers == null)
+    } else if (null == other.identifiers)
       return false;
-    else if (!new HashSet<>(identifiers).containsAll(other.identifiers) //
-        || !new HashSet<>(other.identifiers).containsAll(identifiers)) {
+    else if (!new HashSet<>(this.identifiers).containsAll(other.identifiers) //
+        || !new HashSet<>(other.identifiers).containsAll(this.identifiers)) {
       return false;
     }
 
-    if (title == null) {
-      if (other.title != null)
+    if (null == this.title) {
+      if (null != other.title)
         return false;
-    } else if (!title.equals(other.title))
+    } else if (!this.title.equals(other.title))
       return false;
 
     return true;

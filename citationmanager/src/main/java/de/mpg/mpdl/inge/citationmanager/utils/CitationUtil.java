@@ -54,6 +54,8 @@ public class CitationUtil {
   public static final String TEST_RESOURCES_DIRECTORY_LOCAL = "target/test-classes/";
   public static final String TRANSFORMATIONS_DIRECTORY = "Transformations/";
 
+  private CitationUtil() {}
+
   /**
    * Returns path to the directory of the classes depending on the run context (TOBE implemented
    * further)
@@ -106,9 +108,8 @@ public class CitationUtil {
    *
    * @param cs
    * @return
-   * @throws IOException
    */
-  public static String getPathToCitationStyle(String cs) throws IOException {
+  public static String getPathToCitationStyle(String cs) {
     return getPathToCitationStyles() + cs + "/";
   }
 
@@ -117,9 +118,8 @@ public class CitationUtil {
    *
    * @param cs
    * @return
-   * @throws IOException
    */
-  public static String getPathToCitationStyleXML(String cs) throws IOException {
+  public static String getPathToCitationStyleXML(String cs) {
     return getPathToCitationStyle(cs) + CITATION_STYLE_XML;
   }
 
@@ -128,9 +128,8 @@ public class CitationUtil {
    *
    * @param cs
    * @return
-   * @throws IOException
    */
-  public static String getPathToCitationStyleXSL(String cs) throws IOException {
+  public static String getPathToCitationStyleXSL(String cs) {
     return getPathToCitationStyle(cs) + CITATION_STYLE_XSL;
   }
 

@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -74,7 +74,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO addLocalTags(List<String> itemIds, List<String> localTags, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkList(localTags, "localTags");
@@ -95,8 +95,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO addSourceIdentifier(List<String> itemIds, int sourceNumber, IdentifierVO.IdType sourceIdentifierType,
-      String sourceIdentifier, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      String sourceIdentifier, String token) throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkInt(sourceNumber, "sourceNumber");
@@ -120,7 +119,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO changeContext(List<String> itemIds, String contextFrom, String contextTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(contextFrom, "contextFrom");
@@ -163,7 +162,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   @Override
   public BatchProcessLogHeaderDbVO changeFileVisibility(List<String> itemIds, FileDbVO.Visibility fileVisibilityFrom,
       FileDbVO.Visibility fileVisibilityTo, IpListProvider.IpRange userAccountIpRange, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkVisibility(fileVisibilityFrom, "fileVisibilityFrom");
@@ -189,7 +188,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   @Override
   public BatchProcessLogHeaderDbVO changeGenre(List<String> itemIds, MdsPublicationVO.Genre genreFrom, MdsPublicationVO.Genre genreTo,
       MdsPublicationVO.DegreeType degreeType, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkGenre(genreFrom, "genreFrom");
@@ -213,7 +212,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO changeKeywords(List<String> itemIds, String keywordsFrom, String keywordsTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(keywordsFrom, "keywordsFrom");
@@ -237,7 +236,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO changeLocalTag(List<String> itemIds, String localTagFrom, String localTagTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(localTagFrom, "localTagFrom");
@@ -262,7 +261,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   @Override
   public BatchProcessLogHeaderDbVO changeReviewMethod(List<String> itemIds, MdsPublicationVO.ReviewMethod reviewMethodFrom,
       MdsPublicationVO.ReviewMethod reviewMethodTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     // noCheck: null values allowed
@@ -285,7 +284,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO changeSourceGenre(List<String> itemIds, SourceVO.Genre sourceGenreFrom, SourceVO.Genre sourceGenreTo,
-      String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      String token) throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkSourceGenre(sourceGenreFrom, "sourceGenreFrom");
@@ -310,7 +309,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   @Override
   public BatchProcessLogHeaderDbVO changeSourceIdentifier(List<String> itemIds, int sourceNumber, IdentifierVO.IdType sourceIdentifierType,
       String sourceIdentifierFrom, String sourceIdentifierTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkInt(sourceNumber, "sourceNumber");
@@ -338,11 +337,11 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public void deleteBatchProcessUserLock(String accountUserObjectId, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException, NoSuchElementException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, NoSuchElementException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
 
-    if (!GrantUtil.hasRole(accountUserDbVO, PredefinedRoles.SYSADMIN)) {
+    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.SYSADMIN)) {
       throw new AuthorizationException("User must be SYSADMIN");
     }
 
@@ -359,7 +358,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public List<BatchProcessLogHeaderDbVO> getAllBatchProcessLogHeaders(String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws AuthenticationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
 
@@ -371,12 +370,12 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public List<BatchProcessLogDetailDbVO> getBatchProcessLogDetails(String batchProcessLogHeaderId, String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws AuthenticationException, IngeApplicationException {
 
     List<BatchProcessLogDetailDbVO> batchProcessLogDetailDbVOs = null;
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = getBatchProcessLogHeader(batchProcessLogHeaderId, token);
 
-    if (batchProcessLogHeaderDbVO != null) {
+    if (null != batchProcessLogHeaderDbVO) {
       batchProcessLogDetailDbVOs = this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVO(batchProcessLogHeaderDbVO);
     }
 
@@ -385,7 +384,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO getBatchProcessLogHeader(String batchProcessLogHeaderId, String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws AuthenticationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
 
@@ -396,8 +395,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   @Override
-  public BatchProcessUserLockDbVO getBatchProcessUserLock(String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+  public BatchProcessUserLockDbVO getBatchProcessUserLock(String token) throws AuthenticationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
     BatchProcessUserLockDbVO batchProcessUserLockDbVO =
@@ -415,7 +413,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkList(audiences, "audiences");
@@ -443,7 +441,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO replaceOrcid(List<String> itemIds, String creatorId, String orcid, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(creatorId, "creatorId");
@@ -466,7 +464,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO replaceSourceEdition(List<String> itemIds, int sourceNumber, String edition, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkInt(sourceNumber, "sourceNumber");
@@ -512,18 +510,18 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private AccountUserDbVO checkCommon(String token, List<String> itemIds)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
 
-    if (!GrantUtil.hasRole(accountUserDbVO, PredefinedRoles.MODERATOR)) {
+    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
       throw new AuthorizationException("User must be MODERATOR");
     }
 
     BatchProcessUserLockDbVO batchProcessUserLockDbVO =
         this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
 
-    if (batchProcessUserLockDbVO != null) {
+    if (null != batchProcessUserLockDbVO) {
       throw new IngeApplicationException(
           "User " + accountUserDbVO.getObjectId() + " already locked since " + batchProcessUserLockDbVO.getLockDate());
     }
@@ -534,7 +532,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private void checkEnum(IdentifierVO.IdType identifierType, String name) throws IngeApplicationException {
-    if (identifierType == null) {
+    if (null == identifierType) {
       throw new IngeApplicationException("The identiferType " + name + " must not be empty");
     }
   }
@@ -546,41 +544,41 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private void checkGenre(MdsPublicationVO.Genre genre, String name) throws IngeApplicationException {
-    if (genre == null) {
+    if (null == genre) {
       throw new IngeApplicationException("The genre " + name + " must not be empty");
     }
   }
 
   private void checkInt(int number, String name) throws IngeApplicationException {
-    if (number < 0) {
+    if (0 > number) {
       throw new IngeApplicationException("The number " + name + " must not be negative");
     }
   }
 
   private void checkList(List<String> list, String name) throws IngeApplicationException {
-    if (list == null || list.isEmpty()) {
+    if (null == list || list.isEmpty()) {
       throw new IngeApplicationException("The list " + name + " must not be empty");
     }
   }
 
   private void checkSourceGenre(SourceVO.Genre sourceGenre, String name) throws IngeApplicationException {
-    if (sourceGenre == null) {
+    if (null == sourceGenre) {
       throw new IngeApplicationException("The sourceGenre " + name + " must not be empty");
     }
   }
 
   private void checkString(String string, String name) throws IngeApplicationException {
-    if (string == null || string.trim().isEmpty()) {
+    if (null == string || string.trim().isEmpty()) {
       throw new IngeApplicationException("The string " + name + " must not be empty");
     }
   }
 
   private AccountUserDbVO checkUser(String token) throws AuthenticationException, IngeApplicationException {
-    Principal principal = authorizationService.checkLoginRequired(token);
+    Principal principal = this.authorizationService.checkLoginRequired(token);
 
     AccountUserDbVO accountUserDbVO = principal.getUserAccount();
 
-    if (accountUserDbVO == null) {
+    if (null == accountUserDbVO) {
       throw new IngeApplicationException("Invalid user");
     }
 
@@ -588,7 +586,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private void checkVisibility(FileDbVO.Visibility visibility, String name) throws IngeApplicationException {
-    if (visibility == null) {
+    if (null == visibility) {
       throw new IngeApplicationException("The visibility " + name + " must not be empty");
     }
   }
@@ -597,7 +595,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   private BatchProcessLogHeaderDbVO doChangeContentCategory(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
       String contentCategoryFrom, String contentCategoryTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(contentCategoryFrom, "contentCategoryFrom");
@@ -619,7 +617,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private BatchProcessLogHeaderDbVO doKeywords(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String keywords, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkString(keywords, "keywords");
@@ -638,7 +636,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private BatchProcessLogHeaderDbVO doPubItems(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
 

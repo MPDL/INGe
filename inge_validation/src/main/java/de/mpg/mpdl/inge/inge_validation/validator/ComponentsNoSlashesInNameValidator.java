@@ -42,10 +42,10 @@ public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<Fi
       int i = 1;
       for (final FileDbVO fileDbVO : files) {
 
-        if (fileDbVO != null && fileDbVO.getStorage().equals(FileDbVO.Storage.INTERNAL_MANAGED)) {
+        if (null != fileDbVO && fileDbVO.getStorage().equals(FileDbVO.Storage.INTERNAL_MANAGED)) {
           if (ValidationTools.isNotEmpty(fileDbVO.getName()) //
               && fileDbVO.getName().contains("/") //
-              || fileDbVO.getMetadata() != null //
+              || null != fileDbVO.getMetadata() //
                   && ValidationTools.isNotEmpty(fileDbVO.getMetadata().getTitle()) && fileDbVO.getMetadata().getTitle().contains("/")) {
             context.addError(ValidationError.create(ErrorMessages.SLASH_IN_FILENAME).setField("file[" + i + "]"));
             ok = false;

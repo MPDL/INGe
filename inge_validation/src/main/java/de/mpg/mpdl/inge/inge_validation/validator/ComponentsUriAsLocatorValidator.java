@@ -41,7 +41,7 @@ public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileD
       int i = 1;
       for (final FileDbVO fileDbVO : files) {
 
-        if (fileDbVO != null) {
+        if (null != fileDbVO) {
           if (ValidationTools.isNotEmpty(fileDbVO.getContent()) //
               && fileDbVO.getStorage().equals(FileDbVO.Storage.EXTERNAL_URL)) {
             if (!(fileDbVO.getContent().startsWith("http://") || fileDbVO.getContent().startsWith("https://")

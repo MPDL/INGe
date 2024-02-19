@@ -33,27 +33,27 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
     RestClientBuilder restClientBuilder =
         RestClient.builder(HttpHost.create(PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT)));
-    if (user != null && !user.isEmpty()) {
+    if (null != this.user && !this.user.isEmpty()) {
       restClientBuilder.setHttpClientConfigCallback(httpClientBuilder -> {
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, pass));
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(this.user, this.pass));
         return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
       });
     }
 
     String pathPrefix = PropertyReader.getProperty(PropertyReader.INGE_ES_REST_PATH_PREFIX);
-    if (pathPrefix != null && !pathPrefix.isEmpty()) {
+    if (null != pathPrefix && !pathPrefix.isEmpty()) {
       restClientBuilder.setPathPrefix(pathPrefix);
     }
 
     ElasticsearchTransport transport =
         new RestClientTransport(restClientBuilder.build(), new JacksonJsonpMapper(MapperFactory.getObjectMapper()));
 
-    client = new ElasticsearchClient(transport);
+    this.client = new ElasticsearchClient(transport);
   }
 
   public ElasticsearchClient getClient() {
-    return client;
+    return this.client;
   }
 
 }

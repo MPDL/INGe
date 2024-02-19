@@ -46,7 +46,7 @@ public class BibTeXMixedSurnameAndGivennameFormat extends AuthorFormat {
 
   @Override
   public List<Author> getAuthors(String authorsString) {
-    if (authorsString == null || !(authorsString.contains(" and ") && authorsString.contains(", "))) {
+    if (null == authorsString || !(authorsString.contains(" and ") && authorsString.contains(", "))) {
       return null;
     }
     String[] authors = authorsString.split(" +and +");
@@ -63,7 +63,7 @@ public class BibTeXMixedSurnameAndGivennameFormat extends AuthorFormat {
     List<Author> authorListSurnnameFirst = getAuthorListLeadingSurname(surnameFirst.toArray(new String[0]), ",");
     List<Author> authorListGivennameFirst = getAuthorListNormalFormat(givennameFirst.toArray(new String[0]));
 
-    if (authorListSurnnameFirst == null || authorListGivennameFirst == null) {
+    if (null == authorListSurnnameFirst || null == authorListGivennameFirst) {
       return null;
     }
 

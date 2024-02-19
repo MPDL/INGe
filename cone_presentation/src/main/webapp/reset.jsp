@@ -33,7 +33,6 @@
 %>
 
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
@@ -62,7 +61,7 @@
 		for (String modelName : models)
 		{
 
-		    Model model = ModelList.getInstance().getModelByAlias(modelName);
+		    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
 
 		    List<String> ids = querier.getAllIds(model.getName());
 		    for (String id : ids)

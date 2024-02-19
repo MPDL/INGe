@@ -65,7 +65,7 @@ public class EscapableMessagesRenderer extends MessagesRenderer {
       public void writeText(Object text, UIComponent component, String property) throws IOException {
         final String string = String.valueOf(text);
         String escape = (String) component.getAttributes().get("escape");
-        if (escape != null && !Boolean.parseBoolean(escape)) {
+        if (null != escape && !Boolean.parseBoolean(escape)) {
           super.write(string);
         } else {
           super.writeText(string, component, property);

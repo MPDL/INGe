@@ -5,12 +5,12 @@ import java.util.Map;
 import javax.xml.transform.Source;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-@TransformerModule(sourceFormat = FORMAT.MODS_XML, targetFormat = FORMAT.OAI_DC)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.MODS_XML, targetFormat = TransformerFactory.FORMAT.OAI_DC)
 public class ModsXmlToOaiDcXml extends XslTransformer implements ChainableTransformer {
 
   @Override

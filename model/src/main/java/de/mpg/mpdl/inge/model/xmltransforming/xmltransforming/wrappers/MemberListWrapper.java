@@ -10,7 +10,7 @@ public class MemberListWrapper implements Serializable {
   protected List<? extends ValueObject> memberList;
 
   public List<? extends ValueObject> getMemberList() {
-    return memberList;
+    return this.memberList;
   }
 
   public void setMemberList(List<? extends ValueObject> memberList) {

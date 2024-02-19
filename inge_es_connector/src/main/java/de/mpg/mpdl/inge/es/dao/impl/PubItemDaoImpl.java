@@ -23,8 +23,8 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   private static final String JOIN_FIELD_NAME = "joinField";
 
-  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort-metadata-creators-first",
-      "sort-metadata-creators-compound", "sort-metadata-dates-by-category", "sort-metadata-dates-by-category-year"};
+  private static final String[] SOURCE_EXCLUSIONS = {"joinField.name", "sort-metadata-creators-first", "sort-metadata-creators-compound",
+      "sort-metadata-dates-by-category", "sort-metadata-dates-by-category-year"};
 
   public PubItemDaoImpl() {
     super(indexName, indexType, typeParameterClass);
@@ -46,7 +46,7 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
     node.put("sort-metadata-creators-first", creatorStrings[0]);
     node.put("sort-metadata-creators-compound", creatorStrings[1]);
     String firstDate = createSortMetadataDates(item);
-    if (firstDate != null) {
+    if (null != firstDate) {
       node.put("sort-metadata-dates-by-category", firstDate);
       node.put("sort-metadata-dates-by-category-year", firstDate.substring(0, 4));
     }
@@ -57,23 +57,23 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
 
   private String createSortMetadataDates(ItemVersionVO item) {
-    if (item != null && item.getMetadata() != null) {
-      if (item.getMetadata().getDatePublishedInPrint() != null) {
+    if (null != item && null != item.getMetadata()) {
+      if (null != item.getMetadata().getDatePublishedInPrint()) {
         return item.getMetadata().getDatePublishedInPrint();
       }
-      if (item.getMetadata().getDatePublishedOnline() != null) {
+      if (null != item.getMetadata().getDatePublishedOnline()) {
         return item.getMetadata().getDatePublishedOnline();
       }
-      if (item.getMetadata().getDateAccepted() != null) {
+      if (null != item.getMetadata().getDateAccepted()) {
         return item.getMetadata().getDateAccepted();
       }
-      if (item.getMetadata().getDateSubmitted() != null) {
+      if (null != item.getMetadata().getDateSubmitted()) {
         return item.getMetadata().getDateSubmitted();
       }
-      if (item.getMetadata().getDateModified() != null) {
+      if (null != item.getMetadata().getDateModified()) {
         return item.getMetadata().getDateModified();
       }
-      if (item.getMetadata().getDateCreated() != null) {
+      if (null != item.getMetadata().getDateCreated()) {
         return item.getMetadata().getDateCreated();
       }
 
@@ -87,25 +87,25 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
   private String[] createSortCreatorsString(ItemVersionVO item) {
     StringBuilder sbCompound = new StringBuilder();
     String first = null;
-    if (item != null && item.getMetadata() != null && item.getMetadata().getCreators() != null) {
+    if (null != item && null != item.getMetadata() && null != item.getMetadata().getCreators()) {
       int i = 0;
       for (CreatorVO creator : item.getMetadata().getCreators()) {
-        if (creator.getPerson() != null) {
-          if (creator.getPerson().getFamilyName() != null) {
+        if (null != creator.getPerson()) {
+          if (null != creator.getPerson().getFamilyName()) {
             sbCompound.append(creator.getPerson().getFamilyName());
           }
-          if (creator.getPerson().getGivenName() != null) {
+          if (null != creator.getPerson().getGivenName()) {
             sbCompound.append(" ");
             sbCompound.append(creator.getPerson().getGivenName());
           }
 
-        } else if (creator.getOrganization() != null) {
-          if (creator.getOrganization().getName() != null) {
+        } else if (null != creator.getOrganization()) {
+          if (null != creator.getOrganization().getName()) {
             sbCompound.append(creator.getOrganization().getName());
           }
         }
 
-        if (i == 0) {
+        if (0 == i) {
           first = sbCompound.toString();
         }
         sbCompound.append(", ");
@@ -126,12 +126,12 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
   public void createFulltext(String itemId, String fileId, byte[] file) throws IngeTechnicalException {
     try {
 
-      ObjectNode rootObject = mapper.createObjectNode();
+      ObjectNode rootObject = this.mapper.createObjectNode();
       rootObject.putObject("fileData").put("itemId", itemId).put("fileId", fileId).put("data", Base64.getEncoder().encodeToString(file));
       rootObject.putObject(JOIN_FIELD_NAME).put("name", "file").put("parent", itemId);
 
 
-      IndexResponse indexResponse = client.getClient()
+      IndexResponse indexResponse = this.client.getClient()
           .index(i -> i.index(indexName).routing(itemId).pipeline("attachment").id(itemId + "__" + fileId).document(rootObject));
 
 

@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
@@ -119,9 +118,9 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
     boolean allChecked = true;
     int i = 0;
-    for (final Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
-        if (i > 0) {
+        if (0 < i) {
           sb.append("|");
         }
         sb.append(entry.getKey().name());
@@ -142,7 +141,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
   @Override
   public void parseQueryStringContent(String content) {
 
-    for (final Entry<T, Boolean> e : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<T, Boolean> e : this.getEnumMap().entrySet()) {
       e.setValue(false);
     }
 
@@ -152,7 +151,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
     for (final String part : enumParts) {
 
       final T v = Enum.valueOf(this.enumClass, part);
-      if (v == null) {
+      if (null == v) {
         throw new RuntimeException("Invalid visibility: " + part);
       }
       this.getEnumMap().put(v, true);
@@ -168,7 +167,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
     boolean anySelected = false;
     boolean anyDeselected = false;
-    for (final Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
         anySelected = true;
       } else {

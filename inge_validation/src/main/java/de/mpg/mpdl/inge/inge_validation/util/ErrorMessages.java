@@ -86,4 +86,6 @@ public class ErrorMessages {
   public static final String TITLE_NOT_PROVIDED = "TitleNotProvided";
   public static final String TOTAL_NUMBER_OF_PAGES_NOT_PROVIDED = "TotalNumberOfPagesNotProvided";
   public static final String UNKNOWN_LANGUAGE_CODE = "UnknownLanguageCode";
+
+  private ErrorMessages() {}
 }

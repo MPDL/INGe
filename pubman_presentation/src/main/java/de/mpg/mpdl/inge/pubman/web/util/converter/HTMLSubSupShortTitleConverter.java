@@ -34,7 +34,7 @@ public class HTMLSubSupShortTitleConverter implements Converter {
     tags.add("SUB");
     tags.add("SUP");
 
-    if (snippet.length() > HTMLSubSupShortTitleConverter.LENGTH) {
+    if (HTMLSubSupShortTitleConverter.LENGTH < snippet.length()) {
       return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, HTMLSubSupShortTitleConverter.LENGTH, tags) + "...";
     } else {
       return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);

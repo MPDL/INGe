@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
@@ -38,7 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
  * @updated 22-Okt-2007 15:26:37
  */
 @SuppressWarnings("serial")
-@JsonInclude(value = Include.NON_EMPTY)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class EventVO extends ValueObject implements Cloneable {
   /**
    * The possible invitation status of the event.
@@ -63,7 +62,7 @@ public class EventVO extends ValueObject implements Cloneable {
    * Delivers the end date of the event.
    */
   public String getEndDate() {
-    return endDate;
+    return this.endDate;
   }
 
   /**
@@ -71,28 +70,28 @@ public class EventVO extends ValueObject implements Cloneable {
    * the creator was explicitly invited.
    */
   public InvitationStatus getInvitationStatus() {
-    return invitationStatus;
+    return this.invitationStatus;
   }
 
   /**
    * Delivers the place of the event.
    */
   public String getPlace() {
-    return place;
+    return this.place;
   }
 
   /**
    * Delivers the start date of the event.
    */
   public String getStartDate() {
-    return startDate;
+    return this.startDate;
   }
 
   /**
    * Delivers the title of the event.
    */
   public String getTitle() {
-    return title;
+    return this.title;
   }
 
   /**
@@ -102,7 +101,7 @@ public class EventVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setInvitationStatus(InvitationStatus newVal) {
-    invitationStatus = newVal;
+    this.invitationStatus = newVal;
   }
 
   /**
@@ -111,7 +110,7 @@ public class EventVO extends ValueObject implements Cloneable {
    * @param newVal newVal
    */
   public void setPlace(String newVal) {
-    place = newVal;
+    this.place = newVal;
   }
 
   /**
@@ -120,13 +119,13 @@ public class EventVO extends ValueObject implements Cloneable {
    * @param newVal newVal
    */
   public void setTitle(String newVal) {
-    title = newVal;
+    this.title = newVal;
   }
 
   public EventVO clone() {
     try {
       EventVO clone = (EventVO) super.clone();
-      if (clone.invitationStatus != null) {
+      if (null != clone.invitationStatus) {
         clone.invitationStatus = this.invitationStatus;
       }
       return clone;
@@ -139,11 +138,11 @@ public class EventVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-    result = prime * result + ((invitationStatus == null) ? 0 : invitationStatus.hashCode());
-    result = prime * result + ((place == null) ? 0 : place.hashCode());
-    result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((null == this.endDate) ? 0 : this.endDate.hashCode());
+    result = prime * result + ((null == this.invitationStatus) ? 0 : this.invitationStatus.hashCode());
+    result = prime * result + ((null == this.place) ? 0 : this.place.hashCode());
+    result = prime * result + ((null == this.startDate) ? 0 : this.startDate.hashCode());
+    result = prime * result + ((null == this.title) ? 0 : this.title.hashCode());
     return result;
   }
 
@@ -152,7 +151,7 @@ public class EventVO extends ValueObject implements Cloneable {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    if (null == obj)
       return false;
 
     if (getClass() != obj.getClass())
@@ -160,31 +159,31 @@ public class EventVO extends ValueObject implements Cloneable {
 
     EventVO other = (EventVO) obj;
 
-    if (endDate == null) {
-      if (other.endDate != null)
+    if (null == this.endDate) {
+      if (null != other.endDate)
         return false;
-    } else if (!endDate.equals(other.endDate))
+    } else if (!this.endDate.equals(other.endDate))
       return false;
 
-    if (invitationStatus != other.invitationStatus)
+    if (this.invitationStatus != other.invitationStatus)
       return false;
 
-    if (place == null) {
-      if (other.place != null)
+    if (null == this.place) {
+      if (null != other.place)
         return false;
-    } else if (!place.equals(other.place))
+    } else if (!this.place.equals(other.place))
       return false;
 
-    if (startDate == null) {
-      if (other.startDate != null)
+    if (null == this.startDate) {
+      if (null != other.startDate)
         return false;
-    } else if (!startDate.equals(other.startDate))
+    } else if (!this.startDate.equals(other.startDate))
       return false;
 
-    if (title == null) {
-      if (other.title != null)
+    if (null == this.title) {
+      if (null != other.title)
         return false;
-    } else if (!title.equals(other.title))
+    } else if (!this.title.equals(other.title))
       return false;
 
     return true;
@@ -196,7 +195,7 @@ public class EventVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setEndDate(String newVal) {
-    endDate = newVal;
+    this.endDate = newVal;
   }
 
   /**
@@ -205,6 +204,6 @@ public class EventVO extends ValueObject implements Cloneable {
    * @param newVal
    */
   public void setStartDate(String newVal) {
-    startDate = newVal;
+    this.startDate = newVal;
   }
 }

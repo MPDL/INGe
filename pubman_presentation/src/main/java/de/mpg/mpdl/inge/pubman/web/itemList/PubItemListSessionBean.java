@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.batch.PubItemBatchSessionBean;
@@ -92,42 +92,42 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   public enum SORT_CRITERIA
   {
     // Use dummy value "score" for default sorting
-    RELEVANCE("", SortOrder.DESC, false),
+    RELEVANCE("", SearchSortCriteria.SortOrder.DESC, false),
 
-    MODIFICATION_DATE(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC, false),
+    MODIFICATION_DATE(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SearchSortCriteria.SortOrder.DESC, false),
 
-    CREATION_DATE(PubItemServiceDbImpl.INDEX_CREATION_DATE, SortOrder.ASC, false),
+    CREATION_DATE(PubItemServiceDbImpl.INDEX_CREATION_DATE, SearchSortCriteria.SortOrder.ASC, false),
 
-    TITLE(PubItemServiceDbImpl.INDEX_METADATA_TITLE, SortOrder.ASC, false),
+    TITLE(PubItemServiceDbImpl.INDEX_METADATA_TITLE, SearchSortCriteria.SortOrder.ASC, false),
 
     GENRE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SortOrder.ASC, false),
+        PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SearchSortCriteria.SortOrder.ASC, false),
 
-    DATE(PubItemServiceDbImpl.INDEX_METADATA_DATE_CATEGORY_SORT, SortOrder.DESC, false), //
+    DATE(PubItemServiceDbImpl.INDEX_METADATA_DATE_CATEGORY_SORT, SearchSortCriteria.SortOrder.DESC, false), //
 
-    CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC, false),
+    CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SearchSortCriteria.SortOrder.ASC, false),
 
     PUBLISHING_INFO(new String[] {PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID,
         PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PLACE,
-        PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION}, SortOrder.ASC, false), //
+        PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION}, SearchSortCriteria.SortOrder.ASC, false), //
 
-    EVENT_TITLE(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE, SortOrder.ASC, false),
+    EVENT_TITLE(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE, SearchSortCriteria.SortOrder.ASC, false),
 
-    SOURCE_TITLE(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, SortOrder.ASC, false),
+    SOURCE_TITLE(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, SearchSortCriteria.SortOrder.ASC, false),
 
     /*
      * SOURCE_CREATOR(new String[] {
      * PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME,
      * PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME}, SortOrder.ASC), //
      */
-    REVIEW_METHOD(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD, SortOrder.ASC, false), // ,
+    REVIEW_METHOD(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD, SearchSortCriteria.SortOrder.ASC, false), // ,
 
 
-    STATE(PubItemServiceDbImpl.INDEX_VERSION_STATE, SortOrder.ASC, true),
+    STATE(PubItemServiceDbImpl.INDEX_VERSION_STATE, SearchSortCriteria.SortOrder.ASC, true),
 
     // OWNER(PubItemServiceDbImpl.INDEX_OWNER_TITLE, SortOrder.ASC),
 
-    COLLECTION(PubItemServiceDbImpl.INDEX_CONTEXT_TITLE, SortOrder.ASC, true);
+    COLLECTION(PubItemServiceDbImpl.INDEX_CONTEXT_TITLE, SearchSortCriteria.SortOrder.ASC, true);
 
   /**
    * The search sorting index
@@ -139,9 +139,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   /**
    * An additional attribute indicating the default sort order ("ascending" or "descending")
    */
-  private SortOrder sortOrder;
+  private SearchSortCriteria.SortOrder sortOrder;
 
-  SORT_CRITERIA(String index, SortOrder sortOrder, boolean showForLoggedIn) {
+  SORT_CRITERIA(String index, SearchSortCriteria.SortOrder sortOrder, boolean showForLoggedIn) {
       this.index = new String[] {index};
       this.sortOrder = sortOrder;
       this.showOnlyForLoggedIn = showForLoggedIn;
@@ -149,7 +149,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
 
-  SORT_CRITERIA(String[] index, SortOrder sortOrder, boolean showForLoggedIn) {
+  SORT_CRITERIA(String[] index, SearchSortCriteria.SortOrder sortOrder, boolean showForLoggedIn) {
       this.index = index;
       this.sortOrder = sortOrder;
       this.showOnlyForLoggedIn = showForLoggedIn;
@@ -180,11 +180,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    *
    * @param sortOrder
    */
-  public void setSortOrder(SortOrder sortOrder) {
+  public void setSortOrder(SearchSortCriteria.SortOrder sortOrder) {
     this.sortOrder = sortOrder;
   }
 
-  public SortOrder getSortOrder() {
+  public SearchSortCriteria.SortOrder getSortOrder() {
     return this.sortOrder;
   }}
 
@@ -362,10 +362,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void changeSortOrder() {
-    if (this.selectedSortOrder.equals(SortOrder.ASC.name())) {
-      this.setSelectedSortOrder(SortOrder.DESC.name());
+    if (this.selectedSortOrder.equals(SearchSortCriteria.SortOrder.ASC.name())) {
+      this.setSelectedSortOrder(SearchSortCriteria.SortOrder.DESC.name());
     } else {
-      this.setSelectedSortOrder(SortOrder.ASC.name());
+      this.setSelectedSortOrder(SearchSortCriteria.SortOrder.ASC.name());
     }
     try {
       this.setSelectedSortOrder(this.selectedSortOrder);
@@ -517,7 +517,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public boolean getIsAscending() {
-    return this.selectedSortOrder.equals(SortOrder.ASC.name());
+    return this.selectedSortOrder.equals(SearchSortCriteria.SortOrder.ASC.name());
   }
 
   /**
@@ -572,7 +572,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public String getSelectedSortByLabel() {
     String returnString = "";
-    if (!this.getSelectedSortBy().equals("all")) {
+    if (!"all".equals(this.getSelectedSortBy())) {
       returnString = this.getLabel("ENUM_CRITERIA_" + this.getSelectedSortBy());
     }
 
@@ -604,9 +604,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   protected void readOutParameters() {
     final String sortBy = FacesTools.getExternalContext().getRequestParameterMap().get(PubItemListSessionBean.parameterSelectedSortBy);
 
-    if (sortBy != null) {
+    if (null != sortBy) {
       this.setSelectedSortBy(sortBy);
-    } else if (this.getSelectedSortBy() != null) {
+    } else if (null != this.getSelectedSortBy()) {
       // do nothing
     } else {
       // This is commented out due to PUBMAN-1907
@@ -622,12 +622,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     final String sortOrder =
         FacesTools.getExternalContext().getRequestParameterMap().get(PubItemListSessionBean.parameterSelectedSortOrder);
-    if (sortOrder != null) {
+    if (null != sortOrder) {
       this.setSelectedSortOrder(sortOrder);
-    } else if (this.getSelectedSortOrder() != null) {
+    } else if (null != this.getSelectedSortOrder()) {
       // do nothing
     } else {
-      this.setSelectedSortOrder(SortOrder.DESC.name());
+      this.setSelectedSortOrder(SearchSortCriteria.SortOrder.DESC.name());
     }
   }
 
@@ -637,7 +637,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   @Override
   public SORT_CRITERIA getSortCriteria() {
     final SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.getSelectedSortBy());
-    sc.setSortOrder(SortOrder.valueOf(this.getSelectedSortOrder()));
+    sc.setSortOrder(SearchSortCriteria.SortOrder.valueOf(this.getSelectedSortOrder()));
 
     return sc;
   }
@@ -665,7 +665,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   @Override
   protected void pageTypeChanged() {
-    if (this.getPageType().equals("MyItems") || this.getPageType().equals("MyTasks")) {
+    if ("MyItems".equals(this.getPageType()) || "MyTasks".equals(this.getPageType())) {
       this.subMenu = "FILTER";
     } else {
       this.subMenu = "VIEW";
@@ -716,7 +716,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     int existing = 0;
     for (final PubItemVOPresentation pubItem : allListPubItems) {
 
-      if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
+      if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
         if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectId())) {
           pubItemBatch.getStoredPubItems().put(pubItem.getObjectId(), pubItem);
           added++;
@@ -732,10 +732,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     if (allListPubItems.isEmpty()) {
       this.error(this.getMessage("batch_NoItemsSelected"));
     }
-    if (added > 0 || existing > 0) {
+    if (0 < added || 0 < existing) {
       this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
     }
-    if (existing > 0) {
+    if (0 < existing) {
       this.info(this.getMessage("batch_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
     }
 
@@ -756,7 +756,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     int existing = 0;
     for (final PubItemVOPresentation pubItem : selectedPubItems) {
 
-      if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
+      if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
         if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectId())) {
           pubItemBatch.getStoredPubItems().put(pubItem.getObjectId(), pubItem);
           added++;
@@ -772,10 +772,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     if (selectedPubItems.isEmpty()) {
       this.error(this.getMessage("batch_NoItemsSelected"));
     }
-    if (added > 0 || existing > 0) {
+    if (0 < added || 0 < existing) {
       this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
     }
-    if (existing > 0) {
+    if (0 < existing) {
       this.info(this.getMessage("batch_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
     }
 
@@ -792,13 +792,13 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
 
     int added = 0;
-    if (batchLog != null) {
+    if (null != batchLog) {
       pubItemBatch.setStoredPubItems(new HashMap<>());
       for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
 
-        if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
-          if (batchItem != null && BatchProcessItemVO.BatchProcessMessagesTypes.ERROR.equals(batchItem.getBatchProcessMessageType())
-              && batchItem.getItemVersionVO() != null
+        if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
+          if (null != batchItem && BatchProcessItemVO.BatchProcessMessagesTypes.ERROR.equals(batchItem.getBatchProcessMessageType())
+              && null != batchItem.getItemVersionVO()
               && !pubItemBatch.getStoredPubItems().containsKey(batchItem.getItemVersionVO().getObjectId())) {
             pubItemBatch.getStoredPubItems().put(batchItem.getItemVersionVO().getObjectId(), batchItem.getItemVersionVO());
             added++;
@@ -812,10 +812,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     }
 
 
-    if (added == 0) {
+    if (0 == added) {
       this.error(this.getMessage("batch_NoItemsSelected"));
     }
-    if (added > 0) {
+    if (0 < added) {
       this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
     }
     this.redirect();
@@ -831,12 +831,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
 
     int added = 0;
-    if (batchLog != null) {
+    if (null != batchLog) {
       pubItemBatch.setStoredPubItems(new HashMap<>());
       for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
 
-        if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
-          if (batchItem != null && batchItem.getItemVersionVO() != null
+        if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
+          if (null != batchItem && null != batchItem.getItemVersionVO()
               && !pubItemBatch.getStoredPubItems().containsKey(batchItem.getItemVersionVO().getObjectId())) {
             pubItemBatch.getStoredPubItems().put(batchItem.getItemVersionVO().getObjectId(), batchItem.getItemVersionVO());
             added++;
@@ -850,10 +850,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     }
 
 
-    if (added == 0) {
+    if (0 == added) {
       this.error(this.getMessage("batch_NoItemsSelected"));
     }
-    if (added > 0) {
+    if (0 < added) {
       this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
     }
     this.redirect();
@@ -872,7 +872,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     int existing = 0;
     for (final PubItemVOPresentation pubItem : selectedPubItems) {
 
-      if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
+      if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemStorage.getStoredPubItemsSize())) {
         if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
           pubItemStorage.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem);
           added++;
@@ -888,10 +888,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     if (selectedPubItems.isEmpty()) {
       this.error(this.getMessage("basket_NoItemsSelected"));
     }
-    if (added > 0 || existing > 0) {
+    if (0 < added || 0 < existing) {
       this.info(this.getMessage("basket_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
     }
-    if (existing > 0) {
+    if (0 < existing) {
       this.info(this.getMessage("basket_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
     }
 
@@ -1086,7 +1086,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
-      if ((exportFileData == null) || (new String(exportFileData)).trim().isEmpty()) {
+      if ((null == exportFileData) || (new String(exportFileData)).trim().isEmpty()) {
         this.error(this.getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
         this.redirect();
       }
@@ -1219,9 +1219,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
       }
     } catch (final IOException e) {
-      PubItemListSessionBean.logger.warn("IO-Exception while retrieving ExternalContext for nextItem", e);
+      logger.warn("IO-Exception while retrieving ExternalContext for nextItem", e);
     } catch (final Exception e) {
-      PubItemListSessionBean.logger.warn("Exception while getting link to nextListItem", e);
+      logger.warn("Exception while getting link to nextListItem", e);
     }
   }
 
@@ -1235,7 +1235,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
         if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
           // Case: not the first item of a part-list --> Go one item back without pagechange
-          if ((i - 1) >= 0) {
+          if (0 <= (i - 1)) {
             positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
             this.setListItemPosition(positionFirstPartListItem + i - 1);
             FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(i - 1).getLink());
@@ -1243,7 +1243,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
           }
           // Case: first item of a part-list, but not the first of the whole list --> Get last item
           // of previous page
-          else if ((i - 1) < 0 && this.getCurrentPageNumber() > 1) {
+          else if (0 > (i - 1) && 1 < this.getCurrentPageNumber()) {
             this.setCurrentPageNumber(this.getCurrentPageNumber() - 1);
             this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
             positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
@@ -1264,9 +1264,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
       }
     } catch (final IOException e) {
-      PubItemListSessionBean.logger.warn("IO-Exception while retrieving ExternalContext for previousItem", e);
+      logger.warn("IO-Exception while retrieving ExternalContext for previousItem", e);
     } catch (final Exception e) {
-      PubItemListSessionBean.logger.warn("Exception while getting link to previousListItem", e);
+      logger.warn("Exception while getting link to previousListItem", e);
     }
   }
 
@@ -1277,7 +1277,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public boolean getHasNextListItem() {
     final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    if (this.getCurrentPartList() != null) {
+    if (null != this.getCurrentPartList()) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
         if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
           if ((i + 1) >= this.getCurrentPartList().size() && this.getCurrentPageNumber() >= this.getPaginatorPageSize()) {
@@ -1296,10 +1296,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public boolean getHasPreviousListItem() {
     final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    if (this.getCurrentPartList() != null) {
+    if (null != this.getCurrentPartList()) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
         if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
-          if ((i - 1) < 0 && this.getCurrentPageNumber() <= 1) {
+          if (0 > (i - 1) && 1 >= this.getCurrentPageNumber()) {
             return false;
           }
         }
@@ -1319,7 +1319,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListItemPosition(positionFirstPartListItem);
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
     } catch (final Exception e) {
-      PubItemListSessionBean.logger.debug("Exception while getting link to firstListItem");
+      logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
   }
@@ -1335,7 +1335,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size() - 1);
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
     } catch (final Exception e) {
-      PubItemListSessionBean.logger.debug("Exception while getting link to firstListItem");
+      logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
   }
@@ -1352,7 +1352,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   }
 
   public void setListItemPosition(int newItemPosition) {
-    if (newItemPosition > 0 && newItemPosition <= this.getTotalNumberOfElements()) {
+    if (0 < newItemPosition && newItemPosition <= this.getTotalNumberOfElements()) {
       this.itemPosition = newItemPosition;
     } else {
       this.error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
@@ -1366,10 +1366,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       final int positionInPartList = (this.itemPosition - 1) % this.getElementsPerPage();
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(positionInPartList).getLink());
     } catch (final IOException e) {
-      PubItemListSessionBean.logger.debug("Problem reading new itemPosition");
+      logger.debug("Problem reading new itemPosition");
       e.printStackTrace();
     } catch (final Exception e) {
-      PubItemListSessionBean.logger.debug("Problem on setting new position in list");
+      logger.debug("Problem on setting new position in list");
       e.printStackTrace();
     }
   }

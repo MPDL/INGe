@@ -24,6 +24,8 @@ public class MapperFactory {
 
   }
 
+  private MapperFactory() {}
+
   public static ObjectMapper getObjectMapper() {
     return jsonObjectMapper;
   }

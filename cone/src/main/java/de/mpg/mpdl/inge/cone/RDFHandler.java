@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.cone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.xml.namespace.QName;
@@ -38,8 +39,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 
@@ -58,16 +57,16 @@ public class RDFHandler extends DefaultHandler {
   private final Stack<QName> tagStack = new Stack<>();
 
   private final Querier querier;
-  private final Model model;
+  private final ModelList.Model model;
   private StringBuilder currentContent;
 
   private static final Logger logger = LogManager.getLogger(RDFHandler.class);
 
   private static final QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF", "rdf");
 
-  public RDFHandler(boolean loggedIn, Model model) throws ConeException {
+  public RDFHandler(boolean loggedIn, ModelList.Model model) throws ConeException {
     this.model = model;
-    querier = QuerierFactory.newQuerier(loggedIn);
+    this.querier = QuerierFactory.newQuerier(loggedIn);
     try {
       PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     } catch (Exception e) {
@@ -80,16 +79,16 @@ public class RDFHandler extends DefaultHandler {
 
     QName currentTag = new QName(uri, localName);
 
-    if (tagStack.size() == 1 && tagStack.peek().equals(rdfRootTag) && currentTag.equals(model.getRdfAboutTag())) {
+    if (1 == this.tagStack.size() && this.tagStack.peek().equals(rdfRootTag) && currentTag.equals(this.model.getRdfAboutTag())) {
       // New element
       String subject = attributes.getValue("rdf:about");
       this.stack.push(new TreeFragment(subject));
     }
 
-    else if (tagStack.size() > 1 && tagStack.get(0).equals(rdfRootTag)) {
+    else if (1 < this.tagStack.size() && this.tagStack.get(0).equals(rdfRootTag)) {
       String predicate;
 
-      if (uri != null) {
+      if (null != uri) {
 
         if (!uri.endsWith("/") && !uri.endsWith("#")) {
           predicate = uri + " " + localName;
@@ -102,24 +101,24 @@ public class RDFHandler extends DefaultHandler {
         predicate = name;
       }
 
-      if (currentTag.equals(model.getRdfAboutTag()))
+      if (currentTag.equals(this.model.getRdfAboutTag()))
       // if(tag.equals(model.getRdfImportTag()))
       {
         LocalizedString wrongData = (LocalizedString) this.stack.pop();
         TreeFragment container = (TreeFragment) this.stack.peek();
         String newSubject = attributes.getValue("rdf:about");
-        if (newSubject == null) {
+        if (null == newSubject) {
           try {
-            newSubject = querier.createUniqueIdentifier(null);
+            newSubject = this.querier.createUniqueIdentifier(null);
           } catch (Exception e) {
             throw new SAXException(e);
           }
         }
 
         String pred = null;
-        for (String key : container.keySet()) {
-          if (container.get(key).contains(wrongData)) {
-            pred = key;
+        for (Map.Entry<String, List<LocalizedTripleObject>> entry : container.entrySet()) {
+          if (entry.getValue().contains(wrongData)) {
+            pred = entry.getKey();
             break;
           }
         }
@@ -134,14 +133,14 @@ public class RDFHandler extends DefaultHandler {
 
         // For predicates that link to other resources, use rdf:resource
         // attribute as content
-        Predicate p = null;
+        ModelList.Predicate p = null;
         try {
-          p = model.getPredicate(predicate);
+          p = this.model.getPredicate(predicate);
         } catch (ConeException e) {
           logger.warn("getPredica<te failed", e);
         }
-        if (p != null && p.getResourceModel() != null && !p.isIncludeResource()) {
-          if (attributes.getValue("rdf:resource") != null) {
+        if (null != p && null != p.getResourceModel() && !p.isIncludeResource()) {
+          if (null != attributes.getValue("rdf:resource")) {
             firstValue.setValue(attributes.getValue("rdf:resource"));
           } else
             throw new SAXException("Excpected attribute rdf:resource for element" + name + " (namespace " + uri
@@ -149,7 +148,7 @@ public class RDFHandler extends DefaultHandler {
 
         }
 
-        if (((TreeFragment) this.stack.peek()).get(predicate) != null) {
+        if (null != ((TreeFragment) this.stack.peek()).get(predicate)) {
           ((TreeFragment) this.stack.peek()).get(predicate).add(firstValue);
         } else {
           List<LocalizedTripleObject> newList = new ArrayList<>();
@@ -161,8 +160,8 @@ public class RDFHandler extends DefaultHandler {
         throw new SAXException("Wrong RDF structure at " + name + " (namespace " + uri + ")");
       }
     }
-    tagStack.push(currentTag);
-    currentContent = new StringBuilder();
+    this.tagStack.push(currentTag);
+    this.currentContent = new StringBuilder();
   }
 
   @Override
@@ -171,24 +170,24 @@ public class RDFHandler extends DefaultHandler {
 
     QName currentTag = new QName(uri, localName);
 
-    if (currentContent != null && !currentContent.isEmpty()) {
+    if (null != this.currentContent && !this.currentContent.isEmpty()) {
       if (this.stack.peek() instanceof LocalizedString) {
-        ((LocalizedString) this.stack.peek()).setValue(currentContent.toString());
+        ((LocalizedString) this.stack.peek()).setValue(this.currentContent.toString());
       } else {
         logger.warn("Wrong RDF structure at " + name + " (namespace " + uri + ")");
       }
     }
 
 
-    tagStack.pop();
-    currentContent = null;
+    this.tagStack.pop();
+    this.currentContent = null;
 
-    if (tagStack.size() == 1 && tagStack.peek().equals(rdfRootTag)) {
-      result.add(this.stack.pop());
+    if (1 == this.tagStack.size() && this.tagStack.peek().equals(rdfRootTag)) {
+      this.result.add(this.stack.pop());
       return;
     }
 
-    if (!this.stack.isEmpty() && !currentTag.equals(model.getRdfAboutTag())) {
+    if (!this.stack.isEmpty() && !currentTag.equals(this.model.getRdfAboutTag())) {
       this.stack.pop();
     }
 
@@ -208,7 +207,7 @@ public class RDFHandler extends DefaultHandler {
   @Override
   public void endDocument() throws SAXException {
     try {
-      querier.release();
+      this.querier.release();
     } catch (Exception e) {
       throw new SAXException(e);
     }
@@ -220,8 +219,8 @@ public class RDFHandler extends DefaultHandler {
    */
   @Override
   public final void characters(char[] ch, int start, int length) {
-    if (currentContent != null) {
-      currentContent.append(ch, start, length);
+    if (null != this.currentContent) {
+      this.currentContent.append(ch, start, length);
     }
   }
 

@@ -28,7 +28,7 @@ public class ImportSurveyorTask {
 
   @Scheduled(cron = "${inge.cron.import.surveyor}")
   public void run() {
-    ImportSurveyorTask.logger.info("CRON: Import surveyor task checks logs...");
+    logger.info("CRON: Import surveyor task checks logs...");
 
     Connection connection = null;
     ResultSet rs = null;
@@ -45,11 +45,11 @@ public class ImportSurveyorTask {
       rs = ps.executeQuery();
       while (rs.next()) {
         final int id = rs.getInt("id");
-        ImportSurveyorTask.logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
+        logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
         final ImportLog log = ImportLog.getImportLog(id, true, connection);
 
         for (final ImportLogItem item : log.getItems()) {
-          if (item.getEndDate() == null) {
+          if (null == item.getEndDate()) {
             log.activateItem(item);
             log.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_terminate_item", connection);
             log.finishItem(connection);
@@ -62,13 +62,13 @@ public class ImportSurveyorTask {
         log.close(connection);
       }
     } catch (final Exception e) {
-      ImportSurveyorTask.logger.error("Error checking database for unfinished imports", e);
+      logger.error("Error checking database for unfinished imports", e);
     } finally {
       // DbTools.closeResultSet(rs);
       // DbTools.closePreparedStatement(ps);
       DbTools.closeConnection(connection);
     }
 
-    ImportSurveyorTask.logger.info("CRON: Import surveyor task finished.");
+    logger.info("CRON: Import surveyor task finished.");
   }
 }

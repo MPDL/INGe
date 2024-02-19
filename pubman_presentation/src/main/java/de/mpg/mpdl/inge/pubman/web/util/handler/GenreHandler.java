@@ -47,10 +47,10 @@ public class GenreHandler extends ShortContentHandler {
       if ("genre".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/Genre_" + this.genre + ".properties");
 
-        for (final String key : this.map.keySet()) {
-          fileWriter.append(key.replace("-", "_"));
+        for (final Map.Entry<String, String> entry : this.map.entrySet()) {
+          fileWriter.append(entry.getKey().replace("-", "_"));
           fileWriter.append("=");
-          fileWriter.append(this.map.get(key));
+          fileWriter.append(entry.getValue());
           fileWriter.append("\n");
         }
 
@@ -64,10 +64,10 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("content-categories".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/content_categories.properties");
 
-        for (final String key : this.contentCategories.keySet()) {
-          fileWriter.append(key.toLowerCase());
+        for (final Map.Entry<String, String> entry : this.contentCategories.entrySet()) {
+          fileWriter.append(entry.getKey().toLowerCase());
           fileWriter.append("=");
-          fileWriter.append(this.contentCategories.get(key));
+          fileWriter.append(entry.getValue());
           fileWriter.append("\n");
         }
 
@@ -79,10 +79,10 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("author-roles".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/author_roles.properties");
 
-        for (final String key : this.authorRoles.keySet()) {
-          fileWriter.append(key.toLowerCase());
+        for (final Map.Entry<String, String> entry : this.authorRoles.entrySet()) {
+          fileWriter.append(entry.getKey().toLowerCase());
           fileWriter.append("=");
-          fileWriter.append(this.authorRoles.get(key));
+          fileWriter.append(entry.getValue());
           fileWriter.append("\n");
         }
 
@@ -94,10 +94,10 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("source-genres".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/source_genres.properties");
 
-        for (final String key : this.sourceGenres.keySet()) {
-          fileWriter.append(key.toLowerCase());
+        for (final Map.Entry<String, String> entry : this.sourceGenres.entrySet()) {
+          fileWriter.append(entry.getKey().toLowerCase());
           fileWriter.append("=");
-          fileWriter.append(this.sourceGenres.get(key));
+          fileWriter.append(entry.getValue());
           fileWriter.append("\n");
         }
 

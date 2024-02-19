@@ -16,28 +16,30 @@ public class ValidationTools {
   public static final String ORCID_HTTPS = "https://orcid.org/";
   public static final String ORCID_REGEX = "^\\d{4}-\\d{4}-\\d{4}-(\\d{3}X|\\d{4})$";
 
+  private ValidationTools() {}
+
   public synchronized static boolean isEmpty(String s) {
-    return s == null || s.trim().isEmpty();
+    return null == s || s.trim().isEmpty();
   }
 
   public synchronized static boolean isNotEmpty(String s) {
-    return s != null && !s.trim().isEmpty();
+    return null != s && !s.trim().isEmpty();
   }
 
   public synchronized static boolean isEmpty(List<?> l) {
-    return l == null || l.isEmpty();
+    return null == l || l.isEmpty();
   }
 
   public synchronized static boolean isNotEmpty(List<?> l) {
-    return l != null && !l.isEmpty();
+    return null != l && !l.isEmpty();
   }
 
   public synchronized static boolean isNotEmpty(Set<?> s) {
-    return s != null && !s.isEmpty();
+    return null != s && !s.isEmpty();
   }
 
   public synchronized static boolean isEmpty(Set<?> s) {
-    return s == null || s.isEmpty();
+    return null == s || s.isEmpty();
   }
 
   public synchronized static boolean checkDate(String s) {
@@ -83,8 +85,8 @@ public class ValidationTools {
 
     for (int i = 0; i < text.length(); i++) {
       char chr = text.charAt(i);
-      if (chr < 0x20 && chr != 0x9 && chr != 0xA && chr != 0xD
-          || chr > 0xD7FF && (chr < 0xE000 || chr == 0xFFFE || chr == 0xFFFF || chr > 0x10FFFF)) {
+      if (0x20 > chr && 0x9 != chr && 0xA != chr && 0xD != chr
+          || 0xD7FF < chr && (0xE000 > chr || 0xFFFE == chr || 0xFFFF == chr || 0x10FFFF < chr)) {
         context.addError(
             ValidationError.create(errorMessage).setField(" " + chr + " (0x" + Integer.toHexString(chr) + ", pos " + (i + 1) + ")"));
         ok = false;

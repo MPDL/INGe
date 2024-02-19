@@ -43,7 +43,7 @@ public class DateRequiredValidator extends ValidatorHandler<MdsPublicationVO> im
       if ((MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(m.getGenre()) //
           || MdsPublicationVO.Genre.TALK_AT_EVENT.equals(m.getGenre()) //
           || MdsPublicationVO.Genre.POSTER.equals(m.getGenre()))
-          && (m.getEvent() != null && ValidationTools.isNotEmpty(m.getEvent().getStartDate()))) {
+          && (null != m.getEvent() && ValidationTools.isNotEmpty(m.getEvent().getStartDate()))) {
         return true;
       }
 

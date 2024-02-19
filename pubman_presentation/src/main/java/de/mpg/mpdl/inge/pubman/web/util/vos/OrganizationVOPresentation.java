@@ -53,7 +53,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
     this.setAddress(organizationVO.getAddress());
     this.setIdentifier(organizationVO.getIdentifier());
     this.setName(organizationVO.getName());
-    if (organizationVO.getIdentifierPath() != null) {
+    if (null != organizationVO.getIdentifierPath()) {
       this.setIdentifierPath(Arrays.copyOf(organizationVO.getIdentifierPath(), organizationVO.getIdentifierPath().length));
     }
   }
@@ -149,9 +149,9 @@ public class OrganizationVOPresentation extends OrganizationVO {
   }
 
   public boolean isEmpty() {
-    if (this.getAddress() != null && !"".equals(this.getAddress())) {
+    if (null != this.getAddress() && !"".equals(this.getAddress())) {
       return false;
-    } else if (this.getName() != null && !"".equals(this.getName())) {
+    } else if (null != this.getName() && !"".equals(this.getName())) {
       return false;
     } else {
       return true;

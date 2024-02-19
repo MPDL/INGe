@@ -47,16 +47,16 @@ public class ObjectFormatter {
   public String formatCreator(final CreatorVO creatorObject, String annotation) {
     final StringBuilder creator = new StringBuilder();
 
-    if (creatorObject.getPerson() != null) {
+    if (null != creatorObject.getPerson()) {
       creator.append(creatorObject.getPerson().getFamilyName());
-      if (creatorObject.getPerson().getGivenName() != null && !creatorObject.getPerson().getGivenName().isEmpty()) {
+      if (null != creatorObject.getPerson().getGivenName() && !creatorObject.getPerson().getGivenName().isEmpty()) {
         creator.append(", " + creatorObject.getPerson().getGivenName());
       }
-      if (annotation != null) {
+      if (null != annotation) {
         creator.append(annotation);
       }
     }
-    if (creatorObject.getOrganization() != null && creatorObject.getOrganization().getName() != null) {
+    if (null != creatorObject.getOrganization() && null != creatorObject.getOrganization().getName()) {
       creator.append(creatorObject.getOrganization().getName());
     }
     /*

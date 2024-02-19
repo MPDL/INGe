@@ -78,7 +78,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
-    if (this.children == null && this.isHasChildren()) {
+    if (null == this.children && this.isHasChildren()) {
       List<AffiliationDbVO> childOus = (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
@@ -94,7 +94,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public MdsOrganizationalUnitDetailsVO getDetails() {
-    if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+    if (null != this.getMetadata() && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
       return this.getMetadata();
     } else {
       return new MdsOrganizationalUnitDetailsVO();
@@ -107,13 +107,13 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
       return this.getObjectId().equals(rootAffiliationMPG);
     } catch (final Exception e) {
-      AffiliationVOPresentation.logger.error("Error reading Properties", e);
+      logger.error("Error reading Properties", e);
       return false;
     }
   }
 
   public boolean getTopLevel() {
-    return (this.parent == null);
+    return (null == this.parent);
   }
 
   // /**
@@ -198,7 +198,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public String getName() {
-    if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+    if (null != this.getMetadata() && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
       return this.getMetadata().getName();
     }
 
@@ -214,7 +214,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
       level++;
     }
 
-    if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+    if (null != this.getMetadata() && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
       if (this.getMetadata().getName().length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH
           - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
         return this.getMetadata().getName().substring(0,
@@ -233,7 +233,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
     final List<String> uriList = new ArrayList<>();
 
     for (final IdentifierVO identifier : identifiers) {
-      if (identifier.getType() != null && identifier.getType().equals(IdentifierVO.IdType.URI)) {
+      if (null != identifier.getType() && identifier.getType().equals(IdentifierVO.IdType.URI)) {
         uriList.add(identifier.getId());
       }
     }
@@ -322,7 +322,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   private void fetchSuccessors() {
-    if (this.successors == null) {
+    if (null == this.successors) {
       try {
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597

@@ -64,13 +64,13 @@ public class RedirectServlet extends HttpServlet {
     if (!id.contains("/component/")) {
       final LoginHelper loginHelper = ServletTools.findSessionBean(req, "LoginHelper");
 
-      if (loginHelper != null && loginHelper.isDetailedMode()) {
+      if (null != loginHelper && loginHelper.isDetailedMode()) {
         redirectUrl.append(RedirectServlet.INSTANCE_CONTEXT_PATH + "/faces/ViewItemFullPage.jsp?itemId=" + id);
       } else {
         redirectUrl.append(RedirectServlet.INSTANCE_CONTEXT_PATH + "/faces/ViewItemOverviewPage.jsp?itemId=" + id);
       }
 
-      if (userHandle != null) {
+      if (null != userHandle) {
         redirectUrl.append("&" + LoginHelper.PARAMETERNAME_USERHANDLE + "=" + userHandle);
       }
 
@@ -82,7 +82,7 @@ public class RedirectServlet extends HttpServlet {
     // is component
     if (id.contains("/component/")) {
       final String[] pieces = id.split("/");
-      if (pieces.length != 4) {
+      if (4 != pieces.length) {
         resp.sendError(404, "File not found");
       }
 
@@ -96,7 +96,7 @@ public class RedirectServlet extends HttpServlet {
       redirectUrl.append(pieces[2]);
 
       // open component or download it
-      if (req.getParameter("mode") == null || download) {
+      if (null == req.getParameter("mode") || download) {
         redirectUrl.append("/content");
         if (download)
           redirectUrl.append("?download=true");

@@ -53,7 +53,7 @@ public class SourceVOPresentation extends SourceVO {
    * @return Map filled with all source genres which will be excluded
    */
   public static Map<String, String> getExcludedSourceGenreMap() {
-    if (SourceVOPresentation.properties == null || SourceVOPresentation.properties.isEmpty()) {
+    if (null == SourceVOPresentation.properties || SourceVOPresentation.properties.isEmpty()) {
       SourceVOPresentation.properties = SourceVOPresentation.loadExcludedSourceGenreProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -72,7 +72,7 @@ public class SourceVOPresentation extends SourceVO {
     URL contentCategoryURI = null;
     try {
       contentCategoryURI = SourceVOPresentation.class.getClassLoader().getResource("source_genres.properties");
-      if (contentCategoryURI != null) {
+      if (null != contentCategoryURI) {
         LogManager.getLogger(SourceVOPresentation.class).info("Source genre properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         SourceVOPresentation.properties.load(in);

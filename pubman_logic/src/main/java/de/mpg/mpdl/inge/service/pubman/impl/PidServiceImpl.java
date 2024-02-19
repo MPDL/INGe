@@ -56,7 +56,7 @@ public class PidServiceImpl implements PidService {
     String user = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USER);
     String passwd = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_PASSWORD);
     int timeout = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_TIMEOUT));
-    serviceUrl = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_URL);
+    this.serviceUrl = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_URL);
 
     //ClientConfig clientConfig = new ClientConfig();
 
@@ -79,9 +79,9 @@ public class PidServiceImpl implements PidService {
       URI uri = URI.create(this.serviceUrl).resolve(this.createPath);
 
       HttpResponse httpResponse =
-          httpExecutor.execute(Request.Post(uri).bodyForm(Form.form().add(URL, url.toString()).build())).returnResponse();
+          this.httpExecutor.execute(Request.Post(uri).bodyForm(Form.form().add(URL, url.toString()).build())).returnResponse();
 
-      if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_CREATED) {
+      if (HttpStatus.SC_CREATED == httpResponse.getStatusLine().getStatusCode()) {
         String xml = EntityUtils.toString(httpResponse.getEntity());
         PidServiceResponseVO pidServiceResponseVO = XmlTransformingService.transformToPidServiceResponse(xml);
         return pidServiceResponseVO;

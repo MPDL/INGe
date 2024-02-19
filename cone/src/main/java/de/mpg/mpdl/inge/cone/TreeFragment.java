@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import de.mpg.mpdl.inge.cone.ModelList.Model;
-import de.mpg.mpdl.inge.cone.ModelList.Predicate;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -57,7 +55,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   }
 
   public String getSubject() {
-    return subject;
+    return this.subject;
   }
 
   public void setSubject(String subject) {
@@ -65,7 +63,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   }
 
   public String getLanguage() {
-    return language;
+    return this.language;
   }
 
   public void setLanguage(String language) {
@@ -76,14 +74,15 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public void merge(TreeFragment other, boolean overwrite) {
     Set<String> removedPredicates = new HashSet<>();
 
-    for (String predicateName : other.keySet()) {
-      if (get(predicateName) != null) {
-        for (LocalizedTripleObject otherObject : other.get(predicateName)) {
+    for (Map.Entry<String, List<LocalizedTripleObject>> entry : other.entrySet()) {
+      String predicateName = entry.getKey();
+      if (null != get(predicateName)) {
+        for (LocalizedTripleObject otherObject : entry.getValue()) {
           if (overwrite && !removedPredicates.contains(predicateName)
               && (!(otherObject instanceof LocalizedString) || !"".equals(((LocalizedString) otherObject).getValue()))) {
             for (int i = 0; i < get(predicateName).size(); i++) {
               LocalizedTripleObject myObject = get(predicateName).get(i);
-              if ((myObject.getLanguage() == null && otherObject.getLanguage() == null)
+              if ((null == myObject.getLanguage() && null == otherObject.getLanguage())
                   || myObject.getLanguage().equals(otherObject.getLanguage())) {
                 get(predicateName).remove(myObject);
                 i--;
@@ -94,17 +93,17 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
           get(predicateName).add(otherObject);
         }
       } else {
-        put(predicateName, other.get(predicateName));
+        put(predicateName, entry.getValue());
       }
     }
   }
 
   public boolean exists() {
-    return (this.keySet() != null && !keySet().isEmpty());
+    return (null != this.keySet() && !keySet().isEmpty());
   }
 
   public boolean hasValue() {
-    return (subject != null && !subject.isEmpty());
+    return (null != this.subject && !this.subject.isEmpty());
   }
 
   /**
@@ -112,10 +111,10 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
    *
    * @throws ConeException
    */
-  public String toRdf(Model model) throws ConeException {
-    if (size() == 0) {
+  public String toRdf(ModelList.Model model) throws ConeException {
+    if (0 == size()) {
 
-      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject);
+      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + this.subject);
 
     } else {
       StringWriter result = new StringWriter();
@@ -124,27 +123,27 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
       int counter = 0;
 
-      result.append("<" + (model.getRdfAboutTag().getPrefix() != null ? model.getRdfAboutTag().getPrefix() + ":" : "")
+      result.append("<" + (null != model.getRdfAboutTag().getPrefix() ? model.getRdfAboutTag().getPrefix() + ":" : "")
           + model.getRdfAboutTag().getLocalPart());
 
-      if (!subject.startsWith("genid:")) {
+      if (!this.subject.startsWith("genid:")) {
         try {
           result.append(" rdf:about=\"");
-          result.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject);
+          result.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + this.subject);
           result.append("\"");
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
       }
-      if (language != null && !language.isEmpty()) {
+      if (null != this.language && !this.language.isEmpty()) {
         result.append(" xml:lang=\"");
-        result.append(language);
+        result.append(this.language);
         result.append("\"");
       }
       for (String predicate : keySet()) {
         Matcher matcher = NAMESPACE_PATTERN.matcher(predicate);
         if (matcher.find()) {
-          String namespace = matcher.group(1) + (matcher.group(3) == null ? "" : matcher.group(3));
+          String namespace = matcher.group(1) + (null == matcher.group(3) ? "" : matcher.group(3));
           if (!namespaces.containsKey(namespace)) {
             String prefix;
             if (modelList.getDefaultNamepaces().containsKey(namespace)) {
@@ -165,7 +164,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
         String tagName = null;
         String prefix = null;
         if (matcher.find()) {
-          namespace = matcher.group(1) + (matcher.group(3) == null ? "" : matcher.group(3));
+          namespace = matcher.group(1) + (null == matcher.group(3) ? "" : matcher.group(3));
           prefix = namespaces.get(namespace);
           tagName = matcher.group(4);
         } else {
@@ -175,23 +174,23 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
         List<LocalizedTripleObject> values = get(predicate);
         for (LocalizedTripleObject value : values) {
           result.append("<");
-          if (namespace != null) {
+          if (null != namespace) {
             result.append(prefix);
             result.append(":");
           }
           result.append(tagName);
-          if (value.getLanguage() != null && !"".equals(value.getLanguage())) {
+          if (null != value.getLanguage() && !"".equals(value.getLanguage())) {
             result.append(" xml:lang=\"");
             result.append(value.getLanguage());
             result.append("\"");
           }
 
 
-          Predicate p = model.getPredicate(predicate);
+          ModelList.Predicate p = model.getPredicate(predicate);
 
           // display links to other resources as rdf:resource attribute, if includeResource is false
 
-          if (p != null && p.getResourceModel() != null && !p.isIncludeResource()) {
+          if (null != p && null != p.getResourceModel() && !p.isIncludeResource()) {
             String url = value.toString();
             if (!(url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp:"))) {
               try {
@@ -215,7 +214,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
             result.append(value.toRdf(model));
 
             result.append("</");
-            if (namespace != null) {
+            if (null != namespace) {
               result.append(prefix);
               result.append(":");
             }
@@ -226,26 +225,26 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
         }
       }
-      result.append("</" + (model.getRdfAboutTag().getPrefix() != null ? model.getRdfAboutTag().getPrefix() + ":" : "")
+      result.append("</" + (null != model.getRdfAboutTag().getPrefix() ? model.getRdfAboutTag().getPrefix() + ":" : "")
           + model.getRdfAboutTag().getLocalPart() + ">\n");
       return result.toString();
     }
   }
 
   public String toJson() {
-    if (size() == 0) {
+    if (0 == size()) {
       try {
-        return "\"" + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject.replace("\"", "\\\"") + "\"";
+        return "\"" + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + this.subject.replace("\"", "\\\"") + "\"";
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
     } else {
       StringWriter writer = new StringWriter();
       writer.append("{\n");
-      if (!subject.startsWith("genid:")) {
+      if (!this.subject.startsWith("genid:")) {
         writer.append("\"id\" : \"");
         try {
-          writer.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject.replace("\"", "\\\""));
+          writer.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + this.subject.replace("\"", "\\\""));
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -256,7 +255,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
         writer.append("\"");
         writer.append(key.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("\"", "\\\""));
         writer.append("\" : ");
-        if (get(key).size() == 1) {
+        if (1 == get(key).size()) {
           writer.append(get(key).get(0).toJson());
         } else {
           writer.append("[\n");
@@ -282,11 +281,11 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   @Override
   public String toString() {
 
-    if (subject == null) {
+    if (null == this.subject) {
       return null;
     }
     try {
-      return subject;
+      return this.subject;
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -299,17 +298,17 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
   @Override
   public boolean equals(Object o) {
-    if (o == null) {
+    if (null == o) {
       return false;
     } else if (!(o instanceof TreeFragment)) {
       return false;
-    } else if (language == null && ((TreeFragment) o).getLanguage() != null) {
+    } else if (null == this.language && null != ((TreeFragment) o).getLanguage()) {
       return false;
-    } else if (language != null && !language.equals(((TreeFragment) o).getLanguage())) {
+    } else if (null != this.language && !this.language.equals(((TreeFragment) o).getLanguage())) {
       return false;
-    } else if (subject == null && ((TreeFragment) o).getSubject() != null) {
+    } else if (null == this.subject && null != ((TreeFragment) o).getSubject()) {
       return false;
-    } else if (subject != null && !subject.equals(((TreeFragment) o).getSubject())) {
+    } else if (null != this.subject && !this.subject.equals(((TreeFragment) o).getSubject())) {
       return false;
     } else {
       return super.equals(o);

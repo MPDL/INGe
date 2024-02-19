@@ -59,7 +59,7 @@ public class Pair<T> implements Describable, Serializable {
   }
 
   public String getKey() {
-    return key;
+    return this.key;
   }
 
   public void setKey(String key) {
@@ -67,7 +67,7 @@ public class Pair<T> implements Describable, Serializable {
   }
 
   public T getValue() {
-    return value;
+    return this.value;
   }
 
   public void setValue(T value) {
@@ -76,19 +76,19 @@ public class Pair<T> implements Describable, Serializable {
 
   @Override
   public boolean equals(Object other) {
-    if (other == null) {
+    if (null == other) {
       return false;
     } else if (!(other instanceof Pair)) {
       return false;
     }
     Pair<?> otherPair = (Pair<?>) other;
 
-    return (Objects.equals(key, otherPair.key)) && (Objects.equals(value, otherPair.value));
+    return (Objects.equals(this.key, otherPair.key)) && (Objects.equals(this.value, otherPair.value));
   }
 
 
   public int hashCode() {
-    return (key == null ? 1 : key.hashCode()) * (value == null ? 1 : value.hashCode());
+    return (null == this.key ? 1 : this.key.hashCode()) * (null == this.value ? 1 : this.value.hashCode());
   }
 
 }

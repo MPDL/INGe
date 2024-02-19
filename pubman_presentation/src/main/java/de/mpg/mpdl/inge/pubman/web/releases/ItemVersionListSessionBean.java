@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO.EventType;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.EventLogEntryVOPresentation;
@@ -69,7 +68,7 @@ public class ItemVersionListSessionBean extends FacesBean {
     for (final VersionHistoryVOPresentation vEntry : this.versionList) {
       final List<EventLogEntryVO> eventList = vEntry.getEvents();
       for (final EventLogEntryVO eEntry : eventList) {
-        if (EventType.RELEASE.equals(eEntry.getType())) {
+        if (EventLogEntryVO.EventType.RELEASE.equals(eEntry.getType())) {
           this.releaseList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
         }
 
