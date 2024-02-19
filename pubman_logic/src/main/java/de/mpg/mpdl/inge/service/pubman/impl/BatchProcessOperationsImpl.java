@@ -1,5 +1,11 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO.Method;
@@ -23,10 +29,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 @Service
 @Primary

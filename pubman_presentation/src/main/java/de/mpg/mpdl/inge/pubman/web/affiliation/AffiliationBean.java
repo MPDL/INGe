@@ -1,5 +1,18 @@
 package de.mpg.mpdl.inge.pubman.web.affiliation;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.primefaces.event.NodeExpandEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
@@ -20,22 +33,12 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 import jakarta.faces.model.SelectItem;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
-import org.primefaces.event.NodeExpandEvent;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "AffiliationBean")
 @SessionScoped
 @SuppressWarnings("serial")
 public class AffiliationBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(AffiliationBean.class);
+  private static final Logger logger = LogManager.getLogger(AffiliationBean.class);
 
   public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
 

@@ -41,7 +41,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -62,7 +63,7 @@ import de.mpg.mpdl.inge.util.IdentityHandler;
  */
 public class EdocProcessor extends FormatProcessor {
 
-  private static final Logger logger = Logger.getLogger(EdocProcessor.class);
+  private static final Logger logger = LogManager.getLogger(EdocProcessor.class);
 
 
   @Autowired

@@ -46,7 +46,8 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
@@ -63,7 +64,7 @@ import de.mpg.mpdl.inge.service.aa.Principal;
  *
  */
 public class ZfNProcessor extends FormatProcessor {
-  private static final Logger logger = Logger.getLogger(ZfNProcessor.class);
+  private static final Logger logger = LogManager.getLogger(ZfNProcessor.class);
 
   private boolean init = false;
   private String[] items = null;
@@ -175,7 +176,7 @@ public class ZfNProcessor extends FormatProcessor {
         if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
-          Logger.getLogger(ZfNProcessor.class).warn("WARNING: no content-category has been defined in Genres.xml");
+          LogManager.getLogger(ZfNProcessor.class).warn("WARNING: no content-category has been defined in Genres.xml");
         }
       }
       fileVO.getMetadata().setContentCategory(contentCategory);

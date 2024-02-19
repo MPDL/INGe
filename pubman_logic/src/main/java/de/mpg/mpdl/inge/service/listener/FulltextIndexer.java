@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.service.listener;
 
 import java.io.ByteArrayOutputStream;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.annotation.JmsListener;
@@ -21,7 +22,7 @@ import jakarta.jms.ObjectMessage;
 @Component
 public class FulltextIndexer {
 
-  private static final Logger logger = Logger.getLogger(FulltextIndexer.class);
+  private static final Logger logger = LogManager.getLogger(FulltextIndexer.class);
 
   @Autowired
   PubItemDaoEs pubItemDao;

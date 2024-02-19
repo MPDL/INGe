@@ -6,7 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
 import de.mpg.mpdl.inge.dataacquisition.explainSources.FTFetchSettingType;
@@ -28,7 +29,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  */
 public class DataSourceHandlerService {
-  private static final Logger logger = Logger.getLogger(DataSourceHandlerService.class);
+  private static final Logger logger = LogManager.getLogger(DataSourceHandlerService.class);
 
   public static final String PUBLISHED = "PUBLISHED";
 

@@ -35,7 +35,7 @@ package de.mpg.mpdl.inge.aa.old;
  * 
  */
 public class Config {
-  //  private static final Logger logger = Logger.getLogger(Config.class);
+  //  private static final Logger logger = LogManager.getLogger(Config.class);
   //
   //  private static Properties properties = new Properties();
   //

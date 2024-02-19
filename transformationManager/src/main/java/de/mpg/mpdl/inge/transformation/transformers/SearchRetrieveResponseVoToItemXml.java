@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +13,7 @@ import javax.xml.transform.TransformerFactory;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;

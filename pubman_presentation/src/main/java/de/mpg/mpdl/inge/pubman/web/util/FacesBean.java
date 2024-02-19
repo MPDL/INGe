@@ -30,7 +30,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import org.apache.commons.text.StringEscapeUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
@@ -49,7 +50,7 @@ import jakarta.faces.component.UIComponent;
 @ManagedBean(name = "FacesBean")
 @SuppressWarnings("serial")
 public class FacesBean implements Serializable {
-  private static final Logger logger = Logger.getLogger(FacesBean.class);
+  private static final Logger logger = LogManager.getLogger(FacesBean.class);
 
   private final InternationalizationHelper i18nHelper;
 

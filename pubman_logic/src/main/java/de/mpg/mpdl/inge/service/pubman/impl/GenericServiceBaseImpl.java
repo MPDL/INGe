@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -44,7 +45,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
   private Map<String, ElasticSearchIndexField> indexFields;
 
-  private static final Logger logger = Logger.getLogger(GenericServiceBaseImpl.class);
+  private static final Logger logger = LogManager.getLogger(GenericServiceBaseImpl.class);
 
   protected String beanName;
 

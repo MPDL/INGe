@@ -26,6 +26,13 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming;
 
+import java.io.File;
+import java.util.Date;
+import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
@@ -42,10 +49,6 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
-import java.io.File;
-import java.util.Date;
-import java.util.Properties;
-import org.apache.log4j.Logger;
 
 /**
  * @author Galina Stancheva (initial creation)
@@ -53,7 +56,7 @@ import org.apache.log4j.Logger;
  * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
  */
 public class EmailService {
-  private static final Logger logger = Logger.getLogger(EmailService.class);
+  private static final Logger logger = LogManager.getLogger(EmailService.class);
 
   public static String sendMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
       String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,

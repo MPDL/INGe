@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.pubman.web.releaseItem;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
@@ -20,7 +21,7 @@ import jakarta.faces.bean.ManagedBean;
 @ManagedBean(name = "ReleaseItem")
 @SuppressWarnings("serial")
 public class ReleaseItem extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ReleaseItem.class);
+  private static final Logger logger = LogManager.getLogger(ReleaseItem.class);
 
   public static final String LOAD_RELEASEITEM = "loadReleaseItem";
 

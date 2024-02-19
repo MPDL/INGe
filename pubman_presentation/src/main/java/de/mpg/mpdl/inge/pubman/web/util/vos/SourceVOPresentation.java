@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
@@ -73,17 +73,17 @@ public class SourceVOPresentation extends SourceVO {
     try {
       contentCategoryURI = SourceVOPresentation.class.getClassLoader().getResource("source_genres.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(SourceVOPresentation.class).info("Source genre properties URI is " + contentCategoryURI);
+        LogManager.getLogger(SourceVOPresentation.class).info("Source genre properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         SourceVOPresentation.properties.load(in);
         SourceVOPresentation.properties.putAll(SourceVOPresentation.properties);
         in.close();
-        Logger.getLogger(SourceVOPresentation.class).info("Source genre properties loaded from " + contentCategoryURI);
+        LogManager.getLogger(SourceVOPresentation.class).info("Source genre properties loaded from " + contentCategoryURI);
       } else {
-        Logger.getLogger(SourceVOPresentation.class).debug("Source genre properties file not found.");
+        LogManager.getLogger(SourceVOPresentation.class).debug("Source genre properties file not found.");
       }
     } catch (final Exception e) {
-      Logger.getLogger(SourceVOPresentation.class).warn("WARNING: Source genre properties not found: " + e.getMessage());
+      LogManager.getLogger(SourceVOPresentation.class).warn("WARNING: Source genre properties not found: " + e.getMessage());
     }
     return SourceVOPresentation.properties;
   }

@@ -31,7 +31,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
@@ -53,7 +54,7 @@ import jakarta.faces.bean.ManagedBean;
 @ManagedBean(name = "Search")
 @SuppressWarnings("serial")
 public class Search extends FacesBean {
-  private static final Logger logger = Logger.getLogger(Search.class);
+  private static final Logger logger = LogManager.getLogger(Search.class);
 
   private String searchString;
   private boolean includeFiles;

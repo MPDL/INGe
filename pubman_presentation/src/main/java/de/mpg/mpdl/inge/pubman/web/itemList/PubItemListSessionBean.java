@@ -36,7 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
@@ -73,7 +74,7 @@ import jakarta.faces.model.SelectItem;
 @SessionScoped
 @SuppressWarnings("serial")
 public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(PubItemListSessionBean.class);
+  private static final Logger logger = LogManager.getLogger(PubItemListSessionBean.class);
 
   public static final int MAXIMUM_CART_OR_BATCH_ITEMS = 2800;
 

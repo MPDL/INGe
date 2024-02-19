@@ -30,7 +30,8 @@ import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.ModelList.Predicate;
@@ -46,7 +47,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  */
 public class SQLQuerier implements Querier {
-  private static final Logger logger = Logger.getLogger(SQLQuerier.class);
+  private static final Logger logger = LogManager.getLogger(SQLQuerier.class);
   private final Connection connection;
   protected boolean loggedIn;
 

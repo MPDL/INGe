@@ -7,7 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -15,7 +16,7 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 
 public class ChainTransformer extends SingleTransformer implements Transformer {
 
-  private static final Logger logger = Logger.getLogger(ChainTransformer.class);
+  private static final Logger logger = LogManager.getLogger(ChainTransformer.class);
 
   private List<ChainableTransformer> transformerChain;
 

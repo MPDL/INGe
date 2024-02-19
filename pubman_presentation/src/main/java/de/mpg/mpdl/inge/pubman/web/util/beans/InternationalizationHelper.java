@@ -15,7 +15,8 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -41,7 +42,7 @@ import jakarta.faces.model.SelectItem;
 @SessionScoped
 @SuppressWarnings("serial")
 public class InternationalizationHelper implements Serializable {
-  private static final Logger logger = Logger.getLogger(InternationalizationHelper.class);
+  private static final Logger logger = LogManager.getLogger(InternationalizationHelper.class);
 
   public enum SelectMultipleItems
   {

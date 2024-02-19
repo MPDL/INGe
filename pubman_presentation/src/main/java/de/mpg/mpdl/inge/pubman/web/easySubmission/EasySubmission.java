@@ -24,16 +24,16 @@
  */
 package de.mpg.mpdl.inge.pubman.web.easySubmission;
 
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
@@ -69,6 +69,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
@@ -105,7 +106,7 @@ import jakarta.faces.model.SelectItem;
 @ManagedBean(name = "EasySubmission")
 @SuppressWarnings("serial")
 public class EasySubmission extends FacesBean {
-  private static final Logger logger = Logger.getLogger(EasySubmission.class);
+  private static final Logger logger = LogManager.getLogger(EasySubmission.class);
 
   public static final String LOAD_EASYSUBMISSION = "loadEasySubmission";
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
@@ -158,7 +159,7 @@ public class EasySubmission extends FacesBean {
       ////            contentCategory = contentCategoryMap.values().iterator().next();
       ////          } else {
       ////            this.error(this.getMessage("NoContentCategory"));
-      ////            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+      ////            LogManager.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
       ////          }
       ////        }
       //
@@ -373,7 +374,7 @@ public class EasySubmission extends FacesBean {
   //          contentCategory = contentCategoryMap.values().iterator().next();
   //        } else {
   //          this.error(this.getMessage("NoContentCategory"));
-  //          Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+  //          LogManager.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
   //        }
   //      }
   //
@@ -887,7 +888,7 @@ public class EasySubmission extends FacesBean {
     ////            contentCategory = contentCategoryMap.values().iterator().next();
     ////          } else {
     ////            this.error(this.getMessage("NoContentCategory"));
-    ////            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+    ////            LogManager.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
     ////          }
     ////        }
     //

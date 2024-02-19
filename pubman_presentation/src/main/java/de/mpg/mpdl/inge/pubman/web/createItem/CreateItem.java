@@ -26,7 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.createItem;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -51,7 +52,7 @@ import jakarta.faces.bean.SessionScoped;
 @SessionScoped
 @SuppressWarnings("serial")
 public class CreateItem extends FacesBean {
-  private static final Logger logger = Logger.getLogger(CreateItem.class);
+  private static final Logger logger = LogManager.getLogger(CreateItem.class);
 
   public static final String LOAD_CREATEITEM = "loadCreateItem";
 

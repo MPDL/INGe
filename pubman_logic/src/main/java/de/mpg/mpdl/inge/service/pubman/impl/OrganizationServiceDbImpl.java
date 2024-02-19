@@ -1,12 +1,12 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
@@ -65,7 +66,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public final static String INDEX_STATE = "publicStatus.keyword";
   public final static int OU_SEARCH_LIMIT = -2; // unbegrenzte Suche
 
-  private static final Logger logger = Logger.getLogger(OrganizationServiceDbImpl.class);
+  private static final Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
   private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
 

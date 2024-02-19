@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -22,7 +23,7 @@ import de.undercouch.citeproc.script.ScriptRunnerFactory.RunnerType;
  * @author walter
  */
 public class CitationStyleLanguageManagerService {
-  private static final Logger logger = Logger.getLogger(CitationStyleLanguageManagerService.class);
+  private static final Logger logger = LogManager.getLogger(CitationStyleLanguageManagerService.class);
   private static final String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
   public static List<String> getOutput(String citationStyle, String itemList) throws CitationStyleLanguageException {

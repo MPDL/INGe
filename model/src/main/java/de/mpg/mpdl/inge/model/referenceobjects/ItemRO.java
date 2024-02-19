@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.model.referenceobjects;
 
 import java.util.Date;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -35,7 +36,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import java.util.Objects;
 
 /**
  * The class for item references.

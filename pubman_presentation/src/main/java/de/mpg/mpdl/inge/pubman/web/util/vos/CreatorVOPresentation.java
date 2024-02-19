@@ -34,7 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -55,7 +56,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
  */
 @SuppressWarnings("serial")
 public class CreatorVOPresentation extends CreatorVO {
-  private static final Logger logger = Logger.getLogger(CreatorVOPresentation.class);
+  private static final Logger logger = LogManager.getLogger(CreatorVOPresentation.class);
 
   private static Properties properties;
 
@@ -119,17 +120,17 @@ public class CreatorVOPresentation extends CreatorVO {
     try {
       contentCategoryURI = CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI);
+        LogManager.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         CreatorVOPresentation.properties.load(in);
         CreatorVOPresentation.properties.putAll(CreatorVOPresentation.properties);
         in.close();
-        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI);
+        LogManager.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI);
       } else {
-        Logger.getLogger(CreatorVOPresentation.class).debug("Author-Roles properties file not found.");
+        LogManager.getLogger(CreatorVOPresentation.class).debug("Author-Roles properties file not found.");
       }
     } catch (final Exception e) {
-      Logger.getLogger(CreatorVOPresentation.class).warn("WARNING: Author-Roles properties not found: " + e.getMessage());
+      LogManager.getLogger(CreatorVOPresentation.class).warn("WARNING: Author-Roles properties not found: " + e.getMessage());
     }
     return CreatorVOPresentation.properties;
   }

@@ -6,7 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.reflections.Reflections;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
@@ -14,7 +15,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 
 public class TransformerFactory {
-  private static final Logger logger = Logger.getLogger(TransformerFactory.class);
+  private static final Logger logger = LogManager.getLogger(TransformerFactory.class);
 
   public static final String ARXIV = "arXiv";
   public static final String BIBTEX = "BibTeX";

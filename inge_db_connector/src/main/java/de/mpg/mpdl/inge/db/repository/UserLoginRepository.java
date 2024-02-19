@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.db.repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import jakarta.persistence.PersistenceContext;
 @Service
 public class UserLoginRepository {
 
-  private static final Logger logger = Logger.getLogger(UserLoginRepository.class);
+  private static final Logger logger = LogManager.getLogger(UserLoginRepository.class);
 
   @PersistenceContext
   private EntityManager entityManager;

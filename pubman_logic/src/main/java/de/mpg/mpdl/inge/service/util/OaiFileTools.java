@@ -9,14 +9,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class OaiFileTools {
 
-  private static final Logger logger = Logger.getLogger(OaiFileTools.class);
+  private static final Logger logger = LogManager.getLogger(OaiFileTools.class);
 
   private static final String OAI_FILESYSTEM_ROOT_PATH =
       System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_OAI_FILESYSTEM_PATH);

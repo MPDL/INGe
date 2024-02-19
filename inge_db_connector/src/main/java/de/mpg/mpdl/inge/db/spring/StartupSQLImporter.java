@@ -6,7 +6,8 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.dialect.PostgreSQLDialect;
 import org.hibernate.tool.schema.internal.script.MultiLineSqlScriptExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,14 @@ public class StartupSQLImporter {
 
   private static boolean databaseInitialized = false;
 
-  private static final Logger logger = Logger.getLogger(StartupSQLImporter.class);
+  private static final Logger logger = LogManager.getLogger(StartupSQLImporter.class);
 
   @Autowired
   private EntityManager entityManager;
 
   /**
    * Initializes the database by executing the SQL script from db_init.sql once on every startup
-   * 
+   *
    */
   @EventListener(ContextRefreshedEvent.class)
   @Transactional

@@ -28,7 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.itemLog;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
@@ -46,7 +47,7 @@ import jakarta.faces.bean.ManagedBean;
 @ManagedBean(name = "ViewItemLog")
 @SuppressWarnings("serial")
 public class ViewItemLog extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ViewItemLog.class);
+  private static final Logger logger = LogManager.getLogger(ViewItemLog.class);
 
   public static final String LOAD_ITEM_LOG = "loadViewItemLog";
 

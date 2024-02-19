@@ -40,7 +40,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -86,7 +87,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision: 5725 $ $LastChangedDate: 2015-10-07 14:43:23 +0200 (Wed, 07 Oct 2015) $
  */
 public class Bibtex implements BibtexInterface {
-  private static final Logger logger = Logger.getLogger(Bibtex.class);
+  private static final Logger logger = LogManager.getLogger(Bibtex.class);
   private Map<String, String> configuration = null;
   private Set<String> groupSet = null;
   private Set<String> projectSet = null;

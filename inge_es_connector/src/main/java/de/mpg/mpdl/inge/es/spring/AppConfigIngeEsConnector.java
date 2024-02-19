@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.es.spring;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,7 @@ import jakarta.annotation.PreDestroy;
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.es")
 public class AppConfigIngeEsConnector {
-  private static final Logger logger = Logger.getLogger(AppConfigIngeEsConnector.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigIngeEsConnector.class);
 
   @Bean
   public ElasticSearchClientProvider elasticSearchClientProvider() {

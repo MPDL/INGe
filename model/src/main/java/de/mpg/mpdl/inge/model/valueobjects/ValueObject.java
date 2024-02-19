@@ -34,7 +34,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 
@@ -48,7 +49,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 @SuppressWarnings("serial")
 public abstract class ValueObject implements Serializable {
 
-  private static final Logger logger = Logger.getLogger(ValueObject.class);
+  private static final Logger logger = LogManager.getLogger(ValueObject.class);
 
   /*
    * @see java.lang.Object#equals(java.lang.Object)

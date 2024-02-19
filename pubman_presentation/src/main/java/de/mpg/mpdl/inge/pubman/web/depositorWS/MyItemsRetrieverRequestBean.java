@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Objects;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.InlineScript;
@@ -52,7 +53,7 @@ import jakarta.faces.model.SelectItem;
 @ManagedBean(name = "MyItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
+  private static final Logger logger = LogManager.getLogger(MyItemsRetrieverRequestBean.class);
 
   public static final String LOAD_DEPOSITORWS = "loadDepositorWS";
 

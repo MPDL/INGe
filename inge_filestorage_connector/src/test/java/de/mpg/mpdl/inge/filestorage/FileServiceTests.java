@@ -12,7 +12,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -30,18 +31,18 @@ import de.mpg.mpdl.inge.filestorage.spring.FileStorageConnectorConfiguration;
 
 /**
  * Unit test FileServiceBean
- * 
+ *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ContextConfiguration(classes = FileStorageConnectorConfiguration.class)
 public class FileServiceTests {
 
-  private static final Logger logger = Logger.getLogger(FileServiceTests.class);
+  private static final Logger logger = LogManager.getLogger(FileServiceTests.class);
 
   public static final String[] FILE_NAMES = {"test100k.db", "test1Mb.db"};
 
@@ -84,7 +85,7 @@ public class FileServiceTests {
 
   /**
    * Test for creating, reading and deleting a file from seaweedfs
-   * 
+   *
    * @throws IOException
    */
   @Test
@@ -109,7 +110,7 @@ public class FileServiceTests {
 
   /**
    * Test for creating, reading and deleting a file from the filesystem
-   * 
+   *
    * @throws IOException
    */
   @Test

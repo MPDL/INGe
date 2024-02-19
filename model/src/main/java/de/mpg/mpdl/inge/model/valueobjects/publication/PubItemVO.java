@@ -1,13 +1,14 @@
 package de.mpg.mpdl.inge.model.valueobjects.publication;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
 @SuppressWarnings("serial")
 public class PubItemVO extends ItemVO {
 
-  private static final Logger logger = Logger.getLogger(PubItemVO.class);
+  private static final Logger logger = LogManager.getLogger(PubItemVO.class);
 
   /**
    * Default constructor.

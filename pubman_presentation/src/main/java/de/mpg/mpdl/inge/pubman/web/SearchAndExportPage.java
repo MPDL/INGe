@@ -34,7 +34,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,7 +71,7 @@ import jakarta.faces.validator.ValidatorException;
 @SessionScoped
 @SuppressWarnings("serial")
 public class SearchAndExportPage extends BreadcrumbPage {
-  private static final Logger logger = Logger.getLogger(SearchAndExportPage.class);
+  private static final Logger logger = LogManager.getLogger(SearchAndExportPage.class);
 
   private final SearchAndExportService saes = ApplicationBean.INSTANCE.getSearchAndExportService();
 

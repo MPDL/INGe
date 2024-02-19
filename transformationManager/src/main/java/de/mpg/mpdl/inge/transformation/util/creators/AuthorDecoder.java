@@ -30,7 +30,8 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -49,7 +50,7 @@ public class AuthorDecoder {
   private List<List<Author>> authorListList = new ArrayList<>();
   private AuthorFormat bestFormat = null;
 
-  private static final Logger logger = Logger.getLogger(AuthorDecoder.class);
+  private static final Logger logger = LogManager.getLogger(AuthorDecoder.class);
 
   /**
    * @param args

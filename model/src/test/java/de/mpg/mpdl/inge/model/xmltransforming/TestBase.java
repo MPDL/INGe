@@ -41,7 +41,8 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Node;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -100,7 +101,7 @@ public class TestBase {
   /**
    * Logger for this class.
    */
-  private static final Logger logger = Logger.getLogger(TestBase.class);
+  private static final Logger logger = LogManager.getLogger(TestBase.class);
 
 
 

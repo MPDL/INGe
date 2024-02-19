@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.pubman.web.submitItem;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -19,7 +20,7 @@ import jakarta.faces.bean.ManagedBean;
 @ManagedBean(name = "SubmitItem")
 @SuppressWarnings("serial")
 public class SubmitItem extends FacesBean {
-  private static final Logger logger = Logger.getLogger(SubmitItem.class);
+  private static final Logger logger = LogManager.getLogger(SubmitItem.class);
 
   public static final String LOAD_SUBMITITEM = "loadSubmitItem";
 

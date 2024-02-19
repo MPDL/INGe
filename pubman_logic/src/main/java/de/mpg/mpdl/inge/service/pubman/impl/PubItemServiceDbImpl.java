@@ -10,7 +10,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.CacheMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
@@ -83,7 +84,7 @@ import jakarta.persistence.PersistenceContext;
 @Primary
 public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener {
 
-  private static final Logger logger = Logger.getLogger(PubItemServiceDbImpl.class);
+  private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 
   @Autowired
   private AuthorizationService aaService;

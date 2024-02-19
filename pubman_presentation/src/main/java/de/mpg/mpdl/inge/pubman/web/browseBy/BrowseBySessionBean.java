@@ -40,7 +40,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -78,7 +79,7 @@ import jakarta.faces.bean.SessionScoped;
 @SessionScoped
 @SuppressWarnings("serial")
 public class BrowseBySessionBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(BrowseBySessionBean.class);
+  private static final Logger logger = LogManager.getLogger(BrowseBySessionBean.class);
 
   public static final char[] CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ".toCharArray();
 
@@ -259,7 +260,7 @@ public class BrowseBySessionBean extends FacesBean {
       AggregationBuilder aggBuilder =
           AggregationBuilders.dateHistogram(index).field(index).dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
       srr.getAggregationBuilders().add(aggBuilder);
-      
+
        */
     }
 

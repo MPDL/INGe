@@ -32,7 +32,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Helper class for reading properties from the global escidoc property file.
@@ -54,7 +55,7 @@ import org.apache.log4j.Logger;
  * @revised by BrP: 03.09.2007
  */
 public class PropertyReader {
-  private static final Logger logger = Logger.getLogger(PropertyReader.class);
+  private static final Logger logger = LogManager.getLogger(PropertyReader.class);
 
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
   public static final String INGE_AA_CLIENT_FINISH_CLASS = "inge.aa.client.finish.class";

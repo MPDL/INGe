@@ -24,6 +24,15 @@
  */
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
+import java.io.File;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -59,15 +68,9 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import java.io.File;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
 
 public class ImportProcess extends Thread {
-  private static final Logger logger = Logger.getLogger(ImportProcess.class);
+  private static final Logger logger = LogManager.getLogger(ImportProcess.class);
 
   public enum DuplicateStrategy
   {

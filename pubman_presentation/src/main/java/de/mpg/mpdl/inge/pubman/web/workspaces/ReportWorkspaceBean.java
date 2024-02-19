@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -47,7 +48,7 @@ import jakarta.servlet.ServletOutputStream;
 @ManagedBean(name = "ReportWorkspaceBean")
 @SuppressWarnings("serial")
 public class ReportWorkspaceBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ReportWorkspaceBean.class);
+  private static final Logger logger = LogManager.getLogger(ReportWorkspaceBean.class);
 
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;

@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.es.connector;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -20,7 +21,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 @ContextConfiguration(classes = {AppConfigIngeEsConnector.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ItemServiceHandlerTest extends TestBase {
-  private static final Logger logger = Logger.getLogger(ItemServiceHandlerTest.class);
+  private static final Logger logger = LogManager.getLogger(ItemServiceHandlerTest.class);
 
   @Autowired
   private PubItemDaoEs itemDao;

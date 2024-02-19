@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
@@ -33,7 +34,7 @@ import jakarta.persistence.PersistenceContext;
 @Service
 @Primary
 public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String> implements ContextService, ReindexListener {
-  private static final Logger logger = Logger.getLogger(ContextServiceDbImpl.class);
+  private static final Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
   public final static String INDEX_OBJECT_ID = "objectId";
   public final static String INDEX_STATE = "state";

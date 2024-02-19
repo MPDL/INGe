@@ -31,7 +31,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
@@ -55,7 +56,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOLis
  * @revised by MuJ: 21.08.2007
  */
 public class XmlTransformingService {
-  private static final Logger logger = Logger.getLogger(XmlTransformingService.class);
+  private static final Logger logger = LogManager.getLogger(XmlTransformingService.class);
 
   public static String transformToItem(ItemVO itemVO) throws TechnicalException {
     logger.debug("transformToItem(PubItemVO)");

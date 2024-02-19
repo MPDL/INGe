@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 @ControllerAdvice
 public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-  private static final Logger logger = Logger.getLogger(PubmanRestExceptionHandler.class);
+  private static final Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
 
 
   private static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status) {

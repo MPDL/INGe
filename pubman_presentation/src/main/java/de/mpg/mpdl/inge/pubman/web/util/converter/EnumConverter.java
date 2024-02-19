@@ -26,7 +26,9 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.converter;
 
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -41,7 +43,7 @@ import jakarta.faces.convert.Converter;
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
 public class EnumConverter implements Converter {
-  private static final Logger logger = Logger.getLogger(EnumConverter.class);
+  private static final Logger logger = LogManager.getLogger(EnumConverter.class);
 
   private Object[] valueList = null;
 

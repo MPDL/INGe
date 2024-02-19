@@ -32,13 +32,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -52,7 +53,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class XmlComparator {
-  private static final Logger logger = Logger.getLogger(XmlComparator.class);
+  private static final Logger logger = LogManager.getLogger(XmlComparator.class);
 
   private final List<String> errors = new ArrayList<>();
   private final List<XmlNode> elementsToIgnore = new ArrayList<>();

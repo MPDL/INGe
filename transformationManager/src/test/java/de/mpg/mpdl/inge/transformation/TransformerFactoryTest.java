@@ -10,7 +10,8 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,7 +36,7 @@ import de.mpg.mpdl.inge.util.XmlComparator;
 
 public class TransformerFactoryTest {
 
-  private static final Logger logger = Logger.getLogger(TransformerFactoryTest.class);
+  private static final Logger logger = LogManager.getLogger(TransformerFactoryTest.class);
 
   public final static FORMAT[] sourceForESCIDOC_ITEM_V3_XML = {FORMAT.ARXIV_OAIPMH_XML, FORMAT.BIBTEX_STRING, FORMAT.BMC_XML,
       FORMAT.BMC_OAIPMH_XML, FORMAT.EDOC_XML, FORMAT.ENDNOTE_XML, FORMAT.MAB_XML, FORMAT.MARC_XML, FORMAT.MODS_XML, FORMAT.PEER_TEI_XML,

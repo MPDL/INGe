@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
@@ -20,7 +21,7 @@ import jakarta.faces.model.SelectItem;
 
 @SuppressWarnings("serial")
 public class EditItemBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(EditItemBean.class);
+  private static final Logger logger = LogManager.getLogger(EditItemBean.class);
 
   /**
    * Stores a string from a hidden input field (set by javascript) that indicates whether the author

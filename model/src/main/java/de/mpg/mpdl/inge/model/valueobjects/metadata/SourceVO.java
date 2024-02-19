@@ -27,12 +27,12 @@
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
 import java.util.Date;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-import java.util.HashSet;
 
 /**
  * Some items are published as part of a bundle, e.g. a journal, a book, a series or a database. The

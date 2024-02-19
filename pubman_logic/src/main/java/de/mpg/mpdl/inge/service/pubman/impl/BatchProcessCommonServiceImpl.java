@@ -1,5 +1,15 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogDetailRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogHeaderRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessUserLockRepository;
@@ -14,14 +24,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Primary

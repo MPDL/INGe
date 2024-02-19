@@ -8,21 +8,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 
 public class XmlHelperTest {
 
-  private static final Logger logger = Logger.getLogger(XmlHelperTest.class);
+  private static final Logger logger = LogManager.getLogger(XmlHelperTest.class);
 
   private final Set<String> expectedStyles =
       new HashSet<String>(Arrays.asList("APA", "APA6", "APA(CJK)", "AJP", "JUS", "CSL", "JUS_Report", "Default"));
 
   /**
    * Test list of styles
-   * 
+   *
    * @throws Exception Any exception.
    */
   @Test
@@ -40,7 +41,7 @@ public class XmlHelperTest {
 
   /**
    * Test list of styles
-   * 
+   *
    * @throws Exception Any exception.
    */
   @Test

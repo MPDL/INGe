@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.service.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -26,7 +27,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class PubItemUtil {
 
-  private static final Logger logger = Logger.getLogger(PubItemUtil.class);
+  private static final Logger logger = LogManager.getLogger(PubItemUtil.class);
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.

@@ -35,7 +35,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -55,7 +56,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  *
  */
 public class XsltHelper {
-  private static final Logger logger = Logger.getLogger(XsltHelper.class);
+  private static final Logger logger = LogManager.getLogger(XsltHelper.class);
 
   private static Map<Pair, String> citationMap = new HashMap<>();
   private static long lastCitationMapUpdate = 0;

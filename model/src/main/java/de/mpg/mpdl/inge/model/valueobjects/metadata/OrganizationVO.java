@@ -26,10 +26,12 @@
 
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
+import java.util.Arrays;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-import java.util.Arrays;
 
 /**
  * @revised by MuJ: 27.08.2007

@@ -48,7 +48,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
@@ -74,7 +75,7 @@ import jakarta.faces.model.SelectItem;
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 07.08.2007
  */
 public class CommonUtils {
-  private static final Logger logger = Logger.getLogger(CommonUtils.class);
+  private static final Logger logger = LogManager.getLogger(CommonUtils.class);
 
   private static final String NO_ITEM_SET = "-";
   private static final String DATE_FORMAT = "yyyy-MM-dd";

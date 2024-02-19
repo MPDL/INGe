@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.rest.spring;
 
 import java.util.Collections;
+
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

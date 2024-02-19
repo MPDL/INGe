@@ -27,10 +27,10 @@
 package de.mpg.mpdl.inge.aa;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.servlet.http.HttpServletRequest;
-import java.nio.charset.StandardCharsets;
 
 /**
  * TODO Description
@@ -41,7 +41,7 @@ import java.nio.charset.StandardCharsets;
  *
  */
 public class Aa {
-  //  private static final Logger logger = Logger.getLogger(Aa.class);
+  //  private static final Logger logger = LogManager.getLogger(Aa.class);
 
   private AuthenticationVO authenticationVO = null;
 

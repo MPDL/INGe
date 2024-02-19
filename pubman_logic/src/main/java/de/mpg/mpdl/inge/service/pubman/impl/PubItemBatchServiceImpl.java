@@ -1,5 +1,15 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
 import de.mpg.mpdl.inge.db.repository.BatchLogRepository;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
@@ -31,13 +41,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 
 /**
@@ -50,7 +53,7 @@ import org.springframework.stereotype.Service;
 @Primary
 public class PubItemBatchServiceImpl implements PubItemBatchService {
 
-  private static final Logger logger = Logger.getLogger(PubItemBatchServiceImpl.class);
+  private static final Logger logger = LogManager.getLogger(PubItemBatchServiceImpl.class);
 
   @Autowired
   private PubItemService pubItemService;

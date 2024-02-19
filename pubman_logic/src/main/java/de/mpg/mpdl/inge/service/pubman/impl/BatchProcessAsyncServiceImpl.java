@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
@@ -34,7 +35,7 @@ import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
 @Primary
 public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, AsyncConfigurer {
 
-  private static final Logger logger = Logger.getLogger(BatchProcessAsyncServiceImpl.class);
+  private static final Logger logger = LogManager.getLogger(BatchProcessAsyncServiceImpl.class);
 
   private final Executor asyncExecutor;
 

@@ -12,7 +12,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -68,7 +69,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Service
 public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, String> implements UserAccountService, ReindexListener {
 
-  private static final Logger logger = Logger.getLogger(UserAccountServiceImpl.class);
+  private static final Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
   private static final int TOKEN_MAX_AGE_HOURS = 24;
 

@@ -111,7 +111,7 @@
 								<%
 									errors = new ArrayList<>();
 									boolean loggedIn = Login.getLoggedIn(request);
-									Logger logger = Logger.getLogger( "upload.jsp" );
+									Logger logger = LogManager.getLogger( "upload.jsp" );
 
 									if (!loggedIn)
 									{

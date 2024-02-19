@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.mpg.mpdl.inge.cslmanager;
 
@@ -8,7 +8,8 @@ import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -22,15 +23,15 @@ import de.mpg.mpdl.inge.util.DOMUtilities;
 
 /**
  * Utility class for static functions that are often needed when working with CSL
- * 
+ *
  * @author walter
  */
 public class CitationStyleLanguageUtils {
-  private static final Logger logger = Logger.getLogger(CitationStyleLanguageUtils.class);
+  private static final Logger logger = LogManager.getLogger(CitationStyleLanguageUtils.class);
 
   //  /**
   //   * gets a csl style from a url
-  //   * 
+  //   *
   //   * @param url
   //   * @return csl style xml as String or null if no style could be found or read
   //   * @throws Exception
@@ -51,7 +52,7 @@ public class CitationStyleLanguageUtils {
 
   /**
    * gets a csl style from a cone url delivered in json format
-   * 
+   *
    * @param url
    * @return csl style xml as String or null if no style could be found or read
    * @throws Exception
@@ -88,7 +89,7 @@ public class CitationStyleLanguageUtils {
 
   /**
    * parses the default-locale value of a csl citation style
-   * 
+   *
    * @return
    */
   protected static String parseDefaultLocaleFromStyle(String style) {
@@ -120,7 +121,7 @@ public class CitationStyleLanguageUtils {
 
   /**
    * parses a tag value out of an xml
-   * 
+   *
    * @param xml
    * @param tagName
    * @return

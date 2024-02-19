@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @Hidden
 public class OaiRestController {
 
-  private static final Logger logger = Logger.getLogger(OaiRestController.class);
+  private static final Logger logger = LogManager.getLogger(OaiRestController.class);
 
   @Autowired
   ElasticSearchClientProvider client;

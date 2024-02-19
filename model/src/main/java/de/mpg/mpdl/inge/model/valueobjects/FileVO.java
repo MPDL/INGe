@@ -26,15 +26,17 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * A file that is contained in an item.

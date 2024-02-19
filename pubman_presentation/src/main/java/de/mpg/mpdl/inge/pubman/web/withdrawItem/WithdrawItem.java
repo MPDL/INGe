@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.pubman.web.withdrawItem;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -18,7 +19,7 @@ import jakarta.faces.bean.ManagedBean;
 @ManagedBean(name = "WithdrawItem")
 @SuppressWarnings("serial")
 public class WithdrawItem extends FacesBean {
-  private static final Logger logger = Logger.getLogger(WithdrawItem.class);
+  private static final Logger logger = LogManager.getLogger(WithdrawItem.class);
 
   public static final String LOAD_WITHDRAWITEM = "loadWithdrawItem";
 

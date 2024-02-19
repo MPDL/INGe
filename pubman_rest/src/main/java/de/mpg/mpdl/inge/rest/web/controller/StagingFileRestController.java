@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Tag(name = "Upload Files / Staging")
 public class StagingFileRestController {
 
-  private static final Logger logger = Logger.getLogger(StagingFileRestController.class);
+  private static final Logger logger = LogManager.getLogger(StagingFileRestController.class);
   private static final String COMPONENT_NAME_PATH = "/{componentName:.*\\..*}";
 
   @Autowired

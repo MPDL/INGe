@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
@@ -14,7 +15,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 
 @SuppressWarnings("serial")
 public class LocatorUploadBean extends FileLocatorUploadBean {
-  private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
+  private static final Logger logger = LogManager.getLogger(LocatorUploadBean.class);
 
   @Override
   public void locatorUploaded() {

@@ -37,7 +37,8 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class handle URIs in XSLT stylesheets such as xsl:import. In a jar the stylesheet can only
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  * @version $Revision$$LastChangedDate$
  */
 public class LocalUriResolver implements URIResolver {
-  private static final Logger logger = Logger.getLogger(LocalUriResolver.class);
+  private static final Logger logger = LogManager.getLogger(LocalUriResolver.class);
 
   private static final String TRANS_PATH = "transformations/";
 

@@ -32,7 +32,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -62,7 +63,7 @@ public class ModelList {
   }
 
   private static ModelList instance = null;
-  private static final Logger logger = Logger.getLogger(ModelList.class);
+  private static final Logger logger = LogManager.getLogger(ModelList.class);
   private Set<Model> list = new HashSet<>();
   private Map<String, String> defaultNamepaces = new HashMap<>();
   private Map<String, Set<String>> formatMimetypes = new HashMap<>();

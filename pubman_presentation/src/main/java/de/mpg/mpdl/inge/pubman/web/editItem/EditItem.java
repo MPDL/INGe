@@ -24,7 +24,20 @@
  */
 package de.mpg.mpdl.inge.pubman.web.editItem;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.tika.Tika;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
+
 import com.sun.faces.facelets.component.UIRepeat;
+
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -81,15 +94,6 @@ import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.component.html.HtmlCommandLink;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
 import jakarta.faces.model.SelectItem;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import org.apache.log4j.Logger;
-import org.apache.tika.Tika;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.UploadedFile;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving
@@ -101,7 +105,7 @@ import org.primefaces.model.file.UploadedFile;
 @ManagedBean(name = "EditItem")
 @SuppressWarnings("serial")
 public class EditItem extends FacesBean {
-  private static final Logger logger = Logger.getLogger(EditItem.class);
+  private static final Logger logger = LogManager.getLogger(EditItem.class);
 
   public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
   public static final String LOAD_EDITITEM = "loadEditItem";

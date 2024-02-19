@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.FieldValue;
@@ -38,7 +39,7 @@ import jakarta.faces.bean.ManagedBean;
 @ManagedBean(name = "CartItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
+  private static final Logger logger = LogManager.getLogger(CartItemsRetrieverRequestBean.class);
 
   public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBatchOrBasket_NoItemSelected";
 
@@ -94,7 +95,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         SearchRequest.Builder srb = new SearchRequest.Builder().query(idQuery).from(offset).size(limit);
         /*
         SearchSourceBuilder ssb = new SearchSourceBuilder();
-        
+
         ssb.query(idQuery);
         ssb.from(offset);
         ssb.size(limit);

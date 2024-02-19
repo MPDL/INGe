@@ -14,7 +14,8 @@ import java.util.Calendar;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Primary
 public class FileSystemServiceBean implements FileStorageInterface {
 
-  private static final Logger logger = Logger.getLogger(FileSystemServiceBean.class);
+  private static final Logger logger = LogManager.getLogger(FileSystemServiceBean.class);
 
   private static final String FILESYSTEM_ROOT_PATH =
       System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_FILESYSTEM_PATH);

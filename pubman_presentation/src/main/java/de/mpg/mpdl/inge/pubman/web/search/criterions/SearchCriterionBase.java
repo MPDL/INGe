@@ -34,7 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
@@ -88,7 +89,7 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 @SuppressWarnings("serial")
 public abstract class SearchCriterionBase implements Serializable {
-  private static final Logger logger = Logger.getLogger(SearchCriterionBase.class);
+  private static final Logger logger = LogManager.getLogger(SearchCriterionBase.class);
 
   public enum Index
   {

@@ -6,9 +6,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.SortOptions;
@@ -50,7 +51,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
+  private static final Logger logger = LogManager.getLogger(SearchRetrieverRequestBean.class);
 
   //  /**
   //   * The HTTP-GET parameter name for the cql query

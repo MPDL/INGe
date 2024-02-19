@@ -93,7 +93,7 @@
 %>
 
 <%
-	Logger logger = Logger.getLogger("CoNE view.jsp");
+	Logger logger = LogManager.getLogger("CoNE view.jsp");
 
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");

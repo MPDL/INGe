@@ -9,7 +9,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -22,7 +23,7 @@ public class ConeCache {
     static final ConeCache INSTANCE = new ConeCache();
   }
 
-  private static final Logger logger = Logger.getLogger(ConeCache.class);
+  private static final Logger logger = LogManager.getLogger(ConeCache.class);
 
   private static final String DDC_TITLE_QUERY = "ddc/query?format=rdf&q=*&n=0";
   private static final String ISO639_3_IDENTIFIER_QUERY = "iso639-3/query?format=rdf&q=*&mode=full&n=0";

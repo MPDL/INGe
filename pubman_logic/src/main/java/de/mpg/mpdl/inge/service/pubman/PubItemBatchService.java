@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman;
 
+import java.util.List;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
@@ -8,7 +10,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
-import java.util.List;
 
 /**
  * Interface defining the batch functions for PubItems

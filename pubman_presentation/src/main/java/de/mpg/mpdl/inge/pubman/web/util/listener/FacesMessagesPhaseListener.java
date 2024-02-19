@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -27,7 +28,7 @@ import jakarta.faces.event.PhaseListener;
  */
 @SuppressWarnings("serial")
 public class FacesMessagesPhaseListener implements PhaseListener {
-  private static final Logger logger = Logger.getLogger(FacesMessagesPhaseListener.class);
+  private static final Logger logger = LogManager.getLogger(FacesMessagesPhaseListener.class);
 
   private static final String sessionToken = "REDIRECT_MESSAGES_SUPPORT";
 

@@ -26,7 +26,8 @@
 
 package de.mpg.mpdl.inge.model;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -55,7 +56,7 @@ import de.mpg.mpdl.inge.util.XmlUtilities;
  * @revised by MuJ: 03.09.2007
  */
 public class TestBase {
-  private static final Logger logger = Logger.getLogger(TestBase.class);
+  private static final Logger logger = LogManager.getLogger(TestBase.class);
 
   //  protected static final String TEST_FILE_ROOT = "target/test-classes/";
   //  protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr-springer.xml";

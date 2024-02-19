@@ -34,7 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
@@ -72,7 +73,7 @@ import jakarta.faces.model.SelectItem;
 @ManagedBean(name = "BrowseByPage")
 @SuppressWarnings("serial")
 public class BrowseByPage extends BreadcrumbPage {
-  private static final Logger logger = Logger.getLogger(BrowseByPage.class);
+  private static final Logger logger = LogManager.getLogger(BrowseByPage.class);
 
   private final BrowseBySessionBean bbBean = FacesTools.findBean("BrowseBySessionBean");
 

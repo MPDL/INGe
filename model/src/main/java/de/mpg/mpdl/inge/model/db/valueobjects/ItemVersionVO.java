@@ -25,9 +25,10 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Objects;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -84,7 +85,7 @@ public class ItemVersionVO extends ItemVersionRO {
    */
 
 
-  private static final Logger logger = Logger.getLogger(ItemVersionVO.class);
+  private static final Logger logger = LogManager.getLogger(ItemVersionVO.class);
   /**
    * The message of the last action event of this item.
    */

@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.reindex.config;
 
 import java.util.concurrent.Executor;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,7 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 @Import(value = {JPAConfiguration.class, AppConfigPubmanLogic.class})
 @EnableAsync
 public class ReindexConfiguration implements AsyncConfigurer {
-  private static final Logger log = Logger.getLogger(ReindexConfiguration.class.getName());
+  private static final Logger log = LogManager.getLogger(ReindexConfiguration.class.getName());
 
   @Override
   public Executor getAsyncExecutor() {

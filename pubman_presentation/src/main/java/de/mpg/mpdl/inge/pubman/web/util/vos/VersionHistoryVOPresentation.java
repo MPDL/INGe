@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -18,7 +19,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
 @SuppressWarnings("serial")
 public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
-  private static final Logger logger = Logger.getLogger(VersionHistoryVOPresentation.class);
+  private static final Logger logger = LogManager.getLogger(VersionHistoryVOPresentation.class);
 
   private final List<EventLogEntryVOPresentation> eventLogEntries;
 

@@ -6,7 +6,8 @@ import java.io.OutputStream;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.postgresql.PGConnection;
 import org.postgresql.largeobject.LargeObject;
 import org.postgresql.largeobject.LargeObjectManager;
@@ -30,7 +31,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 @Service
 public class PostgresDbFileServiceBean implements FileStorageInterface {
 
-  private static final Logger logger = Logger.getLogger(PostgresDbFileServiceBean.class);
+  private static final Logger logger = LogManager.getLogger(PostgresDbFileServiceBean.class);
 
 
   @Autowired

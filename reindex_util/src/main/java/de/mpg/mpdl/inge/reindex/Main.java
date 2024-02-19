@@ -1,13 +1,14 @@
 package de.mpg.mpdl.inge.reindex;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import de.mpg.mpdl.inge.reindex.beans.Reindex;
 import de.mpg.mpdl.inge.reindex.config.ReindexConfiguration;
 
 public class Main {
-  private static final Logger log = Logger.getLogger(Main.class.getName());
+  private static final Logger log = LogManager.getLogger(Main.class.getName());
 
   public static void main(String[] args) {
     log.info("########### START Reindex ###########");

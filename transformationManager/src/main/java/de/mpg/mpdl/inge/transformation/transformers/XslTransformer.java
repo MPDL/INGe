@@ -15,7 +15,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
@@ -28,7 +29,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public abstract class XslTransformer extends SingleTransformer implements ChainableTransformer {
-  private static final Logger logger = Logger.getLogger(XslTransformer.class);
+  private static final Logger logger = LogManager.getLogger(XslTransformer.class);
 
   public XslTransformer() {
     try {

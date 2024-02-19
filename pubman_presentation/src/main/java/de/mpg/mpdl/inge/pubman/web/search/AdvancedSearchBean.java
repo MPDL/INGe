@@ -25,6 +25,18 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
@@ -72,21 +84,12 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.faces.model.SelectItem;
 import jakarta.faces.model.SelectItemGroup;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.apache.log4j.Logger;
 
 @ManagedBean(name = "AdvancedSearchBean")
 @SessionScoped
 @SuppressWarnings("serial")
 public class AdvancedSearchBean extends FacesBean implements LanguageChangeObserver {
-  private static final Logger logger = Logger.getLogger(AdvancedSearchBean.class);
+  private static final Logger logger = LogManager.getLogger(AdvancedSearchBean.class);
 
   private List<SearchCriterionBase> criterionList;
 

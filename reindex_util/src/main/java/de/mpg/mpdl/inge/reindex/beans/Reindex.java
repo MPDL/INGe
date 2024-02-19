@@ -1,13 +1,14 @@
 package de.mpg.mpdl.inge.reindex.beans;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Reindex {
 
-  private static final Logger log = Logger.getLogger(Reindex.class.getName());
+  private static final Logger log = LogManager.getLogger(Reindex.class.getName());
 
   @Autowired
   private Reindexing reIndexing;

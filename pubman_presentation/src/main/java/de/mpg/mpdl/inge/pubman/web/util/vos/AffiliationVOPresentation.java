@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
@@ -51,7 +52,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
 public class AffiliationVOPresentation extends AffiliationDbVO implements Comparable<AffiliationVOPresentation> {
-  private static final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
+  private static final Logger logger = LogManager.getLogger(AffiliationVOPresentation.class);
 
   private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
   private static final int SHORTENED_LEVEL_LENGTH = 5;

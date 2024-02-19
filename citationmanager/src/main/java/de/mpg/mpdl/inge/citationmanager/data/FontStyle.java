@@ -26,7 +26,9 @@
 package de.mpg.mpdl.inge.citationmanager.data;
 
 import java.awt.Color;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * An instance of the class represents a font style definition
@@ -37,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 
 public class FontStyle {
-  private static final Logger logger = Logger.getLogger(FontStyle.class);
+  private static final Logger logger = LogManager.getLogger(FontStyle.class);
 
   private boolean def; // font is default
   private String name; // name of font

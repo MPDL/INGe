@@ -37,7 +37,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.ModelList.ModelResult;
@@ -54,7 +55,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class ModelHelper {
 
-  private static final Logger logger = Logger.getLogger(ModelHelper.class);
+  private static final Logger logger = LogManager.getLogger(ModelHelper.class);
 
   private static final String REGEX_BRACKETS = "<[^>]+>";
 

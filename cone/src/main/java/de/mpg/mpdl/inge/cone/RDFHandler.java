@@ -32,7 +32,8 @@ import java.util.Stack;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -60,7 +61,7 @@ public class RDFHandler extends DefaultHandler {
   private final Model model;
   private StringBuilder currentContent;
 
-  private static final Logger logger = Logger.getLogger(RDFHandler.class);
+  private static final Logger logger = LogManager.getLogger(RDFHandler.class);
 
   private static final QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF", "rdf");
 

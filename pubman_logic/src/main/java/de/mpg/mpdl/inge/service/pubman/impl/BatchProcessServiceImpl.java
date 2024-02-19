@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ import de.mpg.mpdl.inge.service.util.GrantUtil;
 public class BatchProcessServiceImpl implements BatchProcessService {
 
   private final ContextService contextService;
-  private static final Logger logger = Logger.getLogger(BatchProcessServiceImpl.class);
+  private static final Logger logger = LogManager.getLogger(BatchProcessServiceImpl.class);
 
   private final AuthorizationService authorizationService;
 

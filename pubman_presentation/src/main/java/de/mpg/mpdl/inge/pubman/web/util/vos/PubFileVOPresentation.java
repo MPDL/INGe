@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
@@ -133,7 +133,7 @@ public class PubFileVOPresentation extends FacesBean {
     }
 
     // this.error("There is no such content category defined (" + key + ")");
-    Logger.getLogger(PubFileVOPresentation.class)
+    LogManager.getLogger(PubFileVOPresentation.class)
         .warn("WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
 
     return null;
@@ -151,18 +151,18 @@ public class PubFileVOPresentation extends FacesBean {
     try {
       contentCategoryURI = PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI);
+        LogManager.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         PubFileVOPresentation.properties.load(in);
         PubFileVOPresentation.properties.putAll(PubFileVOPresentation.properties);
         in.close();
 
-        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties loaded from " + contentCategoryURI);
+        LogManager.getLogger(PubFileVOPresentation.class).info("Content-category properties loaded from " + contentCategoryURI);
       } else {
-        Logger.getLogger(PubFileVOPresentation.class).debug("Content-category properties file not found.");
+        LogManager.getLogger(PubFileVOPresentation.class).debug("Content-category properties file not found.");
       }
     } catch (final Exception e) {
-      Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: content-category properties not found: " + e.getMessage());
+      LogManager.getLogger(PubFileVOPresentation.class).warn("WARNING: content-category properties not found: " + e.getMessage());
     }
     return PubFileVOPresentation.properties;
   }

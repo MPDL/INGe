@@ -26,7 +26,8 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming.logging;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.InvocationContext;
@@ -44,7 +45,7 @@ public class LogMethodDurationInterceptor {
     String methodName = ctx.getMethod().getName();
     String target = className + "." + methodName + "()";
 
-    Logger logger = Logger.getLogger(className);
+    Logger logger = LogManager.getLogger(className);
 
     long start = System.currentTimeMillis();
 

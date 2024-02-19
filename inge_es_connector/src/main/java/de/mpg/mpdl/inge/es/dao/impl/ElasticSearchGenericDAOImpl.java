@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -69,7 +70,7 @@ import jakarta.json.stream.JsonGenerator;
  */
 public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
-  private static final Logger logger = Logger.getLogger(ElasticSearchGenericDAOImpl.class);
+  private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
 
   @Autowired
   protected ElasticSearchClientProvider client;
@@ -419,11 +420,11 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       /*
       if (clazz.isAssignableFrom(JsonNode.class)) {
         vo = MapperFactory.getObjectMapper().treeToValue((JsonNode) hit.source(), clazz);
-      
+
       } else {
         vo = (E) hit.source();
       }
-      
+
        */
 
       srr.setData(vo);

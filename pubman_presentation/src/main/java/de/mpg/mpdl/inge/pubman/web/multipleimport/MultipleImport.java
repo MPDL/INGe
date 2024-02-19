@@ -36,7 +36,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
 
@@ -66,7 +67,7 @@ import jakarta.faces.model.SelectItem;
 @SessionScoped
 @SuppressWarnings("serial")
 public class MultipleImport extends FacesBean {
-  private static final Logger logger = Logger.getLogger(MultipleImport.class);
+  private static final Logger logger = LogManager.getLogger(MultipleImport.class);
 
   public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
   public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";

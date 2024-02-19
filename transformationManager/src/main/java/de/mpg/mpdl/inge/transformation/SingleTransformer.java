@@ -12,7 +12,8 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -24,7 +25,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public abstract class SingleTransformer implements Transformer {
 
-  private static final Logger logger = Logger.getLogger(SingleTransformer.class);
+  private static final Logger logger = LogManager.getLogger(SingleTransformer.class);
 
   private TransformerFactory.FORMAT sourceFormat;
 

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,7 +30,7 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class OrganizationServiceTest extends TestBase {
-  private static final Logger logger = Logger.getLogger(OrganizationServiceTest.class);
+  private static final Logger logger = LogManager.getLogger(OrganizationServiceTest.class);
 
   @Autowired
   OrganizationService organizationService;

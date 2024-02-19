@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -24,7 +24,7 @@ public class PropertyReaderTest {
     FileUtils.writeStringToFile(propertiesFile, "test = http://dev-pubman.mpdl.mpg.de", true);
     FileUtils.writeStringToFile(propertiesFile, System.getProperty(PropertyReader.LINE_SEPARATOR), true);
 
-    Logger.getLogger(PropertyReaderTest.class).info("pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
+    LogManager.getLogger(PropertyReaderTest.class).info("pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
   }
 
   @Ignore

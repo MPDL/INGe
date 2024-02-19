@@ -42,7 +42,8 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 /**
@@ -54,7 +55,7 @@ import org.apache.log4j.Logger;
  * @version $Revision$ $LastChangedDate$
  */
 public class ResourceUtil {
-  private static final Logger logger = Logger.getLogger(ResourceUtil.class);
+  private static final Logger logger = LogManager.getLogger(ResourceUtil.class);
 
   /**
    * Gets a resource as InputStream.

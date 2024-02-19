@@ -7,7 +7,8 @@ import javax.cache.Caching;
 import javax.cache.spi.CachingProvider;
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.ehcache.core.util.ClassLoading;
 import org.ehcache.jsr107.EhcacheCachingProvider;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +35,7 @@ import jakarta.persistence.SharedCacheMode;
 @EnableTransactionManagement
 public class JPAConfiguration {
 
-  private static final Logger logger = Logger.getLogger(JPAConfiguration.class);
+  private static final Logger logger = LogManager.getLogger(JPAConfiguration.class);
 
   @Bean
   @Primary

@@ -28,7 +28,8 @@ package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.component;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -54,7 +55,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
  * @revised by MuJ: 03.09.2007
  */
 public class TransformInvalidPubItemTest extends XmlTransformingTestBase {
-  private static final Logger logger = Logger.getLogger(TransformInvalidPubItemTest.class);
+  private static final Logger logger = LogManager.getLogger(TransformInvalidPubItemTest.class);
 
   /**
    * @throws Exception

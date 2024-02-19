@@ -35,7 +35,8 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
@@ -86,7 +87,7 @@ public class ApplicationBean extends FacesBean {
     Production_Server
   }
 
-  private static final Logger logger = Logger.getLogger(ApplicationBean.class);
+  private static final Logger logger = LogManager.getLogger(ApplicationBean.class);
 
   //  private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
 

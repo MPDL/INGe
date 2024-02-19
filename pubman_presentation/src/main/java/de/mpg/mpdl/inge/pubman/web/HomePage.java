@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -29,7 +29,8 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.SortOptions;
@@ -51,14 +52,14 @@ import jakarta.faces.bean.ManagedBean;
 
 /**
  * BackingBean for HomePage.jsp.
- * 
+ *
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 14.08.2007
  */
 @ManagedBean(name = "HomePage")
 @SuppressWarnings("serial")
 public class HomePage extends BreadcrumbPage {
-  private static final Logger logger = Logger.getLogger(HomePage.class);
+  private static final Logger logger = LogManager.getLogger(HomePage.class);
 
   public static final String LOAD_HOMEPAGE = "loadHomePage";
 

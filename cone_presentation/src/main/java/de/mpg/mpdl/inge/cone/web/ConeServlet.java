@@ -59,7 +59,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.TanStore;
 import de.mpg.mpdl.inge.cone.ConeException;
@@ -91,7 +92,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class ConeServlet extends HttpServlet {
 
-  private static final Logger logger = Logger.getLogger(ConeServlet.class);
+  private static final Logger logger = LogManager.getLogger(ConeServlet.class);
   private static final String DB_ERROR_MESSAGE = "Error querying database.";
   private static final String DEFAULT_ENCODING = "UTF-8";
   private static final String DEFAULT_FORMAT = "html";

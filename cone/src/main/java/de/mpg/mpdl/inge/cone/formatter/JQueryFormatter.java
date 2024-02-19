@@ -42,7 +42,8 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
@@ -64,7 +65,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class JQueryFormatter extends AbstractFormatter {
 
-  private static final Logger logger = Logger.getLogger(JQueryFormatter.class);
+  private static final Logger logger = LogManager.getLogger(JQueryFormatter.class);
   private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
   private static final String DEFAULT_ENCODING = "UTF-8";
 

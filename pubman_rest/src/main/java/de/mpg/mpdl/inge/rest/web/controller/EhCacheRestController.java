@@ -5,7 +5,8 @@ import java.util.Iterator;
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class EhCacheRestController {
   @Autowired
   private CacheManager cacheManager;
 
-  private static final Logger logger = Logger.getLogger(EhCacheRestController.class);
+  private static final Logger logger = LogManager.getLogger(EhCacheRestController.class);
 
   @RequestMapping(value = "info", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
   public String info(@RequestParam(value = "name", required = false) String name) {

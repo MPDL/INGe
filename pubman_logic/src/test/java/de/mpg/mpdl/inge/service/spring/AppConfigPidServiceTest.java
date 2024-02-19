@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.spring;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PidServiceMock;
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
 public class AppConfigPidServiceTest {
-  private static final Logger logger = Logger.getLogger(AppConfigPidServiceTest.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigPidServiceTest.class);
 
   @Bean(name = "pidServiceMock")
   @Primary

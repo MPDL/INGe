@@ -26,18 +26,19 @@
 
 package de.mpg.mpdl.inge.pubman.web.contextList;
 
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -61,7 +62,7 @@ import jakarta.faces.bean.SessionScoped;
 @ManagedBean(name = "ContextListSessionBean")
 @SessionScoped
 public class ContextListSessionBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ContextListSessionBean.class);
+  private static final Logger logger = LogManager.getLogger(ContextListSessionBean.class);
 
   private List<PubContextVOPresentation> depositorContextList;
   private List<PubContextVOPresentation> moderatorContextList;

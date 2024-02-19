@@ -7,7 +7,8 @@ import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -43,7 +44,7 @@ import jakarta.jms.JMSException;
 @PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
 
-  private static final Logger logger = Logger.getLogger(AppConfigPubmanLogic.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
 
   private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
 

@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.OutputStream;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -16,7 +17,7 @@ public class FileVOWrapper {
 
   private final FileStorageInterface fileStorageInterface;
 
-  private static final Logger logger = Logger.getLogger(FileVOWrapper.class);
+  private static final Logger logger = LogManager.getLogger(FileVOWrapper.class);
 
 
   protected FileVOWrapper(String fileId, FileDbVO fileVO, FileStorageInterface fileStorageInterface) {

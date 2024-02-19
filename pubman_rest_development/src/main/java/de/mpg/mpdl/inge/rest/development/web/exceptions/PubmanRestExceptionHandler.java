@@ -1,7 +1,8 @@
 package de.mpg.mpdl.inge.rest.development.web.exceptions;
 
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,7 @@ import java.util.List;
 @ControllerAdvice
 public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-  private static final Logger logger = Logger.getLogger(PubmanRestExceptionHandler.class);
+  private static final Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
 
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

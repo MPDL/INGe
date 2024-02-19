@@ -35,7 +35,8 @@ import java.util.Vector;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -52,7 +53,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
  */
 @SuppressWarnings("serial")
 public abstract class FileLocatorUploadBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(FileLocatorUploadBean.class);
+  private static final Logger logger = LogManager.getLogger(FileLocatorUploadBean.class);
 
   protected String name; // File Name
   protected String locator; // File Location

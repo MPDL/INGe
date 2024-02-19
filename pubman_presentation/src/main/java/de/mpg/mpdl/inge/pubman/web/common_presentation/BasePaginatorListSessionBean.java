@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -36,7 +37,7 @@ import jakarta.faces.model.SelectItem;
  */
 @SuppressWarnings("serial")
 public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria> extends FacesBean {
-  private static final Logger logger = Logger.getLogger(BasePaginatorListSessionBean.class);
+  private static final Logger logger = LogManager.getLogger(BasePaginatorListSessionBean.class);
 
   /**
    * The GET parameter name for the elements per page value

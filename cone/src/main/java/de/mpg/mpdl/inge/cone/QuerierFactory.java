@@ -15,19 +15,20 @@
  */
 package de.mpg.mpdl.inge.cone;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Factory class to retrieve an appropriate implementation of the {@link Querier} interface.
- * 
+ *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
 public class QuerierFactory {
-  private static final Logger logger = Logger.getLogger(QuerierFactory.class);
+  private static final Logger logger = LogManager.getLogger(QuerierFactory.class);
   private static final String DEFAULT_QUERIER = SQLQuerier.class.getName();
 
   /**
@@ -37,7 +38,7 @@ public class QuerierFactory {
 
   /**
    * Retrieve correct {@link Querier} instance defined by property.
-   * 
+   *
    * @return An instance of the currently used {@link Querier} implementation
    */
   public static Querier newQuerier(boolean loggedIn) {

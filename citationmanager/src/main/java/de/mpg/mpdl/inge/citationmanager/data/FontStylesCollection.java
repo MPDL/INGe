@@ -25,15 +25,17 @@
 
 package de.mpg.mpdl.inge.citationmanager.data;
 
-import de.mpg.mpdl.inge.util.ResourceUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.SAXException;
+
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * An instance of this class represents a Collection of {@link FontStyle}s

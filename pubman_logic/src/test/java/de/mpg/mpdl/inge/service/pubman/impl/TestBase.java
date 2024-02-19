@@ -2,7 +2,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import static org.junit.Assert.fail;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 
 
@@ -38,7 +37,7 @@ public class TestBase {
 
 
 
-  private static final Logger logger = Logger.getLogger(TestBase.class);
+  private static final Logger logger = LogManager.getLogger(TestBase.class);
 
   @Rule
   public final TestName name = new TestName();

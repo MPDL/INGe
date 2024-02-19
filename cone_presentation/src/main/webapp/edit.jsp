@@ -64,7 +64,7 @@
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
 <%!
-	static final Logger logger = Logger.getLogger("CoNE edit.jsp");
+	static final Logger logger = LogManager.getLogger("CoNE edit.jsp");
 	List<String> errors;
 	List<String> messages;
 	boolean warning;

@@ -26,7 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -45,7 +46,7 @@ import jakarta.faces.component.html.HtmlPanelGrid;
 @ManagedBean(name = "ErrorPage")
 @SuppressWarnings("serial")
 public class ErrorPage extends BreadcrumbPage {
-  private static final Logger logger = Logger.getLogger(ErrorPage.class);
+  private static final Logger logger = LogManager.getLogger(ErrorPage.class);
 
   public static final String LOAD_ERRORPAGE = "loadErrorPage";
 

@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.model.xmltransforming.xmltransforming;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jibx.runtime.IAliasable;
 import org.jibx.runtime.IMarshallable;
 import org.jibx.runtime.IMarshaller;
@@ -15,7 +16,7 @@ import org.jibx.runtime.impl.MarshallingContext;
 import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 
 public class MetadataSetMarshaller implements IMarshaller, IAliasable {
-  private static final Logger logger = Logger.getLogger(MetadataSetMarshaller.class);
+  private static final Logger logger = LogManager.getLogger(MetadataSetMarshaller.class);
 
   private static final String NAME_ATTRIBUTE_NAME = "name";
   private static final String RECORD_ELEMENT_NAME = "md-record";

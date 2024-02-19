@@ -15,7 +15,8 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -26,7 +27,7 @@ public class XmlUtilities {
   /**
    * Logger for this class.
    */
-  private static final Logger logger = Logger.getLogger(XmlUtilities.class);
+  private static final Logger logger = LogManager.getLogger(XmlUtilities.class);
   private static Map<String, Schema> schemas = null;
 
   /**

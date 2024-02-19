@@ -14,7 +14,8 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Primary
 public class PidServiceImpl implements PidService {
 
-  private static final Logger logger = Logger.getLogger(PidServiceImpl.class);
+  private static final Logger logger = LogManager.getLogger(PidServiceImpl.class);
 
   private static final String URL = "url";
 

@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.FieldValue;
@@ -58,7 +59,7 @@ import jakarta.faces.model.SelectItem;
 @ManagedBean(name = "MyTasksRetrieverRequestBean")
 @SuppressWarnings("serial")
 public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
-  private static final Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
+  private static final Logger logger = LogManager.getLogger(MyTasksRetrieverRequestBean.class);
 
   public static final String LOAD_QAWS = "loadQAWSPage";
 

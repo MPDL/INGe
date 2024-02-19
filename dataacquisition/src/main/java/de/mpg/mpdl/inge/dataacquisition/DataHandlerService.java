@@ -45,7 +45,8 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
@@ -67,7 +68,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author $Author$ (last modification)
  */
 public class DataHandlerService {
-  private static final Logger logger = Logger.getLogger(DataHandlerService.class);
+  private static final Logger logger = LogManager.getLogger(DataHandlerService.class);
 
   private static final String CROSSREF = "crossref";
   private static final String PROTOCOL_OAI = "oai-pmh";

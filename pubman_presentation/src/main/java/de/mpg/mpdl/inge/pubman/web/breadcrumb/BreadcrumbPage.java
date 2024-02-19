@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.pubman.web.breadcrumb;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -21,7 +22,7 @@ import jakarta.faces.context.FacesContext;
  */
 @SuppressWarnings("serial")
 public abstract class BreadcrumbPage extends FacesBean {
-  private static final Logger logger = Logger.getLogger(BreadcrumbPage.class);
+  private static final Logger logger = LogManager.getLogger(BreadcrumbPage.class);
 
   private BreadcrumbItem previousItem = null;
 

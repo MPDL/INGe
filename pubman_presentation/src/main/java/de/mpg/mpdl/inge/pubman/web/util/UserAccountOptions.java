@@ -26,7 +26,8 @@
 
 package de.mpg.mpdl.inge.pubman.web.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
@@ -46,7 +47,7 @@ import jakarta.faces.bean.ManagedBean;
 @ManagedBean(name = "UserAccountOptions")
 public class UserAccountOptions extends FacesBean {
   public static final String BEAN_NAME = "UserAccountOptionsBean";
-  private static final Logger logger = Logger.getLogger(UserAccountOptions.class);
+  private static final Logger logger = LogManager.getLogger(UserAccountOptions.class);
   private LoginHelper loginHelper;
 
   private String loginName;

@@ -1,13 +1,14 @@
 package de.mpg.mpdl.inge.aa.web.client;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class LogoutClient extends Client {
 
-  private static final Logger logger = Logger.getLogger(LogoutClient.class);
+  private static final Logger logger = LogManager.getLogger(LogoutClient.class);
 
   @Override
   protected void process(HttpServletRequest request, HttpServletResponse response) throws Exception {

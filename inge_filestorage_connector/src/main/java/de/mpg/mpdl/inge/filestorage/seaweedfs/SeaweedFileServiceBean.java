@@ -7,8 +7,8 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-
 import java.nio.charset.StandardCharsets;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,7 +19,8 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Service
 public class SeaweedFileServiceBean implements FileStorageInterface {
 
-  private static final Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
+  private static final Logger logger = LogManager.getLogger(SeaweedFileServiceBean.class);
 
   private static final String SEAWEED_MASTER_URL = PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_SEAWEED_MASTER_SERVER_IP);
 

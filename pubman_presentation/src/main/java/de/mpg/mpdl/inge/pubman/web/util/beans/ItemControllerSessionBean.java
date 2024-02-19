@@ -28,7 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.util.beans;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
@@ -83,7 +84,7 @@ import jakarta.faces.bean.SessionScoped;
 @SessionScoped
 @SuppressWarnings("serial")
 public class ItemControllerSessionBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
+  private static final Logger logger = LogManager.getLogger(ItemControllerSessionBean.class);
 
   private PubItemVOPresentation currentPubItem = null;
   private ContextDbVO currentContext = null;

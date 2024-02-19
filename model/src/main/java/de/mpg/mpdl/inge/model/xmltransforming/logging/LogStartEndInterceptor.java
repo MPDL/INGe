@@ -26,7 +26,8 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming.logging;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.InvocationContext;
@@ -39,7 +40,7 @@ import jakarta.interceptor.InvocationContext;
  * @revised by MuJ: 03.09.2007
  */
 public class LogStartEndInterceptor {
-  private static final Logger logger = Logger.getLogger(LogStartEndInterceptor.class);
+  private static final Logger logger = LogManager.getLogger(LogStartEndInterceptor.class);
 
   @AroundInvoke
   public Object log(InvocationContext ctx) throws Exception {

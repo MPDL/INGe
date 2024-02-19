@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.inge_validation;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -10,7 +11,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
 @Service
 public class ItemValidatingService {
-  private static final Logger logger = Logger.getLogger(ItemValidatingService.class);
+  private static final Logger logger = LogManager.getLogger(ItemValidatingService.class);
 
   public void validate(final ItemVersionVO itemVO, final ValidationPoint validationPoint)
       throws ValidationServiceException, ValidationException {

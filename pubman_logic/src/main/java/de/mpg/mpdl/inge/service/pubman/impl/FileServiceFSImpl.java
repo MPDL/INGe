@@ -26,7 +26,8 @@ import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.io.TikaInputStream;
@@ -72,7 +73,7 @@ import net.arnx.wmf2svg.util.Base64;
 @Service
 @Primary
 public class FileServiceFSImpl implements FileService, FileServiceExternal {
-  private static final Logger logger = Logger.getLogger(FileServiceFSImpl.class);
+  private static final Logger logger = LogManager.getLogger(FileServiceFSImpl.class);
 
   private static final String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
       + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);

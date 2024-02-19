@@ -33,7 +33,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
@@ -57,7 +58,7 @@ import jakarta.faces.event.ValueChangeEvent;
  */
 @SuppressWarnings("serial")
 public class FileBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(FileBean.class);
+  private static final Logger logger = LogManager.getLogger(FileBean.class);
 
   private FileDbVO file;
   private List<String> searchHits = new ArrayList<>();

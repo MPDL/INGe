@@ -39,7 +39,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -77,7 +78,7 @@ import de.mpg.mpdl.inge.util.XmlUtilities;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SiteMapTask {
-  private static final Logger logger = Logger.getLogger(SiteMapTask.class);
+  private static final Logger logger = LogManager.getLogger(SiteMapTask.class);
 
   public static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
 

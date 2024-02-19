@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -33,7 +33,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -57,14 +58,14 @@ import de.mpg.mpdl.inge.util.XmlComparator;
 
 /**
  * Test of {@link XmlTransforming} methods for transforming PubItemVOs to XML and back.
- * 
+ *
  * @author Johannes M&uuml;ller (initial creation)
  * @author $Author$ (last change)
  * @version $Revision$ $LastChangedDate: 2007-08-20 19:55:57 +0200 (Mo, 20 Aug 2007)
  * @revised by MuJ: 21.08.2007
  */
 public class TransformPubItemTest extends XmlTransformingTestBase {
-  private static final Logger logger = Logger.getLogger(TransformPubItemTest.class);
+  private static final Logger logger = LogManager.getLogger(TransformPubItemTest.class);
 
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformPubItemTest/";
   private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
@@ -78,7 +79,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
    * Test method for
    * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransforming#transformToItem(java.lang.String)}
    * .
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -161,7 +162,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test of {@link XmlTransforming#transformToItemList(List)}
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -199,7 +200,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
    * Test method for
    * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(ItemVO)} ;
    * checks whether the metadata part meets the requirements.
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -232,7 +233,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
    * Test method for
    * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(java.lang.String)}
    * .
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -266,7 +267,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
    * Test method for
    * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(java.lang.String)}
    * .
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -294,7 +295,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
    * Test method for
    * {@link de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService#transformToItem(java.lang.String)}
    * .
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -319,7 +320,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test method for local tags.
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -340,7 +341,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
   /**
    * Test method for checking the identity of a PubItem after being transformed to an item(XML) and
    * back.
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -379,7 +380,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
   /**
    * Test method for checking the identity of a PubItem after being transformed to an item(VO) and
    * back.
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -410,7 +411,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test method for checking the correct transformation of the creator in the metadata.
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -465,7 +466,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   /**
    * Test method for checking the correct transformation of the creator in the metadata.
-   * 
+   *
    * @throws Exception
    */
   @Test
@@ -492,7 +493,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
   /**
    * Test method for checking the correct transformation of an item-list[XML] to a
    * List&lt;PubItemVO&gt;.
-   * 
+   *
    * @throws Exception Any exception
    */
   @Test

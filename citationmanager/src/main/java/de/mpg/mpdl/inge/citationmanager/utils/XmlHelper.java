@@ -43,7 +43,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -71,7 +72,7 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 public class XmlHelper {
 
-  private static final Logger logger = Logger.getLogger(XmlHelper.class);
+  private static final Logger logger = LogManager.getLogger(XmlHelper.class);
 
   public static final String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
   public static final String SCHEMATRON_DIRECTORY = "Schematron/";

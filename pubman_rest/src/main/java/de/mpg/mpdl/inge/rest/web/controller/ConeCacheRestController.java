@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @Hidden
 public class ConeCacheRestController {
 
-  private static final Logger logger = Logger.getLogger(ConeCacheRestController.class);
+  private static final Logger logger = LogManager.getLogger(ConeCacheRestController.class);
 
   @RequestMapping(value = "refresh", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
   public String refresh() {

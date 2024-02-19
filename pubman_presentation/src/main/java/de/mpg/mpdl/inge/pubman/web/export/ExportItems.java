@@ -27,7 +27,8 @@ package de.mpg.mpdl.inge.pubman.web.export;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
@@ -54,7 +55,7 @@ import jakarta.faces.model.SelectItemGroup;
 @SessionScoped
 @SuppressWarnings("serial")
 public class ExportItems extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ExportItems.class);
+  private static final Logger logger = LogManager.getLogger(ExportItems.class);
 
   public static final String MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED = "exportItems_RecipientsAreNotDefined";
   public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";

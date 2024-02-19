@@ -6,7 +6,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -63,7 +64,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Tag(name = "Items / Publications")
 public class ItemRestController {
 
-  private static final Logger logger = Logger.getLogger(ItemRestController.class);
+  private static final Logger logger = LogManager.getLogger(ItemRestController.class);
 
   private final String ITEM_ID_PATH = "/{itemId}";
   private final String ITEM_ID_VAR = "itemId";

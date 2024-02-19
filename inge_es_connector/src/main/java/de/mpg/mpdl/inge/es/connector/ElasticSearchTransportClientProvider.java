@@ -5,7 +5,8 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 
@@ -23,7 +24,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
   private final String user = PropertyReader.getProperty(PropertyReader.INGE_ES_USER);
   private final String pass = PropertyReader.getProperty(PropertyReader.INGE_ES_PASSWORD);
 
-  private static final Logger logger = Logger.getLogger(ElasticSearchTransportClientProvider.class);
+  private static final Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
 

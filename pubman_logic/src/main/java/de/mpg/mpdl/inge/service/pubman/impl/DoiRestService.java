@@ -13,7 +13,8 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
@@ -38,7 +39,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class DoiRestService {
 
-  private static final Logger logger = Logger.getLogger(DoiRestService.class);
+  private static final Logger logger = LogManager.getLogger(DoiRestService.class);
 
 
   /**

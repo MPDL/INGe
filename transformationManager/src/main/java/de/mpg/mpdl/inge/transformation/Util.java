@@ -46,7 +46,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tika.Tika;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
@@ -67,7 +68,7 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
  *
  */
 public class Util {
-  private static final Logger logger = Logger.getLogger(Util.class);
+  private static final Logger logger = LogManager.getLogger(Util.class);
   //  private static long coneSessionTimestamp = 0;
   //  private static String coneSession = null;
 

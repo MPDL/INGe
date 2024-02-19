@@ -3,7 +3,8 @@ package de.mpg.mpdl.inge.service.util;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.google.common.cache.CacheBuilder;
@@ -13,7 +14,7 @@ import com.google.common.cache.LoadingCache;
 @Service
 public class UserAccountLoginAttemptsCacheUtil {
 
-  private static final Logger logger = Logger.getLogger(UserAccountLoginAttemptsCacheUtil.class);
+  private static final Logger logger = LogManager.getLogger(UserAccountLoginAttemptsCacheUtil.class);
 
   public final int ATTEMPT_TIMER = 30; // in Minutes
   private final LoadingCache<String, Integer> attemptsCache;

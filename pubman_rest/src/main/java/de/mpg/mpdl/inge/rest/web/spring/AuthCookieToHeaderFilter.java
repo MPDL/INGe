@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -38,7 +39,7 @@ public class AuthCookieToHeaderFilter implements Filter {
   public static final String COOKIE_NAME = "inge_auth_token";
   public static final String AUTHZ_HEADER = "Authorization";
 
-  private static final Logger logger = Logger.getLogger(AuthCookieToHeaderFilter.class);
+  private static final Logger logger = LogManager.getLogger(AuthCookieToHeaderFilter.class);
 
   private UserAccountService userAccountService;
 

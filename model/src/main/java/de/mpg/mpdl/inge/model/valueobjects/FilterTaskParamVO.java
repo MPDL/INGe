@@ -33,7 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -56,7 +57,7 @@ public class FilterTaskParamVO extends ValueObject {
 
   private final List<Filter> filterList = new ArrayList<>();
 
-  private static final Logger logger = Logger.getLogger(FilterTaskParamVO.class);
+  private static final Logger logger = LogManager.getLogger(FilterTaskParamVO.class);
 
   /**
    * @return the filter

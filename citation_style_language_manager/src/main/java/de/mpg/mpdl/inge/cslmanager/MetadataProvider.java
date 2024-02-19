@@ -13,7 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.text.WordUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -41,7 +42,7 @@ import de.undercouch.citeproc.csl.CSLType;
  *
  */
 public class MetadataProvider implements ItemDataProvider {
-  private static final Logger logger = Logger.getLogger(MetadataProvider.class);
+  private static final Logger logger = LogManager.getLogger(MetadataProvider.class);
 
   private static final String[] dateFormats = {"yyyy-MM-dd", "yyyy-MM", "yyyy"};
 

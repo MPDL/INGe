@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 
@@ -21,7 +22,7 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
  *
  */
 public class WoSImport {
-  private static final Logger logger = Logger.getLogger(WoSImport.class);
+  private static final Logger logger = LogManager.getLogger(WoSImport.class);
 
   private static final String URL = "/home/kurt/Dokumente/wok-isi-test.txt";
 

@@ -27,11 +27,11 @@
 package de.mpg.mpdl.inge.aa.web.client;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
 
 /**
  * TODO Description

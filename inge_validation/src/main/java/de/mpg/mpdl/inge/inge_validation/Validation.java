@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.inge_validation;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
@@ -44,7 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 public class Validation {
 
-  private static final Logger logger = Logger.getLogger(Validation.class);
+  private static final Logger logger = LogManager.getLogger(Validation.class);
 
   public Validation() {}
 
@@ -336,7 +337,7 @@ public class Validation {
   // ### Yearbook Section ########################################
 
   //  private boolean isBook(MdsPublicationVO.Genre genre) {
-  //    return (MdsPublicationVO.Genre.BOOK.equals(genre) // 
+  //    return (MdsPublicationVO.Genre.BOOK.equals(genre) //
   //        || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre) //
   //        || MdsPublicationVO.Genre.COMMENTARY.equals(genre) //
   //        || MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre) //
