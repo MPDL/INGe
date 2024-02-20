@@ -77,17 +77,17 @@ public class CreatorVOPresentation extends CreatorVO {
     this.list = list;
     this.bean = bean;
     if (null != creatorVO) {
-      this.setOrganization(creatorVO.getOrganization());
-      this.setPerson(creatorVO.getPerson());
+      this.surrogateOrganization = creatorVO.getOrganization();
+      this.surrogatePerson = creatorVO.getPerson();
       this.setRole(creatorVO.getRole());
       this.setType(creatorVO.getType());
 
-      if (null != this.getOrganization() && null == this.getOrganization().getName()) {
-        this.getOrganization().setName("");
+      if (null != this.surrogateOrganization && null == this.surrogateOrganization.getName()) {
+        this.surrogateOrganization.setName("");
       }
 
-      if (null != this.getPerson() && null == this.getPerson().getIdentifier()) {
-        this.getPerson().setIdentifier(new IdentifierVO());
+      if (null != this.surrogatePerson && null == this.surrogatePerson.getIdentifier()) {
+        this.surrogatePerson.setIdentifier(new IdentifierVO());
       }
     }
   }
@@ -122,7 +122,6 @@ public class CreatorVOPresentation extends CreatorVO {
         LogManager.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         CreatorVOPresentation.properties.load(in);
-        CreatorVOPresentation.properties.putAll(CreatorVOPresentation.properties);
         in.close();
         LogManager.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI);
       } else {
@@ -222,7 +221,7 @@ public class CreatorVOPresentation extends CreatorVO {
   public String getOuNumbers() {
     if (this.isPersonType() && null == this.ouNumbers) {
       final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
-      for (final OrganizationVO organization : this.getPerson().getOrganizations()) {
+      for (final OrganizationVO organization : this.surrogatePerson.getOrganizations()) {
         if (null == this.ouNumbers) {
           this.ouNumbers = "";
         } else {
@@ -272,7 +271,7 @@ public class CreatorVOPresentation extends CreatorVO {
       }
       result += values[i];
     }
-    this.setOuNumbers(result);
+    this.ouNumbers = result;
   }
 
   public void setOuNumbers(String ouNumbers) {
@@ -282,14 +281,14 @@ public class CreatorVOPresentation extends CreatorVO {
   private void init(CreatorType type) {
     if (CreatorType.PERSON == type) {
       this.setType(CreatorType.PERSON);
-      this.setPerson(new PersonVO());
-      this.getPerson().setIdentifier(new IdentifierVO());
-      this.getPerson().getIdentifier().setType(IdentifierVO.IdType.CONE);
-      this.getPerson().setOrganizations(new ArrayList<>());
+      this.surrogatePerson = new PersonVO();
+      this.surrogatePerson.setIdentifier(new IdentifierVO());
+      this.surrogatePerson.getIdentifier().setType(IdentifierVO.IdType.CONE);
+      this.surrogatePerson.setOrganizations(new ArrayList<>());
     } else if (CreatorType.ORGANIZATION == type) {
       this.setType(CreatorType.ORGANIZATION);
-      this.setOrganization(new OrganizationVO());
-      this.getOrganization().setName("");
+      this.surrogateOrganization = new OrganizationVO();
+      this.surrogateOrganization.setName("");
     }
   }
 

@@ -114,21 +114,20 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public void cleanup() {
     super.clean();
 
-    this.getFiles().clear();
-    this.getLocators().clear();
-    this.setGenreBundle("Genre_ARTICLE");
-    this.setSelectedDate("");
+    this.files.clear();
+    this.locators.clear();
+    this.genreBundle = "Genre_ARTICLE";
+    this.selectedDate = "";
     this.initAuthorCopyPasteCreatorBean();
-    this.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+    this.currentSubmissionStep = EasySubmissionSessionBean.ES_STEP3;
   }
 
   public void checkMinAnzLocators() {
-    if (this.getLocators().isEmpty()
-        || !this.getLocators().isEmpty() && 0 < this.getLocators().get(this.getLocators().size() - 1).getFile().getSize()) {
+    if (this.locators.isEmpty() || !this.locators.isEmpty() && 0 < this.locators.get(this.locators.size() - 1).getFile().getSize()) {
       final FileDbVO newLocator = new FileDbVO();
       newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-      this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+      this.locators.add(new PubFileVOPresentation(0, newLocator, true));
     }
   }
 
@@ -229,7 +228,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
       } else if (fulltextOption.getValue().equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
         fulltextOption.setLabel(this.getLabel("easy_submission_lblFulltext_none"));
       } else {
-        fulltextOption.setLabel(this.getCurrentFTLabel());
+        fulltextOption.setLabel(this.currentFTLabel);
       }
     }
     return this.FULLTEXT_OPTIONS;
@@ -304,6 +303,6 @@ public class EasySubmissionSessionBean extends EditItemBean {
    * organizations.
    */
   public void initAuthorCopyPasteCreatorBean() {
-    this.setShowAuthorCopyPaste("");
+    this.showAuthorCopyPaste = "";
   }
 }

@@ -95,7 +95,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   @Override
   public String getQueryStringContent() {
     StringBuilder sb = new StringBuilder();
-    sb.append(this.getSelectedAvailability());
+    sb.append(this.selectedAvailability);
     sb.append("||");
     if (!this.visibilityListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
       sb.append(this.visibilityListSearchCriterion.getQueryStringContent());

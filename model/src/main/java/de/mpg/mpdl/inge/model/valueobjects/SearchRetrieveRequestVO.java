@@ -31,7 +31,7 @@ public class SearchRetrieveRequestVO extends ValueObject {
   //  }
 
   public SearchRetrieveRequestVO(Query queryBuilder, int limit, int offset, SearchSortCriteria... sortKeys) {
-    this.setQueryBuilder(queryBuilder);
+    this.queryBuilder = queryBuilder;
     this.limit = limit;
     this.offset = offset;
     this.sortKeys = sortKeys;

@@ -118,7 +118,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
     boolean allChecked = true;
     int i = 0;
-    for (final Map.Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<T, Boolean> entry : this.enumMap.entrySet()) {
       if (entry.getValue()) {
         if (0 < i) {
           sb.append("|");
@@ -141,7 +141,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
   @Override
   public void parseQueryStringContent(String content) {
 
-    for (final Map.Entry<T, Boolean> e : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<T, Boolean> e : this.enumMap.entrySet()) {
       e.setValue(false);
     }
 
@@ -154,7 +154,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
       if (null == v) {
         throw new RuntimeException("Invalid visibility: " + part);
       }
-      this.getEnumMap().put(v, true);
+      this.enumMap.put(v, true);
     }
 
   }
@@ -167,7 +167,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
     boolean anySelected = false;
     boolean anyDeselected = false;
-    for (final Map.Entry<T, Boolean> entry : this.getEnumMap().entrySet()) {
+    for (final Map.Entry<T, Boolean> entry : this.enumMap.entrySet()) {
       if (entry.getValue()) {
         anySelected = true;
       } else {

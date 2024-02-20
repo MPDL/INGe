@@ -24,8 +24,8 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
     TransformerSource currentSource = null;
     TransformerResult currentResult = null;
 
-    for (int i = 0; i < getTransformerChain().size(); i++) {
-      ChainableTransformer transformer = getTransformerChain().get(i);
+    for (int i = 0; i < this.transformerChain.size(); i++) {
+      ChainableTransformer transformer = this.transformerChain.get(i);
 
       // First round
       if (0 == i) {
@@ -35,7 +35,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
       }
 
       // Last round
-      if (i == getTransformerChain().size() - 1) {
+      if (i == this.transformerChain.size() - 1) {
         currentResult = result;
       } else {
         currentResult = transformer.createNewInBetweenResult();

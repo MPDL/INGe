@@ -291,74 +291,74 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    */
   public MdsPublicationVO(MdsPublicationVO other) {
     super(other.getTitle());
-    for (AlternativeTitleVO altTitle : other.getAlternativeTitles()) {
-      getAlternativeTitles().add(altTitle.clone());
+    for (AlternativeTitleVO altTitle : other.alternativeTitles) {
+      this.alternativeTitles.add(altTitle.clone());
     }
-    for (CreatorVO creator : other.getCreators()) {
-      getCreators().add(creator.clone());
+    for (CreatorVO creator : other.creators) {
+      this.creators.add(creator.clone());
     }
-    if (null != other.getDateAccepted()) {
-      setDateAccepted(other.getDateAccepted());
+    if (null != other.dateAccepted) {
+      setDateAccepted(other.dateAccepted);
     }
-    if (null != other.getDateCreated()) {
-      setDateCreated(other.getDateCreated());
+    if (null != other.dateCreated) {
+      setDateCreated(other.dateCreated);
     }
-    if (null != other.getDateModified()) {
-      setDateModified(other.getDateModified());
+    if (null != other.dateModified) {
+      setDateModified(other.dateModified);
     }
-    if (null != other.getDatePublishedInPrint()) {
-      setDatePublishedInPrint(other.getDatePublishedInPrint());
+    if (null != other.datePublishedInPrint) {
+      setDatePublishedInPrint(other.datePublishedInPrint);
     }
     // DiT, 14.11.2007: added DatePublishedOnline
-    if (null != other.getDatePublishedOnline()) {
-      setDatePublishedOnline(other.getDatePublishedOnline());
+    if (null != other.datePublishedOnline) {
+      setDatePublishedOnline(other.datePublishedOnline);
     }
-    if (null != other.getDateSubmitted()) {
-      setDateSubmitted(other.getDateSubmitted());
+    if (null != other.dateSubmitted) {
+      setDateSubmitted(other.dateSubmitted);
     }
-    setDegree(other.getDegree());
-    if (null != other.getEvent()) {
-      setEvent(other.getEvent().clone());
+    this.degree = other.degree;
+    if (null != other.event) {
+      this.event = other.event.clone();
     }
     // JUS BEGIN
-    if (null != other.getLegalCase()) {
-      setLegalCase(other.getLegalCase().clone());
+    if (null != other.legalCase) {
+      this.legalCase = other.legalCase.clone();
     }
     // JUS END
-    setGenre(other.getGenre());
-    for (IdentifierVO identifier : other.getIdentifiers()) {
-      getIdentifiers().add(identifier.clone());
+    this.genre = other.genre;
+    for (IdentifierVO identifier : other.identifiers) {
+      this.identifiers.add(identifier.clone());
     }
-    getLanguages().addAll(other.getLanguages());
-    setLocation(other.getLocation());
-    if (null != other.getPublishingInfo()) {
-      setPublishingInfo(other.getPublishingInfo().clone());
+    this.languages.addAll(other.languages);
+    this.location = other.location;
+    if (null != other.publishingInfo) {
+      this.publishingInfo = other.publishingInfo.clone();
     }
-    setReviewMethod(other.getReviewMethod());
-    for (SourceVO source : other.getSources()) {
-      getSources().add(source.clone());
-    }
-
-    if (null != other.getFreeKeywords()) {
-      setFreeKeywords(other.getFreeKeywords());
+    this.reviewMethod = other.reviewMethod;
+    for (SourceVO source : other.sources) {
+      this.sources.add(source.clone());
     }
 
-    for (SubjectVO subject : other.getSubjects()) {
-      getSubjects().add(subject.clone());
+    if (null != other.freeKeywords) {
+      this.freeKeywords = other.freeKeywords;
     }
 
-    for (AbstractVO summary : other.getAbstracts()) {
-      getAbstracts().add(summary.clone());
-    }
-    if (null != other.getTableOfContents()) {
-      setTableOfContents(other.getTableOfContents());
+    for (SubjectVO subject : other.subjects) {
+      this.subjects.add(subject.clone());
     }
 
-    setTotalNumberOfPages(other.getTotalNumberOfPages());
+    for (AbstractVO summary : other.abstracts) {
+      this.abstracts.add(summary.clone());
+    }
+    if (null != other.tableOfContents) {
+      this.tableOfContents = other.tableOfContents;
+    }
 
-    if (null != other.getProjectInfo()) {
-      for (ProjectInfoVO pi : other.getProjectInfo()) {
-        getProjectInfo().add(pi.clone());
+    this.totalNumberOfPages = other.totalNumberOfPages;
+
+    if (null != other.projectInfo) {
+      for (ProjectInfoVO pi : other.projectInfo) {
+        this.projectInfo.add(pi.clone());
       }
     }
 

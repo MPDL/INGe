@@ -654,7 +654,7 @@ public class EasySubmission extends FacesBean {
    * @return navigation String
    */
   public String harvestData() throws TechnicalException {
-    if (null == this.getServiceID() || "".equals(this.getServiceID())) {
+    if (null == this.serviceID || "".equals(this.serviceID)) {
       this.warn(this.getMessage("easy_submission_external_service_no_id"));
       return null;
     }
@@ -668,7 +668,7 @@ public class EasySubmission extends FacesBean {
       final String source = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
 
       final DataSourceVO dataSourceVO = this.dataSourceHandler.getSourceByName(source);
-      final String identifier = Util.trimIdentifier(dataSourceVO, this.getServiceID());
+      final String identifier = Util.trimIdentifier(dataSourceVO, this.serviceID);
 
       // Harvest metadata
       final byte[] fetchedItemByte = dataHandler.doFetchMetaData(source, dataSourceVO, identifier, TransformerFactory.getInternalFormat());
@@ -701,7 +701,7 @@ public class EasySubmission extends FacesBean {
 
         final ByteArrayInputStream in = new ByteArrayInputStream(ba);
         String fileId = null;
-        String fileName = this.getServiceID().trim() + dataHandler.getFileEnding();
+        String fileName = this.serviceID.trim() + dataHandler.getFileEnding();
         try {
           StagedFileDbVO stagedFile =
               ApplicationBean.INSTANCE.getFileService().createStageFile(in, fileName, getLoginHelper().getAuthenticationToken());
@@ -717,9 +717,9 @@ public class EasySubmission extends FacesBean {
           fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
           fileVO.setVisibility(dataHandler.getVisibility());
           fileVO.setMetadata(fileMd);
-          fileVO.getMetadata().setTitle(this.replaceSlashes(this.getServiceID().trim() + dataHandler.getFileEnding()));
+          fileVO.getMetadata().setTitle(this.replaceSlashes(this.serviceID.trim() + dataHandler.getFileEnding()));
           fileVO.setMimeType(dataHandler.getContentType());
-          fileVO.setName(this.replaceSlashes(this.getServiceID().trim() + dataHandler.getFileEnding()));
+          fileVO.setName(this.replaceSlashes(this.serviceID.trim() + dataHandler.getFileEnding()));
           final FormatVO formatVO = new FormatVO();
           formatVO.setType("dcterms:IMT");
           formatVO.setValue(dataHandler.getContentType());
@@ -733,7 +733,7 @@ public class EasySubmission extends FacesBean {
       }
     } catch (final Exception e) {
       logger.error(e.getMessage(), e);
-      this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error") + this.getServiceID());
+      this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error") + this.serviceID);
       return null;
     }
 
@@ -1511,16 +1511,16 @@ public class EasySubmission extends FacesBean {
    * ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
    */
   public void parseAndSetAlternativeSourceTitlesAndIds() {
-    if (null != this.getHiddenAlternativeTitlesField() && !this.getHiddenAlternativeTitlesField().trim().isEmpty()) {
+    if (null != this.hiddenAlternativeTitlesField && !this.hiddenAlternativeTitlesField.trim().isEmpty()) {
       final SourceVO source = this.getSource();
       source.getAlternativeTitles().clear();
-      source.getAlternativeTitles().addAll(SourceBean.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
+      source.getAlternativeTitles().addAll(SourceBean.parseAlternativeTitles(this.hiddenAlternativeTitlesField));
     }
 
-    if (null != this.getHiddenIdsField() && !this.getHiddenIdsField().trim().isEmpty()) {
+    if (null != this.hiddenIdsField && !this.hiddenIdsField.trim().isEmpty()) {
       final List<IdentifierVO> identifiers = this.getSource().getIdentifiers();
       identifiers.clear();
-      identifiers.addAll(SourceBean.parseIdentifiers(this.getHiddenIdsField()));
+      identifiers.addAll(SourceBean.parseIdentifiers(this.hiddenIdsField));
     }
 
   }
@@ -1596,7 +1596,7 @@ public class EasySubmission extends FacesBean {
    */
   public void uploadLocator() {
     final LocatorUploadBean locatorBean = new LocatorUploadBean();
-    final boolean check = locatorBean.checkLocator(this.getLocatorUpload());
+    final boolean check = locatorBean.checkLocator(this.locatorUpload);
 
     if (check) {
       locatorBean.locatorUploaded();
@@ -1605,7 +1605,7 @@ public class EasySubmission extends FacesBean {
     if (null != locatorBean.getError()) {
       this.error(this.getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
     } else {
-      this.setLocatorUpload("");
+      this.locatorUpload = "";
     }
   }
 

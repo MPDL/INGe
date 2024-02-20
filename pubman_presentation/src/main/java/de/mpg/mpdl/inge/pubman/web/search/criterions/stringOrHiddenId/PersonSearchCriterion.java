@@ -143,7 +143,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
       String role = parts[2];
 
 
-      setSelectedRole(role.isEmpty() ? null : CreatorVO.CreatorRole.valueOf(role));
+      this.selectedRole = role.isEmpty() ? null : CreatorVO.CreatorRole.valueOf(role);
     }
   }
 

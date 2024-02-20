@@ -131,13 +131,13 @@ public class EditItemBean extends FacesBean {
 
   public boolean bindOrganizationsToCreators() {
     this.usedOrganizations.clear();
-    for (final CreatorVOPresentation creator : this.getCreators()) {
+    for (final CreatorVOPresentation creator : this.creators) {
       if (!this.bindOrganizationsToCreator(creator)) {
         return false;
       }
     }
 
-    for (final OrganizationVOPresentation org : this.getCreatorOrganizations()) {
+    for (final OrganizationVOPresentation org : this.creatorOrganizations) {
 
       if (!org.isEmpty() && !this.usedOrganizations.contains(org.getNumber())) {
 
@@ -150,7 +150,7 @@ public class EditItemBean extends FacesBean {
   }
 
   public void bindCreatorsToBean(List<CreatorVO> creatorList) {
-    final List<CreatorVOPresentation> creators = this.getCreators();
+    final List<CreatorVOPresentation> creators = this.creators;
     creators.clear();
 
     for (final CreatorVO creator : creatorList) {
@@ -164,7 +164,7 @@ public class EditItemBean extends FacesBean {
 
   public void bindCreatorsToVO(List<CreatorVO> creators) {
     creators.clear();
-    for (final CreatorVOPresentation creatorVOPresentation : this.getCreators()) {
+    for (final CreatorVOPresentation creatorVOPresentation : this.creators) {
       CreatorVO creatorVO;
       if (CreatorVO.CreatorType.ORGANIZATION == creatorVOPresentation.getType()) {
         creatorVO = new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
@@ -192,7 +192,7 @@ public class EditItemBean extends FacesBean {
         for (final String org : orgArr) {
           if (!"".equals(org)) {
             final int orgNr = Integer.parseInt(org);
-            personOrgs.add(this.getCreatorOrganizations().get(orgNr - 1));
+            personOrgs.add(this.creatorOrganizations.get(orgNr - 1));
             this.usedOrganizations.add(orgNr);
           }
         }
@@ -213,7 +213,7 @@ public class EditItemBean extends FacesBean {
   }
 
   public int getOrganizationCount() {
-    return this.getCreatorOrganizations().size();
+    return this.creatorOrganizations.size();
   }
 
   public void readPastedOrganizations() {
@@ -230,8 +230,8 @@ public class EditItemBean extends FacesBean {
   }
 
   public void clean() {
-    this.getCreatorOrganizations().clear();
-    this.getCreators().clear();
+    this.creatorOrganizations.clear();
+    this.creators.clear();
 
     this.setShowAuthorCopyPaste("");
     this.creatorParseString = "";
@@ -254,32 +254,32 @@ public class EditItemBean extends FacesBean {
     }
 
     if (overwrite) {
-      this.getCreators().clear();
+      this.creators.clear();
     }
 
     // check if last existing author is empty, then remove it
-    if (!this.getCreators().isEmpty()) {
-      final CreatorVOPresentation creatorVO = this.getCreators().get(this.getCreators().size() - 1);
+    if (!this.creators.isEmpty()) {
+      final CreatorVOPresentation creatorVO = this.creators.get(this.creators.size() - 1);
       // creator is a person
       if (creatorVO.isPersonType() && null != creatorVO.getPerson() && "".equals(creatorVO.getPerson().getFamilyName())
           && "".equals(creatorVO.getPerson().getGivenName())
           && (creatorVO.getPerson().getOrganizations().isEmpty() || null == creatorVO.getPerson().getOrganizations().get(0).getName()
               || "".equals(creatorVO.getPerson().getOrganizations().get(0).getName()))) {
-        this.getCreators().remove(creatorVO);
+        this.creators.remove(creatorVO);
       }
       // creator is an organisation
       else if (creatorVO.isOrganizationType() && null != creatorVO.getOrganization() && "".equals(creatorVO.getOrganization().getName())) {
-        this.getCreators().remove(creatorVO);
+        this.creators.remove(creatorVO);
       }
     }
 
     // add authors to creator collection
     for (final Author author : authorList) {
-      final CreatorVOPresentation creator = new CreatorVOPresentation(this.getCreators(), this);
+      final CreatorVOPresentation creator = new CreatorVOPresentation(this.creators, this);
       creator.setPerson(new PersonVO());
       creator.getPerson().setIdentifier(new IdentifierVO());
       creator.setOuNumbers("");
-      this.getCreators().add(creator);
+      this.creators.add(creator);
 
       if (null != author.getPrefix() && !"".equals(author.getPrefix())) {
         creator.getPerson().setFamilyName(author.getPrefix() + " " + author.getSurname());

@@ -59,8 +59,8 @@ public class Search extends FacesBean {
   private boolean includeFiles;
 
   public void startSearch() {
-    String searchString = this.getSearchString();
-    final boolean includeFiles = this.getIncludeFiles();
+    String searchString = this.searchString;
+    final boolean includeFiles = this.includeFiles;
 
     // check if the searchString contains useful data
     if (searchString.trim().isEmpty()) {

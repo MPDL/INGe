@@ -90,14 +90,14 @@ public class ListItem {
   public void addItem() {
     this.stringList.add(this.index + 1, "");
     final ListItem item = new ListItem();
-    item.setValue("");
-    item.setIndex(this.index + 1);
-    item.setStringList(this.stringList);
-    item.setItemList(this.itemList);
+    item.value = "";
+    item.index = this.index + 1;
+    item.stringList = this.stringList;
+    item.itemList = this.itemList;
     this.itemList.add(this.index + 1, item);
 
     for (int i = this.index + 2; i < this.itemList.size(); i++) {
-      this.itemList.get(i).setIndex(i);
+      this.itemList.get(i).index = i;
     }
   }
 
@@ -106,7 +106,7 @@ public class ListItem {
     this.itemList.remove(this.index);
 
     for (int i = this.index; i < this.itemList.size(); i++) {
-      this.itemList.get(i).setIndex(i);
+      this.itemList.get(i).index = i;
     }
   }
 

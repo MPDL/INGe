@@ -251,7 +251,7 @@ public class MarcXmlWriterNSFix implements MarcWriter {
       throw new NullPointerException("null encoding");
     }
     try {
-      setIndent(indent);
+      this.indent = indent;
       this.writer = new OutputStreamWriter(out, encoding);
       this.writer = new BufferedWriter(this.writer);
       setHandler(new StreamResult(this.writer), null);

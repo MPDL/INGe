@@ -70,10 +70,10 @@ public class BaseImportLog {
 
   public String getLocalizedMessage() {
     try {
-      return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper")).getMessage(this.getMessage());
+      return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper")).getMessage(this.message);
     } catch (final MissingResourceException mre) {
       // No message entry for this message, it's probably raw data.
-      return this.getMessage();
+      return this.message;
     }
   }
 

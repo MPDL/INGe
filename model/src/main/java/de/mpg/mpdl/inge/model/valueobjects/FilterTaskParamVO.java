@@ -282,6 +282,10 @@ public class FilterTaskParamVO extends ValueObject {
       return o.getClass().getName().compareTo(this.getClass().getName());
     }
 
+    @Override
+    public boolean equals(Object o) {
+      return o instanceof AbstractFilter && compareTo((AbstractFilter) o) == 0;
+    }
   }
 
   public static class CqlFilter extends AbstractFilter implements Filter {

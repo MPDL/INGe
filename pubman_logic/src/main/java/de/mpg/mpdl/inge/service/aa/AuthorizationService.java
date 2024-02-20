@@ -73,7 +73,7 @@ public class AuthorizationService {
   private String methodName;
 
   AccessType(String methodName) {
-      this.setMethodName(methodName);
+      this.methodName = methodName;
     }
 
   public String getMethodName() {

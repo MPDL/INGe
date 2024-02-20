@@ -628,4 +628,8 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
     return authors.replaceAll("[ \t]+", " ").replaceAll("(\\n)+", "\n").trim();
   }
 
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof AuthorFormat && compareTo((AuthorFormat) o) == 0;
+  }
 }

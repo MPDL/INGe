@@ -73,9 +73,9 @@ public class LinkVO {
   public boolean equals(Object obj) {
     if (!(obj instanceof LinkVO)) {
       return false;
-    } else if (!this.label.equals(((LinkVO) obj).getLabel())) {
+    } else if (!this.label.equals(((LinkVO) obj).label)) {
       return false;
-    } else if (!this.value.equals(((LinkVO) obj).getValue())) {
+    } else if (!this.value.equals(((LinkVO) obj).value)) {
       return false;
     } else {
       return true;

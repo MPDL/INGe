@@ -109,52 +109,52 @@ public class ItemVO extends ValueObject implements Searchable {
    * @param other The instance to copy.
    */
   public ItemVO(ItemVO other) {
-    this.setCreationDate(other.getCreationDate());
-    this.setBaseUrl(other.getBaseUrl());
+    this.creationDate = other.creationDate;
+    this.baseUrl = other.baseUrl;
 
-    for (FileVO file : other.getFiles()) {
-      this.getFiles().add(file.clone());
+    for (FileVO file : other.files) {
+      this.files.add(file.clone());
     }
 
-    this.setLockStatus(other.getLockStatus());
-    this.setPublicStatus(other.getPublicStatus());
-    this.setPublicStatusComment(other.getPublicStatusComment());
+    this.lockStatus = other.lockStatus;
+    this.publicStatus = other.publicStatus;
+    this.publicStatusComment = other.publicStatusComment;
 
-    for (MetadataSetVO mds : other.getMetadataSets()) {
-      this.getMetadataSets().add(mds.clone());
+    for (MetadataSetVO mds : other.metadataSets) {
+      this.metadataSets.add(mds.clone());
     }
 
-    if (null != other.getOwner()) {
-      this.setOwner(other.getOwner().clone());
+    if (null != other.owner) {
+      this.owner = other.owner.clone();
     }
 
-    this.setPid(other.getPid());
+    this.pid = other.pid;
 
-    if (null != other.getContext()) {
-      this.setContext(other.getContext().clone());
+    if (null != other.contextRO) {
+      this.contextRO = other.contextRO.clone();
     }
 
-    if (null != other.getContentModel()) {
-      this.setContentModel(other.getContentModel());
+    if (null != other.contentModel) {
+      this.contentModel = other.contentModel;
     }
 
-    if (null != other.getVersion()) {
-      this.setVersion(other.getVersion().clone());
+    if (null != other.version) {
+      this.version = other.version.clone();
     }
 
-    if (null != other.getLatestVersion()) {
-      this.setLatestVersion(other.getLatestVersion().clone());
+    if (null != other.latestVersion) {
+      this.latestVersion = other.latestVersion.clone();
     }
 
-    if (null != other.getLatestRelease()) {
-      this.setLatestRelease(other.getLatestRelease().clone());
+    if (null != other.latestRelease) {
+      this.latestRelease = other.latestRelease.clone();
     }
 
-    for (ItemRelationVO relation : other.getRelations()) {
-      this.getRelations().add(relation.clone());
+    for (ItemRelationVO relation : other.relations) {
+      this.relations.add(relation.clone());
     }
 
-    this.localTags.addAll(other.getLocalTags());
+    this.localTags.addAll(other.localTags);
   }
 
   public String getPublicStatusComment() {
@@ -383,7 +383,7 @@ public class ItemVO extends ValueObject implements Searchable {
       contentModelHref = contentModelHref.substring(contentModelHref.lastIndexOf("/") + 1);
     }
 
-    this.setContentModel(contentModelHref);
+    this.contentModel = contentModelHref;
   }
 
   public ItemVO.State getPublicStatus() {

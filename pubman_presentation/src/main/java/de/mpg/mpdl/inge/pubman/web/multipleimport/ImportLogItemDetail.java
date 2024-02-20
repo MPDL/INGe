@@ -41,11 +41,11 @@ public class ImportLogItemDetail extends BaseImportLog {
   }
 
   public String getItemId() {
-    return null != this.getParent() ? this.getParent().getItemId() : null;
+    return null != this.parent ? this.parent.getItemId() : null;
   }
 
   public String getLink() {
-    return null != this.getParent() ? this.getParent().getLink() : null;
+    return null != this.parent ? this.parent.getLink() : null;
   }
 
   public ImportLogItem getParent() {

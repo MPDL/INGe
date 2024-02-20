@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -49,7 +49,7 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
 
     BoolQuery.Builder bq = new BoolQuery.Builder();
-    bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS_TYPE, getClassificationType()));
+    bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS_TYPE, this.classificationType));
     bq.must(super.toElasticSearchQuery());
     return NestedQuery.of(n -> n.path("metadata.subjects").query(bq.build()._toQuery()).scoreMode(ChildScoreMode.Avg))._toQuery();
 
@@ -77,7 +77,7 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String toQueryString() {
-    return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.getClassificationType()) + "||"
+    return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.classificationType) + "||"
         + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "\"";
   }
 
@@ -86,7 +86,7 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
     String[] parts = content.split("(?<!\\\\)\\|\\|");
 
-    this.setClassificationType(SearchCriterionBase.unescapeForQueryString(parts[0]));
+    this.classificationType = SearchCriterionBase.unescapeForQueryString(parts[0]);
     this.setSearchString(SearchCriterionBase.unescapeForQueryString(parts[1]));
   }
 

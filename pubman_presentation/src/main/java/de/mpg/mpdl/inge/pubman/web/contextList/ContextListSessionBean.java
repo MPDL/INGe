@@ -83,7 +83,7 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public boolean getOpenContextsAvailable() {
-    return false == this.getDepositorContextList().isEmpty();
+    return false == this.depositorContextList.isEmpty();
   }
 
   public int getDepositorContextListSize() {

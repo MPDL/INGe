@@ -90,13 +90,13 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
       return false;
     } else if (null == obj) {
       return false;
-    } else if (null == this.value && null != ((LocalizedString) obj).getValue()) {
+    } else if (null == this.value && null != ((LocalizedString) obj).value) {
       return false;
-    } else if (null == this.language && null != ((LocalizedString) obj).getLanguage()) {
+    } else if (null == this.language && null != ((LocalizedString) obj).language) {
       return false;
-    } else if (null != this.value && !this.value.equals(((LocalizedString) obj).getValue())) {
+    } else if (null != this.value && !this.value.equals(((LocalizedString) obj).value)) {
       return false;
-    } else if (null != this.language && !this.language.equals(((LocalizedString) obj).getLanguage())) {
+    } else if (null != this.language && !this.language.equals(((LocalizedString) obj).language)) {
       return false;
     } else {
       return true;
@@ -145,11 +145,11 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
   }
 
   public String toRdf(ModelList.Model model) {
-    return StringEscapeUtils.escapeXml10(getValue());
+    return StringEscapeUtils.escapeXml10(this.value);
   }
 
   public String toJson() {
-    return "\"" + getValue().replace("\"", "\\\"").replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    return "\"" + this.value.replace("\"", "\\\"").replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t") + "\"";
   }
 
 }

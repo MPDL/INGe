@@ -64,9 +64,9 @@ public class FontStylesCollection {
   }
 
   public void setDefault() {
-    setName("Default");
-    setFontStyles(new ArrayList<>());
-    setDefaultFontStyle(null);
+    this.name = "Default";
+    this.fontStyles = new ArrayList<>();
+    this.defaultFontStyle = null;
   }
 
   public void setName(String newName) {
@@ -111,7 +111,7 @@ public class FontStylesCollection {
   public void findDefaultFontStyle() {
     for (FontStyle fs : this.fontStyles) {
       if (fs.getDef()) {
-        setDefaultFontStyle(fs);
+        this.defaultFontStyle = fs;
         break;
       }
     }

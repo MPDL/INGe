@@ -294,10 +294,10 @@ public class CreatorVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getTypeString() {
-    if (null == getType() || null == getType().toString()) {
+    if (null == this.type || null == this.type.toString()) {
       return "";
     }
-    return getType().toString();
+    return this.type.toString();
   }
 
   /**
@@ -308,10 +308,10 @@ public class CreatorVO extends ValueObject implements Cloneable {
   @JsonIgnore
   public void setTypeString(String newValString) {
     if (null == newValString || newValString.isEmpty()) {
-      setType(null);
+      this.type = null;
     } else {
       CreatorVO.CreatorType newVal = CreatorVO.CreatorType.valueOf(newValString);
-      setType(newVal);
+      this.type = newVal;
     }
   }
 }

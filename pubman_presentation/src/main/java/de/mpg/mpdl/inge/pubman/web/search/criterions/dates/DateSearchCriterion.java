@@ -295,7 +295,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   @Override
   public Query toElasticSearchQuery() {
-    return toElasticSearchQuery(this.getSearchCriterion(), this.getFrom(), this.getTo());
+    return toElasticSearchQuery(this.getSearchCriterion(), this.from, this.to);
   }
 
   public static Query toElasticSearchQuery(SearchCriterion sc, String from, String to) {

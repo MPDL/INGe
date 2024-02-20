@@ -25,7 +25,7 @@ public class ItemValidatingService {
     } catch (final ValidationException e) {
       throw e;
     } catch (final Exception e) {
-      logger.error("validate: " + itemVO + validationPoint, e);
+      logger.error("validate: " + itemVO + " " + validationPoint, e);
       throw new ValidationServiceException("validate:", e);
     }
   }

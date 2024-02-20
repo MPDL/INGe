@@ -220,9 +220,9 @@ public class AuthorDecoder {
   }
 
   public List<Author> getBestAuthorList() {
-    for (List<Author> authorList : getAuthorListList()) {
+    for (List<Author> authorList : this.authorListList) {
       Author author = authorList.get(0);
-      if (author.getFormat().equals(getBestFormat())) {
+      if (author.getFormat().equals(this.bestFormat)) {
         return authorList;
       }
     }

@@ -142,8 +142,8 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   public void clearAndInit() {
     this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
     this.balanceMap.clear();
-    this.setFileSectionSearchCriterion(new FileSectionSearchCriterion(SearchCriterionBase.SearchCriterion.FILE_SECTION));
-    this.setLocatorSectionSearchCriterion(new FileSectionSearchCriterion(SearchCriterionBase.SearchCriterion.LOCATOR_SECTION));
+    this.fileSectionSearchCriterion = new FileSectionSearchCriterion(SearchCriterionBase.SearchCriterion.FILE_SECTION);
+    this.locatorSectionSearchCriterion = new FileSectionSearchCriterion(SearchCriterionBase.SearchCriterion.LOCATOR_SECTION);
 
     this.currentlyOpenedParenthesis = null;
     this.excludeComponentContentCategory = false;
@@ -179,10 +179,10 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
       final SearchCriterionBase sc = scList.get(i);
 
       if (SearchCriterionBase.SearchCriterion.FILE_SECTION.equals(sc.getSearchCriterion())) {
-        this.setFileSectionSearchCriterion(sc);
+        this.fileSectionSearchCriterion = sc;
         toBeRemovedList.add(sc);
       } else if (SearchCriterionBase.SearchCriterion.LOCATOR_SECTION.equals(sc.getSearchCriterion())) {
-        this.setLocatorSectionSearchCriterion(sc);
+        this.locatorSectionSearchCriterion = sc;
         toBeRemovedList.add(sc);
       } else if (SearchCriterionBase.SearchCriterion.GENRE_DEGREE_LIST.equals(sc.getSearchCriterion())) {
         this.genreListSearchCriterion = sc;
@@ -622,7 +622,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     final List<SearchCriterionBase> allCriterions = new ArrayList<>();
 
     allCriterions.add(new Parenthesis(SearchCriterionBase.SearchCriterion.OPENING_PARENTHESIS));
-    allCriterions.addAll(this.getCriterionList());
+    allCriterions.addAll(this.criterionList);
     allCriterions.add(new Parenthesis(SearchCriterionBase.SearchCriterion.CLOSING_PARENTHESIS));
 
     if (SearchCriterionBase.Index.ITEM_CONTAINER_ADMIN == indexName) {
@@ -687,9 +687,9 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   public List<SearchCriterionBase> getComponentSearchCriterions(SearchCriterionBase.Index indexName) {
     final List<SearchCriterionBase> returnList = new ArrayList<>();
     returnList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.AND_OPERATOR));
-    returnList.add(this.getFileSectionSearchCriterion());
+    returnList.add(this.fileSectionSearchCriterion);
     returnList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.AND_OPERATOR));
-    returnList.add(this.getLocatorSectionSearchCriterion());
+    returnList.add(this.locatorSectionSearchCriterion);
 
     return returnList;
   }
@@ -814,7 +814,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     this.clearAndInit();
 
     this.criterionTypeListMenu = this.initCriterionTypeListMenu(SearchCriterionBase.Index.ESCIDOC_ALL); //
-    this.setCriterionTypeListMenuAdmin(this.initCriterionTypeListMenu(SearchCriterionBase.Index.ITEM_CONTAINER_ADMIN)); //
+    this.criterionTypeListMenuAdmin = this.initCriterionTypeListMenu(SearchCriterionBase.Index.ITEM_CONTAINER_ADMIN); //
     this.operatorTypeListMenu = this.initOperatorListMenu();
     this.genreListMenu = this.initGenreListMenu(); //
     this.reviewMethodListMenu = this.initReviewMethodListMenu();

@@ -1308,9 +1308,9 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   public void handleGenreThesisTypeChange() {
     if (MdsPublicationVO.Genre.THESIS.equals(MdsPublicationVO.Genre.valueOf(this.changeGenreTo))) {
-      this.setShowThesisType(true);
+      this.showThesisType = true;
     } else {
-      this.setShowThesisType(false);
+      this.showThesisType = false;
     }
   }
 

@@ -98,7 +98,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
     if (itemList.size() != citationList.size()) {
       throw new IngeTechnicalException(
-          "Error: Citationmanager returned " + citationList.size() + "citations for " + itemList.size() + " items");
+          "Error: Citationmanager returned " + citationList.size() + " citations for " + itemList.size() + " items");
     }
 
     List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);

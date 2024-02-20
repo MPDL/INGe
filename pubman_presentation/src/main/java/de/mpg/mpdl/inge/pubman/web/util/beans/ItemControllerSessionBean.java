@@ -149,13 +149,13 @@ public class ItemControllerSessionBean extends FacesBean {
     }
     */
 
-    this.setCurrentPubItem(new PubItemVOPresentation(newItem));
+    this.currentPubItem = new PubItemVOPresentation(newItem);
 
     if (1 == this.getContextListSessionBean().getDepositorContextList().size()) {
       final ContextDbVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
       newItem.getObject().setContext(context);
 
-      this.setCurrentPubItem(new PubItemVOPresentation(newItem));
+      this.currentPubItem = new PubItemVOPresentation(newItem);
 
       editItemSessionBean.initEmptyComponents();
       return EditItem.LOAD_EDITITEM;
@@ -163,7 +163,7 @@ public class ItemControllerSessionBean extends FacesBean {
       // more than one context exists for this user; let him choose the right one
       newItem.getObject().setContext(null);
 
-      this.setCurrentPubItem(new PubItemVOPresentation(newItem));
+      this.currentPubItem = new PubItemVOPresentation(newItem);
 
       // Set submission method for correct redirect
       ((CreateItem) FacesTools.findBean("CreateItem")).setMethod(CreateItem.SubmissionMethod.FULL_SUBMISSION);
@@ -189,7 +189,7 @@ public class ItemControllerSessionBean extends FacesBean {
     newPubItem.getObject().setCreator(creator);
     newPubItem.setMetadata(new MdsPublicationVO());
     newPubItem = this.initializeItem(newPubItem);
-    this.setCurrentPubItem(new PubItemVOPresentation(newPubItem));
+    this.currentPubItem = new PubItemVOPresentation(newPubItem);
 
     return navigationRuleWhenSuccessful;
   }
@@ -205,7 +205,7 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       ApplicationBean.INSTANCE.getPubItemService().delete(this.currentPubItem.getObjectId(),
           this.getLoginHelper().getAuthenticationToken());
-      this.setCurrentPubItem(null);
+      this.currentPubItem = null;
       return navigationRuleWhenSuccessfull;
     } catch (final AuthenticationException | AuthorizationException e) {
       logger.error("Authentication/Authorization error while deleting current PubItem", e);
@@ -232,7 +232,7 @@ public class ItemControllerSessionBean extends FacesBean {
       if (null == this.currentContext
           || !(this.currentContext.getObjectId().equals(this.currentPubItem.getObject().getContext().getObjectId()))) {
         final ContextDbVO context = this.retrieveContext(this.currentPubItem.getObject().getContext().getObjectId());
-        this.setCurrentCollection(context);
+        this.currentContext = context;
       }
     }
 
@@ -473,7 +473,7 @@ public class ItemControllerSessionBean extends FacesBean {
       final ItemVersionVO updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().submitPubItem(this.currentPubItem.getObjectId(),
           this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
-      this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
+      this.currentPubItem = new PubItemVOPresentation(updatedPubItem);
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       logger.error("Error while submitting current PubItem", e);
@@ -577,7 +577,7 @@ public class ItemControllerSessionBean extends FacesBean {
       final ItemVersionVO updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().revisePubItem(this.currentPubItem.getObjectId(),
           this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
-      this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
+      this.currentPubItem = new PubItemVOPresentation(updatedPubItem);
       return navigationRuleWhenSuccesfull;
     } catch (final Exception e) {
       logger.error("Error while revising current PubItem", e);
@@ -608,7 +608,7 @@ public class ItemControllerSessionBean extends FacesBean {
             this.getLoginHelper().getAuthenticationToken());
       }
 
-      this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
+      this.currentPubItem = new PubItemVOPresentation(updatedPubItem);
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
       return navigationRuleWhenSuccessfull;
     } catch (final AuthenticationException | AuthorizationException e) {
@@ -651,7 +651,7 @@ public class ItemControllerSessionBean extends FacesBean {
       final ItemVersionVO updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(this.currentPubItem.getObjectId(),
           this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
-      this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
+      this.currentPubItem = new PubItemVOPresentation(updatedPubItem);
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       logger.error("Error while releasing current PubItem", e);
@@ -674,7 +674,7 @@ public class ItemControllerSessionBean extends FacesBean {
       final ItemVersionVO updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().withdrawPubItem(this.currentPubItem.getObjectId(),
           this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
-      this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
+      this.currentPubItem = new PubItemVOPresentation(updatedPubItem);
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       logger.error("Error while withdrawing current PubItem", e);

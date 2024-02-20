@@ -70,7 +70,7 @@ public class EscapableMessagesRenderer extends MessagesRenderer {
 
     @Override
     public ResponseWriter getWrapped() {
-      return originalResponseWriter;
+      return this.originalResponseWriter;
     }
 
     @Override

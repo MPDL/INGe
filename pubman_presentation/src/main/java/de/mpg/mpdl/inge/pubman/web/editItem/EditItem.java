@@ -597,7 +597,7 @@ public class EditItem extends FacesBean {
 
     if (ViewItemFull.LOAD_VIEWITEM.equals(navigateTo)) {
       try {
-        if (this.isFromEasySubmission()) {
+        if (this.fromEasySubmission) {
           FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
               + this.getItemControllerSessionBean().getCurrentPubItem().getObjectId() + "&fromEasySub=true");
         } else {
@@ -701,14 +701,14 @@ public class EditItem extends FacesBean {
    */
   public void uploadLocator() {
     final LocatorUploadBean locatorBean = new LocatorUploadBean();
-    final boolean check = locatorBean.checkLocator(this.getLocatorUpload());
+    final boolean check = locatorBean.checkLocator(this.locatorUpload);
     if (check) {
       locatorBean.locatorUploaded();
     }
     if (null != locatorBean.getError()) {
       this.error(this.getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
     } else {
-      this.setLocatorUpload("");
+      this.locatorUpload = "";
     }
   }
 
@@ -1269,11 +1269,11 @@ public class EditItem extends FacesBean {
     altTitleList.clear();
 
     // clear old identifiers
-    final IdentifierCollection.IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
+    final IdentifierCollection.IdentifierManager idManager = this.identifierCollection.getIdentifierManager();
     idManager.getObjectList().clear();
 
-    if (!this.getHiddenAlternativeTitlesField().trim().isEmpty()) {
-      altTitleList.addAll(this.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
+    if (!this.hiddenAlternativeTitlesField.trim().isEmpty()) {
+      altTitleList.addAll(this.parseAlternativeTitles(this.hiddenAlternativeTitlesField));
     }
   }
 

@@ -58,8 +58,8 @@ public class AffiliationBean extends FacesBean {
 
   public AffiliationBean() throws Exception {
     this.affiliationMap = new HashMap<>();
-    this.setTopLevelAffs(CommonUtils
-        .convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations()));
+    this.topLevelAffs =
+        CommonUtils.convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations());
 
     this.rootTreeNode = new DefaultTreeNode("Root", null);
     for (final AffiliationVOPresentation aff : this.topLevelAffs) {

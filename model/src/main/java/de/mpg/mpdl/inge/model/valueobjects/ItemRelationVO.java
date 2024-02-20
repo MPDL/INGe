@@ -61,8 +61,8 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
    * @param targetItemRef
    */
   public ItemRelationVO(String type, ItemRO targetItemRef) {
-    setType(type);
-    setTargetItemRef(targetItemRef);
+    this.type = type;
+    this.targetItemRef = targetItemRef;
   }
 
   public ItemRelationVO clone() {

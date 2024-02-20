@@ -56,8 +56,8 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO {
     this.alternativeNames = other.alternativeNames;
     this.identifiers = other.identifiers;
     this.coordinates = other.coordinates;
-    this.setStartDate(other.getStartDate());
-    this.setEndDate(other.getEndDate());
+    this.startDate = other.startDate;
+    this.endDate = other.endDate;
   }
 
   public String getCity() {

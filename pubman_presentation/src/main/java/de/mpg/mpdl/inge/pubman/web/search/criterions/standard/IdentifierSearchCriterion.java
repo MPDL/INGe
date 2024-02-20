@@ -46,18 +46,18 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
   public Query toElasticSearchQuery() throws IngeTechnicalException {
 
 
-    if (null == getSelectedIdentifierType()) {
+    if (null == this.selectedIdentifierType) {
       return super.toElasticSearchQuery();
     } else {
 
       BoolQuery.Builder idQueryBuilder = new BoolQuery.Builder();
       idQueryBuilder
-          .must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
+          .must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_TYPE, this.selectedIdentifierType.name()));
       idQueryBuilder.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID, getSearchString()));
 
       BoolQuery.Builder sourceIdQueryBuilder = new BoolQuery.Builder();
       sourceIdQueryBuilder.must(
-          baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
+          baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE, this.selectedIdentifierType.name()));
       sourceIdQueryBuilder
           .must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_ID, getSearchString()));
 

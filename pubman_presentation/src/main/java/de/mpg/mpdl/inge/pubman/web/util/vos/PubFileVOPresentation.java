@@ -154,7 +154,6 @@ public class PubFileVOPresentation extends FacesBean {
         LogManager.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI);
         final InputStream in = contentCategoryURI.openStream();
         PubFileVOPresentation.properties.load(in);
-        PubFileVOPresentation.properties.putAll(PubFileVOPresentation.properties);
         in.close();
 
         LogManager.getLogger(PubFileVOPresentation.class).info("Content-category properties loaded from " + contentCategoryURI);
@@ -352,7 +351,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String getLocator() {
     String locator = "";
-    if (this.getIsLocator()) {
+    if (this.isLocator) {
       locator = this.file.getContent();
     }
 

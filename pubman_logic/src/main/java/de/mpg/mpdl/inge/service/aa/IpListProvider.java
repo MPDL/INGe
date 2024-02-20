@@ -24,7 +24,7 @@ public interface IpListProvider {
     public IpRange(String id, String name, List<String> ipRanges) {
       this.name = name;
       this.id = id;
-      this.setIpRanges(ipRanges);
+      this.ipRanges = ipRanges;
     }
 
     public String getName() {
@@ -53,7 +53,7 @@ public interface IpListProvider {
 
 
     public boolean matches(String adress) {
-      for (String ipPattern : getIpRanges()) {
+      for (String ipPattern : this.ipRanges) {
         if (NetworkUtils.checkIPMatching(ipPattern, adress)) {
           return true;
         }

@@ -305,7 +305,7 @@ public class CreatorBean extends FacesBean {
   }
 
   public String getIdentifierValue() {
-    if (this.isPersonType() && null != this.getCreator() && null != this.creator.getPerson()
+    if (this.isPersonType() && null != this.creator && null != this.creator.getPerson()
         && null != this.creator.getPerson().getIdentifier()) {
       return this.creator.getPerson().getIdentifier().getId();
     }
@@ -315,7 +315,7 @@ public class CreatorBean extends FacesBean {
 
   public void setIdentifierValue(String newValue) {
     if (null != newValue && !newValue.isEmpty()) {
-      if (this.isPersonType() && null != this.getCreator() && null != this.creator.getPerson()) {
+      if (this.isPersonType() && null != this.creator && null != this.creator.getPerson()) {
         if (null == this.creator.getPerson().getIdentifier()) {
           this.creator.getPerson().setIdentifier(new IdentifierVO());
         }

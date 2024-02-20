@@ -78,15 +78,15 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
-    if (null == this.children && this.isHasChildren()) {
+    if (null == this.children && this.hasChildren) {
       List<AffiliationDbVO> childOus = (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 
       for (final AffiliationVOPresentation affiliationVOPresentation : this.children) {
-        affiliationVOPresentation.setParent(this);
-        affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", " + this.getNamePath());
-        affiliationVOPresentation.setIdPath(affiliationVOPresentation.getObjectId() + " " + this.getIdPath());
+        affiliationVOPresentation.parent = this;
+        affiliationVOPresentation.namePath = affiliationVOPresentation.getDetails().getName() + ", " + this.namePath;
+        affiliationVOPresentation.idPath = affiliationVOPresentation.getObjectId() + " " + this.idPath;
       }
     }
 
@@ -210,7 +210,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
     int level = 0;
 
     while (!aff.getTopLevel()) {
-      aff = aff.getParent();
+      aff = aff.parent;
       level++;
     }
 
@@ -351,5 +351,10 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
    */
   public boolean isHasChildren() {
     return this.hasChildren;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof AffiliationVOPresentation && compareTo((AffiliationVOPresentation) o) == 0;
   }
 }

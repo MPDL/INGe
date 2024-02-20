@@ -61,7 +61,7 @@ public class ElasticSearchIndexField {
 
 
   public String toString() {
-    return getIndexName() + " (" + getType() + ")" + " -- " + getNestedPaths();
+    return this.indexName + " (" + this.type + ")" + " -- " + this.nestedPaths;
   }
 
   /**

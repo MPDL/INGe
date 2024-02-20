@@ -142,7 +142,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       DbTools.closeConnection(connection);
     }
 
-    this.setImportSelectItems(importSelectItems);
+    this.importSelectItems = importSelectItems;
   }
 
   @Override
@@ -188,8 +188,8 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         bq.mustNot(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());
       }
 
-      if (!"all".equalsIgnoreCase(this.getSelectedImport())) {
-        bq.must(MatchQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.getSelectedImport()).operator(Operator.And))
+      if (!"all".equalsIgnoreCase(this.selectedImport)) {
+        bq.must(MatchQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_LOCAL_TAGS).query(this.selectedImport).operator(Operator.And))
             ._toQuery());
       }
 
@@ -314,8 +314,8 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
    */
   public String getSelectedItemStateLabel() {
     String returnString = "";
-    if (null != this.getSelectedItemState() && !"all".equals(this.getSelectedItemState())) {
-      returnString = this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.valueOf(this.getSelectedItemState())));
+    if (null != this.selectedItemState && !"all".equals(this.selectedItemState)) {
+      returnString = this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.valueOf(this.selectedItemState)));
     }
     return returnString;
 

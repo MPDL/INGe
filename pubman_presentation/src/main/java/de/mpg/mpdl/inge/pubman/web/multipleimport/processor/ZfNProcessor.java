@@ -115,7 +115,7 @@ public class ZfNProcessor extends FormatProcessor {
 
       }
 
-      logger.debug("Zip file contains " + count + "elements");
+      logger.debug("Zip file contains " + count + " elements");
       zipinputstream.close();
       this.counter = 0;
 
@@ -137,10 +137,10 @@ public class ZfNProcessor extends FormatProcessor {
    * @throws Exception
    */
   public FileDbVO getFileforImport(Map<String, String> config, Principal user) throws Exception {
-    this.setConfig(config);
-    this.setCurrentFile(this.processZfnFileName(this.fileNames.get(0)));
+    this.config = config;
+    this.currentFile = this.processZfnFileName(this.fileNames.get(0));
 
-    if (null != this.getConfig()) {
+    if (null != this.config) {
       final InputStream in = this.fetchFile();
       return this.createPubFile(in, user);
     }
@@ -149,23 +149,23 @@ public class ZfNProcessor extends FormatProcessor {
   }
 
   private FileDbVO createPubFile(InputStream in, Principal user) throws Exception {
-    logger.debug("Creating PubFile: " + this.getCurrentFile());
+    logger.debug("Creating PubFile: " + this.currentFile);
 
     final MdsFileVO mdSet = new MdsFileVO();
     final FileDbVO fileVO = new FileDbVO();
 
     final FileNameMap fileNameMap = URLConnection.getFileNameMap();
-    final String mimeType = fileNameMap.getContentTypeFor(this.getCurrentFile());
+    final String mimeType = fileNameMap.getContentTypeFor(this.currentFile);
 
-    final String fileURL = this.uploadFile(in, mimeType, this.getCurrentFile(), user);
+    final String fileURL = this.uploadFile(in, mimeType, this.currentFile, user);
 
     if (null != fileURL && !fileURL.trim().isEmpty()) {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.setMetadata(mdSet);
-      fileVO.getMetadata().setTitle(this.getCurrentFile());
+      fileVO.getMetadata().setTitle(this.currentFile);
       fileVO.setMimeType(mimeType);
-      fileVO.setName(this.getCurrentFile());
+      fileVO.setName(this.currentFile);
       fileVO.setContent(fileURL);
       fileVO.setSize(this.fileSize);
       String contentCategory = null;
@@ -180,14 +180,14 @@ public class ZfNProcessor extends FormatProcessor {
         }
       }
       fileVO.getMetadata().setContentCategory(contentCategory);
-      fileVO.getMetadata().setLicense(this.getConfig().get("License"));
+      fileVO.getMetadata().setLicense(this.config.get("License"));
 
       final FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(mimeType);
       fileVO.getMetadata().getFormats().add(formatVO);
     }
-    this.setCurrentFile("");
+    this.currentFile = "";
     this.fileNames.remove(0);
     return fileVO;
   }
@@ -200,10 +200,10 @@ public class ZfNProcessor extends FormatProcessor {
   }
 
   private void openFtpServer() throws Exception {
-    final String username = this.getConfig().get("ftpUser");
-    final String password = this.getConfig().get("ftpPwd");
-    final String server = this.getConfig().get("ftpServer");
-    final String dir = this.getConfig().get("ftpDirectory");
+    final String username = this.config.get("ftpUser");
+    final String password = this.config.get("ftpPwd");
+    final String server = this.config.get("ftpServer");
+    final String dir = this.config.get("ftpDirectory");
 
     this.f.connect(server);
     this.f.login(username, password);
@@ -240,7 +240,7 @@ public class ZfNProcessor extends FormatProcessor {
       }
     }
 
-    if (this.f.retrieveFile(this.getCurrentFile(), out)) {
+    if (this.f.retrieveFile(this.currentFile, out)) {
       input = new ByteArrayInputStream(out.toByteArray());
       this.fileSize = out.size();
     }

@@ -155,7 +155,7 @@ public class TransformerFactory {
   private String citationName;
 
   CitationTypes(String name) {
-      this.setCitationName(name);
+      this.citationName = name;
     }
 
   public String getCitationName() {

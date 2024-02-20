@@ -63,8 +63,8 @@ public abstract class ReferenceObject implements Serializable {
    * @param other The instance to copy.
    */
   public ReferenceObject(ReferenceObject other) {
-    this.setObjectId(other.getObjectId());
-    this.setTitle(other.title);
+    this.setObjectId(other.objectId);
+    this.title = other.title;
   }
 
   /**

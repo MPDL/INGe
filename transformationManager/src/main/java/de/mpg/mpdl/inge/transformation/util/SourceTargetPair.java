@@ -8,8 +8,8 @@ public class SourceTargetPair {
   private TransformerFactory.FORMAT target;
 
   public SourceTargetPair(TransformerFactory.FORMAT s, TransformerFactory.FORMAT t) {
-    this.setSource(s);
-    this.setTarget(t);
+    this.source = s;
+    this.target = t;
   }
 
   @Override
@@ -19,17 +19,15 @@ public class SourceTargetPair {
     } else if (!(other instanceof SourceTargetPair)) {
       return false;
     } else {
-      return (null == this.getSource() ? null == ((SourceTargetPair) other).getSource()
-          : this.getSource().equals(((SourceTargetPair) other).getSource()))
-          && (null == this.getTarget() ? null == ((SourceTargetPair) other).getTarget()
-              : this.getTarget().equals(((SourceTargetPair) other).getTarget()));
+      return (null == this.source ? null == ((SourceTargetPair) other).source : this.source.equals(((SourceTargetPair) other).source))
+          && (null == this.target ? null == ((SourceTargetPair) other).target : this.target.equals(((SourceTargetPair) other).target));
 
     }
   }
 
   @Override
   public int hashCode() {
-    return this.getSource().hashCode() * this.getTarget().hashCode();
+    return this.source.hashCode() * this.target.hashCode();
   }
 
   public TransformerFactory.FORMAT getTarget() {

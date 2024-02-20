@@ -147,7 +147,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       if ("all".equalsIgnoreCase(this.getSelectedContext())) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
         // menu)
-        List<FieldValue> fv = getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue()))
+        List<FieldValue> fv = this.contextSelectItems.stream().filter(i -> !"all".equals(i.getValue()))
             .map(x -> FieldValue.of(x.getValue().toString())).collect(Collectors.toList());
         bq.must(TermsQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID).terms(TermsQueryField.of(tf -> tf.value(fv))))
             ._toQuery());
@@ -214,10 +214,10 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
     if (null == context) {
       // select first context as default, if there's only one
-      if (2 == this.getContextSelectItems().size()) {
-        this.setSelectedContext((String) this.getContextSelectItems().get(1).getValue());
+      if (2 == this.contextSelectItems.size()) {
+        this.setSelectedContext((String) this.contextSelectItems.get(1).getValue());
       } else {
-        this.setSelectedContext((String) this.getContextSelectItems().get(0).getValue());
+        this.setSelectedContext((String) this.contextSelectItems.get(0).getValue());
       }
     } else {
       this.setSelectedContext(context);

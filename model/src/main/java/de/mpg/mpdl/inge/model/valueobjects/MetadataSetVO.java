@@ -49,7 +49,7 @@ public class MetadataSetVO extends ValueObject implements Cloneable {
   public MetadataSetVO() {}
 
   public MetadataSetVO(String title) {
-    setTitle(title);
+    this.title = title;
   }
 
   /**

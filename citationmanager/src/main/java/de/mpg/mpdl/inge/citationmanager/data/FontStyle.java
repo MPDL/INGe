@@ -318,13 +318,13 @@ public class FontStyle {
   }
 
   public Color getBackColorAwt() {
-    String bc = getBackColor().toUpperCase();
+    String bc = this.backColor.toUpperCase();
     return null == bc || bc.trim().isEmpty() || "WHITE".equals(bc) ? Color.WHITE
         : "BLACK".equals(bc) ? Color.BLACK : "RED".equals(bc) ? Color.RED : "BLUE".equals(bc) ? Color.BLUE : Color.WHITE; // default
   }
 
   public Color getForeColorAwt() {
-    String fc = getForeColor().toUpperCase();
+    String fc = this.foreColor.toUpperCase();
     return null == fc || fc.trim().isEmpty() || "BLACK".equals(fc) ? Color.BLACK
         : "WHITE".equals(fc) ? Color.WHITE : "RED".equals(fc) ? Color.RED : "BLUE".equals(fc) ? Color.BLUE : Color.BLACK; // default
   }

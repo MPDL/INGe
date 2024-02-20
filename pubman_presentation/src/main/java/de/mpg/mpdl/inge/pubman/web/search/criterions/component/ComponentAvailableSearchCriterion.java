@@ -108,7 +108,7 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
   @Override
   public String getQueryStringContent() {
-    return this.getSelectedAvailability().name();
+    return this.selectedAvailability.name();
   }
 
   @Override

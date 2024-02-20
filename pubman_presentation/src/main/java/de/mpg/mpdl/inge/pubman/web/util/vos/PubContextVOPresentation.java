@@ -66,7 +66,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
     // deselect all other contexts
     if (null != this.getContextListSessionBean().getDepositorContextList()) {
       for (int i = 0; i < this.getContextListSessionBean().getDepositorContextList().size(); i++) {
-        this.getContextListSessionBean().getDepositorContextList().get(i).setSelected(false);
+        this.getContextListSessionBean().getDepositorContextList().get(i).selected = false;
       }
     }
 
@@ -99,5 +99,10 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
 
   private CreateItem getCreateItem() {
     return FacesTools.findBean("CreateItem");
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof PubContextVOPresentation && compareTo((PubContextVOPresentation) o) == 0;
   }
 }

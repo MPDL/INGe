@@ -62,7 +62,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return !this.isInvited();
+    return !this.invited;
   }
 
   public boolean isInvited() {
@@ -75,7 +75,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   @Override
   public Query toElasticSearchQuery() throws IngeTechnicalException {
-    if (this.isInvited()) {
+    if (this.invited) {
       return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_METADATA_EVENT_INVITATION_STATUS},
           EventVO.InvitationStatus.INVITED.name());
     }

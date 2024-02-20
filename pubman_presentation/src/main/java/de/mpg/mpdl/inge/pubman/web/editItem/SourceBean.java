@@ -113,9 +113,9 @@ public class SourceBean extends EditItemBean {
    * Adds the first alternative title for the source with no content
    */
   public void addSourceAlternativeTitle() {
-    if (null != this.getSource()) {
-      if (null == this.getSource().getAlternativeTitles() || this.getSource().getAlternativeTitles().isEmpty()) {
-        this.getSource().getAlternativeTitles().add(new AlternativeTitleVO());
+    if (null != this.source) {
+      if (null == this.source.getAlternativeTitles() || this.source.getAlternativeTitles().isEmpty()) {
+        this.source.getAlternativeTitles().add(new AlternativeTitleVO());
       }
     }
   }
@@ -124,8 +124,8 @@ public class SourceBean extends EditItemBean {
    * Adds an empty alternative title for the source after the current one
    */
   public void addSourceAlternativeTitleAtIndex(int index) {
-    if (null != this.getSource() && null != this.getSource().getAlternativeTitles() && !this.getSource().getAlternativeTitles().isEmpty()) {
-      this.getSource().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
+    if (null != this.source && null != this.source.getAlternativeTitles() && !this.source.getAlternativeTitles().isEmpty()) {
+      this.source.getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
     }
   }
 
@@ -133,8 +133,8 @@ public class SourceBean extends EditItemBean {
    * Removes an alternative title from the current position of the source
    */
   public void removeSourceAlternativeTitleAtIndex(int index) {
-    if (null != this.getSource() && null != this.getSource().getAlternativeTitles() && !this.getSource().getAlternativeTitles().isEmpty()) {
-      this.getSource().getAlternativeTitles().remove(index);
+    if (null != this.source && null != this.source.getAlternativeTitles() && !this.source.getAlternativeTitles().isEmpty()) {
+      this.source.getAlternativeTitles().remove(index);
     }
   }
 
@@ -213,19 +213,19 @@ public class SourceBean extends EditItemBean {
    */
   public String parseAndSetAlternativeTitlesAndIds() {
     // clear old alternative titles
-    final List<AlternativeTitleVO> altTitleList = this.getSource().getAlternativeTitles();
+    final List<AlternativeTitleVO> altTitleList = this.source.getAlternativeTitles();
     altTitleList.clear();
 
     // clear old identifiers
-    final IdentifierCollection.IdentifierManager idManager = this.getIdentifierCollection().getIdentifierManager();
+    final IdentifierCollection.IdentifierManager idManager = this.identifierCollection.getIdentifierManager();
     idManager.getObjectList().clear();
 
-    if (!this.getHiddenAlternativeTitlesField().trim().isEmpty()) {
-      altTitleList.addAll(SourceBean.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
+    if (!this.hiddenAlternativeTitlesField.trim().isEmpty()) {
+      altTitleList.addAll(SourceBean.parseAlternativeTitles(this.hiddenAlternativeTitlesField));
     }
-    if (!this.getHiddenIdsField().trim().isEmpty()) {
+    if (!this.hiddenIdsField.trim().isEmpty()) {
       // idManager.getDataListFromVO().clear();
-      idManager.getObjectList().addAll(SourceBean.parseIdentifiers(this.getHiddenIdsField()));
+      idManager.getObjectList().addAll(SourceBean.parseIdentifiers(this.hiddenIdsField));
     }
     return "";
   }

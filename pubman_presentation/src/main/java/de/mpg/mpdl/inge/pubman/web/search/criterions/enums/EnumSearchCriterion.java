@@ -48,7 +48,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 
   @Override
   public Query toElasticSearchQuery() throws IngeTechnicalException {
-    return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.getSearchString(this.getSelectedEnum()));
+    return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.getSearchString(this.selectedEnum));
   }
 
 
@@ -60,7 +60,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 
   @Override
   public String getQueryStringContent() {
-    return SearchCriterionBase.escapeForQueryString(this.getSelectedEnum().name());
+    return SearchCriterionBase.escapeForQueryString(this.selectedEnum.name());
   }
 
 
@@ -78,7 +78,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
    */
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return null == this.getSelectedEnum();
+    return null == this.selectedEnum;
   }
 
   public T getSelectedEnum() {

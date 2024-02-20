@@ -103,18 +103,18 @@ public class SourceBean extends FacesBean {
     String formattedCreator = "";
     String formattedOrganization = "";
 
-    this.setSourceOrganizationList(new ArrayList<>());
-    this.setSourceCreatorOrganizationsArray(new ArrayList<>());
-    this.setSourceOrganizationArray(new ArrayList<>());
+    this.sourceOrganizationList = new ArrayList<>();
+    this.sourceCreatorOrganizationsArray = new ArrayList<>();
+    this.sourceOrganizationArray = new ArrayList<>();
 
     // counter for organization array
     int counterOrganization = 0;
     final ObjectFormatter formatter = new ObjectFormatter();
 
     // temporary list of All creators, retrieved directly from the metadata
-    tempCreatorList = this.getSource().getCreators();
+    tempCreatorList = this.source.getCreators();
     // the list of creators is initialized to a new array list
-    this.setSourceCreatorArray(new ArrayList<>());
+    this.sourceCreatorArray = new ArrayList<>();
     int affiliationPosition = 0;
 
     // for each creator in the list
@@ -145,7 +145,7 @@ public class SourceBean extends FacesBean {
               // if the temporary organization is to be added to the sorted set of organizations
               sortOrganizationList.add(organizationVO);
               // create new Organization view object
-              this.getSourceOrganizationList().add(ViewItemFull.formatCreatorOrganization(organizationVO, affiliationPosition));
+              this.sourceOrganizationList.add(ViewItemFull.formatCreatorOrganization(organizationVO, affiliationPosition));
             }
           }
         }
@@ -193,7 +193,7 @@ public class SourceBean extends FacesBean {
       }
 
       counterOrganization++;
-      this.setSourceAffiliatedOrganizationsList(sortOrganizationList);
+      this.sourceAffiliatedOrganizationsList = sortOrganizationList;
       // generate a 'well-formed' list for presentation in the jsp
       for (int k = 0; k < sortOrganizationList.size(); k++) {
         final String name = null != sortOrganizationList.get(k).getName() ? sortOrganizationList.get(k).getName() : "";

@@ -123,7 +123,7 @@ public class ModelList {
    * @throws ConeException
    */
   public Model getModelByAlias(String alias) throws ConeException {
-    for (Model model : getList()) {
+    for (Model model : this.list) {
       if (model.getName().equals(alias) || model.getAliases().contains(alias)) {
         return model;
       }
@@ -570,7 +570,7 @@ public class ModelList {
       if (null == predicateId) {
         throw new ConeException("Empty predicate name");
       }
-      for (Predicate predicate : getPredicates()) {
+      for (Predicate predicate : this.predicates) {
         if (predicateId.equals(predicate.getId())) {
           return predicate;
         }
@@ -713,7 +713,7 @@ public class ModelList {
       this.suggestUrl = suggestUrl;
 
       if (null != typeString && !typeString.isEmpty()) {
-        this.setType(Type.valueOf(typeString.toUpperCase()));
+        this.type = Type.valueOf(typeString.toUpperCase());
       }
     }
 
@@ -735,8 +735,8 @@ public class ModelList {
       if (null == predicateId) {
         throw new ConeException("Empty predicate name");
       }
-      for (Predicate predicate : getPredicates()) {
-        if (predicateId.equals(predicate.getId())) {
+      for (Predicate predicate : this.predicates) {
+        if (predicateId.equals(predicate.id)) {
           return predicate;
         }
       }

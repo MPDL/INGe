@@ -67,9 +67,9 @@ public class EmailService {
     try {
       // Setup mail server
       Properties props = System.getProperties();
-      props.put("mail.smtp.host", smtpHost);
-      props.put("mail.smtp.auth", withAuth);
-      props.put("mail.smtp.starttls.enable", "true");
+      props.setProperty("mail.smtp.host", smtpHost);
+      props.setProperty("mail.smtp.auth", withAuth);
+      props.setProperty("mail.smtp.starttls.enable", "true");
 
       // Get a mail session with authentication
       MailAuthenticator authenticator = MailAuthenticator.createMailAuthenticator(usr, pwd);
@@ -193,9 +193,9 @@ public class EmailService {
     try {
       // Setup mail server
       Properties props = System.getProperties();
-      props.put("mail.smtp.host", smtpHost);
-      props.put("mail.smtp.auth", withAuth);
-      props.put("mail.smtp.starttls.enable", "true");
+      props.setProperty("mail.smtp.host", smtpHost);
+      props.setProperty("mail.smtp.auth", withAuth);
+      props.setProperty("mail.smtp.starttls.enable", "true");
 
       // Get a mail session with authentication
       MailAuthenticator authenticator = MailAuthenticator.createMailAuthenticator(usr, pwd);

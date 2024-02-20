@@ -211,10 +211,10 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    */
   @JsonIgnore
   public String getTypeString() {
-    if (null == getType() || null == getType().toString()) {
+    if (null == this.type || null == this.type.toString()) {
       return "";
     }
-    return getType().toString();
+    return this.type.toString();
   }
 
   /**
@@ -225,10 +225,10 @@ public class IdentifierVO extends ValueObject implements Cloneable {
   @JsonIgnore
   public void setTypeString(String newValString) {
     if (null == newValString || newValString.isEmpty()) {
-      setType(null);
+      this.type = null;
     } else {
       IdentifierVO.IdType newVal = IdentifierVO.IdType.valueOf(newValString);
-      setType(newVal);
+      this.type = newVal;
     }
   }
 

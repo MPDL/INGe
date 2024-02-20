@@ -65,6 +65,6 @@ public class NetworkUtils {
   public static void main(String[] args) {
 
     System.out.println(
-        getUrlMatchPattern().matcher("https://qa.inge.mpdl.mpg.de/rest/items/item_3004881_1/component/file_3004882/content").matches());
+        urlMatcherPattern.matcher("https://qa.inge.mpdl.mpg.de/rest/items/item_3004881_1/component/file_3004882/content").matches());
   }
 }

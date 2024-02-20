@@ -129,7 +129,7 @@ public class ImportLog extends BaseImportLog {
         importLogItems.add(importLogItem);
       }
 
-      importLog.setItems(importLogItems);
+      importLog.importLogItems = importLogItems;
 
       // DbTools.closePreparedStatement(ps);
 
@@ -865,7 +865,7 @@ public class ImportLog extends BaseImportLog {
     writer.write(this.getStatus().toString());
     writer.write("\n");
 
-    for (final ImportLogItem item : this.getItems()) {
+    for (final ImportLogItem item : this.importLogItems) {
       writer.write(item.toString().replaceAll("(.*)\n", "\t$1\n"));
     }
 

@@ -184,7 +184,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
           }
         }
         String fileId = innerHit.source().toJson().asJsonObject().get("fileData").asJsonObject().getJsonString("fileId").getString();
-        getHighlightMap().put(fileId, highlights);
+        this.highlightMap.put(fileId, highlights);
 
       }
 
@@ -208,8 +208,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
       }
       // add files
       else {
-        if (this.getHighlightMap().containsKey(file.getObjectId())) {
-          this.fileBeanList.add(new FileBean(file, this, getHighlightMap().get(file.getObjectId())));
+        if (this.highlightMap.containsKey(file.getObjectId())) {
+          this.fileBeanList.add(new FileBean(file, this, this.highlightMap.get(file.getObjectId())));
         } else {
           this.fileBeanList.add(new FileBean(file, this));
         }
@@ -956,7 +956,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   public void writeBackLocalTags() {
     this.getObject().getLocalTags().clear();
-    for (final WrappedLocalTag wrappedLocalTag : this.getWrappedLocalTags()) {
+    for (final WrappedLocalTag wrappedLocalTag : this.wrappedLocalTags) {
       this.getObject().getLocalTags().add(wrappedLocalTag.getValue());
     }
   }
@@ -1302,8 +1302,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
 
     // add open access component
-    if (null != this.getFileBeanList() && !this.getFileBeanList().isEmpty()) {
-      for (final FileBean file : this.getFileBeanList()) {
+    if (null != this.fileBeanList && !this.fileBeanList.isEmpty()) {
+      for (final FileBean file : this.fileBeanList) {
         if (true == file.getIsVisible()) {
           this.descriptionMetaTag += "; Open Access";
           break;

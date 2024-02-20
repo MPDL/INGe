@@ -639,12 +639,6 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
     RuleResult result = validator.validate(new PasswordData(password));
     if (!result.isValid()) {
-      StringBuilder sb = new StringBuilder();
-      for (String msg : validator.getMessages(result)) {
-        sb.append(msg);
-        sb.append("\n");
-      }
-
       throw new IngeApplicationException(
           "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character");
     }

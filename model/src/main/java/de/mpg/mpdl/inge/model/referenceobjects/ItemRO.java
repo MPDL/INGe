@@ -317,10 +317,10 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   public void setObjectId(String objectId) {
     if (null != objectId && objectId.contains(":") && objectId.substring(objectId.indexOf(":") + 1).contains(":")) {
       super.setObjectId(objectId.substring(0, objectId.lastIndexOf(":")));
-      setVersionNumber(Integer.parseInt(objectId.substring(objectId.lastIndexOf(":") + 1)));
+      this.versionNumber = Integer.parseInt(objectId.substring(objectId.lastIndexOf(":") + 1));
     } else if (null != objectId && objectId.contains("_") && objectId.substring(objectId.indexOf("_") + 1).contains("_")) {
       super.setObjectId(objectId.substring(0, objectId.lastIndexOf("_")));
-      setVersionNumber(Integer.parseInt(objectId.substring(objectId.lastIndexOf("_") + 1)));
+      this.versionNumber = Integer.parseInt(objectId.substring(objectId.lastIndexOf("_") + 1));
     } else {
       super.setObjectId(objectId);
     }

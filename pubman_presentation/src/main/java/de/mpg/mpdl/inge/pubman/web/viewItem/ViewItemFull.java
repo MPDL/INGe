@@ -278,7 +278,7 @@ public class ViewItemFull extends FacesBean {
           if (latestVersionItemPattern.startsWith("/")) {
             latestVersionItemPattern = latestVersionItemPattern.substring(1);
           }
-          this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
+          this.latestVersionURL = pubmanUrl + latestVersionItemPattern;
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -657,8 +657,8 @@ public class ViewItemFull extends FacesBean {
     String formattedCreator = "";
     String formattedOrganization = "";
 
-    this.setOrganizationArray(new ArrayList<>());
-    this.setOrganizationList(new ArrayList<>());
+    this.organizationArray = new ArrayList<>();
+    this.organizationList = new ArrayList<>();
 
     // counter for organization array
     int counterOrganization = 0;
@@ -667,7 +667,7 @@ public class ViewItemFull extends FacesBean {
     // temporary list of All creators, retrieved directly from the metadata
     tempCreatorList = this.getPubItem().getMetadata().getCreators();
     // the list of creators is initialized to a new array list
-    this.setCreators(new ArrayList<>());
+    this.creators = new ArrayList<>();
     // initial affiliation position set to 0
     int affiliationPosition = 0;
 
@@ -702,7 +702,7 @@ public class ViewItemFull extends FacesBean {
               // if the temporary organization is to be added to the sorted set of organizations
               sortOrganizationList.add(organizationVO);
               // create new Organization view object
-              this.getOrganizationList().add(ViewItemFull.formatCreatorOrganization(organizationVO, affiliationPosition));
+              this.organizationList.add(ViewItemFull.formatCreatorOrganization(organizationVO, affiliationPosition));
             }
           }
         }
@@ -750,7 +750,7 @@ public class ViewItemFull extends FacesBean {
 
       counterOrganization++;
       // creatorListString.append(formattedCreator);
-      this.setAffiliatedOrganizationsList(sortOrganizationList);
+      this.affiliatedOrganizationsList = sortOrganizationList;
       // this.affiliatedOrganizationsList = sortOrganizationList;
       // generate a 'well-formed' list for presentation in the jsp
       for (int k = 0; k < sortOrganizationList.size(); k++) {
@@ -1386,7 +1386,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public int getCreatorArraySize() {
-    return this.getCreators().size();
+    return this.creators.size();
   }
 
   public List<SourceBean> getSourceList() {

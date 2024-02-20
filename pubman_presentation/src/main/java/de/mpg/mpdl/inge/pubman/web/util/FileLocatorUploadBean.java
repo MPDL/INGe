@@ -126,22 +126,22 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       mimeType = mimeType.substring(0, mimeType.indexOf(";"));
     }
     if (null != mimeType) {
-      this.setType(mimeType);
+      this.type = mimeType;
     }
     // Get File Name
     fileName = conn.getHeaderField("file-name");
     if (null != fileName) {
-      this.setName(fileName);
+      this.name = fileName;
     } else {
-      this.setName(locatorURL.toString());
+      this.name = locatorURL.toString();
     }
     // Get File Length
     try {
-      this.setSize(Integer.parseInt(conn.getHeaderField("Content-Length")));
+      this.size = Integer.parseInt(conn.getHeaderField("Content-Length"));
     } catch (final NumberFormatException e) {
       input = this.fetchLocator(locatorURL);
       if (null != input) {
-        this.setSize(input.length);
+        this.size = input.length;
       }
     }
     return true;
@@ -197,16 +197,16 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       try {
         fileVO = new FileDbVO();
         fileVO.setMetadata(new MdsFileVO());
-        fileVO.getMetadata().setSize(this.getSize());
-        fileVO.getMetadata().setTitle(this.getFileName(this.getLocator()));
-        fileVO.setMimeType(this.getType());
-        fileVO.setName(this.getFileName(this.getLocator()));
+        fileVO.getMetadata().setSize(this.size);
+        fileVO.getMetadata().setTitle(this.getFileName(this.locator));
+        fileVO.setMimeType(this.type);
+        fileVO.setName(this.getFileName(this.locator));
 
         final FormatVO formatVO = new FormatVO();
         formatVO.setType("dcterms:IMT");
-        formatVO.setValue(this.getType());
+        formatVO.setValue(this.type);
         fileVO.getMetadata().getFormats().add(formatVO);
-        fileVO.setContent(this.getLocator());
+        fileVO.setContent(this.locator);
         fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
 
       } catch (final Exception e) {
@@ -215,8 +215,8 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       }
     }
 
-    if (null != this.getError()) {
-      this.error(this.getMessage("errorLocatorMain").replace("$1", this.getError()));
+    if (null != this.error) {
+      this.error(this.getMessage("errorLocatorMain").replace("$1", this.error));
       return null;
     }
 

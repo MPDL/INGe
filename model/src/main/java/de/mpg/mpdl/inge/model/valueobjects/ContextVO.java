@@ -232,18 +232,18 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public PublicationAdminDescriptorVO getAdminDescriptor() {
-    if (!getAdminDescriptors().isEmpty() && getAdminDescriptors().get(0) instanceof PublicationAdminDescriptorVO) {
-      return (PublicationAdminDescriptorVO) getAdminDescriptors().get(0);
+    if (!this.adminDescriptors.isEmpty() && this.adminDescriptors.get(0) instanceof PublicationAdminDescriptorVO) {
+      return (PublicationAdminDescriptorVO) this.adminDescriptors.get(0);
     } else {
       return null;
     }
   }
 
   public void setAdminDescriptor(PublicationAdminDescriptorVO adminDescriptorVO) {
-    if (!getAdminDescriptors().isEmpty()) {
-      getAdminDescriptors().set(0, adminDescriptorVO);
+    if (!this.adminDescriptors.isEmpty()) {
+      this.adminDescriptors.set(0, adminDescriptorVO);
     } else {
-      getAdminDescriptors().add(adminDescriptorVO);
+      this.adminDescriptors.add(adminDescriptorVO);
     }
   }
 

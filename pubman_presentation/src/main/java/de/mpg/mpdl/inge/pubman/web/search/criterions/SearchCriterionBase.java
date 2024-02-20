@@ -202,7 +202,7 @@ public abstract class SearchCriterionBase implements Serializable {
   public abstract String getElasticSearchNestedPath();
 
   public String toQueryString() {
-    return this.getSearchCriterion().name() + "=\"" + getQueryStringContent() + "\"";
+    return this.searchCriterion.name() + "=\"" + getQueryStringContent() + "\"";
   }
 
   public abstract String getQueryStringContent();
@@ -221,7 +221,7 @@ public abstract class SearchCriterionBase implements Serializable {
     // Find the Enum which belongs to this class
     for (final SearchCriterion sc : SearchCriterion.values()) {
       if (sc.getRelatedClass() == this.getClass()) {
-        this.setSearchCriterion(sc);
+        this.searchCriterion = sc;
         break;
       }
     }
@@ -255,7 +255,7 @@ public abstract class SearchCriterionBase implements Serializable {
       final Constructor<?> ctor = sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
       ctor.setAccessible(true);
       final SearchCriterionBase scb = (SearchCriterionBase) ctor.newInstance(sc);
-      scb.setSearchCriterion(sc);
+      scb.searchCriterion = sc;
       return scb;
 
     } catch (final Exception e) {
@@ -547,10 +547,10 @@ public abstract class SearchCriterionBase implements Serializable {
     // Set partner parenthesis for every parenthesis
     final Stack<Parenthesis> parenthesisStack = new Stack<>();
     for (final SearchCriterionBase sc : cleanedScList) {
-      if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+      if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.searchCriterion)) {
         parenthesisStack.push((Parenthesis) sc);
 
-      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.searchCriterion)) {
 
         final Parenthesis closingParenthesis = (Parenthesis) sc;
         final Parenthesis openingParenthesis = parenthesisStack.pop();
@@ -587,8 +587,8 @@ public abstract class SearchCriterionBase implements Serializable {
     SearchCriterionBase.logger.debug("List: " + criterionList);
 
     // Remove unnecessary parenthesis
-    while (SearchCriterion.OPENING_PARENTHESIS.equals(criterionList.get(0).getSearchCriterion())
-        && SearchCriterion.CLOSING_PARENTHESIS.equals(criterionList.get(criterionList.size() - 1).getSearchCriterion())
+    while (SearchCriterion.OPENING_PARENTHESIS.equals(criterionList.get(0).searchCriterion)
+        && SearchCriterion.CLOSING_PARENTHESIS.equals(criterionList.get(criterionList.size() - 1).searchCriterion)
         && ((Parenthesis) criterionList.get(0)).getPartnerParenthesis() == criterionList.get(criterionList.size() - 1)) {
 
       criterionList.remove(0);
@@ -599,7 +599,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
     for (final SearchCriterionBase sc : criterionList) {
 
-      if (DisplayType.OPERATOR.equals(sc.getSearchCriterion().getDisplayType())) {
+      if (DisplayType.OPERATOR.equals(sc.searchCriterion.getDisplayType())) {
 
         if (0 == parenthesisOpened) {
 
@@ -617,10 +617,10 @@ public abstract class SearchCriterionBase implements Serializable {
           lastOperator = op;
         }
 
-      } else if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+      } else if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.searchCriterion)) {
         parenthesisOpened++;
 
-      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.searchCriterion)) {
         parenthesisOpened--;
 
       } else {
@@ -842,8 +842,8 @@ public abstract class SearchCriterionBase implements Serializable {
       }
 
       // if first in list is an operator except "NOT", remove it
-      if (!copyForRemoval.isEmpty() && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion().getDisplayType())
-          && !SearchCriterion.NOT_OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion())) {
+      if (!copyForRemoval.isEmpty() && DisplayType.OPERATOR.equals(copyForRemoval.get(0).searchCriterion.getDisplayType())
+          && !SearchCriterion.NOT_OPERATOR.equals(copyForRemoval.get(0).searchCriterion)) {
         copyForRemoval.remove(0);
       }
       return copyForRemoval;
@@ -860,11 +860,11 @@ public abstract class SearchCriterionBase implements Serializable {
     } else if (0 <= position - 1) {
       final SearchCriterionBase scBefore = criterionList.get(position - 1);
 
-      deleteBefore = !scBefore.getSearchCriterion().equals(SearchCriterion.OPENING_PARENTHESIS);
+      deleteBefore = !scBefore.searchCriterion.equals(SearchCriterion.OPENING_PARENTHESIS);
 
       if (!deleteBefore && position + 1 < criterionList.size()) {
         final SearchCriterionBase scAfter = criterionList.get(position + 1);
-        deleteBefore = scAfter.getSearchCriterion().equals(SearchCriterion.CLOSING_PARENTHESIS);
+        deleteBefore = scAfter.searchCriterion.equals(SearchCriterion.CLOSING_PARENTHESIS);
       }
     }
 
@@ -872,7 +872,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
     if (deleteBefore) {
       for (int i = position; 0 <= i; i--) {
-        final SearchCriterion sci = criterionList.get(i).getSearchCriterion();
+        final SearchCriterion sci = criterionList.get(i).searchCriterion;
         if (DisplayType.OPERATOR.equals(sci.getDisplayType())) {
           criterionList.remove(position);
           criterionList.remove(i);
@@ -883,7 +883,7 @@ public abstract class SearchCriterionBase implements Serializable {
     } else {
       // delete logical operator after
       for (int i = position; i < criterionList.size(); i++) {
-        final SearchCriterion sci = criterionList.get(i).getSearchCriterion();
+        final SearchCriterion sci = criterionList.get(i).searchCriterion;
         if (DisplayType.OPERATOR.equals(sci.getDisplayType())) {
           criterionList.remove(i);
           criterionList.remove(position);
@@ -901,10 +901,10 @@ public abstract class SearchCriterionBase implements Serializable {
     // now remove empty parenthesis
     for (int i = 0; i < criterionList.size(); i++) {
       final SearchCriterionBase sc = criterionList.get(i);
-      if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+      if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.searchCriterion)) {
         if (i + 1 < criterionList.size()) {
           final SearchCriterionBase next = criterionList.get(i + 1);
-          if (SearchCriterion.CLOSING_PARENTHESIS.equals(next.getSearchCriterion())) {
+          if (SearchCriterion.CLOSING_PARENTHESIS.equals(next.searchCriterion)) {
             parenthesisToRemove.add(sc);
             parenthesisToRemove.add(next);
           }
@@ -917,7 +917,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
     // if first criterion is an operand, remove it
     if (null != criterionList && !criterionList.isEmpty()
-        && DisplayType.OPERATOR.equals(criterionList.get(0).getSearchCriterion().getDisplayType())) {
+        && DisplayType.OPERATOR.equals(criterionList.get(0).searchCriterion.getDisplayType())) {
       criterionList.remove(0);
     }
 
@@ -927,9 +927,9 @@ public abstract class SearchCriterionBase implements Serializable {
   public static void updateParenthesisStatus(List<SearchCriterionBase> criterionList) {
     // SearchCriterionBase lastOpenedParenthesis;
     for (final SearchCriterionBase sc : criterionList) {
-      if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+      if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.searchCriterion)) {
 
-      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion())) {
+      } else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.searchCriterion)) {
 
       } else {
 
@@ -968,7 +968,7 @@ public abstract class SearchCriterionBase implements Serializable {
     try {
       return this.toQueryString() + " (" + this.hashCode() + ")";
     } catch (final Exception e) {
-      return this.getSearchCriterion().name();
+      return this.searchCriterion.name();
     }
   }
 

@@ -138,18 +138,18 @@ public class LoginHelper extends FacesBean {
    */
   public String login() {
     try {
-      logger.info("Try to login: " + this.getUsername());
+      logger.info("Try to login: " + this.username);
       HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
       HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-      this.principal = ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(), this.getPassword(), request, response);
+      this.principal = ApplicationBean.INSTANCE.getUserAccountService().login(this.username, this.password, request, response);
 
       if (null != this.principal) {
-        this.accountUser = getPrincipal().getUserAccount();
-        this.authenticationToken = getPrincipal().getJwToken();
+        this.accountUser = this.principal.getUserAccount();
+        this.authenticationToken = this.principal.getJwToken();
         this.loggedIn = true;
         this.detailedMode = true;
 
-        logger.info("Login succeeded: " + this.getUsername());
+        logger.info("Login succeeded: " + this.username);
 
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
@@ -181,20 +181,20 @@ public class LoginHelper extends FacesBean {
   }
 
   public String logout() {
-    logger.info("Try to logout: " + this.getUsername());
+    logger.info("Try to logout: " + this.username);
     HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
     HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 
     try {
       ApplicationBean.INSTANCE.getUserAccountService().logout(this.authenticationToken, request, response);
-      logger.info("Logout succeeded: " + this.getUsername());
+      logger.info("Logout succeeded: " + this.username);
     } catch (Exception e) {
       logger.error("Error while logging out", e);
     }
 
     final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
     session.invalidate();
-    logger.info("Session invalidated: " + this.getUsername());
+    logger.info("Session invalidated: " + this.username);
 
 
     this.init();
@@ -271,7 +271,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsAdmin() {
-    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.SYSADMIN);
+    return this.loggedIn && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.SYSADMIN);
   }
 
   /**
@@ -280,7 +280,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsLocalAdmin() {
-    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.LOCAL_ADMIN);
+    return this.loggedIn && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.LOCAL_ADMIN);
   }
 
   /**
@@ -289,7 +289,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsModerator() {
-    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.MODERATOR);
+    return this.loggedIn && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.MODERATOR);
   }
 
   /**
@@ -298,7 +298,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsDepositor() {
-    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.DEPOSITOR);
+    return this.loggedIn && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.DEPOSITOR);
   }
 
   /**
@@ -307,7 +307,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsReporter() {
-    return this.isLoggedIn() && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.REPORTER);
+    return this.loggedIn && GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.REPORTER);
   }
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {

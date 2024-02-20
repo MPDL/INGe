@@ -246,7 +246,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setSelectedSortBy("STATE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -263,7 +263,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setSelectedSortBy("TITLE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -280,7 +280,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setSelectedSortBy("GENRE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -297,7 +297,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setSelectedSortBy("DATE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -314,7 +314,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setSelectedSortBy("CREATOR");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -331,7 +331,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setSelectedSortBy("FILE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -348,7 +348,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setSelectedSortBy("CREATION_DATE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -384,7 +384,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   public void changeSortBy() {
     try {
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
       this.error(this.getMessage("NoRedirect"));
@@ -398,7 +398,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeSubmenuToView() {
     try {
-      this.setSubMenu("VIEW");
+      this.subMenu = "VIEW";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -413,7 +413,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeSubmenuToExport() {
     try {
-      this.setSubMenu("EXPORT");
+      this.subMenu = "EXPORT";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -428,7 +428,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeSubmenuToFilter() {
     try {
-      this.setSubMenu("FILTER");
+      this.subMenu = "FILTER";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -443,7 +443,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeSubmenuToSorting() {
     try {
-      this.setSubMenu("SORTING");
+      this.subMenu = "SORTING";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -458,7 +458,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeSubmenuToActions() {
     try {
-      this.setSubMenu("ACTIONS");
+      this.subMenu = "ACTIONS";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -473,7 +473,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeSubmenuToProcessLog() {
     try {
-      this.setSubMenu("PROCESS_LOG");
+      this.subMenu = "PROCESS_LOG";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -488,7 +488,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeListTypeToBib() {
     try {
-      this.setListType("BIB");
+      this.listType = "BIB";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -503,7 +503,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public void changeListTypeToGrid() {
     try {
-      this.setListType("GRID");
+      this.listType = "GRID";
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
@@ -572,8 +572,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   public String getSelectedSortByLabel() {
     String returnString = "";
-    if (!"all".equals(this.getSelectedSortBy())) {
-      returnString = this.getLabel("ENUM_CRITERIA_" + this.getSelectedSortBy());
+    if (!"all".equals(this.selectedSortBy)) {
+      returnString = this.getLabel("ENUM_CRITERIA_" + this.selectedSortBy);
     }
 
     return returnString;
@@ -606,7 +606,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     if (null != sortBy) {
       this.setSelectedSortBy(sortBy);
-    } else if (null != this.getSelectedSortBy()) {
+    } else if (null != this.selectedSortBy) {
       // do nothing
     } else {
       // This is commented out due to PUBMAN-1907
@@ -624,7 +624,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         FacesTools.getExternalContext().getRequestParameterMap().get(PubItemListSessionBean.parameterSelectedSortOrder);
     if (null != sortOrder) {
       this.setSelectedSortOrder(sortOrder);
-    } else if (null != this.getSelectedSortOrder()) {
+    } else if (null != this.selectedSortOrder) {
       // do nothing
     } else {
       this.setSelectedSortOrder(SearchSortCriteria.SortOrder.DESC.name());
@@ -636,8 +636,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   @Override
   public SORT_CRITERIA getSortCriteria() {
-    final SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.getSelectedSortBy());
-    sc.setSortOrder(SearchSortCriteria.SortOrder.valueOf(this.getSelectedSortOrder()));
+    final SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.selectedSortBy);
+    sc.setSortOrder(SearchSortCriteria.SortOrder.valueOf(this.selectedSortOrder));
 
     return sc;
   }
@@ -670,7 +670,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     } else {
       this.subMenu = "VIEW";
     }
-    this.getSelectedItemRefs().clear();
+    this.selectedItemRefs.clear();
   }
 
   /**
@@ -914,9 +914,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   private void saveSelections() {
     for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
-        this.getSelectedItemRefs().put(pubItem.getObjectIdAndVersion(), pubItem);
+        this.selectedItemRefs.put(pubItem.getObjectIdAndVersion(), pubItem);
       } else {
-        this.getSelectedItemRefs().remove(pubItem.getObjectIdAndVersion());
+        this.selectedItemRefs.remove(pubItem.getObjectIdAndVersion());
       }
     }
   }
@@ -925,13 +925,13 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * Checks if items on the current page have to be selected (checked) after an redirect.
    */
   private void updateSelections() {
-    if (!this.getSelectedItemRefs().isEmpty()) {
+    if (!this.selectedItemRefs.isEmpty()) {
       for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
-        if (this.getSelectedItemRefs().containsKey(pubItem.getObjectIdAndVersion())) {
+        if (this.selectedItemRefs.containsKey(pubItem.getObjectIdAndVersion())) {
           pubItem.setSelected(true);
         }
       }
-      this.getSelectedItemRefs().clear();
+      this.selectedItemRefs.clear();
     }
   }
 
@@ -1173,7 +1173,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   }
 
   public boolean getDisplaySortOrder() {
-    if (SORT_CRITERIA.RELEVANCE.name().equals(this.getSelectedSortBy())) {
+    if (SORT_CRITERIA.RELEVANCE.name().equals(this.selectedSortBy)) {
       return false;
     }
 

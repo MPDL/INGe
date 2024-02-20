@@ -74,9 +74,9 @@ public class ItemVersionRO implements Serializable {
   @JsonIgnore
   public String getObjectIdAndVersion() {
     if (0 != this.versionNumber) {
-      return getObjectId() + "_" + this.versionNumber;
+      return this.objectId + "_" + this.versionNumber;
     } else {
-      return getObjectId();
+      return this.objectId;
     }
 
   }

@@ -215,7 +215,7 @@ public class SiteMapTask {
       if (null != in) {
         try {
           in.close();
-          successful |= src.delete();
+          successful = successful || src.delete();
         } finally {
           if (null != out) {
             out.close();

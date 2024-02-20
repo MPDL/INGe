@@ -507,7 +507,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       try {
         deleteStageFile(stagedFile);
       } catch (IngeTechnicalException e) {
-        logger.error("Error deleting stage file" + e);
+        logger.error("Error deleting stage file " + e);
       }
     }
 

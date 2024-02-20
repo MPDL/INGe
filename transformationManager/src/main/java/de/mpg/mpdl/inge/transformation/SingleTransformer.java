@@ -217,7 +217,7 @@ public abstract class SingleTransformer implements Transformer {
 
 
   public String toString() {
-    return super.toString() + " (<" + getSourceFormat() + "> to <" + getTargetFormat() + ">)";
+    return super.toString() + " (<" + this.sourceFormat + "> to <" + this.targetFormat + ">)";
   }
 
 }

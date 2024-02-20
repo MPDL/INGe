@@ -129,7 +129,7 @@ public class CreateItem extends FacesBean {
   }
 
   public boolean getMultiple() {
-    return (SubmissionMethod.MULTIPLE_IMPORT == this.getMethod());
+    return (SubmissionMethod.MULTIPLE_IMPORT == this.method);
   }
 
   /**

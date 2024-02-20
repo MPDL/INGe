@@ -302,13 +302,13 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       return false;
     } else if (!(o instanceof TreeFragment)) {
       return false;
-    } else if (null == this.language && null != ((TreeFragment) o).getLanguage()) {
+    } else if (null == this.language && null != ((TreeFragment) o).language) {
       return false;
-    } else if (null != this.language && !this.language.equals(((TreeFragment) o).getLanguage())) {
+    } else if (null != this.language && !this.language.equals(((TreeFragment) o).language)) {
       return false;
-    } else if (null == this.subject && null != ((TreeFragment) o).getSubject()) {
+    } else if (null == this.subject && null != ((TreeFragment) o).subject) {
       return false;
-    } else if (null != this.subject && !this.subject.equals(((TreeFragment) o).getSubject())) {
+    } else if (null != this.subject && !this.subject.equals(((TreeFragment) o).subject)) {
       return false;
     } else {
       return super.equals(o);

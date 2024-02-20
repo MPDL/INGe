@@ -431,8 +431,8 @@ public class ApplicationBean extends FacesBean {
 
       this.appTitle = this.getLabel("Pubman_browserTitle");
       // hide the version information if system type is production
-      if (!this.getSystemTypeFromProperty().equals(SystemType.Production_Server) && null != this.getVersion()) {
-        this.appTitle += " " + this.getVersion() + " " + buildDate;
+      if (!this.getSystemTypeFromProperty().equals(SystemType.Production_Server) && null != this.version) {
+        this.appTitle += " " + this.version + " " + buildDate;
       }
 
       this.pubmanInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);

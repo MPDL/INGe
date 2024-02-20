@@ -65,7 +65,7 @@ public class OrganizationVOPresentation extends OrganizationVO {
    */
   public void add() {
     final OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
-    organizationPresentation.setBean(this.bean);
+    organizationPresentation.bean = this.bean;
     this.bean.getCreatorOrganizations().add(this.getNumber(), organizationPresentation);
 
     for (final CreatorVOPresentation creator : this.bean.getCreators()) {
