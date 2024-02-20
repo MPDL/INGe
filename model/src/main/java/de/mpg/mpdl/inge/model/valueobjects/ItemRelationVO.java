@@ -54,6 +54,8 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
    */
   private ItemRO targetItemRef;
 
+  public ItemRelationVO() {}
+
   /**
    * @param type
    * @param targetItemRef
