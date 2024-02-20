@@ -231,35 +231,34 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       query.setCacheMode(CacheMode.IGNORE);
       query.setFlushMode(FlushModeType.COMMIT);
       query.setCacheable(false);
-      ScrollableResults<Id> results = query.scroll(ScrollMode.FORWARD_ONLY);
 
-      int count = 0;
-      while (results.next()) {
-        try {
-          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-          if (0 == count % 1000) {
-            logger.info("Clearing entity manager while reindexing");
-            this.entityManager.flush();
-            this.entityManager.clear();
+      try (ScrollableResults<Id> results = query.scroll(ScrollMode.FORWARD_ONLY)) {
+        int count = 0;
+        while (results.next()) {
+          try {
+            // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+            if (0 == count % 1000) {
+              logger.info("Clearing entity manager while reindexing");
+              this.entityManager.flush();
+              this.entityManager.clear();
+            }
+            count++;
+
+            Id id = results.get();
+
+            this.queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
+
+            //          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+            //          if (count % 1000 == 0) {
+            //            logger.info("Clearing entity manager while reindexing");
+            //            entityManager.flush();
+            //            entityManager.clear();
+            //          }
+
+          } catch (Exception e) {
+            logger.error("Error while reindexing ", e);
           }
-          count++;
-
-          Id id = results.get();
-
-          this.queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
-
-          //          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-          //          if (count % 1000 == 0) {
-          //            logger.info("Clearing entity manager while reindexing");
-          //            entityManager.flush();
-          //            entityManager.clear();
-          //          }
-
-        } catch (Exception e) {
-          logger.error("Error while reindexing ", e);
         }
-
-
       }
     }
   }

@@ -59,7 +59,7 @@ public class AuthenticationVO implements Serializable {
     ATTRIBUTE
   }
 
-  public class Grant {
+  public static class Grant {
     private String key;
     private String value;
 
@@ -89,7 +89,7 @@ public class AuthenticationVO implements Serializable {
 
   }
 
-  public class Role {
+  public static class Role {
     private String key;
 
     public String getKey() {

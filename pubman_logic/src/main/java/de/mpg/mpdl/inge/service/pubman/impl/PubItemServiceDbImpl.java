@@ -689,7 +689,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return new ValidId(m.group(1) + m.group(2), null != m.group(4) ? Integer.parseInt(m.group(4)) : null);
   }
 
-  private class ValidId {
+  private static class ValidId {
     private final String objectId;
     private final Integer version;
 
@@ -886,26 +886,26 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     query.setCacheMode(CacheMode.IGNORE);
     query.setFlushMode(FlushModeType.COMMIT);
     query.setCacheable(false);
-    ScrollableResults<String> results = query.scroll(ScrollMode.FORWARD_ONLY);
 
-    int count = 0;
-    while (results.next()) {
-      try {
-        count++;
-        String id = results.get();
-        this.queueJmsTemplate.convertAndSend("reindex-ItemVersionVO", id);
+    try (ScrollableResults<String> results = query.scroll(ScrollMode.FORWARD_ONLY)) {
+      int count = 0;
+      while (results.next()) {
+        try {
+          count++;
+          String id = results.get();
+          this.queueJmsTemplate.convertAndSend("reindex-ItemVersionVO", id);
 
-        // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-        if (0 == count % 1000) {
-          logger.info("Clearing entity manager");
-          this.entityManager.flush();
-          this.entityManager.clear();
+          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+          if (0 == count % 1000) {
+            logger.info("Clearing entity manager");
+            this.entityManager.flush();
+            this.entityManager.clear();
+          }
+
+        } catch (Exception e) {
+          logger.error("Error while reindexing ", e);
         }
-
-      } catch (Exception e) {
-        logger.error("Error while reindexing ", e);
       }
-
     }
   }
 

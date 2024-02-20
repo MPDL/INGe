@@ -125,7 +125,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     }
   }
 
-  class compilationURIResolver implements URIResolver {
+  public static class compilationURIResolver implements URIResolver {
 
     @Override
     public Source resolve(String href, String base) throws TransformerException {

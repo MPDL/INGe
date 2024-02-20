@@ -125,12 +125,21 @@ public class CreateJournalRdf {
    * @throws ConeException Any exception.
    */
   private Connection getConnection() throws ConeException {
+    Context ctx = null;
     try {
-      Context ctx = new InitialContext();
+      ctx = new InitialContext();
       DataSource dataSource = (DataSource) ctx.lookup("Journals");
       return dataSource.getConnection();
-    } catch (NamingException | SQLException e) {
+    } catch (SQLException | NamingException e) {
       throw new ConeException(e);
+    } finally {
+      if (null != ctx) {
+        try {
+          ctx.close();
+        } catch (NamingException e) {
+          throw new RuntimeException(e);
+        }
+      }
     }
   }
 }

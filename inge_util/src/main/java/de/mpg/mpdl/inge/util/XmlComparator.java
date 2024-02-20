@@ -129,7 +129,7 @@ public class XmlComparator {
     }
   }
 
-  private class FirstXmlHandler extends ShortContentHandler {
+  private static class FirstXmlHandler extends ShortContentHandler {
     private final LinkedList<Node> nodeList = new LinkedList<>();
 
     @Override
@@ -260,68 +260,60 @@ public class XmlComparator {
     boolean equals(Object other);
   }
 
-  private class XmlNode implements Node {
-    private final Map<String, String> attributes;
-    private final String name;
-    private final String namespace;
 
-    private XmlNode(Map<String, String> attributes, String name, String namespace) {
-      this.attributes = attributes;
-      this.name = name;
-      this.namespace = namespace;
-    }
+  private record XmlNode(Map<String, String> attributes, String name, String namespace) implements Node {
 
-    @Override
-    public boolean equals(Object other) {
-      if (null == other || !(other instanceof XmlNode)) {
-        return false;
-      } else {
-        for (Map.Entry<String, String> entry : this.attributes.entrySet()) {
-          String attributeName = entry.getKey();
-          if (!attributeName.startsWith("xmlns:") && !"xsi".equals(attributeName)
-              && !entry.getValue().equals(((XmlNode) other).attributes.get(attributeName))) {
-            return false;
-          }
+  @Override
+  public boolean equals(Object other) {
+    if (null == other || !(other instanceof XmlNode)) {
+      return false;
+    } else {
+      for (Map.Entry<String, String> entry : this.attributes.entrySet()) {
+        String attributeName = entry.getKey();
+        if (!attributeName.startsWith("xmlns:") && !"xsi".equals(attributeName)
+            && !entry.getValue().equals(((XmlNode) other).attributes.get(attributeName))) {
+          return false;
         }
+      }
 
-        for (Map.Entry<String, String> entry : ((XmlNode) other).attributes.entrySet()) {
-          String attributeName = entry.getKey();
-          if (!attributeName.startsWith("xmlns:") && !entry.getValue().equals(this.attributes.get(attributeName))) {
-            return false;
-          }
+      for (Map.Entry<String, String> entry : ((XmlNode) other).attributes.entrySet()) {
+        String attributeName = entry.getKey();
+        if (!attributeName.startsWith("xmlns:") && !entry.getValue().equals(this.attributes.get(attributeName))) {
+          return false;
         }
-
-        boolean x1 = (Objects.equals(this.name, ((XmlNode) other).name));
-        boolean x2 = (Objects.equals(this.namespace, ((XmlNode) other).namespace));
-
-        return (x1 && x2);
       }
-    }
-  }
 
-  public class TextNode implements Node {
-    private final String content;
+      boolean x1 = (Objects.equals(this.name, ((XmlNode) other).name));
+      boolean x2 = (Objects.equals(this.namespace, ((XmlNode) other).namespace));
 
-    public TextNode(String content) {
-      this.content = content.replace(">", "&gt;");
-    }
-
-    @Override
-    public boolean equals(Object other) {
-      if (null == other || !(other instanceof TextNode)) {
-        return false;
-      } else if (null == this.content) {
-        return (null == ((TextNode) other).content);
-      } else if (this.content.matches("^\\s*$")) {
-        return (null == ((TextNode) other).content || ((TextNode) other).content.matches("^\\s*$"));
-      } else {
-        return this.content.equals(((TextNode) other).content);
-      }
-    }
-
-    @Override
-    public String toString() {
-      return this.content;
+      return (x1 && x2);
     }
   }
 }
+
+
+public static class TextNode implements Node {
+  private final String content;
+
+  public TextNode(String content) {
+    this.content = content.replace(">", "&gt;");
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (null == other || !(other instanceof TextNode)) {
+      return false;
+    } else if (null == this.content) {
+      return (null == ((TextNode) other).content);
+    } else if (this.content.matches("^\\s*$")) {
+      return (null == ((TextNode) other).content || ((TextNode) other).content.matches("^\\s*$"));
+    } else {
+      return this.content.equals(((TextNode) other).content);
+    }
+  }
+
+  @Override
+  public String toString() {
+    return this.content;
+  }
+}}

@@ -1199,7 +1199,7 @@ public class EditItem extends FacesBean {
    * @return Returns always null.
    */
   public void addLocalTag() {
-    final PubItemVOPresentation.WrappedLocalTag wrappedLocalTag = this.getPubItem().new WrappedLocalTag();
+    final PubItemVOPresentation.WrappedLocalTag wrappedLocalTag = new PubItemVOPresentation.WrappedLocalTag();
     wrappedLocalTag.setParent(this.getPubItem());
     wrappedLocalTag.setValue("");
     this.getPubItem().getWrappedLocalTags().add(wrappedLocalTag);

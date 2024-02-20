@@ -1131,7 +1131,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.wrappedLocalTags = wrappedLocalTags;
   }
 
-  public class WrappedLocalTag implements Serializable {
+  public static class WrappedLocalTag implements Serializable {
     private String value;
     private PubItemVOPresentation parent;
 

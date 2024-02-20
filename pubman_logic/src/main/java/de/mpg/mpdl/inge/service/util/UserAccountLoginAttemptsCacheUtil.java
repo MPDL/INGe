@@ -20,11 +20,8 @@ public class UserAccountLoginAttemptsCacheUtil {
   private final LoadingCache<String, Integer> attemptsCache;
 
   public UserAccountLoginAttemptsCacheUtil() {
-    this.attemptsCache = CacheBuilder.newBuilder().expireAfterWrite(this.ATTEMPT_TIMER, TimeUnit.MINUTES).build(new CacheLoader<>() {
-      public Integer load(String key) {
-        return 0;
-      }
-    });
+    this.attemptsCache =
+        CacheBuilder.newBuilder().expireAfterWrite(this.ATTEMPT_TIMER, TimeUnit.MINUTES).build(new StringIntegerCacheLoader());
   }
 
   public void loginSucceeded(String key) {
@@ -52,6 +49,12 @@ public class UserAccountLoginAttemptsCacheUtil {
       return this.attemptsCache.get(key) >= MAX_ATTEMPT;
     } catch (ExecutionException e) {
       return false;
+    }
+  }
+
+  private static class StringIntegerCacheLoader extends CacheLoader<String, Integer> {
+    public Integer load(String key) {
+      return 0;
     }
   }
 }

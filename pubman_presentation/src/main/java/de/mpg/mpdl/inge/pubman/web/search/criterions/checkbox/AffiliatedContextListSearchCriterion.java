@@ -84,10 +84,6 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
       return !anySelected;
     }
 
-    if (QueryType.INTERNAL == queryType) {
-      return false;
-    }
-
     return false;
   }
 

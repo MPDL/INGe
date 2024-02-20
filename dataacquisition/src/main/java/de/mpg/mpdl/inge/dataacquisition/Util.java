@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.dataacquisition;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -169,6 +170,7 @@ public class Util {
    */
   public static String retrieveFileEndingFromCone(String mimeType) {
     String suffix = null;
+    BufferedReader bReader = null;
 
     try {
       URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + coneMethod + coneRel1 + mimeType + coneRel2);
@@ -187,7 +189,7 @@ public class Util {
       }
 
       InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
-      BufferedReader bReader = new BufferedReader(isReader);
+      bReader = new BufferedReader(isReader);
 
       String line = "";
       while (null != (line = bReader.readLine())) {
@@ -200,6 +202,14 @@ public class Util {
     } catch (Exception e) {
       logger.warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType + ")", e);
       return null;
+    } finally {
+      if (null != bReader) {
+        try {
+          bReader.close();
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
     }
 
     return suffix;

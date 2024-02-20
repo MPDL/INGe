@@ -136,11 +136,10 @@ public class DataHandlerService {
       // Check the record for error codes
       ProtocolHandler protocolHandler = new ProtocolHandler();
       protocolHandler.checkOAIRecord(item);
-      supportedProtocol = true;
     } else {
       item = fetchRecord(url, targetFormat.getFileFormat().getCharSet(), dataSourceVO);
-      supportedProtocol = true;
     }
+    supportedProtocol = true;
 
     if (!supportedProtocol) {
       logger.warn("Harvesting protocol " + dataSourceVO.getHarvestProtocol() + " not supported.");
@@ -311,6 +310,7 @@ public class DataHandlerService {
 
   private String fetchRecord(URL url, String encoding, DataSourceVO dataSourceVO) throws DataacquisitionException {
     StringBuilder itemXML = new StringBuilder();
+    BufferedReader bReader = null;
 
     try {
       URLConnection con = url.openConnection();
@@ -345,7 +345,7 @@ public class DataHandlerService {
 
       // Get itemXML
       InputStreamReader isReader = new InputStreamReader(url.openStream(), encoding);
-      BufferedReader bReader = new BufferedReader(isReader);
+      bReader = new BufferedReader(isReader);
 
       String line = "";
       while (null != (line = bReader.readLine())) {
@@ -358,6 +358,14 @@ public class DataHandlerService {
       throw new DataacquisitionException("Access denied " + dataSourceVO.getName(), e);
     } catch (Exception e) {
       throw new DataacquisitionException(e);
+    } finally {
+      if (null != bReader) {
+        try {
+          bReader.close();
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
     }
 
     return itemXML.toString();

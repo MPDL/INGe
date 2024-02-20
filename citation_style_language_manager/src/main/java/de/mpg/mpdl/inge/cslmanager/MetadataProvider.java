@@ -678,7 +678,7 @@ public class MetadataProvider implements ItemDataProvider {
    *
    */
   @SuppressWarnings("serial")
-  private class FileUrlPriorityComparator implements Comparator<FileVO>, Serializable {
+  private static class FileUrlPriorityComparator implements Comparator<FileVO>, Serializable {
     @Override
     public int compare(FileVO file1, FileVO file2) {
       if (file1.equals(file2)) {
@@ -743,7 +743,7 @@ public class MetadataProvider implements ItemDataProvider {
    *
    */
   @SuppressWarnings("serial")
-  private class IdentfierPriorityComparator implements Comparator<IdentifierVO>, Serializable {
+  private static class IdentfierPriorityComparator implements Comparator<IdentifierVO>, Serializable {
     @Override
     public int compare(IdentifierVO id1, IdentifierVO id2) {
       if (id1.getType().equals(id2.getType())) {

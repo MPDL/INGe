@@ -602,7 +602,6 @@ public class Util {
       logger.info("HEAD Request to " + url + " returned Content-Length: " + (null != header ? header.getValue() : null));
       if (null != header) {
         element.setTextContent(header.getValue());
-        return document;
       } else {
         // did not get length via HEAD request, try to do a GET request
         // workaround for biomed central, where HEAD requests sometimes return Content-Length,
@@ -627,8 +626,8 @@ public class Util {
 
         logger.info("GET request to " + url + " returned a file with length: " + size);
         element.setTextContent(String.valueOf(size));
-        return document;
       }
+      return document;
 
     } catch (Exception e) {
       throw new RuntimeException(e);

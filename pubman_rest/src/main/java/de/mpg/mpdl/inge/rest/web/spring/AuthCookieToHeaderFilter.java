@@ -132,7 +132,7 @@ public class AuthCookieToHeaderFilter implements Filter {
    * @author wf
    *
    */
-  public class HeaderMapRequestWrapper extends HttpServletRequestWrapper {
+  public static class HeaderMapRequestWrapper extends HttpServletRequestWrapper {
     /**
      * construct a wrapper for this request
      *

@@ -237,7 +237,7 @@ public class XmlHelper {
   /**
    * Validator class for XML Schema validation
    */
-  private class Validator extends DefaultHandler {
+  private static class Validator extends DefaultHandler {
     public boolean validationError = false;
     public SAXParseException saxParseException = null;
 

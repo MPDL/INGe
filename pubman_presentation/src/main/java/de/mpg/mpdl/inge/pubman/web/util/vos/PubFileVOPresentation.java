@@ -230,12 +230,10 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String getOaStatus() {
     String oaStatus = "";
-    if (null != this.file.getMetadata().getOaStatus()) {
-      oaStatus = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
-    } else {
+    if (null == this.file.getMetadata().getOaStatus()) {
       this.file.getMetadata().setOaStatus(MdsFileVO.OA_STATUS.NOT_SPECIFIED);
-      oaStatus = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
     }
+    oaStatus = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
 
     return oaStatus;
   }
@@ -298,12 +296,10 @@ public class PubFileVOPresentation extends FacesBean {
 
   public String getVisibility() {
     String visibility = "";
-    if (null != this.file.getVisibility()) {
-      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
-    } else {
+    if (null == this.file.getVisibility()) {
       this.file.setVisibility(FileDbVO.Visibility.PUBLIC);
-      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
+    visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
 
     return visibility;
   }

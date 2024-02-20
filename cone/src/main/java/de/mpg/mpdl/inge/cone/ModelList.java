@@ -368,7 +368,7 @@ public class ModelList {
    * @author $Author$ (last modification)
    * @version $Revision$ $LastChangedDate$
    */
-  public class Model {
+  public static class Model {
     final QName rdfDescriptionTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "Description", "rdf");
 
     private String name;
@@ -636,7 +636,7 @@ public class ModelList {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class Predicate {
+  public static class Predicate {
 
     private String name;
     private String id;
@@ -907,7 +907,7 @@ public class ModelList {
 
   }
 
-  public class ModelResult {
+  public static class ModelResult {
 
     private String resultPattern;
 

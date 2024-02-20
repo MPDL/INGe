@@ -1265,26 +1265,17 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             int sourceNumberInt = Integer.parseInt(sourceNumber);
             if (null != currentSourceList && currentSourceList.size() >= sourceNumberInt
                 && null != currentSourceList.get(sourceNumberInt - 1)) {
-              if (null != currentSourceList.get(sourceNumberInt - 1).getPublishingInfo()) {
-                currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
-                if (null != pubItemVO.getObject().getLocalTags()) {
-                  pubItemVO.getObject().getLocalTags().add(message);
-                } else {
-                  pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
-                }
-                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
-              } else {
+              if (null == currentSourceList.get(sourceNumberInt - 1).getPublishingInfo()) {
                 currentSourceList.get(sourceNumberInt - 1).setPublishingInfo(new PublishingInfoVO());
-                currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
-                if (null != pubItemVO.getObject().getLocalTags()) {
-                  pubItemVO.getObject().getLocalTags().add(message);
-                } else {
-                  pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
-                }
-                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               }
+              currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
+              if (null != pubItemVO.getObject().getLocalTags()) {
+                pubItemVO.getObject().getLocalTags().add(message);
+              } else {
+                pubItemVO.getObject().setLocalTags(new ArrayList<>(Collections.singletonList(message)));
+              }
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
               resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));

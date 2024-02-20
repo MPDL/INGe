@@ -215,7 +215,7 @@ public class CreatorBean extends FacesBean {
    *
    * @author Mario Wagner
    */
-  public class PersonOrganisationManager extends DataModelManager<OrganizationVO> {
+  public static class PersonOrganisationManager extends DataModelManager<OrganizationVO> {
     PersonVO parentVO;
 
     public PersonOrganisationManager(PersonVO parentVO) {

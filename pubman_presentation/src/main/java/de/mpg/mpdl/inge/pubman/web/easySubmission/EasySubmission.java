@@ -293,8 +293,6 @@ public class EasySubmission extends FacesBean {
       // set the current submission method for edit item to import (for GUI purpose)
       this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
 
-      return "loadNewFetchMetadata";
-
     } else { // Skip Collection selection for Import & Easy Sub if only one Collection
       depositorContextList.get(0).selectForEasySubmission();
       this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
@@ -303,8 +301,8 @@ public class EasySubmission extends FacesBean {
 
       this.init();
 
-      return "loadNewFetchMetadata";
     }
+    return "loadNewFetchMetadata";
   }
 
   //  /**

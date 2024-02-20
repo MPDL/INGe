@@ -468,14 +468,11 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
     if (null != currentSourceList && currentSourceList.size() >= this.sourceNumber
         && null != currentSourceList.get(this.sourceNumber - 1)) {
-      if (null != currentSourceList.get(this.sourceNumber - 1).getPublishingInfo()) {
-        currentSourceList.get(this.sourceNumber - 1).getPublishingInfo().setEdition(this.edition);
-        this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
-      } else {
+      if (null == currentSourceList.get(this.sourceNumber - 1).getPublishingInfo()) {
         currentSourceList.get(this.sourceNumber - 1).setPublishingInfo(new PublishingInfoVO());
-        currentSourceList.get(this.sourceNumber - 1).getPublishingInfo().setEdition(this.edition);
-        this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
       }
+      currentSourceList.get(this.sourceNumber - 1).getPublishingInfo().setEdition(this.edition);
+      this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.METADATA_NO_SOURCE_FOUND);

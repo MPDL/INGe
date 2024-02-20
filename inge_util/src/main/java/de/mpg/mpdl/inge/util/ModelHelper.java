@@ -9,18 +9,29 @@ import java.io.Serializable;
 
 public class ModelHelper {
 
-
   private ModelHelper() {}
 
   public static <T extends Serializable> T makeClone(T object) throws IOException, ClassNotFoundException {
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    ObjectOutputStream out = new ObjectOutputStream(outputStream);
-    out.writeObject(object);
+    ByteArrayOutputStream outputStream = null;
+    ByteArrayInputStream inputStream = null;
 
-    ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-    ObjectInputStream in = new ObjectInputStream(inputStream);
-    T copied = (T) in.readObject();
-    return copied;
+    try {
+      outputStream = new ByteArrayOutputStream();
+      ObjectOutputStream out = new ObjectOutputStream(outputStream);
+      out.writeObject(object);
+
+      inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+      ObjectInputStream in = new ObjectInputStream(inputStream);
+      T copied = (T) in.readObject();
+
+      return copied;
+    } finally {
+      if (null != outputStream) {
+        outputStream.close();
+      }
+      if (null != inputStream) {
+        inputStream.close();
+      }
+    }
   }
-
 }

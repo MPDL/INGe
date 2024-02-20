@@ -54,26 +54,34 @@ public class EscapableMessagesRenderer extends MessagesRenderer {
   @Override
   public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
     final ResponseWriter originalResponseWriter = context.getResponseWriter();
-    context.setResponseWriter(new ResponseWriterWrapper() {
-
-      @Override
-      public ResponseWriter getWrapped() {
-        return originalResponseWriter;
-      }
-
-      @Override
-      public void writeText(Object text, UIComponent component, String property) throws IOException {
-        final String string = String.valueOf(text);
-        String escape = (String) component.getAttributes().get("escape");
-        if (null != escape && !Boolean.parseBoolean(escape)) {
-          super.write(string);
-        } else {
-          super.writeText(string, component, property);
-        }
-      }
-    });
+    context.setResponseWriter(new MyResponseWriterWrapper(originalResponseWriter));
 
     super.encodeEnd(context, component); // Now, render it!
     context.setResponseWriter(originalResponseWriter); // Restore original writer.
+  }
+
+  private static class MyResponseWriterWrapper extends ResponseWriterWrapper {
+
+    private final ResponseWriter originalResponseWriter;
+
+    public MyResponseWriterWrapper(ResponseWriter originalResponseWriter) {
+      this.originalResponseWriter = originalResponseWriter;
+    }
+
+    @Override
+    public ResponseWriter getWrapped() {
+      return originalResponseWriter;
+    }
+
+    @Override
+    public void writeText(Object text, UIComponent component, String property) throws IOException {
+      final String string = String.valueOf(text);
+      String escape = (String) component.getAttributes().get("escape");
+      if (null != escape && !Boolean.parseBoolean(escape)) {
+        super.write(string);
+      } else {
+        super.writeText(string, component, property);
+      }
+    }
   }
 }

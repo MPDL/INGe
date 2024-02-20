@@ -582,11 +582,10 @@ public class SQLQuerier implements Querier {
                 resultMap.put(predicateValue, newEntry);
               }
 
-              break;
             } else {
               found = true;
-              break;
             }
+            break;
           }
         }
         if (!found) {

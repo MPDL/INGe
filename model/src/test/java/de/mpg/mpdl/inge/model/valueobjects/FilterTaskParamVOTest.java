@@ -54,8 +54,8 @@ public class FilterTaskParamVOTest {
   @Test
   public void testGetFilter() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
-    FilterTaskParamVO.Filter f1 = filter.new RoleFilter("Depositor", new AccountUserRO("objectId911"));
-    ItemRefFilter f2 = filter.new ItemRefFilter();
+    FilterTaskParamVO.Filter f1 = new FilterTaskParamVO.RoleFilter("Depositor", new AccountUserRO("objectId911"));
+    ItemRefFilter f2 = new FilterTaskParamVO.ItemRefFilter();
     f2.getIdList().add(new ItemRO("escidoc:item3"));
     f2.getIdList().add(new ItemRO("escidoc:item4"));
     filter.getFilterList().add(f1);
@@ -73,7 +73,7 @@ public class FilterTaskParamVOTest {
   public void testToMapOneItem() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    ItemRefFilter itemFilter = filter.new ItemRefFilter();
+    ItemRefFilter itemFilter = new FilterTaskParamVO.ItemRefFilter();
     itemFilter.getIdList().add(new ItemRO("escidoc:item3"));
 
     filter.getFilterList().add(itemFilter);
@@ -90,8 +90,8 @@ public class FilterTaskParamVOTest {
   public void testToMapTwoItemsAndRoleFilter() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    FilterTaskParamVO.Filter f1 = filter.new RoleFilter("Depositor", new AccountUserRO("objectId911"));
-    ItemRefFilter f2 = filter.new ItemRefFilter();
+    FilterTaskParamVO.Filter f1 = new FilterTaskParamVO.RoleFilter("Depositor", new AccountUserRO("objectId911"));
+    ItemRefFilter f2 = new FilterTaskParamVO.ItemRefFilter();
     f2.getIdList().add(new ItemRO("escidoc:item3"));
     f2.getIdList().add(new ItemRO("escidoc:item4"));
 
@@ -109,18 +109,18 @@ public class FilterTaskParamVOTest {
   public void testToMapOrderAndLimitFilter() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    ItemRefFilter f1 = filter.new ItemRefFilter();
+    ItemRefFilter f1 = new FilterTaskParamVO.ItemRefFilter();
     f1.getIdList().add(new ItemRO("escidoc:item3"));
 
     filter.getFilterList().add(f1);
 
-    Filter f2 = filter.new OrderFilter("/properties/context/title", OrderFilter.ORDER_ASCENDING);
+    Filter f2 = new FilterTaskParamVO.OrderFilter("/properties/context/title", OrderFilter.ORDER_ASCENDING);
     filter.getFilterList().add(f2);
 
-    Filter f3 = filter.new LimitFilter(String.valueOf("20"));
+    Filter f3 = new FilterTaskParamVO.LimitFilter(String.valueOf("20"));
     filter.getFilterList().add(f3);
 
-    Filter f4 = filter.new OffsetFilter(String.valueOf("5"));
+    Filter f4 = new FilterTaskParamVO.OffsetFilter(String.valueOf("5"));
     filter.getFilterList().add(f4);
 
     HashMap<String, String[]> map = filter.toMap();
@@ -146,30 +146,30 @@ public class FilterTaskParamVOTest {
   public void testToMapSeveralFilters() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    Filter f1 = filter.new OwnerFilter(new AccountUserRO("max"));
+    Filter f1 = new FilterTaskParamVO.OwnerFilter(new AccountUserRO("max"));
     filter.getFilterList().add(0, f1);
 
-    Filter f2 = filter.new FrameworkItemTypeFilter("escidoc:1001");
+    Filter f2 = new FilterTaskParamVO.FrameworkItemTypeFilter("escidoc:1001");
     filter.getFilterList().add(f2);
 
     // all public status except withdrawn
-    Filter f4 = filter.new ItemPublicStatusFilter(ItemVO.State.IN_REVISION);
+    Filter f4 = new FilterTaskParamVO.ItemPublicStatusFilter(ItemVO.State.IN_REVISION);
     filter.getFilterList().add(0, f4);
-    Filter f5 = filter.new ItemPublicStatusFilter(ItemVO.State.PENDING);
+    Filter f5 = new FilterTaskParamVO.ItemPublicStatusFilter(ItemVO.State.PENDING);
     filter.getFilterList().add(0, f5);
-    Filter f6 = filter.new ItemPublicStatusFilter(ItemVO.State.SUBMITTED);
+    Filter f6 = new FilterTaskParamVO.ItemPublicStatusFilter(ItemVO.State.SUBMITTED);
     filter.getFilterList().add(0, f6);
-    Filter f7 = filter.new ItemPublicStatusFilter(ItemVO.State.RELEASED);
+    Filter f7 = new FilterTaskParamVO.ItemPublicStatusFilter(ItemVO.State.RELEASED);
     filter.getFilterList().add(0, f7);
 
 
-    Filter f8 = filter.new LimitFilter("10");
+    Filter f8 = new FilterTaskParamVO.LimitFilter("10");
     filter.getFilterList().add(f8);
 
-    Filter f9 = filter.new OffsetFilter("0");
+    Filter f9 = new FilterTaskParamVO.OffsetFilter("0");
     filter.getFilterList().add(f9);
 
-    Filter f10 = filter.new OrderFilter("/properties/context/title", OrderFilter.ORDER_ASCENDING);
+    Filter f10 = new FilterTaskParamVO.OrderFilter("/properties/context/title", OrderFilter.ORDER_ASCENDING);
     filter.getFilterList().add(f10);
 
     HashMap<String, String[]> map = filter.toMap();
@@ -197,17 +197,17 @@ public class FilterTaskParamVOTest {
   public void testRefIdWithSortingFilter() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    ItemRefFilter f1 = filter.new ItemRefFilter();
+    ItemRefFilter f1 = new FilterTaskParamVO.ItemRefFilter();
 
     f1.getIdList().add(new ItemRO("escidoc:item1"));
     f1.getIdList().add(new ItemRO("escidoc:item2"));
     filter.getFilterList().add(0, f1);
 
-    Filter f10 = filter.new OrderFilter("/properties/context/title", OrderFilter.ORDER_DESCENDING);
+    Filter f10 = new FilterTaskParamVO.OrderFilter("/properties/context/title", OrderFilter.ORDER_DESCENDING);
     filter.getFilterList().add(f10);
-    Filter f8 = filter.new LimitFilter(String.valueOf(10));
+    Filter f8 = new FilterTaskParamVO.LimitFilter(String.valueOf(10));
     filter.getFilterList().add(f8);
-    Filter f9 = filter.new OffsetFilter(String.valueOf(0));
+    Filter f9 = new FilterTaskParamVO.OffsetFilter(String.valueOf(0));
     filter.getFilterList().add(f9);
 
     HashMap<String, String[]> map = filter.toMap();

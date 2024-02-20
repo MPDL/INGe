@@ -659,20 +659,22 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         // at least one digit character
         new CharacterRule(EnglishCharacterData.Digit, 3),
         // at least one special character
-        new CharacterRule(new CharacterData() {
-          @Override
-          public String getErrorCode() {
-            return "ERR_SPACE";
-          }
-
-          @Override
-          public String getCharacters() {
-            return "!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~";
-          }
-        }, 1));
+        new CharacterRule(new MyCharacterData(), 1));
     PasswordGenerator generator = new PasswordGenerator();
 
     // Generated password is 12 characters long, which complies with policy
     return generator.generatePassword(12, rules);
+  }
+
+  private static class MyCharacterData implements CharacterData {
+    @Override
+    public String getErrorCode() {
+      return "ERR_SPACE";
+    }
+
+    @Override
+    public String getCharacters() {
+      return "!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~";
+    }
   }
 }

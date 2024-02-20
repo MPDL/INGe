@@ -402,7 +402,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
 
-  public class MySort {
+  public static class MySort {
     private String key;
     private SearchSortCriteria.SortOrder order;
 

@@ -37,11 +37,10 @@ public class FindBadUTF8 {
         if (cr.isError()) {
           if (-1 != read) {
             System.out.println("Error at offset " + offset + ": " + cr);
-            return;
           } else {
             System.out.println("Error at end-of-file: " + cr);
-            return;
           }
+          return;
         }
 
         if (cr.isUnderflow()) {

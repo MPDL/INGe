@@ -65,7 +65,7 @@ public class ContentLanguageCollection {
    *
    * @author Mario Wagner
    */
-  public class ContentLanguageManager extends DataModelManager<String> {
+  public static class ContentLanguageManager extends DataModelManager<String> {
     List<String> parentVO;
 
     public ContentLanguageManager(List<String> parentVO) {

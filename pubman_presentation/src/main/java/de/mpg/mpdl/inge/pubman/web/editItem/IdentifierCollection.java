@@ -86,7 +86,7 @@ public class IdentifierCollection extends FacesBean {
    *
    * @author Mario Wagner
    */
-  public class IdentifierManager extends DataModelManager<IdentifierVO> {
+  public static class IdentifierManager extends DataModelManager<IdentifierVO> {
     List<IdentifierVO> parentVO;
 
     public IdentifierManager(List<IdentifierVO> parentVO) {

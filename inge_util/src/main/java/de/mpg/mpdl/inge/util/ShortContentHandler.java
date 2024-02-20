@@ -134,7 +134,7 @@ public class ShortContentHandler extends DefaultHandler {
    * @version $Revision$ $LastChangedDate$
    */
   @SuppressWarnings("serial")
-  public class XMLStack extends Stack<String> {
+  public static class XMLStack extends Stack<String> {
     /**
      * @return A String representation of the Stack in an XPath like way (e.g.
      *         "root/subtag/subsub"):

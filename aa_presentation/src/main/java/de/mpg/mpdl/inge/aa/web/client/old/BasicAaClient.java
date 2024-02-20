@@ -51,7 +51,7 @@ public class BasicAaClient extends FinalClient {
     authenticationVO.setType(AuthenticationVO.Type.USER);
     if (testLogin(request, response)) {
       authenticationVO.setFullName("System Administrator");
-      AuthenticationVO.Role role = authenticationVO.new Role();
+      AuthenticationVO.Role role = new AuthenticationVO.Role();
       //      role.setKey("escidoc:role-system-administrator");
       role.setKey(GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
       authenticationVO.getRoles().add(role);

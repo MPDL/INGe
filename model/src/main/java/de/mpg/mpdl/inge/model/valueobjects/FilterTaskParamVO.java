@@ -277,14 +277,14 @@ public class FilterTaskParamVO extends ValueObject {
 
 
 
-  public abstract class AbstractFilter implements Comparable<Object> {
+  public static abstract class AbstractFilter implements Comparable<Object> {
     public int compareTo(Object o) {
       return o.getClass().getName().compareTo(this.getClass().getName());
     }
 
   }
 
-  public class CqlFilter extends AbstractFilter implements Filter {
+  public static class CqlFilter extends AbstractFilter implements Filter {
     private String cql;
 
     public CqlFilter(String cql) {
@@ -304,7 +304,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by owner.
    */
-  public class OwnerFilter extends AbstractFilter implements Filter {
+  public static class OwnerFilter extends AbstractFilter implements Filter {
     private AccountUserRO userRef;
 
     /**
@@ -335,7 +335,7 @@ public class FilterTaskParamVO extends ValueObject {
    * Class to filter by item references. As long as no common content item refs are defined we use
    * the ItemRO.
    */
-  public class ItemRefFilter extends AbstractFilter implements Filter {
+  public static class ItemRefFilter extends AbstractFilter implements Filter {
     /**
      * List of ids.
      */
@@ -365,7 +365,7 @@ public class FilterTaskParamVO extends ValueObject {
    * Class to filter by item references with version. As long as no common content item refs are
    * defined we use the ItemRO.
    */
-  public class ItemRefVersionFilter extends AbstractFilter implements Filter {
+  public static class ItemRefVersionFilter extends AbstractFilter implements Filter {
     /**
      * List of ids.
      */
@@ -394,7 +394,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by PubCollection status.
    */
-  public class PubCollectionStatusFilter extends AbstractFilter implements Filter {
+  public static class PubCollectionStatusFilter extends AbstractFilter implements Filter {
 
     /**
      * The PubCollection state.
@@ -429,7 +429,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by item status.
    */
-  public class ItemStatusFilter extends AbstractFilter implements Filter {
+  public static class ItemStatusFilter extends AbstractFilter implements Filter {
     /**
      * The item state.
      */
@@ -465,7 +465,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by item public status.
    */
-  public class ItemPublicStatusFilter extends AbstractFilter implements Filter {
+  public static class ItemPublicStatusFilter extends AbstractFilter implements Filter {
     /**
      * The item state.
      */
@@ -499,7 +499,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by Role.
    */
-  public class RoleFilter extends AbstractFilter implements Filter {
+  public static class RoleFilter extends AbstractFilter implements Filter {
     /**
      * The role to filter for.
      */
@@ -554,7 +554,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by framework item (content) type.
    */
-  public class FrameworkItemTypeFilter extends AbstractFilter implements Filter {
+  public static class FrameworkItemTypeFilter extends AbstractFilter implements Filter {
     /**
      * The framework item (content) type to filter for.
      */
@@ -589,7 +589,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by framework context type.
    */
-  public class FrameworkContextTypeFilter extends AbstractFilter implements Filter {
+  public static class FrameworkContextTypeFilter extends AbstractFilter implements Filter {
 
     /**
      * The framework context type to filter for.
@@ -625,7 +625,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter by affiliation references.
    */
-  public class AffiliationRefFilter extends AbstractFilter implements Filter {
+  public static class AffiliationRefFilter extends AbstractFilter implements Filter {
     /**
      * List of ids.
      */
@@ -647,7 +647,7 @@ public class FilterTaskParamVO extends ValueObject {
   /**
    * Class to filter all top level affiliations.
    */
-  public class TopLevelAffiliationFilter extends AbstractFilter implements Filter {
+  public static class TopLevelAffiliationFilter extends AbstractFilter implements Filter {
     /**
      * Creates a new instance.
      */
@@ -664,7 +664,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class ObjectTypeFilter extends AbstractFilter implements Filter {
+  public static class ObjectTypeFilter extends AbstractFilter implements Filter {
 
     public static final String OBJECT_TYPE_ITEM = "http://escidoc.de/core/01/resources/Item";
     public static final String OBJECT_TYPE_CONTAINER = "http://escidoc.de/core/01/resources/Container";
@@ -696,7 +696,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class OffsetFilter extends AbstractFilter implements Filter {
+  public static class OffsetFilter extends AbstractFilter implements Filter {
     private String offset;
 
     public OffsetFilter(String offset) {
@@ -723,7 +723,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class LimitFilter extends AbstractFilter implements Filter {
+  public static class LimitFilter extends AbstractFilter implements Filter {
     private String limit;
 
     public LimitFilter(String limit) {
@@ -748,7 +748,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class OrderFilter extends AbstractFilter implements Filter {
+  public static class OrderFilter extends AbstractFilter implements Filter {
     public static final String ORDER_ASCENDING = "sort.ascending";
     public static final String ORDER_DESCENDING = "sort.descending";
     public static final String SORTBY = "sortby";
@@ -786,7 +786,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class ContextFilter extends AbstractFilter implements Filter {
+  public static class ContextFilter extends AbstractFilter implements Filter {
 
     private String contextId;
 
@@ -812,7 +812,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class LocalTagFilter extends AbstractFilter implements Filter {
+  public static class LocalTagFilter extends AbstractFilter implements Filter {
 
     private String localTagId;
 
@@ -844,7 +844,7 @@ public class FilterTaskParamVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$
    *
    */
-  public class UserAccountStateFilter extends AbstractFilter implements Filter {
+  public static class UserAccountStateFilter extends AbstractFilter implements Filter {
 
 
     private boolean active;
@@ -872,7 +872,7 @@ public class FilterTaskParamVO extends ValueObject {
    *
    */
 
-  public class PersonsOrganizationsFilter extends AbstractFilter implements Filter {
+  public static class PersonsOrganizationsFilter extends AbstractFilter implements Filter {
 
     private String orgUnitId;
 
@@ -890,7 +890,7 @@ public class FilterTaskParamVO extends ValueObject {
 
   }
 
-  public class StandardFilter extends AbstractFilter implements Filter {
+  public static class StandardFilter extends AbstractFilter implements Filter {
 
     private String filterName;
     private String value;

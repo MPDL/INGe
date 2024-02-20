@@ -71,12 +71,12 @@ public class IngeAaClientFinish extends FinalClient {
 
         for (GrantVO grantVO : user.getGrantList()) {
           if (null == grantVO.getObjectRef()) {
-            AuthenticationVO.Role role = authenticationVO.new Role();
+            AuthenticationVO.Role role = new AuthenticationVO.Role();
 
             role.setKey(grantVO.getRole());
             authenticationVO.getRoles().add(role);
           } else {
-            AuthenticationVO.Grant grant = authenticationVO.new Grant();
+            AuthenticationVO.Grant grant = new AuthenticationVO.Grant();
             grant.setKey(grantVO.getRole());
             grant.setValue(grantVO.getObjectRef());
             authenticationVO.getGrants().add(grant);
