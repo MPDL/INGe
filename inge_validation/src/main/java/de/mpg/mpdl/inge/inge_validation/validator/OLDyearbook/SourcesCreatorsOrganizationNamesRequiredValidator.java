@@ -29,11 +29,11 @@ public class SourcesCreatorsOrganizationNamesRequiredValidator extends Validator
         if (ValidationTools.isNotEmpty(sourceVO.getCreators())) {
 
           int j = 1;
-          for (final CreatorVO creatorVO : sourceVO.getCreators()) {
+          for (CreatorVO creatorVO : sourceVO.getCreators()) {
 
             if (null != creatorVO && CreatorVO.CreatorType.ORGANIZATION.equals(creatorVO.getType())) {
 
-              final OrganizationVO o = creatorVO.getOrganization();
+              OrganizationVO o = creatorVO.getOrganization();
 
               if (null != o) {
 

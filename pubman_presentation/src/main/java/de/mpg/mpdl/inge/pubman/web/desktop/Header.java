@@ -63,7 +63,7 @@ public class Header extends FacesBean {
       } else if ("qa".equals(this.getType())) {
         serverLogo = Header.LOGO_QA;
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
     }
 
     return serverLogo;

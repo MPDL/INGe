@@ -13,18 +13,17 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 public class ItemValidatingService {
   private static final Logger logger = LogManager.getLogger(ItemValidatingService.class);
 
-  public void validate(final ItemVersionVO itemVO, final ValidationPoint validationPoint)
-      throws ValidationServiceException, ValidationException {
+  public void validate(ItemVersionVO itemVO, ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
 
     try {
       Validation validation = new Validation();
       validation.validate(itemVO, validationPoint);
-    } catch (final ValidationServiceException e) {
+    } catch (ValidationServiceException e) {
       logger.error("validate:", e);
       throw e;
-    } catch (final ValidationException e) {
+    } catch (ValidationException e) {
       throw e;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("validate: " + itemVO + " " + validationPoint, e);
       throw new ValidationServiceException("validate:", e);
     }

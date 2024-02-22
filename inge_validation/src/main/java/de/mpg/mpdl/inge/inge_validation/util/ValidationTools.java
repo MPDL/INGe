@@ -49,7 +49,7 @@ public class ValidationTools {
           try {
             ValidationTools.LONG.setLenient(false);
             ValidationTools.LONG.parse(s);
-          } catch (final ParseException e) {
+          } catch (ParseException e) {
             return false;
           }
           break;
@@ -58,7 +58,7 @@ public class ValidationTools {
           try {
             ValidationTools.MEDIUM.setLenient(false);
             ValidationTools.MEDIUM.parse(s);
-          } catch (final ParseException e) {
+          } catch (ParseException e) {
             return false;
           }
           break;
@@ -67,7 +67,7 @@ public class ValidationTools {
           try {
             ValidationTools.SHORT.setLenient(false);
             ValidationTools.SHORT.parse(s);
-          } catch (final ParseException e) {
+          } catch (ParseException e) {
             return false;
           }
           break;

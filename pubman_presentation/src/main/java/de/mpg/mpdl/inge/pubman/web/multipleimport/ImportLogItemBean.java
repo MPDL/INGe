@@ -50,17 +50,17 @@ public class ImportLogItemBean extends FacesBean {
   private int page = 0;
 
   public ImportLogItemBean() {
-    final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
     if (null != idString) {
       this.importId = Integer.parseInt(idString);
     }
 
-    final String pageString = FacesTools.getExternalContext().getRequestParameterMap().get("page");
+    String pageString = FacesTools.getExternalContext().getRequestParameterMap().get("page");
     if (null != pageString) {
       this.page = Integer.parseInt(pageString);
     }
 
-    final String itemsPerPageString = FacesTools.getExternalContext().getRequestParameterMap().get("itemsPerPage");
+    String itemsPerPageString = FacesTools.getExternalContext().getRequestParameterMap().get("itemsPerPage");
     if (null != itemsPerPageString) {
       this.itemsPerPage = Integer.parseInt(itemsPerPageString);
     }
@@ -72,7 +72,7 @@ public class ImportLogItemBean extends FacesBean {
 
   public ImportLog getImport() {
     if (null == this.importLog && null != this.userid) {
-      final Connection connection = DbTools.getNewConnection();
+      Connection connection = DbTools.getNewConnection();
 
       try {
         this.importLog = ImportLog.getImportLog(this.importId, false, connection);

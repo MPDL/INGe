@@ -44,11 +44,11 @@ public class ImportSurveyorTask {
       ps = connection.prepareStatement(query);
       rs = ps.executeQuery();
       while (rs.next()) {
-        final int id = rs.getInt("id");
+        int id = rs.getInt("id");
         logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
-        final ImportLog log = ImportLog.getImportLog(id, true, connection);
+        ImportLog log = ImportLog.getImportLog(id, true, connection);
 
-        for (final ImportLogItem item : log.getItems()) {
+        for (ImportLogItem item : log.getItems()) {
           if (null == item.getEndDate()) {
             log.activateItem(item);
             log.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_terminate_item", connection);
@@ -61,7 +61,7 @@ public class ImportSurveyorTask {
         log.finishItem(connection);
         log.close(connection);
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error checking database for unfinished imports", e);
     } finally {
       // DbTools.closeResultSet(rs);

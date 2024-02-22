@@ -49,8 +49,7 @@ public class Validation {
 
   public Validation() {}
 
-  public void validate(final ItemVersionVO pubItemVO, ValidationPoint validationPoint)
-      throws ValidationServiceException, ValidationException {
+  public void validate(ItemVersionVO pubItemVO, ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
 
     if (false == pubItemVO instanceof ItemVersionVO) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
@@ -60,7 +59,7 @@ public class Validation {
     switch (validationPoint) {
 
       case SAVE:
-        final FluentValidator vSave = FluentValidator.checkAll().failOver() //
+        FluentValidator vSave = FluentValidator.checkAll().failOver() //
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
             .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
@@ -68,7 +67,7 @@ public class Validation {
             .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator());
 
-        final ComplexResult resultSave = vSave.doValidate().result(ResultCollectors.toComplex());
+        ComplexResult resultSave = vSave.doValidate().result(ResultCollectors.toComplex());
 
         //        logger.info(resultSave);
 
@@ -77,7 +76,7 @@ public class Validation {
         break;
 
       case SIMPLE:
-        final FluentValidator vSimple = FluentValidator.checkAll().failOver() //
+        FluentValidator vSimple = FluentValidator.checkAll().failOver() //
             .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator()) //
             .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
@@ -103,7 +102,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
-        final ComplexResult resultSimple = vSimple.doValidate().result(ResultCollectors.toComplex());
+        ComplexResult resultSimple = vSimple.doValidate().result(ResultCollectors.toComplex());
 
         //        logger.info(resultSimple);
 
@@ -112,7 +111,7 @@ public class Validation {
         break;
 
       case STANDARD:
-        final FluentValidator vStandard = FluentValidator.checkAll().failOver() //
+        FluentValidator vStandard = FluentValidator.checkAll().failOver() //
             .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator()) //
             .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
@@ -146,7 +145,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
-        final ComplexResult resultStandard = vStandard.doValidate().result(ResultCollectors.toComplex());
+        ComplexResult resultStandard = vStandard.doValidate().result(ResultCollectors.toComplex());
 
         //        logger.info(resultStandard);
 
@@ -155,7 +154,7 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_3:
-        final FluentValidator vEasy3 = FluentValidator.checkAll().failOver() //
+        FluentValidator vEasy3 = FluentValidator.checkAll().failOver() //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
@@ -167,7 +166,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
-        final ComplexResult resultEasy3 = vEasy3.doValidate().result(ResultCollectors.toComplex());
+        ComplexResult resultEasy3 = vEasy3.doValidate().result(ResultCollectors.toComplex());
 
         //        logger.info(resultEasy3);
 
@@ -176,7 +175,7 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_4:
-        final FluentValidator vEasy4 = FluentValidator.checkAll().failOver() //
+        FluentValidator vEasy4 = FluentValidator.checkAll().failOver() //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
@@ -194,7 +193,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
-        final ComplexResult resultEasy4 = vEasy4.doValidate().result(ResultCollectors.toComplex());
+        ComplexResult resultEasy4 = vEasy4.doValidate().result(ResultCollectors.toComplex());
 
         //        logger.info(resultEasy4);
 
@@ -317,11 +316,11 @@ public class Validation {
   //  }
 
   private void checkResult(ComplexResult complexResult) throws ValidationException {
-    final ValidationReportVO v = new ValidationReportVO();
+    ValidationReportVO v = new ValidationReportVO();
 
     if (false == complexResult.isSuccess()) {
-      for (final ValidationError error : complexResult.getErrors()) {
-        final ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(),
+      for (ValidationError error : complexResult.getErrors()) {
+        ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(),
             (ErrorMessages.WARNING == error.getErrorCode() ? ValidationReportItemVO.Severity.WARNING
                 : ValidationReportItemVO.Severity.ERROR));
         item.setElement(error.getField());

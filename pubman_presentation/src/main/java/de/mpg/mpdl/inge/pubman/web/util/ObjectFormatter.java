@@ -44,8 +44,8 @@ public class ObjectFormatter {
    * @return String formatted creator
    * @param creatorObject unformatted creator VO
    */
-  public String formatCreator(final CreatorVO creatorObject, String annotation) {
-    final StringBuilder creator = new StringBuilder();
+  public String formatCreator(CreatorVO creatorObject, String annotation) {
+    StringBuilder creator = new StringBuilder();
 
     if (null != creatorObject.getPerson()) {
       creator.append(creatorObject.getPerson().getFamilyName());

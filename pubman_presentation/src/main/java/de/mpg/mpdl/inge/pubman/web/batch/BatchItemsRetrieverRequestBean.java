@@ -87,7 +87,7 @@ public class BatchItemsRetrieverRequestBean
 
 
     try {
-      final PubItemBatchSessionBean pbsb = FacesTools.findBean("PubItemBatchSessionBean");
+      PubItemBatchSessionBean pbsb = FacesTools.findBean("PubItemBatchSessionBean");
 
 
       if (!pbsb.getStoredPubItems().isEmpty()) {
@@ -139,7 +139,7 @@ public class BatchItemsRetrieverRequestBean
 
 
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
       logger.error("Error while retrieving items for batch", e);
     }
@@ -152,10 +152,10 @@ public class BatchItemsRetrieverRequestBean
    * @return
    */
   public void deleteSelected() {
-    final PubItemBatchSessionBean pbsb = FacesTools.findBean("PubItemBatchSessionBean");
+    PubItemBatchSessionBean pbsb = FacesTools.findBean("PubItemBatchSessionBean");
     int countSelected = 0;
 
-    for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
+    for (PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
       if (pubItem.getSelected()) {
         countSelected++;
         pbsb.getStoredPubItems().remove(pubItem.getObjectId());

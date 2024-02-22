@@ -563,7 +563,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     this.totalNumberOfPages = newVal;
   }
 
-  public MdsPublicationVO clone() {
+  public final MdsPublicationVO clone() {
     return new MdsPublicationVO(this);
   }
 

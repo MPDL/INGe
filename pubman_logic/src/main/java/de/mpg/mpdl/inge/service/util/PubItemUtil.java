@@ -33,7 +33,7 @@ public class PubItemUtil {
    *
    * @param pubItem the PubItem to clean up
    */
-  public static void cleanUpItem(final ItemVersionVO pubItem) {
+  public static void cleanUpItem(ItemVersionVO pubItem) {
     try {
       pubItem.getMetadata().cleanup();
 
@@ -48,7 +48,7 @@ public class PubItemUtil {
           }
         }
       }
-    } catch (final Exception e1) {
+    } catch (Exception e1) {
       throw new RuntimeException("Error while cleaning up  item", e1);
     }
 
@@ -56,13 +56,13 @@ public class PubItemUtil {
     // identifier, make it "external".
     // assign the external org id to default organisation
     try {
-      for (final CreatorVO creator : pubItem.getMetadata().getCreators()) {
+      for (CreatorVO creator : pubItem.getMetadata().getCreators()) {
         adaptConeLinks(creator);
       }
 
       if (null != pubItem.getMetadata().getSources()) {
-        for (final SourceVO source : pubItem.getMetadata().getSources()) {
-          for (final CreatorVO creator : source.getCreators()) {
+        for (SourceVO source : pubItem.getMetadata().getSources()) {
+          for (CreatorVO creator : source.getCreators()) {
             adaptConeLinks(creator);
           }
         }
@@ -70,23 +70,23 @@ public class PubItemUtil {
 
       // remove empty tags
       if (null != pubItem.getObject().getLocalTags()) {
-        final List<String> emptyTags = new ArrayList<>();
-        for (final String tag : pubItem.getObject().getLocalTags()) {
+        List<String> emptyTags = new ArrayList<>();
+        for (String tag : pubItem.getObject().getLocalTags()) {
           if (null == tag || tag.isEmpty()) {
             emptyTags.add(tag);
           }
         }
-        for (final String tag : emptyTags) {
+        for (String tag : emptyTags) {
           pubItem.getObject().getLocalTags().remove(tag);
         }
       }
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error getting external org id", e);
     }
   }
 
-  private static void adaptConeLinks(final CreatorVO creator) {
+  private static void adaptConeLinks(CreatorVO creator) {
     if (null != creator.getPerson()) {
       //Make CoNE link relative
       if (null != creator.getPerson().getIdentifier() && null != creator.getPerson().getIdentifier().getId()
@@ -97,7 +97,7 @@ public class PubItemUtil {
         }
       }
 
-      for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
+      for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
         if (null == organization.getIdentifier() || organization.getIdentifier().isEmpty()) {
           organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
         }
@@ -110,8 +110,8 @@ public class PubItemUtil {
     }
   }
 
-  public static ItemVersionVO createRevisionOfPubItem(final ItemVersionVO originalPubItem, String relationComment,
-      final ContextDbRO pubCollection, final AccountUserDbVO owner) {
+  public static ItemVersionVO createRevisionOfPubItem(ItemVersionVO originalPubItem, String relationComment, ContextDbRO pubCollection,
+      AccountUserDbVO owner) {
     ItemVersionVO copiedPubItem = new ItemVersionVO();
     AccountUserDbRO itemCreator = new AccountUserDbRO();
     itemCreator.setObjectId(owner.getObjectId());

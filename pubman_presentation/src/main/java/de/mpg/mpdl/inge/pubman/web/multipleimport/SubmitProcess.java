@@ -76,7 +76,7 @@ public class SubmitProcess extends Thread {
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_release_process", connection);
           break;
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       switch (modus) {
         case SUBMIT:
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_initialize_submit_process_error", connection);
@@ -101,7 +101,7 @@ public class SubmitProcess extends Thread {
   public void run() {
     try {
       int itemCount = 0;
-      for (final ImportLogItem item : this.importLog.getItems()) {
+      for (ImportLogItem item : this.importLog.getItems()) {
         if (null != item.getItemId() && !"".equals(item.getItemId())) {
           itemCount++;
           this.importLog.activateItem(item);
@@ -123,13 +123,13 @@ public class SubmitProcess extends Thread {
       this.importLog.setPercentage(BaseImportLog.PERCENTAGE_SUBMIT_SUSPEND, this.connection);
       int counter = 0;
 
-      for (final ImportLogItem item : this.importLog.getItems()) {
+      for (ImportLogItem item : this.importLog.getItems()) {
         if (null != item.getItemId() && !"".equals(item.getItemId())) {
           this.importLog.activateItem(item);
 
           try {
-            final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
-            final ItemVersionVO itemVersionVO = pubItemService.get(item.getItemId(), this.authenticationToken);
+            PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
+            ItemVersionVO itemVersionVO = pubItemService.get(item.getItemId(), this.authenticationToken);
             switch (this.modus) {
               case SUBMIT:
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_item", this.connection);
@@ -154,7 +154,7 @@ public class SubmitProcess extends Thread {
                 break;
             }
             this.importLog.finishItem(this.connection);
-          } catch (final Exception e) {
+          } catch (Exception e) {
             switch (this.modus) {
               case SUBMIT:
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_submit_failed", this.connection);

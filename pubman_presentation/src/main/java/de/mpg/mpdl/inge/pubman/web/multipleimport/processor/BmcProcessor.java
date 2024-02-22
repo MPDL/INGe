@@ -54,7 +54,7 @@ public class BmcProcessor extends GenericXmlProcessor {
       NodeList nodes = root.getChildNodes();
 
       for (int i = 0; i < nodes.getLength(); i++) {
-        final Node currentNode = nodes.item(i);
+        Node currentNode = nodes.item(i);
         if (this.isBmcArticle(currentNode)) {
           this.addItem(currentNode);
           foundArticle = true;

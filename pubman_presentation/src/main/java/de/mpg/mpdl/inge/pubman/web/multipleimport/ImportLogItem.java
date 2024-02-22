@@ -72,7 +72,7 @@ public class ImportLogItem extends BaseImportLog {
         ImportLogItem.link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
             + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
             + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
-      } catch (final Exception e) {
+      } catch (Exception e) {
         throw new RuntimeException(e);
       }
     }

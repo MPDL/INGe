@@ -60,7 +60,7 @@ public class AccountUserRO extends ReferenceObject implements Cloneable {
    * @author Thomas Diebaecker
    */
   @Override
-  public AccountUserRO clone() {
+  public final AccountUserRO clone() {
     return new AccountUserRO(this);
   }
 

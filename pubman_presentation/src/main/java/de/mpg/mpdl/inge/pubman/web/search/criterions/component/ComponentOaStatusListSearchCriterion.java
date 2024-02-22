@@ -52,9 +52,9 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
   }
 
   private static Map<String, String> getOaStatusMap(boolean reducedListFlag) {
-    final MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
-    final Map<String, String> oaMap = new LinkedHashMap<>();
-    final Map<String, String> newMap = new LinkedHashMap<>();
+    MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
+    Map<String, String> oaMap = new LinkedHashMap<>();
+    Map<String, String> newMap = new LinkedHashMap<>();
 
     for (MdsFileVO.OA_STATUS value : values) {
       if (true == reducedListFlag && MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(value.name())) {
@@ -63,7 +63,7 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
         oaMap.put(value.name(), i18nHelper.convertEnumToString(value));
       }
     }
-    for (final Map.Entry<String, String> entry : oaMap.entrySet()) {
+    for (Map.Entry<String, String> entry : oaMap.entrySet()) {
       newMap.put(entry.getKey(), entry.getKey().toLowerCase());
     }
 
@@ -92,11 +92,11 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
     if (!this.isEmpty(QueryType.CQL)) {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final Map.Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+      for (Map.Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
         if (entry.getValue()) {
-          final String value = this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(entry.getKey()));
-          final String notSpecifiedValue =
+          String value = this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(entry.getKey()));
+          String notSpecifiedValue =
               this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(MdsFileVO.OA_STATUS.NOT_SPECIFIED.toString()));
           if (notSpecifiedValue.equals(value)) {
             bq = bq.should(BoolQuery.of(b -> b.mustNot(ExistsQuery.of(e -> e.field(PubItemServiceDbImpl.INDEX_FILE_OA_STATUS))._toQuery()))

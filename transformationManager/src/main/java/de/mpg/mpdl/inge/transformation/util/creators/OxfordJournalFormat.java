@@ -44,13 +44,13 @@ public class OxfordJournalFormat extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) {
+  public List<Author> getAuthors(String authorString) {
 
-    if (authorsString.contains(";") || !authorsString.matches("\\d")) {
+    if (authorString.contains(";") || !authorString.matches("\\d")) {
       return null;
     }
 
-    String[] authors = authorsString.split(" *, (and)? *");
+    String[] authors = authorString.split(" *, (and)? *");
 
     for (int i = 0; i < authors.length; i++) {
       authors[i] = authors[i].replaceAll(" [0-9]( \\*)?$", "");

@@ -53,7 +53,7 @@ public class LegalCaseVO extends ValueObject implements Cloneable {
     this.courtName = newVal;
   }
 
-  public LegalCaseVO clone() {
+  public final LegalCaseVO clone() {
     try {
       LegalCaseVO clone = (LegalCaseVO) super.clone();
       return clone;

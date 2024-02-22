@@ -54,7 +54,7 @@ public class AffiliationDetailPage extends FacesBean {
 
   public AffiliationDetailPage() {
     try {
-      final String affiliationId = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+      String affiliationId = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
       AffiliationDbVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(affiliationId, null);
       if (null == affVO) {
@@ -62,7 +62,7 @@ public class AffiliationDetailPage extends FacesBean {
         this.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));
       }
       this.affiliation = new AffiliationVOPresentation(affVO);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));
       logger.error("Error getting affiliation details", e);
     }

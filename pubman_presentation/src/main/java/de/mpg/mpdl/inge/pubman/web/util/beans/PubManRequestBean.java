@@ -47,7 +47,7 @@ public class PubManRequestBean extends FacesBean {
     String url = "";
     try {
       url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_POLICY_URL);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_POLICY_URL + "' from properties file.", e);
     }
 
@@ -80,7 +80,7 @@ public class PubManRequestBean extends FacesBean {
     String url = "";
     try {
       url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HELP_URL);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_HELP_URL + "' from properties file.", e);
     }
 

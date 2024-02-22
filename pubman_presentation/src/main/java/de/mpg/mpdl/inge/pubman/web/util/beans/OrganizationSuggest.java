@@ -55,8 +55,8 @@ public class OrganizationSuggest {
 
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
-    final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
-    final String query = parameters.get("q");
+    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
+    String query = parameters.get("q");
 
 
 
@@ -77,17 +77,17 @@ public class OrganizationSuggest {
       ResponseBody resp = organizationService.searchDetailed(sr, null);
       List<AffiliationDbVO> resultList = SearchUtils.getRecordListFromElasticSearchResponse(resp, AffiliationDbVO.class);
 
-      for (final AffiliationDbVO affiliationVO : resultList) {
-        final List<AffiliationDbVO> initList = new ArrayList<>();
+      for (AffiliationDbVO affiliationVO : resultList) {
+        List<AffiliationDbVO> initList = new ArrayList<>();
         initList.add(affiliationVO);
-        final List<List<AffiliationDbVO>> pathList = this.getPaths(initList);
+        List<List<AffiliationDbVO>> pathList = this.getPaths(initList);
 
-        for (final List<AffiliationDbVO> path : pathList) {
-          final OrganizationVOPresentation organizationVOPresentation = new OrganizationVOPresentation();
+        for (List<AffiliationDbVO> path : pathList) {
+          OrganizationVOPresentation organizationVOPresentation = new OrganizationVOPresentation();
           organizationVOPresentation.setIdentifier(affiliationVO.getObjectId());
 
-          final String city = affiliationVO.getMetadata().getCity();
-          final String countryCode = affiliationVO.getMetadata().getCountryCode();
+          String city = affiliationVO.getMetadata().getCity();
+          String countryCode = affiliationVO.getMetadata().getCountryCode();
           String address = "";
 
           if (null != city) {
@@ -105,7 +105,7 @@ public class OrganizationSuggest {
           organizationVOPresentation.setAddress(address);
 
           String name = "";
-          for (final AffiliationDbVO affVO : path) {
+          for (AffiliationDbVO affVO : path) {
             if (!name.isEmpty()) {
               name = name + ", ";
             }
@@ -121,16 +121,16 @@ public class OrganizationSuggest {
   }
 
   private List<List<AffiliationDbVO>> getPaths(List<AffiliationDbVO> currentPath) throws Exception {
-    final List<List<AffiliationDbVO>> result = new ArrayList<>();
-    final AffiliationDbVO affiliationVO = currentPath.get(currentPath.size() - 1);
+    List<List<AffiliationDbVO>> result = new ArrayList<>();
+    AffiliationDbVO affiliationVO = currentPath.get(currentPath.size() - 1);
 
     if (null != affiliationVO) {
       if (null == affiliationVO.getParentAffiliation()) {
         result.add(currentPath);
       } else {
 
-        final List<AffiliationDbVO> list = new ArrayList<>(currentPath);
-        final AffiliationDbVO parentVO = this.getAffiliation(affiliationVO.getParentAffiliation());
+        List<AffiliationDbVO> list = new ArrayList<>(currentPath);
+        AffiliationDbVO parentVO = this.getAffiliation(affiliationVO.getParentAffiliation());
         list.add(parentVO);
         result.addAll(this.getPaths(list));
       }
@@ -141,7 +141,7 @@ public class OrganizationSuggest {
   }
 
   private AffiliationDbVO getAffiliation(AffiliationDbRO affiliationRO) throws Exception {
-    for (final AffiliationDbVO element : ApplicationBean.INSTANCE.getOuList()) {
+    for (AffiliationDbVO element : ApplicationBean.INSTANCE.getOuList()) {
       if (element.getObjectId().equals(affiliationRO.getObjectId())) {
         return element;
       }

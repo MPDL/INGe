@@ -57,23 +57,23 @@ public class CreatorCollection {
 
     public CreatorManager(List<CreatorVO> list) {
       this.objectList = new ArrayList<>();
-      for (final CreatorVO creatorVO : list) {
-        final CreatorBean creatorBean = new CreatorBean(creatorVO);
+      for (CreatorVO creatorVO : list) {
+        CreatorBean creatorBean = new CreatorBean(creatorVO);
         this.objectList.add(creatorBean);
       }
     }
 
     @Override
     public CreatorBean createNewObject() {
-      final CreatorVO newVO = new CreatorVO();
+      CreatorVO newVO = new CreatorVO();
       newVO.setPerson(new PersonVO());
       // create a new Organization for this person
-      final OrganizationVO newPersonOrganization = new OrganizationVO();
+      OrganizationVO newPersonOrganization = new OrganizationVO();
 
       newPersonOrganization.setName("");
       newVO.getPerson().getOrganizations().add(newPersonOrganization);
 
-      final CreatorBean creatorBean = new CreatorBean(newVO);
+      CreatorBean creatorBean = new CreatorBean(newVO);
 
       return creatorBean;
     }

@@ -99,7 +99,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   @Override
   public void parseQueryStringContent(String content) {
     // Split by '|', which have no backslash
-    final String[] parts = content.split("(?<!\\\\)\\|\\|");
+    String[] parts = content.split("(?<!\\\\)\\|\\|");
 
     this.searchString = SearchCriterionBase.unescapeForQueryString(parts[0]);
     if (1 < parts.length) {

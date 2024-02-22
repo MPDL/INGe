@@ -22,7 +22,7 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
   private static Map<String, String> getPublicationStatusMap() {
 
 
-    final Map<String, String> publicationStatusMap = new LinkedHashMap<>();
+    Map<String, String> publicationStatusMap = new LinkedHashMap<>();
 
     publicationStatusMap.put("not-specified", "not-specified");
     publicationStatusMap.put("submitted", "submitted");
@@ -73,11 +73,11 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
     if (!this.isEmpty(QueryType.CQL)) {
 
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final Map.Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+      for (Map.Entry<String, Boolean> entry : this.enumMap.entrySet()) {
 
 
         if (entry.getValue()) {
-          final String value = this.getValueMap().get(entry.getKey());
+          String value = this.getValueMap().get(entry.getKey());
 
           BoolQuery.Builder bqb = new BoolQuery.Builder();
 

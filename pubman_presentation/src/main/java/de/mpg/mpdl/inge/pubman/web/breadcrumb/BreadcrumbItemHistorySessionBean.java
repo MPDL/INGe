@@ -61,7 +61,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
    *
    * @param newItem BreadcrumbItem to be added to the history
    */
-  public void push(final BreadcrumbItem newItem) {
+  public void push(BreadcrumbItem newItem) {
     if ("HomePage".equals(newItem.getDisplayValue())) {
       this.breadcrumbs.clear();
     }
@@ -155,7 +155,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
 
   private BreadcrumbItem get(boolean remove) {
     BreadcrumbItem returnItem = null;
-    final int index = this.breadcrumbs.size() - 1;
+    int index = this.breadcrumbs.size() - 1;
     if (0 <= index) {
       returnItem = this.breadcrumbs.get(index);
       if (remove) {
@@ -169,7 +169,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean {
   public List<BreadcrumbItem> getBreadcrumbItemHistory() {
     // return only the last 3 items of the breadcrumb list
     if (3 < this.breadcrumbs.size()) {
-      final List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<>();
+      List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<>();
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 3));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 2));
       breadcrumbsLimited.add(this.breadcrumbs.get(this.breadcrumbs.size() - 1));

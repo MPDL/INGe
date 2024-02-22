@@ -74,11 +74,11 @@ public class InternationalizationHelper implements Serializable {
   public InternationalizationHelper() {
     this.userLocale = FacesTools.getExternalContext().getRequestLocale();
 
-    final Iterator<Locale> supportedLocales = FacesTools.getCurrentInstance().getApplication().getSupportedLocales();
+    Iterator<Locale> supportedLocales = FacesTools.getCurrentInstance().getApplication().getSupportedLocales();
 
     boolean found = false;
     while (supportedLocales.hasNext()) {
-      final Locale supportedLocale = supportedLocales.next();
+      Locale supportedLocale = supportedLocales.next();
       if (null != this.userLocale && supportedLocale.getLanguage().equals(this.userLocale.getLanguage())) {
         found = true;
         break;
@@ -103,12 +103,12 @@ public class InternationalizationHelper implements Serializable {
   }
 
   public void changeLanguage(ValueChangeEvent event) {
-    final FacesContext fc = FacesTools.getCurrentInstance();
+    FacesContext fc = FacesTools.getCurrentInstance();
 
     if (null != event.getOldValue() && !event.getOldValue().equals(event.getNewValue())) {
       Locale locale = null;
-      final String language = event.getNewValue().toString();
-      final String country = language.toUpperCase();
+      String language = event.getNewValue().toString();
+      String country = language.toUpperCase();
       this.locale = language;
 
       try {
@@ -119,14 +119,14 @@ public class InternationalizationHelper implements Serializable {
         this.homeContent = "n/a";
         this.notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());
         logger.debug("New locale: " + language + "_" + country + " : " + locale);
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
       }
     }
   }
 
   public void notifyLanguageChanged(String oldLang, String newLang) {
-    for (final LanguageChangeObserver obs : this.languageChangeObservers) {
+    for (LanguageChangeObserver obs : this.languageChangeObservers) {
       if (null != obs) {
         obs.languageChanged(oldLang, newLang);
       }
@@ -147,7 +147,7 @@ public class InternationalizationHelper implements Serializable {
     return this.userLocale;
   }
 
-  public void setUserLocale(final Locale userLocale) {
+  public void setUserLocale(Locale userLocale) {
     this.userLocale = userLocale;
   }
 
@@ -158,13 +158,13 @@ public class InternationalizationHelper implements Serializable {
    * @param values The values of an enum.
    * @return An array of SelectItem.
    */
-  public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry, final Object[] values) {
-    final Object[] valuesWithoutNull = removeNullValues(values);
+  public SelectItem[] getSelectItemsForEnum(boolean includeNoItemSelectedEntry, Object[] values) {
+    Object[] valuesWithoutNull = removeNullValues(values);
     SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
     for (int i = 0; i < valuesWithoutNull.length; i++) {
       if (null != valuesWithoutNull[i]) {
-        final SelectItem selectItem =
+        SelectItem selectItem =
             new SelectItem(valuesWithoutNull[i].toString(), this.getLabel(this.convertEnumToString(valuesWithoutNull[i])));
         selectItems[i] = selectItem;
       }
@@ -178,8 +178,8 @@ public class InternationalizationHelper implements Serializable {
   }
 
   private Object[] removeNullValues(Object[] values) {
-    final List<Object> listWithoutNulls = new ArrayList<>();
-    for (final Object o : values) {
+    List<Object> listWithoutNulls = new ArrayList<>();
+    for (Object o : values) {
       if (null != o) {
         listWithoutNulls.add(o);
       }
@@ -194,8 +194,8 @@ public class InternationalizationHelper implements Serializable {
    * @param selectItems the array where the entry should be added
    * @return a new array with an entry for NoItemSelected
    */
-  private SelectItem[] addNoItemSelectedEntry(final SelectItem[] selectItems) {
-    final SelectItem[] newSelectItems = new SelectItem[selectItems.length + 1];
+  private SelectItem[] addNoItemSelectedEntry(SelectItem[] selectItems) {
+    SelectItem[] newSelectItems = new SelectItem[selectItems.length + 1];
 
     // add the entry for NoItemSelected in front of the array
     newSelectItems[0] = this.NO_ITEM_SET;
@@ -210,7 +210,7 @@ public class InternationalizationHelper implements Serializable {
    * @param enumObject the enum to convert
    * @return the converted String for output
    */
-  public String convertEnumToString(final Object enumObject) {
+  public String convertEnumToString(Object enumObject) {
     if (null != enumObject) {
       return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
     }
@@ -221,7 +221,7 @@ public class InternationalizationHelper implements Serializable {
   public String getLabel(String placeholder) {
     try {
       return ResourceBundle.getBundle(this.getSelectedLabelBundle()).getString(placeholder);
-    } catch (final MissingResourceException e) {
+    } catch (MissingResourceException e) {
       return "???" + placeholder + "???";
     }
   }
@@ -229,7 +229,7 @@ public class InternationalizationHelper implements Serializable {
   public String getMessage(String placeholder) {
     try {
       return ResourceBundle.getBundle(this.getSelectedMessagesBundle()).getString(placeholder);
-    } catch (final MissingResourceException e) {
+    } catch (MissingResourceException e) {
       return "???" + placeholder + "???";
     }
   }
@@ -240,8 +240,8 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for genre
    */
-  private SelectItem[] getSelectItemsGenre(final boolean includeNoItemSelectedEntry) {
-    final MdsPublicationVO.Genre[] values = MdsPublicationVO.Genre.values();
+  private SelectItem[] getSelectItemsGenre(boolean includeNoItemSelectedEntry) {
+    MdsPublicationVO.Genre[] values = MdsPublicationVO.Genre.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -252,8 +252,8 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for CreatorType
    */
-  public SelectItem[] getSelectItemsCreatorType(final boolean includeNoItemSelectedEntry) {
-    final CreatorVO.CreatorType[] values = CreatorVO.CreatorType.values();
+  public SelectItem[] getSelectItemsCreatorType(boolean includeNoItemSelectedEntry) {
+    CreatorVO.CreatorType[] values = CreatorVO.CreatorType.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -264,10 +264,10 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for CreatorRole
    */
-  public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
-    final Map<String, String> negativeRoles = ApplicationBean.INSTANCE.getCreatorRoleMap();
+  public SelectItem[] getSelectItemsCreatorRole(boolean includeNoItemSelectedEntry) {
+    Map<String, String> negativeRoles = ApplicationBean.INSTANCE.getCreatorRoleMap();
 
-    final List<CreatorVO.CreatorRole> values = new ArrayList<>();
+    List<CreatorVO.CreatorRole> values = new ArrayList<>();
     Collections.addAll(values, CreatorVO.CreatorRole.values());
 
     int i = 0;
@@ -297,8 +297,8 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for DegreeType
    */
-  public SelectItem[] getSelectItemsDegreeType(final boolean includeNoItemSelectedEntry) {
-    final MdsPublicationVO.DegreeType[] values = MdsPublicationVO.DegreeType.values();
+  public SelectItem[] getSelectItemsDegreeType(boolean includeNoItemSelectedEntry) {
+    MdsPublicationVO.DegreeType[] values = MdsPublicationVO.DegreeType.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -318,8 +318,8 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for ReviewMethod
    */
-  public SelectItem[] getSelectItemsReviewMethod(final boolean includeNoItemSelectedEntry) {
-    final MdsPublicationVO.ReviewMethod[] values = MdsPublicationVO.ReviewMethod.values();
+  public SelectItem[] getSelectItemsReviewMethod(boolean includeNoItemSelectedEntry) {
+    MdsPublicationVO.ReviewMethod[] values = MdsPublicationVO.ReviewMethod.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -330,8 +330,8 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for visibility
    */
-  public SelectItem[] getSelectItemsVisibility(final boolean includeNoItemSelectedEntry) {
-    final FileDbVO.Visibility[] values = FileDbVO.Visibility.values();
+  public SelectItem[] getSelectItemsVisibility(boolean includeNoItemSelectedEntry) {
+    FileDbVO.Visibility[] values = FileDbVO.Visibility.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -342,14 +342,14 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for ReviewMethod
    */
-  public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
-    final Map<String, String> values = ApplicationBean.INSTANCE.getContentCategoryMap();
+  public SelectItem[] getSelectItemsContentCategory(boolean includeNoItemSelectedEntry) {
+    Map<String, String> values = ApplicationBean.INSTANCE.getContentCategoryMap();
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
 
-    for (final Map.Entry<String, String> entry : values.entrySet()) {
+    for (Map.Entry<String, String> entry : values.entrySet()) {
       // Prefix for the label is set to ENUM_CONTENTCATEGORY_
-      final SelectItem selectItem = new SelectItem(entry.getKey().toLowerCase().replace("_", "-"),
+      SelectItem selectItem = new SelectItem(entry.getKey().toLowerCase().replace("_", "-"),
           this.getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toLowerCase().replace("_", "-")));
       selectItems[i] = selectItem;
       i++;
@@ -368,8 +368,8 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for visibility
    */
-  public SelectItem[] getSelectItemsOaStatus(final boolean includeNoItemSelectedEntry) {
-    final MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
+  public SelectItem[] getSelectItemsOaStatus(boolean includeNoItemSelectedEntry) {
+    MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -380,8 +380,8 @@ public class InternationalizationHelper implements Serializable {
    * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
    * @return array of SelectItems for InvitationStatus
    */
-  public SelectItem[] getSelectItemsInvitationStatus(final boolean includeNoItemSelectedEntry) {
-    final EventVO.InvitationStatus[] values = EventVO.InvitationStatus.values();
+  public SelectItem[] getSelectItemsInvitationStatus(boolean includeNoItemSelectedEntry) {
+    EventVO.InvitationStatus[] values = EventVO.InvitationStatus.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -399,14 +399,14 @@ public class InternationalizationHelper implements Serializable {
    *
    * @return array of SelectItems for SelectComponentAvailability
    */
-  public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry) {
-    final InternationalizationHelper.SelectComponentAvailability[] values = InternationalizationHelper.SelectComponentAvailability.values();
+  public SelectItem[] getSelectedItemsComponentAvailability(boolean includeNoItemSelectedEntry) {
+    InternationalizationHelper.SelectComponentAvailability[] values = InternationalizationHelper.SelectComponentAvailability.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
-  public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry) {
-    final InternationalizationHelper.SelectComponentVisibility[] values = InternationalizationHelper.SelectComponentVisibility.values();
+  public SelectItem[] getSelectedItemsComponentVisibility(boolean includeNoItemSelectedEntry) {
+    InternationalizationHelper.SelectComponentVisibility[] values = InternationalizationHelper.SelectComponentVisibility.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -422,7 +422,7 @@ public class InternationalizationHelper implements Serializable {
   public String getHomeContent() {
     if ("n/a".equals(this.homeContent)) {
       try {
-        final String contentUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HOME_CONTENT_URL);
+        String contentUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HOME_CONTENT_URL);
 
         if (null != contentUrl && !contentUrl.isEmpty()) {
           // Try if there's a specific local version
@@ -436,7 +436,7 @@ public class InternationalizationHelper implements Serializable {
           this.homeContent = null;
         }
 
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("Could not retrieve content for home page", e);
         this.homeContent = null;
       }
@@ -446,13 +446,13 @@ public class InternationalizationHelper implements Serializable {
   }
 
   private String getContent(URL url) throws Exception {
-    final HttpClient httpClient = new HttpClient();
-    final GetMethod getMethod = new GetMethod(url.toExternalForm());
+    HttpClient httpClient = new HttpClient();
+    GetMethod getMethod = new GetMethod(url.toExternalForm());
 
     httpClient.executeMethod(getMethod);
 
     if (200 == getMethod.getStatusCode()) {
-      final BufferedReader in = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+      BufferedReader in = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
 
       String inputLine = "";
       String content = "";

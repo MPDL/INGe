@@ -32,7 +32,7 @@ public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileDbV
 
     if (ValidationTools.isNotEmpty(files)) {
 
-      for (final FileDbVO fileDbVO : files) {
+      for (FileDbVO fileDbVO : files) {
 
         if (null != fileDbVO && null != fileDbVO.getMetadata()) {
 

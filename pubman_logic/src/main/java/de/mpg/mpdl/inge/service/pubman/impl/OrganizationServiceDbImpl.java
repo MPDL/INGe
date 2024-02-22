@@ -92,12 +92,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final Query qb =
-        BoolQuery.of(b1 -> b1.mustNot(ExistsQuery.of(eq -> eq.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID))._toQuery()))._toQuery();
-    final SearchRetrieveRequestVO srr =
+    Query qb = BoolQuery.of(b1 -> b1.mustNot(ExistsQuery.of(eq -> eq.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID))._toQuery()))._toQuery();
+    SearchRetrieveRequestVO srr =
         new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0, new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC));
-    final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
+    SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
@@ -111,24 +110,24 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchFirstLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final BoolQuery.Builder qb = new BoolQuery.Builder();
-    final List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
+    BoolQuery.Builder qb = new BoolQuery.Builder();
+    List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
 
     if (topLevelOus.isEmpty()) {
       return new ArrayList<>();
     }
 
-    final List<FieldValue> topLevelOuIds = new ArrayList<>();
+    List<FieldValue> topLevelOuIds = new ArrayList<>();
     for (AffiliationDbVO affiliationDbVO : topLevelOus) {
       topLevelOuIds.add(FieldValue.of(affiliationDbVO.getObjectId()));
     }
     qb.filter(TermsQuery.of(t -> t.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID).terms(te -> te.value(topLevelOuIds)))._toQuery());
 
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb.build()._toQuery(), OU_SEARCH_LIMIT, 0,
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb.build()._toQuery(), OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, SearchSortCriteria.SortOrder.ASC),
         new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC));
 
-    final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
+    SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
@@ -144,11 +143,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final Query qb = TermQuery.of(t -> t.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID).value(parentAffiliationId))._toQuery();
-    final SearchRetrieveRequestVO srr =
+    Query qb = TermQuery.of(t -> t.field(INDEX_PARENT_AFFILIATIONS_OBJECT_ID).value(parentAffiliationId))._toQuery();
+    SearchRetrieveRequestVO srr =
         new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0, new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC));
-    final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
+    SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
@@ -185,10 +184,10 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    final Query qb = BoolQuery
-        .of(b -> b.must(TermQuery.of(t -> t.field(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID).value(objectId))._toQuery()))._toQuery();
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
-    final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
+    Query qb = BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID).value(objectId))._toQuery()))
+        ._toQuery();
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
+    SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }

@@ -32,8 +32,8 @@ public class ReleaseItem extends FacesBean {
   }
 
   public void init() {
-    final StringBuilder creators = new StringBuilder();
-    for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
+    StringBuilder creators = new StringBuilder();
+    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (!creators.isEmpty()) {
         creators.append("; ");
       }
@@ -56,7 +56,7 @@ public class ReleaseItem extends FacesBean {
     try {
       FacesTools.getExternalContext()
           .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
-    } catch (final IOException e) {
+    } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
 
@@ -64,7 +64,7 @@ public class ReleaseItem extends FacesBean {
   }
 
   public boolean getHasAudienceFiles() {
-    for (final FileDbVO file : this.getPubItem().getFiles()) {
+    for (FileDbVO file : this.getPubItem().getFiles()) {
       if (null != file.getVisibility() && file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
         return true;
       }
@@ -79,7 +79,7 @@ public class ReleaseItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    for (final FileDbVO file : this.getPubItem().getFiles()) {
+    for (FileDbVO file : this.getPubItem().getFiles()) {
       if ((null != file.getMetadata().getCopyrightDate() && !"".equals(file.getMetadata().getCopyrightDate()))
           || (null != file.getMetadata().getLicense() && !"".equals(file.getMetadata().getLicense()))
           || (null != file.getMetadata().getRights() && !"".equals(file.getMetadata().getRights()))) {
@@ -121,7 +121,7 @@ public class ReleaseItem extends FacesBean {
   public String release() {
     final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
-    final String retVal = this.getItemControllerSessionBean().releaseCurrentPubItem(navigateTo, this.releaseComment);
+    String retVal = this.getItemControllerSessionBean().releaseCurrentPubItem(navigateTo, this.releaseComment);
 
     if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));

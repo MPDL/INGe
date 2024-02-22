@@ -72,13 +72,13 @@ public class Pair {
     this.value = value;
   }
 
-  public boolean equals(Object other) {
-    if (null == other) {
+  public boolean equals(Object obj) {
+    if (null == obj) {
       return false;
-    } else if (!(other instanceof Pair)) {
+    } else if (!(obj instanceof Pair)) {
       return false;
     }
-    Pair otherPair = (Pair) other;
+    Pair otherPair = (Pair) obj;
 
     return (Objects.equals(this.key, otherPair.key)) && (Objects.equals(this.value, otherPair.value));
   }

@@ -110,8 +110,8 @@ public class EdocProcessor extends FormatProcessor {
 
     try {
 
-      final SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-      final EdocHandler edocHandler = new EdocHandler();
+      SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+      EdocHandler edocHandler = new EdocHandler();
       parser.parse(this.getSourceFile(), edocHandler);
 
       this.originalData = edocHandler.getResult().getBytes(this.getEncoding());
@@ -120,7 +120,7 @@ public class EdocProcessor extends FormatProcessor {
 
       this.counter = 0;
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 

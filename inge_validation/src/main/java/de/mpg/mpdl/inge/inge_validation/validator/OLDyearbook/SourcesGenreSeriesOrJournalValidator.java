@@ -22,7 +22,7 @@ public class SourcesGenreSeriesOrJournalValidator extends ValidatorHandler<List<
 
     if (ValidationTools.isNotEmpty(sources)) {
 
-      for (final SourceVO sourceVO : sources) {
+      for (SourceVO sourceVO : sources) {
 
         if (null != sourceVO) {
 

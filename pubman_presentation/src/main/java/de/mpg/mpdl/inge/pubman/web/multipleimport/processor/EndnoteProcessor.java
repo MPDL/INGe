@@ -97,11 +97,11 @@ public class EndnoteProcessor extends FormatProcessor {
 
   private void initialize() {
     this.init = true;
-    final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     int read;
-    final byte[] buffer = new byte[2048];
+    byte[] buffer = new byte[2048];
     try {
-      final InputStream is = new FileInputStream(this.getSourceFile());
+      InputStream is = new FileInputStream(this.getSourceFile());
       while (-1 != (read = is.read(buffer))) {
         byteArrayOutputStream.write(buffer, 0, read);
       }
@@ -114,13 +114,13 @@ public class EndnoteProcessor extends FormatProcessor {
       // replace first empty lines and BOM
       inputString = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(inputString).replaceFirst("%");
 
-      final BufferedReader reader = new BufferedReader(new StringReader(inputString));
+      BufferedReader reader = new BufferedReader(new StringReader(inputString));
 
       String buff;
       boolean firstItem = true;
       int count = 0;
       StringBuilder sb = null;
-      final List<String> l = new ArrayList<>();
+      List<String> l = new ArrayList<>();
 
       while (null != (buff = reader.readLine())) {
 
@@ -155,7 +155,7 @@ public class EndnoteProcessor extends FormatProcessor {
 
       this.counter = 0;
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 

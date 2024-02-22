@@ -76,8 +76,8 @@ public class EnumConverter implements Converter {
     }
 
     if (null != this.valueList) {
-      for (final Object valueListObject : this.valueList) {
-        final String valueListString = valueListObject.toString();
+      for (Object valueListObject : this.valueList) {
+        String valueListString = valueListObject.toString();
         if (0 == valueListString.compareTo(string)) {
           retVal = valueListObject;
           break;
@@ -113,28 +113,28 @@ public class EnumConverter implements Converter {
     try {
       MdsPublicationVO.Genre.valueOf(searchString);
       return MdsPublicationVO.Genre.values();
-    } catch (final IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
     }
 
     // degreeType
     try {
       MdsPublicationVO.DegreeType.valueOf(searchString);
       return MdsPublicationVO.DegreeType.values();
-    } catch (final IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
     }
 
     // reviewMethod
     try {
       MdsPublicationVO.ReviewMethod.valueOf(searchString);
       return MdsPublicationVO.ReviewMethod.values();
-    } catch (final IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
     }
 
     // invitationstatus
     try {
       EventVO.InvitationStatus.valueOf(searchString);
       return EventVO.InvitationStatus.values();
-    } catch (final IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
     }
 
 

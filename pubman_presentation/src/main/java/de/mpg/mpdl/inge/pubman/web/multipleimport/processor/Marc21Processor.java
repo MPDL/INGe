@@ -59,7 +59,7 @@ public class Marc21Processor extends FormatProcessor {
     ByteArrayOutputStream result;
     MarcXmlWriter writer;
     try {
-      final InputStream is = new FileInputStream(this.getSourceFile());
+      InputStream is = new FileInputStream(this.getSourceFile());
       if (null == this.encoding || this.encoding.trim().isEmpty() || "*".equals(this.encoding.trim())) {
         reader = new MarcStreamReader(is);
       } else {
@@ -71,27 +71,27 @@ public class Marc21Processor extends FormatProcessor {
       writer = new MarcXmlWriter(result, "UTF-8", true);
 
       while (reader.hasNext()) {
-        final Record record = reader.next();
+        Record record = reader.next();
         writer.write(record);
       }
 
       is.close();
       writer.close();
-    } catch (final Exception e1) {
+    } catch (Exception e1) {
       throw new RuntimeException("Error while reading marc21 file");
     }
 
     try {
       // nasty workaround to get rid of the namespace issues, has to be fixed, Stf, 2013-03-22
-      final String xml = result.toString(StandardCharsets.UTF_8).replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
+      String xml = result.toString(StandardCharsets.UTF_8).replaceAll("xmlns=\"http://www.loc.gov/MARC21/slim\"", "")
           .replaceAll("<collection", "<collection xmlns=\"http://www.loc.gov/MARC21/slim\"");
       this.marcxmlprocessor = new MarcXmlProcessor();
 
-      final File f = File.createTempFile("marcXml", "xml");
-      final FileOutputStream fos = new FileOutputStream(f);
+      File f = File.createTempFile("marcXml", "xml");
+      FileOutputStream fos = new FileOutputStream(f);
       IOUtils.write(xml, fos, "UTF-8");
       this.marcxmlprocessor.setSourceFile(f);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Can't encode the result to UTF-8", e);
     }
 
@@ -140,11 +140,11 @@ public class Marc21Processor extends FormatProcessor {
     }
 
     try {
-      final InputStream is = new FileInputStream(this.getSourceFile());
-      final String base64 = Base64.getEncoder().encodeToString(IOUtils.toByteArray(is));
+      InputStream is = new FileInputStream(this.getSourceFile());
+      String base64 = Base64.getEncoder().encodeToString(IOUtils.toByteArray(is));
       is.close();
       return base64;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Can't read input stream", e);
     }
   }

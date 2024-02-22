@@ -65,7 +65,7 @@ public class ContextRO extends ReferenceObject implements Cloneable {
    *
    * @author Thomas Diebaecker
    */
-  public ContextRO clone() {
+  public final ContextRO clone() {
     return new ContextRO(this);
   }
 }

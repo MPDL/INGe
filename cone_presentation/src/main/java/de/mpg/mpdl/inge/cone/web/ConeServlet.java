@@ -118,34 +118,34 @@ public class ConeServlet extends HttpServlet {
    * @throws IOException
    */
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     StringBuilder sb = new StringBuilder();
     sb.append("CoNE request: ");
-    sb.append(request);
+    sb.append(req);
     sb.append(" Params: ");
-    for (Object key : request.getParameterMap().keySet()) {
+    for (Object key : req.getParameterMap().keySet()) {
       sb.append(key.toString());
       sb.append("=");
-      sb.append(request.getParameter(key.toString()));
+      sb.append(req.getParameter(key.toString()));
       sb.append(" / ");
     }
     logger.info(sb.toString());
 
-    request.setCharacterEncoding(DEFAULT_ENCODING);
-    response.setCharacterEncoding(DEFAULT_ENCODING);
+    req.setCharacterEncoding(DEFAULT_ENCODING);
+    resp.setCharacterEncoding(DEFAULT_ENCODING);
 
     // LoggedIn
     boolean loggedIn = false;
-    if (null == request.getSession().getAttribute("logged_in") || !(Boolean) request.getSession().getAttribute("logged_in")) {
-      Login.checkLogin(request, false);
-      loggedIn = getLoggedIn(request);
+    if (null == req.getSession().getAttribute("logged_in") || !(Boolean) req.getSession().getAttribute("logged_in")) {
+      Login.checkLogin(req, false);
+      loggedIn = getLoggedIn(req);
     } else {
-      loggedIn = (Boolean) request.getSession().getAttribute("logged_in");
+      loggedIn = (Boolean) req.getSession().getAttribute("logged_in");
     }
 
     // CONE Zugriff im LoggedIn Modus (obwohl nicht eingelogged)
     if (!loggedIn) {
-      String tan = request.getParameter("tan4directLogin");
+      String tan = req.getParameter("tan4directLogin");
       if (null != tan && TanStore.checkTan(tan)) {
         loggedIn = true;
       }
@@ -154,7 +154,7 @@ public class ConeServlet extends HttpServlet {
     // Action, model
     String action = null;
     String modelName = null;
-    String[] path = request.getServletPath().split("/", 4);
+    String[] path = req.getServletPath().split("/", 4);
     if (3 == path.length && "".equals(path[2])) {
       action = path[1];
     } else if (2 < path.length) {
@@ -166,8 +166,8 @@ public class ConeServlet extends HttpServlet {
 
     // Format
     String format = DEFAULT_FORMAT;
-    if (null != request.getParameter("format") || null != request.getParameter("f")) {
-      format = (null != request.getParameter("format") ? request.getParameter("format") : request.getParameter("f"));
+    if (null != req.getParameter("format") || null != req.getParameter("f")) {
+      format = (null != req.getParameter("format") ? req.getParameter("format") : req.getParameter("f"));
     } else {
       ModelList modelList;
       try {
@@ -176,7 +176,7 @@ public class ConeServlet extends HttpServlet {
         throw new ServletException(e);
       }
       boolean found = false;
-      String acceptHeader = request.getHeader("Accept");
+      String acceptHeader = req.getHeader("Accept");
       if (null != acceptHeader) {
         String[] types = acceptHeader.split(",");
         for (String type : types) {
@@ -205,8 +205,8 @@ public class ConeServlet extends HttpServlet {
 
     // Mode
     Querier.ModeType modeType;
-    if (null != request.getParameter("mode") && "full".equalsIgnoreCase(request.getParameter("mode"))
-        || null != request.getParameter("m") && "full".equalsIgnoreCase(request.getParameter("m"))) {
+    if (null != req.getParameter("mode") && "full".equalsIgnoreCase(req.getParameter("mode"))
+        || null != req.getParameter("m") && "full".equalsIgnoreCase(req.getParameter("m"))) {
       modeType = Querier.ModeType.FULL;
     } else {
       modeType = Querier.ModeType.FAST;
@@ -214,28 +214,27 @@ public class ConeServlet extends HttpServlet {
 
     // Lang
     String language;
-    if (null != request.getParameter("language")) {
-      language = request.getParameter("language");
-    } else if (null != request.getParameter("l")) {
-      language = request.getParameter("l");
+    if (null != req.getParameter("language")) {
+      language = req.getParameter("language");
+    } else if (null != req.getParameter("l")) {
+      language = req.getParameter("l");
     } else {
       language = PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT);
     }
 
     // Query
-    PrintWriter out = response.getWriter();
+    PrintWriter out = resp.getWriter();
     if ("query".equals(action)) {
       String queryString;
-      queryString =
-          UrlHelper.fixURLEncoding(null != request.getParameter("query") ? request.getParameter("query") : request.getParameter("q"));
+      queryString = UrlHelper.fixURLEncoding(null != req.getParameter("query") ? req.getParameter("query") : req.getParameter("q"));
 
       // Limit
       int limit;
       try {
-        if (null != request.getParameter("number")) {
-          limit = Integer.parseInt(request.getParameter("number"));
-        } else if (null != request.getParameter("n")) {
-          limit = Integer.parseInt(request.getParameter("n"));
+        if (null != req.getParameter("number")) {
+          limit = Integer.parseInt(req.getParameter("number"));
+        } else if (null != req.getParameter("n")) {
+          limit = Integer.parseInt(req.getParameter("n"));
         } else {
           limit = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_RESULTS_DEFAULT));
         }
@@ -245,15 +244,15 @@ public class ConeServlet extends HttpServlet {
 
       try {
         if (null != queryString) {
-          queryAction(queryString, limit, language, modeType, response, formatter, modelName, loggedIn);
+          queryAction(queryString, limit, language, modeType, resp, formatter, modelName, loggedIn);
         } else {
           ArrayList<Pair<String>> searchFields = new ArrayList<>();
-          for (Object key : request.getParameterMap().keySet()) {
+          for (Object key : req.getParameterMap().keySet()) {
             if (!RESERVED_PARAMETERS.contains(key)) {
-              searchFields.add(new Pair<>(key.toString(), UrlHelper.fixURLEncoding(request.getParameter(key.toString()))));
+              searchFields.add(new Pair<>(key.toString(), UrlHelper.fixURLEncoding(req.getParameter(key.toString()))));
             }
           }
-          queryFieldsAction(searchFields.toArray(new Pair[] {}), limit, language, modeType, response, formatter, modelName, loggedIn);
+          queryFieldsAction(searchFields.toArray(new Pair[] {}), limit, language, modeType, resp, formatter, modelName, loggedIn);
         }
       } catch (Exception e) {
         throw new ServletException(e);
@@ -261,7 +260,7 @@ public class ConeServlet extends HttpServlet {
 
     } else if ("all".equals(action)) {
       try {
-        allAction(language, modeType, response, formatter, modelName, loggedIn);
+        allAction(language, modeType, resp, formatter, modelName, loggedIn);
       } catch (Exception e) {
         throw new ServletException(e);
       }
@@ -272,13 +271,13 @@ public class ConeServlet extends HttpServlet {
         id = ConeUtils.makeConePersonsLinkRelative(path);
       }
       try {
-        detailAction(id, language, response, formatter, out, modelName, loggedIn);
+        detailAction(id, language, resp, formatter, out, modelName, loggedIn);
       } catch (Exception e) {
         throw new ServletException(e);
       }
 
     } else if ("explain".equals(action)) {
-      response.setContentType("text/xml");
+      resp.setContentType("text/xml");
       try {
         out.print(ResourceUtil.getResourceAsString(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
             ConeServlet.class.getClassLoader()));
@@ -287,7 +286,7 @@ public class ConeServlet extends HttpServlet {
       }
 
     } else if ("rdfs".equals(action)) {
-      response.setContentType("text/xml");
+      resp.setContentType("text/xml");
       try {
         out.print(Rdfs.getModelAsRdfs(null));
       } catch (Exception e) {
@@ -295,7 +294,7 @@ public class ConeServlet extends HttpServlet {
       }
     }
 
-    response.setHeader("Connection", "close");
+    resp.setHeader("Connection", "close");
   }
 
   private void allAction(String language, Querier.ModeType modeType, HttpServletResponse response, AbstractFormatter formatter,

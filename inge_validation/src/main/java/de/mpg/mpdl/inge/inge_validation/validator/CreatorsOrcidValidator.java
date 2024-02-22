@@ -22,11 +22,11 @@ public class CreatorsOrcidValidator extends ValidatorHandler<List<CreatorVO>> im
     if (ValidationTools.isNotEmpty(creators)) {
 
       int i = 1;
-      for (final CreatorVO creatorVO : creators) {
+      for (CreatorVO creatorVO : creators) {
 
         if (null != creatorVO && CreatorVO.CreatorType.PERSON.equals(creatorVO.getType())) {
 
-          final PersonVO p = creatorVO.getPerson();
+          PersonVO p = creatorVO.getPerson();
 
           if (null != p) {
 

@@ -62,8 +62,8 @@ public class ShortContentHandler extends DefaultHandler {
 
     for (int i = 0; i < attributes.getLength(); i++) {
       if (attributes.getQName(i).startsWith("xmlns:")) {
-        final String prefix = attributes.getQName(i).substring(6);
-        final String nsUri = attributes.getValue(i);
+        String prefix = attributes.getQName(i).substring(6);
+        String nsUri = attributes.getValue(i);
         this.namespaces.put(prefix, nsUri);
       }
     }
@@ -132,9 +132,9 @@ public class ShortContentHandler extends DefaultHandler {
      */
     @Override
     public synchronized String toString() {
-      final StringWriter writer = new StringWriter();
-      for (final Iterator<String> iterator = this.iterator(); iterator.hasNext();) {
-        final String element = iterator.next();
+      StringWriter writer = new StringWriter();
+      for (Iterator<String> iterator = this.iterator(); iterator.hasNext();) {
+        String element = iterator.next();
         writer.append(element);
         if (iterator.hasNext()) {
           writer.append("/");

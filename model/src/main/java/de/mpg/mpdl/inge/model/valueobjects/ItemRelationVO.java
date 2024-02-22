@@ -65,7 +65,7 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
     this.targetItemRef = targetItemRef;
   }
 
-  public ItemRelationVO clone() {
+  public final ItemRelationVO clone() {
     try {
       ItemRelationVO clone = (ItemRelationVO) super.clone();
       if (null != clone.targetItemRef) {

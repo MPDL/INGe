@@ -112,7 +112,7 @@ public class MultipleImport extends FacesBean {
 
   public String getFileSize() {
     if (null != this.uploadedFile) {
-      final long size = this.uploadedFile.length();
+      long size = this.uploadedFile.length();
       logger.info("File uploaded of size <" + size + ">");
       if (1024 > size) {
         return size + "B";
@@ -138,18 +138,18 @@ public class MultipleImport extends FacesBean {
       configuration = new LinkedHashMap<>();
     }
 
-    for (final SelectItem si : this.configParameters) {
+    for (SelectItem si : this.configParameters) {
       configuration.put(si.getLabel(), si.getValue().toString());
     }
 
-    final Connection connection = DbTools.getNewConnection();
+    Connection connection = DbTools.getNewConnection();
     ImportProcess importProcess = null;
     try {
       importProcess = new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile, this.format, this.context,
           this.getLoginHelper().getPrincipal(), this.rollback, this.duplicateStrategy, configuration,
           this.getLoginHelper().getAuthenticationToken(), connection);
       importProcess.start();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       DbTools.closeConnection(connection);
       throw e;
     }
@@ -168,7 +168,7 @@ public class MultipleImport extends FacesBean {
     this.uploadedImportFile = null;
 
     // deselect the selected context
-    final ContextListSessionBean contextListSessionBean = FacesTools.findBean("ContextListSessionBean");
+    ContextListSessionBean contextListSessionBean = FacesTools.findBean("ContextListSessionBean");
     if (null != contextListSessionBean.getDepositorContextList()) {
       for (int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++) {
         contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
@@ -177,7 +177,7 @@ public class MultipleImport extends FacesBean {
 
     // set the current submission step to step2
     if (null != contextListSessionBean.getDepositorContextList() && 1 < contextListSessionBean.getDepositorContextList().size()) {
-      final CreateItem createItem = FacesTools.findBean("CreateItem");
+      CreateItem createItem = FacesTools.findBean("CreateItem");
       createItem.setTarget(MultipleImport.LOAD_MULTIPLE_IMPORT);
       createItem.setMethod(CreateItem.SubmissionMethod.MULTIPLE_IMPORT);
       return CreateItem.LOAD_CREATEITEM;
@@ -207,12 +207,12 @@ public class MultipleImport extends FacesBean {
     if (null != config) {
       this.parametersValues = new LinkedHashMap<>();
 
-      for (final Map.Entry<String, String> entry : config.entrySet()) {
-        final String key = entry.getKey();
-        final List<String> values = transformer.getAllConfigurationValuesFor(key);
-        final List<SelectItem> list = new ArrayList<>();
+      for (Map.Entry<String, String> entry : config.entrySet()) {
+        String key = entry.getKey();
+        List<String> values = transformer.getAllConfigurationValuesFor(key);
+        List<SelectItem> list = new ArrayList<>();
         if (null != values) {
-          for (final String str : values) {
+          for (String str : values) {
             list.add(new SelectItem(str, str));
           }
           this.parametersValues.put(key, list);
@@ -297,13 +297,13 @@ public class MultipleImport extends FacesBean {
       this.uploadedImportFile = evt.getFile();
       this.fixedFileName = CommonUtils.fixURLEncoding(this.uploadedImportFile.getFileName());
       this.uploadedFile = File.createTempFile(this.uploadedImportFile.getFileName(), ".tmp");
-      final FileOutputStream fos = new FileOutputStream(this.uploadedFile);
-      final InputStream is = this.uploadedImportFile.getInputStream();
+      FileOutputStream fos = new FileOutputStream(this.uploadedFile);
+      InputStream is = this.uploadedImportFile.getInputStream();
       IOUtils.copy(is, fos);
       fos.flush();
       fos.close();
       is.close();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error while uplaoding file", e);
     }
   }

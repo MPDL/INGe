@@ -52,8 +52,8 @@ public class AaStart extends HttpServlet {
   private static final String DEFAULT_ENCODING = "UTF-8";
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    doPost(request, response);
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    doPost(req, resp);
   }
 
   /**
@@ -63,17 +63,17 @@ public class AaStart extends HttpServlet {
    * not. - target: The URL the user should be redirected to after authentication.
    *
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    request.setCharacterEncoding(DEFAULT_ENCODING);
-    response.setCharacterEncoding(DEFAULT_ENCODING);
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    req.setCharacterEncoding(DEFAULT_ENCODING);
+    resp.setCharacterEncoding(DEFAULT_ENCODING);
 
-    String from = request.getParameter("from");
-    String tan = request.getParameter("tan");
+    String from = req.getParameter("from");
+    String tan = req.getParameter("tan");
 
     Matcher matcher = authPattern.matcher(from);
     from = matcher.replaceAll("");
 
-    String target = request.getParameter("target");
+    String target = req.getParameter("target");
 
     if (null == target) {
       target = PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
@@ -86,6 +86,6 @@ public class AaStart extends HttpServlet {
     target += separator + "target=" + URLEncoder.encode(from, StandardCharsets.ISO_8859_1) + "&tan="
         + URLEncoder.encode(tan, StandardCharsets.ISO_8859_1);
 
-    response.sendRedirect(target);
+    resp.sendRedirect(target);
   }
 }

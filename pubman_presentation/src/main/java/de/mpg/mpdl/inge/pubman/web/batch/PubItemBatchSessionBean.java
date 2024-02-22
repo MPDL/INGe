@@ -183,8 +183,8 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.inputChangeLocalTagsReplaceTo = null;
 
     // Genres
-    final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
-    final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
+    ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
+    List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
     List<MdsPublicationVO.Genre> allowedGenresForContext = new ArrayList<>();
     List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<>();
     MdsPublicationVO.Genre genreToCheck = null;
@@ -266,10 +266,10 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.disabledKeywordInput = true;
 
     // Genre source
-    final Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
+    Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
     this.changeSourceGenreSelectItems = new ArrayList<>();
     this.changeSourceGenreSelectItems.add(new SelectItem("", this.getLabel("BatchWorkspace_lblNoItemsSet")));
-    for (final SourceVO.Genre value : SourceVO.Genre.values()) {
+    for (SourceVO.Genre value : SourceVO.Genre.values()) {
       this.changeSourceGenreSelectItems.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
     }
     String uri = "";
@@ -811,12 +811,12 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
-    final ArrayList<SelectItem> selectItemList = new ArrayList<>();
+    ArrayList<SelectItem> selectItemList = new ArrayList<>();
 
     // constants for comboBoxes
     selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
 
-    for (final IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
+    for (IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
       selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type)));
     }
 
@@ -926,8 +926,8 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
 
   public String changeOrcid() {
     logger.info("trying to change the ORCID ID " + this.getBatchPubItemsSize() + " items");
-    final SearchCriterionBase sc = this.criterion;
-    final StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
+    SearchCriterionBase sc = this.criterion;
+    StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
     if (ValidationTools.isEmpty(hiddenSc.getHiddenId())) {
       error(this.internationalizationHelper.getMessage("batch_ErrorMissingValues"));
       return null;
@@ -1343,8 +1343,8 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
   }
 
   public void removeAutoSuggestValues() {
-    final SearchCriterionBase sc = this.criterion;
-    final StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
+    SearchCriterionBase sc = this.criterion;
+    StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
     hiddenSc.setHiddenId(null);
     hiddenSc.setSearchString(null);
     this.orcid = null;

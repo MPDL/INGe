@@ -48,7 +48,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
   public void initEnumMap() {
 
-    for (final T v : this.enumClass.getEnumConstants()) {
+    for (T v : this.enumClass.getEnumConstants()) {
       this.enumMap.put(v, false);
     }
 
@@ -57,7 +57,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
 
   public List<T> getEnumList() {
-    final List<T> list = new ArrayList<>(this.enumMap.keySet());
+    List<T> list = new ArrayList<>(this.enumMap.keySet());
     return list;
   }
 
@@ -113,12 +113,12 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
   @Override
   public String toQueryString() {
-    final StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
     sb.append(this.getSearchCriterion() + "=\"");
 
     boolean allChecked = true;
     int i = 0;
-    for (final Map.Entry<T, Boolean> entry : this.enumMap.entrySet()) {
+    for (Map.Entry<T, Boolean> entry : this.enumMap.entrySet()) {
       if (entry.getValue()) {
         if (0 < i) {
           sb.append("|");
@@ -141,16 +141,16 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
   @Override
   public void parseQueryStringContent(String content) {
 
-    for (final Map.Entry<T, Boolean> e : this.enumMap.entrySet()) {
+    for (Map.Entry<T, Boolean> e : this.enumMap.entrySet()) {
       e.setValue(false);
     }
 
 
     // Split by '|', which have no backslash before and no other '|' after
-    final String[] enumParts = content.split("(?<!\\\\)\\|(?!\\|)");
-    for (final String part : enumParts) {
+    String[] enumParts = content.split("(?<!\\\\)\\|(?!\\|)");
+    for (String part : enumParts) {
 
-      final T v = Enum.valueOf(this.enumClass, part);
+      T v = Enum.valueOf(this.enumClass, part);
       if (null == v) {
         throw new RuntimeException("Invalid visibility: " + part);
       }
@@ -167,7 +167,7 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
     boolean anySelected = false;
     boolean anyDeselected = false;
-    for (final Map.Entry<T, Boolean> entry : this.enumMap.entrySet()) {
+    for (Map.Entry<T, Boolean> entry : this.enumMap.entrySet()) {
       if (entry.getValue()) {
         anySelected = true;
       } else {

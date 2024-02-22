@@ -31,8 +31,8 @@ public class WithdrawItem extends FacesBean {
   }
 
   public void init() {
-    final StringBuilder creators = new StringBuilder();
-    for (final CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
+    StringBuilder creators = new StringBuilder();
+    for (CreatorVO creator : this.getPubItem().getMetadata().getCreators()) {
       if (!creators.isEmpty()) {
         creators.append("; ");
       }
@@ -55,7 +55,7 @@ public class WithdrawItem extends FacesBean {
     try {
       FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
           + this.getItemControllerSessionBean().getCurrentPubItem().getObjectId());
-    } catch (final IOException e) {
+    } catch (IOException e) {
       logger.error("Could not redirect to View Item Page", e);
     }
 
@@ -98,7 +98,7 @@ public class WithdrawItem extends FacesBean {
 
     final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
-    final String retVal = this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo, this.withdrawalComment);
+    String retVal = this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo, this.withdrawalComment);
 
     if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
@@ -107,7 +107,7 @@ public class WithdrawItem extends FacesBean {
       try {
         FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
             + this.getItemControllerSessionBean().getCurrentPubItem().getObjectId());
-      } catch (final IOException e) {
+      } catch (IOException e) {
         logger.error("Could not redirect to View Item Page", e);
       }
     }

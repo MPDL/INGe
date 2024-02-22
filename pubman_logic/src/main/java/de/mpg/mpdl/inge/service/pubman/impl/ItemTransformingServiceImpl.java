@@ -112,7 +112,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
       Map<String, String> configuration) throws TransformationException {
     StringWriter wr = new StringWriter();
 
-    final Transformer t = TransformerFactory.newTransformer(source, target);
+    Transformer t = TransformerFactory.newTransformer(source, target);
 
     if (null != configuration) {
       t.mergeConfiguration(configuration);
@@ -129,7 +129,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
     try {
       String itemXml = XmlTransformingService.transformToItem(item);
 
-      final Transformer t = TransformerFactory.newTransformer(TransformerFactory.getInternalFormat(), target);
+      Transformer t = TransformerFactory.newTransformer(TransformerFactory.getInternalFormat(), target);
       //      logger.info(itemXml);
       t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes(StandardCharsets.UTF_8))),
           new TransformerStreamResult(wr));

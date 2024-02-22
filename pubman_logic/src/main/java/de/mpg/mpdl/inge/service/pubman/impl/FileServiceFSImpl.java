@@ -291,9 +291,9 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
       //Detecting MimeType
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
-        final Tika tika = new Tika();
+        Tika tika = new Tika();
         fileVO.setMimeType(tika.detect(stagedFileStream, stagedFileVo.getFilename()));
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.info("Error while trying to detect mimetype of staged file " + stagedFileVo.getId(), e);
       }
 
@@ -412,14 +412,14 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     // Auth is covered by readFile method
 
 
-    final Metadata metadata = new Metadata();
+    Metadata metadata = new Metadata();
 
     try (ByteArrayOutputStream fileOutput = new ByteArrayOutputStream()) {
       FileVOWrapper wrapper = this.readFile(itemId, componentId, authenticationToken);
       wrapper.readFile(fileOutput);
-      try (final TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()))) {
-        final AutoDetectParser parser = new AutoDetectParser();
-        final BodyContentHandler handler = new BodyContentHandler(-1);
+      try (TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()))) {
+        AutoDetectParser parser = new AutoDetectParser();
+        BodyContentHandler handler = new BodyContentHandler(-1);
         ParseContext context = new ParseContext();
         parser.parse(input, handler, metadata, context);
       }
@@ -428,8 +428,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       throw new IngeTechnicalException("could not read file [" + componentId + "] for Metadata extraction", e);
     }
 
-    final StringBuilder b = new StringBuilder(2048);
-    for (final String name : metadata.names()) {
+    StringBuilder b = new StringBuilder(2048);
+    for (String name : metadata.names()) {
       b.append(name).append(": ").append(metadata.get(name)).append(System.getProperty(PropertyReader.LINE_SEPARATOR));
     }
     return b.toString();

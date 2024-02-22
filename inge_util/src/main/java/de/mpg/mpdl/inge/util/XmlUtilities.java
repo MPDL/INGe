@@ -38,7 +38,7 @@ public class XmlUtilities {
    * @param xmlData The XML as string
    * @throws Exception Any exception
    */
-  public static void assertXMLValid(final String xmlData) throws Exception {
+  public static void assertXMLValid(String xmlData) throws Exception {
 
     if (null == xmlData) {
       throw new IllegalArgumentException("assertXMLValid:xmlData is null");
@@ -117,7 +117,7 @@ public class XmlUtilities {
    * @throws IOException
    * @throws UnsupportedEncodingException
    */
-  private static String getNameSpaceFromXml(final String xmlData)
+  private static String getNameSpaceFromXml(String xmlData)
       throws ParserConfigurationException, SAXException, IOException, UnsupportedEncodingException {
     SAXParserFactory factory = SAXParserFactory.newInstance();
     SAXParser parser = factory.newSAXParser();

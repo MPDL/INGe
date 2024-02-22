@@ -60,7 +60,7 @@ public class Search extends FacesBean {
 
   public void startSearch() {
     String searchString = this.searchString;
-    final boolean includeFiles = this.includeFiles;
+    boolean includeFiles = this.includeFiles;
 
     // check if the searchString contains useful data
     if (searchString.trim().isEmpty()) {
@@ -80,31 +80,31 @@ public class Search extends FacesBean {
     }
 
     try {
-      final Query qb = Search.generateElasticSearchRequest(searchString, includeFiles);
+      Query qb = Search.generateElasticSearchRequest(searchString, includeFiles);
       FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq="
           + URLEncoder.encode(JsonUtil.minifyJsonString(ElasticSearchGenericDAOImpl.toJson(qb)), StandardCharsets.UTF_8));
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));
     }
   }
 
   public static Query generateElasticSearchRequest(String searchString, boolean includeFiles) throws Exception {
-    final List<SearchCriterionBase> criteria = new ArrayList<>();
+    List<SearchCriterionBase> criteria = new ArrayList<>();
 
     if (includeFiles) {
-      final AnyFieldAndFulltextSearchCriterion anyFulltext = new AnyFieldAndFulltextSearchCriterion();
+      AnyFieldAndFulltextSearchCriterion anyFulltext = new AnyFieldAndFulltextSearchCriterion();
       anyFulltext.setSearchString(searchString);
       criteria.add(anyFulltext);
     } else {
-      final AnyFieldSearchCriterion any = new AnyFieldSearchCriterion();
+      AnyFieldSearchCriterion any = new AnyFieldSearchCriterion();
       any.setSearchString(searchString);
       criteria.add(any);
     }
 
     criteria.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.OR_OPERATOR));
 
-    final IdentifierSearchCriterion identifier = new IdentifierSearchCriterion();
+    IdentifierSearchCriterion identifier = new IdentifierSearchCriterion();
     identifier.setSearchString(searchString);
     criteria.add(identifier);
 
@@ -120,10 +120,10 @@ public class Search extends FacesBean {
     final String requestDummy = "dummyTermToBeReplaced";
 
     try {
-      final Query qb = Search.generateElasticSearchRequest(requestDummy, false);
-      final String openSearchRequest = "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), StandardCharsets.UTF_8);
+      Query qb = Search.generateElasticSearchRequest(requestDummy, false);
+      String openSearchRequest = "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), StandardCharsets.UTF_8);
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));
     }

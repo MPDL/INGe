@@ -171,12 +171,12 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   private void initWithQueryParam(String queryParam) {
-    final List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(queryParam);
+    List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(queryParam);
 
-    final List<SearchCriterionBase> toBeRemovedList = new ArrayList<>();
+    List<SearchCriterionBase> toBeRemovedList = new ArrayList<>();
     for (int i = scList.size() - 1; 0 <= i; i--) {
 
-      final SearchCriterionBase sc = scList.get(i);
+      SearchCriterionBase sc = scList.get(i);
 
       if (SearchCriterionBase.SearchCriterion.FILE_SECTION.equals(sc.getSearchCriterion())) {
         this.fileSectionSearchCriterion = sc;
@@ -199,7 +199,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
       }
     }
 
-    for (final SearchCriterionBase sc : toBeRemovedList) {
+    for (SearchCriterionBase sc : toBeRemovedList) {
       SearchCriterionBase.removeSearchCriterionWithOperator(scList, sc);
     }
 
@@ -228,10 +228,10 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
    */
   public String getReadOutParams() {
     if (!this.languageChanged) {
-      final FacesContext fc = FacesTools.getCurrentInstance();
+      FacesContext fc = FacesTools.getCurrentInstance();
       String query = fc.getExternalContext().getRequestParameterMap().get("q");
       query = CommonUtils.fixURLEncoding(query);
-      final boolean isPostback = fc.getRenderKit().getResponseStateManager().isPostback(fc);
+      boolean isPostback = fc.getRenderKit().getResponseStateManager().isPostback(fc);
 
       if (!isPostback) {
         if (null != query && !query.trim().isEmpty()) {
@@ -273,27 +273,27 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   private List<SelectItem> initSubjectTypesListMenu() {
-    final List<SelectItem> vocabs = new ArrayList<>();
+    List<SelectItem> vocabs = new ArrayList<>();
     try {
-      final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
-      final String[] vocabsArr = vocabsStr.split(";");
+      String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
+      String[] vocabsArr = vocabsStr.split(";");
       for (String s : vocabsArr) {
-        final String type = s.trim().toUpperCase().replace("-", "_");
-        final String label = s.trim().toUpperCase();
-        final SelectItem si = new SelectItem(type, label);
+        String type = s.trim().toUpperCase().replace("-", "_");
+        String label = s.trim().toUpperCase();
+        SelectItem si = new SelectItem(type, label);
         vocabs.add(si);
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Could not read Property: '" + PropertyReader.INGE_CONE_SUBJECTVOCAB + "'", e);
     }
     return vocabs;
   }
 
   private List<SelectItem> initIdentifierTypesListMenu() {
-    final List<SelectItem> identifierRoleMenu = new ArrayList<>();
+    List<SelectItem> identifierRoleMenu = new ArrayList<>();
 
     identifierRoleMenu.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
-    for (final IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
+    for (IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
       identifierRoleMenu.add(new SelectItem(type.name(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.name())));
     }
 
@@ -304,10 +304,10 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   private List<SelectItem> initPersonRoleMenu() {
-    final List<SelectItem> personRoleMenu = new ArrayList<>();
+    List<SelectItem> personRoleMenu = new ArrayList<>();
 
     personRoleMenu.add(new SelectItem(null, this.getLabel("adv_search_lblSearchPerson")));
-    for (final CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
+    for (CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
       personRoleMenu.add(new SelectItem(role.name(), this.getLabel("ENUM_CREATORROLE_" + role.name())));
     }
 
@@ -315,7 +315,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   private List<SelectItem> initCriterionTypeListMenu(SearchCriterionBase.Index indexName) {
-    final List<SelectItem> criterionTypeList = new ArrayList<>();
+    List<SelectItem> criterionTypeList = new ArrayList<>();
     // General
     criterionTypeList.add(new SelectItem(SearchCriterionBase.SearchCriterion.TITLE, this.getLabel("adv_search_lblRgbTitle")));
     criterionTypeList.add(new SelectItem(SearchCriterionBase.SearchCriterion.KEYWORD, this.getLabel("adv_search_lblRgbTopic")));
@@ -326,8 +326,8 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
 
     // AdminStuff
     if (SearchCriterionBase.Index.ITEM_CONTAINER_ADMIN == indexName) {
-      final List<SelectItem> adminGroupList = new ArrayList<>();
-      final SelectItemGroup adminGroup = new SelectItemGroup(this.getLabel("adv_search_lblSearchAdmin"));
+      List<SelectItem> adminGroupList = new ArrayList<>();
+      SelectItemGroup adminGroup = new SelectItemGroup(this.getLabel("adv_search_lblSearchAdmin"));
       adminGroupList
           .add(new SelectItem(SearchCriterionBase.SearchCriterion.CREATED_INTERNAL, this.getLabel("adv_search_lblItemCreationDate")));
       adminGroupList.add(
@@ -346,7 +346,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     criterionTypeList.add(new SelectItem(SearchCriterionBase.SearchCriterion.ORGUNIT, this.getLabel("adv_search_lbHeaderOrgan")));
 
     // Dates
-    final List<SelectItem> dateGroupList = new ArrayList<>();
+    List<SelectItem> dateGroupList = new ArrayList<>();
     dateGroupList.add(new SelectItem(SearchCriterionBase.SearchCriterion.ANYDATE, this.getLabel("adv_search_lbHeaderDate")));
     dateGroupList
         .add(new SelectItem(SearchCriterionBase.SearchCriterion.PUBLISHEDPRINT, this.getLabel("adv_search_lblChkType_abb_publishedpr")));
@@ -356,12 +356,12 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     dateGroupList.add(new SelectItem(SearchCriterionBase.SearchCriterion.MODIFIED, this.getLabel("adv_search_lblChkType_modified")));
     dateGroupList.add(new SelectItem(SearchCriterionBase.SearchCriterion.CREATED, this.getLabel("adv_search_lblChkType_created")));
 
-    final SelectItemGroup dateGroup = new SelectItemGroup(this.getLabel("adv_search_lbHeaderDate"));
+    SelectItemGroup dateGroup = new SelectItemGroup(this.getLabel("adv_search_lbHeaderDate"));
     dateGroup.setSelectItems(dateGroupList.toArray(new SelectItem[0]));
     criterionTypeList.add(dateGroup);
 
     // Event
-    final List<SelectItem> eventGroupList = new ArrayList<>();
+    List<SelectItem> eventGroupList = new ArrayList<>();
     eventGroupList.add(new SelectItem(SearchCriterionBase.SearchCriterion.EVENT, this.getLabel("adv_search_lbHeaderEvent")));
     eventGroupList.add(
         new SelectItem(SearchCriterionBase.SearchCriterion.EVENT_STARTDATE, this.getLabel("adv_search_lblChkType_abb_event_start_date")));
@@ -370,7 +370,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     eventGroupList
         .add(new SelectItem(SearchCriterionBase.SearchCriterion.EVENT_INVITATION, this.getLabel("ENUM_INVITATIONSTATUS_INVITED")));
 
-    final SelectItemGroup eventGroup = new SelectItemGroup(this.getLabel("adv_search_lbHeaderEvent"));
+    SelectItemGroup eventGroup = new SelectItemGroup(this.getLabel("adv_search_lbHeaderEvent"));
     eventGroup.setSelectItems(eventGroupList.toArray(new SelectItem[0]));
     criterionTypeList.add(eventGroup);
 
@@ -407,7 +407,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   private List<SelectItem> initOperatorListMenu() {
-    final List<SelectItem> operatorTypeList = new ArrayList<>();
+    List<SelectItem> operatorTypeList = new ArrayList<>();
 
     // General
     operatorTypeList.add(new SelectItem(SearchCriterionBase.SearchCriterion.AND_OPERATOR, this.getLabel("adv_search_logicop_and")));
@@ -440,17 +440,17 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public void changeCriterionAction(ValueChangeEvent evt) {
-    final Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
+    Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
 
     if (null != evt.getNewValue() && null != position) {
-      final SearchCriterionBase.SearchCriterion newValue = SearchCriterionBase.SearchCriterion.valueOf(evt.getNewValue().toString());
+      SearchCriterionBase.SearchCriterion newValue = SearchCriterionBase.SearchCriterion.valueOf(evt.getNewValue().toString());
       logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
 
-      final SearchCriterionBase oldSearchCriterion = this.criterionList.remove(position.intValue());
-      final SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
+      SearchCriterionBase oldSearchCriterion = this.criterionList.remove(position.intValue());
+      SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
       newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
       if (this.possibleCriterionsForClosingParenthesisMap.containsKey(oldSearchCriterion)) {
-        final boolean oldValue = this.possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
+        boolean oldValue = this.possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
         this.possibleCriterionsForClosingParenthesisMap.remove(oldSearchCriterion);
         this.possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue);
       }
@@ -476,7 +476,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public void addSearchCriterion(int position) {
-    final SearchCriterionBase oldSearchCriterion = this.criterionList.get(position);
+    SearchCriterionBase oldSearchCriterion = this.criterionList.get(position);
 
     // If the add button of a Parenthesis is used, add an ANYFIELD Criterion, else add the same
     // criterion as in the line of the add button.
@@ -502,7 +502,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public void removeSearchCriterion(int position) {
-    final SearchCriterionBase sc = this.criterionList.get(position);
+    SearchCriterionBase sc = this.criterionList.get(position);
     SearchCriterionBase.removeSearchCriterionWithOperator(this.criterionList, sc);
     this.updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
   }
@@ -516,7 +516,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public void addClosingParenthesis(int position) {
-    final Parenthesis closingParenthesis = new Parenthesis(SearchCriterionBase.SearchCriterion.CLOSING_PARENTHESIS);
+    Parenthesis closingParenthesis = new Parenthesis(SearchCriterionBase.SearchCriterion.CLOSING_PARENTHESIS);
     this.currentlyOpenedParenthesis.setPartnerParenthesis(closingParenthesis);
     closingParenthesis.setPartnerParenthesis(this.currentlyOpenedParenthesis);
     this.currentlyOpenedParenthesis = null;
@@ -525,8 +525,8 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public void removeParenthesis(int position) {
-    final Parenthesis parenthesis = (Parenthesis) this.criterionList.get(position);
-    final Parenthesis partnerParenthesis = parenthesis.getPartnerParenthesis();
+    Parenthesis parenthesis = (Parenthesis) this.criterionList.get(position);
+    Parenthesis partnerParenthesis = parenthesis.getPartnerParenthesis();
 
     this.criterionList.remove(parenthesis);
     this.criterionList.remove(partnerParenthesis);
@@ -546,7 +546,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
 
     this.numberOfSearchCriterions = 0;
 
-    for (final SearchCriterionBase sc : this.criterionList) {
+    for (SearchCriterionBase sc : this.criterionList) {
 
       if (SearchCriterionBase.SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion())) {
         balanceCounter--;
@@ -591,13 +591,13 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
 
         this.contextListMenu = new ArrayList<>();
 
-        for (final SearchRetrieveRecordVO<ContextDbVO> c : result.getRecords()) {
+        for (SearchRetrieveRecordVO<ContextDbVO> c : result.getRecords()) {
           this.contextListMenu.add(new SelectItem(c.getData().getObjectId(), c.getData().getName()));
         }
 
         this.contextListMenu.sort(new SelectItemComparator());
         this.contextListMenu.add(0, new SelectItem("", "--"));
-      } catch (final Exception e) {
+      } catch (Exception e) {
         e.printStackTrace();
       }
     }
@@ -619,7 +619,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
       return;
     }
 
-    final List<SearchCriterionBase> allCriterions = new ArrayList<>();
+    List<SearchCriterionBase> allCriterions = new ArrayList<>();
 
     allCriterions.add(new Parenthesis(SearchCriterionBase.SearchCriterion.OPENING_PARENTHESIS));
     allCriterions.addAll(this.criterionList);
@@ -647,7 +647,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     allCriterions.add(this.publicationStatusListSearchCriterion);
     allCriterions.add(new Parenthesis(SearchCriterionBase.SearchCriterion.CLOSING_PARENTHESIS));
 
-    final List<SearchCriterionBase> componentSearchCriterions = this.getComponentSearchCriterions(indexName);
+    List<SearchCriterionBase> componentSearchCriterions = this.getComponentSearchCriterions(indexName);
     allCriterions.addAll(componentSearchCriterions);
 
     this.query = SearchCriterionBase.scListToQueryString(allCriterions);
@@ -663,7 +663,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
     }
 
     try {
-      final BreadcrumbItemHistorySessionBean bihsb = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
+      BreadcrumbItemHistorySessionBean bihsb = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
       if ("AdvancedSearchPage".equals(bihsb.getCurrentItem().getDisplayValue())) {
         bihsb.getCurrentItem().setPage("AdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, StandardCharsets.UTF_8));
       } else if ("AdminAdvancedSearchPage".equals(bihsb.getCurrentItem().getDisplayValue())) {
@@ -671,7 +671,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
       }
       FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?q=" + URLEncoder.encode(this.query, StandardCharsets.UTF_8) + "&"
           + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error while redirecting to search result page", e);
     }
   }
@@ -685,7 +685,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public List<SearchCriterionBase> getComponentSearchCriterions(SearchCriterionBase.Index indexName) {
-    final List<SearchCriterionBase> returnList = new ArrayList<>();
+    List<SearchCriterionBase> returnList = new ArrayList<>();
     returnList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.AND_OPERATOR));
     returnList.add(this.fileSectionSearchCriterion);
     returnList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.AND_OPERATOR));
@@ -695,7 +695,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public List<SearchCriterionBase> getItemStatusSearchCriterions() {
-    final List<SearchCriterionBase> returnList = new ArrayList<>();
+    List<SearchCriterionBase> returnList = new ArrayList<>();
     returnList.add(new LogicalOperator(SearchCriterionBase.SearchCriterion.AND_OPERATOR));
 
     return returnList;
@@ -794,7 +794,7 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
   }
 
   public void removeAutoSuggestValues(int position) {
-    final SearchCriterionBase sc = this.criterionList.get(position);
+    SearchCriterionBase sc = this.criterionList.get(position);
     if (sc instanceof StringOrHiddenIdSearchCriterion hiddenSc) {
       hiddenSc.setHiddenId(null);
       hiddenSc.setSearchString(null);
@@ -827,11 +827,11 @@ public class AdvancedSearchBean extends FacesBean implements LanguageChangeObser
 
     // if langugage is changed on AdvancedSearchPage, set flag
     try {
-      final String viewId = FacesTools.getCurrentInstance().getViewRoot().getViewId();
+      String viewId = FacesTools.getCurrentInstance().getViewRoot().getViewId();
       if ("/AdvancedSearchPage.jsp".equals(viewId)) {
         this.languageChanged = true;
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.warn("Problem reading view id", e);
     }
   }

@@ -248,7 +248,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -265,7 +265,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -282,7 +282,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -299,7 +299,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -316,7 +316,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -333,7 +333,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -350,7 +350,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -371,7 +371,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(this.selectedSortOrder);
       this.setCurrentPageNumber(1);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -386,7 +386,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.selectedSortBy).getSortOrder().name());
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -401,7 +401,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.subMenu = "VIEW";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -416,7 +416,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.subMenu = "EXPORT";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -431,7 +431,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.subMenu = "FILTER";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -446,7 +446,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.subMenu = "SORTING";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -461,7 +461,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.subMenu = "ACTIONS";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -476,7 +476,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.subMenu = "PROCESS_LOG";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -491,7 +491,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.listType = "BIB";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -506,7 +506,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.listType = "GRID";
       this.setListUpdate(false);
       this.redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -602,7 +602,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   @Override
   protected void readOutParameters() {
-    final String sortBy = FacesTools.getExternalContext().getRequestParameterMap().get(PubItemListSessionBean.parameterSelectedSortBy);
+    String sortBy = FacesTools.getExternalContext().getRequestParameterMap().get(PubItemListSessionBean.parameterSelectedSortBy);
 
     if (null != sortBy) {
       this.setSelectedSortBy(sortBy);
@@ -620,8 +620,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       // }
     }
 
-    final String sortOrder =
-        FacesTools.getExternalContext().getRequestParameterMap().get(PubItemListSessionBean.parameterSelectedSortOrder);
+    String sortOrder = FacesTools.getExternalContext().getRequestParameterMap().get(PubItemListSessionBean.parameterSelectedSortOrder);
     if (null != sortOrder) {
       this.setSelectedSortOrder(sortOrder);
     } else if (null != this.selectedSortOrder) {
@@ -636,7 +635,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   @Override
   public SORT_CRITERIA getSortCriteria() {
-    final SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.selectedSortBy);
+    SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.selectedSortBy);
     sc.setSortOrder(SearchSortCriteria.SortOrder.valueOf(this.selectedSortOrder));
 
     return sc;
@@ -692,8 +691,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public List<PubItemVOPresentation> getSelectedItems() {
-    final List<PubItemVOPresentation> selectedPubItems = new ArrayList<>();
-    for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
+    List<PubItemVOPresentation> selectedPubItems = new ArrayList<>();
+    for (PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
         selectedPubItems.add(pubItem);
       }
@@ -709,12 +708,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void addAllToBatch() {
-    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
-    final List<PubItemVOPresentation> allListPubItems = this.retrieveAll();
+    PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
+    List<PubItemVOPresentation> allListPubItems = this.retrieveAll();
 
     int added = 0;
     int existing = 0;
-    for (final PubItemVOPresentation pubItem : allListPubItems) {
+    for (PubItemVOPresentation pubItem : allListPubItems) {
 
       if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
         if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectId())) {
@@ -749,12 +748,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void addSelectedToBatch() {
-    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
-    final List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
+    PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
+    List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
 
     int added = 0;
     int existing = 0;
-    for (final PubItemVOPresentation pubItem : selectedPubItems) {
+    for (PubItemVOPresentation pubItem : selectedPubItems) {
 
       if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
         if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectId())) {
@@ -788,13 +787,13 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void refillBatchWithErrorsOnly() {
-    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
+    PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
     BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
 
     int added = 0;
     if (null != batchLog) {
       pubItemBatch.setStoredPubItems(new HashMap<>());
-      for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
+      for (BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
 
         if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
           if (null != batchItem && BatchProcessItemVO.BatchProcessMessagesTypes.ERROR.equals(batchItem.getBatchProcessMessageType())
@@ -827,13 +826,13 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void refillBatchWithLog() {
-    final PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
+    PubItemBatchSessionBean pubItemBatch = FacesTools.findBean("PubItemBatchSessionBean");
     BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
 
     int added = 0;
     if (null != batchLog) {
       pubItemBatch.setStoredPubItems(new HashMap<>());
-      for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
+      for (BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
 
         if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemBatch.getBatchPubItemsSize())) {
           if (null != batchItem && null != batchItem.getItemVersionVO()
@@ -865,12 +864,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void addSelectedToCart() {
-    final PubItemStorageSessionBean pubItemStorage = FacesTools.findBean("PubItemStorageSessionBean");
-    final List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
+    PubItemStorageSessionBean pubItemStorage = FacesTools.findBean("PubItemStorageSessionBean");
+    List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
 
     int added = 0;
     int existing = 0;
-    for (final PubItemVOPresentation pubItem : selectedPubItems) {
+    for (PubItemVOPresentation pubItem : selectedPubItems) {
 
       if (PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS > (pubItemStorage.getStoredPubItemsSize())) {
         if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
@@ -912,7 +911,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * Saves the references of currently selected pub items into a map.
    */
   private void saveSelections() {
-    for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
+    for (PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
         this.selectedItemRefs.put(pubItem.getObjectIdAndVersion(), pubItem);
       } else {
@@ -926,7 +925,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    */
   private void updateSelections() {
     if (!this.selectedItemRefs.isEmpty()) {
-      for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
+      for (PubItemVOPresentation pubItem : this.getCurrentPartList()) {
         if (this.selectedItemRefs.containsKey(pubItem.getObjectIdAndVersion())) {
           pubItem.setSelected(true);
         }
@@ -1012,7 +1011,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     if (this.getTotalNumberOfElements() > maxSize) {
       this.warn(this.getMessage("ExportSizeError").replaceAll("$1", "" + maxSize));
     }
-    final List<PubItemVOPresentation> itemList = this.getPaginatorListRetriever().retrieveList(0, maxSize, this.getSortCriteria());
+    List<PubItemVOPresentation> itemList = this.getPaginatorListRetriever().retrieveList(0, maxSize, this.getSortCriteria());
     return itemList;
   }
 
@@ -1072,17 +1071,17 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   public String showExportEmailPage(List<PubItemVOPresentation> pubItemList) {
     this.saveSelections();
 
-    final ItemControllerSessionBean icsb = FacesTools.findBean("ItemControllerSessionBean");
+    ItemControllerSessionBean icsb = FacesTools.findBean("ItemControllerSessionBean");
     // this.setSelectedItemsAndCurrentItem();
-    final ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
+    ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
 
     if (!pubItemList.isEmpty()) {
       // gets the export format VO that holds the data.
-      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+      ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
       byte[] exportFileData;
       try {
         exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList));
-      } catch (final IngeTechnicalException e) {
+      } catch (IngeTechnicalException e) {
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
@@ -1091,18 +1090,17 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         this.redirect();
       }
       // YEAR + MONTH + DAY_OF_MONTH
-      final Calendar rightNow = Calendar.getInstance();
-      final String date =
-          rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-" + rightNow.get(Calendar.MONTH) + "_";
+      Calendar rightNow = Calendar.getInstance();
+      String date = rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-" + rightNow.get(Calendar.MONTH) + "_";
       // create an attachment temp file from the byte[] stream
       File exportAttFile;
       try {
         exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getFormat() + "_" + date,
             "." + TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getExtension());
-        final FileOutputStream fos = new FileOutputStream(exportAttFile);
+        FileOutputStream fos = new FileOutputStream(exportAttFile);
         fos.write(exportFileData);
         fos.close();
-      } catch (final IOException e1) {
+      } catch (IOException e1) {
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e1);
         return ErrorPage.LOAD_ERRORPAGE;
       }
@@ -1137,26 +1135,26 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
   public static void exportAndDownload(List<PubItemVOPresentation> pubItemList) {
-    final ItemControllerSessionBean icsb = FacesTools.findBean("ItemControllerSessionBean");
-    final ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
+    ItemControllerSessionBean icsb = FacesTools.findBean("ItemControllerSessionBean");
+    ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
     // export format and file format.
-    final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+    ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
     byte[] exportFileData = null;
     try {
       exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList));
-    } catch (final IngeTechnicalException e) {
+    } catch (IngeTechnicalException e) {
       throw new RuntimeException("Cannot retrieve export data", e);
     }
-    final String contentType = TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getMimeType();
+    String contentType = TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getMimeType();
     FacesTools.getResponse().setContentType(contentType);
-    final String fileName = "export_" + curExportFormat.getFormat().toLowerCase() + "."
+    String fileName = "export_" + curExportFormat.getFormat().toLowerCase() + "."
         + TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getExtension();
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
-      final OutputStream out = FacesTools.getResponse().getOutputStream();
+      OutputStream out = FacesTools.getResponse().getOutputStream();
       out.write(exportFileData);
       out.close();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
     }
     FacesTools.getCurrentInstance().responseComplete();
@@ -1184,7 +1182,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * redirects to the next list item and updates the currentPartList if needed
    */
   public void nextListItem() {
-    final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
@@ -1218,9 +1216,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
           }
         }
       }
-    } catch (final IOException e) {
+    } catch (IOException e) {
       logger.warn("IO-Exception while retrieving ExternalContext for nextItem", e);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.warn("Exception while getting link to nextListItem", e);
     }
   }
@@ -1229,7 +1227,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * redirects to the previous list item and updates the currentPartList if needed
    */
   public void previousListItem() {
-    final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
@@ -1263,9 +1261,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
           }
         }
       }
-    } catch (final IOException e) {
+    } catch (IOException e) {
       logger.warn("IO-Exception while retrieving ExternalContext for previousItem", e);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.warn("Exception while getting link to previousListItem", e);
     }
   }
@@ -1276,7 +1274,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public boolean getHasNextListItem() {
-    final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
     if (null != this.getCurrentPartList()) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
         if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
@@ -1295,7 +1293,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public boolean getHasPreviousListItem() {
-    final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
     if (null != this.getCurrentPartList()) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
         if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
@@ -1315,10 +1313,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setCurrentPageNumber(1);
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-      final int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
+      int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem);
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
@@ -1331,18 +1329,18 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setCurrentPageNumber(this.getPaginatorPageSize());
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-      final int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
+      int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
       this.setListItemPosition(positionFirstPartListItem + this.getCurrentPartList().size() - 1);
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.debug("Exception while getting link to firstListItem");
       e.printStackTrace();
     }
   }
 
   public int getListItemPosition() {
-    final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    final int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
+    PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
     for (int i = 0; i < this.getCurrentPartList().size(); i++) {
       if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
         this.itemPosition = positionFirstPartListItem + i;
@@ -1363,12 +1361,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     try {
       this.setCurrentPageNumber((int) Math.ceil((double) this.itemPosition / (double) this.getElementsPerPage()));
       this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
-      final int positionInPartList = (this.itemPosition - 1) % this.getElementsPerPage();
+      int positionInPartList = (this.itemPosition - 1) % this.getElementsPerPage();
       FacesTools.getExternalContext().redirect(this.getCurrentPartList().get(positionInPartList).getLink());
-    } catch (final IOException e) {
+    } catch (IOException e) {
       logger.debug("Problem reading new itemPosition");
       e.printStackTrace();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.debug("Problem on setting new position in list");
       e.printStackTrace();
     }

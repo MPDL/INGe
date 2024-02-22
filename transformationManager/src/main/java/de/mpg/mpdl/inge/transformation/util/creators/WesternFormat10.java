@@ -45,12 +45,12 @@ public class WesternFormat10 extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) {
+  public List<Author> getAuthors(String authorString) {
 
-    if (contains(authorsString, "0123456789") || (authorsString.contains(",") && authorsString.contains(";"))) {
+    if (contains(authorString, "0123456789") || (authorString.contains(",") && authorString.contains(";"))) {
       return null;
     } else {
-      String[] potentialAuthorGroups = split(authorsString, ',');
+      String[] potentialAuthorGroups = split(authorString, ',');
       for (String potentialAuthorGroup : potentialAuthorGroups) {
         String[] potentialAuthors = split(potentialAuthorGroup, ';');
         for (String potentialAuthor : potentialAuthors) {
@@ -61,7 +61,7 @@ public class WesternFormat10 extends AuthorFormat {
       }
     }
 
-    String[] authors = authorsString.split(" *(,|;| and | AND | und | et |\\n) *");
+    String[] authors = authorString.split(" *(,|;| and | AND | und | et |\\n) *");
 
     return getAuthorListNormalFormat(authors);
   }

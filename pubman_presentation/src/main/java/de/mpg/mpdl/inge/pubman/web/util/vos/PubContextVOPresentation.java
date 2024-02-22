@@ -52,7 +52,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
       this.getItemControllerSessionBean().getCurrentPubItem().getObject().setContext(this);
       return EditItem.LOAD_EDITITEM;
     } else if (CreateItem.SubmissionMethod.MULTIPLE_IMPORT == this.getCreateItem().getMethod()) {
-      final MultipleImport multipleImport = FacesTools.findBean("MultipleImport");
+      MultipleImport multipleImport = FacesTools.findBean("MultipleImport");
       multipleImport.setContext(this);
       return MultipleImport.LOAD_MULTIPLE_IMPORT;
     } else {
@@ -80,7 +80,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
 
   @Override
   public int compareTo(PubContextVOPresentation compareObject) {
-    final Collator collator = Collator.getInstance(Locale.getDefault());
+    Collator collator = Collator.getInstance(Locale.getDefault());
     collator.setStrength(Collator.SECONDARY);
     return collator.compare(this.getName(), compareObject.getName());
   }
@@ -102,7 +102,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
   }
 
   @Override
-  public boolean equals(Object o) {
-    return o instanceof PubContextVOPresentation && compareTo((PubContextVOPresentation) o) == 0;
+  public boolean equals(Object obj) {
+    return obj instanceof PubContextVOPresentation && 0 == compareTo((PubContextVOPresentation) obj);
   }
 }

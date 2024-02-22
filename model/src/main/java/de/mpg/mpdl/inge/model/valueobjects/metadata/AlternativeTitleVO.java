@@ -130,7 +130,7 @@ public class AlternativeTitleVO extends ValueObject implements Cloneable {
     this.type = type;
   }
 
-  public AlternativeTitleVO clone() {
+  public final AlternativeTitleVO clone() {
     try {
       AlternativeTitleVO clone = (AlternativeTitleVO) super.clone();
       return clone;

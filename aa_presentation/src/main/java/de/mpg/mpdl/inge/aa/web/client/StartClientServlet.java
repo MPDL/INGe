@@ -44,23 +44,23 @@ import jakarta.servlet.http.HttpServletResponse;
 public class StartClientServlet extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-    doPost(request, response);
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+    doPost(req, resp);
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
     try {
       String clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
       if (null == clientClassName || clientClassName.isEmpty()) {
         clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_START_CLASS);
         Class<?> clientClass = Class.forName(clientClassName);
         StartClient client = (StartClient) clientClass.newInstance();
-        client.process(request, response);
+        client.process(req, resp);
       } else {
         Class<?> clientClass = Class.forName(clientClassName);
         FinalClient client = (FinalClient) clientClass.newInstance();
-        client.process(request, response);
+        client.process(req, resp);
       }
     } catch (Exception e) {
       throw new ServletException(e);

@@ -69,11 +69,11 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
 
   private void initialize() {
     try {
-      final InputStream is = new FileInputStream(this.getSourceFile());
+      InputStream is = new FileInputStream(this.getSourceFile());
       this.originalData = IOUtils.toByteArray(is);
       is.close();
 
-    } catch (final IOException e) {
+    } catch (IOException e) {
       throw new RuntimeException("Can't convert source to byte[]", e);
     }
 
@@ -82,10 +82,10 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
     DocumentBuilder builder;
     try {
       builder = factory.newDocumentBuilder();
-      final EntityResolver eresolver = new CatalogResolver();
+      EntityResolver eresolver = new CatalogResolver();
       builder.setEntityResolver(eresolver);
 
-    } catch (final ParserConfigurationException e) {
+    } catch (ParserConfigurationException e) {
       throw new RuntimeException("Can't create DocumentBuilder", e);
     }
 
@@ -104,7 +104,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
       root = null;
       this.counter = 0;
       this.isInitialized = true;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error during parsing input", e);
     }
   }
@@ -122,7 +122,7 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
       this.length = this.items.size();
       writer = null;
       transformer = null;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Can't transform node to String()", e);
     }
   }

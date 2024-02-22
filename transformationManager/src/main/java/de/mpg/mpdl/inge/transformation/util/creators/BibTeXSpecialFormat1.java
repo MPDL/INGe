@@ -41,13 +41,13 @@ public class BibTeXSpecialFormat1 extends AuthorFormat {
     return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | AND | und | et ) *" + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
   }
 
-  public List<Author> getAuthors(String authorsString) {
+  public List<Author> getAuthors(String authorString) {
 
-    if (!authorsString.contains("~")) {
+    if (!authorString.contains("~")) {
       return null;
     }
 
-    String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
+    String[] authors = authorString.split(" *(,| and | AND | und | et ) *");
 
     return getAuthorListNormalFormat(authors, "~");
   }

@@ -112,7 +112,7 @@ public class PubFileVOPresentation extends FacesBean {
       PubFileVOPresentation.properties = PubFileVOPresentation.loadContentCategoryProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    final Map<String, String> propertiesMap = new HashMap<String, String>((Map) PubFileVOPresentation.properties);
+    Map<String, String> propertiesMap = new HashMap<String, String>((Map) PubFileVOPresentation.properties);
 
     return propertiesMap;
   }
@@ -127,7 +127,7 @@ public class PubFileVOPresentation extends FacesBean {
       PubFileVOPresentation.properties = PubFileVOPresentation.loadContentCategoryProperties();
     }
 
-    final String value = PubFileVOPresentation.properties.getProperty(key.toLowerCase());
+    String value = PubFileVOPresentation.properties.getProperty(key.toLowerCase());
     if (null != value) {
       return value;
     }
@@ -152,7 +152,7 @@ public class PubFileVOPresentation extends FacesBean {
       contentCategoryURI = PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
       if (null != contentCategoryURI) {
         LogManager.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI);
-        final InputStream in = contentCategoryURI.openStream();
+        InputStream in = contentCategoryURI.openStream();
         PubFileVOPresentation.properties.load(in);
         in.close();
 
@@ -160,7 +160,7 @@ public class PubFileVOPresentation extends FacesBean {
       } else {
         LogManager.getLogger(PubFileVOPresentation.class).debug("Content-category properties file not found.");
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       LogManager.getLogger(PubFileVOPresentation.class).warn("WARNING: content-category properties not found: " + e.getMessage());
     }
     return PubFileVOPresentation.properties;
@@ -317,9 +317,9 @@ public class PubFileVOPresentation extends FacesBean {
     // set in properties
     this.file.setMimeType(mimeType);
 
-    final List<FormatVO> formats = this.file.getMetadata().getFormats();
+    List<FormatVO> formats = this.file.getMetadata().getFormats();
     boolean found = false;
-    for (final FormatVO formatVO : formats) {
+    for (FormatVO formatVO : formats) {
       if ("dcterms:IMT".equals(formatVO.getType())) {
         formatVO.setValue(mimeType);
         found = true;
@@ -327,7 +327,7 @@ public class PubFileVOPresentation extends FacesBean {
       }
     }
     if (!found) {
-      final FormatVO formatVO = new FormatVO();
+      FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(mimeType);
       formats.add(formatVO);
@@ -339,8 +339,8 @@ public class PubFileVOPresentation extends FacesBean {
       return null;
     }
 
-    final List<FormatVO> formats = this.file.getMetadata().getFormats();
-    for (final FormatVO formatVO : formats) {
+    List<FormatVO> formats = this.file.getMetadata().getFormats();
+    for (FormatVO formatVO : formats) {
       if ("dcterms:IMT".equals(formatVO.getType())) {
         return formatVO.getValue();
       }
@@ -367,7 +367,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public void removeFile() {
-    final EditItemSessionBean editItemSessionBean = FacesTools.findBean("EditItemSessionBean");
+    EditItemSessionBean editItemSessionBean = FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getFiles().remove(this.index);
 
@@ -383,13 +383,13 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String removeLocatorEditItem() {
-    final EditItemSessionBean editItemSessionBean = FacesTools.findBean("EditItemSessionBean");
+    EditItemSessionBean editItemSessionBean = FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getLocators().remove(this.index);
 
     // ensure that at least one locator component is visible
     if (editItemSessionBean.getLocators().isEmpty()) {
-      final FileDbVO newLocator = new FileDbVO();
+      FileDbVO newLocator = new FileDbVO();
       newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
       editItemSessionBean.getLocators().add(0, new PubFileVOPresentation(0, newLocator, true));

@@ -116,7 +116,7 @@ public class BreadcrumbItem extends FacesBean {
   }
 
   @Override
-  public boolean equals(final Object other) {
+  public boolean equals(Object other) {
     if (null == this.page || !(other instanceof BreadcrumbItem)) {
       return false;
     }
@@ -135,10 +135,10 @@ public class BreadcrumbItem extends FacesBean {
   public String executeDefaultAction() {
     if (null != this.defaultAction) {
       try {
-        final Class<?> beanClass = this.defaultAction.getDeclaringClass();
-        final Object bean = FacesTools.findBean(beanClass.getName());
+        Class<?> beanClass = this.defaultAction.getDeclaringClass();
+        Object bean = FacesTools.findBean(beanClass.getName());
         return this.defaultAction.invoke(bean, (Object[]) null).toString();
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("Error executing default action", e);
       }
     }

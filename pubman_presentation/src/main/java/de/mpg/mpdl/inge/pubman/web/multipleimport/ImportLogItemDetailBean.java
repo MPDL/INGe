@@ -49,7 +49,7 @@ public class ImportLogItemDetailBean extends FacesBean {
   private String userid = null;
 
   public ImportLogItemDetailBean() {
-    final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
     if (null != idString) {
       this.itemId = Integer.parseInt(idString);
@@ -66,7 +66,7 @@ public class ImportLogItemDetailBean extends FacesBean {
 
   public List<ImportLogItemDetail> getDetails() {
     if (null == this.importLogItemDetails && 0 != this.itemId && null != this.userid) {
-      final Connection connection = DbTools.getNewConnection();
+      Connection connection = DbTools.getNewConnection();
       try {
         this.importLogItemDetails = ImportLog.getImportLogItemDetails(this.itemId, this.userid, connection);
       } finally {

@@ -61,7 +61,7 @@ public class ReportWorkspaceBean extends FacesBean {
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   public ReportWorkspaceBean() {
-    final TransformerFactory.FORMAT[] targetFormats =
+    TransformerFactory.FORMAT[] targetFormats =
         this.itemTransformingService.getAllTargetFormatsFor(TransformerFactory.FORMAT.JUS_SNIPPET_XML);
 
     for (TransformerFactory.FORMAT f : targetFormats) {
@@ -142,12 +142,12 @@ public class ReportWorkspaceBean extends FacesBean {
       if (null != itemListReportTransformed) {
         FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
 
-        final String fileName = this.format.name().contains("HTML") ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
+        String fileName = this.format.name().contains("HTML") ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
         FacesTools.getResponse().addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
-        final ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
-        final ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
-        final BufferedInputStream buff = new BufferedInputStream(bais);
+        ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
+        ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
+        BufferedInputStream buff = new BufferedInputStream(bais);
 
         int readBytes = 0;
         while (-1 != (readBytes = buff.read())) {
@@ -157,7 +157,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
         FacesTools.getCurrentInstance().responseComplete();
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error while generating report output file.", e);
       this.error(this.getMessage("File_errorGenerate"));
     }
@@ -251,7 +251,7 @@ public class ReportWorkspaceBean extends FacesBean {
         this.info(this.getMessage("ReportNoItemsFound"));
         return null;
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error when trying to find search service.", e);
       this.error(this.getMessage("NoSearchService"));
     }
@@ -266,7 +266,7 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       exportData = ApplicationBean.INSTANCE.getItemTransformingService().getOutputForExport(new ExportFormatVO(
           FileFormatVO.FILE_FORMAT.ESCIDOC_SNIPPET.getName(), TransformerFactory.CitationTypes.JUS_Report.getCitationName()), searchResult);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error when trying to find citation service.", e);
       this.error(this.getMessage("NoCitationService"));
     }
@@ -279,7 +279,7 @@ public class ReportWorkspaceBean extends FacesBean {
     String result = null;
 
     // set the config for the transformation
-    for (final String childId : this.allOUs) {
+    for (String childId : this.allOUs) {
       childConfig += childId + " ";
     }
     logger.info("CHILD Config " + childConfig);
@@ -290,7 +290,7 @@ public class ReportWorkspaceBean extends FacesBean {
       // logger.info(new String(src, "UTF-8"));
       result = this.itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML, this.format,
           new String(src, StandardCharsets.UTF_8), this.configuration);
-    } catch (final TransformationException e) {
+    } catch (TransformationException e) {
       throw new RuntimeException(e);
     }
 

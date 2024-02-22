@@ -38,7 +38,7 @@ public class ProjectInfoVO extends ValueObject implements Cloneable {
   }
 
 
-  public ProjectInfoVO clone() {
+  public final ProjectInfoVO clone() {
     try {
       ProjectInfoVO clone = (ProjectInfoVO) super.clone();
       if (null != clone.fundingInfo) {

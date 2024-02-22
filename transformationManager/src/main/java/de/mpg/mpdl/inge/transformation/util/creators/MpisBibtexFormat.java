@@ -36,11 +36,11 @@ public class MpisBibtexFormat extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) {
-    if (null == authorsString || !authorsString.contains("{}") || !authorsString.matches(getPattern())) {
+  public List<Author> getAuthors(String authorString) {
+    if (null == authorString || !authorString.contains("{}") || !authorString.matches(getPattern())) {
       return null;
     }
-    String[] authors = authorsString.split(" +and +");
+    String[] authors = authorString.split(" +and +");
     List<Author> result = getAuthorListLeadingSurname(authors, ",");
     for (Author author : result) {
       if (author.getSurname().endsWith("{}")) {

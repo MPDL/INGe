@@ -22,13 +22,13 @@ public class CreatorsPersonRoleRequiredValidator extends ValidatorHandler<List<C
     if (ValidationTools.isNotEmpty(creators)) {
 
       int i = 1;
-      for (final CreatorVO creatorVO : creators) {
+      for (CreatorVO creatorVO : creators) {
 
         if (null != creatorVO && null == creatorVO.getRole()) {
 
           if (CreatorVO.CreatorType.PERSON.equals(creatorVO.getType())) {
 
-            final PersonVO p = creatorVO.getPerson();
+            PersonVO p = creatorVO.getPerson();
 
             if (null != p) {
 

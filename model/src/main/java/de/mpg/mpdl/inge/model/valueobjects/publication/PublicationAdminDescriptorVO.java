@@ -148,7 +148,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO {
       return false;
     }
 
-    final PublicationAdminDescriptorVO other = (PublicationAdminDescriptorVO) obj;
+    PublicationAdminDescriptorVO other = (PublicationAdminDescriptorVO) obj;
 
     if (null == this.allowedGenres) {
       if (null != other.allowedGenres) {

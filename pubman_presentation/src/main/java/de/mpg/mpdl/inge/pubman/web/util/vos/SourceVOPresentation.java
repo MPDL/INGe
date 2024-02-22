@@ -57,7 +57,7 @@ public class SourceVOPresentation extends SourceVO {
       SourceVOPresentation.properties = SourceVOPresentation.loadExcludedSourceGenreProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    final Map<String, String> propertiesMap = new HashMap<String, String>((Map) SourceVOPresentation.properties);
+    Map<String, String> propertiesMap = new HashMap<String, String>((Map) SourceVOPresentation.properties);
     return propertiesMap;
   }
 
@@ -74,14 +74,14 @@ public class SourceVOPresentation extends SourceVO {
       contentCategoryURI = SourceVOPresentation.class.getClassLoader().getResource("source_genres.properties");
       if (null != contentCategoryURI) {
         LogManager.getLogger(SourceVOPresentation.class).info("Source genre properties URI is " + contentCategoryURI);
-        final InputStream in = contentCategoryURI.openStream();
+        InputStream in = contentCategoryURI.openStream();
         SourceVOPresentation.properties.load(in);
         in.close();
         LogManager.getLogger(SourceVOPresentation.class).info("Source genre properties loaded from " + contentCategoryURI);
       } else {
         LogManager.getLogger(SourceVOPresentation.class).debug("Source genre properties file not found.");
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       LogManager.getLogger(SourceVOPresentation.class).warn("WARNING: Source genre properties not found: " + e.getMessage());
     }
     return SourceVOPresentation.properties;

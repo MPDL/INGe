@@ -27,7 +27,7 @@ public class ValidationReportItemVO extends ValueObject {
     return this.element;
   }
 
-  public final void setElement(final String element) {
+  public final void setElement(String element) {
     this.element = element;
   }
 

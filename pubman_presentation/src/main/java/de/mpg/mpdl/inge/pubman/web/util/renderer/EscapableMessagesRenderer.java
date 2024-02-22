@@ -53,7 +53,7 @@ public class EscapableMessagesRenderer extends MessagesRenderer {
 
   @Override
   public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
-    final ResponseWriter originalResponseWriter = context.getResponseWriter();
+    ResponseWriter originalResponseWriter = context.getResponseWriter();
     context.setResponseWriter(new MyResponseWriterWrapper(originalResponseWriter));
 
     super.encodeEnd(context, component); // Now, render it!
@@ -75,7 +75,7 @@ public class EscapableMessagesRenderer extends MessagesRenderer {
 
     @Override
     public void writeText(Object text, UIComponent component, String property) throws IOException {
-      final String string = String.valueOf(text);
+      String string = String.valueOf(text);
       String escape = (String) component.getAttributes().get("escape");
       if (null != escape && !Boolean.parseBoolean(escape)) {
         super.write(string);

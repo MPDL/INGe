@@ -100,8 +100,8 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return navigation string for page reload
    */
   public String startCharacterSearch(String selChar) {
-    final String curChar = selChar;
-    final List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
+    String curChar = selChar;
+    List<LinkVO> links = this.callCone(this.bbBean.getSelectedValue(), curChar);
     this.bbBean.setCurrentCharacter(curChar);
     this.bbBean.setSearchResults(links);
 
@@ -116,17 +116,17 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return
    */
   private List<LinkVO> callCone(String type, String startChar) {
-    final List<LinkVO> links = new ArrayList<>();
+    List<LinkVO> links = new ArrayList<>();
     try {
       String localLang = Locale.getDefault().getLanguage();
       if (!("en".equals(localLang) || "de".equals(localLang) || "ja".equals(localLang))) {
         localLang = "en";
       }
-      final URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + type + "/query?f=options&"
+      URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + type + "/query?f=options&"
           + this.bbBean.getQuery() + "=" + URLEncoder.encode("\"" + startChar + "*\"", StandardCharsets.UTF_8) + "&n=0&lang=" + localLang);
-      final URLConnection conn = coneUrl.openConnection();
-      final HttpURLConnection httpConn = (HttpURLConnection) conn;
-      final int responseCode = httpConn.getResponseCode();
+      URLConnection conn = coneUrl.openConnection();
+      HttpURLConnection httpConn = (HttpURLConnection) conn;
+      int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 200:
           break;
@@ -134,13 +134,13 @@ public class BrowseByPage extends BreadcrumbPage {
           throw new RuntimeException(
               "An error occurred while calling Cone Service: " + responseCode + ": " + httpConn.getResponseMessage());
       }
-      final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
-      final BufferedReader bReader = new BufferedReader(isReader);
+      InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
+      BufferedReader bReader = new BufferedReader(isReader);
       String line = "";
       while (null != (line = bReader.readLine())) {
-        final String[] parts = line.split("\\|");
+        String[] parts = line.split("\\|");
         if (2 == parts.length) {
-          final LinkVO link;
+          LinkVO link;
           if ("persons".equals(type)) {
             link = new LinkVO(parts[1], parts[0]);
           } else {
@@ -151,7 +151,7 @@ public class BrowseByPage extends BreadcrumbPage {
       }
       isReader.close();
       httpConn.disconnect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
@@ -161,11 +161,11 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getSearchUrl() {
     try {
-      final String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+      String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
           + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
       final String searchPath = "/faces/SearchResultListPage.jsp?";
       return instanceUrl + searchPath;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.warn("Could not read property: 'inge.pubman.instance.url'", e);
     }
 
@@ -219,7 +219,7 @@ public class BrowseByPage extends BreadcrumbPage {
    * @return String navigation string (JSF navigation) to load the browse by subject page.
    */
   public String loadBrowseBySubject(String selSubject) {
-    final String curSubject = selSubject;
+    String curSubject = selSubject;
     this.setSelectedValue(curSubject);
     if (null != this.bbBean.getSearchResults()) {
       this.bbBean.getSearchResults().clear();

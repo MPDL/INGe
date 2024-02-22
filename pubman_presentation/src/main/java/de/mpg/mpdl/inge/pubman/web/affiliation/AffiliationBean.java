@@ -62,15 +62,15 @@ public class AffiliationBean extends FacesBean {
         CommonUtils.convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations());
 
     this.rootTreeNode = new DefaultTreeNode("Root", null);
-    for (final AffiliationVOPresentation aff : this.topLevelAffs) {
-      final TreeNode<Object> affNode = new DefaultTreeNode(aff, this.rootTreeNode);
+    for (AffiliationVOPresentation aff : this.topLevelAffs) {
+      TreeNode<Object> affNode = new DefaultTreeNode(aff, this.rootTreeNode);
       affNode.setSelectable(false);
 
       this.loadChildTreeNodes(affNode, false);
 
       // ----- Remove this if tree should not be expanded from begin
       affNode.setExpanded(true);
-      for (final TreeNode node : affNode.getChildren()) {
+      for (TreeNode node : affNode.getChildren()) {
         this.loadChildTreeNodes(node, false);
       }
       // -----
@@ -192,10 +192,10 @@ public class AffiliationBean extends FacesBean {
   public void onNodeExpand(NodeExpandEvent event) {
     // System.out.println("OnNodeExpand!!!!" +
     // ((AffiliationVOPresentation)event.getTreeNode().getData()).getName());
-    final List<TreeNode> children = event.getTreeNode().getChildren();
+    List<TreeNode> children = event.getTreeNode().getChildren();
 
     if (null != children) {
-      for (final TreeNode childAff : children) {
+      for (TreeNode childAff : children) {
         this.loadChildTreeNodes(childAff, false);
 
       }
@@ -206,17 +206,17 @@ public class AffiliationBean extends FacesBean {
 
   private void loadChildTreeNodes(TreeNode parent, boolean expand) {
     try {
-      final AffiliationVOPresentation parentAff = (AffiliationVOPresentation) parent.getData();
+      AffiliationVOPresentation parentAff = (AffiliationVOPresentation) parent.getData();
 
-      final List<AffiliationVOPresentation> childList = parentAff.getChildren();
+      List<AffiliationVOPresentation> childList = parentAff.getChildren();
       if (null != childList) {
-        for (final AffiliationVOPresentation childAff : childList) {
-          final TreeNode childNode = new DefaultTreeNode(childAff, parent);
+        for (AffiliationVOPresentation childAff : childList) {
+          TreeNode childNode = new DefaultTreeNode(childAff, parent);
           childNode.setSelectable(false);
           childNode.setExpanded(expand);
         }
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error while loading child affiliations", e);
     }
   }
@@ -249,7 +249,7 @@ public class AffiliationBean extends FacesBean {
       FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), StandardCharsets.UTF_8)
           + "&" + SearchRetrieverRequestBean.parameterSearchType + "=org");
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Could not search for items." + "\n" + e);
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
 
@@ -280,10 +280,10 @@ public class AffiliationBean extends FacesBean {
 
     if (null == this.affiliationSelectItems) {
 
-      final List<SelectItem> list = new ArrayList<>();
+      List<SelectItem> list = new ArrayList<>();
       list.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
-      final List<AffiliationVOPresentation> topLevelAffs = this.topLevelAffs;
+      List<AffiliationVOPresentation> topLevelAffs = this.topLevelAffs;
       this.addChildAffiliationsToMenu(topLevelAffs, list, 0);
 
       this.affiliationSelectItems = list;
@@ -319,7 +319,7 @@ public class AffiliationBean extends FacesBean {
     String prefix = prefixBuilder.toString();
     // 1 right angle
     prefix += '\u2514';
-    for (final AffiliationVOPresentation aff : affs) {
+    for (AffiliationVOPresentation aff : affs) {
       affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
       this.affiliationMap.put(aff.getObjectId(), aff);
       if (null != aff.getChildren()) {

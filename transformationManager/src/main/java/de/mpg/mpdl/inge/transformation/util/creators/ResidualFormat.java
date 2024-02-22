@@ -44,11 +44,11 @@ public class ResidualFormat extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) {
+  public List<Author> getAuthors(String authorString) {
 
     List<Author> result = new ArrayList<>();
     Author author = new Author();
-    author.setSurname(authorsString);
+    author.setSurname(authorString);
     author.setFormat(this);
     result.add(author);
     return result;

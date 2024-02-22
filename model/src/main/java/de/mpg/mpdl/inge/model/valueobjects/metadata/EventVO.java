@@ -122,7 +122,7 @@ public class EventVO extends ValueObject implements Cloneable {
     this.title = newVal;
   }
 
-  public EventVO clone() {
+  public final EventVO clone() {
     try {
       EventVO clone = (EventVO) super.clone();
       if (null != clone.invitationStatus) {

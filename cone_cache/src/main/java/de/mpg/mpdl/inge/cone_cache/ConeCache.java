@@ -81,7 +81,7 @@ public class ConeCache {
   private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) {
     logger.info("*** Start refresh: " + queryUrl);
     try {
-      final Set<String> result = ConeCache.getData(handler, queryUrl);
+      Set<String> result = ConeCache.getData(handler, queryUrl);
       if (null == result) {
         logger.info("*** Not used");
         return;
@@ -111,14 +111,14 @@ public class ConeCache {
 
   private static Set<String> getData(ConeHandler handler, String queryUrl)
       throws ParserConfigurationException, SAXException, ConeCacheException, IOException {
-    final HttpClient client = new HttpClient();
-    final GetMethod method = new GetMethod(queryUrl);
+    HttpClient client = new HttpClient();
+    GetMethod method = new GetMethod(queryUrl);
 
     client.executeMethod(method);
 
     if (200 == method.getStatusCode()) {
-      final SAXParserFactory factory = SAXParserFactory.newInstance();
-      final SAXParser saxParser = factory.newSAXParser();
+      SAXParserFactory factory = SAXParserFactory.newInstance();
+      SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(method.getResponseBodyAsStream(), handler);
       return handler.getResult();
     } else {

@@ -95,7 +95,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     try {
       this.esQuery = URLDecoder.decode(this.esQuery, StandardCharsets.UTF_8);
       this.esQuery = JsonUtil.prettifyJsonString(this.esQuery);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error during decoding parameters.", e);
     }
   }
@@ -131,22 +131,22 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
   public void searchAndExport() {
-    final SearchAndExportRetrieveRequestVO saerrVO = parseInput();
-    final SearchAndExportResultVO searchAndExportResultVO = search(saerrVO);
+    SearchAndExportRetrieveRequestVO saerrVO = parseInput();
+    SearchAndExportResultVO searchAndExportResultVO = search(saerrVO);
     createExportResponse(searchAndExportResultVO);
     FacesTools.getCurrentInstance().responseComplete();
   }
 
   private void createExportResponse(SearchAndExportResultVO searchAndExportResultVO) {
-    final String contentType = searchAndExportResultVO.getTargetMimetype();
+    String contentType = searchAndExportResultVO.getTargetMimetype();
     FacesTools.getResponse().setContentType(contentType);
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + searchAndExportResultVO.getFileName());
     FacesTools.getResponse().setIntHeader("x-total-number-of-results", searchAndExportResultVO.getTotalNumberOfRecords());
     try {
-      final OutputStream out = FacesTools.getResponse().getOutputStream();
+      OutputStream out = FacesTools.getResponse().getOutputStream();
       out.write(searchAndExportResultVO.getResult());
       out.close();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
     }
   }
@@ -155,7 +155,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     String curl = null;
     try {
       curl = getCurl();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Cannot create curl:", e);
     }
     createCurlResponse(curl);
@@ -166,10 +166,10 @@ public class SearchAndExportPage extends BreadcrumbPage {
     FacesTools.getResponse().setContentType(FileFormatVO.TXT_MIMETYPE);
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=curl.txt");
     try {
-      final OutputStream out = FacesTools.getResponse().getOutputStream();
+      OutputStream out = FacesTools.getResponse().getOutputStream();
       out.write(curl.getBytes(StandardCharsets.UTF_8));
       out.close();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Cannot put curl in HttpResponse body:", e);
     }
   }
@@ -179,7 +179,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
     try {
       searchAndExportResultVO = this.saes.searchAndExportItems(saerrVO, this.getLoginHelper().getAuthenticationToken());
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Cannot retrieve export data", e);
     }
 
@@ -188,8 +188,8 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
   private SearchAndExportRetrieveRequestVO parseInput() {
     try {
-      final ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
-      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+      ExportItemsSessionBean sb = FacesTools.findBean("ExportItemsSessionBean");
+      ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
 
       Query queryBuilder = Query.of(q -> q.withJson(new StringReader(this.esQuery)));
 
@@ -209,7 +209,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
       SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srrVO, curExportFormat);
 
       return saerrVO;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Cannot parse input", e);
     }
   }
@@ -243,10 +243,10 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
   public SelectItem[] getSortOptions() {
-    final SelectItem ascending = new SelectItem(SearchSortCriteria.SortOrder.ASC, "ascending");
-    final SelectItem descending = new SelectItem(SearchSortCriteria.SortOrder.DESC, "descending");
+    SelectItem ascending = new SelectItem(SearchSortCriteria.SortOrder.ASC, "ascending");
+    SelectItem descending = new SelectItem(SearchSortCriteria.SortOrder.DESC, "descending");
 
-    final SelectItem[] sortOptions = { //
+    SelectItem[] sortOptions = { //
         ascending, //
         descending};
 

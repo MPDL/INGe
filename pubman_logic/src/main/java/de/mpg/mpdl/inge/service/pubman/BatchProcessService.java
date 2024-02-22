@@ -18,7 +18,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 public interface BatchProcessService {
 
   BatchProcessLogHeaderDbVO addKeywords(List<String> itemIds, String keywords, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO addLocalTags(List<String> itemIds, List<String> localTags, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
@@ -31,10 +31,10 @@ public interface BatchProcessService {
 
   BatchProcessLogHeaderDbVO changeExternalReferenceContentCategory(List<String> itemIds, String externalReferenceContentCategoryFrom,
       String externalReferenceContentCategoryTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO changeFileContentCategory(List<String> itemIds, String fileContentCategoryFrom, String fileContentCategoryTo,
-      String token) throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      String token) throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO changeFileVisibility(List<String> itemIds, FileDbVO.Visibility fileVisibilityFrom,
       FileDbVO.Visibility fileVisibilityTo, IpListProvider.IpRange userAccountIpRange, String token)
@@ -65,7 +65,7 @@ public interface BatchProcessService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO deletePubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   List<BatchProcessLogHeaderDbVO> getAllBatchProcessLogHeaders(String token) throws AuthenticationException, IngeApplicationException;
 
@@ -78,13 +78,13 @@ public interface BatchProcessService {
   BatchProcessUserLockDbVO getBatchProcessUserLock(String token) throws AuthenticationException, IngeApplicationException;
 
   BatchProcessLogHeaderDbVO releasePubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO replaceKeywords(List<String> itemIds, String keywords, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO replaceOrcid(List<String> itemIds, String creatorId, String orcid, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
@@ -93,11 +93,11 @@ public interface BatchProcessService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO revisePubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO submitPubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO withdrawPubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException;
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 }

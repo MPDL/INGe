@@ -23,16 +23,16 @@ public class SourceCreatorsOrcidValidator extends ValidatorHandler<List<SourceVO
     if (ValidationTools.isNotEmpty(sources)) {
 
       int i = 1;
-      for (final SourceVO sourceVO : sources) {
+      for (SourceVO sourceVO : sources) {
 
         if (null != sourceVO) {
 
           int j = 1;
-          for (final CreatorVO creatorVO : sourceVO.getCreators()) {
+          for (CreatorVO creatorVO : sourceVO.getCreators()) {
 
             if (null != creatorVO && CreatorVO.CreatorType.PERSON.equals(creatorVO.getType())) {
 
-              final PersonVO p = creatorVO.getPerson();
+              PersonVO p = creatorVO.getPerson();
 
               if (null != p) {
 

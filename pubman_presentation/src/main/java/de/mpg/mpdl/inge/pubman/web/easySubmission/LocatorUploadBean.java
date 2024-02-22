@@ -19,14 +19,14 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   @Override
   public void locatorUploaded() {
     try {
-      final FileDbVO fileVO = new FileDbVO();
+      FileDbVO fileVO = new FileDbVO();
       fileVO.setMetadata(new MdsFileVO());
       fileVO.setSize(this.getSize());
       fileVO.getMetadata().setTitle(super.getFileName(this.getLocator()));
       fileVO.setMimeType(this.getType());
       fileVO.setName(super.getFileName(this.getLocator()));
 
-      final FormatVO formatVO = new FormatVO();
+      FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(this.getType());
       fileVO.getMetadata().getFormats().add(formatVO);
@@ -35,14 +35,14 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.getAllowedAudienceIds().add(null);
 
-      final int index = this.getEasySubmissionSessionBean().getFiles().size();
+      int index = this.getEasySubmissionSessionBean().getFiles().size();
 
-      final List<PubFileVOPresentation> list = this.getEasySubmissionSessionBean().getFiles();
-      final PubFileVOPresentation pubFile = new PubFileVOPresentation(index, fileVO, false);
+      List<PubFileVOPresentation> list = this.getEasySubmissionSessionBean().getFiles();
+      PubFileVOPresentation pubFile = new PubFileVOPresentation(index, fileVO, false);
       list.add(pubFile);
 
       this.getEasySubmissionSessionBean().setFiles(list);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error(e);
       this.error = this.getMessage("errorLocatorUploadFW");
     }
@@ -50,11 +50,11 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
 
   @Override
   public void removeLocator() {
-    final List<PubFileVOPresentation> list = this.getEasySubmissionSessionBean().getLocators();
+    List<PubFileVOPresentation> list = this.getEasySubmissionSessionBean().getLocators();
     for (int i = 0; i < list.size(); i++) {
-      final PubFileVOPresentation locatorPres = list.get(i);
+      PubFileVOPresentation locatorPres = list.get(i);
       if (locatorPres.getFile().getContent().equals(super.locator)) {
-        final List<PubFileVOPresentation> listClean = this.getEasySubmissionSessionBean().getLocators();
+        List<PubFileVOPresentation> listClean = this.getEasySubmissionSessionBean().getLocators();
         listClean.remove(i);
         this.getEasySubmissionSessionBean().setLocators(listClean);
         this.getEasySubmissionSessionBean().checkMinAnzLocators();

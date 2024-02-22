@@ -83,8 +83,8 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
 
     if (null != m.getEvent()) {
 
-      final String startDate = m.getEvent().getStartDate();
-      final String endDate = m.getEvent().getEndDate();
+      String startDate = m.getEvent().getStartDate();
+      String endDate = m.getEvent().getEndDate();
 
       if (!ValidationTools.checkDate(startDate)) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("startDate").setInvalidValue(startDate));

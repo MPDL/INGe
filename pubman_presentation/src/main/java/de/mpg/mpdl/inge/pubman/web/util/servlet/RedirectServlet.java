@@ -52,17 +52,17 @@ public class RedirectServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    final String id = req.getPathInfo().substring(1);
-    final boolean download = ("download".equals(req.getParameter("mode")));
-    final boolean tme = ("tme".equals(req.getParameter("mode")));
+    String id = req.getPathInfo().substring(1);
+    boolean download = ("download".equals(req.getParameter("mode")));
+    boolean tme = ("tme".equals(req.getParameter("mode")));
 
-    final String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+    String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
-    final StringBuilder redirectUrl = new StringBuilder();
+    StringBuilder redirectUrl = new StringBuilder();
 
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
-      final LoginHelper loginHelper = ServletTools.findSessionBean(req, "LoginHelper");
+      LoginHelper loginHelper = ServletTools.findSessionBean(req, "LoginHelper");
 
       if (null != loginHelper && loginHelper.isDetailedMode()) {
         redirectUrl.append(RedirectServlet.INSTANCE_CONTEXT_PATH + "/faces/ViewItemFullPage.jsp?itemId=" + id);
@@ -81,7 +81,7 @@ public class RedirectServlet extends HttpServlet {
 
     // is component
     if (id.contains("/component/")) {
-      final String[] pieces = id.split("/");
+      String[] pieces = id.split("/");
       if (4 != pieces.length) {
         resp.sendError(404, "File not found");
       }

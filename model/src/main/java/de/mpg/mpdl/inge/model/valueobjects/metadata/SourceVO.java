@@ -301,7 +301,7 @@ public class SourceVO extends ValueObject implements Cloneable {
     this.totalNumberOfPages = totalNumberOfPages;
   }
 
-  public SourceVO clone() {
+  public final SourceVO clone() {
     try {
       SourceVO clone = (SourceVO) super.clone();
       for (AlternativeTitleVO title : this.alternativeTitles) {

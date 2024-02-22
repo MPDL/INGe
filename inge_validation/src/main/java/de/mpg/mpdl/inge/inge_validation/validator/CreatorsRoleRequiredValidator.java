@@ -34,7 +34,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
     if (ValidationTools.isNotEmpty(creators)) {
 
       int i = 1;
-      for (final CreatorVO creatorVO : creators) {
+      for (CreatorVO creatorVO : creators) {
 
         if (null != creatorVO && null == creatorVO.getRole()) {
 
@@ -42,7 +42,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
 
             case ORGANIZATION:
 
-              final OrganizationVO o = creatorVO.getOrganization();
+              OrganizationVO o = creatorVO.getOrganization();
               if (null != o) {
                 if (ValidationTools.isNotEmpty(o.getName()) //
                     || ValidationTools.isNotEmpty(o.getAddress())) {
@@ -55,7 +55,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
 
             case PERSON:
 
-              final PersonVO p = creatorVO.getPerson();
+              PersonVO p = creatorVO.getPerson();
               if (null != p) {
                 if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                     || ValidationTools.isNotEmpty(p.getGivenName())) {
@@ -66,12 +66,12 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
                 }
               }
 
-              final List<OrganizationVO> orgs = p.getOrganizations();
+              List<OrganizationVO> orgs = p.getOrganizations();
 
               if (ValidationTools.isNotEmpty(orgs)) {
 
                 int j = 1;
-                for (final OrganizationVO organizationVO : orgs) {
+                for (OrganizationVO organizationVO : orgs) {
 
                   if (null != organizationVO) {
                     if (ValidationTools.isNotEmpty(organizationVO.getName()) //

@@ -107,7 +107,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   public void init() {
     this.checkForLogin();
 
-    final List<SelectItem> importSelectItems = new ArrayList<>();
+    List<SelectItem> importSelectItems = new ArrayList<>();
     importSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
 
     if (!this.getLoginHelper().isLoggedIn()) {
@@ -129,11 +129,10 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       rs = ps.executeQuery();
 
       while (rs.next()) {
-        final SelectItem selectItem =
-            new SelectItem(rs.getString("name") + " " + BaseImportLog.DATE_FORMAT.format(rs.getTimestamp("startdate")));
+        SelectItem selectItem = new SelectItem(rs.getString("name") + " " + BaseImportLog.DATE_FORMAT.format(rs.getTimestamp("startdate")));
         importSelectItems.add(selectItem);
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error getting imports from database", e);
       this.error(this.getMessage("ImportDatabaseError"));
     } finally {
@@ -218,7 +217,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error in retrieving items", e);
       this.error(this.getMessage("ItemsRetrieveError"));
       this.numberOfRecords = 0;
@@ -330,7 +329,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     try {
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error during redirection.", e);
       this.error(this.getMessage("NoRedirect"));
     }
@@ -349,7 +348,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     try {
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("NoRedirect"));
     }
 
@@ -363,12 +362,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
    */
   @Override
   public void readOutParameters() {
-    final String selectedItemState =
+    String selectedItemState =
         FacesTools.getExternalContext().getRequestParameterMap().get(MyItemsRetrieverRequestBean.parameterSelectedItemState);
     this.setSelectedItemState(Objects.requireNonNullElse(selectedItemState, "all"));
 
-    final String selectedItem =
-        FacesTools.getExternalContext().getRequestParameterMap().get(MyItemsRetrieverRequestBean.parameterSelectedImport);
+    String selectedItem = FacesTools.getExternalContext().getRequestParameterMap().get(MyItemsRetrieverRequestBean.parameterSelectedImport);
     this.setSelectedImport(Objects.requireNonNullElse(selectedItem, "all"));
   }
 

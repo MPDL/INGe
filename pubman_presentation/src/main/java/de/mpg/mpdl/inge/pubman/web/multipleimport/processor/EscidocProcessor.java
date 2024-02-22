@@ -93,11 +93,11 @@ public class EscidocProcessor extends FormatProcessor {
       throw new RuntimeException("No input source");
     } else {
       this.init = true;
-      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       int read;
-      final byte[] buffer = new byte[2048];
+      byte[] buffer = new byte[2048];
       try {
-        final InputStream is = new FileInputStream(this.getSourceFile());
+        InputStream is = new FileInputStream(this.getSourceFile());
         while (-1 != (read = is.read(buffer))) {
           byteArrayOutputStream.write(buffer, 0, read);
         }
@@ -106,21 +106,21 @@ public class EscidocProcessor extends FormatProcessor {
         this.originalData = byteArrayOutputStream.toByteArray();
 
         List<PubItemVO> itemList;
-        final String source = new String(this.originalData, StandardCharsets.UTF_8);
+        String source = new String(this.originalData, StandardCharsets.UTF_8);
         if (source.contains("item-list")) {
           itemList = XmlTransformingService.transformToPubItemList(source);
         } else {
           itemList = new ArrayList<>();
-          final PubItemVO itemVO = XmlTransformingService.transformToPubItem(source);
+          PubItemVO itemVO = XmlTransformingService.transformToPubItem(source);
           itemList.add(itemVO);
         }
         this.items = new ArrayList<>();
-        for (final ItemVO itemVO : itemList) {
+        for (ItemVO itemVO : itemList) {
           this.items.add(XmlTransformingService.transformToItem(itemVO));
         }
         this.counter = 0;
         this.length = this.items.size();
-      } catch (final Exception e) {
+      } catch (Exception e) {
         throw new RuntimeException("Error reading input stream", e);
       }
     }

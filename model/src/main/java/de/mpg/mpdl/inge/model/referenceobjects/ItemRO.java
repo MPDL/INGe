@@ -112,7 +112,7 @@ public class ItemRO extends ReferenceObject implements Cloneable {
    * @author Thomas Diebaecker
    */
   @Override
-  public ItemRO clone() {
+  public final ItemRO clone() {
     return new ItemRO(this);
   }
 

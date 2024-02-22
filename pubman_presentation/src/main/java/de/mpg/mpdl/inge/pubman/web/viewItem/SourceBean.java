@@ -109,7 +109,7 @@ public class SourceBean extends FacesBean {
 
     // counter for organization array
     int counterOrganization = 0;
-    final ObjectFormatter formatter = new ObjectFormatter();
+    ObjectFormatter formatter = new ObjectFormatter();
 
     // temporary list of All creators, retrieved directly from the metadata
     tempCreatorList = this.source.getCreators();
@@ -127,8 +127,8 @@ public class SourceBean extends FacesBean {
       CreatorVO creator1 = new CreatorVO();
       creator1 = creatorVO;
 
-      final CreatorDisplay creatorDisplay = new CreatorDisplay();
-      final ViewItemCreators creator = new ViewItemCreators();
+      CreatorDisplay creatorDisplay = new CreatorDisplay();
+      ViewItemCreators creator = new ViewItemCreators();
 
       // if the creator is a person add his organization to the sorted organization list
       if (null != creator1.getPerson()) {
@@ -156,7 +156,7 @@ public class SourceBean extends FacesBean {
         if (null != creator1.getPerson().getIdentifier() && (IdentifierVO.IdType.CONE == creator1.getPerson().getIdentifier().getType())) {
           try {
             creatorDisplay.setPortfolioLink(ConeUtils.makeConePersonsLinkFull(creator1.getPerson().getIdentifier().getId()));
-          } catch (final Exception e) {
+          } catch (Exception e) {
             throw new RuntimeException(e);
           }
         }
@@ -164,7 +164,7 @@ public class SourceBean extends FacesBean {
         if (null != creator1.getPerson().getOrcid()) {
           try {
             creatorDisplay.setOrcid(creator1.getPerson().getOrcid());
-          } catch (final Exception e) {
+          } catch (Exception e) {
             throw new RuntimeException(e);
           }
         }
@@ -179,7 +179,7 @@ public class SourceBean extends FacesBean {
       if (null != creator1.getOrganization()) {
         formattedCreator = formatter.formatCreator(creator1, "");
         creatorDisplay.setFormattedDisplay(formattedCreator);
-        final ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
+        ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
         creatorOrganization.setOrganizationName(formattedCreator);
         creatorOrganization.setPosition(String.valueOf(counterOrganization));
         creatorOrganization.setOrganizationAddress(creator1.getOrganization().getAddress());
@@ -196,7 +196,7 @@ public class SourceBean extends FacesBean {
       this.sourceAffiliatedOrganizationsList = sortOrganizationList;
       // generate a 'well-formed' list for presentation in the jsp
       for (int k = 0; k < sortOrganizationList.size(); k++) {
-        final String name = null != sortOrganizationList.get(k).getName() ? sortOrganizationList.get(k).getName() : "";
+        String name = null != sortOrganizationList.get(k).getName() ? sortOrganizationList.get(k).getName() : "";
         formattedOrganization = "<p>" + (k + 1) + ": " + name + "</p>" + "<p>" + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"
             + sortOrganizationList.get(k).getIdentifier() + "</p>";
         this.sourceOrganizationArray.add(formattedOrganization);
@@ -212,7 +212,7 @@ public class SourceBean extends FacesBean {
   private String getPublishingInfo(SourceVO source) {
 
 
-    final StringBuilder publishingInfo = new StringBuilder();
+    StringBuilder publishingInfo = new StringBuilder();
     if (null != source.getPublishingInfo()) {
 
       // Place
@@ -253,7 +253,7 @@ public class SourceBean extends FacesBean {
    * @return String the formatted start and end page
    */
   private String getStartEndPage(SourceVO source) {
-    final StringBuilder startEndPage = new StringBuilder();
+    StringBuilder startEndPage = new StringBuilder();
 
     if (null != source.getStartPage()) {
       startEndPage.append(source.getStartPage());

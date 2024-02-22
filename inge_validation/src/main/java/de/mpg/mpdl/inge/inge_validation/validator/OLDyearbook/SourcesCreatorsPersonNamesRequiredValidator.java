@@ -28,11 +28,11 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
         if (ValidationTools.isNotEmpty(sourceVO.getCreators())) {
 
           int j = 1;
-          for (final CreatorVO creatorVO : sourceVO.getCreators()) {
+          for (CreatorVO creatorVO : sourceVO.getCreators()) {
 
             if (null != creatorVO && CreatorVO.CreatorType.PERSON.equals(creatorVO.getType())) {
 
-              final PersonVO p = creatorVO.getPerson();
+              PersonVO p = creatorVO.getPerson();
 
               if (null != p) {
 

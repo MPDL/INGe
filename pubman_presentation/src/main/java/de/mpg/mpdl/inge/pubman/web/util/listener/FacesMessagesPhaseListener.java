@@ -74,13 +74,13 @@ public class FacesMessagesPhaseListener implements PhaseListener {
    */
   private void cacheMessages(FacesContext context) {
     int cachedCount = 0;
-    final Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
+    Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
     while (clientIdsWithMessages.hasNext()) {
-      final String clientId = clientIdsWithMessages.next();
-      final Iterator<FacesMessage> iterator = context.getMessages(clientId);
+      String clientId = clientIdsWithMessages.next();
+      Iterator<FacesMessage> iterator = context.getMessages(clientId);
       Collection<FacesMessage> cachedMessages = this.getMessageCache(context).computeIfAbsent(clientId, k -> new ArrayList<>());
       while (iterator.hasNext()) {
-        final FacesMessage facesMessage = iterator.next();
+        FacesMessage facesMessage = iterator.next();
         if (cachedMessages.add(facesMessage)) {
           cachedCount++;
         }
@@ -96,8 +96,8 @@ public class FacesMessagesPhaseListener implements PhaseListener {
    */
   private void restoreMessages(FacesContext context) {
     if (!this.getMessageCache(context).isEmpty()) {
-      for (final String clientId : this.getMessageCache(context).keySet()) {
-        for (final FacesMessage message : this.getMessageCache(context).get(clientId)) {
+      for (String clientId : this.getMessageCache(context).keySet()) {
+        for (FacesMessage message : this.getMessageCache(context).get(clientId)) {
           context.addMessage(clientId, message);
         }
       }
@@ -115,7 +115,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
       return (Map<String, Collection<FacesMessage>>) context.getExternalContext().getSessionMap()
           .get(FacesMessagesPhaseListener.sessionToken);
     } else {
-      final Map<String, Collection<FacesMessage>> messageCache = Collections.synchronizedMap(new HashMap<>());
+      Map<String, Collection<FacesMessage>> messageCache = Collections.synchronizedMap(new HashMap<>());
       context.getExternalContext().getSessionMap().put(FacesMessagesPhaseListener.sessionToken, messageCache);
       return messageCache;
     }

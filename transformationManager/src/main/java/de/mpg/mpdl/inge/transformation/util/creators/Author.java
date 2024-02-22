@@ -170,7 +170,7 @@ public class Author {
     this.format = format;
   }
 
-  public void addTag(final String key, final String value) {
+  public void addTag(String key, String value) {
     this.tags.put(key, value);
   }
 

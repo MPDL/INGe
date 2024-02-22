@@ -27,7 +27,7 @@ public class GenreHandler extends ShortContentHandler {
 
   public GenreHandler(String dir) {
     this.dir = dir;
-    final File dirFile = new File(dir);
+    File dirFile = new File(dir);
     dirFile.mkdirs();
   }
 
@@ -47,7 +47,7 @@ public class GenreHandler extends ShortContentHandler {
       if ("genre".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/Genre_" + this.genre + ".properties");
 
-        for (final Map.Entry<String, String> entry : this.map.entrySet()) {
+        for (Map.Entry<String, String> entry : this.map.entrySet()) {
           fileWriter.append(entry.getKey().replace("-", "_"));
           fileWriter.append("=");
           fileWriter.append(entry.getValue());
@@ -64,7 +64,7 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("content-categories".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/content_categories.properties");
 
-        for (final Map.Entry<String, String> entry : this.contentCategories.entrySet()) {
+        for (Map.Entry<String, String> entry : this.contentCategories.entrySet()) {
           fileWriter.append(entry.getKey().toLowerCase());
           fileWriter.append("=");
           fileWriter.append(entry.getValue());
@@ -79,7 +79,7 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("author-roles".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/author_roles.properties");
 
-        for (final Map.Entry<String, String> entry : this.authorRoles.entrySet()) {
+        for (Map.Entry<String, String> entry : this.authorRoles.entrySet()) {
           fileWriter.append(entry.getKey().toLowerCase());
           fileWriter.append("=");
           fileWriter.append(entry.getValue());
@@ -94,7 +94,7 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("source-genres".equals(name)) {
         fileWriter = new FileWriter(this.dir + "/source_genres.properties");
 
-        for (final Map.Entry<String, String> entry : this.sourceGenres.entrySet()) {
+        for (Map.Entry<String, String> entry : this.sourceGenres.entrySet()) {
           fileWriter.append(entry.getKey().toLowerCase());
           fileWriter.append("=");
           fileWriter.append(entry.getValue());
@@ -107,7 +107,7 @@ public class GenreHandler extends ShortContentHandler {
 
         this.sourceGenres = null;
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new SAXException(e);
     }
   }
@@ -130,13 +130,13 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("group".equals(name)) {
         this.stack.push(attributes.getValue("id"));
         String currentStack = "";
-        for (final String element : this.stack) {
+        for (String element : this.stack) {
           currentStack += element + "_";
         }
         if (!attributes.getValue("id").equals(this.groupID)) {
           for (int i = 0; i < attributes.getLength(); i++) {
-            final String key = currentStack + attributes.getQName(i);
-            final String value = attributes.getValue(i);
+            String key = currentStack + attributes.getQName(i);
+            String value = attributes.getValue(i);
 
             this.map.put(key, value);
 
@@ -150,13 +150,13 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("field".equals(name)) {
         this.stack.push(attributes.getValue("id"));
         String currentStack = "";
-        for (final String element : this.stack) {
+        for (String element : this.stack) {
           currentStack += element + "_";
         }
 
         for (int i = 0; i < attributes.getLength(); i++) {
-          final String key = currentStack + attributes.getQName(i);
-          final String value = attributes.getValue(i);
+          String key = currentStack + attributes.getQName(i);
+          String value = attributes.getValue(i);
           this.map.put(key, value);
         }
         this.map.put(currentStack + "form-id", this.formID);
@@ -167,7 +167,7 @@ public class GenreHandler extends ShortContentHandler {
       } else if ("source-genre".equals(name)) {
         this.sourceGenres.put(attributes.getValue("id"), attributes.getValue("url"));
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new SAXException(e);
     }
   }

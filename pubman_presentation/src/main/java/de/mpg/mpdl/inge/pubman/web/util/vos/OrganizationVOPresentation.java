@@ -64,12 +64,12 @@ public class OrganizationVOPresentation extends OrganizationVO {
    * @return Always empty
    */
   public void add() {
-    final OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
+    OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
     organizationPresentation.bean = this.bean;
     this.bean.getCreatorOrganizations().add(this.getNumber(), organizationPresentation);
 
-    for (final CreatorVOPresentation creator : this.bean.getCreators()) {
-      final int[] ous = creator.getOus();
+    for (CreatorVOPresentation creator : this.bean.getCreators()) {
+      int[] ous = creator.getOus();
       String newOuNumbers = "";
       for (int j : ous) {
         if (j <= this.getNumber() || j >= this.getList().size()) {
@@ -94,8 +94,8 @@ public class OrganizationVOPresentation extends OrganizationVO {
    * @return Always empty
    */
   public void remove() {
-    for (final CreatorVOPresentation creator : this.bean.getCreators()) {
-      final int[] ous = creator.getOus();
+    for (CreatorVOPresentation creator : this.bean.getCreators()) {
+      int[] ous = creator.getOus();
       String newOuNumbers = "";
       for (int j : ous) {
         if (j < this.getNumber()) {

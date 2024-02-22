@@ -31,16 +31,16 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
         return false;
       }
 
-      for (final CreatorVO creatorVO : creators) {
+      for (CreatorVO creatorVO : creators) {
 
         if (null != creatorVO) {
 
-          final CreatorVO.CreatorType type = creatorVO.getType();
+          CreatorVO.CreatorType type = creatorVO.getType();
           switch (type) {
 
             case ORGANIZATION:
 
-              final OrganizationVO o = creatorVO.getOrganization();
+              OrganizationVO o = creatorVO.getOrganization();
 
               if (null != o //
                   && ValidationTools.isNotEmpty(o.getIdentifier()) //
@@ -53,11 +53,11 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
 
             case PERSON:
 
-              final PersonVO p = creatorVO.getPerson();
+              PersonVO p = creatorVO.getPerson();
 
               if (null != p) {
 
-                for (final OrganizationVO op : p.getOrganizations()) {
+                for (OrganizationVO op : p.getOrganizations()) {
 
                   if (null != op //
                       && ValidationTools.isNotEmpty(op.getIdentifier()) //

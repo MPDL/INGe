@@ -96,12 +96,12 @@ public class BibtexProcessor extends FormatProcessor {
   private void initialize() {
     this.init = true;
     try {
-      final BufferedReader bufferedReader =
+      BufferedReader bufferedReader =
           new BufferedReader(new InputStreamReader(new FileInputStream(this.getSourceFile()), this.getEncoding()));
       String line = null;
-      final ArrayList<String> itemList = new ArrayList<>();
+      ArrayList<String> itemList = new ArrayList<>();
       StringWriter stringWriter = new StringWriter();
-      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       boolean first = true;
 
       while (null != (line = bufferedReader.readLine())) {
@@ -135,7 +135,7 @@ public class BibtexProcessor extends FormatProcessor {
 
       bufferedReader.close();
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 

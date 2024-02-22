@@ -48,7 +48,7 @@ public class ImportLogBean extends FacesBean {
   private ImportLog importLog = null;
 
   public ImportLogBean() {
-    final String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
+    String idString = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
     if (null != idString) {
       this.importId = Integer.parseInt(idString);
@@ -61,7 +61,7 @@ public class ImportLogBean extends FacesBean {
 
   public ImportLog getImport() {
     if (null == this.importLog && null != this.userid) {
-      final Connection connection = DbTools.getNewConnection();
+      Connection connection = DbTools.getNewConnection();
 
       try {
         this.importLog = ImportLog.getImportLog(this.importId, false, connection);

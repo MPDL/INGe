@@ -107,7 +107,7 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Set<?> set, boolean includeEmptyOption) {
-    final List<SelectItem> options = new ArrayList<>();
+    List<SelectItem> options = new ArrayList<>();
 
     if (includeEmptyOption) {
       options.add(new SelectItem("", CommonUtils.NO_ITEM_SET));
@@ -139,7 +139,7 @@ public class CommonUtils {
    * @return an Array of SelectItems
    */
   public static SelectItem[] convertToOptions(Object[] objects, boolean includeEmptyOption) {
-    final List<SelectItem> options = new ArrayList<>();
+    List<SelectItem> options = new ArrayList<>();
 
     if (includeEmptyOption) {
       options.add(new SelectItem("", CommonUtils.NO_ITEM_SET));
@@ -153,7 +153,7 @@ public class CommonUtils {
   }
 
   public static SelectItem[] getLanguageOptions() {
-    final ApplicationBean applicationBean = ApplicationBean.INSTANCE;
+    ApplicationBean applicationBean = ApplicationBean.INSTANCE;
 
     String locale = Locale.getDefault().getLanguage();
 
@@ -164,7 +164,7 @@ public class CommonUtils {
     if (null != applicationBean.getLanguageSelectItems().get(locale) && 0 < applicationBean.getLanguageSelectItems().get(locale).length) {
       return applicationBean.getLanguageSelectItems().get(locale);
     } else {
-      final SelectItem[] languageSelectItems = CommonUtils.retrieveLanguageOptions(locale);
+      SelectItem[] languageSelectItems = CommonUtils.retrieveLanguageOptions(locale);
       applicationBean.getLanguageSelectItems().put(locale, languageSelectItems);
       return languageSelectItems;
     }
@@ -176,30 +176,30 @@ public class CommonUtils {
    * @return all Languages from Cone Service, with "de","en" and "ja" at the first positions
    */
   private static SelectItem[] retrieveLanguageOptions(String locale) {
-    final Map<String, String> result = new LinkedHashMap<>();
+    Map<String, String> result = new LinkedHashMap<>();
 
     try {
-      final HttpClient httpClient = new HttpClient();
-      final GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)
+      HttpClient httpClient = new HttpClient();
+      GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)
           + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
       if (200 == getMethod.getStatusCode()) {
         String line;
-        final BufferedReader reader =
+        BufferedReader reader =
             new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream(), StandardCharsets.UTF_8));
         while (null != (line = reader.readLine())) {
-          final String[] pieces = line.split("\\|");
+          String[] pieces = line.split("\\|");
           result.put(pieces[0], pieces[1]);
         }
       } else {
         logger.error("Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       return new SelectItem[0];
     }
 
-    final SelectItem[] options = new SelectItem[result.size() + 5];
+    SelectItem[] options = new SelectItem[result.size() + 5];
     options[0] = new SelectItem("", CommonUtils.NO_ITEM_SET);
 
     switch (locale) {
@@ -236,7 +236,7 @@ public class CommonUtils {
 
     int i = 0;
     for (String key : result.keySet()) {
-      final String value = result.get(key);
+      String value = result.get(key);
       if (!key.equals(value.split(" - ")[0])) {
         key = value.split(" - ")[0].split(" / ")[1];
       }
@@ -258,14 +258,14 @@ public class CommonUtils {
         code = code.trim().split(" ")[0];
       }
 
-      final HttpClient client = new HttpClient();
-      final GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "iso639-3/resource/"
+      HttpClient client = new HttpClient();
+      GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "iso639-3/resource/"
           + URLEncoder.encode(code, StandardCharsets.UTF_8) + "?format=json&lang=" + locale);
       client.executeMethod(getMethod);
-      final String response = getMethod.getResponseBodyAsString();
+      String response = getMethod.getResponseBodyAsString();
 
-      final Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
-      final Matcher matcher = pattern.matcher(response);
+      Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
+      Matcher matcher = pattern.matcher(response);
 
       if (matcher.find()) {
         return matcher.group(1);
@@ -297,7 +297,7 @@ public class CommonUtils {
    * @return a formated String
    */
   public static String format(Date date) {
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.DATE_FORMAT);
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.DATE_FORMAT);
 
     return simpleDateFormat.format(date);
   }
@@ -309,7 +309,7 @@ public class CommonUtils {
    * @return a formated String
    */
   public static String formatTimestamp(Date date) {
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.TIMESTAMP_FORMAT);
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.TIMESTAMP_FORMAT);
 
     return simpleDateFormat.format(date);
   }
@@ -355,7 +355,7 @@ public class CommonUtils {
    * @return the list of PubItemVOs
    */
   public static ArrayList<ItemVersionVO> convertToPubItemVOList(List<PubItemVOPresentation> list) {
-    final ArrayList<ItemVersionVO> pubItemList = new ArrayList<>();
+    ArrayList<ItemVersionVO> pubItemList = new ArrayList<>();
 
     for (PubItemVOPresentation pubItemVOPresentation : list) {
       pubItemList.add(new ItemVersionVO(pubItemVOPresentation));
@@ -371,7 +371,7 @@ public class CommonUtils {
    * @return the list of PubItemVOPresentations
    */
   public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<? extends ItemVersionVO> list) {
-    final List<PubItemVOPresentation> pubItemList = new ArrayList<>();
+    List<PubItemVOPresentation> pubItemList = new ArrayList<>();
 
     for (ItemVersionVO itemVersionVO : list) {
       pubItemList.add(new PubItemVOPresentation(itemVersionVO));
@@ -387,7 +387,7 @@ public class CommonUtils {
    * @return the list of PubItemVOPresentations
    */
   public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(List<? extends FileDbVO> list) {
-    final List<PubFileVOPresentation> pubFileList = new ArrayList<>();
+    List<PubFileVOPresentation> pubFileList = new ArrayList<>();
 
     for (int i = 0; i < list.size(); i++) {
       pubFileList.add(new PubFileVOPresentation(i, list.get(i)));
@@ -403,7 +403,7 @@ public class CommonUtils {
    * @return the list of RelationVOPresentation
    */
   public static List<RelationVOPresentation> convertToRelationVOPresentationList(List<RelationVO> list) {
-    final List<RelationVOPresentation> relationList = new ArrayList<>();
+    List<RelationVOPresentation> relationList = new ArrayList<>();
 
     for (RelationVO relationVO : list) {
       relationList.add(new RelationVOPresentation(relationVO));
@@ -419,7 +419,7 @@ public class CommonUtils {
    * @return the list of PubCollectionVOPresentations
    */
   public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<ContextDbVO> list) {
-    final List<PubContextVOPresentation> contextList = new ArrayList<>();
+    List<PubContextVOPresentation> contextList = new ArrayList<>();
 
     for (ContextDbVO contextDbVO : list) {
       contextList.add(new PubContextVOPresentation(contextDbVO));
@@ -435,7 +435,7 @@ public class CommonUtils {
    * @return the list of AffiliationVOPresentations
    */
   public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationDbVO> list) {
-    final List<AffiliationVOPresentation> affiliationList = new ArrayList<>();
+    List<AffiliationVOPresentation> affiliationList = new ArrayList<>();
     for (AffiliationDbVO affiliationDbVO : list) {
       if (null != affiliationDbVO
           && PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID).equals(affiliationDbVO.getObjectId())) {
@@ -449,8 +449,8 @@ public class CommonUtils {
   }
 
   public static String currentDate() {
-    final Calendar cal = Calendar.getInstance();
-    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     return sdf.format(cal.getTime());
   }
@@ -466,7 +466,7 @@ public class CommonUtils {
         new URL(id.getId());
         valid = true;
       }
-    } catch (final MalformedURLException e) {
+    } catch (MalformedURLException e) {
       logger.warn("URI: " + id.getId() + " is no valid URL");
       return false;
     }
@@ -476,11 +476,11 @@ public class CommonUtils {
 
   public static Map<String, String> getDecodedUrlParameterMap(String query) {
     logger.info("query: " + query);
-    final Map<String, String> parameterMap = new HashMap<>();
+    Map<String, String> parameterMap = new HashMap<>();
 
     if (null != query) {
-      final String[] parameters = query.split("&");
-      for (final String param : parameters) {
+      String[] parameters = query.split("&");
+      for (String param : parameters) {
         String[] keyValueParts = param.split("=");
         if (1 == keyValueParts.length) {
           keyValueParts = new String[] {keyValueParts[0], ""};
@@ -494,7 +494,7 @@ public class CommonUtils {
 
   public static String fixURLEncoding(String input) {
     if (null != input) {
-      final String utf8 = new String(input.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+      String utf8 = new String(input.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
       if (utf8.equals(input) || utf8.contains("�") || utf8.length() == input.length()) {
         return input;
       } else {

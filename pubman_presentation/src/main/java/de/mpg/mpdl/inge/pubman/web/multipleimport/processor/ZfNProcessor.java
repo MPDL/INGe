@@ -83,24 +83,24 @@ public class ZfNProcessor extends FormatProcessor {
     this.init = true;
 
     try {
-      final InputStream in = new FileInputStream(this.getSourceFile());
-      final ArrayList<String> itemList = new ArrayList<>();
-      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      InputStream in = new FileInputStream(this.getSourceFile());
+      ArrayList<String> itemList = new ArrayList<>();
+      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
       String item = null;
       final int bufLength = 1024;
-      final char[] buffer = new char[bufLength];
+      char[] buffer = new char[bufLength];
       int readReturn;
       int count = 0;
 
 
       ZipEntry zipentry;
-      final ZipInputStream zipinputstream = new ZipInputStream(in);
+      ZipInputStream zipinputstream = new ZipInputStream(in);
 
       while (null != (zipentry = zipinputstream.getNextEntry())) {
         count++;
-        final StringWriter sw = new StringWriter();
-        final Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, StandardCharsets.UTF_8));
+        StringWriter sw = new StringWriter();
+        Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, StandardCharsets.UTF_8));
 
         while (-1 != (readReturn = reader.read(buffer))) {
           sw.write(buffer, 0, readReturn);
@@ -122,7 +122,7 @@ public class ZfNProcessor extends FormatProcessor {
       this.originalData = byteArrayOutputStream.toByteArray();
       this.items = itemList.toArray(new String[] {});
       this.length = this.items.length;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Could not read zip File: " + e.getMessage());
       throw new RuntimeException("Error reading input stream", e);
     }
@@ -141,7 +141,7 @@ public class ZfNProcessor extends FormatProcessor {
     this.currentFile = this.processZfnFileName(this.fileNames.get(0));
 
     if (null != this.config) {
-      final InputStream in = this.fetchFile();
+      InputStream in = this.fetchFile();
       return this.createPubFile(in, user);
     }
 
@@ -151,13 +151,13 @@ public class ZfNProcessor extends FormatProcessor {
   private FileDbVO createPubFile(InputStream in, Principal user) throws Exception {
     logger.debug("Creating PubFile: " + this.currentFile);
 
-    final MdsFileVO mdSet = new MdsFileVO();
-    final FileDbVO fileVO = new FileDbVO();
+    MdsFileVO mdSet = new MdsFileVO();
+    FileDbVO fileVO = new FileDbVO();
 
-    final FileNameMap fileNameMap = URLConnection.getFileNameMap();
-    final String mimeType = fileNameMap.getContentTypeFor(this.currentFile);
+    FileNameMap fileNameMap = URLConnection.getFileNameMap();
+    String mimeType = fileNameMap.getContentTypeFor(this.currentFile);
 
-    final String fileURL = this.uploadFile(in, mimeType, this.currentFile, user);
+    String fileURL = this.uploadFile(in, mimeType, this.currentFile, user);
 
     if (null != fileURL && !fileURL.trim().isEmpty()) {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
@@ -172,7 +172,7 @@ public class ZfNProcessor extends FormatProcessor {
       if (null != PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION")) {
         contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
       } else {
-        final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+        Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
         if (null != contentCategoryMap && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
@@ -182,7 +182,7 @@ public class ZfNProcessor extends FormatProcessor {
       fileVO.getMetadata().setContentCategory(contentCategory);
       fileVO.getMetadata().setLicense(this.config.get("License"));
 
-      final FormatVO formatVO = new FormatVO();
+      FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(mimeType);
       fileVO.getMetadata().getFormats().add(formatVO);
@@ -200,10 +200,10 @@ public class ZfNProcessor extends FormatProcessor {
   }
 
   private void openFtpServer() throws Exception {
-    final String username = this.config.get("ftpUser");
-    final String password = this.config.get("ftpPwd");
-    final String server = this.config.get("ftpServer");
-    final String dir = this.config.get("ftpDirectory");
+    String username = this.config.get("ftpUser");
+    String password = this.config.get("ftpPwd");
+    String server = this.config.get("ftpServer");
+    String dir = this.config.get("ftpDirectory");
 
     this.f.connect(server);
     this.f.login(username, password);
@@ -229,12 +229,12 @@ public class ZfNProcessor extends FormatProcessor {
    */
   private InputStream fetchFile() throws Exception {
     InputStream input = null;
-    final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     if (!this.ftpOpen) {
       try {
         this.openFtpServer();
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("Could not open ftp server " + e.getCause());
         throw new Exception();
       }
@@ -256,8 +256,8 @@ public class ZfNProcessor extends FormatProcessor {
    * @return
    */
   private String processZfnFileName(String name) {
-    final String[] nameArr = name.split("\\.");
-    final String nameNew = nameArr[0] + ".pdf";
+    String[] nameArr = name.split("\\.");
+    String nameNew = nameArr[0] + ".pdf";
 
     return nameNew;
   }
@@ -272,11 +272,11 @@ public class ZfNProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    final boolean next = null != this.items && this.counter < this.items.length;
+    boolean next = null != this.items && this.counter < this.items.length;
     if (!this.init && !next) {
       try {
         this.closeFtpServer();
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("Could not close ftp server connection");
       }
     }

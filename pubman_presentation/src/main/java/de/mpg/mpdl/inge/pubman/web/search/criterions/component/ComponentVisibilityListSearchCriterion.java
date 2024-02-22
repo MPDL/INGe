@@ -43,8 +43,8 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
 
 
   private static Map<String, String> getVisibilityMap() {
-    final Map<String, String> visibilityMap = new HashMap<>();
-    for (final FileDbVO.Visibility v : FileDbVO.Visibility.values()) {
+    Map<String, String> visibilityMap = new HashMap<>();
+    for (FileDbVO.Visibility v : FileDbVO.Visibility.values()) {
       visibilityMap.put(v.name(), v.name());
     }
     return visibilityMap;

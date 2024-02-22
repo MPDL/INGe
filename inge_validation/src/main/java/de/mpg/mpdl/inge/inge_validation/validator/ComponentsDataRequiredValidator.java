@@ -52,7 +52,7 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileD
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileDbVO fileDbVO : files) {
+      for (FileDbVO fileDbVO : files) {
 
         if (null != fileDbVO) {
 

@@ -96,11 +96,11 @@ public class MabProcessor extends FormatProcessor {
     this.init = true;
 
     try {
-      final BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getSourceFile()));
+      BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getSourceFile()));
       String line = null;
-      final ArrayList<String> itemList = new ArrayList<>();
+      ArrayList<String> itemList = new ArrayList<>();
       StringWriter stringWriter = new StringWriter();
-      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
       int lineBreakCount = 0;
 
       while (null != (line = bufferedReader.readLine())) {
@@ -135,7 +135,7 @@ public class MabProcessor extends FormatProcessor {
       this.counter = 0;
 
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
   }

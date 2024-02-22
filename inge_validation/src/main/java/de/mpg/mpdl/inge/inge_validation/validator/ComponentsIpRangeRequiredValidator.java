@@ -21,7 +21,7 @@ public class ComponentsIpRangeRequiredValidator extends ValidatorHandler<List<Fi
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileDbVO fileDbVO : files) {
+      for (FileDbVO fileDbVO : files) {
 
         if (null != fileDbVO) {
 

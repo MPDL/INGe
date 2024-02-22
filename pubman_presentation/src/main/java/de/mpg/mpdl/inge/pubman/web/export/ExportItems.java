@@ -72,32 +72,31 @@ public class ExportItems extends FacesBean {
 
     SelectItemGroup exportGroup = new SelectItemGroup(this.getLabel("Export_ExportFormat_BibFormatGroup"));
 
-    final SelectItem EXPORTFORMAT_MARCXML = new SelectItem(TransformerFactory.MARC_XML, this.getLabel("Export_ExportFormat_MARCXML"));
-    final SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem(TransformerFactory.ENDNOTE, this.getLabel("Export_ExportFormat_ENDNOTE"));
-    final SelectItem EXPORTFORMAT_BIBTEX = new SelectItem(TransformerFactory.BIBTEX, this.getLabel("Export_ExportFormat_BIBTEX"));
-    final SelectItem EXPORTFORMAT_ESCIDOC_XML =
+    SelectItem EXPORTFORMAT_MARCXML = new SelectItem(TransformerFactory.MARC_XML, this.getLabel("Export_ExportFormat_MARCXML"));
+    SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem(TransformerFactory.ENDNOTE, this.getLabel("Export_ExportFormat_ENDNOTE"));
+    SelectItem EXPORTFORMAT_BIBTEX = new SelectItem(TransformerFactory.BIBTEX, this.getLabel("Export_ExportFormat_BIBTEX"));
+    SelectItem EXPORTFORMAT_ESCIDOC_XML =
         new SelectItem(TransformerFactory.ESCIDOC_ITEMLIST_XML, this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
-    final SelectItem EXPORTFORMAT_JSON = new SelectItem(TransformerFactory.JSON, this.getLabel("Export_ExportFormat_JSON"));
+    SelectItem EXPORTFORMAT_JSON = new SelectItem(TransformerFactory.JSON, this.getLabel("Export_ExportFormat_JSON"));
 
     exportGroup.setSelectItems(
         new SelectItem[] {EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_JSON, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_MARCXML});
 
 
     SelectItemGroup citationGroup = new SelectItemGroup(this.getLabel("Export_ExportFormat_CitationGroup"));
-    final SelectItem FILEFORMAT_JSON_CITATION =
+    SelectItem FILEFORMAT_JSON_CITATION =
         new SelectItem(TransformerFactory.JSON_CITATION, this.getLabel("Export_ExportFormat_JSON_CITATION"));
-    final SelectItem FILEFORMAT_PDF = new SelectItem(TransformerFactory.PDF, this.getLabel("Export_FileFormat_PDF"));
-    final SelectItem FILEFORMAT_DOCX = new SelectItem(TransformerFactory.DOCX, this.getLabel("Export_FileFormat_DOCX"));
-    final SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem(TransformerFactory.HTML_PLAIN, this.getLabel("Export_FileFormat_HTML_PLAIN"));
-    final SelectItem FILEFORMAT_HTML_LINKED =
-        new SelectItem(TransformerFactory.HTML_LINKED, this.getLabel("Export_FileFormat_HTML_LINKED"));
-    final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
+    SelectItem FILEFORMAT_PDF = new SelectItem(TransformerFactory.PDF, this.getLabel("Export_FileFormat_PDF"));
+    SelectItem FILEFORMAT_DOCX = new SelectItem(TransformerFactory.DOCX, this.getLabel("Export_FileFormat_DOCX"));
+    SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem(TransformerFactory.HTML_PLAIN, this.getLabel("Export_FileFormat_HTML_PLAIN"));
+    SelectItem FILEFORMAT_HTML_LINKED = new SelectItem(TransformerFactory.HTML_LINKED, this.getLabel("Export_FileFormat_HTML_LINKED"));
+    SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
         new SelectItem(TransformerFactory.ESCIDOC_SNIPPET, this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
 
     citationGroup.setSelectItems(new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED,
         FILEFORMAT_JSON_CITATION, FILEFORMAT_ESCIDOC_SNIPPET});
 
-    final SelectItem[] EXPORTFORMAT_OPTIONS = { //
+    SelectItem[] EXPORTFORMAT_OPTIONS = { //
         exportGroup, citationGroup};
 
     return EXPORTFORMAT_OPTIONS;
@@ -106,18 +105,18 @@ public class ExportItems extends FacesBean {
 
   public SelectItem[] getCITATION_OPTIONS() {
 
-    final SelectItem EXPORTFORMAT_APA =
+    SelectItem EXPORTFORMAT_APA =
         new SelectItem(TransformerFactory.CitationTypes.APA.getCitationName(), this.getLabel("Export_ExportFormat_APA"));
-    final SelectItem EXPORTFORMAT_APA_CJK =
+    SelectItem EXPORTFORMAT_APA_CJK =
         new SelectItem(TransformerFactory.CitationTypes.APA_CJK.getCitationName(), this.getLabel("Export_ExportFormat_APA_CJK"));
-    final SelectItem EXPORTFORMAT_AJP =
+    SelectItem EXPORTFORMAT_AJP =
         new SelectItem(TransformerFactory.CitationTypes.AJP.getCitationName(), this.getLabel("Export_ExportFormat_AJP"));
-    final SelectItem EXPORTFORMAT_JUS =
+    SelectItem EXPORTFORMAT_JUS =
         new SelectItem(TransformerFactory.CitationTypes.JUS.getCitationName(), this.getLabel("Export_ExportFormat_JUS"));
-    final SelectItem EXPORTFORMAT_CSL =
+    SelectItem EXPORTFORMAT_CSL =
         new SelectItem(TransformerFactory.CitationTypes.CSL.getCitationName(), this.getLabel("Export_ExportFormat_CSL"));
 
-    final SelectItem[] FILEFORMAT_OPTIONS;
+    SelectItem[] FILEFORMAT_OPTIONS;
 
     FILEFORMAT_OPTIONS = new SelectItem[] { //
         EXPORTFORMAT_APA, //
@@ -137,9 +136,9 @@ public class ExportItems extends FacesBean {
    * Updates the GUI relatively the selected export format.
    */
   public void updateExportFormats() {
-    final ExportItemsSessionBean sb = this.getExportItemsSessionBean();
+    ExportItemsSessionBean sb = this.getExportItemsSessionBean();
 
-    final ExportFormatVO exportFormat = sb.getCurExportFormatVO();
+    ExportFormatVO exportFormat = sb.getCurExportFormatVO();
     //    final String selExportFormat = sb.getExportFormatName();
     sb.setExportFormatName(exportFormat.getFormat());
 
@@ -153,7 +152,7 @@ public class ExportItems extends FacesBean {
    * Clean up some fields on the Email interface
    */
   private void cleanUpEmailFields() {
-    final ExportItemsSessionBean sb = this.getExportItemsSessionBean();
+    ExportItemsSessionBean sb = this.getExportItemsSessionBean();
     // To
     sb.setEmailRecipients(null);
     // CC
@@ -164,23 +163,23 @@ public class ExportItems extends FacesBean {
 
   public String sendEMail() {
     String status = "not sent";
-    final String smtpHost = this.getExportItemsSessionBean().getEmailServernameProp();
-    final String withAuth = this.getExportItemsSessionBean().getEmailWithAuthProp();
-    final String usr = this.getExportItemsSessionBean().getEmailAuthUserProp();
-    final String pwd = this.getExportItemsSessionBean().getEmailAuthPwdProp();
-    final String senderAddress = this.getExportItemsSessionBean().getEmailSenderProp();// someone@web.de
-    final String subject = this.getExportItemsSessionBean().getExportEmailSubject();
-    final String text = this.getExportItemsSessionBean().getExportEmailTxt();
-    final String[] replyToAddresses = {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
-    final String[] attachments = {this.getExportItemsSessionBean().getAttExportFile().getPath()};
-    final String recipientsAddressesStr = this.getExportItemsSessionBean().getEmailRecipients();
-    final String recipientsCCAddressesStr = this.getExportItemsSessionBean().getEmailCCRecipients();
+    String smtpHost = this.getExportItemsSessionBean().getEmailServernameProp();
+    String withAuth = this.getExportItemsSessionBean().getEmailWithAuthProp();
+    String usr = this.getExportItemsSessionBean().getEmailAuthUserProp();
+    String pwd = this.getExportItemsSessionBean().getEmailAuthPwdProp();
+    String senderAddress = this.getExportItemsSessionBean().getEmailSenderProp();// someone@web.de
+    String subject = this.getExportItemsSessionBean().getExportEmailSubject();
+    String text = this.getExportItemsSessionBean().getExportEmailTxt();
+    String[] replyToAddresses = {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
+    String[] attachments = {this.getExportItemsSessionBean().getAttExportFile().getPath()};
+    String recipientsAddressesStr = this.getExportItemsSessionBean().getEmailRecipients();
+    String recipientsCCAddressesStr = this.getExportItemsSessionBean().getEmailCCRecipients();
 
     String[] recipientsAddresses = null;
     boolean OK = false;
     if (null != recipientsAddressesStr && !recipientsAddressesStr.trim().isEmpty()) {
       recipientsAddresses = recipientsAddressesStr.split(",");
-      for (final String ra : recipientsAddresses) {
+      for (String ra : recipientsAddresses) {
         if (!ra.trim().isEmpty()) {
           OK = true;
           break;
@@ -193,16 +192,16 @@ public class ExportItems extends FacesBean {
       return null;
     }
 
-    final String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
+    String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
 
     try {
       status = EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, null,
           replyToAddresses, subject, text, attachments);
       this.cleanUpEmailFields();
-    } catch (final TechnicalException e) {
+    } catch (TechnicalException e) {
       logger.error("Could not send the export formats." + "\n" + e);
       // normal
-      final Throwable ecc = e.getCause().getCause();
+      Throwable ecc = e.getCause().getCause();
       /*
       if (ecc != null && ecc instanceof com.sun.mail.smtp.SMTPAddressFailedException) {
         this.error(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS));
@@ -220,10 +219,10 @@ public class ExportItems extends FacesBean {
       this.info(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
 
       // redirect to last breadcrumb
-      final BreadcrumbItemHistorySessionBean bhsb = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
+      BreadcrumbItemHistorySessionBean bhsb = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
       try {
         FacesTools.getExternalContext().redirect(bhsb.getPreviousItem().getPage());
-      } catch (final IOException e) {
+      } catch (IOException e) {
         this.error(this.getMessage("NoRedirect"));
       }
 

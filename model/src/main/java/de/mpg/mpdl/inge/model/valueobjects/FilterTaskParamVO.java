@@ -283,8 +283,8 @@ public class FilterTaskParamVO extends ValueObject {
     }
 
     @Override
-    public boolean equals(Object o) {
-      return o instanceof AbstractFilter && compareTo((AbstractFilter) o) == 0;
+    public boolean equals(Object obj) {
+      return obj instanceof AbstractFilter && 0 == compareTo((AbstractFilter) obj);
     }
   }
 

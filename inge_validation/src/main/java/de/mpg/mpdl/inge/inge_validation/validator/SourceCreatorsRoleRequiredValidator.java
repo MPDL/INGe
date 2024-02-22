@@ -35,12 +35,12 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
     if (ValidationTools.isNotEmpty(sources)) {
 
       int i = 1;
-      for (final SourceVO sourceVO : sources) {
+      for (SourceVO sourceVO : sources) {
 
         if (null != sourceVO) {
 
           int j = 1;
-          for (final CreatorVO creatorVO : sourceVO.getCreators()) {
+          for (CreatorVO creatorVO : sourceVO.getCreators()) {
 
             if (null != creatorVO && null == creatorVO.getRole()) {
 
@@ -48,7 +48,7 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
 
                 case ORGANIZATION:
 
-                  final OrganizationVO o = creatorVO.getOrganization();
+                  OrganizationVO o = creatorVO.getOrganization();
                   if (null != o) {
                     if (ValidationTools.isNotEmpty(o.getName()) //
                         || ValidationTools.isNotEmpty(o.getAddress())) {
@@ -62,7 +62,7 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
 
                 case PERSON:
 
-                  final PersonVO p = creatorVO.getPerson();
+                  PersonVO p = creatorVO.getPerson();
                   if (null != p) {
                     if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                         || ValidationTools.isNotEmpty(p.getGivenName())) {
@@ -74,12 +74,12 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                     }
                   }
 
-                  final List<OrganizationVO> orgs = p.getOrganizations();
+                  List<OrganizationVO> orgs = p.getOrganizations();
 
                   if (ValidationTools.isNotEmpty(orgs)) {
 
                     int z = 1;
-                    for (final OrganizationVO organizationVO : orgs) {
+                    for (OrganizationVO organizationVO : orgs) {
 
                       if (null != organizationVO) {
                         if (ValidationTools.isNotEmpty(organizationVO.getName()) //

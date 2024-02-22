@@ -40,7 +40,7 @@ public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<Fi
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileDbVO fileDbVO : files) {
+      for (FileDbVO fileDbVO : files) {
 
         if (null != fileDbVO && fileDbVO.getStorage().equals(FileDbVO.Storage.INTERNAL_MANAGED)) {
           if (ValidationTools.isNotEmpty(fileDbVO.getName()) //

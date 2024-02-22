@@ -121,7 +121,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
       try {
         queryString.append(" ( ");
         int i = 0;
-        for (final AffiliationDbVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
+        for (AffiliationDbVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
           if (0 < i) {
             queryString.append(" OR ");
           }
@@ -142,7 +142,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   @Override
   public void parseQueryStringContent(String content) {
     // Split by '|', which have no backslash
-    final String[] parts = content.split("(?<!\\\\)\\|\\|");
+    String[] parts = content.split("(?<!\\\\)\\|\\|");
 
     this.setSearchString(SearchCriterionBase.unescapeForQueryString(parts[0]));
     if (1 < parts.length) {
@@ -171,19 +171,19 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
    */
   private List<AffiliationDbVO> retrievePredecessorsAndSuccessors(String id) throws Exception {
 
-    final List<AffiliationDbVO> allAffs = new ArrayList<>();
+    List<AffiliationDbVO> allAffs = new ArrayList<>();
 
-    final AffiliationDbVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
+    AffiliationDbVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
 
     allAffs.add(affiliation);
 
-    final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
+    AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
 
-    final List<AffiliationDbVO> sucessorsVO = affiliationPres.getSuccessors();
+    List<AffiliationDbVO> sucessorsVO = affiliationPres.getSuccessors();
 
     allAffs.addAll(sucessorsVO);
 
-    final List<AffiliationDbVO> predecessorsVO = affiliationPres.getPredecessors();
+    List<AffiliationDbVO> predecessorsVO = affiliationPres.getPredecessors();
 
     allAffs.addAll(predecessorsVO);
     return allAffs;

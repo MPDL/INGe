@@ -21,15 +21,15 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 
   private static Map<String, PubContextVOPresentation> getItemStateMap() {
 
-    final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
-    final Map<String, PubContextVOPresentation> contextMap = new LinkedHashMap<>();
+    ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
+    Map<String, PubContextVOPresentation> contextMap = new LinkedHashMap<>();
 
 
-    for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
+    for (PubContextVOPresentation context : clsb.getDepositorContextList()) {
       contextMap.put(context.getObjectId(), context);
     }
 
-    for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
+    for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
       contextMap.put(context.getObjectId(), context);
     }
 
@@ -38,14 +38,14 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
 
-    final ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
-    final Map<String, Boolean> preSelectionMap = new LinkedHashMap<>();
+    ContextListSessionBean clsb = FacesTools.findBean("ContextListSessionBean");
+    Map<String, Boolean> preSelectionMap = new LinkedHashMap<>();
 
-    for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
+    for (PubContextVOPresentation context : clsb.getDepositorContextList()) {
       preSelectionMap.put(context.getObjectId(), true);
     }
 
-    for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
+    for (PubContextVOPresentation context : clsb.getModeratorContextList()) {
       preSelectionMap.put(context.getObjectId(), true);
     }
 
@@ -80,7 +80,7 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
   @Override
   public boolean isEmpty(QueryType queryType) {
     if (QueryType.CQL == queryType) {
-      final boolean anySelected = this.getEnumMap().containsValue(true);
+      boolean anySelected = this.getEnumMap().containsValue(true);
       return !anySelected;
     }
 

@@ -64,7 +64,7 @@ public class LinkVO {
   public String getEncodedLabel() {
     try {
       return URLEncoder.encode(this.label, StandardCharsets.UTF_8);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }

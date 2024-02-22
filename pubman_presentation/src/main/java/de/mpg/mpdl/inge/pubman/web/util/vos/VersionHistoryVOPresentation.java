@@ -32,7 +32,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     this.setReference(versionHistoryEntryVO.getReference());
     this.setState(versionHistoryEntryVO.getState());
 
-    for (final EventLogEntryVO event : this.getEvents()) {
+    for (EventLogEntryVO event : this.getEvents()) {
       this.eventLogEntries.add(new EventLogEntryVOPresentation(event, this));
     }
   }
@@ -51,13 +51,12 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
   public String rollback() throws Exception {
     logger.info("Rollback to version " + this.getReference().getVersionNumber());
 
-    final LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
-    final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
+    LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
+    PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
 
     // Get the two versions
-    final ItemVersionVO pubItemVOLatestVersion =
-        pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
-    final ItemVersionVO pubItemVOThisVersion =
+    ItemVersionVO pubItemVOLatestVersion = pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
+    ItemVersionVO pubItemVOThisVersion =
         pubItemService.get(this.getReference().getObjectIdAndVersion(), loginHelper.getAuthenticationToken());
 
     // Now copy the old stuff into the current item
@@ -65,8 +64,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
     // Do not forget the files and locators
     pubItemVOLatestVersion.getFiles().clear();
-    for (final FileDbVO fileVO : pubItemVOThisVersion.getFiles()) {
-      final FileDbVO clonedFile = new FileDbVO(fileVO);
+    for (FileDbVO fileVO : pubItemVOThisVersion.getFiles()) {
+      FileDbVO clonedFile = new FileDbVO(fileVO);
       pubItemVOLatestVersion.getFiles().add(clonedFile);
     }
 
@@ -94,7 +93,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
         .setCurrentPubItem(new PubItemVOPresentation(pubItemVONewVersion));
 
-    final ViewItemFull viewItemFull = FacesTools.findBean("ViewItemFull");
+    ViewItemFull viewItemFull = FacesTools.findBean("ViewItemFull");
     viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
     viewItemFull.init();
 

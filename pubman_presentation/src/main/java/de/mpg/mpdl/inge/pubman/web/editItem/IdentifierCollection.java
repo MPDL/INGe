@@ -66,12 +66,12 @@ public class IdentifierCollection extends FacesBean {
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
-    final ArrayList<SelectItem> selectItemList = new ArrayList<>();
+    ArrayList<SelectItem> selectItemList = new ArrayList<>();
 
     // constants for comboBoxes
     selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
 
-    for (final IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
+    for (IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
       selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type)));
     }
 
@@ -95,7 +95,7 @@ public class IdentifierCollection extends FacesBean {
 
     @Override
     public IdentifierVO createNewObject() {
-      final IdentifierVO newIdentifier = new IdentifierVO();
+      IdentifierVO newIdentifier = new IdentifierVO();
       return newIdentifier;
     }
 

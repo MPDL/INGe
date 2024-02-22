@@ -58,7 +58,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
  */
 public class ImportLog extends BaseImportLog {
   private static ImportLog fillImportLog(ResultSet resultSet) throws SQLException {
-    final ImportLog importLog = new ImportLog();
+    ImportLog importLog = new ImportLog();
 
     importLog.endDate = resultSet.getTimestamp("enddate");
     importLog.errorLevel = BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase());
@@ -75,7 +75,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   private static ImportLogItem fillImportLogItem(ResultSet resultSet, ImportLog importLog) throws SQLException {
-    final ImportLogItem importLogItem = new ImportLogItem(importLog);
+    ImportLogItem importLogItem = new ImportLogItem(importLog);
 
     importLogItem.setEndDate(resultSet.getTimestamp("enddate"));
     importLogItem.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
@@ -89,7 +89,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   private static ImportLogItemDetail fillImportLogItemDetail(ResultSet resultSet, ImportLogItem importLogItem) throws SQLException {
-    final ImportLogItemDetail importLogItemDetail = new ImportLogItemDetail(importLogItem);
+    ImportLogItemDetail importLogItemDetail = new ImportLogItemDetail(importLogItem);
 
     importLogItemDetail.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
     importLogItemDetail.setStartDate(resultSet.getTimestamp("startdate"));
@@ -122,10 +122,10 @@ public class ImportLog extends BaseImportLog {
       ps.setInt(1, id);
       rs = ps.executeQuery();
 
-      final List<ImportLogItem> importLogItems = new ArrayList<>();
+      List<ImportLogItem> importLogItems = new ArrayList<>();
 
       while (rs.next()) {
-        final ImportLogItem importLogItem = ImportLog.fillImportLogItem(rs, importLog);
+        ImportLogItem importLogItem = ImportLog.fillImportLogItem(rs, importLog);
         importLogItems.add(importLogItem);
       }
 
@@ -141,7 +141,7 @@ public class ImportLog extends BaseImportLog {
         ps.setInt(1, id);
         rs = ps.executeQuery();
 
-        final Iterator<ImportLogItem> iterator = importLogItems.iterator();
+        Iterator<ImportLogItem> iterator = importLogItems.iterator();
 
         if (!importLogItems.isEmpty()) {
 
@@ -150,19 +150,19 @@ public class ImportLog extends BaseImportLog {
           currentImportLogItem.setItems(importLogItemDetails);
 
           while (rs.next()) {
-            final int itemId = rs.getInt("parent");
+            int itemId = rs.getInt("parent");
             while (currentImportLogItem.getId() != itemId && iterator.hasNext()) {
               currentImportLogItem = iterator.next();
               importLogItemDetails = new ArrayList<>();
               currentImportLogItem.setItems(importLogItemDetails);
             }
 
-            final ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, currentImportLogItem);
+            ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, currentImportLogItem);
             importLogItemDetails.add(importLogItemDetail);
           }
         }
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error getting detail", e);
     }
 
@@ -170,7 +170,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   public static List<ImportLogItemDetail> getImportLogItemDetails(int id, String userid, Connection connection) {
-    final List<ImportLogItemDetail> importLogItemDetails = new ArrayList<>();
+    List<ImportLogItemDetail> importLogItemDetails = new ArrayList<>();
 
     final String query = "select import_log_item_detail.* " + "from import_log_item, import_log_item_detail, import_log "
         + "where import_log_item.id = import_log_item_detail.parent "
@@ -188,23 +188,23 @@ public class ImportLog extends BaseImportLog {
       rs = ps.executeQuery();
 
       while (rs.next()) {
-        final ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, null);
+        ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, null);
         importLogItemDetails.add(importLogItemDetail);
       }
 
       return importLogItemDetails;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
   public static List<ImportLog> getImportLogs(AccountUserDbVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
       boolean loadDetails, Connection connection) {
-    final List<ImportLog> result = new ArrayList<>();
+    List<ImportLog> result = new ArrayList<>();
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    final String query = "select id from import_log where userid = ? order by " + sortBy.toSQL() + " " + dir.toSQL();
+    String query = "select id from import_log where userid = ? order by " + sortBy.toSQL() + " " + dir.toSQL();
 
     try {
       ps = connection.prepareStatement(query);
@@ -213,11 +213,11 @@ public class ImportLog extends BaseImportLog {
       rs = ps.executeQuery();
 
       while (rs.next()) {
-        final int id = rs.getInt("id");
-        final ImportLog log = ImportLog.getImportLog(id, loadDetails, connection);
+        int id = rs.getInt("id");
+        ImportLog log = ImportLog.getImportLog(id, loadDetails, connection);
         result.add(log);
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error getting log", e);
     }
 
@@ -272,7 +272,7 @@ public class ImportLog extends BaseImportLog {
    * @param exception The exception that should be added to the item
    */
   public void addDetail(BaseImportLog.ErrorLevel errLevel, Exception exception, Connection connection) {
-    final String msg = this.getExceptionMessage(exception);
+    String msg = this.getExceptionMessage(exception);
     this.addDetail(errLevel, msg, null, connection);
   }
 
@@ -303,7 +303,7 @@ public class ImportLog extends BaseImportLog {
       throw new RuntimeException("Trying to add a detail but no log item is started.");
     }
 
-    final ImportLogItemDetail importLogItemDetail = new ImportLogItemDetail(this.currentImportLogItem);
+    ImportLogItemDetail importLogItemDetail = new ImportLogItemDetail(this.currentImportLogItem);
     importLogItemDetail.setErrorLevel(errLevel, connection);
     importLogItemDetail.setMessage(msg);
     importLogItemDetail.setStartDate(new Date());
@@ -332,21 +332,21 @@ public class ImportLog extends BaseImportLog {
    * @return Always null.
    */
   public void deleteAll() {
-    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
 
-    final Connection connection = DbTools.getNewConnection();
-    final DeleteProcess deleteProcess;
+    Connection connection = DbTools.getNewConnection();
+    DeleteProcess deleteProcess;
     try {
       deleteProcess = new DeleteProcess(this, authenticationToken, connection);
       deleteProcess.start();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       DbTools.closeConnection(connection);
       throw e;
     }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -381,7 +381,7 @@ public class ImportLog extends BaseImportLog {
    * @return The stack trace
    */
   private String getExceptionMessage(Throwable exception) {
-    final StringWriter stringWriter = new StringWriter();
+    StringWriter stringWriter = new StringWriter();
     stringWriter.write(exception.getClass().getSimpleName());
 
     if (null != exception.getMessage()) {
@@ -390,7 +390,7 @@ public class ImportLog extends BaseImportLog {
     }
     stringWriter.write("\n");
 
-    final StackTraceElement[] stackTraceElements = exception.getStackTrace();
+    StackTraceElement[] stackTraceElements = exception.getStackTrace();
     stringWriter.write("\tat ");
     stringWriter.write(stackTraceElements[0].getClassName());
     stringWriter.write(".");
@@ -417,7 +417,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   public boolean getImportedItems() {
-    for (final ImportLogItem item : this.importLogItems) {
+    for (ImportLogItem item : this.importLogItems) {
       if (null != item.getItemId()) {
         return true;
       }
@@ -471,10 +471,10 @@ public class ImportLog extends BaseImportLog {
   private ContextDbVO.Workflow getWorkflow() {
     if (null == this.workflow) {
       try {
-        final ContextDbVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
+        ContextDbVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
 
         this.workflow = contextVO.getWorkflow();
-      } catch (final Exception e) {
+      } catch (Exception e) {
         throw new RuntimeException(e);
       }
     }
@@ -519,7 +519,7 @@ public class ImportLog extends BaseImportLog {
       ps = connection.prepareStatement(query);
       ps.setInt(1, this.id);
       ps.executeUpdate();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {
       // DbTools.closePreparedStatement(ps);
@@ -528,7 +528,7 @@ public class ImportLog extends BaseImportLog {
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -567,7 +567,7 @@ public class ImportLog extends BaseImportLog {
       } else {
         throw new RuntimeException("Error saving import_log");
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error saving import_log", e);
     }
   }
@@ -597,7 +597,7 @@ public class ImportLog extends BaseImportLog {
       } else {
         throw new RuntimeException("Error saving import_log_item");
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error saving import_log_item", e);
     }
   }
@@ -617,7 +617,7 @@ public class ImportLog extends BaseImportLog {
       ps.setString(5, importLogItemDetail.getMessage());
 
       ps.executeUpdate();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error saving log_item_detail", e);
     }
   }
@@ -707,7 +707,7 @@ public class ImportLog extends BaseImportLog {
       throw new RuntimeException("Trying to start logging an item while another is not yet finished");
     }
 
-    final ImportLogItem newItem = new ImportLogItem(this);
+    ImportLogItem newItem = new ImportLogItem(this);
 
     newItem.setErrorLevel(errLevel, connection);
     newItem.setMessage(msg);
@@ -765,21 +765,21 @@ public class ImportLog extends BaseImportLog {
    * @return Always null.
    */
   public void submitAll() {
-    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
 
-    final Connection connection = DbTools.getNewConnection();
-    final SubmitProcess submitProcess;
+    Connection connection = DbTools.getNewConnection();
+    SubmitProcess submitProcess;
     try {
       submitProcess = new SubmitProcess(this, SubmitProcess.Modus.SUBMIT, authenticationToken, connection);
       submitProcess.start();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       DbTools.closeConnection(connection);
       throw e;
     }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -790,21 +790,21 @@ public class ImportLog extends BaseImportLog {
    * @return Always null.
    */
   public void submitAndReleaseAll() {
-    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
 
-    final Connection connection = DbTools.getNewConnection();
-    final SubmitProcess submitProcess;
+    Connection connection = DbTools.getNewConnection();
+    SubmitProcess submitProcess;
     try {
       submitProcess = new SubmitProcess(this, SubmitProcess.Modus.SUBMIT_AND_RELEASE, authenticationToken, connection);
       submitProcess.start();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       DbTools.closeConnection(connection);
       throw e;
     }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -815,21 +815,21 @@ public class ImportLog extends BaseImportLog {
    * @return Always null.
    */
   public void releaseAll() {
-    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
 
-    final Connection connection = DbTools.getNewConnection();
-    final SubmitProcess submitProcess;
+    Connection connection = DbTools.getNewConnection();
+    SubmitProcess submitProcess;
     try {
       submitProcess = new SubmitProcess(this, SubmitProcess.Modus.RELEASE, authenticationToken, connection);
       submitProcess.start();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       DbTools.closeConnection(connection);
       throw e;
     }
 
     try {
       FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -851,7 +851,7 @@ public class ImportLog extends BaseImportLog {
 
   @Override
   public String toString() {
-    final StringWriter writer = new StringWriter();
+    StringWriter writer = new StringWriter();
 
     writer.write(this.getErrorLevel().toString());
     writer.write(": ");
@@ -865,7 +865,7 @@ public class ImportLog extends BaseImportLog {
     writer.write(this.getStatus().toString());
     writer.write("\n");
 
-    for (final ImportLogItem item : this.importLogItems) {
+    for (ImportLogItem item : this.importLogItems) {
       writer.write(item.toString().replaceAll("(.*)\n", "\t$1\n"));
     }
 
@@ -897,7 +897,7 @@ public class ImportLog extends BaseImportLog {
       ps.setInt(10, this.id);
 
       ps.executeUpdate();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error updating import_log", e);
     }
   }
@@ -925,7 +925,7 @@ public class ImportLog extends BaseImportLog {
       ps.setInt(8, importLogItem.getId());
 
       ps.executeUpdate();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error updating import_log_item", e);
     }
   }

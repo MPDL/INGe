@@ -346,29 +346,29 @@ public class FileBean extends FacesBean {
   public String getUrlToLicenceImage() {
     try {
       if (null != this.file.getMetadata() && null != this.file.getMetadata().getLicense()) {
-        final String licenceURL = this.file.getMetadata().getLicense().toLowerCase();
+        String licenceURL = this.file.getMetadata().getLicense().toLowerCase();
 
         if (null != licenceURL && !licenceURL.trim().isEmpty() && licenceURL.contains("creative") && licenceURL.contains("commons")) {
-          final String[] splittedURL = licenceURL.split("\\/");
+          String[] splittedURL = licenceURL.split("\\/");
           // Change for dettecting license url in a string
           int start = 0;
           for (int i = 0; i < splittedURL.length; i++) {
-            final String part = splittedURL[i];
+            String part = splittedURL[i];
             if (part.startsWith("creativecommons")) {
               start = i;
             }
           }
 
-          final String address = splittedURL[start];
+          String address = splittedURL[start];
           final String licenses = "l";
-          final String type = splittedURL[start + 2];
-          final String version = splittedURL[start + 3];
+          String type = splittedURL[start + 2];
+          String version = splittedURL[start + 3];
           final String image = "80x15.png";
 
           return "https://i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
         }
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
     }
 
     return "";
@@ -389,7 +389,7 @@ public class FileBean extends FacesBean {
   }
 
   public void setUpdateVisibility(ValueChangeEvent event) {
-    final FileDbVO.Visibility newVisibility = (FileDbVO.Visibility) event.getNewValue();
+    FileDbVO.Visibility newVisibility = (FileDbVO.Visibility) event.getNewValue();
     this.file.setVisibility(newVisibility);
   }
 
@@ -402,7 +402,7 @@ public class FileBean extends FacesBean {
   }
 
   public void setUpdateOaStatus(ValueChangeEvent event) {
-    final MdsFileVO.OA_STATUS newOaStatus = (MdsFileVO.OA_STATUS) event.getNewValue();
+    MdsFileVO.OA_STATUS newOaStatus = (MdsFileVO.OA_STATUS) event.getNewValue();
     this.file.getMetadata().setOaStatus(newOaStatus);
   }
 
@@ -440,13 +440,13 @@ public class FileBean extends FacesBean {
         FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename="
             + URLEncoder.encode(filename, StandardCharsets.UTF_8) + "." + this.getChecksumAlgorithmAsString().toLowerCase());
 
-        final OutputStream out = FacesTools.getResponse().getOutputStream();
+        OutputStream out = FacesTools.getResponse().getOutputStream();
         out.write(this.file.getChecksum().getBytes(StandardCharsets.UTF_8));
         out.flush();
 
         FacesTools.getCurrentInstance().responseComplete();
         out.close();
-      } catch (final Exception e) {
+      } catch (Exception e) {
         this.error(this.getMessage("File_noCheckSum"));
         logger.error("Could not display checksum of file", e);
       }
@@ -491,14 +491,14 @@ public class FileBean extends FacesBean {
 
   public static String getOpenPDFSearchParameter(List<String> shbList) {
     String param = "\"";
-    final List<String> searchWords = new ArrayList<>();
-    for (final String shb : shbList) {
+    List<String> searchWords = new ArrayList<>();
+    for (String shb : shbList) {
       if (!searchWords.contains(shb)) {
         searchWords.add(shb);
       }
     }
 
-    for (final String word : searchWords) {
+    for (String word : searchWords) {
       param += word + " ";
     }
     param = param.trim() + "\"";
@@ -510,7 +510,7 @@ public class FileBean extends FacesBean {
     try {
       new URL(this.file.getMetadata().getLicense());
       return true;
-    } catch (final Exception e) {
+    } catch (Exception e) {
     }
 
     return false;

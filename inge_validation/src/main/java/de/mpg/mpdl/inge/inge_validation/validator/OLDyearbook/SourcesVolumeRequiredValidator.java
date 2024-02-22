@@ -21,7 +21,7 @@ public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<Source
     if (ValidationTools.isNotEmpty(sources)) {
 
       int i = 1;
-      for (final SourceVO sourceVO : sources) {
+      for (SourceVO sourceVO : sources) {
 
         if (null != sourceVO) {
 

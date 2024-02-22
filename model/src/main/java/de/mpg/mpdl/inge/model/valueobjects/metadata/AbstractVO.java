@@ -100,7 +100,7 @@ public class AbstractVO extends ValueObject implements Cloneable {
   }
 
 
-  public AbstractVO clone() {
+  public final AbstractVO clone() {
     try {
       AbstractVO clone = (AbstractVO) super.clone();
       return clone;

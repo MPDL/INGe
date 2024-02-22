@@ -53,21 +53,21 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
       if (null != subjects && false == subjects.isEmpty()) {
 
-        final ConeCache coneCache = ConeCache.getInstance();
+        ConeCache coneCache = ConeCache.getInstance();
 
-        final Set<String> ddcTitleSet = coneCache.getDdcTitleSet();
-        final Set<String> iso639_3_TitleSet = coneCache.getIso639_3_TitleSet();
-        final Set<String> jelTitleSet = coneCache.getJelTitleSet();
-        final Set<String> mpiccProjectsTitleSet = coneCache.getMpiccProjectsTitleSet();
-        final Set<String> mpinpTitleSet = coneCache.getMpinpTitleSet();
-        final Set<String> mpipksTitleSet = coneCache.getMpipksTitleSet();
-        final Set<String> mpirgTitleSet = coneCache.getMpirgTitleSet();
-        final Set<String> mpisGroupsTitleSet = coneCache.getMpisGroupsTitleSet();
-        final Set<String> mpisProjectsTitleSet = coneCache.getMpisProjectsTitleSet();
-        final Set<String> mpiwgProjectsTitleSet = coneCache.getMpiwgProjectsTitleSet();
+        Set<String> ddcTitleSet = coneCache.getDdcTitleSet();
+        Set<String> iso639_3_TitleSet = coneCache.getIso639_3_TitleSet();
+        Set<String> jelTitleSet = coneCache.getJelTitleSet();
+        Set<String> mpiccProjectsTitleSet = coneCache.getMpiccProjectsTitleSet();
+        Set<String> mpinpTitleSet = coneCache.getMpinpTitleSet();
+        Set<String> mpipksTitleSet = coneCache.getMpipksTitleSet();
+        Set<String> mpirgTitleSet = coneCache.getMpirgTitleSet();
+        Set<String> mpisGroupsTitleSet = coneCache.getMpisGroupsTitleSet();
+        Set<String> mpisProjectsTitleSet = coneCache.getMpisProjectsTitleSet();
+        Set<String> mpiwgProjectsTitleSet = coneCache.getMpiwgProjectsTitleSet();
 
         int i = 1;
-        for (final SubjectVO subjectVO : subjects) {
+        for (SubjectVO subjectVO : subjects) {
 
           if (ValidationTools.isNotEmpty(subjectVO.getType()) && ValidationTools.isNotEmpty(subjectVO.getValue())) {
 

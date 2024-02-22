@@ -103,7 +103,7 @@ public class CreatorVOPresentation extends CreatorVO {
       CreatorVOPresentation.properties = CreatorVOPresentation.loadCreatorRoleProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    final Map<String, String> propertiesMap = new HashMap<String, String>((Map) CreatorVOPresentation.properties);
+    Map<String, String> propertiesMap = new HashMap<String, String>((Map) CreatorVOPresentation.properties);
     return propertiesMap;
   }
 
@@ -120,14 +120,14 @@ public class CreatorVOPresentation extends CreatorVO {
       contentCategoryURI = CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
       if (null != contentCategoryURI) {
         LogManager.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI);
-        final InputStream in = contentCategoryURI.openStream();
+        InputStream in = contentCategoryURI.openStream();
         CreatorVOPresentation.properties.load(in);
         in.close();
         LogManager.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI);
       } else {
         LogManager.getLogger(CreatorVOPresentation.class).debug("Author-Roles properties file not found.");
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       LogManager.getLogger(CreatorVOPresentation.class).warn("WARNING: Author-Roles properties not found: " + e.getMessage());
     }
     return CreatorVOPresentation.properties;
@@ -139,10 +139,10 @@ public class CreatorVOPresentation extends CreatorVO {
    * @return Always empty
    */
   public void add() {
-    final CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
+    CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
     creatorVOPresentation.init(this.getType());
     creatorVOPresentation.setRole(CreatorRole.AUTHOR);
-    final int index = this.list.indexOf(this);
+    int index = this.list.indexOf(this);
     this.list.add(index + 1, creatorVOPresentation);
   }
 
@@ -205,9 +205,9 @@ public class CreatorVOPresentation extends CreatorVO {
     if (!"".equals(this.autoPasteValue)) {
       logger.debug("Creating new OU from: " + this.autoPasteValue);
       this.bean.setOrganizationPasted(true);
-      final String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
-      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
-      final OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
+      String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
+      List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
+      OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
       newOrg.setName(values[1]);
       newOrg.setIdentifier(values[0]);
       newOrg.setBean(this.bean);
@@ -220,8 +220,8 @@ public class CreatorVOPresentation extends CreatorVO {
 
   public String getOuNumbers() {
     if (this.isPersonType() && null == this.ouNumbers) {
-      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
-      for (final OrganizationVO organization : this.surrogatePerson.getOrganizations()) {
+      List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
+      for (OrganizationVO organization : this.surrogatePerson.getOrganizations()) {
         if (null == this.ouNumbers) {
           this.ouNumbers = "";
         } else {
@@ -237,23 +237,23 @@ public class CreatorVOPresentation extends CreatorVO {
 
   public int[] getOus() {
     if (null != this.getOuNumbers() && !"".equals(this.getOuNumbers())) {
-      final String[] orgArr = this.getOuNumbers().split(",");
-      final int[] result = new int[orgArr.length];
+      String[] orgArr = this.getOuNumbers().split(",");
+      int[] result = new int[orgArr.length];
 
       try {
         for (int i = 0; i < orgArr.length; i++) {
           if (!"".equals(orgArr[i])) {
-            final int orgNr = Integer.parseInt(orgArr[i]);
+            int orgNr = Integer.parseInt(orgArr[i]);
             result[i] = orgNr;
           }
         }
-      } catch (final NumberFormatException nfe) {
+      } catch (NumberFormatException nfe) {
         EditItem editItem = getEditItem();
         editItem.error(editItem.getMessage("EntryIsNotANumber").replace("$1", this.getOuNumbers()));
-      } catch (final IndexOutOfBoundsException ioobe) {
+      } catch (IndexOutOfBoundsException ioobe) {
         EditItem editItem = getEditItem();
         editItem.error(editItem.getMessage("EntryIsNotInValidRange").replace("$1", this.getOuNumbers()));
-      } catch (final Exception e) {
+      } catch (Exception e) {
         EditItem editItem = getEditItem();
         editItem.error(editItem.getMessage("ErrorInOrganizationAssignment").replace("$1", this.getOuNumbers()));
       }

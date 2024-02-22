@@ -66,7 +66,7 @@ public class ResourceUtil {
    * @return The resource as InputStream.
    * @throws FileNotFoundException Thrown if the resource cannot be located.
    */
-  public static File getResourceAsFile(final String fileName, ClassLoader classLoader) throws FileNotFoundException {
+  public static File getResourceAsFile(String fileName, ClassLoader classLoader) throws FileNotFoundException {
     URL url = classLoader.getResource(resolveFileName(fileName));
 
     // Maybe it's in a WAR file
@@ -105,7 +105,7 @@ public class ResourceUtil {
    * @return The resource as InputStream.
    * @throws FileNotFoundException Thrown if the resource cannot be located.
    */
-  public static InputStream getResourceAsStream(final String fileName, ClassLoader classLoader) throws FileNotFoundException {
+  public static InputStream getResourceAsStream(String fileName, ClassLoader classLoader) throws FileNotFoundException {
 
     InputStream fileIn;
     fileIn = classLoader.getResourceAsStream(resolveFileName(fileName));
@@ -129,7 +129,7 @@ public class ResourceUtil {
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
    */
-  public static String getResourceAsString(final String fileName, ClassLoader classLoader) throws IOException {
+  public static String getResourceAsString(String fileName, ClassLoader classLoader) throws IOException {
     InputStream fileIn = getResourceAsStream(fileName, classLoader);
     BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, StandardCharsets.UTF_8));
     String line = null;
@@ -150,7 +150,7 @@ public class ResourceUtil {
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
    */
-  public static String getStreamAsString(final InputStream stream) throws IOException {
+  public static String getStreamAsString(InputStream stream) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
     String line = null;
     StringBuilder result = new StringBuilder();
@@ -171,7 +171,7 @@ public class ResourceUtil {
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
    */
-  public static byte[] getResourceAsBytes(final String fileName, ClassLoader classLoader) throws IOException {
+  public static byte[] getResourceAsBytes(String fileName, ClassLoader classLoader) throws IOException {
     InputStream fileIn = getResourceAsStream(fileName, classLoader);
 
     byte[] buffer = new byte[2048];

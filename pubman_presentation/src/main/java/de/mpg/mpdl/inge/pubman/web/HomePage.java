@@ -68,7 +68,7 @@ public class HomePage extends BreadcrumbPage {
   @Override
   public void init() {
 
-    final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
       this.error(this.getMessage("LoginErrorPage_loggedOffFromSystem"));
     } else if (parameters.containsKey("logout")) {

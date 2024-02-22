@@ -171,7 +171,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * finally calls listUpdated on implementing subclasses.
    */
   public void update() {
-    final String elementsPerP =
+    String elementsPerP =
         FacesTools.getExternalContext().getRequestParameterMap().get(BasePaginatorListSessionBean.parameterElementsPerPage);
 
     if (null != elementsPerP) {
@@ -180,8 +180,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
       this.setElementsPerPage(25);
     }
 
-    final String currentPNumber =
-        FacesTools.getExternalContext().getRequestParameterMap().get(BasePaginatorListSessionBean.parameterPageNumber);
+    String currentPNumber = FacesTools.getExternalContext().getRequestParameterMap().get(BasePaginatorListSessionBean.parameterPageNumber);
     if (null != currentPNumber) {
       this.setCurrentPageNumber(Integer.parseInt(currentPNumber));
       this.setGoToPage(currentPNumber);
@@ -219,7 +218,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     this.saveOldParameters();
   }
 
-  public void update(final int pageNumber, final int elementsPerP) {
+  public void update(int pageNumber, int elementsPerP) {
     this.setElementsPerPage(elementsPerP);
     this.setCurrentPageNumber(pageNumber);
 
@@ -384,7 +383,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   public void doGoToPageTop() {
     try {
-      final int goToPage = Integer.parseInt(this.goToPageTop);
+      int goToPage = Integer.parseInt(this.goToPageTop);
 
       if (0 < goToPage && goToPage <= this.getPaginatorPageSize()) {
         this.setCurrentPageNumber(goToPage);
@@ -392,7 +391,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
       } else {
         this.error(this.getMessage("listError_goTo"));
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("listError_goTo"));
     }
 
@@ -407,14 +406,14 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   public void doGoToPageBottom() {
     try {
-      final int goToPage = Integer.parseInt(this.goToPageBottom);
+      int goToPage = Integer.parseInt(this.goToPageBottom);
       if (0 < goToPage && goToPage <= this.getPaginatorPageSize()) {
         this.setCurrentPageNumber(goToPage);
         this.goToPageTop = String.valueOf(goToPage);
       } else {
         this.error(this.getMessage("listError_goTo"));
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("listError_goTo"));
     }
 
@@ -539,7 +538,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     try {
       logger.debug("redirectURL :" + this.getRedirectUrl());
       FacesTools.getExternalContext().redirect(this.getRedirectUrl());
-    } catch (final IOException e) {
+    } catch (IOException e) {
       this.error(this.getMessage("NoRedirect"));
     }
   }
@@ -557,7 +556,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   private String getUrlParameterString() {
 
     StringBuilder parameterUrlBuilder = new StringBuilder("?");
-    for (final Map.Entry<String, String> entrySet : this.redirectParameterMap.entrySet()) {
+    for (Map.Entry<String, String> entrySet : this.redirectParameterMap.entrySet()) {
       if (null != entrySet.getValue()) {
         parameterUrlBuilder.append(URLEncoder.encode(entrySet.getKey(), StandardCharsets.UTF_8)).append("=")
             .append(URLEncoder.encode(entrySet.getValue(), StandardCharsets.UTF_8)).append("&");
@@ -600,9 +599,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @return
    */
   protected String getModifiedLink(String key, String value) {
-    final String oldValue = this.redirectParameterMap.get(key);
+    String oldValue = this.redirectParameterMap.get(key);
     this.redirectParameterMap.put(key, value);
-    final String linkUrl = this.getRedirectUrl();
+    String linkUrl = this.getRedirectUrl();
     this.redirectParameterMap.put(key, oldValue);
     return linkUrl;
   }
@@ -697,7 +696,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
   protected abstract void pageTypeChanged();
 
   public void setListPageName(String listPageName) {
-    final String oldPageName = this.listPageName;
+    String oldPageName = this.listPageName;
     this.listPageName = listPageName;
 
     if (!listPageName.equals(oldPageName)) {
@@ -774,7 +773,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @return
    */
   private boolean getListUpdate() {
-    final boolean returnVal = this.listUpdate;
+    boolean returnVal = this.listUpdate;
     this.listUpdate = true;
 
     return returnVal;

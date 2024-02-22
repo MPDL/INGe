@@ -162,7 +162,7 @@ public class PersonVO extends ValueObject implements Cloneable {
     return this.titles;
   }
 
-  public PersonVO clone() {
+  public final PersonVO clone() {
     try {
       PersonVO clone = (PersonVO) super.clone();
       if (null != this.identifier) {

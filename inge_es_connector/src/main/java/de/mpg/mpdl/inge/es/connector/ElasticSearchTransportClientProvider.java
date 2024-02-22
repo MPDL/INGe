@@ -35,7 +35,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
         RestClient.builder(HttpHost.create(PropertyReader.getProperty(PropertyReader.INGE_ES_REST_HOST_PORT)));
     if (null != this.user && !this.user.isEmpty()) {
       restClientBuilder.setHttpClientConfigCallback(httpClientBuilder -> {
-        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(this.user, this.pass));
         return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
       });

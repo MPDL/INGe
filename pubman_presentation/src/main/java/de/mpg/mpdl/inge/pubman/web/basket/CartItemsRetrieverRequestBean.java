@@ -82,7 +82,7 @@ public class CartItemsRetrieverRequestBean
 
 
     try {
-      final PubItemStorageSessionBean pssb = FacesTools.findBean("PubItemStorageSessionBean");
+      PubItemStorageSessionBean pssb = FacesTools.findBean("PubItemStorageSessionBean");
 
 
       if (!pssb.getStoredPubItems().isEmpty()) {
@@ -132,7 +132,7 @@ public class CartItemsRetrieverRequestBean
 
 
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
       logger.error("Error while retrieving items for basket", e);
     }
@@ -145,10 +145,10 @@ public class CartItemsRetrieverRequestBean
    * @return
    */
   public void deleteSelected() {
-    final PubItemStorageSessionBean pssb = FacesTools.findBean("PubItemStorageSessionBean");
+    PubItemStorageSessionBean pssb = FacesTools.findBean("PubItemStorageSessionBean");
     int countSelected = 0;
 
-    for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
+    for (PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
       if (pubItem.getSelected()) {
         countSelected++;
         pssb.getStoredPubItems().remove(pubItem.getObjectIdAndVersion());

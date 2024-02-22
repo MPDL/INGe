@@ -118,11 +118,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
   public String validate(String cs) throws CitationStyleManagerException {
     Utils.checkName(cs, "Citation Style is not defined");
 
-    try {
-      return xh.validateCitationStyleXML(cs);
-    } catch (IOException e) {
-      throw new CitationStyleManagerException(e);
-    }
+    return xh.validateCitationStyleXML(cs);
   }
 
   public static class compilationURIResolver implements URIResolver {

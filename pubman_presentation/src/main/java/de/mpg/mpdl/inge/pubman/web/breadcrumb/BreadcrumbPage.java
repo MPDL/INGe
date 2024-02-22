@@ -30,9 +30,9 @@ public abstract class BreadcrumbPage extends FacesBean {
    * Add an entry to the breadcrumb navigation.
    */
   protected void init() {
-    final FacesContext fc = FacesTools.getCurrentInstance();
+    FacesContext fc = FacesTools.getCurrentInstance();
     String page = fc.getViewRoot().getViewId().substring(1);
-    final String pageName = page.substring(0, page.lastIndexOf("."));
+    String pageName = page.substring(0, page.lastIndexOf("."));
 
     // Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
     if (null != FacesTools.getRequest().getQueryString() && !"HomePage".equals(pageName)) {
@@ -42,11 +42,11 @@ public abstract class BreadcrumbPage extends FacesBean {
     Method defaultAction = null;
     try {
       defaultAction = this.getDefaultAction();
-    } catch (final NoSuchMethodException e) {
+    } catch (NoSuchMethodException e) {
       logger.error("Error getting default action", e);
     }
 
-    final BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
+    BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
     breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction, this.isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
   }
@@ -60,10 +60,10 @@ public abstract class BreadcrumbPage extends FacesBean {
   }
 
   public void cancel() {
-    final String result = this.previousItem.getPage();
+    String result = this.previousItem.getPage();
     try {
       FacesTools.getExternalContext().redirect(ApplicationBean.INSTANCE.getAppContext() + result);
-    } catch (final IOException e) {
+    } catch (IOException e) {
       logger.error("Error redirecting to previous page", e);
     }
   }

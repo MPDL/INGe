@@ -73,7 +73,7 @@ public class ContextListSessionBean extends FacesBean {
   public void init() {
     try {
       this.retrieveAllContextsForUser();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Could not create context list.", e);
     }
   }
@@ -95,7 +95,7 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public PubContextVOPresentation getSelectedDepositorContext() {
-    for (final PubContextVOPresentation coll : this.depositorContextList) {
+    for (PubContextVOPresentation coll : this.depositorContextList) {
       if (coll.getSelected()) {
         return coll;
       }
@@ -132,8 +132,8 @@ public class ContextListSessionBean extends FacesBean {
     if (this.getLoginHelper().isLoggedIn() && null != this.getLoginHelper().getAccountUser().getGrantList()) {
       try {
         boolean hasGrants = false;
-        final ArrayList<String> ctxIdList = new ArrayList<>();
-        for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
+        ArrayList<String> ctxIdList = new ArrayList<>();
+        for (GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
           if (null != grant.getObjectRef()) {
             ctxIdList.add(grant.getObjectRef());
             hasGrants = true;
@@ -148,7 +148,7 @@ public class ContextListSessionBean extends FacesBean {
           bq.must(SearchUtils.baseElasticSearchQueryBuilder(contextService.getElasticSearchIndexFields(), ContextServiceDbImpl.INDEX_STATE,
               ContextDbVO.State.OPENED.name()));
 
-          for (final String id : ctxIdList) {
+          for (String id : ctxIdList) {
             bq.should(TermQuery.of(t -> t.field(ContextServiceDbImpl.INDEX_OBJECT_ID).value(id))._toQuery());
           }
 
@@ -159,8 +159,8 @@ public class ContextListSessionBean extends FacesBean {
           // ... and transform to PubCollections.
           List<PubContextVOPresentation> allPrivilegedContextList = CommonUtils.convertToPubCollectionVOPresentationList(ctxList);
 
-          for (final PubContextVOPresentation context : allPrivilegedContextList) {
-            for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
+          for (PubContextVOPresentation context : allPrivilegedContextList) {
+            for (GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
               if ((null != grant.getObjectRef()) && !grant.getObjectRef().isEmpty()) {
                 if (grant.getObjectRef().equals(context.getObjectId())
                     && GrantVO.PredefinedRoles.DEPOSITOR.frameworkValue().contentEquals(grant.getRole())) {
@@ -173,7 +173,7 @@ public class ContextListSessionBean extends FacesBean {
             }
           }
         }
-      } catch (final Exception e) {
+      } catch (Exception e) {
         // No business exceptions expected.
         throw new TechnicalException(e);
       }

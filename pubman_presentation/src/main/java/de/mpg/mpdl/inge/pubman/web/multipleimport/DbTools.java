@@ -33,7 +33,7 @@ public class DbTools {
       if (null != connection && !connection.isClosed()) {
         connection.close();
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error closing database connection", e);
     }
   }
@@ -47,7 +47,7 @@ public class DbTools {
       } else {
         throw new RuntimeException("Error creating database connection");
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error creating database connection", e);
     }
   }

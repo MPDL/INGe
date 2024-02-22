@@ -172,10 +172,10 @@ public class SourceBean extends EditItemBean {
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
-    final Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
-    final List<SelectItem> sourceGenres = new ArrayList<>();
+    Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
+    List<SelectItem> sourceGenres = new ArrayList<>();
     sourceGenres.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
-    for (final SourceVO.Genre value : SourceVO.Genre.values()) {
+    for (SourceVO.Genre value : SourceVO.Genre.values()) {
       sourceGenres.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
     }
 
@@ -213,11 +213,11 @@ public class SourceBean extends EditItemBean {
    */
   public String parseAndSetAlternativeTitlesAndIds() {
     // clear old alternative titles
-    final List<AlternativeTitleVO> altTitleList = this.source.getAlternativeTitles();
+    List<AlternativeTitleVO> altTitleList = this.source.getAlternativeTitles();
     altTitleList.clear();
 
     // clear old identifiers
-    final IdentifierCollection.IdentifierManager idManager = this.identifierCollection.getIdentifierManager();
+    IdentifierCollection.IdentifierManager idManager = this.identifierCollection.getIdentifierManager();
     idManager.getObjectList().clear();
 
     if (!this.hiddenAlternativeTitlesField.trim().isEmpty()) {
@@ -231,14 +231,14 @@ public class SourceBean extends EditItemBean {
   }
 
   public static List<AlternativeTitleVO> parseAlternativeTitles(String titleList) {
-    final List<AlternativeTitleVO> list = new ArrayList<>();
-    final String[] alternativeTitles = titleList.split(SourceBean.HIDDEN_DELIMITER);
+    List<AlternativeTitleVO> list = new ArrayList<>();
+    String[] alternativeTitles = titleList.split(SourceBean.HIDDEN_DELIMITER);
     for (String title : alternativeTitles) {
-      final String[] parts = title.trim().split(SourceBean.HIDDEN_INNER_DELIMITER);
-      final String alternativeTitleType = parts[0].trim();
-      final String alternativeTitle = parts[1].trim();
+      String[] parts = title.trim().split(SourceBean.HIDDEN_INNER_DELIMITER);
+      String alternativeTitleType = parts[0].trim();
+      String alternativeTitle = parts[1].trim();
       if (!alternativeTitle.isEmpty()) {
-        final AlternativeTitleVO textVO = new AlternativeTitleVO(alternativeTitle);
+        AlternativeTitleVO textVO = new AlternativeTitleVO(alternativeTitle);
         textVO.setType(alternativeTitleType);
         list.add(textVO);
       }
@@ -247,27 +247,27 @@ public class SourceBean extends EditItemBean {
   }
 
   public static List<IdentifierVO> parseIdentifiers(String idList) {
-    final List<IdentifierVO> list = new ArrayList<>();
-    final String[] ids = idList.split(SourceBean.HIDDEN_DELIMITER);
+    List<IdentifierVO> list = new ArrayList<>();
+    String[] ids = idList.split(SourceBean.HIDDEN_DELIMITER);
     for (String s : ids) {
-      final String idComplete = s.trim();
-      final String[] idParts = idComplete.split(SourceBean.HIDDEN_IDTYPE_DELIMITER);
+      String idComplete = s.trim();
+      String[] idParts = idComplete.split(SourceBean.HIDDEN_IDTYPE_DELIMITER);
       // id has no type, use type 'other'
       if (1 == idParts.length && !idParts[0].isEmpty()) {
-        final IdentifierVO idVO = new IdentifierVO(IdentifierVO.IdType.OTHER, idParts[0].trim());
+        IdentifierVO idVO = new IdentifierVO(IdentifierVO.IdType.OTHER, idParts[0].trim());
         list.add(idVO);
       }
       // Id has a type
       else if (2 == idParts.length) {
         IdentifierVO.IdType idType = IdentifierVO.IdType.OTHER;
 
-        for (final IdentifierVO.IdType id : IdentifierVO.IdType.values()) {
+        for (IdentifierVO.IdType id : IdentifierVO.IdType.values()) {
           if (id.getUri().equals(idParts[0]) || id.name().equalsIgnoreCase(idParts[0])) {
             idType = id;
           }
         }
 
-        final IdentifierVO idVO = new IdentifierVO(idType, idParts[1].trim());
+        IdentifierVO idVO = new IdentifierVO(idType, idParts[1].trim());
         list.add(idVO);
       }
     }
@@ -285,18 +285,18 @@ public class SourceBean extends EditItemBean {
 
   public String add() {
 
-    final SourceVO sourceVO = new SourceVO();
+    SourceVO sourceVO = new SourceVO();
     if (sourceVO.getIdentifiers().isEmpty()) {
       sourceVO.getIdentifiers().add(new IdentifierVO());
     }
 
-    final SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
-    final CreatorVOPresentation newSourceCreator = new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
+    SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
+    CreatorVOPresentation newSourceCreator = new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
     newSourceCreator.setType(CreatorVO.CreatorType.PERSON);
     newSourceCreator.setPerson(new PersonVO());
     newSourceCreator.getPerson().setIdentifier(new IdentifierVO());
     newSourceCreator.getPerson().setOrganizations(new ArrayList<>());
-    final OrganizationVO newCreatorOrganization = new OrganizationVO();
+    OrganizationVO newCreatorOrganization = new OrganizationVO();
     newCreatorOrganization.setName("");
     newSourceCreator.getPerson().getOrganizations().add(newCreatorOrganization);
     newSourceBean.getCreators().add(newSourceCreator);

@@ -50,12 +50,12 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) {
+  public List<Author> getAuthors(String authorString) {
 
     // Check 4 versions (new line as separator or blank, surname or given name first) and choose the
     // best result
-    String newLineAsBlank = authorsString.replaceAll("\\s+", " ").trim();
-    String newLineAsSeparator = authorsString.replaceAll("\\n", " and ").trim();
+    String newLineAsBlank = authorString.replaceAll("\\s+", " ").trim();
+    String newLineAsSeparator = authorString.replaceAll("\\n", " and ").trim();
     newLineAsSeparator = newLineAsSeparator.replaceAll("\\s+", " ");
 
     List<Author> newLineAsBlankSurnameFirst = getAuthorListLooseFormatSurnameFirst(newLineAsBlank.split("(;| and | AND | und | et )"));
@@ -79,7 +79,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     return newLineAsSeparatorGivenNameFirst;
   }
 
-  private String[] prepareAuthorsLooseFormat(String authorsString) {
+  private String[] prepareAuthorsLooseFormat(String authorString) {
     List<String> parts = new ArrayList<>();
     String currentString = "";
 
@@ -91,8 +91,8 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     int brackets = 0;
 
     // split string by commas and semicolons (if they are not inside a bracket)
-    for (int i = 0; i < authorsString.length(); i++) {
-      String currentChar = String.valueOf(authorsString.charAt(i));
+    for (int i = 0; i < authorString.length(); i++) {
+      String currentChar = String.valueOf(authorString.charAt(i));
       if (currentChar.matches(openedBracketsRegEx)) {
         brackets += 1;
         currentString += currentChar;

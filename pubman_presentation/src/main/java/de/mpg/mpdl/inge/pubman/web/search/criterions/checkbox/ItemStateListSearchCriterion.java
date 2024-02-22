@@ -23,7 +23,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   }
 
   private static Map<String, String> getItemStateMap() {
-    final Map<String, String> itemStateMap = new LinkedHashMap<>();
+    Map<String, String> itemStateMap = new LinkedHashMap<>();
 
     itemStateMap.put("PENDING", "PENDING");
     itemStateMap.put("SUBMITTED", "SUBMITTED");
@@ -35,7 +35,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   }
 
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
-    final Map<String, Boolean> itemStateMap = new LinkedHashMap<>();
+    Map<String, Boolean> itemStateMap = new LinkedHashMap<>();
 
     itemStateMap.put("PENDING", true);
     itemStateMap.put("SUBMITTED", true);
@@ -155,7 +155,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     if (!this.isEmpty(QueryType.CQL)) {
       LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final Map.Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
+      for (Map.Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
         if (entry.getValue()) {
           switch (ItemVersionRO.State.valueOf(entry.getKey())) {
             case RELEASED: {

@@ -91,7 +91,7 @@ public class CreateItem extends FacesBean {
 
     if (1 == this.getContextListSessionBean().getDepositorContextList().size()
         && this.getContextListSessionBean().getOpenContextsAvailable()) {
-      final ContextDbVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
+      ContextDbVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
       navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, contextVO);
 
       // re-init the edit item bean to make sure that all data is removed

@@ -47,13 +47,13 @@ public class ScienceDirectFormat extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) {
+  public List<Author> getAuthors(String authorString) {
 
-    if (!authorsString.contains("[") || !authorsString.contains("Corresponding Author Contact Information")) {
+    if (!authorString.contains("[") || !authorString.contains("Corresponding Author Contact Information")) {
       return null;
     }
 
-    String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
+    String[] authors = authorString.split(" *(,| and | AND | und | et ) *");
     List<String> newList = new ArrayList<>();
     for (int i = 0; i < authors.length; i++) {
       if (1 != i && 2 != i) {

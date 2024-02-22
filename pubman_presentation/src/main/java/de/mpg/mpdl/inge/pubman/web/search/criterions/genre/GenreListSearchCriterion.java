@@ -60,25 +60,25 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   public void initGenreMap() {
 
     // first create a map with genre as key and the label as value
-    final Map<MdsPublicationVO.Genre, String> genreLabelMap = new LinkedHashMap<>();
-    final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
-    for (final MdsPublicationVO.Genre g : MdsPublicationVO.Genre.values()) {
+    Map<MdsPublicationVO.Genre, String> genreLabelMap = new LinkedHashMap<>();
+    InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
+    for (MdsPublicationVO.Genre g : MdsPublicationVO.Genre.values()) {
       genreLabelMap.put(g, i18nHelper.getLabel("ENUM_GENRE_" + g.name()));
     }
 
 
     // Then create a list with the map entries and sort the list by the label
-    final List<Map.Entry<MdsPublicationVO.Genre, String>> sortedGenreList = new LinkedList<>(genreLabelMap.entrySet());
+    List<Map.Entry<MdsPublicationVO.Genre, String>> sortedGenreList = new LinkedList<>(genreLabelMap.entrySet());
     sortedGenreList.sort(Map.Entry.comparingByValue());
 
 
     // now fill the genre map with the ordered genres
     // genreMap = new LinkedHashMap<Genre, Boolean>();
 
-    final Map<MdsPublicationVO.Genre, Boolean> oldValMap = new LinkedHashMap<>(this.genreMap);
+    Map<MdsPublicationVO.Genre, Boolean> oldValMap = new LinkedHashMap<>(this.genreMap);
     this.genreMap.clear();
     Map.Entry<MdsPublicationVO.Genre, String> thesisEntry = null;
-    for (final Map.Entry<MdsPublicationVO.Genre, String> entry : sortedGenreList) {
+    for (Map.Entry<MdsPublicationVO.Genre, String> entry : sortedGenreList) {
       if (!entry.getKey().equals(MdsPublicationVO.Genre.THESIS)) {
         if (null == oldValMap.get(entry.getKey())) {
           this.genreMap.put(entry.getKey(), false);
@@ -103,7 +103,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   private void initDegreeMap() {
 
     // degreeMap = new LinkedHashMap<DegreeType, Boolean>();
-    for (final MdsPublicationVO.DegreeType dt : MdsPublicationVO.DegreeType.values()) {
+    for (MdsPublicationVO.DegreeType dt : MdsPublicationVO.DegreeType.values()) {
       this.degreeMap.put(dt, false);
     }
   }
@@ -112,12 +112,12 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
   // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten
   public synchronized MdsPublicationVO.Genre[] getGenreList() {
-    final MdsPublicationVO.Genre[] genreArray = new MdsPublicationVO.Genre[0];
+    MdsPublicationVO.Genre[] genreArray = new MdsPublicationVO.Genre[0];
     return this.genreMap.keySet().toArray(genreArray);
   }
 
   public MdsPublicationVO.DegreeType[] getDegreeList() {
-    final MdsPublicationVO.DegreeType[] degreeArray = new MdsPublicationVO.DegreeType[0];
+    MdsPublicationVO.DegreeType[] degreeArray = new MdsPublicationVO.DegreeType[0];
     return this.degreeMap.keySet().toArray(degreeArray);
   }
 
@@ -129,14 +129,14 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String getQueryStringContent() {
-    final StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
 
 
     boolean allGenres = true;
     boolean allDegrees = true;
 
     int i = 0;
-    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
+    for (Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
       if (entry.getValue()) {
         if (0 < i) {
           sb.append("|");
@@ -154,7 +154,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     if (this.genreMap.get(MdsPublicationVO.Genre.THESIS)) {
       sb.append("||");
       int j = 0;
-      for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
+      for (Map.Entry<MdsPublicationVO.DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
         if (entry.getValue()) {
           if (0 < j) {
             sb.append("|");
@@ -183,22 +183,22 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   @Override
   public void parseQueryStringContent(String content) {
     // Split by '||', which have no backslash before
-    final String[] genreDegreeParts = content.split("(?<!\\\\)\\|\\|");
+    String[] genreDegreeParts = content.split("(?<!\\\\)\\|\\|");
 
 
 
-    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> e : this.genreMap.entrySet()) {
+    for (Map.Entry<MdsPublicationVO.Genre, Boolean> e : this.genreMap.entrySet()) {
       e.setValue(false);
     }
 
-    for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> e : this.degreeMap.entrySet()) {
+    for (Map.Entry<MdsPublicationVO.DegreeType, Boolean> e : this.degreeMap.entrySet()) {
       e.setValue(false);
     }
 
     // Split by '|', which have no backslash before and no other '|' after
-    final String[] genreParts = genreDegreeParts[0].split("(?<!\\\\)\\|(?!\\|)");
-    for (final String genre : genreParts) {
-      final MdsPublicationVO.Genre g = MdsPublicationVO.Genre.valueOf(genre);
+    String[] genreParts = genreDegreeParts[0].split("(?<!\\\\)\\|(?!\\|)");
+    for (String genre : genreParts) {
+      MdsPublicationVO.Genre g = MdsPublicationVO.Genre.valueOf(genre);
       if (null == g) {
         throw new RuntimeException("Invalid genre: " + genre);
       }
@@ -206,9 +206,9 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     }
 
     if (1 < genreDegreeParts.length && !genreDegreeParts[1].trim().isEmpty()) {
-      final String[] degreeParts = genreDegreeParts[1].split("(?<!\\\\)\\|(?!\\|)");
-      for (final String degree : degreeParts) {
-        final MdsPublicationVO.DegreeType d = MdsPublicationVO.DegreeType.valueOf(degree);
+      String[] degreeParts = genreDegreeParts[1].split("(?<!\\\\)\\|(?!\\|)");
+      for (String degree : degreeParts) {
+        MdsPublicationVO.DegreeType d = MdsPublicationVO.DegreeType.valueOf(degree);
         if (null == d) {
           throw new RuntimeException("Invalid degree type: " + degree);
         }
@@ -230,7 +230,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     boolean genreDeselected = false;
     boolean degreeSelected = false;
     boolean degreeDeselected = false;
-    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
+    for (Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
       if (entry.getValue()) {
         genreSelected = true;
       } else {
@@ -239,7 +239,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     }
 
     if (this.genreMap.get(MdsPublicationVO.Genre.THESIS)) {
-      for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
+      for (Map.Entry<MdsPublicationVO.DegreeType, Boolean> entry : this.degreeMap.entrySet()) {
         if (entry.getValue()) {
           degreeSelected = true;
         } else {
@@ -248,10 +248,10 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
       }
     }
 
-    final boolean allGenreSelected = genreSelected && !genreDeselected;
-    final boolean noGenreSelected = !genreSelected && genreDeselected;
-    final boolean allDegreesSelected = degreeSelected && !degreeDeselected;
-    final boolean noDegreeSelected = !degreeSelected && degreeDeselected;
+    boolean allGenreSelected = genreSelected && !genreDeselected;
+    boolean noGenreSelected = !genreSelected && genreDeselected;
+    boolean allDegreesSelected = degreeSelected && !degreeDeselected;
+    boolean noDegreeSelected = !degreeSelected && degreeDeselected;
 
     /*
      * System.out.println("All Genres: " + allGenreSelected); System.out.println("No Genres: " +
@@ -280,11 +280,11 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
     // boolean allDegrees = true;
 
-    final List<SearchCriterionBase> returnList = new ArrayList<>();
-    final List<SearchCriterionBase> degreeCriterionsList = new ArrayList<>();
+    List<SearchCriterionBase> returnList = new ArrayList<>();
+    List<SearchCriterionBase> degreeCriterionsList = new ArrayList<>();
     returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     int i = 0;
-    for (final Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
+    for (Map.Entry<MdsPublicationVO.Genre, Boolean> entry : this.genreMap.entrySet()) {
       if (entry.getValue() && 0 < i) {
         returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
       }
@@ -299,14 +299,14 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
           degreeCriterionsList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
 
           int j = 0;
-          for (final Map.Entry<MdsPublicationVO.DegreeType, Boolean> degreeEntry : this.degreeMap.entrySet()) {
+          for (Map.Entry<MdsPublicationVO.DegreeType, Boolean> degreeEntry : this.degreeMap.entrySet()) {
             if (degreeEntry.getValue() && 0 < j) {
               degreeCriterionsList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
             }
 
             if (degreeEntry.getValue()) {
               degreeSelected = true;
-              final DegreeSearchCriterion dsc = new DegreeSearchCriterion();
+              DegreeSearchCriterion dsc = new DegreeSearchCriterion();
               dsc.setSearchString(degreeEntry.getKey().name());
               degreeCriterionsList.add(dsc);
               j++;
@@ -329,7 +329,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
         }
 
         genreSelected = true;
-        final GenreSearchCriterion gc = new GenreSearchCriterion();
+        GenreSearchCriterion gc = new GenreSearchCriterion();
         gc.setSelectedEnum(entry.getKey());
         returnList.add(gc);
         i++;

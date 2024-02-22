@@ -48,26 +48,26 @@ public class MpiKybFormat extends AuthorFormat {
   }
 
   @Override
-  public List<Author> getAuthors(String authorsString) {
+  public List<Author> getAuthors(String authorString) {
     Pattern pattern = Pattern.compile(getPattern());
-    Matcher matcher = pattern.matcher(authorsString);
+    Matcher matcher = pattern.matcher(authorString);
     if (!matcher.find()) {
       return null;
     }
     Pattern kommaPattern = Pattern.compile(",([^\\}]+?[\\{\\n\\r$])");
-    matcher = kommaPattern.matcher(authorsString + "\n");
+    matcher = kommaPattern.matcher(authorString + "\n");
     if (matcher.find()) {
-      authorsString = matcher.replaceAll(";$1");
+      authorString = matcher.replaceAll(";$1");
     }
     Pattern andPattern = Pattern.compile(" +?and +?([^\\}]+?[\\{\\n\\r$])");
-    matcher = andPattern.matcher(authorsString);
+    matcher = andPattern.matcher(authorString);
     if (matcher.find()) {
-      authorsString = matcher.replaceAll(";$1");
+      authorString = matcher.replaceAll(";$1");
     }
-    if (authorsString.lastIndexOf("\n") == authorsString.length() - 1) {
-      authorsString = authorsString.substring(0, authorsString.lastIndexOf("\n"));
+    if (authorString.lastIndexOf("\n") == authorString.length() - 1) {
+      authorString = authorString.substring(0, authorString.lastIndexOf("\n"));
     }
-    String[] authors = authorsString.split(";");
+    String[] authors = authorString.split(";");
     List<String> newList = new ArrayList<>();
     Collections.addAll(newList, authors);
     List<Author> result = getAuthorList(newList.toArray(new String[] {}), " ");

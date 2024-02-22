@@ -90,7 +90,7 @@ public class PublishingInfoVO extends ValueObject implements Cloneable {
     this.publisher = newVal;
   }
 
-  public PublishingInfoVO clone() {
+  public final PublishingInfoVO clone() {
     try {
       PublishingInfoVO clone = (PublishingInfoVO) super.clone();
       return clone;

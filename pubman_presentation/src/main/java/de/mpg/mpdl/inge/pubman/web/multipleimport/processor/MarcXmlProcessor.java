@@ -50,7 +50,7 @@ public class MarcXmlProcessor extends GenericXmlProcessor {
       NodeList nodes = root.getChildNodes();
 
       for (int i = 0; i < nodes.getLength(); i++) {
-        final Node currentNode = nodes.item(i);
+        Node currentNode = nodes.item(i);
         if (Node.ELEMENT_NODE == currentNode.getNodeType() && null != root.getLocalName() && "record".equals(currentNode.getLocalName())
             && null != root.getNamespaceURI() && currentNode.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
           this.addItem(currentNode);

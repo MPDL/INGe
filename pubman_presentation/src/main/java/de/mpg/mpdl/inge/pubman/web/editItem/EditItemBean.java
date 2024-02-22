@@ -59,12 +59,12 @@ public class EditItemBean extends FacesBean {
   }
 
   public void initOrganizationsFromCreators() {
-    final List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<>();
-    for (final CreatorVOPresentation creator : this.creators) {
+    List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<>();
+    for (CreatorVOPresentation creator : this.creators) {
       if (CreatorVO.CreatorType.PERSON == creator.getType()) {
-        for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
+        for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
           if (!creatorOrganizations.contains(organization)) {
-            final OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
+            OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
             if (!organizationPresentation.isEmpty()) {
               organizationPresentation.setBean(this);
               if (null == organizationPresentation.getName()) {
@@ -79,7 +79,7 @@ public class EditItemBean extends FacesBean {
 
     // if there is still no organization add a new one
     if (creatorOrganizations.isEmpty()) {
-      final OrganizationVOPresentation org = new OrganizationVOPresentation();
+      OrganizationVOPresentation org = new OrganizationVOPresentation();
       org.setBean(this);
       creatorOrganizations.add(org);
     }
@@ -131,13 +131,13 @@ public class EditItemBean extends FacesBean {
 
   public boolean bindOrganizationsToCreators() {
     this.usedOrganizations.clear();
-    for (final CreatorVOPresentation creator : this.creators) {
+    for (CreatorVOPresentation creator : this.creators) {
       if (!this.bindOrganizationsToCreator(creator)) {
         return false;
       }
     }
 
-    for (final OrganizationVOPresentation org : this.creatorOrganizations) {
+    for (OrganizationVOPresentation org : this.creatorOrganizations) {
 
       if (!org.isEmpty() && !this.usedOrganizations.contains(org.getNumber())) {
 
@@ -150,11 +150,11 @@ public class EditItemBean extends FacesBean {
   }
 
   public void bindCreatorsToBean(List<CreatorVO> creatorList) {
-    final List<CreatorVOPresentation> creators = this.creators;
+    List<CreatorVOPresentation> creators = this.creators;
     creators.clear();
 
-    for (final CreatorVO creator : creatorList) {
-      final CreatorVOPresentation beanCreator = new CreatorVOPresentation(creators, this, creator);
+    for (CreatorVO creator : creatorList) {
+      CreatorVOPresentation beanCreator = new CreatorVOPresentation(creators, this, creator);
       if (null != beanCreator.getPerson() && null == beanCreator.getPerson().getIdentifier()) {
         beanCreator.getPerson().setIdentifier(new IdentifierVO());
       }
@@ -164,7 +164,7 @@ public class EditItemBean extends FacesBean {
 
   public void bindCreatorsToVO(List<CreatorVO> creators) {
     creators.clear();
-    for (final CreatorVOPresentation creatorVOPresentation : this.creators) {
+    for (CreatorVOPresentation creatorVOPresentation : this.creators) {
       CreatorVO creatorVO;
       if (CreatorVO.CreatorType.ORGANIZATION == creatorVOPresentation.getType()) {
         creatorVO = new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
@@ -181,28 +181,28 @@ public class EditItemBean extends FacesBean {
    */
   public boolean bindOrganizationsToCreator(CreatorVOPresentation creator) {
     if (creator.isPersonType()) {
-      final PersonVO person = creator.getPerson();
-      final List<OrganizationVO> personOrgs = person.getOrganizations();
+      PersonVO person = creator.getPerson();
+      List<OrganizationVO> personOrgs = person.getOrganizations();
       String[] orgArr = {};
       if (null != creator.getOuNumbers()) {
         orgArr = creator.getOuNumbers().split(",");
       }
       personOrgs.clear();
       try {
-        for (final String org : orgArr) {
+        for (String org : orgArr) {
           if (!"".equals(org)) {
-            final int orgNr = Integer.parseInt(org);
+            int orgNr = Integer.parseInt(org);
             personOrgs.add(this.creatorOrganizations.get(orgNr - 1));
             this.usedOrganizations.add(orgNr);
           }
         }
-      } catch (final NumberFormatException nfe) {
+      } catch (NumberFormatException nfe) {
         this.error(this.getMessage("EntryIsNotANumber").replace("$1", creator.getOuNumbers()));
         return false;
-      } catch (final IndexOutOfBoundsException ioobe) {
+      } catch (IndexOutOfBoundsException ioobe) {
         this.error(this.getMessage("EntryIsNotInValidRange").replace("$1", creator.getOuNumbers()));
         return false;
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("Unexpected error evaluation creator organizations", e);
         this.error(this.getMessage("ErrorInOrganizationAssignment").replace("$1", creator.getOuNumbers()));
         return false;
@@ -246,9 +246,9 @@ public class EditItemBean extends FacesBean {
   }
 
   public void parseCreatorString(String creatorString, List<OrganizationVO> orgs, boolean overwrite) throws Exception {
-    final AuthorDecoder authDec = new AuthorDecoder(creatorString);
+    AuthorDecoder authDec = new AuthorDecoder(creatorString);
 
-    final List<Author> authorList = authDec.getBestAuthorList();
+    List<Author> authorList = authDec.getBestAuthorList();
     if (null == authorList || authorList.isEmpty()) {
       throw new Exception(this.getMessage("EditItemBean_errorParseCreator"));
     }
@@ -259,7 +259,7 @@ public class EditItemBean extends FacesBean {
 
     // check if last existing author is empty, then remove it
     if (!this.creators.isEmpty()) {
-      final CreatorVOPresentation creatorVO = this.creators.get(this.creators.size() - 1);
+      CreatorVOPresentation creatorVO = this.creators.get(this.creators.size() - 1);
       // creator is a person
       if (creatorVO.isPersonType() && null != creatorVO.getPerson() && "".equals(creatorVO.getPerson().getFamilyName())
           && "".equals(creatorVO.getPerson().getGivenName())
@@ -274,8 +274,8 @@ public class EditItemBean extends FacesBean {
     }
 
     // add authors to creator collection
-    for (final Author author : authorList) {
-      final CreatorVOPresentation creator = new CreatorVOPresentation(this.creators, this);
+    for (Author author : authorList) {
+      CreatorVOPresentation creator = new CreatorVOPresentation(this.creators, this);
       creator.setPerson(new PersonVO());
       creator.getPerson().setIdentifier(new IdentifierVO());
       creator.setOuNumbers("");

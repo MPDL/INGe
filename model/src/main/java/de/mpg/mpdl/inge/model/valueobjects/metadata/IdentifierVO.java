@@ -157,7 +157,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     this.type = newVal;
   }
 
-  public IdentifierVO clone() {
+  public final IdentifierVO clone() {
     try {
       IdentifierVO clone = (IdentifierVO) super.clone();
       if (null != clone.type) {

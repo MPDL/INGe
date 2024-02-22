@@ -194,7 +194,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
 
   }
 
-  public CreatorVO clone() {
+  public final CreatorVO clone() {
     try {
       CreatorVO clone = (CreatorVO) super.clone();
       if (null != clone.organization) {

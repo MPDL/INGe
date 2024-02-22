@@ -53,7 +53,7 @@ public class FetchMetadataPage extends BreadcrumbPage {
 
   @Override
   protected Method getDefaultAction() throws NoSuchMethodException {
-    final EasySubmission easySubmission = FacesTools.findBean("EasySubmission");
+    EasySubmission easySubmission = FacesTools.findBean("EasySubmission");
     return easySubmission.getClass().getMethod("newImport", (Class[]) null);
   }
 

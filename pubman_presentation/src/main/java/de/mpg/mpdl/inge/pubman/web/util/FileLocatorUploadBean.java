@@ -88,8 +88,8 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     try {
       locatorURL = new URL(locator);
       conn = locatorURL.openConnection();
-      final HttpURLConnection httpConn = (HttpURLConnection) conn;
-      final int responseCode = httpConn.getResponseCode();
+      HttpURLConnection httpConn = (HttpURLConnection) conn;
+      int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 302, 503:
           this.error = this.getMessage("errorLocatorServiceUnavailable");
@@ -107,15 +107,15 @@ public abstract class FileLocatorUploadBean extends FacesBean {
               "An error occurred during importing from external system: " + responseCode + ": " + httpConn.getResponseMessage() + ".");
           return false;
       }
-    } catch (final AccessException e) {
+    } catch (AccessException e) {
       logger.error("Access denied.", e);
       this.error = this.getMessage("errorLocatorAccessDenied");
       return false;
-    } catch (final MalformedURLException e) {
+    } catch (MalformedURLException e) {
       this.error = this.getMessage("errorLocatorInvalidURL");
       logger.warn("Invalid locator URL:" + locator, e);
       return false;
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error = this.getMessage("errorLocatorTechnicalException");
       return false;
     }
@@ -138,7 +138,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     // Get File Length
     try {
       this.size = Integer.parseInt(conn.getHeaderField("Content-Length"));
-    } catch (final NumberFormatException e) {
+    } catch (NumberFormatException e) {
       input = this.fetchLocator(locatorURL);
       if (null != input) {
         this.size = input.length;
@@ -153,21 +153,21 @@ public abstract class FileLocatorUploadBean extends FacesBean {
 
     try {
       conn = locator.openConnection();
-      final HttpURLConnection httpConn = (HttpURLConnection) conn;
-      final int responseCode = httpConn.getResponseCode();
+      HttpURLConnection httpConn = (HttpURLConnection) conn;
+      int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 200:
           logger.debug("Source responded with 200.");
 
           // Fetch file
-          final GetMethod method = new GetMethod(locator.toString());
-          final HttpClient client = new HttpClient();
+          GetMethod method = new GetMethod(locator.toString());
+          HttpClient client = new HttpClient();
           client.executeMethod(method);
           input = method.getResponseBody();
           httpConn.disconnect();
           break;
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error = this.getMessage("errorLocatorTechnicalException");
       return null;
     }
@@ -176,10 +176,10 @@ public abstract class FileLocatorUploadBean extends FacesBean {
   }
 
   public Vector<FileDbVO> getLocators(ItemVersionVO item) {
-    final Vector<FileDbVO> locators = new Vector<>();
+    Vector<FileDbVO> locators = new Vector<>();
 
-    final List<FileDbVO> files = item.getFiles();
-    for (final FileDbVO currentFile : files) {
+    List<FileDbVO> files = item.getFiles();
+    for (FileDbVO currentFile : files) {
       if (FileDbVO.Storage.EXTERNAL_URL == currentFile.getStorage()) {
         locators.add(currentFile);
       }
@@ -191,7 +191,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
   public FileDbVO uploadLocatorAsFile(FileDbVO locator) {
     FileDbVO fileVO = null;
 
-    final boolean check = this.checkLocator(locator.getContent());
+    boolean check = this.checkLocator(locator.getContent());
 
     if (check) {
       try {
@@ -202,14 +202,14 @@ public abstract class FileLocatorUploadBean extends FacesBean {
         fileVO.setMimeType(this.type);
         fileVO.setName(this.getFileName(this.locator));
 
-        final FormatVO formatVO = new FormatVO();
+        FormatVO formatVO = new FormatVO();
         formatVO.setType("dcterms:IMT");
         formatVO.setValue(this.type);
         fileVO.getMetadata().getFormats().add(formatVO);
         fileVO.setContent(this.locator);
         fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
 
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error(e);
         this.error = this.getMessage("errorLocatorUploadFW");
       }
@@ -270,7 +270,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
    */
   public String getFileName(String URL) {
     String name = "";
-    final String[] names = URL.split("/");
+    String[] names = URL.split("/");
     name = names[names.length - 1];
     return name;
   }

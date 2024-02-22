@@ -245,7 +245,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void message(String summary, String detail, UIComponent component, FacesMessage.Severity severity) {
-    final FacesMessage fm = new FacesMessage(severity, summary, StringEscapeUtils.escapeHtml4(detail));
+    FacesMessage fm = new FacesMessage(severity, summary, StringEscapeUtils.escapeHtml4(detail));
 
     if (null == component) {
       FacesTools.getCurrentInstance().addMessage(null, fm);
@@ -259,8 +259,8 @@ public class FacesBean implements Serializable {
   }
 
   public boolean getHasErrorMessages() {
-    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
-      final FacesMessage fm = i.next();
+    for (Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
+      FacesMessage fm = i.next();
 
       logger.info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n" + fm.getDetail());
 
@@ -276,7 +276,7 @@ public class FacesBean implements Serializable {
   public int getNumberOfMessages() {
     int number = 0;
 
-    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
+    for (Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
       i.next();
       number++;
     }

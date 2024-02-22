@@ -81,8 +81,8 @@ public abstract class DataModelManager<T> {
    * Adds a object of type T to the list (and therefore to the UI model)
    */
   public void addObject() {
-    final T elem = this.createNewObject();
-    final int i = this.objectDM.getRowIndex();
+    T elem = this.createNewObject();
+    int i = this.objectDM.getRowIndex();
 
     if (null != elem) {
       this.objectList.add(i + 1, elem);
@@ -90,7 +90,7 @@ public abstract class DataModelManager<T> {
   }
 
   public void addObjectAtIndex(int i) {
-    final T elem = this.createNewObject();
+    T elem = this.createNewObject();
 
     if (null != elem) {
       this.objectList.add(i + 1, elem);
@@ -101,7 +101,7 @@ public abstract class DataModelManager<T> {
    * Removes object of type T from the list (and therefore from the UI model)
    */
   public void removeObject() {
-    final int i = this.objectDM.getRowIndex();
+    int i = this.objectDM.getRowIndex();
     this.removeObjectAtIndex(i);
   }
 

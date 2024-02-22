@@ -83,12 +83,12 @@ public class RisProcessor extends FormatProcessor {
   private void initialize() {
     this.init = true;
     try {
-      final BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getSourceFile()));
+      BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getSourceFile()));
       String line = null;
       String lastLine = null;
-      final ArrayList<String> itemList = new ArrayList<>();
+      ArrayList<String> itemList = new ArrayList<>();
       StringWriter stringWriter = new StringWriter();
-      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
       while (null != (line = bufferedReader.readLine())) {
         stringWriter.write(line);
@@ -120,7 +120,7 @@ public class RisProcessor extends FormatProcessor {
 
       this.counter = 0;
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Error reading input stream", e);
     }
 

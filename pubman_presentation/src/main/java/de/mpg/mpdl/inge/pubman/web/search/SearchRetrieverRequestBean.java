@@ -126,7 +126,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    */
   @Override
   public void readOutParameters() {
-    final HttpServletRequest request = FacesTools.getRequest();
+    HttpServletRequest request = FacesTools.getRequest();
 
     // the following procedure is necessary because of the strange decoding in tomcat, when you
     // fetch the
@@ -140,8 +140,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
 
-    final String query = paramMap.get(SearchRetrieverRequestBean.parameterQuery);
-    final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
+    String query = paramMap.get(SearchRetrieverRequestBean.parameterQuery);
+    String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
 
     if (null != query || null != elasticSearchQuery) {
       this.setQueryStringUrlParam(query);
@@ -151,7 +151,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     }
 
 
-    final String searchType = paramMap.get(SearchRetrieverRequestBean.parameterSearchType);
+    String searchType = paramMap.get(SearchRetrieverRequestBean.parameterSearchType);
     this.setSearchType(Objects.requireNonNullElse(searchType, "simple"));
 
     if ((null == elasticSearchQuery || elasticSearchQuery.isEmpty()) && (null == query || query.isEmpty())) {
@@ -223,7 +223,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
       logger.error("Error in retrieving items", e);
     }
@@ -283,13 +283,13 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
   public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(SearchRetrieveResponseVO result) {
 
-    final List<SearchRetrieveRecordVO> results = result.getRecords();
+    List<SearchRetrieveRecordVO> results = result.getRecords();
 
-    final ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<>();
-    for (final SearchRetrieveRecordVO record : results) {
+    ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<>();
+    for (SearchRetrieveRecordVO record : results) {
       // check if we have found an item
 
-      final PubItemVOPresentation pubItemPres = new PubItemVOPresentation((ItemVersionVO) record.getData());
+      PubItemVOPresentation pubItemPres = new PubItemVOPresentation((ItemVersionVO) record.getData());
       pubItemList.add(pubItemPres);
 
     }

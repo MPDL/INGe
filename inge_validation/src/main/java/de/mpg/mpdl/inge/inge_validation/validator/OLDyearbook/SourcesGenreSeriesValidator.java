@@ -22,7 +22,7 @@ public class SourcesGenreSeriesValidator extends ValidatorHandler<List<SourceVO>
 
     if (ValidationTools.isNotEmpty(sources)) {
 
-      for (final SourceVO sourceVO : sources) {
+      for (SourceVO sourceVO : sources) {
 
         if (null != sourceVO) {
 

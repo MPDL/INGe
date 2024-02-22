@@ -135,7 +135,7 @@ public class SubjectVO extends ValueObject implements Cloneable {
    * @see java.lang.Object#clone()
    */
   @Override
-  public SubjectVO clone() {
+  public final SubjectVO clone() {
     try {
       SubjectVO clone = (SubjectVO) super.clone();
       return clone;

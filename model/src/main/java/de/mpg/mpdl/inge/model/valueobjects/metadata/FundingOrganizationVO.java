@@ -33,7 +33,7 @@ public class FundingOrganizationVO extends ValueObject implements Cloneable {
     this.identifiers = identifiers;
   }
 
-  public FundingOrganizationVO clone() {
+  public final FundingOrganizationVO clone() {
     try {
       FundingOrganizationVO clone = (FundingOrganizationVO) super.clone();
       for (IdentifierVO identifier : this.identifiers) {

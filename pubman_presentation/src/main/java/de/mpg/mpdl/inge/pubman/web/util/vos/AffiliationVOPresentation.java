@@ -83,7 +83,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 
-      for (final AffiliationVOPresentation affiliationVOPresentation : this.children) {
+      for (AffiliationVOPresentation affiliationVOPresentation : this.children) {
         affiliationVOPresentation.parent = this;
         affiliationVOPresentation.namePath = affiliationVOPresentation.getDetails().getName() + ", " + this.namePath;
         affiliationVOPresentation.idPath = affiliationVOPresentation.getObjectId() + " " + this.idPath;
@@ -103,10 +103,10 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
   public boolean getMps() {
     try {
-      final String rootAffiliationMPG = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+      String rootAffiliationMPG = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
 
       return this.getObjectId().equals(rootAffiliationMPG);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error reading Properties", e);
       return false;
     }
@@ -229,10 +229,10 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public List<String> getUris() {
-    final List<IdentifierVO> identifiers = this.getMetadata().getIdentifiers();
-    final List<String> uriList = new ArrayList<>();
+    List<IdentifierVO> identifiers = this.getMetadata().getIdentifiers();
+    List<String> uriList = new ArrayList<>();
 
-    for (final IdentifierVO identifier : identifiers) {
+    for (IdentifierVO identifier : identifiers) {
       if (null != identifier.getType() && identifier.getType().equals(IdentifierVO.IdType.URI)) {
         uriList.add(identifier.getId());
       }
@@ -269,7 +269,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
     }
     try {
       BoolQuery.Builder bq = new BoolQuery.Builder();
-      for (final AffiliationDbRO id : affiliations) {
+      for (AffiliationDbRO id : affiliations) {
         bq.should(TermQuery.of(i -> i.field(OrganizationServiceDbImpl.INDEX_OBJECT_ID).value(id.getObjectId()))._toQuery());
       }
 
@@ -279,7 +279,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
 
 
-    } catch (final Exception e) {
+    } catch (Exception e) {
     }
 
     return transformedAffs;
@@ -329,7 +329,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
         // If the org tree structure is fetched via search, this is obsolete
         this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.getObjectId());
 
-      } catch (final Exception e) {
+      } catch (Exception e) {
         this.successors = new ArrayList<>();
       }
     }
@@ -354,7 +354,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   @Override
-  public boolean equals(Object o) {
-    return o instanceof AffiliationVOPresentation && compareTo((AffiliationVOPresentation) o) == 0;
+  public boolean equals(Object obj) {
+    return obj instanceof AffiliationVOPresentation && 0 == compareTo((AffiliationVOPresentation) obj);
   }
 }

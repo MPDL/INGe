@@ -113,16 +113,16 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public List<String> getControlledVocabs() {
-    final List<String> vocabs = new ArrayList<>();
+    List<String> vocabs = new ArrayList<>();
     try {
-      final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
+      String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
       if (null != vocabsStr && !vocabsStr.trim().isEmpty()) {
-        final String[] vocabsArr = vocabsStr.split(";");
+        String[] vocabsArr = vocabsStr.split(";");
         for (String s : vocabsArr) {
           vocabs.add(s.trim());
         }
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Could not read Property: '" + PropertyReader.INGE_CONE_SUBJECTVOCAB + "'", e);
     }
     return vocabs;
@@ -174,12 +174,12 @@ public class BrowseBySessionBean extends FacesBean {
       this.showChars = "persons".equals(this.selectedValue);
 
       if (false == this.showChars) {
-        final List<LinkVO> all = this.getConeAll();
+        List<LinkVO> all = this.getConeAll();
         this.showChars = (all.size() > this.getMaxDisplay());
       }
 
       if (this.showChars) {
-        final SortedSet<Character> characters = new TreeSet<>();
+        SortedSet<Character> characters = new TreeSet<>();
 
         for (int i = 0; i < BrowseBySessionBean.CHARACTERS.length; i++) {
           characters.add(BrowseBySessionBean.CHARACTERS[i]);
@@ -188,7 +188,7 @@ public class BrowseBySessionBean extends FacesBean {
         this.characters = new String[characters.size()];
         int counter = 0;
 
-        for (final Character character : characters) {
+        for (Character character : characters) {
           this.characters[counter] = character.toString();
           counter++;
         }
@@ -202,14 +202,14 @@ public class BrowseBySessionBean extends FacesBean {
    * @return
    */
   public List<LinkVO> getConeAll() {
-    final List<LinkVO> links = new ArrayList<>();
+    List<LinkVO> links = new ArrayList<>();
 
     try {
-      final URL coneUrl =
+      URL coneUrl =
           new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + this.selectedValue + "/all?format=options&lang=en");
-      final URLConnection conn = coneUrl.openConnection();
-      final HttpURLConnection httpConn = (HttpURLConnection) conn;
-      final int responseCode = httpConn.getResponseCode();
+      URLConnection conn = coneUrl.openConnection();
+      HttpURLConnection httpConn = (HttpURLConnection) conn;
+      int responseCode = httpConn.getResponseCode();
 
       switch (responseCode) {
         case 200:
@@ -220,20 +220,20 @@ public class BrowseBySessionBean extends FacesBean {
               "An error occurred while calling Cone Service: " + responseCode + ": " + httpConn.getResponseMessage());
       }
 
-      final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
-      final BufferedReader bReader = new BufferedReader(isReader);
+      InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), StandardCharsets.UTF_8);
+      BufferedReader bReader = new BufferedReader(isReader);
       String line = "";
       while (null != (line = bReader.readLine())) {
-        final String[] parts = line.split("\\|");
+        String[] parts = line.split("\\|");
         if (2 == parts.length) {
-          final LinkVO link = new LinkVO(parts[1], parts[1]);
+          LinkVO link = new LinkVO(parts[1], parts[1]);
           links.add(link);
         }
       }
 
       isReader.close();
       httpConn.disconnect();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.warn("An error occurred while calling the Cone service.", e);
       return null;
     }
@@ -295,7 +295,7 @@ public class BrowseBySessionBean extends FacesBean {
   public void setYearPublished() {
     try {
       fillDateMap(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("An error occurred while calling setYearPublished.", e);
     }
   }
@@ -305,7 +305,7 @@ public class BrowseBySessionBean extends FacesBean {
       fillDateMap(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
           PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED,
           PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("An error occurred while calling setYearStartAny.", e);
     }
   }

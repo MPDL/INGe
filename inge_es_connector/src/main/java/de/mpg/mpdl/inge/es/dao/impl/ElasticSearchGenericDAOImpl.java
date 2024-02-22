@@ -461,7 +461,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       } catch (ElasticsearchException e) {
       }
 
-      final String finalIndexName = realIndexName;
+      String finalIndexName = realIndexName;
 
       GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(finalIndexName));
 

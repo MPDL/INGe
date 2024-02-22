@@ -5,15 +5,15 @@ public class DataacquisitionException extends Exception {
 
   public DataacquisitionException() {}
 
-  public DataacquisitionException(final String message, final Throwable cause) {
+  public DataacquisitionException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public DataacquisitionException(final String message) {
+  public DataacquisitionException(String message) {
     super(message);
   }
 
-  public DataacquisitionException(final Throwable cause) {
+  public DataacquisitionException(Throwable cause) {
     super(cause);
   }
 }

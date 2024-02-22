@@ -40,7 +40,7 @@ public class FacesTools {
 
   @SuppressWarnings("unchecked")
   public static <T> T findBean(String beanName) {
-    final FacesContext context = FacesContext.getCurrentInstance();
+    FacesContext context = FacesContext.getCurrentInstance();
 
     return (T) context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", Object.class);
   }
@@ -61,10 +61,10 @@ public class FacesTools {
     return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
   }
 
-  public static UIComponent findComponent(final String id) {
+  public static UIComponent findComponent(String id) {
     FacesContext context = FacesContext.getCurrentInstance();
     UIViewRoot root = context.getViewRoot();
-    final UIComponent[] found = new UIComponent[1];
+    UIComponent[] found = new UIComponent[1];
 
     root.visitTree(VisitContext.createVisitContext(context), (context1, component) -> {
       if (component.getId().equals(id)) {

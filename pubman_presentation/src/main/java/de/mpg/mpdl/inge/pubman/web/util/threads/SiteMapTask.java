@@ -127,10 +127,10 @@ public class SiteMapTask {
       new File(SiteMapTask.SITEMAP_PATH).mkdir();
 
       if (1 == this.files.size()) {
-        final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
+        File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
         try {
           finalFile.delete();
-        } catch (final Exception e) {
+        } catch (Exception e) {
           // Unable to delete file, it probably didn't exist
         }
         this.fileWriter = new FileWriter(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
@@ -138,10 +138,10 @@ public class SiteMapTask {
         // File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
         this.copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length(), true);
       } else {
-        final String currentDate = dateFormat.format(new Date());
+        String currentDate = dateFormat.format(new Date());
 
-        final File indexFile = File.createTempFile("sitemap", ".xml");
-        final FileWriter indexFileWriter = new FileWriter(indexFile);
+        File indexFile = File.createTempFile("sitemap", ".xml");
+        FileWriter indexFileWriter = new FileWriter(indexFile);
 
         indexFileWriter
             .write("""
@@ -150,10 +150,10 @@ public class SiteMapTask {
                 """);
 
         for (int i = 0; i < this.files.size(); i++) {
-          final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
+          File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
           try {
             finalFile.delete();
-          } catch (final Exception e) {
+          } catch (Exception e) {
             // Unable to delete file, it probably didn't exist
           }
           this.copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
@@ -167,19 +167,19 @@ public class SiteMapTask {
         indexFileWriter.flush();
         indexFileWriter.close();
 
-        final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
+        File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
         logger.info("Sitemap file: " + finalFile.getAbsolutePath());
         try {
           finalFile.delete();
-        } catch (final Exception e) {
+        } catch (Exception e) {
           // Unable to delete file, it probably didn't exist
         }
-        final boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
+        boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
         logger.debug("Renaming succeeded: " + success);
       }
 
       logger.info("CRON: Finished creating Sitemap.");
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error creating Sitemap", e);
     }
 
@@ -196,7 +196,7 @@ public class SiteMapTask {
         throw new IOException("Cannot overwrite existing file: " + dest.getName());
       }
     }
-    final byte[] buffer = new byte[bufSize];
+    byte[] buffer = new byte[bufSize];
     int read = 0;
     InputStream in = null;
     OutputStream out = null;
@@ -264,7 +264,7 @@ public class SiteMapTask {
 
         totalRecords = resp.hits().total().value();
 
-        for (final Hit<ObjectNode> result : resp.hits().hits()) {
+        for (Hit<ObjectNode> result : resp.hits().hits()) {
 
           //Map<String, Object> sourceMap = result.getSourceAsMap();
           ObjectNode root = result.source();
@@ -300,7 +300,7 @@ public class SiteMapTask {
 
 
 
-          } catch (final Exception e) {
+          } catch (Exception e) {
             logger.error("Error", e);
           }
 
@@ -311,7 +311,7 @@ public class SiteMapTask {
 
 
 
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error(
             "Error while creating sitemap part for items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve),
             e);
@@ -329,12 +329,12 @@ public class SiteMapTask {
         this.finishSitemap();
       }
 
-      final File file = File.createTempFile("sitemap", ".xml");
+      File file = File.createTempFile("sitemap", ".xml");
       this.fileWriter = new FileWriter(file);
       this.files.add(file);
 
       this.startSitemap();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error creating sitemap file.", e);
     }
   }
@@ -346,7 +346,7 @@ public class SiteMapTask {
           <?xml version="1.0" encoding="UTF-8"?>
           <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
           """);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -356,7 +356,7 @@ public class SiteMapTask {
       this.fileWriter.write("</urlset>");
       this.fileWriter.flush();
       this.fileWriter.close();
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error", e);
     }
   }

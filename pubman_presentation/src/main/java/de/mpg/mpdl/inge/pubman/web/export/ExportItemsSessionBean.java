@@ -89,7 +89,7 @@ public class ExportItemsSessionBean extends FacesBean {
       this.emailWithAuthProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_WITHAUTHENTICATION);
       this.emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
       this.emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.warn("Propertyfile not readable for emailserver  properties'");
     }
   }

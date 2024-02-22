@@ -75,16 +75,16 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
   }
 
   @Override
-  public void setConfiguration(Map<String, String> config) {
+  public void setConfiguration(Map<String, String> configuration) {
     for (ChainableTransformer t : this.transformerChain) {
-      t.setConfiguration(config);
+      t.setConfiguration(configuration);
     }
   }
 
   @Override
-  public void mergeConfiguration(Map<String, String> config) {
+  public void mergeConfiguration(Map<String, String> givenConfiguration) {
     for (ChainableTransformer t : this.transformerChain) {
-      t.mergeConfiguration(config);
+      t.mergeConfiguration(givenConfiguration);
     }
   }
 

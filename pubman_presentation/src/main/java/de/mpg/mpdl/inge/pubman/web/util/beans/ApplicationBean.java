@@ -165,7 +165,7 @@ public class ApplicationBean extends FacesBean {
    * @return the URL
    */
   private String buildPubmanStyleTags() throws PubManStylesheetNotAvailableException {
-    final StringBuilder styleTags = new StringBuilder();
+    StringBuilder styleTags = new StringBuilder();
     //    String StylesheetStandard = "";
     //    String StylesheetContrast = "";
     //    String StylesheetClassic = "";
@@ -237,7 +237,7 @@ public class ApplicationBean extends FacesBean {
       //      }
       stylesheet = "<link href=\"" + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL)
           + "\" type=\"text/css\" rel=\"stylesheet\"/>";
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new PubManStylesheetNotAvailableException(e);
     }
 
@@ -267,7 +267,7 @@ public class ApplicationBean extends FacesBean {
    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
    */
   public SystemType getSystemTypeFromProperty() throws PubManVersionNotAvailableException {
-    final String sysType = PropertyReader.getProperty(PropertyReader.INGE_SYSTEMTYPE);
+    String sysType = PropertyReader.getProperty(PropertyReader.INGE_SYSTEMTYPE);
 
     return switch (sysType) {
       case "workstation" -> SystemType.Workstation;
@@ -449,7 +449,7 @@ public class ApplicationBean extends FacesBean {
 
       try {
         this.pubmanStyleTags = this.buildPubmanStyleTags();
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("Error while building style tags", e);
       }
 
@@ -471,12 +471,12 @@ public class ApplicationBean extends FacesBean {
 
       this.pidHandleActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_ACTIVATED));
 
-      final String footerFileName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FOOTER_FILENAME);
+      String footerFileName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FOOTER_FILENAME);
       try {
         if (null != footerFileName && !footerFileName.isEmpty()) {
           this.footerSnippet = ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
         }
-      } catch (final Exception e) {
+      } catch (Exception e) {
         logger.error("Error while reading footer file: " + footerFileName);
       }
 
@@ -485,7 +485,7 @@ public class ApplicationBean extends FacesBean {
       this.pubmanRootAuthorsIcon = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_AUTHORS_ICON);
 
       this.pubmanRootOrganizationName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_NAME);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error while reading properties", e);
     }
   }

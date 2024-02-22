@@ -46,16 +46,16 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
     boolean errorPers = false;
     boolean errorPersOrg = false;
 
-    for (final CreatorVO creatorVO : creators) {
+    for (CreatorVO creatorVO : creators) {
 
       if (null != creatorVO) {
 
-        final CreatorVO.CreatorType type = creatorVO.getType();
+        CreatorVO.CreatorType type = creatorVO.getType();
         switch (type) {
 
           case ORGANIZATION:
 
-            final OrganizationVO o = creatorVO.getOrganization();
+            OrganizationVO o = creatorVO.getOrganization();
             if (null != o && ValidationTools.isNotEmpty(o.getName())) {
               ok = true;
             } else {
@@ -66,16 +66,16 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
 
           case PERSON:
 
-            final PersonVO p = creatorVO.getPerson();
+            PersonVO p = creatorVO.getPerson();
             if (null == p || ValidationTools.isEmpty(p.getFamilyName())) {
               errorPers = true;
             }
 
             if (null != p) {
               boolean personOrgsOk = true;
-              final List<OrganizationVO> orgs = p.getOrganizations();
+              List<OrganizationVO> orgs = p.getOrganizations();
               if (ValidationTools.isNotEmpty(orgs)) {
-                for (final OrganizationVO organizationVO : orgs) {
+                for (OrganizationVO organizationVO : orgs) {
                   if (null != organizationVO && ValidationTools.isNotEmpty(organizationVO.getName())) {
                     ok = true;
                   } else {

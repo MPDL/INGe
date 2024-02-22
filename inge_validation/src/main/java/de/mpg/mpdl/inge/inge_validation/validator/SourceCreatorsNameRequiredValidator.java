@@ -24,12 +24,12 @@ public class SourceCreatorsNameRequiredValidator extends ValidatorHandler<List<S
     if (ValidationTools.isNotEmpty(sources)) {
 
       int i = 1;
-      for (final SourceVO sourceVO : sources) {
+      for (SourceVO sourceVO : sources) {
 
         if (null != sourceVO) {
 
           int j = 1;
-          for (final CreatorVO creatorVO : sourceVO.getCreators()) {
+          for (CreatorVO creatorVO : sourceVO.getCreators()) {
 
             if (null != creatorVO) {
 
@@ -51,7 +51,7 @@ public class SourceCreatorsNameRequiredValidator extends ValidatorHandler<List<S
 
                 case PERSON:
 
-                  final PersonVO p = creatorVO.getPerson();
+                  PersonVO p = creatorVO.getPerson();
                   if (null != p) {
                     if (ValidationTools.isEmpty(p.getFamilyName())) { //
                       context.addError(ValidationError.create(ErrorMessages.NO_SOURCE_CREATOR_FAMILY_NAME)
@@ -61,12 +61,12 @@ public class SourceCreatorsNameRequiredValidator extends ValidatorHandler<List<S
                   }
 
                   if (null != p) {
-                    final List<OrganizationVO> orgs = p.getOrganizations();
+                    List<OrganizationVO> orgs = p.getOrganizations();
 
                     if (ValidationTools.isNotEmpty(orgs)) {
 
                       int z = 1;
-                      for (final OrganizationVO organizationVO : orgs) {
+                      for (OrganizationVO organizationVO : orgs) {
 
                         if (null != organizationVO) {
                           if (ValidationTools.isEmpty(organizationVO.getName()) //

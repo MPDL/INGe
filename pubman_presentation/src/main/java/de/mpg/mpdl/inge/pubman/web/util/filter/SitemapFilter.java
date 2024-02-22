@@ -25,10 +25,10 @@ public class SitemapFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     if ((request instanceof HttpServletRequest req) && (response instanceof HttpServletResponse resp)) {
-      final String filename = req.getServletPath();
+      String filename = req.getServletPath();
 
       if (null != filename && filename.matches("^/sitemap\\d*\\.xml$")) {
-        final File sitemapFile = new File(SiteMapTask.SITEMAP_PATH + filename);
+        File sitemapFile = new File(SiteMapTask.SITEMAP_PATH + filename);
 
         if (!sitemapFile.exists()) {
           resp.sendError(HttpStatus.SC_NOT_FOUND);
@@ -37,9 +37,9 @@ public class SitemapFilter implements Filter {
           resp.setContentType("text/xml");
           resp.setContentLength((int) sitemapFile.length());
 
-          final OutputStream out = resp.getOutputStream();
-          final BufferedInputStream in = new BufferedInputStream(new FileInputStream(sitemapFile));
-          final byte[] buffer = new byte[8 * 1024];
+          OutputStream out = resp.getOutputStream();
+          BufferedInputStream in = new BufferedInputStream(new FileInputStream(sitemapFile));
+          byte[] buffer = new byte[8 * 1024];
           int count;
           while (-1 != (count = in.read(buffer))) {
             out.write(buffer, 0, count);

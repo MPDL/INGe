@@ -57,7 +57,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
   @Override
   public void parseQueryStringContent(String content) {
     // Split by '||', which have no backslash before
-    final String[] dateParts = content.split("(?<!\\\\)\\|");
+    String[] dateParts = content.split("(?<!\\\\)\\|");
     this.from = SearchCriterionBase.unescapeForQueryString(dateParts[0]);
     if (1 < dateParts.length) {
       this.to = SearchCriterionBase.unescapeForQueryString(dateParts[1]);

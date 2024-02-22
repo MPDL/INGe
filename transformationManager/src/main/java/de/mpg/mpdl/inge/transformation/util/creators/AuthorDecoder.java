@@ -126,7 +126,7 @@ public class AuthorDecoder {
 
     logger.debug("Testing '" + authors + "'");
 
-    // remove "et al." from the authorsString
+    // remove "et al." from the authorString
     if (authors.contains("et al.")) {
       authors = authors.substring(0, authors.indexOf("et al.")).trim();
     }

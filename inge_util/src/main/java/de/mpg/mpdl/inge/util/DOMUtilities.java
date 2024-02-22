@@ -60,7 +60,7 @@ public class DOMUtilities {
    * @return DocumentBuilder
    * @throws ParserConfigurationException
    */
-  private static DocumentBuilder createDocumentBuilder(final boolean namespaceAwareness) throws ParserConfigurationException {
+  private static DocumentBuilder createDocumentBuilder(boolean namespaceAwareness) throws ParserConfigurationException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
     dbf.setIgnoringComments(true);
@@ -75,7 +75,7 @@ public class DOMUtilities {
    * @return org.w3c.dom.Document
    * @throws ParserConfigurationException
    */
-  private static Document createDocument(final boolean namespaceAwareness) throws ParserConfigurationException {
+  private static Document createDocument(boolean namespaceAwareness) throws ParserConfigurationException {
     return createDocumentBuilder(namespaceAwareness).newDocument();
   }
 
@@ -115,7 +115,7 @@ public class DOMUtilities {
    * @throws SAXException
    * @throws Exception If anything fails.
    */
-  public static Document createDocument(final String xml, final boolean namespaceAwareness)
+  public static Document createDocument(String xml, boolean namespaceAwareness)
       throws ParserConfigurationException, UnsupportedEncodingException, IOException, SAXException {
     return createDocumentBuilder(namespaceAwareness).parse(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)), "UTF-8");
   }
@@ -246,7 +246,7 @@ public class DOMUtilities {
    * @return The child of the node selected by the xPath
    *
    */
-  public static Node selectSingleNode(final Node node, final String xpathExpression) {
+  public static Node selectSingleNode(Node node, String xpathExpression) {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
     try {
@@ -263,7 +263,7 @@ public class DOMUtilities {
    * @param xpathExpression The xPath.
    * @return The list of children of the node selected by the xPath.
    */
-  public static NodeList selectNodeList(final Node node, final String xpathExpression) {
+  public static NodeList selectNodeList(Node node, String xpathExpression) {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
     try {
@@ -338,7 +338,7 @@ public class DOMUtilities {
    * @return The String representation of the Xml Node.
    * @throws Exception If anything fails.
    */
-  protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception {
+  protected static String toString(Node xml, boolean omitXMLDeclaration) throws Exception {
     if (null == xml) {
       throw new IllegalArgumentException("toString:xml is null");
     }

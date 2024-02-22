@@ -73,7 +73,7 @@ public class ListItem {
   }
 
   public String getAlternativeValue() throws Exception {
-    final String locale = this.i18nHelper.getLocale();
+    String locale = this.i18nHelper.getLocale();
 
     return CommonUtils.getConeLanguageName(this.value, locale);
   }
@@ -89,7 +89,7 @@ public class ListItem {
 
   public void addItem() {
     this.stringList.add(this.index + 1, "");
-    final ListItem item = new ListItem();
+    ListItem item = new ListItem();
     item.value = "";
     item.index = this.index + 1;
     item.stringList = this.stringList;

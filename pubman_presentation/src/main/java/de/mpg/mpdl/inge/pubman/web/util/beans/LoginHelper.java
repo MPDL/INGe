@@ -154,14 +154,14 @@ public class LoginHelper extends FacesBean {
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
         if (GrantUtil.hasRole(this.accountUser, GrantVO.PredefinedRoles.DEPOSITOR)) {
-          final DepositorWSSessionBean depWSSessionBean = FacesTools.findBean("DepositorWSSessionBean");
+          DepositorWSSessionBean depWSSessionBean = FacesTools.findBean("DepositorWSSessionBean");
           // enable the depositor links if necessary
           depWSSessionBean.setMyWorkspace(true);
           depWSSessionBean.setDepositorWS(true);
           depWSSessionBean.setNewSubmission(true);
         }
       }
-    } catch (final AuthenticationException e) {
+    } catch (AuthenticationException e) {
       logger.error("Error while logging in", e);
       if (e.getMessage().contains("blocked")) {
         this.error(this.getMessage("LoginBlocked"));
@@ -172,7 +172,7 @@ public class LoginHelper extends FacesBean {
       } else {
         this.error(this.getMessage("LoginError"));
       }
-    } catch (final Exception e) {
+    } catch (Exception e) {
       logger.error("Error while logging in", e);
       this.error(this.getMessage("LoginTechnicalError"));
     }
@@ -192,7 +192,7 @@ public class LoginHelper extends FacesBean {
       logger.error("Error while logging out", e);
     }
 
-    final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
+    HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
     session.invalidate();
     logger.info("Session invalidated: " + this.username);
 
@@ -314,7 +314,7 @@ public class LoginHelper extends FacesBean {
     if (null == this.userAccountAffiliations) {
       this.userAccountAffiliations = new ArrayList<>();
       if (null != this.accountUser.getAffiliation()) {
-        final AffiliationDbVO orgUnit =
+        AffiliationDbVO orgUnit =
             ApplicationBean.INSTANCE.getOrganizationService().get(this.accountUser.getAffiliation().getObjectId(), null);
         this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
       }

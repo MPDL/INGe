@@ -58,17 +58,17 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ContextDbVO open(String id, Date modificationDate, String authenticationToken)
+  public ContextDbVO open(String contextId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.OPENED);
+    return changeState(contextId, modificationDate, authenticationToken, ContextDbVO.State.OPENED);
   }
 
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ContextDbVO close(String id, Date modificationDate, String authenticationToken)
+  public ContextDbVO close(String contextId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.CLOSED);
+    return changeState(contextId, modificationDate, authenticationToken, ContextDbVO.State.CLOSED);
   }
 
   private ContextDbVO changeState(String id, Date modificationDate, String authenticationToken, ContextDbVO.State state)

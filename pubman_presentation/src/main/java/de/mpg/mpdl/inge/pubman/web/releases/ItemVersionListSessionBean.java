@@ -61,13 +61,13 @@ public class ItemVersionListSessionBean extends FacesBean {
     this.releaseList = new ArrayList<>();
     this.eventLogList = new ArrayList<>();
 
-    for (final VersionHistoryEntryVO vEntry : vList) {
+    for (VersionHistoryEntryVO vEntry : vList) {
       this.versionList.add(new VersionHistoryVOPresentation(vEntry));
     }
 
-    for (final VersionHistoryVOPresentation vEntry : this.versionList) {
-      final List<EventLogEntryVO> eventList = vEntry.getEvents();
-      for (final EventLogEntryVO eEntry : eventList) {
+    for (VersionHistoryVOPresentation vEntry : this.versionList) {
+      List<EventLogEntryVO> eventList = vEntry.getEvents();
+      for (EventLogEntryVO eEntry : eventList) {
         if (EventLogEntryVO.EventType.RELEASE.equals(eEntry.getType())) {
           this.releaseList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
         }

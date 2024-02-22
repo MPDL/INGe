@@ -581,19 +581,19 @@ public class ModelList {
     /**
      * Compares to other objects.
      *
-     * @param object The object this object is compared to
+     * @param obj The object this object is compared to
      * @return true, if the other object is a with the same name.
      */
     @Override
-    public boolean equals(Object object) {
-      if (null == object) {
+    public boolean equals(Object obj) {
+      if (null == obj) {
         return false;
       }
-      if (object instanceof Model) {
-        if (null == ((Model) object).name) {
+      if (obj instanceof Model) {
+        if (null == ((Model) obj).name) {
           return (null == this.name);
         } else {
-          return (((Model) object).name.equals(this.name));
+          return (((Model) obj).name.equals(this.name));
         }
       }
       return false;

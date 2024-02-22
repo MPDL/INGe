@@ -32,7 +32,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
       if (ValidationTools.isNotEmpty(languages)) {
 
-        final Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
+        Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
 
         if (ValidationTools.isEmpty(iso639_3_IdentifierSet)) {
           context.addErrorMsg(ErrorMessages.CONE_EMPTY_LANGUAGE_CODE);
@@ -40,7 +40,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
         }
 
         int i = 1;
-        for (final String language : languages) {
+        for (String language : languages) {
 
           if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))
               && !iso639_3_IdentifierSet.contains(language)) {

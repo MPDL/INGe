@@ -51,8 +51,8 @@ public class IdentifierSuggest {
 
   public IdentifierSuggest() {
     // Get query from URL parameters
-    final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
-    final String query = parameters.get("q");
+    Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
+    String query = parameters.get("q");
 
     // Perform search request
     if (null != query) {

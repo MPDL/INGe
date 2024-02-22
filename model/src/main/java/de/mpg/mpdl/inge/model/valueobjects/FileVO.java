@@ -180,7 +180,7 @@ public class FileVO extends ValueObject implements Cloneable {
     this.checksumAlgorithm = other.checksumAlgorithm;
   }
 
-  public FileVO clone()
+  public final FileVO clone()
   {
     return new FileVO(this);
   }

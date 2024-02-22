@@ -30,7 +30,7 @@ public class IdTypeRequiredAndFormatValidator extends ValidatorHandler<List<Iden
     if (ValidationTools.isNotEmpty(identifiers)) {
 
       int i = 1;
-      for (final IdentifierVO identifierVO : identifiers) {
+      for (IdentifierVO identifierVO : identifiers) {
 
         if (null != identifierVO) {
           if (ValidationTools.isNotEmpty(identifierVO.getId())) //

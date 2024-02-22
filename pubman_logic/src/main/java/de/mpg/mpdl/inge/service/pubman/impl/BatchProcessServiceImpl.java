@@ -67,7 +67,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO addKeywords(List<String> itemIds, String keywords, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doKeywords(BatchProcessLogHeaderDbVO.Method.ADD_KEYWORDS, itemIds, keywords, token);
   }
@@ -144,7 +144,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   @Override
   public BatchProcessLogHeaderDbVO changeExternalReferenceContentCategory(List<String> itemIds, String externalReferenceContentCategoryFrom,
       String externalReferenceContentCategoryTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doChangeContentCategory(BatchProcessLogHeaderDbVO.Method.CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, itemIds,
         externalReferenceContentCategoryFrom, externalReferenceContentCategoryTo, token);
@@ -152,8 +152,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO changeFileContentCategory(List<String> itemIds, String fileContentCategoryFrom,
-      String fileContentCategoryTo, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      String fileContentCategoryTo, String token) throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doChangeContentCategory(BatchProcessLogHeaderDbVO.Method.CHANGE_FILE_CONTENT_CATEGORY, itemIds, fileContentCategoryFrom,
         fileContentCategoryTo, token);
@@ -351,7 +350,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO deletePubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doPubItems(BatchProcessLogHeaderDbVO.Method.DELETE_PUBITEMS, itemIds, token);
   }
@@ -406,7 +405,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO releasePubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doPubItems(BatchProcessLogHeaderDbVO.Method.RELEASE_PUBITEMS, itemIds, token);
   }
@@ -434,7 +433,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO replaceKeywords(List<String> itemIds, String keywords, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doKeywords(BatchProcessLogHeaderDbVO.Method.REPLACE_KEYWORDS, itemIds, keywords, token);
   }
@@ -487,21 +486,21 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO revisePubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doPubItems(BatchProcessLogHeaderDbVO.Method.REVISE_PUBITEMS, itemIds, token);
   }
 
   @Override
   public BatchProcessLogHeaderDbVO submitPubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doPubItems(BatchProcessLogHeaderDbVO.Method.SUBMIT_PUBITEMS, itemIds, token);
   }
 
   @Override
   public BatchProcessLogHeaderDbVO withdrawPubItems(List<String> itemIds, String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     return doPubItems(BatchProcessLogHeaderDbVO.Method.WITHDRAW_PUBITEMS, itemIds, token);
   }

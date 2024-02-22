@@ -103,7 +103,7 @@ public class ErrorPage extends BreadcrumbPage {
     // set the attributes of the pageAlert component
 
     this.error(this.summary, this.detail);
-    final HtmlMessages pageAlert = new HtmlMessages();
+    HtmlMessages pageAlert = new HtmlMessages();
     pageAlert.setId(FacesTools.getCurrentInstance().getViewRoot().createUniqueId());
     // pageAlert.setTitle(title);
     // pageAlert.setSummary(summary);
@@ -113,10 +113,10 @@ public class ErrorPage extends BreadcrumbPage {
   }
 
   public String getStackTrace() {
-    final StringBuilder buffer = new StringBuilder();
+    StringBuilder buffer = new StringBuilder();
     if (null != this.exception) {
-      final StackTraceElement[] stackTrace = this.exception.getStackTrace();
-      for (final StackTraceElement stackTraceElement : stackTrace) {
+      StackTraceElement[] stackTrace = this.exception.getStackTrace();
+      for (StackTraceElement stackTraceElement : stackTrace) {
         buffer.append(" at ");
         buffer.append(stackTraceElement.getClassName());
         buffer.append(" (");

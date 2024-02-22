@@ -69,7 +69,7 @@ public class ImportWorkspace extends BreadcrumbPage {
    * @return A representation of the element that is used for storing in a database
    */
   public String toSQL() {
-    final String value = super.toString();
+    String value = super.toString();
     return value.replace("ENDING", "").toLowerCase();
   }}
 
@@ -86,17 +86,17 @@ public class ImportWorkspace extends BreadcrumbPage {
     ImportWorkspace.SortDirection currentDirection = null;
     ImportWorkspace.SortColumn newColumn = null;
 
-    final String sortColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
+    String sortColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
     if (null != sortColumnString && !sortColumnString.isEmpty()) {
       newColumn = ImportWorkspace.SortColumn.valueOf(sortColumnString);
     }
 
-    final String currentColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
+    String currentColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
     if (null != currentColumnString && !currentColumnString.isEmpty()) {
       currentColumn = ImportWorkspace.SortColumn.valueOf(currentColumnString);
     }
 
-    final String currentDirectionString = FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
+    String currentDirectionString = FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
 
     if (null != currentDirectionString && !currentDirectionString.isEmpty()) {
       currentDirection = ImportWorkspace.SortDirection.valueOf(currentDirectionString);
@@ -116,10 +116,10 @@ public class ImportWorkspace extends BreadcrumbPage {
   }
 
   public List<ImportLog> getImports() {
-    final AccountUserDbVO user = this.getLoginHelper().getAccountUser();
+    AccountUserDbVO user = this.getLoginHelper().getAccountUser();
 
     if (null != user) {
-      final Connection connection = DbTools.getNewConnection();
+      Connection connection = DbTools.getNewConnection();
       try {
         return ImportLog.getImportLogs(user, this.sortColumn, this.sortDirection, false, connection);
       } finally {

@@ -7,7 +7,7 @@ import jakarta.faces.convert.Converter;
 
 /**
  * Removes all sub and sup tags from a string, used for browser title
- * 
+ *
  */
 public class HTMLTitleSubSupConverter implements Converter {
   public static final String CONVERTER_ID = "HTMLTitleSubSupConverter";
@@ -21,7 +21,7 @@ public class HTMLTitleSubSupConverter implements Converter {
 
   @Override
   public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {
-    final String snippet = (String) object;
+    String snippet = (String) object;
     return HtmlUtils.removeSubSupIfBalanced(snippet);
   }
 }

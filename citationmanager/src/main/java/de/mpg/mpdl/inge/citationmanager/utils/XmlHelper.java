@@ -169,7 +169,7 @@ public class XmlHelper {
    * @param xmlDocumentUrl is URI to XML to be validated
    * @throws CitationStyleManagerException
    */
-  private String validateSchema(final String schemaUrl, final String xmlDocumentUrl) {
+  private String validateSchema(String schemaUrl, String xmlDocumentUrl) {
     try {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setNamespaceAware(true);
@@ -198,7 +198,7 @@ public class XmlHelper {
     return null;
   }
 
-  public String validateCitationStyleXML(final String cs) throws IOException {
+  public String validateCitationStyleXML(String cs) {
     String csFile = CitationUtil.getPathToCitationStyleXML(cs);
     logger.info("Document to be validated: " + csFile);
 

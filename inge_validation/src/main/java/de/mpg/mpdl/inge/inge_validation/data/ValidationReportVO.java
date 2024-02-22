@@ -15,7 +15,7 @@ public class ValidationReportVO extends ValueObject {
     return this.items;
   }
 
-  public void addItem(final ValidationReportItemVO item) {
+  public void addItem(ValidationReportItemVO item) {
     this.items.add(item);
   }
 

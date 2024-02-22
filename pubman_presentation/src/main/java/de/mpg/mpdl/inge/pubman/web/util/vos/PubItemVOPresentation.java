@@ -151,7 +151,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     this.wrappedLocalTags = new ArrayList<>();
     for (int i = 0; i < this.getObject().getLocalTags().size(); i++) {
-      final WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
+      WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
       wrappedLocalTag.setParent(this);
       wrappedLocalTag.setValue(this.getObject().getLocalTags().get(i));
       if (!wrappedLocalTag.getValue().isEmpty() || this.wrappedLocalTags.isEmpty()) {
@@ -201,7 +201,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.fileBeanList = new ArrayList<>();
     this.locatorBeanList = new ArrayList<>();
 
-    for (final FileDbVO file : this.getFiles()) {
+    for (FileDbVO file : this.getFiles()) {
       // add locators
       if (FileDbVO.Storage.EXTERNAL_URL == file.getStorage()) {
         this.locatorBeanList.add(new FileBean(file, this));
@@ -292,12 +292,12 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getAlternativeTitleTypes() {
-    final ArrayList<SelectItem> selectItemList = new ArrayList<>();
+    ArrayList<SelectItem> selectItemList = new ArrayList<>();
 
     // constants for comboBoxes
     selectItemList.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
 
-    for (final SourceVO.AlternativeTitleType type : SourceVO.AlternativeTitleType.values()) {
+    for (SourceVO.AlternativeTitleType type : SourceVO.AlternativeTitleType.values()) {
       selectItemList.add(new SelectItem(type.toString(), this.getLabel(("ENUM_ALTERNATIVETITLETYPE_" + type))));
     }
 
@@ -329,7 +329,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    */
   public String getCreators() {
     if (null != this.getMetadata()) {
-      final int creatorsNo = this.getMetadata().getCreators().size();
+      int creatorsNo = this.getMetadata().getCreators().size();
       return this.getCreators(creatorsNo);
     }
 
@@ -343,7 +343,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    */
 
   private String getCreators(int creatorMaximum) {
-    final StringBuilder creators = new StringBuilder();
+    StringBuilder creators = new StringBuilder();
     for (int i = 0; i < creatorMaximum; i++) {
       if (null != this.getMetadata()) {
         if (null != this.getMetadata().getCreators().get(i).getPerson()) {
@@ -391,17 +391,17 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * Delivers all creators, which are part of the OU given in the properties
    */
   public List<CreatorVO> getOrganizationsAuthors() {
-    final List<CreatorVO> creators = this.getMetadata().getCreators();
-    final List<CreatorVO> mpgCreators = new ArrayList<>();
-    final String rootOrganization = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_NAME);
+    List<CreatorVO> creators = this.getMetadata().getCreators();
+    List<CreatorVO> mpgCreators = new ArrayList<>();
+    String rootOrganization = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_NAME);
     boolean isPartOfTheOrganization = false;
 
     if (null != rootOrganization && !rootOrganization.isEmpty()) {
-      for (final CreatorVO creator : creators) {
+      for (CreatorVO creator : creators) {
         if (CreatorVO.CreatorType.PERSON.equals(creator.getType()) && null != creator.getPerson().getOrganizations()
             && !CreatorVO.CreatorRole.REFEREE.equals(creator.getRole()) && !CreatorVO.CreatorRole.ADVISOR.equals(creator.getRole())
             && !CreatorVO.CreatorRole.HONOREE.equals(creator.getRole())) {
-          for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
+          for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
             if (organization.getName().contains(rootOrganization)) {
               isPartOfTheOrganization = true;
               break;
@@ -424,7 +424,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * Delivers all creators
    */
   public List<CreatorVO> getAllAuthors() {
-    final List<CreatorVO> creators = this.getMetadata().getCreators();
+    List<CreatorVO> creators = this.getMetadata().getCreators();
     return creators;
   }
 
@@ -468,7 +468,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return "";
     }
 
-    final ArrayList<String> dates = new ArrayList<>();
+    ArrayList<String> dates = new ArrayList<>();
 
     if (null != this.getMetadata().getDateCreated() && !this.getMetadata().getDateCreated().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDateCreated") + ": " + this.getMetadata().getDateCreated());
@@ -492,7 +492,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     String allDates = "";
 
-    for (final String date : dates) {
+    for (String date : dates) {
       allDates = allDates + date + " | ";
     }
 
@@ -557,7 +557,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return "";
     }
 
-    final StringBuilder startEndPage = new StringBuilder();
+    StringBuilder startEndPage = new StringBuilder();
     if (null != this.firstSource.getStartPage()) {
       startEndPage.append(this.firstSource.getStartPage());
     }
@@ -576,7 +576,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return pid (String) the object PID without leading "hdl:"
    */
   public String getObjectPidWithoutPrefix() {
-    final String pid = this.getVersionPid();
+    String pid = this.getVersionPid();
     if (pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
       return pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
@@ -594,7 +594,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return "";
     }
 
-    final StringBuilder publishingInfo = new StringBuilder();
+    StringBuilder publishingInfo = new StringBuilder();
 
     // Place
     if (null != this.getMetadata().getPublishingInfo().getPlace()) {
@@ -642,7 +642,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return "";
     }
 
-    final StringBuilder publishingInfoSource = new StringBuilder();
+    StringBuilder publishingInfoSource = new StringBuilder();
 
     if (null != this.firstSource.getPublishingInfo()) {
       // Place
@@ -777,7 +777,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return "";
     }
 
-    final StringBuilder files = new StringBuilder();
+    StringBuilder files = new StringBuilder();
     files.append(this.getFileList().size());
 
     // if there is only 1 file, display "File attached", otherwise display "Files attached" (plural)
@@ -801,7 +801,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return "";
     }
 
-    final StringBuilder locators = new StringBuilder();
+    StringBuilder locators = new StringBuilder();
     locators.append(this.getLocatorList().size());
 
     // if there is only 1 locator, display "Locator", otherwise display "Locators" (plural)
@@ -956,7 +956,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   public void writeBackLocalTags() {
     this.getObject().getLocalTags().clear();
-    for (final WrappedLocalTag wrappedLocalTag : this.wrappedLocalTags) {
+    for (WrappedLocalTag wrappedLocalTag : this.wrappedLocalTags) {
       this.getObject().getLocalTags().add(wrappedLocalTag.getValue());
     }
   }
@@ -1166,8 +1166,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public String getIdentifier() {
-    final String id = this.getLink();
-    final String[] idSplit = id.split("/");
+    String id = this.getLink();
+    String[] idSplit = id.split("/");
 
     return idSplit[idSplit.length - 1];
   }
@@ -1189,9 +1189,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public List<FileBean> getFulltextFileBeanList() {
-    final List<FileBean> fulltexts = new ArrayList<>();
+    List<FileBean> fulltexts = new ArrayList<>();
     if (null != this.fileBeanList) {
-      for (final FileBean file : this.fileBeanList) {
+      for (FileBean file : this.fileBeanList) {
         if ("any-fulltext".equals(file.getContentCategory())) {
           fulltexts.add(file);
         }
@@ -1202,9 +1202,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public List<FileBean> getPubliclyAccessibleFulltextFileBeanList() {
-    final List<FileBean> fulltexts = new ArrayList<>();
+    List<FileBean> fulltexts = new ArrayList<>();
     if (null != this.fileBeanList) {
-      for (final FileBean file : this.fileBeanList) {
+      for (FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
             && ("any-fulltext".equals(file.getContentCategory()) || "pre-print".equals(file.getContentCategory())
                 || "post-print".equals(file.getContentCategory()) || "publisher-version".equals(file.getContentCategory()))) {
@@ -1217,9 +1217,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public List<FileBean> getSupplementaryMaterialFileBeanList() {
-    final List<FileBean> supplementaryMaterial = new ArrayList<>();
+    List<FileBean> supplementaryMaterial = new ArrayList<>();
     if (null != this.fileBeanList) {
-      for (final FileBean file : this.fileBeanList) {
+      for (FileBean file : this.fileBeanList) {
         if ("supplementary-material".equals(file.getContentCategory()) || "multimedia".equals(file.getContentCategory())
             || "research-data".equals(file.getContentCategory()) || "code".equals(file.getContentCategory())) {
           supplementaryMaterial.add(file);
@@ -1231,9 +1231,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public List<FileBean> getRestrictedAccessibleFulltextFileBeanList() {
-    final List<FileBean> fulltexts = new ArrayList<>();
+    List<FileBean> fulltexts = new ArrayList<>();
     if (null != this.fileBeanList) {
-      for (final FileBean file : this.fileBeanList) {
+      for (FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.AUDIENCE.equals(file.getFile().getVisibility())
             && ("any-fulltext".equals(file.getContentCategory()) || "pre-print".equals(file.getContentCategory())
                 || "post-print".equals(file.getContentCategory()) || "publisher-version".equals(file.getContentCategory()))) {
@@ -1248,9 +1248,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public List<FileBean> getPubliclyAccessibleSupplementaryMaterialFileBeanList() {
-    final List<FileBean> supplementaryMaterial = new ArrayList<>();
+    List<FileBean> supplementaryMaterial = new ArrayList<>();
     if (null != this.fileBeanList) {
-      for (final FileBean file : this.fileBeanList) {
+      for (FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
             && ("supplementary-material".equals(file.getContentCategory()) || "multimedia".equals(file.getContentCategory())
                 || "research-data".equals(file.getContentCategory()) || "code".equals(file.getContentCategory()))) {
@@ -1271,7 +1271,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public String getDescriptionMetaTag() {
-    final List<CreatorVO> creators = this.getMetadata().getCreators();
+    List<CreatorVO> creators = this.getMetadata().getCreators();
 
     if (!creators.isEmpty()) {
       this.descriptionMetaTag = this.getLabel("ENUM_CREATORROLE_" + creators.get(0).getRoleString()) + ": ";
@@ -1303,7 +1303,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     // add open access component
     if (null != this.fileBeanList && !this.fileBeanList.isEmpty()) {
-      for (final FileBean file : this.fileBeanList) {
+      for (FileBean file : this.fileBeanList) {
         if (true == file.getIsVisible()) {
           this.descriptionMetaTag += "; Open Access";
           break;

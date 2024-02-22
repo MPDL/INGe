@@ -31,19 +31,19 @@ public class CreatorsOrganizationsNameRequiredValidator extends ValidatorHandler
     if (ValidationTools.isNotEmpty(creators)) {
 
       int i = 1;
-      for (final CreatorVO creatorVO : creators) {
+      for (CreatorVO creatorVO : creators) {
 
         if (null != creatorVO && CreatorVO.CreatorType.PERSON.equals(creatorVO.getType())) {
 
-          final PersonVO p = creatorVO.getPerson();
+          PersonVO p = creatorVO.getPerson();
 
           if (null != p) {
-            final List<OrganizationVO> orgs = p.getOrganizations();
+            List<OrganizationVO> orgs = p.getOrganizations();
 
             if (ValidationTools.isNotEmpty(orgs)) {
 
               int j = 1;
-              for (final OrganizationVO organizationVO : orgs) {
+              for (OrganizationVO organizationVO : orgs) {
 
                 if (null != organizationVO) {
 

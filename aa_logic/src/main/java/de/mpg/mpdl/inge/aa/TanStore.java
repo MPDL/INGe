@@ -26,11 +26,9 @@
 
 package de.mpg.mpdl.inge.aa;
 
-import java.util.Date;
+import java.security.SecureRandom;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
-
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -78,7 +76,7 @@ public class TanStore {
   }
 
   private static String createTan() {
-    Random random = new Random(new Date().getTime());
+    SecureRandom random = new SecureRandom();
     byte[] tanBytes = new byte[16];
     random.nextBytes(tanBytes);
 
