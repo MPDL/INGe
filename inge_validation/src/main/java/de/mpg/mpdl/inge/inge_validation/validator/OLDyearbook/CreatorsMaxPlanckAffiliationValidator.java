@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.inge_validation.validator.OLDyearbook;
 import java.util.List;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -13,7 +12,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
-public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
+public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List<CreatorVO>> {
 
   private final List<String> childsOfMPG;
 

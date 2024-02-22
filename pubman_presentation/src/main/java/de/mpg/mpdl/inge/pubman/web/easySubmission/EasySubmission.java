@@ -1313,7 +1313,7 @@ public class EasySubmission extends FacesBean {
     // examine if a context for creating the item has been selected
     if (null != depositorContextList) {
       for (PubContextVOPresentation pubContextVOPresentation : depositorContextList) {
-        if (true == pubContextVOPresentation.getSelected()) {
+        if (pubContextVOPresentation.getSelected()) {
           countSelectedContexts++;
         }
       }

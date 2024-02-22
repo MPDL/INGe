@@ -348,7 +348,7 @@ public class EditItem extends FacesBean {
    */
   private void bindUploadedFilesAndLocators() {
     // first clear the file list
-    if (true == this.bindFilesAndLocators) {
+    if (this.bindFilesAndLocators) {
       PubItemVOPresentation pubItem = this.getPubItem();
 
       pubItem.getFiles().clear();
@@ -396,7 +396,8 @@ public class EditItem extends FacesBean {
       for (String value : this.getPubItem().getMetadata().getLanguages()) {
         ListItem item = new ListItem();
         item.setValue(value);
-        item.setIndex(counter++);
+        item.setIndex(counter);
+        counter++;
         item.setStringList(this.getPubItem().getMetadata().getLanguages());
         item.setItemList(this.languages);
         this.languages.add(item);
@@ -411,7 +412,7 @@ public class EditItem extends FacesBean {
   }
 
   public String validate() {
-    if (false == check()) {
+    if (!check()) {
       return null;
     }
 
@@ -572,7 +573,7 @@ public class EditItem extends FacesBean {
   }
 
   private String saveAndGoto(String navigateTo) {
-    if (false == check()) {
+    if (!check()) {
       return "";
     }
 
@@ -618,7 +619,7 @@ public class EditItem extends FacesBean {
   public String saveAndSubmit() {
     //    if (this.getPubItem().getObjectId() == null) {
     String retVal = this.validate();
-    if (false == "".equals(retVal)) {
+    if (!"".equals(retVal)) {
       return retVal;
     }
     //    }
@@ -629,7 +630,7 @@ public class EditItem extends FacesBean {
   public String saveAndRelease() {
     //    if (this.getPubItem().getObjectId() == null) {
     String retVal = this.validate();
-    if (false == "".equals(retVal)) {
+    if (!"".equals(retVal)) {
       return retVal;
     }
     //    }
@@ -1149,7 +1150,7 @@ public class EditItem extends FacesBean {
 
     result.add(new SelectItem(null, "-"));
     ContextDbRO contextRO = this.getPubItem().getObject().getContext();
-    ArrayList<PubContextVOPresentation> userContexts = new ArrayList<>();
+    List<PubContextVOPresentation> userContexts = new ArrayList<>();
     userContexts.addAll(this.getContextListSessionBean().getDepositorContextList());
     userContexts.addAll(this.getContextListSessionBean().getModeratorContextList());
     for (PubContextVOPresentation context : userContexts) {

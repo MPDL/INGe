@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.xml.transform.Source;
 
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
@@ -12,7 +11,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.JUS_SNIPPET_XML, targetFormat = TransformerFactory.FORMAT.JUS_INDESIGN_XML)
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.JUS_SNIPPET_XML, targetFormat = TransformerFactory.FORMAT.JUS_HTML_XML)
-public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements ChainableTransformer {
+public class JusSnippetXmlToJusIndesignXml extends XslTransformer {
 
   @Override
   public Source getXsltSource() throws TransformationException {

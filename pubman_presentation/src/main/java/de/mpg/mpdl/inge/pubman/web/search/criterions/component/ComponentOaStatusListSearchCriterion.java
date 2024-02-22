@@ -57,7 +57,7 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
     Map<String, String> newMap = new LinkedHashMap<>();
 
     for (MdsFileVO.OA_STATUS value : values) {
-      if (true == reducedListFlag && MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(value.name())) {
+      if (reducedListFlag && MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(value.name())) {
 
       } else {
         oaMap.put(value.name(), i18nHelper.convertEnumToString(value));

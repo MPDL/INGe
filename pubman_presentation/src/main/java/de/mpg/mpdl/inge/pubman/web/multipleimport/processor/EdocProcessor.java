@@ -89,7 +89,9 @@ public class EdocProcessor extends FormatProcessor {
       this.initialize();
     }
     if (null != this.originalData && this.counter < this.length) {
-      return this.items.get(this.counter++);
+      String s = this.items.get(this.counter);
+      this.counter++;
+      return s;
     } else {
       throw new NoSuchElementException("No more entries left");
     }

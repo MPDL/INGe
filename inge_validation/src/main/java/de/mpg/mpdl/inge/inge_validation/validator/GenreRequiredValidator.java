@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -13,7 +12,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * </iso:rule> </iso:pattern>
  */
 
-public class GenreRequiredValidator extends ValidatorHandler<MdsPublicationVO.Genre> implements Validator<MdsPublicationVO.Genre> {
+public class GenreRequiredValidator extends ValidatorHandler<MdsPublicationVO.Genre> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO.Genre genre) {

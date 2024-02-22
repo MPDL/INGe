@@ -1,13 +1,12 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 
-public class Utf8TitleValidator extends ValidatorHandler<String> implements Validator<String> {
+public class Utf8TitleValidator extends ValidatorHandler<String> {
 
   @Override
   public boolean validate(ValidatorContext context, String text) {

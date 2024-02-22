@@ -197,7 +197,7 @@ public class JsonFormatter extends AbstractFormatter {
 
 
 
-        if (!(pair == pairs.get(pairs.size() - 1))) {
+        if (pair != pairs.get(pairs.size() - 1)) {
           result.append(",");
         }
         result.append("\n");

@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.inge_validation.validator;
 import java.util.List;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -23,7 +22,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
  * > DateFormatIncorrect </iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileDbVO>> implements Validator<List<FileDbVO>> {
+public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileDbVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<FileDbVO> files) {

@@ -125,7 +125,7 @@ public class DoiRestService {
     }
 
     // Item must be released to create a DOI
-    if (false == ItemVersionRO.State.RELEASED.equals(pubItem.getVersionState())) {
+    if (!ItemVersionRO.State.RELEASED.equals(pubItem.getVersionState())) {
       return false;
     }
 

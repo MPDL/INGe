@@ -313,7 +313,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 anyFilesChanged = true;
               }
             }
-            if (true == anyFilesChanged) {
+            if (anyFilesChanged) {
               if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
@@ -406,7 +406,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
             }
           }
-          if (true == anyOrcidChanged) {
+          if (anyOrcidChanged) {
             if (null != pubItemVO.getObject().getLocalTags()) {
               pubItemVO.getObject().getLocalTags().add(message);
             } else {
@@ -482,7 +482,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 anyFilesChanged = true;
               }
             }
-            if (true == anyFilesChanged) {
+            if (anyFilesChanged) {
               if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
@@ -558,7 +558,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 anyFilesChanged = true;
               }
             }
-            if (true == anyFilesChanged) {
+            if (anyFilesChanged) {
               if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
@@ -651,7 +651,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 anyFilesChanged = true;
               }
             }
-            if (true == anyFilesChanged) {
+            if (anyFilesChanged) {
               if (null != pubItemVO.getObject().getLocalTags()) {
                 pubItemVO.getObject().getLocalTags().add(message);
               } else {
@@ -1026,7 +1026,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
                 }
               }
-              if (true == sourceChanged) {
+              if (sourceChanged) {
                 if (null != pubItemVO.getObject().getLocalTags()) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {
@@ -1191,7 +1191,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   sourceChanged = true;
                 }
               }
-              if (true == sourceChanged) {
+              if (sourceChanged) {
                 if (null != pubItemVO.getObject().getLocalTags()) {
                   pubItemVO.getObject().getLocalTags().add(message);
                 } else {

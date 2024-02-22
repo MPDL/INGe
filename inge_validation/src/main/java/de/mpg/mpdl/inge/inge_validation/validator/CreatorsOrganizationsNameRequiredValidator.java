@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.inge_validation.validator;
 import java.util.List;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -21,7 +20,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
  * escidoc:address = ''"> OrganizationNameNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class CreatorsOrganizationsNameRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
+public class CreatorsOrganizationsNameRequiredValidator extends ValidatorHandler<List<CreatorVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {

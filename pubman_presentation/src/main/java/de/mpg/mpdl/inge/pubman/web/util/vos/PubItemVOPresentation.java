@@ -468,7 +468,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return "";
     }
 
-    ArrayList<String> dates = new ArrayList<>();
+    List<String> dates = new ArrayList<>();
 
     if (null != this.getMetadata().getDateCreated() && !this.getMetadata().getDateCreated().isEmpty()) {
       dates.add(this.getLabel("ViewItem_lblDateCreated") + ": " + this.getMetadata().getDateCreated());
@@ -1304,7 +1304,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     // add open access component
     if (null != this.fileBeanList && !this.fileBeanList.isEmpty()) {
       for (FileBean file : this.fileBeanList) {
-        if (true == file.getIsVisible()) {
+        if (file.getIsVisible()) {
           this.descriptionMetaTag += "; Open Access";
           break;
         }

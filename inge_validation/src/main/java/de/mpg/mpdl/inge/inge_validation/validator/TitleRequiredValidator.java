@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -13,7 +12,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
  * TitleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class TitleRequiredValidator extends ValidatorHandler<String> implements Validator<String> {
+public class TitleRequiredValidator extends ValidatorHandler<String> {
 
   @Override
   public boolean validate(ValidatorContext context, String title) {

@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -15,7 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
  * EventTitleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> implements Validator<EventVO> {
+public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> {
 
   @Override
   public boolean validate(ValidatorContext context, EventVO e) {

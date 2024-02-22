@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -21,7 +20,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * DateNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class DateRequiredValidator extends ValidatorHandler<MdsPublicationVO> implements Validator<MdsPublicationVO> {
+public class DateRequiredValidator extends ValidatorHandler<MdsPublicationVO> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {

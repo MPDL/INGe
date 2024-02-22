@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -32,7 +31,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * > IncorrectClassification</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO>> implements Validator<List<SubjectVO>> {
+public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO>> {
   public static final String DDC = "DDC";
   public static final String ISO639_3 = "ISO639_3";
   public static final String JEL = "JEL";
@@ -51,7 +50,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
     if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
 
-      if (null != subjects && false == subjects.isEmpty()) {
+      if (null != subjects && !subjects.isEmpty()) {
 
         ConeCache coneCache = ConeCache.getInstance();
 

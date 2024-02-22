@@ -52,7 +52,7 @@ public class GenreSpecificItemManager {
 
   public ItemVersionVO cleanupItem() throws Exception {
     List<Object> objs = new ArrayList<>();
-    LinkedHashMap<String, String> map = new LinkedHashMap<>();
+    Map<String, String> map = new LinkedHashMap<>();
 
     if (null != this.pubItem && null != this.pubItem.getMetadata() && null != this.pubItem.getMetadata().getGenre()) {
       String genre = this.pubItem.getMetadata().getGenre().name();

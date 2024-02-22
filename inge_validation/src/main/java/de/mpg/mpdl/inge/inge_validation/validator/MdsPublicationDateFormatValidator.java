@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -28,7 +27,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * <iso:assert test=". = '' or ../escidoc:start-date != ''"> EndDateWithoutStartDate</iso:assert>
  * </iso:rule>
  */
-public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> implements Validator<MdsPublicationVO> {
+public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {

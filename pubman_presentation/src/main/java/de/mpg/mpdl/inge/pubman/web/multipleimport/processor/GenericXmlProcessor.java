@@ -141,7 +141,9 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
       this.initialize();
     }
     if (null != this.items && this.counter < this.length) {
-      return this.items.get(this.counter++);
+      String s = this.items.get(this.counter);
+      this.counter++;
+      return s;
     } else {
       throw new NoSuchElementException("No more entries left");
     }

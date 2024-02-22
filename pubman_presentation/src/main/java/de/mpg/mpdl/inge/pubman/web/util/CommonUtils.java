@@ -354,7 +354,7 @@ public class CommonUtils {
    * @param list the list of PubItemVOPresentations
    * @return the list of PubItemVOs
    */
-  public static ArrayList<ItemVersionVO> convertToPubItemVOList(List<PubItemVOPresentation> list) {
+  public static List<ItemVersionVO> convertToPubItemVOList(List<PubItemVOPresentation> list) {
     ArrayList<ItemVersionVO> pubItemList = new ArrayList<>();
 
     for (PubItemVOPresentation pubItemVOPresentation : list) {

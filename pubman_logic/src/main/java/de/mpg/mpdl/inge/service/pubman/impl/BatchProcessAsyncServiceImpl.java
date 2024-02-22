@@ -277,6 +277,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                   this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                       BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
                 }
+                break;
               case SUBMIT_PUBITEMS:
                 contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
                 if ((ItemVersionRO.State.IN_REVISION.equals(itemVersionVO.getVersionState())

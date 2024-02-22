@@ -329,7 +329,7 @@ public class Util {
       logger.info("CoNE query: " + queryUrl);
       client.executeMethod(method);
       if (200 == method.getStatusCode()) {
-        ArrayList<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+        List<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
         queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("dcterms:alternative", StandardCharsets.UTF_8) + "="
             + URLEncoder.encode("\"" + name + "\"", StandardCharsets.UTF_8) + "&"
@@ -413,7 +413,7 @@ public class Util {
       client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl);
       if (200 == method.getStatusCode()) {
-        ArrayList<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+        Iterable<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
         Set<String> oldIds = new HashSet<>();
         for (String result : results) {
           if (!result.trim().isEmpty()) {

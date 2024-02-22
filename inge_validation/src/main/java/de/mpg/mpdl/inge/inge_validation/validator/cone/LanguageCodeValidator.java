@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -21,7 +20,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * .))"> UnknownLanguageCode</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class LanguageCodeValidator extends ValidatorHandler<List<String>> implements Validator<List<String>> {
+public class LanguageCodeValidator extends ValidatorHandler<List<String>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<String> languages) {

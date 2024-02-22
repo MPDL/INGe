@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.xml.transform.Source;
 
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
@@ -15,7 +14,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
     targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V1_XML)
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V2_XML,
     targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V1_XML)
-public class ItemXmlV2ToItemXmlV1 extends XslTransformer implements ChainableTransformer {
+public class ItemXmlV2ToItemXmlV1 extends XslTransformer {
 
   @Override
   public Source getXsltSource() throws TransformationException {

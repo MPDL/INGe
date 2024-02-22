@@ -51,7 +51,7 @@ public class Validation {
 
   public void validate(ItemVersionVO pubItemVO, ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
 
-    if (false == pubItemVO instanceof ItemVersionVO) {
+    if (!(pubItemVO instanceof ItemVersionVO)) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
     }
 
@@ -318,7 +318,7 @@ public class Validation {
   private void checkResult(ComplexResult complexResult) throws ValidationException {
     ValidationReportVO v = new ValidationReportVO();
 
-    if (false == complexResult.isSuccess()) {
+    if (!complexResult.isSuccess()) {
       for (ValidationError error : complexResult.getErrors()) {
         ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(),
             (ErrorMessages.WARNING == error.getErrorCode() ? ValidationReportItemVO.Severity.WARNING

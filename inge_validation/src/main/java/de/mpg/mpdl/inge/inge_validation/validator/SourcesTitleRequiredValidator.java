@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.inge_validation.validator;
 import java.util.List;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -19,7 +18,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * SourceTitleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
+public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {

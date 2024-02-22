@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -291,7 +292,7 @@ public class XmlHelper {
     Utils.checkCondition(!Utils.checkVal(csName), "Empty name of the citation style");
     Utils.checkCondition(!Utils.checkVal(outFormat), "Empty name of the output format");
 
-    HashMap<String, HashMap<String, String[]>> csh = getCitationStylesHash();
+    Map<String, HashMap<String, String[]>> csh = getCitationStylesHash();
 
     Utils.checkCondition(!csh.containsKey(csName), "No citation style is defined: " + csName);
     Utils.checkCondition(!csh.get(csName).containsKey(outFormat),
@@ -310,7 +311,7 @@ public class XmlHelper {
 
     outputFormat = outputFormat.trim();
 
-    HashMap<String, String[]> of = getOutputFormatsHash();
+    Map<String, String[]> of = getOutputFormatsHash();
 
     return of.containsKey(outputFormat) ? of.get(outputFormat)[1] : of.get(XmlHelper.PDF)[1];
   }

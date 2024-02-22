@@ -26,7 +26,6 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +64,7 @@ import jakarta.persistence.Table;
 @Table(name = "context")
 //@TypeDef(name = "SubjectClassificationListJsonUserType", typeClass = SubjectClassificationListJsonUserType.class)
 //@TypeDef(name = "GenreListJsonUserType", typeClass = GenreListJsonUserType.class)
-public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
+public class ContextDbVO extends ContextDbRO implements Searchable {
   /**
    * The possible states of a collection.
    *

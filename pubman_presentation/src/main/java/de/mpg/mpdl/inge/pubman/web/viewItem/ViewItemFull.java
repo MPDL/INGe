@@ -352,8 +352,8 @@ public class ViewItemFull extends FacesBean {
       this.isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;
 
       // Warn message if the item version is not the latest
-      if (false == this.isLatestVersion && this.getPubItem().getObject().getLatestVersion().getVersionNumber() != this.getPubItem()
-          .getObject().getLatestRelease().getVersionNumber() && this.isLoggedIn) {
+      if (!this.isLatestVersion && this.getPubItem().getObject().getLatestVersion().getVersionNumber() != this.getPubItem().getObject()
+          .getLatestRelease().getVersionNumber() && this.isLoggedIn) {
         String link = null;
         try {
           link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
@@ -365,7 +365,7 @@ public class ViewItemFull extends FacesBean {
         }
         this.warn(this.getMessage("itemIsNotLatestVersion") + "<br/><a href=\"" + (null != link ? link : "") + "\" >"
             + (null != link ? link : "") + "</a>");
-      } else if (false == this.isLatestVersion
+      } else if (!this.isLatestVersion
           && this.getPubItem().getObject().getLatestRelease().getVersionNumber() > this.getPubItem().getVersionNumber()) {
         String link = null;
         try {
@@ -601,8 +601,8 @@ public class ViewItemFull extends FacesBean {
       BreadcrumbItemHistorySessionBean bhsb = FacesTools.findBean("BreadcrumbItemHistorySessionBean");
       try {
         for (int i = bhsb.getBreadcrumbs().size() - 1; 0 < i; i--) {
-          if (false == bhsb.getBreadcrumbs().get(i - 1).isItemSpecific()
-              && false == "CreateItemPage".equalsIgnoreCase(bhsb.getBreadcrumbs().get(i - 1).getDisplayValue())) {
+          if (!bhsb.getBreadcrumbs().get(i - 1).isItemSpecific()
+              && !"CreateItemPage".equalsIgnoreCase(bhsb.getBreadcrumbs().get(i - 1).getDisplayValue())) {
             FacesTools.getExternalContext().redirect(bhsb.getBreadcrumbs().get(i - 1).getPage());
             return retVal;
           }
@@ -1369,7 +1369,7 @@ public class ViewItemFull extends FacesBean {
     this.organizationArray = organizationArray;
   }
 
-  public ArrayList<ViewItemOrganization> getOrganizationList() {
+  public List<ViewItemOrganization> getOrganizationList() {
     return this.organizationList;
   }
 
@@ -1815,7 +1815,7 @@ public class ViewItemFull extends FacesBean {
     return this.defaultSize;
   }
 
-  public ArrayList<ViewItemCreators> getCreators() {
+  public List<ViewItemCreators> getCreators() {
     return this.creators;
   }
 

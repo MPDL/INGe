@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.rest.web.spring;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -14,7 +13,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 
 
-public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements WebApplicationInitializer {
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   private static final Logger logger = LogManager.getLogger(WebInitializer.class);
 

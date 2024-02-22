@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
 
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
@@ -17,7 +16,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
     targetFormat = TransformerFactory.FORMAT.HTML_METATAGS_DC_XML)
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
     targetFormat = TransformerFactory.FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML)
-public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements ChainableTransformer {
+public class ItemXmlToHtmlMetaTagsXml extends XslTransformer {
 
   @Override
   public Source getXsltSource() throws TransformationException {

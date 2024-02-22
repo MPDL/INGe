@@ -347,7 +347,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeExternalReferencesContentCategoryFrom = changeExternalReferencesContentCategoryFrom;
   }
 
-  public ArrayList<SelectItem> getChangeExternalReferencesContentCategorySelectItems() {
+  public List<SelectItem> getChangeExternalReferencesContentCategorySelectItems() {
     return this.changeExternalReferencesContentCategorySelectItems;
   }
 
@@ -364,7 +364,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeExternalReferencesContentCategoryTo = changeExternalReferencesContentCategoryTo;
   }
 
-  public ArrayList<SelectItem> getChangeFilesAudienceSelectItems() {
+  public List<SelectItem> getChangeFilesAudienceSelectItems() {
     return this.changeFilesAudienceSelectItems;
   }
 
@@ -388,7 +388,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeFilesContentCategoryTo = changeFilesContentCategoryTo;
   }
 
-  public ArrayList<SelectItem> getChangeFilesContentCategorySelectItems() {
+  public List<SelectItem> getChangeFilesContentCategorySelectItems() {
     return this.changeFilesContentCategorySelectItems;
   }
 
@@ -412,7 +412,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeFilesVisibilityTo = changeFilesVisibilityTo;
   }
 
-  public ArrayList<SelectItem> getChangeFilesVisibilitySelectItems() {
+  public List<SelectItem> getChangeFilesVisibilitySelectItems() {
     return this.changeFilesVisibilitySelectItems;
   }
 
@@ -428,7 +428,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeGenreFrom = changeGenreFrom;
   }
 
-  public ArrayList<SelectItem> getChangeGenreSelectItems() {
+  public List<SelectItem> getChangeGenreSelectItems() {
     return this.changeGenreSelectItems;
   }
 
@@ -436,7 +436,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeGenreSelectItems = changeGenreSelectItems;
   }
 
-  public ArrayList<SelectItem> getChangeGenreThesisTypeSelectItems() {
+  public List<SelectItem> getChangeGenreThesisTypeSelectItems() {
     return this.changeGenreThesisTypeSelectItems;
   }
 
@@ -504,7 +504,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeReviewMethodFrom = changeReviewMethodFrom;
   }
 
-  public ArrayList<SelectItem> getChangeReviewMethodSelectItems() {
+  public List<SelectItem> getChangeReviewMethodSelectItems() {
     return this.changeReviewMethodSelectItems;
   }
 
@@ -544,7 +544,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.inputChangeSourceEdition = inputChangeSourceEdition;
   }
 
-  public ArrayList<SelectItem> getChangeSourceGenreSelectItems() {
+  public List<SelectItem> getChangeSourceGenreSelectItems() {
     return this.changeSourceGenreSelectItems;
   }
 
@@ -644,7 +644,7 @@ public class PubItemBatchSessionBean extends FacesBean implements LanguageChange
     this.changeSourceNumberSelectItems = changeSourceEditionSourceSelectItems;
   }
 
-  public ArrayList<SelectItem> getContextSelectItems() {
+  public List<SelectItem> getContextSelectItems() {
     return this.contextSelectItems;
   }
 

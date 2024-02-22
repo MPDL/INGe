@@ -577,7 +577,7 @@ public class SQLQuerier implements Querier {
               if (resultMap.containsKey(predicateValue)) {
                 resultMap.get(predicateValue).add(localizedTripleObject);
               } else {
-                ArrayList<LocalizedTripleObject> newEntry = new ArrayList<>();
+                List<LocalizedTripleObject> newEntry = new ArrayList<>();
                 newEntry.add(localizedTripleObject);
                 resultMap.put(predicateValue, newEntry);
               }

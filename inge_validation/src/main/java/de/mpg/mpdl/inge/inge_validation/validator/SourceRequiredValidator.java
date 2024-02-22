@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.inge_validation.validator;
 
 import java.util.List;
 
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -15,7 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * "Meeting Abstract" "Review Article" at least one source has to be provided
  */
 
-public class SourceRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
+public class SourceRequiredValidator extends ValidatorHandler<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {

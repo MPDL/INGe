@@ -5,14 +5,13 @@ import java.util.Map;
 
 import javax.xml.transform.Source;
 
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.PMC_OAIPMH_XML, targetFormat = TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML)
-public class PmcOaiPmhXmlToComponentXml extends XslTransformer implements ChainableTransformer {
+public class PmcOaiPmhXmlToComponentXml extends XslTransformer {
 
   @Override
   public Source getXsltSource() throws TransformationException {

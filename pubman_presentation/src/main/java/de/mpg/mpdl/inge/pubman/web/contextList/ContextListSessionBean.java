@@ -83,7 +83,7 @@ public class ContextListSessionBean extends FacesBean {
   }
 
   public boolean getOpenContextsAvailable() {
-    return false == this.depositorContextList.isEmpty();
+    return !this.depositorContextList.isEmpty();
   }
 
   public int getDepositorContextListSize() {
@@ -132,7 +132,7 @@ public class ContextListSessionBean extends FacesBean {
     if (this.getLoginHelper().isLoggedIn() && null != this.getLoginHelper().getAccountUser().getGrantList()) {
       try {
         boolean hasGrants = false;
-        ArrayList<String> ctxIdList = new ArrayList<>();
+        List<String> ctxIdList = new ArrayList<>();
         for (GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
           if (null != grant.getObjectRef()) {
             ctxIdList.add(grant.getObjectRef());

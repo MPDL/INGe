@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
-import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
@@ -27,7 +26,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
  * FileVO.content
  */
 
-public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileDbVO>> implements Validator<List<FileDbVO>> {
+public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileDbVO>> {
 
   public static final String URL_PATTERN = ComponentsUriAsLocatorValidator.getUrlPattern();
 

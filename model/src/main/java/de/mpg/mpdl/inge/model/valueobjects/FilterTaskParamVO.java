@@ -229,7 +229,8 @@ public class FilterTaskParamVO extends ValueObject {
         b.append(queryPiece);
         b.append(affiliationRO.getObjectId());
 
-        if (++i == affiliationRefFilter.getIdList().size())
+        ++i;
+        if (i == affiliationRefFilter.getIdList().size())
           break;
         b.append(OR);
       }
@@ -240,7 +241,8 @@ public class FilterTaskParamVO extends ValueObject {
       for (ItemRO itemRO : itemRefFilter.getIdList()) {
         b.append(" ");
         b.append(itemRO.getObjectId());
-        if (++i == itemRefFilter.getIdList().size())
+        ++i;
+        if (i == itemRefFilter.getIdList().size())
           break;
       }
 
@@ -250,7 +252,8 @@ public class FilterTaskParamVO extends ValueObject {
       for (ItemRO itemRO : itemRefFilter.getIdList()) {
         b.append(" ");
         b.append(itemRO.getObjectIdAndVersion());
-        if (++i == itemRefFilter.getIdList().size())
+        ++i;
+        if (i == itemRefFilter.getIdList().size())
           break;
       }
 

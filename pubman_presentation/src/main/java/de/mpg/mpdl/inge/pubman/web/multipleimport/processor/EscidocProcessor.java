@@ -85,7 +85,9 @@ public class EscidocProcessor extends FormatProcessor {
     if (!this.init) {
       this.initialize();
     }
-    return this.items.get(this.counter++);
+    String s = this.items.get(this.counter);
+    this.counter++;
+    return s;
   }
 
   private void initialize() {

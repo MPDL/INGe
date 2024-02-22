@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.xml.transform.Source;
 
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
@@ -14,7 +13,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ZFN_TEI_XML, targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ZFN_TEI_XML, targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML)
-public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTransformer {
+public class ZfnTeiXmlToItemXml extends XslTransformer {
 
   @Override
   public Source getXsltSource() throws TransformationException {

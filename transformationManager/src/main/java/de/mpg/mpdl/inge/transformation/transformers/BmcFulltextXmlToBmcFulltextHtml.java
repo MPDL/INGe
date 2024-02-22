@@ -4,14 +4,13 @@ import java.util.Map;
 
 import javax.xml.transform.Source;
 
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.BMC_FULLTEXT_XML, targetFormat = TransformerFactory.FORMAT.BMC_FULLTEXT_HTML)
-public class BmcFulltextXmlToBmcFulltextHtml extends XslTransformer implements ChainableTransformer {
+public class BmcFulltextXmlToBmcFulltextHtml extends XslTransformer {
 
   @Override
   public Source getXsltSource() throws TransformationException {

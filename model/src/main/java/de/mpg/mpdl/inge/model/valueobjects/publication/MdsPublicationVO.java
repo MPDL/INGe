@@ -53,7 +53,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
  */
 @SuppressWarnings("serial")
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
-public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
+public class MdsPublicationVO extends MetadataSetVO {
   /**
    * The possible degree types for an item.
    *

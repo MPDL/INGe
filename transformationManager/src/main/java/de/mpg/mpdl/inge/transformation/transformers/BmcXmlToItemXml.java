@@ -15,7 +15,6 @@ import org.apache.xml.resolver.tools.CatalogResolver;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.XMLReader;
 
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
@@ -27,7 +26,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.BMC_XML, targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.BMC_XML, targetFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML)
-public class BmcXmlToItemXml extends XslTransformer implements ChainableTransformer {
+public class BmcXmlToItemXml extends XslTransformer {
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {

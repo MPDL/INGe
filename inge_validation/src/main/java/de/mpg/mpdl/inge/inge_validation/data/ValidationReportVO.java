@@ -20,7 +20,7 @@ public class ValidationReportVO extends ValueObject {
   }
 
   public boolean hasItems() {
-    return false == this.items.isEmpty();
+    return !this.items.isEmpty();
   }
 
   public boolean isValid() {

@@ -56,7 +56,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
-import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.annotation.PostConstruct;
@@ -70,7 +69,7 @@ import net.arnx.wmf2svg.util.Base64;
  */
 @Service
 @Primary
-public class FileServiceFSImpl implements FileService, FileServiceExternal {
+public class FileServiceFSImpl implements FileService {
   private static final Logger logger = LogManager.getLogger(FileServiceFSImpl.class);
 
   private static final String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)

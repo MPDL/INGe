@@ -173,7 +173,7 @@ public class BrowseBySessionBean extends FacesBean {
     } else {
       this.showChars = "persons".equals(this.selectedValue);
 
-      if (false == this.showChars) {
+      if (!this.showChars) {
         List<LinkVO> all = this.getConeAll();
         this.showChars = (all.size() > this.getMaxDisplay());
       }

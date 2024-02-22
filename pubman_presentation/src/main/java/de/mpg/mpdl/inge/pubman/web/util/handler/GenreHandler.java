@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 public class GenreHandler extends ShortContentHandler {
 
   private final LinkedHashMap<String, String> defaultMap = new LinkedHashMap<>();
-  private LinkedHashMap<String, String> map = null;
+  private Map<String, String> map = null;
 
   private Map<String, String> authorRoles = new LinkedHashMap<>();
   private Map<String, String> contentCategories = new LinkedHashMap<>();

@@ -13,7 +13,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 
-public class ChainTransformer extends SingleTransformer implements Transformer {
+public class ChainTransformer extends SingleTransformer {
 
   private static final Logger logger = LogManager.getLogger(ChainTransformer.class);
 

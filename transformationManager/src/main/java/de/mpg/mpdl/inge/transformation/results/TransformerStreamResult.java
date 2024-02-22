@@ -5,14 +5,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 
-public class TransformerStreamResult extends StreamResult implements TransformerResult, Result {
+public class TransformerStreamResult extends StreamResult implements TransformerResult {
 
 
 

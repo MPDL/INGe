@@ -505,7 +505,7 @@ public class JiBXHelper {
    * @return String The corresponding String ('true' or 'false')
    */
   public static String serializeBoolean(boolean bool) {
-    return (true == bool ? "true" : "false");
+    return (bool ? "true" : "false");
   }
 
   /**

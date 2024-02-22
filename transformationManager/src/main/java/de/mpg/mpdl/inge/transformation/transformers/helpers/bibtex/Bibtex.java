@@ -346,7 +346,7 @@ public class Bibtex implements BibtexInterface {
             eventNotEmpty = true;
           }
           // event will be set only it's not empty
-          if (true == eventNotEmpty) {
+          if (eventNotEmpty) {
             if (null == event.getTitle()) {
               event.setTitle("");
             }
@@ -1011,7 +1011,7 @@ public class Bibtex implements BibtexInterface {
           }
         }
         // No CoNE Author or Editor Found
-        if (true == noConeAuthorFound && true == noConeEditorFound && null != this.configuration && "true".equals(this.configuration.get("CoNE"))) {
+        if (noConeAuthorFound && noConeEditorFound && null != this.configuration && "true".equals(this.configuration.get("CoNE"))) {
           throw new RuntimeException("No CoNE-Author and no CoNE-Editor was found");
         }
         // If no affiliation is given, set the first author to "external"
