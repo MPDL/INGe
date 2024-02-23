@@ -34,11 +34,11 @@ public class OrganizationDaoImpl extends ElasticSearchGenericDAOImpl<Affiliation
     //Index files with correct link
     ObjectNode node = (ObjectNode) super.applyCustomValues(aff);
 
-    ArrayNode namePath = node.putArray("namePath").add(aff.getName());
-    ArrayNode idPath = node.putArray("idPath").add(aff.getName());
+    ArrayNode namePath = node.putArray("namePath");
+    ArrayNode idPath = node.putArray("idPath");
 
     AffiliationDbVO parentAff = aff;
-    while(parentAff!=null) {
+    while (parentAff != null) {
       namePath.add(parentAff.getName());
       idPath.add(parentAff.getObjectId());
       parentAff = (AffiliationDbVO) parentAff.getParentAffiliation();

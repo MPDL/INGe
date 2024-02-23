@@ -8,9 +8,7 @@
         <jcache:defaults default-template="myDefaultTemplate"/>
     </ehcache:service>
 
-    <ehcache:persistence directory="${jboss.home.dir}/data/ehcache"/>
-
-
+    <ehcache:persistence directory="/tmp/ehcache"/>
 
 
     <ehcache:cache-template name="myDefaultTemplate">

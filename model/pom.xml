@@ -21,6 +21,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -181,5 +182,49 @@
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>create-typescript-model</id>
+			<build>
+				<plugins>
+					<plugin>
+							<groupId>cz.habarta.typescript-generator</groupId>
+							<artifactId>typescript-generator-maven-plugin</artifactId>
+							<version>3.1.1185</version>
+							<executions>
+								<execution>
+									<id>generate</id>
+									<goals>
+										<goal>generate</goal>
+									</goals>
+									<phase>process-classes</phase>
+								</execution>
+							</executions>
+							<configuration>
+								<jsonLibrary>jackson2</jsonLibrary>
+								<classPatterns>
+									<pattern>de.mpg.mpdl.inge.model.db.valueobjects.*</pattern>
+									<!--
+                                    <pattern>de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO</pattern>
+                                    <pattern>de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO</pattern>
+                                    -->
+								</classPatterns>
+								<outputKind>module</outputKind>
+								<mapEnum>asEnum</mapEnum>
+								<customTypeNaming>
+									<naming>de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO$State:AffiliationState</naming>
+									<naming>de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO$State:ContextState</naming>
+									<naming>de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO$State:ItemVersionState</naming>
+									<naming>de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO$Genre:MdsPublicationGenre</naming>
+									<naming>de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO$Genre:SourceGenre</naming>
+								</customTypeNaming>
+							</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
 
 </project>
