@@ -1,5 +1,9 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import org.springframework.stereotype.Repository;
 
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
@@ -21,6 +25,27 @@ public class OrganizationDaoImpl extends ElasticSearchGenericDAOImpl<Affiliation
   @Override
   protected String[] getSourceExclusions() {
     return null;
+  }
+
+  @Override
+  protected JsonNode applyCustomValues(AffiliationDbVO aff) {
+
+    //ItemVersionVO itemToIndex = new ItemVersionVO(item);
+    //Index files with correct link
+    ObjectNode node = (ObjectNode) super.applyCustomValues(aff);
+
+    ArrayNode namePath = node.putArray("namePath").add(aff.getName());
+    ArrayNode idPath = node.putArray("idPath").add(aff.getName());
+
+    AffiliationDbVO parentAff = aff;
+    while(parentAff!=null) {
+      namePath.add(parentAff.getName());
+      idPath.add(parentAff.getObjectId());
+      parentAff = (AffiliationDbVO) parentAff.getParentAffiliation();
+
+    }
+
+    return node;
   }
 
 }

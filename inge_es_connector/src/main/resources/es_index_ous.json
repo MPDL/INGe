@@ -122,8 +122,13 @@
               "keyword": {
                 "type": "keyword",
                 "ignore_above": 256
+              },
+              "autosuggest" : {
+                "type": "search_as_you_type"
               }
+
             }
+
           },
           "startDate": {
             "type": "text",
@@ -233,6 +238,23 @@
           },
           "objectId": {
             "type": "keyword"
+          }
+        }
+      },
+      "namePath": {
+        "type": "text",
+        "fields": {
+          "autosuggest": {
+            "type": "search_as_you_type"
+          }
+        }
+      },
+      "idPath": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
           }
         }
       },
