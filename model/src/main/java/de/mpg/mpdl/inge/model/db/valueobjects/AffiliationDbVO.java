@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.util.ArrayList;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
@@ -38,16 +39,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 /**
  * A MPG unit or lower level of organizational unit within an MPG unit; includes also external
@@ -62,6 +53,8 @@ import jakarta.persistence.Transient;
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @Entity
 @Table(name = "organization")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
 //@TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO {
 
