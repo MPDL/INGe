@@ -1,10 +1,10 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import org.springframework.stereotype.Repository;
 
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
