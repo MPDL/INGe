@@ -52,6 +52,9 @@
               "keyword": {
                 "type": "keyword",
                 "ignore_above": 256
+              },
+              "autosuggest" : {
+                "type": "search_as_you_type"
               }
             }
           },
