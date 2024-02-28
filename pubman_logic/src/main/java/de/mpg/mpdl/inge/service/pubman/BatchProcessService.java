@@ -9,7 +9,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -36,7 +35,7 @@ public interface BatchProcessService {
       String token) throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO changeFileVisibility(List<String> itemIds, FileDbVO.Visibility fileVisibilityFrom,
-      FileDbVO.Visibility fileVisibilityTo, IpListProvider.IpRange userAccountIpRange, String token)
+      FileDbVO.Visibility fileVisibilityTo, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO changeGenre(List<String> itemIds, MdsPublicationVO.Genre genreFrom, MdsPublicationVO.Genre genreTo,
@@ -79,7 +78,7 @@ public interface BatchProcessService {
   BatchProcessLogHeaderDbVO releasePubItems(List<String> itemIds, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
-  BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)
+  BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> allowedAudienceIds, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO replaceKeywords(List<String> itemIds, String keywords, String token)

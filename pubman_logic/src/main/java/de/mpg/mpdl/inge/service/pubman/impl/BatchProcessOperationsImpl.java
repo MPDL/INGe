@@ -19,7 +19,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -35,12 +34,13 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
   private final ContextService contextService;
 
-  private List<String> audiences;
+  private List<String> allowedAudienceIds;
   private String categoryTo;
   private String contentCategoryFrom;
   private String contextFrom;
   private String contextTo;
   private String creatorId;
+  private String userIpListId;
   private MdsPublicationVO.DegreeType degreeType;
   private String edition;
   private MdsPublicationVO.Genre genreFrom;
@@ -61,7 +61,6 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   private String sourceIdentiferTo;
   private IdentifierVO.IdType sourceIdentifierType;
   private int sourceNumber;
-  private IpListProvider.IpRange userAccountIpRange;
   private FileDbVO.Visibility visibilityFrom;
   private FileDbVO.Visibility visibilityTo;
 
@@ -168,22 +167,17 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    String ipRangeToSet = null;
-    if (null != this.userAccountIpRange && null != this.userAccountIpRange.getId()) {
-      ipRangeToSet = this.userAccountIpRange.getId();
-    }
-
     boolean anyFilesChanged = false;
     for (FileDbVO file : itemVersionVO.getFiles()) {
       if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && file.getVisibility().equals(this.visibilityFrom)) {
         file.setVisibility(this.visibilityTo);
         if (FileDbVO.Visibility.AUDIENCE.equals(this.visibilityTo)) {
-          if (null != file.getAllowedAudienceIds() && null != ipRangeToSet) {
-            file.getAllowedAudienceIds().add(ipRangeToSet);
+          if (null != file.getAllowedAudienceIds() && null != this.userIpListId) {
+            file.getAllowedAudienceIds().add(this.userIpListId);
           } else if (null == file.getAllowedAudienceIds()) {
             file.setAllowedAudienceIds(new ArrayList<>());
-            if (null != ipRangeToSet) {
-              file.getAllowedAudienceIds().add(ipRangeToSet);
+            if (null != this.userIpListId) {
+              file.getAllowedAudienceIds().add(this.userIpListId);
             }
           }
         }
@@ -408,7 +402,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       List<String> audienceList = null != file.getAllowedAudienceIds() ? file.getAllowedAudienceIds() : new ArrayList<>();
       if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && FileDbVO.Visibility.AUDIENCE.equals(file.getVisibility())) {
         audienceList.clear();
-        audienceList.addAll(this.audiences);
+        audienceList.addAll(this.allowedAudienceIds);
         file.setAllowedAudienceIds(audienceList);
         anyFilesChanged = true;
       }
@@ -479,8 +473,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     }
   }
 
-  public void setAudiences(List<String> audiences) {
-    this.audiences = audiences;
+  public void setAllowedAudienceIds(List<String> allowedAudienceIds) {
+    this.allowedAudienceIds = allowedAudienceIds;
   }
 
   public void setCategoryTo(String categoryTo) {
@@ -501,6 +495,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
   public void setCreatorId(String creatorId) {
     this.creatorId = creatorId;
+  }
+
+  public void setUserIpListId(String userIpListId) {
+    this.userIpListId = userIpListId;
   }
 
   public void setDegreeType(MdsPublicationVO.DegreeType degreeType) {
@@ -581,10 +579,6 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
   public void setSourceNumber(int sourceNumber) {
     this.sourceNumber = sourceNumber;
-  }
-
-  public void setUserAccountIpRange(IpListProvider.IpRange userAccountIpRange) {
-    this.userAccountIpRange = userAccountIpRange;
   }
 
   public void setVisibilityFrom(FileDbVO.Visibility visibilityFrom) {

@@ -21,13 +21,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
-import de.mpg.mpdl.inge.service.aa.IpListProvider;
-import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
@@ -36,25 +35,21 @@ import de.mpg.mpdl.inge.service.util.GrantUtil;
 @Primary
 public class BatchProcessServiceImpl implements BatchProcessService {
 
-  private final ContextService contextService;
   private static final Logger logger = LogManager.getLogger(BatchProcessServiceImpl.class);
 
   private final AuthorizationService authorizationService;
-
   private final BatchProcessAsyncService batchProcessAsyncService;
-
   private final BatchProcessCommonService batchProcessCommonService;
-
   private final BatchProcessLogDetailRepository batchProcessLogDetailRepository;
-
   private final BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
-
   private final BatchProcessUserLockRepository batchProcessUserLockRepository;
+  private final ContextService contextService;
+  private final UserAccountService userAccountService;
 
   public BatchProcessServiceImpl(AuthorizationService authorizationService, BatchProcessAsyncService batchProcessAsyncService,
       BatchProcessCommonService batchProcessCommonService, BatchProcessLogDetailRepository batchProcessLogDetailRepository,
       BatchProcessLogHeaderRepository batchProcessLogHeaderRepository, BatchProcessUserLockRepository batchProcessUserLockRepository,
-      ContextService contextService) {
+      ContextService contextService, UserAccountService userAccountService) {
     this.authorizationService = authorizationService;
     this.batchProcessAsyncService = batchProcessAsyncService;
     this.batchProcessCommonService = batchProcessCommonService;
@@ -62,6 +57,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     this.batchProcessLogHeaderRepository = batchProcessLogHeaderRepository;
     this.batchProcessUserLockRepository = batchProcessUserLockRepository;
     this.contextService = contextService;
+    this.userAccountService = userAccountService;
   }
 
   @Override
@@ -159,7 +155,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO changeFileVisibility(List<String> itemIds, FileDbVO.Visibility fileVisibilityFrom,
-      FileDbVO.Visibility fileVisibilityTo, IpListProvider.IpRange userAccountIpRange, String token)
+      FileDbVO.Visibility fileVisibilityTo, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
@@ -174,7 +170,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setVisibilityFrom(fileVisibilityFrom);
     batchOperationsImpl.setVisibilityTo(fileVisibilityTo);
-    batchOperationsImpl.setUserAccountIpRange(userAccountIpRange);
+
+    String userIpListId = this.authorizationService.getUserIpListIdFromToken(token);
+    batchOperationsImpl.setUserIpListId(userIpListId);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
@@ -410,18 +408,18 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   @Override
-  public BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> audiences, String token)
+  public BatchProcessLogHeaderDbVO replaceFileAudience(List<String> itemIds, List<String> allowedAudienceIds, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
-    checkList(audiences, "audiences");
+    checkList(allowedAudienceIds, "allowedAudienceIds");
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.REPLACE_FILE_AUDIENCE;
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
         this.batchProcessCommonService.initializeBatchProcessLog(method, accountUserDbVO, itemIds, token);
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
-    batchOperationsImpl.setAudiences(audiences);
+    batchOperationsImpl.setAllowedAudienceIds(allowedAudienceIds);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
@@ -572,13 +570,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   }
 
   private AccountUserDbVO checkUser(String token) throws AuthenticationException, IngeApplicationException {
-    Principal principal = this.authorizationService.checkLoginRequired(token);
-
-    AccountUserDbVO accountUserDbVO = principal.getUserAccount();
-
-    if (null == accountUserDbVO) {
-      throw new IngeApplicationException("Invalid user");
-    }
+    AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
 
     return accountUserDbVO;
   }
@@ -588,8 +580,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
       throw new IngeApplicationException("The visibility " + name + " must not be empty");
     }
   }
-
-
 
   private BatchProcessLogHeaderDbVO doChangeContentCategory(BatchProcessLogHeaderDbVO.Method method, List<String> itemIds,
       String contentCategoryFrom, String contentCategoryTo, String token)
@@ -648,5 +638,3 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     return batchProcessLogHeaderDbVO;
   }
 }
-
-

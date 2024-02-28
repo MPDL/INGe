@@ -26,7 +26,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
-import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -76,16 +75,14 @@ public class BatchProcessController {
   private static final String SOURCE_IDENTIFIER_TO = "sourceIdentiferTo";
   private static final String SOURCE_IDENTIFIER_TYPE = "sourceIdentiferType";
   private static final String SOURCE_NUMBER = "sourceNumber";
-
-  private static final String PARAM_AUDIENCES = "audiences";
+  
   private static final String PARAM_ITEM_IDS = "itemIds";
   private static final String PARAM_LOCALTAGS = "localTags";
-  private static final String PARAM_USER_ACCOUNT_IP_RANGE = "userAccountIpRange";
+  private static final String PARAM_ALLOWED_AUDIENCE_IDS = "allowedAudienceIds";
 
-  private static final String EXAMPLE_AUDIENCES = "\"audiences\": [\"audience\", \"audience\", ...]";
   private static final String EXAMPLE_ITEM_IDS = "\"itemIds\": [\"item_xxx\", \"item_xxx\", ...]";
   private static final String EXAMPLE_LOCALTAGS = "\"localTags\": [\"tag\", \"tag\", ...]";
-  private static final String EXAMPLE_USER_ACCOUNT_IP_RANGE = "\"userAccountIpRange\": {...}";
+  private static final String EXAMPLE_ALLOWED_AUDIENCE_IDS = "\"allowedAudienceIds\": [\"id\", \"id\", ...]";
 
   private final BatchProcessService batchProcessService;
 
@@ -96,10 +93,9 @@ public class BatchProcessController {
   /*
    * Beispiel für parameters:
    *   {
-   *     "audiences": ["audience", "audience", ...],
    *     "itemIds": ["item_xxx", "item_xxx", ...],
    *     "localTags": ["tag", "tag", ...],
-   *     "userAccountIpRange": "{...}"
+   *     "allowedAudienceIds": ["id", "id", ...]
    *   }
    */
 
@@ -200,7 +196,7 @@ public class BatchProcessController {
 
   @RequestMapping(value = "/changeFileVisibility", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
-      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_USER_ACCOUNT_IP_RANGE + "}"))))
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> changeFileVisibility( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(value = FILE_VISIBILITY_FROM) FileDbVO.Visibility fileVisibilityFrom, //
@@ -208,10 +204,9 @@ public class BatchProcessController {
       @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
-    IpListProvider.IpRange userAccountIpRange = convertJsonNode2IpRange(parameters, PARAM_USER_ACCOUNT_IP_RANGE);
 
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
-        this.batchProcessService.changeFileVisibility(itemIds, fileVisibilityFrom, fileVisibilityTo, userAccountIpRange, token);
+        this.batchProcessService.changeFileVisibility(itemIds, fileVisibilityFrom, fileVisibilityTo, token);
 
     return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
@@ -440,14 +435,14 @@ public class BatchProcessController {
 
   @RequestMapping(value = "/replaceFileAudience", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
-      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_AUDIENCES + "}"))))
+      content = @Content(examples = @ExampleObject(value = "{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_ALLOWED_AUDIENCE_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceFileAudience( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
-    List<String> audiences = convertJsonNode2List(parameters, PARAM_AUDIENCES);
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceFileAudience(itemIds, audiences, token);
+    List<String> allowedAudienceIds = convertJsonNode2List(parameters, PARAM_ALLOWED_AUDIENCE_IDS);
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceFileAudience(itemIds, allowedAudienceIds, token);
 
     return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
@@ -541,25 +536,5 @@ public class BatchProcessController {
     }
 
     return convertedList;
-  }
-
-  private IpListProvider.IpRange convertJsonNode2IpRange(JsonNode parameters, String parameterName) throws IngeApplicationException {
-
-    IpListProvider.IpRange convertedIpRange = null;
-
-    JsonNode jsonNode = parameters.get(parameterName);
-    if (null != jsonNode) {
-      String name = jsonNode.get("name").asText();
-      String id = jsonNode.get("id").asText();
-      List<String> ipRanges = new ArrayList<>();
-      jsonNode.get("ipRanges").forEach(ipRange -> ipRanges.add(ipRange.asText()));
-      convertedIpRange = new IpListProvider.IpRange(name, id, ipRanges);
-    }
-
-    if (null == convertedIpRange) {
-      throw new IngeApplicationException("The request body doesn't contain valid " + parameterName);
-    }
-
-    return convertedIpRange;
   }
 }
