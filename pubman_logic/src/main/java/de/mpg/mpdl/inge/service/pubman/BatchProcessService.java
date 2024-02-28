@@ -35,8 +35,7 @@ public interface BatchProcessService {
       String token) throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO changeFileVisibility(List<String> itemIds, FileDbVO.Visibility fileVisibilityFrom,
-      FileDbVO.Visibility fileVisibilityTo, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException;
+      FileDbVO.Visibility fileVisibilityTo, String token) throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   BatchProcessLogHeaderDbVO changeGenre(List<String> itemIds, MdsPublicationVO.Genre genreFrom, MdsPublicationVO.Genre genreTo,
       MdsPublicationVO.DegreeType degreeType, String token)

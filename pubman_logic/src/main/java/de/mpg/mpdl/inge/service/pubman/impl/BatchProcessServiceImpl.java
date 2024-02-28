@@ -155,8 +155,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   @Override
   public BatchProcessLogHeaderDbVO changeFileVisibility(List<String> itemIds, FileDbVO.Visibility fileVisibilityFrom,
-      FileDbVO.Visibility fileVisibilityTo, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+      FileDbVO.Visibility fileVisibilityTo, String token) throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = checkCommon(token, itemIds);
     checkVisibility(fileVisibilityFrom, "fileVisibilityFrom");
