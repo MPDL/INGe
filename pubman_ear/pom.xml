@@ -34,7 +34,7 @@
 					<version>8</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<skinnyWars>true</skinnyWars>
-					<initializeInOrder>true</initializeInOrder>	
+					<initializeInOrder>true</initializeInOrder>
 					<modules>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
@@ -108,7 +108,7 @@
 								</goals>
 								<configuration>
 									<target>
-										<!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->  
+										<!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->
 										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy wildfly server -->
 										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
@@ -149,14 +149,14 @@
 								</goals>
 								<configuration>
 									<target>
-										<!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->  
+										<!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->
 										<scp file="${project.build.directory}/${project.build.finalName}.${project.packaging}" todir="${jboss.user.scp}:${jboss.tmp.deploy}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- configuration for the deploy wildfly server -->
 										<scp file="${project.build.directory}/classes/module.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- copy over the configuration file -->
 										<scp file="${project.build.directory}/classes/pubman.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<scp file="${project.build.directory}/classes/solution.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
-										<!-- finally move the ear file to the deployment directory -->	
+										<!-- finally move the ear file to the deployment directory -->
 										<sshexec host="${jboss.host}" username="${jboss.username}" keyfile="${user.home}/.ssh/${ssh.keyfile}" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}.${project.packaging} ${jboss.install.dir}/standalone/deployments" />
 									</target>
 								</configuration>
@@ -222,6 +222,12 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>webjars-locator-jboss-vfs</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-compress</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
