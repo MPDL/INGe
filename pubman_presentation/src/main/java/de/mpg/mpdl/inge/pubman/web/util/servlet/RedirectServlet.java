@@ -26,14 +26,15 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.servlet;
 
-import java.io.IOException;
-
 import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls. /pubman/item/escidoc:12345 for
@@ -47,6 +48,8 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @SuppressWarnings("serial")
 public class RedirectServlet extends HttpServlet {
+  private static final Logger logger = LogManager.getLogger(RedirectServlet.class);
+
   private static final String INSTANCE_CONTEXT_PATH = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
   private static final String INSTANCE_URL = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
@@ -107,6 +110,7 @@ public class RedirectServlet extends HttpServlet {
         redirectUrl.append("/metadata");
       }
 
+      logger.info("File: " + id + " ; req.getServerName():" + req.getServerName() + " ; redirectUrl: " + redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
     }
 
