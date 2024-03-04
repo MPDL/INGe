@@ -26,15 +26,14 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.servlet;
 
+import java.io.IOException;
+
 import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls. /pubman/item/escidoc:12345 for
@@ -48,10 +47,7 @@ import org.apache.logging.log4j.Logger;
  */
 @SuppressWarnings("serial")
 public class RedirectServlet extends HttpServlet {
-  private static final Logger logger = LogManager.getLogger(RedirectServlet.class);
-
   private static final String INSTANCE_CONTEXT_PATH = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
-  private static final String INSTANCE_URL = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -84,24 +80,14 @@ public class RedirectServlet extends HttpServlet {
 
     // is component
     if (id.contains("/component/")) {
-      logger.info("File Request: " + req.getPathInfo());
-      logger.info("File Request: " + req.getServerName());
-      logger.info("File Request: " + req.getContextPath());
-      logger.info("File Request: " + req.getPathTranslated());
-      logger.info("File Request: " + req.getQueryString());
-      logger.info("File Request: " + req.getRequestURI());
-      logger.info("File Request: " + req.toString());
-      logger.info("File Request: " + req.getProtocol());
 
       String[] pieces = id.split("/");
       if (4 != pieces.length) {
         resp.sendError(404, "File not found");
       }
 
-      if (INSTANCE_URL.startsWith("https")) {
-        redirectUrl.append("https://" + req.getServerName());
-      }
-
+//      redirectUrl.append("https://" + req.getServerName());
+      redirectUrl.append(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL));
       redirectUrl.append("/rest/items/");
       redirectUrl.append(pieces[0]);
       redirectUrl.append("/component/");
@@ -119,14 +105,7 @@ public class RedirectServlet extends HttpServlet {
         redirectUrl.append("/metadata");
       }
 
-      logger.info("File: " + id + " ; req.getServerName():" + req.getServerName() + " ; redirectUrl: " + redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
     }
-
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-    // No post action
   }
 }

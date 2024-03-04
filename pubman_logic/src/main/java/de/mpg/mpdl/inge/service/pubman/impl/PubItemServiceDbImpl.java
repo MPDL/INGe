@@ -216,9 +216,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static final String INDEX_VERSION_STATE = "versionState";
   public static final String INDEX_VERSION_VERSIONNUMBER = "versionNumber";
 
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
-
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO create(ItemVersionVO pubItemVO, String authenticationToken)

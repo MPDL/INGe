@@ -86,7 +86,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
 import jakarta.faces.component.html.HtmlSelectOneRadio;
@@ -107,9 +106,6 @@ public class EasySubmission extends FacesBean {
 
   public static final String LOAD_EASYSUBMISSION = "loadEasySubmission";
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
-
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
 
   public SelectItem SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", this.getLabel("easy_submission_method_manual"));
   public SelectItem SUBMISSION_METHOD_FETCH_IMPORT = new SelectItem("FETCH_IMPORT", this.getLabel("easy_submission_method_fetch_import"));
