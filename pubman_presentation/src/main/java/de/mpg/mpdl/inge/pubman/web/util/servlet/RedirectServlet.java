@@ -88,7 +88,7 @@ public class RedirectServlet extends HttpServlet {
 
 //      redirectUrl.append("https://" + req.getServerName());
       redirectUrl.append(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL));
-      redirectUrl.append("/rest/items/");
+      redirectUrl.append("/items/");
       redirectUrl.append(pieces[0]);
       redirectUrl.append("/component/");
       redirectUrl.append(pieces[2]);
