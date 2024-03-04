@@ -84,6 +84,8 @@ public class RedirectServlet extends HttpServlet {
 
     // is component
     if (id.contains("/component/")) {
+      logger.info("File Request: " + req.getRequestURI());
+
       String[] pieces = id.split("/");
       if (4 != pieces.length) {
         resp.sendError(404, "File not found");
