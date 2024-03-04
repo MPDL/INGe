@@ -84,7 +84,14 @@ public class RedirectServlet extends HttpServlet {
 
     // is component
     if (id.contains("/component/")) {
+      logger.info("File Request: " + req.getPathInfo());
+      logger.info("File Request: " + req.getServerName());
+      logger.info("File Request: " + req.getContextPath());
+      logger.info("File Request: " + req.getPathTranslated());
+      logger.info("File Request: " + req.getQueryString());
       logger.info("File Request: " + req.getRequestURI());
+      logger.info("File Request: " + req.toString());
+      logger.info("File Request: " + req.getProtocol());
 
       String[] pieces = id.split("/");
       if (4 != pieces.length) {
