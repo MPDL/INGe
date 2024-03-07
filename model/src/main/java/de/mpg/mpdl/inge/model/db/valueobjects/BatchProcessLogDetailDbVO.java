@@ -93,7 +93,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   @Column(name = "item_objectid", nullable = false)
   private String itemObjectId;
 
-  @Column(name = "item_versionnumber", nullable = false)
+  @Column(name = "item_versionnumber")
   private Integer itemVersionnumber;
 
   @NotNull
