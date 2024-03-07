@@ -23,8 +23,8 @@ public class SwaggerConfiguration {
   public OpenAPI customOpenAPI() {
 
     OpenAPI openAPI = new OpenAPI();
-    openAPI.info(new Info().title("PubMan REST API").description(PropertyReader.INGE_REST_API_DESCRIPTION).version("1.0"));
-    openAPI.servers(Collections.singletonList(new Server().url(PropertyReader.INGE_REST_SERVICE_URL)));
+    openAPI.info(new Info().title("PubMan REST API").description(PropertyReader.getProperty(PropertyReader.INGE_REST_API_DESCRIPTION)).version("1.0"));
+    openAPI.servers(Collections.singletonList(new Server().url(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL))));
 
     return openAPI;
   }
