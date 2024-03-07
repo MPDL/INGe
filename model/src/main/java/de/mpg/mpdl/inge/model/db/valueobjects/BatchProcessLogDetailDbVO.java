@@ -24,8 +24,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity
@@ -88,15 +86,12 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO;
 
-  @Size(max = 255)
-  @NotNull
   @Column(name = "item_objectid", nullable = false)
   private String itemObjectId;
 
   @Column(name = "item_versionnumber")
   private Integer itemVersionnumber;
 
-  @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "state", nullable = false)
   private BatchProcessLogDetailDbVO.State state;
@@ -105,7 +100,6 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   @Enumerated(EnumType.STRING)
   private BatchProcessLogDetailDbVO.Message message;
 
-  @NotNull
   @Column(name = "start_date", columnDefinition = "TIMESTAMP", nullable = false)
   private Date startDate;
 

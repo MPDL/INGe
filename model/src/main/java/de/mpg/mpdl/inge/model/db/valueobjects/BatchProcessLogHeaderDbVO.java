@@ -15,8 +15,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity
@@ -63,26 +61,20 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   @Column(name = "batch_process_log_header_id", nullable = false)
   private long batchProcessLogHeaderId;
 
-  @Size(max = 255)
-  @NotNull
   @Column(name = "user_account_objectid", nullable = false)
   private String userAccountObjectId;
 
-  @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "state", nullable = false)
   private BatchProcessLogHeaderDbVO.State state;
 
-  @NotNull
   @Column(name = "number_of_items", nullable = false)
   private Integer numberOfItems;
 
-  @NotNull
   @Column(name = "method", nullable = false)
   @Enumerated(EnumType.STRING)
   private BatchProcessLogHeaderDbVO.Method method;
 
-  @NotNull
   @Column(name = "start_date", columnDefinition = "TIMESTAMP", nullable = false)
   private Date startDate;
 
