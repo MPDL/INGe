@@ -97,7 +97,6 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   @Column(name = "item_versionnumber", nullable = false)
   private Integer itemVersionnumber;
 
-  @Size(max = 255)
   @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "state", nullable = false)

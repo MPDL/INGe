@@ -68,7 +68,6 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   @Column(name = "user_account_objectid", nullable = false)
   private String userAccountObjectId;
 
-  @Size(max = 255)
   @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "state", nullable = false)
