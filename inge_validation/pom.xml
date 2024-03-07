@@ -45,6 +45,12 @@
 		<dependency>
 			<groupId>com.baidu.unbiz</groupId>
 			<artifactId>fluent-validator</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
