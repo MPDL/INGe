@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.cslmanager;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -58,7 +57,6 @@ public class TestCitationStyleLanguageManager {
    */
   @Before
   public void init() throws Exception {
-    BasicConfigurator.configure();
     this.citationXml =
         IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
     this.escidocItemXml =
