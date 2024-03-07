@@ -77,7 +77,6 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   @Column(name = "number_of_items", nullable = false)
   private Integer numberOfItems;
 
-  @Size(max = 255)
   @NotNull
   @Column(name = "method", nullable = false)
   @Enumerated(EnumType.STRING)

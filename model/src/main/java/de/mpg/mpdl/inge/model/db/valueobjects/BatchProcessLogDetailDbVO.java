@@ -102,7 +102,6 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   @Column(name = "state", nullable = false)
   private BatchProcessLogDetailDbVO.State state;
 
-  @Size(max = 255)
   @Column(name = "message")
   @Enumerated(EnumType.STRING)
   private BatchProcessLogDetailDbVO.Message message;
