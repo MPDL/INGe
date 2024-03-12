@@ -45,8 +45,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class SourceVO extends ValueObject implements Cloneable {
   private String title;
-  private final java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<>();
-  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<>();
+  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<>();
+  private java.util.List<CreatorVO> creators = new java.util.ArrayList<>();
   private String volume;
   private String issue;
   private Date datePublishedInPrint;
@@ -54,8 +54,8 @@ public class SourceVO extends ValueObject implements Cloneable {
   private String endPage;
   private String sequenceNumber;
   private PublishingInfoVO publishingInfo;
-  private final java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<>();
-  private final java.util.List<SourceVO> sources = new java.util.ArrayList<>();
+  private java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<>();
+  private java.util.List<SourceVO> sources = new java.util.ArrayList<>();
   private Genre genre;
   private String totalNumberOfPages;
 
@@ -304,15 +304,19 @@ public class SourceVO extends ValueObject implements Cloneable {
   public final SourceVO clone() {
     try {
       SourceVO clone = (SourceVO) super.clone();
+      clone.alternativeTitles = new java.util.ArrayList<>();
       for (AlternativeTitleVO title : this.alternativeTitles) {
         clone.alternativeTitles.add(title.clone());
       }
+      clone.creators = new java.util.ArrayList<>();
       for (CreatorVO creator : this.creators) {
         clone.creators.add(creator.clone());
       }
+      clone.identifiers = new java.util.ArrayList<>();
       for (IdentifierVO identifier : this.identifiers) {
         clone.identifiers.add(identifier.clone());
       }
+      clone.sources = new java.util.ArrayList<>();
       for (SourceVO source : this.sources) {
         clone.sources.add(source.clone());
       }

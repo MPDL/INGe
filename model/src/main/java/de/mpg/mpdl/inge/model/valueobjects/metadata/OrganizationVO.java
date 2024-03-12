@@ -88,7 +88,9 @@ public class OrganizationVO extends ValueObject implements Cloneable {
   public final OrganizationVO clone() {
     try {
       OrganizationVO clone = (OrganizationVO) super.clone();
-      clone.identifierPath = this.identifierPath.clone();
+      if (null != this.identifierPath) {
+        clone.identifierPath = this.identifierPath.clone();
+      }
       return clone;
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException(e);

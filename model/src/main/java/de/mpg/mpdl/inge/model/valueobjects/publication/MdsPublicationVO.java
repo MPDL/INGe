@@ -197,12 +197,12 @@ public class MdsPublicationVO extends MetadataSetVO {
   /**
    * Alternative titles of the publication, e.g. translations of original title or sub-titles.
    */
-  private final java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<>();
+  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<>();
   /**
    * Persons and organizations who essentially participated in creating the content with a specific
    * task, e.g. author, translator, editor.
    */
-  private final java.util.List<CreatorVO> creators = new java.util.ArrayList<>();
+  private java.util.List<CreatorVO> creators = new java.util.ArrayList<>();
   private String dateAccepted;
   private String dateCreated;
   private String dateModified;
@@ -231,13 +231,13 @@ public class MdsPublicationVO extends MetadataSetVO {
   /**
    * Identifiers referencing the described item, e.g. the ISBN, Report-Number.
    */
-  private final java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<>();
+  private java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<>();
   /**
    * The language attribute is a valid ISO Language Code. These codes are the lower- case,
    * two-letter codes as defined by ISO-639. You can find a full list of these codes at a number of
    * sites, such as: http://www.loc.gov/standards/iso639- 2/englangn.html
    */
-  private final java.util.List<String> languages = new java.util.ArrayList<>();
+  private java.util.List<String> languages = new java.util.ArrayList<>();
   /**
    * The name of the library where the item is currently located.
    */
@@ -254,13 +254,13 @@ public class MdsPublicationVO extends MetadataSetVO {
   /**
    * The bundles in which the item has been published, e.g. journals, books, series or databases.
    */
-  private final java.util.List<SourceVO> sources = new java.util.ArrayList<>();
+  private java.util.List<SourceVO> sources = new java.util.ArrayList<>();
   /**
    * Free keywords.
    */
   private String freeKeywords;
 
-  private final List<SubjectVO> subjects = new ArrayList<>();
+  private List<SubjectVO> subjects = new ArrayList<>();
 
   private String tableOfContents;
   /**
@@ -271,7 +271,7 @@ public class MdsPublicationVO extends MetadataSetVO {
   /**
    * Abstracts or short descriptions of the item.
    */
-  private final java.util.List<AbstractVO> abstracts = new java.util.ArrayList<>();
+  private java.util.List<AbstractVO> abstracts = new java.util.ArrayList<>();
 
   /**
    * Information about project and funding

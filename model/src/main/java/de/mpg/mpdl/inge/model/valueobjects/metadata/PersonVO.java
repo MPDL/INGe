@@ -169,6 +169,7 @@ public class PersonVO extends ValueObject implements Cloneable {
         clone.identifier = this.identifier.clone();
       }
       clone.alternativeNames = new ArrayList<>(this.alternativeNames);
+      clone.organizations = new ArrayList<>(this.organizations);
       for (OrganizationVO organization : this.organizations) {
         clone.organizations.add(organization.clone());
       }

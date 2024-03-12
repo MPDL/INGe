@@ -36,6 +36,7 @@ public class FundingOrganizationVO extends ValueObject implements Cloneable {
   public final FundingOrganizationVO clone() {
     try {
       FundingOrganizationVO clone = (FundingOrganizationVO) super.clone();
+      clone.identifiers = new ArrayList<>();
       for (IdentifierVO identifier : this.identifiers) {
         clone.identifiers.add(identifier.clone());
       }
