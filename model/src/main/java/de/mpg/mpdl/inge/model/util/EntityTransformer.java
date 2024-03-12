@@ -213,6 +213,9 @@ public class EntityTransformer {
 
     return MAPPER.toPubItemVO(itemVo);
 
+    //    PubItemVO pubItem = MAPPER.toPubItemVO(itemVo);
+    //    pubItem.setVersion(MAPPER.toItemRO(itemVo));
+    //    return pubItem;
 
     /*
     PubItemVO oldPubItem = new PubItemVO();
