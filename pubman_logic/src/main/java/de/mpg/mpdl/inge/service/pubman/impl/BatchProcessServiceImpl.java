@@ -103,7 +103,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setSourceNumber(sourceNumber);
     batchOperationsImpl.setSourceIdentifierType(sourceIdentifierType);
-    batchOperationsImpl.setSourceIdentifer(sourceIdentifier);
+    batchOperationsImpl.setSourceIdentifier(sourceIdentifier);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
@@ -320,8 +320,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setSourceNumber(sourceNumber);
     batchOperationsImpl.setSourceIdentifierType(sourceIdentifierType);
-    batchOperationsImpl.setSourceIdentiferFrom(sourceIdentifierFrom);
-    batchOperationsImpl.setSourceIdentiferTo(sourceIdentifierTo);
+    batchOperationsImpl.setSourceIdentifierFrom(sourceIdentifierFrom);
+    batchOperationsImpl.setSourceIdentifierTo(sourceIdentifierTo);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
@@ -528,7 +528,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
   private void checkEnum(IdentifierVO.IdType identifierType, String name) throws IngeApplicationException {
     if (null == identifierType) {
-      throw new IngeApplicationException("The identiferType " + name + " must not be empty");
+      throw new IngeApplicationException("The identifierType " + name + " must not be empty");
     }
   }
 

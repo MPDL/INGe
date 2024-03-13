@@ -69,10 +69,10 @@ public class BatchProcessController {
   private static final String REVIEW_METHOD_TO = "reviewMethodTo";
   private static final String SOURCE_GENRE_FROM = "sourceGenreFrom";
   private static final String SOURCE_GENRE_TO = "sourceGenreTo";
-  private static final String SOURCE_IDENTIFIER = "sourceIdentifer";
-  private static final String SOURCE_IDENTIFIER_FROM = "sourceIdentiferFrom";
-  private static final String SOURCE_IDENTIFIER_TO = "sourceIdentiferTo";
-  private static final String SOURCE_IDENTIFIER_TYPE = "sourceIdentiferType";
+  private static final String SOURCE_IDENTIFIER = "sourceIdentifier";
+  private static final String SOURCE_IDENTIFIER_FROM = "sourceIdentifierFrom";
+  private static final String SOURCE_IDENTIFIER_TO = "sourceIdentifierTo";
+  private static final String SOURCE_IDENTIFIER_TYPE = "sourceIdentifierType";
   private static final String SOURCE_NUMBER = "sourceNumber";
 
   private static final String PARAM_ITEM_IDS = "itemIds";
@@ -126,10 +126,10 @@ public class BatchProcessController {
     return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/addSourceIdentifer", method = RequestMethod.PUT)
+  @RequestMapping(value = "/addSourceIdentifier", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "}"))))
-  public ResponseEntity<BatchProcessLogHeaderDbVO> addSourceIdentifer( //
+  public ResponseEntity<BatchProcessLogHeaderDbVO> addSourceIdentifier( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(SOURCE_NUMBER) int sourceNumber, //
       @RequestParam(SOURCE_IDENTIFIER_TYPE) IdentifierVO.IdType sourceIdentifierType, //
@@ -286,10 +286,10 @@ public class BatchProcessController {
     return new ResponseEntity<>(batchProcessLogHeaderDbVO, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/changeSourceIdentifer", method = RequestMethod.PUT)
+  @RequestMapping(value = "/changeSourceIdentifier", method = RequestMethod.PUT)
   @Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( //
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "}"))))
-  public ResponseEntity<BatchProcessLogHeaderDbVO> changeSourceIdentifer( //
+  public ResponseEntity<BatchProcessLogHeaderDbVO> changeSourceIdentifier( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(SOURCE_NUMBER) int sourceNumber, //
       @RequestParam(SOURCE_IDENTIFIER_TYPE) IdentifierVO.IdType sourceIdentifierType, //

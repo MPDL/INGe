@@ -56,9 +56,9 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   private MdsPublicationVO.ReviewMethod reviewMethodTo;
   private SourceVO.Genre sourceGenreFrom;
   private SourceVO.Genre sourceGenreTo;
-  private String sourceIdentifer;
-  private String sourceIdentiferFrom;
-  private String sourceIdentiferTo;
+  private String sourceIdentifier;
+  private String sourceIdentifierFrom;
+  private String sourceIdentifierTo;
   private IdentifierVO.IdType sourceIdentifierType;
   private int sourceNumber;
   private FileDbVO.Visibility visibilityFrom;
@@ -90,7 +90,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
         && null != currentSourceList.get(this.sourceNumber - 1)) {
       if (null != currentSourceList.get(this.sourceNumber - 1).getIdentifiers()) {
         currentSourceList.get(this.sourceNumber - 1).getIdentifiers()
-            .add(new IdentifierVO(this.sourceIdentifierType, this.sourceIdentifer));
+            .add(new IdentifierVO(this.sourceIdentifierType, this.sourceIdentifier));
         this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
       }
     } else {
@@ -347,9 +347,9 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
         && null != currentSourceList.get(this.sourceNumber - 1).getIdentifiers()) {
       for (int i = 0; i < currentSourceList.get(this.sourceNumber - 1).getIdentifiers().size(); i++) {
         IdentifierVO identifier = currentSourceList.get(this.sourceNumber - 1).getIdentifiers().get(i);
-        if (this.sourceIdentifierType.equals(identifier.getType()) && this.sourceIdentiferFrom.equals(identifier.getId())) {
-          if (null != this.sourceIdentiferTo && !this.sourceIdentiferTo.trim().isEmpty()) {
-            identifier.setId(this.sourceIdentiferTo);
+        if (this.sourceIdentifierType.equals(identifier.getType()) && this.sourceIdentifierFrom.equals(identifier.getId())) {
+          if (null != this.sourceIdentifierTo && !this.sourceIdentifierTo.trim().isEmpty()) {
+            identifier.setId(this.sourceIdentifierTo);
             currentSourceList.get(this.sourceNumber - 1).getIdentifiers().set(i, identifier);
           } else {
             currentSourceList.get(this.sourceNumber - 1).getIdentifiers().remove(i);
@@ -561,16 +561,16 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     this.sourceGenreTo = sourceGenreTo;
   }
 
-  public void setSourceIdentifer(String sourceIdentifer) {
-    this.sourceIdentifer = sourceIdentifer;
+  public void setSourceIdentifier(String sourceIdentifier) {
+    this.sourceIdentifier = sourceIdentifier;
   }
 
-  public void setSourceIdentiferFrom(String sourceIdentiferFrom) {
-    this.sourceIdentiferFrom = sourceIdentiferFrom;
+  public void setSourceIdentifierFrom(String sourceIdentifierFrom) {
+    this.sourceIdentifierFrom = sourceIdentifierFrom;
   }
 
-  public void setSourceIdentiferTo(String sourceIdentiferTo) {
-    this.sourceIdentiferTo = sourceIdentiferTo;
+  public void setSourceIdentifierTo(String sourceIdentifierTo) {
+    this.sourceIdentifierTo = sourceIdentifierTo;
   }
 
   public void setSourceIdentifierType(IdentifierVO.IdType sourceIdentifierType) {
