@@ -95,7 +95,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_NO_SOURCE_FOUND);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_SOURCE_FOUND);
     }
   }
 
@@ -126,7 +126,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
     }
   }
 
@@ -139,7 +139,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       ContextDbVO contextDbVOTo = this.contextService.get(this.contextTo, token);
       if (null == contextDbVOTo) {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.CONTEXT_NOT_FOUND);
+            BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_NOT_FOUND);
       } else if (null != itemVersionVO.getMetadata() && null != itemVersionVO.getMetadata().getGenre()
           && null != contextDbVOTo.getAllowedGenres() && !contextDbVOTo.getAllowedGenres().isEmpty()
           && contextDbVOTo.getAllowedGenres().contains(itemVersionVO.getMetadata().getGenre())) {
@@ -150,15 +150,15 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
           this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
         } else {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-              BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_ALLOWED);
+              BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
         }
       } else {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_ALLOWED);
+            BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
     }
   }
 
@@ -191,7 +191,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.FILES_METADATA_OLD_VALUE_NOT_EQUAL);
+          BatchProcessLogDetailDbVO.Message.BATCH_FILES_METADATA_OLD_VALUE_NOT_EQUAL);
     }
   }
 
@@ -216,15 +216,15 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
           this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
         } else {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-              BatchProcessLogDetailDbVO.Message.METADATA_NO_NEW_VALUE_SET);
+              BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_NEW_VALUE_SET);
         }
       } else {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+            BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_ALLOWED);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
     }
   }
 
@@ -267,11 +267,11 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
         this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
       } else {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+            BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_NO_CHANGE_VALUE);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
     }
   }
 
@@ -288,7 +288,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_NO_CHANGE_VALUE);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
     }
   }
 
@@ -304,7 +304,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
     }
   }
 
@@ -327,12 +327,12 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
           this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
         } else {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-              BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+              BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
         }
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_NO_CHANGE_VALUE);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
     }
   }
 
@@ -361,11 +361,11 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
         this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
       } else {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_NOT_EQUAL);
+            BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_NO_SOURCE_FOUND);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_SOURCE_FOUND);
     }
   }
 
@@ -411,7 +411,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.FILES_METADATA_OLD_VALUE_NOT_EQUAL);
+          BatchProcessLogDetailDbVO.Message.BATCH_FILES_METADATA_OLD_VALUE_NOT_EQUAL);
     }
   }
 
@@ -450,7 +450,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_CHANGE_VALUE_ORCID_NO_PERSON);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_ORCID_NO_PERSON);
     }
   }
 
@@ -469,7 +469,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.METADATA_NO_SOURCE_FOUND);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_SOURCE_FOUND);
     }
   }
 

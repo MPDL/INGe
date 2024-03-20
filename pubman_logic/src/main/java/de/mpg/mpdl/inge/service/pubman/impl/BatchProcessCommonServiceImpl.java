@@ -153,7 +153,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
         itemVersionVO = this.pubItemService.get(itemId, token);
         if (null == itemVersionVO) {
           batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, null,
-              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND, new Date());
+              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND, new Date());
         } else {
           batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId, itemVersionVO.getVersionNumber(),
               BatchProcessLogDetailDbVO.State.INITIALIZED, new Date());
@@ -161,15 +161,15 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       } catch (IngeTechnicalException | RuntimeException | IngeApplicationException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
             null != itemVersionVO ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR, new Date());
+            BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR, new Date());
       } catch (AuthenticationException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
             null != itemVersionVO ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.AUTHENTICATION_ERROR, new Date());
+            BatchProcessLogDetailDbVO.Message.BATCH_AUTHENTICATION_ERROR, new Date());
       } catch (AuthorizationException e) {
         batchProcessLogDetailDbVO = new BatchProcessLogDetailDbVO(batchProcessLogHeaderDbVO, itemId,
             null != itemVersionVO ? itemVersionVO.getVersionNumber() : null, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR, new Date());
+            BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR, new Date());
       }
 
       this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);

@@ -11,7 +11,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,40 +38,30 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     ERROR
   }
 
-  public enum Message implements Messages
+  public enum Message
   {
     // SUCCESS MESSAGE
-    SUCCESS("batch_ProcessLog_Success"),
+    SUCCESS,
 
     // ERROR MESSAGES
-    AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
-    AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError"),
-    CONTEXT_NOT_FOUND("batch_ProcessLog_ContextNotFoundError"),
-    FILES_METADATA_OLD_VALUE_NOT_EQUAL("batch_ProcessLog_FileMetadataOldValueNotEqual"),
-    INTERNAL_ERROR("batch_ProcessLog_InternalError"),
-    ITEM_NOT_FOUND("batch_ProcessLog_ItemNotFoundError"),
-    METADATA_CHANGE_VALUE_NOT_ALLOWED("batch_ProcessLog_MetadataChangeValueNotAllowed"),
-    METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
-    METADATA_CHANGE_VALUE_ORCID_NO_PERSON("batch_ProcessLog_MetadataChangeOrcidNoPerson"),
-    METADATA_NO_CHANGE_VALUE("batch_ProcessLog_MetadataNoChangeValue"),
-    METADATA_NO_NEW_VALUE_SET("batch_ProcessLog_MetadataNoNewValueSet"),
-    METADATA_NO_SOURCE_FOUND("batch_ProcessLog_MetadataNoSourceFound"),
-    STATE_WRONG("batch_ProcessLog_StateWrong"),
-    VALIDATION_GLOBAL("batch_ProcessLog_ValidationGlobal"),
-    VALIDATION_INVALID_ORCID("batch_ProcessLog_ValidationInvalidOrcid"),
-    VALIDATION_IP_RANGE_NOT_PROVIDED("batch_ProcessLog_IpRangeNotProvided"),
-    VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource");
-
-  private final String message;
-
-  Message(String message) {
-      this.message = message;
-    }
-
-  @Override
-    public String getMessage() {
-      return this.message;
-    }}
+    BATCH_AUTHENTICATION_ERROR,
+    BATCH_AUTHORIZATION_ERROR,
+    BATCH_CONTEXT_NOT_FOUND,
+    BATCH_FILES_METADATA_OLD_VALUE_NOT_EQUAL,
+    BATCH_INTERNAL_ERROR,
+    BATCH_ITEM_NOT_FOUND,
+    BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED,
+    BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL,
+    BATCH_METADATA_CHANGE_VALUE_ORCID_NO_PERSON,
+    BATCH_METADATA_NO_CHANGE_VALUE,
+    BATCH_METADATA_NO_NEW_VALUE_SET,
+    BATCH_METADATA_NO_SOURCE_FOUND,
+    BATCH_STATE_WRONG,
+    BATCH_VALIDATION_GLOBAL,
+    BATCH_VALIDATION_INVALID_ORCID,
+    BATCH_VALIDATION_IP_RANGE_NOT_PROVIDED,
+    BATCH_VALIDATION_NO_SOURCE;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "batch_process_log_id_gen")

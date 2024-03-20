@@ -80,7 +80,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           itemVersionVO = this.pubItemService.get(itemId, token);
           if (null == itemVersionVO) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
+                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
           } else if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
             switch (method) {
               case ADD_LOCALTAGS:
@@ -131,19 +131,19 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
             }
           } else {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
+                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
           }
         } catch (IngeTechnicalException e) {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR);
+              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR);
         } catch (AuthenticationException e) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.AUTHENTICATION_ERROR);
+                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHENTICATION_ERROR);
         } catch (AuthorizationException e) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR);
+                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
         } catch (IngeApplicationException e) {
-          BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR;
+          BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR;
 
           switch (method) {
             case CHANGE_FILE_VISIBILITY:
@@ -154,10 +154,10 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 if (validationReport.hasItems()) {
                   for (ValidationReportItemVO validationItem : validationReport.getItems()) {
                     if (ErrorMessages.COMPONENT_IP_RANGE_NOT_PROVIDED.equals(validationItem.getContent())) {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_IP_RANGE_NOT_PROVIDED;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_IP_RANGE_NOT_PROVIDED;
                       break;
                     } else {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_GLOBAL;
                       // no break: another report Item could set a finer message
                     }
                   }
@@ -172,10 +172,10 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 if (validationReport.hasItems()) {
                   for (ValidationReportItemVO validationItem : validationReport.getItems()) {
                     if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_NO_SOURCE;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_NO_SOURCE;
                       break;
                     } else {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_GLOBAL;
                       // no break: another report Item could set a finer message
                     }
                   }
@@ -190,10 +190,10 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 if (validationReport.hasItems()) {
                   for (ValidationReportItemVO validationItem : validationReport.getItems()) {
                     if (ErrorMessages.CREATOR_ORCID_INVALID.equals(validationItem.getContent())) {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_INVALID_ORCID;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_INVALID_ORCID;
                       break;
                     } else {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_GLOBAL;
                       // no break: another report Item could set a finer message
                     }
                   }
@@ -240,7 +240,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           itemVersionVO = this.pubItemService.get(itemId, token);
           if (null == itemVersionVO) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.ITEM_NOT_FOUND);
+                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
           } else {
             switch (method) {
               case DELETE_PUBITEMS:
@@ -249,7 +249,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                   this.batchProcessCommonService.doPubItem(method, token, itemId, null, batchProcessLogDetailDbVO);
                 } else {
                   this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
+                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
                 }
                 break;
               case RELEASE_PUBITEMS:
@@ -263,7 +263,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
                   this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
+                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
                 }
                 break;
               case REVISE_PUBITEMS:
@@ -275,7 +275,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
                   this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
+                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
                 }
                 break;
               case SUBMIT_PUBITEMS:
@@ -288,7 +288,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
                   this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
+                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
                 }
                 break;
               case WITHDRAW_PUBITEMS:
@@ -298,22 +298,22 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                       itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
                 } else {
                   this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.STATE_WRONG);
+                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
                 }
                 break;
             }
           }
         } catch (IngeTechnicalException e) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR);
+                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR);
         } catch (AuthenticationException e) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.AUTHENTICATION_ERROR);
+                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHENTICATION_ERROR);
         } catch (AuthorizationException e) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.AUTHORIZATION_ERROR);
+                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
         } catch (IngeApplicationException e) {
-          BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.INTERNAL_ERROR;
+          BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR;
 
           switch (method) {
             case RELEASE_PUBITEMS, SUBMIT_PUBITEMS:
@@ -323,10 +323,10 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 if (validationReport.hasItems()) {
                   for (ValidationReportItemVO validationItem : validationReport.getItems()) {
                     if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_NO_SOURCE;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_NO_SOURCE;
                       break;
                     } else {
-                      message = BatchProcessLogDetailDbVO.Message.VALIDATION_GLOBAL;
+                      message = BatchProcessLogDetailDbVO.Message.BATCH_VALIDATION_GLOBAL;
                       // no break: another report Item could set a finer message
                     }
                   }
