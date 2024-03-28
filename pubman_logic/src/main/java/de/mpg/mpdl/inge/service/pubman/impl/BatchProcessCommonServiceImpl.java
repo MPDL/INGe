@@ -78,7 +78,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
     }
 
     updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.SUCCESS,
-        BatchProcessLogDetailDbVO.Message.SUCCESS);
+        BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
   }
 
   @Override
@@ -97,7 +97,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
     this.pubItemService.update(itemVersionVO, token);
 
     updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.SUCCESS,
-        BatchProcessLogDetailDbVO.Message.SUCCESS);
+        BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
   }
 
   @Override

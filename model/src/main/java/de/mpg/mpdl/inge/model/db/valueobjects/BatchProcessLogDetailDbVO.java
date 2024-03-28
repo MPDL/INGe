@@ -41,7 +41,7 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   public enum Message
   {
     // SUCCESS MESSAGE
-    SUCCESS,
+    BATCH_SUCCESS,
 
     // ERROR MESSAGES
     BATCH_AUTHENTICATION_ERROR,
