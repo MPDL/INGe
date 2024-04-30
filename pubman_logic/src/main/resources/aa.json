@@ -556,5 +556,48 @@
                 "givenUser.active": "true"
             }
         ]
+    },
+    "de.mpg.mpdl.inge.service.pubman.impl.SavedSearchServiceImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "savedSearch"
+            ]
+        },
+        "create": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {"role": "MODERATOR"}
+            }
+        ],
+        "get": [
+
+        ],
+        "getAll": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {"role": "MODERATOR"}
+            }
+        ],
+        "update": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "savedSearch.creator.objectId": "user.userAccount.objectId"
+            }
+        ],
+        "delete": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "savedSearch.creator.objectId": "user.userAccount.objectId"
+            }
+        ]
     }
 }

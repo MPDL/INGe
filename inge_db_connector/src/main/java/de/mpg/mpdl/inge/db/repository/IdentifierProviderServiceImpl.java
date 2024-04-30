@@ -15,7 +15,7 @@ public class IdentifierProviderServiceImpl {
 
   public enum ID_PREFIX
   {
-    CONTEXT("ctx"), FILES("file"), ITEM("item"), OU("ou"), USER("user");
+    CONTEXT("ctx"), FILES("file"), ITEM("item"), OU("ou"), USER("user"), SAVED_SEARCH("search");
 
   private final String prefix;
 
