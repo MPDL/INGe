@@ -1,50 +1,25 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import de.mpg.mpdl.inge.db.repository.*;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
+import de.mpg.mpdl.inge.db.repository.SavedSearchRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
-import de.mpg.mpdl.inge.es.dao.UserAccountDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.SavedSearchDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.util.EntityTransformer;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.pubman.SavedSearchService;
-import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.service.util.UserAccountLoginAttemptsCacheUtil;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.passay.CharacterData;
-import org.passay.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
 
 @Service
 public class SavedSearchServiceImpl extends GenericServiceImpl<SavedSearchDbVO, String> implements SavedSearchService {
@@ -128,19 +103,19 @@ public class SavedSearchServiceImpl extends GenericServiceImpl<SavedSearchDbVO, 
     }
     return searchToSave;
   }
-  
+
   @Transactional(rollbackFor = Throwable.class)
   public SavedSearchDbVO editSavedSearch(SavedSearchDbVO searchToSave, String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Principal principal = this.aaService.checkLoginRequired(token);
-  
+
     SavedSearchDbVO existingSearch = savedSearchRepository.findById(searchToSave.getObjectId()).orElse(null);
     if(existingSearch==null) {
       throw new IngeTechnicalException("Search with id " + searchToSave.getObjectId() + " not found.");
     }
-  
+
     existingSearch.setName(searchToSave.getName());
     existingSearch.setSearchForm(searchToSave.getSearchForm());
-  
+
     updateWithTechnicalMetadata(searchToSave, principal.getUserAccount(), false);
     try {
       savedSearchRepository.saveAndFlush(searchToSave);
@@ -149,15 +124,15 @@ public class SavedSearchServiceImpl extends GenericServiceImpl<SavedSearchDbVO, 
     }
     return searchToSave;
   }
-  
+
   @Transactional(readOnly = true, rollbackFor = Throwable.class)
   public SavedSearchDbVO getSavedSearch(String id, String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     //Principal principal = this.aaService.checkLoginRequired(token);
     return savedSearchRepository.findById(id).orElse(null);
   }
-  
-  
-  
+
+
+
   @Transactional(readOnly = true, rollbackFor = Throwable.class)
   public void deleteSavedSearch(String id, String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Principal principal = this.aaService.checkLoginRequired(token);
@@ -166,9 +141,9 @@ public class SavedSearchServiceImpl extends GenericServiceImpl<SavedSearchDbVO, 
     if(searchToDelete==null) {
       throw new IngeTechnicalException("Search with id " + searchToDelete.getObjectId() + " not found.");
     }
-  
+
     savedSearchRepository.deleteById(id);
   }
-  
+
    */
 }

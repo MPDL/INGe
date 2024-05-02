@@ -55,7 +55,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   public void initSearchIndexFields() {
     try {
       logger.info("CRON: initSearchIndexFields() started...");
-      Map<String, ElasticSearchIndexField> indexFields = getElasticDao().getIndexFields();
+      Map<String, ElasticSearchIndexField> indexFields = getElasticDao() != null ? getElasticDao().getIndexFields() : null;
       this.indexFields = indexFields;
       logger.info("CRON: initSearchIndexFields() finished (" + this.indexFields.size() + ").");
     } catch (IngeTechnicalException e) {
