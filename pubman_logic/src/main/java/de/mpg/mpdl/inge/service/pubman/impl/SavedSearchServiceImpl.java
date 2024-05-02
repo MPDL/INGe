@@ -103,19 +103,19 @@ public class SavedSearchServiceImpl extends GenericServiceImpl<SavedSearchDbVO, 
     }
     return searchToSave;
   }
-
+  
   @Transactional(rollbackFor = Throwable.class)
   public SavedSearchDbVO editSavedSearch(SavedSearchDbVO searchToSave, String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Principal principal = this.aaService.checkLoginRequired(token);
-
+  
     SavedSearchDbVO existingSearch = savedSearchRepository.findById(searchToSave.getObjectId()).orElse(null);
     if(existingSearch==null) {
       throw new IngeTechnicalException("Search with id " + searchToSave.getObjectId() + " not found.");
     }
-
+  
     existingSearch.setName(searchToSave.getName());
     existingSearch.setSearchForm(searchToSave.getSearchForm());
-
+  
     updateWithTechnicalMetadata(searchToSave, principal.getUserAccount(), false);
     try {
       savedSearchRepository.saveAndFlush(searchToSave);
@@ -124,15 +124,15 @@ public class SavedSearchServiceImpl extends GenericServiceImpl<SavedSearchDbVO, 
     }
     return searchToSave;
   }
-
+  
   @Transactional(readOnly = true, rollbackFor = Throwable.class)
   public SavedSearchDbVO getSavedSearch(String id, String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     //Principal principal = this.aaService.checkLoginRequired(token);
     return savedSearchRepository.findById(id).orElse(null);
   }
-
-
-
+  
+  
+  
   @Transactional(readOnly = true, rollbackFor = Throwable.class)
   public void deleteSavedSearch(String id, String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Principal principal = this.aaService.checkLoginRequired(token);
@@ -141,9 +141,9 @@ public class SavedSearchServiceImpl extends GenericServiceImpl<SavedSearchDbVO, 
     if(searchToDelete==null) {
       throw new IngeTechnicalException("Search with id " + searchToDelete.getObjectId() + " not found.");
     }
-
+  
     savedSearchRepository.deleteById(id);
   }
-
+  
    */
 }
