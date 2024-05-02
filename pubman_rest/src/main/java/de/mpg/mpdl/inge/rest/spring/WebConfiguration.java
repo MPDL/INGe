@@ -27,15 +27,15 @@ public class WebConfiguration implements WebMvcConfigurer {
     // First place: A Json converter using our default Jackson object mapper
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
     converter.setObjectMapper(MapperFactory.getObjectMapper());
-    converters.add(converter);
+    converters.add(0, converter);
 
     // Second Place: For SpringDoc (otherwise Malformed (base64 encoded) api-docs)
-    converters.add(new ByteArrayHttpMessageConverter());
+    converters.add(0, new ByteArrayHttpMessageConverter());
 
     // Third place: A String converter which allows to return strings as json
     StringHttpMessageConverter smc = new StringHttpMessageConverter();
     smc.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
-    converters.add(smc);
+    converters.add(0, smc);
   }
 
   @Override
