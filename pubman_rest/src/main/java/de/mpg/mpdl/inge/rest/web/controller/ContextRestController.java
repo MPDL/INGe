@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.io.IOException;
 import java.util.Date;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,18 @@ public class ContextRestController {
     SearchRetrieveResponseVO<ContextDbVO> srResponse = this.ctxSvc.search(srRequest, token);
 
     return new ResponseEntity<>(srResponse, HttpStatus.OK);
+  }
+
+  @Hidden
+  @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST,
+          consumes = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,
+          produces = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<String> searchDetailed(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+                                               @RequestBody JsonNode searchSource, @RequestParam(name = "scroll", required = false) String scrollTimeValue,
+                                               HttpServletResponse httpResponse)
+          throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+
+    return UtilServiceBean.searchDetailed(this.ctxSvc, searchSource, scrollTimeValue, token, httpResponse);
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
