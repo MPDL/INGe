@@ -54,10 +54,17 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   @Scheduled(fixedDelay = 3600000, initialDelay = 0)
   public void initSearchIndexFields() {
     try {
-      logger.info("CRON: initSearchIndexFields() started...");
-      Map<String, ElasticSearchIndexField> indexFields = getElasticDao() != null ? getElasticDao().getIndexFields() : null;
-      this.indexFields = indexFields;
-      logger.info("CRON: initSearchIndexFields() finished (" + this.indexFields.size() + ").");
+      logger.info("CRON: initSearchIndexFields() started for " + this.getClass().getName() + " ...");
+      if (getElasticDao() != null) {
+        Map<String, ElasticSearchIndexField> indexFields = getElasticDao().getIndexFields();
+        this.indexFields = indexFields;
+        if (indexFields != null) {
+          logger.info("CRON: initSearchIndexFields() finished (" + this.indexFields.size() + " fields found).");
+        }
+      } else {
+        logger.info("CRON: initSearchIndexFields() finished. No search index available for " + this.getClass().getName());
+      }
+
     } catch (IngeTechnicalException e) {
       logger.info("CRON: initSearchIndexFields() failed!");
     }
