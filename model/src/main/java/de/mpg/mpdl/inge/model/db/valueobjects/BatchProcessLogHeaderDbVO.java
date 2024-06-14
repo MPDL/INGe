@@ -1,11 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,6 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
 @SuppressWarnings("serial")
 @Entity
@@ -71,6 +70,9 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   @Column(name = "number_of_items", nullable = false)
   private Integer numberOfItems;
 
+  @Transient
+  private Integer percentageOfProcessedItems;
+
   @Column(name = "method", nullable = false)
   @Enumerated(EnumType.STRING)
   private BatchProcessLogHeaderDbVO.Method method;
@@ -106,6 +108,14 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
 
   public Integer getNumberOfItems() {
     return this.numberOfItems;
+  }
+
+  public Integer getPercentageOfProcessedItems() {
+    return this.percentageOfProcessedItems;
+  }
+
+  public void setPercentageOfProcessedItems(Integer percentageOfProcessedItems) {
+    this.percentageOfProcessedItems = percentageOfProcessedItems;
   }
 
   public Date getEndDate() {

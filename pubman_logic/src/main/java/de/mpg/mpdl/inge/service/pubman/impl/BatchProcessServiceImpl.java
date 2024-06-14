@@ -1,13 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogDetailRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogHeaderRepository;
 import de.mpg.mpdl.inge.db.repository.BatchProcessUserLockRepository;
@@ -30,6 +22,12 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import java.util.List;
+import java.util.NoSuchElementException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 @Service
 @Primary
@@ -360,6 +358,12 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs =
         this.batchProcessLogHeaderRepository.findAllByUserAccountObjectId(accountUserDbVO.getObjectId());
 
+    for (BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO : batchProcessLogHeaderDbVOs) {
+      if (null != batchProcessLogHeaderDbVO) {
+        setPercentageOfProcessedItems(batchProcessLogHeaderDbVO);
+      }
+    }
+
     return batchProcessLogHeaderDbVOs;
   }
 
@@ -383,8 +387,12 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
 
-    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessLogHeaderRepository
-        .findOneByBatchProcessLogHeaderIdAndUserAccountObjectId(Long.parseLong(batchProcessLogHeaderId), accountUserDbVO.getObjectId());
+    BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
+        this.batchProcessLogHeaderRepository.findById(batchProcessLogHeaderId).orElse(null);
+
+    if (null != batchProcessLogHeaderDbVO) {
+      setPercentageOfProcessedItems(batchProcessLogHeaderDbVO);
+    }
 
     return batchProcessLogHeaderDbVO;
   }
@@ -635,5 +643,13 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     logger.info("Nach ASYNC Call " + method + ": " + itemIds.size());
 
     return batchProcessLogHeaderDbVO;
+  }
+
+  private void setPercentageOfProcessedItems(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO) {
+    switch (batchProcessLogHeaderDbVO.getState()) {
+      case INITIALIZED -> batchProcessLogHeaderDbVO.setPercentageOfProcessedItems(0);
+      case FINISHED -> batchProcessLogHeaderDbVO.setPercentageOfProcessedItems(100);
+      case RUNNING -> batchProcessLogHeaderDbVO.setPercentageOfProcessedItems(this.batchProcessLogDetailRepository.countProcessedItems(batchProcessLogHeaderDbVO.getBatchLogHeaderId())/batchProcessLogHeaderDbVO.getNumberOfItems()*100);
+    }
   }
 }
