@@ -1,18 +1,14 @@
 package de.mpg.mpdl.inge.pubman.web.spring;
 
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-
 import com.sun.faces.config.ConfigureListener;
-
-import de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
 import jakarta.faces.webapp.FacesServlet;
-import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRegistration;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 public class WebAppInitializer implements WebApplicationInitializer {
   public void onStartup(ServletContext servletContext) {
@@ -49,8 +45,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
     facesServlet.setLoadOnStartup(2);
 
     // Sitemap
-    FilterRegistration.Dynamic sitemapFilter = servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
-    sitemapFilter.addMappingForUrlPatterns(null, false, "/*");
+    //    FilterRegistration.Dynamic sitemapFilter = servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
+    //    sitemapFilter.addMappingForUrlPatterns(null, false, "/*");
 
     // Genre Servlet
     ServletRegistration.Dynamic genreServlet = servletContext.addServlet("Genre Servlet", GenreServlet.class);
