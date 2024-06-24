@@ -33,9 +33,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class SitemapProvider {
   private static final Logger logger = LogManager.getLogger(SitemapProvider.class);
 
@@ -53,12 +53,10 @@ public class SitemapProvider {
   @Autowired
   private PubItemService pubItemService;
 
-  public SitemapProvider() {
-    this.run();
-  }
+  public SitemapProvider() {}
 
   @Scheduled(cron = "${inge.cron.pubman.sitemap}")
-  private void run() {
+  public void run() {
     try {
       logger.info("CRON: Starting to create Sitemap.");
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
