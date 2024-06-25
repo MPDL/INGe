@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Sitemap")
 public class SitemapController {
 
-  private static final String Sitemap_VAR = "sitemapFile";
   private static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
+
+  private static final String SITEMAP_FILE_PATH = "/{sitemapFile:.+}";
+  private static final String Sitemap_VAR = "sitemapFile";
 
   public SitemapController() {}
 
-  @RequestMapping(method = RequestMethod.GET)
+  @RequestMapping(value=SITEMAP_FILE_PATH, method = RequestMethod.GET)
   public void getSitemap( //
       @PathVariable(Sitemap_VAR) String sitemapFile, //
       HttpServletResponse response) throws NotFoundException, IngeTechnicalException {
