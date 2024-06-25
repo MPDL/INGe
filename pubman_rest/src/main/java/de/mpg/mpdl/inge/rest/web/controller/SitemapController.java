@@ -5,11 +5,12 @@ import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,42 +28,26 @@ public class SitemapController {
 
   public SitemapController() {}
 
-  @RequestMapping(value=SITEMAP_FILE_PATH, method = RequestMethod.GET)
-  public void getSitemap( //
+  @RequestMapping(value = SITEMAP_FILE_PATH, method = RequestMethod.GET)
+  public ResponseEntity<Resource> getSitemap( //
       @PathVariable(Sitemap_VAR) String sitemapFile, //
       HttpServletResponse response) throws NotFoundException, IngeTechnicalException {
 
-    if (null != sitemapFile && sitemapFile.matches("^/sitemap\\d*\\.xml$")) {
-      File mySitemapFile = new File(SITEMAP_PATH + sitemapFile);
-
-      if (!mySitemapFile.exists()) {
-        throw new NotFoundException();
-      }
-
-      response.setContentType("text/xml");
-      response.setContentLength((int) mySitemapFile.length());
-
-      writeOutput(response, mySitemapFile);
-    }
-  }
-
-  private void writeOutput(HttpServletResponse response, File file) throws IngeTechnicalException {
     try {
-      OutputStream out = response.getOutputStream();
-      BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
-      byte[] buffer = new byte[8 * 1024];
+      // Basispfad, in dem sich die XML-Dateien befinden
+      Path basePath = Paths.get(SITEMAP_PATH);
+      // Vollständiger Pfad zur angeforderten Datei
+      Path filePath = basePath.resolve(sitemapFile);
+      Resource resource = new UrlResource(filePath.toUri());
 
-      int count;
-
-      while (-1 != (count = in.read(buffer))) {
-        out.write(buffer, 0, count);
+      // Stellen Sie sicher, dass die Datei existiert und lesbar ist
+      if (resource.exists() || resource.isReadable()) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_XML).body(resource);
       }
-
-      in.close();
-      out.flush();
-      out.close();
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
+
+    throw new NotFoundException();
   }
 }
