@@ -61,7 +61,7 @@ public class SitemapProvider {
       logger.info("CRON: Starting to create Sitemap.");
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
-      String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
+      String restUrl = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
       String contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -103,7 +103,7 @@ public class SitemapProvider {
           }
           this.copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
 
-          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + instanceUrl + contextPath + "/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>"
+          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + restUrl + "/sitemap/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>"
               + currentDate + "</lastmod>\n\t</sitemap>\n");
         }
 
