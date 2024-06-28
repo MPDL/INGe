@@ -206,6 +206,13 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                     BatchProcessLogDetailDbVO.State.ERROR, message);
         }
       }
+
+      // TODO remove
+      try {
+        Thread.sleep(45000);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     this.batchProcessCommonService.finishBatchProcessLog(batchProcessLogHeaderDbVO, accountUserDbVO);
@@ -338,6 +345,13 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
                     BatchProcessLogDetailDbVO.State.ERROR, message);
         }
+      }
+
+      // TODO remove
+      try {
+        Thread.sleep(45000);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
       }
     }
 
