@@ -649,15 +649,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     switch (batchProcessLogHeaderDbVO.getState()) {
       case INITIALIZED -> batchProcessLogHeaderDbVO.setPercentageOfProcessedItems(0);
       case FINISHED -> batchProcessLogHeaderDbVO.setPercentageOfProcessedItems(100);
-      case RUNNING -> {
-        logger.info("###### RUNNING #######");
-        logger.info(this.batchProcessLogDetailRepository.countProcessedItems(batchProcessLogHeaderDbVO.getBatchLogHeaderId()));
-        logger.info(batchProcessLogHeaderDbVO.getNumberOfItems());
-        logger.info(this.batchProcessLogDetailRepository.countProcessedItems(
-            batchProcessLogHeaderDbVO.getBatchLogHeaderId()) * 100 / batchProcessLogHeaderDbVO.getNumberOfItems());
-        batchProcessLogHeaderDbVO.setPercentageOfProcessedItems(this.batchProcessLogDetailRepository.countProcessedItems(
-            batchProcessLogHeaderDbVO.getBatchLogHeaderId()) * 100 / batchProcessLogHeaderDbVO.getNumberOfItems());
-      }
+      case RUNNING -> batchProcessLogHeaderDbVO.setPercentageOfProcessedItems(this.batchProcessLogDetailRepository.countProcessedItems(
+          batchProcessLogHeaderDbVO.getBatchLogHeaderId()) * 100 / batchProcessLogHeaderDbVO.getNumberOfItems());
     }
   }
 }
