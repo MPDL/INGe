@@ -349,7 +349,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
       // TODO remove
       try {
-        Thread.sleep(45000);
+        Thread.sleep(5000);
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
       }
