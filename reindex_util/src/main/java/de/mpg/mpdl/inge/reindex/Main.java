@@ -16,6 +16,7 @@ public class Main {
     try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ReindexConfiguration.class)) {
       Reindex bean = ctx.getBean(Reindex.class);
       String what = null, id = null;
+      String[] idList = null;
 
       if (args.length < 1) {
         log.warn("You need to specify, what you're going to reindex.");
@@ -31,9 +32,16 @@ public class Main {
           id = args[1];
           log.info("Id: " + id);
         }
+        if (args.length > 2) {
+            what = args[0];
+            log.info("What: " + what);
+            for (int i = 0; i < args.length - 1; i++) {
+            	idList[i] = args[i + 1];
+            }
+          }
         if (what != null && !what.isEmpty()) {
           try {
-            success = bean.run(what, id);
+            success = bean.run(what, id, idList);
           } catch (Exception e) {
             log.error(e);
           }

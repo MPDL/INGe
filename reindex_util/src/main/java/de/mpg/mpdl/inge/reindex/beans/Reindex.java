@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class Reindex {
 
-  private static final Logger log = Logger.getLogger(Reindex.class.getName());
+	private static final Logger log = Logger.getLogger(Reindex.class.getName());
 
-  @Autowired
-  private Reindexing reIndexing;
+	@Autowired
+	private Reindexing reIndexing;
 
-  public boolean run(String what, String id) throws Exception {
+	public boolean run(String what, String id, String[] idList) throws Exception {
     switch (what) {
       case "contexts_reindex":
         reIndexing.reindexContexts();
@@ -20,6 +20,20 @@ public class Reindex {
       case "items_reindex":
         reIndexing.reindexItems();
         break;
+      case "item_list_reindex":
+    	  if (idList != null && idList.length > 0) {
+    		  for (String listId: idList) {
+    			  if (listId != null && !listId.isEmpty()) {
+    		          reIndexing.reindexItem(listId);
+    		        } else {
+    		          log.error("Invalid Id ind idList [" + listId + "]");
+    		          return false;
+    		        }
+    		  }
+    	  } else {
+            log.error("Invalid idList");
+            return false;
+        }
       case "ous_reindex":
         reIndexing.reindexOus();
         break;
