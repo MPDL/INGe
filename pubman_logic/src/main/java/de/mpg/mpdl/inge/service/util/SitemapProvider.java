@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.service.sitemap;
+package de.mpg.mpdl.inge.service.util;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;

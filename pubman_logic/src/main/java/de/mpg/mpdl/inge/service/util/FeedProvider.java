@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.service.feed;
+package de.mpg.mpdl.inge.service.util;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -37,15 +37,14 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.UriBuilder;
 
 
 @Service
-public class FeedServiceImpl {
+public class FeedProvider {
 
 
-  private static final Logger logger = LogManager.getLogger(FeedServiceImpl.class);
+  private static final Logger logger = LogManager.getLogger(FeedProvider.class);
 
   @Autowired
   private PubItemService pubItemService;

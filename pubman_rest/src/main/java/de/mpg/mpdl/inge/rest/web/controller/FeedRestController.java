@@ -14,7 +14,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedOutput;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import de.mpg.mpdl.inge.service.feed.FeedServiceImpl;
+import de.mpg.mpdl.inge.service.util.FeedProvider;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -26,7 +26,7 @@ public class FeedRestController {
   private static final String DEFAULT_PRODUCE_MIMETYPE = MediaType.APPLICATION_ATOM_XML_VALUE + ";charset=UTF-8";
 
   @Autowired
-  private FeedServiceImpl feedService;
+  private FeedProvider feedService;
 
   @RequestMapping(value = "/recent", method = RequestMethod.GET, produces = DEFAULT_PRODUCE_MIMETYPE)
   public String getRecentReleases() throws Exception {

@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.pubman.web.spring;
 
 import com.sun.faces.config.ConfigureListener;
-import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
 import jakarta.faces.webapp.FacesServlet;
 import jakarta.servlet.ServletContext;
@@ -48,9 +47,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
     //    FilterRegistration.Dynamic sitemapFilter = servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
     //    sitemapFilter.addMappingForUrlPatterns(null, false, "/*");
 
-    // Genre Servlet
-    ServletRegistration.Dynamic genreServlet = servletContext.addServlet("Genre Servlet", GenreServlet.class);
-    genreServlet.setLoadOnStartup(1);
+    //    // Genre Servlet
+    //    ServletRegistration.Dynamic genreServlet = servletContext.addServlet("Genre Servlet", GenreServlet.class);
+    //    genreServlet.setLoadOnStartup(1);
 
     // Redirect Servlet
     ServletRegistration.Dynamic redirectServlet = servletContext.addServlet("Redirect Servlet", RedirectServlet.class);

@@ -1,26 +1,18 @@
 package de.mpg.mpdl.inge.service.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PubItemUtil {
 
@@ -28,13 +20,18 @@ public class PubItemUtil {
 
   private PubItemUtil() {}
 
+
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
    *
    * @param pubItem the PubItem to clean up
    */
   public static void cleanUpItem(ItemVersionVO pubItem) {
+    // cleanup item according to genre specific MD specification -> sets non visible fields to null
+    cleanUpGenre(pubItem);
+
     try {
+      // Cleanup MD
       pubItem.getMetadata().cleanup();
 
       // delete unfilled file
@@ -86,6 +83,16 @@ public class PubItemUtil {
     }
   }
 
+  private static void cleanUpGenre(ItemVersionVO pubItem) {
+    // cleanup item according to genre specific MD specification
+    GenreSpecificItemManager itemManager = new GenreSpecificItemManager(pubItem);
+    try {
+      pubItem = itemManager.cleanupItem();
+    } catch (Exception e) {
+      throw new RuntimeException("Error while cleaning up item genre specificly", e);
+    }
+  }
+
   private static void adaptConeLinks(CreatorVO creator) {
     if (null != creator.getPerson()) {
       //Make CoNE link relative
@@ -110,52 +117,52 @@ public class PubItemUtil {
     }
   }
 
-  public static ItemVersionVO createRevisionOfPubItem(ItemVersionVO originalPubItem, String relationComment, ContextDbRO pubCollection,
-      AccountUserDbVO owner) {
-    ItemVersionVO copiedPubItem = new ItemVersionVO();
-    AccountUserDbRO itemCreator = new AccountUserDbRO();
-    itemCreator.setObjectId(owner.getObjectId());
-    itemCreator.setName(owner.getName());
-    copiedPubItem.getObject().setCreator(itemCreator);
-    copiedPubItem.getObject().setContext(pubCollection);
-    copiedPubItem.setMetadata(new MdsPublicationVO());
-    copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
-
-    for (CreatorVO creator : originalPubItem.getMetadata().getCreators()) {
-      copiedPubItem.getMetadata().getCreators().add(creator.clone());
-    }
-
-    if (null != originalPubItem.getMetadata().getTitle()) {
-      copiedPubItem.getMetadata().setTitle(originalPubItem.getMetadata().getTitle());
-    }
-
-    for (String language : originalPubItem.getMetadata().getLanguages()) {
-      copiedPubItem.getMetadata().getLanguages().add(language);
-    }
-
-    for (AlternativeTitleVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
-      copiedPubItem.getMetadata().getAlternativeTitles().add(title.clone());
-    }
-
-    if (null != originalPubItem.getMetadata().getFreeKeywords()) {
-      copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
-    }
-
-    if (null != originalPubItem.getMetadata().getSubjects()) {
-      for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
-        copiedPubItem.getMetadata().getSubjects().add(subject);
-      }
-    }
-
-    /*
-    ItemRelationVO relation = new ItemRelationVO();
-    relation.setType(PREDICATE_ISREVISIONOF);
-    relation.setTargetItemRef(originalPubItem.getVersion());
-    relation.setDescription(relationComment);
-    copiedPubItem.getRelations().add(relation);
-     */
-    return copiedPubItem;
-  }
+//  public static ItemVersionVO createRevisionOfPubItem(ItemVersionVO originalPubItem, String relationComment, ContextDbRO pubCollection,
+//      AccountUserDbVO owner) {
+//    ItemVersionVO copiedPubItem = new ItemVersionVO();
+//    AccountUserDbRO itemCreator = new AccountUserDbRO();
+//    itemCreator.setObjectId(owner.getObjectId());
+//    itemCreator.setName(owner.getName());
+//    copiedPubItem.getObject().setCreator(itemCreator);
+//    copiedPubItem.getObject().setContext(pubCollection);
+//    copiedPubItem.setMetadata(new MdsPublicationVO());
+//    copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
+//
+//    for (CreatorVO creator : originalPubItem.getMetadata().getCreators()) {
+//      copiedPubItem.getMetadata().getCreators().add(creator.clone());
+//    }
+//
+//    if (null != originalPubItem.getMetadata().getTitle()) {
+//      copiedPubItem.getMetadata().setTitle(originalPubItem.getMetadata().getTitle());
+//    }
+//
+//    for (String language : originalPubItem.getMetadata().getLanguages()) {
+//      copiedPubItem.getMetadata().getLanguages().add(language);
+//    }
+//
+//    for (AlternativeTitleVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
+//      copiedPubItem.getMetadata().getAlternativeTitles().add(title.clone());
+//    }
+//
+//    if (null != originalPubItem.getMetadata().getFreeKeywords()) {
+//      copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
+//    }
+//
+//    if (null != originalPubItem.getMetadata().getSubjects()) {
+//      for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
+//        copiedPubItem.getMetadata().getSubjects().add(subject);
+//      }
+//    }
+//
+//    /*
+//    ItemRelationVO relation = new ItemRelationVO();
+//    relation.setType(PREDICATE_ISREVISIONOF);
+//    relation.setTargetItemRef(originalPubItem.getVersion());
+//    relation.setDescription(relationComment);
+//    copiedPubItem.getRelations().add(relation);
+//     */
+//    return copiedPubItem;
+//  }
 
 
 

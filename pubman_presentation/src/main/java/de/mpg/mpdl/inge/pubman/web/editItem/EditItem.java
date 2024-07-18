@@ -24,20 +24,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.editItem;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.tika.Tika;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.UploadedFile;
-
 import com.sun.faces.facelets.component.UIRepeat;
-
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -81,12 +68,21 @@ import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
-import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.component.html.HtmlCommandLink;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
 import jakarta.faces.model.SelectItem;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.tika.Tika;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving
@@ -415,8 +411,8 @@ public class EditItem extends FacesBean {
 
     try {
       ItemVersionVO itemVO = new ItemVersionVO(this.getPubItem()); // Validierung arbeitet mit Kopie
-      PubItemUtil.cleanUpItem(itemVO);
-      cleanUp(itemVO);
+      //      PubItemUtil.cleanUpItem(itemVO);
+      //      cleanUp(itemVO);
       ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, ValidationPoint.STANDARD);
       this.info(this.getMessage("itemIsValid"));
     } catch (ValidationException e) {
@@ -574,7 +570,7 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    cleanUp(this.getPubItem());
+    //    cleanUp(this.getPubItem());
 
     String retVal = checkItemChanged(navigateTo);
 

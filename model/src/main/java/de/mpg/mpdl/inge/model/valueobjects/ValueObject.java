@@ -51,9 +51,6 @@ public abstract class ValueObject implements Serializable {
 
   private static final Logger logger = LogManager.getLogger(ValueObject.class);
 
-  /*
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   protected boolean equals(Object obj1, Object obj2) {
     // added by DiT, 19.11.2007: replace windows-line breaks
     if (obj1 instanceof String) {
@@ -73,8 +70,6 @@ public abstract class ValueObject implements Serializable {
     return true;
   }
 
-
-
   public void cleanup() throws Exception {
     this.isEmpty(true);
   }
@@ -82,8 +77,6 @@ public abstract class ValueObject implements Serializable {
   public boolean isEmpty(boolean cleanup) throws Exception {
     return isEmpty(this, cleanup, null);
   }
-
-
 
   public static List<Field> getAllFields(Class<?> type) {
     List<Field> fields = new ArrayList<>();
@@ -93,10 +86,13 @@ public abstract class ValueObject implements Serializable {
     return fields;
   }
 
-
+//  Diese ist eine zentrale Methode, die überprüft, ob ein gegebenes Objekt "leer" ist. Die Definition von "leer" variiert je nach Typ des Objekts:
+//  Für String-Objekte bedeutet "leer", dass der String nach dem Trimmen keine Zeichen enthält.
+//  Für Collection-Objekte bedeutet "leer", dass alle Elemente der Sammlung "leer" sind. Wenn cleanup wahr ist, werden "leere" Elemente aus der Sammlung entfernt.
+//  Für Objekte, die als Wertobjekte betrachtet werden (durch eine nicht dargestellte ValueObject-Klasse), überprüft die Methode jedes Feld des Objekts auf "Leere". Wenn cleanup wahr ist, werden Felder, die "leer" sind und keine Sammlungen sind, auf null gesetzt.
+//  Für alle anderen Objekttypen gilt ein Objekt als "leer", wenn es null ist.
   public static boolean isEmpty(Object obj, boolean cleanup, Field fromField) throws Exception {
     boolean empty = true;
-
 
     if (null != obj) {
       if (String.class.isAssignableFrom(obj.getClass())) {
@@ -146,53 +142,6 @@ public abstract class ValueObject implements Serializable {
 
       }
     }
-
-
-
-    /*
-     * if(obj!=null) {
-     *
-     * Class<?> c = obj.getClass();
-     *
-     * for(Field f : getAllFields(c)) { if((!Modifier.isStatic(f.getModifiers())) &&
-     * f.getAnnotation(IgnoreForCleanup.class)==null) {
-     *
-     * f.setAccessible(true);
-     *
-     * boolean fieldIsEmpty = true;
-     *
-     *
-     * if(f.getType().equals(String.class)) { fieldIsEmpty = f.get(obj)==null ||
-     * ((String)f.get(obj)).isEmpty();
-     *
-     * } else if (ValueObject.class.isAssignableFrom(f.getType())) { fieldIsEmpty = f.get(obj)==null
-     * || ((ValueObject)f.get(obj)).isEmpty(cleanup); } else if
-     * (Collection.class.isAssignableFrom(f.getType())) { Collection<?> coll =
-     * (Collection<?>)f.get(obj);
-     *
-     * if(coll!=null) {
-     *
-     * Collection<Object> toBeRemoved = new ArrayList<Object>();
-     *
-     * for(Object collObj : coll) {
-     *
-     * boolean subObjectIsEmpty = isEmpty(collObj, cleanup); if(subObjectIsEmpty && cleanup) {
-     * toBeRemoved.add(collObj); }
-     *
-     * fieldIsEmpty = fieldIsEmpty && subObjectIsEmpty; }
-     *
-     * if(cleanup && toBeRemoved.size()>0) { logger.info("Cleaning up collection " +
-     * obj.getClass().getCanonicalName() + " / " + f.getName() ); coll.removeAll(toBeRemoved); } } }
-     * else if (Object.class.isAssignableFrom(f.getType())) { fieldIsEmpty = f.get(obj)==null; }
-     *
-     * if(fieldIsEmpty && cleanup && f.get(obj)!=null) { logger.info("Cleaning up object " +
-     * obj.getClass().getCanonicalName() + " / " + f.getName() ); f.set(obj, null); }
-     *
-     * empty = empty && fieldIsEmpty; }
-     *
-     * } }
-     */
     return empty;
   }
-
 }
