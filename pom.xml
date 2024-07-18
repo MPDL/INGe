@@ -475,12 +475,12 @@
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-core</artifactId>
             	<version>2.14.1</version>
-			</dependency>			
+			</dependency>
 			<dependency>
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-databind</artifactId>
             	<version>2.14.1</version>
-			</dependency>			
+			</dependency>
 			<dependency>
     			<groupId>com.fasterxml.jackson.core</groupId>
     			<artifactId>jackson-annotations</artifactId>
@@ -973,7 +973,7 @@
 					<preparationGoals>clean verify</preparationGoals>
 				</configuration>
 			</plugin>
-		
+
 			<plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-source-plugin</artifactId>
@@ -986,7 +986,7 @@
 		            </goals>
 		          </execution>
 		        </executions>
-	        </plugin>			
+	        </plugin>
 		</plugins>
 
 		<extensions>
@@ -1016,7 +1016,6 @@
 		<inge.cone.database.server.port>5432</inge.cone.database.server.port>
 		<inge.cone.extended.attributes.use>false</inge.cone.extended.attributes.use>
 		<inge.cone.language.default>en</inge.cone.language.default>
-		<inge.cone.mimetype.pattern>application/vnd.cone-(.+)</inge.cone.mimetype.pattern>
 		<inge.cone.modelsxml.path>models.xml</inge.cone.modelsxml.path>
 		<inge.cone.person.id.identifier>/persons/resource/</inge.cone.person.id.identifier>
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
@@ -1097,7 +1096,6 @@
 		<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.url>
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
 		<inge.rest.api.description><![CDATA[This is an automatically generated REST API documentation for PubMan.<br />Please be aware that example values in particular might not be fully correct.<br />Valid examples can be found in <a href="https://colab.mpdl.mpg.de/mediawiki/INGe_REST_API_Documentation" target="_blank" rel="noreferrer noopener">MPDL CoLab</a>.]]></inge.rest.api.description>
-		<inge.rest.file.path>/component</inge.rest.file.path>
 		<inge.search.and.export.default.query>{"bool":{"must":[{"term":{"publicState":{"value":"RELEASED"}}},{"term":{"versionState":{"value":"RELEASED"}}},{"bool":{"should":[{"match":{"metadata.title":{"operator":"and","query":"Laser"}}},{"match":{"metadata.alternativeTitles.value":{"operator":"and","query":"Laser"}}}]}}]}}</inge.search.and.export.default.query>
 		<inge.search.and.export.default.sort.key>metadata.title.keyword</inge.search.and.export.default.sort.key>
 		<inge.search.and.export.default.sort.order>ascending</inge.search.and.export.default.sort.order>
@@ -1314,7 +1312,7 @@
 												<ignore />
 											</action>
 										</pluginExecution>
-										
+
 										<pluginExecution>
 											<pluginExecutionFilter>
 												<groupId>
@@ -1341,7 +1339,7 @@
 					</plugins>
 				</pluginManagement>
 			</build>
-		</profile>		
+		</profile>
 	</profiles>
 
 </project>

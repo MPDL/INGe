@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Helper class for reading properties from the global escidoc property file.
- * 
+ *
  * This class tries to locate the properties in various ways. Once the properties file has been read
  * it is cached. The following steps are executed to find a properties file:
  * <ul>
@@ -47,7 +47,7 @@ import org.apache.log4j.Logger;
  * <li>Second step is to read the properties file: First we try to read the properties file from the
  * local file system. If it cannot be found, it is searched in the classpath.
  * </ul>
- * 
+ *
  * @author Peter Broszeit (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate: 2011-09-30 11:15:01 +0200 (Fri, 30 Sep 2011) $
@@ -76,7 +76,6 @@ public class PropertyReader {
   public static final String INGE_CONE_DATABASE_USER_PASSWORD = "inge.cone.database.user.password";
   public static final String INGE_CONE_EXTENDED_ATTRIBUTES_USE = "inge.cone.extended.attributes.use";
   public static final String INGE_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
-  public static final String INGE_CONE_MIMETYPE_PATTERN = "inge.cone.mimetype.pattern";
   public static final String INGE_CONE_MODELSXML_PATH = "inge.cone.modelsxml.path";
   public static final String INGE_CONE_PERSON_ID_IDENTIFIER = "inge.cone.person.id.identifier";
   public static final String INGE_CONE_QUERIER_CLASS = "inge.cone.querier.class";
@@ -171,7 +170,6 @@ public class PropertyReader {
   public static final String INGE_REST_DEVELOPMENT_ADMIN_USERNAME = "inge.rest.development.admin.username";
   public static final String INGE_REST_DEVELOPMENT_ENABLED = "inge.rest.development.enabled";
   public static final String INGE_REST_DEVELOPMENT_FILE_URL = "inge.rest.development.file_url";
-  public static final String INGE_REST_FILE_PATH = "inge.rest.file.path";
   public static final String INGE_REST_SERVICE_URL = "inge.rest.service.url";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY = "inge.search.and.export.default.query";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY = "inge.search.and.export.default.sort.key";
@@ -304,7 +302,7 @@ public class PropertyReader {
    * system properties. If the requested property could not be obtained from the system properties
    * the PubMan property file is accessed. (For details on access to the properties file see class
    * description.)
-   * 
+   *
    * @param key The key of the property.
    * @param callingClass Class of the calling class
    * @return The value of the property.
@@ -372,7 +370,7 @@ public class PropertyReader {
   /**
    * Retrieves the Inputstream of the given file path. First the resource is searched in the file
    * system, if this fails it is searched using the classpath.
-   * 
+   *
    * @param filepath The path of the file to open.
    * @return The inputstream of the given file path.
    * @throws IOException If the file could not be found neither in the file system nor in the
@@ -385,7 +383,7 @@ public class PropertyReader {
   /**
    * Retrieves the Inputstream of the given file path. First the resource is searched in the file
    * system, if this fails it is searched using the classpath.
-   * 
+   *
    * @param filepath The path of the file to open.
    * @param callingClass Class of the calling class
    * @return The inputstream of the given file path.
