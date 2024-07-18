@@ -117,52 +117,52 @@ public class PubItemUtil {
     }
   }
 
-//  public static ItemVersionVO createRevisionOfPubItem(ItemVersionVO originalPubItem, String relationComment, ContextDbRO pubCollection,
-//      AccountUserDbVO owner) {
-//    ItemVersionVO copiedPubItem = new ItemVersionVO();
-//    AccountUserDbRO itemCreator = new AccountUserDbRO();
-//    itemCreator.setObjectId(owner.getObjectId());
-//    itemCreator.setName(owner.getName());
-//    copiedPubItem.getObject().setCreator(itemCreator);
-//    copiedPubItem.getObject().setContext(pubCollection);
-//    copiedPubItem.setMetadata(new MdsPublicationVO());
-//    copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
-//
-//    for (CreatorVO creator : originalPubItem.getMetadata().getCreators()) {
-//      copiedPubItem.getMetadata().getCreators().add(creator.clone());
-//    }
-//
-//    if (null != originalPubItem.getMetadata().getTitle()) {
-//      copiedPubItem.getMetadata().setTitle(originalPubItem.getMetadata().getTitle());
-//    }
-//
-//    for (String language : originalPubItem.getMetadata().getLanguages()) {
-//      copiedPubItem.getMetadata().getLanguages().add(language);
-//    }
-//
-//    for (AlternativeTitleVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
-//      copiedPubItem.getMetadata().getAlternativeTitles().add(title.clone());
-//    }
-//
-//    if (null != originalPubItem.getMetadata().getFreeKeywords()) {
-//      copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
-//    }
-//
-//    if (null != originalPubItem.getMetadata().getSubjects()) {
-//      for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
-//        copiedPubItem.getMetadata().getSubjects().add(subject);
-//      }
-//    }
-//
-//    /*
-//    ItemRelationVO relation = new ItemRelationVO();
-//    relation.setType(PREDICATE_ISREVISIONOF);
-//    relation.setTargetItemRef(originalPubItem.getVersion());
-//    relation.setDescription(relationComment);
-//    copiedPubItem.getRelations().add(relation);
-//     */
-//    return copiedPubItem;
-//  }
+  //  public static ItemVersionVO createRevisionOfPubItem(ItemVersionVO originalPubItem, String relationComment, ContextDbRO pubCollection,
+  //      AccountUserDbVO owner) {
+  //    ItemVersionVO copiedPubItem = new ItemVersionVO();
+  //    AccountUserDbRO itemCreator = new AccountUserDbRO();
+  //    itemCreator.setObjectId(owner.getObjectId());
+  //    itemCreator.setName(owner.getName());
+  //    copiedPubItem.getObject().setCreator(itemCreator);
+  //    copiedPubItem.getObject().setContext(pubCollection);
+  //    copiedPubItem.setMetadata(new MdsPublicationVO());
+  //    copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
+  //
+  //    for (CreatorVO creator : originalPubItem.getMetadata().getCreators()) {
+  //      copiedPubItem.getMetadata().getCreators().add(creator.clone());
+  //    }
+  //
+  //    if (null != originalPubItem.getMetadata().getTitle()) {
+  //      copiedPubItem.getMetadata().setTitle(originalPubItem.getMetadata().getTitle());
+  //    }
+  //
+  //    for (String language : originalPubItem.getMetadata().getLanguages()) {
+  //      copiedPubItem.getMetadata().getLanguages().add(language);
+  //    }
+  //
+  //    for (AlternativeTitleVO title : originalPubItem.getMetadata().getAlternativeTitles()) {
+  //      copiedPubItem.getMetadata().getAlternativeTitles().add(title.clone());
+  //    }
+  //
+  //    if (null != originalPubItem.getMetadata().getFreeKeywords()) {
+  //      copiedPubItem.getMetadata().setFreeKeywords(originalPubItem.getMetadata().getFreeKeywords());
+  //    }
+  //
+  //    if (null != originalPubItem.getMetadata().getSubjects()) {
+  //      for (SubjectVO subject : originalPubItem.getMetadata().getSubjects()) {
+  //        copiedPubItem.getMetadata().getSubjects().add(subject);
+  //      }
+  //    }
+  //
+  //    /*
+  //    ItemRelationVO relation = new ItemRelationVO();
+  //    relation.setType(PREDICATE_ISREVISIONOF);
+  //    relation.setTargetItemRef(originalPubItem.getVersion());
+  //    relation.setDescription(relationComment);
+  //    copiedPubItem.getRelations().add(relation);
+  //     */
+  //    return copiedPubItem;
+  //  }
 
 
 

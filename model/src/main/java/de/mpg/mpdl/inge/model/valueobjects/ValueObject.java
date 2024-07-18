@@ -86,11 +86,11 @@ public abstract class ValueObject implements Serializable {
     return fields;
   }
 
-//  Diese ist eine zentrale Methode, die überprüft, ob ein gegebenes Objekt "leer" ist. Die Definition von "leer" variiert je nach Typ des Objekts:
-//  Für String-Objekte bedeutet "leer", dass der String nach dem Trimmen keine Zeichen enthält.
-//  Für Collection-Objekte bedeutet "leer", dass alle Elemente der Sammlung "leer" sind. Wenn cleanup wahr ist, werden "leere" Elemente aus der Sammlung entfernt.
-//  Für Objekte, die als Wertobjekte betrachtet werden (durch eine nicht dargestellte ValueObject-Klasse), überprüft die Methode jedes Feld des Objekts auf "Leere". Wenn cleanup wahr ist, werden Felder, die "leer" sind und keine Sammlungen sind, auf null gesetzt.
-//  Für alle anderen Objekttypen gilt ein Objekt als "leer", wenn es null ist.
+  //  Diese ist eine zentrale Methode, die überprüft, ob ein gegebenes Objekt "leer" ist. Die Definition von "leer" variiert je nach Typ des Objekts:
+  //  Für String-Objekte bedeutet "leer", dass der String nach dem Trimmen keine Zeichen enthält.
+  //  Für Collection-Objekte bedeutet "leer", dass alle Elemente der Sammlung "leer" sind. Wenn cleanup wahr ist, werden "leere" Elemente aus der Sammlung entfernt.
+  //  Für Objekte, die als Wertobjekte betrachtet werden (durch eine nicht dargestellte ValueObject-Klasse), überprüft die Methode jedes Feld des Objekts auf "Leere". Wenn cleanup wahr ist, werden Felder, die "leer" sind und keine Sammlungen sind, auf null gesetzt.
+  //  Für alle anderen Objekttypen gilt ein Objekt als "leer", wenn es null ist.
   public static boolean isEmpty(Object obj, boolean cleanup, Field fromField) throws Exception {
     boolean empty = true;
 
