@@ -13,7 +13,7 @@ public class Utf8TitleValidator extends ValidatorHandler<String> {
     boolean ok = true;
 
     if (!ValidationTools.isEmpty(text)) {
-      ok = ValidationTools.checkUtf8(context, text, ErrorMessages.NO_UTF8_CHAR_IN_TITLE);
+      ok = ValidationTools.checkUtf8(context, text, null, ErrorMessages.NO_UTF8_CHAR_IN_TITLE);
     }
 
     return ok;

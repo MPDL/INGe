@@ -97,6 +97,11 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                   }
 
                   break;
+
+                default:
+                  context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_TYPE_NOT_PROVIDED)
+                      .setField("source[" + i + "].creator[" + j + "]"));
+                  ok = false;
               } // switch
 
             } // if

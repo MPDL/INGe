@@ -28,21 +28,4 @@ public class ItemValidatingService {
       throw new ValidationServiceException("validate:", e);
     }
   }
-
-  //  public void validateYearbook(final ItemVersionVO itemVO, List<String> childsOfMPG)
-  //      throws ValidationServiceException, ValidationException {
-  //
-  //    try {
-  //      Validation validation = new Validation();
-  //      validation.validateYearbook(itemVO, childsOfMPG);
-  //    } catch (final ValidationServiceException e) {
-  //      logger.error("validateYearbook:", e);
-  //      throw e;
-  //    } catch (final ValidationException e) {
-  //      throw e;
-  //    } catch (final Exception e) {
-  //      logger.error("validateYearbook: " + itemVO, e);
-  //      throw new ValidationServiceException("validateYearbook:", e);
-  //    }
-  //  }
 }

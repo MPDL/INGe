@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
+import com.baidu.unbiz.fluentvalidator.ValidationError;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
@@ -7,7 +8,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import java.util.List;
 
-public class Utf8AlternativeTitleValidator extends ValidatorHandler<List<AlternativeTitleVO>> {
+public class AlternativeTitleRequiredValidator extends ValidatorHandler<List<AlternativeTitleVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<AlternativeTitleVO> alternativeTitleVOs) {
@@ -19,8 +20,8 @@ public class Utf8AlternativeTitleValidator extends ValidatorHandler<List<Alterna
       for (AlternativeTitleVO alternativeTitleVO : alternativeTitleVOs) {
 
         if (null != alternativeTitleVO) {
-          if (ValidationTools.isNotEmpty(alternativeTitleVO.getValue())
-              && !ValidationTools.checkUtf8(context, alternativeTitleVO.getValue(), i, ErrorMessages.NO_UTF8_CHAR_IN_ALTERNATIVE_TITLE)) {
+          if (ValidationTools.isEmpty(alternativeTitleVO.getValue())) {
+            context.addError(ValidationError.create(ErrorMessages.ALTERNATIVE_TITLE_NOT_PROVIDED).setField("alternativeTitle[" + i + "]"));
             ok = false;
           }
         }

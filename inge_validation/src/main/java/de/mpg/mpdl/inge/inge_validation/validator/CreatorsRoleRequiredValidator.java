@@ -91,6 +91,9 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
 
               break;
 
+            default:
+              context.addError(ValidationError.create(ErrorMessages.CREATOR_TYPE_NOT_PROVIDED).setField("creator[" + i + "]"));
+              ok = false;
           } // switch
 
         } // if

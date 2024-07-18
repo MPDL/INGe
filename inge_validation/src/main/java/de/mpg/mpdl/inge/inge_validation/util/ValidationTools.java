@@ -80,15 +80,15 @@ public class ValidationTools {
     return true;
   }
 
-  public synchronized static boolean checkUtf8(ValidatorContext context, String text, String errorMessage) {
+  public synchronized static boolean checkUtf8(ValidatorContext context, String text, Integer position, String errorMessage) {
     boolean ok = true;
 
     for (int i = 0; i < text.length(); i++) {
       char chr = text.charAt(i);
       if (0x20 > chr && 0x9 != chr && 0xA != chr && 0xD != chr
           || 0xD7FF < chr && (0xE000 > chr || 0xFFFE == chr || 0xFFFF == chr || 0x10FFFF < chr)) {
-        context.addError(
-            ValidationError.create(errorMessage).setField(" " + chr + " (0x" + Integer.toHexString(chr) + ", pos " + (i + 1) + ")"));
+        context.addError(ValidationError.create(errorMessage).setField(
+            position != null ? position.toString() + ":" : " " + chr + " (0x" + Integer.toHexString(chr) + ", pos " + (i + 1) + ")"));
         ok = false;
       }
     }

@@ -53,7 +53,7 @@ public class SourceCreatorsNameRequiredValidator extends ValidatorHandler<List<S
                   PersonVO p = creatorVO.getPerson();
                   if (null != p) {
                     if (ValidationTools.isEmpty(p.getFamilyName())) { //
-                      context.addError(ValidationError.create(ErrorMessages.NO_SOURCE_CREATOR_FAMILY_NAME)
+                      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED)
                           .setField("source[" + i + "].creator[" + j + "]"));
                       ok = false;
                     }
@@ -70,7 +70,7 @@ public class SourceCreatorsNameRequiredValidator extends ValidatorHandler<List<S
                         if (null != organizationVO) {
                           if (ValidationTools.isEmpty(organizationVO.getName()) //
                               && ValidationTools.isNotEmpty(organizationVO.getAddress())) {
-                            context.addError(ValidationError.create(ErrorMessages.NO_SOURCE_CREATOR_ORGANIZATION_NAME)
+                            context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED)
                                 .setField("source[" + i + "].creator[" + j + "].organization[" + z + "]"));
                             ok = false;
                           }
