@@ -170,6 +170,7 @@ public class PropertyReader {
   public static final String INGE_REST_DEVELOPMENT_ADMIN_USERNAME = "inge.rest.development.admin.username";
   public static final String INGE_REST_DEVELOPMENT_ENABLED = "inge.rest.development.enabled";
   public static final String INGE_REST_DEVELOPMENT_FILE_URL = "inge.rest.development.file_url";
+  public static final String INGE_REST_FILE_PATH = "inge.rest.file.path";
   public static final String INGE_REST_SERVICE_URL = "inge.rest.service.url";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY = "inge.search.and.export.default.query";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY = "inge.search.and.export.default.sort.key";
