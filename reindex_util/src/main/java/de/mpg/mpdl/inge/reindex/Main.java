@@ -33,12 +33,12 @@ public class Main {
           log.info("Id: " + id);
         }
         if (args.length > 2) {
-            what = args[0];
-            log.info("What: " + what);
-            for (int i = 0; i < args.length - 1; i++) {
-            	idList[i] = args[i + 1];
-            }
+          what = args[0];
+          log.info("What: " + what);
+          for (int i = 0; i < args.length - 1; i++) {
+            idList[i] = args[i + 1];
           }
+        }
         if (what != null && !what.isEmpty()) {
           try {
             success = bean.run(what, id, idList);
