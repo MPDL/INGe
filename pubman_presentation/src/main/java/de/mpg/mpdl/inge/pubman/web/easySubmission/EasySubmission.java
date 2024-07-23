@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -23,24 +23,6 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 package de.mpg.mpdl.inge.pubman.web.easySubmission;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.component.html.HtmlSelectOneRadio;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-
-import org.apache.log4j.Logger;
-import org.apache.tika.Tika;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
@@ -94,12 +76,26 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.util.PropertyReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.faces.bean.ManagedBean;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html.HtmlSelectOneRadio;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving
  * and submitting a PubItem within the easy submission process.
- * 
+ *
  * @author: Tobias Schraut, created 04.04.2008
  * @version: $Revision$ $LastChangedDate$
  */
@@ -110,9 +106,6 @@ public class EasySubmission extends FacesBean {
 
   public static final String LOAD_EASYSUBMISSION = "loadEasySubmission";
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
-
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
 
   public SelectItem SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", this.getLabel("easy_submission_method_manual"));
   public SelectItem SUBMISSION_METHOD_FETCH_IMPORT = new SelectItem("FETCH_IMPORT", this.getLabel("easy_submission_method_fetch_import"));
@@ -313,7 +306,7 @@ public class EasySubmission extends FacesBean {
 
   //  /**
   //   * This method adds a file to the list of files of the item
-  //   * 
+  //   *
   //   * @return navigation string (null)
   //   */
   //  public String addFile() {
@@ -337,7 +330,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * This method adds a locator to the list of locators of the item
-   * 
+   *
    * @return navigation string
    */
   public String addLocator() {
@@ -354,7 +347,7 @@ public class EasySubmission extends FacesBean {
 
   //  /**
   //   * This method adds a locator to the list of files of the item
-  //   * 
+  //   *
   //   * @return navigation string (null)
   //   */
   //  public String addLocator() {
@@ -415,7 +408,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * This method saves the latest locator to the list of files of the item
-   * 
+   *
    * @return navigation string
    */
   public String saveLocator() {
@@ -491,7 +484,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Saves the item.
-   * 
+   *
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String save() {
@@ -525,7 +518,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Uploads a file
-   * 
+   *
    * @param event
    */
   public void fileUploaded(FileUploadEvent event) {
@@ -590,7 +583,7 @@ public class EasySubmission extends FacesBean {
 
   //  /**
   //   * This method uploads a selected file and gives out error messages if needed
-  //   * 
+  //   *
   //   * @param needMessages Flag to invoke error messages (set it to false if you invoke the validation
   //   *        service before or after)
   //   * @return String navigation string
@@ -636,7 +629,7 @@ public class EasySubmission extends FacesBean {
 
   //  /**
   //   * Uploads a file to the FIZ Framework and recieves and returns the location of the file in the FW
-  //   * 
+  //   *
   //   * @param file
   //   * @return
   //   */
@@ -657,7 +650,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Handles the import from an external ingestion sources.
-   * 
+   *
    * @return navigation String
    */
   public String harvestData() {
@@ -799,7 +792,7 @@ public class EasySubmission extends FacesBean {
   /**
    * This method replaces forward and backslases in a given String (e.g. in a filename) with an
    * underscore
-   * 
+   *
    * @param fileName
    * @return String the cleaned String
    */
@@ -1051,7 +1044,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Triggered when the selection of the external system is changed Updates full text selection
-   * 
+   *
    * @return String navigation string
    */
   public void changeImportSource(String newImportSource) {
@@ -1099,7 +1092,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * localized creation of SelectItems for the genres available.
-   * 
+   *
    * @return SelectItem[] with Strings representing genres.
    */
   public SelectItem[] getGenres() {
@@ -1109,7 +1102,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * This method changes the Genre and sets the needed property file for genre specific Metadata
-   * 
+   *
    * @return String null
    */
   public void changeGenre() {
@@ -1193,7 +1186,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Returns all options for visibility.
-   * 
+   *
    * @return all options for visibility
    */
   public SelectItem[] getVisibilities() {
@@ -1202,7 +1195,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Returns all options for visibility.
-   * 
+   *
    * @return all options for visibility
    */
   public SelectItem[] getLocatorVisibilities() {
@@ -1211,7 +1204,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Returns all options for publication language.
-   * 
+   *
    * @return all options for publication language
    */
   public SelectItem[] getPublicationLanguages() {
@@ -1220,7 +1213,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * returns the first language entry of the publication as String
-   * 
+   *
    * @return String the first language entry of the publication as String
    */
   public String getPublicationLanguage() {
@@ -1239,7 +1232,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * returns the value of the first abstract of the publication
-   * 
+   *
    * @return String the value of the first abstract of the publication
    */
   public String getAbstract() {
@@ -1259,7 +1252,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * returns the value of the first subject of the publication
-   * 
+   *
    * @return String the value of the first subject of the publication
    */
   public String getSubject() {
@@ -1290,7 +1283,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Returns all options for content category.
-   * 
+   *
    * @return all options for content category.
    */
   public SelectItem[] getContentCategories() {
@@ -1299,7 +1292,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Returns the number of files attached to the current item
-   * 
+   *
    * @return int the number of files
    */
   public int getNumberOfFiles() {
@@ -1312,7 +1305,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Returns the number of files attached to the current item
-   * 
+   *
    * @return int the number of files
    */
   public int getNumberOfLocators() {
@@ -1326,7 +1319,7 @@ public class EasySubmission extends FacesBean {
   /**
    * This method examines if the user has already selected a context for creating an item. If yes,
    * the 'Next' button will be enabled, otherwise disabled
-   * 
+   *
    * @return boolean Flag if the 'Next' button should be enabled or disabled
    */
   public boolean getDisableNextButton() {
@@ -1425,7 +1418,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * localized creation of SelectItems for the source genres available
-   * 
+   *
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
@@ -1499,7 +1492,7 @@ public class EasySubmission extends FacesBean {
 
   /**
    * Returns all options for degreeType.
-   * 
+   *
    * @return all options for degreeType
    */
   public SelectItem[] getDegreeTypes() {
@@ -1534,7 +1527,7 @@ public class EasySubmission extends FacesBean {
    * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the
    * item. Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format of
    * ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
-   * 
+   *
    * @return
    */
   public String parseAndSetAlternativeSourceTitlesAndIds() {
@@ -1564,7 +1557,7 @@ public class EasySubmission extends FacesBean {
   /**
    * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a
    * checkbox.
-   * 
+   *
    * @return true if invitationstatus in VO is set, else false
    */
   public boolean getInvited() {
@@ -1579,7 +1572,7 @@ public class EasySubmission extends FacesBean {
   /**
    * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a
    * checkbox.
-   * 
+   *
    * @param invited the value of the checkbox
    */
   public void setInvited(boolean invited) {

@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock"
 		rendered="#{!ViewItemFull.showSources and !ViewItemFull.isStateWithdrawn}">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -74,6 +74,7 @@
 	                </b>
 	                <span class="xHuge_area0 xTiny_marginLExcl endline">
 	                    <h:outputText value="#{source.genre}"/>
+	                    <h:outputText value="#{GFZConeBean.journalMetaData}" converter="HTMLSubSupConverter" escape="false" rendered="#{ViewItemFull.useExtendedConeAttributes == 'true'}"/>
 	                </span>
 	            </div>
 
@@ -233,5 +234,5 @@
 			</h:panelGroup>
 		</h:panelGroup>
 	</ui:repeat>
-	
+
 </ui:composition>

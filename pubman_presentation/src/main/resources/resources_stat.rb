@@ -41,6 +41,7 @@ IGNORE_UNTRANSLATED = {
    "EditItem_lblDDCSubject" => "DDC",
    "Export_ExportFormat_AJP" => "AJP",
    "Export_ExportFormat_APA" => "APA",
+   "Export_ExportFormat_GFZPUBLISTS" => "GFZPublists-Citation",
    "Export_ExportFormat_BIBTEX" => "BibTeX",
    "Export_ExportFormat_ENDNOTE" => "EndNote (UTF-8)",
    "Export_ExportFormat_XML" => "XML",

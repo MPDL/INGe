@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -112,7 +112,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).
- * 
+ *
  * @author Tobias Schraut, created 03.09.2007
  * @version: $Revision$ $LastChangedDate$
  */
@@ -179,6 +179,7 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowItemLog = false;
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
+  private boolean canSendOAMail = false;
 
   private boolean isDepositor = false;
   private boolean isLatestRelease = false;
@@ -513,7 +514,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Redirects the user to the edit item page
-   * 
+   *
    * @return Sring nav rule to load the edit item page
    */
   public String editItem() {
@@ -525,7 +526,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Redirects the user to the withdraw item page
-   * 
+   *
    * @return Sring nav rule to load the withdraw item page
    */
   public String withdrawItem() {
@@ -534,7 +535,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Redirects the user to the edit item page in modify-mode
-   * 
+   *
    * @return Sring nav rule to load the editItem item page
    */
   public String modifyItem() {
@@ -546,7 +547,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Redirects the user to the Item Log page.
-   * 
+   *
    * @return String nav rule to load item log page
    */
   public String showItemLog() {
@@ -559,7 +560,7 @@ public class ViewItemFull extends FacesBean {
    * submits the selected item(s) an redirects the user to the page he came from (depositor
    * workspace or search result list) Changed by FrM: Inserted validation and call to "enter
    * submission comment" page.
-   * 
+   *
    * @return String nav rule to load the page the user came from
    */
   public String submitItem() {
@@ -656,7 +657,7 @@ public class ViewItemFull extends FacesBean {
    * Generates the affiliated organization list as one string for presenting it in the jsp via the
    * dynamic html component. Duplicate affiliated organizations will be detected and merged. All
    * affiliated organizations will be numbered.
-   * 
+   *
    */
   private void createCreatorsList() {
     List<CreatorVO> tempCreatorList;
@@ -777,7 +778,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the formatted Organization for view item
-   * 
+   *
    * @return ViewItemOrganization
    * @param tempOrganizationListInstance List of organizations that need to be sorted
    * @param int The position of the affiliation in the list of the organizations
@@ -801,7 +802,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * formats the Organization index of creator
-   * 
+   *
    * @return String
    * @param creator creator object for which the organization index shall be set
    * @param sortOrganizationList sorted list of organizations in the publication item
@@ -832,7 +833,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the formatted Publishing Info according to filled elements
-   * 
+   *
    * @return String the formatted Publishing Info
    */
   public String getPublishingInfo() {
@@ -876,7 +877,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns all Identifiers as formatted String
-   * 
+   *
    * @return String the formatted Identifiers
    */
   public String getIdentifiers() {
@@ -902,7 +903,7 @@ public class ViewItemFull extends FacesBean {
             || idList.get(i).getType() == IdType.EDARXIV //
             || idList.get(i).getType() == IdType.ESS_OPEN_ARCHIVE //
             || idList.get(i).getType() == IdType.MEDRXIV //
-            || idList.get(i).getType() == IdType.PSYARXIV // 
+            || idList.get(i).getType() == IdType.PSYARXIV //
             || idList.get(i).getType() == IdType.RESEARCH_SQUARE //
             || idList.get(i).getType() == IdType.SOCARXIV) {
           identifiers.append("<a target='_blank' href='https://doi.org/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
@@ -955,7 +956,7 @@ public class ViewItemFull extends FacesBean {
   /**
    * Returns a true or a false according top the existance of specified fields in the details
    * section
-   * 
+   *
    * @return boolean
    */
   public boolean getShowDetails() {
@@ -983,7 +984,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a true or a false according to the existance of an event in the item
-   * 
+   *
    * @return boolean
    */
   public boolean getShowEvents() {
@@ -996,7 +997,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a true or a false according to the existance of sources in the item
-   * 
+   *
    * @return boolean
    */
   public boolean getShowSources() {
@@ -1010,7 +1011,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a true or a false according to the existance of files in the item
-   * 
+   *
    * @return boolean
    */
   public boolean getShowFiles() {
@@ -1023,7 +1024,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the total number of files in the item
-   * 
+   *
    * @return int
    */
   public int getAmountOfFiles() {
@@ -1036,7 +1037,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a true or a false according to the existance of locators in the item
-   * 
+   *
    * @return boolean
    */
   public boolean getShowLocators() {
@@ -1049,7 +1050,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the total number of locators in the item
-   * 
+   *
    * @return int
    */
   public int getAmountOfLocators() {
@@ -1062,7 +1063,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a true or a false according to the user state (logged in or not)
-   * 
+   *
    * @author Markus Haarlaender
    * @return boolean
    */
@@ -1072,7 +1073,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a boolean according to the user item state
-   * 
+   *
    * @author Markus Haarlaender
    * @return boolean
    */
@@ -1095,7 +1096,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns false if all dates are empty
-   * 
+   *
    * @author Markus Haarlaender
    * @return boolean
    */
@@ -1112,7 +1113,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a true or a false according to the invited state of the item
-   * 
+   *
    * @return boolean
    */
   public boolean getInvited() {
@@ -1127,7 +1128,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the formatted withdrawal date as string
-   * 
+   *
    * @return String formatted withdrawal date
    */
   public String getWithdrawalDate() {
@@ -1143,7 +1144,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Gets the name of the Collection the item belongs to.
-   * 
+   *
    * @return String formatted Collection name
    */
   public String getContextName() {
@@ -1176,7 +1177,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Gets the affiliation of the context the item belongs to.
-   * 
+   *
    * @return String formatted context name
    */
   public String getAffiliations() {
@@ -1217,7 +1218,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the name of the specified OU its authors will be shown
-   * 
+   *
    * @return String name of the specified OU (inge.pubman.root.organization.name)
    */
   public String getSpecificOrganization() {
@@ -1232,7 +1233,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a formatted String including the start and the end date of the event
-   * 
+   *
    * @return String the formatted date string
    */
   public String getStartEndDate() {
@@ -1250,7 +1251,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the item modifier (last)
-   * 
+   *
    * @return String name or id of the owner
    */
   public String getModificationDate() {
@@ -1271,7 +1272,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns the Creation date as formatted String (YYYY-MM-DD)
-   * 
+   *
    * @return String the formatted date of modification
    */
   public String getCreationDate() {
@@ -1280,7 +1281,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Navigates to the release history page.
-   * 
+   *
    * @return the faces navigation string
    */
   public String showReleaseHistory() {
@@ -1365,7 +1366,7 @@ public class ViewItemFull extends FacesBean {
   /**
    * checks if the current item and user are cappable for creating a DOI (moderator, released and
    * some needed Metadata)
-   * 
+   *
    * @return if a doi can be created for this item
    */
   public boolean isDoiCappable() {
@@ -1664,7 +1665,7 @@ public class ViewItemFull extends FacesBean {
    * Invokes the email service to send per email the the page with the selected items as attachment.
    * This method is called when the user selects one or more items and then clicks on the
    * EMail-Button in the Export-Items Panel.
-   * 
+   *
    * @author: StG
    */
   public String exportEmail() {
@@ -1715,7 +1716,7 @@ public class ViewItemFull extends FacesBean {
   /**
    * Downloads the page with the selected item as export. This method is called when the user
    * selects one or more items and then clicks on the Download-Button in the Export-Items Panel.
-   * 
+   *
    * @author: StG
    */
   public String exportDownload() {
@@ -1749,7 +1750,7 @@ public class ViewItemFull extends FacesBean {
   /**
    * This method returns the contact email address of the moderator stored in the item's context. If
    * it is empty the pubman support address will be returned.
-   * 
+   *
    * @return the moderator's email address (if available, otherwise pubman support address)
    */
   public String getModeratorContactEmail() {
@@ -1788,7 +1789,7 @@ public class ViewItemFull extends FacesBean {
 
   /**
    * Returns a true or a false according to the existance of an legal case in the item
-   * 
+   *
    * @return boolean
    */
   public boolean getShowLegalCase() {
@@ -1802,7 +1803,7 @@ public class ViewItemFull extends FacesBean {
   /**
    * Returns a String with the legal case data according to the existance of an legal case in the
    * item
-   * 
+   *
    * @return boolean
    */
   public String getLegalCaseCourtDateId() {
@@ -1856,21 +1857,11 @@ public class ViewItemFull extends FacesBean {
       final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
       pubItemList.add(new ItemVersionVO(this.getPubItem()));
 
-      // Use special apa style if language is set to japanese
-      boolean isJapanese = false;
-
-      if (this.getPubItem().getMetadata().getLanguages() != null) {
-        for (final String lang : this.getPubItem().getMetadata().getLanguages()) {
-          if ("jpn".equals(lang)) {
-            isJapanese = true;
-            break;
-          }
-        }
-      }
-
       final ExportFormatVO expFormat;
-      if (isJapanese || "ja".equalsIgnoreCase(this.getI18nHelper().getLocale())) {
-        expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA_CJK.getCitationName());
+      boolean coneCitationStyles =
+          Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CITATION_STYLE_USE));
+      if (coneCitationStyles) {
+        expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.GFZPUBLISTS.getCitationName());
       } else {
         expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA6.getCitationName());
       }
@@ -1913,6 +1904,7 @@ public class ViewItemFull extends FacesBean {
       this.canRevise = pis.checkAccess(AccessType.REVISE, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canWithdraw = pis.checkAccess(AccessType.WITHDRAW, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canDelete = pis.checkAccess(AccessType.DELETE, getLoginHelper().getPrincipal(), this.getPubItem());
+      this.canSendOAMail = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SEND_OA_MAIL_USE).equals(Boolean.TRUE.toString());
     } catch (Exception e) {
       this.error(this.getMessage("AccessInfoError"));
       logger.error("Error while getting access information", e);
@@ -1922,29 +1914,29 @@ public class ViewItemFull extends FacesBean {
      * if (((this.isStatePending || this.isStateSubmitted && this.isWorkflowSimple ||
      * this.isStateInRevision) && this.isLatestVersion && this.isOwner) || (this.isStateSubmitted &&
      * this.isLatestVersion && this.isModerator)) { this.canEdit = true; }
-     * 
+     *
      * if ((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner
      * && this.isWorkflowStandard) { this.canSubmit = true; }
-     * 
+     *
      * if (this.isOwner && this.isLatestVersion && (((this.isStatePending || this.isStateSubmitted)
      * && this.isWorkflowSimple) || (this.isWorkflowStandard && this.isModerator &&
      * this.isStateSubmitted))) { this.canRelease = true; }
-     * 
+     *
      * if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isOwner) {
      * this.canAccept = true; }
-     * 
+     *
      * if (this.isStateSubmitted && this.isLatestVersion && this.isModerator &&
      * this.isWorkflowStandard && !this.isPublicStateReleased) { this.canRevise = true; }
-     * 
+     *
      * if (!this.isPublicStateReleased && (this.isStatePending || this.isStateInRevision) &&
      * this.isLatestVersion && this.isOwner) { this.canDelete = true; }
-     * 
+     *
      * if (this.isStateReleased && this.isLatestVersion && (this.isOwner || this.isModerator)) {
      * this.canWithdraw = true; }
-     * 
+     *
      * if (this.isStateReleased && this.isLatestVersion && (this.isModerator || this.isOwner)) {
      * this.canModify = true; }
-     * 
+     *
      */
 
     if (!this.isStateWithdrawn && this.isLatestVersion && this.isDepositor) {
@@ -2058,6 +2050,10 @@ public class ViewItemFull extends FacesBean {
 
   public boolean isCanShowLastMessage() {
     return this.canShowLastMessage;
+  }
+
+  public boolean isCanSendOAMail() {
+    return this.canSendOAMail;
   }
 
   public String getHtmlMetaTags() {

@@ -147,7 +147,8 @@ public class TransformerFactory {
     APA6("APA6"),
     AJP("AJP"),
     JUS("JUS"),
-    JUS_Report("JUS_Report");
+    JUS_Report("JUS_Report"),
+    GFZPUBLISTS("GFZPUBLISTS");
 
   private String citationName;
 

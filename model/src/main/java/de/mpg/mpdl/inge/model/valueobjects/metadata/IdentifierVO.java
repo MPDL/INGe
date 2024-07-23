@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 
 /**
  * Identifiers can be internal or external.
- * 
+ *
  * @revised by MuJ: 29.08.2007
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:59:09
@@ -45,7 +45,7 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.IgnoreForCleanup;
 public class IdentifierVO extends ValueObject implements Cloneable {
   /**
    * The possible types of the identifier.
-   * 
+   *
    * @updated 05-Sep-2007 12:59:09
    */
   public enum IdType
@@ -63,7 +63,12 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     EDOC("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), //
     ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), // wegen Altdaten noch notwendig
     ESS_OPEN_ARCHIVE("https://archive.org/services/purl/domain/ESS_OPEN_ARCHIVE"),
+    GFZPOF("http://purl.org/escidoc/metadata/terms/0.1/GFZPOF"), //
+    GFZPOFCCA("http://purl.org/escidoc/metadata/terms/0.1/GFZPOFCCA"), //
+    GFZPOFWEITERE("http://purl.org/escidoc/metadata/terms/0.1/GFZPOFWEITERE"), //
+    GFZPROJECT("http://purl.org/escidoc/metadata/terms/0.1/GFZPROJECT"), //
     GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), // anderer Zusammenhang (Projektinfo)
+    RIFSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/RIFSPROJECT"), //
     ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
     ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
@@ -78,6 +83,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     PATENT_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"), //
     PATENT_PUBLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-PUBLICATION-NR"), //
     PII("http://purl.org/escidoc/metadata/terms/0.1/PII"), //
+    PIKDOMAIN("http://purl.org/escidoc/metadata/terms/0.1/PIKDOMAIN"), //
     PMC("http://purl.org/escidoc/metadata/terms/0.1/PMC"), //
     PMID("http://purl.org/escidoc/metadata/terms/0.1/PMID"), //
     PND("http://purl.org/escidoc/metadata/terms/0.1/PND"), //
@@ -118,7 +124,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
   /**
    * Creates a new instance with the given type and the given identifier.
-   * 
+   *
    * @param type
    * @param id
    */
@@ -144,7 +150,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the identifier.
-   * 
+   *
    * @param newVal
    */
   public void setId(String newVal) {
@@ -153,7 +159,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the type of the identifier.
-   * 
+   *
    * @param newVal
    */
   public void setType(IdType newVal) {
@@ -204,7 +210,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
   /**
    * Returns the value of the type Enum as a String. If the Enum is not set, an empty String is
    * returned.
-   * 
+   *
    * @return the value of the type Enum
    */
   @JsonIgnore
@@ -217,7 +223,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
 
   /**
    * Sets the value of the type Enum by a String.
-   * 
+   *
    * @param newValString
    */
   @JsonIgnore

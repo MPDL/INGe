@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -99,7 +99,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving
  * and submitting a PubItem including methods for depending dynamic UI components.
- * 
+ *
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 09.08.2007
  */
@@ -130,9 +130,6 @@ public class EditItem extends FacesBean {
   // Flag for the binding method to avoid unnecessary binding
   private boolean bindFilesAndLocators = true;
   private UIRepeat fileIterator;
-
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
 
   public EditItem() {
     this.init();
@@ -173,7 +170,7 @@ public class EditItem extends FacesBean {
   /**
    * Delivers a reference to the currently edited item. This is a shortCut for the method in the
    * ItemController.
-   * 
+   *
    * @return the item that is currently edited
    */
   public PubItemVOPresentation getPubItem() {
@@ -535,7 +532,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Cancels the editing.
-   * 
+   *
    * @return string, identifying the page that should be navigated to after this methodcall
    */
   public String cancel() {
@@ -724,7 +721,7 @@ public class EditItem extends FacesBean {
 
   /**
    * This method adds a locator to the list of locators of the item
-   * 
+   *
    * @return navigation string (null)
    */
   public void addLocator() {
@@ -738,7 +735,7 @@ public class EditItem extends FacesBean {
 
   /**
    * This method saves the latest locator to the list of files of the item
-   * 
+   *
    * @return navigation string (null)
    */
   public void saveLocator() {
@@ -785,7 +782,7 @@ public class EditItem extends FacesBean {
      * boolean isStatePending = true; boolean isStateSubmitted = false; boolean isStateReleased =
      * false; // boolean isStateInRevision = false; boolean isStateWithdrawn = false; // boolean
      * isPublicStateReleased = false;
-     * 
+     *
      * if (this.getPubItem() != null && this.getPubItem().getVersionState() != null) {
      * isStatePending = ItemVersionRO.State.PENDING.equals(this.getPubItem().getVersionState());
      * isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
@@ -795,7 +792,7 @@ public class EditItem extends FacesBean {
      * = ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getVersionState()); //
      * isPublicStateReleased =
      * ItemVersionRO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState()); }
-     * 
+     *
      * boolean isOwner = true; if (this.getPubItem() != null &&
      * this.getPubItem().getObject().getCreator() != null) { isOwner =
      * (this.getLoginHelper().getAccountUser() != null ?
@@ -810,7 +807,7 @@ public class EditItem extends FacesBean {
 
     /*
      * boolean isWorkflowStandard = false; boolean isWorkflowSimple = true;
-     * 
+     *
      * try { if (this.getItemControllerSessionBean().getCurrentContext() != null) {
      * isWorkflowStandard = (ContextDbVO.Workflow.STANDARD ==
      * this.getItemControllerSessionBean().getCurrentContext().getWorkflow()); isWorkflowSimple =
@@ -875,7 +872,7 @@ public class EditItem extends FacesBean {
 
   /**
    * localized creation of SelectItems for the genres available.
-   * 
+   *
    * @return SelectItem[] with Strings representing genres.
    */
   public SelectItem[] getGenres() {
@@ -885,7 +882,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for degreeType.
-   * 
+   *
    * @return all options for degreeType
    */
   public SelectItem[] getDegreeTypes() {
@@ -894,7 +891,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for reviewMethod.
-   * 
+   *
    * @return all options for reviewMethod
    */
   public SelectItem[] getReviewMethods() {
@@ -903,7 +900,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for content categories.
-   * 
+   *
    * @return all options for content c ategories.
    */
   public SelectItem[] getContentCategories() {
@@ -912,7 +909,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Returns all options for visibility.
-   * 
+   *
    * @return all options for visibility
    */
   public SelectItem[] getVisibilities() {
@@ -964,7 +961,7 @@ public class EditItem extends FacesBean {
   /**
    * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a
    * checkbox.
-   * 
+   *
    * @return true if invitationstatus in VO is set, else false
    */
   public boolean getInvited() {
@@ -980,7 +977,7 @@ public class EditItem extends FacesBean {
   /**
    * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a
    * checkbox.
-   * 
+   *
    * @param invited the value of the checkbox
    */
   public void setInvited(boolean invited) {
@@ -1143,7 +1140,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Checks if there are any subject classifications defined for this item.
-   * 
+   *
    * @return true if ther is at least one subject classification.
    * @throws Exception Any exception.
    */
@@ -1153,7 +1150,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Get all allowed subject classifications from the admin descriptor of the context.
-   * 
+   *
    * @return An array of SelectItem containing the subject classifications.
    * @throws Exception Any exception.
    */
@@ -1183,7 +1180,7 @@ public class EditItem extends FacesBean {
 
   /**
    * This method changes the Genre and sets the needed property file for genre specific Metadata
-   * 
+   *
    * @return String null
    */
   public void changeGenre() {
@@ -1207,7 +1204,7 @@ public class EditItem extends FacesBean {
 
   /**
    * Adds a new local tag to the ItemVersionVO and a new wrapped local tag to PubItemVOPresentation.
-   * 
+   *
    * @return Returns always null.
    */
   public void addLocalTag() {
@@ -1272,7 +1269,7 @@ public class EditItem extends FacesBean {
    * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the
    * model. Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format
    * of ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
-   * 
+   *
    * @return
    */
   public void parseAndSetAlternativeTitles() {

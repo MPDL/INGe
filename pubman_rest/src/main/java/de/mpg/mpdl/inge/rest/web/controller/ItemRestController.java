@@ -75,7 +75,7 @@ public class ItemRestController {
       + "," + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + ","
       + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET;
 
-  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL";
+  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL, GFZPUBLISTS";
 
   @Autowired
   private PubItemService pis;
@@ -122,7 +122,7 @@ public class ItemRestController {
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, // 
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
       @RequestParam(value = "format", required = false,
           defaultValue = "json") @ApiParam(allowableValues = EXPORT_FORMAT_ALLOWABLE_VALUES) String format, //
       @RequestParam(value = "citation", required = false,
@@ -244,7 +244,7 @@ public class ItemRestController {
 
   /**
    * Retrieve a file with a given ID
-   * 
+   *
    * @param componentId
    * @param response
    */
@@ -286,7 +286,7 @@ public class ItemRestController {
 
   /**
    * Retrive the technical Metadata of a file
-   * 
+   *
    * @param componentId
    * @return
    * @throws IOException

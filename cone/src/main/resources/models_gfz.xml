@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<models xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="models.xsd">
+	<model>
+		<name>journals</name>
+		<aliases>
+			<alias>jnar</alias>
+			<alias>journals</alias>
+		</aliases>
+		<description>Journal Names</description>
+		<open>true</open>
+		<primary-identifier control="false" subject-prefix="journals/resource/" generate-cone-id="false"></primary-identifier>
+		<predicates>
+			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Listed In" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/listedIn" multiple="true" mandatory="false" localized="false" searchable="true" shouldBeUnique="false"/>
+			<predicate name="Type" value="http://purl.org/dc/terms/type" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false" />			
+			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="false"/>
+			</predicate>
+			<predicate name="Note" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/note" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false"/>
+		</predicates>
+		<results>
+			<result>
+				<type>main</type>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+				</sort-pattern>
+			</result>
+			<result>
+				<type>alt</type>
+				<result-pattern>
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+ &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+ 				</sort-pattern>
+			</result>
+			<result>
+				<type>alt</type>
+				<result-pattern>
+&lt;http://purl.org/dc/terms/alternative&gt;
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+&lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+ &lt;http://purl.org/dc/terms/alternative&gt;
+ 				</sort-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>publisher</name>
+		<aliases>
+			<alias>publisher</alias>
+		</aliases>
+		<description>Publisher</description>
+		<open>true</open>
+		<primary-identifier control="false" subject-prefix="publisher/resource/" generate-cone-id="false"></primary-identifier>
+		<predicates>
+			<predicate name="Publisher Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Listed In" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/listedIn" multiple="true" mandatory="false" localized="false" searchable="true" shouldBeUnique="false"/>
+			<predicate name="Type" value="http://purl.org/dc/terms/type" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false" />			
+			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="false"/>
+			</predicate>
+			<predicate name="Note" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/note" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false"/>
+		</predicates>
+		<results>
+			<result>
+				<type>main</type>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+				</sort-pattern>
+			</result>
+			<result>
+				<type>alt</type>
+				<result-pattern>
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+ &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+ 				</sort-pattern>
+			</result>
+			<result>
+				<type>alt</type>
+				<result-pattern>
+&lt;http://purl.org/dc/terms/alternative&gt;
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+&lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
+ &lt;http://purl.org/dc/terms/alternative&gt;
+ 				</sort-pattern>
+			</result>
+		</results>
+	</model>
+
+	<model>
+		<name>iso639-1</name>
+		<aliases>
+			<alias>iso639-1</alias>
+		</aliases>
+		<description>Languages</description>
+		<open>false</open>
+		<primary-identifier control="true" subject-prefix="iso639-1/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3" shouldBeUnique="true"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>iso639-2</name>
+		<aliases>
+			<alias>iso639-2</alias>
+		</aliases>
+		<description>Languages</description>
+		<open>false</open>
+		<primary-identifier control="true" subject-prefix="iso639-2/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="false" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3" shouldBeUnique="true"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="false" localized="true" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/identifier&gt;,&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: / 
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>iso639-3</name>
+		<aliases>
+			<alias>iso639-3</alias>
+		</aliases>
+		<description>Languages</description>
+		<open>false</open>
+		<primary-identifier control="true" subject-prefix="iso639-3/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true" shouldBeUnique="true"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Geo location" value="http://earth.google.com/kml/2.1 coordinates" multiple="false" localized="false" searchable="true" mandatory="false"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>persons</name>
+		<aliases>
+			<alias>authors</alias>
+			<alias>persons</alias>
+		</aliases>
+		<description>Persons</description>
+		<open>true</open>
+		<primary-identifier control="false" generate-cone-id="true"/>
+		<predicates>
+			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false" shouldBeUnique="true"/>
+			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/family_name" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
+			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false"/>
+			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="true" restricted="false"/>
+			</predicate>
+			<predicate name="Researcher URL" value="http://xmlns.com/foaf/0.1/homepage" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="false" restricted="false">
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="false" shouldBeUnique="true"/>
+				<predicate name="Description" value="http://purl.org/dc/elements/1.1/description" multiple="false" mandatory="true" localized="true" searchable="false"/>
+			</predicate>
+			<predicate name="Position" value="http://purl.org/escidoc/metadata/terms/0.1/position" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="true" restricted="false">
+				<predicate name="Organization" value="http://purl.org/eprint/terms/affiliatedInstitution" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false" suggest-url="/pubman/faces/OrganizationSuggest.jsp?format=json&amp;lang=en"/>
+				<predicate name="OU-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" restricted="false"/>
+				<predicate name="Position Appellation" value="http://purl.org/escidoc/metadata/terms/0.1/position-name" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
+				<predicate name="From" value="http://purl.org/escidoc/metadata/terms/0.1/start-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
+				<predicate name="Until" value="http://purl.org/escidoc/metadata/terms/0.1/end-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
+				<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true" shouldBeUnique="true"/>
+			</predicate>
+			<predicate name="Last Modification Date" value="http://purl.org/dc/terms/modified" multiple="false" mandatory="true" localized="false" searchable="true" default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate" overwrite="true" event="onsave" modify="false" restricted="true" />
+			<predicate name="Creation Date" value="http://purl.org/dc/terms/created" multiple="false" mandatory="true" localized="false" searchable="true" default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate" overwrite="false" event="onsave" modify="false" restricted="true" />
+			<predicate name="Modified By" value="http://purl.org/dc/terms/creator" multiple="false" mandatory="true" localized="false" searchable="true" default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser" overwrite="true" event="onsave" modify="false" restricted="true" />
+			<predicate name="Created By" value="http://purl.org/dc/terms/contributor" multiple="false" mandatory="true" localized="false" searchable="true" default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser" overwrite="false" event="onsave" modify="false" restricted="true" />
+			<predicate name="OrcID Identifier" value="http://www.orcid.org/ns/orcid" multiple="false" mandatory="false" localized="false" searchable="true" restricted="false" />
+		</predicates>
+		<results>
+			<result>
+				<type>main</type>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}:)
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}:)
+				</sort-pattern>
+			</result>
+			<result>
+				<type>alt</type>
+				<result-pattern>
+&lt;http://purl.org/dc/terms/alternative&gt;
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}: (
+OR{&lt;http://purl.org/dc/terms/alternative&gt;}:&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}:)
+				</result-pattern>
+				<sort-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}:)
+ &lt;http://purl.org/dc/terms/alternative&gt;
+				</sort-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>ddc</name>
+		<aliases>
+			<alias>ddc</alias>
+		</aliases>
+		<description>DDC Subjects</description>
+		<open>false</open>
+		<primary-identifier control="true" generate-cone-id="false" subject-prefix="ddc/resource/">http://dewey.info/class</primary-identifier>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true" shouldBeUnique="true"/>
+			<predicate name="DDC Code" value="http://dewey.info/class" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+ - 
+&lt;http://dewey.info/class&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>mimetypes</name>
+		<aliases>
+			<alias>mimetypes</alias>
+		</aliases>
+		<description>IANA Mimetypes</description>
+		<open>false</open>
+		<primary-identifier control="true" subject-prefix="mimetypes/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/title</primary-identifier>
+		<predicates>
+			<predicate name="Type" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>escidocmimetypes</name>
+		<aliases>
+			<alias>escidocmimetypes</alias>
+		</aliases>
+		<description>Allowed eSciDoc Mimetypes</description>
+		<open>false</open>
+		<primary-identifier control="true" subject-prefix="escidocmimetypes/resource/" identifier-prefix="mimetypes/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/relation</primary-identifier>
+		<predicates>
+			<predicate name="Type" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" resourceModel="mimetypes" searchable="true" shouldBeUnique="true"/>
+			<predicate name="File Ending" value="http://purl.org/escidoc/metadata/terms/0.1/suffix" multiple="true" mandatory="false" localized="false" searchable="true" default=".abc" overwrite="false"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>cclicenses</name>
+		<aliases>
+			<alias>cclicenses</alias>
+			<alias>cclicences</alias>
+		</aliases>
+		<description>CreativeCommons licenses</description>
+		<open>false</open>
+		<primary-identifier control="true" generate-cone-id="false" identifier-prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="Version" value="urn:cone:version" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="URL" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Image-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="true"/>
+			<predicate name="Commercial" value="urn:cone:commercial" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Derivatives" value="urn:cone:derivatives" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Jurisdiction" value="urn:cone:jurisdiction" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Translation" value="urn:cone:translation" multiple="true" mandatory="false" localized="true" searchable="false" generateObject="true">
+				<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
+				<predicate name="URL" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="false"/>
+				<!-- <predicate name="Language" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="false"/> -->
+				<predicate name="Locale" value="urn:cone:locale" multiple="false" mandatory="true" localized="false" searchable="false"/>
+			</predicate>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>gfzpof</name>
+		<aliases>
+			<alias>gfzpof</alias>
+		</aliases>
+		<description>GFZ POFs</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="true"/>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Status" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/status" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Start Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/startYear" multiple="false" mandatory="false" localized="false" searchable="true"/>
+			<predicate name="End Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/endYear" multiple="false" mandatory="false" localized="false" searchable="true"/>			
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>gfzpofweitere</name>
+		<aliases>
+			<alias>gfzpofweitere</alias>
+		</aliases>
+		<description>weitere GFZ POFs</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="true"/>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Status" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/status" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Start Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/startYear" multiple="false" mandatory="false" localized="false" searchable="true"/>
+			<predicate name="End Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/endYear" multiple="false" mandatory="false" localized="false" searchable="true"/>			
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>gfzpofcca</name>
+		<aliases>
+			<alias>gfzpofcca</alias>
+		</aliases>
+		<description>GFZ POFs cca</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="true"/>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Status" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/status" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Start Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/startYear" multiple="false" mandatory="false" localized="false" searchable="true"/>
+			<predicate name="End Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/endYear" multiple="false" mandatory="false" localized="false" searchable="true"/>			
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>gfzproject</name>
+		<aliases>
+			<alias>gfzproject</alias>
+		</aliases>
+		<description>GFZ Projects</description>
+		<open>false</open>
+		<primary-identifier control="false" subject-prefix="gfzproject/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="Langform" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Kurzform" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>funding-organizations</name>
+		<aliases>
+			<alias>funding-organizations</alias>
+		</aliases>
+		<description>Funding organizations and the correspondent OpenAire Identifiers</description>
+		<open>false</open>
+		<primary-identifier control="true" generate-cone-id="true"/>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>funding-programs</name>
+		<aliases>
+			<alias>funding-programs</alias>
+		</aliases>
+		<description>Funding programs and the correspondent OpenAire Identifiers</description>
+		<open>false</open>
+		<primary-identifier control="true" generate-cone-id="true"/>
+		<predicates>	
+				<predicate name="Open Aire funding Organization Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="funding-organizations" shouldBeUnique="false"/>
+				<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+				<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
+OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;}: - 
+OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}:)
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>citation-styles</name>
+		<aliases>
+			<alias>citation-styles</alias>
+		</aliases>
+		<description>Citation styles in CSL format</description>
+		<open>true</open>
+		<primary-identifier control="true" generate-cone-id="true"/>
+		<predicates>	
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true" />
+			<predicate name="Abbreviation" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="CSL" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="false" shouldBeUnique="false" type="xml"/>
+			<predicate name="Last Modification Date"
+				value="http://purl.org/dc/terms/modified" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
+				overwrite="true" event="onsave" modify="false" restricted="true" />
+			<predicate name="Creation Date"
+				value="http://purl.org/dc/terms/created" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
+				overwrite="false" event="onsave" modify="false" restricted="true" />
+			<predicate name="Modified By"
+				value="http://purl.org/dc/terms/contributor" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
+				overwrite="true" event="onsave" modify="false" restricted="true" />
+			<predicate name="Created By"
+				value="http://purl.org/dc/terms/creator" multiple="false"
+				mandatory="true" localized="false" searchable="false"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
+				overwrite="false" event="onsave" modify="false" restricted="true" />
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}: (
+OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+
+	<model>
+		<name>oatype</name>
+		<aliases>
+			<alias>oatype</alias>
+		</aliases>
+		<description>OA types</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="true"/>
+		<predicates>
+		<predicate name="OAType" 
+			value="http://purl.org/dc/elements/1.1/title" multiple="false" 
+			mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+		</result>
+		</results>
+	</model>
+
+	<formats>
+		<format id="html">
+			<mime-type id="text/html"/>
+			<mime-type id="application/vnd.cone-html"/>
+		</format>
+		<format id="rdf">
+			<mime-type id="text/rdf+xml"/>
+			<mime-type id="application/rdf+xml"/>
+			<mime-type id="application/vnd.cone-rdf"/>
+		</format>
+		<format id="json">
+			<mime-type id="application/json"/>
+			<mime-type id="application/vnd.cone-json"/>
+		</format>
+		<format id="jquery">
+			<mime-type id="application/vnd.cone-jquery"/>
+		</format>
+		<format id="options">
+			<mime-type id="text/plain"/>
+			<mime-type id="application/vnd.cone-options"/>
+		</format>
+	</formats>
+	
+	<config>
+		<default-namespace uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
+		<default-namespace uri="http://dewey.info/" prefix="ddc"/>
+		<default-namespace uri="http://purl.org/dc/terms/" prefix="dcterms"/>
+		<default-namespace uri="http://xmlns.com/foaf/0.1/" prefix="foaf"/>
+		<default-namespace uri="http://purl.org/escidoc/metadata/terms/0.1/" prefix="escidoc"/>
+		<default-namespace uri="http://purl.org/eprint/terms/" prefix="eprints"/>
+		<default-namespace uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" prefix="rdf"/>
+		<default-namespace uri="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi"/>
+		<default-namespace uri="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/" prefix="gfz"/>
+	</config>
+</models>

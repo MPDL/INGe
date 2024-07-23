@@ -1,19 +1,19 @@
 /*
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.export;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -42,12 +43,13 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Fragment class for item exporting. This class provides all functionality for exporting items
  * according the selected export format (layout or structured) and the selected file format (PDF,
  * TXT, etc..).
- * 
+ *
  * @author: Galina Stancheva, created 02.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007
  */
@@ -116,15 +118,29 @@ public class ExportItems extends FacesBean {
         new SelectItem(TransformerFactory.CitationTypes.JUS.getCitationName(), this.getLabel("Export_ExportFormat_JUS"));
     final SelectItem EXPORTFORMAT_CSL =
         new SelectItem(TransformerFactory.CitationTypes.CSL.getCitationName(), this.getLabel("Export_ExportFormat_CSL"));
+    final SelectItem EXPORTFORMAT_GFZPUBLISTS =
+        new SelectItem(TransformerFactory.CitationTypes.GFZPUBLISTS.getCitationName(), this.getLabel("Export_ExportFormat_GFZPUBLISTS"));
+
+    boolean gfzCitationStyle = Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CITATION_STYLE_USE));
 
     final SelectItem[] FILEFORMAT_OPTIONS;
 
-    FILEFORMAT_OPTIONS = new SelectItem[] { //
-        EXPORTFORMAT_APA, //
-        EXPORTFORMAT_APA_CJK, // 
-        EXPORTFORMAT_AJP, //
-        EXPORTFORMAT_JUS, //
-        EXPORTFORMAT_CSL};
+    if (gfzCitationStyle) {
+      FILEFORMAT_OPTIONS = new SelectItem[] { //
+          EXPORTFORMAT_APA, //
+          EXPORTFORMAT_APA_CJK, //
+          EXPORTFORMAT_AJP, //
+          EXPORTFORMAT_JUS, //
+          EXPORTFORMAT_CSL, //
+          EXPORTFORMAT_GFZPUBLISTS};
+    } else {
+      FILEFORMAT_OPTIONS = new SelectItem[] { //
+          EXPORTFORMAT_APA, //
+          EXPORTFORMAT_APA_CJK, //
+          EXPORTFORMAT_AJP, //
+          EXPORTFORMAT_JUS, //
+          EXPORTFORMAT_CSL};
+    }
 
     return FILEFORMAT_OPTIONS;
   }

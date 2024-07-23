@@ -8,7 +8,7 @@
     <link rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}" />
     <ui:fragment rendered="#{ViewItemFull.pubItem == null or ViewItemFull.isStateWithdrawn}">
 		<meta name="robots" content="noindex" />
-	</ui:fragment>	
+	</ui:fragment>
     <h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
     <meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}" />
     <h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
@@ -120,6 +120,8 @@
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canWithdraw and ViewItemFull.isLatestVersion}" />
                                     <h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}" value="#{lbl.actionMenu_lnkModify}" rendered="#{ViewItemFull.canModify and ViewItemFull.isLatestVersion}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canModify and ViewItemFull.isLatestVersion}" />
+                                    <h:commandLink id="lnkSendOAMail" action="#{GFZSendOAMailPage.sendOAMailPage}" value="#{lbl.actionMenu_sendOAMail}" rendered="#{ViewItemFull.isModerator and ViewItemFull.isStateReleased and ViewItemFull.canSendOAMail}" onclick="fullItemReloadAjax();"/>
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isModerator and ViewItemFull.isStateReleased and ViewItemFull.canSendOAMail}" />
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" rendered="#{ViewItemFull.canCreateFromTemplate}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canCreateFromTemplate}" />
                                     <h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{ViewItemFull.canAddToBasket}" onclick="fullItemReloadAjax();" />
@@ -156,7 +158,7 @@
                                             <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
                                             <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
-                                    </h:panelGroup>                           
+                                    </h:panelGroup>
                                     <h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
                                         <h:panelGroup layout="block" styleClass="medium_area0">
                                             <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
@@ -304,18 +306,18 @@
                 </div>
             </h:form>
         </div>
-        
+
         <ui:include src="footer/Footer.jspf" />
-        
+
 		<script type="text/javascript">
 	        var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
-        
+
 		    var citationStyleSuggestBaseURL = '$1?format=json';
     		var citationStyleSuggestURL = suggestConeUrl + 'citation-styles/query';
 
 			$(document).ready(function() {
 				startNanoScrollerWhenLoaded();
-				
+
 				// Try to replace standard author images with CoNE-images
 				replaceAuthorImage();
 				checkUpdateCslUi();

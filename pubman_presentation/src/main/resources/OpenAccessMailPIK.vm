@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>${subject}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div align="center">${citation}</div>
+
+Dear author,<br/>
+<p>In order to make your publications visible in the sense of Open Access, we will deposit them in our publication database PIKpublic (<a href="https://publications.pik-potsdam.de/">https://publications.pik-potsdam.de</a>). The basis for this is the secondary publication right according to § 38 para. 4 of the German Copyright Law. For this we require the accepted manuscript version (final draft) of your article.</p>
+<p>The Leibniz Association is committed to fostering and actively advancing the idea of Open Access. In this sense, the PIK Publication Policy recommends explicitly to choose Green Open Access.</p>
+<p>Please send your final accepted manuscript to <a href="mailto:library@pik-potsdam.de">library@pik-potsdam.de</a></p> 
+
+<p>For further information please contact us.<br/>
+Your library<br/></p> 
+
+<p>You can find more information at:<br/> 
+<a href="https://www.leibniz-openscience.de/">https://www.leibniz-openscience.de/</a><br/>
+<a href="https://bib.telegrafenberg.de/en/publishing/open-access">https://bib.telegrafenberg.de/en/publishing/open-access</a></p>
+<br/><br/>
+
+Liebe*r Autor*in,<br/>
+<p>um Ihre Publikationen im Sinne von Open Access sichtbar zu machen, stellen wir diese als Zweitveröffentlichung über unsere Publikationsdatenbank PIKpublic (<a href="https://publications.pik-potsdam.de/">https://publications.pik-potsdam.de</a>) zur Verfügung. Grundlage hierfür ist das Zweitveröffentlichungsrecht nach § 38 Abs. 4 UrhG. Dazu benötigen wir die akzeptierte Manuskriptversion (Final Draft) Ihres Artikels.</p>
+<p>Die Leibniz-Gemeinschaft hat sich verpflichtet, den Open-Access-Gedanken aktiv zu fördern und voranzutreiben. In diesem Sinne empfiehlt die Publication Policy des PIK ausdrücklich Green Open Access.</p>
+<p>Senden Sie die akzeptierte Manuskriptversion bitte an <a href="mailto:library@pik-potsdam.de">library@pik-potsdam.de</a></p>
+
+<p>Für Rückfragen stehen wir natürlich gern zur Verfügung. <br>
+    Ihre Bibliothek<br/></p>
+
+<p>Weitere Informationen finden Sie unter:<br/>
+    <a href="https://www.leibniz-openscience.de/">https://www.leibniz-openscience.de/</a><br/>
+    <a href="https://bib.telegrafenberg.de/publizieren/open-access">https://bib.telegrafenberg.de/publizieren/open-access</a></p>
+</body>
+</html>

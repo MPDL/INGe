@@ -228,9 +228,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static final String INDEX_VERSION_STATE = "versionState";
   public static final String INDEX_VERSION_VERSIONNUMBER = "versionNumber";
 
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
-
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO create(ItemVersionVO pubItemVO, String authenticationToken)
@@ -1056,9 +1053,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   /*
    * public ItemVersionVO enrichItem(ItemVersionVO item) {
-   * 
+   *
    * if (item != null) { try { entityManager.detach(item); } catch (Exception e) {
-   * 
+   *
    * } if (item.getFiles() != null) { for (FileDbVO file : item.getFiles()) { if
    * (Storage.INTERNAL_MANAGED.equals(file.getStorage())) { file.setContent("/rest/items/" +
    * item.getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content"); } } } } return

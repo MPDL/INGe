@@ -62,7 +62,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
          xsi:noNamespaceSchemaLocation="ehcache.xsd"
          updateCheck="true" monitoring="autodetect"
          dynamicConfig="true">
-         
+
     <!--
     DiskStore configuration
     =======================
@@ -93,7 +93,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     Subdirectories can be specified below the property e.g. java.io.tmpdir/one
 
     -->
-    <diskStore path="user.home/ehcache"/>
+    <diskStore path="/opt/wildfly-26.1.3.Final/standalone/data/ehcache"/>
 
     <!--
     TransactionManagerLookup configuration
@@ -110,7 +110,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     You can provide you own lookup class that implements the
     net.sf.ehcache.transaction.manager.TransactionManagerLookup interface.
     -->
-	<!-- 
+	<!--
     <transactionManagerLookup class="net.sf.ehcache.transaction.manager.DefaultTransactionManagerLookup"
                               properties="jndiName=java:/TransactionManager" propertySeparator=";"/>
     -->
@@ -138,7 +138,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
 
     If no class is specified, no listener is created. There is no default.
     -->
-    <!-- 
+    <!--
     <cacheManagerEventListenerFactory class="" properties=""/>
 	-->
 
@@ -173,9 +173,9 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     Without rejoin, if the Terracotta Server is restarted the client cannot connect back to the
     server. When enabled, this allows the client to connect to the new cluster without the
     need to restart the node.
-    
-    When wanEnabledTSA is true, the client will wait for the WAN Orchestrator to provide the 
-    list of WAN enabled caches. Once the Orchestrator is up and running then the client will proceed 
+
+    When wanEnabledTSA is true, the client will wait for the WAN Orchestrator to provide the
+    list of WAN enabled caches. Once the Orchestrator is up and running then the client will proceed
     to create the clustered data structures.
 
     Example using a path to Terracotta configuration file:
@@ -205,7 +205,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
 
     For more information on the Terracotta configuration, see the Terracotta documentation.
     -->
-    <!-- 
+    <!--
     <terracottaConfig url="localhost:9510"/>
 	-->
 
@@ -334,7 +334,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
 
     * distributed - Defers to the <terracotta> configuration for persistence settings. This option
     is not applicable for standalone.
-    
+
     synchronousWrites:
     When set to true write operations on the cache do not return until after the operations data has been
     successfully flushed to the disk storage.  This option is only valid when used with the "localRestartable"
@@ -516,7 +516,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     The SizeOf policy can be configured at the cache manager level (directly under <ehcache>) and at
     the cache level (under <cache> or <defaultCache>). The cache policy always overrides the cache manager
     one if both are set. This element has no effect on distributed caches.
-    
+
     Transactions
     ++++++++++++
 
@@ -688,7 +688,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     To indicate the cache should be clustered using synchronous-write locking level:
         <terracotta clustered="true" synchronousWrites="true"/>
     -->
-    <!-- 
+    <!--
     <cacheManagerPeerProviderFactory
 		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
 		properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1,
@@ -712,14 +712,14 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            eternal="false"
            timeToIdleSeconds="1200"
            timeToLiveSeconds="1200">
-           <!-- 
+           <!--
            <cacheEventListenerFactory
 				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
 				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
 		   -->
     </defaultCache>
-    
+
     <cache name="item"
            maxEntriesLocalHeap="1000"
            maxEntriesLocalDisk="0"
@@ -728,14 +728,14 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            timeToIdleSeconds="3600"
            timeToLiveSeconds="3600">
         <persistence strategy="localTempSwap"/>
-        <!-- 
+        <!--
            <cacheEventListenerFactory
 				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
 				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
 		   -->
     </cache>
-    
+
     <cache name="context"
            maxEntriesLocalHeap="5000"
            maxEntriesLocalDisk="0"
@@ -745,14 +745,14 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            timeToLiveSeconds="86400"
            memoryStoreEvictionPolicy="LFU">
         <persistence strategy="localTempSwap"/>
-        <!-- 
+        <!--
            <cacheEventListenerFactory
 				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
 				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
 		   -->
     </cache>
-    
+
     <cache name="organization"
            maxEntriesLocalHeap="5000"
            maxEntriesLocalDisk="0"
@@ -762,14 +762,14 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            timeToLiveSeconds="86400"
            memoryStoreEvictionPolicy="LFU">
         <persistence strategy="localTempSwap"/>
-        <!-- 
+        <!--
            <cacheEventListenerFactory
 				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
 				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
 		   -->
     </cache>
-    
+
     <cache name="user"
            maxEntriesLocalHeap="5000"
            maxEntriesLocalDisk="0"
@@ -779,14 +779,14 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            timeToLiveSeconds="86400"
            memoryStoreEvictionPolicy="LFU">
         <persistence strategy="localTempSwap"/>
-        <!-- 
+        <!--
            <cacheEventListenerFactory
 				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
 				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
 		   -->
     </cache>
-    
+
     <cache name="batchLog"
            maxEntriesLocalHeap="5000"
            maxEntriesLocalDisk="0"
@@ -796,18 +796,18 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            timeToLiveSeconds="86400"
            memoryStoreEvictionPolicy="LFU">
         <persistence strategy="localTempSwap"/>
-        <!-- 
+        <!--
            <cacheEventListenerFactory
 				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
 				replicateUpdatesViaCopy=false, replicateRemovals=true "/>
 		   -->
     </cache>
-    
+
     <cache name="org.hibernate.cache.internal.StandardQueryCache"
 		maxEntriesLocalHeap="100" maxEntriesLocalDisk="0" eternal="false" timeToLiveSeconds="3600">
 		<persistence strategy="localTempSwap" />
-		<!-- 
+		<!--
            <cacheEventListenerFactory
 				class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 				properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
@@ -829,7 +829,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     disk cache, which in this configuration will go to wherever java.io.tmp is
     defined on your system. On a standard Linux system this will be /tmp"
     -->
-    <!--  
+    <!--
     <cache name="sampleCache1"
            maxEntriesLocalHeap="10000"
            maxEntriesLocalDisk="1000"
@@ -849,7 +849,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     is also the maximum cache size. Note that when a cache is eternal, timeToLive and
     timeToIdle are not used and do not need to be specified.
     -->
-    <!--  
+    <!--
     <cache name="sampleCache2"
            maxEntriesLocalHeap="1000"
            eternal="true"
@@ -861,7 +861,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     persistent between cache and VM restarts. The disk expiry thread interval is set to 10
     minutes, overriding the default of 2 minutes.
     -->
-    <!-- 
+    <!--
     <cache name="sampleCache3"
            maxEntriesLocalHeap="500"
            eternal="false"
@@ -877,7 +877,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     Sample Terracotta clustered cache named sampleTerracottaCache.
     This cache uses Terracotta to cluster the contents of the cache.
     -->
-    <!--  
+    <!--
     <cache name="sampleTerracottaCache"
            maxBytesLocalHeap="10m"
            eternal="false"
