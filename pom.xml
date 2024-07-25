@@ -1003,6 +1003,7 @@
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
+		<inge.aa.login.jsp>login_inge.jsp</inge.aa.login.jsp>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
 		<inge.auth.mpg.ip.csv.url />
@@ -1247,6 +1248,7 @@
 				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
 				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
+				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1303,6 +1305,7 @@
 				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
 				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
+				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1359,6 +1362,7 @@
 				<gfz.oa.mail.domain />
 				<gfz.oa.mail.subject />
 				<gfz.oa.mail.template />
+				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1415,6 +1419,7 @@
 				<gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>PIKpublic: Open Access</gfz.oa.mail.subject>
 				<gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
+				<inge.aa.login.jsp>login_inge_pik.jsp</inge.aa.login.jsp>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>

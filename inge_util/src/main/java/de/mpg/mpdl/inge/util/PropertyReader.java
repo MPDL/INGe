@@ -68,6 +68,7 @@ public class PropertyReader {
   public static final String INGE_AA_CLIENT_START_CLASS = "inge.aa.client.start.class";
   public static final String INGE_AA_DEFAULT_TARGET = "inge.aa.default.target";
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
+  public static final String INGE_AA_LOGIN_JSP = "inge.aa.login.jsp";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
   public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";

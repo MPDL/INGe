@@ -50,8 +50,10 @@
 	boolean loggedIn = Login.getLoggedIn(request);
 	boolean gfzReset = Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CONE_RESET_USE));
 
-	if (loggedIn || gfzReset)	{
+	if (loggedIn || gfzReset)
+	{
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
+		GfzTools gfzTools = gfzReset ? new GfzTools() : null;
 
 		out.println("Reset started...");
 		out.flush();
@@ -63,21 +65,21 @@
 		for (String modelName : models)
 		{
 
-		    Model model = ModelList.getInstance().getModelByAlias(modelName);
+			Model model = ModelList.getInstance().getModelByAlias(modelName);
 
-		    List<String> ids = querier.getAllIds(model.getName());
-		    for (String id : ids)
-		    {
+			List<String> ids = querier.getAllIds(model.getName());
+			for (String id : ids)
+			{
 				if (gfzTools != null && modelName.equals("persons")){
 					gfzTools.updateAffiliatedInstitutionsByPerson(id, querier);
 				}
 
-		        TreeFragment details = querier.details(model.getName(), id, "*");
-		        querier.delete(model.getName(), id);
-		        querier.create(model.getName(), id, details);
-		        out.println("resetting resource " + id);
-		        out.flush();
-		    }
+				TreeFragment details = querier.details(model.getName(), id, "*");
+				querier.delete(model.getName(), id);
+				querier.create(model.getName(), id, details);
+				out.println("resetting resource " + id);
+				out.flush();
+			}
 		}
 
 		out.println("...finished");
