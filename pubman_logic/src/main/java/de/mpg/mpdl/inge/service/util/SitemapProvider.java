@@ -62,7 +62,6 @@ public class SitemapProvider {
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
       String restUrl = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
-      String contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
       this.changeFile();
@@ -79,8 +78,6 @@ public class SitemapProvider {
           // Unable to delete file, it probably didn't exist
         }
         this.fileWriter = new FileWriter(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-
-        // File newSiteMap = new File(SITEMAP_PATH + "sitemap.xml");
         this.copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length(), true);
       } else {
         String currentDate = dateFormat.format(new Date());
@@ -119,7 +116,11 @@ public class SitemapProvider {
           // Unable to delete file, it probably didn't exist
         }
         boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
-        logger.debug("Renaming succeeded: " + success);
+        try {
+          indexFile.delete();
+        } catch (Exception e) {
+          // Unable to delete file, it probably didn't exist
+        }
       }
 
       logger.info("CRON: Finished creating Sitemap.");
@@ -182,7 +183,6 @@ public class SitemapProvider {
         logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
 
         if (null == resp) {
-          //SearchSourceBuilder ssb = new SearchSourceBuilder();
           SearchRequest.Builder sr = new SearchRequest.Builder();
 
           String[] includes = {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
@@ -201,13 +201,11 @@ public class SitemapProvider {
 
         for (Hit<ObjectNode> result : resp.hits().hits()) {
 
-          //Map<String, Object> sourceMap = result.getSourceAsMap();
           ObjectNode root = result.source();
           try {
             String itemId = root.get(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).asText();
             String lmd = root.get(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).asText().substring(0, 10);
             String loc = UriBuilder.getItemObjectLink(itemId).toString();
-            //String loc = this.instanceUrl + this.contextPath + this.itemPattern.replace("$1", itemId);
             String version = root.get(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER).toString();
 
             writeEntry(this.fileWriter, loc, lmd);
