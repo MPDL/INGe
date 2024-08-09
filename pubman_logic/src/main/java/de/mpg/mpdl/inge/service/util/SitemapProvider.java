@@ -64,68 +64,84 @@ public class SitemapProvider {
       String restUrl = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-      this.changeFile();
-      this.addViewItemPages();
-      this.finishSitemap();
-
-      new File(SitemapProvider.SITEMAP_PATH).mkdir();
-
-      if (1 == this.files.size()) {
-        File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-        try {
-          finalFile.delete();
-        } catch (Exception e) {
-          // Unable to delete file, it probably didn't exist
-        }
-        this.fileWriter = new FileWriter(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-        this.copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length(), true);
-      } else {
-        String currentDate = dateFormat.format(new Date());
-
-        File indexFile = File.createTempFile("sitemap", ".xml");
-        FileWriter indexFileWriter = new FileWriter(indexFile);
-
-        indexFileWriter
-            .write("""
-                <?xml version="1.0" encoding="UTF-8"?>
-                <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-                """);
-
-        for (int i = 0; i < this.files.size(); i++) {
-          File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
-          try {
-            finalFile.delete();
-          } catch (Exception e) {
-            // Unable to delete file, it probably didn't exist
-          }
-          this.copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
-
-          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + restUrl + "/sitemap/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>"
-              + currentDate + "</lastmod>\n\t</sitemap>\n");
-        }
-
-        indexFileWriter.write("</sitemapindex>\n");
-        indexFileWriter.flush();
-        indexFileWriter.close();
-
-        File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-        logger.info("Sitemap file: " + finalFile.getAbsolutePath());
-        try {
-          finalFile.delete();
-        } catch (Exception e) {
-          // Unable to delete file, it probably didn't exist
-        }
-        boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
-        try {
-          indexFile.delete();
-        } catch (Exception e) {
-          // Unable to delete file, it probably didn't exist
-        }
-      }
+      changeFile();
+      addViewItemPages();
+      finishSitemap();
+      writeSitemapFiles(dateFormat, restUrl);
+      cleanupTmpFiles();
 
       logger.info("CRON: Finished creating Sitemap.");
     } catch (Exception e) {
       logger.error("Error creating Sitemap", e);
+    }
+  }
+
+  private void cleanupTmpFiles() {
+    for (File file : this.files) {
+      try {
+        logger.info("Try to delete file " + file.getName());
+        file.delete();
+        logger.info("Done.");
+      } catch (Exception e) {
+        logger.error(e);
+      }
+    }
+  }
+
+  private void writeSitemapFiles(SimpleDateFormat dateFormat, String restUrl) throws IOException {
+    new File(SitemapProvider.SITEMAP_PATH).mkdir();
+
+    if (1 == this.files.size()) {
+      File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
+      try {
+        finalFile.delete();
+      } catch (Exception e) {
+        // Unable to delete file, it probably didn't exist
+      }
+      this.fileWriter = new FileWriter(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
+      copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length(), true);
+    } else {
+      String currentDate = dateFormat.format(new Date());
+
+      File indexFile = File.createTempFile("sitemap", ".xml");
+      FileWriter indexFileWriter = new FileWriter(indexFile);
+
+      indexFileWriter
+          .write("""
+              <?xml version="1.0" encoding="UTF-8"?>
+              <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+              """);
+
+      for (int i = 0; i < this.files.size(); i++) {
+        File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
+        try {
+          finalFile.delete();
+        } catch (Exception e) {
+          // Unable to delete file, it probably didn't exist
+        }
+        copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
+
+        indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + restUrl + "/sitemap/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>"
+            + currentDate + "</lastmod>\n\t</sitemap>\n");
+      }
+
+      indexFileWriter.write("</sitemapindex>\n");
+      indexFileWriter.flush();
+      indexFileWriter.close();
+
+      File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
+      logger.info("Sitemap file: " + finalFile.getAbsolutePath());
+      try {
+        finalFile.delete();
+      } catch (Exception e) {
+        // Unable to delete file, it probably didn't exist
+      }
+      boolean success = copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
+      try {
+        indexFile.delete();
+      } catch (Exception e) {
+        // Unable to delete file, it probably didn't exist
+      }
     }
   }
 
@@ -246,14 +262,14 @@ public class SitemapProvider {
   private void changeFile() {
     try {
       if (null != this.fileWriter) {
-        this.finishSitemap();
+        finishSitemap();
       }
 
       File file = File.createTempFile("sitemap", ".xml");
       this.fileWriter = new FileWriter(file);
       this.files.add(file);
 
-      this.startSitemap();
+      startSitemap();
     } catch (Exception e) {
       logger.error("Error creating sitemap file.", e);
     }
