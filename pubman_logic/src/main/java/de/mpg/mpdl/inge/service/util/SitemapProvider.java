@@ -43,7 +43,7 @@ public class SitemapProvider {
 
   private FileWriter fileWriter = null;
 
-  private final List<File> files = new ArrayList<>();
+  private List<File> files;
 
   private int maxItemsPerFile;
   private int maxItemsPerRetrieve;
@@ -61,6 +61,8 @@ public class SitemapProvider {
       logger.info("CRON: Starting to create Sitemap.");
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
+      this.files = new ArrayList<>();
+
       String restUrl = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -91,11 +93,15 @@ public class SitemapProvider {
   private void writeSitemapFiles(SimpleDateFormat dateFormat, String restUrl) throws IOException {
     new File(SitemapProvider.SITEMAP_PATH).mkdir();
 
+    logger.info("Number of files: " + this.files.size());
     if (1 == this.files.size()) {
       File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
       try {
+        logger.info("Try to delete finalFile " + finalFile.getName());
         finalFile.delete();
+        logger.info("Done.");
       } catch (Exception e) {
+        logger.info("Error: " + e);
         // Unable to delete file, it probably didn't exist
       }
       this.fileWriter = new FileWriter(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
@@ -103,7 +109,9 @@ public class SitemapProvider {
     } else {
       String currentDate = dateFormat.format(new Date());
 
+      logger.info("Try to create temp indexfile:");
       File indexFile = File.createTempFile("sitemap", ".xml");
+      logger.info("Done: " + indexFile.getName());
       FileWriter indexFileWriter = new FileWriter(indexFile);
 
       indexFileWriter
@@ -115,8 +123,11 @@ public class SitemapProvider {
       for (int i = 0; i < this.files.size(); i++) {
         File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
         try {
+          logger.info("Try to delete finalFile " + finalFile.getName());
           finalFile.delete();
+          logger.info("Done.");
         } catch (Exception e) {
+          logger.info("Error: " + e);
           // Unable to delete file, it probably didn't exist
         }
         copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
@@ -130,16 +141,22 @@ public class SitemapProvider {
       indexFileWriter.close();
 
       File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-      logger.info("Sitemap file: " + finalFile.getAbsolutePath());
+      logger.info("Sitemap file: " + finalFile.getName());
       try {
+        logger.info("Try to delete finalFile " + finalFile.getName());
         finalFile.delete();
+        logger.info("Done.");
       } catch (Exception e) {
+        logger.info("Error: " + e);
         // Unable to delete file, it probably didn't exist
       }
       boolean success = copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
       try {
+        logger.info("Try to delete indexFile " + indexFile.getName());
         indexFile.delete();
+        logger.info("Done.");
       } catch (Exception e) {
+        logger.info("Error: " + e);
         // Unable to delete file, it probably didn't exist
       }
     }
@@ -149,7 +166,9 @@ public class SitemapProvider {
     boolean successful = false;
     if (dest.exists()) {
       if (force) {
+        logger.info("Try to delete dest " + dest.getName());
         dest.delete();
+        logger.info("Done.");
       } else {
         throw new IOException("Cannot overwrite existing file: " + dest.getName());
       }
@@ -187,7 +206,7 @@ public class SitemapProvider {
 
   private void addViewItemPages() {
     int firstRecord = 0;
-    long totalRecords = 0;
+//    long totalRecords = 0;
     this.writtenInCurrentFile = 0;
 
     Query qb = BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
@@ -196,8 +215,6 @@ public class SitemapProvider {
     ResponseBody<ObjectNode> resp = null;
     do {
       try {
-        logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
-
         if (null == resp) {
           SearchRequest.Builder sr = new SearchRequest.Builder();
 
@@ -213,7 +230,7 @@ public class SitemapProvider {
           resp = this.pubItemService.scrollOn(resp.scrollId(), 120000);
         }
 
-        totalRecords = resp.hits().total().value();
+  //      totalRecords = resp.hits().total().value();
 
         for (Hit<ObjectNode> result : resp.hits().hits()) {
 
@@ -248,8 +265,6 @@ public class SitemapProvider {
             logger.error("Error", e);
           }
         }
-
-        logger.debug("SiteMapTask: finished with items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
         firstRecord += this.maxItemsPerRetrieve;
       } catch (Exception e) {
         logger.error(
@@ -265,9 +280,12 @@ public class SitemapProvider {
         finishSitemap();
       }
 
+      logger.info("ChangeFile: Try to create temp file:");
       File file = File.createTempFile("sitemap", ".xml");
+      logger.info("Done: " + file.getName());
       this.fileWriter = new FileWriter(file);
       this.files.add(file);
+      logger.info("Added to files[]");
 
       startSitemap();
     } catch (Exception e) {
