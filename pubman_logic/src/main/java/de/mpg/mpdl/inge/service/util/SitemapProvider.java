@@ -39,15 +39,13 @@ import org.springframework.stereotype.Component;
 public class SitemapProvider {
   private static final Logger logger = LogManager.getLogger(SitemapProvider.class);
 
+  public static final int MAX_ITEMS_PER_FILE = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
+  public static final int MAX_ITEMS_PER_RETRIEVE = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
+  public static final String REST_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
   public static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
 
   private FileWriter fileWriter = null;
-
   private List<File> files;
-
-  private int maxItemsPerFile;
-  private int maxItemsPerRetrieve;
-
   private int writtenInCurrentFile = 0;
 
   @Autowired
@@ -60,17 +58,14 @@ public class SitemapProvider {
     try {
       logger.info("CRON: Starting to create Sitemap.");
 
-      this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
-      this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
       this.files = new ArrayList<>();
 
-      String restUrl = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
       changeFile();
       addViewItemPages();
       finishSitemap();
-      writeSitemapFiles(dateFormat, restUrl);
+      writeSitemapFiles(dateFormat, SitemapProvider.REST_URL);
       cleanupTmpFiles();
 
       logger.info("CRON: Finished creating Sitemap.");
@@ -96,14 +91,6 @@ public class SitemapProvider {
     logger.info("Number of files: " + this.files.size());
     if (1 == this.files.size()) {
       File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-
-      logger.info("Try to delete finalFile " + finalFile.getName());
-      if (finalFile.delete()) {
-        logger.info("Done.");
-      } else {
-        logger.error("File does not exist or could not be deleted.");
-      }
-
       this.fileWriter = new FileWriter(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
       copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length());
     } else {
@@ -121,14 +108,6 @@ public class SitemapProvider {
 
       for (int i = 0; i < this.files.size(); i++) {
         File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
-
-        logger.info("Try to delete finalFile " + finalFile.getName());
-        if (finalFile.delete()) {
-          logger.info("Done.");
-        } else {
-          logger.error("File does not exist or could not be deleted.");
-        }
-
         copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length());
 
         indexFileWriter.write(
@@ -142,14 +121,7 @@ public class SitemapProvider {
       File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
       logger.info("Sitemap file: " + finalFile.getName());
 
-      logger.info("Try to delete finalFile " + finalFile.getName());
-      if (finalFile.delete()) {
-        logger.info("Done.");
-      } else {
-        logger.error("File does not exist or could not be deleted.");
-      }
-
-      boolean success = copySiteMap(indexFile, finalFile, (int) indexFile.length());
+      copySiteMap(indexFile, finalFile, (int) indexFile.length());
 
       logger.info("Try to delete indexFile " + indexFile.getName());
       if (indexFile.delete()) {
@@ -160,9 +132,7 @@ public class SitemapProvider {
     }
   }
 
-  private boolean copySiteMap(File src, File dest, int bufSize) throws IOException {
-    boolean successful = false;
-
+  private void copySiteMap(File src, File dest, int bufSize) throws IOException {
     if (dest.exists()) {
       logger.info("Try to delete dest " + dest.getName());
       if (dest.delete()) {
@@ -185,13 +155,11 @@ public class SitemapProvider {
           break;
         }
         out.write(buffer, 0, read);
-        successful = true;
       }
     } finally {
       if (null != in) {
         try {
           in.close();
-          successful = successful || src.delete();
         } finally {
           if (null != out) {
             out.close();
@@ -199,8 +167,6 @@ public class SitemapProvider {
         }
       }
     }
-
-    return successful;
   }
 
   private void addViewItemPages() {
@@ -221,7 +187,7 @@ public class SitemapProvider {
               PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, PubItemServiceDbImpl.INDEX_FILE_STORAGE, PubItemServiceDbImpl.INDEX_FILE_NAME};
 
           SourceFilter sf = SourceFilter.of(s -> s.includes(Arrays.asList(includes)));
-          sr.source(SourceConfig.of(sc -> sc.filter(sf))).query(qb).size(this.maxItemsPerRetrieve);
+          sr.source(SourceConfig.of(sc -> sc.filter(sf))).query(qb).size(SitemapProvider.MAX_ITEMS_PER_RETRIEVE);
 
           resp = this.pubItemService.searchDetailed(sr.build(), 120000, null);
         } else {
@@ -261,10 +227,10 @@ public class SitemapProvider {
             logger.error("Error", e);
           }
         }
-        firstRecord += this.maxItemsPerRetrieve;
+        firstRecord += SitemapProvider.MAX_ITEMS_PER_RETRIEVE;
       } catch (Exception e) {
         logger.error(
-            "Error while creating sitemap part for items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve),
+            "Error while creating sitemap part for items from offset " + firstRecord + " to " + (firstRecord + SitemapProvider.MAX_ITEMS_PER_RETRIEVE),
             e);
       }
     } while (!resp.hits().hits().isEmpty());
@@ -318,7 +284,7 @@ public class SitemapProvider {
     fw.write("</lastmod>\n\t</url>\n");
 
     this.writtenInCurrentFile++;
-    if (this.writtenInCurrentFile >= this.maxItemsPerFile) {
+    if (this.writtenInCurrentFile >= SitemapProvider.MAX_ITEMS_PER_FILE) {
       changeFile();
       this.writtenInCurrentFile = 0;
     }
