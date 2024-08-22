@@ -59,6 +59,7 @@ public class SitemapProvider {
   public void run() {
     try {
       logger.info("CRON: Starting to create Sitemap.");
+
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
       this.files = new ArrayList<>();
@@ -80,12 +81,11 @@ public class SitemapProvider {
 
   private void cleanupTmpFiles() {
     for (File file : this.files) {
-      try {
-        logger.info("Try to delete file " + file.getName());
-        file.delete();
+      logger.info("Try to delete file " + file.getName());
+      if (file.delete()) {
         logger.info("Done.");
-      } catch (Exception e) {
-        logger.error(e);
+      } else {
+        logger.error("File does not exist or could not be deleted.");
       }
     }
   }
@@ -96,44 +96,43 @@ public class SitemapProvider {
     logger.info("Number of files: " + this.files.size());
     if (1 == this.files.size()) {
       File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-      try {
-        logger.info("Try to delete finalFile " + finalFile.getName());
-        finalFile.delete();
+
+      logger.info("Try to delete finalFile " + finalFile.getName());
+      if (finalFile.delete()) {
         logger.info("Done.");
-      } catch (Exception e) {
-        logger.info("Error: " + e);
-        // Unable to delete file, it probably didn't exist
+      } else {
+        logger.error("File does not exist or could not be deleted.");
       }
+
       this.fileWriter = new FileWriter(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-      copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length(), true);
+      copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length());
     } else {
       String currentDate = dateFormat.format(new Date());
 
       logger.info("Try to create temp indexfile:");
       File indexFile = File.createTempFile("sitemap", ".xml");
       logger.info("Done: " + indexFile.getName());
-      FileWriter indexFileWriter = new FileWriter(indexFile);
 
-      indexFileWriter
-          .write("""
-              <?xml version="1.0" encoding="UTF-8"?>
-              <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-              """);
+      FileWriter indexFileWriter = new FileWriter(indexFile);
+      indexFileWriter.write("""
+          <?xml version="1.0" encoding="UTF-8"?>
+          <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+          """);
 
       for (int i = 0; i < this.files.size(); i++) {
         File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
-        try {
-          logger.info("Try to delete finalFile " + finalFile.getName());
-          finalFile.delete();
-          logger.info("Done.");
-        } catch (Exception e) {
-          logger.info("Error: " + e);
-          // Unable to delete file, it probably didn't exist
-        }
-        copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
 
-        indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + restUrl + "/sitemap/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>"
-            + currentDate + "</lastmod>\n\t</sitemap>\n");
+        logger.info("Try to delete finalFile " + finalFile.getName());
+        if (finalFile.delete()) {
+          logger.info("Done.");
+        } else {
+          logger.error("File does not exist or could not be deleted.");
+        }
+
+        copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length());
+
+        indexFileWriter.write(
+            "\t<sitemap>\n\t\t<loc>" + restUrl + "/sitemap/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate + "</lastmod>\n\t</sitemap>\n");
       }
 
       indexFileWriter.write("</sitemapindex>\n");
@@ -142,37 +141,37 @@ public class SitemapProvider {
 
       File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
       logger.info("Sitemap file: " + finalFile.getName());
-      try {
-        logger.info("Try to delete finalFile " + finalFile.getName());
-        finalFile.delete();
+
+      logger.info("Try to delete finalFile " + finalFile.getName());
+      if (finalFile.delete()) {
         logger.info("Done.");
-      } catch (Exception e) {
-        logger.info("Error: " + e);
-        // Unable to delete file, it probably didn't exist
+      } else {
+        logger.error("File does not exist or could not be deleted.");
       }
-      boolean success = copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
-      try {
-        logger.info("Try to delete indexFile " + indexFile.getName());
-        indexFile.delete();
+
+      boolean success = copySiteMap(indexFile, finalFile, (int) indexFile.length());
+
+      logger.info("Try to delete indexFile " + indexFile.getName());
+      if (indexFile.delete()) {
         logger.info("Done.");
-      } catch (Exception e) {
-        logger.info("Error: " + e);
-        // Unable to delete file, it probably didn't exist
+      } else {
+        logger.error("File does not exist or could not be deleted.");
       }
     }
   }
 
-  private boolean copySiteMap(File src, File dest, int bufSize, boolean force) throws IOException {
+  private boolean copySiteMap(File src, File dest, int bufSize) throws IOException {
     boolean successful = false;
+
     if (dest.exists()) {
-      if (force) {
-        logger.info("Try to delete dest " + dest.getName());
-        dest.delete();
+      logger.info("Try to delete dest " + dest.getName());
+      if (dest.delete()) {
         logger.info("Done.");
       } else {
         throw new IOException("Cannot overwrite existing file: " + dest.getName());
       }
     }
+
     byte[] buffer = new byte[bufSize];
     int read = 0;
     InputStream in = null;
@@ -206,7 +205,6 @@ public class SitemapProvider {
 
   private void addViewItemPages() {
     int firstRecord = 0;
-//    long totalRecords = 0;
     this.writtenInCurrentFile = 0;
 
     Query qb = BoolQuery.of(b -> b.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("RELEASED"))._toQuery())
@@ -229,8 +227,6 @@ public class SitemapProvider {
         } else {
           resp = this.pubItemService.scrollOn(resp.scrollId(), 120000);
         }
-
-  //      totalRecords = resp.hits().total().value();
 
         for (Hit<ObjectNode> result : resp.hits().hits()) {
 
