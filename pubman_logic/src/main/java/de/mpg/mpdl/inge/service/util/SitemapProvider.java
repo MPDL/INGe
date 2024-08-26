@@ -44,9 +44,9 @@ public class SitemapProvider {
   public static final String REST_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
   public static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
 
-  private FileWriter fileWriter = null;
   private List<File> files;
-  private int writtenInCurrentFile = 0;
+  private FileWriter fileWriter;
+  private int writtenInCurrentFile;
 
   @Autowired
   private PubItemService pubItemService;
@@ -59,13 +59,16 @@ public class SitemapProvider {
       logger.info("CRON: Starting to create Sitemap.");
 
       this.files = new ArrayList<>();
-
-      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      this.fileWriter = null;
+      writtenInCurrentFile = 0;
 
       changeFile();
       addViewItemPages();
       finishSitemap();
+
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
       writeSitemapFiles(dateFormat, SitemapProvider.REST_URL);
+
       cleanupTmpFiles();
 
       logger.info("CRON: Finished creating Sitemap.");
