@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -653,12 +655,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     long start = System.currentTimeMillis();
 
-    String[] splittedId = id.split("_");
-    String objectId = splittedId[0] + "_" + splittedId[1];
-    String version = null;
-    if (splittedId.length == 3) {
-      version = splittedId[2];
-    }
+    ValidId validId = getValidId(id);
+
+    //    String[] splittedId = id.split("_");
+    //    String objectId = splittedId[0] + "_" + splittedId[1];
+    //    String version = null;
+    //    if (splittedId.length == 3) {
+    //      version = splittedId[2];
+    //    }
 
     ItemVersionVO requestedItem = null;
 
@@ -669,26 +673,26 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
 
-    if (version == null) {
+    if (validId.version == null) {
       if (authenticationToken == null) {
         // Return latest release
-        requestedItem = itemRepository.findLatestRelease(objectId);
+        requestedItem = itemRepository.findLatestRelease(validId.objectId);
       } else {
         // Check if user is allowed to see latest version
-        requestedItem = itemRepository.findLatestVersion(objectId);
+        requestedItem = itemRepository.findLatestVersion(validId.objectId);
         if (requestedItem != null) {
 
           ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
           try {
             checkAa("get", principal, requestedItem, context);
           } catch (AuthenticationException | AuthorizationException e) {
-            requestedItem = itemRepository.findLatestRelease(objectId);
+            requestedItem = itemRepository.findLatestRelease(validId.objectId);
           }
         }
       }
     } else // version != null
     {
-      requestedItem = itemRepository.findOne(new VersionableId(objectId, Integer.parseInt(version)));
+      requestedItem = itemRepository.findOne(new VersionableId(validId.objectId, validId.version));
       if (requestedItem != null) {
         ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
         checkAa("get", principal, requestedItem, context);
@@ -707,7 +711,29 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return requestedItem;
   }
 
+  private ValidId getValidId(String id) {
+    String pattern = "(item_)(\\d+)(_(\\d+))?$";
+    Pattern r = Pattern.compile(pattern);
+    Matcher m = r.matcher(id);
 
+    if (!m.find()) {
+      String error = "ItemId " + id + " not valid";
+      logger.error(error);
+      throw new RuntimeException(error);
+    }
+
+    return new ValidId(m.group(1) + m.group(2), null != m.group(4) ? Integer.parseInt(m.group(4)) : null);
+  }
+
+  private static class ValidId {
+    private final String objectId;
+    private final Integer version;
+
+    private ValidId(String _objectId, Integer _version) {
+      this.objectId = _objectId;
+      this.version = _version;
+    }
+  }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -1052,9 +1078,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   /*
    * public ItemVersionVO enrichItem(ItemVersionVO item) {
-   * 
+   *
    * if (item != null) { try { entityManager.detach(item); } catch (Exception e) {
-   * 
+   *
    * } if (item.getFiles() != null) { for (FileDbVO file : item.getFiles()) { if
    * (Storage.INTERNAL_MANAGED.equals(file.getStorage())) { file.setContent("/rest/items/" +
    * item.getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content"); } } } } return

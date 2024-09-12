@@ -244,8 +244,8 @@ public class ViewItemFull extends FacesBean {
         }
         return;
       } catch (Exception e) {
-        ViewItemFull.logger.error("Could not retrieve release with id " + itemID, e);
-        this.error(this.getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
+        ViewItemFull.logger.error("Could not retrieve release with requested id", e);
+        this.error(this.getMessage("ViewItemFull_invalidID"), e.getMessage());
         return;
       }
     } else { // TODO: Dieser ELSE Teil ist aeusserst dubios!!!!
