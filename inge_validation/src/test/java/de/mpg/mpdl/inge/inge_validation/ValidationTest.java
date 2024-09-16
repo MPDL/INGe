@@ -86,26 +86,6 @@ public class ValidationTest {
     s2.setValue("blubb");
     this.mdsPublicationVO.getSubjects().add(s2);
 
-    final SubjectVO s3 = new SubjectVO();
-    s3.setType(ClassifiedKeywordsValidator.MPIPKS);
-    s3.setValue("blubb");
-    this.mdsPublicationVO.getSubjects().add(s3);
-
-    final SubjectVO s4 = new SubjectVO();
-    s4.setType(ClassifiedKeywordsValidator.MPIRG);
-    s4.setValue("blubb");
-    this.mdsPublicationVO.getSubjects().add(s4);
-
-    final SubjectVO s5 = new SubjectVO();
-    s5.setType(ClassifiedKeywordsValidator.MPIS_GROUPS);
-    s5.setValue("blubb");
-    this.mdsPublicationVO.getSubjects().add(s5);
-
-    final SubjectVO s6 = new SubjectVO();
-    s6.setType(ClassifiedKeywordsValidator.MPIS_PROJECTS);
-    s6.setValue("blubb");
-    this.mdsPublicationVO.getSubjects().add(s6);
-
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -132,26 +112,6 @@ public class ValidationTest {
     s2.setType(ClassifiedKeywordsValidator.ISO639_3);
     s2.setValue("Afar");
     this.mdsPublicationVO.getSubjects().add(s2);
-
-    final SubjectVO s3 = new SubjectVO();
-    s3.setType(ClassifiedKeywordsValidator.MPIPKS);
-    s3.setValue("Light-matter interaction");
-    this.mdsPublicationVO.getSubjects().add(s3);
-
-    final SubjectVO s4 = new SubjectVO();
-    s4.setType(ClassifiedKeywordsValidator.MPIRG);
-    s4.setValue("Exploring the sources");
-    this.mdsPublicationVO.getSubjects().add(s4);
-
-    final SubjectVO s5 = new SubjectVO();
-    s5.setType(ClassifiedKeywordsValidator.MPIS_GROUPS);
-    s5.setValue("Sun and Heliosphere");
-    this.mdsPublicationVO.getSubjects().add(s5);
-
-    final SubjectVO s6 = new SubjectVO();
-    s6.setType(ClassifiedKeywordsValidator.MPIS_PROJECTS);
-    s6.setValue("AMPTE");
-    this.mdsPublicationVO.getSubjects().add(s6);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator());
 

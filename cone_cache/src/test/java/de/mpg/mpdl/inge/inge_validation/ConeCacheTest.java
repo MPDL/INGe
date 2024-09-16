@@ -21,10 +21,6 @@ public class ConeCacheTest {
     list.add(new GetDDLThread());
     list.add(new GetISOThread());
     list.add(new GetISOIdThread());
-    list.add(new GetMPIPKSThread());
-    list.add(new GetMPIRKThread());
-    list.add(new GetMPISGROUPThread());
-    list.add(new GetMPISPROJECTThread());
     list.add(new RefreshCacheThread());
 
     for (final Thread thread : list) {
@@ -80,70 +76,6 @@ public class ConeCacheTest {
     }
   }
 
-  class GetMPIPKSThread extends Thread {
-    ConeCache cache = ConeCache.getInstance();
-
-    @Override
-    public void run() {
-      while (true) {
-        try {
-          System.out.println("MPIPKS_Title: " + this.cache.getMpipksTitleSet().size());
-          Thread.sleep((int) (Math.random() * 10000));
-        } catch (final Exception e) {
-          System.out.println(e);
-        }
-      }
-    }
-  }
-
-  class GetMPIRKThread extends Thread {
-    ConeCache cache = ConeCache.getInstance();
-
-    @Override
-    public void run() {
-      while (true) {
-        try {
-          System.out.println("MPIRK_Title: " + this.cache.getMpirgTitleSet().size());
-          Thread.sleep((int) (Math.random() * 10000));
-        } catch (final Exception e) {
-          System.out.println(e);
-        }
-      }
-    }
-  }
-
-  class GetMPISGROUPThread extends Thread {
-    ConeCache cache = ConeCache.getInstance();
-
-    @Override
-    public void run() {
-      while (true) {
-        try {
-          System.out.println("MPIS_GROUP_Title: " + this.cache.getMpisGroupsTitleSet().size());
-          Thread.sleep((int) (Math.random() * 10000));
-        } catch (final Exception e) {
-          System.out.println(e);
-        }
-      }
-    }
-  }
-
-  class GetMPISPROJECTThread extends Thread {
-    ConeCache cache = ConeCache.getInstance();
-
-    @Override
-    public void run() {
-      while (true) {
-        try {
-          System.out.println("MPIS_PROJECT_Title: " + this.cache.getMpisProjectsTitleSet().size());
-          Thread.sleep((int) (Math.random() * 10000));
-        } catch (final Exception e) {
-          System.out.println(e);
-        }
-      }
-    }
-  }
-
   class RefreshCacheThread extends Thread {
     ConeCache cache = ConeCache.getInstance();
 
@@ -171,9 +103,5 @@ public class ConeCacheTest {
     System.out.println("cDDC_Title: " + cache.getDdcTitleSet().size());
     System.out.println("cISO_Identifier: " + cache.getIso639_3_IdentifierSet().size());
     System.out.println("cISO_Title: " + cache.getIso639_3_TitleSet().size());
-    System.out.println("cMPIPKS_Title: " + cache.getMpipksTitleSet().size());
-    System.out.println("cMPIRK_Title: " + cache.getMpirgTitleSet().size());
-    System.out.println("cMPIS_GROUP_Title: " + cache.getMpisGroupsTitleSet().size());
-    System.out.println("cMPIS_PROJECT_Title: " + cache.getMpisProjectsTitleSet().size());
   }
 }
