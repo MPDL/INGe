@@ -92,16 +92,6 @@ public class FileDbVO extends FileDbRO {
     MD5
   }
 
-
-  /*
-   * @Embedded private FileRO reference;
-   *
-   * @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column( name =
-   * "reference_objectId"))})
-   */
-
-
-
   /**
    * The visibility of the file for users of the system.
    */
@@ -125,28 +115,22 @@ public class FileDbVO extends FileDbRO {
   @Enumerated(EnumType.STRING)
   private Storage storage;
 
-
   private String checksum;
 
   @Enumerated(EnumType.STRING)
   private ChecksumAlgorithm checksumAlgorithm;
 
   /**
-   * The size of the file in Bytes. Has to be zero if no content is given.
-   */
-  // private long size;
-
-  /**
    * The MIME-type of this format. Valid values see http://www.iana.org/assignments/media-types/
    */
   private String mimeType;
-
 
   /**
    * Size of the file. Use this field instead of metadata.size
    */
   private long size;
 
+  private Integer sortKz;
 
   @Column
   //@Type(type = "MdsFileVOJsonUserType")
@@ -167,8 +151,6 @@ public class FileDbVO extends FileDbRO {
    */
   public FileDbVO() {}
 
-
-
   /**
    * Copy constructor.
    *
@@ -178,8 +160,6 @@ public class FileDbVO extends FileDbRO {
   public FileDbVO(FileDbVO other) {
     MapperFactory.STRUCT_MAP_MAPPER.updateFileDbVO(other, this);
   }
-
-
 
   /**
    * Delivers the persistent identifier of the file.
@@ -208,8 +188,6 @@ public class FileDbVO extends FileDbRO {
   public void setPid(String newVal) {
     this.pid = newVal;
   }
-
-
 
   /**
    * Delivers a reference to the content of the file, i. e. to the data of the file.
@@ -262,8 +240,6 @@ public class FileDbVO extends FileDbRO {
     this.mimeType = newVal;
   }
 
-
-
   public Storage getStorage() {
     return this.storage;
   }
@@ -271,7 +247,6 @@ public class FileDbVO extends FileDbRO {
   public void setStorage(Storage storage) {
     this.storage = storage;
   }
-
 
   public String getChecksum() {
     return this.checksum;
@@ -288,84 +263,6 @@ public class FileDbVO extends FileDbRO {
   public void setChecksumAlgorithm(ChecksumAlgorithm checksumAlgorithm) {
     this.checksumAlgorithm = checksumAlgorithm;
   }
-
-  /*
-   * @Override public int hashCode() { final int prime = 31; int result = 1; result = prime * result
-   * + ((checksum == null) ? 0 : checksum.hashCode()); result = prime * result + ((checksumAlgorithm
-   * == null) ? 0 : checksumAlgorithm.hashCode()); result = prime * result + ((content == null) ? 0
-   * : content.hashCode()); result = prime * result + ((contentCategory == null) ? 0 :
-   * contentCategory.hashCode()); result = prime * result + ((createdByRO == null) ? 0 :
-   * createdByRO.hashCode()); result = prime * result + ((creationDate == null) ? 0 :
-   * creationDate.hashCode()); result = prime * result + ((description == null) ? 0 :
-   * description.hashCode()); result = prime * result + ((lastModificationDate == null) ? 0 :
-   * lastModificationDate.hashCode()); result = prime * result + ((metadataSets == null) ? 0 :
-   * metadataSets.hashCode()); result = prime * result + ((mimeType == null) ? 0 :
-   * mimeType.hashCode()); result = prime * result + ((name == null) ? 0 : name.hashCode()); result
-   * = prime * result + ((pid == null) ? 0 : pid.hashCode()); //result = prime * result +
-   * ((reference == null) ? 0 : reference.hashCode()); result = prime * result + ((storage == null)
-   * ? 0 : storage.hashCode()); result = prime * result + ((visibility == null) ? 0 :
-   * visibility.hashCode()); return result; }
-   *
-   *
-   * @Override public boolean equals(Object obj) { if (this == obj) return true;
-   *
-   * if (obj == null) return false;
-   *
-   * if (getClass() != obj.getClass()) return false;
-   *
-   * FileVO other = (FileVO) obj;
-   *
-   * if (checksum == null) { if (other.checksum != null) return false; } else if
-   * (!checksum.equals(other.checksum)) return false;
-   *
-   * if (checksumAlgorithm != other.checksumAlgorithm) return false;
-   *
-   * if (content == null) { if (other.content != null) return false; } else if
-   * (!content.equals(other.content)) return false;
-   *
-   * if (contentCategory == null) { if (other.contentCategory != null) return false; } else if
-   * (!contentCategory.equals(other.contentCategory)) return false;
-   *
-   * if (createdByRO == null) { if (other.createdByRO != null) return false; } else if
-   * (!createdByRO.equals(other.createdByRO)) return false;
-   *
-   * if (creationDate == null) { if (other.creationDate != null) return false; } else if
-   * (!creationDate.equals(other.creationDate)) return false;
-   *
-   * if (description == null) { if (other.description != null) return false; } else if
-   * (!description.equals(other.description)) return false;
-   *
-   * if (lastModificationDate == null) { if (other.lastModificationDate != null) return false; }
-   * else if (!lastModificationDate.equals(other.lastModificationDate)) return false;
-   *
-   * if (metadataSets == null) { if (other.metadataSets != null) return false; } else if
-   * (other.metadataSets == null) return false; else if
-   * (!metadataSets.containsAll(other.metadataSets) // ||
-   * !other.metadataSets.containsAll(metadataSets)) { return false; }
-   *
-   * if (mimeType == null) { if (other.mimeType != null) return false; } else if
-   * (!mimeType.equals(other.mimeType)) return false;
-   *
-   * if (name == null) { if (other.name != null) return false; } else if (!name.equals(other.name))
-   * return false;
-   *
-   * if (pid == null) { if (other.pid != null) return false; } else if (!pid.equals(other.pid))
-   * return false;
-   *
-   *
-   * if (reference == null) { if (other.reference != null) return false; } else if
-   * (!reference.equals(other.reference)) return false;
-   *
-   *
-   *
-   * if (storage != other.storage) return false;
-   *
-   * if (visibility != other.visibility) return false;
-   *
-   * return true; }
-   */
-
-
 
   public MdsFileVO getMetadata() {
     return this.metadata;
@@ -391,19 +288,21 @@ public class FileDbVO extends FileDbRO {
     this.size = size;
   }
 
-
-
   public List<String> getAllowedAudienceIds() {
     return this.allowedAudienceIds;
   }
-
-
 
   public void setAllowedAudienceIds(List<String> allowedAudienceIds) {
     this.allowedAudienceIds = allowedAudienceIds;
   }
 
+  public Integer getSortKz() {
+    return this.sortKz;
+  }
 
+  public void setSortKz(Integer sortKz) {
+    this.sortKz = sortKz;
+  }
 
   @Override
   public int hashCode() {
@@ -420,10 +319,9 @@ public class FileDbVO extends FileDbRO {
     result = prime * result + (int) (this.size ^ (this.size >>> 32));
     result = prime * result + ((null == this.storage) ? 0 : this.storage.hashCode());
     result = prime * result + ((null == this.visibility) ? 0 : this.visibility.hashCode());
+    result = prime * result + ((null == this.sortKz) ? 0 : this.sortKz.hashCode());
     return result;
   }
-
-
 
   @Override
   public boolean equals(Object obj) {
@@ -477,9 +375,12 @@ public class FileDbVO extends FileDbRO {
       return false;
     if (this.visibility != other.visibility)
       return false;
+    if (null == this.sortKz) {
+      if (null != other.sortKz)
+        return false;
+    } else if (!this.sortKz.equals(other.sortKz))
+      return false;
     return true;
   }
-
-
 
 }
