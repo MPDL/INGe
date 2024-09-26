@@ -40,7 +40,8 @@ public class SitemapProvider {
   private static final Logger logger = LogManager.getLogger(SitemapProvider.class);
 
   public static final int MAX_ITEMS_PER_FILE = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
-  public static final int MAX_ITEMS_PER_RETRIEVE = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
+  public static final int MAX_ITEMS_PER_RETRIEVE =
+      Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
   public static final String REST_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
   public static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
 
@@ -232,9 +233,8 @@ public class SitemapProvider {
         }
         firstRecord += SitemapProvider.MAX_ITEMS_PER_RETRIEVE;
       } catch (Exception e) {
-        logger.error(
-            "Error while creating sitemap part for items from offset " + firstRecord + " to " + (firstRecord + SitemapProvider.MAX_ITEMS_PER_RETRIEVE),
-            e);
+        logger.error("Error while creating sitemap part for items from offset " + firstRecord + " to "
+            + (firstRecord + SitemapProvider.MAX_ITEMS_PER_RETRIEVE), e);
       }
     } while (!resp.hits().hits().isEmpty());
   }
