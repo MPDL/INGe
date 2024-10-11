@@ -37,7 +37,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Helper class for reading properties from the global escidoc property file.
- * <p>
+ * 
  * This class tries to locate the properties in various ways. Once the properties file has been read
  * it is cached. The following steps are executed to find a properties file:
  * <ul>
@@ -77,6 +77,7 @@ public class PropertyReader {
   public static final String INGE_CONE_DATABASE_USER_PASSWORD = "inge.cone.database.user.password";
   public static final String INGE_CONE_EXTENDED_ATTRIBUTES_USE = "inge.cone.extended.attributes.use";
   public static final String INGE_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
+  public static final String INGE_CONE_MIMETYPE_PATTERN = "inge.cone.mimetype.pattern";
   public static final String INGE_CONE_MODELSXML_PATH = "inge.cone.modelsxml.path";
   public static final String INGE_CONE_PERSON_ID_IDENTIFIER = "inge.cone.person.id.identifier";
   public static final String INGE_CONE_QUERIER_CLASS = "inge.cone.querier.class";
@@ -171,6 +172,7 @@ public class PropertyReader {
   public static final String INGE_REST_DEVELOPMENT_ADMIN_USERNAME = "inge.rest.development.admin.username";
   public static final String INGE_REST_DEVELOPMENT_ENABLED = "inge.rest.development.enabled";
   public static final String INGE_REST_DEVELOPMENT_FILE_URL = "inge.rest.development.file_url";
+  public static final String INGE_REST_FILE_PATH = "inge.rest.file.path";
   public static final String INGE_REST_SERVICE_URL = "inge.rest.service.url";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY = "inge.search.and.export.default.query";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY = "inge.search.and.export.default.sort.key";
@@ -263,6 +265,7 @@ public class PropertyReader {
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
   private static Properties properties;
+  private static URL solution;
   private static String fileLocation = "";
   private static int counterForLoadingProperties = 0;
 
@@ -295,6 +298,18 @@ public class PropertyReader {
     new PropertyReader();
   }
 
+  /**
+   * Gets the value of a property for the given key from the system properties or the PubMan
+   * property file. It is always tried to get the requested property value from the system
+   * properties. This option gives the opportunity to set a specific property temporary using the
+   * system properties. If the requested property could not be obtained from the system properties
+   * the PubMan property file is accessed. (For details on access to the properties file see class
+   * description.)
+   *
+   * @param key The key of the property.
+   * @param callingClass Class of the calling class
+   * @return The value of the property.
+   */
   private String doGetProperty(String key) {
     // First check system properties
     String value = System.getProperty(key);

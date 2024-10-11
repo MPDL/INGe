@@ -1,11 +1,11 @@
 Postman:
-PUT https://IP/es/items_20230328
+PUT https://IP/es/items_20240704
 Body raw json
 es_index_items.json
 
 Alias: items
 
-curl -X PUT localhost:9200/items_20230328 -H 'Content-Type: application/json' -d 'es_index_items.json'
+curl -X PUT localhost:9200/items_20240704 -H 'Content-Type: application/json' -d 'es_index_items.json'
 
-GET https://IP/es/items_20230328/_search?track_total_hits=true
-DELETE https://IP/es/items_20230328
+GET https://IP/es/items_20240704/_search?track_total_hits=true
+DELETE https://IP/es/items_20240704
