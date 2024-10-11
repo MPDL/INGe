@@ -17,7 +17,7 @@
 	xmlns:publication="${xsd.metadata.publication}"
 	xmlns:source="${xsd.metadata.source}"
 	xmlns:version="${xsd.soap.common.version}"
-	xmlns="http://datacite.org/schema/kernel-3"  exclude-result-prefixes="xsi escidocComponents dc dcterms eterms event escidocMetadataRecords file organization person prop publication source version">
+	xmlns="http://datacite.org/schema/kernel-4.5"  exclude-result-prefixes="xsi escidocComponents dc dcterms eterms event escidocMetadataRecords file organization person prop publication source version">
 	<!--
 	xmlns:dc="${xsd.metadata.dc}"
 	xmlns:dcterms="${xsd.metadata.dcterms}"
@@ -48,7 +48,7 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
 	<!-- <xsl:namespace-alias stylesheet-prefix="doi" result-prefix=""/>-->
 	<xsl:template match="/">
-		<resource xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+		<resource xsi:schemaLocation="http://datacite.org/schema/kernel-4.5 https://schema.datacite.org/meta/kernel-4.5/metadata.xsd">
 			<identifier identifierType="DOI"></identifier>
 			<xsl:apply-templates />
 		</resource>
@@ -65,6 +65,12 @@
 								<creatorName>
 									<xsl:value-of select="./eterms:family-name"/>, <xsl:value-of select="./eterms:given-name"/>
 								</creatorName>
+								<givenName>
+									<xsl:value-of select="./eterms:given-name"/>
+								</givenName>
+								<familyName>
+									<xsl:value-of select="./eterms:family-name"/>
+								</familyName>
 								<xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
 									<affiliation>
 										<xsl:value-of select="./dc:title"/>
@@ -86,6 +92,12 @@
 								<creatorName>
 									<xsl:value-of select="./eterms:family-name"/>, <xsl:value-of select="./eterms:given-name"/>
 								</creatorName>
+								<givenName>
+									<xsl:value-of select="./eterms:given-name"/>
+								</givenName>
+								<familyName>
+									<xsl:value-of select="./eterms:family-name"/>
+								</familyName>
 								<xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
 									<affiliation>
 										<xsl:value-of select="./dc:title"/>
