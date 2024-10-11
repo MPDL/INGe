@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resource xmlns="http://datacite.org/schema/kernel-3"
+<resource xmlns="http://datacite.org/schema/kernel-4.5"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+          xsi:schemaLocation="http://datacite.org/schema/kernel-4.5 https://schema.datacite.org/meta/kernel-4.5/metadata.xsd">
    <identifier identifierType="DOI"/>
    <version>3</version>
    <creators>
       <creator>
          <creatorName>Dick, B.</creatorName>
+         <givenName>B.</givenName>
+         <familyName>Dick</familyName>
          <affiliation>Abteilung Laserphysik, MPI for biophysical chemistry, Max Planck Society</affiliation>
       </creator>
    </creators>
