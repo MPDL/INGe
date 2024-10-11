@@ -949,11 +949,8 @@
 		<inge.cone.database.server.port>5432</inge.cone.database.server.port>
 		<inge.cone.extended.attributes.use>false</inge.cone.extended.attributes.use>
 		<inge.cone.language.default>en</inge.cone.language.default>
-<<<<<<< HEAD
 		<inge.cone.results.default>500</inge.cone.results.default>
 		<inge.cone.results.maximum>20000</inge.cone.results.maximum>
-=======
->>>>>>> refs/remotes/origin/master
 		<inge.cone.modelsxml.path>models.xml</inge.cone.modelsxml.path>
 		<inge.cone.person.id.identifier>/persons/resource/</inge.cone.person.id.identifier>
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>

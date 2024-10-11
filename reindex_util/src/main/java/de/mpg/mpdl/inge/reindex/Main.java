@@ -33,9 +33,6 @@ public class Main {
           id = args[1];
           log.info("Id: " + id);
         }
-<<<<<<< HEAD
-        if (null != what && !what.isEmpty()) {
-=======
         if (args.length > 2) {
           what = args[0];
           log.info("What: " + what);
@@ -43,8 +40,7 @@ public class Main {
             idList[i] = args[i + 1];
           }
         }
-        if (what != null && !what.isEmpty()) {
->>>>>>> refs/remotes/origin/master
+        if (null != what && !what.isEmpty()) {
           try {
             success = bean.run(what, id, idList);
           } catch (Exception e) {
