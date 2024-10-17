@@ -1,7 +1,13 @@
 package de.mpg.mpdl.inge.service.spring;
 
+import de.mpg.mpdl.inge.dataacquisition.spring.AppConfigDataacquisition;
+import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
+import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
+import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
+import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.jms.JMSException;
 import java.io.File;
-
 import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
@@ -26,17 +32,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
-import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
-import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
-import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import jakarta.jms.JMSException;
-
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
 @Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class, AppConfigIngeValidation.class,
-    AsyncExecutorConfiguration.class})
+    AppConfigDataacquisition.class, AsyncExecutorConfiguration.class})
 @EnableAsync
 @EnableJms
 @EnableScheduling
