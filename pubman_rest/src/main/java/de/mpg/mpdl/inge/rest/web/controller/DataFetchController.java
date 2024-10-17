@@ -19,6 +19,8 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/dataFetch")
 @Tag(name = "DataFetch")
 public class DataFetchController {
+  private static final Logger logger = LogManager.getLogger(DataFetchController.class);
 
   private static final String CROSSREF = "crossref";
 
@@ -75,6 +78,7 @@ public class DataFetchController {
         this.dataHandlerService.doFetchMetaData(CROSSREF, dataSourceVO, identifier, TransformerFactory.getInternalFormat());
     String fetchedItem = new String(fetchedItemByte);
 
+    logger.info("fetchedItem: *" + fetchedItem + "*");
     if (null == fetchedItem || fetchedItem.trim().isEmpty()) {
       throw new IngeApplicationException("nothing found");
     }
