@@ -16,9 +16,9 @@ import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.faces.bean.ManagedProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -38,15 +38,14 @@ public class DataFetchController {
   private static final String IDENTIFIER = "identifier";
 
   private final AuthorizationService authorizationService;
+  private final ContextService contextService;
   private final DataHandlerService dataHandlerService;
   private final DataSourceHandlerService dataSourceHandlerService;
 
-  @ManagedProperty("#{contextServiceDbImpl}")
-  private de.mpg.mpdl.inge.service.pubman.ContextService contextService;
-
-  public DataFetchController(AuthorizationService authorizationService, DataHandlerService dataHandlerService,
+  public DataFetchController(AuthorizationService authorizationService, ContextService contextService, DataHandlerService dataHandlerService,
       DataSourceHandlerService dataSourceHandlerService) {
     this.authorizationService = authorizationService;
+    this.contextService = contextService;
     this.dataHandlerService = dataHandlerService;
     this.dataSourceHandlerService = dataSourceHandlerService;
   }
