@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -45,8 +46,8 @@ public class DataFetchController {
   private final DataHandlerService dataHandlerService;
   private final DataSourceHandlerService dataSourceHandlerService;
 
-  public DataFetchController(AuthorizationService authorizationService, ContextService contextService, DataHandlerService dataHandlerService,
-      DataSourceHandlerService dataSourceHandlerService) {
+  public DataFetchController(AuthorizationService authorizationService, ContextService contextService,
+      DataHandlerService dataHandlerService, DataSourceHandlerService dataSourceHandlerService) {
     this.authorizationService = authorizationService;
     this.contextService = contextService;
     this.dataHandlerService = dataHandlerService;
@@ -58,8 +59,7 @@ public class DataFetchController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(CONTEXT_ID) String contextId, //
       @RequestParam(IDENTIFIER) String identifier //
-  ) throws AuthenticationException, IngeApplicationException, DataacquisitionException, TechnicalException, AuthorizationException,
-      IngeTechnicalException {
+  ) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
     this.authorizationService.getUserAccountFromToken(token);
 
@@ -74,18 +74,27 @@ public class DataFetchController {
       throw new IngeApplicationException("given context not found");
     }
 
-    byte[] fetchedItemByte =
-        this.dataHandlerService.doFetchMetaData(CROSSREF, dataSourceVO, identifier, TransformerFactory.getInternalFormat());
+    byte[] fetchedItemByte = null;
+    try {
+      fetchedItemByte = this.dataHandlerService.doFetchMetaData(CROSSREF, dataSourceVO, identifier, TransformerFactory.getInternalFormat());
+    } catch (DataacquisitionException e) {
+      throw new IngeTechnicalException(e);
+    }
     String fetchedItem = new String(fetchedItemByte);
 
     logger.info("fetchedItem: *" + fetchedItem + "*");
-    if (null == fetchedItem || fetchedItem.trim().isEmpty()) {
-      throw new IngeApplicationException("nothing found");
+    if (null == fetchedItem || fetchedItem.trim().isEmpty() || -1 != fetchedItem.indexOf("<mdp:publication/>")) {
+      throw new NotFoundException();
     }
 
-    ItemVersionVO itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(fetchedItem));
-    itemVersionVO.getObject().setContext(contextDbVO);
-    itemVersionVO.getFiles().clear();
+    ItemVersionVO itemVersionVO = null;
+    try {
+      itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(fetchedItem));
+      itemVersionVO.getObject().setContext(contextDbVO);
+      itemVersionVO.getFiles().clear();
+    } catch (TechnicalException e) {
+      throw new IngeTechnicalException(e);
+    }
 
     return new ResponseEntity<>(itemVersionVO, HttpStatus.OK);
   }
