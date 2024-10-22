@@ -66,12 +66,12 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
     ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
-    MDB_ID("http://purl.org/escidoc/metadata/terms/0.1/MDB-ID"), //
+//    MDB_ID("http://purl.org/escidoc/metadata/terms/0.1/MDB-ID"), //
     MEDRXIV("https://archive.org/services/purl/domain/MEDRXIV"),
-    MODELMETHOD("http://purl.org/escidoc/metadata/terms/0.1/MODELMETHOD"), //
+//    MODELMETHOD("http://purl.org/escidoc/metadata/terms/0.1/MODELMETHOD"), //
     OATYPE("http://purl.org/escidoc/metadata/terms/0.1/OATYPE"), //
     OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), // anderer Zusammenhang (Fundingorganization)
-    ORGANISATIONALK("http://purl.org/escidoc/metadata/terms/0.1/ORGANISATIONALK"), //
+//    ORGANISATIONALK("http://purl.org/escidoc/metadata/terms/0.1/ORGANISATIONALK"), //
     OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER"), //
     PATENT_APPLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-APPLICATION-NR"), //
     PATENT_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"), //
@@ -82,15 +82,15 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     PND("http://purl.org/escidoc/metadata/terms/0.1/PND"), //
     PSYARXIV("https://archive.org/services/purl/domain/PSYARXIV"),
     PUBLISHER("http://purl.org/escidoc/metadata/terms/0.1/PUBLISHER"), //
-    REGIONALK("http://purl.org/escidoc/metadata/terms/0.1/REGIONALK"), //
+//    REGIONALK("http://purl.org/escidoc/metadata/terms/0.1/REGIONALK"), //
     REPORT_NR("http://purl.org/escidoc/metadata/terms/0.1/REPORT-NR"), //
-    RESEARCHTK("http://purl.org/escidoc/metadata/terms/0.1/RESEARCHTK"), //
+//    RESEARCHTK("http://purl.org/escidoc/metadata/terms/0.1/RESEARCHTK"), //
     RESEARCH_SQUARE("https://archive.org/services/purl/domain/RESEARCH_SQUARE"),
     SOCARXIV("https://archive.org/services/purl/domain/SOCARXIV"),
     SSRN("http://purl.org/escidoc/metadata/terms/0.1/SSRN"), //
     URI("http://purl.org/escidoc/metadata/terms/0.1/URI"), //
     URN("http://purl.org/escidoc/metadata/terms/0.1/URN"), //
-    WORKINGGROUP("http://purl.org/escidoc/metadata/terms/0.1/WORKINGGROUP"), //
+//    WORKINGGROUP("http://purl.org/escidoc/metadata/terms/0.1/WORKINGGROUP"), //
     ZDB("http://purl.org/escidoc/metadata/terms/0.1/ZDB");
 
   private final String uri;
