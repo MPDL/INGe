@@ -75,9 +75,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING,
             null);
 
-        ItemVersionVO itemVersionVO = null;
         try {
-          itemVersionVO = this.pubItemService.get(itemId, token);
+          ItemVersionVO itemVersionVO = this.pubItemService.get(itemId, token);
           if (null == itemVersionVO) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
                 BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
@@ -212,13 +211,6 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               message);
         }
       }
-
-      // TODO remove
-      try {
-        Thread.sleep(5000);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-      }
     }
 
     this.batchProcessCommonService.finishBatchProcessLog(batchProcessLogHeaderDbVO, accountUserDbVO);
@@ -247,15 +239,13 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING,
             null);
 
-        ItemVersionVO itemVersionVO = null;
-        ContextDbVO contextDbVO = null;
         try {
-          itemVersionVO = this.pubItemService.get(itemId, token);
+          ItemVersionVO itemVersionVO = this.pubItemService.get(itemId, token);
           if (null == itemVersionVO) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
                 BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
           } else {
-            contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
+            ContextDbVO contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
             if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
               switch (method) {
                 case DELETE_PUBITEMS:
