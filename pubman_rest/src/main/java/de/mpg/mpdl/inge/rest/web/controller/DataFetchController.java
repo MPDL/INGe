@@ -5,6 +5,7 @@ import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataacquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -12,6 +13,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -24,6 +26,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.ByteArrayInputStream;
@@ -60,6 +63,7 @@ public class DataFetchController {
   private final DataSourceHandlerService dataSourceHandlerService;
   private final FileService fileService;
 
+
   private enum FullTextType
   {
     FULLTEXT_NONE,
@@ -83,9 +87,9 @@ public class DataFetchController {
       @RequestParam(IDENTIFIER) String identifier //
   ) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
-    this.authorizationService.getUserAccountFromToken(token);
     DataSourceVO dataSourceVO = getDataSource(CROSSREF);
-    ContextDbVO contextDbVO = getContext(token, contextId);
+    AccountUserDbVO accountUserDbVO = getUser(token);
+    ContextDbVO contextDbVO = getContext(contextId, accountUserDbVO, token);
     String fetchedItem = fetchMetaData(CROSSREF, dataSourceVO, identifier);
     ItemVersionVO itemVersionVO = getItemVersion(fetchedItem, contextDbVO);
 
@@ -100,10 +104,10 @@ public class DataFetchController {
       @RequestParam(FULLTEXT) String fullText //
   ) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
-    this.authorizationService.getUserAccountFromToken(token);
-    FullTextType fullTextType = getFullTextType(fullText);
     DataSourceVO dataSourceVO = getDataSource(ARXIV);
-    ContextDbVO contextDbVO = getContext(token, contextId);
+    AccountUserDbVO accountUserDbVO = getUser(token);
+    FullTextType fullTextType = getFullTextType(fullText);
+    ContextDbVO contextDbVO = getContext(contextId, accountUserDbVO, token);
     String fetchedItem = fetchMetaData(ARXIV, dataSourceVO, identifier);
     ItemVersionVO itemVersionVO = getItemVersion(fetchedItem, contextDbVO);
 
@@ -130,15 +134,36 @@ public class DataFetchController {
     return dataSourceVO;
   }
 
-  private ContextDbVO getContext(String token, String contextId)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    ContextDbVO contextDbVO = this.contextService.get(contextId, token);
+  private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
+
+    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.DEPOSITOR)
+        || !GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
+      throw new AuthorizationException("User must be DEPOSITOR or MODERATOR");
+    }
+
+    return accountUserDbVO;
+  }
+
+  private ContextDbVO getContext(String context, AccountUserDbVO accountUserDbVO, String token)
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
+    ContextDbVO contextDbVO = this.contextService.get(context, token);
 
     if (null == contextDbVO) {
       throw new IngeApplicationException("given context not found");
     }
 
-    return contextDbVO;
+    if (null != contextDbVO) {
+      List<GrantVO> grantVOs = accountUserDbVO.getGrantList();
+      for (GrantVO grantVO : grantVOs) {
+        if (contextDbVO.getObjectId().equals(grantVO.getObjectRef())) {
+          return contextDbVO;
+        }
+      }
+    }
+
+    throw new IngeApplicationException("no access to given context");
   }
 
   private String fetchMetaData(String source, DataSourceVO dataSourceVO, String identifier)
