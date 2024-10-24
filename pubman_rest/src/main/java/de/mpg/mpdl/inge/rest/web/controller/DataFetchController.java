@@ -138,11 +138,6 @@ public class DataFetchController {
 
     AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
 
-    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.DEPOSITOR)
-        || !GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
-      throw new AuthorizationException("User must be DEPOSITOR or MODERATOR");
-    }
-
     return accountUserDbVO;
   }
 
@@ -154,13 +149,9 @@ public class DataFetchController {
       throw new IngeApplicationException("given context not found");
     }
 
-    if (null != contextDbVO) {
-      List<GrantVO> grantVOs = accountUserDbVO.getGrantList();
-      for (GrantVO grantVO : grantVOs) {
-        if (contextDbVO.getObjectId().equals(grantVO.getObjectRef())) {
-          return contextDbVO;
-        }
-      }
+    if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.DEPOSITOR, contextDbVO.getObjectId()) //
+        || GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
+      return contextDbVO;
     }
 
     throw new IngeApplicationException("no access to given context");
