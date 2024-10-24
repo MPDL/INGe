@@ -517,10 +517,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     AccountUserDbVO accountUserDbVO = checkUser(token);
 
-    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
-      throw new AuthorizationException("User must be MODERATOR");
-    }
-
     BatchProcessUserLockDbVO batchProcessUserLockDbVO =
         this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
 

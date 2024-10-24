@@ -1,15 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.List;
-import java.util.concurrent.Executor;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Primary;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.stereotype.Service;
-
 import de.mpg.mpdl.inge.db.repository.BatchProcessLogDetailRepository;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
@@ -22,6 +12,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -30,6 +21,15 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
+import java.util.List;
+import java.util.concurrent.Executor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Primary;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.stereotype.Service;
 
 @Service
 @Primary
@@ -72,76 +72,82 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVOAndItemObjectId(batchProcessLogHeaderDbVO, itemId);
 
       if (BatchProcessLogDetailDbVO.State.INITIALIZED.equals(batchProcessLogDetailDbVO.getState())) {
-        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-            BatchProcessLogDetailDbVO.State.RUNNING, null);
+        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING,
+            null);
 
         ItemVersionVO itemVersionVO = null;
         try {
           itemVersionVO = this.pubItemService.get(itemId, token);
           if (null == itemVersionVO) {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
+            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
           } else if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-            switch (method) {
-              case ADD_LOCALTAGS:
-                batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case ADD_KEYWORDS, REPLACE_KEYWORDS:
-                batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case ADD_SOURCE_IDENTIFIER:
-                batchOperations.addSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_CONTEXT:
-                batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO, accountUserDbVO);
-                break;
-              case CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, CHANGE_FILE_CONTENT_CATEGORY:
-                batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_FILE_VISIBILITY:
-                batchOperations.changeFileVisibility(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_GENRE:
-                batchOperations.changeGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_KEYWORDS:
-                batchOperations.changeKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_LOCALTAG:
-                batchOperations.changeLocalTag(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_REVIEW_METHOD:
-                batchOperations.changeReviewMethod(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_SOURCE_GENRE:
-                batchOperations.changeSourceGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case CHANGE_SOURCE_IDENTIFIER:
-                batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case REPLACE_SOURCE_EDITION:
-                batchOperations.replaceSourceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case REPLACE_FILE_AUDIENCE:
-                batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
-              case REPLACE_ORCID:
-                batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
-                break;
+            ContextDbVO contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
+            if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
+              switch (method) {
+                case ADD_LOCALTAGS:
+                  batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case ADD_KEYWORDS, REPLACE_KEYWORDS:
+                  batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case ADD_SOURCE_IDENTIFIER:
+                  batchOperations.addSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_CONTEXT:
+                  batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO, accountUserDbVO);
+                  break;
+                case CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, CHANGE_FILE_CONTENT_CATEGORY:
+                  batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_FILE_VISIBILITY:
+                  batchOperations.changeFileVisibility(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_GENRE:
+                  batchOperations.changeGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_KEYWORDS:
+                  batchOperations.changeKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_LOCALTAG:
+                  batchOperations.changeLocalTag(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_REVIEW_METHOD:
+                  batchOperations.changeReviewMethod(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_SOURCE_GENRE:
+                  batchOperations.changeSourceGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case CHANGE_SOURCE_IDENTIFIER:
+                  batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case REPLACE_SOURCE_EDITION:
+                  batchOperations.replaceSourceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case REPLACE_FILE_AUDIENCE:
+                  batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+                case REPLACE_ORCID:
+                  batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  break;
+              }
+            } else {
+              this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                  BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_AUTHORIZATION_ERROR);
             }
           } else {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
+            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
           }
         } catch (IngeTechnicalException e) {
-          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-              BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR);
         } catch (AuthenticationException e) {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHENTICATION_ERROR);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.BATCH_AUTHENTICATION_ERROR);
         } catch (AuthorizationException e) {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
         } catch (IngeApplicationException e) {
           BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR;
 
@@ -202,8 +208,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               break;
           }
 
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, message);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              message);
         }
       }
 
@@ -238,87 +244,89 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVOAndItemObjectId(batchProcessLogHeaderDbVO, itemId);
 
       if (BatchProcessLogDetailDbVO.State.INITIALIZED.equals(batchProcessLogDetailDbVO.getState())) {
-        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-            BatchProcessLogDetailDbVO.State.RUNNING, null);
+        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING,
+            null);
 
         ItemVersionVO itemVersionVO = null;
         ContextDbVO contextDbVO = null;
         try {
           itemVersionVO = this.pubItemService.get(itemId, token);
           if (null == itemVersionVO) {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
+            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
           } else {
-            switch (method) {
-              case DELETE_PUBITEMS:
-                if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())
-                    && !ItemVersionRO.State.RELEASED.equals(itemVersionVO.getObject().getPublicState())) {
-                  this.batchProcessCommonService.doPubItem(method, token, itemId, null, batchProcessLogDetailDbVO);
-                } else {
-                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
-                }
-                break;
-              case RELEASE_PUBITEMS:
-                contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
-                if (ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getVersionState())) {
-                  this.batchProcessCommonService.doPubItem(method, token, itemId,
-                      itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
-                } else if (ItemVersionRO.State.PENDING.equals(itemVersionVO.getVersionState())
-                    && ContextDbVO.Workflow.SIMPLE.equals(contextDbVO.getWorkflow())) {
-                  this.batchProcessCommonService.doPubItem(method, token, itemId,
-                      itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
-                } else {
-                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
-                }
-                break;
-              case REVISE_PUBITEMS:
-                contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
-                if (ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getVersionState())
-                    && ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow())
-                    && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-                  this.batchProcessCommonService.doPubItem(method, token, itemId,
-                      itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
-                } else {
-                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
-                }
-                break;
-              case SUBMIT_PUBITEMS:
-                contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
-                if ((ItemVersionRO.State.IN_REVISION.equals(itemVersionVO.getVersionState())
-                    || ItemVersionRO.State.PENDING.equals(itemVersionVO.getVersionState()))
-                    && ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow())
-                    && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-                  this.batchProcessCommonService.doPubItem(method, token, itemId,
-                      itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
-                } else {
-                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
-                }
-                break;
-              case WITHDRAW_PUBITEMS:
-                if (ItemVersionRO.State.RELEASED.equals(itemVersionVO.getVersionState())
-                    && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
-                  this.batchProcessCommonService.doPubItem(method, token, itemId,
-                      itemVersionVO.getModificationDate(), batchProcessLogDetailDbVO);
-                } else {
-                  this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                      BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
-                }
-                break;
+            contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
+            if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
+              switch (method) {
+                case DELETE_PUBITEMS:
+                  if (!ItemVersionRO.State.WITHDRAWN.equals(
+                      itemVersionVO.getObject().getPublicState()) && !ItemVersionRO.State.RELEASED.equals(
+                      itemVersionVO.getObject().getPublicState())) {
+                    this.batchProcessCommonService.doPubItem(method, token, itemId, null, batchProcessLogDetailDbVO);
+                  } else {
+                    this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                        BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
+                  }
+                  break;
+                case RELEASE_PUBITEMS:
+                  if (ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getVersionState())) {
+                    this.batchProcessCommonService.doPubItem(method, token, itemId, itemVersionVO.getModificationDate(),
+                        batchProcessLogDetailDbVO);
+                  } else if (ItemVersionRO.State.PENDING.equals(itemVersionVO.getVersionState()) && ContextDbVO.Workflow.SIMPLE.equals(
+                      contextDbVO.getWorkflow())) {
+                    this.batchProcessCommonService.doPubItem(method, token, itemId, itemVersionVO.getModificationDate(),
+                        batchProcessLogDetailDbVO);
+                  } else {
+                    this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                        BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
+                  }
+                  break;
+                case REVISE_PUBITEMS:
+                  if (ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getVersionState()) && ContextDbVO.Workflow.STANDARD.equals(
+                      contextDbVO.getWorkflow()) && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
+                    this.batchProcessCommonService.doPubItem(method, token, itemId, itemVersionVO.getModificationDate(),
+                        batchProcessLogDetailDbVO);
+                  } else {
+                    this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                        BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
+                  }
+                  break;
+                case SUBMIT_PUBITEMS:
+                  if ((ItemVersionRO.State.IN_REVISION.equals(itemVersionVO.getVersionState()) || ItemVersionRO.State.PENDING.equals(
+                      itemVersionVO.getVersionState())) && ContextDbVO.Workflow.STANDARD.equals(
+                      contextDbVO.getWorkflow()) && !ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
+                    this.batchProcessCommonService.doPubItem(method, token, itemId, itemVersionVO.getModificationDate(),
+                        batchProcessLogDetailDbVO);
+                  } else {
+                    this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                        BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
+                  }
+                  break;
+                case WITHDRAW_PUBITEMS:
+                  if (ItemVersionRO.State.RELEASED.equals(itemVersionVO.getVersionState()) && !ItemVersionRO.State.WITHDRAWN.equals(
+                      itemVersionVO.getObject().getPublicState())) {
+                    this.batchProcessCommonService.doPubItem(method, token, itemId, itemVersionVO.getModificationDate(),
+                        batchProcessLogDetailDbVO);
+                  } else {
+                    this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
+                        BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_STATE_WRONG);
+                  }
+                  break;
+              }
+            } else {
+              this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                  BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_AUTHORIZATION_ERROR);
             }
           }
         } catch (IngeTechnicalException e) {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR);
         } catch (AuthenticationException e) {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHENTICATION_ERROR);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.BATCH_AUTHENTICATION_ERROR);
         } catch (AuthorizationException e) {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
         } catch (IngeApplicationException e) {
           BatchProcessLogDetailDbVO.Message message = BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR;
 
@@ -342,8 +350,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               break;
           }
 
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO,
-                    BatchProcessLogDetailDbVO.State.ERROR, message);
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              message);
         }
       }
 
