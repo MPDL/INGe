@@ -1,11 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
@@ -13,6 +8,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
@@ -25,6 +21,10 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 @Service
 @Primary
@@ -132,33 +132,35 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
   @Override
   public void changeContext(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO)
+      ItemVersionVO itemVersionVO, AccountUserDbVO accountUserDbVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    if (this.contextFrom.equals(itemVersionVO.getObject().getContext().getObjectId())) {
-      ContextDbVO contextDbVOTo = this.contextService.get(this.contextTo, token);
-      if (null == contextDbVOTo) {
-        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_NOT_FOUND);
-      } else if (null != itemVersionVO.getMetadata() && null != itemVersionVO.getMetadata().getGenre()
-          && null != contextDbVOTo.getAllowedGenres() && !contextDbVOTo.getAllowedGenres().isEmpty()
-          && contextDbVOTo.getAllowedGenres().contains(itemVersionVO.getMetadata().getGenre())) {
-        itemVersionVO.getObject().setContext(contextDbVOTo);
-        if (!((ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getObject().getPublicState())
-            || ItemVersionRO.State.IN_REVISION.equals(itemVersionVO.getVersionState()))
-            && ContextDbVO.Workflow.SIMPLE.equals(contextDbVOTo.getWorkflow()))) {
-          this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+    ContextDbVO contextDbVOFrom = getContext(this.contextFrom, accountUserDbVO, token, batchProcessLogDetailDbVO);
+    if (null != contextDbVOFrom) {
+      ContextDbVO contextDbVOTo = getContext(this.contextTo, accountUserDbVO, token, batchProcessLogDetailDbVO);
+      if (null != contextDbVOTo) {
+        if (contextDbVOFrom.getObjectId().equals(itemVersionVO.getObject().getContext().getObjectId())) {
+          if (null != itemVersionVO.getMetadata() && null != itemVersionVO.getMetadata().getGenre()
+              && null != contextDbVOTo.getAllowedGenres() && !contextDbVOTo.getAllowedGenres().isEmpty()
+              && contextDbVOTo.getAllowedGenres().contains(itemVersionVO.getMetadata().getGenre())) {
+            itemVersionVO.getObject().setContext(contextDbVOTo);
+            if (!((ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getObject().getPublicState())
+                || ItemVersionRO.State.IN_REVISION.equals(itemVersionVO.getVersionState()))
+                && ContextDbVO.Workflow.SIMPLE.equals(contextDbVOTo.getWorkflow()))) {
+              this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+            } else {
+              this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                  BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
+            }
+          } else {
+            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
+          }
         } else {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-              BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
+              BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
         }
-      } else {
-        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
       }
-    } else {
-      this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
     }
   }
 
@@ -200,9 +202,9 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    ContextDbVO contextDbVOTo = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
-    if (null != contextDbVOTo.getAllowedGenres() && !contextDbVOTo.getAllowedGenres().isEmpty()
-        && contextDbVOTo.getAllowedGenres().contains(itemVersionVO.getMetadata().getGenre())) {
+    ContextDbVO contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
+    if (null != contextDbVO.getAllowedGenres() && !contextDbVO.getAllowedGenres().isEmpty()
+        && contextDbVO.getAllowedGenres().contains(this.genreTo)) {
       MdsPublicationVO.Genre currentPubItemGenre = itemVersionVO.getMetadata().getGenre();
       if (currentPubItemGenre.equals(this.genreFrom)) {
         if (!MdsPublicationVO.Genre.THESIS.equals(this.genreTo)) {
@@ -313,26 +315,32 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    if (!this.sourceGenreFrom.equals(this.sourceGenreTo)) {
-      List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
-      boolean sourceChanged = false;
-      for (SourceVO currentSource : currentSourceList) {
-        SourceVO.Genre currentSourceGenre = currentSource.getGenre();
-        if (currentSourceGenre.equals(this.sourceGenreFrom)) {
-          currentSource.setGenre(this.sourceGenreTo);
-          sourceChanged = true;
+    ContextDbVO contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
+    if (null != contextDbVO.getAllowedGenres() && !contextDbVO.getAllowedGenres().isEmpty()
+        && contextDbVO.getAllowedGenres().contains(this.genreTo)) {
+      if (!this.sourceGenreFrom.equals(this.sourceGenreTo)) {
+        List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
+        boolean sourceChanged = false;
+        for (SourceVO currentSource : currentSourceList) {
+          SourceVO.Genre currentSourceGenre = currentSource.getGenre();
+          if (currentSourceGenre.equals(this.sourceGenreFrom)) {
+            currentSource.setGenre(this.sourceGenreTo);
+            sourceChanged = true;
+          }
+          if (sourceChanged) {
+            this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+          } else {
+            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+                BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
+          }
         }
-        if (sourceChanged) {
-
-          this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
-        } else {
-          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-              BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-        }
+      } else {
+        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+            BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
     }
   }
 
@@ -587,5 +595,30 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
   public void setVisibilityTo(FileDbVO.Visibility visibilityTo) {
     this.visibilityTo = visibilityTo;
+  }
+
+  private ContextDbVO getContext(String context, AccountUserDbVO accountUserDbVO, String token,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
+    ContextDbVO contextDbVO = this.contextService.get(context, token);
+
+    if (null == contextDbVO) {
+      this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+          BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_NOT_FOUND);
+
+      return null;
+    }
+
+    List<GrantVO> grantVOs = accountUserDbVO.getGrantList();
+    for (GrantVO grantVO : grantVOs) {
+      if (contextDbVO.getObjectId().equals(grantVO.getObjectRef())) {
+        return contextDbVO;
+      }
+    }
+
+    this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+        BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_AUTHORIZATION_ERROR);
+
+    return null;
   }
 }

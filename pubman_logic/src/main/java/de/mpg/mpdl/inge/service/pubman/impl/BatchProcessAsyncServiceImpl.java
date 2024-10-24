@@ -93,7 +93,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 batchOperations.addSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                 break;
               case CHANGE_CONTEXT:
-                batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO, accountUserDbVO);
                 break;
               case CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, CHANGE_FILE_CONTENT_CATEGORY:
                 batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
