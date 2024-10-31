@@ -63,14 +63,6 @@ public class DataFetchController {
   private final DataSourceHandlerService dataSourceHandlerService;
   private final FileService fileService;
 
-
-  private enum FullTextType
-  {
-    FULLTEXT_NONE,
-    FULLTEXT_ALL,
-    FULLTEXT_DEFAULT
-  }
-
   public DataFetchController(AuthorizationService authorizationService, ContextService contextService,
       DataHandlerService dataHandlerService, DataSourceHandlerService dataSourceHandlerService, FileService fileService) {
     this.authorizationService = authorizationService;
@@ -100,22 +92,18 @@ public class DataFetchController {
   public ResponseEntity<ItemVersionVO> getArxiv( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(CONTEXT_ID) String contextId, //
-      @RequestParam(IDENTIFIER) String identifier, //
-      @RequestParam(FULLTEXT) String fullText //
-  ) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
+      @RequestParam(IDENTIFIER) String identifier)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
     DataSourceVO dataSourceVO = getDataSource(ARXIV);
     AccountUserDbVO accountUserDbVO = getUser(token);
-    FullTextType fullTextType = getFullTextType(fullText);
     ContextDbVO contextDbVO = getContext(contextId, accountUserDbVO, token);
     String fetchedItem = fetchMetaData(ARXIV, dataSourceVO, identifier);
     ItemVersionVO itemVersionVO = getItemVersion(fetchedItem, contextDbVO);
 
-    if (FullTextType.FULLTEXT_NONE != fullTextType) {
-      List<FileDbVO> fileVOs = getFiles(dataSourceVO, fullTextType, identifier, token, ARXIV);
-      for (FileDbVO tmp : fileVOs) {
-        itemVersionVO.getFiles().add(tmp);
-      }
+    List<FileDbVO> fileVOs = getFiles(dataSourceVO, identifier, token, ARXIV);
+    for (FileDbVO tmp : fileVOs) {
+      itemVersionVO.getFiles().add(tmp);
     }
 
     return new ResponseEntity<>(itemVersionVO, HttpStatus.OK);
@@ -190,34 +178,17 @@ public class DataFetchController {
     return itemVersionVO;
   }
 
-  private FullTextType getFullTextType(String fullText) throws IngeApplicationException {
-
-    try {
-      return FullTextType.valueOf(fullText);
-    } catch (IllegalArgumentException e) {
-      throw new IngeApplicationException("wrong type type of fulltext");
-    }
-  }
-
-  private List<FileDbVO> getFiles(DataSourceVO dataSourceVO, FullTextType fullTextType, String identifier, String token, String source)
-      throws IngeTechnicalException {
+  private List<FileDbVO> getFiles(DataSourceVO dataSourceVO, String identifier, String token, String source) throws IngeTechnicalException {
 
     List<FileDbVO> fileVOs = new ArrayList<>();
     List<FullTextVO> ftFormats = dataSourceVO.getFtFormats();
     List<String> fullTextFormats = new ArrayList<>();
 
-    if (FullTextType.FULLTEXT_DEFAULT == fullTextType) {
-      for (FullTextVO fulltextVO : ftFormats) {
-        if (fulltextVO.isFtDefault()) {
-          FileFormatVO.FILE_FORMAT fileFormat = FileFormatVO.getFileFormat(fulltextVO.getName());
-          fullTextFormats.add(fileFormat.getExtension());
-          break;
-        }
-      }
-    } else if (FullTextType.FULLTEXT_ALL == fullTextType) {
-      for (FullTextVO fulltextVO : ftFormats) {
+    for (FullTextVO fulltextVO : ftFormats) {
+      if (fulltextVO.isFtDefault()) {
         FileFormatVO.FILE_FORMAT fileFormat = FileFormatVO.getFileFormat(fulltextVO.getName());
         fullTextFormats.add(fileFormat.getExtension());
+        break;
       }
     }
 
