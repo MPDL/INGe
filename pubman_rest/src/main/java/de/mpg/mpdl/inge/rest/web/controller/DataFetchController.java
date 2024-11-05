@@ -54,7 +54,6 @@ public class DataFetchController {
   private static final String CROSSREF = "crossref";
 
   private static final String CONTEXT_ID = "contextId";
-  private static final String FULLTEXT = "fullText";
   private static final String IDENTIFIER = "identifier";
 
   private final AuthorizationService authorizationService;
@@ -122,7 +121,7 @@ public class DataFetchController {
     return dataSourceVO;
   }
 
-  private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException, AuthorizationException {
+  private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {
 
     AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
 
@@ -142,7 +141,7 @@ public class DataFetchController {
       return contextDbVO;
     }
 
-    throw new IngeApplicationException("no access to given context");
+    throw new AuthorizationException("given user is not allowed to access the given context.");
   }
 
   private String fetchMetaData(String source, DataSourceVO dataSourceVO, String identifier)
