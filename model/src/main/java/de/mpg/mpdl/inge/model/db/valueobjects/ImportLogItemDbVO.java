@@ -30,12 +30,21 @@ public class ImportLogItemDbVO extends ImportLog {
   @Column(name = "item_id")
   private String itemId;
 
+  public ImportLogItemDbVO() {
+    super();
+  }
+
   public ImportLogItemDbVO(ImportLogDbVO importLogDbVO, String message) {
     super();
-    setStartDate(new Date());
-    setErrorLevel(ImportLog.ErrorLevel.FINE);
     this.message = message;
     this.parent = importLogDbVO;
+  }
+
+  public void setErrorLevel(ImportLog.ErrorLevel errorLevel) {
+    super.setErrorLevel(errorLevel);
+    if (null != this.parent) {
+      this.parent.setErrorLevel(errorLevel);
+    }
   }
 
   public Date getEndDate() {

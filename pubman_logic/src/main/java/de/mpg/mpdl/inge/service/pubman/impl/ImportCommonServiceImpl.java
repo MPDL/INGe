@@ -64,9 +64,20 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ImportLogDbVO updateImportLog(ImportLogDbVO importLogDbVO, Date endDate, ImportLog.Status status) {
-    importLogDbVO.setEndDate(endDate);
-    importLogDbVO.setStatus(status);
+  public ImportLogDbVO finishImportLog(ImportLogDbVO importLogDbVO) {
+    importLogDbVO.setEndDate(new Date());
+    importLogDbVO.setStatus(ImportLog.Status.FINISHED);
+
+    importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
+
+    return importLogDbVO;
+  }
+
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public ImportLogDbVO reopenImportLog(ImportLogDbVO importLogDbVO) {
+    importLogDbVO.setEndDate(null);
+    importLogDbVO.setStatus(ImportLog.Status.PENDING);
 
     importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
 
@@ -83,11 +94,22 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     return importLogDbVO;
   }
 
-  @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ImportLogItemDbVO updateImportLogItem(ImportLogItemDbVO importLogItemDbVO, ImportLog.Status status) {
+  @Override
+  public ImportLogItemDbVO finishImportLogItem(ImportLogItemDbVO importLogItemDbVO) {
     importLogItemDbVO.setEndDate(new Date());
-    importLogItemDbVO.setStatus(status);
+    importLogItemDbVO.setStatus(ImportLog.Status.FINISHED);
+
+    importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
+
+    return importLogItemDbVO;
+  }
+
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public ImportLogItemDbVO suspendImportLogItem(ImportLogItemDbVO importLogItemDbVO) {
+    importLogItemDbVO.setEndDate(new Date());
+    importLogItemDbVO.setStatus(ImportLog.Status.SUSPENDED);
 
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
 

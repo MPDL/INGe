@@ -4,7 +4,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ImportLog;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDetailDbVO;
-import java.util.Date;
 
 public interface ImportCommonService {
 
@@ -14,11 +13,15 @@ public interface ImportCommonService {
 
   ImportLogItemDetailDbVO createImportLogItemDetail(ImportLogItemDbVO importLogItemDbVO, ImportLog.ErrorLevel errorLevel, String message);
 
-  ImportLogDbVO updateImportLog(ImportLogDbVO importLogDbVO, Date endDate, ImportLog.Status status);
+  ImportLogDbVO finishImportLog(ImportLogDbVO importLogDbVO);
+
+  ImportLogDbVO reopenImportLog(ImportLogDbVO importLogDbVO);
 
   ImportLogDbVO updateImportLog(ImportLogDbVO importLogDbVO, Integer percentage);
 
-  ImportLogItemDbVO updateImportLogItem(ImportLogItemDbVO importLogItemDbVO, ImportLog.Status status);
+  ImportLogItemDbVO finishImportLogItem(ImportLogItemDbVO importLogItemDbVO);
+
+  ImportLogItemDbVO suspendImportLogItem(ImportLogItemDbVO importLogItemDbVO);
 
   ImportLogItemDbVO resetItemId(ImportLogItemDbVO importLogItemDbVO);
 }

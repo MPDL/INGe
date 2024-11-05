@@ -6,7 +6,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Date;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
@@ -24,12 +23,23 @@ public class ImportLogItemDetailDbVO extends ImportLog {
   @Column(name = "message")
   private String message;
 
+  public ImportLogItemDetailDbVO() {
+    super();
+  }
+
   public ImportLogItemDetailDbVO(ImportLogItemDbVO importLogItemDbVO, ImportLog.ErrorLevel errorLevel, String message) {
     super();
-    setStartDate(new Date());
-    setErrorLevel(errorLevel);
+    this.setErrorLevel(errorLevel);
+    this.setStatus(Status.FINISHED);
     this.message = message;
     this.parent = importLogItemDbVO;
+  }
+
+  public void setErrorLevel(ImportLog.ErrorLevel errorLevel) {
+    super.setErrorLevel(errorLevel);
+    if (null != this.parent) {
+      this.parent.setErrorLevel(errorLevel);
+    }
   }
 
   public ImportLogItemDbVO getParent() {

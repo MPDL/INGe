@@ -36,7 +36,6 @@ public abstract class ImportLog {
     SUSPENDED
   }
 
-
   public enum Messsage
   {
     import_process_initialize_delete_process,
@@ -65,6 +64,12 @@ public abstract class ImportLog {
 
   @Column(name = "startdate", columnDefinition = "TIMESTAMP", nullable = false)
   private Date startDate;
+
+  public ImportLog() {
+    this.setStartDate(new Date());
+    this.setStatus(ImportLog.Status.PENDING);
+    this.setErrorLevel(ImportLog.ErrorLevel.FINE);
+  }
 
   public Integer getId() {
     return this.id;

@@ -48,16 +48,17 @@ public class ImportLogDbVO extends ImportLog {
   private Format format;
 
   @Column(name = "context")
-  private String context;
+  private String contextId;
 
   @Column(name = "percentage")
   private Integer percentage;
 
+  public ImportLogDbVO() {
+    super();
+  }
+
   public ImportLogDbVO(String userId, Format format) {
     super();
-    this.setStartDate(new Date());
-    this.setStatus(ImportLog.Status.PENDING);
-    this.setErrorLevel(ImportLog.ErrorLevel.FINE);
     this.userId = userId;
     this.format = format;
   }
@@ -86,12 +87,12 @@ public class ImportLogDbVO extends ImportLog {
     return this.format;
   }
 
-  public String getContext() {
-    return this.context;
+  public String getContextId() {
+    return this.contextId;
   }
 
-  public void setContext(String context) {
-    this.context = context;
+  public void setContextId(String context) {
+    this.contextId = context;
   }
 
   public Integer getPercentage() {

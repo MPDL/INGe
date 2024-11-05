@@ -15,7 +15,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ImportService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
-import java.util.Date;
 import java.util.List;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -121,14 +120,14 @@ public class ImportServiceImpl implements ImportService {
 
     checkUserAccess(importLogDbVO, accountUserDbVO);
 
-    this.importCommonService.updateImportLog(importLogDbVO, null, ImportLog.Status.PENDING);
+    this.importCommonService.reopenImportLog(importLogDbVO);
     this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_ZERO);
     ImportLogItemDbVO importLogItemDbVO1 =
         this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.Messsage.import_process_delete_items.name());
     this.importCommonService.createImportLogItemDetail(importLogItemDbVO1, ImportLog.ErrorLevel.FINE,
         ImportLog.Messsage.import_process_initialize_delete_process.name());
-    this.importCommonService.updateImportLogItem(importLogItemDbVO1, ImportLog.Status.FINISHED);
-    this.importCommonService.updateImportLog(importLogDbVO, new Date(), ImportLog.Status.FINISHED);
+    this.importCommonService.finishImportLogItem(importLogItemDbVO1);
+    this.importCommonService.finishImportLog(importLogDbVO);
     this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_DELETE_START);
 
     // Ab hier ASYNCHRON
@@ -136,7 +135,7 @@ public class ImportServiceImpl implements ImportService {
     for (ImportLogItemDbVO importLogItemDbVO : importLogItemDbVOs) {
       this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
           ImportLog.Messsage.import_process_schedule_delete.name());
-      this.importCommonService.updateImportLogItem(importLogItemDbVO, ImportLog.Status.SUSPENDED);
+      this.importCommonService.suspendImportLogItem(importLogItemDbVO);
     }
 
     this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
@@ -152,12 +151,12 @@ public class ImportServiceImpl implements ImportService {
         this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
             ImportLog.Messsage.import_process_remove_identifier.name());
         this.importCommonService.resetItemId(importLogItemDbVO);
-        this.importCommonService.updateImportLog(importLogDbVO, new Date(), ImportLog.Status.FINISHED);
+        this.importCommonService.finishImportLog(importLogDbVO);
       } catch (Exception e) {
         this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING,
             ImportLog.Messsage.import_process_delete_failed.name());
         this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, e.toString());
-        this.importCommonService.updateImportLog(importLogDbVO, new Date(), ImportLog.Status.FINISHED);
+        this.importCommonService.finishImportLog(importLogDbVO);
       }
       counter++;
       this.importCommonService.updateImportLog(importLogDbVO,
@@ -166,8 +165,8 @@ public class ImportServiceImpl implements ImportService {
 
     ImportLogItemDbVO importLogItemDbVO2 =
         this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.Messsage.import_process_delete_finished.name());
-    this.importCommonService.updateImportLogItem(importLogItemDbVO2, ImportLog.Status.FINISHED);
-    this.importCommonService.updateImportLog(importLogDbVO, new Date(), ImportLog.Status.FINISHED);
+    this.importCommonService.finishImportLogItem(importLogItemDbVO2);
+    this.importCommonService.finishImportLog(importLogDbVO);
     this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_COMPLETED);
   }
 
