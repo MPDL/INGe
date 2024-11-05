@@ -309,9 +309,9 @@ public class ImportLog extends BaseImportLog {
     importLogItemDetail.setStartDate(new Date());
     importLogItemDetail.setStatus(BaseImportLog.Status.FINISHED);
 
-    if (null == this.currentImportLogItem) {
-      this.startItem("", connection);
-    }
+    //    if (null == this.currentImportLogItem) {
+    //      this.startItem("", connection);
+    //    }
 
     this.currentImportLogItem.getItems().add(importLogItemDetail);
 
@@ -702,7 +702,7 @@ public class ImportLog extends BaseImportLog {
    * @param sDate The start date of this item
    * @param itemId The eSciDoc id of the imported item
    */
-  public void startItem(BaseImportLog.ErrorLevel errLevel, String msg, Date sDate, String itemId, Connection connection) {
+  private void startItem(BaseImportLog.ErrorLevel errLevel, String msg, Date sDate, String itemId, Connection connection) {
     if (null != this.currentImportLogItem) {
       throw new RuntimeException("Trying to start logging an item while another is not yet finished");
     }
@@ -742,7 +742,7 @@ public class ImportLog extends BaseImportLog {
    * @param sDate The start date of this item
    * @param itemId The eSciDoc id of the imported item
    */
-  public void startItem(String msg, Date sDate, String itemId, Connection connection) {
+  private void startItem(String msg, Date sDate, String itemId, Connection connection) {
     this.startItem(BaseImportLog.ErrorLevel.FINE, msg, sDate, itemId, connection);
   }
 
@@ -755,7 +755,7 @@ public class ImportLog extends BaseImportLog {
    * @param msg A message key for a localized message
    * @param itemId The eSciDoc id of the imported item
    */
-  public void startItem(String msg, String itemId, Connection connection) {
+  private void startItem(String msg, String itemId, Connection connection) {
     this.startItem(msg, new Date(), itemId, connection);
   }
 

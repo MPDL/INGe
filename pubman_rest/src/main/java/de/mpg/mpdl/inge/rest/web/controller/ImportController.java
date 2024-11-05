@@ -1,0 +1,81 @@
+package de.mpg.mpdl.inge.rest.web.controller;
+
+import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDetailDbVO;
+import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.ImportService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/import")
+@Tag(name = "Import")
+public class ImportController {
+
+  private final ImportService importService;
+
+  private static final String ImportLog_ID_PATH = "/importLog/{importLogId}";
+  private static final String ImportLogItems_ID_PATH = "/importLogItems/{importLogId}";
+  private static final String ImportLogItemDetails_ID_PATH = "/importLogItemDetails/{importLogItemId}";
+
+  private static final String ImportLog_VAR = "importLogId";
+  private static final String ImportLogItem_VAR = "importLogItemId";
+
+  public ImportController(ImportService importService) {
+    this.importService = importService;
+  }
+
+  @RequestMapping(value = ImportLog_ID_PATH, method = RequestMethod.DELETE)
+  public ResponseEntity<?> deleteImportLog( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @PathVariable(ImportLog_VAR) Integer importLogId) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    this.importService.deleteImportLog(importLogId, token);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/getImportLogs", method = RequestMethod.GET)
+  public ResponseEntity<List<ImportLogDbVO>> getImportLogs( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
+      throws AuthenticationException, IngeApplicationException {
+
+    List<ImportLogDbVO> importLogDbVOs = this.importService.getImportLogs(token);
+
+    return new ResponseEntity<>(importLogDbVOs, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = ImportLogItems_ID_PATH, method = RequestMethod.GET)
+  public ResponseEntity<List<ImportLogItemDbVO>> getImportLogItems( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @PathVariable(ImportLog_VAR) Integer importLogId) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    List<ImportLogItemDbVO> importLogItemDbVOs = this.importService.getImportLogItems(importLogId, token);
+
+    return new ResponseEntity<>(importLogItemDbVOs, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = ImportLogItemDetails_ID_PATH, method = RequestMethod.GET)
+  public ResponseEntity<List<ImportLogItemDetailDbVO>> getImportLogItemDetails( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @PathVariable(ImportLogItem_VAR) Integer importLogItemId) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    List<ImportLogItemDetailDbVO> importLogItemDetailDbVOs = this.importService.getImportLogItemDetails(importLogItemId, token);
+
+    return new ResponseEntity<>(importLogItemDetailDbVOs, HttpStatus.OK);
+  }
+}
