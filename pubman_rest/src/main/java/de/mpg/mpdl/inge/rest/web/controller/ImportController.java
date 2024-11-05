@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,6 +33,9 @@ public class ImportController {
   private static final String ImportLog_VAR = "importLogId";
   private static final String ImportLogItem_VAR = "importLogItemId";
 
+  private static final String IMPORT_LOG_ID = "importLogId";
+
+
   public ImportController(ImportService importService) {
     this.importService = importService;
   }
@@ -43,6 +47,17 @@ public class ImportController {
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     this.importService.deleteImportLog(importLogId, token);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/deleteImportedItems", method = RequestMethod.PUT)
+  public ResponseEntity<?> deleteImportedItems( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestParam(IMPORT_LOG_ID) Integer importLogId) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    this.importService.deleteImportedItems(importLogId, token);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }

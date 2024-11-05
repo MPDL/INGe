@@ -13,7 +13,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ImportService;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.importprocess.ImportAsyncService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
 import java.util.List;
 import org.springframework.context.annotation.Primary;
@@ -25,21 +25,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class ImportServiceImpl implements ImportService {
 
   private final AuthorizationService authorizationService;
+  private final ImportAsyncService importAsyncService;
   private final ImportCommonService importCommonService;
   private final ImportLogRepository importLogRepository;
   private final ImportLogItemRepository importLogItemRepository;
   private final ImportLogItemDetailRepository importLogItemDetailRepository;
-  private final PubItemService pubItemService;
 
-  public ImportServiceImpl(AuthorizationService authorizationService, ImportCommonService importCommonService,
-      ImportLogRepository importLogRepository, ImportLogItemRepository importLogItemRepository,
-      ImportLogItemDetailRepository importLogItemDetailRepository, PubItemService pubItemService) {
+  public ImportServiceImpl(AuthorizationService authorizationService, ImportAsyncService importAsyncService,
+      ImportCommonService importCommonService, ImportLogRepository importLogRepository, ImportLogItemRepository importLogItemRepository,
+      ImportLogItemDetailRepository importLogItemDetailRepository) {
     this.authorizationService = authorizationService;
+    this.importAsyncService = importAsyncService;
     this.importCommonService = importCommonService;
     this.importLogRepository = importLogRepository;
     this.importLogItemRepository = importLogItemRepository;
     this.importLogItemDetailRepository = importLogItemDetailRepository;
-    this.pubItemService = pubItemService;
   }
 
   @Override
@@ -80,9 +80,6 @@ public class ImportServiceImpl implements ImportService {
     if (null == importLogItemDbVO) {
       throw new IngeApplicationException("Invalid importLogItemId");
     }
-    if (null == importLogItemDbVO.getParent()) {
-      throw new IngeApplicationException("Invalid importLogId");
-    }
 
     checkUserAccess(importLogItemDbVO.getParent(), accountUserDbVO);
 
@@ -108,8 +105,8 @@ public class ImportServiceImpl implements ImportService {
     this.importLogRepository.delete(importLogDbVO);
   }
 
-  // Transaktion
-  public void deleteItems(Integer importLogId, String token)
+  @Override
+  public void deleteImportedItems(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
@@ -117,57 +114,18 @@ public class ImportServiceImpl implements ImportService {
     if (null == importLogDbVO) {
       throw new IngeApplicationException("Invalid importLogId");
     }
+    if (!importLogDbVO.getStatus().equals(ImportLog.Status.FINISHED)) {
+      throw new IngeApplicationException("Status must be FINISHED");
+    }
+    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParentAndItemId(importLogDbVO);
+    if (null == importLogItemDbVOs || importLogItemDbVOs.isEmpty()) {
+      throw new IngeApplicationException("There are no imported items to delete");
+    }
 
     checkUserAccess(importLogDbVO, accountUserDbVO);
 
-    this.importCommonService.reopenImportLog(importLogDbVO);
-    this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_ZERO);
-    ImportLogItemDbVO importLogItemDbVO1 =
-        this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.Messsage.import_process_delete_items.name());
-    this.importCommonService.createImportLogItemDetail(importLogItemDbVO1, ImportLog.ErrorLevel.FINE,
-        ImportLog.Messsage.import_process_initialize_delete_process.name());
-    this.importCommonService.finishImportLogItem(importLogItemDbVO1);
-    this.importCommonService.finishImportLog(importLogDbVO);
-    this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_DELETE_START);
-
-    // Ab hier ASYNCHRON
-    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParentAndItemId(importLogDbVO);
-    for (ImportLogItemDbVO importLogItemDbVO : importLogItemDbVOs) {
-      this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-          ImportLog.Messsage.import_process_schedule_delete.name());
-      this.importCommonService.suspendImportLogItem(importLogItemDbVO);
-    }
-
-    this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
-
-    int counter = 0;
-    for (ImportLogItemDbVO importLogItemDbVO : importLogItemDbVOs) {
-      this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-          ImportLog.Messsage.import_process_delete_item.name());
-      try {
-        this.pubItemService.delete(importLogItemDbVO.getItemId(), token);
-        this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_delete_successful.name());
-        this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_remove_identifier.name());
-        this.importCommonService.resetItemId(importLogItemDbVO);
-        this.importCommonService.finishImportLog(importLogDbVO);
-      } catch (Exception e) {
-        this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING,
-            ImportLog.Messsage.import_process_delete_failed.name());
-        this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, e.toString());
-        this.importCommonService.finishImportLog(importLogDbVO);
-      }
-      counter++;
-      this.importCommonService.updateImportLog(importLogDbVO,
-          ImportLogDbVO.PERCENTAGE_DELETE_END * counter / importLogItemDbVOs.size() + ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
-    }
-
-    ImportLogItemDbVO importLogItemDbVO2 =
-        this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.Messsage.import_process_delete_finished.name());
-    this.importCommonService.finishImportLogItem(importLogItemDbVO2);
-    this.importCommonService.finishImportLog(importLogDbVO);
-    this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_COMPLETED);
+    this.importCommonService.initializeDelete(importLogDbVO);
+    this.importAsyncService.doAsyncDelete(importLogDbVO, importLogItemDbVOs, token);
   }
 
   ////////////////////////////////////////////////////

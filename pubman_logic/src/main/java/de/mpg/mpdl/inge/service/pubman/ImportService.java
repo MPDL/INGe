@@ -21,4 +21,7 @@ public interface ImportService {
 
   @Transactional(rollbackFor = Throwable.class)
   void deleteImportLog(Integer importLogId, String token) throws AuthenticationException, IngeApplicationException, AuthorizationException;
+
+  void deleteImportedItems(Integer importLogId, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
 }
