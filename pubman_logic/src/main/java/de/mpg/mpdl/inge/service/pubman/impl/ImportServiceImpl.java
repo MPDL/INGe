@@ -49,57 +49,10 @@ public class ImportServiceImpl implements ImportService {
     this.importLogItemDetailRepository = importLogItemDetailRepository;
   }
 
-  @Override
-  public List<ImportLogDbVO> getImportLogs(String token) throws AuthenticationException, IngeApplicationException {
-
-    AccountUserDbVO accountUserDbVO = getUser(token);
-
-    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findAllByUserId(accountUserDbVO.getObjectId());
-
-    return importLogDbVOs;
-  }
-
-  @Override
-  public List<ImportLogItemDbVO> getImportLogItems(Integer importLogId, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = getUser(token);
-
-    ImportLogDbVO importLogDbVO = getImportLog(importLogId, accountUserDbVO);
-    if (null == importLogDbVO) {
-      throw new IngeApplicationException("Invalid importLogId");
-    }
-
-    checkUserAccess(importLogDbVO, accountUserDbVO);
-
-    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParent(importLogDbVO);
-
-    return importLogItemDbVOs;
-  }
-
-  @Override
-  public List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogItemId, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException {
-
-    AccountUserDbVO accountUserDbVO = getUser(token);
-
-    ImportLogItemDbVO importLogItemDbVO = getImportLogItem(importLogItemId, accountUserDbVO);
-    if (null == importLogItemDbVO) {
-      throw new IngeApplicationException("Invalid importLogItemId");
-    }
-
-    checkUserAccess(importLogItemDbVO.getParent(), accountUserDbVO);
-
-    List<ImportLogItemDetailDbVO> importLogItemDetailDbVOs = this.importLogItemDetailRepository.findByImportLogItem(importLogItemDbVO);
-
-    return importLogItemDetailDbVOs;
-  }
-
   @Transactional(rollbackFor = Throwable.class)
   @Override
   public void deleteImportLog(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
-
     AccountUserDbVO accountUserDbVO = getUser(token);
 
     ImportLogDbVO importLogDbVO = getImportLog(importLogId, accountUserDbVO);
@@ -128,13 +81,56 @@ public class ImportServiceImpl implements ImportService {
       throw new IngeApplicationException("Status must be FINISHED");
     }
 
-    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParentAndItemId(importLogDbVO);
-    if (null == importLogItemDbVOs || importLogItemDbVOs.isEmpty()) {
+    List<ImportLogItemDbVO> importedLogItemDbVOs = getImportedLogItemDbVOs(importLogDbVO);
+    if (null == importedLogItemDbVOs || importedLogItemDbVOs.isEmpty()) {
       throw new IngeApplicationException("There are no imported items to delete");
     }
 
     this.importCommonService.initializeDelete(importLogDbVO);
-    this.importAsyncService.doAsyncDelete(importLogDbVO, importLogItemDbVOs, token);
+    this.importAsyncService.doAsyncDelete(importLogDbVO, importedLogItemDbVOs, token);
+  }
+
+  @Override
+  public List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogItemId, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    ImportLogItemDbVO importLogItemDbVO = this.importLogItemRepository.findById(importLogItemId).orElse(null);
+    if (null == importLogItemDbVO) {
+      throw new IngeApplicationException("Invalid importLogItemId");
+    }
+
+    checkUserAccess(importLogItemDbVO.getParent(), accountUserDbVO);
+
+    List<ImportLogItemDetailDbVO> importLogItemDetailDbVOs = this.importLogItemDetailRepository.findByImportLogItem(importLogItemDbVO);
+
+    return importLogItemDetailDbVOs;
+  }
+
+  @Override
+  public List<ImportLogItemDbVO> getImportLogItems(Integer importLogId, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    ImportLogDbVO importLogDbVO = getImportLog(importLogId, accountUserDbVO);
+    if (null == importLogDbVO) {
+      throw new IngeApplicationException("Invalid importLogId");
+    }
+
+    checkUserAccess(importLogDbVO, accountUserDbVO);
+
+    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParent(importLogDbVO);
+
+    return importLogItemDbVOs;
+  }
+
+  @Override
+  public List<ImportLogDbVO> getImportLogs(String token) throws AuthenticationException, IngeApplicationException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findAllByUserId(accountUserDbVO.getObjectId());
+
+    return importLogDbVOs;
   }
 
   @Override
@@ -153,8 +149,8 @@ public class ImportServiceImpl implements ImportService {
       throw new IngeApplicationException("Status must be FINISHED");
     }
 
-    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParentAndItemId(importLogDbVO);
-    if (null == importLogItemDbVOs || importLogItemDbVOs.isEmpty()) {
+    List<ImportLogItemDbVO> importedLogItemDbVOs = getImportedLogItemDbVOs(importLogDbVO);
+    if (null == importedLogItemDbVOs || importedLogItemDbVOs.isEmpty()) {
       throw new IngeApplicationException("There are no imported items to submit");
     }
 
@@ -185,17 +181,11 @@ public class ImportServiceImpl implements ImportService {
     }
 
     this.importCommonService.initializeSubmit(importLogDbVO, submitModus);
-    this.importAsyncService.doAsyncSubmit(importLogDbVO, importLogItemDbVOs, submitModus, token);
+    this.importAsyncService.doAsyncSubmit(importLogDbVO, importedLogItemDbVOs, submitModus, token);
   }
 
-  ////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////
-
-  private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {
-    AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
-
-    return accountUserDbVO;
-  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private void checkUserAccess(ImportLogDbVO importLogDbVO, AccountUserDbVO accountUserDbVO) throws AuthorizationException {
     if (null != importLogDbVO && !accountUserDbVO.getObjectId().equals(importLogDbVO.getUserId())) {
@@ -204,16 +194,20 @@ public class ImportServiceImpl implements ImportService {
   }
 
   private ImportLogDbVO getImportLog(Integer importLogId, AccountUserDbVO accountUserDbVO) {
-
     ImportLogDbVO importLogDbVO = this.importLogRepository.findById(importLogId).orElse(null);
 
     return importLogDbVO;
   }
 
-  private ImportLogItemDbVO getImportLogItem(Integer importLogItemId, AccountUserDbVO accountUserDbVO) {
+  private List<ImportLogItemDbVO> getImportedLogItemDbVOs(ImportLogDbVO importLogDbVO) {
+    List<ImportLogItemDbVO> importedLogItemDbVOs = this.importLogItemRepository.findByParentAndItemId(importLogDbVO);
 
-    ImportLogItemDbVO importLogItemDbVO = this.importLogItemRepository.findById(importLogItemId).orElse(null);
+    return importedLogItemDbVOs;
+  }
 
-    return importLogItemDbVO;
+  private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {
+    AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
+
+    return accountUserDbVO;
   }
 }

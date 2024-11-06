@@ -13,19 +13,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ImportService {
 
-  List<ImportLogDbVO> getImportLogs(String token) throws AuthenticationException, IngeApplicationException;
-
-  List<ImportLogItemDbVO> getImportLogItems(Integer importLogId, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException;
-
-  List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogDetailId, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException;
-
   @Transactional(rollbackFor = Throwable.class)
   void deleteImportLog(Integer importLogId, String token) throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   void deleteImportedItems(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
+
+  List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogDetailId, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
+
+  List<ImportLogItemDbVO> getImportLogItems(Integer importLogId, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
+
+  List<ImportLogDbVO> getImportLogs(String token) throws AuthenticationException, IngeApplicationException;
 
   void submitImportedItems(Integer importLogId, ImportLog.SubmitModus submitModus, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;

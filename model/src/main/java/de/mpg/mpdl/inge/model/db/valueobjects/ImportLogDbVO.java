@@ -26,7 +26,6 @@ public class ImportLogDbVO extends ImportLog {
   {
     BIBTEX_STRING,
     BMC_XML,
-    EDOC_XML,
     ENDNOTE_STRING,
     ESCIDOC_ITEM_V3_XML,
     MARC_XML,

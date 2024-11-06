@@ -26,17 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Import")
 public class ImportController {
 
-  private final ImportService importService;
-
   private static final String ImportLog_ID_PATH = "/importLog/{importLogId}";
   private static final String ImportLogItems_ID_PATH = "/importLogItems/{importLogId}";
   private static final String ImportLogItemDetails_ID_PATH = "/importLogItemDetails/{importLogItemId}";
-
   private static final String ImportLog_VAR = "importLogId";
   private static final String ImportLogItem_VAR = "importLogItemId";
-
   private static final String IMPORT_LOG_ID = "importLogId";
   private static final String SUBMIT_MODUS = "submitModus";
+  private final ImportService importService;
 
   public ImportController(ImportService importService) {
     this.importService = importService;
@@ -64,26 +61,15 @@ public class ImportController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/submitImportedItems", method = RequestMethod.PUT)
-  public ResponseEntity<?> submitImportedItems( //
+  @RequestMapping(value = ImportLogItemDetails_ID_PATH, method = RequestMethod.GET)
+  public ResponseEntity<List<ImportLogItemDetailDbVO>> getImportLogItemDetails( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(IMPORT_LOG_ID) Integer importLogId, //
-      @RequestParam(SUBMIT_MODUS) ImportLog.SubmitModus submitModus) //
-      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+      @PathVariable(ImportLogItem_VAR) Integer importLogItemId) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
-    this.importService.submitImportedItems(importLogId, submitModus, token);
+    List<ImportLogItemDetailDbVO> importLogItemDetailDbVOs = this.importService.getImportLogItemDetails(importLogItemId, token);
 
-    return new ResponseEntity<>(HttpStatus.OK);
-  }
-
-  @RequestMapping(value = "/getImportLogs", method = RequestMethod.GET)
-  public ResponseEntity<List<ImportLogDbVO>> getImportLogs( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
-      throws AuthenticationException, IngeApplicationException {
-
-    List<ImportLogDbVO> importLogDbVOs = this.importService.getImportLogs(token);
-
-    return new ResponseEntity<>(importLogDbVOs, HttpStatus.OK);
+    return new ResponseEntity<>(importLogItemDetailDbVOs, HttpStatus.OK);
   }
 
   @RequestMapping(value = ImportLogItems_ID_PATH, method = RequestMethod.GET)
@@ -97,14 +83,25 @@ public class ImportController {
     return new ResponseEntity<>(importLogItemDbVOs, HttpStatus.OK);
   }
 
-  @RequestMapping(value = ImportLogItemDetails_ID_PATH, method = RequestMethod.GET)
-  public ResponseEntity<List<ImportLogItemDetailDbVO>> getImportLogItemDetails( //
+  @RequestMapping(value = "/getImportLogs", method = RequestMethod.GET)
+  public ResponseEntity<List<ImportLogDbVO>> getImportLogs( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
+      throws AuthenticationException, IngeApplicationException {
+
+    List<ImportLogDbVO> importLogDbVOs = this.importService.getImportLogs(token);
+
+    return new ResponseEntity<>(importLogDbVOs, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/submitImportedItems", method = RequestMethod.PUT)
+  public ResponseEntity<?> submitImportedItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @PathVariable(ImportLogItem_VAR) Integer importLogItemId) //
-      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+      @RequestParam(IMPORT_LOG_ID) Integer importLogId, //
+      @RequestParam(SUBMIT_MODUS) ImportLog.SubmitModus submitModus) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
 
-    List<ImportLogItemDetailDbVO> importLogItemDetailDbVOs = this.importService.getImportLogItemDetails(importLogItemId, token);
+    this.importService.submitImportedItems(importLogId, submitModus, token);
 
-    return new ResponseEntity<>(importLogItemDetailDbVOs, HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

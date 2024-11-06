@@ -20,8 +20,7 @@ public abstract class ImportLog {
   // - PROBLEM: some item was not imported because validation failed
   // - ERROR: some items were not imported because there were system errors during the import
   // - FATAL: the import was interrupted completely due to system errors
-  public enum ErrorLevel
-  {
+  public enum ErrorLevel {
     ERROR,
     FATAL,
     FINE,
@@ -29,30 +28,48 @@ public abstract class ImportLog {
     WARNING
   }
 
-  public enum Status
-  {
+  public enum Status {
     FINISHED,
     PENDING,
     SUSPENDED
   }
 
-  public enum SubmitModus
-  {
+  public enum SubmitModus {
     SUBMIT,
     SUBMIT_AND_RELEASE,
     RELEASE
   }
 
-  public enum Messsage
-  {
-    import_process_initialize_delete_process,
-    import_process_schedule_delete,
-    import_process_delete_item,
-    import_process_delete_successful,
-    import_process_remove_identifier,
+  public enum Messsage {
     import_process_delete_failed,
     import_process_delete_finished,
-    import_process_delete_items
+    import_process_delete_item,
+    import_process_delete_items,
+    import_process_delete_successful,
+    import_process_initialize_delete_process,
+    import_process_initialize_release_process,
+    import_process_initialize_submit_process,
+    import_process_initialize_submit_release_process,
+    import_process_relase_item,
+    import_process_release_failed,
+    import_process_release_finished,
+    import_process_release_items,
+    import_process_release_successful,
+    import_process_remove_identifier,
+    import_process_schedule_delete,
+    import_process_schedule_release,
+    import_process_schedule_submit,
+    import_process_schedule_submit_release,
+    import_process_submit_failed,
+    import_process_submit_finished,
+    import_process_submit_item,
+    import_process_submit_items,
+    import_process_submit_relase_item,
+    import_process_submit_release_failed,
+    import_process_submit_release_finished,
+    import_process_submit_release_items,
+    import_process_submit_release_successful,
+    import_process_submit_successful
   }
 
   @Id
@@ -102,8 +119,7 @@ public abstract class ImportLog {
         || ErrorLevel.FATAL == errorLevel //
         || (ErrorLevel.ERROR == errorLevel && ErrorLevel.FATAL != this.errorLevel) //
         || (ErrorLevel.PROBLEM == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel) //
-        || (ErrorLevel.WARNING == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel
-            && ErrorLevel.PROBLEM != this.errorLevel)) {
+        || (ErrorLevel.WARNING == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel && ErrorLevel.PROBLEM != this.errorLevel)) {
       this.errorLevel = errorLevel;
     }
   }

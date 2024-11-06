@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ImportAsyncService {
 
-  void doAsyncDelete(ImportLogDbVO importLogDbVO, List<ImportLogItemDbVO> importLogItemDbVOs, String token);
+  void doAsyncDelete(ImportLogDbVO importLogDbVO, List<ImportLogItemDbVO> importedLogItemDbVOs, String token);
 
-  void doAsyncSubmit(ImportLogDbVO importLogDbVO, List<ImportLogItemDbVO> importLogItemDbVOs, ImportLog.SubmitModus submitModus,
+  void doAsyncSubmit(ImportLogDbVO importLogDbVO, List<ImportLogItemDbVO> importedLogItemDbVOs, ImportLog.SubmitModus submitModus,
       String token);
 }
