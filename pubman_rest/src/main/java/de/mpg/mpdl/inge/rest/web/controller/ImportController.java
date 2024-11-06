@@ -1,8 +1,10 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ImportLog;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDetailDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -34,7 +36,7 @@ public class ImportController {
   private static final String ImportLogItem_VAR = "importLogItemId";
 
   private static final String IMPORT_LOG_ID = "importLogId";
-
+  private static final String SUBMIT_MODUS = "submitModus";
 
   public ImportController(ImportService importService) {
     this.importService = importService;
@@ -58,6 +60,18 @@ public class ImportController {
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     this.importService.deleteImportedItems(importLogId, token);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/submitImportedItems", method = RequestMethod.PUT)
+  public ResponseEntity<?> submitImportedItems( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestParam(IMPORT_LOG_ID) Integer importLogId, //
+      @RequestParam(SUBMIT_MODUS) ImportLog.SubmitModus submitModus) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+
+    this.importService.submitImportedItems(importLogId, submitModus, token);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }

@@ -40,7 +40,8 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   public void initializeDelete(ImportLogDbVO importLogDbVO) {
     reopenImportLog(importLogDbVO);
     updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_ZERO);
-    ImportLogItemDbVO importLogItemDbVO = createImportLogItem(importLogDbVO, ImportLog.Messsage.import_process_delete_items.name());
+    ImportLogItemDbVO importLogItemDbVO =
+        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_delete_items.name());
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
         ImportLog.Messsage.import_process_initialize_delete_process.name());
     finishImportLogItem(importLogItemDbVO);
@@ -49,7 +50,13 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void setSuspensionForDelete(ImportLogItemDbVO importLogItemDbVO) {
+  public void initializeSubmit(ImportLogDbVO importLogDbVO, ImportLog.SubmitModus submitModus) {
+    // TODO
+  }
+
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public void setSuspensionForDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO) {
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_schedule_delete.name());
     suspendImportLogItem(importLogItemDbVO);
   }
@@ -70,13 +77,15 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   public void doFailDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String message) {
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, ImportLog.Messsage.import_process_delete_failed.name());
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, message);
+    importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed with another errorlevel
     finishImportLogItem(importLogItemDbVO);
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void finishDelete(ImportLogDbVO importLogDbVO) {
-    ImportLogItemDbVO importLogItemDbVO = createImportLogItem(importLogDbVO, ImportLog.Messsage.import_process_delete_finished.name());
+    ImportLogItemDbVO importLogItemDbVO =
+        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_delete_finished.name());
     finishImportLogItem(importLogItemDbVO);
     finishImportLog(importLogDbVO);
     updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_COMPLETED);
@@ -93,17 +102,15 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   }
 
   @Override
-  public ImportLogDbVO updateImportLog(ImportLogDbVO importLogDbVO, Integer percentage) {
+  public void updateImportLog(ImportLogDbVO importLogDbVO, Integer percentage) {
     importLogDbVO.setPercentage(percentage);
 
     importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
-
-    return importLogDbVO;
   }
 
-  private ImportLogItemDbVO createImportLogItem(ImportLogDbVO importLogDbVO, String message) {
+  private ImportLogItemDbVO createImportLogItem(ImportLogDbVO importLogDbVO, ImportLog.ErrorLevel errorLevel, String message) {
 
-    ImportLogItemDbVO importLogItemDbVO = new ImportLogItemDbVO(importLogDbVO, message);
+    ImportLogItemDbVO importLogItemDbVO = new ImportLogItemDbVO(importLogDbVO, errorLevel, message);
 
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
 
@@ -121,47 +128,37 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     return importLogItemDetailDbVO;
   }
 
-  private ImportLogDbVO finishImportLog(ImportLogDbVO importLogDbVO) {
+  private void finishImportLog(ImportLogDbVO importLogDbVO) {
     importLogDbVO.setEndDate(new Date());
     importLogDbVO.setStatus(ImportLog.Status.FINISHED);
 
     importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
-
-    return importLogDbVO;
   }
 
-  private ImportLogDbVO reopenImportLog(ImportLogDbVO importLogDbVO) {
+  private void reopenImportLog(ImportLogDbVO importLogDbVO) {
     importLogDbVO.setEndDate(null);
     importLogDbVO.setStatus(ImportLog.Status.PENDING);
 
     importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
-
-    return importLogDbVO;
   }
 
-  private ImportLogItemDbVO finishImportLogItem(ImportLogItemDbVO importLogItemDbVO) {
+  private void finishImportLogItem(ImportLogItemDbVO importLogItemDbVO) {
     importLogItemDbVO.setEndDate(new Date());
     importLogItemDbVO.setStatus(ImportLog.Status.FINISHED);
 
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
-
-    return importLogItemDbVO;
   }
 
-  private ImportLogItemDbVO suspendImportLogItem(ImportLogItemDbVO importLogItemDbVO) {
+  private void suspendImportLogItem(ImportLogItemDbVO importLogItemDbVO) {
     importLogItemDbVO.setEndDate(new Date());
     importLogItemDbVO.setStatus(ImportLog.Status.SUSPENDED);
 
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
-
-    return importLogItemDbVO;
   }
 
-  private ImportLogItemDbVO resetItemId(ImportLogItemDbVO importLogItemDbVO) {
+  private void resetItemId(ImportLogItemDbVO importLogItemDbVO) {
     importLogItemDbVO.setItemId(null);
 
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
-
-    return importLogItemDbVO;
   }
 }

@@ -16,7 +16,7 @@ public interface ImportCommonService {
   void initializeDelete(ImportLogDbVO importLogDbVO);
 
   @Transactional(rollbackFor = Throwable.class)
-  void setSuspensionForDelete(ImportLogItemDbVO importLogItemDbVO);
+  void setSuspensionForDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO);
 
   @Transactional(rollbackFor = Throwable.class)
   void doDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String token)
@@ -30,7 +30,10 @@ public interface ImportCommonService {
 
   ImportLogDbVO createImportLog(String userId, ImportLogDbVO.Format format);
 
-  ImportLogDbVO updateImportLog(ImportLogDbVO importLogDbVO, Integer percentage);
+  void updateImportLog(ImportLogDbVO importLogDbVO, Integer percentage);
 
   ImportLogItemDetailDbVO createImportLogItemDetail(ImportLogItemDbVO importLogItemDbVO, ImportLog.ErrorLevel errorLevel, String message);
+
+  @Transactional(rollbackFor = Throwable.class)
+  void initializeSubmit(ImportLogDbVO importLogDbVO, ImportLog.SubmitModus submitModus);
 }

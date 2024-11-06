@@ -36,6 +36,13 @@ public abstract class ImportLog {
     SUSPENDED
   }
 
+  public enum SubmitModus
+  {
+    SUBMIT,
+    SUBMIT_AND_RELEASE,
+    RELEASE
+  }
+
   public enum Messsage
   {
     import_process_initialize_delete_process,
@@ -66,9 +73,8 @@ public abstract class ImportLog {
   private Date startDate;
 
   public ImportLog() {
-    this.setStartDate(new Date());
-    this.setStatus(ImportLog.Status.PENDING);
-    this.setErrorLevel(ImportLog.ErrorLevel.FINE);
+    this.startDate = new Date();
+    this.status = ImportLog.Status.PENDING;
   }
 
   public Integer getId() {

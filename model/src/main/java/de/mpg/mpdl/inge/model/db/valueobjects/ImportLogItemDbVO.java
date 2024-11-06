@@ -34,17 +34,16 @@ public class ImportLogItemDbVO extends ImportLog {
     super();
   }
 
-  public ImportLogItemDbVO(ImportLogDbVO importLogDbVO, String message) {
+  public ImportLogItemDbVO(ImportLogDbVO importLogDbVO, ImportLog.ErrorLevel errorLevel, String message) {
     super();
+    this.setErrorLevel(importLogDbVO, errorLevel);
     this.message = message;
-    this.parent = importLogDbVO;
   }
 
-  public void setErrorLevel(ImportLog.ErrorLevel errorLevel) {
+  public void setErrorLevel(ImportLogDbVO importLogDbVO, ImportLog.ErrorLevel errorLevel) {
     super.setErrorLevel(errorLevel);
-    if (null != this.parent) {
-      this.parent.setErrorLevel(errorLevel);
-    }
+    importLogDbVO.setErrorLevel(errorLevel);
+    this.parent = importLogDbVO;
   }
 
   public Date getEndDate() {
