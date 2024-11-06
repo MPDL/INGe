@@ -128,9 +128,9 @@ public class DataFetchController {
     return accountUserDbVO;
   }
 
-  private ContextDbVO getContext(String context, AccountUserDbVO accountUserDbVO, String token)
+  private ContextDbVO getContext(String contextId, AccountUserDbVO accountUserDbVO, String token)
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
-    ContextDbVO contextDbVO = this.contextService.get(context, token);
+    ContextDbVO contextDbVO = this.contextService.get(contextId, token);
 
     if (null == contextDbVO) {
       throw new IngeApplicationException("given context not found");
