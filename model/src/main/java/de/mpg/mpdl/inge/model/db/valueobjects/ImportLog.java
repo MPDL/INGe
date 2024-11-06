@@ -20,7 +20,8 @@ public abstract class ImportLog {
   // - PROBLEM: some item was not imported because validation failed
   // - ERROR: some items were not imported because there were system errors during the import
   // - FATAL: the import was interrupted completely due to system errors
-  public enum ErrorLevel {
+  public enum ErrorLevel
+  {
     ERROR,
     FATAL,
     FINE,
@@ -28,19 +29,22 @@ public abstract class ImportLog {
     WARNING
   }
 
-  public enum Status {
+  public enum Status
+  {
     FINISHED,
     PENDING,
     SUSPENDED
   }
 
-  public enum SubmitModus {
+  public enum SubmitModus
+  {
     SUBMIT,
     SUBMIT_AND_RELEASE,
     RELEASE
   }
 
-  public enum Messsage {
+  public enum Messsage
+  {
     import_process_delete_failed,
     import_process_delete_finished,
     import_process_delete_item,
@@ -119,7 +123,8 @@ public abstract class ImportLog {
         || ErrorLevel.FATAL == errorLevel //
         || (ErrorLevel.ERROR == errorLevel && ErrorLevel.FATAL != this.errorLevel) //
         || (ErrorLevel.PROBLEM == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel) //
-        || (ErrorLevel.WARNING == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel && ErrorLevel.PROBLEM != this.errorLevel)) {
+        || (ErrorLevel.WARNING == errorLevel && ErrorLevel.FATAL != this.errorLevel && ErrorLevel.ERROR != this.errorLevel
+            && ErrorLevel.PROBLEM != this.errorLevel)) {
       this.errorLevel = errorLevel;
     }
   }
