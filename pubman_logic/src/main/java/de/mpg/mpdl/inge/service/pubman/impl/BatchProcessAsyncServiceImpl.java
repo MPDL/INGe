@@ -57,6 +57,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
   }
 
   @SuppressWarnings("incomplete-switch")
+  @Override
   @Async
   public void doAsync(BatchProcessLogHeaderDbVO.Method method, BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO,
       AccountUserDbVO accountUserDbVO, List<String> itemIds, String token, BatchProcessOperations batchOperations) {
@@ -221,6 +222,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
   }
 
   @SuppressWarnings("incomplete-switch")
+  @Override
   @Async
   public void doPubItemsAsync(BatchProcessLogHeaderDbVO.Method method, BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO,
       AccountUserDbVO accountUserDbVO, List<String> itemIds, String token) {
