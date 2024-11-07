@@ -17,14 +17,14 @@ public interface ImportCommonService {
   ImportLogItemDetailDbVO createImportLogItemDetail(ImportLogItemDbVO importLogItemDbVO, ImportLog.ErrorLevel errorLevel, String message);
 
   @Transactional(rollbackFor = Throwable.class)
-  void doDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String token)
+  void doDelete(ImportLogItemDbVO importLogItemDbVO, String token)
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException;
 
   @Transactional(rollbackFor = Throwable.class)
-  void doFailDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String message);
+  void doFailDelete(ImportLogItemDbVO importLogItemDbVO, String message);
 
   @Transactional(rollbackFor = Throwable.class)
-  void doFailSubmit(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus, String message);
+  void doFailSubmit(ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus, String message);
 
   @Transactional(rollbackFor = Throwable.class)
   void doSubmit(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus, String token)

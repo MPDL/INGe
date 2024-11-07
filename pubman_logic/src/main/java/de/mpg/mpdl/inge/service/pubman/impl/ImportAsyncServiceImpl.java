@@ -6,6 +6,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDbVO;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportAsyncService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
+import java.io.StringWriter;
 import java.util.List;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Async;
@@ -40,9 +41,10 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
           ImportLog.Messsage.import_process_delete_item.name());
 
       try {
-        this.importCommonService.doDelete(importLogDbVO, importLogItemDbVO, token);
+        this.importCommonService.doDelete(importLogItemDbVO, token);
       } catch (Exception e) {
-        this.importCommonService.doFailDelete(importLogDbVO, importLogItemDbVO, e.toString());
+        this.importCommonService.doFailDelete(importLogItemDbVO, getExceptionMessage(e));
+        importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
       }
 
       counter++;
@@ -59,7 +61,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       String token) {
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
       importLogItemDbVO = this.importLogItemRepository.findById(importLogItemDbVO.getId()).get(); // in the meanwhile the parents have been changed
-      this.importCommonService.setSuspensionForDelete(importLogDbVO, importLogItemDbVO);
+      this.importCommonService.setSuspensionForSubmit(importLogDbVO, importLogItemDbVO, submitModus);
     }
 
     this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_SUBMIT_SUSPEND);
@@ -86,7 +88,8 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       try {
         this.importCommonService.doSubmit(importLogDbVO, importLogItemDbVO, submitModus, token);
       } catch (Exception e) {
-        this.importCommonService.doFailSubmit(importLogDbVO, importLogItemDbVO, submitModus, e.toString());
+        this.importCommonService.doFailSubmit(importLogItemDbVO, submitModus, getExceptionMessage(e));
+        importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
       }
 
       counter++;
@@ -96,4 +99,36 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
     this.importCommonService.finishSubmit(importLogDbVO, submitModus);
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  private String getExceptionMessage(Throwable exception) {
+    StringWriter stringWriter = new StringWriter();
+    stringWriter.write(exception.getClass().getSimpleName());
+
+    if (null != exception.getMessage()) {
+      stringWriter.write(": ");
+      stringWriter.write(exception.getMessage());
+    }
+    stringWriter.write("\n");
+
+    StackTraceElement[] stackTraceElements = exception.getStackTrace();
+    stringWriter.write("\tat ");
+    stringWriter.write(stackTraceElements[0].getClassName());
+    stringWriter.write(".");
+    stringWriter.write(stackTraceElements[0].getMethodName());
+    stringWriter.write("(");
+    stringWriter.write(stackTraceElements[0].getFileName());
+    stringWriter.write(":");
+    stringWriter.write(stackTraceElements[0].getLineNumber() + "");
+    stringWriter.write(")\n");
+
+    if (null != exception.getCause()) {
+      stringWriter.write(this.getExceptionMessage(exception.getCause()));
+    }
+
+    return stringWriter.toString();
+  }
+
 }

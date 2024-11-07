@@ -51,13 +51,15 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     ImportLogItemDetailDbVO importLogItemDetailDbVO = new ImportLogItemDetailDbVO(importLogItemDbVO, errorLevel, message);
 
     importLogItemDetailDbVO = this.importLogItemDetailRepository.saveAndFlush(importLogItemDetailDbVO);
+    importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
+    this.importLogRepository.saveAndFlush(importLogItemDbVO.getParent());
 
     return importLogItemDetailDbVO;
   }
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public void doDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String token)
+  public void doDelete(ImportLogItemDbVO importLogItemDbVO, String token)
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
     this.pubItemService.delete(importLogItemDbVO.getItemId(), token);
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_delete_successful.name());
@@ -68,33 +70,30 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public void doFailDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String message) {
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, ImportLog.Messsage.import_process_delete_failed.name());
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, message);
-    importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed with another errorlevel
+  public void doFailDelete(ImportLogItemDbVO importLogItemDbVO, String message) {
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Messsage.import_process_delete_failed.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
     finishImportLogItem(importLogItemDbVO);
   }
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public void doFailSubmit(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus,
-      String message) {
+  public void doFailSubmit(ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus, String message) {
     switch (submitModus) {
       case SUBMIT:
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, ImportLog.Messsage.import_process_submit_failed.name());
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, message);
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Messsage.import_process_submit_failed.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
         break;
       case SUBMIT_AND_RELEASE:
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING,
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR,
             ImportLog.Messsage.import_process_submit_release_failed.name());
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, message);
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
         break;
       case RELEASE:
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, ImportLog.Messsage.import_process_release_failed.name());
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, message);
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Messsage.import_process_release_failed.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
         break;
     }
-    importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed with another errorlevel
 
     finishImportLogItem(importLogItemDbVO);
   }
@@ -254,6 +253,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     ImportLogItemDbVO importLogItemDbVO = new ImportLogItemDbVO(importLogDbVO, errorLevel, message);
 
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
+    importLogDbVO = this.importLogRepository.saveAndFlush(importLogItemDbVO.getParent());
 
     return importLogItemDbVO;
   }

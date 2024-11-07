@@ -26,6 +26,7 @@ public class ImportLogDbVO extends ImportLog {
   {
     BIBTEX_STRING,
     BMC_XML,
+    EDOC_XML, // TODO: remove??? was ist mit alten Datensätzen?
     ENDNOTE_STRING,
     ESCIDOC_ITEM_V3_XML,
     MARC_XML,
