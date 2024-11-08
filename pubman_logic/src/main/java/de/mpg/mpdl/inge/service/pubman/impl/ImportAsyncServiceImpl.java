@@ -26,9 +26,9 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
   @Override
   @Async
-  public void doAsyncDelete(ImportLogDbVO importLogDbVO, List<ImportLogItemDbVO> importedLogItemDbVOs, String token) {
+  public void doAsyncDelete(ImportLogDbVO importLogDbVO, String token) {
+    List<ImportLogItemDbVO> importedLogItemDbVOs = this.importCommonService.getImportedLogItems(importLogDbVO);
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
-      importLogItemDbVO = this.importLogItemRepository.findById(importLogItemDbVO.getId()).get(); // in the meanwhile the parents have been changed
       this.importCommonService.setSuspensionForDelete(importLogDbVO, importLogItemDbVO);
     }
 
@@ -36,7 +36,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
     int counter = 0;
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
-      importLogItemDbVO = this.importLogItemRepository.findById(importLogItemDbVO.getId()).get(); // in the meanwhile the parents have been changed
+      importLogItemDbVO = this.importCommonService.getImportLogItem(importLogItemDbVO.getId()); // in the meanwhile the parent has been changed
       this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
           ImportLog.Messsage.import_process_delete_item.name());
 
@@ -57,10 +57,9 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
   @Override
   @Async
-  public void doAsyncSubmit(ImportLogDbVO importLogDbVO, List<ImportLogItemDbVO> importedLogItemDbVOs, ImportLog.SubmitModus submitModus,
-      String token) {
+  public void doAsyncSubmit(ImportLogDbVO importLogDbVO, ImportLog.SubmitModus submitModus, String token) {
+    List<ImportLogItemDbVO> importedLogItemDbVOs = this.importCommonService.getImportedLogItems(importLogDbVO);
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
-      importLogItemDbVO = this.importLogItemRepository.findById(importLogItemDbVO.getId()).get(); // in the meanwhile the parents have been changed
       this.importCommonService.setSuspensionForSubmit(importLogDbVO, importLogItemDbVO, submitModus);
     }
 
@@ -68,8 +67,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
     int counter = 0;
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
-      importLogItemDbVO = this.importLogItemRepository.findById(importLogItemDbVO.getId()).get(); // in the meanwhile the parents have been changed
-
+      importLogItemDbVO = this.importCommonService.getImportLogItem(importLogItemDbVO.getId()); // in the meanwhile the parent has been changed
       switch (submitModus) {
         case SUBMIT:
           this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
@@ -130,5 +128,4 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
     return stringWriter.toString();
   }
-
 }

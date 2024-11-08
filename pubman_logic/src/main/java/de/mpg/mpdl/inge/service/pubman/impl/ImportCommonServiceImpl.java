@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import de.mpg.mpdl.inge.db.repository.ImportLogItemDetailRepository;
 import de.mpg.mpdl.inge.db.repository.ImportLogItemRepository;
 import de.mpg.mpdl.inge.db.repository.ImportLogRepository;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLog;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDbVO;
@@ -15,6 +16,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
 import java.util.Date;
+import java.util.List;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,24 +39,32 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   }
 
   @Override
-  public ImportLogDbVO createImportLog(String userId, ImportLogDbVO.Format format) {
-    ImportLogDbVO importLogDbVO = new ImportLogDbVO(userId, format);
+  public int countImportedLogItems(ImportLogDbVO importLogDbVO) {
+    int anz = this.importLogItemRepository.countByParentAndItemId(importLogDbVO);
 
-    importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
-
-    return importLogDbVO;
+    return anz;
   }
 
   @Override
   public ImportLogItemDetailDbVO createImportLogItemDetail(ImportLogItemDbVO importLogItemDbVO, ImportLog.ErrorLevel errorLevel,
       String message) {
-    ImportLogItemDetailDbVO importLogItemDetailDbVO = new ImportLogItemDetailDbVO(importLogItemDbVO, errorLevel, message);
+    ImportLogDbVO importLogDbVO = importLogItemDbVO.getParent();
+    importLogDbVO.setErrorLevel(errorLevel);
+    importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
 
-    importLogItemDetailDbVO = this.importLogItemDetailRepository.saveAndFlush(importLogItemDetailDbVO);
+    importLogItemDbVO.setParent(importLogDbVO);
+    importLogItemDbVO.setErrorLevel(errorLevel);
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
-    this.importLogRepository.saveAndFlush(importLogItemDbVO.getParent());
+
+    ImportLogItemDetailDbVO importLogItemDetailDbVO = new ImportLogItemDetailDbVO(importLogItemDbVO, errorLevel, message);
+    importLogItemDetailDbVO = this.importLogItemDetailRepository.saveAndFlush(importLogItemDetailDbVO);
 
     return importLogItemDetailDbVO;
+  }
+
+  @Override
+  public void deleteImportLog(ImportLogDbVO importLogDbVO) {
+    this.importLogRepository.delete(importLogDbVO);
   }
 
   @Transactional(rollbackFor = Throwable.class)
@@ -131,6 +141,13 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   }
 
   @Override
+  public ImportLogItemDbVO getImportLogItem(Integer importLogItemId) {
+    ImportLogItemDbVO importLogItemDbVO = this.importLogItemRepository.findById(importLogItemId).orElse(null);
+
+    return importLogItemDbVO;
+  }
+
+  @Override
   @Transactional(rollbackFor = Throwable.class)
   public void finishDelete(ImportLogDbVO importLogDbVO) {
     ImportLogItemDbVO importLogItemDbVO =
@@ -164,6 +181,41 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     finishImportLogItem(importLogItemDbVO);
     finishImportLog(importLogDbVO);
     updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_COMPLETED);
+  }
+
+  @Override
+  public ImportLogDbVO getImportLog(Integer importLogId, AccountUserDbVO accountUserDbVO) {
+    ImportLogDbVO importLogDbVO = this.importLogRepository.findById(importLogId).orElse(null);
+
+    return importLogDbVO;
+  }
+
+  @Override
+  public List<ImportLogItemDetailDbVO> getImportLogItemDetails(ImportLogItemDbVO importLogItemDbVO) {
+    List<ImportLogItemDetailDbVO> importLogItemDetailDbVOs = this.importLogItemDetailRepository.findByImportLogItem(importLogItemDbVO);
+
+    return importLogItemDetailDbVOs;
+  }
+
+  @Override
+  public List<ImportLogItemDbVO> getImportLogItems(ImportLogDbVO importLogDbVO) {
+    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParent(importLogDbVO);
+
+    return importLogItemDbVOs;
+  }
+
+  @Override
+  public List<ImportLogItemDbVO> getImportedLogItems(ImportLogDbVO importLogDbVO) {
+    List<ImportLogItemDbVO> importedLogItemDbVOs = this.importLogItemRepository.findByParentAndItemId(importLogDbVO);
+
+    return importedLogItemDbVOs;
+  }
+
+  @Override
+  public List<ImportLogDbVO> getUserImportLogs(String userId) {
+    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findAllByUserId(userId);
+
+    return importLogDbVOs;
   }
 
   @Override
@@ -250,10 +302,11 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private ImportLogItemDbVO createImportLogItem(ImportLogDbVO importLogDbVO, ImportLog.ErrorLevel errorLevel, String message) {
-    ImportLogItemDbVO importLogItemDbVO = new ImportLogItemDbVO(importLogDbVO, errorLevel, message);
+    importLogDbVO.setErrorLevel(errorLevel);
+    importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
 
+    ImportLogItemDbVO importLogItemDbVO = new ImportLogItemDbVO(importLogDbVO, errorLevel, message);
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
-    importLogDbVO = this.importLogRepository.saveAndFlush(importLogItemDbVO.getParent());
 
     return importLogItemDbVO;
   }

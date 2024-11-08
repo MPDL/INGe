@@ -35,14 +35,8 @@ public class ImportLogItemDbVO extends ImportLog {
   }
 
   public ImportLogItemDbVO(ImportLogDbVO importLogDbVO, ImportLog.ErrorLevel errorLevel, String message) {
-    super();
-    this.setErrorLevel(importLogDbVO, errorLevel);
+    this.setErrorLevel(errorLevel);
     this.message = message;
-  }
-
-  public void setErrorLevel(ImportLogDbVO importLogDbVO, ImportLog.ErrorLevel errorLevel) {
-    super.setErrorLevel(errorLevel);
-    importLogDbVO.setErrorLevel(errorLevel);
     this.parent = importLogDbVO;
   }
 
@@ -56,6 +50,10 @@ public class ImportLogItemDbVO extends ImportLog {
 
   public ImportLogDbVO getParent() {
     return this.parent;
+  }
+
+  public void setParent(ImportLogDbVO importLogDbVO) {
+    this.parent = importLogDbVO;
   }
 
   public String getMessage() {

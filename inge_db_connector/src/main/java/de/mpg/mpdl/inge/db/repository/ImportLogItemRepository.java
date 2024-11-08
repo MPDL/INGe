@@ -13,4 +13,6 @@ public interface ImportLogItemRepository extends JpaRepository<ImportLogItemDbVO
   @Query("select i from ImportLogItemDbVO i where i.parent = ?1 and i.itemId is not null")
   List<ImportLogItemDbVO> findByParentAndItemId(ImportLogDbVO importLogDbVO);
 
+  @Query("select count(*) from ImportLogItemDbVO i where i.parent = ?1 and i.itemId is not null")
+  int countByParentAndItemId(ImportLogDbVO importLogDbVO);
 }
