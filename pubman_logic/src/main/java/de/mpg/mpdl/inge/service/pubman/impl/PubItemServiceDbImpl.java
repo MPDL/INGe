@@ -2,11 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1030,6 +1026,36 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       throw new IngeTechnicalException("", e);
     }
     return true;
+  }
+
+  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException {
+    Principal principal = null;
+    ItemVersionVO item = null;
+    if (authenticationToken != null) {
+      try {
+        principal = this.aaService.checkLoginRequired(authenticationToken);
+        item = get(itemId, authenticationToken);
+        //item not found, return null
+        if (item == null) {
+          return null;
+        }
+
+      } catch (AuthenticationException | AuthorizationException e) {
+
+      }
+    }
+    Map<AuthorizationService.AccessType, Boolean> authMap = new LinkedHashMap<>();
+
+    for (AuthorizationService.AccessType at : AuthorizationService.AccessType.values()) {
+      boolean isAuthorized = false;
+      if (principal != null && item != null) {
+        isAuthorized = checkAccess(at, principal, item);
+      }
+      authMap.put(at, isAuthorized);
+
+    }
+    return authMap;
   }
 
 

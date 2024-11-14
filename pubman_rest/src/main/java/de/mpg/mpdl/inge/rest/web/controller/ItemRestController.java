@@ -5,10 +5,13 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tika.exception.TikaException;
+import org.docx4j.org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -363,6 +366,18 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     this.pis.delete(itemId, token);
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = ITEM_ID_PATH + "/authorization", method = RequestMethod.GET)
+  public ResponseEntity<Map<AuthorizationService.AccessType, Boolean>> authInfo(
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, @PathVariable(value = ITEM_ID_VAR) String itemId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
+    Map<AuthorizationService.AccessType, Boolean> map = this.pis.getAuthorizationInfo(itemId, token);
+    if (map == null)
+      throw new NotFoundException();
+
+    return new ResponseEntity<>(map, HttpStatus.OK);
   }
 
 }
