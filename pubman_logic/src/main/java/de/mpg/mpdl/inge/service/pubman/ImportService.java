@@ -27,6 +27,9 @@ public interface ImportService {
 
   List<ImportLogDbVO> getImportLogs(String token) throws AuthenticationException, IngeApplicationException;
 
+  List<ImportLogDbVO> getImportLogsForModerator(String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
+
   void submitImportedItems(Integer importLogId, ImportLog.SubmitModus submitModus, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
 }

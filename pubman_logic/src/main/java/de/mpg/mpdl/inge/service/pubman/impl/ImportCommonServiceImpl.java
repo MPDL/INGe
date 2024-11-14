@@ -219,6 +219,13 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   }
 
   @Override
+  public List<ImportLogDbVO> getContextImportLogs(String contextId) {
+    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findAllByContextId(contextId);
+
+    return importLogDbVOs;
+  }
+
+  @Override
   @Transactional(rollbackFor = Throwable.class)
   public void initializeDelete(ImportLogDbVO importLogDbVO) {
     reopenImportLog(importLogDbVO);

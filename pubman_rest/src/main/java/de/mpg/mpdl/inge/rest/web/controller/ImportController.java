@@ -93,6 +93,16 @@ public class ImportController {
     return new ResponseEntity<>(importLogDbVOs, HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/getImportLogsForModerator", method = RequestMethod.GET)
+  public ResponseEntity<List<ImportLogDbVO>> getImportLogsForModerator( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+
+    List<ImportLogDbVO> importLogDbVOs = this.importService.getImportLogsForModerator(token);
+
+    return new ResponseEntity<>(importLogDbVOs, HttpStatus.OK);
+  }
+
   @RequestMapping(value = "/submitImportedItems", method = RequestMethod.PUT)
   public ResponseEntity<?> submitImportedItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //

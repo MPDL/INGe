@@ -17,6 +17,7 @@ import de.mpg.mpdl.inge.service.pubman.ImportService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportAsyncService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -124,6 +125,31 @@ public class ImportServiceImpl implements ImportService {
   }
 
   @Override
+  public List<ImportLogDbVO> getImportLogsForModerator(String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    List<String> moderatorContexts = new ArrayList();
+    List<GrantVO> grantVOs = accountUserDbVO.getGrantList();
+    for (GrantVO grantVO : grantVOs) {
+      if (grantVO.getRole().equals(GrantVO.PredefinedRoles.MODERATOR.frameworkValue())) {
+        String contextId = grantVO.getObjectRef();
+        ContextDbVO contextDbVO = this.contextService.get(contextId, token);
+        if (contextDbVO.getState().equals(ContextDbVO.State.OPENED)) {
+          moderatorContexts.add(contextId);
+        }
+      }
+    }
+
+    List<ImportLogDbVO> importLogDbVOs = new ArrayList();
+    for (String moderatorContext : moderatorContexts) {
+      importLogDbVOs.addAll(this.importCommonService.getContextImportLogs(moderatorContext));
+    }
+
+    return importLogDbVOs;
+  }
+
+  @Override
   public void submitImportedItems(Integer importLogId, ImportLog.SubmitModus submitModus, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
     AccountUserDbVO accountUserDbVO = getUser(token);
@@ -145,6 +171,10 @@ public class ImportServiceImpl implements ImportService {
     }
 
     ContextDbVO contextDbVO = this.contextService.get(importLogDbVO.getContextId(), token);
+    if (!contextDbVO.getState().equals(ContextDbVO.State.OPENED)) {
+      throw new IngeApplicationException("Import context is not opened");
+    }
+
     switch (submitModus) {
       case SUBMIT:
         if (!ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow()) //

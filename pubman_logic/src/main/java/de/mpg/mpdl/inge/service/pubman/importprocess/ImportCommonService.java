@@ -52,6 +52,8 @@ public interface ImportCommonService {
 
   List<ImportLogDbVO> getUserImportLogs(String userId);
 
+  List<ImportLogDbVO> getContextImportLogs(String contextId);
+
   @Transactional(rollbackFor = Throwable.class)
   void initializeDelete(ImportLogDbVO importLogDbVO);
 

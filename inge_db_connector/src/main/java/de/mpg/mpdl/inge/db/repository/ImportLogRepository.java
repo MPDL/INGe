@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ImportLogRepository extends JpaRepository<ImportLogDbVO, Integer> {
 
+  @Query("select i from ImportLogDbVO i where i.contextId = ?1")
+  List<ImportLogDbVO> findAllByContextId(String contextId);
+
   @Query("select i from ImportLogDbVO i where i.userId = ?1")
   List<ImportLogDbVO> findAllByUserId(String userId);
 }
