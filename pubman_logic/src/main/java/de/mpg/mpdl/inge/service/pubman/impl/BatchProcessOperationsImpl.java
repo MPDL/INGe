@@ -607,6 +607,11 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
           BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_NOT_FOUND);
 
       return null;
+    } else if (!contextDbVO.getState().equals(ContextDbVO.State.OPENED)) {
+      this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+          BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_NOT_OPEN);
+
+      return null;
     }
 
     List<GrantVO> grantVOs = accountUserDbVO.getGrantList();
