@@ -1348,7 +1348,7 @@
 				<inge.systemtype>production</inge.systemtype>
 			</properties>
 		</profile>
-		
+
         <!-- activate this profile for an Rifs build -->
         <profile>
             <id>env-rifs</id>
@@ -1404,14 +1404,8 @@
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>
-            <distributionManagement>
-                <site>
-                    <id>website</id>
-                    <url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
-                </site>
-            </distributionManagement>
         </profile>
-        
+
         <!-- activate this profile for an Pik build -->
         <profile>
             <id>env-pik</id>
@@ -1467,12 +1461,6 @@
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>
-            <distributionManagement>
-                <site>
-                    <id>website</id>
-                    <url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
-                </site>
-            </distributionManagement>
         </profile>
 
 		<!-- profile for the daily build on continuum -->
