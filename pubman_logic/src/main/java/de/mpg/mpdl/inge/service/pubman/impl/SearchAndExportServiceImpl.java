@@ -3,16 +3,13 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.valueobjects.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -35,30 +32,43 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
 
 
   @Override
-  public SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token) throws IngeTechnicalException {
-    byte[] result;
-    String fileName;
-    String targetMimeType;
-    int totalNumberOfRecords = saerrVO.getSearchRetrieveReponseVO().getNumberOfRecords();
+  public SearchAndExportResultVO exportItems(ExportFormatVO exportFormat, List<ItemVersionVO> itemList, String token)
+      throws IngeTechnicalException {
 
-    result = this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), saerrVO.getSearchRetrieveReponseVO());
-    TransformerFactory.FORMAT format = TransformerFactory.getFormat(saerrVO.getExportFormat().getFormat());
-
-    fileName = saerrVO.getExportFormat().getFormat() + "." + format.getFileFormat().getExtension();
-    targetMimeType = format.getFileFormat().getMimeType();
-
-
-    return new SearchAndExportResultVO(result, fileName, targetMimeType, totalNumberOfRecords);
+    byte[] result = this.itemTransformingService.getOutputForExport(exportFormat, itemList);
+    return getSearchAndExportResult(result, exportFormat, null, itemList);
   }
 
   @Override
   public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
-    saerrVO.setSearchRetrieveReponseVO(srrVO);
 
-    return exportItems(saerrVO, token);
+    SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
+    //saerrVO.setSearchRetrieveReponseVO(srrVO);
+
+    byte[] result = this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), srrVO);
+
+    return getSearchAndExportResult(result, saerrVO.getExportFormat(), srrVO, null);
   }
+
+  private SearchAndExportResultVO getSearchAndExportResult(byte[] result, ExportFormatVO exportFormat, SearchRetrieveResponseVO srrVO,
+      List<ItemVersionVO> itemList) {
+    String fileName;
+    String targetMimeType;
+    int totalNumberOfRecords = srrVO != null ? srrVO.getNumberOfRecords() : itemList.size();
+
+    TransformerFactory.FORMAT format = TransformerFactory.getFormat(exportFormat.getFormat());
+
+    fileName = exportFormat.getFormat() + "." + format.getFileFormat().getExtension();
+    targetMimeType = format.getFileFormat().getMimeType();
+
+    SearchAndExportResultVO saervo = new SearchAndExportResultVO(result, fileName, targetMimeType, totalNumberOfRecords);
+    saervo.setSearchRetrieveResponseVO(srrVO);
+
+    return saervo;
+  }
+
+
 
   private List<ItemVersionVO> getSearchResult(SearchRetrieveResponseVO<ItemVersionVO> srrVO) {
     List<ItemVersionVO> searchResult = new ArrayList<>();

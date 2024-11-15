@@ -7,7 +7,7 @@ public class SearchAndExportRetrieveRequestVO extends ValueObject {
 
 
   private SearchRetrieveRequestVO searchRetrieveRequestVO;
-  private SearchRetrieveResponseVO<ItemVersionVO> searchRetrieveReponseVO;
+  //private SearchRetrieveResponseVO<ItemVersionVO> searchRetrieveReponseVO;
   private ExportFormatVO exportFormat;
 
   public SearchAndExportRetrieveRequestVO(SearchRetrieveRequestVO searchRetrieveRequestVO, ExportFormatVO exportFormat) {
@@ -15,23 +15,29 @@ public class SearchAndExportRetrieveRequestVO extends ValueObject {
     this.searchRetrieveRequestVO = searchRetrieveRequestVO;
   }
 
+  /*
   public SearchAndExportRetrieveRequestVO(SearchRetrieveResponseVO<ItemVersionVO> searchRetrieveResponseVO, ExportFormatVO exportFormat) {
     this.exportFormat = exportFormat;
     this.searchRetrieveReponseVO = searchRetrieveResponseVO;
   }
+  
+   */
 
 
   public SearchRetrieveRequestVO getSearchRetrieveRequestVO() {
     return this.searchRetrieveRequestVO;
   }
 
+  /*
   public SearchRetrieveResponseVO<ItemVersionVO> getSearchRetrieveReponseVO() {
     return this.searchRetrieveReponseVO;
   }
-
+  
   public void setSearchRetrieveReponseVO(SearchRetrieveResponseVO<ItemVersionVO> searchRetrieveReponseVO) {
     this.searchRetrieveReponseVO = searchRetrieveReponseVO;
   }
+  
+   */
 
   public ExportFormatVO getExportFormat() {
     return this.exportFormat;
