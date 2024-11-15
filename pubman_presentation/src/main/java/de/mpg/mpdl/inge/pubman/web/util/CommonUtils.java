@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -71,7 +71,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Provides different utilities for all kinds of stuff.
- * 
+ *
  * @author: Thomas Diebäcker, created 25.04.2007
  * @version: $Revision$ $LastChangedDate$ Revised by DiT: 07.08.2007
  */
@@ -90,7 +90,7 @@ public class CommonUtils {
   /**
    * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
    * This method is used to convert Enums into SelectItems for dropDownLists.
-   * 
+   *
    * @param set the Set to be converted
    * @return an Array of SelectItems
    */
@@ -101,7 +101,7 @@ public class CommonUtils {
   /**
    * Converts a Set to an Array of SelectItems. This method is used to convert Enums into
    * SelectItems for dropDownLists.
-   * 
+   *
    * @param set the Set to be converted
    * @param includeEmptyOption if TRUE an empty SelectItem is added at the beginning of the list
    * @return an Array of SelectItems
@@ -124,7 +124,7 @@ public class CommonUtils {
   /**
    * Converts an Array of Objects to an Array of SelectItems (an empty SelectItem is included at the
    * beginning). This method is used to convert Objects into SelectItems for dropDownLists.
-   * 
+   *
    * @param objects the Array of Objects to be converted
    * @return an Array of SelectItems
    */
@@ -135,7 +135,7 @@ public class CommonUtils {
   /**
    * Converts an Array of Objects to an Array of SelectItems. This method is used to convert Objects
    * into SelectItems for dropDownLists.
-   * 
+   *
    * @param objects the Array of Objects to be converted
    * @return an Array of SelectItems
    */
@@ -173,7 +173,7 @@ public class CommonUtils {
 
   /**
    * Returns all Languages from Cone Service, with "de","en" and "ja" at the first positions.
-   * 
+   *
    * @return all Languages from Cone Service, with "de","en" and "ja" at the first positions
    */
   private static SelectItem[] retrieveLanguageOptions(String locale) {
@@ -277,7 +277,7 @@ public class CommonUtils {
 
   /**
    * Returns the current value of a comboBox. Used in UIs.
-   * 
+   *
    * @param comboBox the comboBox for which the value should be returned
    * @return the current value of the comboBox
    */
@@ -292,7 +292,7 @@ public class CommonUtils {
 
   /**
    * Formats a date with the default format.
-   * 
+   *
    * @param date the date to be formated
    * @return a formated String
    */
@@ -304,7 +304,7 @@ public class CommonUtils {
 
   /**
    * Formats a date with the default format.
-   * 
+   *
    * @param date the date to be formated
    * @return a formated String
    */
@@ -317,7 +317,7 @@ public class CommonUtils {
   /**
    * Escapes problematic HTML characters ("less than", "greater than", ampersand, apostrophe and
    * quotation mark).
-   * 
+   *
    * @param cdata A String that might contain problematic HTML characters.
    * @return The escaped string.
    */
@@ -336,7 +336,7 @@ public class CommonUtils {
 
   /**
    * Escapes problematic Javascript characters ("'", "\n").
-   * 
+   *
    * @param cdata A String that might contain problematic Javascript characters.
    * @return The escaped string.
    */
@@ -350,7 +350,7 @@ public class CommonUtils {
 
   /**
    * Converts a list of PubItemVOPresentations to a list of PubItems.
-   * 
+   *
    * @param list the list of PubItemVOPresentations
    * @return the list of PubItemVOs
    */
@@ -366,7 +366,7 @@ public class CommonUtils {
 
   /**
    * Converts a list of PubItems to a list of PubItemVOPresentations.
-   * 
+   *
    * @param list the list of PubItemVOs
    * @return the list of PubItemVOPresentations
    */
@@ -382,7 +382,7 @@ public class CommonUtils {
 
   /**
    * Converts a list of PubItems to a list of PubItemVOPresentations.
-   * 
+   *
    * @param list the list of PubItemVOs
    * @return the list of PubItemVOPresentations
    */
@@ -398,7 +398,7 @@ public class CommonUtils {
 
   /**
    * Converts a list of Relations to a list of RelationVOPresentation.
-   * 
+   *
    * @param list the list of RelationVO
    * @return the list of RelationVOPresentation
    */
@@ -414,7 +414,7 @@ public class CommonUtils {
 
   /**
    * Converts a list of PubCollections to a list of PubCollectionVOPresentations.
-   * 
+   *
    * @param list the list of ContextVOs
    * @return the list of PubCollectionVOPresentations
    */
@@ -430,7 +430,7 @@ public class CommonUtils {
 
   /**
    * Converts a list of AffiliationVOs to a list of AffiliationVOPresentations.
-   * 
+   *
    * @param list the list of AffiliationVOs
    * @return the list of AffiliationVOPresentations
    */
@@ -462,7 +462,7 @@ public class CommonUtils {
       if (id.getType() == null) {
         return false;
       }
-      if (id.getType().equals(IdType.URI) || id.getType().equals(IdType.CONE)) {
+      if (id.getType().equals(IdType.URI) || id.getType().equals(IdType.CONE) || id.getType().equals(IdType.RIFSPROJECT)) {
         new URL(id.getId());
         valid = true;
       }
@@ -494,7 +494,7 @@ public class CommonUtils {
 
   /**
    * Transforms broken ISO-8859-1 strings into correct UTF-8 strings.
-   * 
+   *
    * @param brokenValue
    * @return hopefully fixed string.
    */

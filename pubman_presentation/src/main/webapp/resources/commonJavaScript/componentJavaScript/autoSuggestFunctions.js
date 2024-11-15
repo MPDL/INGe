@@ -28,7 +28,7 @@ function getJournalDetails(details) {
             details.http_purl_org_dc_elements_1_1_identifier : details.http_purl_org_dc_elements_1_1_identifier) : null);
     var allAltTitles = '';
     var allIDs = '';
-    
+
     if (((altTitle != null) && typeof(altTitle) == 'object')) {
         allAltTitles = 'OTHER' + autopasteInnerDelimiter + altTitle[0];
         for (var i = 1; i < altTitle.length; i++) {
@@ -99,7 +99,7 @@ function getJournalDetails(details) {
     fillField('publisher', publisher, parent);
     fillField('place', place, parent);
     fillField('sourceIdentifierPasteField', allIDs, parent);
-    
+
     $(parent).find('.hiddenAutosuggestUploadBtn').click();
 }
 
@@ -134,7 +134,7 @@ function getPersonDetails(details) {
         orgName = chosenName.substring(chosenName.indexOf('(') + 1, chosenName.lastIndexOf(')')).replace(/^\s*(.*\S)\s*$/, '$1');
         chosenName = chosenName.substring(0, chosenName.indexOf('(')).replace(/^\s*(.*\S)\s*$/, '$1');
     }
-    
+
     if (chosenName.indexOf(',') >= 0) {
         familyName = chosenName.split(',')[0].replace(/^\s*(.*\S)\s*$/, '$1');
         givenName = chosenName.split(',')[1].replace(/^\s*(.*\S)\s*$/, '$1');
@@ -145,7 +145,7 @@ function getPersonDetails(details) {
     } else {
         familyName = chosenName;
     }
-    
+
     if (orgName != null) {
         if (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position != 'undefined' &&
             typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.length != 'undefined') {
@@ -172,8 +172,8 @@ function getPersonDetails(details) {
             orgId = (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier : null);
         }
     }
-    
-    
+
+
     var personId = $input.resultID;
     if (personId != null && personId != '') {
     	personId = personId.substring(personId.indexOf('/persons/resource/'), personId.length);
@@ -195,7 +195,7 @@ function getPersonDetails(details) {
     if (orcid != null) {
         $(parent).find('.orcidLink').replaceWith('<a href="' + orcid + '" class="small_area0 orcidCard orcidLink xTiny_marginRExcl" target="_blank" rel="noreferrer noopener">&#160;</a>');
     }
-    
+
     // Try to disable input field
     $.each($(parent).find('.disableAfter'),
         function() {
@@ -278,7 +278,7 @@ function removeAuthorAutoSuggest(element) {
     $input.parent().find('.orcidLink').replaceWith('<span class="xSmall_area0 orcidLink ">&#160;</span>');
     //Enlarge givenName Field, because it was smaller before due to the remove button
     $input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
-    
+
     bindSuggests();
 }
 
@@ -306,7 +306,7 @@ function removeOrganizationAutoSuggest(element) {
     $input.css('display', 'none');
     $input.parent().find('.organizationAddress').attr('class', 'xLarge_txtInput organizationAddress');
     $input.parent().find('.ouLink').replaceWith('<span class="xSmall_area0 ouLink">&#160;</span>');
-    
+
     bindSuggests();
 }
 
@@ -510,7 +510,7 @@ function removeCslAutoSuggest(element) {
     var $input = $(element);
     var parent = $input.parent();
     var field = null;
-    
+
     if ($(parent).find('.citationStyleIdentifier').val() != '') {
         field = $(parent).find('.citationStyleIdentifier');
         field.removeAttr('readonly');
@@ -576,20 +576,23 @@ function bindSuggests() {
         });
 
     bindJournalSuggest();
-    
+
     if (typeof languageSuggestURL != 'undefined') {
         $('.languageSuggest').suggest(languageSuggestURL, {
             onSelect: selectLanguage
         });
     }
-    
+
     $('.subjectSuggest').each(
         function(i, ele) {
             if (typeof subjectSuggestURL != 'undefined') {
                 $(ele).suggest(subjectSuggestURL, {
                     vocab: $(ele).parents('.subjectArea').find('.vocabulary'),
                     onSelect: function() {
-                        $(this).val(this.resultValue);
+                        if (this.resultID.indexOf('rifsproject') > 0)
+                            $(this).val(this.resultID);
+                        else
+                            $(this).val(this.resultValue);
                     }
                 });
             }
@@ -602,12 +605,15 @@ function bindSuggests() {
                 $(ele).suggest(subjectSuggestURL, {
                     vocab: $(ele).parents('.subjectArea').find('.vocabulary'),
                     onSelect: function() {
-                        $(this).val('"' + this.resultValue + '"');
+                        if (this.resultID.indexOf('rifsproject') > 0)
+                            $(this).val('"' + this.resultID + '"');
+                        else
+                            $(this).val('"' + this.resultValue + '"');
                     }
                 });
             }
         });
-    
+
     //for search, adds result in quotes
     if (typeof personSuggestURL != 'undefined') {
         $('.personSuggest').each(
@@ -620,7 +626,7 @@ function bindSuggests() {
             }
         );
     }
-    
+
     if (typeof organizationSuggestURL != 'undefined') {
         $('.organizationSuggest').suggest(organizationSuggestURL, {
             onSelect: fillOrganizationFields
@@ -673,7 +679,7 @@ function removePersonAutoSuggest(element) {
     var $input = $(element);
     var parent = $input.parent();
     var field = null;
-    
+
     if ($(parent).find('.personIdentifier').val() != '') {
         field = $(parent).find('.personIdentifier');
         field.removeAttr('readonly');
@@ -692,7 +698,7 @@ function removePersonAutoSuggest(element) {
 
     //Hide remove button
     $input.css('display', 'none');
-    
+
     $input.parent().find('.authorLink').replaceWith('<span class="xSmall_area0 authorLink">&#160;</span>');
     $input.parent().find('.orcidLink').replaceWith('<span class="xSmall_area0 orcidLink">&#160;</span>');
 
