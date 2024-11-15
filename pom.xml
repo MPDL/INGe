@@ -1347,7 +1347,7 @@
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,OATYPE,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,OATYPE,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SDM,SDM_LIFECYCLE,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>

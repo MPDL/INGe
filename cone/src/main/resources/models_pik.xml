@@ -440,8 +440,8 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 				</result-pattern>
 			</result>
-	</results>
-</model>
+		</results>
+	</model>
 
 	<model>
 		<name>researchtk</name>
@@ -702,6 +702,46 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 		</results>
 	</model>
 
+	<model>
+		<name>sdm</name>
+		<aliases>
+			<alias>sdm</alias>
+		</aliases>
+		<description>SDM</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="true"/>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
+		<name>sdm-lifecycle</name>
+		<aliases>
+			<alias>sdm-lifecycle</alias>
+		</aliases>
+		<description>SDM-Lifecycle</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="true"/>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
 	<formats>
 		<format id="html">
 			<mime-type id="text/html"/>
