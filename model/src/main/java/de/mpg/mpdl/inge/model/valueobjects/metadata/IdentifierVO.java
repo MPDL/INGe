@@ -68,7 +68,6 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     GFZPOFWEITERE("http://purl.org/escidoc/metadata/terms/0.1/GFZPOFWEITERE"), //
     GFZPROJECT("http://purl.org/escidoc/metadata/terms/0.1/GFZPROJECT"), //
     GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), // anderer Zusammenhang (Projektinfo)
-    RIFSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/RIFSPROJECT"), //
     ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
     ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
@@ -94,6 +93,9 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     RESEARCHTK("http://purl.org/escidoc/metadata/terms/0.1/RESEARCHTK"), //
     RESEARCH_SQUARE("https://archive.org/services/purl/domain/RESEARCH_SQUARE"),
     SOCARXIV("https://archive.org/services/purl/domain/SOCARXIV"),
+    RIFSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/RIFSPROJECT"), //
+    SDM("http://purl.org/escidoc/metadata/terms/0.1/SDM"), //
+    SDM_LIFECYCLE("http://purl.org/escidoc/metadata/terms/0.1/SDM_LIFECYCLE"), //
     SSRN("http://purl.org/escidoc/metadata/terms/0.1/SSRN"), //
     URI("http://purl.org/escidoc/metadata/terms/0.1/URI"), //
     URN("http://purl.org/escidoc/metadata/terms/0.1/URN"), //
