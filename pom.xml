@@ -6,7 +6,7 @@
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<name>INGe</name>
-	<version>8.5.3-SNAPSHOT</version>
+	<version>8.5.3</version>
 
 	<packaging>pom</packaging>
 
@@ -133,7 +133,7 @@
 		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
 		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
 		<url>https://github.com/MPDL/INGe</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.5.3</tag>
 	</scm>
 
 	<repositories>
@@ -660,96 +660,96 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>8.5.3-SNAPSHOT</version>
+				<version>8.5.3</version>
 			</dependency>
 
 			<!-- Saxon -->
