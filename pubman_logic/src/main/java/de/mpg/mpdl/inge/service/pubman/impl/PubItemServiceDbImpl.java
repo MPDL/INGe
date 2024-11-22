@@ -979,12 +979,29 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Transactional(readOnly = true)
   public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken) {
 
-    List<AuditDbVO> list = this.auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
+    List<Object[]> results = this.auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
 
-    return list;
+    List<AuditDbVO> versionHistory = new ArrayList<>();
+    // a.id, a.comment, a.event, a.modificationdate, a.modifier_name, a.modifier_objectid, a.pubitem_objectid, a.pubitem_versionnumber
+    for (Object[] result : results) {
+      AuditDbVO auditDbVO = new AuditDbVO();
+      auditDbVO.setId(((int) result[0]));
+      auditDbVO.setComment((String) result[1]);
+      auditDbVO.setEvent(AuditDbVO.EventType.valueOf((String) result[2]));
+      auditDbVO.setModificationDate((Date) result[3]);
+      AccountUserDbRO accountUserDbRO = new AccountUserDbRO();
+      accountUserDbRO.setName((String) result[4]);
+      accountUserDbRO.setObjectId((String) result[5]);
+      auditDbVO.setModifier(accountUserDbRO);
+      ItemVersionVO itemVersionVO = new ItemVersionVO();
+      itemVersionVO.setObjectId((String) result[6]);
+      itemVersionVO.setVersionNumber((int) result[7]);
+      auditDbVO.setPubItem(itemVersionVO);
+      versionHistory.add(auditDbVO);
+    }
+
+    return versionHistory;
   }
-
-
 
   private void rollbackSavedFiles(ItemVersionVO pubItemVO) throws IngeTechnicalException {
     for (FileDbVO fileVO : pubItemVO.getFiles()) {
