@@ -4,11 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "import_log")
+@Table(name = "import_log", indexes = {@Index(name = "import_log_idx_userid", columnList = "userid")})
 public class ImportLogDbVO extends ImportLog {
   public static final int PERCENTAGE_ZERO = 0;
   public static final int PERCENTAGE_COMPLETED = 100;

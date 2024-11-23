@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -13,7 +14,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "import_log_item")
+@Table(name = "import_log_item", indexes = {@Index(name = "import_log_item_idx_parent", columnList = "parent"),
+    @Index(name = "import_log_item_idx_itemid", columnList = "item_id")})
 public class ImportLogItemDbVO extends ImportLog {
   @Column(name = "enddate", columnDefinition = "TIMESTAMP")
   private Date endDate;
