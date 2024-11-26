@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import jakarta.json.Json;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tika.exception.TikaException;
@@ -89,6 +92,8 @@ public class ItemRestController {
 
   @Autowired
   private ItemTransformingService itemTransformingService;
+
+  private ObjectMapper objectMapper = new ObjectMapper();
 
   @Hidden
   @RequestMapping(value = "", method = RequestMethod.GET)
@@ -400,15 +405,32 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/authorization", method = RequestMethod.GET)
-  public ResponseEntity<Map<AuthorizationService.AccessType, Boolean>> authInfo(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, @PathVariable(value = ITEM_ID_VAR) String itemId)
+  public ResponseEntity<JsonNode> authInfo(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     Map<AuthorizationService.AccessType, Boolean> map = this.pis.getAuthorizationInfo(itemId, token);
     if (map == null)
       throw new NotFoundException();
 
-    return new ResponseEntity<>(map, HttpStatus.OK);
+    ObjectNode returnNode = objectMapper.createObjectNode();
+    returnNode.set("actions", objectMapper.valueToTree(map));
+    return new ResponseEntity<>(returnNode, HttpStatus.OK);
+  }
+
+  @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/authorization", method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<JsonNode> getAuthInfoForFile(
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @PathVariable String itemId,
+      @PathVariable String componentId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
+    JsonNode node = this.pis.getAuthorizationInfoForFile(itemId, componentId, token);
+
+    if (node == null)
+      throw new NotFoundException();
+
+    return new ResponseEntity<>(node, HttpStatus.OK);
   }
 
 }

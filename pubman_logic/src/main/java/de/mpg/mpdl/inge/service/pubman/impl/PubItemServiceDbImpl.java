@@ -6,6 +6,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.CacheMode;
@@ -1073,6 +1076,51 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     }
     return authMap;
+  }
+
+  public JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException {
+    Principal principal = null;
+    ItemVersionVO item = null;
+    if (authenticationToken != null) {
+      try {
+        principal = this.aaService.checkLoginRequired(authenticationToken);
+        item = get(itemId, authenticationToken);
+        //item not found, return null
+        if (item == null) {
+          return null;
+        }
+
+      } catch (AuthenticationException | AuthorizationException e) {
+
+      }
+    }
+
+    FileDbVO file = item.getFiles().stream().filter(f -> fileId.equals(f.getObjectId())).findFirst().get();
+    if (file == null) {
+      return null;
+    }
+
+
+    ObjectNode returnNode = objectMapper.createObjectNode();
+
+    JsonNode readFileNode = objectMapper.createObjectNode().put(AuthorizationService.AccessType.READ_FILE.name(),
+        fileService.checkAccess(AuthorizationService.AccessType.READ_FILE, principal, item, file));
+    returnNode.set("actions", readFileNode);
+
+    if (file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
+
+      ObjectNode ipNameObject = objectMapper.createObjectNode();
+      returnNode.set("ipInfo", ipNameObject);
+      for (String audienceId : file.getAllowedAudienceIds()) {
+        IpListProvider.IpRange ipRange = this.ipListProvider.get(audienceId);
+        if (ipRange != null) {
+          ipNameObject.put(ipRange.getId(), ipRange.getName());
+        }
+      }
+    }
+    return returnNode;
+
   }
 
 
