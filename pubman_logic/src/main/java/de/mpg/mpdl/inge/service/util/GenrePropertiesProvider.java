@@ -59,12 +59,8 @@ public class GenrePropertiesProvider {
     }
 
     TreeMap<String, JSONObject> sortedBaseKeys = new TreeMap<>();
-    JSONObject json = new JSONObject();
-    JSONObject genreObject = new JSONObject();
-    JSONArray keysArray = new JSONArray();
     for (Map.Entry<String, String> entry : map.entrySet()) {
       String mapKey = entry.getKey();
-      String mapValue = entry.getValue();
 
       if (mapKey.endsWith("_display")) {
         String baseKey = mapKey.substring(0, mapKey.lastIndexOf("_display"));
@@ -76,14 +72,16 @@ public class GenrePropertiesProvider {
       }
     }
 
+    JSONArray keysArray = new JSONArray();
     sortedBaseKeys.forEach((baseKey, attributeDetails) -> {
       JSONObject keyObject = new JSONObject();
       keyObject.put(baseKey, attributeDetails);
       keysArray.put(keyObject);
     });
 
-    genreObject.put("keys", keysArray);
-    json.put(genre.toString(), genreObject);
+    JSONObject json = new JSONObject();
+    json.put("genre", genre.toString());
+    json.put("properties", keysArray);
 
     return json;
   }
