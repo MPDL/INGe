@@ -29,7 +29,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     // ear.context is defined in beanRefContext.xml in module pubman_logic
     //servletContext.setInitParameter(ContextLoader.LOCATOR_FACTORY_KEY_PARAM, "ear.context");
 
-
     // JSF
     servletContext.addListener(ConfigureListener.class);
     servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", "true");
