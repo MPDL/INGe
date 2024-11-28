@@ -11,6 +11,9 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ImportService;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -19,6 +22,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -26,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/import")
@@ -122,6 +125,7 @@ public class ImportController {
   }
 
   @RequestMapping(value = "/import", method = RequestMethod.POST)
+  @RequestBody(content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE, schema = @Schema(format = "binary")))
   public ResponseEntity<?> doImport( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(IMPORT_NAME) String importName, //
@@ -133,27 +137,6 @@ public class ImportController {
     InputStream fileStream = null;
     try {
       fileStream = request.getInputStream();
-    } catch (IOException e) {
-    }
-
-    this.importService.doImport(importName, contextId, format, fileStream, token);
-
-    return new ResponseEntity<>(HttpStatus.OK);
-  }
-
-  // TODO: Multipart Konfiguration in Server einrichten
-  @RequestMapping(value = "/import2", method = RequestMethod.POST, consumes = "multipart/form-data")
-  public ResponseEntity<?> doImport2( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(IMPORT_NAME) String importName, //
-      @RequestParam(CONTEXT_ID) String contextId, //
-      @RequestParam(FORMAT) ImportLogDbVO.Format format, //
-      @RequestParam(FILE) MultipartFile multipartFile) //
-      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
-
-    InputStream fileStream = null;
-    try {
-      fileStream = multipartFile.getInputStream();
     } catch (IOException e) {
     }
 
