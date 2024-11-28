@@ -16,12 +16,20 @@ import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.ImportService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportAsyncService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
+import de.mpg.mpdl.inge.service.pubman.importprocess.processor.FormatProcessor;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Primary
@@ -40,7 +48,6 @@ public class ImportServiceImpl implements ImportService {
     this.importCommonService = importCommonService;
   }
 
-  @Transactional(rollbackFor = Throwable.class)
   @Override
   public void deleteImportLog(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
@@ -79,6 +86,66 @@ public class ImportServiceImpl implements ImportService {
 
     this.importCommonService.initializeDelete(importLogDbVO);
     this.importAsyncService.doAsyncDelete(importLogDbVO, token);
+  }
+
+  @Override
+  public void doImport(String importName, String contextId, ImportLogDbVO.Format format, InputStream fileStream, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    if (null == importName || importName.trim().isEmpty()) {
+      throw new IngeApplicationException("The import name must not be empty");
+    }
+
+    ContextDbVO contextDbVO = this.contextService.get(contextId, token);
+    if (null == contextDbVO) {
+      throw new IngeApplicationException("Import context must not be empty");
+    } else if (!contextDbVO.getState().equals(ContextDbVO.State.OPENED)) {
+      throw new IngeApplicationException("Import context is not opened");
+    }
+
+    ImportLogDbVO importLogDbVO = this.importCommonService.initializeImport(accountUserDbVO, format, importName, contextId);
+
+    ImportLogItemDbVO importLogItemDbVO = this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
+        ImportLog.Messsage.import_process_validate.name());
+
+    FormatProcessor formatProcessor = null;
+    try {
+      formatProcessor = this.importCommonService.getFormatProcessor(importLogDbVO, format);
+    } catch (Exception e) {
+      this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL,
+          ImportLog.Messsage.import_process_format_error.name());
+      this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO, this.importCommonService.getExceptionMessage(e));
+      return;
+    }
+
+    if (null == formatProcessor) {
+      this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO, ImportLog.Messsage.import_process_format_invalid.name());
+      return;
+    } else {
+      this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
+          ImportLog.Messsage.import_process_format_available.name());
+    }
+
+    File file = null;
+    try {
+      file = convertInputStreamToFile(fileStream);
+    } catch (IOException e) {
+    }
+
+    if (null == file) {
+      this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO,
+          ImportLog.Messsage.import_process_inputstream_unavailable.name());
+      return;
+    } else {
+      formatProcessor.setSourceFile(file);
+      this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
+          ImportLog.Messsage.import_process_inputstream_available.name());
+    }
+
+    this.importCommonService.setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_IMPORT_START);
+
+    this.importAsyncService.doAsyncImport(importLogDbVO, formatProcessor, format, contextDbVO, token);
   }
 
   @Override
@@ -204,13 +271,23 @@ public class ImportServiceImpl implements ImportService {
     this.importAsyncService.doAsyncSubmit(importLogDbVO, submitModus, token);
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private void checkUserAccess(ImportLogDbVO importLogDbVO, AccountUserDbVO accountUserDbVO) throws AuthorizationException {
     if (null != importLogDbVO && !accountUserDbVO.getObjectId().equals(importLogDbVO.getUserId())) {
       throw new AuthorizationException("given user is not allowed to access the import.");
     }
+  }
+
+  private File convertInputStreamToFile(InputStream inputStream) throws IOException {
+    String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
+        + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
+    Path tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH, "import_" + UUID.randomUUID());
+    Files.copy(inputStream, tmpFilePath);
+    File file = tmpFilePath.toFile();
+
+    return file;
   }
 
   private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {

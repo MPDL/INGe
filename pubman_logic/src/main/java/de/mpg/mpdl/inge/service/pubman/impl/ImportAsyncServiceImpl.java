@@ -1,13 +1,17 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import de.mpg.mpdl.inge.db.repository.ImportLogItemRepository;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLog;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogItemDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportAsyncService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
-import java.io.StringWriter;
+import de.mpg.mpdl.inge.service.pubman.importprocess.processor.FormatProcessor;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -16,12 +20,12 @@ import org.springframework.stereotype.Service;
 @Primary
 public class ImportAsyncServiceImpl implements ImportAsyncService {
 
-  private final ImportCommonService importCommonService;
-  private final ImportLogItemRepository importLogItemRepository;
+  private static final Logger logger = LogManager.getLogger(ImportAsyncServiceImpl.class);
 
-  public ImportAsyncServiceImpl(ImportCommonService importCommonService, ImportLogItemRepository importLogItemRepository) {
+  private final ImportCommonService importCommonService;
+
+  public ImportAsyncServiceImpl(ImportCommonService importCommonService) {
     this.importCommonService = importCommonService;
-    this.importLogItemRepository = importLogItemRepository;
   }
 
   @Override
@@ -32,9 +36,9 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       this.importCommonService.setSuspensionForDelete(importLogDbVO, importLogItemDbVO);
     }
 
-    this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
+    this.importCommonService.setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
 
-    int counter = 0;
+    int counter = 1;
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
       importLogItemDbVO = this.importCommonService.getImportLogItem(importLogItemDbVO.getId()); // in the meanwhile the parent has been changed
       this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
@@ -43,16 +47,78 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       try {
         this.importCommonService.doDelete(importLogItemDbVO, token);
       } catch (Exception e) {
-        this.importCommonService.doFailDelete(importLogItemDbVO, getExceptionMessage(e));
+        this.importCommonService.doFailDelete(importLogItemDbVO, this.importCommonService.getExceptionMessage(e));
         importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
       }
 
+      this.importCommonService.finishImportLogItem(importLogItemDbVO);
+
       counter++;
-      this.importCommonService.updateImportLog(importLogDbVO,
+      this.importCommonService.setPercentageInImportLog(importLogDbVO,
           ImportLogDbVO.PERCENTAGE_DELETE_END * counter / importedLogItemDbVOs.size() + ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
+
+      pause(); // TODO: remove
     }
 
     this.importCommonService.finishDelete(importLogDbVO);
+  }
+
+  @Override
+  @Async
+  public void doAsyncImport(ImportLogDbVO importLogDbVO, FormatProcessor formatProcessor, ImportLogDbVO.Format format,
+      ContextDbVO contextDbVO, String token) {
+    int counter = 1;
+    int itemCount = 1;
+
+    this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
+        ImportLog.Messsage.import_process_start_import.name());
+
+    if (formatProcessor.hasNext()) {
+      itemCount = formatProcessor.getLength();
+    }
+
+    String localTag = getLocalTag(importLogDbVO);
+
+    while (formatProcessor.hasNext()) {
+      ImportLogItemDbVO importLogItemDbVO = null;
+      try {
+        importLogItemDbVO = this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
+            ImportLog.Messsage.import_process_import_item.name());
+
+        this.importCommonService.suspendImportLogItem(importLogItemDbVO);
+
+        String singleItem = formatProcessor.next();
+        if (null != singleItem && !singleItem.trim().isEmpty()) {
+
+          ItemVersionVO itemVersionVO = this.importCommonService.prepareItem(importLogItemDbVO, format, contextDbVO, singleItem);
+
+          if (null != itemVersionVO) {
+            this.importCommonService.createItem(itemVersionVO, localTag, importLogItemDbVO, token);
+          }
+
+          importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
+          this.importCommonService.setPercentageInImportLog(importLogDbVO,
+              ImportLogDbVO.PERCENTAGE_IMPORT_END * counter / itemCount + ImportLogDbVO.PERCENTAGE_IMPORT_START);
+
+          this.importCommonService.finishImportLogItem(importLogItemDbVO);
+
+          pause(); // TODO: remove
+        }
+      } catch (Exception e) {
+        logger.error("Error during import", e);
+        if (importLogItemDbVO != null) {
+          this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR,
+              this.importCommonService.getExceptionMessage(e));
+          this.importCommonService.finishImportLogItem(importLogItemDbVO);
+        }
+      } finally {
+        counter++;
+      }
+    }
+
+    this.importCommonService.finishImport(importLogDbVO);
+
+    formatProcessor.getSourceFile().delete();
   }
 
   @Override
@@ -63,9 +129,9 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       this.importCommonService.setSuspensionForSubmit(importLogDbVO, importLogItemDbVO, submitModus);
     }
 
-    this.importCommonService.updateImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_SUBMIT_SUSPEND);
+    this.importCommonService.setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_SUBMIT_SUSPEND);
 
-    int counter = 0;
+    int counter = 1;
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
       importLogItemDbVO = this.importCommonService.getImportLogItem(importLogItemDbVO.getId()); // in the meanwhile the parent has been changed
       switch (submitModus) {
@@ -86,46 +152,42 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       try {
         this.importCommonService.doSubmit(importLogDbVO, importLogItemDbVO, submitModus, token);
       } catch (Exception e) {
-        this.importCommonService.doFailSubmit(importLogItemDbVO, submitModus, getExceptionMessage(e));
+        this.importCommonService.doFailSubmit(importLogItemDbVO, submitModus, this.importCommonService.getExceptionMessage(e));
         importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
       }
 
+      this.importCommonService.finishImportLogItem(importLogItemDbVO);
+
       counter++;
-      this.importCommonService.updateImportLog(importLogDbVO,
+      this.importCommonService.setPercentageInImportLog(importLogDbVO,
           ImportLogDbVO.PERCENTAGE_SUBMIT_END * counter / importedLogItemDbVOs.size() + ImportLogDbVO.PERCENTAGE_SUBMIT_SUSPEND);
+
+      pause(); // TODO: remove
     }
 
     this.importCommonService.finishSubmit(importLogDbVO, submitModus);
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  private String getLocalTag(ImportLogDbVO importLogDbVO) {
+    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    String startDateFormatted = DATE_FORMAT.format(importLogDbVO.getStartDate());
+    StringBuilder localTag = new StringBuilder();
+    localTag.append(importLogDbVO.getName());
+    localTag.append(" ");
+    localTag.append(startDateFormatted);
 
-  private String getExceptionMessage(Throwable exception) {
-    StringWriter stringWriter = new StringWriter();
-    stringWriter.write(exception.getClass().getSimpleName());
+    return localTag.toString();
+  }
 
-    if (null != exception.getMessage()) {
-      stringWriter.write(": ");
-      stringWriter.write(exception.getMessage());
+  private void pause() {
+    try {
+      logger.info("Pause");
+      Thread.sleep(1000 * 15);
+    } catch (InterruptedException e) {
+      logger.error(e);
     }
-    stringWriter.write("\n");
-
-    StackTraceElement[] stackTraceElements = exception.getStackTrace();
-    stringWriter.write("\tat ");
-    stringWriter.write(stackTraceElements[0].getClassName());
-    stringWriter.write(".");
-    stringWriter.write(stackTraceElements[0].getMethodName());
-    stringWriter.write("(");
-    stringWriter.write(stackTraceElements[0].getFileName());
-    stringWriter.write(":");
-    stringWriter.write(stackTraceElements[0].getLineNumber() + "");
-    stringWriter.write(")\n");
-
-    if (null != exception.getCause()) {
-      stringWriter.write(this.getExceptionMessage(exception.getCause()));
-    }
-
-    return stringWriter.toString();
+    logger.info("Pause beendet");
   }
 }

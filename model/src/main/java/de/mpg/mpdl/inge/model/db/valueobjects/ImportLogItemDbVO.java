@@ -32,9 +32,7 @@ public class ImportLogItemDbVO extends ImportLog {
   @Column(name = "item_id")
   private String itemId;
 
-  public ImportLogItemDbVO() {
-    super();
-  }
+  public ImportLogItemDbVO() {}
 
   public ImportLogItemDbVO(ImportLogDbVO importLogDbVO, ImportLog.ErrorLevel errorLevel, String message) {
     this.setErrorLevel(errorLevel);

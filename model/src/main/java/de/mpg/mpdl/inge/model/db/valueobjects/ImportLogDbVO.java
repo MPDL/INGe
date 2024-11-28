@@ -13,13 +13,12 @@ import java.util.Date;
 public class ImportLogDbVO extends ImportLog {
   public static final int PERCENTAGE_ZERO = 0;
   public static final int PERCENTAGE_COMPLETED = 100;
-  public static final int PERCENTAGE_DELETE_END = 89;
+  public static final int PERCENTAGE_DELETE_END = 95;
   public static final int PERCENTAGE_DELETE_START = 5;
   public static final int PERCENTAGE_DELETE_SUSPEND = 10;
-  public static final int PERCENTAGE_IMPORT_END = 29;
-  public static final int PERCENTAGE_IMPORT_PREPARE = 65;
+  public static final int PERCENTAGE_IMPORT_END = 95;
   public static final int PERCENTAGE_IMPORT_START = 5;
-  public static final int PERCENTAGE_SUBMIT_END = 89;
+  public static final int PERCENTAGE_SUBMIT_END = 95;
   public static final int PERCENTAGE_SUBMIT_START = 5;
   public static final int PERCENTAGE_SUBMIT_SUSPEND = 10;
 
@@ -54,14 +53,15 @@ public class ImportLogDbVO extends ImportLog {
   @Column(name = "percentage")
   private Integer percentage;
 
-  public ImportLogDbVO() {
-    super();
-  }
+  public ImportLogDbVO() {}
 
-  public ImportLogDbVO(String userId, Format format) {
-    super();
+  public ImportLogDbVO(String userId, Format format, String importName, String contextId) {
+    this.setErrorLevel(ErrorLevel.FINE);
     this.userId = userId;
     this.format = format;
+    this.name = importName;
+    this.contextId = contextId;
+    this.percentage = ImportLogDbVO.PERCENTAGE_ZERO;
   }
 
   public Date getEndDate() {

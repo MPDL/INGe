@@ -24,9 +24,7 @@ public class ImportLogItemDetailDbVO extends ImportLog {
   @Column(name = "message")
   private String message;
 
-  public ImportLogItemDetailDbVO() {
-    super();
-  }
+  public ImportLogItemDetailDbVO() {}
 
   public ImportLogItemDetailDbVO(ImportLogItemDbVO importLogItemDbVO, ImportLog.ErrorLevel errorLevel, String message) {
     this.setErrorLevel(errorLevel);

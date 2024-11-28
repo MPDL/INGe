@@ -8,16 +8,18 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import java.io.InputStream;
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface ImportService {
 
-  @Transactional(rollbackFor = Throwable.class)
   void deleteImportLog(Integer importLogId, String token) throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
   void deleteImportedItems(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
+
+  void doImport(String importName, String contextId, ImportLogDbVO.Format format, InputStream fileStream, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
 
   List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogDetailId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
