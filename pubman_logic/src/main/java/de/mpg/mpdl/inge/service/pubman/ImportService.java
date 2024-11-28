@@ -10,6 +10,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 public interface ImportService {
 
@@ -20,6 +21,12 @@ public interface ImportService {
 
   void doImport(String importName, String contextId, ImportLogDbVO.Format format, InputStream fileStream, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
+
+  Map<String, List<String>> getAllFormatParameter(ImportLogDbVO.Format format, String token)
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException;
+
+  Map<String, String> getDefaultFormatParameter(ImportLogDbVO.Format format, String token)
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException;
 
   List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogDetailId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;

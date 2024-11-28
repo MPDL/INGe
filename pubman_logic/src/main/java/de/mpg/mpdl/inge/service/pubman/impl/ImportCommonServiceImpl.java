@@ -29,6 +29,8 @@ import de.mpg.mpdl.inge.service.pubman.importprocess.processor.EdocProcessor;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.EndnoteProcessor;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.EscidocProcessor;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.FormatProcessor;
+import de.mpg.mpdl.inge.service.pubman.importprocess.processor.MabProcessor;
+import de.mpg.mpdl.inge.service.pubman.importprocess.processor.Marc21Processor;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.MarcXmlProcessor;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.RisProcessor;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.WosProcessor;
@@ -315,8 +317,14 @@ public class ImportCommonServiceImpl implements ImportCommonService {
       case ESCIDOC_ITEM_V3_XML:
         formatProcessor = new EscidocProcessor();
         break;
+      case MAB_STRING:
+        formatProcessor = new MabProcessor();
+        break;
       case MARC_XML:
         formatProcessor = new MarcXmlProcessor();
+        break;
+      case MARC_21_STRING:
+        formatProcessor = new Marc21Processor();
         break;
       case RIS_STRING:
         formatProcessor = new RisProcessor();

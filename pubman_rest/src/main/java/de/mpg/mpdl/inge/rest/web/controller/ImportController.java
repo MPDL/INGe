@@ -10,7 +10,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ImportService;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -19,8 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,17 +34,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Import")
 public class ImportController {
 
-  private static final Logger logger = LogManager.getLogger(ImportController.class);
-
-  private static final String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
-      + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
-
   private static final String ImportLog_ID_PATH = "/importLog/{importLogId}";
   private static final String ImportLogItems_ID_PATH = "/importLogItems/{importLogId}";
   private static final String ImportLogItemDetails_ID_PATH = "/importLogItemDetails/{importLogItemId}";
   private static final String ImportLog_VAR = "importLogId";
   private static final String ImportLogItem_VAR = "importLogItemId";
-  private static final String FILE = "file";
 
   private static final String FORMAT = "format";
   private static final String CONTEXT_ID = "contextId";
@@ -156,4 +148,27 @@ public class ImportController {
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
+
+  @RequestMapping(value = "/getAllFormatParameter", method = RequestMethod.GET)
+  public ResponseEntity<Map<String, List<String>>> getAllFormatParameter( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestParam(FORMAT) ImportLogDbVO.Format format) //
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+
+    Map<String, List<String>> formatParameter = this.importService.getAllFormatParameter(format, token);
+
+    return new ResponseEntity<>(formatParameter, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/getDefaultFormatParameter", method = RequestMethod.GET)
+  public ResponseEntity<Map<String, String>> getdefaultFormatParameter( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestParam(FORMAT) ImportLogDbVO.Format format) //
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+
+    Map<String, String> formatParameter = this.importService.getDefaultFormatParameter(format, token);
+
+    return new ResponseEntity<>(formatParameter, HttpStatus.OK);
+  }
+
 }

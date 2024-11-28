@@ -18,6 +18,8 @@ import de.mpg.mpdl.inge.service.pubman.importprocess.ImportAsyncService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.FormatProcessor;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import de.mpg.mpdl.inge.transformation.SingleTransformer;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +29,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -146,6 +149,128 @@ public class ImportServiceImpl implements ImportService {
     this.importCommonService.setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_IMPORT_START);
 
     this.importAsyncService.doAsyncImport(importLogDbVO, formatProcessor, format, contextDbVO, token);
+  }
+
+  @Override
+  public Map<String, List<String>> getAllFormatParameter(ImportLogDbVO.Format format, String token)
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    //    BIBTEX_STRING (CoNE)						SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+    //    BMC_XML (CoNE, Files to Import),			SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
+    //    EDOC_XML (CoNE, Schema),					SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
+    //    ENDNOTE_STRING (CoNE, Schema)				SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+    //    ESCIDOC_ITEM_V3_XML (keine Properties)	null
+    //    MAB_STRING (keine Properties),			null
+    //    MARC_XML (CoNE),							SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+    //    MARC_21_STRING (CoNE),                    SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+    //    RIS_STRING (CoNE, Schema),				SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
+    //    WOS_STRING (CoNE, Schema),				SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
+
+    Map<String, List<String>> formatParameter = null;
+
+    try {
+      switch (format) {
+        case BIBTEX_STRING -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+        }
+        case BMC_XML -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
+        }
+        case EDOC_XML -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
+        }
+        case ENDNOTE_STRING -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+        }
+        case ESCIDOC_ITEM_V3_XML -> {
+          return null;
+        }
+        case MAB_STRING -> {
+          return null;
+        }
+        case MARC_XML -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+        }
+        case MARC_21_STRING -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+        }
+        case RIS_STRING -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
+        }
+        case WOS_STRING -> {
+          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
+        }
+        default -> {
+          throw new IngeTechnicalException("Invalid format " + format);
+        }
+      }
+    } catch (TransformationException e) {
+      throw new IngeTechnicalException("Error while getting format parameter for " + format, e);
+    }
+
+    return formatParameter;
+  }
+
+  @Override
+  public Map<String, String> getDefaultFormatParameter(ImportLogDbVO.Format format, String token)
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    //    BIBTEX_STRING (CoNE)						SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+    //    BMC_XML (CoNE, Files to Import),			SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
+    //    EDOC_XML (CoNE, Schema),					SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
+    //    ENDNOTE_STRING (CoNE, Schema)				SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+    //    ESCIDOC_ITEM_V3_XML (keine Properties)	null
+    //    MAB_STRING (keine Properties),			null
+    //    MARC_XML (CoNE),							SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+    //    MARC_21_STRING (CoNE),                    SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+    //    RIS_STRING (CoNE, Schema),				SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
+    //    WOS_STRING (CoNE, Schema),				SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
+
+    Map<String, String> formatParameter = null;
+
+    try {
+      switch (format) {
+        case BIBTEX_STRING -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+        }
+        case BMC_XML -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
+        }
+        case EDOC_XML -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
+        }
+        case ENDNOTE_STRING -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+        }
+        case ESCIDOC_ITEM_V3_XML -> {
+          return null;
+        }
+        case MAB_STRING -> {
+          return null;
+        }
+        case MARC_XML -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+        }
+        case MARC_21_STRING -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+        }
+        case RIS_STRING -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
+        }
+        case WOS_STRING -> {
+          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
+        }
+        default -> {
+          throw new IngeTechnicalException("Invalid format " + format);
+        }
+      }
+    } catch (TransformationException e) {
+      throw new IngeTechnicalException("Error while getting format parameter for " + format, e);
+    }
+
+    return formatParameter;
   }
 
   @Override
