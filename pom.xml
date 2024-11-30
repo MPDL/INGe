@@ -617,7 +617,7 @@
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-rest-webmvc</artifactId>
-				<version>3.7.7</version>
+				<version>4.1.11</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
@@ -997,7 +997,7 @@
 	</reporting>
 
 	<properties>
-		<inge.aa.client.class />
+		<inge.aa.client.class/>
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
@@ -1005,8 +1005,8 @@
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
-		<inge.auth.mpg.ip.csv.url />
-		<inge.auth.mpg.ip.json.url />
+		<inge.auth.mpg.ip.csv.url/>
+		<inge.auth.mpg.ip.json.url/>
 		<inge.auth.mpg.ip.use>true</inge.auth.mpg.ip.use>
 		<inge.cone.cache.use>true</inge.cone.cache.use>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
@@ -1038,12 +1038,12 @@
 		<inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
 		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
 		<inge.email.withauthentication>false</inge.email.withauthentication>
-		<inge.es.password />
+		<inge.es.password/>
 		<inge.es.rest.host-port.test>localhost:9400</inge.es.rest.host-port.test>
 		<inge.es.rest.host-port>localhost:9200</inge.es.rest.host-port>
-		<inge.es.rest.path-prefix.test />
-		<inge.es.rest.path-prefix />
-		<inge.es.user />
+		<inge.es.rest.path-prefix.test/>
+		<inge.es.rest.path-prefix/>
+		<inge.es.user/>
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
@@ -1068,8 +1068,8 @@
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pid.service.use>true</inge.pid.service.use>
-		<inge.pubman.blog.baseUrl />
-		<inge.pubman.blog.news />
+		<inge.pubman.blog.baseUrl/>
+		<inge.pubman.blog.news/>
 		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
 		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
 		<inge.pubman.csl_editor.instance>http://editor.citationstyles.org</inge.pubman.csl_editor.instance>
@@ -1079,18 +1079,18 @@
 		<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
 		<inge.pubman.help.url>https://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Help</inge.pubman.help.url>
-		<inge.pubman.home.content.url />
+		<inge.pubman.home.content.url/>
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
-		<inge.pubman.instance.ssrn_contexts />
+		<inge.pubman.instance.ssrn_contexts/>
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
-		<inge.pubman.logo.css />
-		<inge.pubman.logo.url />
-		<inge.pubman.policy.url />
+		<inge.pubman.logo.css/>
+		<inge.pubman.logo.url/>
+		<inge.pubman.policy.url/>
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
-		<inge.pubman.privacy.url />
-		<inge.pubman.root.authors.icon />
-		<inge.pubman.root.organisation.id />
-		<inge.pubman.root.organization.name />
+		<inge.pubman.privacy.url/>
+		<inge.pubman.root.authors.icon/>
+		<inge.pubman.root.organisation.id/>
+		<inge.pubman.root.organization.name/>
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
 		<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.url>
@@ -1251,7 +1251,7 @@
 				<inge.pubman.csl_editor.instance>https://pure.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.rest.development.enabled>false</inge.rest.development.enabled>
-				<inge.rest.development.file_url />
+				<inge.rest.development.file_url/>
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
 				<inge.systemtype>dev</inge.systemtype>
 				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>
@@ -1309,7 +1309,7 @@
 												</goals>
 											</pluginExecutionFilter>
 											<action>
-												<ignore />
+												<ignore/>
 											</action>
 										</pluginExecution>
 
@@ -1329,7 +1329,7 @@
 												</goals>
 											</pluginExecutionFilter>
 											<action>
-												<ignore />
+												<ignore/>
 											</action>
 										</pluginExecution>
 									</pluginExecutions>
