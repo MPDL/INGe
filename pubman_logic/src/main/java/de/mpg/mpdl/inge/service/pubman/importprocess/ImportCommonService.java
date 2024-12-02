@@ -13,6 +13,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.FormatProcessor;
 import java.util.List;
+import java.util.Map;
 
 public interface ImportCommonService {
 
@@ -71,7 +72,8 @@ public interface ImportCommonService {
 
   void initializeSubmit(ImportLogDbVO importLogDbVO, ImportLog.SubmitModus submitModus);
 
-  ItemVersionVO prepareItem(ImportLogItemDbVO importLogItemDbVO, ImportLogDbVO.Format format, ContextDbVO contextDbVO, String singleItem);
+  ItemVersionVO prepareItem(ImportLogItemDbVO importLogItemDbVO, ImportLogDbVO.Format format, Map<String, String> formatConfiguration,
+      ContextDbVO contextDbVO, String singleItem);
 
   void setPercentageInImportLog(ImportLogDbVO importLogDbVO, Integer percentage);
 

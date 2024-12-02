@@ -19,14 +19,11 @@ public interface ImportService {
   void deleteImportedItems(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
-  void doImport(String importName, String contextId, ImportLogDbVO.Format format, InputStream fileStream, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
+  void doImport(String importName, String contextId, ImportLogDbVO.Format format, String formatConfiguration, InputStream fileStream,
+      String token) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
 
-  Map<String, List<String>> getAllFormatParameter(ImportLogDbVO.Format format, String token)
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException;
-
-  Map<String, String> getDefaultFormatParameter(ImportLogDbVO.Format format, String token)
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException;
+  Map<String, List<String>> getFormatConfiguration(ImportLogDbVO.Format format, String token)
+      throws AuthenticationException, IngeApplicationException;
 
   List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogDetailId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;

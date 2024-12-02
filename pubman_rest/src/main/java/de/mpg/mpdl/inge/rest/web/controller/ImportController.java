@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,11 +41,14 @@ public class ImportController {
   private static final String ImportLog_VAR = "importLogId";
   private static final String ImportLogItem_VAR = "importLogItemId";
 
+  private static final String FORMAT_CONFIGURATION = "formatConfiguration";
   private static final String FORMAT = "format";
   private static final String CONTEXT_ID = "contextId";
   private static final String IMPORT_NAME = "importName";
   private static final String IMPORT_LOG_ID = "importLogId";
   private static final String SUBMIT_MODUS = "submitModus";
+
+  private static final String EXAMPLE_FORMAT_CONFIGURATION = "{\"Param1\": \"true\", \"\"Param2\": \"false\", ...}";
 
   private final ImportService importService;
 
@@ -72,6 +76,39 @@ public class ImportController {
     this.importService.deleteImportedItems(importLogId, token);
 
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/import", method = RequestMethod.POST)
+  @RequestBody(content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE, schema = @Schema(format = "binary")))
+  public ResponseEntity<?> doImport( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestParam(IMPORT_NAME) String importName, //
+      @RequestParam(CONTEXT_ID) String contextId, //
+      @RequestParam(FORMAT) ImportLogDbVO.Format format, //
+      @RequestParam(value = FORMAT_CONFIGURATION, required = false) String formatConfiguration, //
+      HttpServletRequest request) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
+
+    InputStream fileStream = null;
+    try {
+      fileStream = request.getInputStream();
+    } catch (IOException e) {
+    }
+
+    this.importService.doImport(importName, contextId, format, formatConfiguration, fileStream, token);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/getFormatConfiguration", method = RequestMethod.GET)
+  public ResponseEntity<Map<String, List<String>>> getFormatConfiguration( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestParam(FORMAT) ImportLogDbVO.Format format) //
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+
+    Map<String, List<String>> formatConfiguration = this.importService.getFormatConfiguration(format, token);
+
+    return new ResponseEntity<>(formatConfiguration, HttpStatus.OK);
   }
 
   @RequestMapping(value = ImportLogItemDetails_ID_PATH, method = RequestMethod.GET)
@@ -116,27 +153,6 @@ public class ImportController {
     return new ResponseEntity<>(importLogDbVOs, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/import", method = RequestMethod.POST)
-  @RequestBody(content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE, schema = @Schema(format = "binary")))
-  public ResponseEntity<?> doImport( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(IMPORT_NAME) String importName, //
-      @RequestParam(CONTEXT_ID) String contextId, //
-      @RequestParam(FORMAT) ImportLogDbVO.Format format, //
-      HttpServletRequest request) //
-      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
-
-    InputStream fileStream = null;
-    try {
-      fileStream = request.getInputStream();
-    } catch (IOException e) {
-    }
-
-    this.importService.doImport(importName, contextId, format, fileStream, token);
-
-    return new ResponseEntity<>(HttpStatus.OK);
-  }
-
   @RequestMapping(value = "/submitImportedItems", method = RequestMethod.PUT)
   public ResponseEntity<?> submitImportedItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
@@ -148,27 +164,4 @@ public class ImportController {
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
-
-  @RequestMapping(value = "/getAllFormatParameter", method = RequestMethod.GET)
-  public ResponseEntity<Map<String, List<String>>> getAllFormatParameter( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(FORMAT) ImportLogDbVO.Format format) //
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
-
-    Map<String, List<String>> formatParameter = this.importService.getAllFormatParameter(format, token);
-
-    return new ResponseEntity<>(formatParameter, HttpStatus.OK);
-  }
-
-  @RequestMapping(value = "/getDefaultFormatParameter", method = RequestMethod.GET)
-  public ResponseEntity<Map<String, String>> getdefaultFormatParameter( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(FORMAT) ImportLogDbVO.Format format) //
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
-
-    Map<String, String> formatParameter = this.importService.getDefaultFormatParameter(format, token);
-
-    return new ResponseEntity<>(formatParameter, HttpStatus.OK);
-  }
-
 }

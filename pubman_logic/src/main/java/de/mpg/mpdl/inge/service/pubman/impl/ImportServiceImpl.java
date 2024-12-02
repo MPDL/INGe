@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -92,8 +93,8 @@ public class ImportServiceImpl implements ImportService {
   }
 
   @Override
-  public void doImport(String importName, String contextId, ImportLogDbVO.Format format, InputStream fileStream, String token)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+  public void doImport(String importName, String contextId, ImportLogDbVO.Format format, String formatConfiguration, InputStream fileStream,
+      String token) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
     if (null == importName || importName.trim().isEmpty()) {
@@ -113,8 +114,19 @@ public class ImportServiceImpl implements ImportService {
         ImportLog.Messsage.import_process_validate.name());
 
     FormatProcessor formatProcessor = null;
+    Map<String, String> formatConfigurationMap = null;
     try {
       formatProcessor = this.importCommonService.getFormatProcessor(importLogDbVO, format);
+      if (null != formatConfiguration) {
+        try {
+          formatConfigurationMap = checkFormatConfiguration(format, formatConfiguration, token);
+        } catch (Exception e) {
+          this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL,
+              ImportLog.Messsage.import_process_format_error.name());
+          this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO, this.importCommonService.getExceptionMessage(e));
+          return;
+        }
+      }
     } catch (Exception e) {
       this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL,
           ImportLog.Messsage.import_process_format_error.name());
@@ -148,129 +160,55 @@ public class ImportServiceImpl implements ImportService {
 
     this.importCommonService.setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_IMPORT_START);
 
-    this.importAsyncService.doAsyncImport(importLogDbVO, formatProcessor, format, contextDbVO, token);
+    this.importAsyncService.doAsyncImport(importLogDbVO, formatProcessor, format, formatConfigurationMap, contextDbVO, token);
   }
 
   @Override
-  public Map<String, List<String>> getAllFormatParameter(ImportLogDbVO.Format format, String token)
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+  public Map<String, List<String>> getFormatConfiguration(ImportLogDbVO.Format format, String token)
+      throws AuthenticationException, IngeApplicationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
-    //    BIBTEX_STRING (CoNE)						SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
-    //    BMC_XML (CoNE, Files to Import),			SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
-    //    EDOC_XML (CoNE, Schema),					SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
-    //    ENDNOTE_STRING (CoNE, Schema)				SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
-    //    ESCIDOC_ITEM_V3_XML (keine Properties)	null
-    //    MAB_STRING (keine Properties),			null
-    //    MARC_XML (CoNE),							SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
-    //    MARC_21_STRING (CoNE),                    SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
-    //    RIS_STRING (CoNE, Schema),				SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
-    //    WOS_STRING (CoNE, Schema),				SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
-
-    Map<String, List<String>> formatParameter = null;
+    Map<String, List<String>> formatConfiguration = null;
 
     try {
       switch (format) {
         case BIBTEX_STRING -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_BIBTEX_CONFIGURATION_FILENAME);
         }
         case BMC_XML -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
         }
         case EDOC_XML -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
         }
         case ENDNOTE_STRING -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
         }
         case ESCIDOC_ITEM_V3_XML -> {
-          return null;
         }
         case MAB_STRING -> {
-          return null;
         }
         case MARC_XML -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
         }
         case MARC_21_STRING -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
         }
         case RIS_STRING -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
         }
         case WOS_STRING -> {
-          formatParameter = SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
+          formatConfiguration = getParamterMap(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
         }
         default -> {
-          throw new IngeTechnicalException("Invalid format " + format);
+          throw new IngeApplicationException("Invalid format " + format);
         }
       }
     } catch (TransformationException e) {
-      throw new IngeTechnicalException("Error while getting format parameter for " + format, e);
+      throw new IngeApplicationException("Error while getting format parameter for " + format, e);
     }
 
-    return formatParameter;
-  }
-
-  @Override
-  public Map<String, String> getDefaultFormatParameter(ImportLogDbVO.Format format, String token)
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
-    AccountUserDbVO accountUserDbVO = getUser(token);
-
-    //    BIBTEX_STRING (CoNE)						SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
-    //    BMC_XML (CoNE, Files to Import),			SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
-    //    EDOC_XML (CoNE, Schema),					SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
-    //    ENDNOTE_STRING (CoNE, Schema)				SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
-    //    ESCIDOC_ITEM_V3_XML (keine Properties)	null
-    //    MAB_STRING (keine Properties),			null
-    //    MARC_XML (CoNE),							SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
-    //    MARC_21_STRING (CoNE),                    SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
-    //    RIS_STRING (CoNE, Schema),				SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
-    //    WOS_STRING (CoNE, Schema),				SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
-
-    Map<String, String> formatParameter = null;
-
-    try {
-      switch (format) {
-        case BIBTEX_STRING -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
-        }
-        case BMC_XML -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME);
-        }
-        case EDOC_XML -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
-        }
-        case ENDNOTE_STRING -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
-        }
-        case ESCIDOC_ITEM_V3_XML -> {
-          return null;
-        }
-        case MAB_STRING -> {
-          return null;
-        }
-        case MARC_XML -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
-        }
-        case MARC_21_STRING -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
-        }
-        case RIS_STRING -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
-        }
-        case WOS_STRING -> {
-          formatParameter = SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME);
-        }
-        default -> {
-          throw new IngeTechnicalException("Invalid format " + format);
-        }
-      }
-    } catch (TransformationException e) {
-      throw new IngeTechnicalException("Error while getting format parameter for " + format, e);
-    }
-
-    return formatParameter;
+    return formatConfiguration;
   }
 
   @Override
@@ -399,6 +337,39 @@ public class ImportServiceImpl implements ImportService {
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  private Map<String, String> checkFormatConfiguration(ImportLogDbVO.Format format, String formatConfiguration, String token)
+      throws AuthenticationException, IngeApplicationException {
+    Map<String, List<String>> configuration = getFormatConfiguration(format, token);
+
+    Map<String, String> map = new HashMap<>();
+
+    String[] splittedParams = formatConfiguration.split(",");
+    for (String param : splittedParams) {
+      String[] paramValue = param.split("=");
+      if (paramValue.length != 2) {
+        throw new IngeApplicationException("Invalid format configuration: " + formatConfiguration);
+      }
+      String key = paramValue[0];
+      String value = paramValue[1];
+      map.put(key, value);
+    }
+
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+      String key = entry.getKey();
+      String value = entry.getValue();
+      if (!configuration.containsKey(key)) {
+        throw new IngeApplicationException("Invalid format configuration for key: " + key);
+      } else {
+        List<String> list = configuration.get(key);
+        if (!list.contains(value)) {
+          throw new IngeApplicationException("Invalid format configuration for : " + key + "=" + value);
+        }
+      }
+    }
+
+    return map;
+  }
+
   private void checkUserAccess(ImportLogDbVO importLogDbVO, AccountUserDbVO accountUserDbVO) throws AuthorizationException {
     if (null != importLogDbVO && !accountUserDbVO.getObjectId().equals(importLogDbVO.getUserId())) {
       throw new AuthorizationException("given user is not allowed to access the import.");
@@ -413,6 +384,20 @@ public class ImportServiceImpl implements ImportService {
     File file = tmpFilePath.toFile();
 
     return file;
+  }
+
+  private Map<String, List<String>> getParamterMap(String configFile) throws TransformationException {
+    Map<String, List<String>> params = SingleTransformer.getAllConfigurationValuesFromProperty(configFile);
+    Map<String, String> defaultParams = SingleTransformer.getDefaultConfigurationFromProperty(configFile);
+
+    List<String> configurationParameter = new ArrayList<>();
+    for (Map.Entry entry : defaultParams.entrySet()) {
+      configurationParameter.add(entry.getKey() + "=" + entry.getValue());
+    }
+
+    params.put("_default", configurationParameter);
+
+    return params;
   }
 
   private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {

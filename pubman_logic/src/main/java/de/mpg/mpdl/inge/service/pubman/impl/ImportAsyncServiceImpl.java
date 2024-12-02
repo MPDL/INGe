@@ -10,6 +10,7 @@ import de.mpg.mpdl.inge.service.pubman.importprocess.ImportCommonService;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.FormatProcessor;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
@@ -66,7 +67,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
   @Override
   @Async
   public void doAsyncImport(ImportLogDbVO importLogDbVO, FormatProcessor formatProcessor, ImportLogDbVO.Format format,
-      ContextDbVO contextDbVO, String token) {
+      Map<String, String> formatConfiguration, ContextDbVO contextDbVO, String token) {
     int counter = 1;
     int itemCount = 1;
 
@@ -90,13 +91,14 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
         String singleItem = formatProcessor.next();
         if (null != singleItem && !singleItem.trim().isEmpty()) {
 
-          ItemVersionVO itemVersionVO = this.importCommonService.prepareItem(importLogItemDbVO, format, contextDbVO, singleItem);
+          ItemVersionVO itemVersionVO =
+              this.importCommonService.prepareItem(importLogItemDbVO, format, formatConfiguration, contextDbVO, singleItem);
+          importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
 
           if (null != itemVersionVO) {
             this.importCommonService.createItem(itemVersionVO, localTag, importLogItemDbVO, token);
           }
 
-          importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
           this.importCommonService.setPercentageInImportLog(importLogDbVO,
               ImportLogDbVO.PERCENTAGE_IMPORT_END * counter / itemCount + ImportLogDbVO.PERCENTAGE_IMPORT_START);
 

@@ -159,6 +159,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   public void doFailImport(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String message) {
     createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, message);
     createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Messsage.import_process_failed.name());
+    finishImportLog(importLogDbVO);
   }
 
   @Override
@@ -444,12 +445,10 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_SUBMIT_START);
   }
 
-  @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ItemVersionVO prepareItem(ImportLogItemDbVO importLogItemDbVO, ImportLogDbVO.Format format, ContextDbVO contextDbVO,
-      String singleItem) {
-    Map<String, String> configuration = null;
-
+  @Override
+  public ItemVersionVO prepareItem(ImportLogItemDbVO importLogItemDbVO, ImportLogDbVO.Format format,
+      Map<String, String> formatConfiguration, ContextDbVO contextDbVO, String singleItem) {
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_source_data_found.name());
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, singleItem);
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_start_transformation.name());
@@ -458,7 +457,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     String escidocXml = null;
     try {
       escidocXml = this.itemTransformingService.transformFromTo(TransformerFactory.FORMAT.valueOf(format.name()),
-          TransformerFactory.getInternalFormat(), singleItem, configuration);
+          TransformerFactory.getInternalFormat(), singleItem, formatConfiguration);
       createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, escidocXml);
 
       itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(escidocXml));
