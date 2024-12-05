@@ -64,9 +64,9 @@ public class GenrePropertiesProvider {
       if (mapKey.endsWith("_display")) {
         String baseKey = mapKey.substring(0, mapKey.lastIndexOf("_display"));
         JSONObject attributeDetails = new JSONObject();
-        attributeDetails.put("display", map.get(baseKey + "_display"));
-        attributeDetails.put("optional", map.get(baseKey + "_optional"));
-        attributeDetails.put("repeatable", map.get(baseKey + "_repeatable"));
+        attributeDetails.put("display", Boolean.parseBoolean(map.get(baseKey + "_display")));
+        attributeDetails.put("optional", Boolean.parseBoolean(map.get(baseKey + "_optional")));
+        attributeDetails.put("repeatable", Boolean.parseBoolean(map.get(baseKey + "_repeatable")));
         sortedBaseKeys.put(baseKey, attributeDetails);
       }
     }
