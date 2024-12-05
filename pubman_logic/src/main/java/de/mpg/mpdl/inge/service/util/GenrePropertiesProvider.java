@@ -14,7 +14,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.xml.sax.helpers.DefaultHandler;
@@ -72,16 +71,14 @@ public class GenrePropertiesProvider {
       }
     }
 
-    JSONArray keysArray = new JSONArray();
+    JSONObject properties = new JSONObject();
     sortedBaseKeys.forEach((baseKey, attributeDetails) -> {
-      JSONObject keyObject = new JSONObject();
-      keyObject.put(baseKey, attributeDetails);
-      keysArray.put(keyObject);
+      properties.put(baseKey, attributeDetails);
     });
 
     JSONObject json = new JSONObject();
     json.put("genre", genre.toString());
-    json.put("properties", keysArray);
+    json.put("properties", properties);
 
     return json;
   }
