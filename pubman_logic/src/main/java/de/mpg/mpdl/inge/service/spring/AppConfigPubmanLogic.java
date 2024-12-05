@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.spring;
 
+import de.mpg.mpdl.inge.cone_cache.spring.AppConfigConeCache;
 import de.mpg.mpdl.inge.dataacquisition.spring.AppConfigDataacquisition;
 import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
@@ -35,7 +36,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
 @Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class, AppConfigIngeValidation.class,
-    AppConfigDataacquisition.class, AsyncExecutorConfiguration.class})
+    AppConfigDataacquisition.class, AsyncExecutorConfiguration.class, AppConfigConeCache.class})
 @EnableAsync
 @EnableJms
 @EnableScheduling
