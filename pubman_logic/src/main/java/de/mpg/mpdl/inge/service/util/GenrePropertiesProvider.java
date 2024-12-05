@@ -27,7 +27,7 @@ public class GenrePropertiesProvider {
   @PostConstruct
   public void runOnceAtStartup() {
     try {
-      logger.info("CRON: Starting to create Genre Properties.");
+      logger.info("*** CRON (onceAtStartup): Starting to create Genre Properties.");
       InputStream file = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_GENRES_CONFIGURATION),
           GenrePropertiesProvider.class.getClassLoader());
 
@@ -42,9 +42,9 @@ public class GenrePropertiesProvider {
       // Clear cache of resource bundles in order to load the newly created ones
       ResourceBundle.clearCache();
 
-      logger.info("CRON: Finished creating Genre Properties.");
+      logger.info("*** CRON: Finished creating Genre Properties.");
     } catch (Exception e) {
-      logger.error("Error creating Genre Properties", e);
+      logger.error("*** CRON: Error creating Genre Properties", e);
     }
   }
 

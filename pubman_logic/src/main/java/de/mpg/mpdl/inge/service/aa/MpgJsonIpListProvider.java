@@ -55,8 +55,8 @@ public class MpgJsonIpListProvider implements IpListProvider {
   @Scheduled(cron = "0 0 2 * * ?")
   private void init() {
     if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE))) {
-      logger
-          .info("CRON: (re-)initializing IP List from <" + PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL) + ">");
+      logger.info("*** CRON (0 0 2 * * ?): (re-)initializing IP List from <"
+          + PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL) + ">");
       HttpURLConnection conn = null;
 
       try {
@@ -110,23 +110,23 @@ public class MpgJsonIpListProvider implements IpListProvider {
                     singleOrganization.getString("inst_name_en") + ", " + singleOrganization.getString("inst_code"), ipList));
               }
             } catch (JSONException e) {
-              logger.warn("Could not get '" + MpgJsonIpListProvider.IP_RANGE + "' for id '" + id + "', as they are not defined");
+              logger.warn("*** CRON: Could not get '" + MpgJsonIpListProvider.IP_RANGE + "' for id '" + id + "', as they are not defined");
             }
           } else {
-            logger.warn("Ignoring entry in ip list with id '" + id + "', as it is no valid id");
+            logger.warn("*** CRON: Ignoring entry in ip list with id '" + id + "', as it is no valid id");
           }
         }
         // write local ipRangeMap back to class ipRangeMap
         this.ipRangeMap = ipRangeMap;
-        logger.info("CRON: Successfully set JSON IP List with " + ipRangeMap.size() + " entries");
+        logger.info("*** CRON: Successfully set JSON IP List with " + ipRangeMap.size() + " entries");
       } catch (Exception e) {
-        logger.error("Problem with parsing ip list file", e);
+        logger.error("*** CRON: Problem with parsing ip list file", e);
       } finally {
         if (null != conn) {
           conn.disconnect();
         }
         if (null == this.ipRangeMap || this.ipRangeMap.isEmpty()) {
-          logger.warn("No IP RANGES found! - List is empty");
+          logger.warn("*** CRON: No IP RANGES found! - List is empty");
         }
 
       }

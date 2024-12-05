@@ -60,7 +60,7 @@ public class ConeCache {
 
   @Scheduled(fixedDelay = 3600000, initialDelay = 0)
   public static void refreshCache() {
-    logger.info("*** Start CONE-Cache Refresh-Cycle ***");
+    logger.info("*** CRON (fixedDelay 3600000 initialDelay 0): Start CONE-Cache Refresh-Cycle");
 
     String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
 
@@ -76,15 +76,15 @@ public class ConeCache {
     ConeCache.refresh(mpisProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
     ConeCache.refresh(mpiwgProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIWG_PROJECTS_TITLE_QUERY);
 
-    logger.info("*** Ende CONE-Cache Refresh-Cycle ***");
+    logger.info("*** CRON: Ende CONE-Cache Refresh-Cycle");
   }
 
   private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) {
-    logger.info("*** Start refresh: " + queryUrl);
+    logger.info("** Start refresh: " + queryUrl);
     try {
       Set<String> result = ConeCache.getData(handler, queryUrl);
       if (null == result) {
-        logger.info("*** Not used");
+        logger.info("** Not used");
         return;
       }
 
@@ -107,7 +107,7 @@ public class ConeCache {
         }
       }
     }
-    logger.info("*** Ende refresh: " + queryUrl);
+    logger.info("** Ende refresh: " + queryUrl);
   }
 
   private static Set<String> getData(ConeHandler handler, String queryUrl)

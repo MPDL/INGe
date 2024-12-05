@@ -526,12 +526,12 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   @Scheduled(fixedDelay = 600000, initialDelay = 60000)
   public void refreshAllChildrenOfMpg() {
     try {
-      logger.info("CRON: refreshAllChildrenOfMpg() started...");
+      logger.info("*** CRON (fixedDelay 600000 initialDelay 60000): refreshAllChildrenOfMpg() started...");
       List<String> allChildrenOfMpg_ = this.getChildIdPath(this.mpgId);
       this.allChildrenOfMpg = allChildrenOfMpg_;
-      logger.info("CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size() + ").");
+      logger.info("*** CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size() + ").");
     } catch (IngeTechnicalException e) {
-      logger.error("CRON: refreshAllChildrenOfMpg() failed!", e);
+      logger.error("*** CRON: refreshAllChildrenOfMpg() failed!", e);
     }
   }
 }
