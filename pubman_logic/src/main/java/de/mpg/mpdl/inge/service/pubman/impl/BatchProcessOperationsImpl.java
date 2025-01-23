@@ -315,32 +315,25 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    ContextDbVO contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
-    if (null != contextDbVO.getAllowedGenres() && !contextDbVO.getAllowedGenres().isEmpty()
-        && contextDbVO.getAllowedGenres().contains(this.genreTo)) {
-      if (!this.sourceGenreFrom.equals(this.sourceGenreTo)) {
-        List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
-        boolean sourceChanged = false;
-        for (SourceVO currentSource : currentSourceList) {
-          SourceVO.Genre currentSourceGenre = currentSource.getGenre();
-          if (currentSourceGenre.equals(this.sourceGenreFrom)) {
-            currentSource.setGenre(this.sourceGenreTo);
-            sourceChanged = true;
-          }
-          if (sourceChanged) {
-            this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
-          } else {
-            this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-                BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-          }
+    if (!this.sourceGenreFrom.equals(this.sourceGenreTo)) {
+      List<SourceVO> currentSourceList = itemVersionVO.getMetadata().getSources();
+      boolean sourceChanged = false;
+      for (SourceVO currentSource : currentSourceList) {
+        SourceVO.Genre currentSourceGenre = currentSource.getGenre();
+        if (currentSourceGenre.equals(this.sourceGenreFrom)) {
+          currentSource.setGenre(this.sourceGenreTo);
+          sourceChanged = true;
         }
-      } else {
-        this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-            BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
+        if (sourceChanged) {
+          this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+        } else {
+          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
+              BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
+        }
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
     }
   }
 
