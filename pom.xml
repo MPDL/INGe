@@ -1394,8 +1394,8 @@
                 <inge.pubman.build.mode>rifs</inge.pubman.build.mode>
                 <inge.pubman.contact.url />
                 <inge.pubman.handbook.url />
-                <inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
-                <inge.pubman.logo.url>/resources/images/rifs.jpg</inge.pubman.logo.url>
+                <inge.pubman.logo.css>height:4em; padding-top:2.5em</inge.pubman.logo.css>
+                <inge.pubman.logo.url>/resources/images/rifs.png</inge.pubman.logo.url>
                 <inge.pubman.policy.url>https://www.rifs-potsdam.de/de/impressum</inge.pubman.policy.url>
                 <inge.pubman.privacy.policy.url>https://www.rifs-potsdam.de/de/datenschutz</inge.pubman.privacy.policy.url>
                 <inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
