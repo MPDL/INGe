@@ -387,18 +387,14 @@ public class ImportCommonServiceImpl implements ImportCommonService {
       String itemId = (null == objects[7] ? null : objects[7].toString());
       Long anzDetails = Long.parseLong(objects[8].toString());
 
-      //      ImportLogDbVO parent = new ImportLogDbVO();
-      //      parent.setId(parentId);
-      //      parent.setStartDate(null);
-      //      parent.setStatus(null);
-
       ImportLogItemDbVO importLogItemDbVO = new ImportLogItemDbVO();
       importLogItemDbVO.setId(importLogItemId);
-      importLogItemDbVO.setMessage(message);
-      importLogItemDbVO.setErrorLevel(errorLevel);
       importLogItemDbVO.setStatus(status);
+      importLogItemDbVO.setErrorLevel(errorLevel);
       importLogItemDbVO.setStartDate(startDate);
       importLogItemDbVO.setEndDate(endDate);
+      importLogItemDbVO.setParent(importLogDbVO);
+      importLogItemDbVO.setMessage(message);
       importLogItemDbVO.setItemId(itemId);
       importLogItemDbVO.setAnzDetails(anzDetails);
 
@@ -621,11 +617,6 @@ public class ImportCommonServiceImpl implements ImportCommonService {
       String contextId = objects[8].toString();
       Integer percentage = Integer.parseInt(objects[9].toString());
       Long anzItems = Long.parseLong(objects[10].toString());
-
-      //      ImportLogDbVO parent = new ImportLogDbVO();
-      //      parent.setId(parentId);
-      //      parent.setStartDate(null);
-      //      parent.setStatus(null);
 
       ImportLogDbVO importLogDbVO = new ImportLogDbVO();
       importLogDbVO.setId(importLogId);
