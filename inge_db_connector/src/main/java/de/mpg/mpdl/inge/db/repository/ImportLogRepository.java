@@ -4,12 +4,17 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ImportLogDbVO;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ImportLogRepository extends JpaRepository<ImportLogDbVO, Integer> {
 
-  @Query("select i from ImportLogDbVO i where i.contextId = ?1")
-  List<ImportLogDbVO> findAllByContextId(String contextId);
+  @Query(
+      value = "SELECT l.*, COUNT(i.id) as anzItems FROM import_log l LEFT JOIN import_log_item i on i.parent = l.id WHERE l.context = :contextId and i.item_id is not null GROUP BY l.id",
+      nativeQuery = true)
+  List<Object[]> findAllByContextId(@Param("contextId") String contextId);
 
-  @Query("select i from ImportLogDbVO i where i.userId = ?1")
-  List<ImportLogDbVO> findAllByUserId(String userId);
+  @Query(
+      value = "SELECT l.*, COUNT(i.id) as anzItems FROM import_log l LEFT JOIN import_log_item i on i.parent = l.id WHERE l.userid = :userId and i.item_id is not null GROUP BY l.id",
+      nativeQuery = true)
+  List<Object[]> findAllByUserId(@Param("userId") String userId);
 }

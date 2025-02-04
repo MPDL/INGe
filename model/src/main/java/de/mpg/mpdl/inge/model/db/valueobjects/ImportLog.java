@@ -43,7 +43,7 @@ public abstract class ImportLog {
     RELEASE
   }
 
-  public enum Messsage
+  public enum Message
   {
     import_process_default_validation,
     import_process_default_validation_successful,

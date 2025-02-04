@@ -6,6 +6,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.util.Date;
 
 @Entity
@@ -22,6 +23,7 @@ public class ImportLogDbVO extends ImportLog {
   public static final int PERCENTAGE_SUBMIT_START = 5;
   public static final int PERCENTAGE_SUBMIT_SUSPEND = 10;
 
+
   public enum Format
   {
     BIBTEX_STRING,
@@ -36,24 +38,22 @@ public class ImportLogDbVO extends ImportLog {
     WOS_STRING
   }
 
+
   @Column(name = "enddate", columnDefinition = "TIMESTAMP")
   private Date endDate;
-
   @Column(name = "userid")
   private String userId;
-
   @Column(name = "name")
   private String name;
-
   @Enumerated(EnumType.STRING)
   @Column(name = "format")
   private Format format;
-
   @Column(name = "context")
   private String contextId;
-
   @Column(name = "percentage")
   private Integer percentage;
+  @Transient
+  private Long anzItems;
 
   public ImportLogDbVO() {}
 
@@ -66,6 +66,22 @@ public class ImportLogDbVO extends ImportLog {
     this.percentage = ImportLogDbVO.PERCENTAGE_ZERO;
   }
 
+  public Long getAnzItems() {
+    return this.anzItems;
+  }
+
+  public void setAnzItems(Long anzItems) {
+    this.anzItems = anzItems;
+  }
+
+  public String getContextId() {
+    return this.contextId;
+  }
+
+  public void setContextId(String contextId) {
+    this.contextId = contextId;
+  }
+
   public Date getEndDate() {
     return this.endDate;
   }
@@ -74,8 +90,12 @@ public class ImportLogDbVO extends ImportLog {
     this.endDate = enddate;
   }
 
-  public String getUserId() {
-    return this.userId;
+  public Format getFormat() {
+    return this.format;
+  }
+
+  public void setFormat(Format format) {
+    this.format = format;
   }
 
   public String getName() {
@@ -86,23 +106,19 @@ public class ImportLogDbVO extends ImportLog {
     this.name = name;
   }
 
-  public Format getFormat() {
-    return this.format;
-  }
-
-  public String getContextId() {
-    return this.contextId;
-  }
-
-  public void setContextId(String context) {
-    this.contextId = context;
-  }
-
   public Integer getPercentage() {
     return this.percentage;
   }
 
   public void setPercentage(Integer percentage) {
     this.percentage = percentage;
+  }
+
+  public String getUserId() {
+    return this.userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 }

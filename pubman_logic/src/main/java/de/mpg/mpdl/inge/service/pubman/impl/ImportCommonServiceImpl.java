@@ -37,6 +37,7 @@ import de.mpg.mpdl.inge.service.pubman.importprocess.processor.WosProcessor;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -125,10 +126,10 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     itemVersionVO.getObject().getLocalTags().add("multiple_import");
     itemVersionVO.getObject().getLocalTags().add(localTag.toString());
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, "Local Tag: " + localTag);
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_save_item.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_save_item.name());
     ItemVersionVO savedPubItem = this.pubItemService.create(itemVersionVO, token);
     setItemIdInImportLogItem(importLogItemDbVO, savedPubItem.getObjectId());
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_item_imported.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_item_imported.name());
   }
 
   @Override
@@ -142,15 +143,15 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   public void doDelete(ImportLogItemDbVO importLogItemDbVO, String token)
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
     this.pubItemService.delete(importLogItemDbVO.getItemId(), token);
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_delete_successful.name());
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_remove_identifier.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_delete_successful.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_remove_identifier.name());
     resetItemId(importLogItemDbVO);
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void doFailDelete(ImportLogItemDbVO importLogItemDbVO, String message) {
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Messsage.import_process_delete_failed.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Message.import_process_delete_failed.name());
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
   }
 
@@ -158,7 +159,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   @Transactional(rollbackFor = Throwable.class)
   public void doFailImport(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String message) {
     createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, message);
-    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Messsage.import_process_failed.name());
+    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_failed.name());
     finishImportLog(importLogDbVO);
   }
 
@@ -167,16 +168,16 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   public void doFailSubmit(ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus, String message) {
     switch (submitModus) {
       case SUBMIT:
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Messsage.import_process_submit_failed.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Message.import_process_submit_failed.name());
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
         break;
       case SUBMIT_AND_RELEASE:
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR,
-            ImportLog.Messsage.import_process_submit_release_failed.name());
+            ImportLog.Message.import_process_submit_release_failed.name());
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
         break;
       case RELEASE:
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Messsage.import_process_release_failed.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Message.import_process_release_failed.name());
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, message);
         break;
     }
@@ -192,7 +193,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
       case SUBMIT:
         this.pubItemService.submitPubItem(importLogItemDbVO.getItemId(), itemVersionVO.getModificationDate(),
             "Batch submit from import " + importLogDbVO.getName(), token);
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_submit_successful.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_submit_successful.name());
         break;
       case SUBMIT_AND_RELEASE:
         this.pubItemService.submitPubItem(importLogItemDbVO.getItemId(), itemVersionVO.getModificationDate(),
@@ -201,13 +202,12 @@ public class ImportCommonServiceImpl implements ImportCommonService {
         this.pubItemService.releasePubItem(importLogItemDbVO.getItemId(), itemVersionVO.getModificationDate(),
             "Batch (submit and) release from import " + importLogDbVO.getName(), token);
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_submit_release_successful.name());
+            ImportLog.Message.import_process_submit_release_successful.name());
         break;
       case RELEASE:
         this.pubItemService.releasePubItem(importLogItemDbVO.getItemId(), itemVersionVO.getModificationDate(),
             "Batch release from import " + importLogDbVO.getName(), token);
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_release_successful.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_release_successful.name());
         break;
     }
   }
@@ -215,7 +215,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void finishDelete(ImportLogDbVO importLogDbVO) {
-    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_delete_finished.name());
+    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_delete_finished.name());
     finishImportLog(importLogDbVO);
   }
 
@@ -223,7 +223,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   @Override
   public void finishImport(ImportLogDbVO importLogDbVO) {
     ImportLogItemDbVO importLogItemDbVO =
-        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_finished.name());
+        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_finished.name());
     finishImportLog(importLogDbVO);
   }
 
@@ -250,13 +250,13 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   public void finishSubmit(ImportLogDbVO importLogDbVO, ImportLog.SubmitModus submitModus) {
     switch (submitModus) {
       case SUBMIT:
-        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_submit_finished.name());
+        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_submit_finished.name());
         break;
       case SUBMIT_AND_RELEASE:
-        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_submit_release_finished.name());
+        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_submit_release_finished.name());
         break;
       case RELEASE:
-        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_release_finished.name());
+        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_release_finished.name());
         break;
     }
 
@@ -265,7 +265,8 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Override
   public List<ImportLogDbVO> getContextImportLogs(String contextId) {
-    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findAllByContextId(contextId);
+    List<Object[]> results = this.importLogRepository.findAllByContextId(contextId);
+    List<ImportLogDbVO> importLogDbVOs = getImportLogDbVOs(results);
 
     return importLogDbVOs;
   }
@@ -372,7 +373,37 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Override
   public List<ImportLogItemDbVO> getImportLogItems(ImportLogDbVO importLogDbVO) {
-    List<ImportLogItemDbVO> importLogItemDbVOs = this.importLogItemRepository.findByParent(importLogDbVO);
+    List<Object[]> results = this.importLogItemRepository.findByParent(importLogDbVO.getId());
+    List<ImportLogItemDbVO> importLogItemDbVOs = new ArrayList<ImportLogItemDbVO>();
+
+    for (Object[] objects : results) {
+      Integer importLogItemId = Integer.parseInt(objects[0].toString());
+      ImportLog.Status status = ImportLog.Status.valueOf(objects[1].toString());
+      ImportLog.ErrorLevel errorLevel = ImportLog.ErrorLevel.valueOf(objects[2].toString());
+      Date startDate = (Date) objects[3];
+      Date endDate = (Date) objects[4];
+      //      Integer parentId = Integer.parseInt(objects[5].toString());
+      String message = objects[6].toString();
+      String itemId = (null == objects[7] ? null : objects[7].toString());
+      Long anzDetails = Long.parseLong(objects[8].toString());
+
+      //      ImportLogDbVO parent = new ImportLogDbVO();
+      //      parent.setId(parentId);
+      //      parent.setStartDate(null);
+      //      parent.setStatus(null);
+
+      ImportLogItemDbVO importLogItemDbVO = new ImportLogItemDbVO();
+      importLogItemDbVO.setId(importLogItemId);
+      importLogItemDbVO.setMessage(message);
+      importLogItemDbVO.setErrorLevel(errorLevel);
+      importLogItemDbVO.setStatus(status);
+      importLogItemDbVO.setStartDate(startDate);
+      importLogItemDbVO.setEndDate(endDate);
+      importLogItemDbVO.setItemId(itemId);
+      importLogItemDbVO.setAnzDetails(anzDetails);
+
+      importLogItemDbVOs.add(importLogItemDbVO);
+    }
 
     return importLogItemDbVOs;
   }
@@ -386,7 +417,8 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Override
   public List<ImportLogDbVO> getUserImportLogs(String userId) {
-    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findAllByUserId(userId);
+    List<Object[]> results = this.importLogRepository.findAllByUserId(userId);
+    List<ImportLogDbVO> importLogDbVOs = getImportLogDbVOs(results);
 
     return importLogDbVOs;
   }
@@ -398,9 +430,9 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_ZERO);
 
     ImportLogItemDbVO importLogItemDbVO =
-        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_delete_items.name());
+        createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_delete_items.name());
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-        ImportLog.Messsage.import_process_initialize_delete_process.name());
+        ImportLog.Message.import_process_initialize_delete_process.name());
 
     setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_DELETE_START);
   }
@@ -409,7 +441,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   @Transactional(rollbackFor = Throwable.class)
   public ImportLogDbVO initializeImport(AccountUserDbVO accountUserDbVO, ImportLogDbVO.Format format, String importName, String contextId) {
     ImportLogDbVO importLogDbVO = createImportLog(accountUserDbVO.getObjectId(), format, importName, contextId);
-    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_started.name());
+    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_started.name());
 
     return importLogDbVO;
   }
@@ -424,21 +456,21 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     switch (submitModus) {
       case SUBMIT:
         importLogItemDbVO =
-            createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_submit_items.name());
+            createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_submit_items.name());
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_initialize_submit_process.name());
+            ImportLog.Message.import_process_initialize_submit_process.name());
         break;
       case SUBMIT_AND_RELEASE:
         importLogItemDbVO =
-            createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_submit_release_items.name());
+            createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_submit_release_items.name());
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_initialize_submit_release_process.name());
+            ImportLog.Message.import_process_initialize_submit_release_process.name());
         break;
       case RELEASE:
         importLogItemDbVO =
-            createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_release_items.name());
+            createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_release_items.name());
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_initialize_release_process.name());
+            ImportLog.Message.import_process_initialize_release_process.name());
         break;
     }
 
@@ -449,9 +481,9 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   @Override
   public ItemVersionVO prepareItem(ImportLogItemDbVO importLogItemDbVO, ImportLogDbVO.Format format,
       Map<String, String> formatConfiguration, ContextDbVO contextDbVO, String singleItem) {
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_source_data_found.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_source_data_found.name());
     createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, singleItem);
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_start_transformation.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_start_transformation.name());
 
     ItemVersionVO itemVersionVO = null;
     String escidocXml = null;
@@ -463,27 +495,26 @@ public class ImportCommonServiceImpl implements ImportCommonService {
       itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(escidocXml));
       itemVersionVO.getObject().setContext(contextDbVO);
       itemVersionVO.setObjectId(null);
-      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_transformation_done.name());
+      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_transformation_done.name());
 
       // Simple Validation
-      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_default_validation.name());
+      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_default_validation.name());
       try {
         PubItemUtil.cleanUpItem(itemVersionVO);
         this.itemValidatingService.validate(itemVersionVO, ValidationPoint.SIMPLE);
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_default_validation_successful.name());
+            ImportLog.Message.import_process_default_validation_successful.name());
 
         // Standard Validation
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_release_validation.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_release_validation.name());
         try {
           this.itemValidatingService.validate(itemVersionVO, ValidationPoint.STANDARD);
           createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-              ImportLog.Messsage.import_process_release_validation_successful.name());
-          createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_generate_item.name());
+              ImportLog.Message.import_process_release_validation_successful.name());
+          createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_generate_item.name());
         } catch (ValidationException e) { // Standard Validation
           createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING,
-              ImportLog.Messsage.import_process_release_validation_failed.name());
+              ImportLog.Message.import_process_release_validation_failed.name());
           for (ValidationReportItemVO item : e.getReport().getItems()) {
             createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING, item.getContent());
           }
@@ -491,19 +522,19 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
       } catch (ValidationException e) { // Simple Validation
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING,
-            ImportLog.Messsage.import_process_default_validation_failed.name());
+            ImportLog.Message.import_process_default_validation_failed.name());
         for (ValidationReportItemVO item : e.getReport().getItems()) {
           createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.PROBLEM, item.getContent());
         }
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.WARNING,
-            ImportLog.Messsage.import_process_item_not_imported.name());
+            ImportLog.Message.import_process_item_not_imported.name());
         itemVersionVO = null;
       }
 
     } catch (Exception e) {
       logger.error("Error while multiple import", e);
       createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, getExceptionMessage(e));
-      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Messsage.import_process_item_not_imported.name());
+      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR, ImportLog.Message.import_process_item_not_imported.name());
       itemVersionVO = null;
     }
 
@@ -543,7 +574,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void setSuspensionForDelete(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO) {
-    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_schedule_delete.name());
+    createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_schedule_delete.name());
     suspendImportLogItem(importLogItemDbVO);
   }
 
@@ -552,14 +583,14 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   public void setSuspensionForSubmit(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus) {
     switch (submitModus) {
       case SUBMIT:
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_schedule_submit.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_schedule_submit.name());
         break;
       case SUBMIT_AND_RELEASE:
         createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_schedule_submit_release.name());
+            ImportLog.Message.import_process_schedule_submit_release.name());
         break;
       case RELEASE:
-        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Messsage.import_process_schedule_release.name());
+        createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE, ImportLog.Message.import_process_schedule_release.name());
         break;
     }
 
@@ -573,5 +604,44 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     importLogItemDbVO.setStatus(ImportLog.Status.SUSPENDED);
 
     importLogItemDbVO = this.importLogItemRepository.saveAndFlush(importLogItemDbVO);
+  }
+
+  private List<ImportLogDbVO> getImportLogDbVOs(List<Object[]> results) {
+    List<ImportLogDbVO> importLogDbVOs = new ArrayList<ImportLogDbVO>();
+
+    for (Object[] objects : results) {
+      Integer importLogId = Integer.parseInt(objects[0].toString());
+      ImportLog.Status status = ImportLog.Status.valueOf(objects[1].toString());
+      ImportLog.ErrorLevel errorLevel = ImportLog.ErrorLevel.valueOf(objects[2].toString());
+      Date startDate = (Date) objects[3];
+      Date endDate = (Date) objects[4];
+      String userId = objects[5].toString();
+      String name = objects[6].toString();
+      ImportLogDbVO.Format format = ImportLogDbVO.Format.valueOf(objects[7].toString());
+      String contextId = objects[8].toString();
+      Integer percentage = Integer.parseInt(objects[9].toString());
+      Long anzItems = Long.parseLong(objects[10].toString());
+
+      //      ImportLogDbVO parent = new ImportLogDbVO();
+      //      parent.setId(parentId);
+      //      parent.setStartDate(null);
+      //      parent.setStatus(null);
+
+      ImportLogDbVO importLogDbVO = new ImportLogDbVO();
+      importLogDbVO.setId(importLogId);
+      importLogDbVO.setStatus(status);
+      importLogDbVO.setErrorLevel(errorLevel);
+      importLogDbVO.setStartDate(startDate);
+      importLogDbVO.setEndDate(endDate);
+      importLogDbVO.setUserId(userId);
+      importLogDbVO.setName(name);
+      importLogDbVO.setFormat(format);
+      importLogDbVO.setContextId(contextId);
+      importLogDbVO.setPercentage(percentage);
+      importLogDbVO.setAnzItems(anzItems);
+
+      importLogDbVOs.add(importLogDbVO);
+    }
+    return importLogDbVOs;
   }
 }

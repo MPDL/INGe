@@ -43,7 +43,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
     for (ImportLogItemDbVO importLogItemDbVO : importedLogItemDbVOs) {
       importLogItemDbVO = this.importCommonService.getImportLogItem(importLogItemDbVO.getId()); // in the meanwhile the parent has been changed
       this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-          ImportLog.Messsage.import_process_delete_item.name());
+          ImportLog.Message.import_process_delete_item.name());
 
       try {
         this.importCommonService.doDelete(importLogItemDbVO, token);
@@ -58,7 +58,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       this.importCommonService.setPercentageInImportLog(importLogDbVO,
           ImportLogDbVO.PERCENTAGE_DELETE_END * counter / importedLogItemDbVOs.size() + ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
 
-      pause(); // TODO: remove
+      //      pause(); // TODO: remove
     }
 
     this.importCommonService.finishDelete(importLogDbVO);
@@ -72,7 +72,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
     int itemCount = 1;
 
     this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
-        ImportLog.Messsage.import_process_start_import.name());
+        ImportLog.Message.import_process_start_import.name());
 
     if (formatProcessor.hasNext()) {
       itemCount = formatProcessor.getLength();
@@ -84,7 +84,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       ImportLogItemDbVO importLogItemDbVO = null;
       try {
         importLogItemDbVO = this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Messsage.import_process_import_item.name());
+            ImportLog.Message.import_process_import_item.name());
 
         this.importCommonService.suspendImportLogItem(importLogItemDbVO);
 
@@ -104,7 +104,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
           this.importCommonService.finishImportLogItem(importLogItemDbVO);
 
-          pause(); // TODO: remove
+          //          pause(); // TODO: remove
         }
       } catch (Exception e) {
         logger.error("Error during import", e);
@@ -112,6 +112,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
           this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR,
               this.importCommonService.getExceptionMessage(e));
           this.importCommonService.finishImportLogItem(importLogItemDbVO);
+          importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
         }
       } finally {
         counter++;
@@ -139,15 +140,15 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       switch (submitModus) {
         case SUBMIT:
           this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-              ImportLog.Messsage.import_process_submit_item.name());
+              ImportLog.Message.import_process_submit_item.name());
           break;
         case SUBMIT_AND_RELEASE:
           this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-              ImportLog.Messsage.import_process_submit_relase_item.name());
+              ImportLog.Message.import_process_submit_relase_item.name());
           break;
         case RELEASE:
           this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-              ImportLog.Messsage.import_process_relase_item.name());
+              ImportLog.Message.import_process_relase_item.name());
           break;
       }
 
@@ -164,7 +165,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       this.importCommonService.setPercentageInImportLog(importLogDbVO,
           ImportLogDbVO.PERCENTAGE_SUBMIT_END * counter / importedLogItemDbVOs.size() + ImportLogDbVO.PERCENTAGE_SUBMIT_SUSPEND);
 
-      pause(); // TODO: remove
+      //      pause(); // TODO: remove
     }
 
     this.importCommonService.finishSubmit(importLogDbVO, submitModus);
