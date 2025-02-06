@@ -144,11 +144,11 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
           break;
         case SUBMIT_AND_RELEASE:
           this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-              ImportLog.Message.import_process_submit_relase_item.name());
+              ImportLog.Message.import_process_submit_release_item.name());
           break;
         case RELEASE:
           this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FINE,
-              ImportLog.Message.import_process_relase_item.name());
+              ImportLog.Message.import_process_release_item.name());
           break;
       }
 
