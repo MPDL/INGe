@@ -110,6 +110,17 @@ public class ImportController {
     return new ResponseEntity<>(formatConfiguration, HttpStatus.OK);
   }
 
+  @RequestMapping(value = ImportLog_ID_PATH, method = RequestMethod.GET)
+  public ResponseEntity<ImportLogDbVO> getImportLog( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @PathVariable(ImportLog_VAR) Integer importLogId) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    ImportLogDbVO importLogDbVO = importService.getImportLog(importLogId, token);
+
+    return new ResponseEntity<>(importLogDbVO, HttpStatus.OK);
+  }
+
   @RequestMapping(value = ImportLogItemDetails_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<List<ImportLogItemDetailDbVO>> getImportLogItemDetails( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //

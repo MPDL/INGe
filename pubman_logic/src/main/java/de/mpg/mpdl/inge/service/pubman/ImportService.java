@@ -25,6 +25,9 @@ public interface ImportService {
   Map<String, List<String>> getFormatConfiguration(ImportLogDbVO.Format format, String token)
       throws AuthenticationException, IngeApplicationException;
 
+  ImportLogDbVO getImportLog(Integer importLogId, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException;
+
   List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogDetailId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 

@@ -393,7 +393,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
       importLogItemDbVO.setErrorLevel(errorLevel);
       importLogItemDbVO.setStartDate(startDate);
       importLogItemDbVO.setEndDate(endDate);
-      importLogItemDbVO.setParent(importLogDbVO);
+      //      importLogItemDbVO.setParent(importLogDbVO);
       importLogItemDbVO.setMessage(message);
       importLogItemDbVO.setItemId(itemId);
       importLogItemDbVO.setAnzDetails(anzDetails);

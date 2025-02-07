@@ -211,6 +211,21 @@ public class ImportServiceImpl implements ImportService {
   }
 
   @Override
+  public ImportLogDbVO getImportLog(Integer importLogId, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
+    AccountUserDbVO accountUserDbVO = getUser(token);
+
+    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO);
+    if (null == importLogDbVO) {
+      throw new IngeApplicationException("Invalid importLogId");
+    }
+
+    checkUserAccess(importLogDbVO, accountUserDbVO);
+
+    return importLogDbVO;
+  }
+
+  @Override
   public List<ImportLogItemDetailDbVO> getImportLogItemDetails(Integer importLogItemId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
