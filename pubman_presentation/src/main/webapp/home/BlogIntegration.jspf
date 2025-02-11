@@ -11,34 +11,56 @@
 			name="commonJavaScript/jquery/jquery-dateFormat.min.js" />
 		<h:outputStylesheet name="commonJavaScript/jquery/css/gfc.css" />
 		<script type="text/javascript">
-			var pubmanBlogUrl = '<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}" escape="false"/>';
-			//    <![CDATA[
-			jQuery(function($) {
-				$("#feedControl")
-						.rss(
-								pubmanBlogUrl,
-								{
-									ssl : true,
-									host: "#{ApplicationBean.pubmanBlogBaseUrl}",
-									limit : 4,
-									dateFormatFunction : function(date) {
-										return $.format
-												.date(date, 'yyyy-MM-dd');
-									},
-									layoutTemplate : "<div class='gfc-control'><div class='gfc-resultsbox-visible'><div class='gfc-resultsRoot'><div class='gfc-results'>{entries}</div></div></div></div>",
-									entryTemplate : "<div class='gfc-result'><div class='gf-result'>"
-											+ "<div class='gf-title'><a class='gf-title' href='{url}' target='_blank'>{title}</a></div>"
-											+ "<div class='gf-author'>{author}</div><div class='gf-spacer'>-</div><div class='gf-relativePublishedDate'>{date}</div>"
-											+ "<div class='gf-snippet'>{shortBodyPlain}...</div>"
-											+ "</div></div>",
-								});
-			})
-			// ]]>
+			// <![CDATA[
+			//var pubmanBlogUrl = '<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}" escape="false"/>';
+			
+			var pubmanBlogUrl = 'https://blog.pure.mpg.de/json1';
+			$(function () {
+				  $(".content").children().remove();
+				  $.ajax({
+				    url: pubmanBlogUrl,
+				    dataType: "json",
+				    error: function (e) {
+				      alert("An error occurred while processing JSON file");
+				      console.log("JSON reading Failed: ", e);
+				    },
+				    success: function (response) {
+				    	response.forEach(function (rssItem, index) {
+				    	if(index < 3) {
+				    	  console.log(index);
+						  console.log(rssItem);
+						  // Build a new element;
+				          var $itemHtml = $('<div class="item"></div>');
+				          // Grab the variables from the RSS feed
+				          let rss_item_title = rssItem.title;
+				          let rss_item_link = rssItem.link;
+				          let rss_item_excerpt = rssItem.excerpt.length > 250 ? rssItem.excerpt.substring(0, 250) + '...': rssItem.excerpt;
+				          let rss_item_date = rssItem.date;
+
+				          // Append elements to the new element
+				          var itemTemplate = '<div class="gfc-result"><div class="gf-result"><div class="gf-title"><a class="gf-title" href="' + rss_item_link + '" target="_blank">' + rss_item_title + '</a></div><div class="gf-relativePublishedDate">' + rss_item_date + '</div><div class="gf-snippet"> ' + rss_item_excerpt + '</div></div></div>';
+				          $itemHtml.append(itemTemplate);
+				          //console.log($build);
+				          $('#blog_entries').append($itemHtml);
+				    	}
+				      });
+				    },
+				  });
+				});
+			// ]]>	
 		</script>
 		<h2>
 			<h:outputText value="#{lbl.Home_Header_News}" escape="false" />
 		</h2>
-		<div id="feedControl" style="font-size: 0.4em"></div>
+		<div id="feedControl" style="font-size: 0.4em">
+			<div class="gfc-control">
+  				<div class="gfc-resultsbox-visible">
+    				<div class="gfc-resultsRoot">
+      					<div id="blog_entries" class="gfc-results"></div>
+    				</div>
+  				</div>
+			</div>
+		</div>
 	</h:panelGroup>
 	
 </ui:composition>
