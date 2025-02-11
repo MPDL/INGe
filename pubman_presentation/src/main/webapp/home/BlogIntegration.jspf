@@ -27,8 +27,6 @@
 				    success: function (response) {
 				    	response.forEach(function (rssItem, index) {
 				    	if(index < 3) {
-				    	  console.log(index);
-						  console.log(rssItem);
 						  // Build a new element;
 				          var $itemHtml = $('<div class="item"></div>');
 				          // Grab the variables from the RSS feed
