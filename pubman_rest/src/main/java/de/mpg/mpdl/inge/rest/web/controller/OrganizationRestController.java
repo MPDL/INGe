@@ -197,7 +197,7 @@ public class OrganizationRestController {
     return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/allchildren/" + OU_ID_PATH, method = RequestMethod.POST)
+  @RequestMapping(value = "/allchildren" + OU_ID_PATH, method = RequestMethod.POST)
   public ResponseEntity<List<AffiliationDbVO>> allChildOrganizations(@PathVariable(value = OU_ID_VAR) String ignoreOuId,
       @RequestBody String[] parentAffiliationIds)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
