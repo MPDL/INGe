@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>INGe</artifactId>
 		<groupId>de.mpg.mpdl.inge</groupId>
-		<version>8.5.3-SNAPSHOT</version>
+		<version>8.5.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>pubman_rest</artifactId>
