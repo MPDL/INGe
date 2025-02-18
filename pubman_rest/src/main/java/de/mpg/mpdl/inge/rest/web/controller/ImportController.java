@@ -78,7 +78,7 @@ public class ImportController {
   }
 
   @RequestMapping(value = "/import", method = RequestMethod.POST)
-  @RequestBody(content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE, schema = @Schema(format = "binary")))
+  @RequestBody(content = @Content(mediaType = MediaType.TEXT_PLAIN_VALUE, schema = @Schema(format = "binary")))
   public ResponseEntity<?> doImport( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(IMPORT_NAME) String importName, //
