@@ -12,9 +12,7 @@
 		<h:outputStylesheet name="commonJavaScript/jquery/css/gfc.css" />
 		<script type="text/javascript">
 			// <![CDATA[
-			//var pubmanBlogUrl = '<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}" escape="false"/>';
-			
-			var pubmanBlogUrl = 'https://blog.pure.mpg.de/json1';
+			var pubmanBlogUrl = '#{ApplicationBean.pubmanBlogFeedUrl}';
 			$(function () {
 				  $(".content").children().remove();
 				  $.ajax({
