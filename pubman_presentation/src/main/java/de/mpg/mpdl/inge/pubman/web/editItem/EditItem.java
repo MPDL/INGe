@@ -56,7 +56,6 @@ import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.ListItem;
@@ -67,7 +66,9 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.util.GenreSpecificItemManager;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.component.html.HtmlCommandLink;
@@ -411,8 +412,8 @@ public class EditItem extends FacesBean {
 
     try {
       ItemVersionVO itemVO = new ItemVersionVO(this.getPubItem()); // Validierung arbeitet mit Kopie
-      //      PubItemUtil.cleanUpItem(itemVO);
-      //      cleanUp(itemVO);
+      PubItemUtil.cleanUpItem(itemVO);
+      cleanUp(itemVO);
       ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, ValidationPoint.STANDARD);
       this.info(this.getMessage("itemIsValid"));
     } catch (ValidationException e) {
@@ -462,7 +463,7 @@ public class EditItem extends FacesBean {
 
   private void cleanUp(ItemVersionVO pubItem) {
     // cleanup item according to genre specific MD specification
-    GenreSpecificItemManager itemManager = new GenreSpecificItemManager(pubItem, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    GenreSpecificItemManager itemManager = new GenreSpecificItemManager(pubItem);
     try {
       pubItem = itemManager.cleanupItem();
     } catch (Exception e) {
@@ -570,7 +571,7 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    //    cleanUp(this.getPubItem());
+    cleanUp(this.getPubItem());
 
     String retVal = checkItemChanged(navigateTo);
 

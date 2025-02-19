@@ -197,7 +197,7 @@
 					<plugin>
 							<groupId>cz.habarta.typescript-generator</groupId>
 							<artifactId>typescript-generator-maven-plugin</artifactId>
-							<version>3.1.1185</version>
+							<version>3.2.1263</version>
 							<executions>
 								<execution>
 									<id>generate</id>
@@ -224,6 +224,8 @@
 									<naming>de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO$State:ItemVersionState</naming>
 									<naming>de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO$Genre:MdsPublicationGenre</naming>
 									<naming>de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO$Genre:SourceGenre</naming>
+									<naming>de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO$State:BatchLogHeaderState</naming>
+									<naming>de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO$State:BatchLogDetailState</naming>
 								</customTypeNaming>
 							</configuration>
 					</plugin>

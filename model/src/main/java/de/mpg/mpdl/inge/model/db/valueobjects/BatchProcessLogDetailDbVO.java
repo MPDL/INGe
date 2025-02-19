@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import jakarta.persistence.Index;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -26,7 +27,8 @@ import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "batch_process_log_detail")
+@Table(name = "batch_process_log_detail",
+    indexes = {@Index(name = "batch_process_log_detail_idx_parent", columnList = "batch_process_log_header_id")})
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class BatchProcessLogDetailDbVO implements Serializable {
 
@@ -46,7 +48,9 @@ public class BatchProcessLogDetailDbVO implements Serializable {
     // ERROR MESSAGES
     BATCH_AUTHENTICATION_ERROR,
     BATCH_AUTHORIZATION_ERROR,
+    BATCH_CONTEXT_AUTHORIZATION_ERROR,
     BATCH_CONTEXT_NOT_FOUND,
+    BATCH_CONTEXT_NOT_OPEN,
     BATCH_FILES_METADATA_OLD_VALUE_NOT_EQUAL,
     BATCH_INTERNAL_ERROR,
     BATCH_ITEM_NOT_FOUND,

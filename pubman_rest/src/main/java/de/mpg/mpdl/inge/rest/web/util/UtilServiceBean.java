@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -72,7 +73,6 @@ public class UtilServiceBean {
   
   }
   */
-
 
 
   public static <T> ResponseEntity<String> searchDetailed(GenericService<T, ?> service, JsonNode searchSource, String scrollTimeValue,
@@ -228,10 +228,19 @@ public class UtilServiceBean {
   //        sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
   //  }
 
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchOrExport(String format, String citation, String cslConeId,
+      List<ItemVersionVO> itemList, HttpServletResponse response, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException, IOException {
+    ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
+    SearchAndExportResultVO saerVO = this.saes.exportItems(exportFormat, itemList, token);
+    return getResponseEntity(exportFormat, false, saerVO, response, token);
+  }
+
 
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchOrExport(String format, String citation, String cslConeId,
       boolean scroll, SearchRetrieveRequestVO srRequest, HttpServletResponse response, String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+
     if (scroll) {
       srRequest.setScrollTime(ItemRestController.DEFAULT_SCROLL_TIME);
     }
@@ -244,17 +253,23 @@ public class UtilServiceBean {
         headers.add("scrollId", srResponse.getScrollId());
       }
       return new ResponseEntity<>(srResponse, headers, HttpStatus.OK);
-    }
 
+    }
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
     SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
     SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+    return getResponseEntity(exportFormat, scroll, saerVO, response, token);
+  }
+
+  private ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getResponseEntity(ExportFormatVO exportFormat, boolean scroll,
+      SearchAndExportResultVO saerVO, HttpServletResponse response, String token)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
     response.setContentType(saerVO.getTargetMimetype());
     response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
     response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
     if (scroll) {
-      response.setHeader("scrollId", saerrVO.getSearchRetrieveReponseVO().getScrollId());
+      response.setHeader("scrollId", saerVO.getSearchRetrieveResponseVO().getScrollId());
     }
 
     OutputStream output = response.getOutputStream();

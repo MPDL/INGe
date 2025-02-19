@@ -2,14 +2,13 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.CacheMode;
@@ -983,12 +982,29 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Transactional(readOnly = true)
   public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken) {
 
-    List<AuditDbVO> list = this.auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
+    List<Object[]> results = this.auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
 
-    return list;
+    List<AuditDbVO> versionHistory = new ArrayList<>();
+    // a.id, a.comment, a.event, a.modificationdate, a.modifier_name, a.modifier_objectid, a.pubitem_objectid, a.pubitem_versionnumber
+    for (Object[] result : results) {
+      AuditDbVO auditDbVO = new AuditDbVO();
+      auditDbVO.setId(((int) result[0]));
+      auditDbVO.setComment((String) result[1]);
+      auditDbVO.setEvent(AuditDbVO.EventType.valueOf((String) result[2]));
+      auditDbVO.setModificationDate((Date) result[3]);
+      AccountUserDbRO accountUserDbRO = new AccountUserDbRO();
+      accountUserDbRO.setName((String) result[4]);
+      accountUserDbRO.setObjectId((String) result[5]);
+      auditDbVO.setModifier(accountUserDbRO);
+      ItemVersionVO itemVersionVO = new ItemVersionVO();
+      itemVersionVO.setObjectId((String) result[6]);
+      itemVersionVO.setVersionNumber((int) result[7]);
+      auditDbVO.setPubItem(itemVersionVO);
+      versionHistory.add(auditDbVO);
+    }
+
+    return versionHistory;
   }
-
-
 
   private void rollbackSavedFiles(ItemVersionVO pubItemVO) throws IngeTechnicalException {
     for (FileDbVO fileVO : pubItemVO.getFiles()) {
@@ -1030,6 +1046,81 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       throw new IngeTechnicalException("", e);
     }
     return true;
+  }
+
+  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException {
+    Principal principal = null;
+    ItemVersionVO item = null;
+    if (authenticationToken != null) {
+      try {
+        principal = this.aaService.checkLoginRequired(authenticationToken);
+        item = get(itemId, authenticationToken);
+        //item not found, return null
+        if (item == null) {
+          return null;
+        }
+
+      } catch (AuthenticationException | AuthorizationException e) {
+
+      }
+    }
+    Map<AuthorizationService.AccessType, Boolean> authMap = new LinkedHashMap<>();
+
+    for (AuthorizationService.AccessType at : AuthorizationService.AccessType.values()) {
+      boolean isAuthorized = false;
+      if (principal != null && item != null) {
+        isAuthorized = checkAccess(at, principal, item);
+      }
+      authMap.put(at, isAuthorized);
+
+    }
+    return authMap;
+  }
+
+  public JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException {
+    Principal principal = null;
+    ItemVersionVO item = null;
+    if (authenticationToken != null) {
+      try {
+        principal = this.aaService.checkLoginRequired(authenticationToken);
+        item = get(itemId, authenticationToken);
+        //item not found, return null
+        if (item == null) {
+          return null;
+        }
+
+      } catch (AuthenticationException | AuthorizationException e) {
+
+      }
+    }
+
+    FileDbVO file = item.getFiles().stream().filter(f -> fileId.equals(f.getObjectId())).findFirst().get();
+    if (file == null) {
+      return null;
+    }
+
+
+    ObjectNode returnNode = objectMapper.createObjectNode();
+
+    JsonNode readFileNode = objectMapper.createObjectNode().put(AuthorizationService.AccessType.READ_FILE.name(),
+        fileService.checkAccess(AuthorizationService.AccessType.READ_FILE, principal, item, file));
+    returnNode.set("actions", readFileNode);
+
+    if (file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
+
+      ObjectNode ipNameObject = objectMapper.createObjectNode();
+      returnNode.set("ipInfo", ipNameObject);
+      for (String audienceId : file.getAllowedAudienceIds()) {
+        IpListProvider.IpRange ipRange = this.ipListProvider.get(audienceId);
+        if (ipRange != null) {
+          ipNameObject.put(ipRange.getId(), ipRange.getName());
+        }
+      }
+    }
+    return returnNode;
+
   }
 
 

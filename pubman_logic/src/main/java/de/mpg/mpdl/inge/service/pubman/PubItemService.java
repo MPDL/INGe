@@ -2,7 +2,9 @@ package de.mpg.mpdl.inge.service.pubman;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -28,6 +30,12 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
   List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken);
 
   boolean checkAccess(AuthorizationService.AccessType at, Principal userAccount, ItemVersionVO item)
+      throws IngeApplicationException, IngeTechnicalException;
+
+  Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException;
+
+  JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
       throws IngeApplicationException, IngeTechnicalException;
 
   void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException;

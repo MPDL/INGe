@@ -7,6 +7,7 @@ public class SearchAndExportResultVO extends ValueObject {
   private final String fileName;
   private final String targetMimeType;
   private final int totalNumberOfRecords;
+  private SearchRetrieveResponseVO searchRetrieveResponseVO;
 
   public SearchAndExportResultVO(byte[] result, String fileName, String targetMimeType, int totalNumberOfRecords) {
     this.result = result;
@@ -29,5 +30,13 @@ public class SearchAndExportResultVO extends ValueObject {
 
   public int getTotalNumberOfRecords() {
     return this.totalNumberOfRecords;
+  }
+
+  public SearchRetrieveResponseVO getSearchRetrieveResponseVO() {
+    return searchRetrieveResponseVO;
+  }
+
+  public void setSearchRetrieveResponseVO(SearchRetrieveResponseVO searchRetrieveResponseVO) {
+    this.searchRetrieveResponseVO = searchRetrieveResponseVO;
   }
 }

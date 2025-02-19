@@ -14,7 +14,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.xml.sax.helpers.DefaultHandler;
@@ -28,7 +27,7 @@ public class GenrePropertiesProvider {
   @PostConstruct
   public void runOnceAtStartup() {
     try {
-      logger.info("CRON: Starting to create Genre Properties.");
+      logger.info("*** CRON (onceAtStartup): Starting to create Genre Properties.");
       InputStream file = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_GENRES_CONFIGURATION),
           GenrePropertiesProvider.class.getClassLoader());
 
@@ -43,9 +42,9 @@ public class GenrePropertiesProvider {
       // Clear cache of resource bundles in order to load the newly created ones
       ResourceBundle.clearCache();
 
-      logger.info("CRON: Finished creating Genre Properties.");
+      logger.info("*** CRON: Finished creating Genre Properties.");
     } catch (Exception e) {
-      logger.error("Error creating Genre Properties", e);
+      logger.error("*** CRON: Error creating Genre Properties", e);
     }
   }
 
@@ -59,31 +58,27 @@ public class GenrePropertiesProvider {
     }
 
     TreeMap<String, JSONObject> sortedBaseKeys = new TreeMap<>();
-    JSONObject json = new JSONObject();
-    JSONObject genreObject = new JSONObject();
-    JSONArray keysArray = new JSONArray();
     for (Map.Entry<String, String> entry : map.entrySet()) {
       String mapKey = entry.getKey();
-      String mapValue = entry.getValue();
 
       if (mapKey.endsWith("_display")) {
         String baseKey = mapKey.substring(0, mapKey.lastIndexOf("_display"));
         JSONObject attributeDetails = new JSONObject();
-        attributeDetails.put("display", map.get(baseKey + "_display"));
-        attributeDetails.put("optional", map.get(baseKey + "_optional"));
-        attributeDetails.put("repeatable", map.get(baseKey + "_repeatable"));
+        attributeDetails.put("display", Boolean.parseBoolean(map.get(baseKey + "_display")));
+        attributeDetails.put("optional", Boolean.parseBoolean(map.get(baseKey + "_optional")));
+        attributeDetails.put("repeatable", Boolean.parseBoolean(map.get(baseKey + "_repeatable")));
         sortedBaseKeys.put(baseKey, attributeDetails);
       }
     }
 
+    JSONObject properties = new JSONObject();
     sortedBaseKeys.forEach((baseKey, attributeDetails) -> {
-      JSONObject keyObject = new JSONObject();
-      keyObject.put(baseKey, attributeDetails);
-      keysArray.put(keyObject);
+      properties.put(baseKey, attributeDetails);
     });
 
-    genreObject.put("keys", keysArray);
-    json.put(genre.toString(), genreObject);
+    JSONObject json = new JSONObject();
+    json.put("genre", genre.toString());
+    json.put("properties", properties);
 
     return json;
   }

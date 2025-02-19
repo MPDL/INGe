@@ -499,14 +499,15 @@ public class FileServiceFSImpl implements FileService {
   public void deleteOldStagingFiles() {
 
     Date old = Date.from(ZonedDateTime.now().minusHours(6).toInstant());
-    logger.info("CRON: Deleting unused staging files since " + old);
+    logger.info("*** CRON (" + PropertyReader.getProperty(PropertyReader.INGE_CRON_CLEANUP_STAGING_FILES)
+        + "): Deleting unused staging files since " + old);
     List<StagedFileDbVO> fileList = this.stagedFileRepository.findByCreationDateBefore(old);
     for (StagedFileDbVO stagedFile : fileList) {
 
       try {
         deleteStageFile(stagedFile);
       } catch (IngeTechnicalException e) {
-        logger.error("Error deleting stage file " + e);
+        logger.error("*** CRON: Error deleting stage file " + e);
       }
     }
 

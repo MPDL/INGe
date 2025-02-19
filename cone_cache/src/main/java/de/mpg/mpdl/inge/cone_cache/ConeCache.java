@@ -1,20 +1,20 @@
 package de.mpg.mpdl.inge.cone_cache;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.IOException;
 import java.util.Set;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.util.PropertyReader;
-
+@Service
 public class ConeCache {
   // Innere private Klasse, die erst beim Zugriff durch die umgebende Klasse initialisiert wird
   private static final class InstanceHolder {
@@ -58,8 +58,9 @@ public class ConeCache {
     return ConeCache.InstanceHolder.INSTANCE;
   }
 
+  @Scheduled(fixedDelay = 3600000, initialDelay = 0)
   public static void refreshCache() {
-    logger.info("*** Start CONE-Cache Refresh-Cycle ***");
+    logger.info("*** CRON (fixedDelay 3600000 initialDelay 0): Start CONE-Cache Refresh-Cycle");
 
     String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
 
@@ -75,15 +76,15 @@ public class ConeCache {
     ConeCache.refresh(mpisProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
     ConeCache.refresh(mpiwgProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIWG_PROJECTS_TITLE_QUERY);
 
-    logger.info("*** Ende CONE-Cache Refresh-Cycle ***");
+    logger.info("*** CRON: Ende CONE-Cache Refresh-Cycle");
   }
 
   private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) {
-    logger.info("*** Start refresh: " + queryUrl);
+    logger.info("** Start refresh: " + queryUrl);
     try {
       Set<String> result = ConeCache.getData(handler, queryUrl);
       if (null == result) {
-        logger.info("*** Not used");
+        logger.info("** Not used");
         return;
       }
 
@@ -106,7 +107,7 @@ public class ConeCache {
         }
       }
     }
-    logger.info("*** Ende refresh: " + queryUrl);
+    logger.info("** Ende refresh: " + queryUrl);
   }
 
   private static Set<String> getData(ConeHandler handler, String queryUrl)

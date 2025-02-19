@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.springframework.stereotype.Service;
 
 /**
  * This class handles the import function from external sources.
@@ -28,6 +29,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author kleinfe1
  * @author $Author$ (last modification)
  */
+@Service
 public class DataSourceHandlerService {
   private static final Logger logger = LogManager.getLogger(DataSourceHandlerService.class);
 

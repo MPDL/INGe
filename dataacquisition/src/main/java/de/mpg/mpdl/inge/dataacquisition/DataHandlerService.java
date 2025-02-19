@@ -61,11 +61,13 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Friederike Kleinfercher (initial creation)
  * @author $Author$ (last modification)
  */
+@Service
 public class DataHandlerService {
   private static final Logger logger = LogManager.getLogger(DataHandlerService.class);
 

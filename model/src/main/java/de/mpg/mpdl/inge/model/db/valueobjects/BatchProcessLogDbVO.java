@@ -33,7 +33,6 @@ public class BatchProcessLogDbVO implements Serializable {
   @JoinTable(name = "batch_join")
   public List<BatchProcessItemVO> batchProcessLogItemList;
 
-
   public BatchProcessLogDbVO() {
     this.batchProcessLogItemList = new ArrayList<>();
   }

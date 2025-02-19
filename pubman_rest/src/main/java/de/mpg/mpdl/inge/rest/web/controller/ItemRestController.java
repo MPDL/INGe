@@ -4,11 +4,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import jakarta.json.Json;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tika.exception.TikaException;
+import org.docx4j.org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -81,6 +89,11 @@ public class ItemRestController {
 
   @Autowired
   private SearchAndExportService saes;
+
+  @Autowired
+  private ItemTransformingService itemTransformingService;
+
+  private ObjectMapper objectMapper = new ObjectMapper();
 
   @Hidden
   @RequestMapping(value = "", method = RequestMethod.GET)
@@ -159,12 +172,13 @@ public class ItemRestController {
     }
 
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
-    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srResponse, exportFormat);
-    SearchAndExportResultVO saerVO = this.saes.exportItems(saerrVO, token);
+    //SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srResponse, exportFormat);
+    SearchAndExportResultVO saerVO =
+        this.saes.exportItems(exportFormat, SearchUtils.getRecordListFromSearchRetrieveResponse(srResponse, ItemVersionVO.class), token);
 
     response.setContentType(saerVO.getTargetMimetype());
     response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
-    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
+    response.setIntHeader("x-total-number-of-results", srResponse.getNumberOfRecords());
     response.setHeader("scrollId", srResponse.getScrollId());
 
     OutputStream output = response.getOutputStream();
@@ -216,10 +230,8 @@ public class ItemRestController {
   //    }
   //  }
 
-  @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
-  public ResponseEntity<ItemVersionVO> get(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @PathVariable(value = ITEM_ID_VAR) String itemId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+  private ItemVersionVO getItem(String itemId, String token)
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, NotFoundException {
     ItemVersionVO item = null;
 
     if (null != token && !token.isEmpty()) {
@@ -231,8 +243,35 @@ public class ItemRestController {
     if (null == item) {
       throw new NotFoundException();
     }
+    return item;
+  }
 
-    return new ResponseEntity<>(item, HttpStatus.OK);
+  @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
+  public ResponseEntity<ItemVersionVO> get(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
+    return new ResponseEntity<>(getItem(itemId, token), HttpStatus.OK);
+  }
+
+  @RequestMapping(value = ITEM_ID_PATH + "/export", method = RequestMethod.GET)
+  public ResponseEntity export(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId,
+      @RequestParam(value = "format", required = false,
+          defaultValue = "json") @Parameter(schema = @Schema(allowableValues = {TransformerFactory.JSON,
+              TransformerFactory.ESCIDOC_ITEMLIST_XML, TransformerFactory.BIBTEX, TransformerFactory.ENDNOTE, TransformerFactory.MARC_XML,
+              TransformerFactory.PDF, TransformerFactory.DOCX, TransformerFactory.HTML_PLAIN, TransformerFactory.HTML_LINKED,
+              TransformerFactory.JSON_CITATION, TransformerFactory.ESCIDOC_SNIPPET})) String format, //
+      @RequestParam(value = "citation", required = false,
+          defaultValue = "APA") @Parameter(schema = @Schema(allowableValues = {"APA, APA(CJK), AJP, JUS, CSL"})) String citation, //
+      @RequestParam(value = "cslConeId", required = false) String cslConeId, HttpServletResponse response) throws AuthenticationException,
+      AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException, IOException {
+
+
+    List<ItemVersionVO> itemList = new ArrayList<>();
+    itemList.add(getItem(itemId, token));
+    return this.utils.searchOrExport(format, citation, cslConeId, itemList, response, token);
+
   }
 
 
@@ -363,6 +402,35 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     this.pis.delete(itemId, token);
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = ITEM_ID_PATH + "/authorization", method = RequestMethod.GET)
+  public ResponseEntity<JsonNode> authInfo(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
+    Map<AuthorizationService.AccessType, Boolean> map = this.pis.getAuthorizationInfo(itemId, token);
+    if (map == null)
+      throw new NotFoundException();
+
+    ObjectNode returnNode = objectMapper.createObjectNode();
+    returnNode.set("actions", objectMapper.valueToTree(map));
+    return new ResponseEntity<>(returnNode, HttpStatus.OK);
+  }
+
+  @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/authorization", method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<JsonNode> getAuthInfoForFile(
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @PathVariable String itemId,
+      @PathVariable String componentId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
+    JsonNode node = this.pis.getAuthorizationInfoForFile(itemId, componentId, token);
+
+    if (node == null)
+      throw new NotFoundException();
+
+    return new ResponseEntity<>(node, HttpStatus.OK);
   }
 
 }

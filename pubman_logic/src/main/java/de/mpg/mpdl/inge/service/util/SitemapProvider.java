@@ -57,7 +57,7 @@ public class SitemapProvider {
   @Scheduled(cron = "${inge.cron.pubman.sitemap}")
   public void run() {
     try {
-      logger.info("CRON: Starting to create Sitemap.");
+      logger.info("*** CRON (" + PropertyReader.getProperty(PropertyReader.INGE_CRON_PUBMAN_SITEMAP) + "): Starting to create Sitemap.");
 
       this.files = new ArrayList<>();
       this.fileWriter = null;
@@ -72,9 +72,9 @@ public class SitemapProvider {
 
       cleanupTmpFiles();
 
-      logger.info("CRON: Finished creating Sitemap.");
+      logger.info("*** CRON: Finished creating Sitemap.");
     } catch (Exception e) {
-      logger.error("Error creating Sitemap", e);
+      logger.error("*** CRON: Error creating Sitemap", e);
     }
   }
 

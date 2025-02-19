@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.batchprocess;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -20,7 +21,8 @@ public interface BatchProcessOperations {
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   void changeContext(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
-      ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+      ItemVersionVO itemVersionVO, AccountUserDbVO accountUserDbVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   void changeFileVisibility(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
