@@ -437,11 +437,6 @@ public class ApplicationBean extends FacesBean {
 
       this.pubmanInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
-      this.pubmanBlogBaseUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_BASEURL);
-      if (null == this.pubmanBlogBaseUrl) {
-        this.pubmanBlogBaseUrl = "";
-      }
-
       this.pubmanBlogFeedUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_NEWS);
       if (null == this.pubmanBlogFeedUrl) {
         this.pubmanBlogFeedUrl = "";
