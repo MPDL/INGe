@@ -1068,7 +1068,6 @@
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pid.service.use>true</inge.pid.service.use>
-		<inge.pubman.blog.baseUrl />
 		<inge.pubman.blog.news />
 		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
 		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
@@ -1220,7 +1219,6 @@
 				<inge.auth.mpg.ip.json.url>https://rena.mpdl.mpg.de/iplists/keeperx_en.json</inge.auth.mpg.ip.json.url>
 				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
 				<inge.csl.javascript.engine>graaljs</inge.csl.javascript.engine>
-				<inge.pubman.blog.baseUrl>newsfeed.pure.mpg.de/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>https://blog.pure.mpg.de/json1</inge.pubman.blog.news>
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
 				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
