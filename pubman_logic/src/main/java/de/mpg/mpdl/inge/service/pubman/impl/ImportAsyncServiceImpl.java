@@ -74,52 +74,57 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
     this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
         ImportLog.Message.import_process_start_import.name());
 
-    if (formatProcessor.hasNext()) {
-      itemCount = formatProcessor.getLength();
-    }
-
-    String localTag = getLocalTag(importLogDbVO);
-
-    while (formatProcessor.hasNext()) {
-      ImportLogItemDbVO importLogItemDbVO = null;
-      try {
-        importLogItemDbVO = this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
-            ImportLog.Message.import_process_import_item.name());
-
-        this.importCommonService.suspendImportLogItem(importLogItemDbVO);
-
-        String singleItem = formatProcessor.next();
-        if (null != singleItem && !singleItem.trim().isEmpty()) {
-
-          ItemVersionVO itemVersionVO =
-              this.importCommonService.prepareItem(importLogItemDbVO, format, formatConfiguration, contextDbVO, singleItem);
-          importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
-
-          if (null != itemVersionVO) {
-            this.importCommonService.createItem(itemVersionVO, localTag, importLogItemDbVO, token);
-          }
-
-          this.importCommonService.setPercentageInImportLog(importLogDbVO,
-              ImportLogDbVO.PERCENTAGE_IMPORT_END * counter / itemCount + ImportLogDbVO.PERCENTAGE_IMPORT_START);
-
-          this.importCommonService.finishImportLogItem(importLogItemDbVO);
-
-          //          pause(); // TODO: remove
-        }
-      } catch (Exception e) {
-        logger.error("Error during import", e);
-        if (importLogItemDbVO != null) {
-          this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR,
-              this.importCommonService.getExceptionMessage(e));
-          this.importCommonService.finishImportLogItem(importLogItemDbVO);
-          importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
-        }
-      } finally {
-        counter++;
+    try {
+      if (formatProcessor.hasNext()) {
+        itemCount = formatProcessor.getLength();
       }
-    }
 
-    this.importCommonService.finishImport(importLogDbVO);
+      String localTag = getLocalTag(importLogDbVO);
+
+      while (formatProcessor.hasNext()) {
+        ImportLogItemDbVO importLogItemDbVO = null;
+        try {
+          importLogItemDbVO = this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
+              ImportLog.Message.import_process_import_item.name());
+
+          this.importCommonService.suspendImportLogItem(importLogItemDbVO);
+
+          String singleItem = formatProcessor.next();
+          if (null != singleItem && !singleItem.trim().isEmpty()) {
+
+            ItemVersionVO itemVersionVO =
+                this.importCommonService.prepareItem(importLogItemDbVO, format, formatConfiguration, contextDbVO, singleItem);
+            importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
+
+            if (null != itemVersionVO) {
+              this.importCommonService.createItem(itemVersionVO, localTag, importLogItemDbVO, token);
+            }
+
+            this.importCommonService.setPercentageInImportLog(importLogDbVO,
+                ImportLogDbVO.PERCENTAGE_IMPORT_END * counter / itemCount + ImportLogDbVO.PERCENTAGE_IMPORT_START);
+
+            this.importCommonService.finishImportLogItem(importLogItemDbVO);
+
+            //          pause(); // TODO: remove
+          }
+        } catch (Exception e) {
+          logger.error("Error during import", e);
+          if (importLogItemDbVO != null) {
+            this.importCommonService.createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.ERROR,
+                this.importCommonService.getExceptionMessage(e));
+            this.importCommonService.finishImportLogItem(importLogItemDbVO);
+            importLogDbVO = importLogItemDbVO.getParent(); // in the meanwhile the parent has been changed
+          }
+        } finally {
+          counter++;
+        }
+      }
+
+      this.importCommonService.finishImport(importLogDbVO);
+
+    } catch (Exception e) {
+      this.importCommonService.doFailImport(importLogDbVO, this.importCommonService.getExceptionMessage(e), true);
+    }
 
     formatProcessor.getSourceFile().delete();
   }

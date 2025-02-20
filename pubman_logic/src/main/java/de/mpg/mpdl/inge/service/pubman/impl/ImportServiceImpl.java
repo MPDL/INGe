@@ -123,19 +123,19 @@ public class ImportServiceImpl implements ImportService {
         } catch (Exception e) {
           this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL,
               ImportLog.Message.import_process_format_error.name());
-          this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO, this.importCommonService.getExceptionMessage(e));
+          this.importCommonService.doFailImport(importLogDbVO, this.importCommonService.getExceptionMessage(e), true);
           return;
         }
       }
     } catch (Exception e) {
       this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL,
           ImportLog.Message.import_process_format_error.name());
-      this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO, this.importCommonService.getExceptionMessage(e));
+      this.importCommonService.doFailImport(importLogDbVO, this.importCommonService.getExceptionMessage(e), true);
       return;
     }
 
     if (null == formatProcessor) {
-      this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO, ImportLog.Message.import_process_format_invalid.name());
+      this.importCommonService.doFailImport(importLogDbVO, ImportLog.Message.import_process_format_invalid.name(), false);
       return;
     } else {
       this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
@@ -149,8 +149,7 @@ public class ImportServiceImpl implements ImportService {
     }
 
     if (null == file) {
-      this.importCommonService.doFailImport(importLogDbVO, importLogItemDbVO,
-          ImportLog.Message.import_process_inputstream_unavailable.name());
+      this.importCommonService.doFailImport(importLogDbVO, ImportLog.Message.import_process_inputstream_unavailable.name(), false);
       return;
     } else {
       formatProcessor.setSourceFile(file);

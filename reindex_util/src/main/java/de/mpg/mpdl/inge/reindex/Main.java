@@ -21,7 +21,8 @@ public class Main {
 
       if (1 > args.length) {
         log.warn("You need to specify, what you're going to reindex.");
-        log.warn("Valid args: ctxs_reindex, items_reindex, ous_reindex, users_reindex, single_reindex item_xxxx, item_list_reindex item_xxx item_xxx ...");
+        log.warn(
+            "Valid args: ctxs_reindex, items_reindex, ous_reindex, users_reindex, single_reindex item_xxxx, item_list_reindex item_xxx item_xxx ...");
       } else {
         if (1 == args.length) {
           what = args[0];

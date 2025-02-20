@@ -33,7 +33,7 @@ public interface ImportCommonService {
 
   void doFailDelete(ImportLogItemDbVO importLogItemDbVO, String message);
 
-  void doFailImport(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String message);
+  void doFailImport(ImportLogDbVO importLogDbVO, String message, boolean newDetail);
 
   void doFailSubmit(ImportLogItemDbVO importLogItemDbVO, ImportLog.SubmitModus submitModus, String message);
 

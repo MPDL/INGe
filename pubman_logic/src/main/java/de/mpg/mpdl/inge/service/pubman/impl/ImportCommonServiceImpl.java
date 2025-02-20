@@ -157,9 +157,15 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void doFailImport(ImportLogDbVO importLogDbVO, ImportLogItemDbVO importLogItemDbVO, String message) {
-    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, message);
-    createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_failed.name());
+  public void doFailImport(ImportLogDbVO importLogDbVO, String message, boolean newDetail) {
+    if (false == newDetail) {
+      createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, message);
+      createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_failed.name());
+    } else {
+      ImportLogItemDbVO importLogItemDbVO =
+          createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_failed.name());
+      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FATAL, message);
+    }
     finishImportLog(importLogDbVO);
   }
 
