@@ -107,7 +107,6 @@ public class ApplicationBean extends FacesBean {
   private String footerSnippet;
   private String instanceContextPath;
   private String logoUrl;
-  private String pubmanBlogBaseUrl;
   private String pubmanBlogFeedUrl;
   private String pubmanInstanceUrl;
   private String pubmanRootAuthorsIcon;
@@ -381,10 +380,6 @@ public class ApplicationBean extends FacesBean {
     return this.searchAndExportService;
   }
 
-  public String getPubmanBlogBaseUrl() {
-    return this.pubmanBlogBaseUrl;
-  }
-
   public String getPubmanBlogFeedUrl() {
     return this.pubmanBlogFeedUrl;
   }
@@ -441,11 +436,6 @@ public class ApplicationBean extends FacesBean {
       }
 
       this.pubmanInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-
-      this.pubmanBlogBaseUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_BASEURL);
-      if (this.pubmanBlogBaseUrl == null) {
-        this.pubmanBlogBaseUrl = "";
-      }
 
       this.pubmanBlogFeedUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_NEWS);
       if (this.pubmanBlogFeedUrl == null) {
