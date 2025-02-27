@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
@@ -51,11 +53,12 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
   protected ObjectMapper objectMapper = new ObjectMapper();
 
-  @Scheduled(fixedDelay = 3600000, initialDelay = 0)
+  @Scheduled(cron = "${inge.cron.init_search_index_fields}")
+  @PostConstruct
   public void initSearchIndexFields() {
     try {
-      logger
-          .info("*** CRON (fixedDelay 3600000 initialDelay 0): initSearchIndexFields() started for " + this.getClass().getName() + " ...");
+      logger.info("*** CRON (" + PropertyReader.getProperty(PropertyReader.INGE_CRON_INIT_SEARCH_INDEX_FIELDS)
+          + "): initSearchIndexFields() started for " + this.getClass().getName() + " ...");
       if (getElasticDao() != null) {
         Map<String, ElasticSearchIndexField> indexFields = getElasticDao().getIndexFields();
         this.indexFields = indexFields;

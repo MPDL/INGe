@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.aa;
 
+import jakarta.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -52,10 +53,11 @@ public class MpgJsonIpListProvider implements IpListProvider {
   /**
    * initializing IpListProvider with new IP list (done continuously as CRON job
    */
-  @Scheduled(cron = "0 0 2 * * ?")
+  @Scheduled(cron = "${inge.cron.init_ip_list}")
+  @PostConstruct
   private void init() {
     if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE))) {
-      logger.info("*** CRON (0 0 2 * * ?): (re-)initializing IP List from <"
+      logger.info("*** CRON (" + PropertyReader.getProperty(PropertyReader.INGE_CRON_INIT_IP_LIST) + "): (re-)initializing IP List from <"
           + PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL) + ">");
       HttpURLConnection conn = null;
 

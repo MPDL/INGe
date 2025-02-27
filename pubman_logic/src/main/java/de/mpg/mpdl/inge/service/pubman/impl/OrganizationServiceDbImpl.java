@@ -1,24 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.ExistsQuery;
@@ -28,6 +9,8 @@ import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
@@ -50,6 +33,19 @@ import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Primary
@@ -69,7 +65,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
 
-  private List<String> allChildrenOfMpg = new ArrayList<>();
+  //  private List<String> allChildrenOfMpg = new ArrayList<>();
 
   @Autowired
   private OrganizationDaoEs organizationDao;
@@ -517,21 +513,23 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     reindex(id, false);
   }
 
-  @Override
-  public List<String> getAllChildrenOfMpg() {
-    return this.allChildrenOfMpg;
-  }
+  //  @Override
+  //  public List<String> getAllChildrenOfMpg() {
+  //    return this.allChildrenOfMpg;
+  //  }
 
-  @Override
-  @Scheduled(fixedDelay = 600000, initialDelay = 60000)
-  public void refreshAllChildrenOfMpg() {
-    try {
-      logger.info("*** CRON (fixedDelay 600000 initialDelay 60000): refreshAllChildrenOfMpg() started...");
-      List<String> allChildrenOfMpg_ = this.getChildIdPath(this.mpgId);
-      this.allChildrenOfMpg = allChildrenOfMpg_;
-      logger.info("*** CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size() + ").");
-    } catch (IngeTechnicalException e) {
-      logger.error("*** CRON: refreshAllChildrenOfMpg() failed!", e);
-    }
-  }
+  //  @Override
+  //  @Scheduled(cron = "${inge.cron.refresh_all_children_of_mpg}")
+  //  @PostConstruct
+  //  public void refreshAllChildrenOfMpg() {
+  //    try {
+  //      logger.info("*** CRON (" + PropertyReader.getProperty(PropertyReader.INGE_CRON_REFRESH_ALL_CHILDREN_OF_MPG)
+  //          + "): refreshAllChildrenOfMpg() started...");
+  //      List<String> allChildrenOfMpg_ = this.getChildIdPath(this.mpgId);
+  //      this.allChildrenOfMpg = allChildrenOfMpg_;
+  //      logger.info("*** CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size() + ").");
+  //    } catch (IngeTechnicalException e) {
+  //      logger.error("*** CRON: refreshAllChildrenOfMpg() failed!", e);
+  //    }
+  //  }
 }

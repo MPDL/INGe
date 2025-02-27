@@ -563,7 +563,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void repareBrokenImports(Date criticalDate) {
+  public void fixBrokenImports(Date criticalDate) {
     List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findBrokenImports(criticalDate);
 
     for (ImportLogDbVO importLogDbVO : importLogDbVOs) {

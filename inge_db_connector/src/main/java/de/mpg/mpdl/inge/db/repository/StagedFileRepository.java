@@ -10,7 +10,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 public interface StagedFileRepository extends JpaRepository<StagedFileDbVO, Integer> {
 
 
-  //@Query("SELECT stagefile FROM StagedFileDbVO stagefile WHERE stagefile.creationDate < :dateFrom")
-  List<StagedFileDbVO> findByCreationDateBefore(Date dateFromUtc);
+  //@Query("SELECT stagefile FROM StagedFileDbVO stagefile WHERE stagefile.creationDate < :criticalDate")
+  List<StagedFileDbVO> findByCreationDateBefore(Date criticalDate);
 
 }

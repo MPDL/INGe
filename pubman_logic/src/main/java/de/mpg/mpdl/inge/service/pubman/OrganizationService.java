@@ -44,7 +44,7 @@ public interface OrganizationService extends GenericService<AffiliationDbVO, Str
 
   List<String> getChildIdPath(String id) throws IngeTechnicalException;
 
-  List<String> getAllChildrenOfMpg();
+  //  List<String> getAllChildrenOfMpg();
 
-  void refreshAllChildrenOfMpg();
+  //  void refreshAllChildrenOfMpg();
 }

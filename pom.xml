@@ -959,7 +959,13 @@
 		<inge.cone.service.url>http://localhost:8080/cone/</inge.cone.service.url>
 		<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
 		<inge.cron.cleanup_staging_files>0 0 */2 * * *</inge.cron.cleanup_staging_files>
+		<inge.cron.cleanup_staging_files.hours>6</inge.cron.cleanup_staging_files.hours>
+		<inge.cron.fix_broken_imports>0 0 */1 * * *</inge.cron.fix_broken_imports>
+		<inge.cron.fix_broken_imports.hours>5</inge.cron.fix_broken_imports.hours>
+		<inge.cron.init_ip_list>0 0 2 * * *</inge.cron.init_ip_list>
+		<inge.cron.init_search_index_fields>0 0 */1 * * *</inge.cron.init_search_index_fields>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
+		<inge.cron.refresh_cone_cache>3600000</inge.cron.refresh_cone_cache>
 		<inge.crossref.pid>pure-support@listsrv.mpg.de</inge.crossref.pid>
 		<inge.csl.javascript.engine>auto</inge.csl.javascript.engine>
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>

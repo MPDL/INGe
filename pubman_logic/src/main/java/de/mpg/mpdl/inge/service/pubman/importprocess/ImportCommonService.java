@@ -76,7 +76,7 @@ public interface ImportCommonService {
   ItemVersionVO prepareItem(ImportLogItemDbVO importLogItemDbVO, ImportLogDbVO.Format format, Map<String, String> formatConfiguration,
       ContextDbVO contextDbVO, String singleItem);
 
-  void repareBrokenImports(Date criticalDate);
+  void fixBrokenImports(Date criticalDate);
 
   void setPercentageInImportLog(ImportLogDbVO importLogDbVO, Integer percentage);
 

@@ -1,5 +1,20 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import de.mpg.mpdl.inge.db.repository.FileRepository;
+import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
+import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -20,7 +35,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
-
+import net.arnx.wmf2svg.util.Base64;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
@@ -42,24 +57,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
-
-import de.mpg.mpdl.inge.db.repository.FileRepository;
-import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
-import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService;
-import de.mpg.mpdl.inge.service.aa.Principal;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.FileService;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import jakarta.annotation.PostConstruct;
-import net.arnx.wmf2svg.util.Base64;
 
 /**
  * FileService implementation using the file system to store staged files
@@ -495,23 +492,22 @@ public class FileServiceFSImpl implements FileService {
   }
 
   @Scheduled(cron = "${inge.cron.cleanup_staging_files}")
-  @PostConstruct
   public void deleteOldStagingFiles() {
 
-    Date old = Date.from(ZonedDateTime.now().minusHours(6).toInstant());
+    Date criticalDate = Date.from(ZonedDateTime.now()
+        .minusHours(Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CRON_CLEANUP_STAGING_FILES_HOURS))).toInstant());
     logger.info("*** CRON (" + PropertyReader.getProperty(PropertyReader.INGE_CRON_CLEANUP_STAGING_FILES)
-        + "): Deleting unused staging files since " + old);
-    List<StagedFileDbVO> fileList = this.stagedFileRepository.findByCreationDateBefore(old);
-    for (StagedFileDbVO stagedFile : fileList) {
+        + "): deleteOldStagingFiles() since " + criticalDate);
 
+    List<StagedFileDbVO> fileList = this.stagedFileRepository.findByCreationDateBefore(criticalDate);
+    for (StagedFileDbVO stagedFile : fileList) {
       try {
         deleteStageFile(stagedFile);
       } catch (IngeTechnicalException e) {
-        logger.error("*** CRON: Error deleting stage file " + e);
+        logger.error("*** CRON: Error deleteOldStagingFiles() " + e);
       }
     }
 
-
+    logger.info("*** CRON: deleteOldStagingFiles() finished.");
   }
-
 }

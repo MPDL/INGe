@@ -22,6 +22,8 @@ public interface ImportService {
   void doImport(String importName, String contextId, ImportLogDbVO.Format format, String formatConfiguration, InputStream fileStream,
       String token) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
 
+  void fixBrokenImports();
+
   Map<String, List<String>> getFormatConfiguration(ImportLogDbVO.Format format, String token)
       throws AuthenticationException, IngeApplicationException;
 
@@ -41,6 +43,4 @@ public interface ImportService {
 
   void submitImportedItems(Integer importLogId, ImportLog.SubmitModus submitModus, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
-
-  void surveyImports();
 }

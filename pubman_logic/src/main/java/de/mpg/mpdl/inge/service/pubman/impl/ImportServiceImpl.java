@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -354,15 +355,17 @@ public class ImportServiceImpl implements ImportService {
     this.importAsyncService.doAsyncSubmit(importLogDbVO, submitModus, token);
   }
 
-  @Override
-  @Scheduled(fixedDelay = 3600000, initialDelay = 0)
-  public void surveyImports() {
-    Date criticalDate = Date.from(ZonedDateTime.now().minusHours(5).toInstant());
-    logger.info("*** CRON (fixedDelay 3600000 initialDelay 0): Fix broken imports since " + criticalDate);
+  @Scheduled(cron = "${inge.cron.fix_broken_imports}")
+  @PostConstruct
+  public void fixBrokenImports() {
+    Date criticalDate = Date.from(ZonedDateTime.now()
+        .minusHours(Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CRON_FIX_BROKEN_IMPORTS_HOURS))).toInstant());
+    logger.info("*** CRON (" + PropertyReader.getProperty(PropertyReader.INGE_CRON_FIX_BROKEN_IMPORTS) + "): fixBrokenImports() since "
+        + criticalDate);
 
-    this.importCommonService.repareBrokenImports(criticalDate);
+    this.importCommonService.fixBrokenImports(criticalDate);
 
-    logger.info("*** CRON: Import surveyor task finished.");
+    logger.info("*** CRON: fixBrokenImports() finished.");
   }
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////

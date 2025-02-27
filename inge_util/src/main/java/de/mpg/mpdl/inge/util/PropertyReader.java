@@ -86,7 +86,13 @@ public class PropertyReader {
   public static final String INGE_CONE_SERVICE_URL = "inge.cone.service.url";
   public static final String INGE_CONE_SUBJECTVOCAB = "inge.cone.subjectVocab";
   public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files";
+  public static final String INGE_CRON_CLEANUP_STAGING_FILES_HOURS = "inge.cron.cleanup_staging_files.hours";
+  public static final String INGE_CRON_FIX_BROKEN_IMPORTS = "inge.cron.fix_broken_imports";
+  public static final String INGE_CRON_FIX_BROKEN_IMPORTS_HOURS = "inge.cron.fix_broken_imports.hours";
+  public static final String INGE_CRON_INIT_IP_LIST = "inge.cron.init_ip_list";
+  public static final String INGE_CRON_INIT_SEARCH_INDEX_FIELDS = "inge.cron.init_search_index_fields";
   public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap";
+  public static final String INGE_CRON_REFRESH_CONE_CACHE = "inge.cron.refresh_cone_cache";
   public static final String INGE_CROSSREF_PID = "inge.crossref.pid";
   public static final String INGE_CSL_JAVASCRIPT_ENGINE = "inge.csl.javascript.engine";
   public static final String INGE_DATABASE_DRIVER_CLASS = "inge.database.driver.class";

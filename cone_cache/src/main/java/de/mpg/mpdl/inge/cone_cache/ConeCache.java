@@ -58,9 +58,10 @@ public class ConeCache {
     return ConeCache.InstanceHolder.INSTANCE;
   }
 
-  @Scheduled(fixedDelay = 3600000, initialDelay = 0)
+  @Scheduled(fixedDelayString = "${inge.cron.refresh_cone_cache}", initialDelay = 0)
   public static void refreshCache() {
-    logger.info("*** CRON (fixedDelay 3600000 initialDelay 0): Start CONE-Cache Refresh-Cycle");
+    logger.info("*** CRON (fixedDelay = " + PropertyReader.getProperty(PropertyReader.INGE_CRON_REFRESH_CONE_CACHE)
+        + ", initialDelay = 0): Start CONE-Cache Refresh-Cycle");
 
     String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
 
