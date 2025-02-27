@@ -45,7 +45,9 @@ public abstract class ImportLog {
 
   public enum Message
   {
+    import_process_aborted_unexpectedly,
     import_process_default_validation,
+    import_process_default_validation_failed,
     import_process_default_validation_successful,
     import_process_delete_failed,
     import_process_delete_finished,
@@ -67,12 +69,14 @@ public abstract class ImportLog {
     import_process_inputstream_available,
     import_process_inputstream_unavailable,
     import_process_item_imported,
-    import_process_release_item,
+    import_process_item_not_imported,
     import_process_release_failed,
     import_process_release_finished,
+    import_process_release_item,
     import_process_release_items,
     import_process_release_successful,
     import_process_release_validation,
+    import_process_release_validation_failed,
     import_process_release_validation_successful,
     import_process_remove_identifier,
     import_process_save_item,
@@ -88,16 +92,13 @@ public abstract class ImportLog {
     import_process_submit_finished,
     import_process_submit_item,
     import_process_submit_items,
-    import_process_submit_release_item,
     import_process_submit_release_failed,
     import_process_submit_release_finished,
+    import_process_submit_release_item,
     import_process_submit_release_items,
     import_process_submit_release_successful,
     import_process_submit_successful,
     import_process_transformation_done,
-    import_process_release_validation_failed,
-    import_process_default_validation_failed,
-    import_process_item_not_imported,
     import_process_validate  }
 
   @Id

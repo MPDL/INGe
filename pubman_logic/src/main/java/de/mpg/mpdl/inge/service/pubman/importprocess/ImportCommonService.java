@@ -12,6 +12,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.importprocess.processor.FormatProcessor;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public interface ImportCommonService {
 
   FormatProcessor getFormatProcessor(ImportLogDbVO importLogDbVO, ImportLogDbVO.Format format);
 
-  ImportLogDbVO getImportLog(Integer importLogId, AccountUserDbVO accountUserDbVO);
+  ImportLogDbVO getImportLog(Integer importLogId, AccountUserDbVO accountUserDbVO, boolean withAnzItems);
 
   ImportLogItemDbVO getImportLogItem(Integer importLogItemId);
 
@@ -74,6 +75,8 @@ public interface ImportCommonService {
 
   ItemVersionVO prepareItem(ImportLogItemDbVO importLogItemDbVO, ImportLogDbVO.Format format, Map<String, String> formatConfiguration,
       ContextDbVO contextDbVO, String singleItem);
+
+  void repareBrokenImports(Date criticalDate);
 
   void setPercentageInImportLog(ImportLogDbVO importLogDbVO, Integer percentage);
 

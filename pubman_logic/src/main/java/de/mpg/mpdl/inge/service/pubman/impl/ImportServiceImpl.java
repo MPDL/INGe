@@ -27,17 +27,24 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 @Primary
 public class ImportServiceImpl implements ImportService {
+
+  private static final Logger logger = LogManager.getLogger(ImportServiceImpl.class);
 
   private final AuthorizationService authorizationService;
   private final ContextService contextService;
@@ -57,7 +64,7 @@ public class ImportServiceImpl implements ImportService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
-    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO);
+    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, false);
     if (null == importLogDbVO) {
       throw new IngeApplicationException("Invalid importLogId");
     }
@@ -72,7 +79,7 @@ public class ImportServiceImpl implements ImportService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
-    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO);
+    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, false);
     if (null == importLogDbVO) {
       throw new IngeApplicationException("Invalid importLogId");
     }
@@ -214,7 +221,7 @@ public class ImportServiceImpl implements ImportService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
-    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO);
+    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, true);
     if (null == importLogDbVO) {
       throw new IngeApplicationException("Invalid importLogId");
     }
@@ -246,7 +253,7 @@ public class ImportServiceImpl implements ImportService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
-    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO);
+    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, false);
     if (null == importLogDbVO) {
       throw new IngeApplicationException("Invalid importLogId");
     }
@@ -297,7 +304,7 @@ public class ImportServiceImpl implements ImportService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
-    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO);
+    ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, false);
     if (null == importLogDbVO) {
       throw new IngeApplicationException("Invalid importLogId");
     }
@@ -345,6 +352,17 @@ public class ImportServiceImpl implements ImportService {
 
     this.importCommonService.initializeSubmit(importLogDbVO, submitModus);
     this.importAsyncService.doAsyncSubmit(importLogDbVO, submitModus, token);
+  }
+
+  @Override
+  @Scheduled(fixedDelay = 3600000, initialDelay = 0)
+  public void surveyImports() {
+    Date criticalDate = Date.from(ZonedDateTime.now().minusHours(5).toInstant());
+    logger.info("*** CRON (fixedDelay 3600000 initialDelay 0): Fix broken imports since " + criticalDate);
+
+    this.importCommonService.repareBrokenImports(criticalDate);
+
+    logger.info("*** CRON: Import surveyor task finished.");
   }
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////

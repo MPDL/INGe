@@ -959,7 +959,6 @@
 		<inge.cone.service.url>http://localhost:8080/cone/</inge.cone.service.url>
 		<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
 		<inge.cron.cleanup_staging_files>0 0 */2 * * *</inge.cron.cleanup_staging_files>
-		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
 		<inge.crossref.pid>pure-support@listsrv.mpg.de</inge.crossref.pid>
 		<inge.csl.javascript.engine>auto</inge.csl.javascript.engine>

@@ -41,4 +41,6 @@ public interface ImportService {
 
   void submitImportedItems(Integer importLogId, ImportLog.SubmitModus submitModus, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
+
+  void surveyImports();
 }
