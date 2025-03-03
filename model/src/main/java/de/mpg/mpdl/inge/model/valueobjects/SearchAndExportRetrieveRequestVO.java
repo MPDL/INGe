@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-
 @SuppressWarnings("serial")
 public class SearchAndExportRetrieveRequestVO extends ValueObject {
 
@@ -20,7 +18,7 @@ public class SearchAndExportRetrieveRequestVO extends ValueObject {
     this.exportFormat = exportFormat;
     this.searchRetrieveReponseVO = searchRetrieveResponseVO;
   }
-  
+
    */
 
 
@@ -32,11 +30,11 @@ public class SearchAndExportRetrieveRequestVO extends ValueObject {
   public SearchRetrieveResponseVO<ItemVersionVO> getSearchRetrieveReponseVO() {
     return this.searchRetrieveReponseVO;
   }
-  
+
   public void setSearchRetrieveReponseVO(SearchRetrieveResponseVO<ItemVersionVO> searchRetrieveReponseVO) {
     this.searchRetrieveReponseVO = searchRetrieveReponseVO;
   }
-  
+
    */
 
   public ExportFormatVO getExportFormat() {
