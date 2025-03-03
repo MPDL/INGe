@@ -270,6 +270,21 @@ public class ImportCommonServiceImpl implements ImportCommonService {
   }
 
   @Override
+  @Transactional(rollbackFor = Throwable.class)
+  public void fixBrokenImports(Date criticalDate) {
+    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findBrokenImports(criticalDate);
+
+    for (ImportLogDbVO importLogDbVO : importLogDbVOs) {
+      logger.warn("Unfinished import detected (" + importLogDbVO.getId() + "). Finishing it with status FATAL.");
+      ImportLogItemDbVO importLogItemDbVO =
+          createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_aborted_unexpectedly.name());
+      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_failed.name());
+
+      this.finishImportLog(importLogDbVO);
+    }
+  }
+
+  @Override
   public List<ImportLogDbVO> getContextImportLogs(String contextId) {
     List<Object[]> results = this.importLogRepository.findAllByContextId(contextId);
     List<ImportLogDbVO> importLogDbVOs = getImportLogDbVOs(results);
@@ -361,10 +376,15 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     ImportLogDbVO importLogDbVO = null;
 
     if (withAnzItems) {
-      List<Object[]> results = this.importLogRepository.findByIdWithAnzItems(importLogId);
+      List<Object[]> results = this.importLogRepository.findByIdWithAnzImportedItems(importLogId);
       List<ImportLogDbVO> importLogDbVOs = getImportLogDbVOs(results);
       if (null != importLogDbVOs && importLogDbVOs.size() == 1) {
         importLogDbVO = importLogDbVOs.get(0);
+        List<Object[]> results2 =
+            this.importLogRepository.findByIdWithAnzItems(importLogId, ImportLog.Message.import_process_import_item.toString());
+        if (null != importLogDbVOs && importLogDbVOs.size() == 1) {
+          importLogDbVO.setAnzFrom(Long.parseLong(results2.get(0)[10].toString()));
+        }
       }
     } else {
       importLogDbVO = this.importLogRepository.findById(importLogId).orElse(null);
@@ -561,21 +581,6 @@ public class ImportCommonServiceImpl implements ImportCommonService {
     importLogDbVO = this.importLogRepository.saveAndFlush(importLogDbVO);
   }
 
-  @Override
-  @Transactional(rollbackFor = Throwable.class)
-  public void fixBrokenImports(Date criticalDate) {
-    List<ImportLogDbVO> importLogDbVOs = this.importLogRepository.findBrokenImports(criticalDate);
-
-    for (ImportLogDbVO importLogDbVO : importLogDbVOs) {
-      logger.warn("Unfinished import detected (" + importLogDbVO.getId() + "). Finishing it with status FATAL.");
-      ImportLogItemDbVO importLogItemDbVO =
-          createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_aborted_unexpectedly.name());
-      createImportLogItemDetail(importLogItemDbVO, ImportLog.ErrorLevel.FATAL, ImportLog.Message.import_process_failed.name());
-
-      this.finishImportLog(importLogDbVO);
-    }
-  }
-
   @Transactional(rollbackFor = Throwable.class)
   public void resetItemId(ImportLogItemDbVO importLogItemDbVO) {
     importLogItemDbVO.setItemId(null);
@@ -660,7 +665,7 @@ public class ImportCommonServiceImpl implements ImportCommonService {
       importLogDbVO.setFormat(format);
       importLogDbVO.setContextId(contextId);
       importLogDbVO.setPercentage(percentage);
-      importLogDbVO.setAnzItems(anzItems);
+      importLogDbVO.setAnzImportedItems(anzItems);
 
       importLogDbVOs.add(importLogDbVO);
     }

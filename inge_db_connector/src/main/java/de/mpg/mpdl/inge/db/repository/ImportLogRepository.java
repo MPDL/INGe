@@ -25,6 +25,11 @@ public interface ImportLogRepository extends JpaRepository<ImportLogDbVO, Intege
   @Query(
       value = "SELECT l.*, COUNT(i.id) as anzItems FROM import_log l LEFT JOIN import_log_item i ON i.parent = l.id AND i.item_id IS NOT NULL WHERE l.id = :importLogId GROUP BY l.id",
       nativeQuery = true)
-  List<Object[]> findByIdWithAnzItems(@Param("importLogId") Integer importLogId);
+  List<Object[]> findByIdWithAnzImportedItems(@Param("importLogId") Integer importLogId);
+
+  @Query(
+      value = "SELECT l.*, COUNT(i.id) as anzItems FROM import_log l LEFT JOIN import_log_item i ON i.parent = l.id AND i.message = :message  WHERE l.id = :importLogId GROUP BY l.id",
+      nativeQuery = true)
+  List<Object[]> findByIdWithAnzItems(@Param("importLogId") Integer importLogId, @Param("message") String message);
 
 }

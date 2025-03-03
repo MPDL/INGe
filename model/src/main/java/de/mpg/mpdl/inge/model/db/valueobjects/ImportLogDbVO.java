@@ -52,8 +52,11 @@ public class ImportLogDbVO extends ImportLog {
   private String contextId;
   @Column(name = "percentage")
   private Integer percentage;
+
   @Transient
-  private Long anzItems;
+  private Long anzImportedItems;
+  @Transient
+  private Long anzFrom;
 
   public ImportLogDbVO() {}
 
@@ -66,12 +69,20 @@ public class ImportLogDbVO extends ImportLog {
     this.percentage = ImportLogDbVO.PERCENTAGE_ZERO;
   }
 
-  public Long getAnzItems() {
-    return this.anzItems;
+  public Long getAnzImportedItems() {
+    return this.anzImportedItems;
   }
 
-  public void setAnzItems(Long anzItems) {
-    this.anzItems = anzItems;
+  public void setAnzImportedItems(Long anzImportedItems) {
+    this.anzImportedItems = anzImportedItems;
+  }
+
+  public Long getAnzFrom() {
+    return this.anzFrom;
+  }
+
+  public void setAnzFrom(Long anzFrom) {
+    this.anzFrom = anzFrom;
   }
 
   public String getContextId() {
