@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.filestorage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
@@ -61,6 +62,8 @@ public interface FileStorageInterface {
    */
   void readFile(String filePath, OutputStream out) throws IngeTechnicalException;
 
+  void readFile(String filePath, OutputStream out, Range range) throws IngeTechnicalException;
+
   /**
    * deletes a file from the file storage
    *
@@ -68,4 +71,7 @@ public interface FileStorageInterface {
    * @throws Exception
    */
   void deleteFile(String filePath) throws IngeTechnicalException;
+
+
+
 }

@@ -10,14 +10,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
-import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
+import de.mpg.mpdl.inge.model.valueobjects.*;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
+import de.mpg.mpdl.inge.rest.web.util.MultipartFileSender;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -35,14 +31,8 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tika.exception.TikaException;
@@ -51,14 +41,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/items")
@@ -278,7 +268,8 @@ public class ItemRestController {
   @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/content", method = RequestMethod.GET)
   public void getComponentContent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable String itemId, @PathVariable String componentId,
-      @RequestParam(value = "download", required = false, defaultValue = "false") boolean forceDownload, HttpServletResponse response)
+      @RequestParam(value = "download", required = false, defaultValue = "false") boolean forceDownload, HttpServletResponse response,
+      HttpServletRequest request)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     try {
       FileVOWrapper fileVOWrapper = this.fileService.readFile(itemId, componentId, token);
@@ -289,9 +280,14 @@ public class ItemRestController {
       if (forceDownload) {
         contentDispositionType = "attachment";
       }
-      response.setContentType(fileVOWrapper.getFileVO().getMimeType());
+
+      MultipartFileSender.fromFileVOWrapper(fileVOWrapper).with(contentDispositionType).with(request).with(response).serveResource();
 
 
+      //response.setContentType(fileVOWrapper.getFileVO().getMimeType());
+
+
+      /*
       //Add filename and RFC 5987 encoded filename as content disposition headers
       response.setHeader("Content-Disposition", contentDispositionType + "; "
       //Leave only utf-8 encoded filename, as normal filename could lead to encoding problems in Apache
@@ -304,6 +300,8 @@ public class ItemRestController {
       try (OutputStream output = response.getOutputStream()) {
         fileVOWrapper.readFile(output);
       }
+      
+       */
     } catch (IOException e) {
       logger.error("could not read file [" + componentId + "]");
       throw new IngeTechnicalException("Error while opening input stream", e);

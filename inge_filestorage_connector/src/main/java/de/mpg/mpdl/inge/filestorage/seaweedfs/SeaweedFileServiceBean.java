@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import de.mpg.mpdl.inge.filestorage.Range;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -116,6 +117,11 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
         throw new IngeTechnicalException("An error occoured, when trying to close response for [" + fileId + "]", e);
       }
     }
+  }
+
+  @Override
+  public void readFile(String filePath, OutputStream out, Range range) throws IngeTechnicalException {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override

@@ -6,6 +6,7 @@ import java.io.OutputStream;
 
 import javax.sql.DataSource;
 
+import de.mpg.mpdl.inge.filestorage.Range;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.postgresql.PGConnection;
@@ -108,6 +109,11 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
 
     }
 
+  }
+
+  @Override
+  public void readFile(String filePath, OutputStream out, Range range) throws IngeTechnicalException {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override

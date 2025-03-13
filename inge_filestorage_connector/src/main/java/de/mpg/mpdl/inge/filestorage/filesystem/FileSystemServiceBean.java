@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.filestorage.filesystem;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,9 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.List;
 
+import de.mpg.mpdl.inge.filestorage.Range;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
@@ -108,37 +114,55 @@ public class FileSystemServiceBean implements FileStorageInterface {
    */
   @Override
   public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
+    this.readFile(fileRelativePath, out, null);
+  }
+
+  @Override
+  public void readFile(String fileRelativePath, OutputStream out, Range range) throws IngeTechnicalException {
     try {
       if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
-        Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
-
-        logger.debug("Trying to read file from " + path);
-        if (Files.exists(path)) {
-          Files.copy(path, out);
+        Path filepath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
+        if (Files.exists(filepath)) {
+          readFileFromFileSystem(filepath, out, range);
         } else {
-          logger.error("Path " + path + " does not exist");
+          logger.error("Path " + fileRelativePath + " does not exist");
         }
       } else {
-        // Doesn't work if the environment from the development REST service is development enabled (loop)
-        Request request =
-            Request
-                .Get(
-                    PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
-                        + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1) + (URLEncoder
-                            .encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1), StandardCharsets.UTF_8)))
-                .addHeader("Authorization",
-                    "Basic " + Base64.getEncoder()
-                        .encodeToString((PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME) + ":"
-                            + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).getBytes()));
-        Response response = request.execute();
-        IOUtils.copy(response.returnContent().asStream(), out);
+        readFileFromDevRestSystem(fileRelativePath, out, range);
       }
     } catch (Exception e) {
       logger.error("An error occoured, when trying to retrieve file [" + fileRelativePath + "]", e);
       throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileRelativePath + "]", e);
     }
+
   }
 
+  private void readFileFromFileSystem(Path filepath, OutputStream output, Range range) throws IOException {
+    Long length = Files.size(filepath);
+
+    if (range == null) {
+      range = new Range(0, length - 1, length);
+    }
+    try (InputStream input = new BufferedInputStream(Files.newInputStream(filepath))) {
+      Range.copy(input, output, length, range.getStart(), range.getLength());
+    }
+
+  }
+
+  private void readFileFromDevRestSystem(String fileRelativePath, OutputStream output, Range range) throws IOException {
+    Request request = Request
+        .Get(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
+            + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1)
+            + (URLEncoder.encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1), StandardCharsets.UTF_8)))
+        .addHeader("Authorization",
+            "Basic " + Base64.getEncoder().encodeToString((PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME)
+                + ":" + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).getBytes()));
+    if (range != null) {
+      request.addHeader("Range", "bytes=" + range.getStart() + "-" + range.getEnd());
+    }
+    Response response = request.execute();
+    IOUtils.copy(response.returnContent().asStream(), output);
+  }
 
 
   /*

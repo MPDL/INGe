@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.OutputStream;
 
+import de.mpg.mpdl.inge.filestorage.Range;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,6 +33,11 @@ public class FileVOWrapper {
 
   public void readFile(OutputStream outputStream) throws IngeTechnicalException {
     this.fileStorageInterface.readFile(this.fileId, outputStream);
+
+  }
+
+  public void readFile(OutputStream outputStream, Range range) throws IngeTechnicalException {
+    this.fileStorageInterface.readFile(this.fileId, outputStream, range);
 
   }
 
