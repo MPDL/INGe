@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>INGe</artifactId>
 		<groupId>de.mpg.mpdl.inge</groupId>
-		<version>8.4.12</version>
+		<version>8.5.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>pubman_rest_development</artifactId>
@@ -55,7 +55,7 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
