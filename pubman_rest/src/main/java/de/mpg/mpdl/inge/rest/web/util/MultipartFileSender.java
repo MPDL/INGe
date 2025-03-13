@@ -80,16 +80,7 @@ public class MultipartFileSender {
     String fileName = fileVOWrapper.getFileVO().getName();
     Date lastModifiedObj = fileVOWrapper.getFileVO().getLastModificationDate();
 
-    /*
-    if (StringUtils.isEmpty(fileName) || lastModifiedObj == null) {
-        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        return;
-    }
-    */
-    /*
-    long lastModified =
-        LocalDateTime.ofInstant(lastModifiedObj.toInstant(), ZoneId.of(ZoneOffset.systemDefault().getId())).toEpochSecond(ZoneOffset.UTC);
-*/
+
     String contentType = fileVOWrapper.getFileVO().getMimeType();
 
     // Validate request headers for caching ---------------------------------------------------
@@ -191,23 +182,12 @@ public class MultipartFileSender {
     // Prepare and initialize response --------------------------------------------------------
 
     // Get content type by file name and set content disposition.
-    String disposition = "inline";
+    String disposition = this.disposition;
 
-    // If content type is unknown, then set the default value.
-    // For all content types, see: http://www.w3schools.com/media/media_mimeref.asp
-    // To add new content types, add new mime-mapping entry in web.xml.
     if (contentType == null) {
       contentType = "application/octet-stream";
     }
-    /*
-    else if (!contentType.startsWith("image")) {
-      // Else, expect for images, determine content disposition. If content type is supported by
-      // the browser, then set to inline, else attachment which will pop a 'save as' dialogue.
-      String accept = request.getHeader("Accept");
-      disposition = accept != null && HttpUtils.accepts(accept, contentType) ? "inline" : "attachment";
-    }
 
-     */
     logger.debug("Content-Type : {}", contentType);
     // Initialize response.
     response.reset();
