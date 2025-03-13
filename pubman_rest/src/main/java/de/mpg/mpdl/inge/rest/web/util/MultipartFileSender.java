@@ -86,9 +86,10 @@ public class MultipartFileSender {
         return;
     }
     */
+    /*
     long lastModified =
         LocalDateTime.ofInstant(lastModifiedObj.toInstant(), ZoneId.of(ZoneOffset.systemDefault().getId())).toEpochSecond(ZoneOffset.UTC);
-
+*/
     String contentType = fileVOWrapper.getFileVO().getMimeType();
 
     // Validate request headers for caching ---------------------------------------------------
@@ -103,12 +104,14 @@ public class MultipartFileSender {
 
     // If-Modified-Since header should be greater than LastModified. If so, then return 304.
     // This header is ignored if any If-None-Match header is specified.
+    /*
     long ifModifiedSince = request.getDateHeader("If-Modified-Since");
     if (ifNoneMatch == null && ifModifiedSince != -1 && ifModifiedSince + 1000 > lastModified) {
       response.setHeader("ETag", fileName); // Required in 304.
       response.sendError(HttpServletResponse.SC_NOT_MODIFIED);
       return;
     }
+    */
 
     // Validate request headers for resume ----------------------------------------------------
 
@@ -120,11 +123,13 @@ public class MultipartFileSender {
     }
 
     // If-Unmodified-Since header should be greater than LastModified. If not, then return 412.
+    /*
     long ifUnmodifiedSince = request.getDateHeader("If-Unmodified-Since");
     if (ifUnmodifiedSince != -1 && ifUnmodifiedSince + 1000 <= lastModified) {
       response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED);
       return;
     }
+    */
 
     // Validate and process range -------------------------------------------------------------
 
@@ -193,12 +198,16 @@ public class MultipartFileSender {
     // To add new content types, add new mime-mapping entry in web.xml.
     if (contentType == null) {
       contentType = "application/octet-stream";
-    } else if (!contentType.startsWith("image")) {
+    }
+    /*
+    else if (!contentType.startsWith("image")) {
       // Else, expect for images, determine content disposition. If content type is supported by
       // the browser, then set to inline, else attachment which will pop a 'save as' dialogue.
       String accept = request.getHeader("Accept");
       disposition = accept != null && HttpUtils.accepts(accept, contentType) ? "inline" : "attachment";
     }
+
+     */
     logger.debug("Content-Type : {}", contentType);
     // Initialize response.
     response.reset();
@@ -212,9 +221,9 @@ public class MultipartFileSender {
 
     logger.debug("Content-Disposition : {}", disposition);
     response.setHeader("Accept-Ranges", "bytes");
-    response.setHeader("ETag", fileName);
-    response.setDateHeader("Last-Modified", lastModified);
-    response.setDateHeader("Expires", System.currentTimeMillis() + DEFAULT_EXPIRE_TIME);
+    response.setHeader("ETag", fileVOWrapper.getFileVO().getChecksum());
+    //response.setDateHeader("Last-Modified", lastModified);
+    //response.setDateHeader("Expires", System.currentTimeMillis() + DEFAULT_EXPIRE_TIME);
 
     // Send requested file (part(s)) to client ------------------------------------------------
 
@@ -226,7 +235,7 @@ public class MultipartFileSender {
       logger.info("Return full file");
       response.setContentType(contentType);
       response.setHeader("Content-Length", String.valueOf(fileVOWrapper.getFileVO().getSize()));
-      response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT); // 206.
+      response.setStatus(HttpServletResponse.SC_OK); // 200.
       fileVOWrapper.readFile(output);
     }
     if (ranges.size() == 1) {
