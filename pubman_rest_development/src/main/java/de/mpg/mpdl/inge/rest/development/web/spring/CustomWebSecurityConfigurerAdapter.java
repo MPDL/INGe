@@ -37,7 +37,7 @@ public class CustomWebSecurityConfigurerAdapter {
     User.UserBuilder userBuilder = User.withDefaultPasswordEncoder();
     return new InMemoryUserDetailsManager(
         Arrays.asList(userBuilder.username(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME))
-            .password("{noop}" + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).roles("ADMIN").build()));
+            .password(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).roles("ADMIN").build()));
   }
 
   @Bean
