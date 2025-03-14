@@ -42,38 +42,38 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
     return errors;
   }
 
-//  @Override
-//  protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status,
-//      WebRequest request) {
-//    Throwable mostSpecificCause = ex.getMostSpecificCause();
-//    VndErrors.VndError errorMessage;
-//    if (mostSpecificCause != null) {
-//      String exceptionName = mostSpecificCause.getClass().getName();
-//      String message = mostSpecificCause.getMessage();
-//      errorMessage = new VndErrors.VndError(exceptionName, message);
-//    } else {
-//      errorMessage = new VndErrors.VndError("cause?", ex.getMessage());
-//    }
-//    return new ResponseEntity<Object>(errorMessage, headers, status);
-//  }
-//
-//  @Override
-//  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
-//      WebRequest request) {
-//    List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
-//    List<ObjectError> globalErrors = ex.getBindingResult().getGlobalErrors();
-//    List<VndErrors.VndError> errors = new ArrayList<VndErrors.VndError>(fieldErrors.size() + globalErrors.size());
-//    VndErrors.VndError error;
-//    for (FieldError fieldError : fieldErrors) {
-//      error = new VndErrors.VndError("invalid!!!", fieldError.getField() + ", " + fieldError.getDefaultMessage());
-//      errors.add(error);
-//    }
-//    for (ObjectError objectError : globalErrors) {
-//      error = new VndErrors.VndError("invalid!!!", objectError.getObjectName() + ", " + objectError.getDefaultMessage());
-//      errors.add(error);
-//    }
-//    VndErrors errorMessage = new VndErrors(errors, null, null, null);
-//    return new ResponseEntity<Object>(errorMessage, headers, status);
-//  }
+  //  @Override
+  //  protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status,
+  //      WebRequest request) {
+  //    Throwable mostSpecificCause = ex.getMostSpecificCause();
+  //    VndErrors.VndError errorMessage;
+  //    if (mostSpecificCause != null) {
+  //      String exceptionName = mostSpecificCause.getClass().getName();
+  //      String message = mostSpecificCause.getMessage();
+  //      errorMessage = new VndErrors.VndError(exceptionName, message);
+  //    } else {
+  //      errorMessage = new VndErrors.VndError("cause?", ex.getMessage());
+  //    }
+  //    return new ResponseEntity<Object>(errorMessage, headers, status);
+  //  }
+  //
+  //  @Override
+  //  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
+  //      WebRequest request) {
+  //    List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+  //    List<ObjectError> globalErrors = ex.getBindingResult().getGlobalErrors();
+  //    List<VndErrors.VndError> errors = new ArrayList<VndErrors.VndError>(fieldErrors.size() + globalErrors.size());
+  //    VndErrors.VndError error;
+  //    for (FieldError fieldError : fieldErrors) {
+  //      error = new VndErrors.VndError("invalid!!!", fieldError.getField() + ", " + fieldError.getDefaultMessage());
+  //      errors.add(error);
+  //    }
+  //    for (ObjectError objectError : globalErrors) {
+  //      error = new VndErrors.VndError("invalid!!!", objectError.getObjectName() + ", " + objectError.getDefaultMessage());
+  //      errors.add(error);
+  //    }
+  //    VndErrors errorMessage = new VndErrors(errors, null, null, null);
+  //    return new ResponseEntity<Object>(errorMessage, headers, status);
+  //  }
 
 }
