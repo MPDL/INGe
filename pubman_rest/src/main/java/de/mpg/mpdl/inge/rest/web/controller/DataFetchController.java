@@ -27,6 +27,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.ByteArrayInputStream;
@@ -169,7 +170,7 @@ public class DataFetchController {
     try {
       itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(fetchedItem));
       itemVersionVO.getObject().setContext(contextDbVO);
-      itemVersionVO.getFiles().clear();
+      PubItemUtil.cleanUpItem(itemVersionVO);
     } catch (TechnicalException e) {
       throw new IngeTechnicalException(e);
     }
