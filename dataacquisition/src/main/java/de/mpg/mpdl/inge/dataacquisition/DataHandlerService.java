@@ -152,6 +152,7 @@ public class DataHandlerService {
 
     // Transform the itemXML if necessary
     if (null != item) {
+      logger.info("Datafetch Source: \n*\n" + item + "\n*");
 
       TransformerFactory.FORMAT metaDataFormat;
       try {

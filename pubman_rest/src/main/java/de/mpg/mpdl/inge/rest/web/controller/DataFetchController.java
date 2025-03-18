@@ -156,11 +156,11 @@ public class DataFetchController {
     }
     String fetchedItem = new String(fetchedItemByte);
 
-    logger.info("fetchedItem: *" + fetchedItem + "*");
     if (null == fetchedItem || fetchedItem.trim().isEmpty() || source.equals(CROSSREF) && -1 != fetchedItem.indexOf("<mdp:publication/>")) {
       throw new NotFoundException();
     }
 
+    logger.info("Fetched Item: \n*\n" + fetchedItem + "\n*");
     return fetchedItem;
   }
 
