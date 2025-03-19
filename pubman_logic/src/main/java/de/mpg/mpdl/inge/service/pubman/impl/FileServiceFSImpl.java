@@ -402,7 +402,11 @@ public class FileServiceFSImpl implements FileService {
     List<FileDbVO> allFiles = fr.findAll();
     for (FileDbVO fileDbVO : allFiles) {
       logger.info("Create thumbnail for " + fileDbVO.getObjectId());
-      thumbnailCreationService.createThumbnail(fileDbVO);
+        try {
+            thumbnailCreationService.createThumbnail(fileDbVO);
+        } catch (IngeTechnicalException e) {
+            logger.warn("Could not create thumbnail for " + fileDbVO.getObjectId(), e);
+        }
     }
 
   }
