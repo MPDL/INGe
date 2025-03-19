@@ -14,6 +14,10 @@ public class FileVOWrapper {
 
   private final String fileId;
 
+  private String thumbnailFileId;
+
+
+
   private final FileDbVO fileVO;
 
   private final FileStorageInterface fileStorageInterface;
@@ -41,5 +45,16 @@ public class FileVOWrapper {
 
   }
 
+  public void readThumbnail(OutputStream outputStream) throws IngeTechnicalException {
+    this.fileStorageInterface.readFile(this.thumbnailFileId, outputStream);
 
+  }
+
+  public void setThumbnailFileId(String thumbnailFileId) {
+    this.thumbnailFileId = thumbnailFileId;
+  }
+
+  public String getThumbnailFileId() {
+    return thumbnailFileId;
+  }
 }

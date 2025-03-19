@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -414,6 +415,15 @@ public class AuthorizationService {
 
   public Principal checkLoginRequired(String authenticationToken) throws AuthenticationException {
     return new Principal(this.userAccountService.get(authenticationToken), authenticationToken);
+  }
+
+  public Principal checkLoginRequiredWithRole(String authenticationToken, String role) throws AuthenticationException {
+    Principal p = new Principal(this.userAccountService.get(authenticationToken), authenticationToken);
+    boolean match = p.getUserAccount().getGrantList().stream().anyMatch(grant -> grant.getRole().equals(role));
+    if (!match) {
+      throw new AuthenticationException("Authentication as admin user required");
+    }
+    return p;
   }
 
   public void checkAuthorization(String serviceName, String methodName, Object... objects)

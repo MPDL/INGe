@@ -54,16 +54,26 @@ public class FileSystemServiceBean implements FileStorageInterface {
    * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io. InputStream,
    * java.lang.String)
    */
+
   @Override
-  public String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
-    String newFileName = fileName;
-    Calendar calendar = Calendar.getInstance();
-    int year = calendar.get(Calendar.YEAR);
-    int month = calendar.get(Calendar.MONTH) + 1; // plus one cause calendar month starts with 0
-    int day = calendar.get(Calendar.DAY_OF_MONTH);
-    // Path starting after the the defined filesystemRootPath
-    String relativeDirectoryPath = year + "/" + month + "/" + day;
-    Path directoryPath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + relativeDirectoryPath);
+  public String createFile(InputStream fileInputStream, String fileId) throws IngeTechnicalException {
+
+    Path fileIdPath = Path.of(fileId);
+    String newFileName = fileIdPath.getFileName().toString();
+
+    //if fileName contains a relative path, use it. Else create a path with a date
+    Path relativeDirectoryPath = fileIdPath.getParent();
+    if (relativeDirectoryPath == null) {
+      Calendar calendar = Calendar.getInstance();
+      int year = calendar.get(Calendar.YEAR);
+      int month = calendar.get(Calendar.MONTH) + 1; // plus one cause calendar month starts with 0
+      int day = calendar.get(Calendar.DAY_OF_MONTH);
+      // Path starting after the the defined filesystemRootPath
+      relativeDirectoryPath = Path.of(String.valueOf(year), String.valueOf(month), String.valueOf(day));
+    }
+
+
+    Path directoryPath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH, relativeDirectoryPath.toString());
     Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
     try {
 
@@ -100,10 +110,12 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Files.copy(fileInputStream, filePath);
       }
     } catch (IOException e) {
-      logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName + "]", e);
+      logger.error("An error occoured, when trying to create file [" + fileIdPath + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileIdPath + "]", e);
     }
     return relativeDirectoryPath + "/" + newFileName;
+
+
   }
 
   /*
@@ -119,6 +131,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   @Override
   public void readFile(String fileRelativePath, OutputStream out, Range range) throws IngeTechnicalException {
+
     try {
       if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
         Path filepath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
@@ -128,12 +141,35 @@ public class FileSystemServiceBean implements FileStorageInterface {
           logger.error("Path " + fileRelativePath + " does not exist");
         }
       } else {
-        readFileFromDevRestSystem(fileRelativePath, out, range);
+        InputStream is = readInputStreamFromDevRestSystem(fileRelativePath, range);
+        IOUtils.copy(is, out);
       }
     } catch (Exception e) {
       logger.error("An error occoured, when trying to retrieve file [" + fileRelativePath + "]", e);
       throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileRelativePath + "]", e);
     }
+
+  }
+
+  @Override
+  public InputStream readFile(String fileRelativePath) throws IngeTechnicalException {
+    try {
+      if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
+        Path filepath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
+        if (Files.exists(filepath)) {
+          return Files.newInputStream(filepath);
+        } else {
+          logger.error("Path " + fileRelativePath + " does not exist");
+        }
+      } else {
+        return readInputStreamFromDevRestSystem(fileRelativePath, null);
+        //readFileFromDevRestSystem(fileRelativePath, out, range);
+      }
+    } catch (Exception e) {
+      logger.error("An error occoured, when trying to retrieve file [" + fileRelativePath + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileRelativePath + "]", e);
+    }
+    return null;
 
   }
 
@@ -149,7 +185,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   }
 
-  private void readFileFromDevRestSystem(String fileRelativePath, OutputStream output, Range range) throws IOException {
+  private InputStream readInputStreamFromDevRestSystem(String fileRelativePath, Range range) throws IOException {
     Request request = Request
         .Get(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
             + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1)
@@ -161,8 +197,9 @@ public class FileSystemServiceBean implements FileStorageInterface {
       request.addHeader("Range", "bytes=" + range.getStart() + "-" + range.getEnd());
     }
     Response response = request.execute();
-    IOUtils.copy(response.returnContent().asStream(), output);
+    return response.returnContent().asStream();
   }
+
 
 
   /*
@@ -182,5 +219,11 @@ public class FileSystemServiceBean implements FileStorageInterface {
       logger.error("An error occoured, when trying to delete the file [" + path + "]", e);
       throw new IngeTechnicalException("An error occoured, when trying to delete the file [" + path + "]", e);
     }
+  }
+
+  @Override
+  public boolean fileExists(String filePath) throws IngeTechnicalException {
+    Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + filePath);
+    return Files.exists(path);
   }
 }

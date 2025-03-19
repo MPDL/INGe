@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
@@ -7,6 +8,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -14,6 +16,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.util.ThumbnailCreationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,6 +29,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -89,6 +93,9 @@ public class FileServiceFSImpl implements FileService {
   @Autowired
   private PubItemService pubItemService;
 
+  @Autowired
+  private ThumbnailCreationService thumbnailCreationService;
+
   public FileServiceFSImpl() throws IngeTechnicalException {
     Path rootDirectory = Paths.get(TMP_FILE_ROOT_PATH);
     if (Files.notExists(rootDirectory)) {
@@ -142,15 +149,21 @@ public class FileServiceFSImpl implements FileService {
     }
     checkAa("readFile", user, selectedFile, item);
 
+    FileVOWrapper wrapper = new FileVOWrapper(fileDbVO.getLocalFileIdentifier(), selectedFile, this.fsi);
 
-    // fsi.readFile(fileDbVO.getLocalFileIdentifier(), out);
-
-    return new FileVOWrapper(fileDbVO.getLocalFileIdentifier(), selectedFile, this.fsi);
+    //thumbnail
+    String thumbnailIdentifier = ThumbnailCreationService.createThumbnailFileIdentifier(fileDbVO.getLocalFileIdentifier());
+    if (fsi.fileExists(thumbnailIdentifier)) {
+      wrapper.setThumbnailFileId(thumbnailIdentifier);
+    }
+    return wrapper;
   }
+
 
   @Override
   public void deleteFile(String filePath) throws IngeTechnicalException {
     this.fsi.deleteFile(filePath);
+    this.fsi.deleteFile(ThumbnailCreationService.createThumbnailFileIdentifier(filePath));
   }
 
   /*
@@ -383,6 +396,17 @@ public class FileServiceFSImpl implements FileService {
 
   }
 
+  @Transactional(readOnly = true, rollbackFor = Throwable.class)
+  public void regenerateThumbnails(String token) throws IngeTechnicalException, AuthenticationException {
+    aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
+    List<FileDbVO> allFiles = fr.findAll();
+    for (FileDbVO fileDbVO : allFiles) {
+      logger.info("Create thumbnail for " + fileDbVO.getObjectId());
+      thumbnailCreationService.createThumbnail(fileDbVO);
+    }
+
+  }
+
 
 
   /*
@@ -510,4 +534,6 @@ public class FileServiceFSImpl implements FileService {
 
     logger.info("*** CRON: deleteOldStagingFiles() finished.");
   }
+
+
 }

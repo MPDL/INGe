@@ -4,6 +4,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.util.GenrePropertiesProvider;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,6 +50,9 @@ public class MiscellaneousController {
   @Autowired
   @Qualifier("mpgJsonIpListProvider")
   private IpListProvider ipListProvider;
+
+  @Autowired
+  private FileService fileService;
 
   public MiscellaneousController(AuthorizationService authorizationService) {
     this.authorizationService = authorizationService;
@@ -104,5 +108,14 @@ public class MiscellaneousController {
     if (null == genre) {
       throw new IngeApplicationException("The genre " + name + " must not be empty");
     }
+  }
+
+  @RequestMapping(value = "/regenerateThumbnails", method = RequestMethod.GET)
+  public ResponseEntity<Collection<IpListProvider.IpRange>> regenerateThumbnails( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException {
+
+    this.fileService.regenerateThumbnails(token);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

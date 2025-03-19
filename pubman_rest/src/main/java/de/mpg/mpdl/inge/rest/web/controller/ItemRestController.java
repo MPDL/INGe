@@ -25,6 +25,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import de.mpg.mpdl.inge.service.util.ThumbnailCreationService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -46,6 +47,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -307,6 +310,40 @@ public class ItemRestController {
       throw new IngeTechnicalException("Error while opening input stream", e);
     }
   }
+
+
+  @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/thumbnail", method = RequestMethod.GET)
+  public void getComponentThumbnail(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @PathVariable String itemId, @PathVariable String componentId,
+      @RequestParam(value = "download", required = false, defaultValue = "false") boolean forceDownload, HttpServletResponse response,
+      HttpServletRequest request)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+    try {
+      FileVOWrapper fileVOWrapper = this.fileService.readFile(itemId, componentId, token);
+      if (null == fileVOWrapper) {
+        throw new NotFoundException();
+      }
+
+
+      if (fileVOWrapper.getThumbnailFileId() != null) {
+        String contentDispositionType = "inline";
+        String fileName = ThumbnailCreationService.createThumbnailFileIdentifier(fileVOWrapper.getFileVO().getObjectId());
+        response.setHeader("Content-Disposition",
+            "inline;filename*=UTF-8''" + URLEncoder.encode(fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20"));
+        response.setHeader("Content-Type", "image/jpeg");
+        try (OutputStream output = response.getOutputStream()) {
+          fileVOWrapper.readThumbnail(output);
+        }
+      } else {
+        throw new NotFoundException();
+      }
+
+    } catch (IOException e) {
+      logger.error("could not read file [" + componentId + "]");
+      throw new IngeTechnicalException("Error while opening input stream", e);
+    }
+  }
+
 
   /**
    * Retrive the technical Metadata of a file

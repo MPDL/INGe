@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
+import de.mpg.mpdl.inge.service.util.ThumbnailCreationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.UriBuilder;
 import jakarta.persistence.EntityManager;
@@ -129,6 +130,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Autowired
   @Qualifier("mpgJsonIpListProvider")
   private IpListProvider ipListProvider;
+
+  @Autowired
+  private ThumbnailCreationService thumbnailCreationService;
 
   public static final String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
   public static final String INDEX_CONTEXT_TITLE = "context.name";
@@ -494,6 +498,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           currentFileDbVO.setMimeType(fileVo.getMimeType());
           currentFileDbVO.setName(fileVo.getName());
 
+          try {
+            thumbnailCreationService.createThumbnail(currentFileDbVO);
+          } catch (IngeTechnicalException e) {
+            logger.warn("Could not create thumbnail for " + currentFileDbVO.getObjectId(), e);
+          }
+
         }
 
 
@@ -592,6 +602,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         if (!deletedFiles.contains(file.getObjectId())) {
           this.fileRepository.delete(file);
           deletedFiles.add(file.getObjectId());
+          if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+            fileService.deleteFile(file.getLocalFileIdentifier());
+          }
         }
 
 
