@@ -36,7 +36,6 @@ public class GenreSearchCriterion extends EnumSearchCriterion<MdsPublicationVO.G
 
   public GenreSearchCriterion() {
     super(MdsPublicationVO.Genre.class);
-    // TODO Auto-generated constructor stub
   }
 
   //  @Override

@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.aa.web.client.old;
 import jakarta.servlet.http.HttpServlet;
 
 /**
- * TODO Description
- *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$

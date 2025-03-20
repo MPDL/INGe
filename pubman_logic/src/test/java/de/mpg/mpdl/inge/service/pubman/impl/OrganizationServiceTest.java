@@ -216,7 +216,6 @@ public class OrganizationServiceTest extends TestBase {
     try {
       affiliationVOs = organizationService.searchChildOrganizations("XXXX");
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       logger.info("Exception of class: " + e.getClass().getName());
     }

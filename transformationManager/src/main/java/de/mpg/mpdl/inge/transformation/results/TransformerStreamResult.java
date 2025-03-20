@@ -17,13 +17,11 @@ public class TransformerStreamResult extends StreamResult implements Transformer
 
   public TransformerStreamResult(OutputStream outputStream) {
     super(outputStream);
-    // TODO Auto-generated constructor stub
   }
 
 
   public TransformerStreamResult(Writer writer) {
     super(writer);
-    // TODO Auto-generated constructor stub
   }
 
   @Override

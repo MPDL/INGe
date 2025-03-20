@@ -32,13 +32,11 @@ public class GenreHandler extends ShortContentHandler {
 
   @Override
   public void content(String uri, String localName, String name, String content) {
-    // TODO Auto-generated method stub
     super.content(uri, localName, name, content);
   }
 
   @Override
   public void endElement(String uri, String localName, String name) throws SAXException {
-    // TODO Auto-generated method stub
     super.endElement(uri, localName, name);
 
     try {
@@ -113,7 +111,6 @@ public class GenreHandler extends ShortContentHandler {
 
   @Override
   public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
-    // TODO Auto-generated method stub
     super.startElement(uri, localName, name, attributes);
 
     try {

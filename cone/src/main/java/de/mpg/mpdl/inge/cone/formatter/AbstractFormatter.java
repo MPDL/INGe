@@ -39,8 +39,6 @@ import de.mpg.mpdl.inge.cone.TreeFragment;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * TODO Description
- *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
