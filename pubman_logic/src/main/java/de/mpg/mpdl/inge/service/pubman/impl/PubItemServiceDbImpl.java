@@ -499,8 +499,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           currentFileDbVO.setName(fileVo.getName());
 
           try {
-            thumbnailCreationService.createThumbnail(currentFileDbVO);
-          } catch (IngeTechnicalException e) {
+            fileService.generateThumbnail(currentFileDbVO);
+          } catch (Exception e) {
             logger.warn("Could not create thumbnail for " + currentFileDbVO.getObjectId(), e);
           }
 

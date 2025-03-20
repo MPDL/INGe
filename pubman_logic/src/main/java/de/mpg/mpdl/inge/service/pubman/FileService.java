@@ -42,5 +42,7 @@ public interface FileService extends FileServiceExternal {
 
   void regenerateThumbnails(String token) throws IngeTechnicalException, AuthenticationException;
 
+  void generateThumbnail(FileDbVO fileDbVO) throws IngeTechnicalException, AuthenticationException;
+
 
 }

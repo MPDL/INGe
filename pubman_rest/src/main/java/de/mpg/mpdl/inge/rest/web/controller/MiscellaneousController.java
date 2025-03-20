@@ -111,7 +111,7 @@ public class MiscellaneousController {
   }
 
   @RequestMapping(value = "/regenerateThumbnails", method = RequestMethod.GET)
-  public ResponseEntity<Collection<IpListProvider.IpRange>> regenerateThumbnails( //
+  public ResponseEntity regenerateThumbnails( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException {
 

@@ -39,6 +39,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import jakarta.jms.ObjectMessage;
 import net.arnx.wmf2svg.util.Base64;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -57,6 +59,8 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,6 +99,10 @@ public class FileServiceFSImpl implements FileService {
 
   @Autowired
   private ThumbnailCreationService thumbnailCreationService;
+
+  @Autowired
+  @Qualifier("queueJmsTemplate")
+  private JmsTemplate queueJmsTemplate;
 
   public FileServiceFSImpl() throws IngeTechnicalException {
     Path rootDirectory = Paths.get(TMP_FILE_ROOT_PATH);
@@ -401,16 +409,20 @@ public class FileServiceFSImpl implements FileService {
     aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
     List<FileDbVO> allFiles = fr.findAll();
     for (FileDbVO fileDbVO : allFiles) {
-      logger.info("Create thumbnail for " + fileDbVO.getObjectId());
-        try {
-            thumbnailCreationService.createThumbnail(fileDbVO);
-        } catch (IngeTechnicalException e) {
-            logger.warn("Could not create thumbnail for " + fileDbVO.getObjectId(), e);
-        }
+      this.queueJmsTemplate.convertAndSend("generate-thumbnail", fileDbVO);
     }
-
   }
 
+  @Override
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "generate-thumbnail")
+  public void generateThumbnail(FileDbVO fileDbVO) throws IngeTechnicalException, AuthenticationException {
+    try {
+      //FileDbVO fileDbVO = (FileDbVO) msg.getObject();
+      thumbnailCreationService.createThumbnail(fileDbVO);
+    } catch (Exception e) {
+      throw new IngeTechnicalException("Could not create thumbnail", e);
+    }
+  }
 
 
   /*

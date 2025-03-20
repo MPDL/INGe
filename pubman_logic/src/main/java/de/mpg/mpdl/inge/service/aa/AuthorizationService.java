@@ -419,7 +419,8 @@ public class AuthorizationService {
 
   public Principal checkLoginRequiredWithRole(String authenticationToken, String role) throws AuthenticationException {
     Principal p = new Principal(this.userAccountService.get(authenticationToken), authenticationToken);
-    boolean match = p.getUserAccount().getGrantList().stream().anyMatch(grant -> grant.getRole().equals(role));
+    boolean match =
+        p.getUserAccount() != null && p.getUserAccount().getGrantList().stream().anyMatch(grant -> grant.getRole().equals(role));
     if (!match) {
       throw new AuthenticationException("Authentication as admin user required");
     }
