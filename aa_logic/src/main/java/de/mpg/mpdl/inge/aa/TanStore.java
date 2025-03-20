@@ -33,8 +33,6 @@ import java.util.Set;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * TODO Description
- *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$

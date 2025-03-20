@@ -58,7 +58,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       this.importCommonService.setPercentageInImportLog(importLogDbVO,
           ImportLogDbVO.PERCENTAGE_DELETE_END * counter / importedLogItemDbVOs.size() + ImportLogDbVO.PERCENTAGE_DELETE_SUSPEND);
 
-      //      pause(); // TODO: remove
+      //      pause();
     }
 
     this.importCommonService.finishDelete(importLogDbVO);
@@ -105,7 +105,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
 
             this.importCommonService.finishImportLogItem(importLogItemDbVO);
 
-            //          pause(); // TODO: remove
+            //          pause();
           }
         } catch (Exception e) {
           logger.error("Error during import", e);
@@ -170,7 +170,7 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
       this.importCommonService.setPercentageInImportLog(importLogDbVO,
           ImportLogDbVO.PERCENTAGE_SUBMIT_END * counter / importedLogItemDbVOs.size() + ImportLogDbVO.PERCENTAGE_SUBMIT_SUSPEND);
 
-      //      pause(); // TODO: remove
+      //      pause();
     }
 
     this.importCommonService.finishSubmit(importLogDbVO, submitModus);
@@ -189,13 +189,13 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
     return localTag.toString();
   }
 
-  private void pause() {
-    try {
-      logger.info("Pause");
-      Thread.sleep(1000 * 15);
-    } catch (InterruptedException e) {
-      logger.error(e);
-    }
-    logger.info("Pause beendet");
-  }
+//  private void pause() {
+//    try {
+//      logger.info("Pause");
+//      Thread.sleep(1000 * 15);
+//    } catch (InterruptedException e) {
+//      logger.error(e);
+//    }
+//    logger.info("Pause beendet");
+//  }
 }

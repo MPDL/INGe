@@ -101,17 +101,14 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
 
   @Override
   public void create(String cs) {
-    // TODO Auto-generated method stub
   }
 
   @Override
   public void delete(String cs) {
-    // TODO Auto-generated method stub
   }
 
   @Override
   public void update(String cs, String newCs) {
-    // TODO Auto-generated method stub
   }
 
   @Override

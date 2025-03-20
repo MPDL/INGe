@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
@@ -29,7 +28,6 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -39,8 +37,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
-
-import jakarta.jms.ObjectMessage;
 import net.arnx.wmf2svg.util.Base64;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -432,8 +428,6 @@ public class FileServiceFSImpl implements FileService {
    */
   @Override
   public void indexFile(InputStream fileInputStream) {
-    // TODO Auto-generated method stub
-
   }
 
   /*

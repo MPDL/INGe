@@ -40,8 +40,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 import net.sf.saxon.TransformerFactoryImpl;
 
 /**
- * TODO Description
- *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$

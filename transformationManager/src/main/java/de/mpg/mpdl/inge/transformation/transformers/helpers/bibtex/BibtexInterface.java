@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex;
 import java.util.Map;
 
 /**
- * TODO Description
- *
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$

@@ -43,8 +43,6 @@ import de.mpg.mpdl.inge.aa.util.ShortContentHandler;
 
 
 /**
- * TODO Description
- *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$

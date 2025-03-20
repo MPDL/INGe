@@ -82,7 +82,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
   /**
    * An enumeration that contains the index for the search service and the sorting filter for the
-   * eSciDoc ItemHandler for the offered sorting criterias. TODO Description
+   * eSciDoc ItemHandler for the offered sorting criterias.
    *
    * @author Markus Haarlaender (initial creation)
    * @author $Author$ (last modification)

@@ -70,10 +70,6 @@ public class WesternFormat2 extends AuthorFormat {
 
   @Override
   public String getWarning() {
-    // TODO Auto-generated method stub
     return null;
   }
-
-
-
 }

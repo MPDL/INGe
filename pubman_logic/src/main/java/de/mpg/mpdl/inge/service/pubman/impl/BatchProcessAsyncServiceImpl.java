@@ -347,12 +347,11 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
         }
       }
 
-      // TODO remove
-      try {
-        Thread.sleep(5000);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-      }
+//      try {
+//        Thread.sleep(5000);
+//      } catch (InterruptedException e) {
+//        throw new RuntimeException(e);
+//      }
     }
 
     this.batchProcessCommonService.finishBatchProcessLog(batchProcessLogHeaderDbVO, accountUserDbVO);

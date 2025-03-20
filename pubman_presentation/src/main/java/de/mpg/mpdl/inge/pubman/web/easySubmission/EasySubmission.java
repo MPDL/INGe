@@ -438,7 +438,6 @@ public class EasySubmission extends FacesBean {
   //      locators.get(locators.size() - 1).getFile().getMetadata().setTitle(locators.get(locators.size() - 1).getFile().getContent());
   //    }
   //
-  //    //TODO
   //    // set a dummy file size for rendering purposes
   //    if (locators.get(locators.size() - 1).getFile().getContent() != null
   //        && !locators.get(locators.size() - 1).getFile().getContent().trim().equals("")) {

@@ -30,8 +30,6 @@ import java.io.File;
 import java.util.Iterator;
 
 /**
- * TODO Description
- *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$

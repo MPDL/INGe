@@ -165,7 +165,6 @@ public class CitationStyleExecuterService {
     try {
       return XmlHelper.getListOfStyles();
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       throw new CitationStyleManagerException("Cannot get list of citation styles:", e);
     }
   }

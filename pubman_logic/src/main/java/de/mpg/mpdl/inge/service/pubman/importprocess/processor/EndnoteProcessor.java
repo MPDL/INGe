@@ -38,8 +38,6 @@ import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 /**
- * TODO Description
- *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$

@@ -277,7 +277,6 @@ public class ModelList {
         try {
           setI18nFlags(model, model.getPredicates(), modelStack);
         } catch (ConeException e) {
-          // TODO Auto-generated catch block
           e.printStackTrace();
         }
         modelStack.pop();

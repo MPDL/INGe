@@ -10,7 +10,7 @@ import jakarta.faces.bean.SessionScoped;
 
 /**
  * Session Bean that stores the referneces of PubItems in a Map for the Basket session basket
- * functionality. TODO Description
+ * functionality.
  *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
