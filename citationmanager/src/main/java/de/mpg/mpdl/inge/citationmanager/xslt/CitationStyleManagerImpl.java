@@ -100,16 +100,13 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
   }
 
   @Override
-  public void create(String cs) {
-  }
+  public void create(String cs) {}
 
   @Override
-  public void delete(String cs) {
-  }
+  public void delete(String cs) {}
 
   @Override
-  public void update(String cs, String newCs) {
-  }
+  public void update(String cs, String newCs) {}
 
   @Override
   public String validate(String cs) throws CitationStyleManagerException {

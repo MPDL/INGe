@@ -189,13 +189,13 @@ public class ImportAsyncServiceImpl implements ImportAsyncService {
     return localTag.toString();
   }
 
-//  private void pause() {
-//    try {
-//      logger.info("Pause");
-//      Thread.sleep(1000 * 15);
-//    } catch (InterruptedException e) {
-//      logger.error(e);
-//    }
-//    logger.info("Pause beendet");
-//  }
+  //  private void pause() {
+  //    try {
+  //      logger.info("Pause");
+  //      Thread.sleep(1000 * 15);
+  //    } catch (InterruptedException e) {
+  //      logger.error(e);
+  //    }
+  //    logger.info("Pause beendet");
+  //  }
 }

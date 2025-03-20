@@ -427,8 +427,7 @@ public class FileServiceFSImpl implements FileService {
    * @see de.mpg.mpdl.inge.service.pubman.FileService#indexFile(java.io.InputStream)
    */
   @Override
-  public void indexFile(InputStream fileInputStream) {
-  }
+  public void indexFile(InputStream fileInputStream) {}
 
   /*
    * (non-Javadoc)
