@@ -73,74 +73,28 @@ public class MiscellaneousController {
     this.restTemplate = restTemplate;
   }
 
+  //TODO: pubman.properties
+  //TODO: token
+  //TODO: checkData
   @RequestMapping(value = "/callAiApi", method = RequestMethod.GET)
   public ResponseEntity<String> callAiApi(@RequestParam(DATA) String data) {
-    String url = "https://chat-ai.academiccloud.de/v1/chat/completions";
-    String model = "meta-llama-3.1-8b-instruct";
-    String prompt = "Please create a CSL json of the following authors (family, given) copied from a research paper:";
-    //    String data =
-    //        "Sergio Roberto Molina Ramirez 1 , Nafiseh Samiseresht 2 , Mateo Alejandro Martínez-Roque 1 , Ferdinando Catania 1, Kevin Graef 1 , Martin Rabe 2 , Andreas Offenhäusser 1 , Dirk Mayer 1 and Gabriela Figueroa-Miranda 1,* 1 Institute of Biological Information Processing, Bioelectronics (IBI-3), Forschungszentrum Jülich GmbH, 52428 Jülich, Germany; sergio.molina-ramirez@ukbonn.de (S.R.M.R.); am4088@med.cornell.edu (M.A.M.-R.); fer.catania@studenti.unina.it (F.C.); k.graef@fz-juelich.de (K.G.); a.offenhaeusser@fz-juelich.de (A.O.); dirk.mayer@fz-juelich.de (D.M.) 2 Department of Interface Chemistry and Surface Engineering, Max Planck Institute for Sustainable Materials GmbH, 40237 Düsseldorf, Germany; n.samiseresht@mpie.de (N.S.); m.rabe@mpie.de (M.R.) * Correspondence: g.figueroa.miranda@fz-juelich.de";
-    Integer temperature = 0;
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-    headers.setBearerAuth("707e6ff2cbbdcd151e92ca2212df2268");
+    logger.info("Calling Ai API");
+    Request request = prepareRequest(data);
+    logger.info("RequestBody: " + request.requestBody());
 
-    JSONObject systemRole = new JSONObject();
-    systemRole.put("role", "system");
-    systemRole.put("content", "You are a helpful assistant");
-
-    JSONObject userRole = new JSONObject();
-    userRole.put("role", "user");
-    userRole.put("content", prompt + " " + data);
-
-    JSONArray messages = new JSONArray();
-    messages.put(systemRole);
-    messages.put(userRole);
-
-    JSONObject json = new JSONObject();
-    json.put("model", model);
-    json.put("messages", messages);
-    json.put("temperature", temperature);
-
-    String requestBody = json.toString();
-    logger.info("RequestBody:" + requestBody);
-
-    HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+    HttpEntity<String> entity = new HttpEntity<>(request.requestBody(), request.headers());
 
     LocalDateTime start = LocalDateTime.now();
-    ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+    ResponseEntity<String> response = restTemplate.exchange(request.url(), HttpMethod.POST, entity, String.class);
     LocalDateTime end = LocalDateTime.now();
-
     Duration duration = Duration.between(start, end);
     logger.info("Dauer: " + duration.toMinutes() + " Minuten und " + duration.toSecondsPart() + " Sekunden.");
 
     String responseBody = response.getBody();
     logger.info("ResponseBody:" + responseBody);
 
-    Pattern pattern = Pattern.compile("```(.*?)```", Pattern.DOTALL);
-    Matcher matcher = pattern.matcher(responseBody);
-
-    String extractedJson = null;
-    if (matcher.find()) {
-      extractedJson = matcher.group(1);
-      extractedJson = extractedJson.replace("\\n", "");
-      extractedJson = extractedJson.replace("\\\"", "\"");
-    }
-
-    logger.info("Extracted json:" + extractedJson);
-
-    JSONArray authors = new JSONArray(extractedJson);
-
-    //    for (int i = 0; i < authors.length(); i++) {
-    //      JSONObject author = authors.getJSONObject(i);
-    //      String family = author.getString("family");
-    //      String given = author.getString("given");
-    //      logger.info("Given: " + given);
-    //      logger.info("Family: " + family);
-    //      logger.info("");
-    //    }
+    JSONArray authors = parseResult(responseBody);
 
     return new ResponseEntity<>(authors.toString(), HttpStatus.OK);
   }
@@ -192,20 +146,75 @@ public class MiscellaneousController {
   }
 
   @RequestMapping(value = "/regenerateThumbnails", method = RequestMethod.GET)
-  public ResponseEntity regenerateThumbnails( //
+  public ResponseEntity<?> regenerateThumbnails( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException {
 
     this.fileService.regenerateThumbnails(token);
+
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private void checkGenre(MdsPublicationVO.Genre genre, String name) throws IngeApplicationException {
     if (null == genre) {
       throw new IngeApplicationException("The genre " + name + " must not be empty");
     }
   }
+
+  private JSONArray parseResult(String responseBody) {
+    Pattern pattern = Pattern.compile("```(.*?)```", Pattern.DOTALL);
+    Matcher matcher = pattern.matcher(responseBody);
+
+    String extractedJson = null;
+    if (matcher.find()) {
+      extractedJson = matcher.group(1);
+      logger.info("Extracted json:" + extractedJson);
+      extractedJson = extractedJson.replace("\\n", "");
+      extractedJson = extractedJson.replace("\\\"", "\"");
+    }
+    logger.info("Extracted json after replacements:" + extractedJson);
+
+    JSONArray authors = new JSONArray(extractedJson);
+
+    return authors;
+  }
+
+  private Request prepareRequest(String data) {
+    String url = "https://chat-ai.academiccloud.de/v1/chat/completions";
+    String model = "meta-llama-3.1-8b-instruct";
+    String prompt = "Please create a CSL json of the following authors (family, given) copied from a research paper:";
+    Integer temperature = 0;
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+    headers.setBearerAuth("707e6ff2cbbdcd151e92ca2212df2268");
+
+    JSONObject systemRole = new JSONObject();
+    systemRole.put("role", "system");
+    systemRole.put("content", "You are a helpful assistant");
+
+    JSONObject userRole = new JSONObject();
+    userRole.put("role", "user");
+    userRole.put("content", prompt + " " + data);
+
+    JSONArray messages = new JSONArray();
+    messages.put(systemRole);
+    messages.put(userRole);
+
+    JSONObject json = new JSONObject();
+    json.put("model", model);
+    json.put("messages", messages);
+    json.put("temperature", temperature);
+
+    String requestBody = json.toString();
+
+    Request request = new Request(url, headers, requestBody);
+    return request;
+  }
+
+  private record Request(String url, HttpHeaders headers, String requestBody) {}
 }
