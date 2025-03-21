@@ -557,23 +557,29 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
-				<version>6.2.5</version>
+				<version>6.0.4</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-bom</artifactId>
-				<version>2024.1.4</version>
-				<type>pom</type>
-				<scope>import</scope>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-rest-webmvc</artifactId>
+				<version>4.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-bom</artifactId>
-				<version>6.4.4</version>
-				<type>pom</type>
-				<scope>import</scope>
+				<artifactId>spring-security-web</artifactId>
+				<version>6.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>6.0.1</version>
 			</dependency>
 
 			<!-- Passay -->
@@ -1081,7 +1087,6 @@
 		<inge.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</inge.transformation.wos.stylesheet.filename>
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
-		<inge.rest.access-control-allowed-origins></inge.rest.access-control-allowed-origins>
 		<jdk.version>17</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
