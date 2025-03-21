@@ -3,6 +3,8 @@ package de.mpg.mpdl.inge.rest.spring;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import java.util.Arrays;
 import java.util.List;
+
+import de.mpg.mpdl.inge.util.PropertyReader;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -10,6 +12,7 @@ import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -38,6 +41,15 @@ public class WebConfiguration implements WebMvcConfigurer {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**").exposedHeaders("Token").allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
+    CorsRegistration corsRegistration = registry.addMapping("/**").exposedHeaders("Token")
+        .allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE").allowCredentials(true);
+    String allowed = PropertyReader.getProperty("inge.rest.access-control-allowed-origins");
+    if (allowed != null && !allowed.isEmpty()) {
+      String[] allowedOrigins = allowed.split(",");
+      corsRegistration.allowedOrigins(allowedOrigins);
+    } else {
+      corsRegistration.allowedOriginPatterns("*");
+    }
+
   }
 }
