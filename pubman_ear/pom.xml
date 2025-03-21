@@ -36,6 +36,7 @@
 					<skinnyWars>true</skinnyWars>
 					<initializeInOrder>true</initializeInOrder>
 					<modules>
+						<!--
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>aa_presentation</artifactId>
@@ -46,11 +47,13 @@
 							<artifactId>cone_presentation</artifactId>
 							<contextRoot>/cone</contextRoot>
 						</webModule>
+
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_presentation</artifactId>
 							<contextRoot>/pubman</contextRoot>
 						</webModule>
+						-->
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_rest</artifactId>
@@ -181,6 +184,7 @@
 	</profiles>
 
 	<dependencies>
+		<!--
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_presentation</artifactId>
@@ -196,6 +200,7 @@
 			<artifactId>pubman_presentation</artifactId>
 			<type>war</type>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_rest</artifactId>
