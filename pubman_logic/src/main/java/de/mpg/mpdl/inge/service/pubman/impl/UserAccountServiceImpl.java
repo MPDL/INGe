@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -411,7 +413,16 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
       // Set Cookie
       if (null != principal && null != response) {
+        String domain = "";
+        try {
+          String url = PropertyReader.getProperty("inge.pubman.instance.url");
+          URI uri = new URI(url);
+          domain = uri.getHost();
+        } catch (URISyntaxException e) {
+          logger.warn(e);
+        }
         Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
+        cookie.setDomain(domain);
         cookie.setPath("/");
         cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);
         cookie.setSecure(true);

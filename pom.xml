@@ -557,29 +557,23 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
-				<version>6.0.4</version>
+				<version>6.2.5</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-jpa</artifactId>
-				<version>3.0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-rest-webmvc</artifactId>
-				<version>4.0.1</version>
+				<artifactId>spring-data-bom</artifactId>
+				<version>2024.1.4</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>6.0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-				<version>6.0.1</version>
+				<artifactId>spring-security-bom</artifactId>
+				<version>6.4.4</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<!-- Passay -->
