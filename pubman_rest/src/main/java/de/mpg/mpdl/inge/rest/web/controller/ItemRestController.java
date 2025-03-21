@@ -450,8 +450,8 @@ public class ItemRestController {
   @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/authorization", method = RequestMethod.GET,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<JsonNode> getAuthInfoForFile(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @PathVariable String itemId,
-      @PathVariable String componentId)
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,  @PathVariable(value = ITEM_ID_VAR) String itemId,
+      @PathVariable(value = "componentId") String componentId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     JsonNode node = this.pis.getAuthorizationInfoForFile(itemId, componentId, token);
