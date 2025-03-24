@@ -36,6 +36,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,12 +51,17 @@ public class MiscellaneousController {
 
   private static final Logger logger = LogManager.getLogger(MiscellaneousController.class);
 
-  private static final String DATA = "data";
   private static final String GENRE = "genre";
 
   private static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
   private static final String SITEMAP_FILE_PATH = "/{sitemapFile:.+}";
   private static final String Sitemap_VAR = "sitemapFile";
+
+  private static final String OPENAI_URL = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_URL);
+  private static final String OPENAI_MODEL = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_MODEL);
+  private static final String OPENAI_PROMPT = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_PROMPT);
+  private static final String OPENAI_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TOKEN);
+  private static final Integer OPENAI_TEMPERATURE = Integer.valueOf(PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TEMPERATURE));
 
   private final AuthorizationService authorizationService;
 
@@ -74,19 +80,22 @@ public class MiscellaneousController {
   }
 
   //TODO: pubman.properties
-  //TODO: token
-  //TODO: checkData
-  @RequestMapping(value = "/callAiApi", method = RequestMethod.GET)
-  public ResponseEntity<String> callAiApi(@RequestParam(DATA) String data) {
+  @RequestMapping(value = "/callAiApi", method = RequestMethod.POST)
+  public ResponseEntity<String> callAiApi( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestBody String data) throws AuthenticationException, IngeApplicationException {
+
+    checkUser(token);
+    checkData(data);
 
     logger.info("Calling Ai API");
-    Request request = prepareRequest(data);
-    logger.info("RequestBody: " + request.requestBody());
+    Request preparedRequest = prepareRequest(data);
+    logger.info("RequestBody: " + preparedRequest.requestBody());
 
-    HttpEntity<String> entity = new HttpEntity<>(request.requestBody(), request.headers());
+    HttpEntity<String> entity = new HttpEntity<>(preparedRequest.requestBody(), preparedRequest.headers());
 
     LocalDateTime start = LocalDateTime.now();
-    ResponseEntity<String> response = restTemplate.exchange(request.url(), HttpMethod.POST, entity, String.class);
+    ResponseEntity<String> response = restTemplate.exchange(preparedRequest.url, HttpMethod.POST, entity, String.class);
     LocalDateTime end = LocalDateTime.now();
     Duration duration = Duration.between(start, end);
     logger.info("Dauer: " + duration.toMinutes() + " Minuten und " + duration.toSecondsPart() + " Sekunden.");
@@ -94,9 +103,13 @@ public class MiscellaneousController {
     String responseBody = response.getBody();
     logger.info("ResponseBody:" + responseBody);
 
-    JSONArray authors = parseResult(responseBody);
-
-    return new ResponseEntity<>(authors.toString(), HttpStatus.OK);
+    JSONArray authors;
+    try {
+      authors = parseResult(responseBody);
+      return new ResponseEntity<>(authors.toString(), HttpStatus.OK);
+    } catch (Exception e) {
+      throw new IngeApplicationException("Adding failed: please try again or contact your administrator");
+    }
   }
 
   @RequestMapping(value = "/getGenreProperties", method = RequestMethod.GET)
@@ -147,8 +160,7 @@ public class MiscellaneousController {
 
   @RequestMapping(value = "/regenerateThumbnails", method = RequestMethod.GET)
   public ResponseEntity<?> regenerateThumbnails( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException {
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) throws AuthenticationException, IngeTechnicalException {
 
     this.fileService.regenerateThumbnails(token);
 
@@ -158,10 +170,20 @@ public class MiscellaneousController {
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  private void checkData(String data) throws IngeApplicationException {
+    if (null == data || data.trim().isEmpty()) {
+      throw new IngeApplicationException("The data must not be empty");
+    }
+  }
+
   private void checkGenre(MdsPublicationVO.Genre genre, String name) throws IngeApplicationException {
     if (null == genre) {
       throw new IngeApplicationException("The genre " + name + " must not be empty");
     }
+  }
+
+  private void checkUser(String token) throws AuthenticationException, IngeApplicationException {
+    this.authorizationService.getUserAccountFromToken(token);
   }
 
   private JSONArray parseResult(String responseBody) {
@@ -179,19 +201,15 @@ public class MiscellaneousController {
 
     JSONArray authors = new JSONArray(extractedJson);
 
+
     return authors;
   }
 
   private Request prepareRequest(String data) {
-    String url = "https://chat-ai.academiccloud.de/v1/chat/completions";
-    String model = "meta-llama-3.1-8b-instruct";
-    String prompt = "Please create a CSL json of the following authors (family, given) copied from a research paper:";
-    Integer temperature = 0;
-
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-    headers.setBearerAuth("707e6ff2cbbdcd151e92ca2212df2268");
+    headers.setBearerAuth(OPENAI_TOKEN);
 
     JSONObject systemRole = new JSONObject();
     systemRole.put("role", "system");
@@ -199,22 +217,23 @@ public class MiscellaneousController {
 
     JSONObject userRole = new JSONObject();
     userRole.put("role", "user");
-    userRole.put("content", prompt + " " + data);
+    userRole.put("content", OPENAI_PROMPT + " " + data);
 
     JSONArray messages = new JSONArray();
     messages.put(systemRole);
     messages.put(userRole);
 
     JSONObject json = new JSONObject();
-    json.put("model", model);
+    json.put("model", OPENAI_MODEL);
     json.put("messages", messages);
-    json.put("temperature", temperature);
+    json.put("temperature", OPENAI_TEMPERATURE);
 
     String requestBody = json.toString();
 
-    Request request = new Request(url, headers, requestBody);
+    Request request = new Request(OPENAI_URL, headers, requestBody);
     return request;
   }
 
   private record Request(String url, HttpHeaders headers, String requestBody) {}
+
 }

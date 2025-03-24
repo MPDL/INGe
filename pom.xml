@@ -1001,6 +1001,10 @@
 		<inge.index.user.sort>name.keyword</inge.index.user.sort>
 		<inge.index.user.type>user</inge.index.user.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
+		<inge.openai.url>https://chat-ai.academiccloud.de/v1/chat/completions</inge.openai.url>
+		<inge.openai.model>meta-llama-3.1-8b-instruct</inge.openai.model>
+		<inge.openai.prompt>Please create a CSL json of the following authors (family, given) copied from a research paper:</inge.openai.prompt>
+		<inge.openai.temperature>0</inge.openai.temperature>
 		<inge.pid.handle.activated>true</inge.pid.handle.activated>
 		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
 		<inge.pid.handle.url>https://hdl.handle.net/</inge.pid.handle.url>

@@ -103,7 +103,7 @@ public class ImportController {
   public ResponseEntity<Map<String, List<String>>> getFormatConfiguration( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(FORMAT) ImportLogDbVO.Format format) //
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+      throws AuthenticationException, IngeApplicationException {
 
     Map<String, List<String>> formatConfiguration = this.importService.getFormatConfiguration(format, token);
 
