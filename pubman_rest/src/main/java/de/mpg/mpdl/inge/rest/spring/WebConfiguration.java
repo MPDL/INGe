@@ -43,7 +43,7 @@ public class WebConfiguration implements WebMvcConfigurer {
   public void addCorsMappings(CorsRegistry registry) {
     CorsRegistration corsRegistration = registry.addMapping("/**").exposedHeaders("Token")
         .allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE").allowCredentials(true);
-    String allowed = PropertyReader.getProperty("inge.rest.access-control-allowed-origins");
+    String allowed = PropertyReader.getProperty(PropertyReader.INGE_REST_ACCESS_CONTROL_ALLOWED_ORIGINS);
     if (allowed != null && !allowed.isEmpty()) {
       String[] allowedOrigins = allowed.split(",");
       corsRegistration.allowedOrigins(allowedOrigins);

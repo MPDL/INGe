@@ -134,11 +134,11 @@ public class PropertyReader {
   public static final String INGE_INDEX_USER_TYPE = "inge.index.user.type";
   public static final String INGE_JWT_SHARED_SECRET = "inge.jwt.shared-secret";
   public static final String INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH = "inge.logic.temporary_filesystem_root_path";
-  public static final String INGE_OPENAI_URL = "inge.openai.url";
   public static final String INGE_OPENAI_MODEL = "inge.openai.model";
   public static final String INGE_OPENAI_PROMPT = "inge.openai.prompt";
-  public static final String INGE_OPENAI_TOKEN = "inge.openai.token";
   public static final String INGE_OPENAI_TEMPERATURE = "inge.openai.temperature";
+  public static final String INGE_OPENAI_TOKEN = "inge.openai.token";
+  public static final String INGE_OPENAI_URL = "inge.openai.url";
   public static final String INGE_PID_HANDLE_ACTIVATED = "inge.pid.handle.activated";
   public static final String INGE_PID_HANDLE_SHORT = "inge.pid.handle.short";
   public static final String INGE_PID_HANDLE_URL = "inge.pid.handle.url";
@@ -175,6 +175,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
   public static final String INGE_PUBMAN_STYLESHEET_URL = "inge.pubman.stylesheet.url";
+  public static final String INGE_REST_ACCESS_CONTROL_ALLOWED_ORIGINS = "inge.rest.access-control-allowed-origins";
   public static final String INGE_REST_API_DESCRIPTION = "inge.rest.api.description";
   public static final String INGE_REST_DEVELOPMENT_ADMIN_PASSWORD = "inge.rest.development.admin.password";
   public static final String INGE_REST_DEVELOPMENT_ADMIN_USERNAME = "inge.rest.development.admin.username";
