@@ -58,6 +58,8 @@ public class EventVO extends ValueObject implements Cloneable {
   private String startDate;
   private String title;
 
+  public EventVO() {}
+
   /**
    * Delivers the end date of the event.
    */
