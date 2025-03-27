@@ -71,7 +71,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private static final Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
-  private static final int TOKEN_MAX_AGE_HOURS = 24;
+  private static final int TOKEN_MAX_AGE_HOURS = 12;
 
   public static final String INDEX_MODIFICATION_DATE = "lastModificationDate";
   public static final String INDEX_NAME = "name";
@@ -415,7 +415,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       if (null != principal && null != response) {
         Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
         cookie.setPath("/");
-        cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);
+        //Cookie expires one minute earlier than token
+        cookie.setMaxAge((TOKEN_MAX_AGE_HOURS * 3600) - 60);
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
