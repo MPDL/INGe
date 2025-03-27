@@ -102,9 +102,13 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void finishBatchProcessLog(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO) {
+  public void finishBatchProcessLog(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO, boolean error) {
 
-    updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.FINISHED);
+    if (error) {
+      updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.FINISHED_WITH_ERROR);
+    } else {
+      updateBatchProcessLogHeader(batchProcessLogHeaderDbVO, BatchProcessLogHeaderDbVO.State.FINISHED);
+    }
     removeBatchProcessUserLock(accountUserDbVO);
   }
 

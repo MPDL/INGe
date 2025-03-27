@@ -25,7 +25,8 @@ public class BatchProcessLogHeaderDbVO implements Serializable {
   {
     INITIALIZED,
     RUNNING,
-    FINISHED
+    FINISHED,
+    FINISHED_WITH_ERROR,
   }
 
   public enum Method
