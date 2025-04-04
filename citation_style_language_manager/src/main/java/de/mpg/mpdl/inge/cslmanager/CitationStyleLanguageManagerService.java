@@ -13,7 +13,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 import de.undercouch.citeproc.CSL;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.output.Bibliography;
-import de.undercouch.citeproc.script.ScriptRunnerFactory;
 
 /**
  * CitationStyleLanguageManagerDefaultImpl is used to generate a citation for an escidoc item or a
@@ -35,6 +34,7 @@ public class CitationStyleLanguageManagerService {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
 
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
+      /*
       if ("v8".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
         ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.V8);
       } else if ("graaljs".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
@@ -42,6 +42,8 @@ public class CitationStyleLanguageManagerService {
       } else {
         ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.AUTO);
       }
+      
+       */
 
       if (null != defaultLocale) {
         citeproc = new CSL(itemDataProvider, citationStyle, defaultLocale);
@@ -49,32 +51,33 @@ public class CitationStyleLanguageManagerService {
         citeproc = new CSL(itemDataProvider, citationStyle);
       }
 
+      /*
       logger.info("JavaScript Engine: " + CSL.getJavaScriptEngineName() + " -Version: " + CSL.getJavaScriptEngineVersion() + " -JSVerison: "
           + CSL.getCiteprocJsVersion());
-
+      */
       citeproc.registerCitationItems(itemDataProvider.getIds());
       citeproc.setOutputFormat(CITATION_PROCESSOR_OUTPUT_FORMAT);
       Bibliography bibl = citeproc.makeBibliography();
 
-      List<String> biblIds = Arrays.asList(bibl.getEntryIds());
+      //List<String> biblIds = Arrays.asList(bibl.getEntryIds());
 
       // remove surrounding <div>-tags
-      for (String id : itemDataProvider.getIds()) {
-        String citation = "";
-        int citationPosition = biblIds.indexOf(id);
-        if (-1 != citationPosition) {
-          citation = bibl.getEntries()[citationPosition];
-          if (citation.contains("<div class=\"csl-right-inline\">")) {
-            citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
-            citation = citation.substring(0, citation.lastIndexOf("</div>"));
-            citation = citation.substring(0, citation.lastIndexOf("</div>"));
-          } else if (citation.contains("<div class=\"csl-entry\">")) {
-            citation = citation.substring(citation.indexOf("<div class=\"csl-entry\">") + 23);
-            citation = citation.substring(0, citation.lastIndexOf("</div>"));
-          } else {
-            citation = citation.trim();
-          }
+      for (String citation : bibl.getEntries()) {
+        //String citation = "";
+        //int citationPosition = biblIds.indexOf(id);
+        //if (-1 != citationPosition) {
+        //citation = bibl.getEntries()[citationPosition];
+        if (citation.contains("<div class=\"csl-right-inline\">")) {
+          citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
+          citation = citation.substring(0, citation.lastIndexOf("</div>"));
+          citation = citation.substring(0, citation.lastIndexOf("</div>"));
+        } else if (citation.contains("<div class=\"csl-entry\">")) {
+          citation = citation.substring(citation.indexOf("<div class=\"csl-entry\">") + 23);
+          citation = citation.substring(0, citation.lastIndexOf("</div>"));
+        } else {
+          citation = citation.trim();
         }
+        //}
         citationList.add(citation);
       }
       return citationList;
@@ -87,7 +90,7 @@ public class CitationStyleLanguageManagerService {
       throw new CitationStyleLanguageException("Error getting output", e);
     } finally {
       if (null != citeproc) {
-        citeproc.close();
+        //citeproc.close();
       }
     }
   }

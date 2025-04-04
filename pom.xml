@@ -332,34 +332,18 @@
 			<dependency>
 				<groupId>org.citationstyles</groupId>
 				<artifactId>styles</artifactId>
-				<version>20.11</version>
+				<version>24.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.citationstyles</groupId>
 				<artifactId>locales</artifactId>
-				<version>20.11</version>
+				<version>24.3</version>
 			</dependency>
 			<dependency>
 				<groupId>de.undercouch</groupId>
 				<artifactId>citeproc-java</artifactId>
-				<version>2.0.0</version>
+				<version>3.2.0</version>
 			</dependency>
-			<dependency>
-			    <groupId>com.eclipsesource.j2v8</groupId>
-			    <artifactId>j2v8_win32_x86_64</artifactId>
-			    <version>4.6.0</version>
-			</dependency>
-			<dependency>
-    			<groupId>com.eclipsesource.j2v8</groupId>
-    			<artifactId>j2v8_linux_x86_64</artifactId>
-    			<version>4.6.0</version>
-			</dependency>
-			<dependency>
-				<groupId>com.eclipsesource.j2v8</groupId>
-				<artifactId>j2v8_macosx_x86_64</artifactId>
-				<version>4.6.0</version>
-			</dependency>
-
 			<!-- Docx4j -->
 			<dependency>
 				<groupId>org.docx4j</groupId>

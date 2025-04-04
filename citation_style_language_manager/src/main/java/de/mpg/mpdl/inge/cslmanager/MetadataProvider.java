@@ -6,11 +6,7 @@ package de.mpg.mpdl.inge.cslmanager;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
@@ -67,8 +63,8 @@ public class MetadataProvider implements ItemDataProvider {
    * @see de.undercouch.citeproc.ItemDataProvider#getIds()
    */
   @Override
-  public String[] getIds() {
-    return this.ids.toArray(new String[0]);
+  public Collection<String> getIds() {
+    return this.ids;
   }
 
   /*
@@ -530,10 +526,11 @@ public class MetadataProvider implements ItemDataProvider {
 
         // Source start page
         if (null != source.getStartPage()) {
-          cslItem.pageFirst(source.getStartPage());
+
+          cslItem.page(source.getStartPage());
           // Source combined "start page - end page"
           if (null != source.getEndPage()) {
-            cslItem.page(source.getStartPage() + "-" + source.getEndPage());
+            cslItem.page(source.getStartPage(), source.getEndPage());
           }
         }
 
