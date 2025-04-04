@@ -8,14 +8,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
+import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.docx4j.Docx4J;
@@ -51,6 +48,8 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import net.sf.saxon.TransformerFactoryImpl;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.DOCX)
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.PDF)
@@ -101,25 +100,8 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
           "Error: Citationmanager returned " + citationList.size() + " citations for " + itemList.size() + " items");
     }
 
-    List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
-    ItemVOListWrapper listWrapper = new ItemVOListWrapper();
-    listWrapper.setItemVOList(transformedList);
 
-    if (null != searchResult) {
-      listWrapper.setNumberOfRecords(String.valueOf(searchResult.getNumberOfRecords()));
-    }
-
-    String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
-
-    StringWriter escidocSnippetWriter = new StringWriter();
-    javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
-    javax.xml.transform.Transformer transformer =
-        factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader().getResourceAsStream(
-            PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_ITEMLIST_TO_SNIPPET_STYLESHEET_FILENAME))));
-    transformer.setParameter("citations", citationList);
-    transformer.transform(new StreamSource(new StringReader(escidocItemList)), new StreamResult(escidocSnippetWriter));
-
-    String escidocSnippet = escidocSnippetWriter.toString();
+    Integer numberofRecords = searchResult != null ? searchResult.getNumberOfRecords() : null;
 
     if (TransformerFactory.FORMAT.JSON_CITATION.equals(getTargetFormat())) {
       if (null != searchResult) {
@@ -135,13 +117,15 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
         return MapperFactory.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node).getBytes(StandardCharsets.UTF_8);
       }
     } else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
+      String escidocSnippet = generateEsciDocSnippet(itemList, citationList, numberofRecords);
       return escidocSnippet.getBytes(StandardCharsets.UTF_8);
     } else if (TransformerFactory.FORMAT.HTML_PLAIN.equals(getTargetFormat())
         || TransformerFactory.FORMAT.HTML_LINKED.equals(getTargetFormat())) {
+      String escidocSnippet = generateEsciDocSnippet(itemList, citationList, numberofRecords);
       return generateHtmlOutput(escidocSnippet, getTargetFormat(), "html", true).getBytes(StandardCharsets.UTF_8);
     } else if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat()) || TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-      String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
-      logger.info(htmlResult);
+      String htmlResult = generateSimpleXhtmlOuput(citationList);
+      //logger.info(htmlResult);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
 
       //      // TODO: Viel schöner machen!
@@ -235,6 +219,51 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     htmlTransformer.transform(new StreamSource(new StringReader(escidocSnippet)), new StreamResult(sw));
 
     return sw.toString();
+  }
+
+  private String generateSimpleXhtmlOuput(List<String> citationList) {
+    StringBuilder sb = new StringBuilder();
+    //sb.append(
+    //    "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+    sb.append("<html><head>");
+    sb.append("<meta http-equiv=\"Content-Type\" content=\"text/xhtml; charset=UTF-8\"/>");
+    sb.append("</head><body>");
+    for (String citation : citationList) {
+      sb.append("<p>");
+      sb.append(citation);
+      sb.append("</p>");
+    }
+
+    sb.append("</body></html>");
+
+    //Transform to xhtml.This will replace entities from CSLProc with UTF-8 encoded chars
+    Document doc = Jsoup.parse(sb.toString());
+    doc.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
+    doc.outputSettings().charset("UTF-8");
+    return doc.html();
+  }
+
+  private String generateEsciDocSnippet(List<ItemVersionVO> itemList, List<String> citationList, Integer numberOfRecords)
+      throws TechnicalException, TransformerException {
+    List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
+    ItemVOListWrapper listWrapper = new ItemVOListWrapper();
+    listWrapper.setItemVOList(transformedList);
+
+    if (null != numberOfRecords) {
+      listWrapper.setNumberOfRecords(String.valueOf(numberOfRecords));
+    }
+
+    String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
+
+    StringWriter escidocSnippetWriter = new StringWriter();
+    javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
+    javax.xml.transform.Transformer transformer =
+        factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader().getResourceAsStream(
+            PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_ITEMLIST_TO_SNIPPET_STYLESHEET_FILENAME))));
+    transformer.setParameter("citations", citationList);
+    transformer.transform(new StreamSource(new StringReader(escidocItemList)), new StreamResult(escidocSnippetWriter));
+
+    return escidocSnippetWriter.toString();
   }
 
   public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
