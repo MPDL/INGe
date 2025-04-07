@@ -9,14 +9,23 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
+import java.io.OutputStream;
 import java.util.List;
 
 public interface SearchAndExportService {
 
+
+
   SearchAndExportResultVO exportItems(ExportFormatVO exportFormat, List<ItemVersionVO> itemList, String token)
       throws IngeTechnicalException;
 
+  SearchAndExportResultVO exportItems(ExportFormatVO exportFormat, List<ItemVersionVO> itemList, OutputStream os, String token)
+      throws IngeTechnicalException;
+
   SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, OutputStream os, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
 }

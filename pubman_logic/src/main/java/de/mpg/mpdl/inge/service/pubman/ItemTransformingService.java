@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman;
 
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +14,15 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 public interface ItemTransformingService {
 
+
+  void getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr, OutputStream os)
+      throws IngeTechnicalException;
+
   byte[] getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr) throws IngeTechnicalException;
 
   byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws IngeTechnicalException;
+
+  void getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList, OutputStream os) throws IngeTechnicalException;
 
   TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target);
 

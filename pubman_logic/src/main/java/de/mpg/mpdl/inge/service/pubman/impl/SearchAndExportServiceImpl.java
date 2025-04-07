@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,14 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
   }
 
   @Override
+  public SearchAndExportResultVO exportItems(ExportFormatVO exportFormat, List<ItemVersionVO> itemList, OutputStream os, String token)
+      throws IngeTechnicalException {
+
+    this.itemTransformingService.getOutputForExport(exportFormat, itemList, os);
+    return getSearchAndExportResult(null, exportFormat, null, itemList);
+  }
+
+  @Override
   public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
@@ -49,6 +58,18 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     byte[] result = this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), srrVO);
 
     return getSearchAndExportResult(result, saerrVO.getExportFormat(), srrVO, null);
+  }
+
+  @Override
+  public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, OutputStream os, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
+    //saerrVO.setSearchRetrieveReponseVO(srrVO);
+
+    this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), srrVO, os);
+
+    return getSearchAndExportResult(null, saerrVO.getExportFormat(), srrVO, null);
   }
 
   private SearchAndExportResultVO getSearchAndExportResult(byte[] result, ExportFormatVO exportFormat, SearchRetrieveResponseVO srrVO,

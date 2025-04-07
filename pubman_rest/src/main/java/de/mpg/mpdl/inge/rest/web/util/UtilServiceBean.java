@@ -127,10 +127,12 @@ public class UtilServiceBean {
   }
 
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchOrExport(String format, String citation, String cslConeId,
-      List<ItemVersionVO> itemList, HttpServletResponse response, String token) throws IngeTechnicalException, IOException {
+      List<ItemVersionVO> itemList, HttpServletResponse response, String token)
+      throws IngeTechnicalException, IOException, AuthenticationException, AuthorizationException, IngeApplicationException {
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
-    SearchAndExportResultVO saerVO = this.saes.exportItems(exportFormat, itemList, token);
-    return getResponseEntity(false, saerVO, response, token);
+    SearchAndExportResultVO saerVO = this.saes.exportItems(exportFormat, itemList, response.getOutputStream(), token);
+    setResponseEntityHeader(exportFormat, false, saerVO, response);
+    return null;
   }
 
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchOrExport(String format, String citation, String cslConeId,
@@ -153,9 +155,9 @@ public class UtilServiceBean {
     }
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
     SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
-    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
-
-    return getResponseEntity(scroll, saerVO, response, token);
+    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, response.getOutputStream(), token);
+    setResponseEntityHeader(exportFormat, scroll, saerVO, response);
+    return null;
   }
 
   public Date string2Date(String dateString) {
@@ -166,8 +168,9 @@ public class UtilServiceBean {
     return convertedDate;
   }
 
-  private ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getResponseEntity(boolean scroll, SearchAndExportResultVO saerVO,
-      HttpServletResponse response, String token) throws IOException {
+  private void setResponseEntityHeader(ExportFormatVO exportFormat, boolean scroll, SearchAndExportResultVO saerVO,
+      HttpServletResponse response)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
     response.setContentType(saerVO.getTargetMimetype());
     response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
@@ -175,11 +178,6 @@ public class UtilServiceBean {
     if (scroll) {
       response.setHeader("scrollId", saerVO.getSearchRetrieveResponseVO().getScrollId());
     }
-
-    OutputStream output = response.getOutputStream();
-    output.write(saerVO.getResult());
-
-    return null;
   }
 
   public AccountUserDbVO checkUser(String token) throws AuthenticationException, IngeApplicationException {
