@@ -4,7 +4,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -63,7 +63,7 @@ public class MiscellaneousController {
   private static final String OPENAI_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TOKEN);
   private static final Integer OPENAI_TEMPERATURE = Integer.valueOf(PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TEMPERATURE));
 
-  private final AuthorizationService authorizationService;
+  private final UtilServiceBean utilServiceBean;
 
   private final RestTemplate restTemplate;
 
@@ -74,19 +74,18 @@ public class MiscellaneousController {
   @Autowired
   private FileService fileService;
 
-  public MiscellaneousController(AuthorizationService authorizationService, RestTemplate restTemplate) {
-    this.authorizationService = authorizationService;
+  public MiscellaneousController(UtilServiceBean utilServiceBean, RestTemplate restTemplate) {
+    this.utilServiceBean = utilServiceBean;
     this.restTemplate = restTemplate;
   }
 
-  //TODO: pubman.properties
   @RequestMapping(value = "/callAiApi", method = RequestMethod.POST)
   public ResponseEntity<String> callAiApi( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestBody String data) throws AuthenticationException, IngeApplicationException {
 
-    checkUser(token);
-    checkData(data);
+    this.utilServiceBean.checkUser(token);
+    UtilServiceBean.checkData(data);
 
     logger.info("Calling Ai API");
     Request preparedRequest = prepareRequest(data);
@@ -117,8 +116,8 @@ public class MiscellaneousController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(GENRE) MdsPublicationVO.Genre genre) throws AuthenticationException, IngeApplicationException {
 
-    this.authorizationService.getUserAccountFromToken(token);
-    checkGenre(genre, "genre");
+    this.utilServiceBean.checkUser(token);
+    UtilServiceBean.checkData(genre);
 
     JSONObject json = GenrePropertiesProvider.getGenreProperties(genre);
 
@@ -129,7 +128,7 @@ public class MiscellaneousController {
   public ResponseEntity<Collection<IpListProvider.IpRange>> getIpList( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) throws AuthenticationException, IngeApplicationException {
 
-    this.authorizationService.getUserAccountFromToken(token);
+    this.utilServiceBean.checkUser(token);
     Collection<IpListProvider.IpRange> ipList = this.ipListProvider.getAll();
 
     return new ResponseEntity<>(ipList, HttpStatus.OK);
@@ -169,22 +168,6 @@ public class MiscellaneousController {
 
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  private void checkData(String data) throws IngeApplicationException {
-    if (null == data || data.trim().isEmpty()) {
-      throw new IngeApplicationException("The data must not be empty");
-    }
-  }
-
-  private void checkGenre(MdsPublicationVO.Genre genre, String name) throws IngeApplicationException {
-    if (null == genre) {
-      throw new IngeApplicationException("The genre " + name + " must not be empty");
-    }
-  }
-
-  private void checkUser(String token) throws AuthenticationException, IngeApplicationException {
-    this.authorizationService.getUserAccountFromToken(token);
-  }
 
   private JSONArray parseResult(String responseBody) {
     Pattern pattern = Pattern.compile("```(.*?)```", Pattern.DOTALL);

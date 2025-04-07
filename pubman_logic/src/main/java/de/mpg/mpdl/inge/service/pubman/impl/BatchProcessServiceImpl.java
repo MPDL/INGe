@@ -18,7 +18,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.BatchProcessService;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
-import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessAsyncService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
@@ -42,12 +41,11 @@ public class BatchProcessServiceImpl implements BatchProcessService {
   private final BatchProcessLogHeaderRepository batchProcessLogHeaderRepository;
   private final BatchProcessUserLockRepository batchProcessUserLockRepository;
   private final ContextService contextService;
-  private final UserAccountService userAccountService;
 
   public BatchProcessServiceImpl(AuthorizationService authorizationService, BatchProcessAsyncService batchProcessAsyncService,
       BatchProcessCommonService batchProcessCommonService, BatchProcessLogDetailRepository batchProcessLogDetailRepository,
       BatchProcessLogHeaderRepository batchProcessLogHeaderRepository, BatchProcessUserLockRepository batchProcessUserLockRepository,
-      ContextService contextService, UserAccountService userAccountService) {
+      ContextService contextService) {
     this.authorizationService = authorizationService;
     this.batchProcessAsyncService = batchProcessAsyncService;
     this.batchProcessCommonService = batchProcessCommonService;
@@ -55,7 +53,6 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     this.batchProcessLogHeaderRepository = batchProcessLogHeaderRepository;
     this.batchProcessUserLockRepository = batchProcessUserLockRepository;
     this.contextService = contextService;
-    this.userAccountService = userAccountService;
   }
 
   @Override

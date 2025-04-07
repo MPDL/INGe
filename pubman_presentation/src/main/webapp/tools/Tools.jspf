@@ -9,7 +9,7 @@
 			<span class="xLarge_area0 endline"> &#160; </span> <span
 				class="seperator"></span> <span
 				class="free_area0_p8 endline itemHeadline"> <b> <h:outputLink
-						id="lnkAdminTool" value="#{ApplicationBean.pubmanInstanceUrl}/admintool/"
+						id="lnkAdminTool" value="#{ApplicationBean.pubmanInstanceUrl}/admintool"
 						target="_blank" rel="noreferrer noopener">
 						<h:outputText value="#{lbl.Tools_lblAdminToolHead}" />
 					</h:outputLink>
@@ -88,12 +88,12 @@
 				<div class="free_area0 endline itemLine firstLine">
 					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
 							value="#{lbl.Tools_lblOaiProvider}" /> <br />
-							<h:outputLink id="lnkOaiProvider" 
+							<h:outputLink id="lnkOaiProvider"
 							value="#{ApplicationBean.pubmanInstanceUrl}/oai/provider" target="_blank" rel="noreferrer noopener"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}/oai/provider"/></h:outputLink> <br /><br />
 					</span>
 					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
 							value="#{lbl.Tools_lblOaiQueryForm}" /> <br />
-							<h:outputLink id="lnkOaiQueryForm" 
+							<h:outputLink id="lnkOaiQueryForm"
 							value="#{ApplicationBean.pubmanInstanceUrl}/oai/oaisearch.do" target="_blank" rel="noreferrer noopener"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}/oai/oaisearch.do"/></h:outputLink> <br /><br />
 					</span>
 				</div>
@@ -136,7 +136,7 @@
 			</div>
 		</div>
 	</h:panelGroup>
-	<!-- 
+	<!--
 	<h:panelGroup>
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span> <span
