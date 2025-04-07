@@ -121,7 +121,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
           }
         }
 
-        MapperFactory.getObjectMapper().writerWithDefaultPrettyPrinter().writeValues(res.getOutputStream());
+        MapperFactory.getObjectMapper().writerWithDefaultPrettyPrinter().writeValue(res.getOutputStream(), node);
       }
     } else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
       generateEsciDocSnippet(itemList, citationList, numberofRecords, res.getOutputStream());
