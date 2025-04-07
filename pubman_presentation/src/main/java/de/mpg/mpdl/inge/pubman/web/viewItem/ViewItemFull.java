@@ -1350,7 +1350,7 @@ public class ViewItemFull extends FacesBean {
    * @return if a doi can be created for this item
    */
   public boolean isDoiCappable() {
-    return (this.isModerator && DoiRestService.isDoiReady(this.getPubItem()));
+    return (this.isModerator && DoiRestService.isItemDoiReady(this.getPubItem()));
   }
 
   public String getCitationURL() {

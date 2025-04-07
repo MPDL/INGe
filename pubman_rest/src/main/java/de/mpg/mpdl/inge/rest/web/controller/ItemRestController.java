@@ -7,10 +7,17 @@ import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.*;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.MultipartFileSender;
@@ -20,10 +27,11 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
-import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
+import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.service.util.ThumbnailCreationService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -34,6 +42,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tika.exception.TikaException;
@@ -42,16 +57,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/items")
@@ -69,7 +82,7 @@ public class ItemRestController {
   private PubItemService pis;
 
   @Autowired
-  private UtilServiceBean utils;
+  private UtilServiceBean utilServiceBean;
 
   @Autowired
   private FileServiceExternal fileService;
@@ -78,7 +91,7 @@ public class ItemRestController {
   private SearchAndExportService saes;
 
   @Autowired
-  private ItemTransformingService itemTransformingService;
+  private AuthorizationService authorizationService;
 
   private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -128,10 +141,10 @@ public class ItemRestController {
       @RequestBody JsonNode query, //
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
-    SearchRetrieveRequestVO srRequest = this.utils.query2VO(query);
+    SearchRetrieveRequestVO srRequest = this.utilServiceBean.query2VO(query);
 
 
-    return this.utils.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
+    return this.utilServiceBean.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
 
 
   }
@@ -257,7 +270,7 @@ public class ItemRestController {
 
     List<ItemVersionVO> itemList = new ArrayList<>();
     itemList.add(getItem(itemId, token));
-    return this.utils.searchOrExport(format, citation, cslConeId, itemList, response, token);
+    return this.utilServiceBean.searchOrExport(format, citation, cslConeId, itemList, response, token);
 
   }
 
@@ -462,4 +475,36 @@ public class ItemRestController {
     return new ResponseEntity<>(node, HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/getNewDoi", method = RequestMethod.POST)
+  public ResponseEntity<String> getNewDoi( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestBody ItemVersionVO item)
+      throws IngeTechnicalException, AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
+
+    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
+      throw new AuthorizationException("User must be MODERATOR");
+    }
+
+    String doi = DoiRestService.getNewDoi(item);
+
+    return new ResponseEntity<>(doi, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/isItemDoiReady", method = RequestMethod.POST)
+  public ResponseEntity<Boolean> isItemDoiReady( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @RequestBody ItemVersionVO item) throws AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
+
+    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
+      throw new AuthorizationException("User must be MODERATOR");
+    }
+
+    Boolean isDoiReady = DoiRestService.isItemDoiReady(item);
+
+    return new ResponseEntity<>(isDoiReady, HttpStatus.OK);
+  }
 }

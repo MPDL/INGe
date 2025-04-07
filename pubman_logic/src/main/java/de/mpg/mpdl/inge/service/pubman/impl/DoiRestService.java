@@ -48,14 +48,13 @@ public class DoiRestService {
    * @param pubItem
    * @return new DOI
    */
-  // TODO change PubManException
-  public static String getNewDoi(ItemVersionVO pubItem) throws Exception {
+  public static String getNewDoi(ItemVersionVO pubItem) throws IngeTechnicalException {
     if (logger.isDebugEnabled()) {
       logger.debug("Getting new DOI for [" + pubItem.getObjectId() + "]");
     }
 
     // validate if a DOI can be generated for the given item
-    if (!isDoiReady(pubItem)) {
+    if (!isItemDoiReady(pubItem)) {
       throw new IngeTechnicalException();
     }
 
@@ -101,7 +100,7 @@ public class DoiRestService {
 
     } catch (Exception e) {
       logger.error("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);
-      throw new Exception("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);
+      throw new IngeTechnicalException("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);
     }
 
     if (logger.isDebugEnabled()) {
@@ -117,7 +116,7 @@ public class DoiRestService {
    * @param pubItem
    * @return
    */
-  public static boolean isDoiReady(ItemVersionVO pubItem) {
+  public static boolean isItemDoiReady(ItemVersionVO pubItem) {
     boolean doiReady = false;
     // useDOI must be true
     if (!"true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USE))) {
