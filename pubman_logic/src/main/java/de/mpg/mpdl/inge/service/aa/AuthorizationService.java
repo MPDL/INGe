@@ -278,48 +278,48 @@ public class AuthorizationService {
   /*
   private QueryBuilder getAaFilterQuery(String serviceName, Object... objects)
       throws AuthorizationException, IngeApplicationException, IngeTechnicalException, AuthenticationException {
-
+  
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
-
+  
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     Map<String, String> indices = (Map<String, String>) serviceMap.get("technical").get("indices");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get("get");
-
+  
     AccountUserDbVO userAccount;
     try {
       userAccount = ((Principal) objects[order.indexOf("user")]).getUserAccount();
     } catch (NullPointerException e) {
       userAccount = null;
     }
-
+  
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
     if (allowedMap == null) {
       throw new AuthorizationException("No rules for service " + serviceName + ", method " + "get");
     }
-
+  
     // everybody can see anything
     if (allowedMap.isEmpty()) {
       return null;
     }
-
+  
     for (Map<String, Object> rules : allowedMap) {
-
+  
       BoolQueryBuilder subQb = QueryBuilders.boolQuery();
       boolean userMatch = false;
-
+  
       // Everybody is allowed to see everything
       rulesLoop: for (Entry<String, Object> rule : rules.entrySet()) {
         switch (rule.getKey()) {
           case "user": {
             if (userAccount != null) {
               Map<String, String> userMap = (Map<String, String>) rule.getValue();
-
+  
               if (userMap.containsKey("field_user_id_match")) {
                 String value = (String) userMap.get("field_user_id_match");
                 subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getObjectId()));
                 userMatch = true;
               }
-
+  
               if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")) {
                 BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
                 for (GrantVO grant : userAccount.getGrantList()) {
@@ -339,12 +339,12 @@ public class AuthorizationService {
                     }
                   }
                 }
-
+  
                 if (grantQueryBuilder.hasClauses()) {
                   subQb.must(grantQueryBuilder);
                 }
               }
-
+  
               if (userMap.containsKey("field_ou_id_match")) {
                 String userOuId = userAccount.getAffiliation().getObjectId();
                 List<String> ouIds = new ArrayList<>();
@@ -353,7 +353,7 @@ public class AuthorizationService {
                 searchAllChildOrganizations(ouIds.get(0), childList);
                 subQb.must(QueryBuilders.termsQuery(UserAccountServiceImpl.INDEX_AFFIlIATION_OBJECTID, ouIds));
               }
-
+  
             }
             if (!userMatch) {
               //reset queryBuilder
@@ -365,11 +365,11 @@ public class AuthorizationService {
           default: {
             String key = rule.getKey();
             String index = indices.get(key);
-
+  
             if (index == null) {
               throw new AuthorizationException("No index in aa.json defined for: " + key);
             }
-
+  
             if (rule.getValue() instanceof Collection<?>) {
               List<String> valuesToCompare = (List<String>) rule.getValue();
               if (valuesToCompare.size() > 1) {
@@ -391,7 +391,7 @@ public class AuthorizationService {
           }
         }
       }
-
+  
       if (subQb.hasClauses()) {
         bqb.should(subQb);
       }
@@ -400,11 +400,11 @@ public class AuthorizationService {
         return null;
       }
     }
-
+  
     if (bqb.hasClauses()) {
       return bqb;
     }
-
+  
     throw new AuthorizationException("This search requires a login");
   }
   */
@@ -663,7 +663,7 @@ public class AuthorizationService {
     } else if (userAccount == null) {
       throw new AuthenticationException("You have to be logged in with username/password.");
     }
-
+  
     String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
     if (userIdFieldMatch != null) {
       Object userId = getFieldValueOrString(order, objects, userIdFieldMatch);
@@ -672,7 +672,7 @@ public class AuthorizationService {
         throw new AuthorizationException("User is not owner of object.");
       }
     }
-
+  
     if (ruleMap.containsKey("role") || ruleMap.containsKey("field_grant_id_match")) {
       boolean check = false;
       String role = (String) ruleMap.get("role");
@@ -686,7 +686,7 @@ public class AuthorizationService {
           logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
         }
       }
-
+  
       // If grant is of type "ORGANIZATION", get all children of organization as potential matches
       if (grantFieldMatch != null && (!grantFieldMatchValues.isEmpty()) && grantFieldMatchValues.get(0).startsWith("ou")) {
         List<AffiliationDbVO> childList = new ArrayList<>();
@@ -705,7 +705,7 @@ public class AuthorizationService {
             "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
       }
     }
-
+  
     if (ruleMap.containsKey("field_ou_id_match")) {
       String userOuId = principal.getUserAccount().getAffiliation().getObjectId();
       String ouFieldMatch = (String) ruleMap.get("field_ou_id_match");

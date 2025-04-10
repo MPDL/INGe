@@ -44,7 +44,6 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
-import de.mpg.mpdl.inge.service.util.ThumbnailCreationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.UriBuilder;
 import jakarta.persistence.EntityManager;
@@ -203,12 +202,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Autowired
   @Qualifier("mpgJsonIpListProvider")
   private IpListProvider ipListProvider;
-  @Autowired
-  private ThumbnailCreationService thumbnailCreationService;
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ItemVersionVO addNewDoi(ItemVersionVO itemVersionVO, String authenticationToken)
+  public ItemVersionVO addNewDoi(String itemId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserDbVO accountUserDbVO = this.aaService.getUserAccountFromToken(authenticationToken);
 
@@ -216,6 +213,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       throw new AuthorizationException("User must be MODERATOR");
     }
 
+    ItemVersionVO itemVersionVO = get(itemId, authenticationToken);
     String doi = DoiRestService.getNewDoi(itemVersionVO);
     itemVersionVO.getMetadata().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.DOI, doi));
     ItemVersionVO updatedPubItem = update(itemVersionVO, authenticationToken);
@@ -521,6 +519,22 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
     return versionHistory;
+  }
+
+  @Override
+  public boolean isItemDoiReady(String itemId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    AccountUserDbVO accountUserDbVO = this.aaService.getUserAccountFromToken(authenticationToken);
+
+    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
+      throw new AuthorizationException("User must be MODERATOR");
+    }
+
+    ItemVersionVO itemVersionVO = get(itemId, authenticationToken);
+
+    Boolean isItemDoiReady = DoiRestService.isItemDoiReady(itemVersionVO);
+
+    return isItemDoiReady;
   }
 
   @Override

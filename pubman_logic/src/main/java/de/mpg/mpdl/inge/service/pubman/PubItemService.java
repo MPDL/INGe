@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface PubItemService extends GenericService<ItemVersionVO, String> {
-  ItemVersionVO addNewDoi(ItemVersionVO item, String authenticationToken)
+  ItemVersionVO addNewDoi(String itemId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   boolean checkAccess(AuthorizationService.AccessType at, Principal userAccount, ItemVersionVO item)
@@ -27,6 +27,9 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
       throws IngeApplicationException, IngeTechnicalException;
 
   List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken);
+
+  boolean isItemDoiReady(String itemId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException;
 
