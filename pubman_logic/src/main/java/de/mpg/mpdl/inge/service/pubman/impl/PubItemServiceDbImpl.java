@@ -29,6 +29,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
@@ -77,62 +78,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Primary
 public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener {
-
-  private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
-
-  @Autowired
-  private AuthorizationService aaService;
-
-  @Autowired
-  private IdentifierProviderServiceImpl idProviderService;
-
-  @Autowired
-  private ItemRepository itemRepository;
-
-  @Autowired
-  private ContextRepository contextRepository;
-
-  @Autowired
-  private ItemObjectRepository itemObjectRepository;
-
-  @Autowired
-  private AuditRepository auditRepository;
-
-  @Autowired
-  private PubItemDaoEs pubItemDao;
-
-  @Autowired
-  private FileService fileService;
-
-  @Autowired
-  private PidService pidService;
-
-  @Autowired
-  private ItemValidatingService itemValidatingService;
-
-  @Autowired
-  private OrganizationService organizationService;
-
-  @PersistenceContext
-  EntityManager entityManager;
-
-  @Autowired
-  @Qualifier("queueJmsTemplate")
-  private JmsTemplate queueJmsTemplate;
-
-  @Autowired
-  @Qualifier("topicJmsTemplate")
-  private JmsTemplate topicJmsTemplate;
-
-  @Autowired
-  private FileRepository fileRepository;
-
-  @Autowired
-  @Qualifier("mpgJsonIpListProvider")
-  private IpListProvider ipListProvider;
-
-  @Autowired
-  private ThumbnailCreationService thumbnailCreationService;
 
   public static final String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
   public static final String INDEX_CONTEXT_TITLE = "context.name";
@@ -221,6 +166,79 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static final String INDEX_VERSION_STATE = "versionState";
   public static final String INDEX_VERSION_VERSIONNUMBER = "versionNumber";
 
+  private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
+
+  @PersistenceContext
+  EntityManager entityManager;
+  @Autowired
+  private AuthorizationService aaService;
+  @Autowired
+  private IdentifierProviderServiceImpl idProviderService;
+  @Autowired
+  private ItemRepository itemRepository;
+  @Autowired
+  private ContextRepository contextRepository;
+  @Autowired
+  private ItemObjectRepository itemObjectRepository;
+  @Autowired
+  private AuditRepository auditRepository;
+  @Autowired
+  private PubItemDaoEs pubItemDao;
+  @Autowired
+  private FileService fileService;
+  @Autowired
+  private PidService pidService;
+  @Autowired
+  private ItemValidatingService itemValidatingService;
+  @Autowired
+  private OrganizationService organizationService;
+  @Autowired
+  @Qualifier("queueJmsTemplate")
+  private JmsTemplate queueJmsTemplate;
+  @Autowired
+  @Qualifier("topicJmsTemplate")
+  private JmsTemplate topicJmsTemplate;
+  @Autowired
+  private FileRepository fileRepository;
+  @Autowired
+  @Qualifier("mpgJsonIpListProvider")
+  private IpListProvider ipListProvider;
+  @Autowired
+  private ThumbnailCreationService thumbnailCreationService;
+
+  @Override
+  @Transactional(rollbackFor = Throwable.class)
+  public ItemVersionVO addNewDoi(ItemVersionVO itemVersionVO, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    AccountUserDbVO accountUserDbVO = this.aaService.getUserAccountFromToken(authenticationToken);
+
+    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
+      throw new AuthorizationException("User must be MODERATOR");
+    }
+
+    String doi = DoiRestService.getNewDoi(itemVersionVO);
+    itemVersionVO.getMetadata().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.DOI, doi));
+    ItemVersionVO updatedPubItem = update(itemVersionVO, authenticationToken);
+    ItemVersionVO releasedPubItem = releasePubItem(updatedPubItem.getObjectId(), updatedPubItem.getModificationDate(),
+        "Release during adding DOI", authenticationToken);
+
+    return releasedPubItem;
+  }
+
+  public boolean checkAccess(AuthorizationService.AccessType at, Principal principal, ItemVersionVO item)
+      throws IngeApplicationException, IngeTechnicalException {
+    try {
+      checkAa(at.getMethodName(), principal, item, item.getObject().getContext());
+    } catch (AuthenticationException | AuthorizationException e) {
+      return false;
+    } catch (IngeTechnicalException | IngeApplicationException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new IngeTechnicalException("", e);
+    }
+    return true;
+  }
+
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO create(ItemVersionVO pubItemVO, String authenticationToken)
@@ -230,7 +248,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO contextNew =
         this.contextRepository.findById(pubItemVO.getObject().getContext().getObjectId()).orElse(null);
-
 
     if (null == contextNew) {
       throw new IngeApplicationException("Context with id " + pubItemVO.getObject().getContext().getObjectId() + "not found");
@@ -284,69 +301,300 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return pubItemToCreate;
   }
 
+  @Override
+  @Transactional(rollbackFor = Throwable.class)
+  public void delete(String id, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+
+    ItemVersionVO latestPubItemDbVersion = this.itemRepository.findLatestVersion(id);
+    if (null == latestPubItemDbVersion) {
+      throw new IngeApplicationException("Item " + id + " not found");
+    }
 
 
-  private void createAuditEntry(ItemVersionVO pubItem, AuditDbVO.EventType event) throws IngeApplicationException {
-    AuditDbVO audit = new AuditDbVO();
-    audit.setEvent(event);
-    audit.setComment(pubItem.getMessage());
-    audit.setModificationDate(pubItem.getModificationDate());
-    audit.setModifier(pubItem.getModifier());
-    audit.setPubItem(pubItem);
-    try {
-      this.auditRepository.saveAndFlush(audit);
-    } catch (DataAccessException e) {
-      GenericServiceImpl.handleDBException(e);
+    ContextDbVO context = this.contextRepository.findById(latestPubItemDbVersion.getObject().getContext().getObjectId()).orElse(null);
+    checkAa("delete", principal, latestPubItemDbVersion, context);
+
+    List<String> deletedFiles = new ArrayList<>();
+
+    // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
+    // deleted by EntityManager.
+    // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
+    ItemRootVO pubItemObjectToDelete = this.itemObjectRepository.findById(latestPubItemDbVersion.getObject().getObjectId()).orElse(null);
+    ((ItemVersionVO) pubItemObjectToDelete.getLatestVersion()).setObject(null);
+    if (null != pubItemObjectToDelete.getLatestRelease()) {
+      ((ItemVersionVO) pubItemObjectToDelete.getLatestRelease()).setObject(null);
+    }
+
+
+    // Delete all files and versions
+    for (int i = 1; i <= latestPubItemDbVersion.getVersionNumber(); i++) {
+      ItemVersionVO item = this.itemRepository.findById(new VersionableId(latestPubItemDbVersion.getObjectId(), i)).orElse(null);
+      for (FileDbVO file : item.getFiles()) {
+        if (!deletedFiles.contains(file.getObjectId())) {
+          this.fileRepository.delete(file);
+          deletedFiles.add(file.getObjectId());
+          if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+            fileService.deleteFile(file.getLocalFileIdentifier());
+          }
+        }
+
+
+      }
+      item.setFiles(null);
+      this.itemRepository.delete(item);
+    }
+
+    // Delete Object
+    this.itemObjectRepository.delete(pubItemObjectToDelete);
+
+    SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
+    for (SearchRetrieveRecordVO<ItemVersionVO> rec : resp.getRecords()) {
+      this.pubItemDao.deleteImmediatly(rec.getPersistenceId());
+      this.pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(rec.getPersistenceId()))._toQuery(), 1000);
+    }
+    sendEventTopic(latestPubItemDbVersion, "delete");
+
+    logger.info("PubItem " + id + " successfully deleted");
+
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public ItemVersionVO get(String id, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    long start = System.currentTimeMillis();
+
+    ValidId validId = getValidId(id);
+
+    //    String[] splittedId = id.split("_");
+    //    String objectId = splittedId[0] + "_" + splittedId[1];
+    //    String version = null;
+    //    if (splittedId.length == 3) {
+    //      version = splittedId[2];
+    //    }
+
+    ItemVersionVO requestedItem = null;
+    Principal principal = null;
+
+    if (null != authenticationToken) {
+      principal = this.aaService.checkLoginRequired(authenticationToken);
+    }
+
+    if (null == validId.version) {
+      if (null == authenticationToken) {
+        // Return latest release
+        requestedItem = this.itemRepository.findLatestRelease(validId.objectId);
+      } else {
+        // Check if user is allowed to see latest version
+        requestedItem = this.itemRepository.findLatestVersion(validId.objectId);
+        if (null != requestedItem) {
+
+          ContextDbVO context = this.contextRepository.findById(requestedItem.getObject().getContext().getObjectId()).orElse(null);
+          try {
+            checkAa("get", principal, requestedItem, context);
+          } catch (AuthenticationException | AuthorizationException e) {
+            requestedItem = this.itemRepository.findLatestRelease(validId.objectId);
+          }
+        }
+      }
+    } else {
+      requestedItem = this.itemRepository.findById(new VersionableId(validId.objectId, validId.version)).orElse(null);
+      if (null != requestedItem) {
+        ContextDbVO context = this.contextRepository.findById(requestedItem.getObject().getContext().getObjectId()).orElse(null);
+        checkAa("get", principal, requestedItem, context);
+      }
+    }
+
+    if (null == requestedItem) {
+      logger.error("Item " + id + " not found");
+      return null;
+    }
+
+    requestedItem.setFileLinks();
+    long time = System.currentTimeMillis() - start;
+    logger.info("PubItem " + id + " successfully retrieved in " + time + " ms");
+
+    return requestedItem;
+  }
+
+  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException {
+    Principal principal = null;
+    ItemVersionVO item = null;
+    if (authenticationToken != null) {
+      try {
+        principal = this.aaService.checkLoginRequired(authenticationToken);
+        item = get(itemId, authenticationToken);
+        //item not found, return null
+        if (item == null) {
+          return null;
+        }
+
+      } catch (AuthenticationException | AuthorizationException e) {
+
+      }
+    }
+    Map<AuthorizationService.AccessType, Boolean> authMap = new LinkedHashMap<>();
+
+    for (AuthorizationService.AccessType at : AuthorizationService.AccessType.values()) {
+      boolean isAuthorized = false;
+      if (principal != null && item != null) {
+        isAuthorized = checkAccess(at, principal, item);
+      }
+      authMap.put(at, isAuthorized);
+
+    }
+    return authMap;
+  }
+
+  public JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException {
+    Principal principal = null;
+    ItemVersionVO item = null;
+    if (authenticationToken != null) {
+      try {
+        principal = this.aaService.checkLoginRequired(authenticationToken);
+        item = get(itemId, authenticationToken);
+        //item not found, return null
+        if (item == null) {
+          return null;
+        }
+
+      } catch (AuthenticationException | AuthorizationException e) {
+
+      }
+    }
+
+    FileDbVO file = item.getFiles().stream().filter(f -> fileId.equals(f.getObjectId())).findFirst().get();
+    if (file == null) {
+      return null;
+    }
+
+
+    ObjectNode returnNode = objectMapper.createObjectNode();
+
+    JsonNode readFileNode = objectMapper.createObjectNode().put(AuthorizationService.AccessType.READ_FILE.name(),
+        fileService.checkAccess(AuthorizationService.AccessType.READ_FILE, principal, item, file));
+    returnNode.set("actions", readFileNode);
+
+    if (file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
+
+      ObjectNode ipNameObject = objectMapper.createObjectNode();
+      returnNode.set("ipInfo", ipNameObject);
+      for (String audienceId : file.getAllowedAudienceIds()) {
+        IpListProvider.IpRange ipRange = this.ipListProvider.get(audienceId);
+        if (ipRange != null) {
+          ipNameObject.put(ipRange.getId(), ipRange.getName());
+        }
+      }
+    }
+    return returnNode;
+
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken) {
+
+    List<Object[]> results = this.auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
+
+    List<AuditDbVO> versionHistory = new ArrayList<>();
+    // a.id, a.comment, a.event, a.modificationdate, a.modifier_name, a.modifier_objectid, a.pubitem_objectid, a.pubitem_versionnumber
+    for (Object[] result : results) {
+      AuditDbVO auditDbVO = new AuditDbVO();
+      auditDbVO.setId(((int) result[0]));
+      auditDbVO.setComment((String) result[1]);
+      auditDbVO.setEvent(AuditDbVO.EventType.valueOf((String) result[2]));
+      auditDbVO.setModificationDate((Date) result[3]);
+      AccountUserDbRO accountUserDbRO = new AccountUserDbRO();
+      accountUserDbRO.setName((String) result[4]);
+      accountUserDbRO.setObjectId((String) result[5]);
+      auditDbVO.setModifier(accountUserDbRO);
+      ItemVersionVO itemVersionVO = new ItemVersionVO();
+      itemVersionVO.setObjectId((String) result[6]);
+      itemVersionVO.setVersionNumber((int) result[7]);
+      auditDbVO.setPubItem(itemVersionVO);
+      versionHistory.add(auditDbVO);
+    }
+
+    return versionHistory;
+  }
+
+  @Override
+  public void reindex(String id, String authenticationToken) throws IngeTechnicalException {
+    // TODO AA
+    reindex(id, false, true);
+  }
+
+  @Override
+  public void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException {
+    // TODO AA
+    reindex(id, false, includeFulltext);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public void reindexAll(String authenticationToken) {
+    Query<String> query = (Query<String>) this.entityManager.createQuery("SELECT itemObject.objectId FROM ItemRootVO itemObject");
+    query.setReadOnly(true);
+    query.setFetchSize(500);
+    query.setCacheMode(CacheMode.IGNORE);
+    query.setFlushMode(FlushModeType.COMMIT);
+    query.setCacheable(false);
+
+    try (ScrollableResults<String> results = query.scroll(ScrollMode.FORWARD_ONLY)) {
+      int count = 0;
+      while (results.next()) {
+        try {
+          count++;
+          String id = results.get();
+          this.queueJmsTemplate.convertAndSend("reindex-ItemVersionVO", id);
+
+          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+          if (0 == count % 1000) {
+            logger.info("Clearing entity manager");
+            this.entityManager.flush();
+            this.entityManager.clear();
+          }
+
+        } catch (Exception e) {
+          logger.error("Error while reindexing ", e);
+        }
+      }
     }
   }
 
-  private ItemVersionVO buildPubItemToCreate(String objectId, de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO context,
-      ItemVersionVO givenPubItemVO, AccountUserDbVO userAccount) {
-    Date currentDate = new Date();
-
-    ItemVersionVO pubItem = new ItemVersionVO();
-
-    pubItem.setMetadata(givenPubItemVO.getMetadata());
-    pubItem.setMessage(null);
-    pubItem.setModificationDate(currentDate);
-    AccountUserDbRO mod = new AccountUserDbRO();
-    // Moved out due to DSGVO
-    // mod.setName(userAccount.getName());
-    mod.setObjectId(userAccount.getObjectId());
-    pubItem.setModifier(mod);
-    pubItem.setObjectId(objectId);
-    pubItem.setVersionState(ItemVersionRO.State.PENDING);
-    pubItem.setVersionNumber(1);
-    pubItem.setVersionPid(null);
-
-    ItemRootVO pubItemObject = new ItemRootVO();
-    pubItemObject.setContext(context);
-    pubItemObject.setCreationDate(currentDate);
-    pubItemObject.setLastModificationDate(currentDate);
-    pubItemObject.setLatestVersion(pubItem);
-    pubItemObject.setLocalTags(givenPubItemVO.getObject().getLocalTags());
-    pubItemObject.setObjectId(objectId);
-    pubItemObject.setCreator(mod);
-    pubItemObject.setObjectPid(null);
-    pubItemObject.setPublicState(ItemVersionRO.State.PENDING);
-
-    pubItem.setObject(pubItemObject);
-
-    return pubItem;
+  @Override
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ItemVersionVO")
+  public void reindexListener(String id) throws IngeTechnicalException {
+    reindex(id, false, true);
   }
 
+  @Override
+  @Transactional(rollbackFor = Throwable.class)
+  public ItemVersionVO releasePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    return changeState(pubItemId, modificationDate, ItemVersionRO.State.RELEASED, message, "release", authenticationToken,
+        AuditDbVO.EventType.RELEASE);
+  }
 
-  private void updatePubItemWithTechnicalMd(ItemVersionVO latestVersion, String modifierName, String modifierId) {
-    Date currentDate = new Date();
+  @Override
+  @Transactional(rollbackFor = Throwable.class)
+  public ItemVersionVO revisePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    return changeState(pubItemId, modificationDate, ItemVersionRO.State.IN_REVISION, message, "revise", authenticationToken,
+        AuditDbVO.EventType.REVISE);
+  }
 
-    latestVersion.setModificationDate(currentDate);
-    de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod = new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
-    // Moved out due do DSGVO
-    // mod.setName(modifierName);
-    mod.setObjectId(modifierId);
-    latestVersion.setModifier(mod);
-    latestVersion.getObject().setLastModificationDate(currentDate);
-
+  @Override
+  @Transactional(rollbackFor = Throwable.class)
+  public ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    return changeState(pubItemId, modificationDate, ItemVersionRO.State.SUBMITTED, message, "submit", authenticationToken,
+        AuditDbVO.EventType.SUBMIT);
   }
 
   @Override
@@ -383,8 +631,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       latestReleaseDbRO.setVersionNumber(latestVersion.getObject().getLatestRelease().getVersionNumber());
       latestVersion.getObject().setLatestRelease(latestReleaseDbRO);
 
-      // if current user is owner, set to status pending. Else, set to status
-      // submitted
+      // if current user is owner, set to status pending. Else, set to status submitted
 
       if (GrantUtil.hasRole(principal.getUserAccount(), GrantVO.PredefinedRoles.MODERATOR,
           null != contextNew ? contextNew.getObjectId() : context.getObjectId())) {
@@ -430,6 +677,203 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     logger.info(
         "PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in " + (System.currentTimeMillis() - start) + " ms");
     return latestVersion;
+  }
+
+  @Override
+  @Transactional(rollbackFor = Throwable.class)
+  public ItemVersionVO withdrawPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    return changeState(pubItemId, modificationDate, ItemVersionRO.State.WITHDRAWN, message, "withdraw", authenticationToken,
+        AuditDbVO.EventType.WITHDRAW);
+  }
+
+  private ItemVersionVO buildPubItemToCreate(String objectId, de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO context,
+      ItemVersionVO givenPubItemVO, AccountUserDbVO userAccount) {
+    Date currentDate = new Date();
+
+    ItemVersionVO pubItem = new ItemVersionVO();
+
+    pubItem.setMetadata(givenPubItemVO.getMetadata());
+    pubItem.setMessage(null);
+    pubItem.setModificationDate(currentDate);
+    AccountUserDbRO mod = new AccountUserDbRO();
+    // Moved out due to DSGVO
+    // mod.setName(userAccount.getName());
+    mod.setObjectId(userAccount.getObjectId());
+    pubItem.setModifier(mod);
+    pubItem.setObjectId(objectId);
+    pubItem.setVersionState(ItemVersionRO.State.PENDING);
+    pubItem.setVersionNumber(1);
+    pubItem.setVersionPid(null);
+
+    ItemRootVO pubItemObject = new ItemRootVO();
+    pubItemObject.setContext(context);
+    pubItemObject.setCreationDate(currentDate);
+    pubItemObject.setLastModificationDate(currentDate);
+    pubItemObject.setLatestVersion(pubItem);
+    pubItemObject.setLocalTags(givenPubItemVO.getObject().getLocalTags());
+    pubItemObject.setObjectId(objectId);
+    pubItemObject.setCreator(mod);
+    pubItemObject.setObjectPid(null);
+    pubItemObject.setPublicState(ItemVersionRO.State.PENDING);
+
+    pubItem.setObject(pubItemObject);
+
+    return pubItem;
+  }
+
+  private ItemVersionVO changeState(String id, Date modificationDate, ItemVersionRO.State state, String message, String aaMethod,
+      String authenticationToken, AuditDbVO.EventType auditEventType)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+
+    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(id);
+
+    if (null == latestVersion) {
+      throw new IngeApplicationException("Object with given id not found.");
+    }
+
+
+    checkEqualModificationDate(modificationDate, latestVersion.getModificationDate());
+
+    ContextDbVO context = this.contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
+
+    checkAa(aaMethod, principal, latestVersion, context);
+
+    if (ItemVersionRO.State.SUBMITTED.equals(state) && !ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
+      latestVersion.getObject().setPublicState(ItemVersionRO.State.SUBMITTED);
+    }
+
+    if (ItemVersionRO.State.RELEASED.equals(state)) {
+      latestVersion.getObject().setPublicState(ItemVersionRO.State.RELEASED);
+      latestVersion.getObject().setLatestRelease(latestVersion);
+    }
+
+    if (ItemVersionRO.State.WITHDRAWN.equals(state)) {
+      // change public state to withdrawn, leave version state as is
+      latestVersion.getObject().setPublicState(ItemVersionRO.State.WITHDRAWN);
+      // latestVersion.getObject().setWithdrawComment(message);
+    } else {
+      latestVersion.setVersionState(state);
+    }
+
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+
+    latestVersion.setMessage(message);
+
+    if (!ItemVersionRO.State.WITHDRAWN.equals(state)) {
+      validate(latestVersion);
+    }
+
+    // vorherige Validierung notwendig, da sonst PID unnötigerweise angelegt wird (kein 2 Phase
+    // Commit!)
+    // PID Generierung
+    if (ItemVersionRO.State.RELEASED.equals(state)) {
+      ItemRootVO pubItemObject = latestVersion.getObject();
+      try {
+        if (null == pubItemObject.getObjectPid()) {
+          URI url = UriBuilder.getItemObjectLink(latestVersion.getObjectId());
+          if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE))) {
+            pubItemObject.setObjectPid(
+                PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT) + this.pidService.createPid(url).getIdentifier());
+          } else {
+            pubItemObject.setObjectPid(url.toString().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL),
+                PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT)));
+          }
+        }
+        URI url = UriBuilder.getItemObjectAndVersionLink(latestVersion.getObjectId(), latestVersion.getVersionNumber());
+        if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE))) {
+          latestVersion.setVersionPid(
+              PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT) + this.pidService.createPid(url).getIdentifier());
+        } else {
+          latestVersion.setVersionPid(url.toString().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL),
+              PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT)));
+        }
+      } catch (URISyntaxException | TechnicalException e) {
+        logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+        throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+      }
+
+      for (FileDbVO fileDbVO : latestVersion.getFiles()) {
+        try {
+          if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && null == fileDbVO.getPid()) {
+            URI url = UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(), fileDbVO.getObjectId(),
+                fileDbVO.getName());
+            if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE))) {
+              fileDbVO.setPid(
+                  PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT) + this.pidService.createPid(url).getIdentifier());
+            } else {
+              fileDbVO.setPid(url.toString().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL),
+                  PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT)));
+            }
+          }
+        } catch (URISyntaxException e) {
+          logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
+              + latestVersion.getObjectIdAndVersion() + "]", e);
+          throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+        } catch (TechnicalException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    try {
+      latestVersion = this.itemRepository.saveAndFlush(latestVersion);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
+
+    createAuditEntry(latestVersion, auditEventType);
+
+    reindex(latestVersion);
+    sendEventTopic(latestVersion, aaMethod);
+
+    return latestVersion;
+  }
+
+  private void createAuditEntry(ItemVersionVO pubItem, AuditDbVO.EventType event) throws IngeApplicationException {
+    AuditDbVO audit = new AuditDbVO();
+    audit.setEvent(event);
+    audit.setComment(pubItem.getMessage());
+    audit.setModificationDate(pubItem.getModificationDate());
+    audit.setModifier(pubItem.getModifier());
+    audit.setPubItem(pubItem);
+    try {
+      this.auditRepository.saveAndFlush(audit);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
+  }
+
+  private SearchRetrieveResponseVO<ItemVersionVO> executeSearchSortByVersion(co.elastic.clients.elasticsearch._types.query_dsl.Query query,
+      int limit, int offset) throws IngeTechnicalException {
+
+    SearchSortCriteria sortByVersion =
+        new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SearchSortCriteria.SortOrder.DESC);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset, sortByVersion);
+    return this.pubItemDao.search(this.getElasticSearchIndexFields(), srr);
+  }
+
+  private SearchRetrieveResponseVO<ItemVersionVO> getAllVersions(String objectId) throws IngeTechnicalException {
+    co.elastic.clients.elasticsearch._types.query_dsl.Query latestReleaseQuery =
+        TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).value(objectId))._toQuery();
+    SearchRetrieveResponseVO<ItemVersionVO> resp = executeSearchSortByVersion(latestReleaseQuery, -2, 0); // unbegrenzte Suche
+
+    return resp;
+  }
+
+  private ValidId getValidId(String id) {
+    String pattern = "(item_)(\\d+)(_(\\d+))?$";
+    Pattern r = Pattern.compile(pattern);
+    Matcher m = r.matcher(id);
+
+    if (!m.find()) {
+      String error = "ItemId " + id + " not valid";
+      logger.error(error);
+      throw new RuntimeException(error);
+    }
+
+    return new ValidId(m.group(1) + m.group(2), null != m.group(4) ? Integer.parseInt(m.group(4)) : null);
   }
 
   private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, Principal principal, VersionableId itemId)
@@ -552,381 +996,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return updatedFileList;
   }
 
-  private void setVisibility(FileDbVO currentFileDbVO, FileDbVO fileVo) throws IngeApplicationException {
-    currentFileDbVO.setAllowedAudienceIds(null);
-
-    if (FileDbVO.Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
-      if (null != fileVo.getAllowedAudienceIds()) {
-        for (String audienceId : fileVo.getAllowedAudienceIds()) {
-          if (null == this.ipListProvider.get(audienceId)) {
-            throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
-          }
-        }
-      }
-      currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
-    }
-  }
-
-  @Override
-  @Transactional(rollbackFor = Throwable.class)
-  public void delete(String id, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-
-    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
-
-    ItemVersionVO latestPubItemDbVersion = this.itemRepository.findLatestVersion(id);
-    if (null == latestPubItemDbVersion) {
-      throw new IngeApplicationException("Item " + id + " not found");
-    }
-
-
-    ContextDbVO context = this.contextRepository.findById(latestPubItemDbVersion.getObject().getContext().getObjectId()).orElse(null);
-    checkAa("delete", principal, latestPubItemDbVersion, context);
-
-    List<String> deletedFiles = new ArrayList<>();
-
-    // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
-    // deleted by EntityManager.
-    // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
-    ItemRootVO pubItemObjectToDelete = this.itemObjectRepository.findById(latestPubItemDbVersion.getObject().getObjectId()).orElse(null);
-    ((ItemVersionVO) pubItemObjectToDelete.getLatestVersion()).setObject(null);
-    if (null != pubItemObjectToDelete.getLatestRelease()) {
-      ((ItemVersionVO) pubItemObjectToDelete.getLatestRelease()).setObject(null);
-    }
-
-
-    // Delete all files and versions
-    for (int i = 1; i <= latestPubItemDbVersion.getVersionNumber(); i++) {
-      ItemVersionVO item = this.itemRepository.findById(new VersionableId(latestPubItemDbVersion.getObjectId(), i)).orElse(null);
-      for (FileDbVO file : item.getFiles()) {
-        if (!deletedFiles.contains(file.getObjectId())) {
-          this.fileRepository.delete(file);
-          deletedFiles.add(file.getObjectId());
-          if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
-            fileService.deleteFile(file.getLocalFileIdentifier());
-          }
-        }
-
-
-      }
-      item.setFiles(null);
-      this.itemRepository.delete(item);
-    }
-
-    // Delete Object
-    this.itemObjectRepository.delete(pubItemObjectToDelete);
-
-    SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
-    for (SearchRetrieveRecordVO<ItemVersionVO> rec : resp.getRecords()) {
-      this.pubItemDao.deleteImmediatly(rec.getPersistenceId());
-      this.pubItemDao.deleteByQuery(TermQuery.of(t -> t.field(INDEX_FULLTEXT_ITEM_ID).value(rec.getPersistenceId()))._toQuery(), 1000);
-    }
-    sendEventTopic(latestPubItemDbVersion, "delete");
-
-    logger.info("PubItem " + id + " successfully deleted");
-
-  }
-
-  @Override
-  @Transactional(readOnly = true)
-  public ItemVersionVO get(String id, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    long start = System.currentTimeMillis();
-
-    ValidId validId = getValidId(id);
-
-    //    String[] splittedId = id.split("_");
-    //    String objectId = splittedId[0] + "_" + splittedId[1];
-    //    String version = null;
-    //    if (splittedId.length == 3) {
-    //      version = splittedId[2];
-    //    }
-
-    ItemVersionVO requestedItem = null;
-    Principal principal = null;
-
-    if (null != authenticationToken) {
-      principal = this.aaService.checkLoginRequired(authenticationToken);
-    }
-
-    if (null == validId.version) {
-      if (null == authenticationToken) {
-        // Return latest release
-        requestedItem = this.itemRepository.findLatestRelease(validId.objectId);
-      } else {
-        // Check if user is allowed to see latest version
-        requestedItem = this.itemRepository.findLatestVersion(validId.objectId);
-        if (null != requestedItem) {
-
-          ContextDbVO context = this.contextRepository.findById(requestedItem.getObject().getContext().getObjectId()).orElse(null);
-          try {
-            checkAa("get", principal, requestedItem, context);
-          } catch (AuthenticationException | AuthorizationException e) {
-            requestedItem = this.itemRepository.findLatestRelease(validId.objectId);
-          }
-        }
-      }
-    } else {
-      requestedItem = this.itemRepository.findById(new VersionableId(validId.objectId, validId.version)).orElse(null);
-      if (null != requestedItem) {
-        ContextDbVO context = this.contextRepository.findById(requestedItem.getObject().getContext().getObjectId()).orElse(null);
-        checkAa("get", principal, requestedItem, context);
-      }
-    }
-
-    if (null == requestedItem) {
-      logger.error("Item " + id + " not found");
-      return null;
-    }
-
-    requestedItem.setFileLinks();
-    long time = System.currentTimeMillis() - start;
-    logger.info("PubItem " + id + " successfully retrieved in " + time + " ms");
-
-    return requestedItem;
-  }
-
-  private ValidId getValidId(String id) {
-    String pattern = "(item_)(\\d+)(_(\\d+))?$";
-    Pattern r = Pattern.compile(pattern);
-    Matcher m = r.matcher(id);
-
-    if (!m.find()) {
-      String error = "ItemId " + id + " not valid";
-      logger.error(error);
-      throw new RuntimeException(error);
-    }
-
-    return new ValidId(m.group(1) + m.group(2), null != m.group(4) ? Integer.parseInt(m.group(4)) : null);
-  }
-
-  private static class ValidId {
-    private final String objectId;
-    private final Integer version;
-
-    private ValidId(String _objectId, Integer _version) {
-      this.objectId = _objectId;
-      this.version = _version;
-    }
-  }
-
-  @Override
-  @Transactional(rollbackFor = Throwable.class)
-  public ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return changeState(pubItemId, modificationDate, ItemVersionRO.State.SUBMITTED, message, "submit", authenticationToken,
-        AuditDbVO.EventType.SUBMIT);
-  }
-
-  @Override
-  @Transactional(rollbackFor = Throwable.class)
-  public ItemVersionVO revisePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return changeState(pubItemId, modificationDate, ItemVersionRO.State.IN_REVISION, message, "revise", authenticationToken,
-        AuditDbVO.EventType.REVISE);
-  }
-
-  @Override
-  @Transactional(rollbackFor = Throwable.class)
-  public ItemVersionVO releasePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return changeState(pubItemId, modificationDate, ItemVersionRO.State.RELEASED, message, "release", authenticationToken,
-        AuditDbVO.EventType.RELEASE);
-  }
-
-  @Override
-  @Transactional(rollbackFor = Throwable.class)
-  public ItemVersionVO withdrawPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return changeState(pubItemId, modificationDate, ItemVersionRO.State.WITHDRAWN, message, "withdraw", authenticationToken,
-        AuditDbVO.EventType.WITHDRAW);
-  }
-
-  private ItemVersionVO changeState(String id, Date modificationDate, ItemVersionRO.State state, String message, String aaMethod,
-      String authenticationToken, AuditDbVO.EventType auditEventType)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
-
-    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(id);
-
-    if (null == latestVersion) {
-      throw new IngeApplicationException("Object with given id not found.");
-    }
-
-
-    checkEqualModificationDate(modificationDate, latestVersion.getModificationDate());
-
-    ContextDbVO context = this.contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
-
-    checkAa(aaMethod, principal, latestVersion, context);
-
-    if (ItemVersionRO.State.SUBMITTED.equals(state) && !ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
-      latestVersion.getObject().setPublicState(ItemVersionRO.State.SUBMITTED);
-    }
-
-    if (ItemVersionRO.State.RELEASED.equals(state)) {
-      latestVersion.getObject().setPublicState(ItemVersionRO.State.RELEASED);
-      latestVersion.getObject().setLatestRelease(latestVersion);
-    }
-
-    if (ItemVersionRO.State.WITHDRAWN.equals(state)) {
-      // change public state to withdrawn, leave version state as is
-      latestVersion.getObject().setPublicState(ItemVersionRO.State.WITHDRAWN);
-      // latestVersion.getObject().setWithdrawComment(message);
-    } else {
-      latestVersion.setVersionState(state);
-    }
-
-    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
-
-    latestVersion.setMessage(message);
-
-    if (!ItemVersionRO.State.WITHDRAWN.equals(state)) {
-      validate(latestVersion);
-    }
-
-    // vorherige Validierung notwendig, da sonst PID unnötigerweise angelegt wird (kein 2 Phase
-    // Commit!)
-    // PID Generierung
-    if (ItemVersionRO.State.RELEASED.equals(state)) {
-      ItemRootVO pubItemObject = latestVersion.getObject();
-      try {
-        if (null == pubItemObject.getObjectPid()) {
-          URI url = UriBuilder.getItemObjectLink(latestVersion.getObjectId());
-          if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE))) {
-            pubItemObject.setObjectPid(
-                PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT) + this.pidService.createPid(url).getIdentifier());
-          } else {
-            pubItemObject.setObjectPid(url.toString().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL),
-                PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT)));
-          }
-        }
-        URI url = UriBuilder.getItemObjectAndVersionLink(latestVersion.getObjectId(), latestVersion.getVersionNumber());
-        if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE))) {
-          latestVersion.setVersionPid(
-              PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT) + this.pidService.createPid(url).getIdentifier());
-        } else {
-          latestVersion.setVersionPid(url.toString().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL),
-              PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT)));
-        }
-      } catch (URISyntaxException | TechnicalException e) {
-        logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-        throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-      }
-
-      for (FileDbVO fileDbVO : latestVersion.getFiles()) {
-        try {
-          if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && null == fileDbVO.getPid()) {
-            URI url = UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(), fileDbVO.getObjectId(),
-                fileDbVO.getName());
-            if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE))) {
-              fileDbVO.setPid(
-                  PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT) + this.pidService.createPid(url).getIdentifier());
-            } else {
-              fileDbVO.setPid(url.toString().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL),
-                  PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT)));
-            }
-          }
-        } catch (URISyntaxException e) {
-          logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
-              + latestVersion.getObjectIdAndVersion() + "]", e);
-          throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-        } catch (TechnicalException e) {
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    try {
-      latestVersion = this.itemRepository.saveAndFlush(latestVersion);
-    } catch (DataAccessException e) {
-      GenericServiceImpl.handleDBException(e);
-    }
-
-    createAuditEntry(latestVersion, auditEventType);
-
-    reindex(latestVersion);
-    sendEventTopic(latestVersion, aaMethod);
-
-    return latestVersion;
-  }
-
-  private void validate(ItemVersionVO pubItem) throws IngeTechnicalException, IngeApplicationException {
-    ValidationPoint vp = ValidationPoint.STANDARD;
-
-    if (null != pubItem.getObject().getPublicState() && ItemVersionRO.State.PENDING.equals(pubItem.getObject().getPublicState())) {
-      vp = ValidationPoint.SAVE;
-    }
-
-    validate(pubItem, vp);
-  }
-
-  private void validate(ItemVersionVO pubItem, ValidationPoint vp) throws IngeTechnicalException, IngeApplicationException {
-    try {
-      this.itemValidatingService.validate(pubItem, vp);
-    } catch (ValidationException e) {
-      throw new IngeApplicationException("Invalid metadata", e);
-    } catch (Exception e) {
-      throw new IngeTechnicalException(e.getMessage(), e);
-    }
-  }
-
-  private SearchRetrieveResponseVO<ItemVersionVO> getAllVersions(String objectId) throws IngeTechnicalException {
-    co.elastic.clients.elasticsearch._types.query_dsl.Query latestReleaseQuery =
-        TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).value(objectId))._toQuery();
-    SearchRetrieveResponseVO<ItemVersionVO> resp = executeSearchSortByVersion(latestReleaseQuery, -2, 0); // unbegrenzte Suche
-
-    return resp;
-  }
-
-  private SearchRetrieveResponseVO<ItemVersionVO> executeSearchSortByVersion(co.elastic.clients.elasticsearch._types.query_dsl.Query query,
-      int limit, int offset) throws IngeTechnicalException {
-
-    SearchSortCriteria sortByVersion =
-        new SearchSortCriteria(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, SearchSortCriteria.SortOrder.DESC);
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset, sortByVersion);
-    return this.pubItemDao.search(this.getElasticSearchIndexFields(), srr);
-  }
-
-  @Override
-  @Transactional(readOnly = true)
-  public void reindexAll(String authenticationToken) {
-    Query<String> query = (Query<String>) this.entityManager.createQuery("SELECT itemObject.objectId FROM ItemRootVO itemObject");
-    query.setReadOnly(true);
-    query.setFetchSize(500);
-    query.setCacheMode(CacheMode.IGNORE);
-    query.setFlushMode(FlushModeType.COMMIT);
-    query.setCacheable(false);
-
-    try (ScrollableResults<String> results = query.scroll(ScrollMode.FORWARD_ONLY)) {
-      int count = 0;
-      while (results.next()) {
-        try {
-          count++;
-          String id = results.get();
-          this.queueJmsTemplate.convertAndSend("reindex-ItemVersionVO", id);
-
-          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-          if (0 == count % 1000) {
-            logger.info("Clearing entity manager");
-            this.entityManager.flush();
-            this.entityManager.clear();
-          }
-
-        } catch (Exception e) {
-          logger.error("Error while reindexing ", e);
-        }
-      }
-    }
-  }
-
-  @Override
-  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ItemVersionVO")
-  public void reindexListener(String id) throws IngeTechnicalException {
-    reindex(id, false, true);
-  }
-
-
   private void reindex(ItemRootVO object, boolean immediate, boolean includeFulltext) throws IngeTechnicalException {
 
     logger.info("Reindexing object " + object.getObjectId());
@@ -979,48 +1048,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     reindex(item.getObject(), true, true);
   }
 
-  @Override
-  public void reindex(String id, String authenticationToken) throws IngeTechnicalException {
-    // TODO AA
-    reindex(id, false, true);
-  }
-
-
-  @Override
-  public void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException {
-    // TODO AA
-    reindex(id, false, includeFulltext);
-  }
-
-
-  @Override
-  @Transactional(readOnly = true)
-  public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken) {
-
-    List<Object[]> results = this.auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
-
-    List<AuditDbVO> versionHistory = new ArrayList<>();
-    // a.id, a.comment, a.event, a.modificationdate, a.modifier_name, a.modifier_objectid, a.pubitem_objectid, a.pubitem_versionnumber
-    for (Object[] result : results) {
-      AuditDbVO auditDbVO = new AuditDbVO();
-      auditDbVO.setId(((int) result[0]));
-      auditDbVO.setComment((String) result[1]);
-      auditDbVO.setEvent(AuditDbVO.EventType.valueOf((String) result[2]));
-      auditDbVO.setModificationDate((Date) result[3]);
-      AccountUserDbRO accountUserDbRO = new AccountUserDbRO();
-      accountUserDbRO.setName((String) result[4]);
-      accountUserDbRO.setObjectId((String) result[5]);
-      auditDbVO.setModifier(accountUserDbRO);
-      ItemVersionVO itemVersionVO = new ItemVersionVO();
-      itemVersionVO.setObjectId((String) result[6]);
-      itemVersionVO.setVersionNumber((int) result[7]);
-      auditDbVO.setPubItem(itemVersionVO);
-      versionHistory.add(auditDbVO);
-    }
-
-    return versionHistory;
-  }
-
   private void rollbackSavedFiles(ItemVersionVO pubItemVO) throws IngeTechnicalException {
     for (FileDbVO fileVO : pubItemVO.getFiles()) {
       if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
@@ -1035,12 +1062,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
   }
 
-  @Override
-  protected GenericDaoEs<ItemVersionVO> getElasticDao() {
-    return this.pubItemDao;
-  }
-
-
   private void sendEventTopic(ItemVersionVO item, String method) {
     this.topicJmsTemplate.convertAndSend(item, message -> {
       message.setStringProperty("method", method);
@@ -1048,94 +1069,68 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     });
   }
 
+  private void setVisibility(FileDbVO currentFileDbVO, FileDbVO fileVo) throws IngeApplicationException {
+    currentFileDbVO.setAllowedAudienceIds(null);
 
-  public boolean checkAccess(AuthorizationService.AccessType at, Principal principal, ItemVersionVO item)
-      throws IngeApplicationException, IngeTechnicalException {
+    if (FileDbVO.Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
+      if (null != fileVo.getAllowedAudienceIds()) {
+        for (String audienceId : fileVo.getAllowedAudienceIds()) {
+          if (null == this.ipListProvider.get(audienceId)) {
+            throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+          }
+        }
+      }
+      currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
+    }
+  }
+
+  private void updatePubItemWithTechnicalMd(ItemVersionVO latestVersion, String modifierName, String modifierId) {
+    Date currentDate = new Date();
+
+    latestVersion.setModificationDate(currentDate);
+    de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod = new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
+    // Moved out due do DSGVO
+    // mod.setName(modifierName);
+    mod.setObjectId(modifierId);
+    latestVersion.setModifier(mod);
+    latestVersion.getObject().setLastModificationDate(currentDate);
+
+  }
+
+  private void validate(ItemVersionVO pubItem) throws IngeTechnicalException, IngeApplicationException {
+    ValidationPoint vp = ValidationPoint.STANDARD;
+
+    if (null != pubItem.getObject().getPublicState() && ItemVersionRO.State.PENDING.equals(pubItem.getObject().getPublicState())) {
+      vp = ValidationPoint.SAVE;
+    }
+
+    validate(pubItem, vp);
+  }
+
+  private void validate(ItemVersionVO pubItem, ValidationPoint vp) throws IngeTechnicalException, IngeApplicationException {
     try {
-      checkAa(at.getMethodName(), principal, item, item.getObject().getContext());
-    } catch (AuthenticationException | AuthorizationException e) {
-      return false;
-    } catch (IngeTechnicalException | IngeApplicationException e) {
-      throw e;
+      this.itemValidatingService.validate(pubItem, vp);
+    } catch (ValidationException e) {
+      throw new IngeApplicationException("Invalid metadata", e);
     } catch (Exception e) {
-      throw new IngeTechnicalException("", e);
+      throw new IngeTechnicalException(e.getMessage(), e);
     }
-    return true;
   }
 
-  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
-      throws IngeApplicationException, IngeTechnicalException {
-    Principal principal = null;
-    ItemVersionVO item = null;
-    if (authenticationToken != null) {
-      try {
-        principal = this.aaService.checkLoginRequired(authenticationToken);
-        item = get(itemId, authenticationToken);
-        //item not found, return null
-        if (item == null) {
-          return null;
-        }
 
-      } catch (AuthenticationException | AuthorizationException e) {
+  private static class ValidId {
+    private final String objectId;
+    private final Integer version;
 
-      }
+    private ValidId(String _objectId, Integer _version) {
+      this.objectId = _objectId;
+      this.version = _version;
     }
-    Map<AuthorizationService.AccessType, Boolean> authMap = new LinkedHashMap<>();
-
-    for (AuthorizationService.AccessType at : AuthorizationService.AccessType.values()) {
-      boolean isAuthorized = false;
-      if (principal != null && item != null) {
-        isAuthorized = checkAccess(at, principal, item);
-      }
-      authMap.put(at, isAuthorized);
-
-    }
-    return authMap;
   }
 
-  public JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
-      throws IngeApplicationException, IngeTechnicalException {
-    Principal principal = null;
-    ItemVersionVO item = null;
-    if (authenticationToken != null) {
-      try {
-        principal = this.aaService.checkLoginRequired(authenticationToken);
-        item = get(itemId, authenticationToken);
-        //item not found, return null
-        if (item == null) {
-          return null;
-        }
-
-      } catch (AuthenticationException | AuthorizationException e) {
-
-      }
-    }
-
-    FileDbVO file = item.getFiles().stream().filter(f -> fileId.equals(f.getObjectId())).findFirst().get();
-    if (file == null) {
-      return null;
-    }
-
-
-    ObjectNode returnNode = objectMapper.createObjectNode();
-
-    JsonNode readFileNode = objectMapper.createObjectNode().put(AuthorizationService.AccessType.READ_FILE.name(),
-        fileService.checkAccess(AuthorizationService.AccessType.READ_FILE, principal, item, file));
-    returnNode.set("actions", readFileNode);
-
-    if (file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
-
-      ObjectNode ipNameObject = objectMapper.createObjectNode();
-      returnNode.set("ipInfo", ipNameObject);
-      for (String audienceId : file.getAllowedAudienceIds()) {
-        IpListProvider.IpRange ipRange = this.ipListProvider.get(audienceId);
-        if (ipRange != null) {
-          ipNameObject.put(ipRange.getId(), ipRange.getName());
-        }
-      }
-    }
-    return returnNode;
-
+  @Override
+  protected GenericDaoEs<ItemVersionVO> getElasticDao() {
+    return this.pubItemDao;
   }
 
 

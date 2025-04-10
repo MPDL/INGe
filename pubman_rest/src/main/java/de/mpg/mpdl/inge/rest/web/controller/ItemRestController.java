@@ -475,27 +475,22 @@ public class ItemRestController {
     return new ResponseEntity<>(node, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/getNewDoi", method = RequestMethod.POST)
-  public ResponseEntity<String> getNewDoi( //
+  @RequestMapping(value = "/addNewDoi", method = RequestMethod.POST)
+  public ResponseEntity<ItemVersionVO> addNewDoi( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody ItemVersionVO item)
+      @RequestBody ItemVersionVO item) //
       throws IngeTechnicalException, AuthenticationException, IngeApplicationException, AuthorizationException {
 
-    AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
+    ItemVersionVO itemVersionVO = pis.addNewDoi(item, token);
 
-    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
-      throw new AuthorizationException("User must be MODERATOR");
-    }
-
-    String doi = DoiRestService.getNewDoi(item);
-
-    return new ResponseEntity<>(doi, HttpStatus.OK);
+    return new ResponseEntity<>(itemVersionVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/isItemDoiReady", method = RequestMethod.POST)
   public ResponseEntity<Boolean> isItemDoiReady( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody ItemVersionVO item) throws AuthenticationException, IngeApplicationException, AuthorizationException {
+      @RequestBody ItemVersionVO item) //
+      throws AuthenticationException, IngeApplicationException, AuthorizationException {
 
     AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
 
