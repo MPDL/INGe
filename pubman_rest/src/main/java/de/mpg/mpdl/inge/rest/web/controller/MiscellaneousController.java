@@ -82,7 +82,8 @@ public class MiscellaneousController {
   @RequestMapping(value = "/callAiApi", method = RequestMethod.POST)
   public ResponseEntity<String> callAiApi( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody String data) throws AuthenticationException, IngeApplicationException {
+      @RequestBody String data) //
+      throws AuthenticationException, IngeApplicationException {
 
     this.utilServiceBean.checkUser(token);
     UtilServiceBean.checkData(data);
@@ -114,7 +115,8 @@ public class MiscellaneousController {
   @RequestMapping(value = "/getGenreProperties", method = RequestMethod.GET)
   public ResponseEntity<String> getGenreProperties( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(GENRE) MdsPublicationVO.Genre genre) throws AuthenticationException, IngeApplicationException {
+      @RequestParam(GENRE) MdsPublicationVO.Genre genre) //
+      throws AuthenticationException, IngeApplicationException {
 
     this.utilServiceBean.checkUser(token);
     UtilServiceBean.checkData(genre);
@@ -126,7 +128,8 @@ public class MiscellaneousController {
 
   @RequestMapping(value = "/getIpList", method = RequestMethod.GET)
   public ResponseEntity<Collection<IpListProvider.IpRange>> getIpList( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) throws AuthenticationException, IngeApplicationException {
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
+      throws AuthenticationException, IngeApplicationException {
 
     this.utilServiceBean.checkUser(token);
     Collection<IpListProvider.IpRange> ipList = this.ipListProvider.getAll();
@@ -137,7 +140,8 @@ public class MiscellaneousController {
   @RequestMapping(value = SITEMAP_FILE_PATH, method = RequestMethod.GET)
   public ResponseEntity<Resource> getSitemap( //
       @PathVariable(Sitemap_VAR) String sitemapFile, //
-      HttpServletResponse response) throws NotFoundException, IngeTechnicalException {
+      HttpServletResponse response) //
+      throws NotFoundException, IngeTechnicalException {
 
     try {
       // Basispfad, in dem sich die XML-Dateien befinden
@@ -159,7 +163,8 @@ public class MiscellaneousController {
 
   @RequestMapping(value = "/regenerateThumbnails", method = RequestMethod.GET)
   public ResponseEntity<?> regenerateThumbnails( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) throws AuthenticationException, IngeTechnicalException {
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
+      throws AuthenticationException, IngeTechnicalException {
 
     this.fileService.regenerateThumbnails(token);
 

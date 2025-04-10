@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -57,19 +57,19 @@ public class DataFetchController {
   private static final String CONTEXT_ID = "contextId";
   private static final String IDENTIFIER = "identifier";
 
-  private final AuthorizationService authorizationService;
   private final ContextService contextService;
   private final DataHandlerService dataHandlerService;
   private final DataSourceHandlerService dataSourceHandlerService;
   private final FileService fileService;
+  private final UtilServiceBean utilServiceBean;
 
-  public DataFetchController(AuthorizationService authorizationService, ContextService contextService,
-      DataHandlerService dataHandlerService, DataSourceHandlerService dataSourceHandlerService, FileService fileService) {
-    this.authorizationService = authorizationService;
+  public DataFetchController(ContextService contextService, DataHandlerService dataHandlerService,
+      DataSourceHandlerService dataSourceHandlerService, FileService fileService, UtilServiceBean utilServiceBean) {
     this.contextService = contextService;
     this.dataHandlerService = dataHandlerService;
     this.dataSourceHandlerService = dataSourceHandlerService;
     this.fileService = fileService;
+    this.utilServiceBean = utilServiceBean;
   }
 
   @RequestMapping(value = "/getCrossref", method = RequestMethod.GET)
@@ -80,7 +80,7 @@ public class DataFetchController {
   ) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
     DataSourceVO dataSourceVO = getDataSource(CROSSREF);
-    AccountUserDbVO accountUserDbVO = getUser(token);
+    AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
     ContextDbVO contextDbVO = getContext(contextId, accountUserDbVO, token);
     String fetchedItem = fetchMetaData(CROSSREF, dataSourceVO, identifier);
     ItemVersionVO itemVersionVO = getItemVersion(fetchedItem, contextDbVO);
@@ -96,7 +96,7 @@ public class DataFetchController {
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
     DataSourceVO dataSourceVO = getDataSource(ARXIV);
-    AccountUserDbVO accountUserDbVO = getUser(token);
+    AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
     ContextDbVO contextDbVO = getContext(contextId, accountUserDbVO, token);
     String fetchedItem = fetchMetaData(ARXIV, dataSourceVO, identifier);
     ItemVersionVO itemVersionVO = getItemVersion(fetchedItem, contextDbVO);
@@ -120,13 +120,6 @@ public class DataFetchController {
     }
 
     return dataSourceVO;
-  }
-
-  private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {
-
-    AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
-
-    return accountUserDbVO;
   }
 
   private ContextDbVO getContext(String contextId, AccountUserDbVO accountUserDbVO, String token)

@@ -104,7 +104,8 @@ public class BatchProcessController {
   public ResponseEntity<BatchProcessLogHeaderDbVO> addKeywords( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(KEYWORDS) String keywords, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.addKeywords(itemIds, keywords, token);
@@ -117,7 +118,8 @@ public class BatchProcessController {
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_LOCALTAGS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> addLocalTags( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     List<String> localTags = convertJsonNode2List(parameters, PARAM_LOCALTAGS);
@@ -134,7 +136,8 @@ public class BatchProcessController {
       @RequestParam(SOURCE_NUMBER) int sourceNumber, //
       @RequestParam(SOURCE_IDENTIFIER_TYPE) IdentifierVO.IdType sourceIdentifierType, //
       @RequestParam(SOURCE_IDENTIFIER) String sourceIdentifier, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
@@ -150,7 +153,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(CONTEXT_FROM) String contextFrom, //
       @RequestParam(CONTEXT_TO) String contextTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeContext(itemIds, contextFrom, contextTo, token);
@@ -165,7 +169,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(EXTERNAL_REFERENCE_CONTENT_CATEGORY_FROM) String externalReferenceContentCategoryFrom, //
       @RequestParam(EXTERNAL_REFERENCE_CONTENT_CATEGORY_TO) String externalReferenceContentCategoryTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeExternalReferenceContentCategory(itemIds,
@@ -181,7 +186,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(FILE_CONTENT_CATEGORY_FROM) String fileContentCategoryFrom, //
       @RequestParam(FILE_CONTENT_CATEGORY_TO) String fileContentCategoryTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
@@ -197,7 +203,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(FILE_VISIBILITY_FROM) FileDbVO.Visibility fileVisibilityFrom, //
       @RequestParam(FILE_VISIBILITY_TO) FileDbVO.Visibility fileVisibilityTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
 
@@ -215,7 +222,8 @@ public class BatchProcessController {
       @RequestParam(GENRE_FROM) MdsPublicationVO.Genre genreFrom, //
       @RequestParam(GENRE_TO) MdsPublicationVO.Genre genreTo, //
       @RequestParam(value = DEGREE_TYPE, required = false) MdsPublicationVO.DegreeType degreeType, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
@@ -231,7 +239,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(KEYWORDS_FROM) String keywordsFrom, //
       @RequestParam(KEYWORDS_TO) String keywordsTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeKeywords(itemIds, keywordsFrom, keywordsTo, token);
@@ -246,7 +255,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(LOCALTAG_FROM) String localTagFrom, //
       @RequestParam(LOCALTAG_TO) String localTagTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeLocalTag(itemIds, localTagFrom, localTagTo, token);
@@ -261,7 +271,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(value = REVIEW_METHOD_FROM, required = false) MdsPublicationVO.ReviewMethod reviewMethodFrom, //
       @RequestParam(value = REVIEW_METHOD_TO, required = false) MdsPublicationVO.ReviewMethod reviewMethodTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
@@ -277,7 +288,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(SOURCE_GENRE_FROM) SourceVO.Genre sourceGenreFrom, //
       @RequestParam(SOURCE_GENRE_TO) SourceVO.Genre sourceGenreTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
@@ -295,7 +307,8 @@ public class BatchProcessController {
       @RequestParam(SOURCE_IDENTIFIER_TYPE) IdentifierVO.IdType sourceIdentifierType, //
       @RequestParam(value = SOURCE_IDENTIFIER_FROM, required = false) String sourceIdentifierFrom, //
       @RequestParam(value = SOURCE_IDENTIFIER_TO, required = false) String sourceIdentifierTo, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.changeSourceIdentifier(itemIds, sourceNumber,
@@ -307,7 +320,7 @@ public class BatchProcessController {
   @RequestMapping(value = BatchProcessUserLockDelete_PATH, method = RequestMethod.DELETE)
   public ResponseEntity<?> deleteBatchProcessUserLock( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @PathVariable(AccountUserObjectId_VAR) String accountUserObjectId)
+      @PathVariable(AccountUserObjectId_VAR) String accountUserObjectId) //
       throws AuthenticationException, AuthorizationException, IngeApplicationException, NotFoundException {
 
     try {
@@ -324,7 +337,8 @@ public class BatchProcessController {
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> deletePubItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.deletePubItems(itemIds, token);
@@ -334,7 +348,7 @@ public class BatchProcessController {
 
   @RequestMapping(value = "/getAllBatchProcessLogHeaders", method = RequestMethod.GET)
   public ResponseEntity<List<BatchProcessLogHeaderDbVO>> getAllBatchProcessLogHeaders(
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
       throws AuthenticationException, IngeApplicationException, NotFoundException {
 
     List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs = this.batchProcessService.getAllBatchProcessLogHeaders(token);
@@ -403,7 +417,8 @@ public class BatchProcessController {
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> releasePubItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.releasePubItems(itemIds, token);
@@ -418,7 +433,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(SOURCE_NUMBER) int sourceNumber, //
       @RequestParam(EDITION) String edition, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
@@ -432,7 +448,8 @@ public class BatchProcessController {
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "," + EXAMPLE_ALLOWED_AUDIENCE_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceFileAudience( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     List<String> allowedAudienceIds = convertJsonNode2List(parameters, PARAM_ALLOWED_AUDIENCE_IDS);
@@ -447,7 +464,8 @@ public class BatchProcessController {
   public ResponseEntity<BatchProcessLogHeaderDbVO> replaceKeywords( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(KEYWORDS) String keywords, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceKeywords(itemIds, keywords, token);
@@ -462,7 +480,8 @@ public class BatchProcessController {
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(CREATOR_ID) String creatorId, //
       @RequestParam(ORCID) String orcid, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.replaceOrcid(itemIds, creatorId, orcid, token);
@@ -475,7 +494,8 @@ public class BatchProcessController {
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> revisePubItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.revisePubItems(itemIds, token);
@@ -488,7 +508,8 @@ public class BatchProcessController {
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> submitPubItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.submitPubItems(itemIds, token);
@@ -501,7 +522,8 @@ public class BatchProcessController {
       content = @Content(examples = @ExampleObject("{" + EXAMPLE_ITEM_IDS + "}"))))
   public ResponseEntity<BatchProcessLogHeaderDbVO> withdrawPubItems( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody JsonNode parameters) throws AuthenticationException, AuthorizationException, IngeApplicationException {
+      @RequestBody JsonNode parameters) //
+      throws AuthenticationException, AuthorizationException, IngeApplicationException {
 
     List<String> itemIds = convertJsonNode2List(parameters, PARAM_ITEM_IDS);
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO = this.batchProcessService.withdrawPubItems(itemIds, token);
