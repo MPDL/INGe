@@ -103,10 +103,9 @@ public class MiscellaneousController {
     String responseBody = response.getBody();
     logger.info("ResponseBody:" + responseBody);
 
-    JSONArray authors;
     try {
-      authors = parseResult(responseBody);
-      return new ResponseEntity<>(authors.toString(), HttpStatus.OK);
+      String authors = parseResult(responseBody);
+      return new ResponseEntity<>(authors, HttpStatus.OK);
     } catch (Exception e) {
       throw new IngeApplicationException("Adding failed: please try again or contact your administrator");
     }
@@ -174,7 +173,7 @@ public class MiscellaneousController {
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  private JSONArray parseResult(String responseBody) {
+  private String parseResult(String responseBody) {
     Pattern pattern = Pattern.compile("```(.*?)```", Pattern.DOTALL);
     Matcher matcher = pattern.matcher(responseBody);
 
@@ -190,7 +189,7 @@ public class MiscellaneousController {
     JSONArray authors = new JSONArray(extractedJson);
 
 
-    return authors;
+    return authors.toString();
   }
 
   private Request prepareRequest(String data) {

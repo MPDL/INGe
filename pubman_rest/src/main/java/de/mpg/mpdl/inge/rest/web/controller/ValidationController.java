@@ -1,10 +1,12 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
+import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +22,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class ValidationController {
 
   private final ItemValidatingService itemValidatingService;
+  private final UtilServiceBean utilServiceBean;
 
-  public ValidationController(ItemValidatingService itemValidatingService) {
+  public ValidationController(ItemValidatingService itemValidatingService, UtilServiceBean utilServiceBean) {
     this.itemValidatingService = itemValidatingService;
+    this.utilServiceBean = utilServiceBean;
   }
 
   @RequestMapping(value = "/validateEventTitleRequired", method = RequestMethod.POST)
-  public ResponseEntity<?> validateEventTitleRequired( //
+  public ResponseEntity<ValidationReportVO> validateEventTitleRequired( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestBody EventVO eventVO) //
-      throws ValidationException, ValidationServiceException {
+      @RequestBody EventVO eventVO) throws AuthenticationException, IngeApplicationException {
 
-    this.itemValidatingService.validateEventTitleRequired(eventVO);
+    this.utilServiceBean.checkUser(token);
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    ValidationReportVO validationReportVO = this.itemValidatingService.validateEventTitleRequired(eventVO);
+
+    return new ResponseEntity<>(validationReportVO, HttpStatus.OK);
   }
 }

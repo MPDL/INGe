@@ -37,21 +37,16 @@ public class ItemValidatingService {
     }
   }
 
-  public void validateEventTitleRequired(EventVO eventVO) throws ValidationServiceException, ValidationException {
-    try {
-      FluentValidator vSimple = FluentValidator.checkAll().failOver().on(eventVO, new EventTitleRequiredValidator());
+  public ValidationReportVO validateEventTitleRequired(EventVO eventVO) {
+    FluentValidator validator = FluentValidator.checkAll().failOver().on(eventVO, new EventTitleRequiredValidator());
 
-      ComplexResult resultStandard = vSimple.doValidate().result(ResultCollectors.toComplex());
-      checkResult(resultStandard);
-    } catch (ValidationException e) {
-      throw e;
-    } catch (Exception e) {
-      logger.error("validate: " + eventVO, e);
-      throw new ValidationServiceException("validate:", e);
-    }
+    ComplexResult complexResult = validator.doValidate().result(ResultCollectors.toComplex());
+    ValidationReportVO validationReportVO = parseResult(complexResult);
+
+    return validationReportVO;
   }
 
-  private void checkResult(ComplexResult complexResult) throws ValidationException {
+  private ValidationReportVO parseResult(ComplexResult complexResult) {
     ValidationReportVO v = new ValidationReportVO();
 
     if (!complexResult.isSuccess()) {
@@ -62,10 +57,8 @@ public class ItemValidatingService {
         item.setElement(error.getField());
         v.addItem(item);
       }
-
-      logger.warn(complexResult);
-
-      throw new ValidationException(v);
     }
+
+    return v;
   }
 }
