@@ -12,7 +12,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * </iso:rule> </iso:pattern>
  */
 
-public class GenreRequiredValidator extends ValidatorHandler<MdsPublicationVO.Genre> {
+public class MdsPublicationGenreRequiredValidator extends ValidatorHandler<MdsPublicationVO.Genre> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO.Genre genre) {

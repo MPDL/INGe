@@ -22,15 +22,15 @@ import de.mpg.mpdl.inge.inge_validation.validator.ComponentsUriAsLocatorValidato
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsOrganizationsNameRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsWithOrganisationRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.MdsPublikationDateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationGenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredAndFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.SourcesGenreRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.SourcesTitleRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourceGenreRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourceTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
@@ -336,7 +336,7 @@ public class ValidationTest {
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new DateRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublikationDateRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -356,7 +356,7 @@ public class ValidationTest {
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateAccepted("01.01.2017");
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new DateRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublikationDateRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -376,7 +376,7 @@ public class ValidationTest {
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateCreated("01.01.2017");
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new DateRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublikationDateRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -396,7 +396,7 @@ public class ValidationTest {
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateModified("01.01.2017");
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new DateRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublikationDateRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -416,7 +416,7 @@ public class ValidationTest {
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDatePublishedInPrint("01.01.2017");
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new DateRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublikationDateRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -436,7 +436,7 @@ public class ValidationTest {
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
     this.mdsPublicationVO.setDateSubmitted("01.01.2017");
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new DateRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublikationDateRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -561,7 +561,8 @@ public class ValidationTest {
   public void testGenreRequired1() throws Exception {
     logger.info("--------------------- STARTING testGenreRequired1 ---------------------");
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator());
+    final FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(), new MdsPublicationGenreRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -580,7 +581,8 @@ public class ValidationTest {
 
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator());
+    final FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(), new MdsPublicationGenreRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -1176,7 +1178,7 @@ public class ValidationTest {
     s2.setTitle("blubb");
     this.pubItemVO.getMetadata().getSources().add(s2);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourceGenreRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -1203,7 +1205,7 @@ public class ValidationTest {
     s2.setGenre(SourceVO.Genre.ENCYCLOPEDIA);
     this.pubItemVO.getMetadata().getSources().add(s2);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourceGenreRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -1309,7 +1311,7 @@ public class ValidationTest {
     s13.getAlternativeTitles().add(new AlternativeTitleVO());
     this.pubItemVO.getMetadata().getSources().add(s13);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourceTitleRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -1391,7 +1393,7 @@ public class ValidationTest {
     s13.setTitle("blubb");
     this.pubItemVO.getMetadata().getSources().add(s13);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator());
+    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(), new SourceTitleRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 

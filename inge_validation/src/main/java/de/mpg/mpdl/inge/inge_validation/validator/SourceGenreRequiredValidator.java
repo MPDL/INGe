@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * and @type != '')"> SourceGenreNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class SourcesGenreRequiredValidator extends ValidatorHandler<List<SourceVO>> {
+public class SourceGenreRequiredValidator extends ValidatorHandler<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {

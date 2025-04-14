@@ -20,7 +20,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * DateNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class DateRequiredValidator extends ValidatorHandler<MdsPublicationVO> {
+public class MdsPublikationDateRequiredValidator extends ValidatorHandler<MdsPublicationVO> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
