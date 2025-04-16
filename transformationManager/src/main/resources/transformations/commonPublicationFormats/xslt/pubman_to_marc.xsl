@@ -44,7 +44,7 @@
 	<xsl:template match="escidocItem:properties|escidocComponents:components" xml:id="match-discard"/>
 	<xsl:template match="publication:publication[normalize-space(dc:title)]" xml:id="match-publication_publication" as="element(marc:record)">
 		<marc:record>
-			<xsl:variable name="date-entered-on-file" as="xs:string" select="if ($misc:run-in-testmode) then '991231' else format-date(current-date(), '[Y02][M02][D02]')"/>
+			<xsl:variable name="date-entered-on-file" as="xs:string" select="if ($misc:run-in-testmode) then '991231' else format-date(current-date(), '[Y01,2-2][M01][D01]')"/>
 			<xsl:variable name="year-of-publication" as="xs:string">
 				<xsl:variable name="temp" as="xs:string" select="substring(local:publication-date(.), 1, 4)"/>
 				<xsl:choose>
@@ -101,7 +101,7 @@
 					</xsl:variable>
 					<xsl:sequence select="distinct-values($every-lang-code)"/>
 				</xsl:variable>
-				<xsl:if test="$subfield-a-languages[2] or $subfield-b-languages[2] or ($subfield-a-languages[1] ne $subfield-b-languages[1])">
+				<xsl:if test="$subfield-a-languages[1] or $subfield-b-languages[1]">
 					<xsl:for-each select="$subfield-a-languages">
 						<xsl:sequence select="local:subfield('a', .)"/>
 					</xsl:for-each>
