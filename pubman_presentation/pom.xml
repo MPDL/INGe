@@ -81,6 +81,7 @@
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
 			<id>env-gfz</id>
 			<activation>
@@ -167,6 +168,7 @@
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
 			<id>env-gfz-test</id>
 			<activation>
@@ -339,6 +341,94 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<id>env-rifs-test</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties />
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.beardedgeeks</groupId>
+						<artifactId>maven-merge-properties-plugin</artifactId>
+						<version>0.2</version>
+						<configuration>
+							<merges>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/rifs/Label_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/rifs/Label_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Messages_de.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/rifs/Messages_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Messages_de.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Messages_en.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/rifs/Messages_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Messages_en.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Tooltip_de.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/rifs/Tooltip_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Tooltip_de.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Tooltip_en.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/rifs/Tooltip_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Tooltip_en.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+							</merges>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>merge</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<webResources>
+								<resource>
+									<targetPath>/home</targetPath>
+									<directory>${project.basedir}/src/main/webapp/home/rifs</directory>
+									<includes>
+										<include>StartPageLoggedIn.jspf</include>
+										<include>StartPageLoggedOut.jspf</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 		<profile>
 			<id>env-pik</id>
 			<activation>

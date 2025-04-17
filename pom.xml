@@ -1265,7 +1265,6 @@
 				<inge.pid.service.url />
 				<inge.pid.service.use>false</inge.pid.service.use>
 				<inge.pubman.blog.news />
-				<inge.pubman.build.mode>gfz</inge.pubman.build.mode>
 				<inge.pubman.contact.url />
 				<inge.pubman.footer.fileName />
 				<inge.pubman.help.url />
@@ -1316,7 +1315,6 @@
 				<inge.pid.service.url />
 				<inge.pid.service.use>false</inge.pid.service.use>
 				<inge.pubman.blog.news />
-				<inge.pubman.build.mode>gfz</inge.pubman.build.mode>
 				<inge.pubman.contact.url />
 				<inge.pubman.footer.fileName />
 				<inge.pubman.help.url />
@@ -1342,12 +1340,11 @@
             <properties>
 				<gfz.citation.style.use>true</gfz.citation.style.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
-                <gfz.oa.mail.adress />
-                <gfz.oa.mail.domain />
-                <gfz.oa.mail.subject />
-                <gfz.oa.mail.template />
+				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
+				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
+				<gfz.oa.mail.subject>RIFSpublic: Open Access</gfz.oa.mail.subject>
+				<gfz.oa.mail.template>OpenAccessMailRIFS.vm</gfz.oa.mail.template>
 				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
-				<inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
 				<inge.cone.cache.use>false</inge.cone.cache.use>
@@ -1358,7 +1355,8 @@
 				<inge.doi.service.create.url />
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
-				<inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
+				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
+				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
 				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
 				<inge.filestorage.seaweed_master_server_ip />
 				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,RIFSPROJECT,SSRN,URI,URN,ZDB</inge.id.types.to.display>
@@ -1367,23 +1365,73 @@
 				<inge.pid.service.url />
 				<inge.pid.service.use>false</inge.pid.service.use>
 				<inge.pubman.blog.news />
-				<inge.pubman.build.mode>rifs</inge.pubman.build.mode>
 				<inge.pubman.contact.url />
 				<inge.pubman.footer.fileName />
 				<inge.pubman.help.url />
 				<inge.pubman.logo.css>height:4em; padding-top:2.5em</inge.pubman.logo.css>
 				<inge.pubman.logo.url>/resources/images/rifs.png</inge.pubman.logo.url>
 				<inge.pubman.policy.url>https://www.rifs-potsdam.de/de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.policy.url>https://www.rifs-potsdam.de/de/datenschutz</inge.pubman.privacy.policy.url>
+				<inge.pubman.privacy.url>https://www.rifs-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
+				<inge.pubman.root.authors.icon>RIFS_authors</inge.pubman.root.authors.icon>
 				<inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.name>RIFS</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
-				<inge.pubman_presentation.overview_page.authors_ou>RIFS</inge.pubman_presentation.overview_page.authors_ou>
 				<inge.rest.development.file_url />
 				<inge.systemtype>production</inge.systemtype>
 			</properties>
         </profile>
 
-        <!-- activate this profile for an Pik build -->
+		<!-- activate this profile for an Rifs Test build -->
+		<profile>
+			<id>env-rifs-test</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<gfz.citation.style.use>true</gfz.citation.style.use>
+				<gfz.cone.reset.use>true</gfz.cone.reset.use>
+				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
+				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
+				<gfz.oa.mail.subject>RIFSpublic: Open Access</gfz.oa.mail.subject>
+				<gfz.oa.mail.template>OpenAccessMailRIFS.vm</gfz.oa.mail.template>
+				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
+				<inge.auth.mpg.ip.json.url />
+				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
+				<inge.cone.cache.use>false</inge.cone.cache.use>
+				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
+				<inge.cone.modelsxml.path>models_rifs.xml</inge.cone.modelsxml.path>
+				<inge.cone.subjectVocab />
+				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
+				<inge.doi.service.create.url />
+				<inge.doi.service.url />
+				<inge.doi.service.use>false</inge.doi.service.use>
+				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
+				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
+				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
+				<inge.filestorage.seaweed_master_server_ip />
+				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,RIFSPROJECT,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.pid.service.create.path />
+				<inge.pid.service.timeout>0</inge.pid.service.timeout>
+				<inge.pid.service.url />
+				<inge.pid.service.use>false</inge.pid.service.use>
+				<inge.pubman.blog.news />
+				<inge.pubman.contact.url />
+				<inge.pubman.footer.fileName />
+				<inge.pubman.help.url />
+				<inge.pubman.logo.css>height:4em; padding-top:2.5em</inge.pubman.logo.css>
+				<inge.pubman.logo.url>/resources/images/rifs.png</inge.pubman.logo.url>
+				<inge.pubman.policy.url>https://www.rifs-potsdam.de/de/impressum</inge.pubman.policy.url>
+				<inge.pubman.privacy.url>https://www.rifs-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
+				<inge.pubman.root.authors.icon>RIFS_authors</inge.pubman.root.authors.icon>
+				<inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.name>RIFS</inge.pubman.root.organization.name>
+				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
+				<inge.rest.development.file_url />
+				<inge.systemtype>production</inge.systemtype>
+			</properties>
+		</profile>
+
+		<!-- activate this profile for an Pik build -->
         <profile>
             <id>env-pik</id>
             <activation>
@@ -1417,19 +1465,17 @@
 				<inge.pid.service.url />
 				<inge.pid.service.use>false</inge.pid.service.use>
 				<inge.pubman.blog.news />
-				<inge.pubman.build.mode>pik</inge.pubman.build.mode>
 				<inge.pubman.contact.url />
 				<inge.pubman.footer.fileName />
 				<inge.pubman.help.url />
 				<inge.pubman.logo.css>height:4em; padding-top:2.5em</inge.pubman.logo.css>
 				<inge.pubman.logo.url>/resources/images/pik.svg</inge.pubman.logo.url>
 				<inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.policy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.policy.url>
+				<inge.pubman.privacy.url>https://www.pik-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
 				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
 				<inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
-				<inge.pubman_presentation.overview_page.authors_ou>PIK</inge.pubman_presentation.overview_page.authors_ou>
 				<inge.rest.development.file_url />
 				<inge.systemtype>production</inge.systemtype>
 			</properties>
@@ -1469,19 +1515,17 @@
 				<inge.pid.service.url />
 				<inge.pid.service.use>false</inge.pid.service.use>
 				<inge.pubman.blog.news />
-				<inge.pubman.build.mode>pik</inge.pubman.build.mode>
 				<inge.pubman.contact.url />
 				<inge.pubman.footer.fileName />
 				<inge.pubman.help.url />
 				<inge.pubman.logo.css>height:4em; padding-top:2.5em</inge.pubman.logo.css>
 				<inge.pubman.logo.url>/resources/images/pik.svg</inge.pubman.logo.url>
 				<inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.policy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.policy.url>
+				<inge.pubman.privacy.url>https://www.pik-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
 				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
 				<inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
-				<inge.pubman_presentation.overview_page.authors_ou>PIK</inge.pubman_presentation.overview_page.authors_ou>
 				<inge.rest.development.file_url />
 				<inge.systemtype>production</inge.systemtype>
 			</properties>
