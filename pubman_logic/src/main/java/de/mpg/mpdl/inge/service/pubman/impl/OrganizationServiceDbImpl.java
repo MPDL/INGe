@@ -66,7 +66,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   private static final Logger logger = Logger.getLogger(OrganizationServiceDbImpl.class);
 
-  private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+  private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_ID);
 
   private List<String> allChildrenOfMpg = new ArrayList<String>();
 
@@ -84,7 +84,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns all top-level affiliations.
-   * 
+   *
    * @return all top-level affiliations
    * @throws Exception if framework access fails
    */
@@ -103,7 +103,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns all first-level affiliations.
-   * 
+   *
    * @return all first-level affiliations
    * @throws Exception if framework access fails
    */
@@ -134,9 +134,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns next child affiliations of a given affiliation.
-   * 
+   *
    * @param parentAffiliationId The parent affiliation
-   * 
+   *
    * @return next child affiliations
    * @throws Exception if framework access fails
    */
@@ -154,9 +154,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   /**
    * Returns all child affiliations of given affiliations.
-   * 
+   *
    * @param parentAffiliationIds The parent affiliations
-   * 
+   *
    * @return all child affiliations
    * @throws Exception if framework access fails
    */

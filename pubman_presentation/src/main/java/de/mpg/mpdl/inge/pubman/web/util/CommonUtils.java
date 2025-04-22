@@ -438,7 +438,7 @@ public class CommonUtils {
     final List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) != null
-          && PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID).equals(list.get(i).getObjectId())) {
+          && PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_ID).equals(list.get(i).getObjectId())) {
         affiliationList.add(0, new AffiliationVOPresentation(list.get(i)));
       } else {
         affiliationList.add(new AffiliationVOPresentation(list.get(i)));

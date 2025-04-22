@@ -87,7 +87,7 @@ public class GfzTools {
         }
 
         if (rowCount == 0) {
-          ouID = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+          ouID = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_ID);
           logger.info("Relation to affiliation but no affiliations found, selecting " + ouID + " and updating existing relation..");
 
           query = "insert into triples values (?, ?, ?, null, null ), (?, ?, ?, null, null);";
@@ -111,7 +111,7 @@ public class GfzTools {
         statement.close();
       }
     } else {
-      ouID = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+      ouID = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_ID);
       logger.info("No affiliations found, selecting " + ouID + " and inserting relation..");
       String relationId = "gfzPeopleID:".concat(id.substring(id.lastIndexOf('/') + 1, id.length()));
 

@@ -35,8 +35,8 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
     }
 
     map.put("source-name", "edoc");
-    map.put("root-ou", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID));
-    map.put("external-ou", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+    map.put("root-ou", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_ID));
+    map.put("external-ou", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
     map.put("frameworkUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
 
     return map;

@@ -149,7 +149,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_COMPONENT_PATTERN = "inge.pubman.component.pattern";
   public static final String INGE_PUBMAN_COOKIE_VERSION = "inge.pubman.cookie.version";
   public static final String INGE_PUBMAN_CSL_EDITOR_INSTANCE = "inge.pubman.csl_editor.instance";
-  public static final String INGE_PUBMAN_EXTERNAL_ORGANISATION_ID = "inge.pubman.external.organisation.id";
+  public static final String INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID = "inge.pubman.external.organization.id";
   public static final String INGE_PUBMAN_FAVICON_APPLY = "inge.pubman.favicon.apply";
   public static final String INGE_PUBMAN_FAVICON_URL = "inge.pubman.favicon.url";
   public static final String INGE_PUBMAN_FOOTER_FILENAME = "inge.pubman.footer.fileName";
@@ -167,7 +167,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_PRESENTATION_VIEWFULLITEM_DEFAULTSIZE = "inge.pubman_presentation.viewFullItem.defaultSize";
   public static final String INGE_PUBMAN_PRIVACY_URL = "inge.pubman.privacy.url";
   public static final String INGE_PUBMAN_ROOT_AUTHORS_ICON = "inge.pubman.root.authors.icon";
-  public static final String INGE_PUBMAN_ROOT_ORGANISATION_ID = "inge.pubman.root.organisation.id";
+  public static final String INGE_PUBMAN_ROOT_ORGANIZATION_ID = "inge.pubman.root.organization.id";
   public static final String INGE_PUBMAN_ROOT_ORGANIZATION_NAME = "inge.pubman.root.organization.name";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";

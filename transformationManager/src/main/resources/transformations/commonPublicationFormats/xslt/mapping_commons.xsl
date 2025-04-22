@@ -34,7 +34,7 @@
 	<xsl:param name="misc:anonymous-name" as="xs:string?">Anonymous</xsl:param>
 	<xsl:param name="misc:anonymous-organization-name" as="xs:string?">unknown organization</xsl:param>
 	<xsl:param name="misc:default-organization-name" as="xs:string?">External Affiliation</xsl:param>
-	<xsl:param name="inge.pubman.external.organisation.id" as="xs:string?">${inge.pubman.external.organisation.id}</xsl:param>
+	<xsl:param name="inge.pubman.external.organization.id" as="xs:string?">${inge.pubman.external.organization.id}</xsl:param>
 	<xsl:param name="misc:doi-resolver-prefix" as="xs:anyURI">https://doi.org/</xsl:param>
 	<xsl:param name="Flavor" as="xs:string" select="'other'"/>
 	<xsl:param name="misc:run-in-testmode" as="xs:boolean" select="false()"/>
@@ -60,7 +60,7 @@
 	<xsl:variable name="hidden:cone-query-suffix-list" as="xs:string" select="'&amp;format=rdf'"/>
 	<xsl:variable name="hidden:cone-query-prefix-detail" as="xs:string" select="concat($hidden:inge.cone.service.url, 'persons/resource/')"/>
 	<xsl:variable name="hidden:cone-query-suffix-detail" as="xs:string" select="'?format=rdf'"/>
-	<xsl:variable name="hidden:write-default-organization-id" as="xs:boolean" select="$misc:write-default-organization and normalize-space($inge.pubman.external.organisation.id)"/>
+	<xsl:variable name="hidden:write-default-organization-id" as="xs:boolean" select="$misc:write-default-organization and normalize-space($inge.pubman.external.organization.id)"/>
 	<xsl:template name="misc:make_escidocItemList-item-list" as="element(escidocItemList:item-list)">
 		<xsl:param name="escidocItem:item" as="element(escidocItem:item)*" required="yes"/>
 		<escidocItemList:item-list>
@@ -243,7 +243,7 @@
 						<xsl:with-param name="dc:title" select="misc:create_dc-title($misc:default-organization-name)"/>
 						<xsl:with-param name="dc:identifier" as="element(dc:identifier)?">
 							<xsl:if test="$hidden:write-default-organization-id">
-								<xsl:sequence select="misc:create_dc-identifier('', $inge.pubman.external.organisation.id)"/>
+								<xsl:sequence select="misc:create_dc-identifier('', $inge.pubman.external.organization.id)"/>
 							</xsl:if>
 						</xsl:with-param>
 					</xsl:call-template>
@@ -1768,7 +1768,7 @@
 		</xsl:call-template>
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">TRACE</xsl:with-param>
-			<xsl:with-param name="message">[mapping-commons.xsl#hidden:all-cone-datasets-refer-to-same-person] count($cone-element/rdf:RDF): 
+			<xsl:with-param name="message">[mapping-commons.xsl#hidden:all-cone-datasets-refer-to-same-person] count($cone-element/rdf:RDF):
 				<xsl:sequence select="count($cone-element/rdf:RDF)"/>
 			</xsl:with-param>
 			<xsl:with-param name="show-context" select="false()"/>
@@ -1827,7 +1827,7 @@
 			<xsl:when test="$organization:organization/dc:title/normalize-space() eq normalize-space($misc:default-organization-name)">
 				<xsl:sequence select="true()"/>
 			</xsl:when>
-			<xsl:when test="$organization:organization/dc:identifier/normalize-space() eq normalize-space($inge.pubman.external.organisation.id)">
+			<xsl:when test="$organization:organization/dc:identifier/normalize-space() eq normalize-space($inge.pubman.external.organization.id)">
 				<xsl:sequence select="true()"/>
 			</xsl:when>
 			<xsl:otherwise>

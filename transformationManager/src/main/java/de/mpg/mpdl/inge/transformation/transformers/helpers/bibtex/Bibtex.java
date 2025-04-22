@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 /*
@@ -79,7 +79,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Implementation of BibTex transformation.
- * 
+ *
  * @author kleinfe1 (initial creation)
  * @author $Author: MWalter $ (last modification)
  * @version $Revision: 5725 $ $LastChangedDate: 2015-10-07 14:43:23 +0200 (Wed, 07 Oct 2015) $
@@ -92,7 +92,7 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * sets the configuration-settings
-   * 
+   *
    * @param configuration
    */
   public void setConfiguration(Map<String, String> configuration) {
@@ -685,7 +685,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
-                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -1010,7 +1010,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
-                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -1054,9 +1054,9 @@ public class Bibtex implements BibtexInterface {
           OrganizationVO externalOrganization = new OrganizationVO();
           externalOrganization.setName("External Organizations");
           try {
-            externalOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+            externalOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
           } catch (Exception e) {
-            throw new RuntimeException("Property inge.pubman.external.organisation.id not found", e);
+            throw new RuntimeException("Property inge.pubman.external.organization.id not found", e);
           }
           if (mds.getCreators().get(0).getPerson() != null) {
             mds.getCreators().get(0).getPerson().getOrganizations().add(externalOrganization);
@@ -1267,7 +1267,7 @@ public class Bibtex implements BibtexInterface {
       organization.setName(affiliation);
       organization.setAddress(affiliationAddress);
       try {
-        organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+        organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
@@ -1279,7 +1279,7 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * Checks if date1 is before date2.
-   * 
+   *
    * @param date1 A date in one of the formats "YYYY", "YYYY-MM" or "YYYY-MM-DD"
    * @param date2 A date in one of the formats "YYYY", "YYYY-MM" or "YYYY-MM-DD"
    * @return Returns true if date1 is before date2
@@ -1295,7 +1295,7 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * Get group classification from CoNE.
-   * 
+   *
    * @return A set containing MPIS groups.
    * @throws Exception
    */
@@ -1320,7 +1320,7 @@ public class Bibtex implements BibtexInterface {
 
   /**
    * Get project classification from CoNE.
-   * 
+   *
    * @return A set containing MPIS projects.
    * @throws Exception
    */

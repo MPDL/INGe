@@ -71,7 +71,7 @@
 								<familyName>
 									<xsl:value-of select="./eterms:family-name"/>
 								</familyName>
-								<xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
+								<xsl:for-each select="./organization:organization[dc:title != 'External Organizations']">
 									<affiliation>
 										<xsl:value-of select="./dc:title"/>
 									</affiliation>
@@ -98,7 +98,7 @@
 								<familyName>
 									<xsl:value-of select="./eterms:family-name"/>
 								</familyName>
-								<xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
+								<xsl:for-each select="./organization:organization[dc:title != 'External Organizations']">
 									<affiliation>
 										<xsl:value-of select="./dc:title"/>
 									</affiliation>

@@ -1073,7 +1073,7 @@
 		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
 		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
 		<inge.pubman.csl_editor.instance>http://editor.citationstyles.org</inge.pubman.csl_editor.instance>
-		<inge.pubman.external.organisation.id>ou_persistent22</inge.pubman.external.organisation.id>
+		<inge.pubman.external.organization.id>ou_persistent22</inge.pubman.external.organization.id>
 		<inge.pubman.favicon.apply>true</inge.pubman.favicon.apply>
 		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
 		<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
@@ -1089,7 +1089,7 @@
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
 		<inge.pubman.privacy.url />
 		<inge.pubman.root.authors.icon />
-		<inge.pubman.root.organisation.id />
+		<inge.pubman.root.organization.id />
 		<inge.pubman.root.organization.name />
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
@@ -1226,7 +1226,7 @@
 				<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>MPG_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>Max Planck Society</inge.pubman.root.organization.name>
 			</properties>
 		</profile>
@@ -1273,7 +1273,7 @@
 				<inge.pubman.policy.url>https://www.gfz-potsdam.de/impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>GFZ_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>GFZ</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.rest.development.file_url />
@@ -1323,7 +1323,7 @@
 				<inge.pubman.policy.url>https://www.gfz-potsdam.de/impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>GFZ_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>GFZ</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.rest.development.file_url />
@@ -1373,7 +1373,7 @@
 				<inge.pubman.policy.url>https://www.rifs-potsdam.de/de/impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.url>https://www.rifs-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>RIFS_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.id>ou_96022</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>RIFS</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.rest.development.file_url />
@@ -1423,7 +1423,7 @@
 				<inge.pubman.policy.url>https://www.rifs-potsdam.de/de/impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.url>https://www.rifs-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>RIFS_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.id>ou_96022</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>RIFS</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.rest.development.file_url />
@@ -1473,7 +1473,7 @@
 				<inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.url>https://www.pik-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.rest.development.file_url />
@@ -1523,7 +1523,7 @@
 				<inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.url>https://www.pik-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
-				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.rest.development.file_url />
