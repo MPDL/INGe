@@ -279,7 +279,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
                                 <font-triplet name="Go Noto" style="normal" weight="bold"/>
                                 <font-triplet name="Go Noto" style="italic" weight="bold"/>
                             </font>
-                            <!-- Math font containing math symbols
+                            <!-- Math font containing math symbols -->
                              <font simulate-style="true" embed-url="{{embed_math_font_url}}">
                                 <font-triplet name="Noto Math" style="normal" weight="normal"/>
                                 <font-triplet name="Noto Math" style="italic" weight="normal"/>
