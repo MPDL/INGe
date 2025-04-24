@@ -29,7 +29,7 @@ public class MabXmlToItemXml extends XslTransformer {
       map.put("is-item-list", Boolean.TRUE);
     }
     map.put("localPrefix", PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_MAB_CONTENT_URL_PREFIX));
-    map.put("external-organization", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+    map.put("external-organization", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
 
     return map;
   }

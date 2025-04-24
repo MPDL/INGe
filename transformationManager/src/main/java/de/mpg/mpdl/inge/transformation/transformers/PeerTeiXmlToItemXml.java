@@ -29,7 +29,7 @@ public class PeerTeiXmlToItemXml extends XslTransformer {
       map.put("is-item-list", Boolean.TRUE);
     }
 
-    map.put("external_organisation_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+    map.put("external_organization_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
 
     return map;
   }

@@ -335,7 +335,7 @@ public class ItemControllerSessionBean extends FacesBean {
       newPerson.setIdentifier(new IdentifierVO());
       newPerson.getIdentifier().setType(IdentifierVO.IdType.CONE);
       OrganizationVO newPersonOrganization = new OrganizationVO();
-      newPersonOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+      newPersonOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
       newPerson.getOrganizations().add(newPersonOrganization);
       newCreator.setPerson(newPerson);
       newPubItem.getMetadata().getCreators().add(newCreator);

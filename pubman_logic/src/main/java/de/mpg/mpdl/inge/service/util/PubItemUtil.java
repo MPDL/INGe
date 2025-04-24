@@ -106,13 +106,13 @@ public class PubItemUtil {
 
       for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
         if (null == organization.getIdentifier() || organization.getIdentifier().isEmpty()) {
-          organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+          organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
         }
       }
     } else {
       if (null != creator.getOrganization()
           && (null == creator.getOrganization().getIdentifier() || creator.getOrganization().getIdentifier().isEmpty())) {
-        creator.getOrganization().setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+        creator.getOrganization().setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
       }
     }
   }

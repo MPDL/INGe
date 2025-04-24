@@ -21,7 +21,7 @@ public class PmcOaiPmhXmlToComponentXml extends XslTransformer {
   @Override
   public Map<String, Object> getParameters() {
     Map<String, Object> map = new HashMap<>();
-    map.put("external_organization_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+    map.put("external_organization_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
     return map;
   }
 

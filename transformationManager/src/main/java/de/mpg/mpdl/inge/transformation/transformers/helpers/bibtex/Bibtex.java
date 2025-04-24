@@ -672,7 +672,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   if (null != affiliation) {
                     OrganizationVO organization = new OrganizationVO();
-                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -986,7 +986,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   if (null != affiliation) {
                     OrganizationVO organization = new OrganizationVO();
-                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -1030,9 +1030,9 @@ public class Bibtex implements BibtexInterface {
           OrganizationVO externalOrganization = new OrganizationVO();
           externalOrganization.setName("External Organizations");
           try {
-            externalOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+            externalOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
           } catch (Exception e) {
-            throw new RuntimeException("Property inge.pubman.external.organisation.id not found", e);
+            throw new RuntimeException("Property inge.pubman.external.organization.id not found", e);
           }
           if (null != mds.getCreators().get(0).getPerson()) {
             mds.getCreators().get(0).getPerson().getOrganizations().add(externalOrganization);
@@ -1243,7 +1243,7 @@ public class Bibtex implements BibtexInterface {
       organization.setName(affiliation);
       organization.setAddress(affiliationAddress);
       try {
-        organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+        organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
       } catch (Exception e) {
         throw new RuntimeException(e);
       }

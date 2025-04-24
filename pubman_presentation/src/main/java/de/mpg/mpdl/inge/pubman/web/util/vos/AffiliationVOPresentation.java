@@ -103,7 +103,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
   public boolean getMps() {
     try {
-      String rootAffiliationMPG = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+      String rootAffiliationMPG = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_ID);
 
       return this.getObjectId().equals(rootAffiliationMPG);
     } catch (Exception e) {

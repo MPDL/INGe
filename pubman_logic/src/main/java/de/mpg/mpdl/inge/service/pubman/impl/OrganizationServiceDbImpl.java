@@ -63,7 +63,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   private static final Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
-  private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+  private final String mpgId = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_ID);
 
   //  private List<String> allChildrenOfMpg = new ArrayList<>();
 

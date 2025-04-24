@@ -250,7 +250,7 @@
 			<xsl:choose>
 				<!-- if no parents anymore, check MPG -->
 				<xsl:when test="not($ou/organizational-unit:parents/srel:parent)">
-					<xsl:attribute name="mpg" select="if ($ou/@xlink:href='/oum/organizational-unit/${inge.pubman.root.organisation.id}') then 'true' else 'false'"/>
+					<xsl:attribute name="mpg" select="if ($ou/@xlink:href='/oum/organizational-unit/${inge.pubman.root.organization.id}') then 'true' else 'false'"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="getOU">
@@ -316,4 +316,4 @@
 		<xsl:param name="d" />
 		<xsl:value-of select="$d"/>
 	</xsl:function>
-</xsl:stylesheet>   
+</xsl:stylesheet>
