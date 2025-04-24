@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.mpg.mpdl.inge.transformation.results.TransformerResult;
+import de.mpg.mpdl.inge.transformation.results.TransformerWrapper;
+import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
@@ -51,7 +54,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
   private byte[] getOutputDataForExport(ExportFormatVO exportFormat, List<ItemVersionVO> itemList,
       SearchRetrieveResponseVO<ItemVersionVO> searchResult) throws IngeTechnicalException {
     try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-      getOutputStreamForExport(exportFormat, itemList, searchResult, os);
+      TransformerWrapper tw = getOutputStreamForExport(exportFormat, itemList, searchResult);
+      tw.executeTransformation(new TransformerStreamResult(os));
       os.flush();
       return os.toByteArray();
     } catch (IOException e) {
@@ -60,8 +64,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
 
   }
 
-  private void getOutputStreamForExport(ExportFormatVO exportFormat, List<ItemVersionVO> itemList,
-      SearchRetrieveResponseVO<ItemVersionVO> searchResult, OutputStream os) throws IngeTechnicalException {
+  private TransformerWrapper getOutputStreamForExport(ExportFormatVO exportFormat, List<ItemVersionVO> itemList,
+      SearchRetrieveResponseVO<ItemVersionVO> searchResult) throws IngeTechnicalException {
     try {
       if (null == searchResult) {
         searchResult = new SearchRetrieveResponseVO<>();
@@ -75,19 +79,15 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
         }
         searchResult.setRecords(recordList);
       }
+      Transformer trans = TransformerFactory.newTransformer(TransformerFactory.FORMAT.SEARCH_RESULT_VO,
+          TransformerFactory.getFormat(exportFormat.getFormat()));
+      trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CITATION, exportFormat.getCitationName());
+      trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CSL_ID, exportFormat.getId());
 
-      if (exportFormat.getFormat().equals(TransformerFactory.FORMAT.JSON.getName())) {
-        MapperFactory.getObjectMapper().writeValue(os, searchResult);
-      } else {
-        //ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        Transformer trans = TransformerFactory.newTransformer(TransformerFactory.FORMAT.SEARCH_RESULT_VO,
-            TransformerFactory.getFormat(exportFormat.getFormat()));
-        trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CITATION, exportFormat.getCitationName());
-        trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CSL_ID, exportFormat.getId());
-        trans.transform(new TransformerVoSource(searchResult), new TransformerStreamResult(os));
+      return new TransformerWrapper(trans, new TransformerVoSource(searchResult));
 
-        //return bos.toByteArray();
-      }
+      //return bos.toByteArray();
+
     } catch (Exception e) {
       logger.warn("Exception occured when transforming from <" + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
           + exportFormat.getFormat());
@@ -97,9 +97,15 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
   }
 
   @Override
-  public void getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr, OutputStream os)
+  public TransformerWrapper getTransformationForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr)
       throws IngeTechnicalException {
-    getOutputStreamForExport(exportFormat, null, srr, os);
+    return getOutputStreamForExport(exportFormat, null, srr);
+  }
+
+  @Override
+  public TransformerWrapper getTransformationForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList)
+      throws IngeTechnicalException {
+    return getOutputStreamForExport(exportFormat, pubItemVOList, null);
   }
 
   @Override
@@ -112,11 +118,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
     return getOutputDataForExport(exportFormat, pubItemVOList, null);
   }
 
-  @Override
-  public void getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList, OutputStream os)
-      throws IngeTechnicalException {
-    getOutputStreamForExport(exportFormat, pubItemVOList, null, os);
-  }
+
 
   @Override
   public TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target) {
@@ -165,4 +167,6 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
   public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat) {
     return TransformerFactory.isTransformationExisting(sourceFormat, targetFormat);
   }
+
+
 }

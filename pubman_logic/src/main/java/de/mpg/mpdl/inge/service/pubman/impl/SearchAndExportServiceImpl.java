@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.*;
+import de.mpg.mpdl.inge.transformation.results.TransformerWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -37,15 +38,15 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
       throws IngeTechnicalException {
 
     byte[] result = this.itemTransformingService.getOutputForExport(exportFormat, itemList);
-    return getSearchAndExportResult(result, exportFormat, null, itemList);
+    return getSearchAndExportResult(result, exportFormat, null, itemList, null);
   }
 
   @Override
-  public SearchAndExportResultVO exportItems(ExportFormatVO exportFormat, List<ItemVersionVO> itemList, OutputStream os, String token)
+  public SearchAndExportResultVO exportItemsWrapped(ExportFormatVO exportFormat, List<ItemVersionVO> itemList, String token)
       throws IngeTechnicalException {
 
-    this.itemTransformingService.getOutputForExport(exportFormat, itemList, os);
-    return getSearchAndExportResult(null, exportFormat, null, itemList);
+    TransformerWrapper tw = this.itemTransformingService.getTransformationForExport(exportFormat, itemList);
+    return getSearchAndExportResult(null, exportFormat, null, itemList, tw);
   }
 
   @Override
@@ -57,23 +58,23 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
 
     byte[] result = this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), srrVO);
 
-    return getSearchAndExportResult(result, saerrVO.getExportFormat(), srrVO, null);
+    return getSearchAndExportResult(result, saerrVO.getExportFormat(), srrVO, null, null);
   }
 
   @Override
-  public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, OutputStream os, String token)
+  public SearchAndExportResultVO searchAndExportItemsWrapped(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
     //saerrVO.setSearchRetrieveReponseVO(srrVO);
 
-    this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), srrVO, os);
+    TransformerWrapper tw = this.itemTransformingService.getTransformationForExport(saerrVO.getExportFormat(), srrVO);
 
-    return getSearchAndExportResult(null, saerrVO.getExportFormat(), srrVO, null);
+    return getSearchAndExportResult(null, saerrVO.getExportFormat(), srrVO, null, tw);
   }
 
   private SearchAndExportResultVO getSearchAndExportResult(byte[] result, ExportFormatVO exportFormat, SearchRetrieveResponseVO srrVO,
-      List<ItemVersionVO> itemList) {
+      List<ItemVersionVO> itemList, TransformerWrapper tw) {
     String fileName;
     String targetMimeType;
     int totalNumberOfRecords = srrVO != null ? srrVO.getNumberOfRecords() : itemList.size();
@@ -83,10 +84,17 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     fileName = exportFormat.getFormat() + "." + format.getFileFormat().getExtension();
     targetMimeType = format.getFileFormat().getMimeType();
 
-    SearchAndExportResultVO saervo = new SearchAndExportResultVO(result, fileName, targetMimeType, totalNumberOfRecords);
-    saervo.setSearchRetrieveResponseVO(srrVO);
+    if (tw != null) {
+      ExtendedSearchAndExportResultVO saervo = new ExtendedSearchAndExportResultVO(tw, fileName, targetMimeType, totalNumberOfRecords);
+      saervo.setSearchRetrieveResponseVO(srrVO);
+      return saervo;
+    } else {
+      SearchAndExportResultVO saervo = new SearchAndExportResultVO(result, fileName, targetMimeType, totalNumberOfRecords);
+      saervo.setSearchRetrieveResponseVO(srrVO);
+      return saervo;
+    }
 
-    return saervo;
+
   }
 
 
@@ -98,6 +106,26 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     }
 
     return searchResult;
+  }
+
+  public class ExtendedSearchAndExportResultVO extends SearchAndExportResultVO {
+
+    TransformerWrapper transformerWrapper;
+
+    public ExtendedSearchAndExportResultVO(TransformerWrapper tw, String fileName, String targetMimeType, int totalNumberOfRecords) {
+      super(null, fileName, targetMimeType, totalNumberOfRecords);
+      this.transformerWrapper = tw;
+    }
+
+    public TransformerWrapper getTransformerWrapper() {
+      return transformerWrapper;
+    }
+
+    public void setTransformerWrapper(TransformerWrapper transformerWrapper) {
+      this.transformerWrapper = transformerWrapper;
+    }
+
+
   }
 
 

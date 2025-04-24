@@ -325,62 +325,62 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   }
 
 
-    public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
 
-      String citation =
-              "Tester, M. <span class=\"DisplayDateStatus\" style=\"font-weight: bold;\">(2000).</span> <span style=\"font-style: italic;\">Book with special char É and <sup>high</sup> and <sub>low</sub> and &lt;person>&lt;/person> and ψ( → |+ l−) and <b>宅中图</b> <i>大朱元</i>璋与南京营造漢詩 ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ모든인간</span>.";
+    String citation =
+        "Tester, M. <span class=\"DisplayDateStatus\" style=\"font-weight: bold;\">(2000).</span> <span style=\"font-style: italic;\">Book with special char É and <sup>high</sup> and <sub>low</sub> and &lt;person>&lt;/person> and ψ( → |+ l−) and <b>宅中图</b> <i>大朱元</i>璋与南京营造漢詩 ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ모든인간</span>.";
 
-      String basePath = System.getProperty("user.dir");
+    String basePath = System.getProperty("user.dir");
 
-      Path pdfFilePath = Paths.get(basePath,"Downloads/output.pdf");
-      Files.deleteIfExists(pdfFilePath);
-      Path pdfFile = Files.createFile(pdfFilePath);
+    Path pdfFilePath = Paths.get(basePath, "Downloads/output.pdf");
+    Files.deleteIfExists(pdfFilePath);
+    Path pdfFile = Files.createFile(pdfFilePath);
 
-      Path wordFilePath = Paths.get(basePath,"Downloads/output.docx");
-      Files.deleteIfExists(wordFilePath);
-      Path wordFile = Files.createFile(wordFilePath);
+    Path wordFilePath = Paths.get(basePath, "Downloads/output.docx");
+    Files.deleteIfExists(wordFilePath);
+    Path wordFile = Files.createFile(wordFilePath);
 
-      Path fopFilePath = Paths.get(basePath,"Downloads/output_fop.xml");
-      Files.deleteIfExists(fopFilePath);
-      Path fopFile = Files.createFile(fopFilePath);
+    Path fopFilePath = Paths.get(basePath, "Downloads/output_fop.xml");
+    Files.deleteIfExists(fopFilePath);
+    Path fopFile = Files.createFile(fopFilePath);
 
-      Path fopConfigFilePath = Paths.get(basePath,"Downloads/output_fop_config.xml");
-      Files.deleteIfExists(fopConfigFilePath);
-      Path fopConfigFile = Files.createFile(fopConfigFilePath);
+    Path fopConfigFilePath = Paths.get(basePath, "Downloads/output_fop_config.xml");
+    Files.deleteIfExists(fopConfigFilePath);
+    Path fopConfigFile = Files.createFile(fopConfigFilePath);
 
-      //ImportXHTMLProperties.setProperty("docx4j-ImportXHTML.fonts.default.serif", "");
-      //ImportXHTMLProperties.setProperty("docx4j-ImportXHTML.fonts.default.sans-serif", "");
-      //ImportXHTMLProperties.setProperty("docx4j-ImportXHTML.fonts.default.monospace", "");
+    //ImportXHTMLProperties.setProperty("docx4j-ImportXHTML.fonts.default.serif", "");
+    //ImportXHTMLProperties.setProperty("docx4j-ImportXHTML.fonts.default.sans-serif", "");
+    //ImportXHTMLProperties.setProperty("docx4j-ImportXHTML.fonts.default.monospace", "");
 
-      Document xhtmlDoc = new Document("");
-      xhtmlDoc.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
-      xhtmlDoc.outputSettings().charset("UTF-8");
+    Document xhtmlDoc = new Document("");
+    xhtmlDoc.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
+    xhtmlDoc.outputSettings().charset("UTF-8");
 
-      //xhtmlDoc.attr("xmlns", "http://www.w3.org/1999/xhtml");
-      for (int i = 0; i < 2; i++) {
-        xhtmlDoc.body().appendElement("p").html(citation);
-      }
-      xhtmlDoc.firstElementChild().attr("xmlns", "http://www.w3.org/1999/xhtml");
-      //xhtmlDoc.body().attr("style","font-family: Go Noto;").html(citation);
-      System.out.println(xhtmlDoc.toString());
-      //xhtmlDoc.body().attr("style", "font-family: Go Noto;");
+    //xhtmlDoc.attr("xmlns", "http://www.w3.org/1999/xhtml");
+    for (int i = 0; i < 2; i++) {
+      xhtmlDoc.body().appendElement("p").html(citation);
+    }
+    xhtmlDoc.firstElementChild().attr("xmlns", "http://www.w3.org/1999/xhtml");
+    //xhtmlDoc.body().attr("style","font-family: Go Noto;").html(citation);
+    System.out.println(xhtmlDoc.toString());
+    //xhtmlDoc.body().attr("style", "font-family: Go Noto;");
 
 
     /*
-
+    
     WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
-
+    
     MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
-
+    
     // Set global space after each paragrap
     PPr ppr = new PPr();
     PPrBase.Spacing spacing = new PPrBase.Spacing();
     spacing.setAfter(BigInteger.valueOf(400));
     ppr.setSpacing(spacing);
     mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);
-
-
-
+    
+    
+    
     XHTMLImporterImpl xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
     RFonts rfontMapping = new RFonts();
     rfontMapping.setAscii("Go Noto");
@@ -391,110 +391,106 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     xhtmlImporter.addFontMapping("sans-serif", rfontMapping);
     xhtmlImporter.addFontMapping("monospace", rfontMapping);
     List<Object> xhtmlObjects = xhtmlImporter.convert(xhtmlDoc.html(), null);
-
+    
     mdp.getContent().addAll(xhtmlObjects);
-
-
-
+    
+    
+    
     //ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
+    
     //Docx4jProperties.setProperty("docx4j.fonts.fop.util.FopConfigUtil.simulate-style", true);
     PhysicalFonts.setRegex("useOnlyLocalFonts");
-
+    
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-Regular.ttf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-Bold.ttf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-Italic.ttf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-BoldItalic.ttf"));
-
+    
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSansSC-Bold.otf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSansSC-Regular.otf"));
-
-
-
+    
+    
+    
     PhysicalFonts.addPhysicalFont(
         ResourceUtil.getResourceAsFile("fonts/GoNotoKurrent-Regular.ttf", CitationTransformer.class.getClassLoader()).toURI());
     PhysicalFonts.addPhysicalFont(
         ResourceUtil.getResourceAsFile("fonts/GoNotoKurrent-Bold.ttf", CitationTransformer.class.getClassLoader()).toURI());
-
-
+    
+    
     //PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/Noto_Sans,Roboto/Noto_Sans/NotoSans-Italic-VariableFont_wdth,wght.ttf"));
     //PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/NotoSansCJKsc-VF.ttf"));
-
+    
     Mapper fontMapper = new IdentityPlusMapper();
     fontMapper.registerRegularForm("Go Noto", PhysicalFonts.get("Go Noto Kurrent-Regular Regular"));
     fontMapper.registerBoldForm("Go Noto", PhysicalFonts.get("Go Noto Kurrent-Bold Bold"));
-
+    
     //fontMapper.put("Arial", PhysicalFonts.get("Arial Unicode MS"));
     //fontMapper.registerRegularForm("Noto Sans", PhysicalFonts.get("Noto Sans Regular"));
     //fontMapper.registerBoldForm("Noto Sans", PhysicalFonts.get("Noto Sans Bold"));
     //fontMapper.registerItalicForm("Noto Sans", PhysicalFonts.get("Noto Sans Italic"));
     //fontMapper.registerBoldItalicForm("Noto Sans", PhysicalFonts.get("Noto Sans Bold Italic"));
-
+    
     //fontMapper.registerBoldForm("Noto Sans SC", PhysicalFonts.get("Noto Sans SC Bold"));
     //fontMapper.registerRegularForm("Noto Sans SC", PhysicalFonts.get("Noto Sans SC"));
-
+    
     wordOutputDoc.setFontMapper(fontMapper);
-
-
-
+    
+    
+    
     Source xmlSource = new StreamSource(new StringReader(xhtmlDoc.html()));
-
+    
     Source xsltSource =
         new StreamSource(ResourceUtil.getResourceAsStream("transformations/xhtml2fo.xsl", CitationTransformer.class.getClassLoader()));
-
+    
     javax.xml.transform.TransformerFactory transformerFactory = javax.xml.transform.TransformerFactory.newInstance();
     Transformer t = transformerFactory.newTransformer(xsltSource);
-
+    
     t.setOutputProperty(OutputKeys.INDENT, "yes");
     t.setOutputProperty(OutputKeys.METHOD, "xml");
     t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-
+    
     StringWriter swr = new StringWriter();
     StreamResult result = new StreamResult(swr);
     t.transform(xmlSource, result);
-
+    
     System.out.println(xhtmlDoc.html());
     System.out.println("XSLT transformation completed successfully.");
     System.out.println(swr.toString());
-
-
-
+    
+    
+    
     FOSettings foSettings = new FOSettings(wordOutputDoc);
     foSettings.setApacheFopMime(FOSettings.INTERNAL_FO_MIME);
-
-
-
+    
+    
+    
     try {
       JAXBContext context = JAXBContext.newInstance(Fop.class);
       Marshaller m = context.createMarshaller();
-
+    
       m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // To format XML
-
+    
       StringWriter sw = new StringWriter();
       m.marshal(foSettings.getFopConfig(), new FileWriter(fopConfigFile.toFile()));
-
+    
     } catch (JAXBException e) {
       e.printStackTrace();
     }
-
+    
     Docx4J.toFO(foSettings, Files.newOutputStream(fopFile), Docx4J.FLAG_EXPORT_PREFER_XSL);
-
-
+    
+    
     Docx4J.toFO(foSettings, Files.newOutputStream(pdfFile), Docx4J.FLAG_EXPORT_PREFER_XSL);
-
+    
     Docx4J.toPDF(wordOutputDoc, Files.newOutputStream(pdfFile));
-
+    
     wordOutputDoc.save(wordFilePath.toFile());
-
+    
     */
-      generatePdfApacheFO(xhtmlDoc, Files.newOutputStream(pdfFile));
+    generatePdfApacheFO(xhtmlDoc, Files.newOutputStream(pdfFile));
 
 
-    }
-
-
-
-
+  }
 
 
 

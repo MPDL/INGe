@@ -25,7 +25,9 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
+import de.mpg.mpdl.inge.service.pubman.impl.SearchAndExportServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -130,8 +132,10 @@ public class UtilServiceBean {
       List<ItemVersionVO> itemList, HttpServletResponse response, String token)
       throws IngeTechnicalException, IOException, AuthenticationException, AuthorizationException, IngeApplicationException {
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
-    SearchAndExportResultVO saerVO = this.saes.exportItems(exportFormat, itemList, response.getOutputStream(), token);
+    SearchAndExportResultVO saerVO = this.saes.exportItemsWrapped(exportFormat, itemList, token);
     setResponseEntityHeader(exportFormat, false, saerVO, response);
+    ((SearchAndExportServiceImpl.ExtendedSearchAndExportResultVO) saerVO).getTransformerWrapper()
+        .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
     return null;
   }
 
@@ -155,8 +159,10 @@ public class UtilServiceBean {
     }
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
     SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
-    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, response.getOutputStream(), token);
+    SearchAndExportResultVO saerVO = this.saes.searchAndExportItemsWrapped(saerrVO, token);
     setResponseEntityHeader(exportFormat, scroll, saerVO, response);
+    ((SearchAndExportServiceImpl.ExtendedSearchAndExportResultVO) saerVO).getTransformerWrapper()
+        .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
     return null;
   }
 
@@ -173,7 +179,7 @@ public class UtilServiceBean {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
     response.setContentType(saerVO.getTargetMimetype());
-    response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+    response.setHeader("Content-disposition", "inline; filename=" + saerVO.getFileName());
     response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
     if (scroll) {
       response.setHeader("scrollId", saerVO.getSearchRetrieveResponseVO().getScrollId());

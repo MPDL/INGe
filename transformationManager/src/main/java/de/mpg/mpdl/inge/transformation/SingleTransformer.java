@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.transformation;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -180,6 +181,21 @@ public abstract class SingleTransformer implements Transformer {
       }
     } else {
       throw new TransformationException("The result does not contain an output stream or a writer");
+    }
+  }
+
+  public static OutputStream getOutputStream(TransformerResult transformerRes) throws TransformationException {
+    TransformerStreamResult res;
+    try {
+      res = (TransformerStreamResult) transformerRes;
+    } catch (Exception e1) {
+      throw new TransformationException("Wrong result type, expected a TransformerStreamResult", e1);
+    }
+
+    if (null != res.getOutputStream()) {
+      return res.getOutputStream();
+    } else {
+      throw new TransformationException("The result does not contain an output stream");
     }
   }
 

@@ -9,20 +9,23 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.transformation.results.TransformerWrapper;
 
 public interface ItemTransformingService {
 
 
-  void getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr, OutputStream os)
+  TransformerWrapper getTransformationForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr)
       throws IngeTechnicalException;
 
   byte[] getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr) throws IngeTechnicalException;
 
   byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws IngeTechnicalException;
 
-  void getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList, OutputStream os) throws IngeTechnicalException;
+  TransformerWrapper getTransformationForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList)
+      throws IngeTechnicalException;
 
   TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target);
 

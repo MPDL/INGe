@@ -9,6 +9,7 @@ public class SearchAndExportResultVO extends ValueObject {
   private final int totalNumberOfRecords;
   private SearchRetrieveResponseVO searchRetrieveResponseVO;
 
+
   public SearchAndExportResultVO(byte[] result, String fileName, String targetMimeType, int totalNumberOfRecords) {
     this.result = result;
     this.fileName = fileName;
@@ -19,6 +20,7 @@ public class SearchAndExportResultVO extends ValueObject {
   public byte[] getResult() {
     return this.result;
   }
+
 
   public String getFileName() {
     return this.fileName;
