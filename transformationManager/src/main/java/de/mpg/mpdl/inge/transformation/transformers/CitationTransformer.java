@@ -257,19 +257,34 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
                 <renderers>
                     <renderer mime="application/pdf">                  
                         <fonts>
-                            <font simulate-style="true" embed-url="{{embed_regular_font_url}}">
+                           <!-- Default Latin fonts in different styles -->
+                           <font simulate-style="false" embed-url="{{embed_regular_font_url}}">
+                                <font-triplet name="Noto Serif" style="normal" weight="normal"/>
+                            </font>
+                            <font simulate-style="false" embed-url="{{embed_italic_font_url}}">
+                                <font-triplet name="Noto Serif" style="italic" weight="normal"/>
+                            </font>
+                            <font simulate-style="false" embed-url="{{embed_bold_font_url}}">
+                                <font-triplet name="Noto Serif" style="normal" weight="bold"/>
+                            </font>
+                            <font simulate-style="false" embed-url="{{embed_bold_italic_font_url}}">
+                                <font-triplet name="Noto Serif" style="italic" weight="bold"/>
+                            </font>
+                            <!-- Unicode Font containing many non-latin characters, see Go Noto Universal https://github.com/satbyy/go-noto-universal -->
+                            <font simulate-style="true" embed-url="{{embed_unicode_regular_font_url}}">
                                 <font-triplet name="Go Noto" style="normal" weight="normal"/>
                                 <font-triplet name="Go Noto" style="italic" weight="normal"/>
                             </font>
-                            <font simulate-style="true" embed-url="{{embed_bold_font_url}}">
+                            <font simulate-style="true" embed-url="{{embed_unicode_bold_font_url}}">
                                 <font-triplet name="Go Noto" style="normal" weight="bold"/>
                                 <font-triplet name="Go Noto" style="italic" weight="bold"/>
                             </font>
+                            <!-- Math font containing math symbols
                              <font simulate-style="true" embed-url="{{embed_math_font_url}}">
-                                <font-triplet name="Go Noto Math" style="normal" weight="normal"/>
-                                <font-triplet name="Go Noto Math" style="italic" weight="normal"/>
-                                <font-triplet name="Go Noto Math" style="normal" weight="bold"/>
-                                <font-triplet name="Go Noto Math" style="italic" weight="bold"/>
+                                <font-triplet name="Noto Math" style="normal" weight="normal"/>
+                                <font-triplet name="Noto Math" style="italic" weight="normal"/>
+                                <font-triplet name="Noto Math" style="normal" weight="bold"/>
+                                <font-triplet name="Noto Math" style="italic" weight="bold"/>
                             </font>
                             
                         </fonts>
@@ -280,8 +295,12 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
             """;
 
     try {
-      fopconfig = fopconfig.replace("{{embed_regular_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/GoNotoKurrent-Regular.ttf").toURI().toString());
-      fopconfig = fopconfig.replace("{{embed_bold_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/GoNotoKurrent-Bold.ttf").toURI().toString());
+      fopconfig = fopconfig.replace("{{embed_regular_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/NotoSerif-Regular.ttf").toURI().toString());
+      fopconfig = fopconfig.replace("{{embed_italic_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/NotoSerif-Italic.ttf").toURI().toString());
+      fopconfig = fopconfig.replace("{{embed_bold_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/NotoSerif-Bold.ttf").toURI().toString());
+      fopconfig = fopconfig.replace("{{embed_bold_italic_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/NotoSerif-BoldItalic.ttf").toURI().toString());
+      fopconfig = fopconfig.replace("{{embed_unicode_regular_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/GoNotoKurrent-Regular.ttf").toURI().toString());
+      fopconfig = fopconfig.replace("{{embed_unicode_bold_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/GoNotoKurrent-Bold.ttf").toURI().toString());
       fopconfig = fopconfig.replace("{{embed_math_font_url}}", CitationTransformer.class.getClassLoader().getResource("fonts/NotoSansMath-Regular.ttf").toURI().toString());
 
       //FopFactoryBuilder fopFactoryBuilder = new FopFactoryBuilder(new URI("file:" + System.getProperty("java.io.tmpdir") + "/fop"));
@@ -308,7 +327,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       //Set html namespace, otherwise the stylesheet does not work
       xhtmlDoc.firstElementChild().attr("xmlns", "http://www.w3.org/1999/xhtml");
       //Set fonts to the fonts set in the FOP configuration
-      xhtmlDoc.body().attr("style", "font-family: Go Noto, Go Noto Math, sans-serif; font-size: 11px;");
+      xhtmlDoc.body().attr("style", "font-family: Noto Serif, Go Noto, Noto Math; font-size: 11px;");
 
       Source xmlSource = new StreamSource(new StringReader(xhtmlDoc.html()));
       Source xsltSource = new StreamSource(ResourceUtil.getResourceAsStream("transformations/xhtml2fo.xsl", CitationTransformer.class.getClassLoader()));
@@ -328,9 +347,15 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   public static void main(String[] args) throws Exception {
 
     String citation =
-        "Tester, M. <span class=\"DisplayDateStatus\" style=\"font-weight: bold;\">(2000).</span> <span style=\"font-style: italic;\">Book with special char É and <sup>high</sup> and <sub>low</sub> and &lt;person>&lt;/person> and ψ( → |+ l−) and <b>宅中图</b> <i>大朱元</i>璋与南京营造漢詩 ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ모든인간</span>.";
+        "Tester, M. <span class=\"DisplayDateStatus\" style=\"font-weight: bold;\">(2000).</span> <span style=\"font-style: italic;\">Book with special char É and <sup>high</sup> and <sub>low</sub> and &lt;person>&lt;/person> and ψ( → |+ l−) and <b>宅中图</b> <i>大朱元</i>璋与南京营造漢詩 ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ모든인간 and much of some other things to keep a very long title</span>.";
 
-    String basePath = System.getProperty("user.dir");
+
+    String citation2 ="Schlienz, H., Beckendorf, M., Katter, U. J., Risse, T., & Freund, H.-J. (1995). Electron " +
+            "<i>Spin Resonance Investigations of the Molecular Motion of NO<sub>2</sub> on Al<sup>2O3(111)</sup> under " +
+            "Ultrahigh Vacuum Conditions.</i>" +
+            "Physical Review Letters, <i>74</i>(5), 761-764. doi:10.1103/" +
+            "PhysRevLett.74.761.";
+    String basePath = "/Users/haarlae1";//System.getProperty("user.dir");
 
     Path pdfFilePath = Paths.get(basePath, "Downloads/output.pdf");
     Files.deleteIfExists(pdfFilePath);
@@ -360,6 +385,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     for (int i = 0; i < 2; i++) {
       xhtmlDoc.body().appendElement("p").html(citation);
     }
+    xhtmlDoc.body().appendElement("p").html(citation2);
     xhtmlDoc.firstElementChild().attr("xmlns", "http://www.w3.org/1999/xhtml");
     //xhtmlDoc.body().attr("style","font-family: Go Noto;").html(citation);
     System.out.println(xhtmlDoc.toString());
