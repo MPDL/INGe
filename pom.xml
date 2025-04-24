@@ -348,13 +348,13 @@
 			<dependency>
 				<groupId>org.docx4j</groupId>
 				<artifactId>docx4j-JAXB-ReferenceImpl</artifactId>
-				<version>11.5.0</version>
+				<version>11.5.2</version>
 			</dependency>
 			<!-- Required for docx4j -->
 			<dependency>
 				<groupId>org.docx4j</groupId>
 				<artifactId>docx4j-export-fo</artifactId>
-				<version>11.5.0</version>
+				<version>11.5.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.docx4j</groupId>
