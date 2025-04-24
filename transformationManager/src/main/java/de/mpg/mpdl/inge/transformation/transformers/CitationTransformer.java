@@ -26,40 +26,33 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
 import net.sf.saxon.TransformerFactoryImpl;
-import org.apache.fop.apps.*;
-import org.apache.fop.configuration.ConfigurationException;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.FopFactoryBuilder;
+import org.apache.fop.apps.MimeConstants;
 import org.apache.fop.configuration.DefaultConfiguration;
 import org.apache.fop.configuration.DefaultConfigurationBuilder;
-import org.apache.fop.fonts.EmbedFontInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.docx4j.Docx4J;
 import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
-import org.docx4j.convert.out.FOSettings;
-import org.docx4j.convert.out.fopconf.Fonts;
-import org.docx4j.fonts.IdentityPlusMapper;
-import org.docx4j.fonts.Mapper;
-import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.PPr;
 import org.docx4j.wml.PPrBase;
-import org.docx4j.wml.RFonts;
 import org.jsoup.nodes.Document;
 
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
 import java.math.BigInteger;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -347,29 +340,27 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   public static void main(String[] args) throws Exception {
 
     String citation =
-        "Tester, M. <span class=\"DisplayDateStatus\" style=\"font-weight: bold;\">(2000).</span> <span style=\"font-style: italic;\">Book with special char É and <sup>high</sup> and <sub>low</sub> and &lt;person>&lt;/person> and ψ( → |+ l−) and <b>宅中图</b> <i>大朱元</i>璋与南京营造漢詩 ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ모든인간 and much of some other things to keep a very long title</span>.";
+        "Tester, M. <span class=\"DisplayDateStatus\" style=\"font-weight: bold;\">(2000).</span> <span style=\"font-style: italic;\">Book with <u>special</u> char É and <sup>high</sup> and <sub>low</sub> and &lt;person>&lt;/person> and ψ( → |+ l−) and <b>宅中图</b> <i>大朱元</i>璋与南京营造漢詩 ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ모든인간 and much of some other things to keep a very long title</span>.";
 
 
-    String citation2 ="Schlienz, H., Beckendorf, M., Katter, U. J., Risse, T., & Freund, H.-J. (1995). Electron " +
-            "<i>Spin Resonance Investigations of the Molecular Motion of NO<sub>2</sub> on Al<sup>2O3(111)</sup> under " +
-            "Ultrahigh Vacuum Conditions.</i>" +
-            "Physical Review Letters, <i>74</i>(5), 761-764. doi:10.1103/" +
-            "PhysRevLett.74.761.";
-    String basePath = "/Users/haarlae1";//System.getProperty("user.dir");
+    String citation2 = "Schlienz, H., Beckendorf, M., Katter, U. J., Risse, T., & Freund, H.-J. (1995). Electron "
+        + "<i>Spin Resonance Investigations of the Molecular Motion of NO<sub>2</sub> on Al<sup>2O3(111)</sup> under "
+        + "Ultrahigh Vacuum Conditions.</i>" + "Physical Review Letters, <i>74</i>(5), 761-764. doi:10.1103/" + "PhysRevLett.74.761.";
+    String basePath = System.getProperty("user.dir");
 
-    Path pdfFilePath = Paths.get(basePath, "Downloads/output.pdf");
+    Path pdfFilePath = Paths.get(basePath, "output.pdf");
     Files.deleteIfExists(pdfFilePath);
     Path pdfFile = Files.createFile(pdfFilePath);
 
-    Path wordFilePath = Paths.get(basePath, "Downloads/output.docx");
+    Path wordFilePath = Paths.get(basePath, "output.docx");
     Files.deleteIfExists(wordFilePath);
     Path wordFile = Files.createFile(wordFilePath);
 
-    Path fopFilePath = Paths.get(basePath, "Downloads/output_fop.xml");
+    Path fopFilePath = Paths.get(basePath, "output_fop.xml");
     Files.deleteIfExists(fopFilePath);
     Path fopFile = Files.createFile(fopFilePath);
 
-    Path fopConfigFilePath = Paths.get(basePath, "Downloads/output_fop_config.xml");
+    Path fopConfigFilePath = Paths.get(basePath, "output_fop_config.xml");
     Files.deleteIfExists(fopConfigFilePath);
     Path fopConfigFile = Files.createFile(fopConfigFilePath);
 
