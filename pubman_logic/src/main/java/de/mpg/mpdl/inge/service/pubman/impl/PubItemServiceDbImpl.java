@@ -209,7 +209,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
-    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(itemId);
+
+    ValidId validId = getValidId(itemId);
+
+    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(validId.objectId);
     if (null == latestVersion) {
       throw new IngeApplicationException("Object with given id not found.");
     }
