@@ -65,7 +65,8 @@ public class AuthorizationService {
     DELETE("delete"),
     WITHDRAW("withdraw"),
     EDIT("update"),
-    REVISE("revise");
+    REVISE("revise"),
+    ADD_NEW_DOI("addNewDoi");
 
   private String methodName;
 

@@ -28,9 +28,6 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
 
   List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken);
 
-  boolean isItemDoiReady(String itemId, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
   void reindex(String id, boolean includeFulltext, String authenticationToken) throws IngeTechnicalException;
 
   ItemVersionVO releasePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)

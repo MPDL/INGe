@@ -438,6 +438,29 @@
                 "item.versionState": ["RELEASED"],
                 "item.object.publicState": ["RELEASED"]
             }
+        ],
+        "addNewDoi": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "item.versionState": [
+                    "RELEASED"
+                ],
+                "item.object.publicState": [
+                    "RELEASED"
+                ]
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": [
+                    "RELEASED"
+                ],
+                "item.object.publicState": [
+                    "RELEASED"
+                ]
+            }
         ]
     },
     "de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl": {

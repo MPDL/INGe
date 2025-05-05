@@ -207,18 +207,20 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO addNewDoi(String itemId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO accountUserDbVO = this.aaService.getUserAccountFromToken(authenticationToken);
 
-    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
-      throw new AuthorizationException("User must be MODERATOR");
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(itemId);
+    if (null == latestVersion) {
+      throw new IngeApplicationException("Object with given id not found.");
     }
+    ContextDbVO context = this.contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
+    checkAa("addNewDoi", principal, latestVersion, context);
 
-    ItemVersionVO itemVersionVO = get(itemId, authenticationToken);
-    String doi = DoiRestService.getNewDoi(itemVersionVO);
-    itemVersionVO.getMetadata().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.DOI, doi));
-    ItemVersionVO updatedPubItem = update(itemVersionVO, authenticationToken);
-    ItemVersionVO releasedPubItem = releasePubItem(updatedPubItem.getObjectId(), updatedPubItem.getModificationDate(),
-        "Release during adding DOI", authenticationToken);
+    String doi = DoiRestService.getNewDoi(latestVersion);
+    latestVersion.getMetadata().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.DOI, doi));
+    ItemVersionVO updatedPubItem = update(latestVersion, authenticationToken);
+    ItemVersionVO releasedPubItem =
+        releasePubItem(updatedPubItem.getObjectId(), updatedPubItem.getModificationDate(), "DOI added", authenticationToken);
 
     return releasedPubItem;
   }
@@ -440,7 +442,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     for (AuthorizationService.AccessType at : AuthorizationService.AccessType.values()) {
       boolean isAuthorized = false;
       if (principal != null && item != null) {
-        isAuthorized = checkAccess(at, principal, item);
+        if (AuthorizationService.AccessType.ADD_NEW_DOI.equals(at)) {
+          isAuthorized = checkAccess(at, principal, item) && DoiRestService.isItemDoiReady(item);
+        } else {
+          isAuthorized = checkAccess(at, principal, item);
+        }
+
       }
       authMap.put(at, isAuthorized);
 
@@ -519,22 +526,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
     return versionHistory;
-  }
-
-  @Override
-  public boolean isItemDoiReady(String itemId, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO accountUserDbVO = this.aaService.getUserAccountFromToken(authenticationToken);
-
-    if (!GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR)) {
-      throw new AuthorizationException("User must be MODERATOR");
-    }
-
-    ItemVersionVO itemVersionVO = get(itemId, authenticationToken);
-
-    Boolean isItemDoiReady = DoiRestService.isItemDoiReady(itemVersionVO);
-
-    return isItemDoiReady;
   }
 
   @Override

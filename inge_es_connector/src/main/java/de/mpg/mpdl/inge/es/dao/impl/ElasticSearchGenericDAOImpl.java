@@ -282,11 +282,11 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
           if (null != field) {
             nestedPaths = field.getNestedPaths();
           } else {
-              nestedPaths = null;
+            nestedPaths = null;
           }
 
 
-            if (null == nestedPaths) {
+          if (null == nestedPaths) {
             fieldSort = FieldSort.of(f -> f.field(sc.getIndexField())
                 .order(sc.getSortOrder().equals(SearchSortCriteria.SortOrder.DESC) ? SortOrder.Desc : SortOrder.Asc));
           } else {

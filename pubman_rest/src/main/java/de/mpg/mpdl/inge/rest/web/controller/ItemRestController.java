@@ -329,16 +329,6 @@ public class ItemRestController {
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
-  @RequestMapping(value = ITEM_ID_PATH + "/isItemDoiReady", method = RequestMethod.GET)
-  public ResponseEntity<Boolean> isItemDoiReady( //
-      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @PathVariable(value = ITEM_ID_VAR) String itemId)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
-
-    Boolean isItemDoiReady = this.pubItemService.isItemDoiReady(itemId, token);
-
-    return new ResponseEntity<>(isItemDoiReady, HttpStatus.OK);
-  }
 
   @RequestMapping(value = ITEM_ID_PATH + "/release", method = RequestMethod.PUT)
   public ResponseEntity<ItemVersionVO> release(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
