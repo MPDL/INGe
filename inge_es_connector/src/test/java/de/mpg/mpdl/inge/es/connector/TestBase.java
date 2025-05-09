@@ -254,7 +254,7 @@ public class TestBase {
     mdsPublication.getAlternativeTitles().add(alternativeTitle);
     // -PersonCreator
     PersonVO person = new PersonVO();
-    person.setCompleteName("testCompleteName");
+    //person.setCompleteName("testCompleteName");
     person.setFamilyName("testFamililyName");
     person.setGivenName("testGivenName");
     identifier = new IdentifierVO(IdType.ARXIV, "testIdentifier");
@@ -297,7 +297,7 @@ public class TestBase {
     source.getAlternativeTitles().add(alternativeTitle);
     // -PersonCreator
     person = new PersonVO();
-    person.setCompleteName("testCompleteName");
+    //person.setCompleteName("testCompleteName");
     person.setFamilyName("testFamililyName");
     person.setGivenName("testGivenName");
     identifier = new IdentifierVO(IdType.ARXIV, "testIdentifier");
@@ -339,7 +339,7 @@ public class TestBase {
     source2.getAlternativeTitles().add(alternativeTitle);
     // -PersonCreator
     person = new PersonVO();
-    person.setCompleteName("testCompleteName");
+    //person.setCompleteName("testCompleteName");
     person.setFamilyName("testFamililyName");
     person.setGivenName("testGivenName");
     identifier = new IdentifierVO(IdType.ARXIV, "testIdentifier");

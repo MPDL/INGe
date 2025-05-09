@@ -649,7 +649,7 @@ public class PubItemServiceTest extends TestBase {
     PersonVO personVO = new PersonVO();
 
     creatorVO.setRole(CreatorRole.AUTHOR);
-    personVO.setCompleteName("Hans Meier");
+    //personVO.setCompleteName("Hans Meier");
     personVO.setFamilyName("Meier");
     personVO.setGivenName("Hans");
     creatorVO.setPerson(personVO);
