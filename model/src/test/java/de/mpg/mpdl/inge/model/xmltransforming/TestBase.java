@@ -193,7 +193,7 @@ public class TestBase {
     PersonVO person = new PersonVO();
     person.setGivenName("Hans");
     person.setFamilyName("Meier");
-    person.setCompleteName("Hans Meier");
+    //person.setCompleteName("Hans Meier");
     OrganizationVO organizationVO = new OrganizationVO();
     organizationVO.setName("Test Organization");
     organizationVO.setAddress("Max-Planck-Str. 1");
@@ -517,7 +517,7 @@ public class TestBase {
     // Creator.Person
     PersonVO person = new PersonVO();
     // Creator.Person.CompleteName
-    person.setCompleteName("Hans Meier");
+    //person.setCompleteName("Hans Meier");
     // Creator.Person.GivenName
     person.setGivenName("Hans");
     // Creator.Person.FamilyName

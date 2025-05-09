@@ -134,7 +134,7 @@ public class ValueObjectEqualsTest extends TestBase {
   @Test
   public void equalsMdsPublicationVOWithDifferentCreatorsCount() {
     PersonVO person = new PersonVO();
-    person.setCompleteName("Wendelin Überschuh");
+    person.setFamilyName("Überschuh");
     CreatorVO creator = new CreatorVO(person, CreatorRole.AUTHOR);
     mds1.getCreators().add(creator);
     assertFalse(mds1.equals(mds2));

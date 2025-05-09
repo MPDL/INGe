@@ -487,7 +487,7 @@ public class TestBase {
     // Creator.Person
     PersonVO person = new PersonVO();
     // Creator.Person.CompleteName
-    person.setCompleteName("Hans Meier");
+    //person.setCompleteName("Hans Meier");
     // Creator.Person.GivenName
     person.setGivenName("Hans");
     // Creator.Person.FamilyName
