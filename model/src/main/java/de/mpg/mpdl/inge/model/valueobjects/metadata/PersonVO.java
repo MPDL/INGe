@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 @SuppressWarnings("serial")
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class PersonVO extends ValueObject implements Cloneable {
-  //private String completeName;
+  private String completeName;
   private String givenName;
   private String familyName;
   private java.util.List<String> alternativeNames = new java.util.ArrayList<>();
@@ -57,17 +57,7 @@ public class PersonVO extends ValueObject implements Cloneable {
    * name.
    */
   public String getCompleteName() {
-    StringBuilder sb = new StringBuilder();
-    if (this.familyName != null) {
-      sb.append(this.familyName);
-    }
-
-    if (this.givenName != null) {
-      sb.append(", ");
-      sb.append(this.givenName);
-    }
-
-    return sb.toString();
+    return this.completeName;
   }
 
   /**
@@ -75,12 +65,9 @@ public class PersonVO extends ValueObject implements Cloneable {
    *
    * @param newVal
    */
-  /*
   public void setCompleteName(String newVal) {
     this.completeName = newVal;
   }
-  
-   */
 
   /**
    * Delivers the given name of the person.
@@ -199,7 +186,7 @@ public class PersonVO extends ValueObject implements Cloneable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((null == this.alternativeNames) ? 0 : this.alternativeNames.hashCode());
-    //result = prime * result + ((null == this.completeName) ? 0 : this.completeName.hashCode());
+    result = prime * result + ((null == this.completeName) ? 0 : this.completeName.hashCode());
     result = prime * result + ((null == this.familyName) ? 0 : this.familyName.hashCode());
     result = prime * result + ((null == this.givenName) ? 0 : this.givenName.hashCode());
     result = prime * result + ((null == this.identifier) ? 0 : this.identifier.hashCode());
@@ -233,13 +220,11 @@ public class PersonVO extends ValueObject implements Cloneable {
       return false;
     }
 
-    /*
     if (null == this.completeName) {
       if (null != other.completeName)
         return false;
     } else if (!this.completeName.equals(other.completeName))
       return false;
-    */
 
     if (null == this.familyName) {
       if (null != other.familyName)
