@@ -34,6 +34,8 @@
 		<!-- structure name="person" ns="${xsd.metadata.escidocprofile.types}"
 			type="de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO" ordered="false" allow-repeats="true"-->
 
+		<value style="element" name="complete-name" ns="${xsd.metadata.escidocprofile.types}"
+			field="completeName" usage="optional"/>
 
 		<value style="element" name="family-name" ns="${xsd.metadata.escidocprofile.types}"
 			field="familyName" usage="optional" />
