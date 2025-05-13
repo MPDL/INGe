@@ -1,35 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <title>${subject}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <title></title>
+    <meta name="Generator" content="Cocoa HTML Writer">
+    <meta name="CocoaVersion" content="2575.5">
+    <style type="text/css">
+        p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px Times; -webkit-text-stroke: #000000}
+        p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+        p.p3 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+        p.p4 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; color: #0000e9; -webkit-text-stroke: #0000e3}
+        p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
+        span.s1 {font-kerning: none}
+        span.s2 {text-decoration: underline ; font-kerning: none; color: #0000e3; -webkit-text-stroke: 0px #0000e3}
+        span.s3 {font-kerning: none; color: #0000e3; -webkit-text-stroke: 0px #000000}
+        span.s4 {font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+        span.s5 {text-decoration: underline ; font-kerning: none; -webkit-text-stroke: 0px #0000e3}
+    </style>
 </head>
 <body>
-
-<div align="center">${citation}</div>
-
-Dear author,<br/>
-<p>In order to make your publications visible in the sense of Open Access, we will deposit them in our publication database GFZpublic (<a href="https://gfzpublic.gfz-potsdam.de/">https://gfzpublic.gfz-potsdam.de</a>). The basis for this is the secondary publication right according to § 38 para. 4 of the German Copyright Law. For this we require the accepted manuscript version (final draft) of your article.</p>
-<p>According to the Helmholtz Association's Open Access Policy (<a href="https://doi.org/10.2312/os.helmholtz.018">https://doi.org/10.2312/os.helmholtz.018</a>), the aim is to achieve a general increase of Open Access publications to 100% by 2025 and to permanently meet this target in subsequent years.</p>
-<p>Please send us your accepted manuscript version to <a href="mailto:openaccess@gfz-potsdam.de">openaccess@gfz-potsdam.de</a></p> 
-
-<p>If you have any questions, please do not hesitate to contact us.<br/>
-Your library<br/></p> 
-
-<p>You can find more information at:<br/> 
-<a href="https://bib.telegrafenberg.de/en/publishing/open-access">https://bib.telegrafenberg.de/en/publishing/open-access</a></p>
-<br/><br/>
-
-Liebe*r Autor*in,<br/>
-<p>um Ihre Publikationen im Sinne von Open Access sichtbar zu machen, stellen wir diese als Zweitveröffentlichung über unsere Publikationsdatenbank GFZpublic (<a href="https://gfzpublic.gfz-potsdam.de/">https://gfzpublic.gfz-potsdam.de</a>) zur Verfügung. Grundlage hierfür ist das Zweitveröffentlichungsrecht nach § 38 Abs. 4 UrhG. Dazu benötigen wir die akzeptierte Manuskriptversion (Final Draft) Ihres Artikels.</p>
-<p>Gemäß der Open-Access-Richtlinie der Helmholtz-Gemeinschaft (<a href="https://doi.org/10.2312/os.helmholtz.018">https://doi.org/10.2312/os.helmholtz.018</a>) soll eine generelle Erhöhung des Open-Access-Anteils auf 100% bei Publikationen bis 2025 sowie eine dauerhafte Erfüllung dieser Zielmarke in den Folgejahren erreicht werden.</p>
-<p>Senden Sie uns daher Ihre akzeptierte Manuskriptversion an <a href="mailto:openaccess@gfz-potsdam.de">openaccess@gfz-potsdam.de</a></p>
-
-<p>Für Rückfragen stehen wir natürlich gern zur Verfügung.<br>
-    Ihre Bibliothek<br/></p>
-
-<p>Weitere Informationen finden Sie unter:<br/>
-    <a href="https://bib.telegrafenberg.de/publizieren/open-access">https://bib.telegrafenberg.de/publizieren/open-access</a></p>
+<p class="p1"><span class="s1">${citation}</span></p>
+<p class="p2"><span class="s1">Dear author,</span></p>
+<p class="p3"><span class="s1">In order to make your publications visible in the sense of Open Access, we will deposit them in our publication database GFZpublic (<a href="https://gfzpublic.gfz-potsdam.de/"><span class="s2">https://gfzpublic.gfz.de</span></a>). The basis for this is the secondary publication right according to § 38 para. 4 of the German Copyright Law. For this we require the accepted manuscript version (final draft) of your article.</span></p>
+<p class="p3"><span class="s1">According to the Helmholtz Association's Open Access Policy (<a href="https://doi.org/10.2312/os.helmholtz.018"><span class="s2">https://doi.org/10.2312/os.helmholtz.018</span></a>), the aim is to achieve a general increase of Open Access publications to 100% by 2025 and to permanently meet this target in subsequent years.</span></p>
+<p class="p3"><span class="s1">Please send us your accepted manuscript version to <a href="mailto:openaccess@gfz-potsdam.de"><span class="s2">openaccess@gfz.de</span></a></span><span class="s2">.</span></p>
+<p class="p3"><span class="s1">If you have any questions, please do not hesitate to contact us.<br>
+Your library</span></p>
+<p class="p4"><span class="s3">You can find more information at:</span><span class="s4"><br>
+<a href="https://bib.telegrafenberg.de/en/publishing/open-access"><span class="s5">https://bib.telegrafenberg.de/en/publishing/open-access</span></a></span></p>
+<p class="p5"><span class="s1"></span><br></p>
+<p class="p5"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">Liebe*r Autor*in,</span></p>
+<p class="p3"><span class="s1">um Ihre Publikationen im Sinne von Open Access sichtbar zu machen, stellen wir diese als Zweitveröffentlichung über unsere Publikationsdatenbank GFZpublic (<a href="https://gfzpublic.gfz-potsdam.de/"><span class="s2">https://gfzpublic.gfz.de</span></a>) zur Verfügung. Grundlage hierfür ist das Zweitveröffentlichungsrecht nach § 38 Abs. 4 UrhG. Dazu benötigen wir die akzeptierte Manuskriptversion (Final Draft) Ihres Artikels.</span></p>
+<p class="p3"><span class="s1">Gemäß der Open-Access-Richtlinie der Helmholtz-Gemeinschaft (<a href="https://doi.org/10.2312/os.helmholtz.018"><span class="s2">https://doi.org/10.2312/os.helmholtz.018</span></a>) soll eine generelle Erhöhung des Open-Access-Anteils auf 100% bei Publikationen bis 2025 sowie eine dauerhafte Erfüllung dieser Zielmarke in den Folgejahren erreicht werden.</span></p>
+<p class="p3"><span class="s1">Senden Sie uns daher Ihre akzeptierte Manuskriptversion an <a href="mailto:openaccess@gfz-potsdam.de"><span class="s2">openaccess@gfz.de</span></a></span><span class="s2">.</span></p>
+<p class="p3"><span class="s1">Für Rückfragen stehen wir natürlich gern zur Verfügung.<br>
+Ihre Bibliothek</span></p>
+<p class="p4"><span class="s3">Weitere Informationen finden Sie unter:</span><span class="s4"><br>
+<a href="https://bib.telegrafenberg.de/publizieren/open-access"><span class="s5">https://bib.telegrafenberg.de/publizieren/open-access</span></a></span></p>
 </body>
 </html>
