@@ -91,9 +91,9 @@ public class PropertyReader {
   public static final String INGE_CONE_RESULTS_MAXIMUM = "inge.cone.results.maximum";
   public static final String INGE_CONE_SERVICE_URL = "inge.cone.service.url";
   public static final String INGE_CONE_SUBJECTVOCAB = "inge.cone.subjectVocab";
-  public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files";
-  public static final String INGE_CRON_IMPORT_SURVEYOR = "inge.cron.import.surveyor";
-  public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap";
+  public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files"; // FileServiceFSImpl.deleteOldStagingFiles()
+  public static final String INGE_CRON_IMPORT_SURVEYOR = "inge.cron.import.surveyor"; // ImportSurveyorTask.run()
+  public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap"; // SiteMapTaskScheduler.createSiteMap()
   public static final String INGE_CROSSREF_PID = "inge.crossref.pid";
   public static final String INGE_CSL_JAVASCRIPT_ENGINE = "inge.csl.javascript.engine";
   public static final String INGE_DATABASE_DRIVER_CLASS = "inge.database.driver.class";
