@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<h:panelGroup layout="block" styleClass="full_area0" id="editSource"
 		rendered="#{EditItem.pubItem!=null and !(genre.sources_display == 'false' and genre.sources_form_id == 'full-submission' || genre.sources_display == 'false' and genre.sources_form_id == 'all')}">
 		<ui:repeat var="sourceBean" value="#{EditItemSessionBean.sources}">
@@ -576,7 +576,7 @@
 										converter="GenreLabelConverter" /> <span class="noDisplay">:
 								</span>
 								</b>
-								<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:panelGroup
+								<span class="xHuge_area0 xTiny_marginLExcl endline identifierArea"> <h:panelGroup
 										styleClass="large_area0 largeFormPush"
 										rendered="#{!(genre.sources_source_identifiers_source_identifier_type_display == 'false' and genre.sources_source_identifiers_source_identifier_type_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_type_display == 'false' and genre.sources_source_identifiers_source_identifier_type_form_id == 'all')}">
 										<h:panelGroup layout="block"
@@ -595,7 +595,7 @@
 											</h:selectOneMenu>
 										</h:panelGroup>
 									</h:panelGroup> <h:inputText id="inpSourceDetailIdentifier"
-										styleClass="xDouble_txtInput"
+										styleClass="xDouble_txtInput identifierSuggest"
 										value="#{identifier.id}"
 										rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' and genre.sources_source_identifiers_source_identifier_value_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' and genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}" />
 								</span>
@@ -723,5 +723,5 @@
 			</h:panelGroup>
 		</ui:repeat>
 	</h:panelGroup>
-	
+
 </ui:composition>

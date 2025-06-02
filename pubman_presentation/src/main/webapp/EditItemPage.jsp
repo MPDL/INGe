@@ -263,16 +263,17 @@
 			</h:form>
 		</div>
 		<!--  end: full wrapper -->
-		
+
 		<ui:include src="footer/Footer.jspf" />
-		
+
 		<script type="text/javascript">
 	      var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
-	      
+
 	      var fundingOrganizationDetailsBaseURL = '$1?format=json';
 	      var fundingOrganizationSuggestURL = suggestConeUrl + 'funding-organizations/query';
 	      var fundingProgramDetailsBaseURL = '$1?format=json';
 	      var fundingProgramSuggestURL = suggestConeUrl + 'funding-programs/query';
+	      var identifierSuggestURL = suggestConeUrl + '$1/query?lang=en';
 	      var journalDetailsBaseURL = '$1?format=json';
 	      var journalSuggestTrigger = 'JOURNAL';
 	      var journalSuggestURL = suggestConeUrl + 'journals/query';
@@ -283,10 +284,10 @@
 	      var personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
 	      var subjectSuggestURL = suggestConeUrl + '$1/query?lang=en';
 
-	      $(document).ready(function() {
+		  $(document).ready(function() {
 	        checkUpdatePersonFunction();
 	      });
-	        
+
           function checkUpdatePersonFunction() {
 	        (typeof updatePersonUi == 'function') ? updatePersonUi(): setTimeout("checkUpdatePersonFunction()", 30);
 	      }

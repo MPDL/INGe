@@ -598,6 +598,21 @@ function bindSuggests() {
             }
         });
 
+    $('.identifierSuggest').each(
+        function(i, ele) {
+            if (typeof identifierSuggestURL != 'undefined') {
+                $(ele).suggest(identifierSuggestURL, {
+                    vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
+                    onSelect: function() {
+                        if (this.resultID.indexOf('rifsproject') > 0)
+                            $(this).val(this.resultID);
+                        else
+                            $(this).val(this.resultValue);
+                    }
+                });
+            }
+        });
+
     //for search, adds result in quotes
     $('.subjectSuggestQuotes').each(
         function(i, ele) {
@@ -626,6 +641,22 @@ function bindSuggests() {
             }
         );
     }
+
+    //for search, adds result in quotes
+    $('.identifierSuggestQuotes').each(
+        function(i, ele) {
+            if (typeof identifierSuggestURL != 'undefined') {
+                $(ele).suggest(identifierSuggestURL, {
+                    vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
+                    onSelect: function() {
+                        if (this.resultID.indexOf('rifsproject') > 0)
+                            $(this).val('"' + this.resultID + '"');
+                        else
+                            $(this).val('"' + this.resultValue + '"');
+                    }
+                });
+            }
+        });
 
     if (typeof organizationSuggestURL != 'undefined') {
         $('.organizationSuggest').suggest(organizationSuggestURL, {

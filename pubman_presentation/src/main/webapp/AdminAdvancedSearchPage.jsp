@@ -81,12 +81,13 @@
                 </div>
             </h:form>
         </div>
-        
+
         <ui:include src="footer/Footer.jspf" />
-        
+
         <script type="text/javascript">
 			var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
-        
+
+            var identifierSuggestURL = suggestConeUrl + '$1/query?lang=en';
             var journalSuggestTrigger = 'JOURNAL';
 	  	    var journalSuggestURL = suggestConeUrl + '/journals/query';
             var languageDetailsBaseURL = '$1?format=json&amp;lang=$2';

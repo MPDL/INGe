@@ -39,7 +39,7 @@
 		<predicates>
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Listed In" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/listedIn" multiple="true" mandatory="false" localized="false" searchable="true" shouldBeUnique="false"/>
-			<predicate name="Type" value="http://purl.org/dc/terms/type" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false" />			
+			<predicate name="Type" value="http://purl.org/dc/terms/type" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false" />
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="false"/>
@@ -51,16 +51,16 @@
 				<type>main</type>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
 				<sort-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
 				</sort-pattern>
 			</result>
@@ -68,16 +68,16 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 				<type>alt</type>
 				<result-pattern>
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
-AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:;
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
 				<sort-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
  &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
  				</sort-pattern>
@@ -86,23 +86,23 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 				<type>alt</type>
 				<result-pattern>
 &lt;http://purl.org/dc/terms/alternative&gt;
-AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:;
 &lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
 				<sort-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
  &lt;http://purl.org/dc/terms/alternative&gt;
  				</sort-pattern>
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>publisher</name>
 		<aliases>
@@ -114,7 +114,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 		<predicates>
 			<predicate name="Publisher Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Listed In" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/listedIn" multiple="true" mandatory="false" localized="false" searchable="true" shouldBeUnique="false"/>
-			<predicate name="Type" value="http://purl.org/dc/terms/type" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false" />			
+			<predicate name="Type" value="http://purl.org/dc/terms/type" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="false" />
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="false"/>
@@ -126,16 +126,16 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 				<type>main</type>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
 				<sort-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
 				</sort-pattern>
 			</result>
@@ -143,16 +143,16 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 				<type>alt</type>
 				<result-pattern>
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
-AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:;
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
 				<sort-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
  &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
  				</sort-pattern>
@@ -161,23 +161,23 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 				<type>alt</type>
 				<result-pattern>
 &lt;http://purl.org/dc/terms/alternative&gt;
-AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:;
 &lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/alternative&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
 				</result-pattern>
 				<sort-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:;
 &lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:,
 &lt;http://purl.org/dc/terms/publisher&gt;
  &lt;http://purl.org/dc/terms/alternative&gt;
  				</sort-pattern>
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>iso639-1</name>
 		<aliases>
@@ -194,13 +194,13 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/identifier&gt;
- - 
+ -
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
 				</result-pattern>
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>iso639-2</name>
 		<aliases>
@@ -218,17 +218,17 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/identifier&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/identifier&gt;,&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: / 
+AND{&lt;http://purl.org/dc/elements/1.1/identifier&gt;,&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: /
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;
- - 
+ -
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
 					</result-pattern>
-			
+
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>iso639-3</name>
 		<aliases>
@@ -246,13 +246,13 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/identifier&gt;
- - 
+ -
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 				</result-pattern>
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>persons</name>
 		<aliases>
@@ -264,10 +264,12 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 		<primary-identifier control="false" subject-prefix="persons/resource/" generate-cone-id="false"/>
 		<predicates>
 			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false" shouldBeUnique="true"/>
+			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="true" searchable="true" restricted="false" shouldBeUnique="true"/>
 			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/family_name" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
 			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="true" restricted="false" suggest-url="/pubman/faces/IdentifierSuggest.jsp?format=json"/>
 				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="true" restricted="false"/>
 			</predicate>
 			<predicate name="Researcher URL" value="http://xmlns.com/foaf/0.1/homepage" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="false" restricted="false">
@@ -322,7 +324,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>ddc</name>
 		<aliases>
@@ -339,13 +341,13 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			<result>
 				<result-pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
- - 
+ -
 &lt;http://dewey.info/class&gt;
 				</result-pattern>
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>mimetypes</name>
 		<aliases>
@@ -365,7 +367,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>escidocmimetypes</name>
 		<aliases>
@@ -386,7 +388,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>cclicenses</name>
 		<aliases>
@@ -534,7 +536,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>mdb-id</name>
 		<aliases>
@@ -557,7 +559,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>workinggroup</name>
 		<aliases>
@@ -580,7 +582,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>funding-organizations</name>
 		<aliases>
@@ -604,7 +606,7 @@ OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>funding-programs</name>
 		<aliases>
@@ -613,7 +615,7 @@ OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
 		<description>Funding programs and the correspondent OpenAire Identifiers</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="true"/>
-		<predicates>	
+		<predicates>
 				<predicate name="Open Aire funding Organization Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="funding-organizations" shouldBeUnique="false"/>
 				<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 				<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
@@ -625,7 +627,7 @@ OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
 OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}: (
 OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/identifier&gt;
 OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
-OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;}: - 
+OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;}: -
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: (
 OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;
@@ -634,7 +636,7 @@ OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>citation-styles</name>
 		<aliases>
@@ -643,7 +645,7 @@ OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/
 		<description>Citation styles in CSL format</description>
 		<open>true</open>
 		<primary-identifier control="true" generate-cone-id="true"/>
-		<predicates>	
+		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true" />
 			<predicate name="Abbreviation" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="CSL" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="false" shouldBeUnique="false" type="xml"/>
@@ -679,7 +681,7 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>oatype</name>
 		<aliases>
@@ -689,8 +691,8 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 		<open>false</open>
 		<primary-identifier control="false" generate-cone-id="true"/>
 		<predicates>
-		<predicate name="OAType" 
-			value="http://purl.org/dc/elements/1.1/title" multiple="false" 
+		<predicate name="OAType"
+			value="http://purl.org/dc/elements/1.1/title" multiple="false"
 			mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 		</predicates>
 		<results>
@@ -721,7 +723,7 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 			</result>
 		</results>
 	</model>
-	
+
 	<model>
 		<name>sdm-lifecycle</name>
 		<aliases>
@@ -741,7 +743,7 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 			</result>
 		</results>
 	</model>
-	
+
 	<formats>
 		<format id="html">
 			<mime-type id="text/html"/>
@@ -764,7 +766,7 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 			<mime-type id="application/vnd.cone-options"/>
 		</format>
 	</formats>
-	
+
 	<config>
 		<default-namespace uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
 		<default-namespace uri="http://dewey.info/" prefix="ddc"/>
