@@ -75,7 +75,14 @@
             {
                 "user": {"role": "SYSADMIN"}
             },
-            {"file.visibility": "PUBLIC"},
+            {
+                "file.visibility": "PUBLIC",
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
             {
                 "user": {"field_user_id_match": "file.creator.objectId"}
             },
@@ -87,7 +94,12 @@
             },
             {
                 "file.visibility": "AUDIENCE",
-                "user": {"ip_match": "file.allowedAudienceIds"}
+                "user": {"ip_match": "file.allowedAudienceIds"},
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
             }
         ]
     },
