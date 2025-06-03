@@ -268,9 +268,8 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/family_name" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
 			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
-				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="true" restricted="false" suggest-url="/pubman/faces/IdentifierSuggest.jsp?format=json"/>
-				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="true" restricted="false"/>
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 			</predicate>
 			<predicate name="Researcher URL" value="http://xmlns.com/foaf/0.1/homepage" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="false" restricted="false">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="false" shouldBeUnique="true"/>
