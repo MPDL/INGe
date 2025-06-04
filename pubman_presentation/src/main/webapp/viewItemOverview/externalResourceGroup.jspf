@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<!-- External resource tile -->
 	<h:panelGroup layout="block"
 		styleClass="huge_area0 tile_category borderRed">
@@ -38,7 +38,7 @@
 							align="left" />
 						<!-- Textual description and link to external resource -->
 						<h:panelGroup id="imgLocatorGroupOpenAccess"
-							rendered="#{locator.file.metadata.oaStatus!=null and locator.file.metadata.oaStatus.name().toLowerCase() != 'closed_access'}">
+							rendered="#{locator.file.metadata.oaStatus!=null and locator.file.metadata.oaStatus.name().toLowerCase() != 'closed_access' and locator.file.metadata.oaStatus.name().toLowerCase() != 'not_specified'}">
 							<img src="../resources/images/open_access_#{locator.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 									 class="large_imgImg xTiny_marginRExcl" align="left" title="#{locator.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
 									 	locator.file.metadata.oaStatus.name().toLowerCase() == 'green' ? tip.ViewItem_imgOa_green :
@@ -46,11 +46,13 @@
 									 	locator.file.metadata.oaStatus.name().toLowerCase() == 'miscellaneous' ? tip.ViewItem_imgOa_miscellaneous :
 									 	tip.ViewItem_imgOa_not_specified}"/>
 						</h:panelGroup>
+						<!--
 						<h:panelGroup id="imgLocatorGroupOpenAccessUnknown"
 							rendered="#{locator.file.metadata.oaStatus==null}">
 							<img src="../resources/images/open_access_not_specified_31.png"
 									 class="large_imgImg xTiny_marginRExcl" align="left" title="#{tip.ViewItem_imgOa_not_specified }"/>
 						</h:panelGroup>
+						-->
 						<p class="double_area0 grid-item-3">
 							<!-- Link to the external resource -->
 							<h:outputLink id="lnkLocator" target="_blank" rel="noreferrer noopener"
@@ -72,5 +74,5 @@
 			</h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
-	
+
 </ui:composition>

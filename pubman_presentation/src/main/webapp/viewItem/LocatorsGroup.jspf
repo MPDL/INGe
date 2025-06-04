@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<h:panelGroup rendered="#{!ViewItemFull.isStateWithdrawn}">
 		<div id="locators" class="full_area0 itemBlock">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -39,7 +39,7 @@
 								value=" (#{locator.contentCategoryLabel})" />
 						</span>
 						<h:panelGroup id="imgLocatorGroupOpenAccess"
-							rendered="#{locator.file.metadata.oaStatus!=null and locator.file.metadata.oaStatus.name().toLowerCase() != 'closed_access'}">
+							rendered="#{locator.file.metadata.oaStatus!=null and locator.file.metadata.oaStatus.name().toLowerCase() != 'closed_access' and locator.file.metadata.oaStatus.name().toLowerCase() != 'not_specified'}">
 							<img src="../resources/images/open_access_#{locator.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 									 class="xSmall_imgImg " align="left" title="#{locator.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
 									 	locator.file.metadata.oaStatus.name().toLowerCase() == 'green' ? tip.ViewItem_imgOa_green :
@@ -47,11 +47,13 @@
 									 	locator.file.metadata.oaStatus.name().toLowerCase() == 'miscellaneous' ? tip.ViewItem_imgOa_miscellaneous :
 									 	tip.ViewItem_imgOa_not_specified}"/>
 						</h:panelGroup>
+						<!--
 						<h:panelGroup id="imgLocatorGroupOpenAccesUnknown"
 							rendered="#{locator.file.metadata.oaStatus==null}">
 							<img src="../resources/images/open_access_not_specified_31.png"
 									 class="xSmall_imgImg " align="left" title="#{tip.ViewItem_imgOa_not_specified }"/>
 						</h:panelGroup>
+						-->
 					</h:panelGroup>
 					<!-- Locator description -->
 					<h:panelGroup layout="block"
@@ -82,5 +84,5 @@
 			</h:panelGroup>
 		</div>
 	</h:panelGroup>
-	
+
 </ui:composition>

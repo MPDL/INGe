@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<!-- Fulltext tile -->
 	<h:panelGroup layout="block"
 		styleClass="huge_area0 tile_category borderDarkGreen xTiny_marginRExcl">
@@ -44,7 +44,7 @@
 								<i class="fa fa-arrow-circle-o-down" style="color: #3a3b3b;"></i>
 							</h:outputLink>
 							<h:panelGroup id="imgFileGroupOpenAccess"
-								rendered="#{!(file.showSearchHits)  and file.file.metadata.oaStatus!=null  and !ViewItemFull.isStateWithdrawn  and file.file.visibility == 'PUBLIC'}">
+								rendered="#{!(file.showSearchHits)  and file.file.metadata.oaStatus!=null  and !ViewItemFull.isStateWithdrawn  and file.file.visibility == 'PUBLIC' and file.file.metadata.oaStatus.name().toLowerCase() != 'not_specified'}">
 								<img src="../resources/images/open_access_#{file.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 										 class="large_imgImg xTiny_marginRExcl" align="left" title="#{file.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
 										 	file.file.metadata.oaStatus.name().toLowerCase() == 'green' ? tip.ViewItem_imgOa_green :
@@ -52,11 +52,13 @@
 										 	file.file.metadata.oaStatus.name().toLowerCase() == 'miscellaneous' ? tip.ViewItem_imgOa_miscellaneous :
 										 	tip.ViewItem_imgOa_not_specified}"/>
 							</h:panelGroup>
+							<!--
 							<h:panelGroup id="imgFileGroupOpenAccessUnknown"
 								rendered="#{!(file.showSearchHits) and file.file.metadata.oaStatus==null  and !ViewItemFull.isStateWithdrawn  and file.file.visibility == 'PUBLIC'}">
 								<img src="../resources/images/open_access_not_specified_31.png"
 										 class="large_imgImg xTiny_marginRExcl" align="left" title="#{tip.ViewItem_imgOa_not_specified }" />
 							</h:panelGroup>
+							-->
 							<p class="double_area0 grid-item-3">
 								<!-- Link (show or download) to the file -->
 								<h:outputLink id="lnkShowComponent" target="_blank" rel="noreferrer noopener"
@@ -94,5 +96,5 @@
 			</h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
-	
+
 </ui:composition>

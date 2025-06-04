@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<h:panelGroup rendered="#{!ViewItemFull.isStateWithdrawn}">
 		<div id="files" class="full_area0 itemBlock">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -29,7 +29,7 @@
 								<span class="xLarge_area0 endline labelLine featureIcon">
 									<span class="noDisplay">: </span>
 								</span>
-								
+
 								<div class="xHuge_area0 xTiny_marginLExcl endline">
 									<div class="half_area0 endline">
 										<h:outputText value="#{file.fileName}"
@@ -78,7 +78,7 @@
 										</h:outputLink>
 									</div>
 									<h:panelGroup id="imgFileGroupOpenAccess"
-										rendered="#{file.file.metadata.oaStatus!=null and file.file.visibility == 'PUBLIC'}">
+										rendered="#{file.file.metadata.oaStatus!=null and file.file.visibility == 'PUBLIC' and file.file.metadata.oaStatus.name().toLowerCase() != 'not_specified'}">
 										<img src="../resources/images/open_access_#{file.file.metadata.oaStatus.name().toLowerCase() }_31.png"
 												 class="xSmall_imgImg " align="left" title="#{file.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
 												 	file.file.metadata.oaStatus.name().toLowerCase() == 'green' ? tip.ViewItem_imgOa_green :
@@ -86,11 +86,13 @@
 												 	file.file.metadata.oaStatus.name().toLowerCase() == 'miscellaneous' ? tip.ViewItem_imgOa_miscellaneous :
 												 	tip.ViewItem_imgOa_not_specified}"/>
 									</h:panelGroup>
+									<!--
 									<h:panelGroup id="imgFileGroupOpenAccessUnknown"
 										rendered="#{file.file.metadata.oaStatus==null and file.file.visibility == 'PUBLIC'}">
 										<img src="../resources/images/open_access_not_specified_31.png"
 												 class="xSmall_imgImg " align="left" title="#{tip.ViewItem_imgOa_not_specified }"/>
 									</h:panelGroup>
+									-->
 								</div>
 							</div>
 						</div>
@@ -168,7 +170,7 @@
 								rendered="#{ViewItemFull.isStateWithdrawn == false and file.isVisible == false and file.file.metadata.embargoUntil != null and file.file.metadata.embargoUntil != ''}" />
 							<h:outputText value=" (#{file.audienceOrganizations})"
 								rendered="#{file.audienceOrganizations != null and ViewItemFull.isStateWithdrawn == false and file.file.visibility == 'AUDIENCE'}" />
-							
+
 							<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}"
 								rendered="#{ViewItemFull.isStateWithdrawn == true}" />
 						</span>
@@ -275,5 +277,5 @@
 			</h:panelGroup>
 		</div>
 	</h:panelGroup>
-	
+
 </ui:composition>
