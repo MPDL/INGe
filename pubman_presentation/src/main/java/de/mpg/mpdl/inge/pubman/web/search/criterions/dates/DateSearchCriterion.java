@@ -27,10 +27,9 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.dates;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
-import co.elastic.clients.json.JsonData;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import java.io.StringReader;
 
 @SuppressWarnings("serial")
 public class DateSearchCriterion extends SearchCriterionBase {
@@ -340,16 +339,38 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
 
   private static Query buildDateRangeQuery(String index, String from, String to) {
+    // In Elasticsearch 8.18.0, we need to use a different approach to create range queries
 
-    RangeQuery.Builder qb = new RangeQuery.Builder();
-    qb.field(index);
-    if (null != from && !from.trim().isEmpty()) {
-      qb.gte(JsonData.of(roundDateString(from)));
+    // Create a range query using JSON
+    if (null != from && !from.trim().isEmpty() && null != to && !to.trim().isEmpty()) {
+      // Both from and to are specified
+      String fromDate = roundDateString(from);
+      String toDate = roundDateString(to);
+
+      // Create a JSON string for a range query with both bounds
+      String jsonQuery = String.format("{\"range\":{\"%s\":{\"gte\":\"%s\",\"lte\":\"%s\"}}}", index, fromDate, toDate);
+
+      return Query.of(q -> q.withJson(new StringReader(jsonQuery)));
+    } else if (null != from && !from.trim().isEmpty()) {
+      // Only from is specified
+      String fromDate = roundDateString(from);
+
+      // Create a JSON string for a range query with only lower bound
+      String jsonQuery = String.format("{\"range\":{\"%s\":{\"gte\":\"%s\"}}}", index, fromDate);
+
+      return Query.of(q -> q.withJson(new StringReader(jsonQuery)));
+    } else if (null != to && !to.trim().isEmpty()) {
+      // Only to is specified
+      String toDate = roundDateString(to);
+
+      // Create a JSON string for a range query with only upper bound
+      String jsonQuery = String.format("{\"range\":{\"%s\":{\"lte\":\"%s\"}}}", index, toDate);
+
+      return Query.of(q -> q.withJson(new StringReader(jsonQuery)));
+    } else {
+      // Neither from nor to is specified, return a match_all query
+      return Query.of(q -> q.matchAll(m -> m));
     }
-    if (null != to && !to.trim().isEmpty()) {
-      qb.lte(JsonData.of(roundDateString(to)));
-    }
-    return qb.build()._toQuery();
   }
 
 

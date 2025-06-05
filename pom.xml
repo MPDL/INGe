@@ -373,24 +373,24 @@
 			<dependency>
 				<groupId>org.elasticsearch.client</groupId>
 				<artifactId>elasticsearch-rest-high-level-client</artifactId>
-				<version>8.12.2</version>
+				<version>8.18.0</version>
 			</dependency>
 			<dependency>
 				<groupId>co.elastic.clients</groupId>
 				<artifactId>elasticsearch-java</artifactId>
-				<version>8.12.2</version>
+				<version>8.18.0</version>
 			</dependency>
 
 			<!-- Hibernate -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>6.4.1.Final</version>
+				<version>7.0.0.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-jcache</artifactId>
-				<version>6.4.1.Final</version>
+				<version>7.0.0.Final</version>
 			</dependency>
 
 			<!-- Jdbc -->
@@ -541,29 +541,29 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
-				<version>6.0.4</version>
+				<version>6.2.7</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-jpa</artifactId>
-				<version>3.0.1</version>
+				<version>3.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-rest-webmvc</artifactId>
-				<version>4.0.1</version>
+				<version>4.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
-				<version>6.0.1</version>
+				<version>6.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
-				<version>6.0.1</version>
+				<version>6.5.0</version>
 			</dependency>
 
 			<!-- Passay -->
