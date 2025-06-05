@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
+import co.elastic.clients.elasticsearch._types.InlineScript;
 import co.elastic.clients.elasticsearch._types.Script;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
@@ -167,10 +168,9 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
               ._toQuery());
 
       // display only latest versions
-      // Create script using the new API in Elasticsearch 8.18.0
-      String scriptSource = "doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
-          + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']";
-      bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.source(scriptSource))))._toQuery());
+      InlineScript is = InlineScript.of(i -> i.source("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
+          + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
+      bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.inline(is))))._toQuery());
 
       if ("withdrawn".equalsIgnoreCase(this.selectedItemState)) {
         bq.must(TermQuery.of(t -> t.field(PubItemServiceDbImpl.INDEX_PUBLIC_STATE).value("WITHDRAWN"))._toQuery());

@@ -1,7 +1,15 @@
 package de.mpg.mpdl.inge.pubman.web.batch;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.InlineScript;
 import co.elastic.clients.elasticsearch._types.Script;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
@@ -23,11 +31,6 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import jakarta.faces.bean.ManagedBean;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * This bean is the implementation of the BaseListRetrieverRequestBean for the batch list. It uses
@@ -94,17 +97,16 @@ public class BatchItemsRetrieverRequestBean
 
         BoolQuery.Builder bq = new BoolQuery.Builder();
 
-        bq.must(TermsQuery.of(t -> t.field("objectId").terms(TermsQueryField.of(tq -> tq.value(ids)))));
+        bq.must(TermsQuery.of(t -> t.field("objectId").terms(TermsQueryField.of(tq -> tq.value(ids))))._toQuery());
 
         // display only latest versions
 
-        // Create script using the new API in Elasticsearch 8.18.0
-        String scriptSource = "doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
-            + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']";
-        bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.source(scriptSource)))));
+        InlineScript is = InlineScript.of(i -> i.source("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
+            + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));
+        bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.inline(is))))._toQuery());
 
         PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-        SearchRequest.Builder srb = new SearchRequest.Builder().query(bq.build()).from(offset).size(limit);
+        SearchRequest.Builder srb = new SearchRequest.Builder().query(bq.build()._toQuery()).from(offset).size(limit);
 
 
         for (String index : sc.getIndex()) {
