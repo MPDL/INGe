@@ -8,7 +8,7 @@
 		<artifactId>INGe</artifactId>
 		<version>8.5.4-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>inge_db_connector</artifactId>
 	<name>inge_db_connector</name>
 
@@ -132,5 +132,5 @@
 			<artifactId>spring-security-config</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 </project>
