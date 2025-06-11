@@ -77,7 +77,8 @@ public class CitationStyleLanguageManagerService {
         } else {
           citation = citation.trim();
         }
-        //}
+        citation = unescapeHtmlTag(citation, "sub");
+        citation = unescapeHtmlTag(citation, "sup");
         citationList.add(citation);
       }
       return citationList;
@@ -103,5 +104,12 @@ public class CitationStyleLanguageManagerService {
       throw new CitationStyleLanguageException("Error while getting citation style from cone", e);
     }
     return getOutput(citationStyle, itemList);
+  }
+
+  private static String unescapeHtmlTag(String citation, String tag) {
+    String c = citation.replaceAll("&lt;" + tag + "&gt;", "<" + tag + ">");
+    c = c.replaceAll("&lt;/" + tag + "&gt;", "</" + tag + ">");
+
+    return c;
   }
 }
