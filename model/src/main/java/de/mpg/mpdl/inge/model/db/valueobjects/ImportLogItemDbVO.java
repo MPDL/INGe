@@ -32,7 +32,6 @@ public class ImportLogItemDbVO extends ImportLog {
 
   @Column(name = "message")
   private String message;
-
   @Column(name = "item_id")
   private String itemId;
 

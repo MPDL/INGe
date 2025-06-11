@@ -598,6 +598,47 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   @Override
+  public ItemVersionVO rollbackToVersion(String itemId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+
+    ValidId validId = getValidId(itemId);
+
+    if (validId.version == null) {
+      throw new IngeApplicationException("No version given.");
+    }
+
+    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(validId.objectId);
+    if (null == latestVersion) {
+      throw new IngeApplicationException("Object with given id not found.");
+    }
+
+    if (latestVersion.getVersionNumber() == validId.version.intValue()) {
+      throw new IngeApplicationException("Versionnumber given is the latest version.");
+    }
+
+    ContextDbVO context = this.contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
+    checkAa("rollbackToVersion", principal, latestVersion, context);
+
+    ItemVersionVO rollbackVersion = this.get(itemId, authenticationToken);
+
+    // Now copy the old stuff into the current item
+    latestVersion.setMetadata(rollbackVersion.getMetadata());
+
+    // Do not forget the files and locators
+    latestVersion.getFiles().clear();
+    for (FileDbVO fileVO : rollbackVersion.getFiles()) {
+      FileDbVO clonedFile = new FileDbVO(fileVO);
+      latestVersion.getFiles().add(clonedFile);
+    }
+
+    ItemVersionVO newVersion = this.update(latestVersion, authenticationToken);
+
+    return newVersion;
+  }
+
+  @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {

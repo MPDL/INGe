@@ -473,6 +473,18 @@
                     "RELEASED"
                 ]
             }
+        ],
+        "rollbackToVersion": [
+            {
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "context.workflow": "SIMPLE"
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                }
+            }
         ]
     },
     "de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl": {
