@@ -221,7 +221,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     String doi = DoiRestService.getNewDoi(latestVersion);
     latestVersion.getMetadata().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.DOI, doi));
-    ItemVersionVO updatedPubItem = update(latestVersion, authenticationToken);
+    ItemVersionVO updatedPubItem = update(latestVersion, authenticationToken, false);
     ItemVersionVO releasedPubItem =
             releasePubItem(updatedPubItem.getObjectId(), updatedPubItem.getModificationDate(), "DOI added", authenticationToken);
 
