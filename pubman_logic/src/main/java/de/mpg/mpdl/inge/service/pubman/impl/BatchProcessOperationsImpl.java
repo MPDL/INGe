@@ -79,7 +79,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     itemVersionVO.getObject().setLocalTags(currentLocalTags);
     this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
 
-    return true;
+    return false;
   }
 
   @Override
@@ -98,10 +98,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_SOURCE_FOUND);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -132,10 +132,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -159,26 +159,26 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
             } else {
               this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
                   BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
-              return false;
+              return true;
             }
           } else {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
                 BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
-            return false;
+            return true;
           }
         } else {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
               BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-          return false;
+          return true;
         }
       } else {
-        return false;
+        return true;
       }
     } else {
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -211,10 +211,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_FILES_METADATA_OLD_VALUE_NOT_EQUAL);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -239,20 +239,20 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
         } else {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
               BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_NEW_VALUE_SET);
-          return false;
+          return true;
         }
       } else {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-        return false;
+        return true;
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -295,15 +295,15 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       } else {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-        return false;
+        return true;
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -320,10 +320,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -339,10 +339,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -364,16 +364,16 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
         } else {
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
               BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-          return false;
+          return true;
         }
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -402,15 +402,15 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       } else {
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
             BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
-        return false;
+        return true;
       }
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_SOURCE_FOUND);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -435,7 +435,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     }
     this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
 
-    return true;
+    return false;
   }
 
   @Override
@@ -458,10 +458,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_FILES_METADATA_OLD_VALUE_NOT_EQUAL);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -500,10 +500,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_ORCID_NO_PERSON);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   @Override
@@ -522,10 +522,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_SOURCE_FOUND);
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   public void setAllowedAudienceIds(List<String> allowedAudienceIds) {
