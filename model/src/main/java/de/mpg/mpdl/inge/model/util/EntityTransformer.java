@@ -1,9 +1,6 @@
 package de.mpg.mpdl.inge.model.util;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
@@ -21,9 +18,10 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntityTransformer {
 
@@ -364,7 +362,7 @@ public class EntityTransformer {
         ref.setLastMessage(audit.getComment());
 
         vhEntry.setReference(ref);
-        vhEntry.setState(ItemVO.State.valueOf(audit.getPubItem().getVersionState().name()));
+        //        vhEntry.setState(ItemVO.State.valueOf(audit.getPubItem().getVersionState().name()));
         vhEntry.setEvents(new ArrayList<>());
 
         vhList.add(vhEntry);
