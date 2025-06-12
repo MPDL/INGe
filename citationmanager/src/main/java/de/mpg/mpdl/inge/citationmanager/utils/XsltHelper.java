@@ -65,8 +65,8 @@ public class XsltHelper {
   private static final Pattern SPANS_WITH_CLASS = Pattern.compile("<span\\s+class=\"(\\w+)\".*?>(.*?)</span>", FLAGS);
   private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
   private static final Pattern ALL_TAGS_EXCEPT_STYLE = Pattern.compile("\\<(?!(\\/?style))", FLAGS);
-  private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile("\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))", FLAGS);
-  private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
+  private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile("\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP]|i|b)))", FLAGS);
+  private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]|i|b))\\>", Pattern.DOTALL);
 
   private XsltHelper() {}
 

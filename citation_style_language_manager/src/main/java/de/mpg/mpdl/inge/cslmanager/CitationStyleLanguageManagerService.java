@@ -79,6 +79,8 @@ public class CitationStyleLanguageManagerService {
         }
         citation = unescapeHtmlTag(citation, "sub");
         citation = unescapeHtmlTag(citation, "sup");
+        citation = unescapeHtmlTag(citation, "i");
+        citation = unescapeHtmlTag(citation, "b");
         citationList.add(citation);
       }
       return citationList;
