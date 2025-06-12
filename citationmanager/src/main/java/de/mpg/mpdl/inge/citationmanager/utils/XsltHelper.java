@@ -210,7 +210,7 @@ public class XsltHelper {
     Matcher m = SUBS_OR_SUPS.matcher(snippet);
     while (m.find()) {
       String tag = m.group(1);
-      if (tag.toLowerCase().startsWith("su")) {
+      if (tag.toLowerCase().startsWith("su") || tag.toLowerCase().equals("i") || tag.toLowerCase().equals("b")) {
         s.push(tag);
       } else {
         if (s.empty() || !tag.equals("/" + s.pop())) {
