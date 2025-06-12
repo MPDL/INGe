@@ -71,7 +71,7 @@ public class ItemRestController {
   private static final Logger logger = LogManager.getLogger(ItemRestController.class);
   private static final String ITEM_ID_PATH = "/{itemId}";
   private static final String ITEM_ID_VAR = "itemId";
-  private static final String ItemRestControllerAddDoi_PATH = "deleteBatchProcessUserLock/{itemId}";
+
   @Autowired
   private PubItemService pubItemService;
 
@@ -85,6 +85,17 @@ public class ItemRestController {
   private SearchAndExportService saes;
 
   private ObjectMapper objectMapper = new ObjectMapper();
+
+  @RequestMapping(value = ITEM_ID_PATH + "/rollbackToVersion", method = RequestMethod.PUT)
+  public ResponseEntity<ItemVersionVO> rollbackToVersion( //
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @PathVariable(value = ITEM_ID_VAR) String itemId)
+      throws IngeTechnicalException, AuthenticationException, IngeApplicationException, AuthorizationException {
+
+    ItemVersionVO itemVersionVO = this.pubItemService.rollbackToVersion(itemId, token);
+
+    return new ResponseEntity<>(itemVersionVO, HttpStatus.OK);
+  }
 
   @RequestMapping(value = ITEM_ID_PATH + "/addNewDoi", method = RequestMethod.PUT)
   public ResponseEntity<ItemVersionVO> addNewDoi( //
@@ -108,6 +119,7 @@ public class ItemRestController {
 
     ObjectNode returnNode = objectMapper.createObjectNode();
     returnNode.set("actions", objectMapper.valueToTree(map));
+
     return new ResponseEntity<>(returnNode, HttpStatus.OK);
   }
 
@@ -117,6 +129,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ItemVersionVO created = null;
     created = this.pubItemService.create(item, token);
+
     return new ResponseEntity<>(created, HttpStatus.CREATED);
   }
 
@@ -125,6 +138,7 @@ public class ItemRestController {
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     this.pubItemService.delete(itemId, token);
+
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
@@ -141,11 +155,10 @@ public class ItemRestController {
       @RequestParam(value = "cslConeId", required = false) String cslConeId, HttpServletResponse response) throws AuthenticationException,
       AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException, IOException {
 
-
     List<ItemVersionVO> itemList = new ArrayList<>();
     itemList.add(getItem(itemId, token));
-    return this.utilServiceBean.searchOrExport(format, citation, cslConeId, itemList, response, token);
 
+    return this.utilServiceBean.searchOrExport(format, citation, cslConeId, itemList, response, token);
   }
 
   @Hidden
@@ -161,6 +174,7 @@ public class ItemRestController {
         new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_SORT), SearchSortCriteria.SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse = this.pubItemService.search(srRequest, token);
+
     return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
@@ -197,12 +211,14 @@ public class ItemRestController {
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "size", defaultValue = "10") int limit, @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
     Query matchAllQuery = new MatchAllQuery.Builder().build()._toQuery();
     //QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting =
         new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_SORT), SearchSortCriteria.SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse = this.pubItemService.search(srRequest, token);
+
     return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
@@ -211,7 +227,7 @@ public class ItemRestController {
   public ResponseEntity<JsonNode> getAuthInfoForFile(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @PathVariable(value = "componentId") String componentId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+      throws IngeTechnicalException, IngeApplicationException, NotFoundException {
 
     JsonNode node = this.pubItemService.getAuthorizationInfoForFile(itemId, componentId, token);
 
@@ -277,12 +293,12 @@ public class ItemRestController {
       @RequestParam(value = "download", required = false, defaultValue = "false") boolean forceDownload, HttpServletResponse response,
       HttpServletRequest request)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
     try {
       FileVOWrapper fileVOWrapper = this.fileService.readFile(itemId, componentId, token);
       if (null == fileVOWrapper) {
         throw new NotFoundException();
       }
-
 
       if (fileVOWrapper.getThumbnailFileId() != null) {
         String contentDispositionType = "inline";
@@ -303,7 +319,6 @@ public class ItemRestController {
     }
   }
 
-
   /**
    * Retrive the technical Metadata of a file
    *
@@ -318,24 +333,28 @@ public class ItemRestController {
   public String getTechnicalMetadataByTika(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable String itemId, @PathVariable String componentId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
     return this.fileService.getFileMetadata(itemId, componentId, token);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/history", method = RequestMethod.GET)
   public ResponseEntity<List<AuditDbVO>> getVersionHistory(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId) {
+
     List<AuditDbVO> list = null;
     list = this.pubItemService.getVersionHistory(itemId, token);
+
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
-
 
   @RequestMapping(value = ITEM_ID_PATH + "/release", method = RequestMethod.PUT)
   public ResponseEntity<ItemVersionVO> release(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
     ItemVersionVO released = null;
     released = this.pubItemService.releasePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+
     return new ResponseEntity<>(released, HttpStatus.OK);
   }
 
@@ -343,8 +362,10 @@ public class ItemRestController {
   public ResponseEntity<ItemVersionVO> revise(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
     ItemVersionVO revised = null;
     revised = this.pubItemService.revisePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+
     return new ResponseEntity<>(revised, HttpStatus.OK);
   }
 
@@ -372,12 +393,10 @@ public class ItemRestController {
       @RequestBody JsonNode query, //
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+
     SearchRetrieveRequestVO srRequest = this.utilServiceBean.query2VO(query);
 
-
     return this.utilServiceBean.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
-
-
   }
 
   //  @ApiImplicitParams({@ApiImplicitParam(name = "searchSource", dataType = "[Ljava.lang.String;", examples = @Example(
@@ -433,8 +452,10 @@ public class ItemRestController {
   public ResponseEntity<ItemVersionVO> submit(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
     ItemVersionVO submitted = null;
     submitted = this.pubItemService.submitPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+
     return new ResponseEntity<>(submitted, HttpStatus.OK);
   }
 
@@ -442,9 +463,11 @@ public class ItemRestController {
   public ResponseEntity<ItemVersionVO> update(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody ItemVersionVO item)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
     //TODO Write itemId into item
     ItemVersionVO updated = null;
     updated = this.pubItemService.update(item, token);
+
     return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
@@ -452,13 +475,16 @@ public class ItemRestController {
   public ResponseEntity<ItemVersionVO> withdraw(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
     ItemVersionVO withdrawn = null;
     withdrawn = this.pubItemService.withdrawPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
+
     return new ResponseEntity<>(withdrawn, HttpStatus.OK);
   }
 
   private ItemVersionVO getItem(String itemId, String token)
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, NotFoundException {
+
     ItemVersionVO item = null;
 
     if (null != token && !token.isEmpty()) {
@@ -470,6 +496,7 @@ public class ItemRestController {
     if (null == item) {
       throw new NotFoundException();
     }
+
     return item;
   }
 }

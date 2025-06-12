@@ -36,6 +36,9 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
   ItemVersionVO revisePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  ItemVersionVO rollbackToVersion(String itemId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
   ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
