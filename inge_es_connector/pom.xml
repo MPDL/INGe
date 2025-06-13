@@ -53,12 +53,12 @@
 			<plugin>
 				<groupId>com.github.alexcojocaru</groupId>
 				<artifactId>elasticsearch-maven-plugin</artifactId>
-				<version>6.23</version>
+				<version>6.29</version>
 				<configuration>
 					<clusterName>testCluster</clusterName>
 					<transportPort>9500</transportPort>
 					<httpPort>9400</httpPort>
-					<version>8.6.2</version>
+					<version>8.18.0</version>
 					<keepExistingData>true</keepExistingData>
 					<pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>
 					<skip>${maven.test.skip}</skip>
