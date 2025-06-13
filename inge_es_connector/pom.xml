@@ -62,6 +62,16 @@
 					<keepExistingData>true</keepExistingData>
 					<pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>
 					<skip>${maven.test.skip}</skip>
+					<environmentVariables>
+						<ES_TMPDIR>${project.build.testOutputDirectory}</ES_TMPDIR>
+					</environmentVariables>
+					<instanceSettings>
+						<properties>
+							<ingest.geoip.downloader.enabled>false</ingest.geoip.downloader.enabled>
+						</properties>
+					</instanceSettings>
+
+
 				</configuration>
 				<executions>
 					<execution>
