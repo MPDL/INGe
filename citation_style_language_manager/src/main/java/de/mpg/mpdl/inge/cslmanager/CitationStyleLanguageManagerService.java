@@ -34,16 +34,6 @@ public class CitationStyleLanguageManagerService {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
 
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
-      /*
-      if ("v8".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
-        ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.V8);
-      } else if ("graaljs".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
-        ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.GRAALJS);
-      } else {
-        ScriptRunnerFactory.setRunnerType(ScriptRunnerFactory.RunnerType.AUTO);
-      }
-      
-       */
 
       if (null != defaultLocale) {
         citeproc = new CSL(itemDataProvider, citationStyle, defaultLocale);
@@ -51,39 +41,12 @@ public class CitationStyleLanguageManagerService {
         citeproc = new CSL(itemDataProvider, citationStyle);
       }
 
-      /*
-      logger.info("JavaScript Engine: " + CSL.getJavaScriptEngineName() + " -Version: " + CSL.getJavaScriptEngineVersion() + " -JSVerison: "
-          + CSL.getCiteprocJsVersion());
-      */
+
       citeproc.registerCitationItems(itemDataProvider.getIds());
-      citeproc.setOutputFormat(CITATION_PROCESSOR_OUTPUT_FORMAT);
+      citeproc.setOutputFormat(new CiteProcPubManHTMLFormat());
       Bibliography bibl = citeproc.makeBibliography();
 
-      //List<String> biblIds = Arrays.asList(bibl.getEntryIds());
-
-      // remove surrounding <div>-tags
-      for (String citation : bibl.getEntries()) {
-        //String citation = "";
-        //int citationPosition = biblIds.indexOf(id);
-        //if (-1 != citationPosition) {
-        //citation = bibl.getEntries()[citationPosition];
-        if (citation.contains("<div class=\"csl-right-inline\">")) {
-          citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
-          citation = citation.substring(0, citation.lastIndexOf("</div>"));
-          citation = citation.substring(0, citation.lastIndexOf("</div>"));
-        } else if (citation.contains("<div class=\"csl-entry\">")) {
-          citation = citation.substring(citation.indexOf("<div class=\"csl-entry\">") + 23);
-          citation = citation.substring(0, citation.lastIndexOf("</div>"));
-        } else {
-          citation = citation.trim();
-        }
-        citation = unescapeHtmlTag(citation, "sub");
-        citation = unescapeHtmlTag(citation, "sup");
-        citation = unescapeHtmlTag(citation, "i");
-        citation = unescapeHtmlTag(citation, "b");
-        citationList.add(citation);
-      }
-      return citationList;
+      return Arrays.asList(bibl.getEntries());
 
     } catch (IOException e) {
       logger.error("Error creating CSL processor", e);
@@ -108,10 +71,4 @@ public class CitationStyleLanguageManagerService {
     return getOutput(citationStyle, itemList);
   }
 
-  private static String unescapeHtmlTag(String citation, String tag) {
-    String c = citation.replaceAll("&lt;" + tag + "&gt;", "<" + tag + ">");
-    c = c.replaceAll("&lt;/" + tag + "&gt;", "</" + tag + ">");
-
-    return c;
-  }
 }
