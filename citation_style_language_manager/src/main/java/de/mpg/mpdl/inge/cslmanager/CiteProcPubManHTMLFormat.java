@@ -9,8 +9,21 @@ import de.undercouch.citeproc.output.SecondFieldAlign;
 
 import java.util.List;
 
+/**
+ * An extended HTML formatting class for CSL citations. This class extends the standard HtmlFormat
+ * class to provide specific formatting functionality for PubMan.
+ */
 public class CiteProcPubManHTMLFormat extends HtmlFormat {
 
+  /**
+   * Formats a bibliography. Uses the same implementation as super class, except for adding the
+   * <div class="csl-entry"></div> tag
+   *
+   * @param buffer The token buffer containing the tokens to be formatted
+   * @param ctx The render context containing styling information
+   * @param index The index of the current bibliography entry
+   * @return The formatted bibliography entry as an HTML string
+   */
   @Override
   protected String doFormatBibliographyEntry(TokenBuffer buffer, RenderContext ctx, int index) {
     SecondFieldAlign sfa = ctx.getStyle().getBibliography().getSecondFieldAlign();
@@ -34,34 +47,49 @@ public class CiteProcPubManHTMLFormat extends HtmlFormat {
     return result;
   }
 
+  /**
+   * Escapes special characters in a string and then applies unescaping for certain HTML tags.
+   *
+   * @param str The string to be escaped
+   * @return The escaped string with unescaped HTML tags
+   */
   @Override
   protected String escape(String str) {
     String escaped = super.escape(str);
     return unescapeHtmlTag(escaped);
   }
 
+  /**
+   * Opens a display group for the specified type.
+   *
+   * @param type The type of display group
+   * @return null as no specific formatting is required
+   */
   @Override
   protected String openDisplayGroup(DisplayGroupToken.Type type) {
     return null;
   }
 
+  /**
+   * Closes a display group for the specified type.
+   *
+   * @param type The type of display group
+   * @return null as no specific formatting is required
+   */
   @Override
   protected String closeDisplayGroup(DisplayGroupToken.Type type) {
     return null;
   }
 
-
   /**
-   * Unescapes all i, b, sub, sup tags in a string
-   * 
-   * @param citation
-   * @return
+   * Removes escaping from specific HTML tags (i, b, sub, sup). This method ensures that these
+   * specific HTML tags are interpreted as actual tags in the text rather than escaped characters.
+   *
+   * @param citation The text where tags should be unescaped
+   * @return The text with unescaped HTML tags
    */
   private static String unescapeHtmlTag(String citation) {
-    String res = citation.replaceAll("&lt;(/?)(i|b|sub|sup|)&gt;", "<$1$2>");
+    String res = citation.replaceAll("&lt;(/?)(i|b|sub|sup)&gt;", "<$1$2>");
     return res;
   }
-
-
-
 }
