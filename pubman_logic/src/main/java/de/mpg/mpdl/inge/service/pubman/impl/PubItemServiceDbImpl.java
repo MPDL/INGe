@@ -105,7 +105,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static final String INDEX_METADATA_CREATOR_PERSON_ORCID = "metadata.creators.person.orcid";
   public static final String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER = "metadata.creators.person.organizations.identifier";
   public static final String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH =
-          "metadata.creators.person.organizations.identifierPath";
+      "metadata.creators.person.organizations.identifierPath";
   public static final String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME = "metadata.creators.person.organizations.name";
   public static final String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
   public static final String INDEX_METADATA_CREATOR_SORT = "sort-metadata-creators-compound";
@@ -129,11 +129,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static final String INDEX_METADATA_IDENTIFIERS_TYPE = "metadata.identifiers.type";
   public static final String INDEX_METADATA_LANGUAGES = "metadata.languages";
   public static final String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID =
-          "metadata.projectInfo.fundingInfo.fundingOrganization.identifiers.id";
+      "metadata.projectInfo.fundingInfo.fundingOrganization.identifiers.id";
   public static final String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE =
-          "metadata.projectInfo.fundingInfo.fundingOrganization.title";
+      "metadata.projectInfo.fundingInfo.fundingOrganization.title";
   public static final String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID =
-          "metadata.projectInfo.fundingInfo.fundingProgram.identifiers.id";
+      "metadata.projectInfo.fundingInfo.fundingProgram.identifiers.id";
   public static final String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE = "metadata.projectInfo.fundingInfo.fundingProgram.title";
   public static final String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID = "metadata.projectInfo.grantIdentifier.id";
   public static final String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
@@ -146,9 +146,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME = "metadata.sources.creators.person.givenName";
   public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORCID = "metadata.sources.creators.person.orcid";
   public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIER =
-          "metadata.sources.creators.person.organizations.identifier";
+      "metadata.sources.creators.person.organizations.identifier";
   public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH =
-          "metadata.sources.creators.person.organizations.identifierPath";
+      "metadata.sources.creators.person.organizations.identifierPath";
   public static final String INDEX_METADATA_SOURCES_IDENTIFIERS_ID = "metadata.sources.identifiers.id";
   public static final String INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE = "metadata.sources.identifiers.type";
   public static final String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
@@ -206,7 +206,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO addNewDoi(String itemId, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
 
@@ -223,13 +223,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     latestVersion.getMetadata().getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.DOI, doi));
     ItemVersionVO updatedPubItem = update(latestVersion, authenticationToken, false);
     ItemVersionVO releasedPubItem =
-            releasePubItem(updatedPubItem.getObjectId(), updatedPubItem.getModificationDate(), "DOI added", authenticationToken);
+        releasePubItem(updatedPubItem.getObjectId(), updatedPubItem.getModificationDate(), "DOI added", authenticationToken);
 
     return releasedPubItem;
   }
 
   public boolean checkAccess(AuthorizationService.AccessType at, Principal principal, ItemVersionVO item)
-          throws IngeApplicationException, IngeTechnicalException {
+      throws IngeApplicationException, IngeTechnicalException {
     try {
       checkAa(at.getMethodName(), principal, item, item.getObject().getContext());
     } catch (AuthenticationException | AuthorizationException e) {
@@ -245,12 +245,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO create(ItemVersionVO pubItemVO, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     long start = System.currentTimeMillis();
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
 
     de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO contextNew =
-            this.contextRepository.findById(pubItemVO.getObject().getContext().getObjectId()).orElse(null);
+        this.contextRepository.findById(pubItemVO.getObject().getContext().getObjectId()).orElse(null);
 
     if (null == contextNew) {
       throw new IngeApplicationException("Context with id " + pubItemVO.getObject().getContext().getObjectId() + "not found");
@@ -263,7 +263,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       for (FileDbVO file : pubItemVO.getFiles()) {
         file.setObjectId(null);
         if (null != file.getContent() && FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
-                && file.getContent().startsWith("/rest/items")) {
+            && file.getContent().startsWith("/rest/items")) {
           file.setContent(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + file.getContent());
         }
 
@@ -307,7 +307,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void delete(String id, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
 
@@ -367,7 +367,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Override
   @Transactional(readOnly = true)
   public ItemVersionVO get(String id, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     long start = System.currentTimeMillis();
 
     ValidId validId = getValidId(id);
@@ -424,7 +424,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
-          throws IngeApplicationException, IngeTechnicalException {
+      throws IngeApplicationException, IngeTechnicalException {
     Principal principal = null;
     ItemVersionVO item = null;
     if (authenticationToken != null) {
@@ -459,7 +459,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   public JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
-          throws IngeApplicationException, IngeTechnicalException {
+      throws IngeApplicationException, IngeTechnicalException {
     Principal principal = null;
     ItemVersionVO item = null;
     if (authenticationToken != null) {
@@ -485,7 +485,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     ObjectNode returnNode = objectMapper.createObjectNode();
 
     JsonNode readFileNode = objectMapper.createObjectNode().put(AuthorizationService.AccessType.READ_FILE.name(),
-            fileService.checkAccess(AuthorizationService.AccessType.READ_FILE, principal, item, file));
+        fileService.checkAccess(AuthorizationService.AccessType.READ_FILE, principal, item, file));
     returnNode.set("actions", readFileNode);
 
     if (file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
@@ -584,23 +584,23 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO releasePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(pubItemId, modificationDate, ItemVersionRO.State.RELEASED, message, "release", authenticationToken,
-            AuditDbVO.EventType.RELEASE);
+        AuditDbVO.EventType.RELEASE);
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO revisePubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(pubItemId, modificationDate, ItemVersionRO.State.IN_REVISION, message, "revise", authenticationToken,
-            AuditDbVO.EventType.REVISE);
+        AuditDbVO.EventType.REVISE);
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO rollbackToVersion(String itemId, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
 
@@ -643,14 +643,15 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
-          throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(pubItemId, modificationDate, ItemVersionRO.State.SUBMITTED, message, "submit", authenticationToken,
-            AuditDbVO.EventType.SUBMIT);
+        AuditDbVO.EventType.SUBMIT);
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ItemVersionVO update(ItemVersionVO pubItemVO, String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException{
+  public ItemVersionVO update(ItemVersionVO pubItemVO, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return update(pubItemVO, authenticationToken, true);
   }
 
@@ -727,8 +728,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     } catch (DataAccessException e) {
       GenericServiceImpl.handleDBException(e);
     }
-    if(createAuditEntry)
-    {
+    if (createAuditEntry) {
       createAuditEntry(latestVersion, AuditDbVO.EventType.UPDATE, null);
     }
 
@@ -891,7 +891,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return latestVersion;
   }
 
-  private void createAuditEntry (ItemVersionVO pubItem, AuditDbVO.EventType event, String message) throws IngeApplicationException {
+  private void createAuditEntry(ItemVersionVO pubItem, AuditDbVO.EventType event, String message) throws IngeApplicationException {
     AuditDbVO audit = new AuditDbVO();
     audit.setEvent(event);
     audit.setComment(message);
@@ -906,7 +906,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private void createAuditEntry(ItemVersionVO pubItem, AuditDbVO.EventType event) throws IngeApplicationException {
-   createAuditEntry(pubItem, event, pubItem.getMessage());
+    createAuditEntry(pubItem, event, pubItem.getMessage());
   }
 
   private SearchRetrieveResponseVO<ItemVersionVO> executeSearchSortByVersion(co.elastic.clients.elasticsearch._types.query_dsl.Query query,
