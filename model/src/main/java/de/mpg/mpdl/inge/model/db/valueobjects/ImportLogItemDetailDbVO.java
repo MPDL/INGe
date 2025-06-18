@@ -21,7 +21,7 @@ public class ImportLogItemDetailDbVO extends ImportLog {
   @OnDelete(action = OnDeleteAction.CASCADE)
   private ImportLogItemDbVO parent;
 
-  @Column(name = "message")
+  @Column(name = "message", columnDefinition = "TEXT")
   private String message;
 
   public ImportLogItemDetailDbVO() {}
