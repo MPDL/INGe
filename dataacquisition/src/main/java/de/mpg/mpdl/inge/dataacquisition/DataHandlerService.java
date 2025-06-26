@@ -317,6 +317,7 @@ public class DataHandlerService {
 
     try {
       URLConnection con = url.openConnection();
+      logger.info("Source: " + con.getURL());
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
       int responseCode = httpCon.getResponseCode();
