@@ -188,6 +188,7 @@ public class TransformerFactoryTest {
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
+    logger.info("MARC_EXPORT");
     logger.info("\n" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToMarcXml.xml",

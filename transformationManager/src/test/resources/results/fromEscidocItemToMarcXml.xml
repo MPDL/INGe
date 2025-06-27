@@ -1,142 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<marc:collection xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-                 xmlns:item-list="http://www.escidoc.de/schemas/itemlist/0.10"
-                 xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
-                 xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/"
-                 xmlns:saxon="http://saxon.sf.net/"
-                 xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
-                 xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-                 xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-                 xmlns:prop="http://escidoc.de/core/01/properties/"
-                 xmlns:dc="http://purl.org/dc/elements/1.1/"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-                 xmlns:dcterms="http://purl.org/dc/terms/"
-                 xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
-                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                 xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10"
-                 xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-                 xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-                 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10"
-                 xmlns:marc="http://www.loc.gov/MARC21/slim"
-                 xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-                 xmlns:misc-marc="http://www.editura.de/ns/2012/misc-marc"
-                 xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-    
-    
-      
-        <marc:record>
-      <marc:leader>     naa a22     uub4500</marc:leader>
-      <marc:controlfield tag="001">item_1527236</marc:controlfield>
-      <marc:controlfield tag="003">ZDB-97-MPR</marc:controlfield>
-      <marc:controlfield tag="005">20200917102537.354</marc:controlfield>
-      <marc:controlfield tag="007">cr|||||||||||</marc:controlfield>
-      <marc:controlfield tag="008">20200917s2012 xx |||||o    |00| ||eng |</marc:controlfield>
-      <marc:datafield tag="024" ind1="7" ind2=" ">
-         <marc:subfield code="a">10.1016/j.bandl.2012.08.008</marc:subfield>
-         <marc:subfield code="2">doi</marc:subfield>
-      </marc:datafield>
-            <marc:datafield tag="100" ind1="1" ind2=" ">
-         <marc:subfield code="a">Acheson, Daniel J.</marc:subfield>
-         <marc:subfield code="u">Donders Institute for Brain, Cognition and Behaviour, External Organizations; Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</marc:subfield>
-         <marc:subfield code="0">(eterms:CONE)/persons/resource/persons2693</marc:subfield>
-         <marc:subfield code="4">aut</marc:subfield>
-      </marc:datafield>
-          <marc:datafield tag="245" ind1="1" ind2="0">
-         <marc:subfield code="a">Conflict monitoring in speech production: Physiological evidence from bilingual picture naming</marc:subfield>
-         <marc:subfield code="h">[Online]</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="260" ind1=" " ind2=" ">
-         <marc:subfield code="c">2012</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="300" ind1=" " ind2=" ">
-         <marc:subfield code="a">6 p.</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="506" ind1="0" ind2=" ">
-         <marc:subfield code="f">Unrestricted online access</marc:subfield>
-         <marc:subfield code="2">star</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="520" ind1="3" ind2=" ">
-         <marc:subfield code="a">Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="533" ind1=" " ind2=" ">
-         <marc:subfield code="n">[Online]</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="653" ind1="0" ind2="0">
-         <marc:subfield code="a">self-monitoring</marc:subfield>
-         <marc:subfield code="a">conflict monitoring</marc:subfield>
-         <marc:subfield code="a">picture naming</marc:subfield>
-         <marc:subfield code="a">bilingualism</marc:subfield>
-         <marc:subfield code="a">EEG</marc:subfield>
-         <marc:subfield code="a">ERN</marc:subfield>
-         <marc:subfield code="a">speech production</marc:subfield>
-         <marc:subfield code="a">cognate</marc:subfield>
-         <marc:subfield code="a">Gratton effect</marc:subfield>
-      </marc:datafield>
-            <marc:datafield tag="700" ind1="1" ind2=" ">
-         <marc:subfield code="a">Ganushchak, Lesya Y.</marc:subfield>
-         <marc:subfield code="u">Psychology of Language Department, MPI for Psycholinguistics, Max Planck Society</marc:subfield>
-         <marc:subfield code="0">(eterms:CONE)/persons/resource/persons4533</marc:subfield>
-         <marc:subfield code="4">aut</marc:subfield>
-      </marc:datafield>
-          
-            <marc:datafield tag="700" ind1="1" ind2=" ">
-         <marc:subfield code="a">Christoffels, Ingrid K.</marc:subfield>
-         <marc:subfield code="u">Leiden Institute for Brain and Cognition, Leiden, The Netherlands; Institute for Psychological Research, Leiden, The Netherlands</marc:subfield>
-         <marc:subfield code="4">aut</marc:subfield>
-      </marc:datafield>
-          
-            <marc:datafield tag="700" ind1="1" ind2=" ">
-         <marc:subfield code="a">Hagoort, Peter</marc:subfield>
-         <marc:subfield code="u">Donders Institute for Brain, Cognition and Behaviour, External Organizations; Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</marc:subfield>
-         <marc:subfield code="0">(eterms:CONE)/persons/resource/persons69</marc:subfield>
-         <marc:subfield code="4">aut</marc:subfield>
-      </marc:datafield>
-          <marc:datafield tag="773" ind1="0" ind2="8">
-         <marc:subfield code="i">in:</marc:subfield>
-         <marc:subfield code="t">Brain and Language</marc:subfield>
-         <marc:subfield code="d">Orlando, Fla.: Elsevier, 2012</marc:subfield>
-         <marc:subfield code="g">Vol. 123, p. 131-136</marc:subfield>
-         <marc:subfield code="q">123&lt;131-136</marc:subfield>
-         <marc:subfield code="x">0093-934X</marc:subfield>
-         <marc:subfield code="7">nnas</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="856" ind1="4" ind2=" ">
-         <marc:subfield code="u">https://doi.org/10.1016/j.bandl.2012.08.008</marc:subfield>
-         <marc:subfield code="q">application/octet-stream</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="856" ind1="4" ind2=" ">
-         <marc:subfield code="q">application/pdf</marc:subfield>
-         <marc:subfield code="s">366920 bytes</marc:subfield>
-         <marc:subfield code="u">https://dev.inge.mpdl.mpg.de/pubman/item/item_1527236_10/component/file_1566420/Acheson_et_al_Brain_Lang_2012.pdf</marc:subfield>
-         <marc:subfield code="2">public</marc:subfield>
-         <marc:subfield code="3">publisher-version</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="887" ind1=" " ind2=" ">
-         <marc:subfield code="a">ctx_54203</marc:subfield>
-         <marc:subfield code="2">mpg.pure.context.id</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="952" ind1=" " ind2=" ">
-         <marc:subfield code="d">123</marc:subfield>
-         <marc:subfield code="g">6</marc:subfield>
-         <marc:subfield code="h">131-136</marc:subfield>
-         <marc:subfield code="j">2012</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="995" ind1=" " ind2=" ">
-         <marc:subfield code="a">staffmeeting-2012-sep</marc:subfield>
-         <marc:subfield code="a">staffmeeting-2012-dec</marc:subfield>
-         <marc:subfield code="a">ro-2012-nov</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="996" ind1=" " ind2=" ">
-         <marc:subfield code="a">Zeitschriftenartikel</marc:subfield>
-      </marc:datafield>
-      <marc:datafield tag="997" ind1=" " ind2=" ">
-         <marc:subfield code="a">article</marc:subfield>
-      </marc:datafield>
-   </marc:record>
-      
-    
-    
-  
+<marc:collection xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:item-list="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:saxon="http://saxon.sf.net/" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:misc-marc="http://www.editura.de/ns/2012/misc-marc" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+	<marc:record>
+		<marc:leader>     naa a22     uub4500</marc:leader>
+		<marc:controlfield tag="001">item_1527236</marc:controlfield>
+		<marc:controlfield tag="003">ZDB-97-MPR</marc:controlfield>
+		<marc:controlfield tag="005">20250509111858.024</marc:controlfield>
+		<marc:controlfield tag="007">cr|||||||||||</marc:controlfield>
+		<marc:controlfield tag="008">250509s2012 xx |||||o    |00| ||eng |</marc:controlfield>
+		<marc:datafield tag="024" ind1="7" ind2=" ">
+			<marc:subfield code="a">10.1016/j.bandl.2012.08.008</marc:subfield>
+			<marc:subfield code="2">doi</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="041" ind1=" " ind2="7">
+			<marc:subfield code="a">eng</marc:subfield>
+			<marc:subfield code="b">eng</marc:subfield>
+			<marc:subfield code="2">iso639-2b</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="100" ind1="1" ind2=" ">
+			<marc:subfield code="a">Acheson, Daniel J.</marc:subfield>
+			<marc:subfield code="u">Donders Institute for Brain, Cognition and Behaviour, External Organizations; Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</marc:subfield>
+			<marc:subfield code="0">(eterms:CONE)/persons/resource/persons2693</marc:subfield>
+			<marc:subfield code="4">aut</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="245" ind1="1" ind2="0">
+			<marc:subfield code="a">Conflict monitoring in speech production: Physiological evidence from bilingual picture naming</marc:subfield>
+			<marc:subfield code="h">[Online]</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="260" ind1=" " ind2=" ">
+			<marc:subfield code="c">2012</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="300" ind1=" " ind2=" ">
+			<marc:subfield code="a">6 p.</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="506" ind1="0" ind2=" ">
+			<marc:subfield code="f">Unrestricted online access</marc:subfield>
+			<marc:subfield code="2">star</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="520" ind1="3" ind2=" ">
+			<marc:subfield code="a">Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="533" ind1=" " ind2=" ">
+			<marc:subfield code="n">[Online]</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="653" ind1="0" ind2="0">
+			<marc:subfield code="a">self-monitoring</marc:subfield>
+			<marc:subfield code="a">conflict monitoring</marc:subfield>
+			<marc:subfield code="a">picture naming</marc:subfield>
+			<marc:subfield code="a">bilingualism</marc:subfield>
+			<marc:subfield code="a">EEG</marc:subfield>
+			<marc:subfield code="a">ERN</marc:subfield>
+			<marc:subfield code="a">speech production</marc:subfield>
+			<marc:subfield code="a">cognate</marc:subfield>
+			<marc:subfield code="a">Gratton effect</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="700" ind1="1" ind2=" ">
+			<marc:subfield code="a">Ganushchak, Lesya Y.</marc:subfield>
+			<marc:subfield code="u">Psychology of Language Department, MPI for Psycholinguistics, Max Planck Society</marc:subfield>
+			<marc:subfield code="0">(eterms:CONE)/persons/resource/persons4533</marc:subfield>
+			<marc:subfield code="4">aut</marc:subfield>
+		</marc:datafield>
+
+		<marc:datafield tag="700" ind1="1" ind2=" ">
+			<marc:subfield code="a">Christoffels, Ingrid K.</marc:subfield>
+			<marc:subfield code="u">Leiden Institute for Brain and Cognition, Leiden, The Netherlands; Institute for Psychological Research, Leiden, The Netherlands</marc:subfield>
+			<marc:subfield code="4">aut</marc:subfield>
+		</marc:datafield>
+
+		<marc:datafield tag="700" ind1="1" ind2=" ">
+			<marc:subfield code="a">Hagoort, Peter</marc:subfield>
+			<marc:subfield code="u">Donders Institute for Brain, Cognition and Behaviour, External Organizations; Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</marc:subfield>
+			<marc:subfield code="0">(eterms:CONE)/persons/resource/persons69</marc:subfield>
+			<marc:subfield code="4">aut</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="773" ind1="0" ind2="8">
+			<marc:subfield code="i">in:</marc:subfield>
+			<marc:subfield code="t">Brain and Language</marc:subfield>
+			<marc:subfield code="d">Orlando, Fla.: Elsevier, 2012</marc:subfield>
+			<marc:subfield code="g">Vol. 123, p. 131-136</marc:subfield>
+			<marc:subfield code="q">123&lt;131-136</marc:subfield>
+			<marc:subfield code="x">0093-934X</marc:subfield>
+			<marc:subfield code="7">nnas</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="856" ind1="4" ind2=" ">
+			<marc:subfield code="u">https://doi.org/10.1016/j.bandl.2012.08.008</marc:subfield>
+			<marc:subfield code="q">application/octet-stream</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="856" ind1="4" ind2=" ">
+			<marc:subfield code="q">application/pdf</marc:subfield>
+			<marc:subfield code="s">366920 bytes</marc:subfield>
+			<marc:subfield code="u">https://dev.inge.mpdl.mpg.de/pubman/item/item_1527236_10/component/file_1566420/Acheson_et_al_Brain_Lang_2012.pdf</marc:subfield>
+			<marc:subfield code="2">public</marc:subfield>
+			<marc:subfield code="3">publisher-version</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="887" ind1=" " ind2=" ">
+			<marc:subfield code="a">ctx_54203</marc:subfield>
+			<marc:subfield code="2">mpg.pure.context.id</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="952" ind1=" " ind2=" ">
+			<marc:subfield code="d">123</marc:subfield>
+			<marc:subfield code="g">6</marc:subfield>
+			<marc:subfield code="h">131-136</marc:subfield>
+			<marc:subfield code="j">2012</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="995" ind1=" " ind2=" ">
+			<marc:subfield code="a">staffmeeting-2012-sep</marc:subfield>
+			<marc:subfield code="a">staffmeeting-2012-dec</marc:subfield>
+			<marc:subfield code="a">ro-2012-nov</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="996" ind1=" " ind2=" ">
+			<marc:subfield code="a">Zeitschriftenartikel</marc:subfield>
+		</marc:datafield>
+		<marc:datafield tag="997" ind1=" " ind2=" ">
+			<marc:subfield code="a">article</marc:subfield>
+		</marc:datafield>
+	</marc:record>
 </marc:collection>

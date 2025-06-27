@@ -76,28 +76,30 @@
 				<xsl:variable name="subfield-a-languages" as="xs:string*" select="distinct-values($languages)[normalize-space(.)]"/>
 				<xsl:variable name="subfield-b-languages" as="xs:string*">
 					<xsl:variable name="every-lang-code" as="xs:string*">
-						<xsl:for-each select="dcterms:abstract">
-							<xsl:variable name="current-lang" as="xs:string?">
-								<xsl:variable name="lang-code" as="xs:string?" select="normalize-space( if (contains(@xml:lang, '-')) then substring-before(@xml:lang, '-') else @xml:lang )"/>
+						<xsl:if test="exists(dcterms:abstract/@xml:lang)">
+							<xsl:for-each select="dcterms:abstract">
+								<xsl:variable name="current-lang" as="xs:string?">
+									<xsl:variable name="lang-code" as="xs:string?" select="normalize-space( if (contains(@xml:lang, '-')) then substring-before(@xml:lang, '-') else @xml:lang )"/>
+									<xsl:choose>
+										<xsl:when test="not($lang-code)"/>
+										<xsl:when test="misc:is-iso-639-2-b($lang-code)">
+											<xsl:sequence select="$lang-code"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:sequence select="misc:iso-639-3_to_iso-639-2($lang-code)[normalize-space(.)]"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:variable>
 								<xsl:choose>
-									<xsl:when test="not($lang-code)"/>
-									<xsl:when test="misc:is-iso-639-2-b($lang-code)">
-										<xsl:sequence select="$lang-code"/>
+									<xsl:when test="$current-lang">
+										<xsl:sequence select="$current-lang"/>
 									</xsl:when>
 									<xsl:otherwise>
-										<xsl:sequence select="misc:iso-639-3_to_iso-639-2($lang-code)[normalize-space(.)]"/>
+										<xsl:sequence select="$lang[normalize-space(.)]"/>
 									</xsl:otherwise>
 								</xsl:choose>
-							</xsl:variable>
-							<xsl:choose>
-								<xsl:when test="$current-lang">
-									<xsl:sequence select="$current-lang"/>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:sequence select="$lang[normalize-space(.)]"/>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:for-each>
+							</xsl:for-each>
+						</xsl:if>
 					</xsl:variable>
 					<xsl:sequence select="distinct-values($every-lang-code)"/>
 				</xsl:variable>
