@@ -39,10 +39,10 @@
 			mathematics, non-linear science, computer science, quantitative
 			biology and statistics.
 		</dc:description>
-		<dc:identifier xsi:type="dcterms:URI">http://arxiv.org</dc:identifier>
+		<dc:identifier xsi:type="dcterms:URI">https://arxiv.org</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<item-url>http://arxiv.org/abs/GETID</item-url>
+		<item-url>https://arxiv.org/abs/GETID</item-url>
 		<source-identifier>arXiv</source-identifier>
 		<source-identifier-example>arXiv:0904.3933</source-identifier-example>
 		<harvest-protocol>oai-pmh</harvest-protocol>

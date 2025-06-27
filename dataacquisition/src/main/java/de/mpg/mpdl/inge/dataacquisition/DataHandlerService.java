@@ -264,6 +264,7 @@ public class DataHandlerService {
     byte[] input = null;
 
     try {
+      logger.info("Url: " + fulltext.getFtUrl());
       URLConnection con = fulltext.getFtUrl().openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
@@ -319,8 +320,8 @@ public class DataHandlerService {
     StringBuffer itemXML = new StringBuffer();
 
     try {
+      logger.info("Url: " + url.toString());
       URLConnection con = url.openConnection();
-      logger.info("Source: " + con.getURL());
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
       int responseCode = httpCon.getResponseCode();
