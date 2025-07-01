@@ -1072,7 +1072,7 @@
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
 		<inge.rest.access-control-allowed-origins></inge.rest.access-control-allowed-origins>
-		<jdk.version>17</jdk.version>
+		<jdk.version>21</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
