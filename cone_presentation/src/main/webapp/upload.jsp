@@ -36,10 +36,8 @@
 
 <%@ page import="org.apache.logging.log4j.LogManager" %>
 <%@ page import="org.apache.logging.log4j.Logger" %>
-<%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
-<%@ page import="org.apache.commons.fileupload.FileItemFactory"%>
-<%@ page import="org.apache.commons.fileupload.FileItem"%>
-<%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
+<%@ page import="jakarta.servlet.http.Part"%>
+<%@ page import="java.util.Collection"%>
 <%@ page import="javax.xml.parsers.SAXParserFactory"%>
 <%@ page import="javax.xml.parsers.SAXParser"%>
 <%@ page import="java.util.regex.Pattern"%>
@@ -117,39 +115,43 @@
 									{
 										boolean isMigrateNamespace = true;
 
-										// boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-										// Create a factory for disk-based file items
-										FileItemFactory factory = new DiskFileItemFactory();
+										// Check if the request is multipart
+										boolean isMultipart = request.getContentType() != null && request.getContentType().toLowerCase().startsWith("multipart/");
 
-										// Create a new file upload handler
-										ServletFileUpload upload = new ServletFileUpload(factory);
+										// Using Jakarta EE's Part API for file uploads
+										request.setAttribute("jakarta.servlet.context.tempdir", application.getAttribute("jakarta.servlet.context.tempdir"));
 
 										// Parse the request
-										List<FileItem> items = upload.parseRequest(request);
+										Collection<Part> parts = request.getParts();
 										InputStream uploadedStream = null;
 										ModelList.Model model = null;
 										String workflow = "SKIP";
 										// boolean createRelations = false;
-										for (FileItem item : items)
+
+										for (Part part : parts)
 										{
-											if (item.isFormField())
+											String fieldName = part.getName();
+											if (part.getSubmittedFileName() == null)
 											{
-												if ("model".equals(item.getFieldName()))
+												// This is a form field
+												String value = request.getParameter(fieldName);
+												if ("model".equals(fieldName))
 												{
-													model = ModelList.getInstance().getModelByAlias(item.getString());
+													model = ModelList.getInstance().getModelByAlias(value);
 												}
-												else if ("workflow".equals(item.getFieldName()))
+												else if ("workflow".equals(fieldName))
 												{
-													workflow = item.getString();
+													workflow = value;
 												}
-												// else if ("create-relations".equals(item.getFieldName()))
+												// else if ("create-relations".equals(fieldName))
 												// {
-												//	createRelations = ("true".equals(item.getString()));
+												//	createRelations = ("true".equals(value));
 												// }
 											}
 											else
 											{
-												uploadedStream = item.getInputStream();
+												// This is a file upload
+												uploadedStream = part.getInputStream();
 											}
 										}
 
