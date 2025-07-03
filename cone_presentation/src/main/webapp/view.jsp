@@ -35,20 +35,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
-<%@ page import="de.mpg.mpdl.inge.cone.LocalizedString" %>
 <%@ page import="de.mpg.mpdl.inge.cone.LocalizedTripleObject" %>
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.UrlHelper"%>
 <%@ page import="java.io.StringWriter" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="org.apache.log4j.Logger"%>
+<%@ page import="org.apache.logging.log4j.LogManager" %>
+<%@ page import="org.apache.logging.log4j.Logger" %>
 
 <%!
 	private String printPredicates(List<ModelList.Predicate> predicates, TreeFragment resultNode, boolean loggedIn) throws Exception

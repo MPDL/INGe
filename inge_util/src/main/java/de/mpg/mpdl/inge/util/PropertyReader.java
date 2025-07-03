@@ -335,7 +335,7 @@ public class PropertyReader {
    * <code>pubman.properties.file</code>. If this property is not set the default file path
    * <code>pubman.properties</code> is used. If no properties can be loaded, the jvm is terminated.
    */
-  private static void loadProperties() {
+  public static void loadProperties() {
     counterForLoadingProperties++;
 
     String propertiesFile = "";

@@ -37,8 +37,6 @@
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
-<%@ page import="de.mpg.mpdl.inge.util.PropertyReader"%>
-<%@ page import="java.sql.Connection"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List" %>
 

@@ -34,30 +34,26 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page import="org.apache.log4j.Logger"%>
-<%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
+<%@ page import="org.apache.logging.log4j.LogManager" %>
+<%@ page import="org.apache.logging.log4j.Logger" %>
 <%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
-<%@ page import="org.apache.commons.fileupload.FileUpload"%>
 <%@ page import="org.apache.commons.fileupload.FileItemFactory"%>
 <%@ page import="org.apache.commons.fileupload.FileItem"%>
+<%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@ page import="javax.xml.parsers.SAXParserFactory"%>
 <%@ page import="javax.xml.parsers.SAXParser"%>
 <%@ page import="java.util.regex.Pattern"%>
 <%@ page import="java.util.regex.Matcher"%>
-<%@ page import="java.util.Set"%>
 <%@ page import="java.util.List"%>
-<%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.io.InputStream"%>
 <%@ page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment"%>
 <%@ page import="de.mpg.mpdl.inge.cone.LocalizedTripleObject"%>
-<%@ page import="de.mpg.mpdl.inge.cone.LocalizedString"%>
 <%@ page import="de.mpg.mpdl.inge.cone.RDFHandler"%>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList"%>
 <%@ page import="java.util.Map" %>
 
@@ -121,7 +117,7 @@
 									{
 										boolean isMigrateNamespace = true;
 
-										boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+										// boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 										// Create a factory for disk-based file items
 										FileItemFactory factory = new DiskFileItemFactory();
 
@@ -133,7 +129,7 @@
 										InputStream uploadedStream = null;
 										ModelList.Model model = null;
 										String workflow = "SKIP";
-										boolean createRelations = false;
+										// boolean createRelations = false;
 										for (FileItem item : items)
 										{
 											if (item.isFormField())
@@ -146,10 +142,10 @@
 												{
 													workflow = item.getString();
 												}
-												else if ("create-relations".equals(item.getFieldName()))
-												{
-													createRelations = ("true".equals(item.getString()));
-												}
+												// else if ("create-relations".equals(item.getFieldName()))
+												// {
+												//	createRelations = ("true".equals(item.getString()));
+												// }
 											}
 											else
 											{

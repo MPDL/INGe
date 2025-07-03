@@ -30,13 +30,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ page import="de.mpg.mpdl.inge.aa.Aa"%>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.util.PropertyReader" %>
 <%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.util.List" %>
-<%@ page import="org.apache.commons.codec.binary.Base64"%>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
 <%

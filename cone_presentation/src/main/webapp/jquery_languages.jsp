@@ -5,9 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<!--
-		<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js"></script>
-		  -->
 		<script type="text/javascript" src="/cone/js/jquery-3.6.0.js"></script>
 		<script type="text/javascript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
 		<script type="text/javascript" src="./js/jquery.suggest.js"></script>

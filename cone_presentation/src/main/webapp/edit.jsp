@@ -46,18 +46,14 @@
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.UrlHelper"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
-<%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
-<%@ page import="java.nio.charset.Charset" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.Enumeration" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
-<%@ page import="org.apache.log4j.Logger"%>
+<%@ page import="org.apache.logging.log4j.LogManager" %>
+<%@ page import="org.apache.logging.log4j.Logger" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
 <%!

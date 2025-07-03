@@ -38,7 +38,6 @@
 <%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
-<%@ page import="java.util.List"%>
 <%@ page import="java.util.Set"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

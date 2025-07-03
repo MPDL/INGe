@@ -32,17 +32,13 @@
 	response.setCharacterEncoding("UTF-8");
 %>
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
-<%@ page import="de.mpg.mpdl.inge.cone.Querier.ModeType"%>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Describable"%>
-<%@ page import="de.mpg.mpdl.inge.cone.LocalizedString"%>
 <%@ page import="de.mpg.mpdl.inge.cone.Pair" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.UrlHelper"%>
@@ -50,7 +46,6 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
 <%
@@ -118,7 +113,7 @@
 											<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
 										<% } %>
 										</select>
-										<input type="text" class="half_txtInput" name="searchterm" value="${searchterm != null ? fn:escapeXml(searchterm) : ''}" />
+          <input type="text" class="half_txtInput" name="searchterm" value="<%= searchterm != null ? HtmlUtils.escapeHtml(searchterm) : "" %>" />
 										<select class="small_select" size="1" name="lang">
 											<option value="">--</option>
 											<option value="de" <% if ("de".equals(request.getParameter("lang"))) { %>selected<% } %>>german</option>
@@ -196,6 +191,7 @@
 								</div>
 							</div>
 							<% } %>
+						</div>
 						</div>
 					</div>
 				</form>

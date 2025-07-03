@@ -57,7 +57,6 @@
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
