@@ -101,8 +101,9 @@ public class ImportServiceImpl implements ImportService {
   }
 
   @Override
-  public void doImport(String importName, String contextId, ImportLogDbVO.Format format, String formatConfiguration, InputStream fileStream,
-      String token) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+  public ImportLogDbVO doImport(String importName, String contextId, ImportLogDbVO.Format format, String formatConfiguration,
+      InputStream fileStream, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
     AccountUserDbVO accountUserDbVO = getUser(token);
 
     if (null == importName || importName.trim().isEmpty()) {
@@ -132,19 +133,19 @@ public class ImportServiceImpl implements ImportService {
           this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL,
               ImportLog.Message.import_process_format_error.name());
           this.importCommonService.doFailImport(importLogDbVO, this.importCommonService.getExceptionMessage(e), true);
-          return;
+          return importLogDbVO;
         }
       }
     } catch (Exception e) {
       this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FATAL,
           ImportLog.Message.import_process_format_error.name());
       this.importCommonService.doFailImport(importLogDbVO, this.importCommonService.getExceptionMessage(e), true);
-      return;
+      return importLogDbVO;
     }
 
     if (null == formatProcessor) {
       this.importCommonService.doFailImport(importLogDbVO, ImportLog.Message.import_process_format_invalid.name(), false);
-      return;
+      return importLogDbVO;
     } else {
       this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
           ImportLog.Message.import_process_format_available.name());
@@ -158,7 +159,7 @@ public class ImportServiceImpl implements ImportService {
 
     if (null == file) {
       this.importCommonService.doFailImport(importLogDbVO, ImportLog.Message.import_process_inputstream_unavailable.name(), false);
-      return;
+      return importLogDbVO;
     } else {
       formatProcessor.setSourceFile(file);
       this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
@@ -168,6 +169,8 @@ public class ImportServiceImpl implements ImportService {
     this.importCommonService.setPercentageInImportLog(importLogDbVO, ImportLogDbVO.PERCENTAGE_IMPORT_START);
 
     this.importAsyncService.doAsyncImport(importLogDbVO, formatProcessor, format, formatConfigurationMap, contextDbVO, token);
+
+    return importLogDbVO;
   }
 
   @Override

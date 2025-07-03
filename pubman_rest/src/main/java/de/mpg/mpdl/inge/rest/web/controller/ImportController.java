@@ -79,7 +79,7 @@ public class ImportController {
 
   @RequestMapping(value = "/import", method = RequestMethod.POST)
   @RequestBody(content = @Content(mediaType = MediaType.TEXT_PLAIN_VALUE, schema = @Schema(format = "binary")))
-  public ResponseEntity<?> doImport( //
+  public ResponseEntity<ImportLogDbVO> doImport( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(IMPORT_NAME) String importName, //
       @RequestParam(CONTEXT_ID) String contextId, //
@@ -94,9 +94,9 @@ public class ImportController {
     } catch (IOException e) {
     }
 
-    this.importService.doImport(importName, contextId, format, formatConfiguration, fileStream, token);
+    ImportLogDbVO importLogDbVO = this.importService.doImport(importName, contextId, format, formatConfiguration, fileStream, token);
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    return new ResponseEntity<>(importLogDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/getFormatConfiguration", method = RequestMethod.GET)

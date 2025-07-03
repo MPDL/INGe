@@ -19,8 +19,9 @@ public interface ImportService {
   void deleteImportedItems(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException;
 
-  void doImport(String importName, String contextId, ImportLogDbVO.Format format, String formatConfiguration, InputStream fileStream,
-      String token) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
+  ImportLogDbVO doImport(String importName, String contextId, ImportLogDbVO.Format format, String formatConfiguration,
+      InputStream fileStream, String token)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
 
   void fixBrokenImports();
 
