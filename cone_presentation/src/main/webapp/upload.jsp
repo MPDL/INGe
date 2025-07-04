@@ -36,8 +36,6 @@
 
 <%@ page import="org.apache.logging.log4j.LogManager" %>
 <%@ page import="org.apache.logging.log4j.Logger" %>
-<%@ page import="jakarta.servlet.http.Part"%>
-<%@ page import="java.util.Collection"%>
 <%@ page import="javax.xml.parsers.SAXParserFactory"%>
 <%@ page import="javax.xml.parsers.SAXParser"%>
 <%@ page import="java.util.regex.Pattern"%>
@@ -54,6 +52,12 @@
 <%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList"%>
 <%@ page import="java.util.Map" %>
+<%@ page import="org.apache.commons.fileupload2.core.DiskFileItemFactory" %>
+<%@ page import="org.apache.commons.fileupload2.core.FileItem" %>
+<%@ page import="org.apache.commons.fileupload2.core.FileItemFactory" %>
+<%@ page import="org.apache.commons.fileupload2.core.FileItemInputIterator" %>
+<%@ page import="org.apache.commons.io.build.AbstractStreamBuilder" %>
+<%@ page import="org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload" %>
 
 <%!
 	private void removeIdentifierPrefixes(TreeFragment fragment, ModelList.Model model) throws Exception
@@ -91,9 +95,7 @@
 				<div class="clear">
 					<div id="headerSection">
 						<div id="headLine" class="clear headLine">
-							<!-- Headline starts here -->
 							<h1>Importing...</h1>
-							<!-- Headline ends here -->
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
@@ -106,6 +108,7 @@
 									errors = new ArrayList<>();
 									boolean loggedIn = Login.getLoggedIn(request);
 									Logger logger = LogManager.getLogger( "upload.jsp" );
+									logger.info("Importing...");
 
 									if (!loggedIn)
 									{
@@ -115,52 +118,54 @@
 									{
 										boolean isMigrateNamespace = true;
 
-										// Check if the request is multipart
-										boolean isMultipart = request.getContentType() != null && request.getContentType().toLowerCase().startsWith("multipart/");
+										// boolean isMultipart = JakartaServletFileUpload.isMultipartContent(request);
+										// Create a factory for disk-based file items
+										DiskFileItemFactory fileItemfactory = DiskFileItemFactory.builder().get();
 
-										// Using Jakarta EE's Part API for file uploads
-										request.setAttribute("jakarta.servlet.context.tempdir", application.getAttribute("jakarta.servlet.context.tempdir"));
+										// Create a new file upload handler
+										JakartaServletFileUpload upload = new JakartaServletFileUpload(fileItemfactory);
 
+										logger.info("Parsing request...");
 										// Parse the request
-										Collection<Part> parts = request.getParts();
+										List<FileItem> items = upload.parseRequest(request);
+										logger.info("Parsing request done. Length: " + items.size());
+
 										InputStream uploadedStream = null;
 										ModelList.Model model = null;
 										String workflow = "SKIP";
-										// boolean createRelations = false;
 
-										for (Part part : parts)
+										for (FileItem item : items)
 										{
-											String fieldName = part.getName();
-											if (part.getSubmittedFileName() == null)
+											if (item.isFormField())
 											{
-												// This is a form field
-												String value = request.getParameter(fieldName);
-												if ("model".equals(fieldName))
+												logger.info("Item is formField " + item.getFieldName());
+												if ("model".equals(item.getFieldName()))
 												{
-													model = ModelList.getInstance().getModelByAlias(value);
+													model = ModelList.getInstance().getModelByAlias(item.getString());
 												}
-												else if ("workflow".equals(fieldName))
+												else if ("workflow".equals(item.getFieldName()))
 												{
-													workflow = value;
+													workflow = item.getString();
 												}
-												// else if ("create-relations".equals(fieldName))
-												// {
-												//	createRelations = ("true".equals(value));
-												// }
 											}
 											else
 											{
-												// This is a file upload
-												uploadedStream = part.getInputStream();
+												logger.info("Item is NO formField");
+												uploadedStream = item.getInputStream();
 											}
 										}
+
+										logger.info("model: " + model);
+										logger.info("workflow: " + workflow);
 
 										SAXParserFactory spf = SAXParserFactory.newInstance();
 										spf.setNamespaceAware(true);
 										SAXParser parser = spf.newSAXParser();
 										RDFHandler rdfHandler = new RDFHandler(loggedIn, model);
 										try {
+											logger.info("Parsing uploadedStream...");
 											parser.parse(uploadedStream, rdfHandler);
+											logger.info("Parsing uploadedStream done.");
 										}
 										catch(Exception e)
 										{
@@ -172,16 +177,21 @@
 
 										List<LocalizedTripleObject> results = rdfHandler.getResult();
 
+										logger.info("RDF size: " + results.size());
+										int i = 0;
 										for (LocalizedTripleObject result : results)
 										{
+											i++;
 											if (result instanceof TreeFragment)
 											{
-												out.println("Importing item");
+												out.println("Importing item " + i + "/" + results.size());
+												logger.info("Importing item " + i + "/" + results.size());
 												String id;
 												if ((null == ((TreeFragment) result).getSubject()) && model.isGenerateIdentifier())
 												{
 													id = model.getSubjectPrefix() + querier.createUniqueIdentifier(model.getName());
 													out.println(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id + " (generated)");
+													logger.info(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id + " (generated)");
 												}
 												else if (null != ((TreeFragment) result).getSubject())
 												{
@@ -190,29 +200,36 @@
 												        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL).length());
 												        TreeFragment existingObject = querier.details(model.getName(), id, "*");
 												        out.println(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id);
+														logger.info(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id);
 
 												        if (null != existingObject && !existingObject.isEmpty() && "skip".equals(workflow))
 												        {
 											        		out.println(" (skipped)<br/>");
+															logger.info(" (skipped)<br/>");
 											        		continue;
 												        }
 												        else if (null != existingObject && !existingObject.isEmpty() && "overwrite".equals(workflow))
 														{
 												        	out.println(" ... deleting existing object ...");
+															logger.info(" ... deleting existing object ...");
 															querier.delete(model.getName(), id);
 															out.println(" (replaced)");
+															logger.info(" (replaced)");
 														}
 												        else if (null != existingObject && "update-overwrite".equals(workflow))
 														{
 												        	out.println(" ... updating existing object ...");
+															logger.info(" ... updating existing object ...");
 												        	existingObject.merge((TreeFragment) result, true);
 												        	result = existingObject;
 															querier.delete(model.getName(), id);
 															out.println(" (updated)");
+															logger.info(" (updated)");
 														}
 												        else if (null != existingObject && "update-add".equals(workflow))
 														{
 												        	out.println(" ... updating existing object ...");
+															logger.info(" ... updating existing object ...");
 												        	for (ModelList.Predicate predicate : model.getPredicates())
 												        	{
 												        	    if (!predicate.isMultiple() && ((TreeFragment) result).containsKey(predicate.getId()) && existingObject.containsKey(predicate.getId()))
@@ -234,8 +251,8 @@
 												        	result = existingObject;
 															querier.delete(model.getName(), id);
 															out.println(" (updated)");
+															logger.info(" (updated)");
 														}
-
 												    }
 												    else if (isMigrateNamespace)
 												    {
@@ -251,25 +268,31 @@
 													        if (null != existingObject && !existingObject.isEmpty() && "skip".equals(workflow))
 													        {
 												        		out.println(" (skipped)<br/>");
+																logger.info(" (skipped)<br/>");
 												        		continue;
 													        }
 													        else if (null != existingObject && !existingObject.isEmpty() && "overwrite".equals(workflow))
 															{
 													        	out.println(" ... deleting existing object ...");
+																logger.info(" ... deleting existing object ...");
 																querier.delete(model.getName(), id);
 																out.println(" (replaced)");
+																logger.info(" (replaced)");
 															}
 													        else if (null != existingObject && "update-overwrite".equals(workflow))
 															{
 													        	out.println(" ... updating existing object ...");
+																logger.info(" ... updating existing object ...");
 													        	existingObject.merge((TreeFragment) result, true);
 													        	result = existingObject;
 																querier.delete(model.getName(), id);
 																out.println(" (updated)");
+																logger.info(" (updated)");
 															}
 													        else if (null != existingObject && "update-add".equals(workflow))
 															{
 													        	out.println(" ... updating existing object ...");
+																logger.info(" ... updating existing object ...");
 													        	for (ModelList.Predicate predicate : model.getPredicates())
 													        	{
 													        	    if (!predicate.isMultiple() && ((TreeFragment) result).containsKey(predicate.getId()) && existingObject.containsKey(predicate.getId()))
@@ -291,6 +314,7 @@
 													        	result = existingObject;
 																querier.delete(model.getName(), id);
 																out.println(" (updated)");
+																logger.info(" (updated)");
 															}
 												        }
 												        else
@@ -313,26 +337,23 @@
 													removeIdentifierPrefixes((TreeFragment) result, model);
 													querier.create(model.getName(), id, (TreeFragment) result);
 													out.println(" ...done!<br/>");
+													logger.info(" ...done!<br/>");
 												}
 												catch (Exception e)
 												{
 													out.println("<li class=\"messageError\"><b>Error: </b> "+e.getMessage() + "</li>");
+													logger.info("<li class=\"messageError\"><b>Error: </b> "+e.getMessage() + "</li>");
 												}
-
-
-
 											}
 											else
 											{
 												throw new RuntimeException("Wrong RDF structure at " + result);
 											}
 										}
-
 									}
 								%>
 								<hr/>
 								<%
-
 									if (null != errors && !errors.isEmpty()) { %>
 									<ul>
 										<% for (String error : errors) { %>
@@ -340,14 +361,11 @@
 										<% } %>
 									</ul>
 								<% } %>
-								&nbsp;
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="full_area0">
-
-
 				</div>
 			</div>
 		</div>
