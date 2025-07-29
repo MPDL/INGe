@@ -60,6 +60,7 @@ public class MiscellaneousController {
   private static final String OPENAI_URL = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_URL);
   private static final String OPENAI_MODEL = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_MODEL);
   private static final String OPENAI_PROMPT = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_PROMPT);
+  private static final String OPENAI_REGEX = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_REGEX);
   private static final String OPENAI_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TOKEN);
   private static final Integer OPENAI_TEMPERATURE = Integer.valueOf(PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TEMPERATURE));
 
@@ -174,7 +175,7 @@ public class MiscellaneousController {
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private String parseResult(String responseBody) {
-    Pattern pattern = Pattern.compile("```(.*?)```");
+    Pattern pattern = Pattern.compile(OPENAI_REGEX);
     Matcher matcher = pattern.matcher(responseBody);
 
     String extractedJson = null;

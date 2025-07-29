@@ -136,6 +136,7 @@ public class PropertyReader {
   public static final String INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH = "inge.logic.temporary_filesystem_root_path";
   public static final String INGE_OPENAI_MODEL = "inge.openai.model";
   public static final String INGE_OPENAI_PROMPT = "inge.openai.prompt";
+  public static final String INGE_OPENAI_REGEX = "inge.openai.regex";
   public static final String INGE_OPENAI_TEMPERATURE = "inge.openai.temperature";
   public static final String INGE_OPENAI_TOKEN = "inge.openai.token";
   public static final String INGE_OPENAI_URL = "inge.openai.url";
