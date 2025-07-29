@@ -174,7 +174,8 @@ public class MiscellaneousController {
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private String parseResult(String responseBody) {
-    Pattern pattern = Pattern.compile("```(.*?)```", Pattern.DOTALL);
+    //    Pattern pattern = Pattern.compile("```(.*?)```", Pattern.DOTALL);
+    Pattern pattern = Pattern.compile("'''(\\[.*?\\])'''");
     Matcher matcher = pattern.matcher(responseBody);
 
     String extractedJson = null;
