@@ -149,7 +149,7 @@ public class ItemRestController {
           defaultValue = "json") @Parameter(schema = @Schema(allowableValues = {TransformerFactory.JSON,
               TransformerFactory.ESCIDOC_ITEMLIST_XML, TransformerFactory.BIBTEX, TransformerFactory.ENDNOTE, TransformerFactory.MARC_XML,
               TransformerFactory.PDF, TransformerFactory.DOCX, TransformerFactory.HTML_PLAIN, TransformerFactory.HTML_LINKED,
-              TransformerFactory.JSON_CITATION, TransformerFactory.ESCIDOC_SNIPPET})) String format, //
+              TransformerFactory.JSON_CITATION, TransformerFactory.ESCIDOC_SNIPPET, TransformerFactory.OAI_DC})) String format, //
       @RequestParam(value = "citation", required = false,
           defaultValue = "APA") @Parameter(schema = @Schema(allowableValues = {"APA, APA(CJK), AJP, JUS, CSL"})) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, HttpServletResponse response) throws AuthenticationException,
@@ -385,7 +385,7 @@ public class ItemRestController {
           defaultValue = "json") @Parameter(schema = @Schema(allowableValues = {TransformerFactory.JSON,
               TransformerFactory.ESCIDOC_ITEMLIST_XML, TransformerFactory.BIBTEX, TransformerFactory.ENDNOTE, TransformerFactory.MARC_XML,
               TransformerFactory.PDF, TransformerFactory.DOCX, TransformerFactory.HTML_PLAIN, TransformerFactory.HTML_LINKED,
-              TransformerFactory.JSON_CITATION, TransformerFactory.ESCIDOC_SNIPPET})) String format, //
+              TransformerFactory.JSON_CITATION, TransformerFactory.ESCIDOC_SNIPPET, TransformerFactory.OAI_DC})) String format, //
       @RequestParam(value = "citation", required = false,
           defaultValue = "APA") @Parameter(schema = @Schema(allowableValues = {"APA, APA(CJK), AJP, JUS, CSL"})) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
