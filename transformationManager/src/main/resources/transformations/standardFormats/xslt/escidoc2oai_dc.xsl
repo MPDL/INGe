@@ -24,7 +24,7 @@
 
 	<xsl:preserve-space elements="*"/>
 
-    <xsl:param name="inge.pid.handle.url" select="'has.to.be.defined.in.pubman.properties'"/>
+    <xsl:param name="ingePidHandleUrl" select="'has.to.be.defined.in.pubman.properties'"/>
 
 	<xsl:template match="node()|@*">
 		    <xsl:apply-templates/>
@@ -45,7 +45,7 @@
 		    <xsl:variable name="pidObject" select="./escidocItem:properties/prop:pid"/>
 		    <xsl:if test="$pidObject != ''">
 			    <dc:identifier>
-			    	<xsl:value-of select="concat($inge.pid.handle.url, replace($pidObject, 'hdl:', ''))"/>
+			    	<xsl:value-of select="concat($ingePidHandleUrl, replace($pidObject, 'hdl:', ''))"/>
     			</dc:identifier>
 	    	</xsl:if>
 
@@ -54,7 +54,7 @@
 			    <xsl:variable name="pidFile" select="prop:pid"/>
 			    <xsl:if test="$pidFile != ''">
 				    <dc:identifier>
-				    	<xsl:value-of select="concat($inge.pid.handle.url, replace($pidFile, 'hdl:', ''))"/>
+				    	<xsl:value-of select="concat($ingePidHandleUrl, replace($pidFile, 'hdl:', ''))"/>
 	    			</dc:identifier>
 		    	</xsl:if>
 			</xsl:for-each>
