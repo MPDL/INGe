@@ -25,7 +25,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   private static final Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
 
 
-  private static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status) {
+  public static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status) {
     logger.error("Error in REST", e);
     if (null != status) {
       messageMap.put("timestamp", LocalDateTime.now());

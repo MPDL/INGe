@@ -1,14 +1,13 @@
 package de.mpg.mpdl.inge.rest.web.spring;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.rest.web.exceptions.PubmanRestExceptionHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -83,6 +82,8 @@ public class AuthCookieToHeaderFilter implements Filter {
               cookie.setMaxAge(0);
               cookie.setPath("/");
               httpServletResponse.addCookie(cookie);
+              setInvalidTokenResponse(httpServletResponse, e);
+              return;
             }
 
 
@@ -95,6 +96,7 @@ public class AuthCookieToHeaderFilter implements Filter {
       if (!userCookieSet) {
         try {
           logger.debug("Found no valid user cookie \"" + COOKIE_NAME + "\", trying to login as ip-based user");
+          //Create an anonymous token containing the ip adress
           Principal principal = this.userAccountService.login(httpServletRequest, (HttpServletResponse) response);
           if (null != principal) {
             HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
@@ -108,11 +110,31 @@ public class AuthCookieToHeaderFilter implements Filter {
       }
 
     }
-
+    //Authorization header is set, check if token is valid
+    else {
+      String token = httpServletRequest.getHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER);
+      try {
+        DecodedJWT jwtToken = this.userAccountService.verifyToken(token);
+      } catch (Exception e) {
+        logger.debug("Token found in Authorization Header, but it did not verify.", e);
+        setInvalidTokenResponse(httpServletResponse, e);
+        return;
+      }
+    }
 
     chain.doFilter(request, response);
 
 
+  }
+
+  private void setInvalidTokenResponse(HttpServletResponse httpServletResponse, Exception e) throws IOException {
+    httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    Map<String, Object> jsonException = new LinkedHashMap<>();
+    jsonException.put("tokenInvalid", true);
+    PubmanRestExceptionHandler.buildExceptionMessage(e, jsonException, HttpStatus.UNAUTHORIZED);
+    httpServletResponse.setContentType("application/json");
+    httpServletResponse.setCharacterEncoding("UTF-8");
+    httpServletResponse.getWriter().write(MapperFactory.getObjectMapper().writeValueAsString(jsonException));
   }
 
   @Override
