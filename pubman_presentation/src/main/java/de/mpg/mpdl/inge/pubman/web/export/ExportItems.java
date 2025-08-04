@@ -61,6 +61,7 @@ public class ExportItems extends FacesBean {
   public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";
   public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
   public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
+  public static final String MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS = "exportItems_UnknownRecipients";
   public static final String MESSAGE_NO_EXPORTDATA_DELIVERED = "exportItems_NoDataDelivered";
   public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
 
@@ -77,10 +78,9 @@ public class ExportItems extends FacesBean {
     SelectItem EXPORTFORMAT_ESCIDOC_XML =
         new SelectItem(TransformerFactory.ESCIDOC_ITEMLIST_XML, this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
     SelectItem EXPORTFORMAT_JSON = new SelectItem(TransformerFactory.JSON, this.getLabel("Export_ExportFormat_JSON"));
-    SelectItem EXPORTFORMAT_OAI_DC = new SelectItem(TransformerFactory.OAI_DC, this.getLabel("Export_ExportFormat_OAI_DC"));
 
-    exportGroup.setSelectItems(new SelectItem[] {EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_JSON, EXPORTFORMAT_ESCIDOC_XML,
-        EXPORTFORMAT_MARCXML, EXPORTFORMAT_OAI_DC});
+    exportGroup.setSelectItems(
+        new SelectItem[] {EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_JSON, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_MARCXML});
 
 
     SelectItemGroup citationGroup = new SelectItemGroup(this.getLabel("Export_ExportFormat_CitationGroup"));
