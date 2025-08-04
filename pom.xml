@@ -1061,7 +1061,7 @@
 		<inge.transformation.mods2marc.stylesheet.filename>transformations/standardFormats/xslt/mods2marc21.xsl</inge.transformation.mods2marc.stylesheet.filename>
 		<inge.transformation.mods2oaidc.stylesheet.filename>transformations/standardFormats/xslt/mods2oai_dc.xsl</inge.transformation.mods2oaidc.stylesheet.filename>
 		<inge.transformation.mods_item.stylesheet.filename>transformations/standardFormats/xslt/mods2escidoc-publication-item.xsl</inge.transformation.mods_item.stylesheet.filename>
-		<inge.transformation.oai_dc.stylesheet.filename>transformations/standardFormats/xslt/escidoc2oai_dc.xsl</inge.transformation.oai_dc.stylesheet.filename>
+		<inge.transformation.oai_dc.stylesheet.filename>transformations/standardFormats/xslt/escidoc-publication-item2oai_dc.xsl</inge.transformation.oai_dc.stylesheet.filename>
 		<inge.transformation.peer.stylesheet.filename>transformations/standardFormats/xslt/peer_tei2escidoc-publication-item.xsl</inge.transformation.peer.stylesheet.filename>
 		<inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-component.xsl</inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-item.xsl</inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>
