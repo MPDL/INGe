@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.Source;
@@ -21,11 +20,7 @@ public class ItemXmlToOaiDcXml extends XslTransformer {
 
   @Override
   public Map<String, Object> getParameters() {
-    Map<String, Object> map = new HashMap<>();
-
-    map.put("ingePidHandleUrl", PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL));
-
-    return map;
+    return null;
   }
 
   @Override
