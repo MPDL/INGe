@@ -415,8 +415,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       if (null != principal && null != response) {
         Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
         cookie.setPath("/");
-        //Cookie expires one minute earlier than token
-        cookie.setMaxAge((TOKEN_MAX_AGE_HOURS * 3600) - 60);
+        //Cookie expires two hours later than token
+        cookie.setMaxAge((TOKEN_MAX_AGE_HOURS * 3600) + 7200);
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
