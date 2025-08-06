@@ -169,7 +169,13 @@ public class ItemValidatingService {
             || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre) //
             || MdsPublicationVO.Genre.MAGAZINE_ARTICLE.equals(genre) //
             || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre) //
-            || MdsPublicationVO.Genre.REVIEW_ARTICLE.equals(genre)) //
+            || MdsPublicationVO.Genre.REVIEW_ARTICLE.equals(genre) //
+            || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre) //
+            || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre) //
+            || MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre) //
+            || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre) //
+            || MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre) //
+            || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre)) //
         .on(sourceVOs, new SourceTitleRequiredValidator());
 
     ComplexResult complexResult = validator.doValidate().result(ResultCollectors.toComplex());

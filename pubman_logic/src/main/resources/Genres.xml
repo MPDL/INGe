@@ -178,7 +178,7 @@
 				<group id="publishing_info" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
@@ -217,7 +217,7 @@
 				<group id="item_toc" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_volume_issue_pages">
 					<field id="source_issue" display="false"/>
 				</group>
@@ -322,6 +322,7 @@
 			<group id="events">
 				<field id="event_title" optional="true"/>
 			</group>
+			<group id="sources" optional="false"/>
 		</genre>
 
 		<genre id="CONFERENCE_REPORT" label="ENUM_GENRE_CONFERENCE_REPORT">
@@ -346,7 +347,7 @@
 				<group id="item_toc" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_basic">
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
@@ -365,7 +366,7 @@
 				<group id="item_toc" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_basic">
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
@@ -384,7 +385,7 @@
 				<group id="item_toc" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_basic">
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
@@ -403,7 +404,7 @@
 				<group id="item_toc" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_basic">
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
@@ -422,7 +423,7 @@
 				<group id="item_toc" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_basic">
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
@@ -598,7 +599,7 @@
 				<group id="publishing_info" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
@@ -624,6 +625,7 @@
 			<group id="events">
 				<field id="event_title" optional="true"/>
 			</group>
+			<group id="sources" optional="false" />
 		</genre>
 
 		<genre id="MANUAL" label="ENUM_GENRE_MANUAL">
@@ -665,7 +667,7 @@
 				<group id="item_toc" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_publishing_info" display="false"/>
 				<group id="source_total_number_of_pages" display="false"/>
 				<group id="source_volume_issue_pages">
@@ -865,7 +867,7 @@
 				<group id="publishing_info" display="false"/>
 			</group>
 			<group id="events" display="false"/>
-			<group id="sources">
+			<group id="sources" optional="false">
 				<group id="source_publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>

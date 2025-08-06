@@ -243,7 +243,13 @@ public class Validation {
                 || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata().getGenre()) //
                 || MdsPublicationVO.Genre.MAGAZINE_ARTICLE.equals(pubItemVO.getMetadata().getGenre()) //
                 || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre()) //
-                || MdsPublicationVO.Genre.REVIEW_ARTICLE.equals(pubItemVO.getMetadata().getGenre())) //
+                || MdsPublicationVO.Genre.REVIEW_ARTICLE.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(pubItemVO.getMetadata().getGenre())) //
             .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator());
