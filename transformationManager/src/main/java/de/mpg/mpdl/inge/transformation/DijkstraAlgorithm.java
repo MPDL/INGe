@@ -72,14 +72,18 @@ public class DijkstraAlgorithm {
 
   private TransformerFactory.FORMAT getMinimum(Set<TransformerFactory.FORMAT> FORMATes) {
     TransformerFactory.FORMAT minimum = null;
-    for (TransformerFactory.FORMAT FORMAT : FORMATes) {
-      if (null == minimum) {
-        minimum = FORMAT;
+    for (TransformerFactory.FORMAT format : FORMATes) {
+      if (minimum == null) {
+        minimum = format;
       } else {
-        if (getShortestDistance(FORMAT) < getShortestDistance(minimum)) {
-          minimum = FORMAT;
+        int currentDist = getShortestDistance(format);
+        int minDist = getShortestDistance(minimum);
+
+        if (currentDist < minDist || (currentDist == minDist && format.compareTo(minimum) < 0)) {
+          minimum = format;
         }
       }
+
     }
     return minimum;
   }
