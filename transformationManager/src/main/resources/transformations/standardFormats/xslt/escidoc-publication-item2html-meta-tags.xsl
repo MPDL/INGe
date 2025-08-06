@@ -25,23 +25,28 @@
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
 	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util">
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xhtml" version="1.0" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/>
 	<xsl:param name="pubmanInstanceUrl"/>
 	<xsl:param name="pubmanContextPath"/>
 	<xsl:param name="pubmanComponentPattern"/>
-	<xsl:variable name="escidocId" select="if (/escidocItem:item/@objid) then /escidocItem:item/@objid else tokenize(/escidocItem:item/@xlink:href, '/')[last()]" />
-	<xsl:variable name="escidocIdWithVersion" select="if (/escidocItem:item/escidocItem:properties/prop:version/@objid) then /escidocItem:item/escidocItem:properties/prop:version/@objid else tokenize(/escidocItem:item/escidocItem:properties/prop:version/@xlink:href, '/')[last()]" />
-	<xsl:variable name="gen" select="//pub:publication[1]/@type"/>
-	<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
+
 	<!--Start with a line break -->
-	<xsl:template match="/">
+	<xsl:template match="//escidocItem:item">
+		<xsl:variable name="gen" select="//pub:publication[1]/@type"/>
 		<xsl:text>&#xa;</xsl:text>
-		<xsl:apply-templates />
+		<xsl:apply-templates>
+			<xsl:with-param name="escidocId" select="if (@objid) then @objid else tokenize(@xlink:href, '/')[last()]" />
+			<xsl:with-param name="escidocIdWithVersion" select="if (escidocItem:properties/prop:version/@objid) then escidocItem:properties/prop:version/@objid else tokenize(escidocItem:properties/prop:version/@xlink:href, '/')[last()]" />
+			<xsl:with-param name="gen" select="$gen"/>
+			<xsl:with-param name="genre" select="$genre-ves/enum[@uri=$gen]"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	<!-- fulltext links -->
 	<xsl:template match="//escidocComponents:component">
+		<xsl:param name="escidocIdWithVersion"/>
 		<xsl:variable name="contentCategory" select="tokenize(escidocComponents:properties/prop:content-category, '/')[last()]"/>
 		<xsl:variable name="visibility" select="escidocComponents:properties/prop:visibility"/>
 		<xsl:if test="$visibility='public' and ($contentCategory='any-fulltext' or $contentCategory='pre-print' or  $contentCategory='post-print' or $contentCategory='publisher-version')">
@@ -73,12 +78,15 @@
 	</xsl:template>
 	<!-- start md-record/publication -->
 	<xsl:template match="//pub:publication">
+		<xsl:param name="genre"/>
 		<xsl:variable name="pubdate" select="if(dcterms:issued!='') then dcterms:issued else if (eterms:published-online!='') then eterms:published-online else if (dcterms:dateAccepted!='') then dcterms:dateAccepted else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted else if (dcterms:modified!='') then dcterms:modified else if (dcterms:created!='') then dcterms:created else ''"/>
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-publication-date"/>
 			<xsl:with-param name="content" select="replace($pubdate, '-', '/')"/>
 		</xsl:call-template>
-		<xsl:apply-templates/>
+		<xsl:apply-templates>
+			<xsl:with-param name="genre" select="$genre"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="pub:publication/dc:title">
 		<xsl:call-template name="createMetatag">
@@ -87,6 +95,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="pub:publication/eterms:creator[@role!=($creator-ves/enum[.='referee']/@uri) and @role!=($creator-ves/enum[.='advisor']/@uri) and @role!=($creator-ves/enum[.='honoree']/@uri) and @role!=($creator-ves/enum[.='translator']/@uri) and @role!=($creator-ves/enum[.='transcriber']/@uri)  and @role!=($creator-ves/enum[.='contributor']/@uri)]/person:person">
+		<xsl:param name="genre"/>
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-author"/>
 			<xsl:with-param name="content" select="concat(eterms:family-name, ', ', eterms:given-name)"/>
@@ -111,6 +120,7 @@
 		</xsl:for-each>
 	</xsl:template>
 	<xsl:template match="pub:publication/eterms:creator/organization:organization">
+		<xsl:param name="genre"/>
 		<xsl:choose>
 			<xsl:when test="$genre='thesis'">
 				<xsl:if test="not(//pub:publication/eterms:publishing-info/dc:publisher)">
@@ -129,6 +139,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="pub:publication/eterms:degree">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='thesis'">
 			<xsl:variable name="degree" select="."/>
 			<xsl:call-template name="createMetatag">
@@ -162,6 +173,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="pub:publication/dc:identifier[@xsi:type='eterms:ISBN']">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='book' or $genre='collected-edition' or $genre='festschrift' or $genre='handbook' or $genre='monograph'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-isbn"/>
@@ -177,6 +189,7 @@
 	</xsl:template>
 	<!-- start EVENT tags -->
 	<xsl:template match="pub:publication/event:event/dc:title">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='conference-paper' or $genre='proceedings' or $genre='conference-report' or $genre='talk-at-event' or $genre='courseware-lecture' or $genre='poster'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-conference"/>
@@ -187,6 +200,7 @@
 	<!-- end EVENT tags -->
 	<!-- Use publisher as dissertation institution for thesis -->
 	<xsl:template match="pub:publication/eterms:publishing-info/dc:publisher">
+		<xsl:param name="genre"/>
 		<xsl:choose>
 			<xsl:when test="$genre='thesis'">
 				<xsl:call-template name="createMetatag">
@@ -203,14 +217,18 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="pub:publication/source:source">
+		<xsl:param name="genre"/>
 		<xsl:variable name="sourceGen" select="@type"/>
 		<xsl:variable name="sourceGenre" select="$genre-ves/enum[@uri=$sourceGen]"/>
 		<!--<xsl:if test="$sourceGenre='journal'">-->
-		<xsl:apply-templates mode="journal"/>
+		<xsl:apply-templates mode="journal">
+			<xsl:with-param name="genre" select="$genre"/>
+		</xsl:apply-templates>
 		<!--</xsl:if>-->
 	</xsl:template>
 	<!-- start JOURNAL tags -->
 	<xsl:template match="source:source/dc:title" mode="journal">
+		<xsl:param name="genre"/>
 		<xsl:choose>
 			<xsl:when test="$genre='book-item' or $genre='contribution-to-collected-edition' or $genre='contribution-to-festschrift' or $genre='contribution-to-handbook'">
 				<xsl:call-template name="createMetatag">
@@ -228,6 +246,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="source:source/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']" mode="journal">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-journal-abbrev"/>
@@ -236,6 +255,7 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="source:source/eterms:volume" mode="journal">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-volume"/>
@@ -244,6 +264,7 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="source:source/eterms:issue" mode="journal">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-issue"/>
@@ -270,6 +291,7 @@
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="source:source/dc:identifier[@xsi:type='eterms:ISSN']" mode="journal">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='article' or $genre='newspaper-article' or $genre='magazine-article' or $genre='review-article'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-issn"/>
@@ -278,6 +300,7 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="source:source/dc:identifier[@xsi:type='eterms:ISBN']" mode="journal">
+		<xsl:param name="genre"/>
 		<xsl:if test="$genre='book-item' or $genre='contribution-to-collected-edition' or $genre='contribution-to-festschrift' or $genre='contribution-to-handbook'">
 			<xsl:call-template name="createMetatag">
 				<xsl:with-param name="name" select="$key-isbn"/>

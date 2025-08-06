@@ -14,7 +14,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
     targetFormat = TransformerFactory.FORMAT.HTML_METATAGS_DC_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML,
+    targetFormat = TransformerFactory.FORMAT.HTML_METATAGS_DC_XML)
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+    targetFormat = TransformerFactory.FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML,
     targetFormat = TransformerFactory.FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML)
 public class ItemXmlToHtmlMetaTagsXml extends XslTransformer {
 

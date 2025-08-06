@@ -86,9 +86,8 @@ public abstract class MapStructMapper {
     pubItemVO.setVersion(toItemRO(itemVersionVO));
   }
 
-  @Mappings({ //
+  @Mappings({@Mapping(source = "versionNumber", target = "versionNumber"), //Set version number before objectId to enable version_based ids
       @Mapping(source = "objectId", target = "objectId"), //
-      @Mapping(source = "versionNumber", target = "versionNumber"), //
       @Mapping(source = "modificationDate", target = "modificationDate"), //
       @Mapping(source = "state", target = "versionState"), //
       @Mapping(source = "pid", target = "versionPid"), //
@@ -97,6 +96,7 @@ public abstract class MapStructMapper {
   public abstract ItemVersionRO toItemVersionRO(ItemRO itemRO);
 
   @InheritInverseConfiguration
+  @Mapping(target = "objectIdAndVersion", ignore = true)
   public abstract ItemRO toItemRO(ItemVersionRO itemRO);
 
   @Mappings({ //
