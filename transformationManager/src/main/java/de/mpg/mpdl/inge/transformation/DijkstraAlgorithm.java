@@ -1,13 +1,6 @@
 package de.mpg.mpdl.inge.transformation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DijkstraAlgorithm {
 
@@ -26,8 +19,8 @@ public class DijkstraAlgorithm {
   }
 
   public void execute(TransformerFactory.FORMAT source) {
-    this.settledNodes = new HashSet<>();
-    this.unSettledNodes = new HashSet<>();
+    this.settledNodes = new TreeSet<>();
+    this.unSettledNodes = new TreeSet<>();
 
     this.distance = new HashMap<>();
     this.predecessors = new HashMap<>();
