@@ -32,13 +32,10 @@
 	response.setCharacterEncoding("UTF-8");
 %>
 
-<%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
-<%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
-<%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
-<%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List" %>
+<%@ page import="de.mpg.mpdl.inge.cone.*" %>
 
 <%
 	response.setHeader("Content-Type", "text/plain");
@@ -52,6 +49,8 @@
 		out.println("Reset started...");
 		out.flush();
 
+
+
 		List<String> models = new ArrayList<>();
 
 		models.add(request.getParameter("model"));
@@ -60,6 +59,14 @@
 		{
 
 		    ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
+
+
+            if(SearchIndexerFactory.isSearchIndexEnabled()) {
+                out.println("Initializing search index for " + modelName);
+                SearchIndexerFactory.createSearchEngineIndexer().resetIndex(model);
+                out.println("Index for " + modelName + " initialized ");
+            }
+
 
 		    List<String> ids = querier.getAllIds(model.getName());
 		    for (String id : ids)

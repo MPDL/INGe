@@ -53,13 +53,7 @@
 package de.mpg.mpdl.inge.cone.web;
 
 import de.mpg.mpdl.inge.aa.TanStore;
-import de.mpg.mpdl.inge.cone.ConeException;
-import de.mpg.mpdl.inge.cone.Describable;
-import de.mpg.mpdl.inge.cone.ModelList;
-import de.mpg.mpdl.inge.cone.Pair;
-import de.mpg.mpdl.inge.cone.Querier;
-import de.mpg.mpdl.inge.cone.QuerierFactory;
-import de.mpg.mpdl.inge.cone.TreeFragment;
+import de.mpg.mpdl.inge.cone.*;
 import de.mpg.mpdl.inge.cone.formatter.AbstractFormatter;
 import de.mpg.mpdl.inge.cone.util.Rdfs;
 import de.mpg.mpdl.inge.util.ConeUtils;
@@ -109,6 +103,10 @@ public class ConeServlet extends HttpServlet {
       this.add("tan4directLogin");
     }
   };
+
+  public void init() {
+
+  }
 
   /**
    *
@@ -287,6 +285,28 @@ public class ConeServlet extends HttpServlet {
       resp.setContentType("text/xml");
       try {
         out.print(Rdfs.getModelAsRdfs(null));
+      } catch (Exception e) {
+        throw new ServletException(e);
+      }
+    } else if ("search-index".equals(action)) {
+      try {
+        resp.setContentType("application/json");
+        SearchEngineIndexer se = SearchIndexerFactory.createSearchEngineIndexer();
+        String query = req.getParameter("q");
+        String fromParam = req.getParameter("from");
+        int from = 0;
+        if (fromParam != null) {
+          from = Integer.parseInt(fromParam);
+        }
+        String sizeParam = req.getParameter("size");
+        int size = 10;
+        if (sizeParam != null) {
+          size = Integer.parseInt(sizeParam);
+        }
+        String res = se.simpleSearch(modelName, query, from, size);
+        resp.getWriter().print(res);
+        resp.getWriter().flush();
+
       } catch (Exception e) {
         throw new ServletException(e);
       }

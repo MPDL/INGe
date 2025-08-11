@@ -50,6 +50,9 @@ public class SQLQuerier implements Querier {
   private final Connection connection;
   protected boolean loggedIn;
 
+  private SearchEngineIndexer searchEngineIndexer;
+  private boolean coneSearchIndexEnabled = false;
+
   /**
    * Default constructor initializing the {@link DataSource}.
    *
@@ -63,6 +66,11 @@ public class SQLQuerier implements Querier {
             + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_NAME),
         PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_NAME),
         PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_PASSWORD));
+    this.searchEngineIndexer = SearchIndexerFactory.createSearchEngineIndexer();
+    this.coneSearchIndexEnabled = SearchIndexerFactory.isSearchIndexEnabled();
+
+
+
   }
 
   public List<? extends Describable> query(String modelName, String searchString, ModeType modeType) throws ConeException {
@@ -503,7 +511,7 @@ public class SQLQuerier implements Querier {
         Stack<String> idStack = new Stack<>();
         idStack.push(id);
 
-        TreeFragment result = details(modelName, id, language, idStack, this.connection);
+        TreeFragment result = details(modelName, id, language, idStack, this.connection, this.loggedIn);
 
         return result;
       } else {
@@ -514,15 +522,15 @@ public class SQLQuerier implements Querier {
     }
   }
 
-  public TreeFragment details(String modelName, String id, String language, Stack<String> idStack, Connection connection)
+  public TreeFragment details(String modelName, String id, String language, Stack<String> idStack, Connection connection, boolean loggedIn)
       throws ConeException {
     ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
 
-    return details(modelName, model.getPredicates(), id, language, idStack, connection);
+    return details(modelName, model.getPredicates(), id, language, idStack, connection, loggedIn);
   }
 
   public TreeFragment details(String modelName, List<ModelList.Predicate> predicates, String id, String language, Stack<String> idStack,
-      Connection connection) throws ConeException {
+      Connection connection, boolean loggedIn) throws ConeException {
     String query = null;
     try {
       if (connection.isClosed()) {
@@ -550,7 +558,7 @@ public class SQLQuerier implements Querier {
 
         // Redirect?
         if ("http://www.w3.org/2002/07/owl#sameAs".equals(predicateValue)) {
-          return details(modelName, predicates, object, language, idStack, connection);
+          return details(modelName, predicates, object, language, idStack, connection, loggedIn);
         }
 
         String lang = result.getString("lang");
@@ -560,14 +568,14 @@ public class SQLQuerier implements Querier {
         boolean found = false;
         for (ModelList.Predicate predicate : predicates) {
           if (predicate.getId().equals(predicateValue)) {
-            if (!predicate.isRestricted() || this.loggedIn) {
+            if (!predicate.isRestricted() || loggedIn) {
               if (predicate.isResource() && !(idStack.contains(object)) && predicate.isIncludeResource()) {
                 idStack.push(object);
-                localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
+                localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection, loggedIn);
                 idStack.pop();
                 localizedTripleObject.setLanguage(lang);
               } else if (!predicate.isResource() && null != predicate.getPredicates() && !predicate.getPredicates().isEmpty()) {
-                localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
+                localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection, loggedIn);
                 localizedTripleObject.setLanguage(lang);
               } else {
                 localizedTripleObject = new LocalizedString(object, lang);
@@ -718,6 +726,14 @@ public class SQLQuerier implements Querier {
         }
       }
       statement.close();
+
+      if (this.coneSearchIndexEnabled && modelName != null) {
+        Stack<String> idStack = new Stack<>();
+        idStack.push(id);
+        TreeFragment loggedOutTreeFragment = details(modelName, id, null, idStack, this.connection, false);
+        searchEngineIndexer.index(modelName, id, loggedOutTreeFragment);
+      }
+
     } catch (SQLException e) {
       throw new ConeException(e);
     }
@@ -727,6 +743,10 @@ public class SQLQuerier implements Querier {
     ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
     List<ModelList.Predicate> predicates = model.getPredicates();
     delete(predicates, id);
+    if (this.coneSearchIndexEnabled) {
+      searchEngineIndexer.deleteFromIndex(modelName, id);
+    }
+
   }
 
   public void delete(List<ModelList.Predicate> predicates, String id) throws ConeException {
@@ -774,6 +794,7 @@ public class SQLQuerier implements Querier {
       statement.executeUpdate();
 
       statement.close();
+
 
     } catch (SQLException e) {
       throw new ConeException(e);
@@ -907,4 +928,5 @@ public class SQLQuerier implements Querier {
       throw new ConeException(e);
     }
   }
+
 }

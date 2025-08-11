@@ -55,6 +55,7 @@ import org.apache.logging.log4j.Logger;
  * @revised by BrP: 03.09.2007
  */
 public class PropertyReader {
+
   private static final Logger logger = LogManager.getLogger(PropertyReader.class);
 
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
@@ -85,6 +86,7 @@ public class PropertyReader {
   public static final String INGE_CONE_RESULTS_MAXIMUM = "inge.cone.results.maximum";
   public static final String INGE_CONE_SERVICE_URL = "inge.cone.service.url";
   public static final String INGE_CONE_SUBJECTVOCAB = "inge.cone.subjectVocab";
+  public static final String INGE_CONE_SEARCHINDEX_ENABLED = "inge.cone.searchindex.enabled";
   public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files";
   public static final String INGE_CRON_CLEANUP_STAGING_FILES_HOURS = "inge.cron.cleanup_staging_files.hours";
   public static final String INGE_CRON_FIX_BROKEN_IMPORTS = "inge.cron.fix_broken_imports";

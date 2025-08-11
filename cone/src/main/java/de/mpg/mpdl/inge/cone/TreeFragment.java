@@ -253,7 +253,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       for (Iterator<String> iterator = keySet().iterator(); iterator.hasNext();) {
         String key = iterator.next();
         writer.append("\"");
-        writer.append(key.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("\"", "\\\""));
+        writer.append(escapeKeyForJson(key));
         writer.append("\" : ");
         if (1 == get(key).size()) {
           writer.append(get(key).get(0).toJson());
@@ -313,5 +313,12 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
     } else {
       return super.equals(o);
     }
+  }
+
+  public static String escapeKeyForJson(String key) {
+    if (null == key) {
+      return null;
+    }
+    return key.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("\"", "\\\"");
   }
 }
