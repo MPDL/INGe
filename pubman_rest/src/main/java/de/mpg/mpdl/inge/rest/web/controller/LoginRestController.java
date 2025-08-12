@@ -4,6 +4,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import com.auth0.jwt.JWT;
+import de.mpg.mpdl.inge.rest.web.model.IpAccountUserDbVO;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,9 +32,12 @@ public class LoginRestController {
 
   private final UserAccountService userSvc;
 
+  private final IpListProvider ipListProvider;
+
   @Autowired
-  public LoginRestController(UserAccountService userSvc) {
+  public LoginRestController(UserAccountService userSvc, IpListProvider ipListProvider) {
     this.userSvc = userSvc;
+    this.ipListProvider = ipListProvider;
   }
 
   @RequestMapping(path = "login", method = POST, produces = APPLICATION_JSON_VALUE)
@@ -57,10 +63,25 @@ public class LoginRestController {
   }
 
   @RequestMapping(path = "login/who", method = GET, produces = APPLICATION_JSON_VALUE)
-  public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
-      throws AuthenticationException {
+  public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      HttpServletRequest request) throws AuthenticationException {
     AccountUserDbVO user = this.userSvc.get(token);
-    return new ResponseEntity<>(user, HttpStatus.OK);
+    IpAccountUserDbVO ipAccountUserDbVO = new IpAccountUserDbVO(user);
+
+    //Return info on IP and matches IP Ranges, also for anonymous users
+    //A token should always be set and contains the IP adress, because either the client sends an Authorization header, or an anonymous token is set by AuthCookieToHeaderFilter
+    if (token != null) {
+      String ip = JWT.decode(token).getHeaderClaim("ip").asString();
+      if (ip != null) {
+        IpListProvider.IpRange ipRange = ipListProvider.getMatch(ip);
+        ipAccountUserDbVO.setIpAddress(ip);
+        if (ipRange != null) {
+          ipAccountUserDbVO.setMatchedName(ipRange.getName());
+          ipAccountUserDbVO.setMatchedId(ipRange.getId());
+        }
+      }
+    }
+    return new ResponseEntity<>(ipAccountUserDbVO, HttpStatus.OK);
   }
 
   @RequestMapping(path = "logout", method = GET, produces = APPLICATION_JSON_VALUE)
