@@ -76,8 +76,8 @@ public class LoginRestController {
         IpListProvider.IpRange ipRange = ipListProvider.getMatch(ip);
         ipAccountUserDbVO.setIpAddress(ip);
         if (ipRange != null) {
-          ipAccountUserDbVO.setMatchedName(ipRange.getName());
-          ipAccountUserDbVO.setMatchedId(ipRange.getId());
+          ipAccountUserDbVO.setMatchedIpName(ipRange.getName());
+          ipAccountUserDbVO.setMatchedIpId(ipRange.getId());
         }
       }
     }

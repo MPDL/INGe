@@ -5,8 +5,8 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 public class IpAccountUserDbVO extends AccountUserDbVO {
 
   String ipAddress;
-  String matchedName;
-  String matchedId;
+  String matchedIpName;
+  String matchedIpId;
 
   public IpAccountUserDbVO(AccountUserDbVO accountUserDbVO) {
     super(accountUserDbVO);
@@ -16,20 +16,20 @@ public class IpAccountUserDbVO extends AccountUserDbVO {
     super();
   }
 
-  public String getMatchedId() {
-    return matchedId;
+  public String getMatchedIpId() {
+    return matchedIpId;
   }
 
-  public void setMatchedId(String matchedId) {
-    this.matchedId = matchedId;
+  public void setMatchedIpId(String matchedIpId) {
+    this.matchedIpId = matchedIpId;
   }
 
-  public String getMatchedName() {
-    return matchedName;
+  public String getMatchedIpName() {
+    return matchedIpName;
   }
 
-  public void setMatchedName(String matchedName) {
-    this.matchedName = matchedName;
+  public void setMatchedIpName(String matchedIpName) {
+    this.matchedIpName = matchedIpName;
   }
 
 
