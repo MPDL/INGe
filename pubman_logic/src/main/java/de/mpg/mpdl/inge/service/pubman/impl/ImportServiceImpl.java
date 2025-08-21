@@ -157,7 +157,7 @@ public class ImportServiceImpl implements ImportService {
     } catch (IOException e) {
     }
 
-    if (null == file) {
+    if (null == file || !file.exists() || file.isFile() && file.length() == 0L) {
       this.importCommonService.doFailImport(importLogDbVO, ImportLog.Message.import_process_inputstream_unavailable.name(), false);
       return importLogDbVO;
     } else {
