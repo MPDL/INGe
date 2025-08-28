@@ -158,9 +158,11 @@ public class ImportServiceImpl implements ImportService {
     }
 
     if (null == file || !file.exists() || file.isFile() && file.length() == 0L) {
+      logger.error("File is empty or does not exist: " + file);
       this.importCommonService.doFailImport(importLogDbVO, ImportLog.Message.import_process_inputstream_unavailable.name(), false);
       return importLogDbVO;
     } else {
+      logger.info("File: " + file + " (" + file.length() + " bytes)");
       formatProcessor.setSourceFile(file);
       this.importCommonService.createImportLogItem(importLogDbVO, ImportLog.ErrorLevel.FINE,
           ImportLog.Message.import_process_inputstream_available.name());
