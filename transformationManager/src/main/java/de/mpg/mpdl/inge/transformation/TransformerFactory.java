@@ -100,7 +100,7 @@ public class TransformerFactory {
     HTML_LINKED(TransformerFactory.HTML_LINKED, FileFormatVO.FILE_FORMAT.HTML_LINKED), //
     JSON(TransformerFactory.JSON, FileFormatVO.FILE_FORMAT.JSON), //
     JSON_CITATION(TransformerFactory.JSON_CITATION, FileFormatVO.FILE_FORMAT.JSON), //
-    JUS_HTML_XML(TransformerFactory.JUS_HTML_XML, FileFormatVO.FILE_FORMAT.XML), //
+    JUS_HTML_XML(TransformerFactory.JUS_HTML_XML, FileFormatVO.FILE_FORMAT.HTML_PLAIN), //
     JUS_INDESIGN_XML(TransformerFactory.JUS_INDESIGN_XML, FileFormatVO.FILE_FORMAT.XML), //
     JUS_SNIPPET_XML(TransformerFactory.JUS_SNIPPET_XML, FileFormatVO.FILE_FORMAT.XML), //
     MAB_STRING(TransformerFactory.MAB, FileFormatVO.FILE_FORMAT.TXT), //

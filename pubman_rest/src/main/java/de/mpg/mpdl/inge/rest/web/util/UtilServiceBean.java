@@ -134,8 +134,7 @@ public class UtilServiceBean {
     ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
     SearchAndExportResultVO saerVO = this.saes.exportItemsWrapped(exportFormat, itemList, token);
     setResponseEntityHeader(exportFormat, false, saerVO, response);
-    ((SearchAndExportServiceImpl.ExtendedSearchAndExportResultVO) saerVO).getTransformerWrapper()
-        .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
+
     return null;
   }
 
@@ -161,10 +160,11 @@ public class UtilServiceBean {
     SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
     SearchAndExportResultVO saerVO = this.saes.searchAndExportItemsWrapped(saerrVO, token);
     setResponseEntityHeader(exportFormat, scroll, saerVO, response);
-    ((SearchAndExportServiceImpl.ExtendedSearchAndExportResultVO) saerVO).getTransformerWrapper()
-        .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
+
     return null;
   }
+
+
 
   public Date string2Date(String dateString) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -174,7 +174,7 @@ public class UtilServiceBean {
     return convertedDate;
   }
 
-  private void setResponseEntityHeader(ExportFormatVO exportFormat, boolean scroll, SearchAndExportResultVO saerVO,
+  public void setResponseEntityHeader(ExportFormatVO exportFormat, boolean scroll, SearchAndExportResultVO saerVO,
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
@@ -184,6 +184,8 @@ public class UtilServiceBean {
     if (scroll) {
       response.setHeader("scrollId", saerVO.getSearchRetrieveResponseVO().getScrollId());
     }
+    ((SearchAndExportServiceImpl.ExtendedSearchAndExportResultVO) saerVO).getTransformerWrapper()
+        .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
   }
 
   public AccountUserDbVO checkUser(String token) throws AuthenticationException, IngeApplicationException {

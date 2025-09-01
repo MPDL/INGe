@@ -16,7 +16,6 @@ import java.util.List;
 public interface SearchAndExportService {
 
 
-
   SearchAndExportResultVO exportItems(ExportFormatVO exportFormat, List<ItemVersionVO> itemList, String token)
       throws IngeTechnicalException;
 
@@ -29,4 +28,6 @@ public interface SearchAndExportService {
   SearchAndExportResultVO searchAndExportItemsWrapped(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  SearchAndExportResultVO exportJusReport(ExportFormatVO exportFormat, String ouId, String year, String token)
+      throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException;
 }

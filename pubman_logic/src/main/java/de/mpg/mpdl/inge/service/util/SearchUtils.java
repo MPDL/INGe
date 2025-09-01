@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.util;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -151,5 +152,60 @@ public class SearchUtils {
 
   public static <E> List<E> getRecordListFromSearchRetrieveResponse(SearchRetrieveResponseVO<E> srr, Class<E> clazz) {
     return srr.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
+  }
+
+  public static Query buildDateRangeQuery(String index, String from, String to) {
+
+    if (null != from && !from.trim().isEmpty() && null != to && !to.trim().isEmpty()) {
+      // Both from and to are specified
+      String fromDate = roundDateString(from);
+      String toDate = roundDateString(to);
+
+      // Create a JSON string for a range query with both bounds
+      String jsonQuery = String.format("{\"range\":{\"%s\":{\"gte\":\"%s\",\"lte\":\"%s\"}}}", index, fromDate, toDate);
+
+      return Query.of(q -> q.withJson(new StringReader(jsonQuery)));
+    } else if (null != from && !from.trim().isEmpty()) {
+      // Only from is specified
+      String fromDate = roundDateString(from);
+
+      // Create a JSON string for a range query with only lower bound
+      String jsonQuery = String.format("{\"range\":{\"%s\":{\"gte\":\"%s\"}}}", index, fromDate);
+
+      return Query.of(q -> q.withJson(new StringReader(jsonQuery)));
+    } else if (null != to && !to.trim().isEmpty()) {
+      // Only to is specified
+      String toDate = roundDateString(to);
+
+      // Create a JSON string for a range query with only upper bound
+      String jsonQuery = String.format("{\"range\":{\"%s\":{\"lte\":\"%s\"}}}", index, toDate);
+
+      return Query.of(q -> q.withJson(new StringReader(jsonQuery)));
+    } else {
+      // Neither from nor to is specified, return a match_all query
+      return Query.of(q -> q.matchAll(m -> m));
+    }
+  }
+
+  private static String roundDateString(String toQuery) {
+    if (null == toQuery) {
+      return null;
+    } else if (toQuery.matches("\\d\\d\\d\\d")) {
+      return toQuery + "||/y";
+    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
+      return toQuery + "||/M";
+      /*
+       * final String[] parts = toQuery.split("-"); YearMonth yearMonth =
+       * YearMonth.of(Integer.parseInt(parts[0]), Month.of(Integer.parseInt(parts[1]))); int
+       * daysInMonth = yearMonth.lengthOfMonth(); return toQuery + "-" + daysInMonth;
+       */
+    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+      return toQuery + "||/d";
+
+    }
+
+    return toQuery;
+
+
   }
 }

@@ -499,4 +499,19 @@ public class ItemRestController {
 
     return item;
   }
+
+  @RequestMapping(value = "/jusreport", method = RequestMethod.GET)
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
+      @RequestParam(value = "format", required = false, defaultValue = TransformerFactory.JUS_HTML_XML) @Parameter(
+          schema = @Schema(allowableValues = {TransformerFactory.JUS_HTML_XML, TransformerFactory.JUS_INDESIGN_XML})) String format, //
+      @RequestParam(value = "orgId", required = true) String orgId, @RequestParam(value = "year", required = true) String year, //
+      HttpServletResponse response)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+
+    ExportFormatVO exportFormat = new ExportFormatVO(format);
+    SearchAndExportResultVO saerVO = this.saes.exportJusReport(exportFormat, orgId, year, token);
+    this.utilServiceBean.setResponseEntityHeader(exportFormat, false, saerVO, response);
+    return null;
+  }
 }
