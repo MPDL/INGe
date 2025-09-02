@@ -124,7 +124,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
   public SearchAndExportResultVO exportJusReport(ExportFormatVO exportFormat, String ouId, String year, String token)
       throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException {
 
-    this.aaService.checkLoginRequired(token);
+    this.aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.REPORTER.frameworkValue());
 
     String from = year;
     String to = year;
