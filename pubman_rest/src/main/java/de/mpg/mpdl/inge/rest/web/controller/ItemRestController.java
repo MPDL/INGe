@@ -123,6 +123,21 @@ public class ItemRestController {
     return new ResponseEntity<>(returnNode, HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/authorization", method = RequestMethod.POST)
+  public ResponseEntity<JsonNode> authInfo(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @RequestBody ItemVersionVO item)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
+
+    Map<AuthorizationService.AccessType, Boolean> map = this.pubItemService.getAuthorizationInfoForItem(item, token);
+    if (map == null)
+      throw new NotFoundException();
+
+    ObjectNode returnNode = objectMapper.createObjectNode();
+    returnNode.set("actions", objectMapper.valueToTree(map));
+
+    return new ResponseEntity<>(returnNode, HttpStatus.OK);
+  }
+
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<ItemVersionVO> create(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @RequestBody ItemVersionVO item)

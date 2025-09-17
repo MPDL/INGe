@@ -23,6 +23,9 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
   Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
       throws IngeApplicationException, IngeTechnicalException;
 
+  Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfoForItem(ItemVersionVO item, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException;
+
   JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
       throws IngeApplicationException, IngeTechnicalException;
 

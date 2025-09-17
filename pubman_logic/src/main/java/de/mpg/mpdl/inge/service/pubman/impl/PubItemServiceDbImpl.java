@@ -423,23 +423,33 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return requestedItem;
   }
 
+
   public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
       throws IngeApplicationException, IngeTechnicalException {
-    Principal principal = null;
-    ItemVersionVO item = null;
-    if (authenticationToken != null) {
-      try {
-        principal = this.aaService.checkLoginRequired(authenticationToken);
-        item = get(itemId, authenticationToken);
-        //item not found, return null
-        if (item == null) {
-          return null;
-        }
-
-      } catch (AuthenticationException | AuthorizationException e) {
-
+    try {
+      ItemVersionVO item = get(itemId, authenticationToken);
+      if (item == null) {
+        return null;
       }
+      return this.getAuthorizationInfoForItem(item, authenticationToken);
+
+
+    } catch (AuthenticationException | AuthorizationException e) {
+
     }
+    return this.getAuthorizationInfoForItem(null, authenticationToken);
+  }
+
+  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfoForItem(ItemVersionVO item, String authenticationToken)
+      throws IngeApplicationException, IngeTechnicalException {
+    Principal principal = null;
+
+    try {
+      principal = this.aaService.checkLoginRequired(authenticationToken);
+    } catch (AuthenticationException e) {
+
+    }
+
     Map<AuthorizationService.AccessType, Boolean> authMap = new LinkedHashMap<>();
 
     for (AuthorizationService.AccessType at : AuthorizationService.AccessType.values()) {
