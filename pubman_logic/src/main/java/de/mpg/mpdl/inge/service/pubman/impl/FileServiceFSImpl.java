@@ -177,7 +177,7 @@ public class FileServiceFSImpl implements FileService {
    * java.lang.String)
    */
   @Override
-  @Transactional(rollbackFor = Throwable.class)
+  //  @Transactional(rollbackFor = Throwable.class)
   public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException {
 
@@ -215,10 +215,10 @@ public class FileServiceFSImpl implements FileService {
 
 
 
-  @Override
-  public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException {
-    createFileFromStagedFile(fileVO, user, null);
-  }
+  //  @Override
+  //  public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException {
+  //    createFileFromStagedFile(fileVO, user, null);
+  //  }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -421,13 +421,13 @@ public class FileServiceFSImpl implements FileService {
   }
 
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.service.pubman.FileService#indexFile(java.io.InputStream)
-   */
-  @Override
-  public void indexFile(InputStream fileInputStream) {}
+  //  /*
+  //   * (non-Javadoc)
+  //   *
+  //   * @see de.mpg.mpdl.inge.service.pubman.FileService#indexFile(java.io.InputStream)
+  //   */
+  //  @Override
+  //  public void indexFile(InputStream fileInputStream) {}
 
   /*
    * (non-Javadoc)
