@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import co.elastic.clients.elasticsearch.security.GrantType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.AuditRepository;
@@ -423,30 +424,52 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return requestedItem;
   }
 
+  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfoForCreation(String contextId, String authenticationToken,
+      boolean afterSave) throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+    ContextDbVO context = this.contextRepository.findById(contextId).orElse(null);
+    ItemVersionVO item = buildPubItemToCreate("", context, new ItemVersionVO(), principal.getUserAccount());
+    return getAuthorizationInfoMap(item, principal, afterSave);
 
-  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
-      throws IngeApplicationException, IngeTechnicalException {
-    try {
-      ItemVersionVO item = get(itemId, authenticationToken);
-      if (item == null) {
-        return null;
-      }
-      return this.getAuthorizationInfoForItem(item, authenticationToken);
-
-
-    } catch (AuthenticationException | AuthorizationException e) {
-
-    }
-    return this.getAuthorizationInfoForItem(null, authenticationToken);
   }
 
-  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfoForItem(ItemVersionVO item, String authenticationToken)
+  public Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken, boolean afterSave)
       throws IngeApplicationException, IngeTechnicalException {
     Principal principal = null;
+    ItemVersionVO item = null;
+    if (authenticationToken != null) {
+      try {
+        principal = this.aaService.checkLoginRequired(authenticationToken);
+        item = get(itemId, authenticationToken);
+        //item not found, return null
+        if (item == null) {
+          return null;
+        }
 
-    try {
-      principal = this.aaService.checkLoginRequired(authenticationToken);
-    } catch (AuthenticationException e) {
+      } catch (AuthenticationException | AuthorizationException e) {
+
+      }
+    }
+
+    Map<AuthorizationService.AccessType, Boolean> authMap = new LinkedHashMap<>();
+
+    return getAuthorizationInfoMap(item, principal, afterSave);
+  }
+
+  private Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfoMap(ItemVersionVO item, Principal principal, boolean afterSave)
+      throws IngeApplicationException, IngeTechnicalException {
+
+    if (afterSave && principal != null && principal.getUserAccount() != null
+        && ItemVersionRO.State.RELEASED.equals(item.getVersionState())) {
+      final String contextId = item.getObject().getContext().getObjectId();
+      boolean isModerator = principal.getUserAccount().getGrantList().stream()
+          .anyMatch(grant -> grant.getRole() == GrantVO.PredefinedRoles.MODERATOR.frameworkValue() && grant.getObjectRef() == contextId);
+
+      if (isModerator)
+        item.setVersionState(ItemVersionRO.State.SUBMITTED);
+      else
+        item.setVersionState(ItemVersionRO.State.PENDING);
+
 
     }
 
@@ -466,6 +489,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     }
     return authMap;
+
   }
 
   public JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)

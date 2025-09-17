@@ -110,10 +110,11 @@ public class ItemRestController {
 
   @RequestMapping(value = ITEM_ID_PATH + "/authorization", method = RequestMethod.GET)
   public ResponseEntity<JsonNode> authInfo(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
-      @PathVariable(value = ITEM_ID_VAR) String itemId)
+      @PathVariable(value = ITEM_ID_VAR) String itemId,
+      @RequestParam(value = "afterSave", defaultValue = "false", required = false) boolean afterSave)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
-    Map<AuthorizationService.AccessType, Boolean> map = this.pubItemService.getAuthorizationInfo(itemId, token);
+    Map<AuthorizationService.AccessType, Boolean> map = this.pubItemService.getAuthorizationInfo(itemId, token, afterSave);
     if (map == null)
       throw new NotFoundException();
 
@@ -123,12 +124,13 @@ public class ItemRestController {
     return new ResponseEntity<>(returnNode, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/authorization", method = RequestMethod.POST)
-  public ResponseEntity<JsonNode> authInfo(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
-      @RequestBody ItemVersionVO item)
+  @RequestMapping(value = "/authorization", method = RequestMethod.GET)
+  public ResponseEntity<JsonNode> authInfoForCreation(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @RequestParam(value = "contextId", required = true) String contextId,
+      @RequestParam(value = "afterSave", defaultValue = "false", required = false) boolean afterSave)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
 
-    Map<AuthorizationService.AccessType, Boolean> map = this.pubItemService.getAuthorizationInfoForItem(item, token);
+    Map<AuthorizationService.AccessType, Boolean> map = this.pubItemService.getAuthorizationInfoForCreation(contextId, token, afterSave);
     if (map == null)
       throw new NotFoundException();
 

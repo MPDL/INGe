@@ -20,11 +20,11 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
   boolean checkAccess(AuthorizationService.AccessType at, Principal userAccount, ItemVersionVO item)
       throws IngeApplicationException, IngeTechnicalException;
 
-  Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken)
+  Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfo(String itemId, String authenticationToken, boolean afterSave)
       throws IngeApplicationException, IngeTechnicalException;
 
-  Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfoForItem(ItemVersionVO item, String authenticationToken)
-      throws IngeApplicationException, IngeTechnicalException;
+  Map<AuthorizationService.AccessType, Boolean> getAuthorizationInfoForCreation(String contextId, String authenticationToken,
+      boolean afterSave) throws AuthenticationException, IngeApplicationException, IngeTechnicalException;
 
   JsonNode getAuthorizationInfoForFile(String itemId, String fileId, String authenticationToken)
       throws IngeApplicationException, IngeTechnicalException;
