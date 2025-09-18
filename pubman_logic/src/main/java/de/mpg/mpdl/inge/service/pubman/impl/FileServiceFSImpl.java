@@ -221,7 +221,7 @@ public class FileServiceFSImpl implements FileService {
   //  }
 
   @Override
-  @Transactional(rollbackFor = Throwable.class)
+//  @Transactional(rollbackFor = Throwable.class)
   public void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
       throws IngeTechnicalException, IngeApplicationException {
 
