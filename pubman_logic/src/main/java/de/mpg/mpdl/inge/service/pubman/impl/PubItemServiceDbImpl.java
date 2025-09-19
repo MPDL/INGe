@@ -461,8 +461,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     if (afterSave && principal != null && principal.getUserAccount() != null
         && ItemVersionRO.State.RELEASED.equals(item.getVersionState())) {
       final String contextId = item.getObject().getContext().getObjectId();
-      boolean isModerator = principal.getUserAccount().getGrantList().stream()
-          .anyMatch(grant -> grant.getRole() == GrantVO.PredefinedRoles.MODERATOR.frameworkValue() && grant.getObjectRef() == contextId);
+      boolean isModerator = principal.getUserAccount().getGrantList().stream().anyMatch(
+          grant -> GrantVO.PredefinedRoles.MODERATOR.frameworkValue().equals(grant.getRole()) && contextId.equals(grant.getObjectRef()));
 
       if (isModerator)
         item.setVersionState(ItemVersionRO.State.SUBMITTED);
