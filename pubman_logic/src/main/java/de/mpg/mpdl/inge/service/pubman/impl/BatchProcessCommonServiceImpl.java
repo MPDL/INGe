@@ -107,7 +107,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     String message = createMessage(method);
-    this.pubItemService.changeContext(itemId, newContextId, token, "Batch" + message);
+    this.pubItemService.changeContext(itemId, newContextId, token, "Batch " + message);
 
     updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.SUCCESS,
         BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
