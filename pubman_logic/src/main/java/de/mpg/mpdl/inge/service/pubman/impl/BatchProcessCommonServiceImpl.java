@@ -100,6 +100,19 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
         BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
   }
 
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public void doChangeContext(BatchProcessLogHeaderDbVO.Method method, String token, String itemId, String newContextId,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    String message = createMessage(method);
+    this.pubItemService.changeContext(itemId, newContextId, token, "Batch" + message);
+
+    updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.SUCCESS,
+        BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
+  }
+
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void finishBatchProcessLog(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO, boolean error) {

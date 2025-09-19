@@ -33,7 +33,8 @@ public class AuditDbVO implements Serializable {
     RELEASE,
     REVISE,
     WITHDRAW,
-    UPDATE
+    UPDATE,
+    CONTEXT_CHANGE
   }
 
   @Id

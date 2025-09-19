@@ -26,6 +26,11 @@ public interface BatchProcessCommonService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   @Transactional(rollbackFor = Throwable.class)
+  void doChangeContext(BatchProcessLogHeaderDbVO.Method method, String token, String itemId, String newContextId,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  @Transactional(rollbackFor = Throwable.class)
   void finishBatchProcessLog(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO, boolean error);
 
   @Transactional(rollbackFor = Throwable.class)
