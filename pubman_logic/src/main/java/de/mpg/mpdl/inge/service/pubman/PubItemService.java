@@ -45,6 +45,9 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
   ItemVersionVO submitPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  ItemVersionVO changeContext(String itemId, String newContextId, String authenticationToken, String message)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
+
   ItemVersionVO withdrawPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 }

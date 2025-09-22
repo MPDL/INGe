@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
-import co.elastic.clients.elasticsearch.security.GrantType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.AuditRepository;
@@ -690,9 +689,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
 
+
   private ItemVersionVO update(ItemVersionVO pubItemVO, String authenticationToken, boolean createAuditEntry)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    ContextDbVO contextNew = null;
+    //ContextDbVO contextNew = null;
     long start = System.currentTimeMillis();
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     PubItemUtil.cleanUpItem(pubItemVO);
@@ -707,13 +707,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     checkAa("update", principal, latestVersion, context);
 
-    if (null != pubItemVO.getObject().getContext() && !(pubItemVO.getObject().getContext().getObjectId().equals(context.getObjectId()))) {
-      contextNew = this.contextRepository.findById(pubItemVO.getObject().getContext().getObjectId()).orElse(null);
-      checkAa("update", principal, latestVersion, contextNew);
-    }
-
-
-
     if (ItemVersionRO.State.RELEASED.equals(latestVersion.getVersionState())) {
       this.entityManager.detach(latestVersion);
       // Reset latestRelase reference because it is the same object as latest version
@@ -724,8 +717,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       // if current user is owner, set to status pending. Else, set to status submitted
 
-      if (GrantUtil.hasRole(principal.getUserAccount(), GrantVO.PredefinedRoles.MODERATOR,
-          null != contextNew ? contextNew.getObjectId() : context.getObjectId())) {
+      if (GrantUtil.hasRole(principal.getUserAccount(), GrantVO.PredefinedRoles.MODERATOR, context.getObjectId())) {
         latestVersion.setVersionState(ItemVersionRO.State.SUBMITTED);
       } else {
         latestVersion.setVersionState(ItemVersionRO.State.PENDING);
@@ -735,9 +727,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       latestVersion.getObject().setLatestVersion(latestVersion);
     }
 
-    if (null != contextNew) {
-      latestVersion.getObject().setContext(contextNew);
-    }
     updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
     latestVersion.setMetadata(pubItemVO.getMetadata());
 
@@ -767,9 +756,64 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
     reindex(latestVersion);
+    reindex(latestVersion);
     sendEventTopic(latestVersion, "update");
     logger.info(
         "PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in " + (System.currentTimeMillis() - start) + " ms");
+    return latestVersion;
+  }
+
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public ItemVersionVO changeContext(String itemId, String newContextId, String authenticationToken, String message)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+    long start = System.currentTimeMillis();
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(itemId);
+    if (null == latestVersion) {
+      throw new IngeApplicationException("Item " + itemId + " not found.");
+    }
+    checkAa("update", principal, latestVersion, latestVersion.getObject().getContext());
+    ContextDbVO newContext = this.contextRepository.findById(newContextId).orElse(null);
+    if (null == newContext) {
+      throw new IngeApplicationException("Context " + newContextId + " not found.");
+    } else if (newContext.getState().equals(ContextDbVO.State.CLOSED)) {
+      throw new IngeApplicationException("Context " + newContextId + " is closed.");
+    }
+
+    if (latestVersion.getMetadata() == null || latestVersion.getMetadata().getGenre() == null || newContext.getAllowedGenres() == null
+        || !newContext.getAllowedGenres().contains(latestVersion.getMetadata().getGenre())) {
+      throw new IngeApplicationException("Context " + newContextId + " does not allow genre.");
+    }
+
+    if ((ItemVersionRO.State.SUBMITTED.equals(latestVersion.getObject().getPublicState())
+        || ItemVersionRO.State.IN_REVISION.equals(latestVersion.getVersionState()))
+        && ContextDbVO.Workflow.SIMPLE.equals(newContext.getWorkflow())) {
+      throw new IngeApplicationException(
+          "The item state " + latestVersion.getVersionState() + " cannot be transferred to a context in simple workflow");
+    }
+
+    checkAa("update", principal, latestVersion, newContext);
+
+    latestVersion.getObject().setContext(newContext);
+
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+
+    try {
+      latestVersion = this.itemRepository.saveAndFlush(latestVersion);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
+
+    createAuditEntry(latestVersion, AuditDbVO.EventType.CONTEXT_CHANGE, message);
+
+    sendEventTopic(latestVersion, "update");
+    if (ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
+      sendEventTopic((ItemVersionVO) latestVersion.getObject().getLatestRelease(), "release");
+    }
+
+    reindex(latestVersion);
+
     return latestVersion;
   }
 

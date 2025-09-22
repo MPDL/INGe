@@ -155,7 +155,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
             if (!((ItemVersionRO.State.SUBMITTED.equals(itemVersionVO.getObject().getPublicState())
                 || ItemVersionRO.State.IN_REVISION.equals(itemVersionVO.getVersionState()))
                 && ContextDbVO.Workflow.SIMPLE.equals(contextDbVOTo.getWorkflow()))) {
-              this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+              this.batchProcessCommonService.doChangeContext(method, token, itemVersionVO.getObjectId(), contextDbVOTo.getObjectId(),
+                  batchProcessLogDetailDbVO);
             } else {
               this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
                   BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_ALLOWED);

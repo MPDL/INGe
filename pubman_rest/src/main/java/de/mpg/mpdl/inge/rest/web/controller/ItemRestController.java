@@ -531,4 +531,13 @@ public class ItemRestController {
     this.utilServiceBean.setResponseEntityHeader(exportFormat, false, saerVO, response);
     return null;
   }
+
+  @RequestMapping(value = ITEM_ID_PATH + "/changecontext", method = RequestMethod.GET)
+  public ResponseEntity<ItemVersionVO> changeContext(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestParam(value = "contextId", required = true) String newContextId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    ItemVersionVO updated = this.pubItemService.changeContext(itemId, newContextId, token, null);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
+  }
 }
