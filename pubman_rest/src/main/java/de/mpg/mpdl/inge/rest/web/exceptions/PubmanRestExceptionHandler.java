@@ -25,12 +25,17 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   private static final Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
 
 
-  public static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status) {
+  public static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status,
+      Map<String, Object> additionalFlags) {
     logger.error("Error in REST", e);
     if (null != status) {
       messageMap.put("timestamp", LocalDateTime.now());
       messageMap.put("status", status.value());
       messageMap.put("error", status.getReasonPhrase());
+    }
+
+    if (additionalFlags != null) {
+      messageMap.putAll(additionalFlags);
     }
 
     messageMap.put("exception", e.getClass().getCanonicalName());
@@ -42,45 +47,51 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
     if (null != e.getCause()) {
       Map<String, Object> subMap = new LinkedHashMap<>();
       messageMap.put("cause", subMap);
-      buildExceptionMessage(e.getCause(), subMap, null);
+      buildExceptionMessage(e.getCause(), subMap, null, additionalFlags);
     }
 
   }
 
-  private static ResponseEntity<Object> buildExceptionResponseEntity(Throwable e, HttpHeaders headers, HttpStatus status) {
+  private static ResponseEntity<Object> buildExceptionResponseEntity(Throwable e, HttpHeaders headers, HttpStatus status,
+      Map<String, Object> additionalFlags) {
     Map<String, Object> jsonException = new LinkedHashMap<>();
-    buildExceptionMessage(e, jsonException, status);
+    buildExceptionMessage(e, jsonException, status, additionalFlags);
     return new ResponseEntity<>(jsonException, headers, status);
   }
 
   @ExceptionHandler(value = NotFoundException.class)
   protected ResponseEntity<Object> handleNotFoundException(Exception e, WebRequest req) {
-    return buildExceptionResponseEntity(e, null, HttpStatus.NOT_FOUND);
+    return buildExceptionResponseEntity(e, null, HttpStatus.NOT_FOUND, null);
   }
 
   @ExceptionHandler(value = AuthenticationException.class)
-  protected ResponseEntity<Object> handleAuthenticationException(Exception e, WebRequest req) {
-    return buildExceptionResponseEntity(e, null, HttpStatus.UNAUTHORIZED);
+  protected ResponseEntity<Object> handleAuthenticationException(AuthenticationException e, WebRequest req) {
+    if (e.isPasswordChangeRequired()) {
+      Map<String, Object> additionalFlags = new LinkedHashMap<>();
+      additionalFlags.put("passwordChangeRequired", e.isPasswordChangeRequired());
+      return buildExceptionResponseEntity(e, null, HttpStatus.UNAUTHORIZED, additionalFlags);
+    }
+    return buildExceptionResponseEntity(e, null, HttpStatus.UNAUTHORIZED, null);
   }
 
   @ExceptionHandler(value = AuthorizationException.class)
   protected ResponseEntity<Object> handleAuthorizationException(Exception e, WebRequest req) {
-    return buildExceptionResponseEntity(e, null, HttpStatus.FORBIDDEN);
+    return buildExceptionResponseEntity(e, null, HttpStatus.FORBIDDEN, null);
   }
 
   @ExceptionHandler(value = IngeTechnicalException.class)
   protected ResponseEntity<Object> handleTechnicalxception(Exception e, WebRequest req) {
-    return buildExceptionResponseEntity(e, null, HttpStatus.INTERNAL_SERVER_ERROR);
+    return buildExceptionResponseEntity(e, null, HttpStatus.INTERNAL_SERVER_ERROR, null);
   }
 
   @ExceptionHandler(value = IngeApplicationException.class)
   protected ResponseEntity<Object> handleApplicationException(Exception e, WebRequest req) {
-    return buildExceptionResponseEntity(e, null, HttpStatus.BAD_REQUEST);
+    return buildExceptionResponseEntity(e, null, HttpStatus.BAD_REQUEST, null);
   }
 
   @ExceptionHandler(value = Exception.class)
   protected ResponseEntity<Object> handleAnyException(Exception e, WebRequest req) {
-    return buildExceptionResponseEntity(e, null, HttpStatus.INTERNAL_SERVER_ERROR);
+    return buildExceptionResponseEntity(e, null, HttpStatus.INTERNAL_SERVER_ERROR, null);
   }
 
 

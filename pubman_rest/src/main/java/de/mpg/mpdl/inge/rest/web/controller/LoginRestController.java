@@ -7,6 +7,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import com.auth0.jwt.JWT;
 import de.mpg.mpdl.inge.rest.web.model.IpAccountUserDbVO;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -57,6 +59,28 @@ public class LoginRestController {
       String TOKEN_HEADER = "Token";
       headers.add(TOKEN_HEADER, principal.getJwToken());
       return new ResponseEntity<>(headers, HttpStatus.OK);
+    }
+
+    return null;
+  }
+
+
+  @RequestMapping(path = "changepassword", method = POST, produces = APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> changePassword(@RequestBody String credentials, HttpServletRequest request, HttpServletResponse response)
+      throws AuthenticationException, IngeTechnicalException, AuthorizationException, IngeApplicationException {
+    String[] splittedCredentials = credentials.split(":");
+
+    if (3 != splittedCredentials.length) {
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    String username = splittedCredentials[0];
+    String password = splittedCredentials[1];
+    String newPassword = splittedCredentials[2];
+    Principal principal = this.userSvc.loginForPasswordChange(username, password);
+    if (null != principal && null != principal.getUserAccount()) {
+      userSvc.changePassword(principal.getUserAccount().getObjectId(), principal.getUserAccount().getLastModificationDate(), newPassword,
+          true, principal.getJwToken());
     }
 
     return null;

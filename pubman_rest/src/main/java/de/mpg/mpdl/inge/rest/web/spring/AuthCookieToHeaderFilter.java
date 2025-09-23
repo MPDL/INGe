@@ -131,7 +131,7 @@ public class AuthCookieToHeaderFilter implements Filter {
     httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     Map<String, Object> jsonException = new LinkedHashMap<>();
     jsonException.put("tokenInvalid", true);
-    PubmanRestExceptionHandler.buildExceptionMessage(e, jsonException, HttpStatus.UNAUTHORIZED);
+    PubmanRestExceptionHandler.buildExceptionMessage(e, jsonException, HttpStatus.UNAUTHORIZED, null);
     httpServletResponse.setContentType("application/json");
     httpServletResponse.setCharacterEncoding("UTF-8");
     httpServletResponse.getWriter().write(MapperFactory.getObjectMapper().writeValueAsString(jsonException));

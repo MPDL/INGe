@@ -400,7 +400,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
             throw new AuthenticationException(
                 username + " is blocked for " + this.loginAttemptsCache.ATTEMPT_TIMER + " since last attempt");
           } else if (!this.userLoginRepository.findPasswordChangeFlag(username) && !passwordChangeRequest) {
-            throw new AuthenticationException(username + " needs to change password first");
+            throw new AuthenticationException(username + " needs to change password first", true);
           }
           this.loginAttemptsCache.loginSucceeded(username);
           String token = createToken(userAccount, request);
@@ -636,7 +636,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         // at least one digit character
         new CharacterRule(EnglishCharacterData.Digit, 1),
         // at least one symbol (special character)
-        new CharacterRule(EnglishCharacterData.Special, 1),
+        new CharacterRule(EnglishCharacterData.SpecialAscii, 1),
         // no whitespace
         new WhitespaceRule());
 
