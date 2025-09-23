@@ -540,4 +540,14 @@ public class ItemRestController {
     ItemVersionVO updated = this.pubItemService.changeContext(itemId, newContextId, token, null);
     return new ResponseEntity<>(updated, HttpStatus.OK);
   }
+
+  @RequestMapping(value = ITEM_ID_PATH + "/localtags", method = RequestMethod.PUT)
+  public ResponseEntity<ItemVersionVO> updateLocalTags(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody String[] localTags)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    List<String> localTagList = localTags == null ? new ArrayList<>() : List.of(localTags);
+    ItemVersionVO updated = this.pubItemService.updateLocalTags(itemId, localTagList, token, null);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
+  }
 }

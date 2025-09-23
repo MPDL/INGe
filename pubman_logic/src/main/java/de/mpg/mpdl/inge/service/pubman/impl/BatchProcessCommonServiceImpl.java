@@ -113,6 +113,19 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
         BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
   }
 
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public void doUpdateLocalTags(BatchProcessLogHeaderDbVO.Method method, String token, String itemId, List<String> localTags,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    String message = createMessage(method);
+    this.pubItemService.updateLocalTags(itemId, localTags, token, "Batch " + message);
+
+    updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.SUCCESS,
+        BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
+  }
+
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public void finishBatchProcessLog(BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO, AccountUserDbVO accountUserDbVO, boolean error) {

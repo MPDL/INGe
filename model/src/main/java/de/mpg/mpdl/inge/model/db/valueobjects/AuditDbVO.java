@@ -34,7 +34,8 @@ public class AuditDbVO implements Serializable {
     REVISE,
     WITHDRAW,
     UPDATE,
-    CONTEXT_CHANGE
+    CONTEXT_CHANGE,
+    UPDATE_LOCAL_TAGS
   }
 
   @Id

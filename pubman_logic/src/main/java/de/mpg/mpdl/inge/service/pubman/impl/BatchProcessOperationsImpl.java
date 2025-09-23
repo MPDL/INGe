@@ -76,8 +76,9 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
 
     List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
     currentLocalTags.addAll(this.localTags);
-    itemVersionVO.getObject().setLocalTags(currentLocalTags);
-    this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+    //itemVersionVO.getObject().setLocalTags(currentLocalTags);
+    this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObject().getObjectId(), currentLocalTags,
+        batchProcessLogDetailDbVO);
 
     return false;
   }
@@ -316,8 +317,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       List<String> localTagList = itemVersionVO.getObject().getLocalTags();
       localTagList.remove(this.localTagFrom);
       localTagList.add(this.localTagTo);
-      itemVersionVO.getObject().setLocalTags(localTagList);
-      this.batchProcessCommonService.doUpdatePubItem(method, token, itemVersionVO, batchProcessLogDetailDbVO);
+      //itemVersionVO.getObject().setLocalTags(localTagList);
+      this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObjectId(), localTagList, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
           BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);

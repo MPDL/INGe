@@ -9,6 +9,8 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,9 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   ItemVersionVO changeContext(String itemId, String newContextId, String authenticationToken, String message)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
+
+  ItemVersionVO updateLocalTags(String itemId, List<String> localTags, String authenticationToken, String message)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException;
 
   ItemVersionVO withdrawPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)

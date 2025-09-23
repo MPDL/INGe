@@ -817,6 +817,40 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return latestVersion;
   }
 
+
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public ItemVersionVO updateLocalTags(String itemId, List<String> localTags, String authenticationToken, String message)
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
+    Principal principal = this.aaService.checkLoginRequired(authenticationToken);
+    ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(itemId);
+    if (null == latestVersion) {
+      throw new IngeApplicationException("Item " + itemId + " not found.");
+    }
+    checkAa("update", principal, latestVersion, latestVersion.getObject().getContext());
+
+    latestVersion.getObject().setLocalTags(localTags);
+
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+
+    try {
+      latestVersion = this.itemRepository.saveAndFlush(latestVersion);
+    } catch (DataAccessException e) {
+      GenericServiceImpl.handleDBException(e);
+    }
+
+    createAuditEntry(latestVersion, AuditDbVO.EventType.UPDATE_LOCAL_TAGS, message);
+
+    sendEventTopic(latestVersion, "update");
+    if (ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
+      sendEventTopic((ItemVersionVO) latestVersion.getObject().getLatestRelease(), "release");
+    }
+
+    reindex(latestVersion);
+
+    return latestVersion;
+  }
+
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO withdrawPubItem(String pubItemId, Date modificationDate, String message, String authenticationToken)

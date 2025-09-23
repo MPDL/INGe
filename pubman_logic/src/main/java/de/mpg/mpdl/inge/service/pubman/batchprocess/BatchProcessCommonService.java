@@ -25,8 +25,13 @@ public interface BatchProcessCommonService {
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  @Transactional(rollbackFor = Throwable.class)
+
   void doChangeContext(BatchProcessLogHeaderDbVO.Method method, String token, String itemId, String newContextId,
+      BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+
+  void doUpdateLocalTags(BatchProcessLogHeaderDbVO.Method method, String token, String itemId, List<String> localTags,
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
