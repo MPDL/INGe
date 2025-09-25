@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -38,6 +39,10 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       messageMap.putAll(additionalFlags);
     }
 
+    if (null != e.getCause() && e.getCause() instanceof ValidationException) {
+      messageMap.put("validation-report", ((ValidationException) e.getCause()).getReport());
+    }
+
     messageMap.put("exception", e.getClass().getCanonicalName());
     if (null != e.getMessage()) {
       messageMap.put("message", e.getMessage());
@@ -49,6 +54,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       messageMap.put("cause", subMap);
       buildExceptionMessage(e.getCause(), subMap, null, additionalFlags);
     }
+
 
   }
 

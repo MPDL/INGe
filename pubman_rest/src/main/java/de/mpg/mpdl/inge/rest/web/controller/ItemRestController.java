@@ -554,9 +554,10 @@ public class ItemRestController {
   }
 
 
-    @RequestMapping(value = "/cleanup", method = RequestMethod.POST)
-    public ItemVersionVO cleanUpItem(@RequestBody ItemVersionVO pubItem, String authenticationToken) throws IngeTechnicalException, AuthenticationException {
-        return this.pubItemService.cleanUpItem(pubItem, authenticationToken);
+  @RequestMapping(value = "/cleanup", method = RequestMethod.POST)
+  public ItemVersionVO cleanUpItem(@RequestBody ItemVersionVO pubItem, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException {
+    return this.pubItemService.cleanUpItem(pubItem, authenticationToken);
 
-    }
+  }
 }

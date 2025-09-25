@@ -630,7 +630,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         // at least one symbol (special character)
         new CharacterRule(EnglishCharacterData.SpecialAscii, 1),
         //no colon
-        new IllegalCharacterRule(new char[]{':'}),
+        new IllegalCharacterRule(new char[] {':'}),
         // no whitespace
         new WhitespaceRule());
 
