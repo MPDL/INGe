@@ -118,6 +118,7 @@ public class GenreHandler extends ShortContentHandler {
         this.map = this.defaultMap;
       } else if ("genre".equals(name)) {
         this.genre = attributes.getValue("id");
+        this.groupID = null;
         if ("DEFAULT".equals(this.genre)) {
           this.map = this.defaultMap;
         } else {
