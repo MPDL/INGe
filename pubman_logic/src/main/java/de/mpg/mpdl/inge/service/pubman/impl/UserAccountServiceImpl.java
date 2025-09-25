@@ -16,15 +16,7 @@ import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.passay.CharacterData;
-import org.passay.CharacterRule;
-import org.passay.EnglishCharacterData;
-import org.passay.LengthRule;
-import org.passay.PasswordData;
-import org.passay.PasswordGenerator;
-import org.passay.PasswordValidator;
-import org.passay.RuleResult;
-import org.passay.WhitespaceRule;
+import org.passay.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -637,13 +629,15 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         new CharacterRule(EnglishCharacterData.Digit, 1),
         // at least one symbol (special character)
         new CharacterRule(EnglishCharacterData.SpecialAscii, 1),
+        //no colon
+        new IllegalCharacterRule(new char[]{':'}),
         // no whitespace
         new WhitespaceRule());
 
     RuleResult result = validator.validate(new PasswordData(password));
     if (!result.isValid()) {
       throw new IngeApplicationException(
-          "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character");
+          "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character (no colon)");
     }
   }
 
