@@ -894,6 +894,18 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return pubItem;
   }
 
+
+  @Override
+  public ItemVersionVO cleanUpItem(ItemVersionVO pubItem, String authenticationToken) throws IngeTechnicalException, AuthenticationException {
+      Principal principal = this.aaService.checkLoginRequiredWithRole(authenticationToken,
+              GrantVO.PredefinedRoles.SYSADMIN.frameworkValue(),
+              GrantVO.PredefinedRoles.MODERATOR.frameworkValue(),
+              GrantVO.PredefinedRoles.DEPOSITOR.frameworkValue());
+      PubItemUtil.cleanUpItem(pubItem);
+      return pubItem;
+
+  }
+
   private ItemVersionVO changeState(String id, Date modificationDate, ItemVersionRO.State state, String message, String aaMethod,
       String authenticationToken, AuditDbVO.EventType auditEventType)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {

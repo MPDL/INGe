@@ -21,10 +21,7 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -414,10 +411,11 @@ public class AuthorizationService {
     return new Principal(this.userAccountService.get(authenticationToken), authenticationToken);
   }
 
-  public Principal checkLoginRequiredWithRole(String authenticationToken, String role) throws AuthenticationException {
+  public Principal checkLoginRequiredWithRole(String authenticationToken, String... roles) throws AuthenticationException {
     Principal p = new Principal(this.userAccountService.get(authenticationToken), authenticationToken);
+    List<String> rolesList = Arrays.asList(roles);
     boolean match =
-        p.getUserAccount() != null && p.getUserAccount().getGrantList().stream().anyMatch(grant -> grant.getRole().equals(role));
+        p.getUserAccount() != null && p.getUserAccount().getGrantList().stream().anyMatch(grant -> rolesList.contains(grant.getRole()));
     if (!match) {
       throw new AuthenticationException("Authentication as admin user required");
     }

@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.MultipartFileSender;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -28,6 +29,7 @@ import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.service.util.ThumbnailCreationService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -550,4 +552,11 @@ public class ItemRestController {
     ItemVersionVO updated = this.pubItemService.updateLocalTags(itemId, localTagList, token, null);
     return new ResponseEntity<>(updated, HttpStatus.OK);
   }
+
+
+    @RequestMapping(value = "/cleanup", method = RequestMethod.POST)
+    public ItemVersionVO cleanUpItem(@RequestBody ItemVersionVO pubItem, String authenticationToken) throws IngeTechnicalException, AuthenticationException {
+        return this.pubItemService.cleanUpItem(pubItem, authenticationToken);
+
+    }
 }
