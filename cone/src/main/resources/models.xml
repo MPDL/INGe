@@ -383,39 +383,6 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 	</model>
 	
 	<model>
-		<name>cclicenses</name>
-		<aliases>
-			<alias>cclicenses</alias>
-			<alias>cclicences</alias>
-		</aliases>
-		<description>CreativeCommons licenses</description>
-		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false" identifier-prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
-		<predicates>
-			<predicate name="Version" value="urn:cone:version" multiple="false" mandatory="true" localized="false" searchable="true"/>
-			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
-			<predicate name="URL" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true"/>
-			<predicate name="Image-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="true"/>
-			<predicate name="Commercial" value="urn:cone:commercial" multiple="false" mandatory="true" localized="false" searchable="true"/>
-			<predicate name="Derivatives" value="urn:cone:derivatives" multiple="false" mandatory="true" localized="false" searchable="true"/>
-			<predicate name="Jurisdiction" value="urn:cone:jurisdiction" multiple="false" mandatory="true" localized="false" searchable="true"/>
-			<predicate name="Translation" value="urn:cone:translation" multiple="true" mandatory="false" localized="true" searchable="false" generateObject="true">
-				<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
-				<predicate name="URL" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="false"/>
-				<!-- <predicate name="Language" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="false"/> -->
-				<predicate name="Locale" value="urn:cone:locale" multiple="false" mandatory="true" localized="false" searchable="false"/>
-			</predicate>
-		</predicates>
-		<results>
-			<result>
-				<result-pattern>
-&lt;http://purl.org/dc/elements/1.1/title&gt;
-				</result-pattern>
-			</result>
-		</results>
-	</model>
-	
-	<model>
 		<name>mpirg</name>
 		<aliases>
 			<alias>mpirg</alias>
@@ -674,6 +641,31 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 			</result>
 		</results>
 	</model>
+
+    <model>
+        <name>licenses</name>
+        <aliases>
+            <alias>licenses</alias>
+        </aliases>
+        <description>Licenses</description>
+        <open>false</open>
+        <primary-identifier control="true" generate-cone-id="false" identifier-prefix="https://spdx.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+        <predicates>
+            <predicate name="SPDX Id" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true"/>
+            <predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
+            <predicate name="URL" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="false"/>
+        </predicates>
+        <results>
+            <result>
+                <result-pattern>
+                    &lt;http://purl.org/dc/elements/1.1/title&gt;
+                    OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}: (
+                    OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+                    OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
+                </result-pattern>
+            </result>
+        </results>
+    </model>
 
 	<formats>
 		<format id="html">
