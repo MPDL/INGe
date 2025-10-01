@@ -184,8 +184,18 @@ public class UtilServiceBean {
     if (scroll) {
       response.setHeader("scrollId", saerVO.getSearchRetrieveResponseVO().getScrollId());
     }
-    ((SearchAndExportServiceImpl.ExtendedSearchAndExportResultVO) saerVO).getTransformerWrapper()
-        .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
+    try {
+      ((SearchAndExportServiceImpl.ExtendedSearchAndExportResultVO) saerVO).getTransformerWrapper()
+          .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
+    } catch (Exception e) {
+      try {
+          //Reset response to enable correct error messages in JSON format via PubmanRestExceptionHandler
+        response.reset();
+      } catch (Exception e1) {
+
+      }
+      throw e;
+    }
   }
 
   public AccountUserDbVO checkUser(String token) throws AuthenticationException, IngeApplicationException {
