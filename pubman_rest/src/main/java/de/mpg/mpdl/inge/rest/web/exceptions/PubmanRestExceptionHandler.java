@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -21,7 +22,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
   private static final Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
@@ -67,6 +68,10 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       Map<String, Object> additionalFlags) {
     Map<String, Object> jsonException = new LinkedHashMap<>();
     buildExceptionMessage(e, jsonException, status, additionalFlags);
+    if (headers == null) {
+      headers = new HttpHeaders();
+    }
+    headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
     return new ResponseEntity<>(jsonException, headers, status);
   }
 
