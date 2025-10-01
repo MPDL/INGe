@@ -40,7 +40,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       messageMap.putAll(additionalFlags);
     }
 
-    if (e instanceof PubManException) {
+    if (e instanceof PubManException && null != ((PubManException) e).getReason()) {
       messageMap.put("reason", ((PubManException) e).getReason().name());
     }
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerWrapper;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
@@ -59,7 +60,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
       os.flush();
       return os.toByteArray();
     } catch (IOException e) {
-      throw new IngeTechnicalException(e);
+      throw new IngeTechnicalException(e, PubManException.Reason.TRANSFORMATION_ERROR);
     }
 
   }
@@ -92,7 +93,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService, Ser
       logger.warn("Exception occured when transforming from <" + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
           + exportFormat.getFormat());
       //              + map.get(exportFormat.getName()));
-      throw new IngeTechnicalException(e);
+      throw new IngeTechnicalException(e, PubManException.Reason.TRANSFORMATION_ERROR);
     }
   }
 
