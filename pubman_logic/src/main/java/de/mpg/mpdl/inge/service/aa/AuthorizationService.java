@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -96,7 +97,7 @@ public class AuthorizationService {
     AccountUserDbVO accountUserDbVO = principal.getUserAccount();
 
     if (null == accountUserDbVO) {
-      throw new IngeApplicationException("Invalid user");
+      throw new IngeApplicationException("Invalid user", PubManException.Reason.PERMISSION_DENIED);
     }
 
     return accountUserDbVO;
@@ -153,7 +154,8 @@ public class AuthorizationService {
 
     BoolQuery.Builder bqb = new BoolQuery.Builder();
     if (null == allowedMap) {
-      throw new AuthorizationException("No rules for service " + serviceName + ", method " + "get");
+      throw new AuthorizationException("No rules for service " + serviceName + ", method " + "get",
+          PubManException.Reason.PERMISSION_DENIED);
     }
 
     // everybody can see anything
@@ -230,7 +232,7 @@ public class AuthorizationService {
             String index = indices.get(key);
 
             if (null == index) {
-              throw new AuthorizationException("No index in aa.json defined for: " + key);
+              throw new AuthorizationException("No index in aa.json defined for: " + key, PubManException.Reason.PERMISSION_DENIED);
             }
 
             if (rule.getValue() instanceof Collection<?>) {
@@ -270,7 +272,7 @@ public class AuthorizationService {
       return bq._toQuery();
     }
 
-    throw new AuthorizationException("This search requires a login");
+    throw new AuthorizationException("This search requires a login", PubManException.Reason.PERMISSION_DENIED);
   }
 
   /*
@@ -417,7 +419,7 @@ public class AuthorizationService {
     boolean match =
         p.getUserAccount() != null && p.getUserAccount().getGrantList().stream().anyMatch(grant -> rolesList.contains(grant.getRole()));
     if (!match) {
-      throw new AuthenticationException("Authentication as admin user required");
+      throw new AuthenticationException("Authentication as admin user required", PubManException.Reason.PERMISSION_DENIED);
     }
     return p;
   }
@@ -426,13 +428,14 @@ public class AuthorizationService {
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) this.aaMap.get(serviceName);
     if (null == serviceMap) {
-      throw new AuthorizationException("No rules for service " + serviceName);
+      throw new AuthorizationException("No rules for service " + serviceName, PubManException.Reason.PERMISSION_DENIED);
     }
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
 
     if (null == allowedMap) {
-      throw new AuthorizationException("No rules for service " + serviceName + ", method " + methodName);
+      throw new AuthorizationException("No rules for service " + serviceName + ", method " + methodName,
+          PubManException.Reason.PERMISSION_DENIED);
     } else {
       Exception lastExceptionOfAll = null;
       for (Map<String, Object> rules : allowedMap) {
@@ -453,7 +456,8 @@ public class AuthorizationService {
                   List<String> valuesToCompare = (List<String>) rule.getValue();
                   check = valuesToCompare.stream().anyMatch(val -> null != keyValue && null != val && val.equalsIgnoreCase(keyValue));
                   if (!check) {
-                    throw new AuthorizationException("Expected one of " + valuesToCompare + " for field " + key + " (" + keyValue + ")");
+                    throw new AuthorizationException("Expected one of " + valuesToCompare + " for field " + key + " (" + keyValue + ")",
+                        PubManException.Reason.PERMISSION_DENIED);
                   }
                 } else {
                   Object val = getFieldValueOrString(order, objects, rule.getValue().toString());
@@ -463,7 +467,8 @@ public class AuthorizationService {
                   }
                   check = (null != keyValue && keyValue.equalsIgnoreCase(value));
                   if (!check) {
-                    throw new AuthorizationException("Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
+                    throw new AuthorizationException("Expected value [" + value + "] for field " + key + " (" + keyValue + ")",
+                        PubManException.Reason.PERMISSION_DENIED);
                   }
                 }
                 break;
@@ -495,7 +500,8 @@ public class AuthorizationService {
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
     Principal principal = (Principal) objects[order.indexOf("user")];
     if (null == principal) {
-      throw new AuthenticationException("You have to be logged in with username/password or ip address.");
+      throw new AuthenticationException("You have to be logged in with username/password or ip address.",
+          PubManException.Reason.PERMISSION_DENIED);
     }
     AccountUserDbVO userAccount = principal.getUserAccount();
     String ipMatch = (String) ruleMap.get("ip_match");
@@ -521,16 +527,17 @@ public class AuthorizationService {
           }
           if (!check) {
             throw new AuthenticationException(
-                "The current user's ip adress " + userIp + " does not match required ip range of organization with id " + ouIdToBeMatched);
+                "The current user's ip adress " + userIp + " does not match required ip range of organization with id " + ouIdToBeMatched,
+                PubManException.Reason.PERMISSION_DENIED);
           }
         } catch (Exception e) {
-          throw new AuthenticationException("Error while matching IPs", e);
+          throw new AuthenticationException("Error while matching IPs", e, PubManException.Reason.PERMISSION_DENIED);
         }
       } else {
-        throw new AuthenticationException("Token contains no IP, but IP match is required");
+        throw new AuthenticationException("Token contains no IP, but IP match is required", PubManException.Reason.PERMISSION_DENIED);
       }
     } else if (null == userAccount) {
-      throw new AuthenticationException("You have to be logged in with username/password.");
+      throw new AuthenticationException("You have to be logged in with username/password.", PubManException.Reason.PERMISSION_DENIED);
     }
 
     String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
@@ -538,7 +545,7 @@ public class AuthorizationService {
       Object userId = getFieldValueOrString(order, objects, userIdFieldMatch);
       String expectedUserId = (null != userId ? userId.toString() : null);
       if (null == expectedUserId || !expectedUserId.equals(userAccount.getObjectId())) {
-        throw new AuthorizationException("User is not owner of object.");
+        throw new AuthorizationException("User is not owner of object.", PubManException.Reason.PERMISSION_DENIED);
       }
     }
 
@@ -577,7 +584,8 @@ public class AuthorizationService {
 
       if (!check) {
         throw new AuthorizationException(
-            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
+            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")",
+            PubManException.Reason.PERMISSION_DENIED);
       }
     }
 
@@ -588,22 +596,26 @@ public class AuthorizationService {
       String ctxOuFieldMatch = (String) ruleMap.get("field_ctx_ou_id_match");
       Object val = getFieldValueOrString(order, objects, ctxOuFieldMatch);
       if (null == val) {
-        throw new AuthorizationException("getFieldValue for " + ctxOuFieldMatch + " returned null!");
+        throw new AuthorizationException("getFieldValue for " + ctxOuFieldMatch + " returned null!",
+            PubManException.Reason.PERMISSION_DENIED);
       }
 
       String ctxOuFieldMatchValue = val.toString(); // Ou des vorgegebenen Benutzers
       if (!ctxOuFieldMatchValue.startsWith("ou")) {
-        throw new AuthorizationException("ctxOuFieldMatchValue " + ctxOuFieldMatch + " does not start with ou!");
+        throw new AuthorizationException("ctxOuFieldMatchValue " + ctxOuFieldMatch + " does not start with ou!",
+            PubManException.Reason.PERMISSION_DENIED);
       }
 
       for (GrantVO grant : userAccount.getGrantList()) {
         if (null != grant.getObjectRef() && grant.getObjectRef().startsWith("ctx")) {
           ContextDbVO ctx = this.ctxService.get(grant.getObjectRef(), null);
           if (null == ctx) {
-            throw new AuthorizationException("context for " + ctxOuFieldMatchValue + " returned null!");
+            throw new AuthorizationException("context for " + ctxOuFieldMatchValue + " returned null!",
+                PubManException.Reason.PERMISSION_DENIED);
           }
           if (ctx.getResponsibleAffiliations().isEmpty()) {
-            throw new AuthorizationException("context " + ctx.getObjectId() + " has no affiliations!");
+            throw new AuthorizationException("context " + ctx.getObjectId() + " has no affiliations!",
+                PubManException.Reason.PERMISSION_DENIED);
           }
           String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
           check = role.equals(grant.getRole()) && ctxOuFieldMatchValue.equals(ouId);
@@ -615,7 +627,8 @@ public class AuthorizationService {
 
       if (!check) {
         throw new AuthorizationException(
-            "Expected user with role [" + role + "], on object [" + ctxOuFieldMatchValue + "] (" + ctxOuFieldMatch + ")");
+            "Expected user with role [" + role + "], on object [" + ctxOuFieldMatchValue + "] (" + ctxOuFieldMatch + ")",
+            PubManException.Reason.PERMISSION_DENIED);
       }
     }
   }
@@ -782,7 +795,7 @@ public class AuthorizationService {
         }
       }
     } catch (Exception e) {
-      throw new AuthorizationException("Error while calling getter in object", e);
+      throw new AuthorizationException("Error while calling getter in object", e, PubManException.Reason.PERMISSION_DENIED);
     }
 
     return null;

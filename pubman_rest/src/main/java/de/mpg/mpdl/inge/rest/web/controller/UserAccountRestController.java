@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.io.IOException;
 import java.util.Date;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -104,7 +105,7 @@ public class UserAccountRestController {
     if (null != user) {
       return new ResponseEntity<>(user, HttpStatus.OK);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("User not found", PubManException.Reason.USER_NOT_FOUND);
     }
   }
 

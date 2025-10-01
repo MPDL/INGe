@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -118,7 +119,7 @@ public class ItemRestController {
 
     Map<AuthorizationService.AccessType, Boolean> map = this.pubItemService.getAuthorizationInfo(itemId, token, afterSave);
     if (map == null)
-      throw new NotFoundException();
+      throw new NotFoundException("Item not found", PubManException.Reason.GENERIC_NOT_FOUND);
 
     ObjectNode returnNode = objectMapper.createObjectNode();
     returnNode.set("actions", objectMapper.valueToTree(map));
@@ -134,7 +135,7 @@ public class ItemRestController {
 
     Map<AuthorizationService.AccessType, Boolean> map = this.pubItemService.getAuthorizationInfoForCreation(contextId, token, afterSave);
     if (map == null)
-      throw new NotFoundException();
+      throw new NotFoundException("Item not found", PubManException.Reason.GENERIC_NOT_FOUND);
 
     ObjectNode returnNode = objectMapper.createObjectNode();
     returnNode.set("actions", objectMapper.valueToTree(map));
@@ -251,7 +252,7 @@ public class ItemRestController {
     JsonNode node = this.pubItemService.getAuthorizationInfoForFile(itemId, componentId, token);
 
     if (node == null)
-      throw new NotFoundException();
+      throw new NotFoundException("Item not found", PubManException.Reason.GENERIC_NOT_FOUND);
 
     return new ResponseEntity<>(node, HttpStatus.OK);
   }
@@ -271,7 +272,7 @@ public class ItemRestController {
     try {
       FileVOWrapper fileVOWrapper = this.fileService.readFile(itemId, componentId, token);
       if (null == fileVOWrapper) {
-        throw new NotFoundException();
+        throw new NotFoundException("File not found", PubManException.Reason.GENERIC_NOT_FOUND);
       }
       String contentDispositionType = "inline";
       if (forceDownload) {
@@ -316,7 +317,7 @@ public class ItemRestController {
     try {
       FileVOWrapper fileVOWrapper = this.fileService.readFile(itemId, componentId, token);
       if (null == fileVOWrapper) {
-        throw new NotFoundException();
+        throw new NotFoundException("File not found", PubManException.Reason.GENERIC_NOT_FOUND);
       }
 
       if (fileVOWrapper.getThumbnailFileId() != null) {
@@ -329,7 +330,7 @@ public class ItemRestController {
           fileVOWrapper.readThumbnail(output);
         }
       } else {
-        throw new NotFoundException();
+        throw new NotFoundException("Thumbnail file not found", PubManException.Reason.GENERIC_NOT_FOUND);
       }
 
     } catch (IOException e) {
@@ -513,7 +514,7 @@ public class ItemRestController {
     }
 
     if (null == item) {
-      throw new NotFoundException();
+      throw new NotFoundException("Item with id " + itemId + " not found", PubManException.Reason.ITEM_NOT_FOUND);
     }
 
     return item;

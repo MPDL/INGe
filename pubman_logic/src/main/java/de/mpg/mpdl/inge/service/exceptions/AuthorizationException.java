@@ -1,7 +1,9 @@
 package de.mpg.mpdl.inge.service.exceptions;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
+
 @SuppressWarnings("serial")
-public class AuthorizationException extends Exception {
+public class AuthorizationException extends PubManException {
 
   public AuthorizationException() {}
 
@@ -17,4 +19,11 @@ public class AuthorizationException extends Exception {
     super(cause);
   }
 
+  public AuthorizationException(String message, Reason reason) {
+    super(message, reason);
+  }
+
+  public AuthorizationException(String message, Throwable cause, Reason reason) {
+    super(message, cause, reason);
+  }
 }

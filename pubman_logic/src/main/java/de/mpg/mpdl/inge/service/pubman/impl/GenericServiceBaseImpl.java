@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import jakarta.annotation.PostConstruct;
 import java.util.Arrays;
@@ -157,7 +158,8 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
   protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
     if (null == date1 || null == date2 || !new Date(date1.getTime()).equals(new Date(date2.getTime()))) {
-      throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2);
+      throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2,
+          PubManException.Reason.OPTIMISTIC_LOCKING_ERROR);
     }
   }
 

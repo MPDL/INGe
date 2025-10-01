@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.CacheMode;
@@ -85,7 +86,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToBeUpdated = getDbRepository().findById(getObjectId(object)).orElse(null);
     if (null == objectToBeUpdated) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.GENERIC_NOT_FOUND);
     }
     checkEqualModificationDate(getModificationDate(object), getModificationDate(objectToBeUpdated));
     List<Id> reindexList = updateObjectWithValues(object, objectToBeUpdated, principal.getUserAccount(), false);
@@ -116,7 +117,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToBeDeleted = getDbRepository().findById(id).orElse(null);
     if (null == objectToBeDeleted) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.GENERIC_NOT_FOUND);
     }
     checkAa("delete", principal, objectToBeDeleted);
     getDbRepository().deleteById(id);
@@ -265,7 +266,8 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
 
   protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
     if (null == date1 || null == date2 || !date1.equals(date2)) {
-      throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2);
+      throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2,
+          PubManException.Reason.OPTIMISTIC_LOCKING_ERROR);
     }
   }
 

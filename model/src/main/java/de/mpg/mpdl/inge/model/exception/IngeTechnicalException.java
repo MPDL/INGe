@@ -9,7 +9,7 @@ package de.mpg.mpdl.inge.model.exception;
  *
  */
 @SuppressWarnings("serial")
-public class IngeTechnicalException extends Exception {
+public class IngeTechnicalException extends PubManException {
   public IngeTechnicalException() {}
 
   public IngeTechnicalException(String message, Throwable cause) {
@@ -20,7 +20,19 @@ public class IngeTechnicalException extends Exception {
     super(message);
   }
 
+  public IngeTechnicalException(String message, Throwable cause, PubManException.Reason reason) {
+    super(message, cause, reason);
+  }
+
+  public IngeTechnicalException(String message, PubManException.Reason reason) {
+    super(message, reason);
+  }
+
   public IngeTechnicalException(Throwable cause) {
     super(cause);
+  }
+
+  public IngeTechnicalException(Throwable cause, Reason reason) {
+    super(cause, reason);
   }
 }

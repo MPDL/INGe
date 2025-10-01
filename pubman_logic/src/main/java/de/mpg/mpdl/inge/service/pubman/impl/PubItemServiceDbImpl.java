@@ -24,6 +24,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -214,7 +215,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(validId.objectId);
     if (null == latestVersion) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.ITEM_NOT_FOUND);
     }
     ContextDbVO context = this.contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
     checkAa("addNewDoi", principal, latestVersion, context);
@@ -253,7 +254,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         this.contextRepository.findById(pubItemVO.getObject().getContext().getObjectId()).orElse(null);
 
     if (null == contextNew) {
-      throw new IngeApplicationException("Context with id " + pubItemVO.getObject().getContext().getObjectId() + "not found");
+      throw new IngeApplicationException("Context with id " + pubItemVO.getObject().getContext().getObjectId() + "not found",
+          PubManException.Reason.CONTEXT_NOT_FOUND);
     }
 
     PubItemUtil.cleanUpItem(pubItemVO);
@@ -313,7 +315,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ItemVersionVO latestPubItemDbVersion = this.itemRepository.findLatestVersion(id);
     if (null == latestPubItemDbVersion) {
-      throw new IngeApplicationException("Item " + id + " not found");
+      throw new IngeApplicationException("Item " + id + " not found", PubManException.Reason.ITEM_NOT_FOUND);
     }
 
 
@@ -645,7 +647,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(validId.objectId);
     if (null == latestVersion) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.ITEM_NOT_FOUND);
     }
 
     if (latestVersion.getVersionNumber() == validId.version.intValue()) {
@@ -698,7 +700,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     PubItemUtil.cleanUpItem(pubItemVO);
     ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(pubItemVO.getObjectId());
     if (null == latestVersion) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.ITEM_NOT_FOUND);
     }
 
     checkEqualModificationDate(pubItemVO.getModificationDate(), latestVersion.getModificationDate());
@@ -771,14 +773,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(itemId);
     if (null == latestVersion) {
-      throw new IngeApplicationException("Item " + itemId + " not found.");
+      throw new IngeApplicationException("Item " + itemId + " not found.", PubManException.Reason.ITEM_NOT_FOUND);
     }
     checkAa("update", principal, latestVersion, latestVersion.getObject().getContext());
     ContextDbVO newContext = this.contextRepository.findById(newContextId).orElse(null);
     if (null == newContext) {
-      throw new IngeApplicationException("Context " + newContextId + " not found.");
+      throw new IngeApplicationException("Context " + newContextId + " not found.", PubManException.Reason.CONTEXT_NOT_FOUND);
     } else if (newContext.getState().equals(ContextDbVO.State.CLOSED)) {
-      throw new IngeApplicationException("Context " + newContextId + " is closed.");
+      throw new IngeApplicationException("Context " + newContextId + " is closed.", PubManException.Reason.CONTEXT_CLOSED);
     }
 
     if (latestVersion.getMetadata() == null || latestVersion.getMetadata().getGenre() == null || newContext.getAllowedGenres() == null
@@ -825,7 +827,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(itemId);
     if (null == latestVersion) {
-      throw new IngeApplicationException("Item " + itemId + " not found.");
+      throw new IngeApplicationException("Item " + itemId + " not found.", PubManException.Reason.ITEM_NOT_FOUND);
     }
     checkAa("update", principal, latestVersion, latestVersion.getObject().getContext());
 
@@ -913,7 +915,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     ItemVersionVO latestVersion = this.itemRepository.findLatestVersion(id);
 
     if (null == latestVersion) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.ITEM_NOT_FOUND);
     }
 
 
@@ -974,7 +976,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         }
       } catch (URISyntaxException | TechnicalException e) {
         logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-        throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+        throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e,
+            PubManException.Reason.PID_ERROR);
       }
 
       for (FileDbVO fileDbVO : latestVersion.getFiles()) {
@@ -993,7 +996,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         } catch (URISyntaxException e) {
           logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
               + latestVersion.getObjectIdAndVersion() + "]", e);
-          throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+          throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e,
+              PubManException.Reason.PID_ERROR);
         } catch (TechnicalException e) {
           throw new RuntimeException(e);
         }
@@ -1243,7 +1247,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           this.fileService.deleteFile(relativePath);
         } catch (IngeTechnicalException e) {
           logger.error("Could not upload staged file [" + relativePath + "]", e);
-          throw new IngeTechnicalException("Could not upload staged file [" + relativePath + "]", e);
+          throw new IngeTechnicalException("Could not upload staged file [" + relativePath + "]", e,
+              PubManException.Reason.FILE_UPLOAD_ERROR);
         }
       }
     }
@@ -1298,7 +1303,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     try {
       this.itemValidatingService.validate(pubItem, vp);
     } catch (ValidationException e) {
-      throw new IngeApplicationException("Invalid metadata", e);
+      throw new IngeApplicationException("Invalid metadata", e, PubManException.Reason.VALIDATION_ERROR);
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);
     }

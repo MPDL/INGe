@@ -1,10 +1,10 @@
 package de.mpg.mpdl.inge.service.exceptions;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
+
 @SuppressWarnings("serial")
-public class AuthenticationException extends Exception {
+public class AuthenticationException extends PubManException {
 
-
-  boolean passwordChangeRequired = false;
 
   public AuthenticationException() {}
 
@@ -16,21 +16,16 @@ public class AuthenticationException extends Exception {
     super(message);
   }
 
-  public AuthenticationException(String message, boolean passwordChangeRequired) {
-    super(message);
-    this.passwordChangeRequired = passwordChangeRequired;
+  public AuthenticationException(String message, Throwable cause, PubManException.Reason reason) {
+    super(message, cause, reason);
+  }
+
+  public AuthenticationException(String message, PubManException.Reason reason) {
+    super(message, reason);
   }
 
   public AuthenticationException(Throwable cause) {
     super(cause);
-  }
-
-  public boolean isPasswordChangeRequired() {
-    return passwordChangeRequired;
-  }
-
-  public void setPasswordChangeRequired(boolean passwordChangeRequired) {
-    this.passwordChangeRequired = passwordChangeRequired;
   }
 
 }

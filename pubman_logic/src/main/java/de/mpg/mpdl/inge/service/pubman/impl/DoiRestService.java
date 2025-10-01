@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -55,7 +56,7 @@ public class DoiRestService {
 
     // validate if a DOI can be generated for the given item
     if (!isItemDoiReady(pubItem)) {
-      throw new IngeTechnicalException();
+      throw new IngeTechnicalException("Item not ready for DOI", PubManException.Reason.DOI_ITEM_NOT_VALID);
     }
 
     String doi = "";
@@ -100,7 +101,8 @@ public class DoiRestService {
 
     } catch (Exception e) {
       logger.error("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);
-      throw new IngeTechnicalException("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);
+      throw new IngeTechnicalException("Error getting new DOI for [" + pubItem.getObjectId() + "]", e,
+          PubManException.Reason.DOI_TECHNICAL_ERROR);
     }
 
     if (logger.isDebugEnabled()) {

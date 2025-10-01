@@ -9,6 +9,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import de.mpg.mpdl.inge.model.valueobjects.*;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -167,7 +168,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
           TransformerFactory.getFormat(exportFormat.getFormat()));
       trans.getConfiguration().put("institutsId", affs);
     } catch (TransformationException e) {
-      throw new IngeTechnicalException(e);
+      throw new IngeTechnicalException(e.getMessage(), e, PubManException.Reason.TRANSFORMATION_ERROR);
     }
 
     TransformerWrapper tw = new TransformerWrapper(trans, new TransformerVoSource(srrVO));

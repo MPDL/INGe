@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.passay.*;
@@ -177,7 +178,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     AccountUserDbVO userDbToUpdated = this.userAccountRepository.findById(userId).orElse(null);
 
     if (null == userDbToUpdated) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.USER_NOT_FOUND);
     }
 
     checkEqualModificationDate(modificationDate, getModificationDate(userDbToUpdated));
@@ -205,7 +206,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findById(userId).orElse(null);
     if (null == objectToBeUpdated) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.USER_NOT_FOUND);
     }
 
     checkEqualModificationDate(modificationDate, getModificationDate(objectToBeUpdated));
@@ -268,7 +269,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findById(userId).orElse(null);
     if (null == objectToBeUpdated) {
-      throw new IngeApplicationException("Object with given id not found.");
+      throw new IngeApplicationException("Object with given id not found.", PubManException.Reason.USER_NOT_FOUND);
     }
 
     checkEqualModificationDate(modificationDate, getModificationDate(objectToBeUpdated));
@@ -328,7 +329,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException {
     if (null == username || username.trim().isEmpty() || null == password || password.trim().isEmpty()) {
-      throw new AuthenticationException("Could not login, Please provide correct username and password!");
+      throw new AuthenticationException("Could not login, Please provide correct username and password!",
+          PubManException.Reason.LOGIN_INVALID);
     }
     return loginUserOrAnonymous(username, password, request, response, false);
   }
@@ -336,7 +338,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   @Override
   public Principal login(String username, String password) throws IngeTechnicalException, AuthenticationException {
     if (null == username || username.trim().isEmpty() || null == password || password.trim().isEmpty()) {
-      throw new AuthenticationException("Could not login, Please provide correct username and password!");
+      throw new AuthenticationException("Could not login, Please provide correct username and password!",
+          PubManException.Reason.LOGIN_INVALID);
     }
     return loginUserOrAnonymous(username, password, null, null, false);
   }
@@ -348,7 +351,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   public Principal loginForPasswordChange(String username, String password) throws IngeTechnicalException, AuthenticationException {
     if (null == username || username.trim().isEmpty() || null == password || password.trim().isEmpty()) {
-      throw new AuthenticationException("Could not login, Please provide correct username and password!");
+      throw new AuthenticationException("Could not login, Please provide correct username and password!",
+          PubManException.Reason.LOGIN_INVALID);
     }
     return loginUserOrAnonymous(username, password, null, null, true);
   }
@@ -380,7 +384,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
         if (null == principal || null == principal.getUserAccount() || !principal.getUserAccount().isActive()) {
           this.loginAttemptsCache.loginFailed(username);
-          throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!");
+          throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!",
+              PubManException.Reason.LOGIN_INVALID);
         }
       } else {
         AccountUserDbVO userAccount = this.userAccountRepository.findByLoginname(username);
@@ -389,17 +394,19 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         if (null != userAccount && userAccount.isActive() && null != encodedPassword
             && this.passwordEncoder.matches(password, encodedPassword)) {
           if (this.loginAttemptsCache.isBlocked(username)) {
-            throw new AuthenticationException(
-                username + " is blocked for " + this.loginAttemptsCache.ATTEMPT_TIMER + " since last attempt");
+            throw new AuthenticationException(username + " is blocked for " + this.loginAttemptsCache.ATTEMPT_TIMER + " since last attempt",
+                PubManException.Reason.LOGIN_USER_BLOCKED);
           } else if (!this.userLoginRepository.findPasswordChangeFlag(username) && !passwordChangeRequest) {
-            throw new AuthenticationException(username + " needs to change password first", true);
+            throw new AuthenticationException(username + " needs to change password first",
+                PubManException.Reason.PASSWORD_CHANGE_REQUIRED);
           }
           this.loginAttemptsCache.loginSucceeded(username);
           String token = createToken(userAccount, request);
           principal = new Principal(userAccount, token);
         } else {
           this.loginAttemptsCache.loginFailed(username);
-          throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!");
+          throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!",
+              PubManException.Reason.LOGIN_INVALID);
         }
       }
 
@@ -456,7 +463,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       DecodedJWT jwt = this.jwtVerifier.verify(authenticationToken);
       return jwt;
     } catch (JWTVerificationException e) {
-      throw new AuthenticationException("Could not verify token: " + e.getMessage(), e);
+      throw new AuthenticationException("Could not verify token: " + e.getMessage(), e, PubManException.Reason.TOKEN_INVALID);
     }
 
   }
@@ -586,7 +593,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     Principal principal = this.aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO accountToBeUpdated = this.userAccountRepository.findById(id).orElse(null);
     if (null == accountToBeUpdated) {
-      throw new IngeTechnicalException("User account with given id " + id + " not found.");
+      throw new IngeTechnicalException("User account with given id " + id + " not found.", PubManException.Reason.USER_NOT_FOUND);
     }
 
     if (accountToBeUpdated.isActive() == active) {
@@ -637,7 +644,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     RuleResult result = validator.validate(new PasswordData(password));
     if (!result.isValid()) {
       throw new IngeApplicationException(
-          "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character (no colon)");
+          "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character (no colon)",
+          PubManException.Reason.PASSWORD_PATTERN_INVALID);
     }
   }
 

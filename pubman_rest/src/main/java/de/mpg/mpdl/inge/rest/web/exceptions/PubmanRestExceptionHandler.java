@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +38,10 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
     if (additionalFlags != null) {
       messageMap.putAll(additionalFlags);
+    }
+
+    if (e instanceof PubManException) {
+      messageMap.put("reason", ((PubManException) e).getReason().name());
     }
 
     if (null != e.getCause() && e.getCause() instanceof ValidationException) {
@@ -72,11 +77,6 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(value = AuthenticationException.class)
   protected ResponseEntity<Object> handleAuthenticationException(AuthenticationException e, WebRequest req) {
-    if (e.isPasswordChangeRequired()) {
-      Map<String, Object> additionalFlags = new LinkedHashMap<>();
-      additionalFlags.put("passwordChangeRequired", e.isPasswordChangeRequired());
-      return buildExceptionResponseEntity(e, null, HttpStatus.UNAUTHORIZED, additionalFlags);
-    }
     return buildExceptionResponseEntity(e, null, HttpStatus.UNAUTHORIZED, null);
   }
 

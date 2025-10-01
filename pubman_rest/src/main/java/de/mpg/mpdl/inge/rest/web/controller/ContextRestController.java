@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.io.IOException;
 import java.util.Date;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -118,7 +119,7 @@ public class ContextRestController {
     if (null != ctx) {
       return new ResponseEntity<>(ctx, HttpStatus.OK);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Context with id " + ctxId + " not found", PubManException.Reason.CONTEXT_NOT_FOUND);
     }
   }
 

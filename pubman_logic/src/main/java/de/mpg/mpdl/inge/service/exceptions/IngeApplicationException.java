@@ -1,7 +1,9 @@
 package de.mpg.mpdl.inge.service.exceptions;
 
+import de.mpg.mpdl.inge.model.exception.PubManException;
+
 @SuppressWarnings("serial")
-public class IngeApplicationException extends Exception {
+public class IngeApplicationException extends PubManException {
 
   public IngeApplicationException() {}
 
@@ -17,4 +19,11 @@ public class IngeApplicationException extends Exception {
     super(cause);
   }
 
+  public IngeApplicationException(String message, Reason reason) {
+    super(message, reason);
+  }
+
+  public IngeApplicationException(String message, Throwable cause, Reason reason) {
+    super(message, cause, reason);
+  }
 }
