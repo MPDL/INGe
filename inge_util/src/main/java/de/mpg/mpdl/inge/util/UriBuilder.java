@@ -5,8 +5,6 @@ package de.mpg.mpdl.inge.util;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Util class for setting URIs
@@ -54,9 +52,9 @@ public class UriBuilder {
    * @throws URISyntaxException
    */
   public static URI getItemComponentLink(String itemObjectId, int versionNumber, String fileId, String fileName) throws URISyntaxException {
-    return new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+    return new URI(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN).replace("$1", (itemObjectId + "_" + versionNumber))
-            .replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8)));
+            .replace("$2", fileId));
   }
 }

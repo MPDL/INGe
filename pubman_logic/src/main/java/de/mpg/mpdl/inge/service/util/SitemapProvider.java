@@ -115,7 +115,7 @@ public class SitemapProvider {
         copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length());
 
         indexFileWriter.write(
-            "\t<sitemap>\n\t\t<loc>" + restUrl + "/sitemap/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate + "</lastmod>\n\t</sitemap>\n");
+            "\t<sitemap>\n\t\t<loc>" + restUrl + "/miscellaneous/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate + "</lastmod>\n\t</sitemap>\n");
       }
 
       indexFileWriter.write("</sitemapindex>\n");
