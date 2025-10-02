@@ -223,7 +223,7 @@ public class HtmlFormatter extends AbstractFormatter {
           PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) //
               + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) //
               + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
-      logger.info("ItemLink: " + itemLink);
+
       transformer.setParameter("citation-link", url);
       transformer.setParameter("postData", postData.toString());
       transformer.setParameter("item-link", itemLink);
