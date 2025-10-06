@@ -199,6 +199,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
     if (TransformerFactory.FORMAT.HTML_LINKED.equals(fileFormat)) {
       htmlTransformer.setParameter("html_linked", Boolean.TRUE);
+      htmlTransformer.setParameter("instanceUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
     }
 
     htmlTransformer.transform(new StreamSource(new StringReader(escidocSnippet)), new StreamResult(os));
