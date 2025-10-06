@@ -70,7 +70,7 @@
 				<xsl:if test="$html_linked">
 					<br/>
 					 <xsl:element name="a">
-                         <xsl:attribute name="href=" select="replace($itemLink, '\$1', $item/escidocItem:properties/prop:version/@objid)"/>
+                         <xsl:attribute name="href" select="replace($itemLink, '\$1', $item/escidocItem:properties/prop:version/@objid)"/>
 						<xsl:attribute name="class" select="'Item'"/>[Item] </xsl:element>
 					<xsl:variable name="comp" select="$item/escidocComponents:components/escidocComponents:component"/>
 					<xsl:for-each select="$comp[escidocComponents:content/@storage='internal-managed' and escidocComponents:properties/prop:visibility = 'public']/escidocComponents:content">
