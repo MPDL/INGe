@@ -26,7 +26,7 @@
                 version="2.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
                 cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
-    <xsl:param name="itempComponentLink"/>
+    <xsl:param name="itemComponentLink"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@* | node ()"/>
