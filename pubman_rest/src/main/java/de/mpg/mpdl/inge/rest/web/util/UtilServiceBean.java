@@ -189,7 +189,7 @@ public class UtilServiceBean {
           .executeTransformation(new TransformerStreamResult(response.getOutputStream()));
     } catch (Exception e) {
       try {
-          //Reset response to enable correct error messages in JSON format via PubmanRestExceptionHandler
+        //Reset response to enable correct error messages in JSON format via PubmanRestExceptionHandler
         response.reset();
       } catch (Exception e1) {
 

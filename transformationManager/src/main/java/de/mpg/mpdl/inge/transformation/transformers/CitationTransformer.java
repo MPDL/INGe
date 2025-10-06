@@ -26,6 +26,7 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.util.UriBuilder;
 import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
@@ -185,7 +186,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
   private static void generateHtmlOutput(String escidocSnippet, TransformerFactory.FORMAT fileFormat, String outputMethod, boolean indent,
       OutputStream os) throws Exception {
-    //StringWriter sw = new StringWriter();
+
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
     javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader()
         .getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_SNIPPET_TO_HTML_STYLESHEET_FILENAME))));
@@ -193,20 +194,15 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     htmlTransformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
     htmlTransformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
 
-    String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-    String pubmanUrl = instanceUrl + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
-    htmlTransformer.setParameter("instanceUrl", instanceUrl);
-    htmlTransformer.setParameter("pubmanUrl", pubmanUrl);
+    htmlTransformer.setParameter("itemComponentLink", UriBuilder.getItemComponentLink().toString());
+    htmlTransformer.setParameter("itemLink", UriBuilder.getItemLink().toString());
 
     if (TransformerFactory.FORMAT.HTML_LINKED.equals(fileFormat)) {
       htmlTransformer.setParameter("html_linked", Boolean.TRUE);
     }
 
     htmlTransformer.transform(new StreamSource(new StringReader(escidocSnippet)), new StreamResult(os));
-
-    //return sw.toString();
   }
-
 
   private void generateEsciDocSnippet(List<ItemVersionVO> itemList, List<String> citationList, Integer numberOfRecords, OutputStream os)
       throws TechnicalException, TransformerException {
@@ -384,20 +380,20 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
 
     /*
-    
+
     WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
-    
+
     MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
-    
+
     // Set global space after each paragrap
     PPr ppr = new PPr();
     PPrBase.Spacing spacing = new PPrBase.Spacing();
     spacing.setAfter(BigInteger.valueOf(400));
     ppr.setSpacing(spacing);
     mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);
-    
-    
-    
+
+
+
     XHTMLImporterImpl xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
     RFonts rfontMapping = new RFonts();
     rfontMapping.setAscii("Go Noto");
@@ -408,101 +404,101 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     xhtmlImporter.addFontMapping("sans-serif", rfontMapping);
     xhtmlImporter.addFontMapping("monospace", rfontMapping);
     List<Object> xhtmlObjects = xhtmlImporter.convert(xhtmlDoc.html(), null);
-    
+
     mdp.getContent().addAll(xhtmlObjects);
-    
-    
-    
+
+
+
     //ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    
+
     //Docx4jProperties.setProperty("docx4j.fonts.fop.util.FopConfigUtil.simulate-style", true);
     PhysicalFonts.setRegex("useOnlyLocalFonts");
-    
+
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-Regular.ttf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-Bold.ttf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-Italic.ttf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSans-BoldItalic.ttf"));
-    
+
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSansSC-Bold.otf"));
     PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/fonts/NotoSansSC-Regular.otf"));
-    
-    
-    
+
+
+
     PhysicalFonts.addPhysicalFont(
         ResourceUtil.getResourceAsFile("fonts/GoNotoKurrent-Regular.ttf", CitationTransformer.class.getClassLoader()).toURI());
     PhysicalFonts.addPhysicalFont(
         ResourceUtil.getResourceAsFile("fonts/GoNotoKurrent-Bold.ttf", CitationTransformer.class.getClassLoader()).toURI());
-    
-    
+
+
     //PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/Noto_Sans,Roboto/Noto_Sans/NotoSans-Italic-VariableFont_wdth,wght.ttf"));
     //PhysicalFonts.addPhysicalFont(new URI("file:/Users/haarlae1/Downloads/NotoSansCJKsc-VF.ttf"));
-    
+
     Mapper fontMapper = new IdentityPlusMapper();
     fontMapper.registerRegularForm("Go Noto", PhysicalFonts.get("Go Noto Kurrent-Regular Regular"));
     fontMapper.registerBoldForm("Go Noto", PhysicalFonts.get("Go Noto Kurrent-Bold Bold"));
-    
+
     //fontMapper.put("Arial", PhysicalFonts.get("Arial Unicode MS"));
     //fontMapper.registerRegularForm("Noto Sans", PhysicalFonts.get("Noto Sans Regular"));
     //fontMapper.registerBoldForm("Noto Sans", PhysicalFonts.get("Noto Sans Bold"));
     //fontMapper.registerItalicForm("Noto Sans", PhysicalFonts.get("Noto Sans Italic"));
     //fontMapper.registerBoldItalicForm("Noto Sans", PhysicalFonts.get("Noto Sans Bold Italic"));
-    
+
     //fontMapper.registerBoldForm("Noto Sans SC", PhysicalFonts.get("Noto Sans SC Bold"));
     //fontMapper.registerRegularForm("Noto Sans SC", PhysicalFonts.get("Noto Sans SC"));
-    
+
     wordOutputDoc.setFontMapper(fontMapper);
-    
-    
-    
+
+
+
     Source xmlSource = new StreamSource(new StringReader(xhtmlDoc.html()));
-    
+
     Source xsltSource =
         new StreamSource(ResourceUtil.getResourceAsStream("transformations/xhtml2fo.xsl", CitationTransformer.class.getClassLoader()));
-    
+
     javax.xml.transform.TransformerFactory transformerFactory = javax.xml.transform.TransformerFactory.newInstance();
     Transformer t = transformerFactory.newTransformer(xsltSource);
-    
+
     t.setOutputProperty(OutputKeys.INDENT, "yes");
     t.setOutputProperty(OutputKeys.METHOD, "xml");
     t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-    
+
     StringWriter swr = new StringWriter();
     StreamResult result = new StreamResult(swr);
     t.transform(xmlSource, result);
-    
+
     System.out.println(xhtmlDoc.html());
     System.out.println("XSLT transformation completed successfully.");
     System.out.println(swr.toString());
-    
-    
-    
+
+
+
     FOSettings foSettings = new FOSettings(wordOutputDoc);
     foSettings.setApacheFopMime(FOSettings.INTERNAL_FO_MIME);
-    
-    
-    
+
+
+
     try {
       JAXBContext context = JAXBContext.newInstance(Fop.class);
       Marshaller m = context.createMarshaller();
-    
+
       m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // To format XML
-    
+
       StringWriter sw = new StringWriter();
       m.marshal(foSettings.getFopConfig(), new FileWriter(fopConfigFile.toFile()));
-    
+
     } catch (JAXBException e) {
       e.printStackTrace();
     }
-    
+
     Docx4J.toFO(foSettings, Files.newOutputStream(fopFile), Docx4J.FLAG_EXPORT_PREFER_XSL);
-    
-    
+
+
     Docx4J.toFO(foSettings, Files.newOutputStream(pdfFile), Docx4J.FLAG_EXPORT_PREFER_XSL);
-    
+
     Docx4J.toPDF(wordOutputDoc, Files.newOutputStream(pdfFile));
-    
+
     wordOutputDoc.save(wordFilePath.toFile());
-    
+
     */
     generatePdfApacheFO(xhtmlDoc, Files.newOutputStream(pdfFile));
 

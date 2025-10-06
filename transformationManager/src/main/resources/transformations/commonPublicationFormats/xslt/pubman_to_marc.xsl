@@ -37,7 +37,7 @@
 	<xsl:variable name="local:addition-for-pseudonym" as="xs:string?" select="' (pseudonym)'"/>
 	<xsl:variable name="local:form-description-for-online-resources" as="xs:string?" select="'[Online]'"/>
 	<xsl:variable name="local:pages-marker" as="xs:string">p.</xsl:variable>
-	<xsl:param name="pubmanUrl" />
+	<xsl:param name="itemComponentLink" />
 	<xsl:template match="/|escidocItem:item|escidocMetadataRecords:md-records|escidocMetadataRecords:md-record| eterms:creator" xml:id="match-and-apply-templates">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -198,7 +198,7 @@
 		<xsl:variable name="currentID" as="xs:string?" select="dc:identifier[normalize-space(.)][1]"/>
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">WARN</xsl:with-param>
-			<xsl:with-param name="message">[pubman_to__marc.xsl#match-publication_publication_empty-title]Publication without dc:title 
+			<xsl:with-param name="message">[pubman_to__marc.xsl#match-publication_publication_empty-title]Publication without dc:title
 				<xsl:value-of select="if ($currentID) then concat('with ID ', $currentID, ' ') else ()"/>not converted.
 			</xsl:with-param>
 		</xsl:call-template>
@@ -520,7 +520,7 @@
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">INFO</xsl:with-param>
 			<xsl:with-param name="message">[pubman_to_marc.xsl#match-all]
-				<xsl:if test="function-available('saxon:current-mode-name')">[Mode: 
+				<xsl:if test="function-available('saxon:current-mode-name')">[Mode:
 					<xsl:sequence select="saxon:current-mode-name()" use-when="function-available('saxon:current-mode-name')"/>]
 				</xsl:if> no matching template found
 			</xsl:with-param>
@@ -1011,10 +1011,9 @@
 		<xsl:param name="escidocComponents:component" as="element(escidocComponents:component)"/>
 		<xsl:variable name="version-objid" as="xs:string?" select="normalize-space($escidocComponents:component/../../escidocItem:properties[1]/prop:version[1]/@objid)"/>
 		<xsl:variable name="component-objid" as="xs:string?" select="normalize-space($escidocComponents:component/@objid)"/>
-		<xsl:variable name="file-name" as="xs:string?" select="normalize-space($escidocComponents:component[1]/escidocMetadataRecords:md-records[1]/escidocMetadataRecords:md-record[1]/file:file[1]/dc:title[1])"/>
 		<xsl:choose>
-			<xsl:when test="$version-objid and $component-objid and $file-name">
-				<xsl:sequence select="concat($pubmanUrl, '/item/', $version-objid, '/component/', $component-objid, '/', $file-name)"/>
+			<xsl:when test="$version-objid and $component-objid">
+                <xsl:sequence select="replace(replace($itemComponentLink, '\$1', $version-objid), '\$2', $component-objid)"/>
 			</xsl:when>
 			<xsl:when test="not(normalize-space($component-objid))">
 				<xsl:call-template name="misc:message">

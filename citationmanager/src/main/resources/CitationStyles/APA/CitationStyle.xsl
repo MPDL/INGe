@@ -26,8 +26,7 @@
                 version="2.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
                 cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
-    <xsl:param name="pubmanUrl"/>
-    <xsl:param name="instanceUrl"/>
+    <xsl:param name="itemComponentLink"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@* | node ()"/>
@@ -3475,8 +3474,7 @@
 	<xsl:template match="escidocComponents:content[@storage='internal-managed']">
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
-    		      <xsl:attribute name="xlink:href"
-                           select="concat(         $instanceUrl,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
+                  <xsl:attribute name="xlink:href" select="replace(replace($itemComponentLink, '\$1', ../../../ei:properties/prop:version/@objid), '\$2', ../@objid)"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">

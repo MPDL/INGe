@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.cone.formatter;
 
+import de.mpg.mpdl.inge.util.UriBuilder;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -157,15 +158,6 @@ public class HtmlFormatter extends AbstractFormatter {
       Transformer transformer = factory.newTransformer(new StreamSource(xsltFile.toExternalForm()));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
 
-      // transformer.setParameter("citation-link",
-      // PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-      // +
-      // "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
-      // + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id +
-      // "\"&exportFormat=" + exportFormat
-      // +
-      // "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
-
       for (Object key : PropertyReader.getProperties().keySet()) {
         transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
       }
@@ -176,11 +168,6 @@ public class HtmlFormatter extends AbstractFormatter {
       if ("ja".equals(lang)) {
         citation = "APA(CJK)";
       }
-
-      String url = //
-          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) //
-              + "/rest/items/search?format=" + format //
-              + "&citation=" + citation;
 
       StringBuilder postData = new StringBuilder();
 
@@ -219,14 +206,12 @@ public class HtmlFormatter extends AbstractFormatter {
               + searchId
               + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"REFEREE\"}}}]}}}}]}}}},\"sort\": [{\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}]");
 
-      String itemLink = //
-          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) //
-              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) //
-              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
+      String citationLink = //
+          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/rest/items/search?format=" + format + "&citation=" + citation;
 
-      transformer.setParameter("citation-link", url);
+      transformer.setParameter("citation-link", citationLink);
       transformer.setParameter("postData", postData.toString());
-      transformer.setParameter("item-link", itemLink);
+      transformer.setParameter("item-link", UriBuilder.getItemLink().toString());
       transformer.setParameter("lang", lang);
       transformer.setParameter("subjectTagNamespace", model.getRdfAboutTag().getNamespaceURI());
       transformer.setParameter("subjectTagLocalName", model.getRdfAboutTag().getLocalPart());

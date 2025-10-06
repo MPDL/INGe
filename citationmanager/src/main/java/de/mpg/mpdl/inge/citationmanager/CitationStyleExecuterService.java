@@ -25,25 +25,6 @@
 
 package de.mpg.mpdl.inge.citationmanager;
 
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
@@ -53,7 +34,23 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.EscidocNamespaceContextImpl;
-import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UriBuilder;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.namespace.NamespaceContext;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * Citation Style Executor Engine, XSLT-centric
@@ -98,8 +95,8 @@ public class CitationStyleExecuterService {
         Transformer transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
 
         // set parameters
-        transformer.setParameter("pubmanUrl", getPubManUrl());
-        transformer.setParameter("instanceUrl", getInstanceUrl());
+        transformer.setParameter("itemUrl", UriBuilder.getItemLink().toString());
+
         transformer.transform(new StreamSource(new StringReader(escidocXmlList)), new StreamResult(sw));
 
         logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
@@ -137,23 +134,6 @@ public class CitationStyleExecuterService {
       return citationList;
     } catch (Exception e) {
       throw new CitationStyleManagerException("Error while parsing bibliographic citation from escidoc snippet", e);
-    }
-  }
-
-  private static String getPubManUrl() {
-    try {
-      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-          + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot get property:", e);
-    }
-  }
-
-  private static String getInstanceUrl() {
-    try {
-      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot get property:", e);
     }
   }
 

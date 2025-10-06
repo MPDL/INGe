@@ -983,8 +983,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       for (FileDbVO fileDbVO : latestVersion.getFiles()) {
         try {
           if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && null == fileDbVO.getPid()) {
-            URI url = UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(), fileDbVO.getObjectId(),
-                fileDbVO.getName());
+            URI url =
+                UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(), fileDbVO.getObjectId());
             if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE))) {
               fileDbVO.setPid(
                   PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT) + this.pidService.createPid(url).getIdentifier());

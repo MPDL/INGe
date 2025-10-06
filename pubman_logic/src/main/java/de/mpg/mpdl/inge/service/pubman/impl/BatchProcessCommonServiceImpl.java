@@ -84,12 +84,12 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-//    String message = createMessage(method);
-//    if (null != itemVersionVO.getObject().getLocalTags()) {
-//      itemVersionVO.getObject().getLocalTags().add(message);
-//    } else {
-//      itemVersionVO.getObject().setLocalTags(new ArrayList<>(List.of(message)));
-//    }
+    //    String message = createMessage(method);
+    //    if (null != itemVersionVO.getObject().getLocalTags()) {
+    //      itemVersionVO.getObject().getLocalTags().add(message);
+    //    } else {
+    //      itemVersionVO.getObject().setLocalTags(new ArrayList<>(List.of(message)));
+    //    }
 
     this.pubItemService.update(itemVersionVO, token);
 

@@ -220,7 +220,7 @@ public class SitemapProvider {
                   if (FileDbVO.Visibility.PUBLIC.name().equals(visibility)) {
                     String fileId = file.get("objectId").asText();
                     String fileName = file.get("name").asText();
-                    String fileLoc = UriBuilder.getItemComponentLink(itemId, Integer.parseInt(version), fileId, fileName).toString();
+                    String fileLoc = UriBuilder.getItemComponentLink(itemId, Integer.parseInt(version), fileId).toString();
                     fileLoc = XmlUtilities.escape(fileLoc);
                     writeEntry(this.fileWriter, fileLoc, lmd);
                   }

@@ -17,8 +17,7 @@
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:person="${xsd.metadata.person}"  >
-	<xsl:param name="pubman_instance"/>
-	<xsl:param name="pubmanUrl"/>
+	<xsl:param name="itemLink"/>
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
 	<!-- see: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_eSciDoc_To_eDoc_Mapping#OU-Mapping_Yearbook_2010 -->
 	<xsl:variable name="escd2edoc_daffs">
@@ -96,7 +95,7 @@
 				<xsl:if test="$size and exists(../mdr:md-records/mdr:md-record[1]/file:file/dcterms:extent)">
 					<xsl:attribute name="size" select="  ../mdr:md-records/mdr:md-record[1]/file:file/dcterms:extent  "/>
 				</xsl:if>
-				<xsl:value-of select="concat(  $pubman_instance,  @xlink:href   )"/>
+				<xsl:value-of select="@xlink:href"/>
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>
@@ -105,7 +104,7 @@
 		<!-- ESCIDOC direct link as identifier -->
 		<xsl:element name="identifier">
 			<xsl:attribute name="type">url</xsl:attribute>
-			<xsl:value-of select="concat($pubmanUrl, '/item/', ../../../@objid)"/>
+            <xsl:value-of select="replace($itemLink, '\$1', ../../../@objid)"/>
 		</xsl:element>
 		<!-- IDENTIFIERS from dc:identifier elements -->
 		<xsl:for-each select="dc:identifier">

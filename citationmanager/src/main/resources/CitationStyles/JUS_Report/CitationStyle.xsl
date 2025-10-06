@@ -26,8 +26,7 @@
                 version="2.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
                 cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
-    <xsl:param name="pubmanUrl"/>
-    <xsl:param name="instanceUrl"/>
+    <xsl:param name="itemComponentLink"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@* | node ()"/>
@@ -3037,8 +3036,7 @@
 	<xsl:template match="escidocComponents:content[@storage='internal-managed']">
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
-    		      <xsl:attribute name="xlink:href"
-                           select="concat(         $instanceUrl,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
+                  <xsl:attribute name="xlink:href" select="replace(replace($itemComponentLink, '\$1', ../../../ei:properties/prop:version/@objid), '\$2', ../@objid)"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">
@@ -3099,18 +3097,18 @@
 		      <xsl:param name="fname"/>
 		      <xsl:param name="gname"/>
 		      <xsl:param name="delim"/>
-		
+
 		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( ($fname, func:get_initials($gname)), $delim )   "/>
-		
+
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:initials_fname">
 		      <xsl:param name="gname"/>
 		      <xsl:param name="fname"/>
 		      <xsl:param name="delim"/>
-		
+
 		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( (func:get_initials($gname), $fname), $delim )   "/>
-		
+
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:escapeMarkupTags">
@@ -3126,19 +3124,19 @@
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="functx:replace-multi"
                   as="xs:string?">
-	       <xsl:param name="arg" as="xs:string?"/> 
-	       <xsl:param name="changeFrom" as="xs:string*"/> 
-	       <xsl:param name="changeTo" as="xs:string*"/> 
-	 
+	       <xsl:param name="arg" as="xs:string?"/>
+	       <xsl:param name="changeFrom" as="xs:string*"/>
+	       <xsl:param name="changeTo" as="xs:string*"/>
+
 	       <xsl:sequence select="      if (count($changeFrom) &gt; 0)     then functx:replace-multi(            replace($arg, $changeFrom[1],                       functx:if-absent($changeTo[1],'')),            $changeFrom[position() &gt; 1],            $changeTo[position() &gt; 1])     else $arg   "/>
-	   
+
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="functx:if-absent"
                   as="item()*">
-	       <xsl:param name="arg" as="item()*"/> 
-	       <xsl:param name="value" as="item()*"/> 
-	 
+	       <xsl:param name="arg" as="item()*"/>
+	       <xsl:param name="value" as="item()*"/>
+
 	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
