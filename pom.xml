@@ -1240,8 +1240,8 @@
 			<properties>
 				<gfz.citation.style.use>true</gfz.citation.style.use>
 				<gfz.cone.reset.use>true</gfz.cone.reset.use>
-				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
-				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
+				<gfz.oa.mail.adress>openaccess@gfz.de</gfz.oa.mail.adress>
+				<gfz.oa.mail.domain>@gfz.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
 				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
 				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
@@ -1251,13 +1251,13 @@
 				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
 				<inge.cone.modelsxml.path>models_gfz.xml</inge.cone.modelsxml.path>
 				<inge.cone.subjectVocab />
-				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
+				<inge.crossref.pid>bib@gfz.de</inge.crossref.pid>
 				<inge.doi.service.create.url />
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
-				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
+				<inge.email.alternative.moderator>bib@gfz.de</inge.email.alternative.moderator>
 				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
-				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
+				<inge.email.sender>bib@gfz.de</inge.email.sender>
 				<inge.filestorage.seaweed_master_server_ip />
 				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPOFCCA,GFZPOFWEITERE,GFZPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 				<inge.pid.service.create.path />
@@ -1270,8 +1270,8 @@
 				<inge.pubman.help.url />
 				<inge.pubman.logo.css>height:4em; padding-top:2.5em</inge.pubman.logo.css>
 				<inge.pubman.logo.url>/resources/images/gfz.png</inge.pubman.logo.url>
-				<inge.pubman.policy.url>https://www.gfz-potsdam.de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.url>
+				<inge.pubman.policy.url>https://www.gfz.de/impressum</inge.pubman.policy.url>
+				<inge.pubman.privacy.url>https://www.gfz.de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>GFZ_authors</inge.pubman.root.authors.icon>
 				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>GFZ</inge.pubman.root.organization.name>
@@ -1290,8 +1290,8 @@
 			<properties>
 				<gfz.citation.style.use>true</gfz.citation.style.use>
 				<gfz.cone.reset.use>true</gfz.cone.reset.use>
-				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
-				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
+				<gfz.oa.mail.adress>openaccess@gfz.de</gfz.oa.mail.adress>
+				<gfz.oa.mail.domain>@gfz.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
 				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
 				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
@@ -1301,13 +1301,13 @@
 				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
 				<inge.cone.modelsxml.path>models_gfz.xml</inge.cone.modelsxml.path>
 				<inge.cone.subjectVocab />
-				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
+				<inge.crossref.pid>bib@gfz.de</inge.crossref.pid>
 				<inge.doi.service.create.url />
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
-				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
+				<inge.email.alternative.moderator>bib@gfz.de</inge.email.alternative.moderator>
 				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
-				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
+				<inge.email.sender>bib@gfz.de</inge.email.sender>
 				<inge.filestorage.seaweed_master_server_ip />
 				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPOFCCA,GFZPOFWEITERE,GFZPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 				<inge.pid.service.create.path />
@@ -1320,8 +1320,8 @@
 				<inge.pubman.help.url />
 				<inge.pubman.logo.css>height:4em; padding-top:2.5em</inge.pubman.logo.css>
 				<inge.pubman.logo.url>/resources/images/gfz.png</inge.pubman.logo.url>
-				<inge.pubman.policy.url>https://www.gfz-potsdam.de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.url>
+				<inge.pubman.policy.url>https://www.gfz.de/impressum</inge.pubman.policy.url>
+				<inge.pubman.privacy.url>https://www.gfz.de/datenschutz</inge.pubman.privacy.url>
 				<inge.pubman.root.authors.icon>GFZ_authors</inge.pubman.root.authors.icon>
 				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>GFZ</inge.pubman.root.organization.name>
