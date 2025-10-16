@@ -114,36 +114,6 @@
                         <xsl:variable name="l_editorial">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/editorial'"></xsl:value-of>
                         </xsl:variable>
-						<xsl:variable name="l_data-publication">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/data-publication'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_software">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/software'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_film">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/film'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_preprint">
-                            <xsl:value-of select="'http://purl.org/eprint/type/preprint'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_pre-registration-paper">
-                            <xsl:value-of select="'http://purl.org/eprint/type/pre-registration-paper'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_registered-report">
-                            <xsl:value-of select="'http://purl.org/eprint/type/registered-report'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_magazine-article">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/magazine-article'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_blog-post">
-                            <xsl:value-of select="'http://purl.org/eprint/type/blog-post'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_review-article">
-                            <xsl:value-of select="'http://purl.org/eprint/type/review-article'"></xsl:value-of>
-                        </xsl:variable>
-						<xsl:variable name="l_interview">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/interview'"></xsl:value-of>
-                        </xsl:variable>
                         <xsl:variable name="l_patent">
                             <xsl:value-of select="'http://purl.org/eprint/type/Patent'"></xsl:value-of>
                         </xsl:variable>
@@ -1815,7 +1785,7 @@
                                     <xsl:value-of select="$doiLink"></xsl:value-of>
                                 </xsl:if>
                             </xsl:when>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article, $l_data-publication, $l_software, $l_film, $l_preprint, $l_pre-registration-paper, $l_registered-report, $l_magazine-article, $l_blog-post, $l_review-article, $l_interview)">
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article)">
                                 <xsl:variable name="journal-article-etc">
                                     <xsl:variable name="var" select="''"></xsl:variable>
                                     <xsl:variable name="var">

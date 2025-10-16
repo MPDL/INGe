@@ -9,21 +9,21 @@
 			<group id="item_degree"				repeatable="false" display="true" optional="true" form-id="all" label="g_item_degree">
 			<group id="item_language"			repeatable="false" display="true" optional="true" form-id="all" label="g_item_language">
 			<group id="item_toc"				repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc">
-			Probably this change will have no effect, as single field groups in genre specific configurations are only listed when they are not to be displayed. 
+			Probably this change will have no effect, as single field groups in genre specific configurations are only listed when they are not to be displayed.
 		4. On purpose left language of publication in full submission displayed in genre courseware_lecture , TODO: check with SvM
 		5. Language is always present in full submission
 		6. Genre POSTER added, not in sync with Colab spec for identifiers, as probably Colab spec is not complete (added identifier fields in FS)
-		7. General Rule: In ES alternative title of basic item metadata is many times not allowed. 
+		7. General Rule: In ES alternative title of basic item metadata is many times not allowed.
 			As it is anyway optional display (add "+" sign and is part of the basic component)  it is not considered in the configuration at all.
 		8. THIS CONFIGURATION DOES NOT YET DEAL WITH GENRE SPECIFIC LABELS
 			SYNTAX FOR FIELDS IS. lower-case genre id _ standard label
 			SYNTAX FOR GROUPS IS lower-case g_lowercase genreid_standard label
 		9. DEFAULT setting and assumption is that default configuration is default for all forms and genres
-			IN FUTURE RELEASES WE CAN CHECK IF DEFAULT CONFIGURATION CAN BE FORM-TYPE-SPECIFIC and can contain different default settings for specifically both easy and full submission 
+			IN FUTURE RELEASES WE CAN CHECK IF DEFAULT CONFIGURATION CAN BE FORM-TYPE-SPECIFIC and can contain different default settings for specifically both easy and full submission
 		10. LOGIC for setting of OPTIONAL:
 			* if the group-level setting optional='true' and the field-level setting optional='false': the group is optional, but when any of the group metadata is created, all fields that are marked with optional="false" must have a value provided (example: see group "sources" or "events",  "item_identifiers", "source_identifiers")
 			* if the group-level setting optional="false" and the field-level setting optional ="false": there must be at least one metadata entry in this group
-			** as minimum for fields which are marked with optional="false" (example: see group "creator_person_organization" ). 
+			** as minimum for fields which are marked with optional="false" (example: see group "creator_person_organization" ).
 			** when there are no fields marked with optional="false" then at least one metadata in this group must be populated. (example: item_details_dates group)
 		11. changed repeatable for events (false), abstracts(true), languages (true)
 		12. DISCREPANCY: functionally on source should not be totalNumberOfPages : this is in SourceVO and in XML schema for metadata, but it is not in functional description, not in this configuration and not in the GUI Genre table
@@ -31,7 +31,7 @@
 		14. Added Genre Manuscript, same settings as for Genre "OTHER"
 		15. Added Genre Film
 	-->
-	
+
 	<configuration>
 		<!-- The listed content-categories will be available in PubMan -->
 		<content-categories>
@@ -40,7 +40,7 @@
 			<content-category id="POST_PRINT" url="http://purl.org/escidoc/metadata/ves/content-categories/post-print"/>
 			<content-category id="PUBLISHER_VERSION" url="http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"/>
 			<content-category id="ABSTRACT" url="http://purl.org/escidoc/metadata/ves/content-categories/abstract"/>
-			<content-category id="TABLE_OF_CONTENTS" url="http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents"/>     
+			<content-category id="TABLE_OF_CONTENTS" url="http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents"/>
 			<content-category id="SUPPLEMENTARY_MATERIAL" url="http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material"/>
 			<content-category id="CORRESPONDENCE" url="http://purl.org/escidoc/metadata/ves/content-categories/correspondence"/>
 			<content-category id="COPYRIGHT_TRANSFER_AGREEMENT" url="http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement"/>
@@ -48,21 +48,21 @@
 			<content-category id="MULTIMEDIA" url="http://purl.org/escidoc/metadata/ves/content-categories/multimedia"/>
 			<content-category id="CODE" url="http://purl.org/escidoc/metadata/ves/content-categories/code"/>
 		</content-categories>
-		
+
 		<!-- !NEGATIVE! List for author roles (the listed roles will NOT be shown in PubMan!) -->
 		<author-roles>
 			<!-- Example:
 			<role id="ARTIST" url="http://www.loc.gov/loc.terms/relators/ART"/>
 			-->
 		</author-roles>
-		
+
 		<!-- !NEGATIVE! List for source genres (the listed source genres will NOT be shown in PubMan!) -->
 		<source-genres>
 			<!-- Example:
 			<source-genre id="ISSUE" url="http://purl.org/escidoc/metadata/ves/publication-types/issue"/>
 			-->
 		</source-genres>
-		
+
 		<genre-default>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="full-submission">
 				<field id="item_genre" repeatable="false" display="true" optional="false" label="item_genre" class-attribute="metadata.genre"/>
@@ -222,7 +222,7 @@
 				</group>
 			</group>
 		</genre-default>
-		
+
 		<genre id="ARTICLE" label="ENUM_GENRE_ARTICLE">
 			<field id="genre_group" value="article"/>
 			<group id="details">
@@ -244,7 +244,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="BLOG_POST" label="ENUM_GENRE_BLOG_POST">
 			<field id="genre_group" value="paper"/>
 			<group id="details">
@@ -253,7 +253,7 @@
 			</group>
 			<group id="events" display="false" form-id="all"/>
 		</genre>
-		
+
 		<genre id="BOOK" label="ENUM_GENRE_BOOK">
 			<field id="genre_group" value="book"/>
 			<group id="details">
@@ -285,7 +285,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="BOOK_ITEM" label="ENUM_GENRE_BOOK_ITEM">
 			<field id="genre_group" value="part_of_book"/>
 			<group id="details">
@@ -312,7 +312,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="BOOK_REVIEW" label="ENUM_GENRE_BOOK_REVIEW">
 			<field id="genre_group" value="article"/>
 			<group id="details">
@@ -338,7 +338,7 @@
 				<group id="source_sequence_number" repeatable="false" display="true" optional="true" form-id="all"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CASE_NOTE" label="ENUM_GENRE_CASE_NOTE">
 			<field id="genre_group" value="legal_stuff"/>
 			<group id="details">
@@ -365,7 +365,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="all"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CASE_STUDY" label="ENUM_GENRE_CASE_STUDY">
 			<field id="genre_group" value="legal_stuff"/>
 			<group id="details">
@@ -391,7 +391,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="all"/>
 			</group>
 		</genre>
-		
+
 		<genre id="COLLECTED_EDITION" label="ENUM_GENRE_COLLECTED_EDITION">
 			<field id="genre_group" value="book"/>
 			<group id="details">
@@ -416,7 +416,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="full-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="COMMENTARY" label="ENUM_GENRE_COMMENTARY">
 			<field id="genre_group" value="legal_stuff"/>
 			<group id="details">
@@ -441,7 +441,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="full-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CONFERENCE_PAPER" label="ENUM_GENRE_CONFERENCE_PAPER">
 			<field id="genre_group" value="paper"/>
 			<group id="details">
@@ -468,7 +468,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CONFERENCE_REPORT" label="ENUM_GENRE_CONFERENCE_REPORT">
 			<field id="genre_group" value="paper"/>
 			<group id="details">
@@ -496,7 +496,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CONTRIBUTION_TO_COLLECTED_EDITION" label="ENUM_GENRE_CONTRIBUTION_TO_COLLECTED_EDITION">
 			<field id="genre_group" value="part_of_book"/>
 			<group id="details">
@@ -524,7 +524,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CONTRIBUTION_TO_COMMENTARY" label="ENUM_GENRE_CONTRIBUTION_TO_COMMENTARY">
 			<field id="genre_group" value="legal_stuff"/>
 			<group id="details">
@@ -552,7 +552,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CONTRIBUTION_TO_ENCYCLOPEDIA" label="ENUM_GENRE_CONTRIBUTION_TO_ENCYCLOPEDIA">
 			<field id="genre_group" value="part_of_book"/>
 			<group id="details">
@@ -580,7 +580,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CONTRIBUTION_TO_FESTSCHRIFT" label="ENUM_GENRE_CONTRIBUTION_TO_FESTSCHRIFT">
 			<field id="genre_group" value="part_of_book"/>
 			<group id="details">
@@ -608,7 +608,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="CONTRIBUTION_TO_HANDBOOK" label="ENUM_GENRE_CONTRIBUTION_TO_HANDBOOK">
 			<field id="genre_group" value="part_of_book"/>
 			<group id="details">
@@ -636,7 +636,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="COURSEWARE_LECTURE" label="ENUM_GENRE_COURSEWARE_LECTURE">
 			<field id="genre_group" value="presentation_or_teaching"/>
 			<group id="details">
@@ -661,11 +661,10 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="DATA_PUBLICATION" label="ENUM_GENRE_DATA_PUBLICATION">
 			<field id="genre_group" value="other"/>
 			<group id="details">
-				<group id="publishing_info" repeatable="false" display="false" optional="true" form-id="all"/>
 				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 				<group id="identifiers" display="false" optional="true" form-id="easy-submission"/>
 				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
@@ -674,16 +673,15 @@
 			</group>
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all"/>
 			<group id="sources">
-				<group id="source_publishing_info" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
-				<group id="source_publishing_info" form-id="full-submission">
-					<field id="publishing-info_edition" repeatable="false" display="false" optional="true"/>
-				</group>
+                <group id="source_publishing_info" form-id="all">
+                    <field id="publishing-info_edition" display="false"/>
+                </group>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="EDITORIAL" label="ENUM_GENRE_EDITORIAL">
 			<field id="genre_group" value="article"/>
 			<group id="details">
@@ -709,11 +707,11 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="ENCYCLOPEDIA" label="ENUM_GENRE_ENCYCLOPEDIA">
 			<field id="genre_group" value="book"/>
 		</genre>
-		
+
 		<genre id="FESTSCHRIFT" label="ENUM_GENRE_FESTSCHRIFT">
 			<field id="genre_group" value="book"/>
 			<group id="details">
@@ -738,7 +736,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="full-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="FILM" label="ENUM_GENRE_FILM">
 			<field id="genre_group" value="other"/>
 			<group id="details">
@@ -768,7 +766,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="HANDBOOK" label="ENUM_GENRE_HANDBOOK">
 			<field id="genre_group" value="book"/>
 			<group id="details">
@@ -793,7 +791,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="full-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="INTERVIEW" label="ENUM_GENRE_INTERVIEW">
 			<field id="genre_group" value="other"/>
 			<group id="details">
@@ -803,7 +801,7 @@
 			</group>
 			<group id="events" display="false" form-id="all"/>
 		</genre>
-		
+
 		<genre id="ISSUE" label="ENUM_GENRE_ISSUE">
 			<field id="genre_group" value="series_or_journal"/>
 			<group id="details">
@@ -833,7 +831,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="JOURNAL" label="ENUM_GENRE_JOURNAL">
 			<field id="genre_group" value="series_or_journal"/>
 			<group id="content" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
@@ -856,7 +854,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all"/>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all"/>
 		</genre>
-		
+
 		<genre id="MAGAZINE_ARTICLE" label="ENUM_GENRE_MAGAZINE_ARTICLE">
 			<field id="genre_group" value="article"/>
 			<group id="details">
@@ -878,7 +876,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="MANUSCRIPT" label="ENUM_GENRE_MANUSCRIPT">
 			<field id="genre_group" value="other"/>
 			<group id="details">
@@ -900,7 +898,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="MEETING_ABSTRACT" label="ENUM_GENRE_MEETING_ABSTRACT">
 			<field id="genre_group" value="paper"/>
 			<!-- this is new for CBS -->
@@ -928,11 +926,11 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="MANUAL" label="ENUM_GENRE_MANUAL">
 			<field id="genre_group" value="other"/>
 		</genre>
-		
+
 		<genre id="MONOGRAPH" label="ENUM_GENRE_MONOGRAPH">
 			<field id="genre_group" value="book"/>
 			<group id="details">
@@ -959,16 +957,16 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="full-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="MULTI_VOLUME" label="ENUM_GENRE_MULTI_VOLUME">
 			<field id="genre_group" value="series_or_journal"/>
 		</genre>
-		
+
 		<genre id="NEWSPAPER" label="ENUM_GENRE_NEWSPAPER">
 			<field id="genre_group" value="series_or_journal"/>
 		</genre>
-		
-		
+
+
 		<genre id="NEWSPAPER_ARTICLE" label="ENUM_GENRE_NEWSPAPER_ARTICLE">
 			<field id="genre_group" value="article"/>
 			<group id="details">
@@ -991,7 +989,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="all"/>
 			</group>
 		</genre>
-		
+
 		<genre id="OPINION" label="ENUM_GENRE_OPINION">
 			<field id="genre_group" value="legal_stuff"/>
 			<group id="details">
@@ -1017,7 +1015,7 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="all"/>
 			</group>
 		</genre>
-		
+
 		<genre id="OTHER" label="ENUM_GENRE_OTHER">
 			<field id="genre_group" value="other"/>
 			<group id="details">
@@ -1043,7 +1041,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="PAPER" label="ENUM_GENRE_PAPER">
 			<field id="genre_group" value="paper"/>
 			<group id="details">
@@ -1069,7 +1067,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="PATENT" label="ENUM_GENRE_PATENT">
 			<field id="genre_group" value="other"/>
 			<group id="content">
@@ -1093,7 +1091,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all"/>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all"/>
 		</genre>
-		
+
 		<genre id="PRE_REGISTRATION_PAPER" label="ENUM_GENRE_PRE_REGISTRATION_PAPER">
 			<field id="genre_group" value="paper"/>
 			<group id="details">
@@ -1119,7 +1117,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="PREPRINT" label="ENUM_GENRE_PREPRINT">
 			<field id="genre_group" value="paper"/>
 			<group id="details">
@@ -1131,7 +1129,7 @@
 				<group id="source_total_number_of_pages" display="false" form-id="all"/>
 			</group>
 		</genre>
-		
+
 		<genre id="PROCEEDINGS" label="ENUM_GENRE_PROCEEDINGS">
 			<field id="genre_group" value="book"/>
 			<group id="details">
@@ -1158,7 +1156,7 @@
 				<group id="source_sequence_number" repeatable="false" display="true" optional="true" form-id="all"/>
 			</group>
 		</genre>
-		
+
 		<genre id="POSTER" label="ENUM_GENRE_POSTER">
 			<field id="genre_group" value="presentation_or_teaching"/>
 			<group id="details">
@@ -1183,7 +1181,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="REGISTERED_REPORT" label="ENUM_GENRE_REGISTERED_REPORT">
 			<field id="genre_group" value="paper"/>
 			<group id="details">
@@ -1209,7 +1207,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="REPORT" label="ENUM_GENRE_REPORT">
 			<field id="genre_group" value="paper"/>
 			<group id="content" form-id="easy-submission">
@@ -1237,7 +1235,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="REVIEW_ARTICLE" label="ENUM_GENRE_REVIEW_ARTICLE">
 			<field id="genre_group" value="article"/>
 			<group id="details">
@@ -1259,7 +1257,7 @@
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" form-id="easy-submission"/>
 			</group>
 		</genre>
-		
+
 		<genre id="SERIES" label="ENUM_GENRE_SERIES">
 			<field id="genre_group" value="series_or_journal"/>
 			<group id="details">
@@ -1277,7 +1275,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all"/>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all"/>
 		</genre>
-		
+
 		<genre id="SOFTWARE" label="ENUM_GENRE_SOFTWARE">
 			<field id="genre_group" value="other"/>
 			<group id="details">
@@ -1300,7 +1298,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="TALK_AT_EVENT" label="ENUM_GENRE_TALK_AT_EVENT">
 			<field id="genre_group" value="presentation_or_teaching"/>
 			<group id="details">
@@ -1322,7 +1320,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<genre id="THESIS" label="ENUM_GENRE_THESIS">
 			<field id="genre_group" value="book"/>
 			<group id="details">
@@ -1351,7 +1349,7 @@
 				</group>
 			</group>
 		</genre>
-		
+
 		<!-- NEEDED FOR THE CASE THAT THE PUBITEM CANNOT BE FOUND -->
 		<genre id="" label="">
 		</genre>
