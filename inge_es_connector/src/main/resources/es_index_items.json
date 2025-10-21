@@ -1458,6 +1458,9 @@
               "totalNumberOfPages": {
                 "type": "text"
               },
+              "duration": {
+                "type": "text"
+              },
               "volume": {
                 "type": "text",
                 "fields": {
