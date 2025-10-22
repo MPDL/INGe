@@ -925,7 +925,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     checkAa(aaMethod, principal, latestVersion, context);
 
-    logger.info("Changing state of " + latestVersion.getObject().getObjectId() + " from  " + latestVersion.getVersionState() + "to" + state);
+    logger
+        .info("Changing state of " + latestVersion.getObject().getObjectId() + " from  " + latestVersion.getVersionState() + "to" + state);
 
     if (ItemVersionRO.State.SUBMITTED.equals(state) && !ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
       latestVersion.getObject().setPublicState(ItemVersionRO.State.SUBMITTED);
