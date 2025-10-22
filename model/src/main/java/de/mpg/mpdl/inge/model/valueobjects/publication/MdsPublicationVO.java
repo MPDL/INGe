@@ -268,6 +268,9 @@ public class MdsPublicationVO extends MetadataSetVO {
    * part of the source container.
    */
   private String totalNumberOfPages;
+
+  private String duration;
+
   /**
    * Abstracts or short descriptions of the item.
    */
@@ -355,6 +358,8 @@ public class MdsPublicationVO extends MetadataSetVO {
     }
 
     this.totalNumberOfPages = other.totalNumberOfPages;
+
+    this.duration = other.duration;
 
     if (null != other.projectInfo) {
       for (ProjectInfoVO pi : other.projectInfo) {
@@ -475,6 +480,10 @@ public class MdsPublicationVO extends MetadataSetVO {
     return this.totalNumberOfPages;
   }
 
+  public String getDuration() {
+    return this.duration;
+  }
+
   /**
    * Sets the degree of the item, i. e. the type of degree which is received with this type of
    * publication
@@ -563,6 +572,10 @@ public class MdsPublicationVO extends MetadataSetVO {
     this.totalNumberOfPages = newVal;
   }
 
+  public void setDuration(String newVal) {
+    this.duration = newVal;
+  }
+
   public final MdsPublicationVO clone() {
     return new MdsPublicationVO(this);
   }
@@ -595,6 +608,7 @@ public class MdsPublicationVO extends MetadataSetVO {
     result = prime * result + ((null == this.subjects) ? 0 : this.subjects.hashCode());
     result = prime * result + ((null == this.tableOfContents) ? 0 : this.tableOfContents.hashCode());
     result = prime * result + ((null == this.totalNumberOfPages) ? 0 : this.totalNumberOfPages.hashCode());
+    result = prime * result + ((null == this.duration) ? 0 : this.duration.hashCode());
     return result;
   }
 
@@ -773,6 +787,13 @@ public class MdsPublicationVO extends MetadataSetVO {
         return false;
     } else if (!this.totalNumberOfPages.equals(other.totalNumberOfPages))
       return false;
+
+    if (null == this.duration) {
+      if (null != other.duration)
+        return false;
+    } else if (!this.duration.equals(other.duration)) {
+      return false;
+    }
 
     return true;
   }

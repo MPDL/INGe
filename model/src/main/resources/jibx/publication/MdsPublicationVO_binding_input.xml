@@ -56,7 +56,7 @@
 	<include path="PersonVO_binding.xml" />
 	<include path="PublishingInfoVO_binding.xml" />
 	<include path="../ReferenceObject_binding.xml" />
-	<include path="SourceVO_binding_abstract.xml" />		
+	<include path="SourceVO_binding_abstract.xml" />
 	<include path="AbstractVO_binding.xml" />
 	<include path="SubjectVO_binding.xml" />
 	<include path="AlternativeTitleVO_binding.xml" />
@@ -133,10 +133,10 @@
 			<!-- Field: PubItemVO.metadata.dateAccepted [String]-->
 			<value style="element" name="dateAccepted" ns="${xsd.metadata.dcterms}" field="dateAccepted"
 				usage="optional" />
-                
+
             <!-- Node: item.md-records.md-record.publication.published-online -->
             <!-- Field: PubItemVO.metadata.datePublishedOnline [String]-->
-            <value style="element" name="published-online" ns="${xsd.metadata.escidocprofile.types}" field="datePublishedOnline" usage="optional" />    
+            <value style="element" name="published-online" ns="${xsd.metadata.escidocprofile.types}" field="datePublishedOnline" usage="optional" />
 
 			<!-- Node: item.md-records.md-record.publication.issued -->
 			<!-- Field: PubItemVO.metadata.datePublishedInPrint [String]-->
@@ -183,7 +183,7 @@
 
 				<!-- Node: item.md-records.md-record.publication.event.place -->
 				<!-- Field: PubItemVO.metadata.event.place [String] -->
-                <value style="element" name="place" ns="${xsd.metadata.escidocprofile.types}" 
+                <value style="element" name="place" ns="${xsd.metadata.escidocprofile.types}"
                 	field="place" usage="optional"/>
 
 				<!-- Node: item.md-records.md-record.publication.event.invitation-status -->
@@ -195,7 +195,7 @@
 					usage="optional" />
 
 			</structure>
-			
+
 			<!-- JUS BEGIN-->
 			<!-- Node: item.md-records.md-record.publication.legalCase -->
 			<!-- Field: LegalCaseVO.metadata.legalCase [LegalCaseVO] -->
@@ -206,7 +206,7 @@
 				<!-- Field: LegalCaseVO.metadata.legalCase.title -->
 				<value style="element" name="title" ns="${xsd.metadata.dc}"
 					field="title" usage="optional" />
-					
+
 				<!-- Node: item.md-records.md-record.publication.legalCase.court -->
 				<!-- Field: LegalCaseVO.metadata.legalCase.courtName -->
 				<value style="element" name="court" ns="${xsd.metadata.escidocprofile.types}"
@@ -220,7 +220,7 @@
 				<!-- Node: item.md-records.md-record.publication.legalCase.issued -->
 				<!-- Field: LegalCaseVO.metadata.legalCase.datePublished -->
                <value style="element" name="issued" ns="${xsd.metadata.dcterms}"
-					field="datePublished" usage="optional" />	
+					field="datePublished" usage="optional" />
 
 			</structure>
 			<!-- JUS END-->
@@ -230,6 +230,10 @@
 			<value style="element" name="total-number-of-pages"
 				ns="${xsd.metadata.escidocprofile.types}" field="totalNumberOfPages" usage="optional" />
 
+            <!-- Node: item.md-records.md-record.publication.duration -->
+            <!-- Field: PubItemVO.metadata.duration [String] -->
+            <value style="element" name="duration"
+                   ns="${xsd.metadata.escidocprofile.types}" field="duration" usage="optional" />
 
 			<!-- Node: item.md-records.md-record.publication.degree -->
 			<!-- Field: PubItemVO.metadata.degree [MdsPublicationVO.DegreeType] -->
@@ -255,7 +259,7 @@
 			<!-- Node: item.md-records.md-record.publication.subject -->
 			<!-- Field: PubItemVO.metadata.freeKeywords -->
             <value style="element" name="subject" ns="${xsd.metadata.dcterms}" field="freeKeywords" usage="optional"/>
-            
+
             <!-- Node: item.md-records.md-record.publication.DDC -->
 			<!-- Field: PubItemVO.metadata.subjects -->
 			<collection field="subjects"
@@ -273,9 +277,9 @@
 			<!-- Field: PubItemVO.metadata.location [String] -->
 			<value style="element" name="location" ns="${xsd.metadata.escidocprofile.types}"
 				field="location" usage="optional" />
-				
-				
-				
+
+
+
 			<!-- Node: item.md-records.md-record.projectInfo -->
 			<!-- Field: PubItemVO.metadata.projectInfos -->
 			<collection field="projectInfo" factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.projectInfoVOListFactory" usage="optional">

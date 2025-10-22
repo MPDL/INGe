@@ -80,6 +80,9 @@
 				<group id="total_number_of_pages" repeatable="false" display="true" optional="true" label="g_total_number_of_pages" class-attribute="metadata.totalNumberOfPages">
 					<field id="item_total-number-of-pages" repeatable="false" display="true" label="item_total-number-of-pages" optional="true" class-attribute="metadata.totalNumberOfPages"/>
 				</group>
+                <group id="duration" repeatable="false" display="false" optional="true" label="g_duration" class-attribute="metadata.duration">
+                    <field id="item_duration" repeatable="false" display="true" label="item_duration" optional="true" class-attribute="metadata.duration"/>
+                </group>
 				<group id="identifiers" display="true" optional="true" repeatable="true" label="g_identifiers" class-attribute="metadata.identifiers">
 					<field id="item_identifier_type" repeatable="false" display="true" optional="false" label="item_identifier_type" class-attribute="metadata.identifiers.type"/>
 					<field id="item_identifier_value" repeatable="false" display="true" optional="false" label="item_identifier_value" class-attribute="metadata.identifiers.id"/>
@@ -513,9 +516,8 @@
 				<group id="publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
-				<group id="total_number_of_pages">
-					<field id="item_total-number-of-pages" label="item_film_duration"/>
-				</group>
+                <group id="total_number_of_pages" display="false"/>
+                <group id="duration" display="true"/>
 				<group id="review_method" display="false"/>
 			</group>
 			<group id="events">
@@ -553,6 +555,7 @@
 				<group id="publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
+                <group id="duration" display="true"/>
 			</group>
 			<group id="events" display="false"/>
 		</genre>
