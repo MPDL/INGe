@@ -583,7 +583,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public void reindexAll(String authenticationToken) {
     Query<String> query = (Query<String>) this.entityManager.createQuery("SELECT itemObject.objectId FROM ItemRootVO itemObject");
     query.setReadOnly(true);
-    query.setFetchSize(500);
+    query.setFetchSize(2000);
     query.setCacheMode(CacheMode.IGNORE);
     query.setFlushMode(FlushModeType.COMMIT);
     query.setCacheable(false);

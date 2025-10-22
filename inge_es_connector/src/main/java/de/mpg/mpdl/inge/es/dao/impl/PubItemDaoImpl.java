@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Repository
 public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> implements PubItemDaoEs {
 
-  private static final String indexName = PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME);
+  public static final String indexName = PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME);
   private static final String indexType = PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_TYPE);
   private static final Class<ItemVersionVO> typeParameterClass = ItemVersionVO.class;
 

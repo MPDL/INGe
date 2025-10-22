@@ -104,7 +104,7 @@ public class BatchItemsRetrieverRequestBean
         // Create script using the new API in Elasticsearch 8.18.0
         String scriptSource = "doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
             + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']";
-        bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.source(scriptSource)))));
+        bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.source(b -> b.scriptString(scriptSource))))));
 
         //        InlineScript is = InlineScript.of(i -> i.source("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
         //            + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));

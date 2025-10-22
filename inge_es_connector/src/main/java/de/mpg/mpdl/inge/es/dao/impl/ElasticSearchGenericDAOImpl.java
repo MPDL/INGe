@@ -458,7 +458,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       String realIndexName = this.indexName;
 
       try {
-        Map<String, IndexAliases> aliasResponse = this.client.getClient().indices().getAlias(m -> m.name(this.indexName)).result();
+        Map<String, IndexAliases> aliasResponse = this.client.getClient().indices().getAlias(m -> m.name(this.indexName)).aliases();
         //use first available alias
         realIndexName = aliasResponse.keySet().iterator().next();
 
@@ -469,8 +469,8 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
       GetMappingResponse resp = this.client.getClient().indices().getMapping(m -> m.index(finalIndexName));
 
-      if (!resp.result().isEmpty()) { // SP: avoiding NullPointerException
-        Map<String, Property> resultMap = resp.result().get(finalIndexName).mappings().properties();
+      if (resp.mappings() != null && !resp.mappings().isEmpty()) { // SP: avoiding NullPointerException
+        Map<String, Property> resultMap = resp.get(finalIndexName).mappings().properties();
 
         Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(resultMap);
         ElasticSearchIndexField allField = new ElasticSearchIndexField();

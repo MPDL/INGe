@@ -207,7 +207,8 @@ public class HtmlFormatter extends AbstractFormatter {
               + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"REFEREE\"}}}]}}}}]}}}},\"sort\": [{\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}]");
 
       String citationLink = //
-          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/rest/items/search?format=" + format + "&citation=" + citation;
+          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/rest/items/search?format=" + format + "&citation="
+              + citation;
 
       transformer.setParameter("citation-link", citationLink);
       transformer.setParameter("postData", postData.toString());

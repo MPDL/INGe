@@ -8,8 +8,7 @@ import java.net.URISyntaxException;
 
 public class UriBuilder {
 
-  private UriBuilder() {
-  }
+  private UriBuilder() {}
 
   public static URI getItemLink() throws URISyntaxException {
     return new URI( //
