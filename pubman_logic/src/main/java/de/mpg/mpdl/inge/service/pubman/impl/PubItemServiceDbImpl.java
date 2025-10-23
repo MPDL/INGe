@@ -758,7 +758,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
     reindex(latestVersion);
-    reindex(latestVersion);
     sendEventTopic(latestVersion, "update");
     logger.info(
         "PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in " + (System.currentTimeMillis() - start) + " ms");
