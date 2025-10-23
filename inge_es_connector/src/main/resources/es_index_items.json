@@ -1,6 +1,6 @@
 {
   "settings": {
-    "number_of_shards": 5,
+    "number_of_shards": 1,
     "max_result_window": "1000000",
     "analysis": {
       "normalizer": {
@@ -54,7 +54,8 @@
                 }
               },
               "objectId": {
-                "type": "keyword"
+                "type": "keyword",
+                "eager_global_ordinals": true
               }
             }
           },
@@ -623,7 +624,8 @@
             "normalizer": "sort"
           },
           "keyword_default": {
-            "type": "keyword"
+            "type": "keyword",
+            "eager_global_ordinals": true
           }
         }
       },
@@ -707,9 +709,6 @@
                       },
                       "keyword_default": {
                         "type": "keyword"
-                      },
-                      "autosuggest": {
-                        "type": "search_as_you_type"
                       }
                     }
                   }
@@ -726,9 +725,6 @@
                       },
                       "keyword_default": {
                         "type": "keyword"
-                      },
-                      "autosuggest": {
-                        "type": "search_as_you_type"
                       }
                     }
                   },
@@ -795,7 +791,8 @@
                   "identifier": {
                     "properties": {
                       "id": {
-                        "type": "keyword"
+                        "type": "keyword",
+                        "eager_global_ordinals": true
                       },
                       "type": {
                         "type": "keyword"
@@ -822,7 +819,8 @@
                         "type": "text"
                       },
                       "identifier": {
-                        "type": "keyword"
+                        "type": "keyword",
+                        "eager_global_ordinals": true
                       },
                       "identifierPath": {
                         "type": "keyword"
@@ -836,9 +834,6 @@
                           },
                           "keyword_default": {
                             "type": "keyword"
-                          },
-                          "autosuggest": {
-                            "type": "search_as_you_type"
                           }
                         }
                       }
@@ -956,7 +951,8 @@
             }
           },
           "genre": {
-            "type": "keyword"
+            "type": "keyword",
+            "eager_global_ordinals": true
           },
           "identifiers": {
             "type": "nested",
@@ -1451,7 +1447,8 @@
                     "normalizer": "sort"
                   },
                   "keyword_default": {
-                    "type": "keyword"
+                    "type": "keyword",
+                    "eager_global_ordinals": true
                   }
                 }
               },

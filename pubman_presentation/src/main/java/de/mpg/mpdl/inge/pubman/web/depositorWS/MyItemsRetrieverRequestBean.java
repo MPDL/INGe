@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.depositorWS;
 
 import co.elastic.clients.elasticsearch._types.FieldSort;
 import co.elastic.clients.elasticsearch._types.Script;
+import co.elastic.clients.elasticsearch._types.ScriptSource;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
@@ -168,7 +169,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       // Create script using the new API in Elasticsearch 8.18.0
       String scriptSource = "doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
           + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']";
-      bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.source(scriptSource))))._toQuery());
+      bq.must(ScriptQuery.of(sq -> sq.script(Script.of(s -> s.source(b -> b.scriptString(scriptSource)))))._toQuery());
 
       //      InlineScript is = InlineScript.of(i -> i.source("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
       //          + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']"));

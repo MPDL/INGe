@@ -1,14 +1,22 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import de.mpg.mpdl.inge.aa.Aa;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
+import de.mpg.mpdl.inge.es.dao.impl.ContextDaoImpl;
+import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
+import de.mpg.mpdl.inge.es.dao.impl.PubItemDaoImpl;
+import de.mpg.mpdl.inge.es.dao.impl.UserAccountDaoImpl;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.*;
 import de.mpg.mpdl.inge.service.util.GenrePropertiesProvider;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -64,6 +72,8 @@ public class MiscellaneousController {
   private static final String OPENAI_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TOKEN);
   private static final Integer OPENAI_TEMPERATURE = Integer.valueOf(PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TEMPERATURE));
 
+
+
   private final UtilServiceBean utilServiceBean;
 
   private final RestTemplate restTemplate;
@@ -74,6 +84,21 @@ public class MiscellaneousController {
 
   @Autowired
   private FileService fileService;
+
+  @Autowired
+  private PubItemService pubItemService;
+
+  @Autowired
+  private ContextService contextService;
+
+  @Autowired
+  private OrganizationService ouService;
+
+  @Autowired
+  private UserAccountService userAccountService;
+
+  @Autowired
+  private AuthorizationService aaService;
 
   public MiscellaneousController(UtilServiceBean utilServiceBean, RestTemplate restTemplate) {
     this.utilServiceBean = utilServiceBean;
@@ -169,6 +194,52 @@ public class MiscellaneousController {
     this.fileService.regenerateThumbnails(token);
 
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/reindex", method = RequestMethod.GET)
+  public ResponseEntity<?> reindex(@RequestParam(name = "index", required = true) String index,
+      @RequestParam(name = "id", required = false) String id, @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
+
+    this.aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
+
+    if (PubItemDaoImpl.indexName.equals(index)) {
+      if (id == null || id.isEmpty()) {
+        this.pubItemService.reindexAll(token);
+      } else {
+        this.pubItemService.reindex(id, token);
+      }
+    }
+
+    else if (ContextDaoImpl.indexName.equals(index)) {
+      if (id == null || id.isEmpty()) {
+        this.contextService.reindexAll(token);
+      } else {
+        this.contextService.reindex(id, token);
+      }
+    } else if (OrganizationDaoImpl.indexName.equals(index)) {
+      if (id == null || id.isEmpty()) {
+        this.ouService.reindexAll(token);
+      } else {
+        this.ouService.reindex(id, token);
+      }
+
+    } else if (UserAccountDaoImpl.indexName.equals(index)) {
+      if (id == null || id.isEmpty()) {
+        this.userAccountService.reindexAll(token);
+      } else {
+        this.userAccountService.reindex(id, token);
+      }
+
+    } else if ("all".equals(index)) {
+      this.pubItemService.reindexAll(token);
+      this.contextService.reindexAll(token);
+      this.ouService.reindexAll(token);
+      this.userAccountService.reindexAll(token);
+    } else {
+      throw new IngeApplicationException("Index name " + index + " is unknown");
+    }
+    return new ResponseEntity<>("Index started for index " + index, HttpStatus.OK);
   }
 
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

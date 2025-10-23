@@ -583,7 +583,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public void reindexAll(String authenticationToken) {
     Query<String> query = (Query<String>) this.entityManager.createQuery("SELECT itemObject.objectId FROM ItemRootVO itemObject");
     query.setReadOnly(true);
-    query.setFetchSize(500);
+    query.setFetchSize(2000);
     query.setCacheMode(CacheMode.IGNORE);
     query.setFlushMode(FlushModeType.COMMIT);
     query.setCacheable(false);
@@ -923,6 +923,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     ContextDbVO context = this.contextRepository.findById(latestVersion.getObject().getContext().getObjectId()).orElse(null);
 
     checkAa(aaMethod, principal, latestVersion, context);
+
+    logger
+        .info("Changing state of " + latestVersion.getObject().getObjectId() + " from  " + latestVersion.getVersionState() + "to" + state);
 
     if (ItemVersionRO.State.SUBMITTED.equals(state) && !ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
       latestVersion.getObject().setPublicState(ItemVersionRO.State.SUBMITTED);

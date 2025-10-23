@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Repository
 public class ContextDaoImpl extends ElasticSearchGenericDAOImpl<ContextDbVO> implements ContextDaoEs {
 
-  private static final String indexName = PropertyReader.getProperty(PropertyReader.INGE_INDEX_CONTEXT_NAME);
+  public static final String indexName = PropertyReader.getProperty(PropertyReader.INGE_INDEX_CONTEXT_NAME);
   private static final String indexType = PropertyReader.getProperty(PropertyReader.INGE_INDEX_CONTEXT_TYPE);
   private static final Class<ContextDbVO> typeParameterClass = ContextDbVO.class;
 

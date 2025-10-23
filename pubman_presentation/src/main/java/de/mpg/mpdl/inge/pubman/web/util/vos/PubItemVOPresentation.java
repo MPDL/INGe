@@ -122,7 +122,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    */
   private ValidationReportVO validationReport;
 
-  private float score;
+  //private float score;
 
   private Hit searchHit;
 
@@ -168,7 +168,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   public void initSearchHits(Hit<Object> hit) {
     this.searchHit = hit;
     this.isSearchResult = true;
-    this.score = this.searchHit.score().floatValue();
+    //this.score = this.searchHit.score().floatValue();
 
 
     if (null != this.searchHit && null != this.searchHit.innerHits() && null != this.searchHit.innerHits().get("file")) {
@@ -1172,13 +1172,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return idSplit[idSplit.length - 1];
   }
 
-  public void setScore(float score) {
-    this.score = score;
-  }
 
-  public float getScore() {
-    return this.score;
-  }
 
   public void setFileBeanList(List<FileBean> fileBeanList) {
     this.fileBeanList = fileBeanList;
