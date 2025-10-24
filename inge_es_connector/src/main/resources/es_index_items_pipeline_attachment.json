@@ -1,16 +1,28 @@
 {
-    "description": "Extract attachment information",
-    "processors": [
-        {
-            "attachment": {
-                "target_field": "fileData.attachment",
-                "field": "fileData.data",
-                "indexed_chars": 100000,
-                "properties": ["author", "content", "content_length", "content_type", "date", "format", "keywords", "language", "title"]
-            },
-            "remove": {
-                "field": "fileData.data"
-            }
-        }
-    ]
+  "description": "Extract attachment information",
+  "processors": [
+    {
+      "attachment": {
+        "target_field": "fileData.attachment",
+        "field": "fileData.data",
+        "indexed_chars": 100000,
+        "properties": [
+          "author",
+          "content",
+          "content_length",
+          "content_type",
+          "date",
+          "format",
+          "keywords",
+          "language",
+          "title"
+        ]
+      }
+    },
+    {
+      "remove": {
+        "field": "fileData.data"
+      }
+    }
+  ]
 }
