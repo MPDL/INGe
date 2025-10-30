@@ -1,20 +1,20 @@
 /*
- * 
+ *
  * CDDL HEADER START
- * 
+ *
  * The contents of this file are subject to the terms of the Common Development and Distribution
  * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
  * the License.
- * 
+ *
  * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
  * http://www.escidoc.org/license. See the License for the specific language governing permissions
  * and limitations under the License.
- * 
+ *
  * When distributing Covered Code, include this CDDL HEADER in each file and include the License
  * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
  * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
  * Copyright [yyyy] [name of copyright owner]
- * 
+ *
  * CDDL HEADER END
  */
 
@@ -42,17 +42,32 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 @SuppressWarnings("serial")
 public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion<String> {
 
-  private static final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
+  private transient InternationalizationHelper i18nHelper;
+
+  private InternationalizationHelper getI18nHelper() {
+    if (this.i18nHelper == null) {
+      try {
+        this.i18nHelper = FacesTools.findBean("InternationalizationHelper");
+      } catch (Exception e) {
+        // ignore, can be null outside JSF context
+      }
+    }
+    return this.i18nHelper;
+  }
 
   public ComponentOaStatusListSearchCriterion() {
-    super(ComponentOaStatusListSearchCriterion.getOaStatusMap(false));
+    super(new LinkedHashMap<>());
+    this.setValueMap(this.getOaStatusMap(false));
+    this.initEnumMap(null);
   }
 
   public ComponentOaStatusListSearchCriterion(boolean reducedListFlag) {
-    super(ComponentOaStatusListSearchCriterion.getOaStatusMap(reducedListFlag));
+    super(new LinkedHashMap<>());
+    this.setValueMap(this.getOaStatusMap(reducedListFlag));
+    this.initEnumMap(null);
   }
 
-  private static Map<String, String> getOaStatusMap(boolean reducedListFlag) {
+  protected Map<String, String> getOaStatusMap(boolean reducedListFlag) {
     final MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
     final Map<String, String> oaMap = new LinkedHashMap<String, String>();
     final Map<String, String> newMap = new LinkedHashMap<String, String>();
@@ -62,7 +77,12 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
         if (reducedListFlag == true && MdsFileVO.OA_STATUS.CLOSED_ACCESS.name().equals(values[i].name())) {
 
         } else {
-          oaMap.put(values[i].name(), i18nHelper.convertEnumToString(values[i]));
+          InternationalizationHelper ih = this.getI18nHelper();
+          if (ih != null) {
+            oaMap.put(values[i].name(), ih.convertEnumToString(values[i]));
+          } else {
+            oaMap.put(values[i].name(), values[i].name());
+          }
         }
       }
     }
