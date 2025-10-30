@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.util;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -34,14 +35,27 @@ public class PubItemUtil {
       // Cleanup MD
       pubItem.getMetadata().cleanup();
 
-      // delete unfilled file
+      // delete unfilled file or set specific metadata
       if (null != pubItem.getFiles()) {
         for (int i = (pubItem.getFiles().size() - 1); 0 <= i; i--) {
           // Cleanup MD
-          pubItem.getFiles().get(i).getMetadata().cleanup();
-          if ((null == pubItem.getFiles().get(i).getName() || pubItem.getFiles().get(i).getName().isEmpty())
-              && (null == pubItem.getFiles().get(i).getContent() || pubItem.getFiles().get(i).getContent().isEmpty())) {
+          FileDbVO fileDbVO = pubItem.getFiles().get(i);
+          fileDbVO.getMetadata().cleanup();
+          if ((null == fileDbVO.getName() || fileDbVO.getName().isEmpty())
+              && (null == fileDbVO.getContent() || fileDbVO.getContent().isEmpty())) {
             pubItem.getFiles().remove(i);
+          } else {
+            switch (fileDbVO.getVisibility()) {
+              case PUBLIC -> {
+                fileDbVO.getMetadata().setEmbargoUntil(null);
+                fileDbVO.setAllowedAudienceIds(new ArrayList<>());
+              }
+              case AUDIENCE -> fileDbVO.getMetadata().setOaStatus(null);
+              case PRIVATE -> {
+                fileDbVO.getMetadata().setOaStatus(null);
+                fileDbVO.setAllowedAudienceIds(new ArrayList<>());
+              }
+            }
           }
         }
       }
