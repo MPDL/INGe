@@ -164,11 +164,24 @@
 							</execution>
 						</executions>
 						<dependencies>
+                            <!-- Use newer jsch library to comply with modern encryption standards -->
                             <dependency>
                                 <groupId>com.github.mwiede</groupId>
                                 <artifactId>jsch</artifactId>
                                 <version>2.27.5</version>
                             </dependency>
+							<dependency>
+								<groupId>org.apache.ant</groupId>
+								<artifactId>ant-jsch</artifactId>
+								<version>1.10.15</version>
+                                <exclusions>
+                                    <exclusion>
+                                        <groupId>com.jcraft</groupId>
+                                        <artifactId>jsch</artifactId>
+                                    </exclusion>
+                                </exclusions>
+                            </dependency>
+
 						</dependencies>
 					</plugin>
 				</plugins>
