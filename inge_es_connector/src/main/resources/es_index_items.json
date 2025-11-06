@@ -1,7 +1,7 @@
 {
   "settings": {
     "number_of_shards": 1,
-    "max_result_window": "1000000",
+    "max_result_window": "100000",
     "analysis": {
       "normalizer": {
         "sort": {
@@ -689,19 +689,38 @@
             "type": "nested",
             "include_in_parent": true,
             "properties": {
+              "anyOrganizationName": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "normalizer": "sort"
+                  },
+                  "keyword_default": {
+                    "type": "keyword",
+                    "eager_global_ordinals": true
+                  }
+                }
+              },
+              "anyOrganizationIdentifier": {
+                "type": "keyword",
+                "eager_global_ordinals": true
+              },
               "organization": {
                 "properties": {
                   "address": {
                     "type": "text"
                   },
                   "identifier": {
-                    "type": "keyword"
+                    "type": "keyword",
+                    "copy_to": "metadata.creators.anyOrganizationIdentifier"
                   },
                   "identifierPath": {
                     "type": "keyword"
                   },
                   "name": {
                     "type": "text",
+                    "copy_to": "metadata.creators.anyOrganizationName",
                     "fields": {
                       "keyword": {
                         "type": "keyword",
@@ -820,13 +839,15 @@
                       },
                       "identifier": {
                         "type": "keyword",
-                        "eager_global_ordinals": true
+                        "eager_global_ordinals": true,
+                        "copy_to": "metadata.creators.anyOrganizationIdentifier"
                       },
                       "identifierPath": {
                         "type": "keyword"
                       },
                       "name": {
                         "type": "text",
+                        "copy_to": "metadata.creators.anyOrganizationName",
                         "fields": {
                           "keyword": {
                             "type": "keyword",
