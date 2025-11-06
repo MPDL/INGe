@@ -1,7 +1,7 @@
 {
   "settings": {
     "number_of_shards": 1,
-    "max_result_window": "100000",
+    "max_result_window": "1000000",
     "analysis": {
       "normalizer": {
         "sort": {
