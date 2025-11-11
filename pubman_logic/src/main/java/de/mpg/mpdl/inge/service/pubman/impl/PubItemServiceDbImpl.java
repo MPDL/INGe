@@ -659,6 +659,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ItemVersionVO rollbackVersion = this.get(itemId, authenticationToken);
 
+    //detach, as the logic will be handled in the update-method
+    this.entityManager.detach(rollbackVersion);
+    this.entityManager.detach(latestVersion);
+
     // Now copy the old stuff into the current item
     latestVersion.setMetadata(rollbackVersion.getMetadata());
 
