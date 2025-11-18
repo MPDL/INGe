@@ -6,6 +6,7 @@ import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -37,6 +38,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -59,14 +62,19 @@ public class UtilServiceBean {
   public static <T> ResponseEntity<String> searchDetailed(GenericService<T, ?> service, JsonNode searchSource, String scrollTimeValue,
       String token, HttpServletResponse httpResp)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
-    String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
+
     long scrollTime = -1;
 
     if (null != scrollTimeValue) {
       scrollTime = Long.parseLong(scrollTimeValue);
     }
 
+
+    //Only allow query, sort, from, size, aggs
+    ObjectNode searchSourceClean = cleanSearchSource(searchSource, Set.of("query", "sort", "from", "size", "aggs"));
+    String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSourceClean);
     SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
+
     ResponseBody resp = service.searchDetailed(srequ, scrollTime, token);
     httpResp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
 
@@ -215,5 +223,26 @@ public class UtilServiceBean {
       }
     }
   }
+
+  /**
+   * Returns a new JsonNode containing only the allowed top-level fields from the given search
+   * source.
+   */
+  private static ObjectNode cleanSearchSource(JsonNode searchSource, Set<String> allowedFields) {
+    ObjectNode result = MapperFactory.getObjectMapper().createObjectNode();
+
+    if (searchSource == null || !searchSource.isObject()) {
+      return result;
+    }
+
+    searchSource.fieldNames().forEachRemaining(fieldName -> {
+      if (allowedFields.contains(fieldName)) {
+        result.set(fieldName, searchSource.get(fieldName));
+      }
+    });
+
+    return result;
+  }
+
 }
 
