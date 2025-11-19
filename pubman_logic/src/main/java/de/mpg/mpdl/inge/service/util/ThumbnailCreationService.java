@@ -7,7 +7,10 @@ import de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -35,7 +38,8 @@ public class ThumbnailCreationService {
       logger.info("Create thumbnail for " + fileVO.getObjectId());
       Path tmpFile = null;
       try (InputStream is = fsi.readFile(fileVO.getLocalFileIdentifier())) {
-        PDDocument pdfDoc = PDDocument.load(is, MemoryUsageSetting.setupTempFileOnly());
+        PDDocument pdfDoc = Loader.loadPDF(new RandomAccessReadBuffer(is), IOUtils.createTempFileOnlyStreamCache());
+        //PDDocument pdfDoc = PDDocument.load(is, MemoryUsageSetting.setupTempFileOnly());
         PDFRenderer pdfRenderer = new PDFRenderer(pdfDoc);
         // note that the page number parameter is zero based
         BufferedImage bim = pdfRenderer.renderImageWithDPI(0, 72, ImageType.RGB);
@@ -80,7 +84,8 @@ public class ThumbnailCreationService {
   public static void main(String[] args) throws Exception {
     Path f = Path.of("/Users/name/Downloads/test-data/SamplePDF.pdf");
     try (InputStream is = Files.newInputStream(f)) {
-      PDDocument pdfDoc = PDDocument.load(is, MemoryUsageSetting.setupTempFileOnly());
+      PDDocument pdfDoc = Loader.loadPDF(new RandomAccessReadBuffer(is), IOUtils.createTempFileOnlyStreamCache());
+      //PDDocument pdfDoc = PDDocument.load(is, MemoryUsageSetting.setupTempFileOnly());
       PDFRenderer pdfRenderer = new PDFRenderer(pdfDoc);
       // note that the page number parameter is zero based
       BufferedImage bim = pdfRenderer.renderImageWithDPI(0, 72, ImageType.RGB);
