@@ -78,17 +78,17 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    logger.info("in addlocalTags for itemVersionVO " + itemVersionVO + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
+    logger.info("in addlocalTags for itemVersionVO " + itemVersionVO.getObjectId() + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
 
     List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
     currentLocalTags.addAll(this.localTags);
 
-    logger.info("vor doUpdateLocalTags for itemVersionVO " + itemVersionVO + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
+    logger.info("vor doUpdateLocalTags for itemVersionVO " + itemVersionVO.getObjectId() + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
 
     this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObject().getObjectId(), currentLocalTags,
         batchProcessLogDetailDbVO);
 
-    logger.info("nach doUpdateLocalTags for itemVersionVO " + itemVersionVO + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
+    logger.info("nach doUpdateLocalTags for itemVersionVO " + itemVersionVO.getObjectId() + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
 
     return false;
   }
