@@ -102,7 +102,13 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
             if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
               switch (method) {
                 case ADD_LOCALTAGS:
+
+                  logger.info("do addlocalTags for item " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
+
                   error = error || batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+
+                  logger.info("done addlocalTags for item " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
+
                   break;
                 case ADD_KEYWORDS, REPLACE_KEYWORDS:
                   error = error || batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
@@ -146,6 +152,13 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                 case REPLACE_ORCID:
                   error = error || batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
+                default:
+
+                  logger.info("Invalid method " + method + " for item " + itemId);
+
+                  error = true;
+                  break;
+
               }
             } else {
               this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
