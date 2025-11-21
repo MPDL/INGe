@@ -23,16 +23,12 @@ import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessCommonService;
 import de.mpg.mpdl.inge.service.pubman.batchprocess.BatchProcessOperations;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
 @Primary
 public class BatchProcessOperationsImpl implements BatchProcessOperations {
-
-  private static final Logger logger = LogManager.getLogger(BatchProcessOperationsImpl.class);
 
   private final BatchProcessCommonService batchProcessCommonService;
 
@@ -77,18 +73,10 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   public boolean addLocalTags(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-
-    logger.info("in addlocalTags for itemVersionVO " + itemVersionVO.getObjectId() + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
-
     List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
     currentLocalTags.addAll(this.localTags);
-
-    logger.info("vor doUpdateLocalTags for itemVersionVO " + itemVersionVO.getObjectId() + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
-
     this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObject().getObjectId(), currentLocalTags,
         batchProcessLogDetailDbVO);
-
-    logger.info("nach doUpdateLocalTags for itemVersionVO " + itemVersionVO.getObjectId() + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
 
     return false;
   }

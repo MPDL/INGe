@@ -18,8 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Primary
 public class BatchProcessCommonServiceImpl implements BatchProcessCommonService {
-
-  private static final Logger logger = LogManager.getLogger(BatchProcessCommonServiceImpl.class);
 
   private final BatchProcessLogDetailRepository batchProcessLogDetailRepository;
 
@@ -121,19 +117,9 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     String message = createMessage(method);
-
-    logger.info("in doUpdateLocalTags for itemId " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
-
     this.pubItemService.updateLocalTags(itemId, localTags, token, "Batch " + message);
-
-    logger.info("nach doUpdateLocalTags for itemId " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
-
-    logger.info("vor updateBatchProcessLogDetail for itemId " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
-
     updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.SUCCESS,
         BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
-
-    logger.info("nach updateBatchProcessLogDetail for itemId " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
   }
 
   @Override
@@ -163,16 +149,12 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
   @Override
   public void updateBatchProcessLogDetail(BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State state,
       BatchProcessLogDetailDbVO.Message message) {
-
-    logger.info("Setze status auf " + state);
     batchProcessLogDetailDbVO.setState(state);
     if (null != message) {
       batchProcessLogDetailDbVO.setMessage(message);
     }
     batchProcessLogDetailDbVO.setEndDate(new Date());
-    logger.info("status " + batchProcessLogDetailDbVO.getState());
-    batchProcessLogDetailDbVO = this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
-    logger.info("status " + batchProcessLogDetailDbVO.getState());
+    this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
   }
 
   @Override

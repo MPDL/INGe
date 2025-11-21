@@ -70,33 +70,18 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
     boolean error = false;
     for (String itemId : itemIds) {
-
-      logger.info("Start ASYNC for item " + itemId);
-
       BatchProcessLogDetailDbVO batchProcessLogDetailDbVO =
           this.batchProcessLogDetailRepository.findByBatchProcessLogHeaderDbVOAndItemObjectId(batchProcessLogHeaderDbVO, itemId);
 
       if (BatchProcessLogDetailDbVO.State.INITIALIZED.equals(batchProcessLogDetailDbVO.getState())) {
-
-        logger.info("Start setting to RUNNING for item " + itemId);
-
         this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.RUNNING,
             null);
-
-        logger.info("Finished setting to RUNNING for item " + itemId);
-
         try {
           ItemVersionVO itemVersionVO = this.pubItemService.get(itemId, token);
-
-          logger.info("Get itemVersionVO for item " + itemId);
-
           if (null == itemVersionVO) {
             this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
                 BatchProcessLogDetailDbVO.Message.BATCH_ITEM_NOT_FOUND);
             error = true;
-
-            logger.info("Not found for item " + itemId);
-
           } else if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
             ContextDbVO contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
             if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
@@ -104,14 +89,8 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
               switch (method) {
                 case ADD_LOCALTAGS:
-
-                  logger.info("do addlocalTags for item " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
-
                   errorBatch = batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   error = error || errorBatch;
-
-                  logger.info("done addlocalTags for item " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
-
                   break;
                 case ADD_KEYWORDS, REPLACE_KEYWORDS:
                   errorBatch = batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
@@ -169,13 +148,6 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
                   errorBatch = batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   error = error || errorBatch;
                   break;
-                default:
-
-                  logger.info("Invalid method " + method + " for item " + itemId);
-
-                  error = true;
-                  break;
-
               }
             } else {
               this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
@@ -263,14 +235,6 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
 
           this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
               message);
-          error = true;
-
-        }  catch (Exception e) {
-
-          logger.info("Exception for item " + itemId + ": " + e.getMessage(), e);
-
-          this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-              BatchProcessLogDetailDbVO.Message.BATCH_INTERNAL_ERROR);
           error = true;
         }
       }
