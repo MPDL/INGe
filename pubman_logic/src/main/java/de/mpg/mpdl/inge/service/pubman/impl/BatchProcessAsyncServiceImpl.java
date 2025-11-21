@@ -88,49 +88,49 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
             if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
               switch (method) {
                 case ADD_LOCALTAGS:
-                  error = batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case ADD_KEYWORDS, REPLACE_KEYWORDS:
-                  error = batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case ADD_SOURCE_IDENTIFIER:
-                  error = batchOperations.addSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.addSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_CONTEXT:
-                  error = batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO, accountUserDbVO);
+                  error = error || batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO, accountUserDbVO);
                   break;
                 case CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, CHANGE_FILE_CONTENT_CATEGORY:
-                  error = batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_FILE_VISIBILITY:
-                  error = batchOperations.changeFileVisibility(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeFileVisibility(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_GENRE:
-                  error = batchOperations.changeGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_KEYWORDS:
-                  error = batchOperations.changeKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_LOCALTAG:
-                  error = batchOperations.changeLocalTag(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeLocalTag(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_REVIEW_METHOD:
-                  error = batchOperations.changeReviewMethod(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeReviewMethod(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_SOURCE_GENRE:
-                  error = batchOperations.changeSourceGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeSourceGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case CHANGE_SOURCE_IDENTIFIER:
-                  error = batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case REPLACE_SOURCE_EDITION:
-                  error = batchOperations.replaceSourceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.replaceSourceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case REPLACE_FILE_AUDIENCE:
-                  error = batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
                 case REPLACE_ORCID:
-                  error = batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
                   break;
               }
             } else {
