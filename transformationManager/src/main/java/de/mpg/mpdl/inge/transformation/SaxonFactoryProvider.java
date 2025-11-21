@@ -23,8 +23,8 @@ public final class SaxonFactoryProvider {
   private static volatile TransformerFactory CACHED_TF;
 
   /**
-   * Returns a Saxon-backed TransformerFactory with all extension functions registered.
-   * Uses a lazily-initialized, thread-safe singleton to avoid repeated bootstrapping.
+   * Returns a Saxon-backed TransformerFactory with all extension functions registered. Uses a
+   * lazily-initialized, thread-safe singleton to avoid repeated bootstrapping.
    */
   public static TransformerFactory createWithExtensions() {
     TransformerFactory tf = CACHED_TF;
