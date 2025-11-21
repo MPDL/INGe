@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +37,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
+
 
 /**
  * Main class for author string decoding.
@@ -233,7 +234,7 @@ public class AuthorDecoder {
     DocumentBuilder documentBuilder;
 
     try {
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+      documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

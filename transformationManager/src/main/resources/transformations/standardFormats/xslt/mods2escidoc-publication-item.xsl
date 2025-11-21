@@ -12,7 +12,7 @@
 	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
 	xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-	xmlns:util="java:de.mpg.mpdl.inge.transformation.Util"
+ xmlns:util="https://pubman.mpdl.mpg.de/util-functions"
 	xmlns:escidoc="urn:escidoc:functions"
 	xmlns:ei="http://www.escidoc.de/schemas/item/0.8"
 	xmlns:eil="${xsd.soap.item.itemlist}"

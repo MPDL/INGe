@@ -59,8 +59,16 @@ import com.topologi.schematron.SchtrnValidator;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
+import de.mpg.mpdl.inge.citationmanager.xslt.functions.ConvertSnippetToHtmlFunction;
+import de.mpg.mpdl.inge.citationmanager.xslt.functions.EscapeMarkupTagsFunction;
+import de.mpg.mpdl.inge.citationmanager.xslt.functions.GetCitationStyleForJournalFunction;
+import de.mpg.mpdl.inge.citationmanager.xslt.functions.IsCjkFunction;
 import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+
+import net.sf.saxon.Configuration;
+import net.sf.saxon.TransformerFactoryImpl;
+import net.sf.saxon.s9api.Processor;
 
 /**
  *
@@ -83,7 +91,7 @@ public class XmlHelper {
   public static final String CSL = "CSL";
   public static final String PDF = "pdf";
 
-  private static final TransformerFactory TF = new net.sf.saxon.TransformerFactoryImpl();
+  private static final TransformerFactory TF = createSaxonFactoryWithExtensions();
 
   public static final HashMap<String, Templates> templCache = new HashMap<>(20);
 
@@ -450,6 +458,23 @@ public class XmlHelper {
       throw new RuntimeException("Cannot evaluate XPath:", e);
     }
   }
+
+  // Build a Saxon TransformerFactory and register integrated extension functions
+  private static TransformerFactory createSaxonFactoryWithExtensions() {
+    // Build a Processor (HE) and register s9api extension functions, but return a JAXP factory
+    Processor proc = new Processor(false);
+
+    // Register integrated extension functions under https://pubman.mpdl.mpg.de/xslt-helper-functions
+    proc.registerExtensionFunction(new IsCjkFunction());
+    proc.registerExtensionFunction(new EscapeMarkupTagsFunction());
+    proc.registerExtensionFunction(new GetCitationStyleForJournalFunction());
+    proc.registerExtensionFunction(new ConvertSnippetToHtmlFunction());
+    // Add more here as you migrate other java: functions (e.g., texString)
+
+    Configuration config = proc.getUnderlyingConfiguration();
+    TransformerFactory tf = new TransformerFactoryImpl(config);
+    return tf;
+  }
 }
 
 
@@ -467,3 +492,5 @@ class ExportFormatNodeFilter implements NodeFilter {
     return FILTER_SKIP;
   }
 }
+
+

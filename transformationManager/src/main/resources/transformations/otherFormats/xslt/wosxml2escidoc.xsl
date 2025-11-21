@@ -20,7 +20,7 @@
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:eprints="http://purl.org/eprint/terms/"
 	xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
-	xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+ xmlns:AuthorDecoder="https://pubman.mpdl.mpg.de/author-decoder-functions"
 	xmlns:ei="${xsd.soap.item.item}"
 	xmlns:mdr="${xsd.soap.common.mdrecords}"
 	xmlns:ec="${xsd.soap.item.components}"
@@ -28,7 +28,7 @@
 	xmlns:itemlist="${xsd.soap.item.itemlist}"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:escidocFunction="urn:escidoc:functions"
-	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"  >
+	xmlns:Util="https://pubman.mpdl.mpg.de/util-functions"  >
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="user" select="'dummy-user'"/>

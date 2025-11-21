@@ -30,7 +30,7 @@
 	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
 	xmlns:cit="http://www.escidoc.de/citationstyle"  
 
-	xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper"
+ xmlns:jfunc="https://pubman.mpdl.mpg.de/xslt-helper-functions"
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"	
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -59,7 +59,7 @@
 			<xsl:namespace name="xlink">http://www.w3.org/1999/xlink</xsl:namespace>
 			<xsl:namespace name="cit">http://www.escidoc.de/citationstyle</xsl:namespace>
 			<xsl:namespace name="fn">http://www.w3.org/2005/xpath-functions</xsl:namespace>
-			<xsl:namespace name="jfunc">java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper</xsl:namespace>
+   <xsl:namespace name="jfunc">https://pubman.mpdl.mpg.de/xslt-helper-functions</xsl:namespace>
 			<xsl:namespace name="func">http://www.escidoc.de/citationstyle/functions</xsl:namespace>
 			<xsl:namespace name="functx">http://www.functx.com</xsl:namespace>
 			

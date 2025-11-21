@@ -38,7 +38,7 @@ public class ItemVoToCoins extends SingleTransformer implements ChainableTransfo
 
   @Override
   public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
-    TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    TransformerFactory xslTransformerFactory = de.mpg.mpdl.inge.transformation.SaxonFactoryProvider.createWithExtensions();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");
     t.setOutputProperty(OutputKeys.METHOD, "xml");

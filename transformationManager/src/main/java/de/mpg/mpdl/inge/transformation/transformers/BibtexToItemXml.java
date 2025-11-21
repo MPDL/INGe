@@ -73,7 +73,8 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
   }
 
   public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
-    TransformerFactoryImpl xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    javax.xml.transform.TransformerFactory xslTransformerFactory =
+        de.mpg.mpdl.inge.transformation.SaxonFactoryProvider.createWithExtensions();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");
     t.setOutputProperty(OutputKeys.METHOD, "xml");

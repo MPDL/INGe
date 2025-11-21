@@ -93,7 +93,7 @@ public class ItemVO extends ValueObject implements Searchable {
    * deleted when they are note provided on updates. TODO MuJ or BrP: model and implement correctly,
    * transforming too. Remove quickfix-VO ("ItemRelationVO").
    */
-  private final List<ItemRelationVO> relations = new java.util.ArrayList<>();
+  private List<ItemRelationVO> relations = new java.util.ArrayList<>();
 
   /**
    * Public constructor.

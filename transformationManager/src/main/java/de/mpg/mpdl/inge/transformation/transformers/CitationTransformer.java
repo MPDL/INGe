@@ -15,10 +15,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.mpdl.inge.transformation.ChainableTransformer;
-import de.mpg.mpdl.inge.transformation.SingleTransformer;
+import de.mpg.mpdl.inge.transformation.*;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
@@ -45,6 +43,7 @@ import org.docx4j.wml.PPrBase;
 import org.jsoup.nodes.Document;
 
 import javax.xml.transform.*;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -187,7 +186,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   private static void generateHtmlOutput(String escidocSnippet, TransformerFactory.FORMAT fileFormat, String outputMethod, boolean indent,
       OutputStream os) throws Exception {
 
-    javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
+    javax.xml.transform.TransformerFactory factory = SaxonFactoryProvider.createWithExtensions();
     javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader()
         .getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_SNIPPET_TO_HTML_STYLESHEET_FILENAME))));
 
@@ -218,7 +217,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
 
     //StringWriter escidocSnippetWriter = new StringWriter();
-    javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
+    javax.xml.transform.TransformerFactory factory = SaxonFactoryProvider.createWithExtensions();
     javax.xml.transform.Transformer transformer =
         factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader().getResourceAsStream(
             PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_ITEMLIST_TO_SNIPPET_STYLESHEET_FILENAME))));
@@ -229,7 +228,8 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   }
 
   public void xmlSourceToXmlResult(Source s, Result r) throws TransformerException {
-    TransformerFactoryImpl xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    javax.xml.transform.TransformerFactory xslTransformerFactory =
+        de.mpg.mpdl.inge.transformation.SaxonFactoryProvider.createWithExtensions();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");
     t.setOutputProperty(OutputKeys.METHOD, "xml");

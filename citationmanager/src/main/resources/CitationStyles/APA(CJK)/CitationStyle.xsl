@@ -3,7 +3,7 @@
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:cit="http://www.escidoc.de/citationstyle"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper"
+                xmlns:jfunc="https://pubman.mpdl.mpg.de/xslt-helper-functions"
                 xmlns:func="http://www.escidoc.de/citationstyle/functions"
                 xmlns:functx="http://www.functx.com"
                 xmlns:ei="http://www.escidoc.de/schemas/item/0.10"
@@ -3249,7 +3249,7 @@
 	<xsl:template match="escidocComponents:content[@storage='internal-managed']">
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
-                  <xsl:attribute name="xlink:href" select="replace(replace($itemComponentLink, '\$1', ../../../ei:properties/prop:version/@objid), '\$2', ../@objid)"/>
+                  <xsl:attribute name="xlink:href" select="replace(replace($itemComponentLink, '\$1', string(../../../ei:properties/prop:version/@objid)), '\$2', string(../@objid))"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">

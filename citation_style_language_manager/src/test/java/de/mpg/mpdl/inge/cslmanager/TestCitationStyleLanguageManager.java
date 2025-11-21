@@ -93,7 +93,7 @@ public class TestCitationStyleLanguageManager {
   public void testDefaultImplementation() throws Exception {
     String citationSnippet = CitationStyleLanguageManagerService.getOutput(this.citationXml, this.escidocItemXml).get(0);
     assertEquals(
-        "Walter, Matthias, Markus Haarländer, Franky S., - Testmann, G. Hoyden-Siedersleben, and J. C. Alonso. 2015. “CSL Test - Vortrag - Do Not Change!” Edited by Frank Demmig, Hideki ABE, Udo Stenzel, Shan Lu, Daniela Alic, Jana Wäldchen, and Collections, Max Planck Digital Library, Max Planck Gesellschaft. Translated by Martin Boosen. Directed by Michael Franke. <i>International Zoo Yearbook</i>. Habilitation Thesis presented at the EventTitel, EventOrt.",
+        "Walter, Matthias, Markus Haarl&auml;nder, Franky S., - Testmann, G. Hoyden-Siedersleben, and J. C. Alonso. 2015. &ldquo;CSL Test - Vortrag - Do Not Change!&rdquo; Edited by Frank Demmig, Hideki ABE, Udo Stenzel, Shan Lu, Daniela Alic, Jana W&auml;ldchen, and Collections, Max Planck Digital Library, Max Planck Gesellschaft. Translated by Martin Boosen. Directed by Michael Franke. <span style=\"font-style: italic\">International Zoo Yearbook</span>. Habilitation Thesis presented at the EventTitel, EventOrt.",
         citationSnippet);
   }
 }

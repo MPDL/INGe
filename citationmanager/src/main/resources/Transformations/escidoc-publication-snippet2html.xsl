@@ -32,7 +32,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"
-	xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper"
+ xmlns:jfunc="https://pubman.mpdl.mpg.de/xslt-helper-functions"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:prop="${xsd.soap.common.prop}"

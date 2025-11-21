@@ -26,7 +26,7 @@
 	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:escidocItem="${xsd.soap.item.item}"
 	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
-	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util">
+ xmlns:Util="https://pubman.mpdl.mpg.de/util-functions">
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xhtml" version="1.0" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/>
 	<xsl:param name="pubmanInstanceUrl"/>

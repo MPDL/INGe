@@ -57,7 +57,7 @@ import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.aa.TanStore;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
+
 
 /**
  * Helper methods for the transformation service.
@@ -120,7 +120,7 @@ public class Util {
     try {
       logger.info("queryCone: " + model + " query: " + query);
 
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+      documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("cone");
@@ -231,7 +231,7 @@ public class Util {
    * @throws Exception
    */
   public static Document queryFramework(String request) throws Exception {
-    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactoryImpl.newInstance();
+    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
     DocumentBuilder documentBuilder;
 
@@ -307,7 +307,7 @@ public class Util {
     try {
       logger.info("queryConeExact: " + model + " name: " + name + " ou: " + ou);
 
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+      documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("cone");
@@ -390,7 +390,7 @@ public class Util {
     try {
       logger.info("queryConeExactWithIdentifier: " + model + " identifier: " + identifier + " ou: " + ou);
 
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+      documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("cone");
@@ -460,7 +460,7 @@ public class Util {
     }
 
     try {
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+      documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("cone");
       document.appendChild(element);
@@ -555,7 +555,7 @@ public class Util {
     logger.info("querySSRNId: " + conePersonUrl);
 
     try {
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+      documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("cone");
@@ -594,7 +594,7 @@ public class Util {
         logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
       }
 
-      documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+      documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("size");
       document.appendChild(element);

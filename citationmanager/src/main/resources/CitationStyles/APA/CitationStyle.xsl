@@ -3,7 +3,7 @@
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:cit="http://www.escidoc.de/citationstyle"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper"
+                xmlns:jfunc="https://pubman.mpdl.mpg.de/xslt-helper-functions"
                 xmlns:func="http://www.escidoc.de/citationstyle/functions"
                 xmlns:functx="http://www.functx.com"
                 xmlns:ei="http://www.escidoc.de/schemas/item/0.10"
@@ -3547,7 +3547,7 @@
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:escapeMarkupTags">
 		      <xsl:param name="str"/>
-		      <xsl:value-of select="jfunc:escapeMarkupTags($str)"/>
+		      <xsl:value-of select="jfunc:escapeMarkupTags(string-join(for $s in $str return string($s), ''))"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:cleanCitation">

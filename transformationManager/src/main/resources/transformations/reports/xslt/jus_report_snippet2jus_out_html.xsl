@@ -29,7 +29,7 @@
 	xmlns:s="http://sorting"
 	xmlns:source="${xsd.metadata.source}"
 	xmlns:srel="${xsd.soap.common.srel}"
-	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+ xmlns:Util="https://pubman.mpdl.mpg.de/util-functions"
 	xmlns:version="${xsd.soap.common.version}"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"

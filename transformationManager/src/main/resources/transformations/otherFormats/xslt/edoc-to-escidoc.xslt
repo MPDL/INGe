@@ -27,7 +27,7 @@
 	xmlns:organization="${xsd.metadata.organization}"
 	xmlns:escidocFunctions="urn:escidoc:functions"
 	xmlns:escidoc="${xsd.metadata.terms}"
-	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+ xmlns:Util="https://pubman.mpdl.mpg.de/util-functions"
 	xmlns:itemlist="${xsd.soap.item.itemlist}"
 	xmlns:search="http://www.loc.gov/zing/srw/"
 	xmlns:search-result="${xsd.soap.searchresult.searchresult}"

@@ -25,7 +25,7 @@
 	Author: Vlad Makarenko (initial creation) $Author$ (last changed)
 	$Revision$ $LastChangedDate$
 -->
-<functions xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common" xmlns:func="http://www.escidoc.de/citationstyle/functions" xmlns:functx="http://www.functx.com" xmlns:jfunc="java:de.mpg.mpdl.inge.citationmanager.utils.XsltHelper" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<functions xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common" xmlns:func="http://www.escidoc.de/citationstyle/functions" xmlns:functx="http://www.functx.com" xmlns:jfunc="https://pubman.mpdl.mpg.de/xslt-helper-functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!-- RUNTIME FUNCTIONS -->
 	<xsl:function name="func:get_year">
 		<xsl:param name="date"></xsl:param>
@@ -77,7 +77,8 @@
 	</xsl:function>
 	<xsl:function name="func:escapeMarkupTags">
 		<xsl:param name="str"></xsl:param>
-		<xsl:value-of select="jfunc:escapeMarkupTags($str)"></xsl:value-of>
+		<!-- Coerce any sequence (including empty or numeric) to a single string before passing to the extension -->
+		<xsl:value-of select="jfunc:escapeMarkupTags(string-join($str, ''))"></xsl:value-of>
 	</xsl:function>
 	<!-- Postprocessing: clean citation -->
 	<xsl:function name="func:cleanCitation">

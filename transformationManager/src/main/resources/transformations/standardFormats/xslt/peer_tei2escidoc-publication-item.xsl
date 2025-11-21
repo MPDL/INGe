@@ -26,7 +26,7 @@
 	xmlns:t="http://www.tei-c.org/ns/1.0"
 	xmlns:ce="http://www.elsevier.com"
 	xmlns:mml="http://www.w3.org/1998/Math/MathML"
-	xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+ xmlns:AuthorDecoder="https://pubman.mpdl.mpg.de/author-decoder-functions"
 	xmlns:itemlist="${xsd.soap.item.itemlist}">
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>

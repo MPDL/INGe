@@ -23,10 +23,10 @@
 	xmlns:srel="${xsd.soap.common.srel}"
 	xmlns:prop="${xsd.core.properties}"
 	xmlns:ec="${xsd.soap.item.components}"
-	xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+	xmlns:AuthorDecoder="https://pubman.mpdl.mpg.de/author-decoder-functions"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:escidocFunction="urn:escidoc:functions"
-	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+	xmlns:Util="https://pubman.mpdl.mpg.de/util-functions"
 	xmlns:itemlist="${xsd.soap.item.itemlist}">
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>

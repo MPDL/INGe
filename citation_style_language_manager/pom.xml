@@ -79,7 +79,7 @@
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
-			<artifactId>saxon-dom</artifactId>
+			<artifactId>Saxon-HE</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

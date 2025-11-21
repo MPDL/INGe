@@ -52,7 +52,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import net.sf.saxon.event.SaxonOutputKeys;
+import net.sf.saxon.lib.SaxonOutputKeys;
 
 /**
  *

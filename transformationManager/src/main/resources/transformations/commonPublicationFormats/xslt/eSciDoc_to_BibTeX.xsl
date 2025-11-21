@@ -8,7 +8,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
-	xmlns:jfunc="java:de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex.BibtexExport"
+ xmlns:jfunc="https://pubman.mpdl.mpg.de/bibtex-functions"
 	xmlns:function="urn:pubman:functions"
 	xmlns:dc="${xsd.metadata.dc}"
 	xmlns:dcterms="${xsd.metadata.dcterms}"
