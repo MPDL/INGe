@@ -156,7 +156,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
       batchProcessLogDetailDbVO.setMessage(message);
     }
     batchProcessLogDetailDbVO.setEndDate(new Date());
-    this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
+    batchProcessLogDetailDbVO = this.batchProcessLogDetailRepository.saveAndFlush(batchProcessLogDetailDbVO);
   }
 
   @Override
