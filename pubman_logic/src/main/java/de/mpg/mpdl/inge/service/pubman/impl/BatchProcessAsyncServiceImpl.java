@@ -100,57 +100,74 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
           } else if (!ItemVersionRO.State.WITHDRAWN.equals(itemVersionVO.getObject().getPublicState())) {
             ContextDbVO contextDbVO = this.contextService.get(itemVersionVO.getObject().getContext().getObjectId(), token);
             if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
+              boolean errorBatch = false;
+
               switch (method) {
                 case ADD_LOCALTAGS:
 
                   logger.info("do addlocalTags for item " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
 
-                  error = error || batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.addLocalTags(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
 
                   logger.info("done addlocalTags for item " + itemId + "Status Detail " + batchProcessLogDetailDbVO.getState().toString());
 
                   break;
                 case ADD_KEYWORDS, REPLACE_KEYWORDS:
-                  error = error || batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.doKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case ADD_SOURCE_IDENTIFIER:
-                  error = error || batchOperations.addSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.addSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_CONTEXT:
-                  error = error || batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO, accountUserDbVO);
+                  errorBatch = batchOperations.changeContext(method, token, batchProcessLogDetailDbVO, itemVersionVO, accountUserDbVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_EXTERNAL_REFERENCE_CONTENT_CATEGORY, CHANGE_FILE_CONTENT_CATEGORY:
-                  error = error || batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeContentCategory(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_FILE_VISIBILITY:
-                  error = error || batchOperations.changeFileVisibility(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeFileVisibility(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_GENRE:
-                  error = error || batchOperations.changeGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_KEYWORDS:
-                  error = error || batchOperations.changeKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeKeywords(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_LOCALTAG:
-                  error = error || batchOperations.changeLocalTag(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeLocalTag(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_REVIEW_METHOD:
-                  error = error || batchOperations.changeReviewMethod(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeReviewMethod(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_SOURCE_GENRE:
-                  error = error || batchOperations.changeSourceGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeSourceGenre(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case CHANGE_SOURCE_IDENTIFIER:
-                  error = error || batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.changeSourceIdentifier(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case REPLACE_SOURCE_EDITION:
-                  error = error || batchOperations.replaceSourceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.replaceSourceEdition(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case REPLACE_FILE_AUDIENCE:
-                  error = error || batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.replaceFileAudience(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 case REPLACE_ORCID:
-                  error = error || batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  errorBatch = batchOperations.replaceOrcid(method, token, batchProcessLogDetailDbVO, itemVersionVO);
+                  error = error || errorBatch;
                   break;
                 default:
 
