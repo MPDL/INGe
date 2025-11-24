@@ -193,7 +193,7 @@ public class TestBase {
     PersonVO person = new PersonVO();
     person.setGivenName("Hans");
     person.setFamilyName("Meier");
-    //person.setCompleteName("Hans Meier");
+    person.setCompleteName("Hans Meier");
     OrganizationVO organizationVO = new OrganizationVO();
     organizationVO.setName("Test Organization");
     organizationVO.setAddress("Max-Planck-Str. 1");
