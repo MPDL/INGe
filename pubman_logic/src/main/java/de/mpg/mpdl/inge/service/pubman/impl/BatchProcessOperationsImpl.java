@@ -73,10 +73,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   public boolean addLocalTags(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-
     List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
     currentLocalTags.addAll(this.localTags);
-    //itemVersionVO.getObject().setLocalTags(currentLocalTags);
     this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObject().getObjectId(), currentLocalTags,
         batchProcessLogDetailDbVO);
 

@@ -118,7 +118,6 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
 
     String message = createMessage(method);
     this.pubItemService.updateLocalTags(itemId, localTags, token, "Batch " + message);
-
     updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.SUCCESS,
         BatchProcessLogDetailDbVO.Message.BATCH_SUCCESS);
   }
@@ -150,7 +149,6 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
   @Override
   public void updateBatchProcessLogDetail(BatchProcessLogDetailDbVO batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State state,
       BatchProcessLogDetailDbVO.Message message) {
-
     batchProcessLogDetailDbVO.setState(state);
     if (null != message) {
       batchProcessLogDetailDbVO.setMessage(message);
