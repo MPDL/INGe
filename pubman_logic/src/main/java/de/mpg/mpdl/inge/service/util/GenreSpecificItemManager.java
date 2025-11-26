@@ -56,7 +56,7 @@ public class GenreSpecificItemManager {
 
     if (null != this.pubItem && null != this.pubItem.getMetadata() && null != this.pubItem.getMetadata().getGenre()) {
       String genre = this.pubItem.getMetadata().getGenre().name();
-      ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
+      ResourceBundle genreBundle = ResourceBundle.getBundle("genreBundles/Genre_" + genre);
       Object javaObject = this.pubItem;
 
       for (Enumeration<?> keys = genreBundle.getKeys(); keys.hasMoreElements();) {
@@ -149,6 +149,6 @@ public class GenreSpecificItemManager {
   }
 
   public ResourceBundle getGenreBundle(String genre) {
-    return ResourceBundle.getBundle("Genre_" + genre);
+    return ResourceBundle.getBundle("genreBundles/Genre_" + genre);
   }
 }
