@@ -59,7 +59,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "file")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "file")
 @Access(AccessType.FIELD)
 //@TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
 //@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)

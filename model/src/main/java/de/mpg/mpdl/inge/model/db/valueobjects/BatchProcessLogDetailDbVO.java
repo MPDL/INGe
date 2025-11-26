@@ -74,7 +74,6 @@ public class BatchProcessLogDetailDbVO implements Serializable {
   private long batchProcessLogDetailId;
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = BatchProcessLogHeaderDbVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "batchProcess")
   @JoinColumn(name = "batch_process_log_header_id")
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO;

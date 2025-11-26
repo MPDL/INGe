@@ -94,7 +94,6 @@ public class ItemVersionVO extends ItemVersionRO {
   @JoinColumn(name = "objectId", referencedColumnName = "objectId")
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   @JsonUnwrapped
   @JsonIgnoreProperties({"objectId"})
   ItemRootVO object = new ItemRootVO();
@@ -107,7 +106,7 @@ public class ItemVersionVO extends ItemVersionRO {
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @OrderColumn(name = "creationDate")
   @JoinTable(name = "item_version_file")
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
   private List<FileDbVO> files = new ArrayList<>();
 
 

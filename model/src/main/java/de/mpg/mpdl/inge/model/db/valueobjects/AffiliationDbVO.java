@@ -82,7 +82,6 @@ public class AffiliationDbVO extends AffiliationDbRO {
   // private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   @JsonSerialize(as=AffiliationDbRO.class)
   private AffiliationDbRO parentAffiliation;
 
@@ -90,7 +89,7 @@ public class AffiliationDbVO extends AffiliationDbRO {
 
   @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @JoinTable(name = "organization_predecessor")
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
   @JsonSerialize(contentAs=AffiliationDbRO.class)
   private java.util.List<AffiliationDbRO> predecessorAffiliations = new ArrayList<>();
 

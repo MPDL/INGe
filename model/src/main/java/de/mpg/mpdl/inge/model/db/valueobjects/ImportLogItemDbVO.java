@@ -25,7 +25,6 @@ public class ImportLogItemDbVO extends ImportLog {
   private Date endDate;
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = ImportLogDbVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "importProcess")
   @JoinColumn(name = "parent")
   @OnDelete(action = OnDeleteAction.CASCADE)
   private ImportLogDbVO parent;

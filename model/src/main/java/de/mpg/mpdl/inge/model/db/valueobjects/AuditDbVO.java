@@ -57,7 +57,6 @@ public class AuditDbVO implements Serializable {
 
   @OnDelete(action = OnDeleteAction.CASCADE)
   @ManyToOne(targetEntity = ItemVersionVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   @JsonSerialize(as=ItemVersionRO.class)
   private ItemVersionVO pubItem;
 

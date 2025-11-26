@@ -112,7 +112,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable {
    * The list of responsible affiliations for this collection.
    */
   @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
   @JsonSerialize(contentAs=AffiliationDbRO.class)
   @JoinTable(name = "context_organization")
   private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<>();
