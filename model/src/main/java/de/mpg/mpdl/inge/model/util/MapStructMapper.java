@@ -21,19 +21,8 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import java.util.ArrayList;
 import java.util.List;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.SubclassExhaustiveStrategy;
-import org.mapstruct.SubclassMapping;
-import org.mapstruct.SubclassMappings;
-import org.mapstruct.ValueMapping;
+
+import org.mapstruct.*;
 import org.mapstruct.control.DeepClone;
 
 @Mapper(subclassExhaustiveStrategy = SubclassExhaustiveStrategy.RUNTIME_EXCEPTION, mappingControl = DeepClone.class,
@@ -74,6 +63,13 @@ public abstract class MapStructMapper {
       @Mapping(source = "latestVersion", target = "object.latestVersion"), //
       @Mapping(source = "latestRelease", target = "object.latestRelease"), //
       @Mapping(source = "localTags", target = "object.localTags"), //
+      @Mapping(source = "version.versionNumber", target = "versionNumber"), //Set version number before objectId to enable version_based ids
+      @Mapping(source = "version.objectId", target = "objectId"), //
+      @Mapping(source = "version.modificationDate", target = "modificationDate"), //
+      @Mapping(source = "version.state", target = "versionState"), //
+      @Mapping(source = "version.pid", target = "versionPid"), //
+      @Mapping(source = "version.modifiedByRO.objectId", target = "modifier.objectId"), //
+      @Mapping(source = "version.modifiedByRO.title", target = "modifier.name"), //
       @Mapping(source = "metadata", target = "metadata"), //
       @Mapping(source = "files", target = "files")})
   public abstract ItemVersionVO toItemVersionVO(PubItemVO pubItemVO);
@@ -81,10 +77,13 @@ public abstract class MapStructMapper {
   @InheritInverseConfiguration
   public abstract PubItemVO toPubItemVO(ItemVersionVO itemVersionVO);
 
+  /*
   @AfterMapping
   protected void fillVersion(ItemVersionVO itemVersionVO, @MappingTarget PubItemVO pubItemVO) {
     pubItemVO.setVersion(toItemRO(itemVersionVO));
   }
+  
+   */
 
   @Mappings({@Mapping(source = "versionNumber", target = "versionNumber"), //Set version number before objectId to enable version_based ids
       @Mapping(source = "objectId", target = "objectId"), //

@@ -326,19 +326,4 @@ public class ItemRO extends ReferenceObject implements Cloneable {
     }
   }
 
-  public void setHref(String href) {
-    if (null == href) {
-      return;
-    }
-    if (href.contains("/")) {
-      href = href.substring(href.lastIndexOf("/") + 1);
-    }
-    this.setObjectId(href);
-  }
-
-  // just a dummy, as href is needed for jibx-input only
-  public String getHref() {
-    return null;
-  }
-
 }

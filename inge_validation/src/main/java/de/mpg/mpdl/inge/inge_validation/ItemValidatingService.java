@@ -146,7 +146,7 @@ public class ItemValidatingService {
 
     FluentValidator validator = FluentValidator.checkAll().failOver() //
         .on(mdsPublicationVO, new MdsPublicationDateFormatValidator()).on(mdsPublicationVO, new MdsPublikationDateRequiredValidator())
-        .on(mdsPublicationVO.getGenre(), new MdsPublicationGenreRequiredValidator());
+        .on(mdsPublicationVO, new MdsPublicationGenreRequiredValidator());
 
     ComplexResult complexResult = validator.doValidate().result(ResultCollectors.toComplex());
     ValidationReportVO validationReportVO = Validation.getValidationReportVO(complexResult);

@@ -312,9 +312,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     assertEquals("ObjectId not transformed correctly", "escidoc:149937", pubItemVO.getVersion().getObjectId());
     assertEquals("ObjectId and Version not transformed correctly", "escidoc:149937_3", pubItemVO.getVersion().getObjectIdAndVersion());
     assertEquals("Content Model not transformed correctly", "escidoc:persistent4", pubItemVO.getContentModel());
-    assertEquals("Context not transformed correctly", "/ir/context/escidoc:147965", pubItemVO.getContext().getObjectId());
+    assertEquals("Context not transformed correctly", "escidoc:147965", pubItemVO.getContext().getObjectId());
     assertEquals("Version number not transformed correctly", 3, pubItemVO.getLatestVersion().getVersionNumber());
-    assertEquals("Owner not transformed correctly", "/aa/user-account/escidoc:146934", pubItemVO.getOwner().getObjectId());
+    assertEquals("Owner not transformed correctly", "escidoc:146934", pubItemVO.getOwner().getObjectId());
     assertEquals("Latest release not transformed correctly", "escidoc:149937", pubItemVO.getLatestRelease().getObjectId());
   }
 

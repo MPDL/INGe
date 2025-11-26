@@ -31,6 +31,7 @@ public class ErrorMessages {
   public static final String DATE_ACCEPTED_NOT_PROVIDED = "DateAcceptedNotProvided";
   public static final String DATE_FORMAT_INCORRECT = "DateFormatIncorrect";
   public static final String DATE_NOT_PROVIDED = "DateNotProvided";
+  public static final String DEGREE_NOT_PROVIDED = "DegreeNotProvided";
   public static final String EMPTY_CHILDS_OF_MPG = "EmptyChildsOfMpg";
   public static final String END_DATE_WITHOUT_START_DATE = "EndDateWithoutStartDate";
   public static final String EVENT_END_DATE_REQUIRED = "EventEndDateRequired";

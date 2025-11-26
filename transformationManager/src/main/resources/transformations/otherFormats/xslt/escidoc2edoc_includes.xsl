@@ -17,7 +17,8 @@
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:person="${xsd.metadata.person}"  >
-	<xsl:param name="itemLink"/>
+	<xsl:param name="itemLink" select="'/item/'"/>
+    <xsl:param name="pubmanUrl" select="'https://pure.mpg.de'"/>
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
 	<!-- see: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_eSciDoc_To_eDoc_Mapping#OU-Mapping_Yearbook_2010 -->
 	<xsl:variable name="escd2edoc_daffs">

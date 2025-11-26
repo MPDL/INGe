@@ -89,7 +89,28 @@ public abstract class ReferenceObject implements Serializable {
    * @param objectId
    */
   public void setObjectId(String objectId) {
-    this.objectId = objectId;
+    if (objectId != null) {
+      this.objectId = objectId;
+    }
+
+  }
+
+  /**
+   * Helper for JiBX input bindings: allows mapping xlink:href attributes without invoking
+   * {@link #setObjectId(String)} with null when the attribute is absent. Default behavior extracts
+   * the last path segment from the href (if present) and delegates to {@link #setObjectId(String)}.
+   *
+   * Subclasses may override if they need specialized behavior (see
+   * {@link de.mpg.mpdl.inge.model.referenceobjects.ItemRO}).
+   */
+  public void setHref(String href) {
+    if (href == null) {
+      return;
+    }
+    if (href.contains("/")) {
+      href = href.substring(href.lastIndexOf('/') + 1);
+    }
+    this.setObjectId(href);
   }
 
   @Override

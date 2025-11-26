@@ -32,7 +32,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "item_object")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item-root")
 //@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class ItemRootVO implements Serializable {
 
@@ -65,7 +65,6 @@ public class ItemRootVO implements Serializable {
 
   // @MapsId("objectId")
   @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
   @JsonSerialize(as = ItemVersionRO.class)
@@ -73,7 +72,6 @@ public class ItemRootVO implements Serializable {
 
   // @MapsId("objectId")
   @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
   @JsonSerialize(as = ItemVersionRO.class)

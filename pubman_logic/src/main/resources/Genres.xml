@@ -155,9 +155,7 @@
 					<field id="source_start-page" repeatable="false" display="true" optional="true" label="source_start-page" class-attribute="metadata.sources.startPage"/>
 					<field id="source_end-page" repeatable="false" display="true" optional="true" label="source_end-page" class-attribute="metadata.sources.endPage"/>
 				</group>
-				<group id="source_sequence_number" repeatable="false" display="true" optional="true" label="g_source_sequence_number" class-attribute="metadata.sources.sequenceNumber">
-					<field id="source_sequence-number" repeatable="false" display="true" optional="true" label="source_sequence_number" class-attribute="metadata.sources.sequenceNumber"/>
-				</group>
+                <field id="source_sequence_number" repeatable="false" display="true" optional="true" label="source_sequence_number" class-attribute="metadata.sources.sequenceNumber"/>
 				<group id="source_identifiers" display="true" optional="true" repeatable="true" label="g_source_identifiers" class-attribute="metadata.sources.identifiers">
 					<field id="source_identifier_type" repeatable="false" display="true" optional="false" label="source_identifier_type" class-attribute="metadata.sources.identifiers.type"/>
 					<field id="source_identifier_value" repeatable="false" display="true" optional="false" label="source_identifier_value" class-attribute="metadata.sources.identifiers.id"/>
@@ -209,7 +207,7 @@
 					<field id="source_start-page" display="false"/>
 					<field id="source_end-page" display="false"/>
 				</group>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 
@@ -259,7 +257,7 @@
 					<field id="publishing-info_edition" display="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 
@@ -277,7 +275,7 @@
 					<field id="publishing-info_edition" display="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 
@@ -295,7 +293,7 @@
 					<field id="source_start-page" display="false"/>
 					<field id="source_end-page" display="false"/>
 				</group>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 				<group id="source_identifiers" display="false"/>
 			</group>
 		</genre>
@@ -311,7 +309,7 @@
 					<field id="source_start-page" display="false"/>
 					<field id="source_end-page" display="false"/>
 				</group>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 				<group id="source_identifiers" display="false"/>
 			</group>
 		</genre>
@@ -338,7 +336,7 @@
 				<field id="event_title" optional="true"/>
 			</group>
 			<group id="sources">
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 
@@ -355,9 +353,6 @@
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_volume_issue_pages">
-					<field id="source_issue" display="false"/>
-				</group>
 			</group>
 		</genre>
 
@@ -374,9 +369,6 @@
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_volume_issue_pages">
-					<field id="source_issue" display="false"/>
-				</group>
 			</group>
 		</genre>
 
@@ -393,9 +385,6 @@
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_volume_issue_pages">
-					<field id="source_issue" display="false"/>
-				</group>
 			</group>
 		</genre>
 
@@ -431,9 +420,6 @@
 					<group id="source_title_alternative" repeatable="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_volume_issue_pages">
-					<field id="source_issue" display="false"/>
-				</group>
 			</group>
 		</genre>
 
@@ -467,6 +453,9 @@
 				<group id="source_publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
+                <group id="source_volume_issue_pages">
+                    <field id="source_issue" display="false"/>
+                </group>
 			</group>
 		</genre>
 
@@ -500,12 +489,8 @@
 			<group id="sources">
 				<group id="source_publishing_info" display="false"/>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_volume_issue_pages">
-					<field id="source_issue" display="false"/>
-					<field id="source_start-page" display="false"/>
-					<field id="source_end-page" display="false"/>
-				</group>
-				<group id="source_sequence_number" display="false"/>
+				<group id="source_volume_issue_pages" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 				<group id="source_identifiers" display="false"/>
 			</group>
 		</genre>
@@ -524,9 +509,7 @@
 				<field id="event_invitation-status" display="false"/>
 			</group>
 			<group id="sources">
-				<group id="source_publishing_info" display="false"/>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_volume_issue_pages" display="false"/>
 			</group>
 		</genre>
 
@@ -544,7 +527,7 @@
 					<field id="source_start-page" display="false"/>
 					<field id="source_end-page" display="false"/>
 				</group>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 				<group id="source_identifiers" display="false"/>
 			</group>
 		</genre>
@@ -573,20 +556,13 @@
 					<field id="publishing-info_edition" display="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 
 		<genre id="JOURNAL" label="ENUM_GENRE_JOURNAL">
 			<field id="genre_group" value="series_or_journal"/>
 			<group id="details">
-				<group id="item_details_dates">
-					<field id="item_date-accepted" display="false"/>
-					<field id="item_date-modified" display="false"/>
-					<field id="item_date-created" display="false"/>
-					<field id="item_date-submitted" display="false"/>
-					<field id="item_published-online" display="false"/>
-				</group>
 				<group id="publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
@@ -649,7 +625,7 @@
 					<field id="source_start-page" display="false"/>
 					<field id="source_end-page" display="false"/>
 				</group>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 				<group id="source_identifiers" display="false"/>
 			</group>
 		</genre>
@@ -673,11 +649,7 @@
 			<group id="sources" optional="false">
 				<group id="source_publishing_info" display="false"/>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_volume_issue_pages">
-					<field id="source_volume" display="false"/>
-					<field id="source_end-page" display="false"/>
-				</group>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 
@@ -694,7 +666,7 @@
 					<field id="publishing-info_edition" display="false"/>
 				</group>
 				<group id="source_total_number_of_pages" display="false"/>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 
@@ -735,16 +707,7 @@
 
 		<genre id="PATENT" label="ENUM_GENRE_PATENT">
 			<field id="genre_group" value="other"/>
-			<group id="content">
-				<group id="item_subject" display="false"/>
-			</group>
 			<group id="details">
-				<group id="item_details_dates">
-					<field id="item_date-issued" display="false"/>
-					<field id="item_date-accepted" display="false"/>
-					<field id="item_date-modified" display="false"/>
-					<field id="item_date-created" display="false"/>
-				</group>
 				<group id="publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
@@ -880,12 +843,6 @@
 		<genre id="SERIES" label="ENUM_GENRE_SERIES">
 			<field id="genre_group" value="series_or_journal"/>
 			<group id="details">
-				<group id="item_details_dates">
-					<field id="item_date-accepted" display="false"/>
-					<field id="item_date-modified" display="false"/>
-					<field id="item_date-created" display="false"/>
-					<field id="item_date-submitted" display="false"/>
-				</group>
 				<group id="publishing_info">
 					<field id="publishing-info_edition" display="false"/>
 				</group>
@@ -947,7 +904,7 @@
 				<group id="source_volume_issue_pages">
 					<field id="source_issue" display="false"/>
 				</group>
-				<group id="source_sequence_number" display="false"/>
+				<field id="source_sequence_number" display="false"/>
 			</group>
 		</genre>
 

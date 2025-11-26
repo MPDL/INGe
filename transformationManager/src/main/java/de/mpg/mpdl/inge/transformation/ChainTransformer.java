@@ -108,4 +108,15 @@ public class ChainTransformer extends SingleTransformer {
     return super.toString() + " via " + chain;
   }
 
+  @Override
+  //Do nothing here, as there's no default config for chain transformers
+  public void initDefaultConfig() {
+
+  }
+
+  @Override
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return Map.of();
+  }
+
 }

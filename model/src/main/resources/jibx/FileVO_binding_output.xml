@@ -36,7 +36,7 @@
 		<!-- Field: PubFileVO.reference [PubItemRO] -->
 		<structure field="reference" type="de.mpg.mpdl.inge.model.referenceobjects.FileRO"
 			usage="optional">
-			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 			<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
 		</structure>
 
@@ -57,7 +57,7 @@
 				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" usage="optional">
 			
 				<!-- Node: component.properties.created-by.@objid -->
-				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
 				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
 			</structure>
 

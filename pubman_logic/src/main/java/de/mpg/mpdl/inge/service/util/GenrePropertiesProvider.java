@@ -24,32 +24,8 @@ public class GenrePropertiesProvider {
 
   public GenrePropertiesProvider() {}
 
-  @PostConstruct
-  public void runOnceAtStartup() {
-    try {
-      logger.info("*** CRON (onceAtStartup): Starting to create Genre Properties.");
-      InputStream file = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_GENRES_CONFIGURATION),
-          GenrePropertiesProvider.class.getClassLoader());
-
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser parser = factory.newSAXParser();
-
-      String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
-      DefaultHandler handler = new GenreHandler(jbossHomeDir + "/modules/pubman/main");
-
-      parser.parse(file, handler);
-
-      // Clear cache of resource bundles in order to load the newly created ones
-      ResourceBundle.clearCache();
-
-      logger.info("*** CRON: Finished creating Genre Properties.");
-    } catch (Exception e) {
-      logger.error("*** CRON: Error creating Genre Properties", e);
-    }
-  }
-
   public static JSONObject getGenreProperties(MdsPublicationVO.Genre genre) {
-    ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre.toString());
+    ResourceBundle genreBundle = ResourceBundle.getBundle("genreBundles/Genre_" + genre.toString());
 
     Map<String, String> map = new LinkedHashMap<>();
     for (Enumeration<?> keys = genreBundle.getKeys(); keys.hasMoreElements();) {

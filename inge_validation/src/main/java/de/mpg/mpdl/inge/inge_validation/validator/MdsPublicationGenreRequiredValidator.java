@@ -12,13 +12,17 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * </iso:rule> </iso:pattern>
  */
 
-public class MdsPublicationGenreRequiredValidator extends ValidatorHandler<MdsPublicationVO.Genre> {
+public class MdsPublicationGenreRequiredValidator extends ValidatorHandler<MdsPublicationVO> {
 
   @Override
-  public boolean validate(ValidatorContext context, MdsPublicationVO.Genre genre) {
+  public boolean validate(ValidatorContext context, MdsPublicationVO mdsPublicationVO) {
 
-    if (null == genre) {
+    if (null == mdsPublicationVO.getGenre()) {
       context.addErrorMsg(ErrorMessages.GENRE_NOT_PROVIDED);
+      return false;
+    } else if (MdsPublicationVO.Genre.THESIS.equals(mdsPublicationVO.getGenre()) //
+        && null == mdsPublicationVO.getDegree()) {
+      context.addErrorMsg(ErrorMessages.DEGREE_NOT_PROVIDED);
       return false;
     }
 

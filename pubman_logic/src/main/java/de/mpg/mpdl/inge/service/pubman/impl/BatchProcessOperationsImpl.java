@@ -73,10 +73,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   public boolean addLocalTags(BatchProcessLogHeaderDbVO.Method method, String token, BatchProcessLogDetailDbVO batchProcessLogDetailDbVO,
       ItemVersionVO itemVersionVO)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-
     List<String> currentLocalTags = itemVersionVO.getObject().getLocalTags();
     currentLocalTags.addAll(this.localTags);
-    //itemVersionVO.getObject().setLocalTags(currentLocalTags);
     this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObject().getObjectId(), currentLocalTags,
         batchProcessLogDetailDbVO);
 
@@ -321,7 +319,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObjectId(), localTagList, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
       return true;
     }
 

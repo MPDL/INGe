@@ -1476,9 +1476,6 @@
               "totalNumberOfPages": {
                 "type": "text"
               },
-              "duration": {
-                "type": "text"
-              },
               "volume": {
                 "type": "text",
                 "fields": {
@@ -1546,6 +1543,9 @@
             "analyzer": "html_standard_analyzer"
           },
           "totalNumberOfPages": {
+            "type": "text"
+          },
+          "duration": {
             "type": "text"
           }
         }

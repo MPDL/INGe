@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UriBuilder;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = TransformerFactory.FORMAT.MARC_XML)
 public class ItemXmlToMarcXml extends XslTransformer {
@@ -26,6 +28,11 @@ public class ItemXmlToMarcXml extends XslTransformer {
 
     map.put("pubmanUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
+    try {
+      map.put("itemComponentLink", UriBuilder.getItemComponentLink().toString());
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
 
     return map;
   }
