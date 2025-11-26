@@ -20,7 +20,7 @@ import org.w3c.dom.Node;
  * java:de.mpg.mpdl.inge.transformation.Util
  */
 public final class UtilGetSizeFunction implements ExtensionFunction {
-  private static final QName NAME = new QName("Util", "java:de.mpg.mpdl.inge.transformation.Util", "getSize");
+  private static final QName NAME = new QName("Util", "https://pubman.mpdl.mpg.de/util-functions", "getSize");
   private final Processor processor;
 
   public UtilGetSizeFunction(Processor processor) {

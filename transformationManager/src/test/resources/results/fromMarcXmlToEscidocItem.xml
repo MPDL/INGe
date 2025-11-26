@@ -43,8 +43,7 @@
                   <eterms:person-title>Prof. Dr.</eterms:person-title>
                   <organization:organization>
                      <dc:title>Computational Biology and Applied Algorithmics, MPI for Informatics, Max Planck Society</dc:title>
-                     <identifier xmlns="http://purl.org/dc/elements/1.1/"
-                                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/">ou_40046</identifier>
+                     <dc:identifier xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/">ou_40046</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="eterms:CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons44105</dc:identifier>
                </person:person>

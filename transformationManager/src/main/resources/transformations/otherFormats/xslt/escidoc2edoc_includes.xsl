@@ -151,7 +151,9 @@
 		</xsl:if>
 	</xsl:template>
 	<!-- Organizational Units, flat structure -->
-	<xsl:variable name="OUs" select="  document(concat ($pubmanUrl, '/oum/organizational-units' ) )  //organizational-unit:organizational-unit  "/>
+    <xsl:variable name="OUsUrl" select="concat($pubmanUrl, '/oum/organizational-units')"/>
+    <xsl:variable name="OUs" select="if (doc-available($OUsUrl)) then document($OUsUrl)//organizational-unit:organizational-unit else ()"/>
+	<!--<xsl:variable name="OUs" select="  document(concat ($pubmanUrl, '/oum/organizational-units' ) )  //organizational-unit:organizational-unit  "/>-->
 	<!-- AFFILIATIONS -->
 	<!--  Generate list of MPG affiliations (internal affiliations):  <affiliation><mpgunit id="mpgunit_id">name of mpgunit</mpgunit><mpgsunit id="mpgsunit_id">name of mpgsunit</mpgunit><mpgssunit id="mpgssunit_id">name of mpgssunit</mpgunit></affiliation>....    1) Only 3 levels will be taken, exclusive top MPG level  2) Only unique affiliations, no duplicates   -->
 	<xsl:function name="func:getMpgAffiliations">
