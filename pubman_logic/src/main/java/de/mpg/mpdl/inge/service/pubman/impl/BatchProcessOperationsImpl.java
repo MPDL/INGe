@@ -319,7 +319,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       this.batchProcessCommonService.doUpdateLocalTags(method, token, itemVersionVO.getObjectId(), localTagList, batchProcessLogDetailDbVO);
     } else {
       this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_NO_CHANGE_VALUE);
+          BatchProcessLogDetailDbVO.Message.BATCH_METADATA_CHANGE_VALUE_NOT_EQUAL);
       return true;
     }
 
