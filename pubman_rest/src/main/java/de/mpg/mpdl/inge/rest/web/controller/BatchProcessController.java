@@ -349,13 +349,13 @@ public class BatchProcessController {
   @RequestMapping(value = "/getAllBatchProcessLogHeaders", method = RequestMethod.GET)
   public ResponseEntity<List<BatchProcessLogHeaderDbVO>> getAllBatchProcessLogHeaders(
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
-      throws AuthenticationException, IngeApplicationException, NotFoundException {
+      throws AuthenticationException, IngeApplicationException {
 
     List<BatchProcessLogHeaderDbVO> batchProcessLogHeaderDbVOs = this.batchProcessService.getAllBatchProcessLogHeaders(token);
 
-    if (null == batchProcessLogHeaderDbVOs || batchProcessLogHeaderDbVOs.isEmpty()) {
-      throw new NotFoundException();
-    }
+    //    if (null == batchProcessLogHeaderDbVOs || batchProcessLogHeaderDbVOs.isEmpty()) {
+    //      throw new NotFoundException();
+    //    }
 
     return new ResponseEntity<>(batchProcessLogHeaderDbVOs, HttpStatus.OK);
   }
