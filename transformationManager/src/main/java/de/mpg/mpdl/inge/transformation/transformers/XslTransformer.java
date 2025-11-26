@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.transformation.transformers;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.OutputKeys;
@@ -31,11 +32,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
   private static final Logger logger = LogManager.getLogger(XslTransformer.class);
 
   public XslTransformer() {
-    try {
-      setConfiguration(getDefaultConfiguration());
-    } catch (TransformationException e) {
-      throw new RuntimeException("Could not initialize transformer", e);
-    }
+
   }
 
   public void transform(Source source, Result result) throws TransformationException {
@@ -128,4 +125,5 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
     t.transform(s, r);
   }
+
 }

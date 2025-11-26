@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -186,6 +187,7 @@ public class TransformerFactoryTest {
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.MARC_XML);
 
+    //t.mergeConfiguration(Map.of("CoNE", "true"));
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
     logger.info("MARC_EXPORT");
@@ -299,6 +301,7 @@ public class TransformerFactoryTest {
     StringWriter wr = new StringWriter();
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    t.mergeConfiguration(Map.of("CoNE", "true"));
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.xml")),
         new TransformerStreamResult(wr));
@@ -344,6 +347,8 @@ public class TransformerFactoryTest {
     StringWriter wr = new StringWriter();
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+
+    t.mergeConfiguration(Map.of("CoNE", "true"));
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc_item.xml")),
         new TransformerStreamResult(wr));
@@ -502,6 +507,7 @@ public class TransformerFactoryTest {
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
+    t.mergeConfiguration(Map.of("CoNE", "true"));
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/ris_item.xml")),
         new TransformerStreamResult(wr));
 
@@ -531,7 +537,7 @@ public class TransformerFactoryTest {
     StringWriter wr = new StringWriter();
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.WOS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
-
+    t.mergeConfiguration(Map.of("CoNE", "true"));
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.xml")),
         new TransformerStreamResult(wr));
 
@@ -567,7 +573,7 @@ public class TransformerFactoryTest {
     StringWriter wr = new StringWriter();
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
-
+    t.mergeConfiguration(Map.of("CoNE", "true"));
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
         new TransformerStreamResult(wr));
 
@@ -627,7 +633,7 @@ public class TransformerFactoryTest {
     StringWriter wr = new StringWriter();
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
-
+    t.mergeConfiguration(Map.of("CoNE", "true"));
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.txt")),
         new TransformerStreamResult(wr));
 

@@ -34,6 +34,11 @@ public abstract class SingleTransformer implements Transformer {
   private Map<String, String> configuration = new HashMap<>();
 
 
+  public SingleTransformer() {
+    this.initDefaultConfig();
+
+  }
+
   public Map<String, String> getConfiguration() {
     logger.debug("Singletransformer");
     if (null != this.configuration && null != this.configuration.entrySet()) {
@@ -234,6 +239,18 @@ public abstract class SingleTransformer implements Transformer {
 
   public String toString() {
     return super.toString() + " (<" + this.sourceFormat + "> to <" + this.targetFormat + ">)";
+  }
+
+  public void initDefaultConfig() {
+    try {
+      setConfiguration(getDefaultConfiguration());
+    } catch (TransformationException e) {
+      throw new RuntimeException("Could not initialize transformer", e);
+    }
+  }
+
+  public Map<String, String> getDefaultConfiguration() throws TransformationException {
+    return new HashMap<>();
   }
 
 }

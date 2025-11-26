@@ -396,12 +396,12 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>6.6.17.Final</version>
+				<version>6.6.37.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-jcache</artifactId>
-				<version>6.6.17.Final</version>
+				<version>6.6.37.Final</version>
 			</dependency>
 
 			<!-- Jdbc -->
@@ -413,7 +413,7 @@
 			<dependency>
 				<groupId>org.ehcache</groupId>
 				<artifactId>ehcache</artifactId>
-				<version>3.10.8</version>
+				<version>3.10.9</version>
 				<classifier>jakarta</classifier>
 			</dependency>
 			<!--Required for ehcache-->
@@ -468,7 +468,7 @@
 			<dependency>
 				<groupId>org.jibx</groupId>
 				<artifactId>jibx-extras</artifactId>
-				<version>1.4.2</version>
+				<version>1.4.5</version>
 				<exclusions>
 					<exclusion>
 						<groupId>xml-apis</groupId>
@@ -935,9 +935,13 @@
 		<inge.cone.cache.use>true</inge.cone.cache.use>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
 		<inge.cone.database.name>cone</inge.cone.database.name>
-		<inge.cone.database.server.name.test>dev.inge.mpdl.mpg.de</inge.cone.database.server.name.test>
 		<inge.cone.database.server.name>localhost</inge.cone.database.server.name>
 		<inge.cone.database.server.port>5432</inge.cone.database.server.port>
+        <inge.cone.database.server.name.test>dev.inge.mpdl.mpg.de</inge.cone.database.server.name.test>
+        <inge.cone.database.server.port.test>5432</inge.cone.database.server.port.test>
+        <inge.cone.database.name.test>cone</inge.cone.database.name.test>
+        <inge.cone.database.user.name.test>postgres</inge.cone.database.user.name.test>
+        <inge.cone.database.user.password.test>change_in_settings</inge.cone.database.user.password.test>
 		<inge.cone.extended.attributes.use>false</inge.cone.extended.attributes.use>
 		<inge.cone.language.default>en</inge.cone.language.default>
 		<inge.cone.results.default>500</inge.cone.results.default>

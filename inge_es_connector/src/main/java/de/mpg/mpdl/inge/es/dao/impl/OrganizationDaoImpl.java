@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -37,11 +38,17 @@ public class OrganizationDaoImpl extends ElasticSearchGenericDAOImpl<Affiliation
     ArrayNode namePath = node.putArray("namePath");
     ArrayNode idPath = node.putArray("idPath");
 
-    AffiliationDbVO parentAff = aff;
+    AffiliationDbRO parentAff = aff;
     while (parentAff != null) {
       namePath.add(parentAff.getName());
       idPath.add(parentAff.getObjectId());
-      parentAff = (AffiliationDbVO) parentAff.getParentAffiliation();
+      if (parentAff instanceof AffiliationDbVO) {
+        parentAff = ((AffiliationDbVO) parentAff).getParentAffiliation();
+      } else {
+        parentAff = null;
+      }
+
+
 
     }
 

@@ -40,7 +40,7 @@
             </creator>
          </creators>
          <identifiers>
-            <identifier type="url">/item/item_1527236</identifier>
+            <identifier type="url">http://localhost:8080/pubman/item/item_1527236</identifier>
             <identifier type="doi">10.1016/j.bandl.2012.08.008</identifier>
          </identifiers>
       </metadata>
