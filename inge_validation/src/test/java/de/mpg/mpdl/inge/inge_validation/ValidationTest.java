@@ -562,7 +562,7 @@ public class ValidationTest {
     logger.info("--------------------- STARTING testGenreRequired1 ---------------------");
 
     final FluentValidator v =
-        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(), new MdsPublicationGenreRequiredValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublicationGenreRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -582,7 +582,7 @@ public class ValidationTest {
     this.mdsPublicationVO.setGenre(Genre.ARTICLE);
 
     final FluentValidator v =
-        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getGenre(), new MdsPublicationGenreRequiredValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata(), new MdsPublicationGenreRequiredValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
