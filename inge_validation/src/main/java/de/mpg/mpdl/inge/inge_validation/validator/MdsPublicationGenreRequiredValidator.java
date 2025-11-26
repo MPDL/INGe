@@ -21,7 +21,7 @@ public class MdsPublicationGenreRequiredValidator extends ValidatorHandler<MdsPu
       context.addErrorMsg(ErrorMessages.GENRE_NOT_PROVIDED);
       return false;
     } else if (MdsPublicationVO.Genre.THESIS.equals(mdsPublicationVO.getGenre()) //
-       && null == mdsPublicationVO.getDegree()) {
+        && null == mdsPublicationVO.getDegree()) {
       context.addErrorMsg(ErrorMessages.DEGREE_NOT_PROVIDED);
       return false;
     }
