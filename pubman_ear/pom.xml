@@ -46,11 +46,6 @@
 							<artifactId>cone_presentation</artifactId>
 							<contextRoot>/cone</contextRoot>
 						</webModule>
-						<webModule>
-							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>pubman_presentation</artifactId>
-							<contextRoot>/pubman</contextRoot>
-						</webModule>
 
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
@@ -200,12 +195,7 @@
 			<artifactId>cone_presentation</artifactId>
 			<type>war</type>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>pubman_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
+	<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_rest</artifactId>
 			<type>war</type>
@@ -242,14 +232,6 @@
 					<artifactId>commons-compress</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.faces</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.enterprise</groupId>
-			<artifactId>jakarta.enterprise.cdi-api</artifactId>
 		</dependency>
 	</dependencies>
 
