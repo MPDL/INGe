@@ -210,7 +210,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertTransformation(wr, "results/fromEscidocItemToOaiDC.xml");
+    assertXmlTransformation(wr, "results/fromEscidocItemToOaiDC.xml");
   }
 
   @Test
