@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
-import de.mpg.mpdl.inge.aa.Aa;
-import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.es.dao.impl.ContextDaoImpl;
 import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
 import de.mpg.mpdl.inge.es.dao.impl.PubItemDaoImpl;
