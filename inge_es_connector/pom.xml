@@ -63,6 +63,7 @@
 					<skip>${maven.test.skip}</skip>
 					<environmentVariables>
 						<ES_TMPDIR>${project.build.testOutputDirectory}</ES_TMPDIR>
+                        <ES_JAVA_OPTS>-Xmx2g -Xms2g</ES_JAVA_OPTS>
 					</environmentVariables>
 					<instanceSettings>
 						<properties>
