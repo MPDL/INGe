@@ -29,8 +29,6 @@ package de.mpg.mpdl.inge.filestorage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Path;
-import java.util.List;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 

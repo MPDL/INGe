@@ -9,8 +9,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
-import java.io.OutputStream;
-import java.net.http.HttpResponse;
 import java.util.List;
 
 public interface SearchAndExportService {

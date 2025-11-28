@@ -1,5 +1,9 @@
 package de.mpg.mpdl.inge.filestorage.filesystem;
 
+import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.filestorage.Range;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,14 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
-import java.util.List;
-
-import de.mpg.mpdl.inge.filestorage.Range;
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
@@ -24,10 +22,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-
-import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * File storage service direct on the file system

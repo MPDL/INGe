@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

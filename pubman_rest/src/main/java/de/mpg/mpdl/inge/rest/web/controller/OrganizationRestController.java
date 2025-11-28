@@ -298,10 +298,20 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(value = OU_ID_PATH + "/ouPath", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
-  public ResponseEntity<String> ouPath(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+  public ResponseEntity<String> namePath(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = OU_ID_VAR) String ouId) throws IngeApplicationException {
 
-    String ouPath = this.organizationSvc.getOuPath(ouId);
+    String ouPath = this.organizationSvc.getNamePath(ouId);
+
+    return new ResponseEntity<>(ouPath, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = OU_ID_PATH + "/parents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+  public ResponseEntity<List<AffiliationDbVO>> ouPath(
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId) throws IngeApplicationException {
+
+    List<AffiliationDbVO> ouPath = this.organizationSvc.getOuPath(ouId);
 
     return new ResponseEntity<>(ouPath, HttpStatus.OK);
   }

@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.transformation.transformers;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.OutputKeys;

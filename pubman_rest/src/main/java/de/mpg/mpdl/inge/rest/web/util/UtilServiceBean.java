@@ -31,7 +31,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
