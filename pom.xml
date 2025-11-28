@@ -39,7 +39,6 @@
 		<module>model</module>
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
-		<module>pubman_presentation</module>
 		<module>pubman_rest</module>
 		<module>reindex_util</module>
 		<module>transformationManager</module>
@@ -481,26 +480,6 @@
 				</exclusions>
 			</dependency>
 
-			<!-- JSF -->
-			<dependency>
-				<groupId>org.glassfish</groupId>
-				<artifactId>jakarta.faces</artifactId>
-				<version>3.0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>jakarta.enterprise</groupId>
-				<artifactId>jakarta.enterprise.cdi-api</artifactId>
-				<version>3.0.1</version>
-			</dependency>
-
-			<!-- PrimeFaces -->
-			<dependency>
-				<groupId>org.primefaces</groupId>
-				<artifactId>primefaces</artifactId>
-				<version>11.0.0</version>
-				<classifier>jakarta</classifier>
-			</dependency>
-
 			<!-- Json -->
 			<dependency>
 				<groupId>com.googlecode.json-simple</groupId>
@@ -654,12 +633,6 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
 				<version>8.5.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>pubman_presentation</artifactId>
-				<version>8.5.4-SNAPSHOT</version>
-				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
@@ -942,7 +915,6 @@
         <inge.cone.database.name.test>cone</inge.cone.database.name.test>
         <inge.cone.database.user.name.test>postgres</inge.cone.database.user.name.test>
         <inge.cone.database.user.password.test>change_in_settings</inge.cone.database.user.password.test>
-		<inge.cone.extended.attributes.use>false</inge.cone.extended.attributes.use>
 		<inge.cone.language.default>en</inge.cone.language.default>
 		<inge.cone.results.default>500</inge.cone.results.default>
 		<inge.cone.results.maximum>20000</inge.cone.results.maximum>
@@ -952,7 +924,6 @@
 		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>
 		<inge.cone.service.url.test>https://dev.inge.mpdl.mpg.de/cone/</inge.cone.service.url.test>
 		<inge.cone.service.url>http://localhost:8080/cone/</inge.cone.service.url>
-		<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
 		<inge.cron.cleanup_staging_files>0 0 */2 * * *</inge.cron.cleanup_staging_files>
 		<inge.cron.cleanup_staging_files.hours>6</inge.cron.cleanup_staging_files.hours>
 		<inge.cron.fix_broken_imports>0 0 */1 * * *</inge.cron.fix_broken_imports>
@@ -962,15 +933,10 @@
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
 		<inge.cron.refresh_cone_cache>3600000</inge.cron.refresh_cone_cache>
 		<inge.crossref.pid>pure-support@listsrv.mpg.de</inge.crossref.pid>
-		<inge.csl.javascript.engine>auto</inge.csl.javascript.engine>
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
 		<inge.doi.service.use>true</inge.doi.service.use>
-		<inge.email.alternative.moderator>pure-support@listsrv.mpg.de</inge.email.alternative.moderator>
-		<inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
-		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
-		<inge.email.withauthentication>false</inge.email.withauthentication>
 		<inge.es.password></inge.es.password>
 		<inge.es.rest.host-port.test>http://localhost:9400</inge.es.rest.host-port.test>
 		<inge.es.rest.host-port>http://localhost:9200</inge.es.rest.host-port>
@@ -981,7 +947,6 @@
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
-		<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BIORXIV,BMC,CHEMRXIV,CONE,DOI,EARTHARXIV,EDARXIV,EDOC,ESS_OPEN_ARCHIVE,ISBN,ISI,ISSN,MEDRXIV,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PSYARXIV,REPORT_NR,RESEARCH_SQUARE,SOCARXIV,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
 		<inge.index.context.name>contexts</inge.index.context.name>
 		<inge.index.context.sort>name.keyword</inge.index.context.sort>
@@ -1001,45 +966,23 @@
 		<inge.openai.prompt>Please create a CSL json of the following authors copied from a research paper. In the result give me only the fields familiy and given:</inge.openai.prompt>
 		<inge.openai.regex>```.*?(\\[.*?\\]).*?```</inge.openai.regex>
 		<inge.openai.temperature>0</inge.openai.temperature>
-		<inge.pid.handle.activated>true</inge.pid.handle.activated>
 		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
 		<inge.pid.handle.url>https://hdl.handle.net/</inge.pid.handle.url>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pid.service.use>true</inge.pid.service.use>
-		<inge.pubman.blog.news />
 		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
-		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
-		<inge.pubman.csl_editor.instance>http://editor.citationstyles.org</inge.pubman.csl_editor.instance>
 		<inge.pubman.external.organization.id>ou_persistent22</inge.pubman.external.organization.id>
-		<inge.pubman.favicon.apply>true</inge.pubman.favicon.apply>
-		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
-		<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
-		<inge.pubman.help.url>https://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Help</inge.pubman.help.url>
-		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
-		<inge.pubman.instance.ssrn_contexts />
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
-		<inge.pubman.logo.css />
-		<inge.pubman.logo.url />
-		<inge.pubman.policy.url />
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
-		<inge.pubman.privacy.url />
-		<inge.pubman.root.authors.icon />
 		<inge.pubman.root.organization.name />
 		<inge.pubman.root.organization.id />
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
 		<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.url>
-		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
 		<inge.rest.api.description><![CDATA[This is an automatically generated REST API documentation for PubMan.<br />Please be aware that example values in particular might not be fully correct.<br />Valid examples can be found in <a href="https://colab.mpdl.mpg.de/mediawiki/INGe_REST_API_Documentation" target="_blank" rel="noreferrer noopener">MPDL CoLab</a>.]]></inge.rest.api.description>
-		<inge.search.and.export.default.query>{"bool":{"must":[{"term":{"publicState":{"value":"RELEASED"}}},{"term":{"versionState":{"value":"RELEASED"}}},{"bool":{"should":[{"match":{"metadata.title":{"operator":"and","query":"Laser"}}},{"match":{"metadata.alternativeTitles.value":{"operator":"and","query":"Laser"}}}]}}]}}</inge.search.and.export.default.query>
-		<inge.search.and.export.default.sort.key>metadata.title.keyword</inge.search.and.export.default.sort.key>
-		<inge.search.and.export.default.sort.order>ascending</inge.search.and.export.default.sort.order>
-		<inge.search.and.export.max.limit>5000</inge.search.and.export.max.limit>
-		<inge.search.and.export.maximum.records>5000</inge.search.and.export.maximum.records>
-		<inge.search.and.export.start.record>0</inge.search.and.export.start.record>
 		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-item.xsl</inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
 		<inge.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</inge.transformation.bibtex.configuration.filename>
@@ -1157,15 +1100,8 @@
 			<properties>
 				<inge.auth.mpg.ip.csv.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.csv.url>
 				<inge.auth.mpg.ip.json.url>https://rena.mpdl.mpg.de/iplists/keeperx_en.json</inge.auth.mpg.ip.json.url>
-				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
-				<inge.csl.javascript.engine>graaljs</inge.csl.javascript.engine>
-				<inge.pubman.blog.news>https://blog.pure.mpg.de/json1</inge.pubman.blog.news>
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
 				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
-				<inge.pubman.logo.url>/resources/images/pure_logo_web.png</inge.pubman.logo.url>
-				<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.url>
-				<inge.pubman.root.authors.icon>MPG_authors</inge.pubman.root.authors.icon>
 				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
 				<inge.pubman.root.organization.name>Max Planck Society</inge.pubman.root.organization.name>
 			</properties>
@@ -1186,12 +1122,10 @@
 				<inge.doi.service.url>https://test.doi.mpdl.mpg.de</inge.doi.service.url>
 				<inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
 				<inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
-				<inge.pubman.csl_editor.instance>https://pure.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.rest.development.enabled>false</inge.rest.development.enabled>
 				<inge.rest.development.file_url />
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
-				<inge.systemtype>dev</inge.systemtype>
 				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.host>vm44.mpdl.mpg.de</jboss.host>

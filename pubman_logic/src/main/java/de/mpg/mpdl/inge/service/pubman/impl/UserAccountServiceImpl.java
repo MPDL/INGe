@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

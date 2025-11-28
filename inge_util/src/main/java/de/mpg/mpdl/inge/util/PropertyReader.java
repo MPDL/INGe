@@ -67,7 +67,6 @@ public class PropertyReader {
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
   public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
   public static final String INGE_AUTH_MPG_JSON_IP_LIST_URL = "inge.auth.mpg.ip.json.url";
-  public static final String INGE_CLUSTER_NODE_NAME = "inge.cluster.node.name";
   public static final String INGE_CONE_CACHE_USE = "inge.cone.cache.use";
   public static final String INGE_CONE_DATABASE_DRIVER_CLASS = "inge.cone.database.driver.class";
   public static final String INGE_CONE_DATABASE_NAME = "inge.cone.database.name";
@@ -75,7 +74,6 @@ public class PropertyReader {
   public static final String INGE_CONE_DATABASE_SERVER_PORT = "inge.cone.database.server.port";
   public static final String INGE_CONE_DATABASE_USER_NAME = "inge.cone.database.user.name";
   public static final String INGE_CONE_DATABASE_USER_PASSWORD = "inge.cone.database.user.password";
-  public static final String INGE_CONE_EXTENDED_ATTRIBUTES_USE = "inge.cone.extended.attributes.use";
   public static final String INGE_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
   public static final String INGE_CONE_MODELSXML_PATH = "inge.cone.modelsxml.path";
   public static final String INGE_CONE_PERSON_ID_IDENTIFIER = "inge.cone.person.id.identifier";
@@ -84,7 +82,6 @@ public class PropertyReader {
   public static final String INGE_CONE_RESULTS_DEFAULT = "inge.cone.results.default";
   public static final String INGE_CONE_RESULTS_MAXIMUM = "inge.cone.results.maximum";
   public static final String INGE_CONE_SERVICE_URL = "inge.cone.service.url";
-  public static final String INGE_CONE_SUBJECTVOCAB = "inge.cone.subjectVocab";
   public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files";
   public static final String INGE_CRON_CLEANUP_STAGING_FILES_HOURS = "inge.cron.cleanup_staging_files.hours";
   public static final String INGE_CRON_FIX_BROKEN_IMPORTS = "inge.cron.fix_broken_imports";
@@ -94,7 +91,6 @@ public class PropertyReader {
   public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap";
   public static final String INGE_CRON_REFRESH_CONE_CACHE = "inge.cron.refresh_cone_cache";
   public static final String INGE_CROSSREF_PID = "inge.crossref.pid";
-  public static final String INGE_CSL_JAVASCRIPT_ENGINE = "inge.csl.javascript.engine";
   public static final String INGE_DATABASE_DRIVER_CLASS = "inge.database.driver.class";
   public static final String INGE_DATABASE_JDBC_URL = "inge.database.jdbc.url";
   public static final String INGE_DATABASE_USER_NAME = "inge.database.user.name";
@@ -104,12 +100,6 @@ public class PropertyReader {
   public static final String INGE_DOI_SERVICE_URL = "inge.doi.service.url";
   public static final String INGE_DOI_SERVICE_USE = "inge.doi.service.use";
   public static final String INGE_DOI_SERVICE_USER = "inge.doi.service.user";
-  public static final String INGE_EMAIL_ALTERNATIVE_MODERATOR = "inge.email.alternative.moderator";
-  public static final String INGE_EMAIL_AUTHENTICATIONPWD = "inge.email.authenticationpwd";
-  public static final String INGE_EMAIL_AUTHENTICATIONUSER = "inge.email.authenticationuser";
-  public static final String INGE_EMAIL_MAILSERVERNAME = "inge.email.mailservername";
-  public static final String INGE_EMAIL_SENDER = "inge.email.sender";
-  public static final String INGE_EMAIL_WITHAUTHENTICATION = "inge.email.withauthentication";
   public static final String INGE_ES_PASSWORD = "inge.es.password";
   public static final String INGE_ES_REST_HOST_PORT = "inge.es.rest.host-port";
   public static final String INGE_ES_REST_PATH_PREFIX = "inge.es.rest.path-prefix";
@@ -118,7 +108,6 @@ public class PropertyReader {
   public static final String INGE_FILESTORAGE_OAI_FILESYSTEM_PATH = "inge.filestorage.oai.filesystem_path";
   public static final String INGE_FILESTORAGE_SEAWEED_DIRECT_SUBMIT_PATH = "inge.filestorage.seaweed_direct_submit_path";
   public static final String INGE_FILESTORAGE_SEAWEED_MASTER_SERVER_IP = "inge.filestorage.seaweed_master_server_ip";
-  public static final String INGE_ID_TYPES_TO_DISPLAY = "inge.id.types.to.display";
   public static final String INGE_IMPORT_SOURCES_XML = "inge.import.sources.xml";
   public static final String INGE_INDEX_CONTEXT_NAME = "inge.index.context.name";
   public static final String INGE_INDEX_CONTEXT_SORT = "inge.index.context.sort";
@@ -140,7 +129,6 @@ public class PropertyReader {
   public static final String INGE_OPENAI_TEMPERATURE = "inge.openai.temperature";
   public static final String INGE_OPENAI_TOKEN = "inge.openai.token";
   public static final String INGE_OPENAI_URL = "inge.openai.url";
-  public static final String INGE_PID_HANDLE_ACTIVATED = "inge.pid.handle.activated";
   public static final String INGE_PID_HANDLE_SHORT = "inge.pid.handle.short";
   public static final String INGE_PID_HANDLE_URL = "inge.pid.handle.url";
   public static final String INGE_PID_SERVICE_CREATE_PATH = "inge.pid.service.create.path";
@@ -149,28 +137,13 @@ public class PropertyReader {
   public static final String INGE_PID_SERVICE_URL = "inge.pid.service.url";
   public static final String INGE_PID_SERVICE_USE = "inge.pid.service.use";
   public static final String INGE_PID_SERVICE_USER = "inge.pid.service.user";
-  public static final String INGE_PUBMAN_BLOG_NEWS = "inge.pubman.blog.news";
   public static final String INGE_PUBMAN_COMPONENT_PATTERN = "inge.pubman.component.pattern";
-  public static final String INGE_PUBMAN_COOKIE_VERSION = "inge.pubman.cookie.version";
-  public static final String INGE_PUBMAN_CSL_EDITOR_INSTANCE = "inge.pubman.csl_editor.instance";
   public static final String INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID = "inge.pubman.external.organization.id";
-  public static final String INGE_PUBMAN_FAVICON_APPLY = "inge.pubman.favicon.apply";
-  public static final String INGE_PUBMAN_FAVICON_URL = "inge.pubman.favicon.url";
-  public static final String INGE_PUBMAN_FOOTER_FILENAME = "inge.pubman.footer.fileName";
   public static final String INGE_PUBMAN_GENRES_CONFIGURATION = "inge.pubman.genres.configuration";
-  public static final String INGE_PUBMAN_HELP_URL = "inge.pubman.help.url";
-  public static final String INGE_PUBMAN_HOME_CONTENT_URL = "inge.pubman.home.content.url";
   public static final String INGE_PUBMAN_INSTANCE_CONTEXT_PATH = "inge.pubman.instance.context.path";
-  public static final String INGE_PUBMAN_INSTANCE_SSRN_CONTEXTS = "inge.pubman.instance.ssrn_contexts";
   public static final String INGE_PUBMAN_INSTANCE_URL = "inge.pubman.instance.url";
   public static final String INGE_PUBMAN_ITEM_PATTERN = "inge.pubman.item.pattern";
-  public static final String INGE_PUBMAN_LOGO_CSS = "inge.pubman.logo.css";
-  public static final String INGE_PUBMAN_LOGO_URL = "inge.pubman.logo.url";
-  public static final String INGE_PUBMAN_POLICY_URL = "inge.pubman.policy.url";
   public static final String INGE_PUBMAN_PRESENTATION_URL = "inge.pubman.presentation.url";
-  public static final String INGE_PUBMAN_PRESENTATION_VIEWFULLITEM_DEFAULTSIZE = "inge.pubman_presentation.viewFullItem.defaultSize";
-  public static final String INGE_PUBMAN_PRIVACY_URL = "inge.pubman.privacy.url";
-  public static final String INGE_PUBMAN_ROOT_AUTHORS_ICON = "inge.pubman.root.authors.icon";
   public static final String INGE_PUBMAN_ROOT_ORGANIZATION_ID = "inge.pubman.root.organization.id";
   public static final String INGE_PUBMAN_ROOT_ORGANIZATION_NAME = "inge.pubman.root.organization.name";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
@@ -183,13 +156,6 @@ public class PropertyReader {
   public static final String INGE_REST_DEVELOPMENT_ENABLED = "inge.rest.development.enabled";
   public static final String INGE_REST_DEVELOPMENT_FILE_URL = "inge.rest.development.file_url";
   public static final String INGE_REST_SERVICE_URL = "inge.rest.service.url";
-  public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY = "inge.search.and.export.default.query";
-  public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY = "inge.search.and.export.default.sort.key";
-  public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER = "inge.search.and.export.default.sort.order";
-  public static final String INGE_SEARCH_AND_EXPORT_MAXIMUM_RECORDS = "inge.search.and.export.maximum.records";
-  public static final String INGE_SEARCH_AND_EXPORT_MAX_LIMIT = "inge.search.and.export.max.limit";
-  public static final String INGE_SEARCH_AND_EXPORT_START_RECORD = "inge.search.and.export.start.record";
-  public static final String INGE_SYSTEMTYPE = "inge.systemtype";
   public static final String INGE_TRANSFORMATION_ARXIV2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME =
       "inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ARXIV2ESCIDOC_PUBLICATION_ITEM_STYLESHEET_FILENAME =

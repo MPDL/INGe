@@ -18,7 +18,6 @@ import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerWrapper;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
-import de.mpg.mpdl.inge.transformation.transformers.CitationTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
