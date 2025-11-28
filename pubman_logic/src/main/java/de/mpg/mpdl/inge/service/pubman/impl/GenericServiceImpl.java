@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.PubManException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -199,12 +200,33 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     if (null != getElasticDao()) {
       ModelObject vo = getDbRepository().findById(id).orElse(null);
       logger.info("Reindexing object " + vo.getObjectId());
+      if (vo instanceof AffiliationDbVO) {
+        AffiliationDbVO aff = (AffiliationDbVO) vo;
+        logger.info("Reindexing affiliation " + aff.getObjectId());
+        logger.info("Reindexing affiliation name " + aff.getName());
+        logger.info(
+            "Reindexing affiliation parent " + (aff.getParentAffiliation() == null ? "null" : aff.getParentAffiliation().getObjectId()));
+        logger.info("Reindexing affiliation predecessors " + aff.getPredecessorAffiliations());
+      }
       if (immediate) {
         getElasticDao().createImmediately(getIdForElasticSearch(id), vo);
       } else {
         getElasticDao().create(getIdForElasticSearch(id), vo);
       }
     }
+  }
+
+  @Transactional(readOnly = true)
+  public AffiliationDbVO testGetOu(Id id) {
+    ModelObject vo = getDbRepository().findById(id).orElse(null);
+    if (vo instanceof AffiliationDbVO) {
+      AffiliationDbVO aff = (AffiliationDbVO) vo;
+      logger.info("Affiliation " + aff.getObjectId());
+      logger.info("Affiliation name " + aff.getName());
+      logger.info("Affiliation parent " + (aff.getParentAffiliation() == null ? "null" : aff.getParentAffiliation().getObjectId()));
+      logger.info("Affiliation predecessors " + aff.getPredecessorAffiliations());
+    }
+    return (AffiliationDbVO) vo;
   }
 
   @Override
@@ -246,7 +268,6 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
             count++;
 
             Id id = results.get();
-
             this.queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
 
             //          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur

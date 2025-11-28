@@ -443,7 +443,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    * Returns the ou path from the given id up to root parent
    */
   @Transactional(readOnly = true)
-  public String getOuPath(String id) throws IngeApplicationException {
+  public String getNamePath(String id) throws IngeApplicationException {
 
     AffiliationDbVO affVo = this.organizationRepository.findById(id).orElse(null);
     if (null == affVo)
@@ -458,6 +458,24 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     }
 
     return ouPath.toString();
+  }
+
+  @Transactional(readOnly = true)
+  public List<AffiliationDbVO> getOuPath(String id) throws IngeApplicationException {
+
+    AffiliationDbVO affVo = this.organizationRepository.findById(id).orElse(null);
+    if (null == affVo)
+      throw new IngeApplicationException("Could not find organization with id " + id);
+
+    List<AffiliationDbVO> ouPath = new ArrayList<>();
+
+    ouPath.add(affVo);
+    while (null != affVo.getParentAffiliation()) {
+      ouPath.add((AffiliationDbVO) affVo.getParentAffiliation());
+      affVo = (AffiliationDbVO) affVo.getParentAffiliation();
+    }
+
+    return ouPath;
   }
 
   /**

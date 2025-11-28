@@ -38,11 +38,15 @@ public interface OrganizationService extends GenericService<AffiliationDbVO, Str
   List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  String getOuPath(String id) throws IngeApplicationException;
+  String getNamePath(String id) throws IngeApplicationException;
+
+  List<AffiliationDbVO> getOuPath(String id) throws IngeApplicationException;
 
   List<String> getIdPath(String id) throws IngeApplicationException;
 
   List<String> getChildIdPath(String id) throws IngeTechnicalException;
+
+  AffiliationDbVO testGetOu(String id) throws IngeTechnicalException;
 
   //  List<String> getAllChildrenOfMpg();
 
