@@ -67,7 +67,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     if ((saerrVO.getSearchRetrieveRequestVO().getLimit() > 250 || saerrVO.getSearchRetrieveRequestVO().getLimit() < 0)) {
       long duration = stop - start;
       exportlogger.info("SearchAndExportServiceImpl.exportItems -- Duration: " + duration);
-      if (duration > 10) {
+      if (duration > 60000) {
         exportlogger.info("SearchAndExportServiceImpl.exportItems -- Query: \n" + toJson(saerrVO.getSearchRetrieveRequestVO().getQueryBuilder()));
       }
 
