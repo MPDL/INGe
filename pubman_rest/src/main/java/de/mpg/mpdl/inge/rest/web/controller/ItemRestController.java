@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tika.exception.TikaException;
@@ -64,6 +65,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class ItemRestController {
 
   private static final Logger logger = Logger.getLogger(ItemRestController.class);
+  private static final Logger exportlogger = Logger.getLogger("export-log");
 
   private final String ITEM_ID_PATH = "/{itemId}";
   private final String ITEM_ID_VAR = "itemId";
@@ -122,7 +124,7 @@ public class ItemRestController {
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, // 
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
       @RequestParam(value = "format", required = false,
           defaultValue = "json") @ApiParam(allowableValues = EXPORT_FORMAT_ALLOWABLE_VALUES) String format, //
       @RequestParam(value = "citation", required = false,
@@ -130,10 +132,16 @@ public class ItemRestController {
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scroll", required = false) boolean scroll, //
       @RequestBody JsonNode query, //
-      HttpServletResponse response)
+      HttpServletResponse response, HttpServletRequest request)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
 
+
+    if (format != null && (srRequest.getLimit() > 250 || srRequest.getLimit() < 0)) {
+      String ip = request.getHeader("X-Forwarded-For");
+      exportlogger.info("REST /search -- IP:" + ip + " -- Size: " + srRequest.getLimit() + " -- Format: " + format
+          + " -- Citation: " + citation + " -- CSL ConeId: " + cslConeId);
+    }
 
     return utils.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
 
