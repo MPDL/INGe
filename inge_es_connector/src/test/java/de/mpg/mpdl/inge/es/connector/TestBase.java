@@ -3,6 +3,11 @@ package de.mpg.mpdl.inge.es.connector;
 import java.io.IOException;
 import java.util.Date;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -48,13 +53,26 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 @ContextConfiguration(classes = AppConfigIngeEsConnector.class)
 public class TestBase {
+
+  private static final Logger logger = LogManager.getLogger(TestBase.class);
+
   private static final Date DATE = new Date();
 
+  static ElasticsearchContainer elasticsearchContainer =
+      new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false");
+
+  static {
+    elasticsearchContainer.start();
+    PropertyReader.getProperties().setProperty(PropertyReader.INGE_ES_REST_HOST_PORT,
+        "http://" + elasticsearchContainer.getHttpHostAddress());
+  }
 
   ObjectMapper mapper = MapperFactory.getObjectMapper();
+
 
   public AffiliationDbVO test_ou() {
     AffiliationDbVO vo = new AffiliationDbVO();

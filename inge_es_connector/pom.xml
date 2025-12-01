@@ -50,46 +50,6 @@
 					</includes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.github.alexcojocaru</groupId>
-				<artifactId>elasticsearch-maven-plugin</artifactId>
-				<version>6.29</version>
-				<configuration>
-					<clusterName>testCluster</clusterName>
-					<transportPort>9500</transportPort>
-					<httpPort>9400</httpPort>
-					<version>9.2.1</version>
-					<keepExistingData>true</keepExistingData>
-					<skip>${maven.test.skip}</skip>
-					<environmentVariables>
-						<ES_TMPDIR>${project.build.testOutputDirectory}</ES_TMPDIR>
-                        <ES_JAVA_OPTS>-Xmx4g -Xms4g</ES_JAVA_OPTS>
-					</environmentVariables>
-					<instanceSettings>
-						<properties>
-							<ingest.geoip.downloader.enabled>false</ingest.geoip.downloader.enabled>
-						</properties>
-					</instanceSettings>
-
-
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-elasticsearch</id>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>runforked</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>stop-elasticsearch</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -99,24 +59,6 @@
 					<artifactId>lifecycle-mapping</artifactId>
 					<version>1.0.0</version>
 					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>com.github.alexcojocaru</groupId>
-										<artifactId>elasticsearch-maven-plugin</artifactId>
-										<versionRange>[6.23,)</versionRange>
-										<goals>
-											<goal>runforked</goal>
-											<goal>stop</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -168,6 +110,11 @@
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 </project>
