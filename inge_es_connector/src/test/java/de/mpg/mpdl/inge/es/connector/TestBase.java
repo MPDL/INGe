@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -53,17 +54,23 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 @ContextConfiguration(classes = AppConfigIngeEsConnector.class)
 public class TestBase {
 
   private static final Logger logger = LogManager.getLogger(TestBase.class);
+  // Separate SLF4J logger for container stream (will be handled by Log4j2 via the binding)
+  private static final org.slf4j.Logger esSlf4jLogger = LoggerFactory.getLogger("tc.elasticsearch");
+
+
 
   private static final Date DATE = new Date();
 
   static ElasticsearchContainer elasticsearchContainer =
-      new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false");
+      new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
+          .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
 
   static {
     elasticsearchContainer.start();

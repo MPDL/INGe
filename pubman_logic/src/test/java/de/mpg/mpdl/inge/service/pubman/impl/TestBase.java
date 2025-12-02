@@ -7,16 +7,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Rule;
 import org.junit.rules.TestName;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 
 public class TestBase {
+
+  // Separate SLF4J logger for container stream (will be handled by Log4j2 via the binding)
+  private static final org.slf4j.Logger esSlf4jLogger = LoggerFactory.getLogger("tc.elasticsearch");
+
 
   protected static final String ADMIN_LOGIN_NAME = "admin";
   protected static final String ADMIN_PASSWORD = "myPassword";
@@ -37,7 +43,8 @@ public class TestBase {
   protected static final String ORG_OBJECTID_40048 = "ou_40048";
 
   static ElasticsearchContainer elasticsearchContainer =
-      new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false");
+      new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
+          .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());;
   static {
     elasticsearchContainer.start();
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_ES_REST_HOST_PORT,
