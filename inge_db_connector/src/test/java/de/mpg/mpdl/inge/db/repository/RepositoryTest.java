@@ -1,10 +1,14 @@
 package de.mpg.mpdl.inge.db.repository;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +19,12 @@ import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-
+import org.testcontainers.containers.PostgreSQLContainer;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JPAConfiguration.class})
-public class RepositoryTest_ {
+public class RepositoryTest {
 
   @Autowired
   AuditRepository auditRepository;
@@ -39,6 +43,21 @@ public class RepositoryTest_ {
   @Autowired
   UserLoginRepository userLoginRepository;
 
+  static PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:16-alpine");
+
+  @BeforeClass
+  public static void setUp() {
+    postgres.withDatabaseName("inge_test").withUsername(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME))
+        .withPassword(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_PASSWORD));
+    postgres.start();
+    PropertyReader.getProperties().setProperty(PropertyReader.INGE_DATABASE_JDBC_URL, postgres.getJdbcUrl());
+  }
+
+  @AfterClass
+  public static void tearDown() {
+    postgres.stop();
+  }
+
   @Test
   public void repositoryObjects() {
     assertTrue(auditRepository != null);
@@ -54,13 +73,13 @@ public class RepositoryTest_ {
   @Test
   public void findAll() {
     List<AffiliationDbVO> ous = organizationRepository.findAll();
-    assertTrue(ous.size() == 3);
+    assertEquals(3, ous.size());
 
     List<ContextDbVO> contexts = contextRepository.findAll();
-    assertTrue(contexts.size() == 2);
+    assertEquals(2, contexts.size());
 
     List<AccountUserDbVO> userAccounts = userAccountRepository.findAll();
-    assertTrue(userAccounts.size() == 5);
+    assertEquals(4, userAccounts.size());
   }
 
   @Test

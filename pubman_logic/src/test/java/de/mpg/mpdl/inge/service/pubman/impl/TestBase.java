@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
@@ -42,14 +45,23 @@ public class TestBase {
   protected static final String ORG_OBJECTID_25 = "ou_persistent25";
   protected static final String ORG_OBJECTID_40048 = "ou_40048";
 
-  static ElasticsearchContainer elasticsearchContainer =
-      new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
-          .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());;
+
   static {
+    PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:16-alpine").withDatabaseName("inge_test")
+        .withUsername(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME))
+        .withPassword(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_PASSWORD));
+    postgres.withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
+    postgres.start();
+    PropertyReader.getProperties().setProperty(PropertyReader.INGE_DATABASE_JDBC_URL, postgres.getJdbcUrl());
+
+    ElasticsearchContainer elasticsearchContainer =
+        new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
+            .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
     elasticsearchContainer.start();
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_ES_REST_HOST_PORT,
         "http://" + elasticsearchContainer.getHttpHostAddress());
   }
+
 
   private static final Logger logger = LogManager.getLogger(TestBase.class);
 
