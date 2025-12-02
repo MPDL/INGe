@@ -47,6 +47,6 @@
       content="National Academy of Sciences" />
 <meta xmlns="http://www.w3.org/1999/xhtml" name="citation_issn" content="0027-8424" />
 <meta xmlns="http://www.w3.org/1999/xhtml" name="citation_pdf_url"
-      content="${inge.pubman.instance.url}pubman/item/escidoc:2368787:2/component/escidoc:2297217/BGC2461.pdf" />
+      content="http://localhost:8080/pubman/item/escidoc:2368787:2/component/escidoc:2297217/BGC2461.pdf" />
 <meta xmlns="http://www.w3.org/1999/xhtml" name="citation_fulltext_html_url"
       content="http://www.pnas.org/content/113/21/5768" />
