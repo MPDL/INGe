@@ -12,7 +12,7 @@
     <Logger name="org.hibernate.cache" level="info" />
     <Logger name="org.hibernate.SQL" level="info" />
     <Logger name="org.hibernate.event.internal.DefaultPersistEventListener" level="trace" />
-    <Logger name="net.sf.ehcache" level="info" />
+    <Logger name="org.ehcache" level="info" />
     <Logger name="de.mpg.mpdl.inge.service.pubman.impl" level="info" />
     <Logger name="de.mpg.mpdl.inge.service.pubman" level="debug" />
 	<Logger name="de.mpg.mpdl.inge.es.connector" level="debug" />

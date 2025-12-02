@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import static org.junit.Assert.fail;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Rule;
@@ -12,7 +13,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-
+import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 
 public class TestBase {
@@ -35,7 +36,13 @@ public class TestBase {
   protected static final String ORG_OBJECTID_25 = "ou_persistent25";
   protected static final String ORG_OBJECTID_40048 = "ou_40048";
 
-
+  static ElasticsearchContainer elasticsearchContainer =
+      new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false");
+  static {
+    elasticsearchContainer.start();
+    PropertyReader.getProperties().setProperty(PropertyReader.INGE_ES_REST_HOST_PORT,
+        "http://" + elasticsearchContainer.getHttpHostAddress());
+  }
 
   private static final Logger logger = LogManager.getLogger(TestBase.class);
 
