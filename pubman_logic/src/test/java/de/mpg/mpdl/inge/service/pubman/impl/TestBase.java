@@ -55,7 +55,12 @@ public class TestBase {
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_DATABASE_JDBC_URL, postgres.getJdbcUrl());
 
     ElasticsearchContainer elasticsearchContainer =
-        new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
+        new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1")
+                .withEnv("xpack.security.enabled", "false")
+                .withCreateContainerCmdModifier(cmd -> {
+                    cmd.getHostConfig()
+                            .withMemory(4 * 1024 * 1024 * 1024L);
+                })
             .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
     elasticsearchContainer.start();
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_ES_REST_HOST_PORT,
