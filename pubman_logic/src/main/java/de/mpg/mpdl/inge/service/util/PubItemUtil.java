@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.util;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -21,6 +22,13 @@ public class PubItemUtil {
 
   private PubItemUtil() {}
 
+  public static void cleanUpOu(AffiliationDbVO ou) {
+    try {
+      ou.getMetadata().cleanup();
+    } catch (Exception e1) {
+      throw new RuntimeException("Error while cleaning up ou", e1);
+    }
+  }
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
@@ -60,7 +68,7 @@ public class PubItemUtil {
         }
       }
     } catch (Exception e1) {
-      throw new RuntimeException("Error while cleaning up  item", e1);
+      throw new RuntimeException("Error while cleaning up item", e1);
     }
 
     // TODO MF: Check specification for this behaviour: Always when an organization does not have an

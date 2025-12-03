@@ -31,6 +31,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.util.ArrayList;
@@ -435,6 +436,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
         toBeUpdatedAff.setParentAffiliation(null);
       }
     }
+
+    PubItemUtil.cleanUpOu(toBeUpdatedAff);
 
     return reindexList;
   }
