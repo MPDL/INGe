@@ -41,8 +41,9 @@ public class CitationStyleLanguageManagerService {
       }
 
 
-      citeproc.registerCitationItems(itemDataProvider.getIds());
+      citeproc.registerCitationItems(itemDataProvider.getIds(), true);
       citeproc.setOutputFormat(new CiteProcPubManHTMLFormat());
+
       Bibliography bibl = citeproc.makeBibliography();
 
       return Arrays.asList(bibl.getEntries());

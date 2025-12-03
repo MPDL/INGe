@@ -50,17 +50,12 @@ public class TestBase {
     PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:16-alpine").withDatabaseName("inge_test")
         .withUsername(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME))
         .withPassword(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_PASSWORD));
-    postgres.withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
+    postgres.withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("postgres").withSeparateOutputStreams());
     postgres.start();
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_DATABASE_JDBC_URL, postgres.getJdbcUrl());
 
     ElasticsearchContainer elasticsearchContainer =
-        new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1")
-                .withEnv("xpack.security.enabled", "false")
-                .withCreateContainerCmdModifier(cmd -> {
-                    cmd.getHostConfig()
-                            .withMemory(4 * 1024 * 1024 * 1024L);
-                })
+        new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
             .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
     elasticsearchContainer.start();
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_ES_REST_HOST_PORT,
