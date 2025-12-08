@@ -22,8 +22,8 @@
 
 
  Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 --%>
 
@@ -34,8 +34,8 @@
 
 	<title>CoNE - Control of Named Entities</title>
 
-	<link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
-	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL) %>" type="text/css" rel="stylesheet"/>
+	<link href="/cone/css/main.css" type="text/css" rel="stylesheet"/>
+	<link href="/cone/css/themes/skin_MPG/styles/theme.css" type="text/css" rel="stylesheet"/>
 
 	<script type="text/javascript">
 
