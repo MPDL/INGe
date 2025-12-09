@@ -733,7 +733,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       latestVersion.getObject().setLatestVersion(latestVersion);
     }
 
-    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId(), false);
     latestVersion.setMetadata(pubItemVO.getMetadata());
 
     PubItemUtil.setOrganizationIdPathInItem(latestVersion, this.organizationService);
@@ -802,7 +802,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     latestVersion.getObject().setContext(newContext);
 
-    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId(), true);
 
     try {
       latestVersion = this.itemRepository.saveAndFlush(latestVersion);
@@ -836,7 +836,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     latestVersion.getObject().setLocalTags(localTags);
 
-    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId(), true);
 
     try {
       latestVersion = this.itemRepository.saveAndFlush(latestVersion);
@@ -948,7 +948,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       latestVersion.setVersionState(state);
     }
 
-    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId(), false);
 
     latestVersion.setMessage(message);
 
@@ -1282,15 +1282,18 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
   }
 
-  private void updatePubItemWithTechnicalMd(ItemVersionVO latestVersion, String modifierName, String modifierId) {
+  private void updatePubItemWithTechnicalMd(ItemVersionVO latestVersion, String modifierName, String modifierId, boolean objectOnly) {
     Date currentDate = new Date();
 
-    latestVersion.setModificationDate(currentDate);
-    de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod = new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
-    // Moved out due do DSGVO
-    // mod.setName(modifierName);
-    mod.setObjectId(modifierId);
-    latestVersion.setModifier(mod);
+    if (!objectOnly) {
+      latestVersion.setModificationDate(currentDate);
+      de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod = new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
+      // Moved out due do DSGVO
+      // mod.setName(modifierName);
+      mod.setObjectId(modifierId);
+      latestVersion.setModifier(mod);
+    }
+
     latestVersion.getObject().setLastModificationDate(currentDate);
 
   }
