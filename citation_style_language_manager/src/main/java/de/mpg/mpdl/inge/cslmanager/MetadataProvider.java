@@ -280,8 +280,10 @@ public class MetadataProvider implements ItemDataProvider {
             if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage())) {
               cslItem.URL(fileList.get(0).getContent());
             } else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage())) {
-              cslItem.URL(fileList.get(0).getPid().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT),
-                  PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL)));
+              if (fileList.get(0).getPid() != null) {
+                cslItem.URL(fileList.get(0).getPid().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT),
+                    PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL)));
+              }
             }
           } else {
             for (IdentifierVO identifier : metadata.getIdentifiers()) {
