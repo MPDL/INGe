@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UriBuilder;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
     targetFormat = TransformerFactory.FORMAT.HTML_METATAGS_DC_XML)
@@ -40,6 +41,7 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer {
     map.put("pubmanInstanceUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
     map.put("pubmanContextPath", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
     map.put("pubmanComponentPattern", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN));
+    map.put("fileLinkPattern", UriBuilder.getItemComponentLink().toString());
 
     return map;
   }

@@ -32,6 +32,7 @@
 	<xsl:param name="pubmanInstanceUrl"/>
 	<xsl:param name="pubmanContextPath"/>
 	<xsl:param name="pubmanComponentPattern"/>
+    <xsl:param name="fileLinkPattern"/>
 
 	<!--Start with a line break -->
 	<xsl:template match="//escidocItem:item">
@@ -59,10 +60,10 @@
 					<!-- <xsl:otherwise>-->
 					<xsl:variable name="componentId" select="if (@objid) then @objid else tokenize(@xlink:href, '/')[last()]" />
 					<xsl:variable name="filename" select="escidocComponents:properties/prop:file-name" />
-					<xsl:variable name="path" select="replace(replace(replace($pubmanComponentPattern, '\$1', $escidocIdWithVersion), '\$2', $componentId), '\$3', encode-for-uri($filename))" />
+					<xsl:variable name="path" select="replace(replace(replace($fileLinkPattern, '\$1', $escidocIdWithVersion), '\$2', $componentId), '\$3', encode-for-uri($filename))" />
 					<xsl:call-template name="createMetatag">
 						<xsl:with-param name="name" select="$citationKey"/>
-						<xsl:with-param name="content" select="concat($pubmanInstanceUrl, $pubmanContextPath, $path)"/>
+						<xsl:with-param name="content" select="$path"/>
 					</xsl:call-template>
 					<!-- </xsl:otherwise></xsl:choose>-->
 				</xsl:if>
