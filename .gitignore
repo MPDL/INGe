@@ -15,3 +15,5 @@ target/
 
 reindex_util/dependency-reduced-pom.xml
 .jpb/jpb-settings.xml
+.github/copilot-instructions.md
+.vscode/settings.json
