@@ -3,10 +3,15 @@
  */
 package de.mpg.mpdl.inge.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
 public class UriBuilder {
+
+    private final static Logger logger = LogManager.getLogger(UriBuilder.class);
 
   private UriBuilder() {}
 
@@ -36,11 +41,16 @@ public class UriBuilder {
     );
   }
 
-  public static URI getItemComponentLink() throws URISyntaxException {
-    return new URI( //
-        PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + //
-            PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN) //
-    );
+  public static URI getItemComponentLink() {
+      try {
+          return new URI( //
+              PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + //
+                  PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN) //
+          );
+      } catch (URISyntaxException e) {
+          logger.error("Error building URI for item component link", e);
+          return null;
+      }
   }
 
   public static URI getItemComponentLink(String itemObjectId, int versionNumber, String fileId) throws URISyntaxException {

@@ -40,8 +40,8 @@
 <head>
 
 <title>PubMan Login</title>
-<link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
-<link href=<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL) %> type="text/css" rel="stylesheet" />
+<link href=<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "css/main.css" %> type="text/css" rel="stylesheet" />
+<link href=<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "css/themes/skin_MPG/styles/theme.css" %> type="text/css" rel="stylesheet" />
 <style type="text/css">
 .fa {
 	line-height: inherit;

@@ -395,12 +395,12 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>6.6.37.Final</version>
+				<version>6.6.39.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-jcache</artifactId>
-				<version>6.6.37.Final</version>
+				<version>6.6.39.Final</version>
 			</dependency>
 
 			<!-- Jdbc -->

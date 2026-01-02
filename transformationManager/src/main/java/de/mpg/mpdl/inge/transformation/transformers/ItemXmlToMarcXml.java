@@ -28,11 +28,7 @@ public class ItemXmlToMarcXml extends XslTransformer {
 
     map.put("pubmanUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
-    try {
-      map.put("itemComponentLink", UriBuilder.getItemComponentLink().toString());
-    } catch (URISyntaxException e) {
-      throw new RuntimeException(e);
-    }
+    map.put("itemComponentLink", UriBuilder.getItemComponentLink().toString());
 
     return map;
   }

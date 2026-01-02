@@ -34,8 +34,8 @@
 
 	<title>CoNE - Control of Named Entities</title>
 
-	<link href="/cone/css/main.css" type="text/css" rel="stylesheet"/>
-	<link href="/cone/css/themes/skin_MPG/styles/theme.css" type="text/css" rel="stylesheet"/>
+    <link href=<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "css/main.css" %> type="text/css" rel="stylesheet" />
+    <link href=<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "css/themes/skin_MPG/styles/theme.css" %> type="text/css" rel="stylesheet" />
 
 	<script type="text/javascript">
 
