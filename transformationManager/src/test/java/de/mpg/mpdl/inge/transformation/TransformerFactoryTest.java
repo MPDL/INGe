@@ -64,7 +64,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToItemXmlV2" + wr.toString());
 
     assertTrue(wr.toString().length() > 1000);
   }
@@ -79,7 +79,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToBibtex" + wr.toString());
 
     assertTransformation(wr, "results/fromEscidocItemToBibtex.txt");
   }
@@ -95,7 +95,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_doi_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToDoiMetadataXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromEscidocItemToDoiMetadata.xml");
   }
@@ -110,7 +110,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToEdocXml" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToEdocXml.xml",
         Arrays.asList(new String[] {"fturl,viewftext=PUBLIC filename=Acheson_et_al_Brain_Lang_2012.pdf size=366920, "}));
@@ -126,7 +126,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToEndnote" + wr.toString());
 
     assertTransformation(wr, "results/fromEscidocItemToEndnote.txt");
   }
@@ -141,7 +141,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToEndnoteXml" + wr.toString());
 
     assertTransformation(wr, "results/fromEscidocItemToEndnoteXml.xml");
   }
@@ -158,7 +158,7 @@ public class TransformerFactoryTest {
             getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_component_public_pdf_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToHtmlMetaTags" + wr.toString());
 
     assertTransformation(wr, "results/fromEscidocItemToHtmlMetatagsDC.xml");
   }
@@ -175,7 +175,7 @@ public class TransformerFactoryTest {
             getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_component_public_pdf_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToHtmlMetaTagsHighwirePressCitXml" + wr.toString());
 
     assertTransformation(wr, "results/fromEscidocItemToHtmlMetaTagsHighwirePressCit.xml");
   }
@@ -191,7 +191,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
     logger.info("MARC_EXPORT");
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToMarcXml" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToMarcXml.xml",
         Arrays.asList(new String[] {"controlfield, tag=005, http://www.loc.gov/MARC21/slim",
@@ -208,7 +208,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToOaiDcXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromEscidocItemToOaiDC.xml");
   }
@@ -223,7 +223,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testItemXmlV3ToZimXml" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToZimXml.xml",
         Arrays.asList(new String[] {"fturl,viewftext=PUBLIC filename=Acheson_et_al_Brain_Lang_2012.pdf, ", "identifier,type=url, "}));
@@ -241,7 +241,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/arXiv.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testArXivOaiXmlToItemXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromArXivXmlToEscidocItem.xml");
   }
@@ -256,7 +256,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/bibtex.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testBibtexToItemXmlV3" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromBibtexToEscidocItem.xml", Arrays.asList(
         new String[] {"date, , http://escidoc.de/core/01/properties/release/", "date, , http://escidoc.de/core/01/properties/version/"}));
@@ -273,7 +273,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/bmc.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testBmcXmlToItemXmlV3" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromBmcXmlToEscidocItem.xml", Arrays.asList(
         new String[] {"description, , http://purl.org/dc/elements/1.1/", "person, ,http://purl.org/escidoc/metadata/profiles/0.1/person"}));
@@ -290,7 +290,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/edoc_item1.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testEdocXmlToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromEdocToEscidocItem.xml");
   }
@@ -306,7 +306,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testEndnoteXmlToItemXmlV3" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromEndnoteXmlToItemXml.xml",
         Arrays.asList(new String[] {"creator,role=http://www.loc.gov/loc.terms/relators/AUT,http://purl.org/escidoc/metadata/terms/0.1/"}));
@@ -322,7 +322,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mabXml_item.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testMabXmlToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromMabXmlToEscidocItem.xml");
   }
@@ -353,7 +353,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc_item.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testMarcXmlToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromMarcXmlToEscidocItem.xml");
   }
@@ -368,7 +368,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/pmcOai.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testPmcOaiXmlToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromPmcOaiXmlToEscidocItem.xml");
   }
@@ -384,7 +384,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/spires.html")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testSpiresToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromSpiresXmlToEscidocItem.xml");
   }
@@ -419,7 +419,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testEndnoteToEndnoteXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromEndnoteToEndnoteXml.xml");
   }
@@ -434,7 +434,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mab_item_list.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testMabToMabXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromMabToMabXml.xml");
   }
@@ -449,7 +449,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc_record.mrc")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testMarc21ToMarcXml" + wr.toString());
 
     assertXmlTransformationWithIgnore(wr, "results/fromMarc21ToMarcXml.xml",
         Arrays.asList(new String[] {"description, , http://purl.org/dc/elements/1.1/"}));
@@ -465,7 +465,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mods_item.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testModsXmlToMarcXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromModsXmlToMarcXml.xml");
   }
@@ -480,7 +480,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mods_item.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testModsXmlToOaiDcXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromModsXmlToOaiDc.xml");
   }
@@ -495,7 +495,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/ris.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testRisToRisXml" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromRisToRisXml.xml");
   }
@@ -511,7 +511,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/ris_item.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testRisXmlToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromRisXmlToEscidocItem.xml");
   }
@@ -526,7 +526,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n --testWosToWosXml-- \n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromWosToWosXml.xml");
   }
@@ -541,7 +541,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n --testWosXmlToItemXmlV3-- \n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromWosXmlToEscidocItemXml.xml");
   }
@@ -577,7 +577,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testEndnoteToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromEndnoteToItemXml.xml");
   }
@@ -607,7 +607,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mab_item.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testMabToItemXmlV3" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromMabToEscidocItemXml.xml");
   }
@@ -637,7 +637,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.txt")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n -- testWosToItemXmlV3 -- \n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromWosToEscidocItemXml.xml");
   }
@@ -654,7 +654,7 @@ public class TransformerFactoryTest {
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testIdentity" + wr.toString());
 
     IOUtils.copy(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml"), wr1, "UTF-8");
 
@@ -776,7 +776,7 @@ public class TransformerFactoryTest {
         MapperFactory.getObjectMapper().readValue(getClass().getClassLoader().getResourceAsStream("sourceFiles/searchResult.json"), type);
     t.transform(new TransformerVoSource(sr), new TransformerStreamResult(wr));
 
-    logger.info("\n" + wr.toString());
+    logger.info("\n  -- testSearchResultToCitationPdf" + wr.toString());
 
   }
 
