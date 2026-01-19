@@ -18,6 +18,7 @@ import de.mpg.mpdl.inge.service.pubman.*;
 import de.mpg.mpdl.inge.service.util.GenrePropertiesProvider;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.json.JsonArray;
 import jakarta.servlet.http.HttpServletResponse;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,6 +51,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @RestController
 @RequestMapping("/miscellaneous")
 @Tag(name = "Miscellaneous")
@@ -66,11 +70,8 @@ public class MiscellaneousController {
   private static final String OPENAI_URL = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_URL);
   private static final String OPENAI_MODEL = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_MODEL);
   private static final String OPENAI_PROMPT = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_PROMPT);
-  private static final String OPENAI_REGEX = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_REGEX);
   private static final String OPENAI_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TOKEN);
   private static final Integer OPENAI_TEMPERATURE = Integer.valueOf(PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TEMPERATURE));
-
-
 
   private final UtilServiceBean utilServiceBean;
 
@@ -128,7 +129,7 @@ public class MiscellaneousController {
     logger.info("ResponseBody:" + responseBody);
 
     try {
-      String authors = parseResult(responseBody);
+      String authors = parseResult(responseBody, data);
       return new ResponseEntity<>(authors, HttpStatus.OK);
     } catch (Exception e) {
       throw new IngeApplicationException("Adding failed: please try again or contact your administrator");
@@ -243,22 +244,29 @@ public class MiscellaneousController {
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  private String parseResult(String responseBody) {
-    Pattern pattern = Pattern.compile(OPENAI_REGEX);
-    Matcher matcher = pattern.matcher(responseBody);
+  private String parseResult(String responseBody, String stringToCheck) {
+    logger.debug("Parsing result from AI response:\n", responseBody);
+    // Parse the JSON response
+    JSONObject jsonObject = new JSONObject(responseBody);
 
-    String extractedJson = null;
-    if (matcher.find()) {
-      extractedJson = matcher.group(1);
-      logger.info("Extracted json:" + extractedJson);
-      extractedJson = extractedJson.replace("\\n", "");
-      extractedJson = extractedJson.replace("\\\"", "\"");
+    // Get the first choices[0].message.content as JSONObject
+    JSONObject content = new JSONObject(jsonObject.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
+
+    // Get the authors array
+    JSONArray authors = content.getJSONArray("authors");
+
+
+    for (int i = authors.length() - 1; i >= 0; i--) {
+      JSONObject author = authors.getJSONObject(i);
+      logger.debug("Checking Author [ " + i + "]: " + author.toString());
+      Pattern checkPattern = Pattern.compile("(?i)" + author.getString("family") + "[\\s,|;:&]+\\s*" + author.getString("given") + "|"
+          + author.getString("given") + "[\\s,|;:&]+\\s*" + author.getString("family"));
+      Matcher checkMatcher = checkPattern.matcher(stringToCheck);
+      if (!checkMatcher.find()) {
+        authors.remove(i);
+        logger.debug("Hallucinatio-Author removed '" + author.getString("family") + ", " + author.getString("given") + "' successfully.");
+      }
     }
-    logger.info("Extracted json after replacements:" + extractedJson);
-
-    JSONArray authors = new JSONArray(extractedJson);
-
-
     return authors.toString();
   }
 
@@ -270,7 +278,7 @@ public class MiscellaneousController {
 
     JSONObject systemRole = new JSONObject();
     systemRole.put("role", "system");
-    systemRole.put("content", "You are a helpful assistant");
+    systemRole.put("content", "You are a metadata expert");
 
     JSONObject userRole = new JSONObject();
     userRole.put("role", "user");
