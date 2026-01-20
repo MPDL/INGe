@@ -982,7 +982,7 @@
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.openai.url>https://chat-ai.academiccloud.de/v1/chat/completions</inge.openai.url>
 		<inge.openai.model>meta-llama-3.1-8b-instruct</inge.openai.model>
-		<inge.openai.prompt>Create a CSL (Citation Style Language) JSON of the following authors copied from a research paper. In the result give me only the fields familiy and given. The copy contains all authors we want to add, so check if your result only contains family and given names that exist in the list of authors copied from the research paper. Your result should look like this (with matching names: { "authors": [ { "family": "Rainer", "given": "Z." }, { "family": "Max", "given": "M." } ] } Return only the CSL JSON without explanations. Following the author string I want you to analyze:</inge.openai.prompt>
+		<inge.openai.prompt>Create a CSL (Citation Style Language) JSON of the following authors copied from a research paper. In the result give me only the fields family and given. The copy contains all authors we want to add, so check if your result only contains family and given names that exist in the list of authors copied from the research paper. Your result should look like this (with matching names: { "authors": [ { "family": "Rainer", "given": "Z." }, { "family": "Max", "given": "M." } ] } Return only the CSL JSON without explanations. Following the author string I want you to analyze:</inge.openai.prompt>
 		<inge.openai.temperature>0</inge.openai.temperature>
 		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
 		<inge.pid.handle.url>https://hdl.handle.net/</inge.pid.handle.url>

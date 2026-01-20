@@ -14,11 +14,14 @@ import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.*;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.util.GenrePropertiesProvider;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.json.JsonArray;
 import jakarta.servlet.http.HttpServletResponse;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,9 +53,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/miscellaneous")
@@ -245,7 +245,7 @@ public class MiscellaneousController {
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private String parseResult(String responseBody, String stringToCheck) {
-    logger.debug("Parsing result from AI response:\n", responseBody);
+    logger.info("Parsing result from AI response:\n", responseBody);
     // Parse the JSON response
     JSONObject jsonObject = new JSONObject(responseBody);
 
@@ -255,16 +255,15 @@ public class MiscellaneousController {
     // Get the authors array
     JSONArray authors = content.getJSONArray("authors");
 
-
     for (int i = authors.length() - 1; i >= 0; i--) {
       JSONObject author = authors.getJSONObject(i);
-      logger.debug("Checking Author [ " + i + "]: " + author.toString());
+      logger.info("Checking Author [ " + i + "]: " + author.toString());
       Pattern checkPattern = Pattern.compile("(?i)" + author.getString("family") + "[\\s,|;:&]+\\s*" + author.getString("given") + "|"
           + author.getString("given") + "[\\s,|;:&]+\\s*" + author.getString("family"));
       Matcher checkMatcher = checkPattern.matcher(stringToCheck);
       if (!checkMatcher.find()) {
         authors.remove(i);
-        logger.debug("Hallucinatio-Author removed '" + author.getString("family") + ", " + author.getString("given") + "' successfully.");
+        logger.info("Hallucination-Author removed '" + author.getString("family") + ", " + author.getString("given") + "' successfully.");
       }
     }
     return authors.toString();
