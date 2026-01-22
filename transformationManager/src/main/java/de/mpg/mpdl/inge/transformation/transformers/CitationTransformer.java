@@ -38,6 +38,7 @@ import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.wml.P;
 import org.docx4j.wml.PPr;
 import org.docx4j.wml.PPrBase;
 import org.jsoup.nodes.Document;
@@ -165,6 +166,11 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
         XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
         List<Object> xhtmlObjects = xhtmlImporter.convert(xhtmlDoc.html(), null);
+        // Remove line-height information for every paragraph
+        for (Object xhtmlObject : xhtmlObjects) {
+          P paragraph = (P) xhtmlObject;
+          paragraph.getPPr().setSpacing(null);
+        }
         mdp.getContent().addAll(xhtmlObjects);
 
         wordOutputDoc.save(res.getOutputStream());
