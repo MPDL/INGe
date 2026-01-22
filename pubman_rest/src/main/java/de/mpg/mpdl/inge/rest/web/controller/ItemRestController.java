@@ -139,8 +139,8 @@ public class ItemRestController {
 
     if (format != null && (srRequest.getLimit() > 250 || srRequest.getLimit() < 0)) {
       String ip = request.getHeader("X-Forwarded-For");
-      exportlogger.info("REST /search -- IP:" + ip + " -- Size: " + srRequest.getLimit() + " -- Format: " + format
-          + " -- Citation: " + citation + " -- CSL ConeId: " + cslConeId);
+      exportlogger.info("REST /search -- IP:" + ip + " -- Size: " + srRequest.getLimit() + " -- Format: " + format + " -- Citation: "
+          + citation + " -- CSL ConeId: " + cslConeId);
     }
 
     return utils.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);

@@ -59,4 +59,24 @@ public class UriBuilder {
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN).replace("$1", (itemObjectId + "_" + versionNumber))
             .replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString())));
   }
+
+  public static URI getItemLink() throws URISyntaxException {
+    return new URI( //
+        PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + //
+            PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + //
+            PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN) //
+    );
+  }
+
+  public static URI getItemComponentLink() {
+    try {
+      return new URI( //
+          PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + //
+              PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN) //
+      );
+    } catch (URISyntaxException e) {
+      //logger.error("Error building URI for item component link", e);
+      return null;
+    }
+  }
 }

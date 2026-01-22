@@ -54,9 +54,9 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     int totalNumberOfRecords = saerrVO.getSearchRetrieveReponseVO().getNumberOfRecords();
 
     if ((saerrVO.getSearchRetrieveRequestVO().getLimit() > 250 || saerrVO.getSearchRetrieveRequestVO().getLimit() < 0)) {
-      exportlogger.info("SearchAndExportServiceImpl.exportItems -- Found: " + totalNumberOfRecords + " -- Size: " + saerrVO.getSearchRetrieveRequestVO().getLimit() + " -- Format: "
-          + saerrVO.getExportFormat().getFormat() + " -- Citation: " + saerrVO.getExportFormat().getCitationName() + " -- CSL ConeId: "
-          + saerrVO.getExportFormat().getId());
+      exportlogger.info("SearchAndExportServiceImpl.exportItems -- Found: " + totalNumberOfRecords + " -- Size: "
+          + saerrVO.getSearchRetrieveRequestVO().getLimit() + " -- Format: " + saerrVO.getExportFormat().getFormat() + " -- Citation: "
+          + saerrVO.getExportFormat().getCitationName() + " -- CSL ConeId: " + saerrVO.getExportFormat().getId());
     }
 
     long start = System.currentTimeMillis();
@@ -68,7 +68,8 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
       long duration = stop - start;
       exportlogger.info("SearchAndExportServiceImpl.exportItems -- Duration: " + duration);
       if (duration > 60000) {
-        exportlogger.info("SearchAndExportServiceImpl.exportItems -- Query: \n" + toJson(saerrVO.getSearchRetrieveRequestVO().getQueryBuilder()));
+        exportlogger
+            .info("SearchAndExportServiceImpl.exportItems -- Query: \n" + toJson(saerrVO.getSearchRetrieveRequestVO().getQueryBuilder()));
       }
 
     }

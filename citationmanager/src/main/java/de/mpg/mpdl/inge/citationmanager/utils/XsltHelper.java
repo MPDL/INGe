@@ -236,7 +236,7 @@ public class XsltHelper {
    * @return converted snippet
    * @throws CitationStyleManagerException
    */
-  public static String convertSnippetToHtml(String snippet) throws CitationStyleManagerException {
+  public static String convertSnippetToHtml(String snippet) {
     FontStyle fs;
     FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
     if (!Utils.checkVal(snippet) || fsc == null)
