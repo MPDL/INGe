@@ -31,6 +31,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.jibx.runtime.BindingDirectory;
@@ -57,6 +58,8 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOLis
  */
 public class XmlTransformingService {
   private static final Logger logger = Logger.getLogger(XmlTransformingService.class);
+
+  private static final Pattern MISSING_GT = Pattern.compile("&lt;(/?)(?i:(br|sub|sup))>");
 
   /**
    * {@inheritDoc}
@@ -167,17 +170,22 @@ public class XmlTransformingService {
       mctx.setOutput(sw);
       mctx.marshalDocument(itemListWrapper, "UTF-8", null, sw);
       utf8itemList = sw.toString().trim();
+
       // <sub>, <sup>, <br>
-      utf8itemList = utf8itemList.replaceAll("&lt;br>", "&lt;br&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;BR>", "&lt;BR&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;sub>", "&lt;sub&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;/sub>", "&lt;/sub&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;sup>", "&lt;sup&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;/sup>", "&lt;/sup&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;SUB>", "&lt;SUB&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;/SUB>", "&lt;/SUB&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;SUP>", "&lt;SUP&gt;");
-      utf8itemList = utf8itemList.replaceAll("&lt;/SUP>", "&lt;/SUP&gt;");
+      utf8itemList = MISSING_GT.matcher(utf8itemList).replaceAll("&lt;$1$2&gt;");
+      /*
+      utf8itemList = utf8itemList.replace("&lt;br>", "&lt;br&gt;");
+      utf8itemList = utf8itemList.replace("&lt;BR>", "&lt;BR&gt;");
+      utf8itemList = utf8itemList.replace("&lt;sub>", "&lt;sub&gt;");
+      utf8itemList = utf8itemList.replace("&lt;/sub>", "&lt;/sub&gt;");
+      utf8itemList = utf8itemList.replace("&lt;sup>", "&lt;sup&gt;");
+      utf8itemList = utf8itemList.replace("&lt;/sup>", "&lt;/sup&gt;");
+      utf8itemList = utf8itemList.replace("&lt;SUB>", "&lt;SUB&gt;");
+      utf8itemList = utf8itemList.replace("&lt;/SUB>", "&lt;/SUB&gt;");
+      utf8itemList = utf8itemList.replace("&lt;SUP>", "&lt;SUP&gt;");
+      utf8itemList = utf8itemList.replace("&lt;/SUP>", "&lt;/SUP&gt;");
+      
+       */
     } catch (JiBXException e) {
       throw new MarshallingException(ItemVOListWrapper.class.getSimpleName(), e);
     } catch (ClassCastException e) {
