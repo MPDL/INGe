@@ -339,10 +339,10 @@
 				<xsl:comment>NOT FOUND IN CONE</xsl:comment>
 				<person:person>
 					<eterms:family-name>
-						<xsl:value-of select="familyname"/>
+						<xsl:value-of select="$familyname"/>
 					</eterms:family-name>
 					<xsl:choose>
-						<xsl:when test="exists(givenname) and not(givenname='')">
+						<xsl:when test="exists($givenname) and not($givenname='')">
 							<eterms:given-name>
 								<xsl:value-of select="$givenname"/>
 							</eterms:given-name>
@@ -422,7 +422,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="AF">
+	<xsl:template match="AF|AU">
 		<xsl:variable name="var">
 			<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
 		</xsl:variable>
@@ -444,51 +444,15 @@
 				</xsl:for-each>
 			</xsl:when>
 			<xsl:otherwise>
+				<xsl:comment>-- Single Creator Case --</xsl:comment>
 				<eterms:creator>
-					<xsl:comment>-- Single Creator Case --</xsl:comment>
 					<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 					<xsl:call-template name="createPerson">
 						<xsl:with-param name="familyname" select="$var/authors/author[1]/familyname"/>
 						<xsl:with-param name="givenname" select="$var/authors/author[1]/givenname"/>
 						<xsl:with-param name="title" select="$var/authors/author[1]/title"/>
 						<xsl:with-param name="publicationDate" select="escidocFunction:formatWosDate($PD,$PY)"/>
-						<xsl:with-param name="position" select="count(./preceding-sibling::AF) + 1"/>
-					</xsl:call-template>
-				</eterms:creator>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<xsl:template match="AU">
-		<xsl:variable name="var">
-			<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
-		</xsl:variable>
-		<xsl:variable name="PD" select="../PD"/>
-		<xsl:variable name="PY" select="../PY"/>
-		<xsl:choose>
-			<xsl:when test="count($var/authors/author) &gt; 1">
-				<xsl:for-each select="$var/authors/author">
-					<eterms:creator>
-						<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
-						<xsl:call-template name="createPerson">
-							<xsl:with-param name="familyname" select="familyname"/>
-							<xsl:with-param name="givenname" select="givenname"/>
-							<xsl:with-param name="title" select="title"/>
-							<xsl:with-param name="publicationDate" select="escidocFunction:formatWosDate($PD,$PY)"/>
-							<xsl:with-param name="position" select="position()"/>
-						</xsl:call-template>
-					</eterms:creator>
-				</xsl:for-each>
-			</xsl:when>
-			<xsl:otherwise>
-				<eterms:creator>
-					<xsl:comment>-- Single Creator Case --</xsl:comment>
-					<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
-					<xsl:call-template name="createPerson">
-						<xsl:with-param name="familyname" select="$var/authors/author[1]/familyname"/>
-						<xsl:with-param name="givenname" select="$var/authors/author[1]/givenname"/>
-						<xsl:with-param name="title" select="$var/authors/author[1]/title"/>
-						<xsl:with-param name="publicationDate" select="escidocFunction:formatWosDate($PD,$PY)"/>
-						<xsl:with-param name="position" select="count(./preceding-sibling::AU) + 1"/>
+						<xsl:with-param name="position" select="count(./preceding-sibling::AF|AU) + 1"/>
 					</xsl:call-template>
 				</eterms:creator>
 			</xsl:otherwise>
