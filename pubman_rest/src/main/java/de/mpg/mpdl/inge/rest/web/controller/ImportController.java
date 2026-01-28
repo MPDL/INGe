@@ -47,8 +47,6 @@ public class ImportController {
   private static final String IMPORT_LOG_ID = "importLogId";
   private static final String SUBMIT_MODUS = "submitModus";
 
-  private static final String EXAMPLE_FORMAT_CONFIGURATION = "{\"Param1\": \"true\", \"\"Param2\": \"false\", ...}";
-
   private final ImportService importService;
 
   public ImportController(ImportService importService) {
