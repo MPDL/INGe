@@ -1,17 +1,13 @@
 package de.mpg.mpdl.inge.transformation.transformers.helpers.wos;
 
+import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import de.mpg.mpdl.inge.transformation.transformers.helpers.Pair;
 
 /**
  * provides the import of a RIS file
@@ -93,15 +89,50 @@ public class WoSImport {
     return file;
   }
 
-  public List<String> getItemFromString(String itemStr) {
-    Pattern pattern = Pattern.compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*(\\r\\n|\\r|\\n))((\\s\\s\\s.*(\\r\\n|\\r|\\n))?)*)");
-    // Pattern pattern =
-    // Pattern.compile("(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)");
+  //  public List<String> getItemFromString(String itemStr) {
+  //    Pattern pattern = Pattern.compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*(\\r\\n|\\r|\\n))((\\s\\s\\s.*(\\r\\n|\\r|\\n))?)*)");
+  //    // Pattern pattern =
+  //    // Pattern.compile("(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)");
+  //
+  //    Matcher matcher = pattern.matcher(itemStr);
+  //    List<String> lineStrArr = new ArrayList<>();
+  //    while (matcher.find()) {
+  //      lineStrArr.add(matcher.group());
+  //    }
+  //
+  //    return lineStrArr;
+  //  }
 
-    Matcher matcher = pattern.matcher(itemStr);
+  public List<String> getItemFromString(String itemStr) {
     List<String> lineStrArr = new ArrayList<>();
-    while (matcher.find()) {
-      lineStrArr.add(matcher.group());
+    if (itemStr == null || itemStr.isEmpty()) {
+      return lineStrArr;
+    }
+
+    String[] lines = itemStr.split("\\r?\\n|\\r");
+    StringBuilder currentBlock = new StringBuilder();
+
+    for (String line : lines) {
+      if (line.length() >= 3 && line.substring(0, 2).matches("[A-Z0-9]{2}") && line.charAt(2) == ' ') {
+        // Neuer Tag gefunden: Speichere den alten Block und starte einen neuen
+        if (currentBlock.length() > 0) {
+          lineStrArr.add(currentBlock.toString());
+        }
+        currentBlock = new StringBuilder(line).append("\n");
+      } else if (line.startsWith("   ")) {
+        // Fortsetzungszeile gefunden: Anhängen an den aktuellen Block
+        currentBlock.append(line).append("\n");
+      } else if (!line.trim().isEmpty()) {
+        // Fallback für Zeilen, die nicht ganz dem Standard entsprechen
+        if (currentBlock.length() > 0) {
+          currentBlock.append(line).append("\n");
+        }
+      }
+    }
+
+    // Letzten Block hinzufügen
+    if (currentBlock.length() > 0) {
+      lineStrArr.add(currentBlock.toString());
     }
 
     return lineStrArr;
