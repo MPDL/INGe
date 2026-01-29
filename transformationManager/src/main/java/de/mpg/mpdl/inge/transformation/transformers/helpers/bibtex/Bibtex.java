@@ -296,9 +296,9 @@ public class Bibtex implements BibtexInterface {
                                                                                      // (diploma)
           {
             mds.setDegree(MdsPublicationVO.DegreeType.DIPLOMA);
-          } else if (fields.get("type").toString().toLowerCase().contains("statsexamen")
+          } else if (fields.get("type").toString().toLowerCase().contains("staatsexamen")
               || fields.get("type").toString().toLowerCase().contains("state examination")) {
-            mds.setDegree(MdsPublicationVO.DegreeType.DIPLOMA);
+            mds.setDegree(MdsPublicationVO.DegreeType.STAATSEXAMEN);
           }
         } else if (null != fields.get("type") && BibTexUtil.Genre.phdthesis == bibGenre) {
           if (fields.get("type").toString().toLowerCase().contains("phd")
@@ -309,6 +309,10 @@ public class Bibtex implements BibtexInterface {
           } else if (fields.get("type").toString().toLowerCase().contains("habilitation")) {
             mds.setDegree(MdsPublicationVO.DegreeType.HABILITATION);
           }
+        } else if (null == fields.get("type") && (BibTexUtil.Genre.mastersthesis == bibGenre)) {
+          mds.setDegree(MdsPublicationVO.DegreeType.MASTER);
+        } else if (null == fields.get("type") && (BibTexUtil.Genre.phdthesis == bibGenre)) {
+          mds.setDegree(MdsPublicationVO.DegreeType.PHD);
         }
         // volume
         if (null != fields.get("volume")) {
