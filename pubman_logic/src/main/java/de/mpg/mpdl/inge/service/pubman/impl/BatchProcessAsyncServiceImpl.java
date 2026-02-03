@@ -151,7 +151,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               }
             } else {
               this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-                  BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_AUTHORIZATION_ERROR);
+                  BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
               error = true;
             }
           } else {
@@ -340,7 +340,7 @@ public class BatchProcessAsyncServiceImpl implements BatchProcessAsyncService, A
               }
             } else {
               this.batchProcessCommonService.updateBatchProcessLogDetail(batchProcessLogDetailDbVO, BatchProcessLogDetailDbVO.State.ERROR,
-                  BatchProcessLogDetailDbVO.Message.BATCH_CONTEXT_AUTHORIZATION_ERROR);
+                  BatchProcessLogDetailDbVO.Message.BATCH_AUTHORIZATION_ERROR);
               error = true;
             }
           }
