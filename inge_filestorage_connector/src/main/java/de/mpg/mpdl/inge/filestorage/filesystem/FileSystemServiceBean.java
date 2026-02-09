@@ -37,17 +37,9 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   private static final Logger logger = LogManager.getLogger(FileSystemServiceBean.class);
 
-  private static final String FILESYSTEM_ROOT_PATH =
-      System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_FILESYSTEM_PATH);
-
-  /*
-   *
-   *
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io. InputStream,
-   * java.lang.String)
-   */
+  private static final String getIngeFilesPath() {
+    return PropertyReader.getIngeFilesPath();
+  }
 
   @Override
   public String createFile(InputStream fileInputStream, String fileId) throws IngeTechnicalException {
@@ -67,8 +59,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
     }
 
 
-    Path directoryPath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH, relativeDirectoryPath.toString());
-    Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
+    Path directoryPath = FileSystems.getDefault().getPath(getIngeFilesPath(), relativeDirectoryPath.toString());
+    Path filePath = directoryPath.resolve(newFileName);
     try {
 
       if (Files.notExists(directoryPath)) {
@@ -97,7 +89,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
           } else {
             newFileName = nameOfTheFile + "_" + i;
           }
-          filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
+          filePath = directoryPath.resolve(newFileName);
           i++;
         } while (Files.exists(filePath));
         //        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
@@ -112,12 +104,6 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#readFile(java.lang.String,
-   * java.io.OutputStream)
-   */
   @Override
   public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
     this.readFile(fileRelativePath, out, null);
@@ -128,7 +114,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
     try {
       if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
-        Path filepath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
+        Path filepath = FileSystems.getDefault().getPath(getIngeFilesPath() + fileRelativePath);
         if (Files.exists(filepath)) {
           readFileFromFileSystem(filepath, out, range);
         } else {
@@ -149,7 +135,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
   public InputStream readFile(String fileRelativePath) throws IngeTechnicalException {
     try {
       if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
-        Path filepath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
+        Path filepath = FileSystems.getDefault().getPath(getIngeFilesPath() + fileRelativePath);
         if (Files.exists(filepath)) {
           return Files.newInputStream(filepath);
         } else {
@@ -194,17 +180,10 @@ public class FileSystemServiceBean implements FileStorageInterface {
     return response.returnContent().asStream();
   }
 
-
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#deleteFile(java.lang.String)
-   */
   @Override
   public void deleteFile(String fileRelativePath) throws IngeTechnicalException {
     //    System.out.println("Trying to delete File [" + fileRelativePath + "]");
-    Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
+    Path path = FileSystems.getDefault().getPath(getIngeFilesPath() + fileRelativePath);
     try {
       if (Files.exists(path)) {
         Files.delete(path);
@@ -217,7 +196,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   @Override
   public boolean fileExists(String filePath) throws IngeTechnicalException {
-    Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + filePath);
+    Path path = FileSystems.getDefault().getPath(getIngeFilesPath() + filePath);
     return Files.exists(path);
   }
 }

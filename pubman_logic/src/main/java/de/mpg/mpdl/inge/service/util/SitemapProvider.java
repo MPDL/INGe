@@ -43,7 +43,10 @@ public class SitemapProvider {
   public static final int MAX_ITEMS_PER_RETRIEVE =
       Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
   public static final String REST_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
-  public static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
+
+  private static String getSitemapPath() {
+    return PropertyReader.getSitemapPath();
+  }
 
   private List<File> files;
   private FileWriter fileWriter;
@@ -90,12 +93,12 @@ public class SitemapProvider {
   }
 
   private void writeSitemapFiles(SimpleDateFormat dateFormat, String restUrl) throws IOException {
-    new File(SitemapProvider.SITEMAP_PATH).mkdir();
+    new File(getSitemapPath()).mkdir();
 
     logger.info("Number of files: " + this.files.size());
     if (1 == this.files.size()) {
-      File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
-      this.fileWriter = new FileWriter(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
+      File finalFile = new File(getSitemapPath() + "sitemap.xml");
+      this.fileWriter = new FileWriter(getSitemapPath() + "sitemap.xml");
       copySiteMap(this.files.get(0), finalFile, (int) this.files.get(0).length());
     } else {
       String currentDate = dateFormat.format(new Date());
@@ -111,7 +114,7 @@ public class SitemapProvider {
           """);
 
       for (int i = 0; i < this.files.size(); i++) {
-        File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
+        File finalFile = new File(getSitemapPath() + "sitemap" + (i + 1) + ".xml");
         copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length());
 
         indexFileWriter.write(
@@ -122,7 +125,7 @@ public class SitemapProvider {
       indexFileWriter.flush();
       indexFileWriter.close();
 
-      File finalFile = new File(SitemapProvider.SITEMAP_PATH + "sitemap.xml");
+      File finalFile = new File(getSitemapPath() + "sitemap.xml");
       logger.info("Sitemap file: " + finalFile.getName());
 
       copySiteMap(indexFile, finalFile, (int) indexFile.length());

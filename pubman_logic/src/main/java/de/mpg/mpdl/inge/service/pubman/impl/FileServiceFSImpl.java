@@ -73,8 +73,9 @@ import org.xml.sax.SAXException;
 public class FileServiceFSImpl implements FileService {
   private static final Logger logger = LogManager.getLogger(FileServiceFSImpl.class);
 
-  private static final String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
-      + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
+  private static final String getIngeTmpFilesPath() {
+    return PropertyReader.getIngeTmpFilesPath();
+  }
 
   @Autowired
   //@Qualifier("postgresDbFileServiceBean")
@@ -101,7 +102,7 @@ public class FileServiceFSImpl implements FileService {
   private JmsTemplate queueJmsTemplate;
 
   public FileServiceFSImpl() throws IngeTechnicalException {
-    Path rootDirectory = Paths.get(TMP_FILE_ROOT_PATH);
+    Path rootDirectory = Paths.get(getIngeTmpFilesPath());
     if (Files.notExists(rootDirectory)) {
       logger.info("trying to create directory [ " + rootDirectory + "]");
       try {
@@ -193,7 +194,7 @@ public class FileServiceFSImpl implements FileService {
 
     try {
 
-      Path tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH, stagedFileVo.getId() + "_" + UUID.randomUUID());
+      Path tmpFilePath = Paths.get(getIngeTmpFilesPath(), stagedFileVo.getId() + "_" + UUID.randomUUID());
       Files.copy(fileInputStream, tmpFilePath);
 
       stagedFileVo.setPath(tmpFilePath.toString());

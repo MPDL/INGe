@@ -57,6 +57,10 @@ import org.apache.logging.log4j.Logger;
 public class PropertyReader {
   private static final Logger logger = LogManager.getLogger(PropertyReader.class);
 
+  static {
+    logger.info("PropertyReader class loaded. Initializing logging...");
+  }
+
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
   public static final String INGE_AA_CLIENT_FINISH_CLASS = "inge.aa.client.finish.class";
   public static final String INGE_AA_CLIENT_LOGOUT_CLASS = "inge.aa.client.logout.class";
@@ -104,8 +108,6 @@ public class PropertyReader {
   public static final String INGE_ES_REST_HOST_PORT = "inge.es.rest.host-port";
   public static final String INGE_ES_REST_PATH_PREFIX = "inge.es.rest.path-prefix";
   public static final String INGE_ES_USER = "inge.es.user";
-  public static final String INGE_FILESTORAGE_FILESYSTEM_PATH = "inge.filestorage.filesystem_path";
-  public static final String INGE_FILESTORAGE_OAI_FILESYSTEM_PATH = "inge.filestorage.oai.filesystem_path";
   public static final String INGE_FILESTORAGE_SEAWEED_DIRECT_SUBMIT_PATH = "inge.filestorage.seaweed_direct_submit_path";
   public static final String INGE_FILESTORAGE_SEAWEED_MASTER_SERVER_IP = "inge.filestorage.seaweed_master_server_ip";
   public static final String INGE_IMPORT_SOURCES_XML = "inge.import.sources.xml";
@@ -122,7 +124,6 @@ public class PropertyReader {
   public static final String INGE_INDEX_USER_SORT = "inge.index.user.sort";
   public static final String INGE_INDEX_USER_TYPE = "inge.index.user.type";
   public static final String INGE_JWT_SHARED_SECRET = "inge.jwt.shared-secret";
-  public static final String INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH = "inge.logic.temporary_filesystem_root_path";
   public static final String INGE_OPENAI_MODEL = "inge.openai.model";
   public static final String INGE_OPENAI_PROMPT = "inge.openai.prompt";
   public static final String INGE_OPENAI_TEMPERATURE = "inge.openai.temperature";
@@ -138,16 +139,14 @@ public class PropertyReader {
   public static final String INGE_PID_SERVICE_USER = "inge.pid.service.user";
   public static final String INGE_PUBMAN_COMPONENT_PATTERN = "inge.pubman.component.pattern";
   public static final String INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID = "inge.pubman.external.organization.id";
-  public static final String INGE_PUBMAN_GENRES_CONFIGURATION = "inge.pubman.genres.configuration";
   public static final String INGE_PUBMAN_INSTANCE_CONTEXT_PATH = "inge.pubman.instance.context.path";
   public static final String INGE_PUBMAN_INSTANCE_URL = "inge.pubman.instance.url";
   public static final String INGE_PUBMAN_ITEM_PATTERN = "inge.pubman.item.pattern";
-  public static final String INGE_PUBMAN_PRESENTATION_URL = "inge.pubman.presentation.url";
+  public static final String INGE_PUBMAN_PRESENTATION_URL = "inge.pubman.presentation.url"; // -> persons-html.xsl
   public static final String INGE_PUBMAN_ROOT_ORGANIZATION_ID = "inge.pubman.root.organization.id";
-  public static final String INGE_PUBMAN_ROOT_ORGANIZATION_NAME = "inge.pubman.root.organization.name";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
-  public static final String INGE_PUBMAN_STYLESHEET_URL = "inge.pubman.stylesheet.url";
+  public static final String INGE_PUBMAN_STYLESHEET_URL = "inge.pubman.stylesheet.url"; // -> persons-html.xsl
   public static final String INGE_REST_ACCESS_CONTROL_ALLOWED_ORIGINS = "inge.rest.access-control-allowed-origins";
   public static final String INGE_REST_API_DESCRIPTION = "inge.rest.api.description";
   public static final String INGE_REST_DEVELOPMENT_ADMIN_PASSWORD = "inge.rest.development.admin.password";
@@ -227,15 +226,13 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_WOS_STYLESHEET_FILENAME = "inge.transformation.wos.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
-  public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";
-  public static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
-  public static final String JBOSS_HOME_DIR = "jboss.home.dir";
   public static final String LINE_SEPARATOR = "line.separator";
   public static final String POM = "pom";
 
+  private static final String CATALINA_BASE = "catalina.base";
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
   private static Properties properties;
@@ -252,6 +249,66 @@ public class PropertyReader {
 
   public static String getProperty(String key) {
     return PropertyReader.getInstance().doGetProperty(key);
+  }
+
+  private static String getDataPath() {
+    String catalinaBase = ensureCatalinaBaseSet();
+    logger.info("getDataPath() called. Using catalina.base: [" + catalinaBase + "]");
+    if (!catalinaBase.endsWith(File.separator)) {
+      catalinaBase += File.separator;
+    }
+    String path = catalinaBase + "data" + File.separator;
+    logger.info("Resulting data path: [" + path + "]");
+    return path;
+  }
+
+  /**
+   * Ensures that catalina.base is set. Checks system property and environment variable.
+   *
+   * @return The value of catalina.base
+   * @throws IllegalStateException if catalina.base is not set or invalid.
+   */
+  public static String ensureCatalinaBaseSet() {
+    // Check system property first (set via -Dcatalina.base)
+    String catalinaBase = System.getProperty(CATALINA_BASE);
+
+    if (!isValidCatalinaBase(catalinaBase)) {
+      // Fallback to environment variable (set via setenv.bat)
+      catalinaBase = System.getenv("CATALINA_BASE");
+    }
+
+    if (!isValidCatalinaBase(catalinaBase)) {
+      String msg =
+          "Property 'catalina.base' is not set! Please set it via -Dcatalina.base or as environment variable CATALINA_BASE.";
+      logger.error(msg);
+      throw new IllegalStateException(msg);
+    }
+
+    return catalinaBase;
+  }
+
+  private static boolean isValidCatalinaBase(String value) {
+    return value != null && !value.isEmpty() && !value.contains("${catalina.base}") && !"catalina.base".equals(value);
+  }
+
+  public static String getSitemapPath() {
+    return PropertyReader.getDataPath() + "sitemap" + File.separator;
+  }
+
+  public static String getActivMQPath() {
+    return PropertyReader.getDataPath() + "activemq" + File.separator;
+  }
+
+  public static String getIngeFilesPath() {
+    return PropertyReader.getDataPath() + "inge_files" + File.separator;
+  }
+
+  public static String getIngeTmpFilesPath() {
+    return PropertyReader.getDataPath() + "inge_tmp_files" + File.separator;
+  }
+
+  public static String getOaiFilesPath() {
+    return PropertyReader.getDataPath() + "inge_oai_files" + File.separator;
   }
 
   public static String getProperty(String key, String defaultValue) {
@@ -280,7 +337,6 @@ public class PropertyReader {
    * description.)
    *
    * @param key The key of the property.
-   * @param callingClass Class of the calling class
    * @return The value of the property.
    */
   private String doGetProperty(String key) {
@@ -291,7 +347,9 @@ public class PropertyReader {
     }
 
     // Get the property
-    value = properties.getProperty(key);
+    if (properties != null) {
+      value = properties.getProperty(key);
+    }
 
     return value;
   }
@@ -299,48 +357,28 @@ public class PropertyReader {
   /**
    * Load the properties from the location defined by the system property
    * <code>pubman.properties.file</code>. If this property is not set the default file path
-   * <code>pubman.properties</code> is used. If no properties can be loaded, the jvm is terminated.
+   * <code>pubman.properties</code> is used.
    */
   public static void loadProperties() {
     counterForLoadingProperties++;
 
-    String propertiesFile = "";
-    Properties solProperties = new Properties();
+    String propertiesFileKey = "pubman.properties.file";
+    String propertiesFile = System.getProperty(propertiesFileKey);
 
-    URL solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
-
-    if (null != solution) {
-      logger.info("Solution URI is <" + solution + ">");
-
-      try {
-        InputStream in = getInputStream("solution.properties");
-        solProperties.load(in);
-        in.close();
-
-        String appname = solProperties.getProperty("appname");
-        propertiesFile = appname + ".properties";
-      } catch (IOException e) {
-        logger.warn("Could not read properties from solution.properties file.");
-      }
-
+    if (propertiesFile != null && !propertiesFile.isEmpty()) {
+      logger.info("Trying to load application properties from system property <" + propertiesFile + ">");
     } else {
-      // Use Default location of properties file
       propertiesFile = DEFAULT_PROPERTY_FILE;
-      logger.info("Trying default property file: <" + DEFAULT_PROPERTY_FILE + ">");
+      logger.info("Trying default property file: <" + propertiesFile + ">");
     }
 
     properties = new Properties();
-    try {
-      InputStream instream = getInputStream(propertiesFile);
+    try (InputStream instream = getInputStream(propertiesFile)) {
       properties.load(instream);
-      properties.putAll(solProperties);
-      instream.close();
+      logger.info("Properties loaded successfully from " + fileLocation);
     } catch (IOException e) {
-      logger.fatal("Got no properties to load...<" + propertiesFile + ">", e);
-      throw new ExceptionInInitializerError(e);
+      logger.warn("Could not load application properties <" + propertiesFile + ">.");
     }
-
-    logger.info("Properties loaded successfully from " + fileLocation);
   }
 
   /**

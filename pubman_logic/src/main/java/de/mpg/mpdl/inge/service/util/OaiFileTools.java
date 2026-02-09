@@ -19,14 +19,15 @@ public class OaiFileTools {
 
   private static final Logger logger = LogManager.getLogger(OaiFileTools.class);
 
-  private static final String OAI_FILESYSTEM_ROOT_PATH =
-      System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_OAI_FILESYSTEM_PATH);
+  private static String getOaiFilesystemRootPath() {
+    return PropertyReader.getOaiFilesPath();
+  }
 
   private OaiFileTools() {}
 
   public static void createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
     logger.info("OAI: Trying to create File [" + fileName + "]");
-    Path directoryPath = Paths.get(OAI_FILESYSTEM_ROOT_PATH);
+    Path directoryPath = Paths.get(getOaiFilesystemRootPath());
     if (Files.notExists(directoryPath)) {
       logger.info("OAI: trying to create directory [ " + directoryPath + "]");
       try {
@@ -51,7 +52,7 @@ public class OaiFileTools {
 
   public static void deleteFile(String fileName) throws IngeTechnicalException {
     logger.info("OAI: Trying to delete File [" + fileName + "]");
-    Path filePath = FileSystems.getDefault().getPath(OAI_FILESYSTEM_ROOT_PATH + fileName);
+    Path filePath = FileSystems.getDefault().getPath(getOaiFilesystemRootPath() + fileName);
     try {
       if (Files.exists(filePath)) {
         Files.delete(filePath);

@@ -63,7 +63,10 @@ public class MiscellaneousController {
 
   private static final String GENRE = "genre";
 
-  private static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
+  private static String getSitemapPath() {
+    return PropertyReader.getSitemapPath();
+  }
+
   private static final String SITEMAP_FILE_PATH = "/{sitemapFile:.+}";
   private static final String Sitemap_VAR = "sitemapFile";
 
@@ -169,7 +172,7 @@ public class MiscellaneousController {
 
     try {
       // Basispfad, in dem sich die XML-Dateien befinden
-      Path basePath = Paths.get(SITEMAP_PATH);
+      Path basePath = Paths.get(getSitemapPath());
       // Vollständiger Pfad zur angeforderten Datei
       Path filePath = basePath.resolve(sitemapFile);
       Resource resource = new UrlResource(filePath.toUri());

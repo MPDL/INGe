@@ -416,9 +416,7 @@ public class ImportServiceImpl implements ImportService {
   }
 
   private File convertInputStreamToFile(InputStream inputStream) throws IOException {
-    String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
-        + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
-    Path tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH, "import_" + UUID.randomUUID());
+    Path tmpFilePath = Paths.get(PropertyReader.getIngeTmpFilesPath(), "import_" + UUID.randomUUID());
     Files.copy(inputStream, tmpFilePath);
     File file = tmpFilePath.toFile();
 
