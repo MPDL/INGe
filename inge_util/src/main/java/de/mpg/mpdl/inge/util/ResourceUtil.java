@@ -26,7 +26,6 @@
 package de.mpg.mpdl.inge.util;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -106,7 +104,9 @@ public class ResourceUtil {
    * @throws FileNotFoundException Thrown if the resource cannot be located.
    */
   public static InputStream getResourceAsStream(String fileName, ClassLoader classLoader) throws FileNotFoundException {
-
+    if (fileName == null) {
+      throw new FileNotFoundException("FileName is null.");
+    }
     InputStream fileIn;
     fileIn = classLoader.getResourceAsStream(resolveFileName(fileName));
 
@@ -141,48 +141,6 @@ public class ResourceUtil {
     }
 
     return result.toString();
-  }
-
-  /**
-   * Gets a stream as String.
-   *
-   * @param stream The input stream
-   * @return The resource as String.
-   * @throws IOException Thrown if the resource cannot be located.
-   */
-  public static String getStreamAsString(InputStream stream) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-    String line = null;
-    StringBuilder result = new StringBuilder();
-
-    while (null != (line = br.readLine())) {
-      result.append(line);
-      result.append("\n");
-    }
-    stream.close();
-
-    return result.toString();
-  }
-
-  /**
-   * Gets a resource as String.
-   *
-   * @param fileName The path and name of the file relative from the working directory.
-   * @return The resource as String.
-   * @throws IOException Thrown if the resource cannot be located.
-   */
-  public static byte[] getResourceAsBytes(String fileName, ClassLoader classLoader) throws IOException {
-    InputStream fileIn = getResourceAsStream(fileName, classLoader);
-
-    byte[] buffer = new byte[2048];
-    int read;
-    ByteArrayOutputStream result = new ByteArrayOutputStream();
-
-    while (-1 != (read = fileIn.read(buffer))) {
-      result.write(buffer, 0, read);
-    }
-
-    return result.toByteArray();
   }
 
   /**
