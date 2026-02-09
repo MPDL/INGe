@@ -37,7 +37,6 @@
 		<module>inge_util</module>
 		<module>inge_validation</module>
 		<module>model</module>
-		<module>pubman_ear</module>
 		<module>pubman_logic</module>
 		<module>pubman_rest</module>
 		<module>reindex_util</module>
@@ -404,7 +403,7 @@
 			</dependency>
 
 			<!-- Jdbc -->
-			<dependency> <!-- Jdbc -->
+			<dependency>
 				<groupId>com.mchange</groupId>
 				<artifactId>c3p0</artifactId>
 				<version>0.9.5.5</version>
@@ -421,6 +420,7 @@
 				<artifactId>jaxb-runtime</artifactId>
 				<version>3.0.2</version>
 			</dependency>
+
 			<!-- PostgreSQL -->
 			<dependency>
 				<groupId>org.postgresql</groupId>
@@ -647,19 +647,6 @@
 			</dependency>
 
 			<!-- Saxon -->
-            <!--
-			<dependency>
-				<groupId>net.sf.saxon</groupId>
-				<artifactId>saxon</artifactId>
-				<version>8.7</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.saxon</groupId>
-				<artifactId>saxon-dom</artifactId>
-				<version>8.7</version>
-			</dependency>
-			-->
-
             <dependency>
                 <groupId>net.sf.saxon</groupId>
                 <artifactId>Saxon-HE</artifactId>
@@ -748,11 +735,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j2-impl</artifactId>
-                <version>2.23.1</version>
-            </dependency>
+         			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j2-impl</artifactId>
+				<version>2.23.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>2.0.12</version>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>
@@ -862,6 +854,11 @@
 					<artifactId>xmlbeans</artifactId>
 					<version>5.1.1</version>
 				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.5.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -963,8 +960,6 @@
 		<inge.es.rest.path-prefix />
 		<inge.es.user />
 		<inge.es.rest.path-prefix />
-		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
-		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
 		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
 		<inge.index.context.name>contexts</inge.index.context.name>
@@ -979,7 +974,6 @@
 		<inge.index.user.name>users</inge.index.user.name>
 		<inge.index.user.sort>name.keyword</inge.index.user.sort>
 		<inge.index.user.type>user</inge.index.user.type>
-		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.openai.url>https://chat-ai.academiccloud.de/v1/chat/completions</inge.openai.url>
 		<inge.openai.model>meta-llama-3.1-8b-instruct</inge.openai.model>
 		<inge.openai.prompt>Create a CSL (Citation Style Language) JSON of the following authors copied from a research paper. In the result give me only the fields family and given. The copy contains all authors we want to add, so check if your result only contains family and given names that exist in the list of authors copied from the research paper. Your result should look like this (with matching names: { "authors": [ { "family": "Rainer", "given": "Z." }, { "family": "Max", "given": "M." } ] } Return only the CSL JSON without explanations. Following the author string I want you to analyze:</inge.openai.prompt>
@@ -995,7 +989,6 @@
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
-		<inge.pubman.root.organization.name />
 		<inge.pubman.root.organization.id />
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
@@ -1121,7 +1114,6 @@
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
 				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
 				<inge.pubman.root.organization.id>ou_persistent13</inge.pubman.root.organization.id>
-				<inge.pubman.root.organization.name>Max Planck Society</inge.pubman.root.organization.name>
 			</properties>
 		</profile>
 
@@ -1144,7 +1136,6 @@
 				<inge.rest.development.enabled>false</inge.rest.development.enabled>
 				<inge.rest.development.file_url />
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
-				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.host>vm44.mpdl.mpg.de</jboss.host>
 				<jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
@@ -1171,146 +1162,6 @@
 			</activation>
 		</profile>
 
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-				<jacoco.version>0.8.2</jacoco.version>
-				<jacoco.outputDir>${project.build.directory}</jacoco.outputDir>
-				<jacoco.out.ut.file>jacoco.exec</jacoco.out.ut.file>
-				<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
-				<sonar.jacoco.reportPaths>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPaths>
-				<sonar.jacoco.itReportPaths>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPaths>
-				<jacoco.arguments.ut>-Xmx1G -XX:+CMSClassUnloadingEnabled
-					${jacoco.agent.ut.arg}</jacoco.arguments.ut>
-				<jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m
-					-XX:+CMSClassUnloadingEnabled ${jacoco.agent.it.arg}</jacoco.arguments.it>
-			</properties>
-
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.jacoco</groupId>
-							<artifactId>jacoco-maven-plugin</artifactId>
-							<version>${jacoco.version}</version>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-
-				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>prepare-ut-agent</id>
-								<phase>process-test-classes</phase>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-								<configuration>
-									<destFile>${sonar.jacoco.reportPaths}</destFile>
-									<propertyName>jacoco.agent.ut.arg</propertyName>
-									<append>true</append>
-								</configuration>
-							</execution>
-							<execution>
-								<id>jacoco-site</id>
-								<phase>test</phase>
-								<goals>
-									<goal>report</goal>
-								</goals>
-								<configuration>
-									<dataFile>${sonar.jacoco.reportPaths}</dataFile>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<!-- Automatically activated when working with eclipse to ignore Maven2Eclipse warning messages for certain plugins -->
-		<profile>
-			<id>only-eclipse</id>
-			<activation>
-				<property>
-					<name>m2e.version</name>
-				</property>
-			</activation>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.eclipse.m2e</groupId>
-							<artifactId>lifecycle-mapping</artifactId>
-							<version>1.0.0</version>
-							<configuration>
-								<lifecycleMappingMetadata>
-									<pluginExecutions>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>com.github.alexcojocaru</groupId>
-												<artifactId>elasticsearch-maven-plugin</artifactId>
-												<versionRange>[6.23,)</versionRange>
-												<goals>
-													<goal>runforked</goal>
-													<goal>stop</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<execute>
-													<runOnIncremental>true</runOnIncremental>
-												</execute>
-											</action>
-										</pluginExecution>
-
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>net.revelc.code.formatter</groupId>
-												<artifactId>formatter-maven-plugin</artifactId>
-												<versionRange>[2.7.0,)</versionRange>
-												<goals>
-													<goal>format</goal>
-													<goal>default</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>
-													org.codehaus.mojo
-												</groupId>
-												<artifactId>
-													xmlbeans-maven-plugin
-												</artifactId>
-												<versionRange>
-													[2.3.3,)
-												</versionRange>
-												<goals>
-													<goal>xmlbeans</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-									</pluginExecutions>
-								</lifecycleMappingMetadata>
-							</configuration>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-			</build>
-		</profile>
 	</profiles>
 
 </project>
