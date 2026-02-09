@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" 
-                xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-                xmlns:javaee="http://java.sun.com/xml/ns/javaee" 
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+  version="6.0">
 	<distributable/>
-	
-	<display-name>Control of Named Entities</display-name>
-	
+
+	<display-name>Authentication and Authorization</display-name>
+
 	<!-- AA Servlets -->
 	<servlet>
 		<servlet-name>AaStart</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.aa.web.AaStart</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>AaClientStart</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.aa.web.client.StartClientServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>AaClientFinish</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.aa.web.client.FinalClientServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>LogoutClientServlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.aa.web.client.LogoutClientServlet</servlet-class>
 	</servlet>
-	
+
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
@@ -47,7 +46,7 @@
 		<servlet-name>AaClientFinish</servlet-name>
 		<url-pattern>/clientReturn</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>LogoutClientServlet</servlet-name>
 		<url-pattern>/logout</url-pattern>
