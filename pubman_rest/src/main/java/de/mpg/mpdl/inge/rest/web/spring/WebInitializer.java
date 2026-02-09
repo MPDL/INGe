@@ -6,7 +6,6 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -17,12 +16,12 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class[] {};// {PubmanRestConfiguration.class};
+    return new Class[] {de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic.class};
   }
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return null;
+    return new Class[] {WebConfiguration.class};
   }
 
   @Override
@@ -41,9 +40,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
-    WebApplicationContext context = getSpringDocContext();
-    servletContext.addListener(new CustomContextLoaderListener(context));
-
     super.onStartup(servletContext);
   }
 

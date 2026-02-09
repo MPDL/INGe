@@ -7,6 +7,7 @@ import java.util.List;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -16,11 +17,22 @@ import org.springframework.web.servlet.config.annotation.CorsRegistration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"de.mpg.mpdl.inge.rest"})
+@Import({org.springdoc.core.configuration.SpringDocConfiguration.class,
+    org.springdoc.webmvc.core.configuration.SpringDocWebMvcConfiguration.class, org.springdoc.webmvc.ui.SwaggerConfig.class,
+    org.springdoc.core.properties.SwaggerUiConfigProperties.class, org.springdoc.core.properties.SwaggerUiOAuthProperties.class,
+    org.springdoc.core.properties.SpringDocConfigProperties.class})
 public class WebConfiguration implements WebMvcConfigurer {
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/swagger-ui/**").addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/")
+        .resourceChain(false);
+  }
 
   @Override
   public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {

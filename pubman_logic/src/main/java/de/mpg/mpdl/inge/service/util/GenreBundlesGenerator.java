@@ -1,15 +1,13 @@
 package de.mpg.mpdl.inge.service.util;
 
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
+import java.io.InputStream;
+import java.util.ResourceBundle;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.helpers.DefaultHandler;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.InputStream;
-import java.util.ResourceBundle;
 
 public class GenreBundlesGenerator {
 
@@ -24,7 +22,6 @@ public class GenreBundlesGenerator {
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser parser = factory.newSAXParser();
 
-      String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
       DefaultHandler handler = new GenreHandler(directory);
 
       parser.parse(file, handler);
@@ -40,7 +37,7 @@ public class GenreBundlesGenerator {
 
   public static void main(String[] args) {
     String targetDir = args[0];
-    //String compileDir = args[1];
+    logger.info("*** CRON: Targetdir: " + targetDir);
     generateGenreBundles(targetDir + "/genreBundles");
   }
 }
