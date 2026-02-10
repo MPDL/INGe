@@ -8,6 +8,19 @@
 
 	<display-name>Control of Named Entities</display-name>
 
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>de.mpg.mpdl.inge.cone.web.EmptyConfig</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>de.mpg.mpdl.inge.cone.web.CustomContextLoaderListener</listener-class>
+	</listener>
+
 	<!-- CoNE Servlets -->
 	<servlet>
 		<servlet-name>ConeServlet</servlet-name>
