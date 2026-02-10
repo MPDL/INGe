@@ -35,7 +35,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
   private final ContextService contextService;
 
   private List<String> allowedAudienceIds;
-  private String categoryTo;
+  private String contentCategoryTo;
   private String contentCategoryFrom;
   private String contextFrom;
   private String contextTo;
@@ -113,7 +113,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       for (FileDbVO file : itemVersionVO.getFiles()) {
         if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
             && file.getMetadata().getContentCategory().equals(this.contentCategoryFrom)) {
-          file.getMetadata().setContentCategory(this.categoryTo);
+          file.getMetadata().setContentCategory(this.contentCategoryTo);
           anyFilesChanged = true;
         }
       }
@@ -121,7 +121,7 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
       for (FileDbVO file : itemVersionVO.getFiles()) {
         if (FileDbVO.Storage.EXTERNAL_URL.equals(file.getStorage())
             && file.getMetadata().getContentCategory().equals(this.contentCategoryFrom)) {
-          file.getMetadata().setContentCategory(this.contentCategoryFrom);
+          file.getMetadata().setContentCategory(this.contentCategoryTo);
           anyFilesChanged = true;
         }
       }
@@ -532,8 +532,8 @@ public class BatchProcessOperationsImpl implements BatchProcessOperations {
     this.allowedAudienceIds = allowedAudienceIds;
   }
 
-  public void setCategoryTo(String categoryTo) {
-    this.categoryTo = categoryTo;
+  public void setContentCategoryTo(String contentCategoryTo) {
+    this.contentCategoryTo = contentCategoryTo;
   }
 
   public void setContentCategoryFrom(String contentCategoryFrom) {

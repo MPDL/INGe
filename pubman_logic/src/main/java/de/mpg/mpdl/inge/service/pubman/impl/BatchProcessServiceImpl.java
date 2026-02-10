@@ -598,7 +598,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     BatchProcessOperationsImpl batchOperationsImpl = new BatchProcessOperationsImpl(this.batchProcessCommonService, this.contextService);
     batchOperationsImpl.setContentCategoryFrom(contentCategoryFrom);
-    batchOperationsImpl.setCategoryTo(contentCategoryTo);
+    batchOperationsImpl.setContentCategoryTo(contentCategoryTo);
 
     logger.info("Vor ASYNC Call " + method + ": " + itemIds.size());
     this.batchProcessAsyncService.doAsync(method, batchProcessLogHeaderDbVO, accountUserDbVO, itemIds, token, batchOperationsImpl);
