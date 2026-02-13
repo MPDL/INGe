@@ -31,18 +31,22 @@ public class CitationStyleLanguageManagerService {
     CSL citeproc = null;
     try {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
-
+      citeproc = new CSL(itemDataProvider, citationStyle);
+      /*
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
-
+      
       if (null != defaultLocale) {
         citeproc = new CSL(itemDataProvider, citationStyle, defaultLocale);
       } else {
         citeproc = new CSL(itemDataProvider, citationStyle);
       }
+      
+       */
 
 
       citeproc.registerCitationItems(itemDataProvider.getIds(), true);
       citeproc.setOutputFormat(new CiteProcPubManHTMLFormat());
+
 
       Bibliography bibl = citeproc.makeBibliography();
 
