@@ -8,6 +8,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDetailDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogHeaderDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessUserLockDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.exception.PubManException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -528,7 +529,7 @@ public class BatchProcessServiceImpl implements BatchProcessService {
 
     if (null != batchProcessUserLockDbVO) {
       throw new IngeApplicationException(
-          "User " + accountUserDbVO.getObjectId() + " already locked since " + batchProcessUserLockDbVO.getLockDate());
+          "Another batch process for user " + accountUserDbVO.getObjectId() + " is already running since " + batchProcessUserLockDbVO.getLockDate(), PubManException.Reason.BATCH_USER_LOCKED);
     }
 
     checkList(itemIds, "itemIds");

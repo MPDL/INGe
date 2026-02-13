@@ -25,6 +25,8 @@ public class PubManException extends Exception {
         OPTIMISTIC_LOCKING_ERROR,
         GENERIC_NOT_FOUND,
 
+        BATCH_USER_LOCKED
+
     }
 
 
