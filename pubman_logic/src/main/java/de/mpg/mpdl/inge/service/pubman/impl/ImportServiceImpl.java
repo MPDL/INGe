@@ -72,6 +72,10 @@ public class ImportServiceImpl implements ImportService {
 
     checkUserAccess(importLogDbVO, accountUserDbVO);
 
+    if (!importLogDbVO.getStatus().equals(ImportLog.Status.FINISHED)) {
+      throw new IngeApplicationException("Status must be FINISHED");
+    }
+
     this.importCommonService.deleteImportLog(importLogDbVO);
   }
 
