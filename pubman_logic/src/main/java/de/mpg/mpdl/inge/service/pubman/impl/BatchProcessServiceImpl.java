@@ -528,8 +528,8 @@ public class BatchProcessServiceImpl implements BatchProcessService {
         this.batchProcessUserLockRepository.findById(accountUserDbVO.getObjectId()).orElse(null);
 
     if (null != batchProcessUserLockDbVO) {
-      throw new IngeApplicationException(
-          "Another batch process for user " + accountUserDbVO.getObjectId() + " is already running since " + batchProcessUserLockDbVO.getLockDate(), PubManException.Reason.BATCH_USER_LOCKED);
+      throw new IngeApplicationException("Another batch process for user " + accountUserDbVO.getObjectId() + " is already running since "
+          + batchProcessUserLockDbVO.getLockDate(), PubManException.Reason.BATCH_USER_LOCKED);
     }
 
     checkList(itemIds, "itemIds");

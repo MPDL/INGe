@@ -5,27 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Cacheable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
 
 
 @SuppressWarnings("serial")
@@ -56,7 +42,7 @@ public class ItemRootVO implements Serializable {
   private AccountUserDbRO creator;
 
 
-  @ManyToOne(fetch = FetchType.EAGER, targetEntity = ContextDbVO.class)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity = ContextDbVO.class, cascade = {CascadeType.DETACH})
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
   @JsonSerialize(as = ContextDbRO.class)
   private ContextDbRO context;
@@ -64,14 +50,14 @@ public class ItemRootVO implements Serializable {
   private Date creationDate;
 
   // @MapsId("objectId")
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class)
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class, cascade = {CascadeType.DETACH})
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
   @JsonSerialize(as = ItemVersionRO.class)
   private ItemVersionRO latestRelease;
 
   // @MapsId("objectId")
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class)
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class, cascade = {CascadeType.DETACH})
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
   @JsonSerialize(as = ItemVersionRO.class)
