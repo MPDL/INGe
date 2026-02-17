@@ -237,7 +237,8 @@ public class ModelList {
             Boolean.parseBoolean(attributes.getValue("overwrite")), Boolean.parseBoolean(attributes.getValue("shouldBeUnique")),
             (null == attributes.getValue("modify") ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
             attributes.getValue("event"), attributes.getValue("resourceModel"), attributes.getValue("default"),
-            attributes.getValue("suggest-url"), attributes.getValue("type"));
+            attributes.getValue("suggest-url"), attributes.getValue("suggest-response-handler"),
+            attributes.getValue("suggest-request-handler"), attributes.getValue("type"));
         this.predicateStack.peek().add(predicate);
         this.predicateStack.push(predicate.getPredicates());
       } else if ("models/model/primary-identifier".equals(this.localStack.toString())) {
@@ -654,6 +655,8 @@ public class ModelList {
     private Event event;
     private String defaultValue;
     private String suggestUrl;
+    private String suggestResponseHandler;
+    private String suggestRequestHandler;
     private Type type;
 
     /**
@@ -686,11 +689,15 @@ public class ModelList {
      * @param defaultValue The default value of this predicate when nothing is set in the edit mask
      * @param suggestUrl A link to an url that provides autosuggest values for the field in the edit
      *        mask
+     * @param suggestResponseHandler The name of the handler function for the autosuggest result
+     * @param suggestRequestHandler The name of the handler function for the autosuggest request
+     *        data
      * @param typeString A type indictator for the value of this predicate. See {@link Type}
      */
     public Predicate(String id, String name, boolean multiple, boolean mandatory, boolean localized, boolean generateObject,
         boolean includeResource, boolean searchable, boolean restricted, boolean overwrite, boolean shouldBeUnique, boolean modify,
-        String eventString, String resourceModel, String defaultValue, String suggestUrl, String typeString) {
+        String eventString, String resourceModel, String defaultValue, String suggestUrl, String suggestResponseHandler,
+        String suggestRequestHandler, String typeString) {
       this.id = id;
 
       this.multiple = multiple;
@@ -710,6 +717,8 @@ public class ModelList {
       this.resourceModel = resourceModel;
       this.defaultValue = defaultValue;
       this.suggestUrl = suggestUrl;
+      this.suggestResponseHandler = suggestResponseHandler;
+      this.suggestRequestHandler = suggestRequestHandler;
 
       if (null != typeString && !typeString.isEmpty()) {
         this.type = Type.valueOf(typeString.toUpperCase());
@@ -894,6 +903,22 @@ public class ModelList {
 
     public void setSuggestUrl(String suggestUrl) {
       this.suggestUrl = suggestUrl;
+    }
+
+    public String getSuggestResponseHandler() {
+      return this.suggestResponseHandler;
+    }
+
+    public void setSuggestResponseHandler(String suggestResponseHandler) {
+      this.suggestResponseHandler = suggestResponseHandler;
+    }
+
+    public String getSuggestRequestHandler() {
+      return this.suggestRequestHandler;
+    }
+
+    public void setSuggestRequestHandler(String suggestRequestHandler) {
+      this.suggestRequestHandler = suggestRequestHandler;
     }
 
     public Type getType() {

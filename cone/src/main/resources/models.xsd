@@ -113,7 +113,10 @@
 		<xs:attribute name="modify" type="xs:boolean" default="true" use="optional"/>
 		<xs:attribute name="restricted" type="xs:boolean" default="false" use="optional"/>
 		<xs:attribute name="shouldBeUnique" type="xs:boolean" default="false" use="optional"/>
-		<xs:attribute name="suggest-url" type="xs:string" default="false" use="optional"/>
+		<xs:attribute name="suggest-url" type="xs:string" use="optional"/>
+		<xs:attribute name="suggest-response-handler" type="xs:string" use="optional"/>
+		<xs:attribute name="suggest-request-handler" type="xs:string" use="optional"/>
+		<xs:attribute name="type" type="xs:string" use="optional"/>
     </xs:complexType>
     
     <xs:simpleType name="EventType">

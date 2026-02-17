@@ -170,7 +170,7 @@
 									}
 									if(null != predicate.getSuggestUrl() && !predicate.getSuggestUrl().trim().isEmpty())
 									{
-										out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
+										out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "', '" + predicate.getSuggestResponseHandler() + "', '" + predicate.getSuggestRequestHandler() + "')</script>");
 									}
 									if (predicate.isLocalized())
 									{
@@ -277,7 +277,7 @@
 								}
 								if(null != predicate.getSuggestUrl() && !predicate.getSuggestUrl().trim().isEmpty())
 								{
-									out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
+									out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "', '" + predicate.getSuggestResponseHandler() + "', '" + predicate.getSuggestRequestHandler() + "')</script>");
 								}
 								if (predicate.isLocalized())
 								{

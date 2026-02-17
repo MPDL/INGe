@@ -196,6 +196,7 @@
 						
 						var source = options.source;
 						var data = '';
+						var type = options.method || "GET";
 						
 						// Check if source URL already contains a language
 						if (!(source.indexOf('?lang=') >= 0 || source.indexOf('&lang=') >= 0 || source.indexOf('?l=') >= 0 || source.indexOf('&l=') >= 0))
@@ -214,19 +215,39 @@
 							source = source.substring(0, source.indexOf('?'));
 						}
 
+						var contentType = "application/x-www-form-urlencoded; charset=UTF-8";
+						if (typeof options.prepareData === "function") {
+							var prepared = options.prepareData(q, data);
+							if (typeof prepared === "object") {
+								data = prepared.data;
+								if (prepared.contentType) {
+									contentType = prepared.contentType;
+								}
+								if (prepared.method) {
+									type = prepared.method;
+								}
+							} else {
+								data = prepared;
+							}
+						}
+
 						//Cancel old request
 						if(typeof suggestXhr !== 'undefined'){
 							suggestXhr.abort();
 						}
 						suggestXhr = $.ajax({
 							processData: false,
-							type: "GET",
+							type: type,
 							dataType: "json",
 							cache: false,
+							contentType: contentType,
 							url: (options.vocab == null ? source : source.replace('\$1', vocab)),
 							data: data,
 							success: function(result) {
 									$results.hide();
+									if (typeof options.handler === "function") {
+										result = options.handler(result);
+									}
 									var items = parseJSON(result, q);
 									displayItems(items);
 									addToCache(q, items, result.length);
@@ -478,6 +499,9 @@
 			options.delimiter = options.delimiter || '\n';
 			options.subdelimiter = options.subdelimiter || '|';
 			options.onSelect = options.onSelect || false;
+			options.method = options.method || "GET";
+			options.handler = options.handler || false;
+			options.prepareData = options.prepareData || false;
 			options.maxCacheSize = options.maxCacheSize || 65536;
 			//options.vocab = options.vocab;
 	

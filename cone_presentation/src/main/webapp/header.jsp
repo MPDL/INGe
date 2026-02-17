@@ -132,16 +132,16 @@
 		};
 
 
-		function bindExternalSuggest(element, url)
+		function bindExternalSuggest(element, url, responseHandler, requestHandler)
 		{
 			if (typeof pageLoaded != 'undefined' && pageLoaded)
 			{
 				element = element.replace('|', '\\|');
-				$('input[name=' + element + ']').suggest(url, {onSelect: fillExternalValue});
+				$('input[name=' + element + ']').suggest(url, {onSelect: fillExternalValue, handler: (typeof responseHandler != 'undefined' && responseHandler != 'null' ? eval(responseHandler) : null), prepareData: (typeof requestHandler != 'undefined' && requestHandler != 'null' ? eval(requestHandler) : null)});
 			}
 			else
 			{
-				setTimeout('bindExternalSuggest(\'' + element + '\', \'' + url + '\')', 100);
+				setTimeout('bindExternalSuggest(\'' + element + '\', \'' + url + '\', \'' + responseHandler + '\', \'' + requestHandler + '\')', 100);
 			}
 		};
 
@@ -498,5 +498,7 @@
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js"></script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js"></script>
 	<script type="text/javascript" src="/cone/js/jquery.xpath.min.js"></script>
+	<script type="text/javascript" src="/cone/js/suggestHandlers.js"></script>
+
 	<link type="text/css" rel="stylesheet" href="/cone/js/jquery.suggest.css"/>
 </head>
