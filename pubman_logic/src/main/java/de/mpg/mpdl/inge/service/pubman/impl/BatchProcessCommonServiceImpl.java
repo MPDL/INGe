@@ -222,7 +222,7 @@ public class BatchProcessCommonServiceImpl implements BatchProcessCommonService 
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     String when = formatter.format(calendar.getTime());
-    String message = method.name() + when;
+    String message = method.name() + " " + when;
 
     return message;
   }
