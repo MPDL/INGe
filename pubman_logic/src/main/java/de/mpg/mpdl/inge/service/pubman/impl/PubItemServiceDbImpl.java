@@ -1028,7 +1028,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     AuditDbVO audit = new AuditDbVO();
     audit.setEvent(event);
     audit.setComment(message);
-    audit.setModificationDate(pubItem.getModificationDate());
+    audit.setModificationDate(pubItem.getObject().getLastModificationDate());
     audit.setModifier(pubItem.getModifier());
     audit.setPubItem(pubItem);
     try {
