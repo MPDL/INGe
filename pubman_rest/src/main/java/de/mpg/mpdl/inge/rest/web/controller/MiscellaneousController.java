@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import de.mpg.mpdl.inge.cone_cache.ConeCache;
 import de.mpg.mpdl.inge.es.dao.impl.ContextDaoImpl;
 import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
 import de.mpg.mpdl.inge.es.dao.impl.PubItemDaoImpl;
@@ -239,6 +240,24 @@ public class MiscellaneousController {
       throw new IngeApplicationException("Index name " + index + " is unknown");
     }
     return new ResponseEntity<>("Index started for index " + index, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/refreshConeCache", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
+  public ResponseEntity<String> refreshConeCache(@RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
+      throws AuthenticationException, IngeTechnicalException {
+
+    this.aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
+
+    try {
+      logger.info("REST: CONE-Cache refresh task starts...");
+      ConeCache.refreshCache();
+      String message = "REST: CONE-Cache refresh task finished.";
+      logger.info(message);
+      return new ResponseEntity<>(message, HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error in CONE Cache Refresh: ", e);
+      throw new IngeTechnicalException("Error in CONE Cache Refresh", e);
+    }
   }
 
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
