@@ -173,6 +173,8 @@ public class ItemRestController {
       @RequestParam(value = "cslConeId", required = false) String cslConeId, HttpServletResponse response) throws AuthenticationException,
       AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException, IOException {
 
+    checkCslConeId(cslConeId);
+
     List<ItemVersionVO> itemList = new ArrayList<>();
     itemList.add(getItem(itemId, token));
 
@@ -412,6 +414,8 @@ public class ItemRestController {
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
+    checkCslConeId(cslConeId);
+
     SearchRetrieveRequestVO srRequest = this.utilServiceBean.query2VO(query);
 
     return this.utilServiceBean.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
@@ -438,6 +442,8 @@ public class ItemRestController {
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scrollId") String scrollId, //
       HttpServletResponse response) throws IngeTechnicalException, IOException {
+
+    checkCslConeId(cslConeId);
 
     ResponseBody searchResp = this.pubItemService.scrollOn(scrollId, DEFAULT_SCROLL_TIME);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse =
@@ -519,7 +525,7 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "/jusreport", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> jusReport( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
       @RequestParam(value = "format", required = false, defaultValue = TransformerFactory.JUS_HTML_XML) @Parameter(
           schema = @Schema(allowableValues = {TransformerFactory.JUS_HTML_XML, TransformerFactory.JUS_INDESIGN_XML})) String format, //
@@ -559,4 +565,12 @@ public class ItemRestController {
     return this.pubItemService.cleanUpItem(pubItem, authenticationToken);
 
   }
+
+  private void checkCslConeId(String cslConeId) throws IngeTechnicalException {
+    if (cslConeId != null && !cslConeId.isEmpty()
+        && !cslConeId.startsWith(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL))) {
+      throw new IngeTechnicalException("cslConeId must start with " + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL));
+    }
+  }
 }
+
