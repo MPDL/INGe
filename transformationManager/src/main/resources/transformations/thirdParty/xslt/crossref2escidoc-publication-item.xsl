@@ -244,14 +244,6 @@
 				<publ:given-name>
 					<xsl:value-of select="given_name"></xsl:value-of>
 				</publ:given-name>
-				<xsl:element name="ou:organization">
-					<dc:title>
-						<xsl:value-of select="'External Organizations'"></xsl:value-of>
-					</dc:title>
-					<dc:identifier>
-						<xsl:value-of select="$external_organization_id"></xsl:value-of>
-					</dc:identifier>
-				</xsl:element>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
