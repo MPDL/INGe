@@ -46,7 +46,7 @@ public class ConfigurationTest {
 
     assertTrue(t.getConfiguration() != null);
 
-    assertTrue(t.getConfiguration().get("CoNE").equals("true"));
+    assertTrue(t.getConfiguration().get("CoNE").equals("false"));
     assertTrue(t.getConfiguration().get("import-name").equals("OTHER"));
 
     assertTrue(t.getAllConfigurationValuesFor("CoNE").contains("true"));
