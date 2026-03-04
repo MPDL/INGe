@@ -35,8 +35,7 @@
 	<xsl:param name="postData"/>
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
-	<xsl:param name="inge.pubman.presentation.url"/>
-	<xsl:param name="inge.pubman.stylesheet.url"/>
+	<xsl:param name="inge.cone.service.url"/>
 
 
 	<xsl:variable name="defaultLang" select="'en'"/>
@@ -50,10 +49,10 @@
 			<head>
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
 				<link type="text/css" rel="stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.presentation.url" /></xsl:attribute>
+					<xsl:attribute name="href"><xsl:value-of select="concat($inge.cone.service.url,'css/main.css')" /></xsl:attribute>
 				</link>
 				<link type="text/css" rel="stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.url" /></xsl:attribute>
+					<xsl:attribute name="href"><xsl:value-of select="concat($inge.cone.service.url,'css/themes/skin_MPG/styles/theme.css')" /></xsl:attribute>
 				</link>
 
 				<style type="text/css">

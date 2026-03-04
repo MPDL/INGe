@@ -164,7 +164,7 @@ public class HtmlFormatter extends AbstractFormatter {
 
       String format = "escidoc_snippet";
 
-      String citation = "APA";
+      String citation = "APA6";
       if ("ja".equals(lang)) {
         citation = "APA(CJK)";
       }
