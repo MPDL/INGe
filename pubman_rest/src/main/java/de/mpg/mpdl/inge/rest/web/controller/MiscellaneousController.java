@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import de.mpg.mpdl.inge.cone_cache.ConeCache;
 import de.mpg.mpdl.inge.es.dao.impl.ContextDaoImpl;
 import de.mpg.mpdl.inge.es.dao.impl.OrganizationDaoImpl;
 import de.mpg.mpdl.inge.es.dao.impl.PubItemDaoImpl;
@@ -69,7 +70,8 @@ public class MiscellaneousController {
 
   private static final String GENRE = "genre";
 
-  private static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
+  private static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
+      + "/standalone/data/sitemap/";
   private static final String SITEMAP_FILE_PATH = "/{sitemapFile:.+}";
   private static final String Sitemap_VAR = "sitemapFile";
 
@@ -77,7 +79,8 @@ public class MiscellaneousController {
   private static final String OPENAI_MODEL = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_MODEL);
   private static final String OPENAI_PROMPT = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_PROMPT);
   private static final String OPENAI_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TOKEN);
-  private static final Integer OPENAI_TEMPERATURE = Integer.valueOf(PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TEMPERATURE));
+  private static final Integer OPENAI_TEMPERATURE = Integer
+      .valueOf(PropertyReader.getProperty(PropertyReader.INGE_OPENAI_TEMPERATURE));
 
   private final UtilServiceBean utilServiceBean;
 
@@ -203,7 +206,8 @@ public class MiscellaneousController {
 
   @RequestMapping(value = "/reindex", method = RequestMethod.GET)
   public ResponseEntity<?> reindex(@RequestParam(name = "index", required = true) String index,
-      @RequestParam(name = "id", required = false) String id, @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
+      @RequestParam(name = "id", required = false) String id,
+      @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token) //
       throws AuthenticationException, IngeApplicationException, IngeTechnicalException {
 
     this.aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
@@ -249,7 +253,6 @@ public class MiscellaneousController {
 
   @RequestMapping(value = "/serviceInfo", method = RequestMethod.GET)
   public ResponseEntity<?> serviceInfo()
-
       throws IngeTechnicalException {
     String appVersion = null;
     try {
@@ -264,6 +267,24 @@ public class MiscellaneousController {
     return new ResponseEntity<>(appVersion, HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/refreshConeCache", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
+  public ResponseEntity<String> refreshConeCache(@RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
+      throws AuthenticationException, IngeTechnicalException {
+
+    this.aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
+
+    try {
+      logger.info("REST: CONE-Cache refresh task starts...");
+      ConeCache.refreshCache();
+      String message = "REST: CONE-Cache refresh task finished.";
+      logger.info(message);
+      return new ResponseEntity<>(message, HttpStatus.OK);
+    } catch (Exception e) {
+      logger.error("Error in CONE Cache Refresh: ", e);
+      throw new IngeTechnicalException("Error in CONE Cache Refresh", e);
+    }
+  }
+
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -273,7 +294,8 @@ public class MiscellaneousController {
     JSONObject jsonObject = new JSONObject(responseBody);
 
     // Get the first choices[0].message.content as JSONObject
-    JSONObject content = new JSONObject(jsonObject.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
+    JSONObject content = new JSONObject(
+        jsonObject.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
 
     // Get the authors array
     JSONArray authors = content.getJSONArray("authors");
@@ -281,12 +303,14 @@ public class MiscellaneousController {
     for (int i = authors.length() - 1; i >= 0; i--) {
       JSONObject author = authors.getJSONObject(i);
       logger.info("Checking Author [ " + i + "]: " + author.toString());
-      Pattern checkPattern = Pattern.compile("(?i)" + author.getString("family") + "[\\s,|;:&]+\\s*" + author.getString("given") + "|"
-          + author.getString("given") + "[\\s,|;:&]+\\s*" + author.getString("family"));
+      Pattern checkPattern = Pattern
+          .compile("(?i)" + author.getString("family") + "[\\s,|;:&]+\\s*" + author.getString("given") + "|"
+              + author.getString("given") + "[\\s,|;:&]+\\s*" + author.getString("family"));
       Matcher checkMatcher = checkPattern.matcher(stringToCheck);
       if (!checkMatcher.find()) {
         authors.remove(i);
-        logger.info("Hallucination-Author removed '" + author.getString("family") + ", " + author.getString("given") + "' successfully.");
+        logger.info("Hallucination-Author removed '" + author.getString("family") + ", " + author.getString("given")
+            + "' successfully.");
       }
     }
     return authors.toString();
@@ -321,6 +345,7 @@ public class MiscellaneousController {
     return request;
   }
 
-  private record Request(String url, HttpHeaders headers, String requestBody) {}
+  private record Request(String url, HttpHeaders headers, String requestBody) {
+  }
 
 }

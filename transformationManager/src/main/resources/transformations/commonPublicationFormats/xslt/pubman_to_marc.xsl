@@ -1051,8 +1051,8 @@
 			<xsl:when test="matches($normalized, ' - ')">
 				<xsl:sequence select="for $i in tokenize($normalized, ' - ')[normalize-space(.)] return normalize-space($i)"/>
 			</xsl:when>
-			<xsl:when test="matches($text, '^', 'm')">
-				<xsl:sequence select="for $i in tokenize($text, '^', 'm')[normalize-space(.)] return normalize-space($i)"/>
+			<xsl:when test="matches($text, '\r?\n')">
+				<xsl:sequence select="for $i in tokenize($text, '\r?\n')[normalize-space(.)] return normalize-space($i)"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:sequence select="$text[normalize-space(.)]"/>

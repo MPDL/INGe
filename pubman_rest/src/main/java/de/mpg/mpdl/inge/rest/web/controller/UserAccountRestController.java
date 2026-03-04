@@ -45,6 +45,7 @@ public class UserAccountRestController {
 
   private static final String USER_ID_PATH = "/{userId}";
   private static final String USER_ID_VAR = "userId";
+  private static final String PASSWORD_CHANGE_FLAG = "changePasswordFlag";
 
   private final UserAccountService userSvc;
   private final UtilServiceBean utils;
@@ -169,12 +170,16 @@ public class UserAccountRestController {
 
   @RequestMapping(value = USER_ID_PATH + "/password", method = RequestMethod.PUT)
   @Hidden
-  public ResponseEntity<AccountUserDbVO> changePassword(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
-      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String changedPassword)
+  public ResponseEntity<AccountUserDbVO> changePassword( //
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
+      @PathVariable(value = USER_ID_VAR) String userId, //
+      @RequestParam(value = PASSWORD_CHANGE_FLAG, required = false) Boolean passwordChangeFlag, //
+      @RequestBody String changedPassword)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO user = this.userSvc.get(userId, token);
     Date lmd = user.getLastModificationDate();
-    AccountUserDbVO updated = this.userSvc.changePassword(userId, lmd, changedPassword, false, token);
+    AccountUserDbVO updated =
+        this.userSvc.changePassword(userId, lmd, changedPassword, passwordChangeFlag != null ? passwordChangeFlag : false, token);
 
     return new ResponseEntity<>(updated, HttpStatus.OK);
   }
