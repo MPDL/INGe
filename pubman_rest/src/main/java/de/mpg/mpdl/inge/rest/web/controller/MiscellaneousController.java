@@ -23,6 +23,8 @@ import de.mpg.mpdl.inge.service.util.GenrePropertiesProvider;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -31,6 +33,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
@@ -239,6 +245,23 @@ public class MiscellaneousController {
       throw new IngeApplicationException("Index name " + index + " is unknown");
     }
     return new ResponseEntity<>("Index started for index " + index, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/serviceInfo", method = RequestMethod.GET)
+  public ResponseEntity<?> serviceInfo()
+
+      throws IngeTechnicalException {
+    String appVersion = null;
+    try {
+      InputStream is = getClass().getResourceAsStream("/META-INF/MANIFEST.MF");
+      if (is != null) {
+        java.util.jar.Manifest manifest = new java.util.jar.Manifest(is);
+        appVersion = manifest.getMainAttributes().getValue("Implementation-Version");
+      }
+    } catch (Exception e) {
+      logger.error("Error reading manifest file for service info REST endpoint", e);
+    }
+    return new ResponseEntity<>(appVersion, HttpStatus.OK);
   }
 
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
