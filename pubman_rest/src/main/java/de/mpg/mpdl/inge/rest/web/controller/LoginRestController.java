@@ -8,6 +8,8 @@ import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +40,27 @@ public class LoginRestController {
     this.ipListProvider = ipListProvider;
   }
 
+  @RequestMapping(path = "changepassword", method = POST, produces = APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> changePassword(@RequestBody String credentials, HttpServletRequest request, HttpServletResponse response)
+      throws AuthenticationException, IngeTechnicalException, AuthorizationException, IngeApplicationException {
+    String[] splittedCredentials = credentials.split(":");
+
+    if (3 != splittedCredentials.length) {
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    String username = splittedCredentials[0];
+    String password = splittedCredentials[1];
+    String newPassword = splittedCredentials[2];
+    Principal principal = this.userSvc.loginForPasswordChange(username, password);
+    if (null != principal && null != principal.getUserAccount()) {
+      userSvc.changePassword(principal.getUserAccount().getObjectId(), principal.getUserAccount().getLastModificationDate(), newPassword,
+          true, principal.getJwToken());
+    }
+
+    return null;
+  }
+
   @RequestMapping(path = "login", method = POST, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<?> login(@RequestBody String credentials, HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, IngeTechnicalException {
@@ -59,7 +82,6 @@ public class LoginRestController {
 
     return null;
   }
-
 
   @RequestMapping(path = "login/who", method = GET, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
