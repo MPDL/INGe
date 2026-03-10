@@ -26,6 +26,17 @@ public class NetworkUtils {
    */
   public static boolean checkIPMatching(String pattern, String address) {
 
+    if (address == null || pattern == null) {
+      return false;
+    }
+
+    // handle list of addresses (e.g. from X-Forwarded-For)
+    if (address.contains(",")) {
+      address = address.split(",")[0].trim();
+    }
+    // remove brackets if present
+    address = address.replace("[", "").replace("]", "").trim();
+
     if ("*.*.*.*".equals(pattern) || "*".equals(pattern))
       return true;
     // pattern like 123.123.123.123/31
