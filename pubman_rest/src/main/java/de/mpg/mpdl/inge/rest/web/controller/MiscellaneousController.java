@@ -256,6 +256,25 @@ public class MiscellaneousController {
       if (is != null) {
         java.util.jar.Manifest manifest = new java.util.jar.Manifest(is);
         appVersion = manifest.getMainAttributes().getValue("Implementation-Version");
+
+        // Debug: log what we found in the manifest
+        if (appVersion == null) {
+          logger.info("Implementation-Version not found. Available attributes:");
+          // manifest.getMainAttributes().forEach((k, v) -> logger.info(k + ": " + v));
+          manifest.getEntries().forEach((entryName, attributes) -> {
+            logger.info("Entry: " + entryName);
+            attributes.forEach((k, v) -> logger.info("  " + k + ": " + v));
+          });
+        }
+      } else {
+        logger.warn("Manifest file not found at /META-INF/MANIFEST.MF");
+
+        // Fallback: try to get version from package
+        Package pkg = getClass().getPackage();
+        if (pkg != null && pkg.getImplementationVersion() != null) {
+          appVersion = pkg.getImplementationVersion();
+          logger.info("Retrieved Implementation-Version from Package: " + appVersion);
+        }
       }
     } catch (Exception e) {
       logger.error("Error reading manifest file for service info REST endpoint", e);
