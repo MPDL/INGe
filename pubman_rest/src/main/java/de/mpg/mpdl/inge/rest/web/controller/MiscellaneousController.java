@@ -314,13 +314,23 @@ public class MiscellaneousController {
     // Get the authors array
     JSONArray authors = content.getJSONArray("authors");
 
+    // Normalize the string once outside the loop
+    String normalizedStringToCheck = stringToCheck.replace("\\r\\n", " ").replace("\\n", " ").replace("\\r", " ").replace("\\t", " ")
+        .replace("\\f", " ").replace("\\v", " ").replaceAll("[\\r\\n\\t\\f\\v\\u00A0]+", " ").trim();
+    // Remove any remaining control characters (ASCII 0-31 and 127)
+    normalizedStringToCheck = normalizedStringToCheck.replaceAll("[\\x00-\\x1F\\x7F]", "");
+
     for (int i = authors.length() - 1; i >= 0; i--) {
       JSONObject author = authors.getJSONObject(i);
       logger.info("Checking Author [ " + i + "]: " + author.toString());
-      Pattern checkPattern = Pattern.compile("(?i)" + author.getString("family") + "[\\s,|;:&]+\\s*" + author.getString("given") + "|"
-          + author.getString("given") + "[\\s,|;:&]+\\s*" + author.getString("family"));
-      Matcher checkMatcher = checkPattern.matcher(stringToCheck);
-      if (!checkMatcher.find()) {
+
+      String family = author.getString("family");
+
+      // Simple check: if family name exists in the original string, keep it
+      // This is more robust than trying to match exact patterns
+      boolean familyExists = normalizedStringToCheck.toLowerCase().contains(family.toLowerCase());
+
+      if (!familyExists) {
         authors.remove(i);
         logger.info("Hallucination-Author removed '" + author.getString("family") + ", " + author.getString("given") + "' successfully.");
       }
