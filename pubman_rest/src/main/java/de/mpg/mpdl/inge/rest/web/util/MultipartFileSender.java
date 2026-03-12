@@ -68,7 +68,7 @@ public class MultipartFileSender {
     }
 
 
-    Long length = fileVOWrapper.getFileVO().getSize();
+    Long length = fileVOWrapper.getSize();
     String fileName = fileVOWrapper.getFileVO().getName();
     Date lastModifiedObj = fileVOWrapper.getFileVO().getLastModificationDate();
 
@@ -206,7 +206,7 @@ public class MultipartFileSender {
     if (ranges == null || ranges.isEmpty()) {
       logger.info("Return full file");
       response.setContentType(contentType);
-      response.setHeader("Content-Length", String.valueOf(fileVOWrapper.getFileVO().getSize()));
+      response.setHeader("Content-Length", String.valueOf(length));
       response.setStatus(HttpServletResponse.SC_OK); // 200.
       fileVOWrapper.readFile(output);
     }

@@ -174,4 +174,9 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
   public boolean fileExists(String filePath) throws IngeTechnicalException {
     throw new UnsupportedOperationException("Not supported yet.");
   }
+
+  @Override
+  public long getSize(String fileRelativePath) throws IngeTechnicalException {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 }

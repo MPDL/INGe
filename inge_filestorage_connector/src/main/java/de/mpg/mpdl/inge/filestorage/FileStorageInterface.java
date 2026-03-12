@@ -75,6 +75,8 @@ public interface FileStorageInterface {
 
   boolean fileExists(String filePath) throws IngeTechnicalException;
 
+  long getSize(String fileRelativePath) throws IngeTechnicalException;
+
 
 
 }

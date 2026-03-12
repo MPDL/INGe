@@ -57,4 +57,8 @@ public class FileVOWrapper {
   public String getThumbnailFileId() {
     return thumbnailFileId;
   }
+
+  public long getSize() throws IngeTechnicalException {
+    return this.fileStorageInterface.getSize(this.fileVO.getLocalFileIdentifier());
+  }
 }

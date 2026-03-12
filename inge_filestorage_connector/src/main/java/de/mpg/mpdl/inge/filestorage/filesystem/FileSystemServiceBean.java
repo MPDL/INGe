@@ -167,6 +167,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   }
 
+
+
   private void readFileFromFileSystem(Path filepath, OutputStream output, Range range) throws IOException {
     Long length = Files.size(filepath);
 
@@ -219,5 +221,14 @@ public class FileSystemServiceBean implements FileStorageInterface {
   public boolean fileExists(String filePath) throws IngeTechnicalException {
     Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + filePath);
     return Files.exists(path);
+  }
+
+  public long getSize(String fileRelativePath) throws IngeTechnicalException {
+    try {
+      Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
+      return Files.size(path);
+    } catch (IOException e) {
+      throw new IngeTechnicalException("Could not get file size", e);
+    }
   }
 }
