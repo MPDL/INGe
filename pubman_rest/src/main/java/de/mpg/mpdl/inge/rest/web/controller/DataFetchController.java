@@ -75,15 +75,13 @@ public class DataFetchController {
   @RequestMapping(value = "/getCrossref", method = RequestMethod.GET)
   public ResponseEntity<ItemVersionVO> getCrossref( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(CONTEXT_ID) String contextId, //
       @RequestParam(IDENTIFIER) String identifier //
   ) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
     DataSourceVO dataSourceVO = getDataSource(CROSSREF);
     AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
-    ContextDbVO contextDbVO = getContext(contextId, accountUserDbVO, token);
     String fetchedItem = fetchMetaData(CROSSREF, dataSourceVO, identifier);
-    ItemVersionVO itemVersionVO = getItemVersion(fetchedItem, contextDbVO);
+    ItemVersionVO itemVersionVO = getItemVersion(fetchedItem);
 
     return new ResponseEntity<>(itemVersionVO, HttpStatus.OK);
   }
@@ -91,15 +89,13 @@ public class DataFetchController {
   @RequestMapping(value = "/getArxiv", method = RequestMethod.GET)
   public ResponseEntity<ItemVersionVO> getArxiv( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
-      @RequestParam(CONTEXT_ID) String contextId, //
       @RequestParam(IDENTIFIER) String identifier)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
 
     DataSourceVO dataSourceVO = getDataSource(ARXIV);
     AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
-    ContextDbVO contextDbVO = getContext(contextId, accountUserDbVO, token);
     String fetchedItem = fetchMetaData(ARXIV, dataSourceVO, identifier);
-    ItemVersionVO itemVersionVO = getItemVersion(fetchedItem, contextDbVO);
+    ItemVersionVO itemVersionVO = getItemVersion(fetchedItem);
 
     List<FileDbVO> fileVOs = getFiles(dataSourceVO, identifier, token, ARXIV);
     for (FileDbVO tmp : fileVOs) {
@@ -157,12 +153,11 @@ public class DataFetchController {
     return fetchedItem;
   }
 
-  private ItemVersionVO getItemVersion(String fetchedItem, ContextDbVO contextDbVO) throws IngeTechnicalException {
+  private ItemVersionVO getItemVersion(String fetchedItem) throws IngeTechnicalException {
 
     ItemVersionVO itemVersionVO = null;
     try {
       itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(fetchedItem));
-      itemVersionVO.getObject().setContext(contextDbVO);
       PubItemUtil.cleanUpItem(itemVersionVO);
     } catch (TechnicalException e) {
       throw new IngeTechnicalException(e);
