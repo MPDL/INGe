@@ -227,7 +227,6 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_WOS_STYLESHEET_FILENAME = "inge.transformation.wos.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
-  public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";

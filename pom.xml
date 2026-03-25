@@ -1144,7 +1144,6 @@
 				<inge.rest.development.enabled>false</inge.rest.development.enabled>
 				<inge.rest.development.file_url />
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
-				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.host>vm44.mpdl.mpg.de</jboss.host>
 				<jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
