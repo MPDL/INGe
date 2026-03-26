@@ -1,7 +1,9 @@
 package de.mpg.mpdl.inge.inge_validation.validator.cone;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import com.baidu.unbiz.fluentvalidator.ValidationError;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
@@ -45,135 +47,88 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
   @Override
   public boolean validate(ValidatorContext context, List<SubjectVO> subjects) {
+    if (!"true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
+      return true;
+    }
 
-    boolean ok = true;
+    if (ValidationTools.isEmpty(subjects)) {
+      return true;
+    }
 
-    if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
+    Vocabularies vocabularies = new Vocabularies(ConeCache.getInstance());
 
-      if (null != subjects && !subjects.isEmpty()) {
+    return IntStream.range(0, subjects.size()).mapToObj(i -> validateSubject(context, subjects.get(i), i + 1, vocabularies)).reduce(true,
+        (a, b) -> a && b);
+  }
 
-        ConeCache coneCache = ConeCache.getInstance();
+  private boolean validateSubject(ValidatorContext context, SubjectVO subjectVO, int index, Vocabularies vocabularies) {
+    String type = subjectVO.getType();
+    String value = subjectVO.getValue();
+    String fieldName = "subject[" + index + "]";
 
-        Set<String> ddcTitleSet = coneCache.getDdcTitleSet();
-        Set<String> iso639_3_TitleSet = coneCache.getIso639_3_TitleSet();
-        Set<String> jelTitleSet = coneCache.getJelTitleSet();
-        Set<String> mpiccProjectsTitleSet = coneCache.getMpiccProjectsTitleSet();
-        Set<String> mpinpTitleSet = coneCache.getMpinpTitleSet();
-        Set<String> mpipksTitleSet = coneCache.getMpipksTitleSet();
-        Set<String> mpirgTitleSet = coneCache.getMpirgTitleSet();
-        Set<String> mpisGroupsTitleSet = coneCache.getMpisGroupsTitleSet();
-        Set<String> mpisProjectsTitleSet = coneCache.getMpisProjectsTitleSet();
-        Set<String> mpiwgProjectsTitleSet = coneCache.getMpiwgProjectsTitleSet();
+    if (ValidationTools.isNotEmpty(type) && ValidationTools.isEmpty(value)) {
+      context.addError(ValidationError.create(ErrorMessages.CLASSIFICATION_VALUE_NOT_PROVIDED).setField(fieldName));
+      return false;
+    }
 
-        int i = 1;
-        for (SubjectVO subjectVO : subjects) {
+    if (ValidationTools.isEmpty(type) && ValidationTools.isNotEmpty(value)) {
+      context.addError(ValidationError.create(ErrorMessages.CLASSIFICATION_TYPE_NOT_PROVIDED).setField(fieldName));
+      return false;
+    }
 
-          if (ValidationTools.isNotEmpty(subjectVO.getType()) && ValidationTools.isNotEmpty(subjectVO.getValue())) {
+    if (ValidationTools.isNotEmpty(type) && ValidationTools.isNotEmpty(value)) {
+      Set<String> vocabulary = vocabularies.get(type);
 
-            if (ClassifiedKeywordsValidator.DDC.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(ddcTitleSet)) {
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_DDC_TITLE);
-                ok = false;
-              } else if (!ddcTitleSet.contains(subjectVO.getValue())) {
-                context.addError(ValidationError.create(ErrorMessages.INCORRECT_DDC_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+      if (ValidationTools.isEmpty(vocabulary)) {
+        context.addErrorMsg(vocabularies.getEmptyErrorMessage(type));
+        return false;
+      }
 
-            } else if (ClassifiedKeywordsValidator.ISO639_3.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(iso639_3_TitleSet)) {
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_ISO639_3_TITLE);
-                ok = false;
-              } else if (!iso639_3_TitleSet.contains(subjectVO.getValue())) {
-                context.addError(ValidationError.create(ErrorMessages.INCORRECT_ISO639_3_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+      if (!vocabulary.contains(value)) {
+        context.addError(ValidationError.create(vocabularies.getIncorrectErrorMessage(type)).setField(fieldName));
+        return false;
+      }
+    }
 
-            } else if (ClassifiedKeywordsValidator.JEL.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(jelTitleSet)) {
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_JEL_TITLE);
-                ok = false;
-              } else if (!jelTitleSet.contains(subjectVO.getValue())) {
-                context.addError(ValidationError.create(ErrorMessages.INCORRECT_JEL_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+    return true;
+  }
 
-            } else if (ClassifiedKeywordsValidator.MPICC_PROJECTS.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(mpiccProjectsTitleSet)) { //
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPICC_PROJECTS_TITLE);
-                ok = false;
-              } else if (!mpiccProjectsTitleSet.contains(subjectVO.getValue())) {
-                context
-                    .addError(ValidationError.create(ErrorMessages.INCORRECT_MPICC_PROJECTS_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+  private static class Vocabularies {
+    private final Map<String, Set<String>> titleSets;
 
-            } else if (ClassifiedKeywordsValidator.MPIPKS.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(mpipksTitleSet)) { //
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIPKS_TITLE);
-                ok = false;
-              } else if (!mpipksTitleSet.contains(subjectVO.getValue())) {
-                context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIPKS_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+    private static final Map<String, String> EMPTY_ERRORS =
+        Map.of(DDC, ErrorMessages.CONE_EMPTY_DDC_TITLE, ISO639_3, ErrorMessages.CONE_EMPTY_ISO639_3_TITLE, JEL,
+            ErrorMessages.CONE_EMPTY_JEL_TITLE, MPICC_PROJECTS, ErrorMessages.CONE_EMPTY_MPICC_PROJECTS_TITLE, MPINP,
+            ErrorMessages.CONE_EMPTY_MPINP_TITLE, MPIPKS, ErrorMessages.CONE_EMPTY_MPIPKS_TITLE, MPIRG,
+            ErrorMessages.CONE_EMPTY_MPIRG_TITLE, MPIS_GROUPS, ErrorMessages.CONE_EMPTY_MPIS_GROUPS_TITLE, MPIS_PROJECTS,
+            ErrorMessages.CONE_EMPTY_MPIS_PROJECTS_TITLE, MPIWG_PROJECTS, ErrorMessages.CONE_EMPTY_MPIWG_PROJECTS_TITLE);
 
-            } else if (ClassifiedKeywordsValidator.MPINP.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(mpinpTitleSet)) {//
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPINP_TITLE);
-                ok = false;
-              } else if (!mpinpTitleSet.contains(subjectVO.getValue())) {
-                context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPINP_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+    private static final Map<String, String> INCORRECT_ERRORS =
+        Map.of(DDC, ErrorMessages.INCORRECT_DDC_CLASSIFICATION, ISO639_3, ErrorMessages.INCORRECT_ISO639_3_CLASSIFICATION, JEL,
+            ErrorMessages.INCORRECT_JEL_CLASSIFICATION, MPICC_PROJECTS, ErrorMessages.INCORRECT_MPICC_PROJECTS_CLASSIFICATION, MPINP,
+            ErrorMessages.INCORRECT_MPINP_CLASSIFICATION, MPIPKS, ErrorMessages.INCORRECT_MPIPKS_CLASSIFICATION, MPIRG,
+            ErrorMessages.INCORRECT_MPIRG_CLASSIFICATION, MPIS_GROUPS, ErrorMessages.INCORRECT_MPIS_GROUPS_CLASSIFICATION, MPIS_PROJECTS,
+            ErrorMessages.INCORRECT_MPIS_PROJECTS_CLASSIFICATION, MPIWG_PROJECTS, ErrorMessages.INCORRECT_MPIWG_PROJECTS_CLASSIFICATION);
 
-            } else if (ClassifiedKeywordsValidator.MPIRG.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(mpirgTitleSet)) {//
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIRG_TITLE);
-                ok = false;
-              } else if (!mpirgTitleSet.contains(subjectVO.getValue())) {
-                context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIRG_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+    Vocabularies(ConeCache coneCache) {
+      titleSets = Map.ofEntries(Map.entry(DDC, coneCache.getDdcTitleSet()), Map.entry(ISO639_3, coneCache.getIso639_3_TitleSet()),
+          Map.entry(JEL, coneCache.getJelTitleSet()), Map.entry(MPICC_PROJECTS, coneCache.getMpiccProjectsTitleSet()),
+          Map.entry(MPINP, coneCache.getMpinpTitleSet()), Map.entry(MPIPKS, coneCache.getMpipksTitleSet()),
+          Map.entry(MPIRG, coneCache.getMpirgTitleSet()), Map.entry(MPIS_GROUPS, coneCache.getMpisGroupsTitleSet()),
+          Map.entry(MPIS_PROJECTS, coneCache.getMpisProjectsTitleSet()), Map.entry(MPIWG_PROJECTS, coneCache.getMpiwgProjectsTitleSet()));
+    }
 
-            } else if (ClassifiedKeywordsValidator.MPIS_GROUPS.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(mpisGroupsTitleSet)) { //
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIS_GROUPS_TITLE);
-                ok = false;
-              } else if (!mpisGroupsTitleSet.contains(subjectVO.getValue())) {
-                context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIS_GROUPS_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+    Set<String> get(String type) {
+      return titleSets.get(type);
+    }
 
-            } else if (ClassifiedKeywordsValidator.MPIS_PROJECTS.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(mpisProjectsTitleSet)) { //
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIS_PROJECTS_TITLE);
-                ok = false;
-              } else if (!mpisProjectsTitleSet.contains(subjectVO.getValue())) {
-                context
-                    .addError(ValidationError.create(ErrorMessages.INCORRECT_MPIS_PROJECTS_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
+    String getEmptyErrorMessage(String type) {
+      return EMPTY_ERRORS.get(type);
+    }
 
-            } else if (ClassifiedKeywordsValidator.MPIWG_PROJECTS.equals(subjectVO.getType())) { //
-              if (ValidationTools.isEmpty(mpiwgProjectsTitleSet)) { //
-                context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIWG_PROJECTS_TITLE);
-                ok = false;
-              } else if (!mpiwgProjectsTitleSet.contains(subjectVO.getValue())) {
-                context
-                    .addError(ValidationError.create(ErrorMessages.INCORRECT_MPIWG_PROJECTS_CLASSIFICATION).setField("subject[" + i + "]"));
-                ok = false;
-              }
-            }
-
-          } // if
-
-          i++;
-        } // for
-
-      } // if
-
-    } // if
-
-    return ok;
+    String getIncorrectErrorMessage(String type) {
+      return INCORRECT_ERRORS.get(type);
+    }
   }
 
 }

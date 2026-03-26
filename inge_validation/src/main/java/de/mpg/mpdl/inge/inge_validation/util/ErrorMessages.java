@@ -5,6 +5,8 @@ public class ErrorMessages {
   public static final int WARNING = 1;
 
   public static final String ALTERNATIVE_TITLE_NOT_PROVIDED = "AlternativeTitleNotProvided";
+  public static final String CLASSIFICATION_TYPE_NOT_PROVIDED = "ClassificationTypeNotProvided";
+  public static final String CLASSIFICATION_VALUE_NOT_PROVIDED = "ClassificationValueNotProvided";
   public static final String COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED = "ComponentContentCategoryNotProvided";
   public static final String COMPONENT_CONTENT_NOT_PROVIDED = "ComponentContentNotProvided";
   public static final String COMPONENT_FILE_NAME_NOT_PROVIDED = "ComponentFileNameNotProvided";
@@ -40,7 +42,8 @@ public class ErrorMessages {
   public static final String EVENT_TITLE_NOT_PROVIDED = "EventTitleNotProvided";
   public static final String EVENT_TITLE_REQUIRED = "EventTitleRequired";
   public static final String GENRE_NOT_PROVIDED = "GenreNotProvided";
-  public static final String ID_TYPE_NOT_PROVIDED = "IdTypeNotProvided";
+  public static final String IDENTIFIER_TYPE_NOT_PROVIDED = "IdentifierTypeNotProvided";
+  public static final String IDENTIFIER_ID_NOT_PROVIDED = "IdentifierIdNotProvided";
   public static final String INCORRECT_DDC_CLASSIFICATION = "IncorrectDDCClassification";
   public static final String INCORRECT_ID_DOI_FORMAT = "IncorrectIdDoiFormat";
   public static final String INCORRECT_ISO639_3_CLASSIFICATION = "IncorrectISO6393Classification";
