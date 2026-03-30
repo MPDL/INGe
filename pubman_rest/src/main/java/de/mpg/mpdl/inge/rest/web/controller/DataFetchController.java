@@ -6,14 +6,12 @@ import de.mpg.mpdl.inge.dataacquisition.DataacquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -22,11 +20,9 @@ import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.FileService;
-import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -76,7 +72,7 @@ public class DataFetchController {
   public ResponseEntity<ItemVersionVO> getCrossref( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(IDENTIFIER) String identifier //
-  ) throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
+  ) throws AuthenticationException, IngeApplicationException, IngeTechnicalException, NotFoundException {
 
     DataSourceVO dataSourceVO = getDataSource(CROSSREF);
     AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
@@ -90,7 +86,7 @@ public class DataFetchController {
   public ResponseEntity<ItemVersionVO> getArxiv( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(IDENTIFIER) String identifier)
-      throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException, NotFoundException {
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException, NotFoundException {
 
     DataSourceVO dataSourceVO = getDataSource(ARXIV);
     AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
@@ -116,22 +112,6 @@ public class DataFetchController {
     }
 
     return dataSourceVO;
-  }
-
-  private ContextDbVO getContext(String contextId, AccountUserDbVO accountUserDbVO, String token)
-      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
-    ContextDbVO contextDbVO = this.contextService.get(contextId, token);
-
-    if (null == contextDbVO) {
-      throw new IngeApplicationException("given context not found");
-    }
-
-    if (GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.DEPOSITOR, contextDbVO.getObjectId()) //
-        || GrantUtil.hasRole(accountUserDbVO, GrantVO.PredefinedRoles.MODERATOR, contextDbVO.getObjectId())) {
-      return contextDbVO;
-    }
-
-    throw new AuthorizationException("given user is not allowed to access the given context.");
   }
 
   private String fetchMetaData(String source, DataSourceVO dataSourceVO, String identifier)
