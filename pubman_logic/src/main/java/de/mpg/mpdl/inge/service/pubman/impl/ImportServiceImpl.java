@@ -387,6 +387,11 @@ public class ImportServiceImpl implements ImportService {
     Map<String, String> map = new HashMap<>();
 
     String[] splittedParams = formatConfiguration.split(",");
+
+    if (null == configuration && splittedParams.length > 0) {
+      throw new IngeApplicationException("Invalid format configuration: " + formatConfiguration);
+    }
+
     for (String param : splittedParams) {
       String[] paramValue = param.split("=");
       if (paramValue.length != 2) {
