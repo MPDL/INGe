@@ -70,6 +70,24 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public static final String INDEX_OBJECTID = "objectId";
   public static final String INDEX_AFFIlIATION_OBJECTID = "affiliation.objectId";
 
+  private Rule[] passwordValidationRules = new Rule[] {
+      // length between 8 and 32 characters
+      new LengthRule(8, 32),
+      // at least one upper-case character
+      new CharacterRule(EnglishCharacterData.UpperCase, 1),
+      // at least one lower-case character
+      new CharacterRule(EnglishCharacterData.LowerCase, 1),
+      // at least one digit character
+      new CharacterRule(EnglishCharacterData.Digit, 1),
+      // at least one symbol (special character)
+      new CharacterRule(EnglishCharacterData.SpecialAscii, 1),
+      //no colon
+      new IllegalCharacterRule(new char[] {':'}),
+      // no whitespace
+      new WhitespaceRule()};
+
+
+
   @Autowired
   private AuthorizationService aaService;
 
@@ -623,21 +641,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   }
 
   private void validatePassword(String password) throws IngeApplicationException {
-    PasswordValidator validator = new PasswordValidator(
-        // length between 8 and 32 characters
-        new LengthRule(8, 32),
-        // at least one upper-case character
-        new CharacterRule(EnglishCharacterData.UpperCase, 1),
-        // at least one lower-case character
-        new CharacterRule(EnglishCharacterData.LowerCase, 1),
-        // at least one digit character
-        new CharacterRule(EnglishCharacterData.Digit, 1),
-        // at least one symbol (special character)
-        new CharacterRule(EnglishCharacterData.SpecialAscii, 1),
-        //no colon
-        new IllegalCharacterRule(new char[] {':'}),
-        // no whitespace
-        new WhitespaceRule());
+    PasswordValidator validator = new PasswordValidator(this.passwordValidationRules);
 
     RuleResult result = validator.validate(new PasswordData(password));
     if (!result.isValid()) {
@@ -648,30 +652,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   }
 
   public String generateRandomPassword() {
-    List<CharacterRule> rules = Arrays.asList(
-        // at least one upper-case character
-        new CharacterRule(EnglishCharacterData.UpperCase, 4),
-        // at least one lower-case character
-        new CharacterRule(EnglishCharacterData.LowerCase, 4),
-        // at least one digit character
-        new CharacterRule(EnglishCharacterData.Digit, 3),
-        // at least one special character
-        new CharacterRule(new MyCharacterData(), 1));
     PasswordGenerator generator = new PasswordGenerator();
-
     // Generated password is 12 characters long, which complies with policy
-    return generator.generatePassword(12, rules);
+    return generator.generatePassword(12, this.passwordValidationRules);
   }
 
-  private static class MyCharacterData implements CharacterData {
-    @Override
-    public String getErrorCode() {
-      return "ERR_SPACE";
-    }
-
-    @Override
-    public String getCharacters() {
-      return "!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~";
-    }
-  }
 }
