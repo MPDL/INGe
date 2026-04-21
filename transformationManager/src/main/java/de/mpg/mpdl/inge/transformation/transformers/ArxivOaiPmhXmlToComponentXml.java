@@ -1,14 +1,11 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.transform.Source;
-
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import java.util.Map;
+import javax.xml.transform.Source;
 
 @TransformerModule(sourceFormat = TransformerFactory.FORMAT.ARXIV_OAIPMH_XML,
     targetFormat = TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML)
@@ -21,10 +18,7 @@ public class ArxivOaiPmhXmlToComponentXml extends XslTransformer {
 
   @Override
   public Map<String, Object> getParameters() {
-    Map<String, Object> map = new HashMap<>();
-    map.put("external_organization_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANIZATION_ID));
-
-    return map;
+    return null;
   }
 
   @Override

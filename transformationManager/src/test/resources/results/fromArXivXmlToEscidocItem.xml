@@ -34,11 +34,6 @@
                <person:person>
                   <eterms:family-name>Cyr-Racine</eterms:family-name>
                   <eterms:given-name>Francis-Yan</eterms:given-name>
-                  <organization:organization>
-                     <dc:title>UBC</dc:title>
-                     <eterms:address/>
-                     <dc:identifier>ou_persistent22</dc:identifier>
-                  </organization:organization>
                </person:person>
             </eterms:creator>
             <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
