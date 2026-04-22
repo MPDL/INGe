@@ -44,11 +44,12 @@ public class IngeAaClientStart extends StartClient {
   @Override
   protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) {
     String tan = request.getParameter("tan");
-    String from = request.getParameter("target");
+//    String from = request.getParameter("target");
     String aaInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
 
     return "/auth/login_inge.jsp?target=" + aaInstanceUrl + "clientReturn"
-        + URLEncoder.encode("?target=" + from + "&tan=" + tan, StandardCharsets.ISO_8859_1);
+        + URLEncoder.encode("?target=" + aaInstanceUrl + "&tan=" + tan, StandardCharsets.ISO_8859_1);
+  //  + URLEncoder.encode("?target=" + from + "&tan=" + tan, StandardCharsets.ISO_8859_1);
   }
 
 }
