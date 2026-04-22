@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.aa.web.client;
 
+import de.mpg.mpdl.inge.util.UrlValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +29,7 @@ public class LogoutClient extends Client {
     String target = request.getParameter("target");
 
     if (target != null) {
+      UrlValidator.validate(target);
       return target;
     } else {
       logger.warn("No query parameter 'target' found for logging out.");

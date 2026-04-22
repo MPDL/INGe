@@ -49,6 +49,7 @@
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.UrlHelper"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
+<%@ page import="de.mpg.mpdl.inge.util.UrlValidator" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.nio.charset.Charset" %>
@@ -91,8 +92,8 @@
 				{
 					List<LocalizedTripleObject> resList = results.get(predicate.getId());
 					if (results.get(predicate.getId()) != null && !resList.isEmpty())
-					{				
-						for (LocalizedTripleObject object : resList) 
+					{
+						for (LocalizedTripleObject object : resList)
 						{
 							out.append(HtmlUtils.escapeHtml(object.toString()));
 							if (object instanceof TreeFragment)
@@ -227,7 +228,7 @@
 										}
 									}
 								}
-							//Predicate has child predicates	
+							//Predicate has child predicates
 							if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 							{
 								out.append("<br/>");
@@ -332,7 +333,7 @@
 		}
 		return out.toString();
 	}
-	
+
 	private void mapFormValues(Model model, List<Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix) throws ConeException
 	{
 		for (Predicate predicate : predicates)
@@ -541,7 +542,9 @@
 			querier.create(modelName, uri, results);
 			if (request.getSession().getAttribute("latestSearch") != null)
 			{
-				response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
+				String latestSearch = request.getSession().getAttribute("latestSearch").toString();
+				UrlValidator.validate(latestSearch);
+				response.sendRedirect(latestSearch);
 				return;
 			}
 			messages.add("Entry saved.");
@@ -557,7 +560,9 @@
 			querier.create(modelName, uri, results);
 			if (request.getSession().getAttribute("latestSearch") != null)
 			{
-				response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
+				String latestSearch = request.getSession().getAttribute("latestSearch").toString();
+				UrlValidator.validate(latestSearch);
+				response.sendRedirect(latestSearch);
 				return;
 			}
 			messages.add("Entry saved.");
@@ -777,7 +782,7 @@
 														{
 															subject = results.getSubject();
 														}
-														
+
 														out.append("<input type=\"text\" name=\"cone_identifier\" id='cone_identifier' class=\"double_txtInput\" onchange=\"checkId('" + model.getName() + "', false)\" value=\"" + subject + "\" />");
 														out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' id='idInfo' onclick=\"checkId('" + model.getName() + "', true);return false;\">i</span>");
 													}
@@ -791,7 +796,7 @@
 										</span>
 										<% if (model != null) { %>
 											<%= displayPredicates(model, results, uri, model.getPredicates(), "", "", Login.getLoggedIn(request)) %>
-										<% } %>	
+										<% } %>
 									</div>
 									<div class="free_area0 xTiny_marginLIncl">
 										<span class="mandatory">* mandatory field</span>
@@ -805,7 +810,7 @@
 						<% if (uri != null) { %>
 							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
 						<% } %>
-						
+
 					</div>
 				</form>
 			</div>

@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.mpdl.inge.aa.crypto.RSAEncoder;
+import de.mpg.mpdl.inge.util.UrlValidator;
 
 /**
  * TODO Description
@@ -60,6 +61,8 @@ public abstract class FinalClient extends Client {
       String xml = authenticationVO.toXml();
       String encodedXml = RSAEncoder.rsaEncrypt(xml);
       String separator = "?";
+
+      UrlValidator.validate(target);
 
       if (target.contains("?")) {
         separator = "&";

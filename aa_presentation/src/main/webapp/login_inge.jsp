@@ -31,6 +31,7 @@
 
 <%@page import="de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish"%>
 <%@page import="de.mpg.mpdl.inge.util.PropertyReader" %>
+<%@page import="de.mpg.mpdl.inge.util.UrlValidator" %>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.Enumeration"%>
@@ -55,15 +56,16 @@
 <%
 String message = null;
 if(request.getParameter("username")!=null) {
-  
+
   //TODO login
   String username = request.getParameter("username");
   String password = request.getParameter("password");
-  
+
   String token = IngeAaClientFinish.loginInInge(username, password);
       if(token !=null)
       {
         String target = request.getParameter("target");
+        UrlValidator.validate(target);
      	response.sendRedirect(target + "&token=" + token);
       }
       else

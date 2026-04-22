@@ -1,4 +1,5 @@
 <%@page import="de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish"%>
+<%@page import="de.mpg.mpdl.inge.util.UrlValidator"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -24,23 +25,25 @@
 <%
 String message = null;
 if(request.getParameter("username")!=null) {
-  
+
   //TODO login
   String username = request.getParameter("username");
   String password = request.getParameter("password");
-  
+
   String token = IngeAaClientFinish.loginInInge(username, password);
       if(token !=null)
       {
         String target = request.getParameter("target");
-     	response.sendRedirect(URLDecoder.decode(target) + "&token=" + token);
+        target = URLDecoder.decode(target, "UTF-8");
+        UrlValidator.validate(target);
+     	response.sendRedirect(target + "&token=" + token);
       }
       else
       {
         message = "Incorrect credentials. Please try again";
       }
-  
-  
+
+
 }
   %>
 
