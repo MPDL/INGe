@@ -30,6 +30,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UrlValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -45,6 +46,9 @@ public class IngeAaClientStart extends StartClient {
   protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) {
     String tan = request.getParameter("tan");
     String from = request.getParameter("target");
+
+    UrlValidator.validateRedirectUrl(from);
+
     String aaInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
 
     return "/auth/login_inge.jsp?target=" + aaInstanceUrl + "clientReturn"

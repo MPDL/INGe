@@ -31,6 +31,8 @@ import org.apache.logging.log4j.Logger;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.mpdl.inge.aa.crypto.RSAEncoder;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UrlValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -48,6 +50,9 @@ public abstract class FinalClient extends Client {
   protected void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String tan = request.getParameter("tan");
     String target = request.getParameter("target");
+
+    UrlValidator.validateRedirectUrl(target);
+
     String uri = request.getParameter("uri");
     String model = request.getParameter("model");
 
