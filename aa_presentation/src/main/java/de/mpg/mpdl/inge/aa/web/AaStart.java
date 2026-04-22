@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.aa.web;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.RedirectValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -72,7 +73,11 @@ public class AaStart extends HttpServlet {
 
     if (target == null) {
       target = PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
-    } else if (target.startsWith(PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET))) {
+    }
+
+    RedirectValidator.validate(target);
+
+    if (target.startsWith(PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET))) {
       String separator = "?";
       if (target.contains("?")) {
         separator = "&";
@@ -80,6 +85,8 @@ public class AaStart extends HttpServlet {
       target += separator + "target=" + URLEncoder.encode(from, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1");
 
       response.sendRedirect(target);
+    } else {
+      throw new ServletException("Invalid redirect target: " + target);
     }
   }
 }
