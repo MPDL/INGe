@@ -41,19 +41,47 @@ public class RedirectValidator {
       throw new IllegalArgumentException("Redirect target must not be null or empty");
     }
 
+    // Prevent CRLF injection and other control characters
+    if (containsControlCharacters(target)) {
+      throw new IllegalArgumentException("Redirect target contains invalid characters");
+    }
+
     // Relative URLs are generally allowed
-    if (target.startsWith("/") && !target.startsWith("//")) {
+    // Check for both / and \ as some browsers interpret \ as /
+    // Also check for encoded versions
+    String normalizedTarget = target.replace('\\', '/');
+    if (normalizedTarget.startsWith("/") && !normalizedTarget.startsWith("//")) {
+      // Still need to check if it's an encoded backslash trick like /%5c
+      if (normalizedTarget.contains("%5c") || normalizedTarget.contains("%5C")) {
+        throw new IllegalArgumentException("Redirect target contains encoded backslash");
+      }
       return;
     }
 
     try {
       URL url = new URL(target);
       String host = url.getHost().toLowerCase();
-      if (!ALLOWED_HOSTS.contains(host)) {
+
+      // Prevent User-Info (e.g. http://localhost@evil.com)
+      if (url.getUserInfo() != null) {
+        throw new IllegalArgumentException("Redirect target must not contain user info");
+      }
+
+      if (!ALLOWED_HOSTS.contains(host) && !"localhost".equals(host) && !"127.0.0.1".equals(host)) {
         throw new IllegalArgumentException("Redirect to external host not allowed: " + host);
       }
     } catch (MalformedURLException e) {
       throw new IllegalArgumentException("Invalid redirect target URL: " + target);
     }
+  }
+
+  private static boolean containsControlCharacters(String s) {
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      if (c < 32 || c == 127) {
+        return true;
+      }
+    }
+    return false;
   }
 }
