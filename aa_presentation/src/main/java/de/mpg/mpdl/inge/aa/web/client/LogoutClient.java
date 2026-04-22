@@ -3,6 +3,8 @@ package de.mpg.mpdl.inge.aa.web.client;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ProxyValidator;
 import org.apache.log4j.Logger;
 
 public class LogoutClient extends Client {
@@ -27,11 +29,15 @@ public class LogoutClient extends Client {
   protected String getLogoutUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String target = request.getParameter("target");
 
-    if (target != null) {
+    if (target != null && ProxyValidator.isValidTarget(target)) {
       return target;
     } else {
-      logger.warn("No query parameter 'target' found for logging out.");
-      return null;
+      if (target != null) {
+        logger.warn("Invalid logout target blocked: " + target);
+      } else {
+        logger.warn("No query parameter 'target' found for logging out.");
+      }
+      return PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
     }
   }
 
