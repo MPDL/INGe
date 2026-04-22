@@ -31,7 +31,6 @@
 
 <%@page import="de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish"%>
 <%@page import="de.mpg.mpdl.inge.util.PropertyReader" %>
-<%@page import="de.mpg.mpdl.inge.util.UrlValidator" %>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.Enumeration"%>
@@ -65,9 +64,7 @@ if(null != request.getParameter("username")) {
       if(null != token)
       {
         String target = request.getParameter("target");
-        UrlValidator.validateRedirectUrl(target);
-        String separator = target.contains("?") ? "&" : "?";
-     	response.sendRedirect(target + separator + "token=" + token);
+     	response.sendRedirect(target + "&token=" + token);
       }
       else
       {

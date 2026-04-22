@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.aa.web;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.UrlValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -73,12 +72,7 @@ public class AaStart extends HttpServlet {
 
     if (target == null) {
       target = PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
-    }
-
-    UrlValidator.validateRedirectUrl(target);
-
-    if (target.startsWith(PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET))
-        || target.startsWith(PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL))) {
+    } else if (target.startsWith(PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET))) {
       String separator = "?";
       if (target.contains("?")) {
         separator = "&";

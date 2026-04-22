@@ -1,8 +1,6 @@
 package de.mpg.mpdl.inge.aa.web.client;
 
 import de.mpg.mpdl.inge.aa.Aa;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.UrlValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -16,8 +14,6 @@ public class IngeAaLogoutClient extends LogoutClient {
   @Override
   protected String getLogoutUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String originalTarget = request.getParameter("target");
-
-    UrlValidator.validateRedirectUrl(originalTarget);
 
     Aa aa = new Aa(request);
     if (null != aa.getAuthenticationVO()) {

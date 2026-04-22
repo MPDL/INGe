@@ -3,9 +3,6 @@ package de.mpg.mpdl.inge.aa.web.client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.UrlValidator;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -30,8 +27,6 @@ public class LogoutClient extends Client {
 
   protected String getLogoutUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String target = request.getParameter("target");
-
-    UrlValidator.validateRedirectUrl(target);
 
     if (null != target) {
       return target;
