@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.aa.web;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyValidator;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.regex.Matcher;
@@ -73,11 +72,9 @@ public class AaStart extends HttpServlet {
 
     String target = request.getParameter("target");
 
-    if (target == null || !ProxyValidator.isValidTarget(target)) {
+    if (target == null) {
       target = PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
-    }
-
-    if (target.startsWith(PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET))) {
+    } else if (target.startsWith(PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET))) {
       String separator = "?";
       if (target.contains("?")) {
         separator = "&";

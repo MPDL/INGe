@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import de.mpg.mpdl.inge.aa.Aa;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyValidator;
 
 /**
  * 
@@ -28,10 +26,6 @@ public class IngeAaLogoutClient extends LogoutClient {
       session.invalidate();
     }
 
-    if (originalTarget != null && ProxyValidator.isValidTarget(originalTarget)) {
-      return originalTarget;
-    } else {
-      return PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
-    }
+    return originalTarget;
   }
 }
