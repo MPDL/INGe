@@ -22,16 +22,21 @@ public class UrlValidator {
       throw new IllegalArgumentException("Target URL is null or empty");
     }
 
-    List<String> allowedBaseUrls = getAllowedBaseUrls();
+    // Allow relative URLs starting with / but not //
+    if (target.startsWith("/") && !target.startsWith("//")) {
+      return;
+    }
 
     try {
       URL targetUrl = new URL(target);
       String targetHost = targetUrl.getHost();
 
       // Always allow localhost for development
-      if (targetHost.equalsIgnoreCase("localhost") || targetHost.equals("127.0.0.1")) {
+      if (targetHost != null && (targetHost.equalsIgnoreCase("localhost") || targetHost.equals("127.0.0.1"))) {
         return;
       }
+
+      List<String> allowedBaseUrls = getAllowedBaseUrls();
 
       for (String allowedBase : allowedBaseUrls) {
         try {
