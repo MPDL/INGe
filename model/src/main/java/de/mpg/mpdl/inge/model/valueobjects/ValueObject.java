@@ -74,8 +74,8 @@ public abstract class ValueObject implements Serializable {
     this.isEmpty(true);
   }
 
-  public boolean isEmpty(boolean cleanup) throws Exception {
-    return isEmpty(this, cleanup, null);
+  public boolean isEmpty(boolean cleanupAndTrim) throws Exception {
+    return isEmpty(this, cleanupAndTrim, null);
   }
 
   public static List<Field> getAllFields(Class<?> type) {
@@ -91,7 +91,7 @@ public abstract class ValueObject implements Serializable {
   //  Für Collection-Objekte bedeutet "leer", dass alle Elemente der Sammlung "leer" sind. Wenn cleanup wahr ist, werden "leere" Elemente aus der Sammlung entfernt.
   //  Für Objekte, die als Wertobjekte betrachtet werden (durch eine nicht dargestellte ValueObject-Klasse), überprüft die Methode jedes Feld des Objekts auf "Leere". Wenn cleanup wahr ist, werden Felder, die "leer" sind und keine Sammlungen sind, auf null gesetzt.
   //  Für alle anderen Objekttypen gilt ein Objekt als "leer", wenn es null ist.
-  public static boolean isEmpty(Object obj, boolean cleanup, Field fromField) throws Exception {
+  public static boolean isEmpty(Object obj, boolean cleanupAndTrim, Field fromField) throws Exception {
     boolean empty = true;
 
     if (null != obj) {
@@ -107,15 +107,15 @@ public abstract class ValueObject implements Serializable {
 
           for (Object collObj : coll) {
 
-            boolean subObjectIsEmpty = isEmpty(collObj, cleanup, null);
-            if (subObjectIsEmpty && cleanup) {
+            boolean subObjectIsEmpty = isEmpty(collObj, cleanupAndTrim, null);
+            if (subObjectIsEmpty && cleanupAndTrim) {
               toBeRemoved.add(collObj);
             }
 
             empty = empty && subObjectIsEmpty;
           }
 
-          if (cleanup && !toBeRemoved.isEmpty()) {
+          if (cleanupAndTrim && !toBeRemoved.isEmpty()) {
             logger.debug("Cleaning up collection " + fromField.getDeclaringClass().getCanonicalName() + " / " + fromField.getName());
             coll.removeAll(toBeRemoved);
           }
@@ -126,8 +126,15 @@ public abstract class ValueObject implements Serializable {
 
             f.setAccessible(true);
             Object fieldObject = f.get(obj);
-            boolean fieldIsEmpty = isEmpty(fieldObject, cleanup, f);
-            if (cleanup && fieldIsEmpty && null != fieldObject && !Collection.class.isAssignableFrom(fieldObject.getClass())) {
+
+            //Trim every string field
+            if (cleanupAndTrim && fieldObject instanceof String) {
+              fieldObject = ((String) fieldObject).trim();
+              f.set(obj, fieldObject);
+            }
+
+            boolean fieldIsEmpty = isEmpty(fieldObject, cleanupAndTrim, f);
+            if (cleanupAndTrim && fieldIsEmpty && null != fieldObject && !Collection.class.isAssignableFrom(fieldObject.getClass())) {
               logger.debug("Cleaning up object" + obj.getClass().getCanonicalName() + " / " + f.getName());
               f.set(obj, null);
             }
