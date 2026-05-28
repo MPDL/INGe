@@ -216,6 +216,12 @@ public class DataHandlerService {
         fulltextVO.setFtUrl(new URL(decoded));
         fulltextVO.setFtUrl(new URL(fulltextVO.getFtUrl().toString().replace(REGEX_GETID, identifier.trim())));
 
+        // ARXIV requires Pause
+        try {
+          Thread.sleep(Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_ARXIV_WAIT_TIME)));
+        } catch (InterruptedException e) {
+        }
+
         in = this.fetchFile(fulltextVO, dataSourceVO);
 
         this.setFileProperties(fulltextVO);

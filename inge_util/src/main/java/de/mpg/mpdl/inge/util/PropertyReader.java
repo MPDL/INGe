@@ -65,6 +65,7 @@ public class PropertyReader {
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
+  public static final String INGE_ARXIV_WAIT_TIME = "inge.arxiv.wait.time";
   public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
   public static final String INGE_AUTH_MPG_JSON_IP_LIST_URL = "inge.auth.mpg.ip.json.url";
   public static final String INGE_CONE_CACHE_USE = "inge.cone.cache.use";

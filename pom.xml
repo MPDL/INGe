@@ -924,9 +924,13 @@
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
+
+		<inge.arxiv.wait.time>3000</inge.arxiv.wait.time>
+
 		<inge.auth.mpg.ip.csv.url />
 		<inge.auth.mpg.ip.json.url />
 		<inge.auth.mpg.ip.use>true</inge.auth.mpg.ip.use>
+
 		<inge.cone.cache.use>true</inge.cone.cache.use>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
 		<inge.cone.database.name>cone</inge.cone.database.name>
