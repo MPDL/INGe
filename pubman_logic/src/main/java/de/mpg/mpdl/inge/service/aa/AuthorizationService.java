@@ -520,7 +520,7 @@ public class AuthorizationService {
           boolean check = false;
           for (String ouId : ouIdsToBeMatched) {
             IpListProvider.IpRange ouIpRange = this.ipListProvider.get(ouId);
-            if (ouIpRange.matches(userIp)) {
+            if (ouIpRange!= null && ouIpRange.matches(userIp)) {
               check = true;
               break;
             }

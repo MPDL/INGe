@@ -532,6 +532,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         if (ipRange != null) {
           ipNameObject.put(ipRange.getId(), ipRange.getName());
         }
+        else {
+          ipNameObject.put(audienceId, "Unknown IP range (ID: " + audienceId + ")");
+        }
       }
     }
     return returnNode;
