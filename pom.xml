@@ -536,7 +536,7 @@
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-rest-webmvc</artifactId>
-				<version>4.5.1</version>
+				<version>5.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
@@ -916,7 +916,7 @@
 	</reporting>
 
 	<properties>
-		<inge.aa.client.class />
+		<inge.aa.client.class/>
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
@@ -927,8 +927,8 @@
 
 		<inge.arxiv.wait.time>3000</inge.arxiv.wait.time>
 
-		<inge.auth.mpg.ip.csv.url />
-		<inge.auth.mpg.ip.json.url />
+		<inge.auth.mpg.ip.csv.url/>
+		<inge.auth.mpg.ip.json.url/>
 		<inge.auth.mpg.ip.use>true</inge.auth.mpg.ip.use>
 
 		<inge.cone.cache.use>true</inge.cone.cache.use>
@@ -962,11 +962,11 @@
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
 		<inge.doi.service.use>true</inge.doi.service.use>
-		<inge.es.password />
+		<inge.es.password/>
 		<inge.es.rest.host-port>http://localhost:9200</inge.es.rest.host-port>
-		<inge.es.rest.path-prefix />
-		<inge.es.user />
-		<inge.es.rest.path-prefix />
+		<inge.es.rest.path-prefix/>
+		<inge.es.user/>
+		<inge.es.rest.path-prefix/>
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
@@ -999,8 +999,8 @@
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
-		<inge.pubman.root.organization.name />
-		<inge.pubman.root.organization.id />
+		<inge.pubman.root.organization.name/>
+		<inge.pubman.root.organization.id/>
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
 		<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.url>
@@ -1052,7 +1052,7 @@
 		<inge.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</inge.transformation.wos.stylesheet.filename>
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
-		<inge.rest.access-control-allowed-origins />
+		<inge.rest.access-control-allowed-origins/>
 		<jdk.version>21</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
@@ -1146,7 +1146,7 @@
 				<inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.rest.development.enabled>false</inge.rest.development.enabled>
-				<inge.rest.development.file_url />
+				<inge.rest.development.file_url/>
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.host>vm44.mpdl.mpg.de</jboss.host>
@@ -1283,7 +1283,7 @@
 												</goals>
 											</pluginExecutionFilter>
 											<action>
-												<ignore />
+												<ignore/>
 											</action>
 										</pluginExecution>
 
@@ -1303,7 +1303,7 @@
 												</goals>
 											</pluginExecutionFilter>
 											<action>
-												<ignore />
+												<ignore/>
 											</action>
 										</pluginExecution>
 									</pluginExecutions>
