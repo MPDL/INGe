@@ -43,6 +43,7 @@ public final class SaxonFactoryProvider {
 
         // Register transformationManager functions
         proc.registerExtensionFunction(new de.mpg.mpdl.inge.transformation.xslt.functions.UtilQueryConeFunction(proc));
+        proc.registerExtensionFunction(new de.mpg.mpdl.inge.transformation.xslt.functions.UtilQueryReportPersonConeFunction(proc));
         proc.registerExtensionFunction(new de.mpg.mpdl.inge.transformation.xslt.functions.UtilQueryConeExactFunction(proc));
         proc.registerExtensionFunction(new de.mpg.mpdl.inge.transformation.xslt.functions.UtilGetMimetypeFunction());
         proc.registerExtensionFunction(new de.mpg.mpdl.inge.transformation.xslt.functions.UtilGetSizeFunction(proc));
