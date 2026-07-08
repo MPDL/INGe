@@ -44,6 +44,7 @@ public class TransformerFactory {
   public static final String HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML = "Html_Metatags_Highwirepress_Cit_Xml";
   public static final String HTML_PLAIN = "html_plain";
   public static final String HTML_LINKED = "html_linked";
+  public static final String HTML_SCHOLAR = "html_scholar";
   public static final String JSON = "json";
   public static final String JSON_CITATION = "json_citation";
   public static final String JUS_HTML_XML = "Jus_Html_Xml";
@@ -96,7 +97,8 @@ public class TransformerFactory {
     ESCIDOC_ITEM_VO(TransformerFactory.ESCIDOC_ITEM_VO, FileFormatVO.FILE_FORMAT.XML), //
     HTML_METATAGS_DC_XML(TransformerFactory.HTML_METATAGS_DC_XML, FileFormatVO.FILE_FORMAT.TXT), //
     HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML(TransformerFactory.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FileFormatVO.FILE_FORMAT.TXT), //
-    HTML_PLAIN(TransformerFactory.HTML_PLAIN, FileFormatVO.FILE_FORMAT.HTML_PLAIN), //
+    HTML_PLAIN(TransformerFactory.HTML_PLAIN, FileFormatVO.FILE_FORMAT.HTML_PLAIN),
+    HTML_SCHOLAR(TransformerFactory.HTML_SCHOLAR, FileFormatVO.FILE_FORMAT.HTML_PLAIN),//
     HTML_LINKED(TransformerFactory.HTML_LINKED, FileFormatVO.FILE_FORMAT.HTML_LINKED), //
     JSON(TransformerFactory.JSON, FileFormatVO.FILE_FORMAT.JSON), //
     JSON_CITATION(TransformerFactory.JSON_CITATION, FileFormatVO.FILE_FORMAT.JSON), //
