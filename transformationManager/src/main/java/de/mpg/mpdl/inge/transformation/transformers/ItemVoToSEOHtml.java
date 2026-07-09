@@ -1,7 +1,9 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -15,24 +17,19 @@ import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
-import de.mpg.mpdl.inge.transformation.transformers.helpers.mab.MABImport;
-import de.mpg.mpdl.inge.util.LocalUriResolver;
-import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UriBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 
 import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayOutputStream;
-import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.HTML_SCHOLAR)
-public class ItemXmlToScholarHtml extends SingleTransformer implements ChainableTransformer {
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.HTML_SEO)
+public class ItemVoToSEOHtml extends SingleTransformer implements ChainableTransformer {
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
@@ -59,6 +56,9 @@ public class ItemXmlToScholarHtml extends SingleTransformer implements Chainable
         Element headEl = doc.head();
         headEl.append(dcWriter.toString());
         headEl.append(highwireWriter.toString());
+        if (item.getObject().getPublicState() == ItemVersionRO.State.WITHDRAWN) {
+          headEl.appendElement("meta").attr("name", "robots").attr("content", "noindex, nofollow");
+        }
         Element bodyEl = doc.body();
         headEl.appendElement("title").appendText(item.getMetadata().getTitle());
         bodyEl.appendElement("h1").appendText(item.getMetadata().getTitle());
@@ -78,11 +78,36 @@ public class ItemXmlToScholarHtml extends SingleTransformer implements Chainable
           }
 
         }
+
+
+        if (item.getFiles() != null) {
+          List<FileDbVO> files = item.getFiles().stream()
+              .filter(f -> f.getStorage() == FileDbVO.Storage.INTERNAL_MANAGED && f.getVisibility() == FileDbVO.Visibility.PUBLIC).toList();
+          List<FileDbVO> links = item.getFiles().stream().filter(f -> f.getStorage() == FileDbVO.Storage.EXTERNAL_URL).toList();
+
+          if (files.size() > 0) {
+            Element divEl = bodyEl.appendElement("div");
+            divEl.appendElement("h2").appendText("Files");
+            for (var file : files) {
+              String url = UriBuilder.getItemComponentLink(item.getObjectId(), item.getVersionNumber(), file.getObjectId()).toString();
+              divEl.appendElement("p").appendElement("a").attr("href", url).appendText(file.getName());
+            }
+          }
+
+          if (links.size() > 0) {
+            Element divEl = bodyEl.appendElement("div");
+            divEl.appendElement("h2").appendText("Links");
+            for (var link : links) {
+              divEl.appendElement("p").appendElement("a").attr("href", link.getContent()).appendText(link.getMetadata().getTitle());
+            }
+          }
+
+        }
         writeStringToStreamResult(doc.html(), result);
       }
 
     } catch (Exception e) {
-      throw new TransformationException("Error while transforming Mab Text to Mab XML", e);
+      throw new TransformationException("Error while transforming item to SEO HTML", e);
     }
   }
 
