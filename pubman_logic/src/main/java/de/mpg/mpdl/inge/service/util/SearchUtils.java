@@ -85,8 +85,7 @@ public class SearchUtils {
         if (1 == value.length) {
           return TermQuery.of(t -> t.field(index).value(value[0]))._toQuery();
         } else {
-          List<FieldValue> fvList = new ArrayList<>();
-          Arrays.stream(value).map(FieldValue::of).collect(Collectors.toList());
+          List<FieldValue> fvList = Arrays.stream(value).map(FieldValue::of).collect(Collectors.toList());
           return TermsQuery.of(t -> t.field(index).terms(te -> te.value(fvList)))._toQuery();
         }
       }
