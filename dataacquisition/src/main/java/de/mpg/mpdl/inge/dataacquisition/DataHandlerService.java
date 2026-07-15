@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -43,8 +44,6 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,6 +74,11 @@ public class DataHandlerService {
   private static final String PROTOCOL_OAI = "oai-pmh";
   private static final String REGEX_CROSSREF_PID = "CROSSREF_PID";
   private static final String REGEX_GETID = "GETID";
+  private static final int HTTP_CONNECT_TIMEOUT_MS = 10000;
+  private static final int HTTP_READ_TIMEOUT_MS = 30000;
+  private static final int MAX_REDIRECTS = 5;
+  private static final int HTTP_STATUS_TEMP_REDIRECT = 307;
+  private static final int HTTP_STATUS_PERM_REDIRECT = 308;
 
   private String contentCategorie;
   private String contentMimeType;
@@ -270,52 +274,77 @@ public class DataHandlerService {
   }
 
   private byte[] fetchFile(FullTextVO fulltext, DataSourceVO dataSourceVO) throws DataacquisitionException {
-    byte[] input = null;
-
     try {
-      logger.info("Url: " + fulltext.getFtUrl());
-      URLConnection con = fulltext.getFtUrl().openConnection();
-      HttpURLConnection httpCon = (HttpURLConnection) con;
+      URL currentUrl = fulltext.getFtUrl();
 
-      int responseCode = httpCon.getResponseCode();
+      for (int redirectCount = 0; redirectCount <= MAX_REDIRECTS; redirectCount++) {
+        logger.info("Fetch Arxiv file from URL: " + currentUrl);
+        HttpURLConnection httpCon = (HttpURLConnection) currentUrl.openConnection();
+        httpCon.setConnectTimeout(HTTP_CONNECT_TIMEOUT_MS);
+        httpCon.setReadTimeout(HTTP_READ_TIMEOUT_MS);
+        httpCon.setInstanceFollowRedirects(false);
 
-      switch (responseCode) {
-        case 200:
-          logger.info("Source responded with 200.");
-          GetMethod method = new GetMethod(fulltext.getFtUrl().toString());
-          HttpClient client = new HttpClient();
-          client.executeMethod(method);
-          input = method.getResponseBody();
+        try {
+          int responseCode = httpCon.getResponseCode();
+
+          switch (responseCode) {
+            case HttpURLConnection.HTTP_OK:
+              logger.info("Source responded with 200.");
+              return readResponseBody(httpCon);
+
+            case HttpURLConnection.HTTP_MOVED_PERM:
+            case HttpURLConnection.HTTP_MOVED_TEMP:
+            case HttpURLConnection.HTTP_SEE_OTHER:
+            case HTTP_STATUS_TEMP_REDIRECT:
+            case HTTP_STATUS_PERM_REDIRECT:
+              if (redirectCount == MAX_REDIRECTS) {
+                throw new DataacquisitionException("Maximum number of redirects exceeded for URL " + currentUrl + ".");
+              }
+              String alternativeLocation = httpCon.getHeaderField("Location");
+              if (alternativeLocation == null || alternativeLocation.trim().isEmpty()) {
+                throw new DataacquisitionException("Source responded with redirect without Location header for URL " + currentUrl + ".");
+              }
+              currentUrl = new URL(currentUrl, alternativeLocation.trim());
+              break;
+
+            case HttpURLConnection.HTTP_FORBIDDEN:
+              throw new DataacquisitionException("Access to url " + dataSourceVO.getName() + " is restricted.");
+
+            case HttpURLConnection.HTTP_UNAVAILABLE:
+              // request was not processed by this.source
+              logger.warn("Import this.source " + dataSourceVO.getName() + " did not provide data in format " + fulltext.getFtLabel());
+              throw new DataacquisitionException(
+                  "Import this.source " + dataSourceVO.getName() + " did not provide data in format " + fulltext.getFtLabel());
+
+            default:
+              throw new DataacquisitionException("An error occurred during importing from external system: " + responseCode + ": "
+                  + httpCon.getResponseMessage() + " (URL: " + currentUrl + ")");
+          }
+        } finally {
           httpCon.disconnect();
-          break;
-
-        case 302:
-          String alternativeLocation = con.getHeaderField("Location");
-          fulltext.setFtUrl(new URL(alternativeLocation));
-
-          return fetchFile(fulltext, dataSourceVO);
-
-        case 403:
-          throw new DataacquisitionException("Access to url " + dataSourceVO.getName() + " is restricted.");
-
-        case 503:
-          // request was not processed by this.source
-          logger.warn("Import this.source " + dataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
-          throw new DataacquisitionException(
-              "Import this.source " + dataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
-
-        default:
-          throw new DataacquisitionException(
-              "An error occurred during importing from external system: " + responseCode + ": " + httpCon.getResponseMessage());
+        }
       }
-    } catch (AccessException e) {
-      logger.error("Access denied.", e);
-      throw new DataacquisitionException(dataSourceVO.getName());
+      throw new DataacquisitionException("Maximum number of redirects exceeded for URL " + currentUrl + ".");
     } catch (IOException e) {
       throw new DataacquisitionException(e);
     }
+  }
 
-    return input;
+  private byte[] readResponseBody(HttpURLConnection connection) throws IOException {
+    try (InputStream inputStream = connection.getInputStream(); ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+      long expectedContentLength = connection.getContentLengthLong();
+      byte[] buffer = new byte[8192];
+      int length;
+      long totalBytesRead = 0;
+      while ((length = inputStream.read(buffer)) != -1) {
+        outputStream.write(buffer, 0, length);
+        totalBytesRead += length;
+      }
+      if (expectedContentLength >= 0 && totalBytesRead != expectedContentLength) {
+        throw new IOException("Incomplete download: expected " + expectedContentLength + " bytes but received " + totalBytesRead + ".");
+      }
+      return outputStream.toByteArray();
+    }
   }
 
   private String fetchRecord(URL url, String encoding, DataSourceVO dataSourceVO) throws DataacquisitionException {
