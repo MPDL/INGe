@@ -1,30 +1,25 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import static org.junit.Assert.fail;
-
-import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import static org.junit.Assert.fail;
+import org.junit.Rule;
+import org.junit.rules.TestName;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.output.OutputFrame;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 
 public class TestBase {
 
-  // Separate SLF4J logger for container stream (will be handled by Log4j2 via the binding)
-  private static final org.slf4j.Logger esSlf4jLogger = LoggerFactory.getLogger("tc.elasticsearch");
+  // Separate Log4j2 logger for container stream
+  private static final Logger esLogger = LogManager.getLogger("tc.elasticsearch");
 
 
   protected static final String ADMIN_LOGIN_NAME = "admin";
@@ -47,16 +42,16 @@ public class TestBase {
 
 
   static {
-    PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:16-alpine").withDatabaseName("inge_test")
+    PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine").withDatabaseName("inge_test")
         .withUsername(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME))
         .withPassword(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_PASSWORD));
-    postgres.withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("postgres").withSeparateOutputStreams());
+    postgres.withLogConsumer((OutputFrame frame) -> esLogger.info("postgres: " + frame.getUtf8String()));
     postgres.start();
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_DATABASE_JDBC_URL, postgres.getJdbcUrl());
 
     ElasticsearchContainer elasticsearchContainer =
         new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
-            .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
+            .withLogConsumer((OutputFrame frame) -> esLogger.info("elasticsearch: " + frame.getUtf8String()));
     elasticsearchContainer.start();
     PropertyReader.getProperties().setProperty(PropertyReader.INGE_ES_REST_HOST_PORT,
         "http://" + elasticsearchContainer.getHttpHostAddress());

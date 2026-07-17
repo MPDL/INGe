@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by kevin on 10/02/15. See full code here :
@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MultipartFileSender {
 
-  protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+  protected final Logger logger = LogManager.getLogger(this.getClass());
 
   // ..bytes = 20KB.
   private static final long DEFAULT_EXPIRE_TIME = 604800000L; // ..ms = 1 week.

@@ -1,20 +1,8 @@
 package de.mpg.mpdl.inge.es.connector;
 
-import java.io.IOException;
-import java.util.Date;
-
-import de.mpg.mpdl.inge.util.PropertyReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
@@ -27,42 +15,30 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.types.Coordinates;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.*;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO.InvitationStatus;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingInfoVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingOrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FundingProgramVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.LegalCaseVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.ProjectInfoVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import java.io.IOException;
+import java.util.Date;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.test.context.ContextConfiguration;
+import org.testcontainers.containers.output.OutputFrame;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 @ContextConfiguration(classes = AppConfigIngeEsConnector.class)
 public class TestBase {
 
-  private static final Logger logger = LogManager.getLogger(TestBase.class);
   // Separate SLF4J logger for container stream (will be handled by Log4j2 via the binding)
-  private static final org.slf4j.Logger esSlf4jLogger = LoggerFactory.getLogger("tc.elasticsearch");
+  private static final Logger esLogger = LogManager.getLogger("tc.elasticsearch");
 
 
 
@@ -70,7 +46,7 @@ public class TestBase {
 
   static ElasticsearchContainer elasticsearchContainer =
       new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
-          .withLogConsumer(new Slf4jLogConsumer(esSlf4jLogger).withPrefix("elasticsearch").withSeparateOutputStreams());
+          .withLogConsumer((OutputFrame frame) -> esLogger.info("elasticsearch: " + frame.getUtf8String()));
 
   static {
     elasticsearchContainer.start();
