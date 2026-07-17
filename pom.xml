@@ -432,22 +432,22 @@
 			<dependency>
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-core</artifactId>
-            	<version>2.14.1</version>
+            	<version>2.15.4</version>
 			</dependency>
 			<dependency>
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-databind</artifactId>
-            	<version>2.14.1</version>
+            	<version>2.15.4</version>
 			</dependency>
 			<dependency>
     			<groupId>com.fasterxml.jackson.core</groupId>
     			<artifactId>jackson-annotations</artifactId>
-    			<version>2.14.1</version>
+    			<version>2.15.4</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.datatype</groupId>
 				<artifactId>jackson-datatype-jsr310</artifactId>
-				<version>2.14.1</version>
+				<version>2.15.4</version>
 			</dependency>
 
 			<!-- Java EE -->
@@ -510,6 +510,22 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.13.1</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- Mockito -->
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>5.14.2</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- WireMock -->
+			<dependency>
+				<groupId>org.wiremock</groupId>
+				<artifactId>wiremock</artifactId>
+				<version>3.9.1</version>
 				<scope>test</scope>
 			</dependency>
 
