@@ -263,7 +263,9 @@ public class BatchProcessServiceImpl implements BatchProcessService {
     AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
     checkCommon(accountUserDbVO, itemIds);
     // noCheck: null values allowed
-    checkEquals(reviewMethodFrom, reviewMethodTo, "reviewMethodFrom", "reviewMethodTo");
+    if (reviewMethodFrom != null && reviewMethodTo != null) {
+      checkEquals(reviewMethodFrom, reviewMethodTo, "reviewMethodFrom", "reviewMethodTo");
+    }
 
     BatchProcessLogHeaderDbVO.Method method = BatchProcessLogHeaderDbVO.Method.CHANGE_REVIEW_METHOD;
     BatchProcessLogHeaderDbVO batchProcessLogHeaderDbVO =
