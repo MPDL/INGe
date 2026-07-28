@@ -565,7 +565,8 @@
                         "givenUser.affiliation.objectId",
                         "referencedObject.responsibleAffiliations"
                     ]
-                }
+                },
+                "grant.role": ["MODERATOR","DEPOSITOR"]
             }
         ],
         "removeGrants": [
