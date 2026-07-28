@@ -31,6 +31,33 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * Evaluates the declarative authorization rules in {@code aa.json}.
+ *
+ * <p>
+ * Rules are grouped by service class and method name. The {@code technical.order} array maps the
+ * object names used in a rule to the positional objects supplied by the service. Each method
+ * contains alternative rule sets: every condition in one rule set must match, while matching any
+ * rule set authorizes the request.
+ * </p>
+ *
+ * <p>
+ * The service has two execution paths:
+ * </p>
+ * <ul>
+ * <li>{@link #checkAuthorization(String, String, Object...)} authorizes an individual service
+ * invocation against its runtime objects.</li>
+ * <li>{@link #modifyQueryForAa(String, Query, Object...)} adds an Elasticsearch filter for
+ * {@code get} rules, so searches return only authorized objects.</li>
+ * </ul>
+ *
+ * <p>
+ * User rules can require a role, ownership, an IP range, or a grant-object match. A scalar
+ * {@code field_grant_id_match} preserves the legacy single-field behavior. A list of field names is
+ * supported for invocation authorization and requires all listed fields to match the same grant.
+ * List-valued grant matches are not supported by the search-filter path.
+ * </p>
+ */
 @Service
 public class AuthorizationService {
 
@@ -118,6 +145,15 @@ public class AuthorizationService {
     return null;
   }
 
+  /**
+   * Adds the authorization filter derived from a service's {@code get} rules to a search query.
+   *
+   * <p>
+   * The input query is not replaced: the generated authorization query is added as a filter. This
+   * path translates scalar grant-object rules into Elasticsearch queries. It must remain in sync
+   * with, but is distinct from, the runtime authorization path.
+   * </p>
+   */
   public Query modifyQueryForAa(String serviceName, Query query, Object... objects)
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
 
@@ -136,6 +172,16 @@ public class AuthorizationService {
     return query;
   }
 
+  /**
+   * Builds an Elasticsearch filter from the alternatives declared for a service's {@code get}
+   * operation. Each allowed rule set becomes a {@code should} clause; the conditions inside it are
+   * combined with {@code must}.
+   *
+   * <p>
+   * This implementation expects scalar {@code field_grant_id_match} values. Invocation-only rules
+   * such as {@code addGrants} do not use this method.
+   * </p>
+   */
   private Query getAaFilterQuery(String serviceName, Object... objects)
       throws AuthorizationException, IngeApplicationException, IngeTechnicalException, AuthenticationException {
 
@@ -275,139 +321,7 @@ public class AuthorizationService {
     throw new AuthorizationException("This search requires a login", PubManException.Reason.PERMISSION_DENIED);
   }
 
-  /*
-  private QueryBuilder getAaFilterQuery(String serviceName, Object... objects)
-      throws AuthorizationException, IngeApplicationException, IngeTechnicalException, AuthenticationException {
-  
-    Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
-  
-    List<String> order = (List<String>) serviceMap.get("technical").get("order");
-    Map<String, String> indices = (Map<String, String>) serviceMap.get("technical").get("indices");
-    List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get("get");
-  
-    AccountUserDbVO userAccount;
-    try {
-      userAccount = ((Principal) objects[order.indexOf("user")]).getUserAccount();
-    } catch (NullPointerException e) {
-      userAccount = null;
-    }
-  
-    BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-    if (allowedMap == null) {
-      throw new AuthorizationException("No rules for service " + serviceName + ", method " + "get");
-    }
-  
-    // everybody can see anything
-    if (allowedMap.isEmpty()) {
-      return null;
-    }
-  
-    for (Map<String, Object> rules : allowedMap) {
-  
-      BoolQueryBuilder subQb = QueryBuilders.boolQuery();
-      boolean userMatch = false;
-  
-      // Everybody is allowed to see everything
-      rulesLoop: for (Entry<String, Object> rule : rules.entrySet()) {
-        switch (rule.getKey()) {
-          case "user": {
-            if (userAccount != null) {
-              Map<String, String> userMap = (Map<String, String>) rule.getValue();
-  
-              if (userMap.containsKey("field_user_id_match")) {
-                String value = (String) userMap.get("field_user_id_match");
-                subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getObjectId()));
-                userMatch = true;
-              }
-  
-              if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")) {
-                BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
-                for (GrantVO grant : userAccount.getGrantList()) {
-                  if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
-                    userMatch = true;
-                    if (userMap.get("field_grant_id_match") != null) {
-                      if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou_")) {
-                        List<String> ouIds = new ArrayList<>();
-                        ouIds.add(grant.getObjectRef());
-                        List<AffiliationDbVO> childList = new ArrayList<>();
-                        searchAllChildOrganizations(ouIds.get(0), childList);
-                        grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), ouIds));
-                      } else {
-                        grantQueryBuilder
-                            .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
-                      }
-                    }
-                  }
-                }
-  
-                if (grantQueryBuilder.hasClauses()) {
-                  subQb.must(grantQueryBuilder);
-                }
-              }
-  
-              if (userMap.containsKey("field_ou_id_match")) {
-                String userOuId = userAccount.getAffiliation().getObjectId();
-                List<String> ouIds = new ArrayList<>();
-                ouIds.add(userOuId);
-                List<AffiliationDbVO> childList = new ArrayList<>();
-                searchAllChildOrganizations(ouIds.get(0), childList);
-                subQb.must(QueryBuilders.termsQuery(UserAccountServiceImpl.INDEX_AFFIlIATION_OBJECTID, ouIds));
-              }
-  
-            }
-            if (!userMatch) {
-              //reset queryBuilder
-              subQb = QueryBuilders.boolQuery();
-              break rulesLoop;
-            }
-            break;
-          }
-          default: {
-            String key = rule.getKey();
-            String index = indices.get(key);
-  
-            if (index == null) {
-              throw new AuthorizationException("No index in aa.json defined for: " + key);
-            }
-  
-            if (rule.getValue() instanceof Collection<?>) {
-              List<String> valuesToCompare = (List<String>) rule.getValue();
-              if (valuesToCompare.size() > 1) {
-                BoolQueryBuilder valueQueryBuilder = QueryBuilders.boolQuery();
-                for (String val : valuesToCompare) {
-                  valueQueryBuilder.should(QueryBuilders.termQuery(index, val));
-                }
-                subQb.must(valueQueryBuilder);
-              } else {
-                subQb.must(QueryBuilders.termQuery(index, valuesToCompare.get(0)));
-              }
-            } else {
-              Object value = getFieldValueOrString(order, objects, (String) rule.getValue());
-              if (value != null) {
-                subQb.must(QueryBuilders.termQuery(index, value.toString()));
-              }
-            }
-            break;
-          }
-        }
-      }
-  
-      if (subQb.hasClauses()) {
-        bqb.should(subQb);
-      }
-      // User matches and no more rules -> User can see everything
-      else if (userMatch) {
-        return null;
-      }
-    }
-  
-    if (bqb.hasClauses()) {
-      return bqb;
-    }
-  
-    throw new AuthorizationException("This search requires a login");
-  }
-  */
+
 
   public Principal checkLoginRequired(String authenticationToken) throws AuthenticationException {
     return new Principal(this.userAccountService.get(authenticationToken), authenticationToken);
@@ -424,6 +338,14 @@ public class AuthorizationService {
     return p;
   }
 
+  /**
+   * Authorizes one service invocation.
+   *
+   * <p>
+   * Rule sets are evaluated in declaration order. The first rule set whose conditions all match
+   * grants access; if none matches, the last authorization or authentication failure is propagated.
+   * </p>
+   */
   public void checkAuthorization(String serviceName, String methodName, Object... objects)
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) this.aaMap.get(serviceName);
@@ -496,6 +418,16 @@ public class AuthorizationService {
     }
   }
 
+  /**
+   * Evaluates the {@code user} portion of a rule against the authenticated principal.
+   *
+   * <p>
+   * When {@code field_grant_id_match} is a list, each listed field must resolve to an object
+   * identifier covered by the same matching role grant. This is used for compound scopes, such as
+   * requiring both a target user's organization and a referenced context's organization to be in
+   * the local administrator's scope.
+   * </p>
+   */
   private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
     Principal principal = (Principal) objects[order.indexOf("user")];
@@ -552,39 +484,38 @@ public class AuthorizationService {
     if (ruleMap.containsKey("role") || ruleMap.containsKey("field_grant_id_match")) {
       boolean check = false;
       String role = (String) ruleMap.get("role");
-      String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
-      String grantFieldMatchValue = null;
-      List<String> grantFieldMatchValues = new ArrayList<>();
-      if (null != grantFieldMatch) {
-        Object val = getFieldValueOrString(order, objects, grantFieldMatch);
-        if (null != val) {
-          grantFieldMatchValue = val.toString();
-          if (!val.toString().startsWith("ou")) {
-            grantFieldMatchValues.add(grantFieldMatchValue);
-          }
-        } else {
-          logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
-        }
-      }
-
-      if (null != grantFieldMatch && null != grantFieldMatchValue && grantFieldMatchValue.startsWith("ou")) {
-        // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
-        List<String> parents = this.ouService.getIdPath(grantFieldMatchValue); // enthält auch eigene Ou
-        parents.remove(parents.size() - 1); // remove root
-        grantFieldMatchValues.addAll(parents);
-      }
+      Object grantFieldMatchObject = ruleMap.get("field_grant_id_match");
+      List<String> grantFieldMatches = getGrantFieldMatches(grantFieldMatchObject);
+      boolean multipleGrantFieldMatches = grantFieldMatchObject instanceof Collection<?>;
 
       for (GrantVO grant : userAccount.getGrantList()) {
-        check = (null == role || role.equals(grant.getRole())) && (null == grantFieldMatch
-            || (null != grant.getObjectRef() && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
-        if (check) {
+        if (null != role && !role.equals(grant.getRole())) {
+          continue;
+        }
+
+        if (grantFieldMatches.isEmpty()) {
+          check = true;
+          break;
+        }
+
+        boolean matchesAllFields = true;
+        for (String grantFieldMatch : grantFieldMatches) {
+          List<String> grantFieldMatchValues = resolveGrantFieldMatchValues(order, objects, grantFieldMatch, multipleGrantFieldMatches);
+          if (grantFieldMatchValues.isEmpty() || null == grant.getObjectRef()
+              || grantFieldMatchValues.stream().noneMatch(id -> id.equals(grant.getObjectRef()))) {
+            matchesAllFields = false;
+            break;
+          }
+        }
+
+        if (matchesAllFields) {
+          check = true;
           break;
         }
       }
 
       if (!check) {
-        throw new AuthorizationException(
-            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")",
+        throw new AuthorizationException("Expected user with role [" + role + "], on object [" + grantFieldMatches + "]",
             PubManException.Reason.PERMISSION_DENIED);
       }
     }
@@ -633,127 +564,16 @@ public class AuthorizationService {
     }
   }
 
-  /*
-  private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
-      throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
-    Principal principal = (Principal) objects[order.indexOf("user")];
-    if (principal == null) {
-      throw new AuthenticationException("You have to be logged in with username/password or ip address.");
-    }
-    AccountUserDbVO userAccount = principal.getUserAccount();
-    String ipMatch = (String) ruleMap.get("ip_match");
-    if (ipMatch != null) {
-      DecodedJWT decodedJwt = userAccountService.verifyToken(principal.getJwToken());
-      if (decodedJwt.getHeaderClaim("ip") != null) {
-        try {
-          Collection<String> ouIdsToBeMatched = new ArrayList<>();
-          Object ouIdToBeMatched = getFieldValueOrString(order, objects, ipMatch);
-          if (ouIdToBeMatched instanceof String) {
-            ouIdsToBeMatched.add(ouIdToBeMatched.toString());
-          } else if (ouIdToBeMatched instanceof Collection) {
-            ouIdsToBeMatched = (Collection<String>) ouIdToBeMatched;
-          }
-          String userIp = decodedJwt.getHeaderClaim("ip").asString();
-          boolean check = false;
-          for (String ouId : ouIdsToBeMatched) {
-            IpRange ouIpRange = ipListProvider.get(ouId);
-            if (ouIpRange.matches(userIp)) {
-              check = true;
-              break;
-            }
-          }
-          if (!check) {
-            throw new AuthenticationException(
-                "The current user's ip adress " + userIp + " does not match required ip range of organization with id " + ouIdToBeMatched);
-          }
-        } catch (Exception e) {
-          throw new AuthenticationException("Error while matching IPs", e);
-        }
-      } else {
-        throw new AuthenticationException("Token contains no IP, but IP match is required");
-      }
-    } else if (userAccount == null) {
-      throw new AuthenticationException("You have to be logged in with username/password.");
-    }
-  
-    String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
-    if (userIdFieldMatch != null) {
-      Object userId = getFieldValueOrString(order, objects, userIdFieldMatch);
-      String expectedUserId = (userId != null ? userId.toString() : null);
-      if (expectedUserId == null || !expectedUserId.equals(userAccount.getObjectId())) {
-        throw new AuthorizationException("User is not owner of object.");
-      }
-    }
-  
-    if (ruleMap.containsKey("role") || ruleMap.containsKey("field_grant_id_match")) {
-      boolean check = false;
-      String role = (String) ruleMap.get("role");
-      String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
-      List<String> grantFieldMatchValues = new ArrayList<>();
-      if (grantFieldMatch != null) {
-        Object val = getFieldValueOrString(order, objects, grantFieldMatch);
-        if (val != null) {
-          grantFieldMatchValues.add(val.toString());
-        } else {
-          logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
-        }
-      }
-  
-      // If grant is of type "ORGANIZATION", get all children of organization as potential matches
-      if (grantFieldMatch != null && (!grantFieldMatchValues.isEmpty()) && grantFieldMatchValues.get(0).startsWith("ou")) {
-        List<AffiliationDbVO> childList = new ArrayList<>();
-        searchAllChildOrganizations(grantFieldMatchValues.get(0), childList);
-        grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
-      }
-      for (GrantVO grant : userAccount.getGrantList()) {
-        check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch == null
-            || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
-        if (check) {
-          break;
-        }
-      }
-      if (!check) {
-        throw new AuthorizationException(
-            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
-      }
-    }
-  
-    if (ruleMap.containsKey("field_ou_id_match")) {
-      String userOuId = principal.getUserAccount().getAffiliation().getObjectId();
-      String ouFieldMatch = (String) ruleMap.get("field_ou_id_match");
-      if (ouFieldMatch != null) {
-        Object val = getFieldValueOrString(order, objects, ouFieldMatch);
-        if (val == null) {
-          throw new AuthorizationException(
-              "User with ou [" + userOuId + "] is not allowed to access object with field " + ouFieldMatch + "[" + val + "]");
-        } else {
-          List<String> ouIds = new ArrayList<>();
-          ouIds.add(userOuId);
-          List<AffiliationDbVO> childList = new ArrayList<>();
-          searchAllChildOrganizations(ouIds.get(0), childList);
-          if (!ouIds.contains(val.toString())) {
-            throw new AuthorizationException(
-                "User with ou [" + userOuId + "] is not allowed to access object with field " + ouFieldMatch + "[" + val + "]");
-          }
-        }
-      }
-    }
-  }
-  */
 
-  /*
-  private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationDbVO> completeList)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    List<AffiliationDbVO> children = ouService.searchChildOrganizations(parentAffiliationId);
-    if (children != null) {
-      for (AffiliationDbVO child : children) {
-        completeList.add(child);
-        searchAllChildOrganizations(child.getObjectId(), completeList);
-      }
-    }
-  }
-  */
-
+  /**
+   * Resolves a dotted rule field using {@code technical.order}, or returns a literal rule value.
+   *
+   * <p>
+   * The context-affiliation special case preserves the historic scalar behavior by returning the
+   * first responsible affiliation. Multi-field grant matching resolves all affiliations through
+   * {@link #getMultipleGrantFieldValue(List, Object[], String)} instead.
+   * </p>
+   */
   private Object getFieldValueOrString(List<String> order, Object[] objects, String field) throws AuthorizationException {
     if (field.contains(".")) {
       String[] fieldHierarchy = field.split("\\.");
@@ -799,5 +619,100 @@ public class AuthorizationService {
     }
 
     return null;
+  }
+
+  /**
+   * Converts either the legacy scalar configuration or the multi-field list configuration to field
+   * names.
+   */
+  private List<String> getGrantFieldMatches(Object grantFieldMatchObject) {
+    if (grantFieldMatchObject == null) {
+      return Collections.emptyList();
+    }
+    if (grantFieldMatchObject instanceof Collection<?>) {
+      return ((Collection<?>) grantFieldMatchObject).stream().filter(Objects::nonNull).map(Object::toString).collect(Collectors.toList());
+    }
+    return List.of(grantFieldMatchObject.toString());
+  }
+
+  /**
+   * Resolves the identifiers accepted by a grant-object match, including the organization path.
+   *
+   * <p>
+   * Scalar configuration intentionally follows the legacy resolution exactly. List configuration
+   * additionally supports all responsible affiliations of a context.
+   * </p>
+   */
+  private List<String> resolveGrantFieldMatchValues(List<String> order, Object[] objects, String grantFieldMatch,
+      boolean multipleGrantFieldMatches) throws AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    Object val = multipleGrantFieldMatches ? getMultipleGrantFieldValue(order, objects, grantFieldMatch)
+        : getFieldValueOrString(order, objects, grantFieldMatch);
+    if (val == null) {
+      logger.warn("getFieldValue for " + grantFieldMatch + " returned null!");
+      return Collections.emptyList();
+    }
+
+    if (!multipleGrantFieldMatches) {
+      String grantFieldMatchValue = val.toString();
+      if (!grantFieldMatchValue.startsWith("ou")) {
+        return List.of(grantFieldMatchValue);
+      }
+
+      List<String> parents = this.ouService.getIdPath(grantFieldMatchValue);
+      parents.remove(parents.size() - 1); // remove root
+      return parents;
+    }
+
+    List<String> grantFieldMatchValues = new ArrayList<>();
+    if (val instanceof Collection<?>) {
+      for (Object element : (Collection<?>) val) {
+        grantFieldMatchValues.addAll(resolveGrantFieldMatchValuesFromValue(element));
+      }
+    } else {
+      grantFieldMatchValues.addAll(resolveGrantFieldMatchValuesFromValue(val));
+    }
+    return grantFieldMatchValues;
+  }
+
+  /** Resolves all context affiliations only for list-valued grant-match configuration. */
+  private Object getMultipleGrantFieldValue(List<String> order, Object[] objects, String grantFieldMatch) throws AuthorizationException {
+    String[] fieldHierarchy = grantFieldMatch.split("\\.");
+    if (fieldHierarchy.length != 2 || !"responsibleAffiliations".equals(fieldHierarchy[1])) {
+      return getFieldValueOrString(order, objects, grantFieldMatch);
+    }
+
+    int objectIndex = order.indexOf(fieldHierarchy[0]);
+    if (objectIndex < 0 || objects[objectIndex] == null || !objects[objectIndex].getClass().equals(ContextDbVO.class)) {
+      return getFieldValueOrString(order, objects, grantFieldMatch);
+    }
+
+    return ((ContextDbVO) objects[objectIndex]).getResponsibleAffiliations();
+  }
+
+  private List<String> resolveGrantFieldMatchValuesFromValue(Object value) throws AuthorizationException, IngeApplicationException {
+    if (value == null) {
+      return Collections.emptyList();
+    }
+
+    String resolvedValue;
+    if (value instanceof String) {
+      resolvedValue = value.toString();
+    } else {
+      Object objectId = getFieldValueViaGetter(value, "objectId");
+      resolvedValue = null != objectId ? objectId.toString() : value.toString();
+    }
+    List<String> grantFieldMatchValues = new ArrayList<>();
+    grantFieldMatchValues.add(resolvedValue);
+
+    if (resolvedValue.startsWith("ou")) {
+      // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
+      List<String> parents = this.ouService.getIdPath(resolvedValue);
+      if (!parents.isEmpty()) {
+        parents.remove(parents.size() - 1); // remove root
+        grantFieldMatchValues.addAll(parents);
+      }
+    }
+
+    return grantFieldMatchValues;
   }
 }

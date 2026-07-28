@@ -228,6 +228,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     checkEqualModificationDate(modificationDate, getModificationDate(objectToBeUpdated));
 
     for (GrantVO grantToBeAdded : grants) {
+      validateGrant(grantToBeAdded);
 
       for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
         if (Objects.equals(grantToBeAdded.getRole(), existingGrant.getRole())
@@ -246,15 +247,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
       if (null != grantToBeAdded.getObjectRef()) {
         if (grantToBeAdded.getObjectRef().startsWith(IdentifierProviderServiceImpl.ID_PREFIX.CONTEXT.getPrefix())) {
-          ContextDbVO referencedContext = this.contextRepository.findById(grantToBeAdded.getObjectRef()).orElse(null);
-          if (null != referencedContext) {
-            referencedObject = EntityTransformer.transformToOld(referencedContext);
-          }
+          referencedObject = this.contextRepository.findById(grantToBeAdded.getObjectRef()).orElse(null);
         } else if (grantToBeAdded.getObjectRef().startsWith(IdentifierProviderServiceImpl.ID_PREFIX.OU.getPrefix())) {
-          AffiliationDbVO referencedOu = this.organizationRepository.findById(grantToBeAdded.getObjectRef()).orElse(null);
-          if (null != referencedOu) {
-            referencedObject = EntityTransformer.transformToOld(referencedOu);
-          }
+          referencedObject = this.organizationRepository.findById(grantToBeAdded.getObjectRef()).orElse(null);
         }
 
         if (null == referencedObject) {
@@ -648,6 +643,44 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       throw new IngeApplicationException(
           "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character (no colon)",
           PubManException.Reason.PASSWORD_PATTERN_INVALID);
+    }
+  }
+
+  private void validateGrant(GrantVO grant) throws IngeApplicationException {
+    if (grant == null) {
+      throw new IngeApplicationException("A grant must be provided");
+    }
+
+    GrantVO.PredefinedRoles role;
+    try {
+      role = GrantVO.PredefinedRoles.valueOf(grant.getRole());
+    } catch (IllegalArgumentException | NullPointerException e) {
+      throw new IngeApplicationException("Unknown grant role: " + grant.getRole());
+    }
+
+    String objectRef = grant.getObjectRef();
+    switch (role) {
+      case CONE_OPEN_VOCABULARY_EDITOR:
+      case CONE_CLOSED_VOCABULARY_EDITOR:
+      case REPORTER:
+      case SYSADMIN:
+        if (objectRef != null) {
+          throw new IngeApplicationException("Grant role " + role.frameworkValue() + " must not reference an object");
+        }
+        break;
+      case DEPOSITOR:
+      case MODERATOR:
+        if (objectRef == null || !objectRef.startsWith(IdentifierProviderServiceImpl.ID_PREFIX.CONTEXT.getPrefix())) {
+          throw new IngeApplicationException("Grant role " + role.frameworkValue() + " must reference a context");
+        }
+        break;
+      case LOCAL_ADMIN:
+        if (objectRef == null || !objectRef.startsWith(IdentifierProviderServiceImpl.ID_PREFIX.OU.getPrefix())) {
+          throw new IngeApplicationException("Grant role " + role.frameworkValue() + " must reference an organization");
+        }
+        break;
+      default:
+        throw new IngeApplicationException("Unsupported grant role: " + grant.getRole());
     }
   }
 

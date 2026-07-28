@@ -491,7 +491,9 @@
         "technical": {
             "order": [
                 "user",
-                "givenUser"
+                "givenUser",
+                "grant",
+                "referencedObject"
             ],
             "indices": {
             	"givenUser.objectId": "objectId",
@@ -550,7 +552,19 @@
             {
                 "user": {
                     "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                    "field_grant_id_match": [
+                        "givenUser.affiliation.objectId"
+                    ]
+                },
+                "grant.role": ["CONE_OPEN_VOCABULARY_EDITOR"]
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": [
+                        "givenUser.affiliation.objectId",
+                        "referencedObject.responsibleAffiliations"
+                    ]
                 }
             }
         ],
