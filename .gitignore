@@ -23,3 +23,5 @@ reindex_util/dependency-reduced-pom.xml
 .vscode/settings.json
 .DS_Store
 
+# Continue-Plugin
+.continue/*
