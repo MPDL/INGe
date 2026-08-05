@@ -300,6 +300,16 @@ public class MiscellaneousController {
     }
   }
 
+  @RequestMapping(value = "/refreshProperties", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+  public ResponseEntity<String> refreshProperties(@RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token)
+      throws AuthenticationException {
+
+    this.aaService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.SYSADMIN.frameworkValue());
+    PropertyReader.loadProperties();
+    return new ResponseEntity<>("Properties reloaded", HttpStatus.OK);
+
+  }
+
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
