@@ -1105,7 +1105,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         // Already existing file, just update some fields
         // currentFileDbVO = currentFiles.remove(fileVo.getObjectId());
         currentFileDbVO = this.fileRepository.findById(fileVo.getObjectId()).orElse(null);
+
         this.setVisibility(currentFileDbVO, fileVo);
+
+        if (FileDbVO.Storage.EXTERNAL_URL.equals(currentFileDbVO.getStorage())) {
+          //It is allowed to change the content of an external URL
+          currentFileDbVO.setContent(fileVo.getContent());
+        }
 
       } else {
 
@@ -1168,23 +1174,20 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         currentFileDbVO.setPid(fileVo.getPid());
       }
 
+
+
+      //following for create OR update files
       currentFileDbVO.setLastModificationDate(currentDate);
       currentFileDbVO.setMetadata(fileVo.getMetadata());
 
-      currentFileDbVO.setVisibility(FileDbVO.Visibility.valueOf(fileVo.getVisibility().name()));
+      if (FileDbVO.Storage.INTERNAL_MANAGED.equals(currentFileDbVO.getStorage())) {
+        currentFileDbVO.setVisibility(FileDbVO.Visibility.valueOf(fileVo.getVisibility().name()));
+      } else if (FileDbVO.Storage.EXTERNAL_URL.equals(currentFileDbVO.getStorage())) {
+        //External URLs are always public, because they are not managed by the system and can be accessed by anyone with the link
+        currentFileDbVO.setVisibility(FileDbVO.Visibility.PUBLIC);
+        currentFileDbVO.setAllowedAudienceIds(null);
 
-      // currentFileDbVO.setAllowedAudienceIds(null);
-      //
-      // if (Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
-      // if (fileVo.getAllowedAudienceIds() != null) {
-      // for (String audienceId : fileVo.getAllowedAudienceIds()) {
-      // if (ipListProvider.get(audienceId) == null) {
-      // throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
-      // }
-      // }
-      // }
-      // currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
-      // }
+      }
 
       updatedFileList.add(currentFileDbVO);
     }
