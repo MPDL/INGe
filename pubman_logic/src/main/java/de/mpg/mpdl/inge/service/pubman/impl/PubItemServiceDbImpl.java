@@ -1129,11 +1129,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         }
 
         currentFileDbVO.setObjectId(this.idProviderService.getNewId(IdentifierProviderServiceImpl.ID_PREFIX.FILES));
+        currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
+        this.setVisibility(currentFileDbVO, fileVo);
 
         // New real file
         if (FileDbVO.Storage.INTERNAL_MANAGED.equals(fileVo.getStorage())) {
-
-          this.setVisibility(currentFileDbVO, fileVo);
 
           this.fileService.createFileFromStagedFile(fileVo, principal, currentFileDbVO.getObjectId());
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
@@ -1155,15 +1155,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
         }
 
-
-
-        currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
-
-        // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
-        // .getChecksumAlgorithm().name()));
-
-        // Content still links to older version which is ok, because the old version might already
-        // been
         currentFileDbVO.setContent(fileVo.getContent());
         currentFileDbVO.setCreationDate(currentDate);
         AccountUserDbRO creator = new AccountUserDbRO();
@@ -1175,19 +1166,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       }
 
 
-
-      //following for create OR update files
+      //following for create OR update files/locators
       currentFileDbVO.setLastModificationDate(currentDate);
       currentFileDbVO.setMetadata(fileVo.getMetadata());
-
-      if (FileDbVO.Storage.INTERNAL_MANAGED.equals(currentFileDbVO.getStorage())) {
-        currentFileDbVO.setVisibility(FileDbVO.Visibility.valueOf(fileVo.getVisibility().name()));
-      } else if (FileDbVO.Storage.EXTERNAL_URL.equals(currentFileDbVO.getStorage())) {
-        //External URLs are always public, because they are not managed by the system and can be accessed by anyone with the link
-        currentFileDbVO.setVisibility(FileDbVO.Visibility.PUBLIC);
-        currentFileDbVO.setAllowedAudienceIds(null);
-
-      }
 
       updatedFileList.add(currentFileDbVO);
     }
@@ -1275,16 +1256,27 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   private void setVisibility(FileDbVO currentFileDbVO, FileDbVO fileVo) throws IngeApplicationException {
     currentFileDbVO.setAllowedAudienceIds(null);
 
-    if (FileDbVO.Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
-      if (null != fileVo.getAllowedAudienceIds()) {
-        for (String audienceId : fileVo.getAllowedAudienceIds()) {
-          if (null == this.ipListProvider.get(audienceId)) {
-            throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+    if (FileDbVO.Storage.INTERNAL_MANAGED.equals(currentFileDbVO.getStorage())) {
+      currentFileDbVO.setVisibility(FileDbVO.Visibility.valueOf(fileVo.getVisibility().name()));
+      if (FileDbVO.Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
+        if (null != fileVo.getAllowedAudienceIds()) {
+          for (String audienceId : fileVo.getAllowedAudienceIds()) {
+            if (null == this.ipListProvider.get(audienceId)) {
+              throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+            }
           }
         }
+        currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
       }
-      currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
+
+    } else if (FileDbVO.Storage.EXTERNAL_URL.equals(currentFileDbVO.getStorage())) {
+      //External URLs are always public, because they are not managed by the system and can be accessed by anyone with the link
+      currentFileDbVO.setVisibility(FileDbVO.Visibility.PUBLIC);
+      currentFileDbVO.setAllowedAudienceIds(null);
+
     }
+
+
   }
 
   private void updatePubItemWithTechnicalMd(ItemVersionVO latestVersion, String modifierName, String modifierId, boolean objectOnly) {
