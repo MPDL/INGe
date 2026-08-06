@@ -9,7 +9,7 @@
 <%@ page import="java.util.ArrayList" %>
 
 <%
-// https://ihr-server.de/cone/update_orcid.jsp?uri=persons/12345&orcid=0000-0002-1825-0097
+// https://ihr-server.de/cone/update_orcid.jsp?uri=persons/resource/persons12345&orcid=https://orcid.org/0000-0002-1825-0097
     request.setCharacterEncoding("UTF-8");
     String uri = request.getParameter("uri");
     String orcid = request.getParameter("orcid");
