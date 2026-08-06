@@ -76,6 +76,9 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
       if (null != item.getMetadata().getDateCreated()) {
         return item.getMetadata().getDateCreated();
       }
+      if (null != item.getMetadata().getEvent() && null != item.getMetadata().getEvent().getStartDate()) {
+        return item.getMetadata().getEvent().getStartDate();
+      }
 
     }
 
