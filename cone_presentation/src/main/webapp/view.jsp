@@ -48,7 +48,7 @@
 <%@ page import="org.apache.logging.log4j.Logger" %>
 
 <%!
-	private String printPredicates(List<ModelList.Predicate> predicates, TreeFragment resultNode, boolean loggedIn) throws Exception
+	private String printPredicates(List<ModelList.Predicate> predicates, TreeFragment resultNode, boolean loggedIn, String modelName, String personUri) throws Exception
 	{
 		StringWriter writer = new StringWriter();
 		for (ModelList.Predicate predicate : predicates) {
@@ -69,7 +69,32 @@
 							writer.append("</span>");
 							writer.append("</span>");
 							writer.append("<span class=\"free_area0 large_negMarginLExcl\">");
-							writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node, loggedIn));
+							writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node, loggedIn, modelName, personUri));
+							if (("persons".equals(modelName) || "authors".equals(modelName)) && "http://purl.org/dc/elements/1.1/identifier".equals(predicate.getId())) {
+								TreeFragment idFrag = (TreeFragment) node;
+								List<LocalizedTripleObject> typeList = idFrag.get("http://www.w3.org/2001/XMLSchema-instance type");
+								List<LocalizedTripleObject> valueList = idFrag.get("http://www.w3.org/1999/02/22-rdf-syntax-ns#value");
+								if (typeList != null && !typeList.isEmpty() && valueList != null && !valueList.isEmpty()) {
+									String type = typeList.get(0).toString();
+									String value = valueList.get(0).toString();
+									if ("ORCID".equals(type) && value != null) {
+										writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
+										writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
+										writer.append("Link");
+										writer.append("<span class=\"noDisplay\">: </span>");
+										writer.append("</b>");
+										writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
+										writer.append("<span class=\"xDouble_area0 singleItem endline\">");
+										writer.append("<span class=\"xDouble_area0\">");
+										String link = "https://pure.mpg.de/rest/showLinkCreator?valueUri=" + value + "&personUri=" + personUri;
+										writer.append("<a href=\"" + link + "\">" + link + "</a>");
+										writer.append("</span>");
+										writer.append("</span>");
+										writer.append("</span>");
+										writer.append("</span>");
+									}
+								}
+							}
 							writer.append("</span>");
 						} else {
 							writer.append("<span class=\"xDouble_area0 singleItem endline\">");
@@ -181,7 +206,7 @@
 									</span>
 								<% } %>
 								<% if (null != model) { %>
-									<%= printPredicates(model.getPredicates(), results, loggedIn) %>
+									<%= printPredicates(model.getPredicates(), results, loggedIn, modelName, uri) %>
 								<% } %>
 							</div>
 						</div>
