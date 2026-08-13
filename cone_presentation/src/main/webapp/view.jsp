@@ -86,8 +86,8 @@
 										writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
 										writer.append("<span class=\"xDouble_area0 singleItem endline\">");
 										writer.append("<span class=\"xDouble_area0\">");
-										String link = "https://pure.mpg.de/rest/showLinkCreator?valueUri=" + value + "&personUri=" + personUri;
-										writer.append("<a href=\"" + link + "\">" + link + "</a>");
+										String link = "/orcid/request-orcid-auth?orcidId=" + value + "&coneId=" + personUri;
+										writer.append("<a href=\"" + link + "\">Request ORCID authentication</a>");
 										writer.append("</span>");
 										writer.append("</span>");
 										writer.append("</span>");
