@@ -77,7 +77,7 @@
 								if (typeList != null && !typeList.isEmpty() && valueList != null && !valueList.isEmpty()) {
 									String type = typeList.get(0).toString();
 									String value = valueList.get(0).toString();
-									if ("ORCID".equals(type) && value != null) {
+									if ("ORCID".equals(type) && value != null && value.matches("https://orcid\\.org/\\d{4}-\\d{4}-\\d{4}-\\d{4}")) {
 										writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
 										writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
 										writer.append("Link");
