@@ -27,6 +27,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectC
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +47,8 @@ public class TestBase {
 
   static ElasticsearchContainer elasticsearchContainer =
       new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:9.2.1").withEnv("xpack.security.enabled", "false")
-          .withLogConsumer((OutputFrame frame) -> esLogger.info("elasticsearch: " + frame.getUtf8String()));
+          .withLogConsumer((OutputFrame frame) -> esLogger.info("elasticsearch: " + frame.getUtf8String()))
+              .withStartupTimeout(Duration.ofMinutes(3));
 
   static {
     elasticsearchContainer.start();
