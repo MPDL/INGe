@@ -59,6 +59,8 @@ public class QuerierTest {
   @Before
   public void getQuerier() {
     querier = QuerierFactory.newQuerier(false);
+    // QuerierFactory swallows the real cause (e.g. DB connection failure) and returns null
+    assertNotNull("Querier could not be created, check the log above for the root cause (e.g. database connectivity)", querier);
   }
 
   /**
@@ -66,7 +68,9 @@ public class QuerierTest {
    */
   @After
   public void releaseQuerier() throws Exception {
-    querier.release();
+    if (querier != null) {
+      querier.release();
+    }
   }
 
   @Test

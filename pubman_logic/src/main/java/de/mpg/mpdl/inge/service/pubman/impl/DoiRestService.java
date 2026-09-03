@@ -17,15 +17,10 @@ import de.mpg.mpdl.inge.util.UriBuilder;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,29 +66,29 @@ public class DoiRestService {
           new TransformerStreamResult(wr));
 
       // REST request to the DOI service for creating a new DOI
-      RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
       URI itemObjectLink = UriBuilder.getItemObjectLink(pubItem.getObjectId());
       String queryParams = "?url=" + itemObjectLink + "&suffix=" + pubItem.getObjectId().substring(pubItem.getObjectId().indexOf("_") + 1);
-      HttpClient client = new HttpClient();
-      client.getParams().setAuthenticationPreemptive(true);
-      Credentials defaultcreds = new UsernamePasswordCredentials(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USER),
-          PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_PASSWORD));
-      client.getState().setCredentials(AuthScope.ANY, defaultcreds);
-      client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      PutMethod putMethod = new PutMethod(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_URL)
-          + PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_CREATE_URL) + queryParams);
-      putMethod.setRequestEntity(xmlEntity);
-      int statusCode = client.executeMethod(putMethod);
+      String user = PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USER);
+      String password = PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_PASSWORD);
+      String credentials = java.util.Base64.getEncoder().encodeToString((user + ":" + password).getBytes(StandardCharsets.UTF_8));
+      HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
+      HttpRequest request = HttpRequest.newBuilder()
+          .uri(URI.create(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_URL)
+              + PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_CREATE_URL) + queryParams))
+          .header("Authorization", "Basic " + credentials).header("Content-Type", "text/xml; charset=UTF-8")
+          .PUT(HttpRequest.BodyPublishers.ofString(wr.toString(), StandardCharsets.UTF_8)).build();
+      HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+      int statusCode = response.statusCode();
 
       // throw Exception if the DOI service request fails
       if (201 != statusCode) {
-        String responseBody = putMethod.getResponseBodyAsString();
+        String responseBody = response.body();
         logger.error("Error occured, when contacting DOxI. StatusCode=" + statusCode);
-        logger.error(putMethod.getResponseBodyAsString());
+        logger.error(responseBody);
         throw new Exception("Error occured, when contacting DOxI. StatusCode=" + statusCode + "\nServer responded with: " + responseBody);
       }
 
-      doi = putMethod.getResponseBodyAsString();
+      doi = response.body();
 
     } catch (Exception e) {
       logger.error("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);

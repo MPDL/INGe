@@ -41,11 +41,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.HeadMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tika.Tika;
@@ -129,9 +132,9 @@ public class Util {
       queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
           + URLEncoder.encode(query, StandardCharsets.UTF_8);
 
-      HttpClient client = new HttpClient();
-      client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      GetMethod method = new GetMethod(queryUrl);
+      CloseableHttpClient client =
+          HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom().setCircularRedirectsAllowed(true).build()).build();
+      HttpGet method = new HttpGet(queryUrl);
 
       //      String coneSession = getConeSession();
       //
@@ -139,16 +142,16 @@ public class Util {
       //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       //      }
       logger.info("CoNE query: " + queryUrl);
-      client.executeMethod(method);
+      HttpResponse response = client.execute(method);
 
-      if (200 == method.getStatusCode()) {
-        String[] results = method.getResponseBodyAsString().split("\n");
+      if (200 == response.getStatusLine().getStatusCode()) {
+        String[] results = EntityUtils.toString(response.getEntity()).split("\n");
         for (String result : results) {
           if (!result.trim().isEmpty()) {
             String id = result.split("\\|")[1];
             // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
             String tan = TanStore.getNewTan();
-            GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
+            HttpGet detailMethod = new HttpGet(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
             //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
             //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
             //detailMethod.setFollowRedirects(true);
@@ -157,19 +160,20 @@ public class Util {
             //              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             //            }
             logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
-            client.getState().clearCookies();
-            client.executeMethod(detailMethod);
+            response = client.execute(detailMethod);
 
-            if (200 == detailMethod.getStatusCode()) {
-              Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+            if (200 == response.getStatusLine().getStatusCode()) {
+              Document details = documentBuilder.parse(response.getEntity().getContent());
               element.appendChild(document.importNode(details.getFirstChild(), true));
             } else {
-              logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+              logger.error("Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n"
+                  + EntityUtils.toString(response.getEntity()));
             }
           }
         }
       } else {
-        logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+        logger.error(
+            "Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n" + EntityUtils.toString(response.getEntity()));
       }
 
       return document;
@@ -190,18 +194,18 @@ public class Util {
 
       queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
           + URLEncoder.encode(query, StandardCharsets.UTF_8);
-      HttpClient client = new HttpClient();
-      GetMethod method = new GetMethod(queryUrl);
+      CloseableHttpClient client = HttpClients.createDefault();
+      HttpGet method = new HttpGet(queryUrl);
 
       //      String coneSession = getConeSession();
       //
       //      if (coneSession != null) {
       //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       //      }
-      client.executeMethod(method);
+      HttpResponse response = client.execute(method);
 
-      if (200 == method.getStatusCode()) {
-        String[] results = method.getResponseBodyAsString().split("\n");
+      if (200 == response.getStatusLine().getStatusCode()) {
+        String[] results = EntityUtils.toString(response.getEntity()).split("\n");
         for (String result : results) {
           if (!result.trim().isEmpty()) {
             String nextId = result.split("\\|")[1];
@@ -211,7 +215,8 @@ public class Util {
           }
         }
       } else {
-        logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+        logger.error(
+            "Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n" + EntityUtils.toString(response.getEntity()));
       }
 
       return returnSet;
@@ -246,11 +251,12 @@ public class Util {
       documentBuilder = documentBuilderFactory.newDocumentBuilder();
       document = documentBuilder.newDocument();
 
-      HttpClient client = new HttpClient();
-      GetMethod getMethod = new GetMethod(url);
-      int statusCode = client.executeMethod(getMethod);
+      CloseableHttpClient client = HttpClients.createDefault();
+      HttpGet getMethod = new HttpGet(url);
+      HttpResponse response = client.execute(getMethod);
+      int statusCode = response.getStatusLine().getStatusCode();
       if (200 == statusCode) {
-        InputStream input = getMethod.getResponseBodyAsStream();
+        InputStream input = response.getEntity().getContent();
         document = documentBuilder.parse(input);
       } else {
         throw new RuntimeException("Error requesting <" + url + ">");
@@ -317,9 +323,9 @@ public class Util {
           + URLEncoder.encode("dc:title", StandardCharsets.UTF_8) + "=" + URLEncoder.encode("\"" + name + "\"", StandardCharsets.UTF_8)
           + "&" + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", StandardCharsets.UTF_8) + "="
           + URLEncoder.encode("\"*" + ou + "*\"", StandardCharsets.UTF_8);
-      HttpClient client = new HttpClient();
-      client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      GetMethod method = new GetMethod(queryUrl);
+      CloseableHttpClient client =
+          HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom().setCircularRedirectsAllowed(true).build()).build();
+      HttpGet method = new HttpGet(queryUrl);
 
       //      String coneSession = getConeSession();
       //
@@ -327,23 +333,22 @@ public class Util {
       //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       //      }
       logger.info("CoNE query: " + queryUrl);
-      client.executeMethod(method);
-      if (200 == method.getStatusCode()) {
-        List<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+      HttpResponse response = client.execute(method);
+      if (200 == response.getStatusLine().getStatusCode()) {
+        List<String> results = new ArrayList<>(Arrays.asList(EntityUtils.toString(response.getEntity()).split("\n")));
         queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("dcterms:alternative", StandardCharsets.UTF_8) + "="
             + URLEncoder.encode("\"" + name + "\"", StandardCharsets.UTF_8) + "&"
             + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", StandardCharsets.UTF_8) + "="
             + URLEncoder.encode("\"*" + ou + "*\"", StandardCharsets.UTF_8);
-        client.getState().clearCookies();
-        method = new GetMethod(queryUrl);
+        method = new HttpGet(queryUrl);
         //        if (coneSession != null) {
         //          method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
         //        }
-        client.executeMethod(method);
+        response = client.execute(method);
         logger.info("CoNE query: " + queryUrl);
-        if (200 == method.getStatusCode()) {
-          results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+        if (200 == response.getStatusLine().getStatusCode()) {
+          results.addAll(Arrays.asList(EntityUtils.toString(response.getEntity()).split("\n")));
           Set<String> oldIds = new HashSet<>();
           for (String result : results) {
             if (!result.trim().isEmpty()) {
@@ -351,21 +356,18 @@ public class Util {
               if (!oldIds.contains(id)) {
                 // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
                 String tan = TanStore.getNewTan();
-                GetMethod detailMethod =
-                    new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
+                HttpGet detailMethod = new HttpGet(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
                 //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                 //detailMethod.setFollowRedirects(true);
-                logger
-                    .info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn returned " + detailMethod.getResponseBodyAsString());
-                client.getState().clearCookies();
-                client.executeMethod(detailMethod);
-                if (200 == detailMethod.getStatusCode()) {
-                  Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+                logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
+                response = client.execute(detailMethod);
+                if (200 == response.getStatusLine().getStatusCode()) {
+                  Document details = documentBuilder.parse(response.getEntity().getContent());
                   element.appendChild(document.importNode(details.getFirstChild(), true));
                 } else {
-                  logger
-                      .error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                  logger.error("Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n"
+                      + EntityUtils.toString(response.getEntity()));
                 }
                 oldIds.add(id);
               }
@@ -373,7 +375,8 @@ public class Util {
           }
         }
       } else {
-        logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+        logger.error(
+            "Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n" + EntityUtils.toString(response.getEntity()));
       }
       return document;
     } catch (Exception e) {
@@ -401,19 +404,19 @@ public class Util {
           + URLEncoder.encode("\"" + identifier + "\"", StandardCharsets.UTF_8) + "&"
           + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", StandardCharsets.UTF_8) + "="
           + URLEncoder.encode("\"*" + ou + "*\"", StandardCharsets.UTF_8);
-      HttpClient client = new HttpClient();
-      client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      GetMethod method = new GetMethod(queryUrl);
+      CloseableHttpClient client =
+          HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom().setCircularRedirectsAllowed(true).build()).build();
+      HttpGet method = new HttpGet(queryUrl);
 
       //      String coneSession = getConeSession();
       //
       //      if (coneSession != null) {
       //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       //      }
-      client.executeMethod(method);
+      HttpResponse response = client.execute(method);
       logger.info("CoNE query: " + queryUrl);
-      if (200 == method.getStatusCode()) {
-        Iterable<String> results = new ArrayList<>(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+      if (200 == response.getStatusLine().getStatusCode()) {
+        Iterable<String> results = new ArrayList<>(Arrays.asList(EntityUtils.toString(response.getEntity()).split("\n")));
         Set<String> oldIds = new HashSet<>();
         for (String result : results) {
           if (!result.trim().isEmpty()) {
@@ -421,25 +424,26 @@ public class Util {
             if (!oldIds.contains(id)) {
               // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
               String tan = TanStore.getNewTan();
-              GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
+              HttpGet detailMethod = new HttpGet(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, StandardCharsets.UTF_8));
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               // detailMethod.setFollowRedirects(true);
-              client.getState().clearCookies();
-              client.executeMethod(detailMethod);
+              response = client.execute(detailMethod);
               logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
-              if (200 == detailMethod.getStatusCode()) {
-                Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+              if (200 == response.getStatusLine().getStatusCode()) {
+                Document details = documentBuilder.parse(response.getEntity().getContent());
                 element.appendChild(document.importNode(details.getFirstChild(), true));
               } else {
-                logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                logger.error("Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n"
+                    + EntityUtils.toString(response.getEntity()));
               }
               oldIds.add(id);
             }
           }
         }
       } else {
-        logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+        logger.error(
+            "Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n" + EntityUtils.toString(response.getEntity()));
       }
       return document;
     } catch (Exception e) {
@@ -465,7 +469,7 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
 
-      HttpClient client = new HttpClient();
+      CloseableHttpClient client = HttpClients.createDefault();
       if (!childIds.isEmpty()) {
         // execute a method for every child ou
         for (String childId : childIds) {
@@ -508,38 +512,39 @@ public class Util {
    * @param element
    * @return true if the array contains the format object, else false
    */
-  private static void executeGetMethod(HttpClient client, String queryUrl, DocumentBuilder documentBuilder, Document document,
+  private static void executeGetMethod(CloseableHttpClient client, String queryUrl, DocumentBuilder documentBuilder, Document document,
       Element element) {
     String previousUrl = null;
     try {
       logger.info("queryURL from executeGetMethod  " + queryUrl);
-      GetMethod method = new GetMethod(queryUrl);
-      client.executeMethod(method);
+      HttpGet method = new HttpGet(queryUrl);
+      HttpResponse response = client.execute(method);
 
-      if (200 == method.getStatusCode()) {
-        String[] results = method.getResponseBodyAsString().split("\n");
+      if (200 == response.getStatusLine().getStatusCode()) {
+        String[] results = EntityUtils.toString(response.getEntity()).split("\n");
         for (String result : results) {
           if (!result.trim().isEmpty()) {
             String detailsUrl = result.split("\\|")[1];
             // if there is an alternative name, take only the first occurrence
             if (!detailsUrl.equalsIgnoreCase(previousUrl)) {
-              GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
+              HttpGet detailMethod = new HttpGet(detailsUrl + "?format=rdf");
               previousUrl = detailsUrl;
-              client.executeMethod(detailMethod);
+              response = client.execute(detailMethod);
 
-              if (200 == detailMethod.getStatusCode()) {
-                Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+              if (200 == response.getStatusLine().getStatusCode()) {
+                Document details = documentBuilder.parse(response.getEntity().getContent());
                 element.appendChild(document.importNode(details.getFirstChild(), true));
               } else {
-                logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" + detailMethod.getPath() + "\n"
-                    + detailMethod.getResponseBodyAsString());
+                logger.error("Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n" + detailsUrl + "\n"
+                    + EntityUtils.toString(response.getEntity()));
               }
             }
           }
         }
 
       } else {
-        logger.error("Error querying CoNE: Status " + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+        logger.error(
+            "Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n" + EntityUtils.toString(response.getEntity()));
       }
     } catch (Exception e) {
       logger.error("Error querying CoNE service. This is normal during unit tests. "
@@ -550,7 +555,7 @@ public class Util {
 
   public static Node querySSRNId(String conePersonUrl) {
     DocumentBuilder documentBuilder;
-    HttpClient client = new HttpClient();
+    CloseableHttpClient client = HttpClients.createDefault();
 
     logger.info("querySSRNId: " + conePersonUrl);
 
@@ -560,14 +565,15 @@ public class Util {
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("cone");
       document.appendChild(element);
-      GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
-      client.executeMethod(detailMethod);
-      if (200 == detailMethod.getStatusCode()) {
-        Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+      HttpGet detailMethod = new HttpGet(conePersonUrl + "?format=rdf");
+      HttpResponse response = client.execute(detailMethod);
+      if (200 == response.getStatusLine().getStatusCode()) {
+        Document details = documentBuilder.parse(response.getEntity().getContent());
         element.appendChild(document.importNode(details.getFirstChild(), true));
         return document;
       } else {
-        logger.error("Error querying CoNE: Status " + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+        logger.error(
+            "Error querying CoNE: Status " + response.getStatusLine().getStatusCode() + "\n" + EntityUtils.toString(response.getEntity()));
         return null;
       }
 
@@ -582,23 +588,23 @@ public class Util {
   public static Node getSize(String url) {
     DocumentBuilder documentBuilder;
 
-    HttpClient httpClient = new HttpClient();
-    HeadMethod headMethod = new HeadMethod(url);
+    CloseableHttpClient httpClient = HttpClients.createDefault();
+    HttpHead headMethod = new HttpHead(url);
 
     try {
       logger.info("Getting size of " + url);
 
-      httpClient.executeMethod(headMethod);
+      HttpResponse response = httpClient.execute(headMethod);
 
-      if (200 != headMethod.getStatusCode()) {
-        logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
+      if (200 != response.getStatusLine().getStatusCode()) {
+        logger.warn("Wrong status code " + response.getStatusLine().getStatusCode() + " at " + url);
       }
 
       documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("size");
       document.appendChild(element);
-      Header header = headMethod.getResponseHeader("Content-Length");
+      Header header = response.getFirstHeader("Content-Length");
       logger.info("HEAD Request to " + url + " returned Content-Length: " + (null != header ? header.getValue() : null));
       if (null != header) {
         element.setTextContent(header.getValue());
@@ -608,15 +614,14 @@ public class Util {
         // sometimes not
 
         logger.info("GET request to " + url + " did not return any Content-Length. Trying GET request.");
-        httpClient.getState().clearCookies();
-        GetMethod getMethod = new GetMethod(url);
-        httpClient.executeMethod(getMethod);
+        HttpGet getMethod = new HttpGet(url);
+        response = httpClient.execute(getMethod);
 
-        if (200 != getMethod.getStatusCode()) {
-          logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);
+        if (200 != response.getStatusLine().getStatusCode()) {
+          logger.warn("Wrong status code " + response.getStatusLine().getStatusCode() + " at " + url);
         }
 
-        InputStream is = getMethod.getResponseBodyAsStream();
+        InputStream is = response.getEntity().getContent();
         long size = 0;
 
         while (-1 != is.read()) {

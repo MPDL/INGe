@@ -13,8 +13,9 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -446,27 +447,27 @@ public class InternationalizationHelper implements Serializable {
   }
 
   private String getContent(URL url) throws Exception {
-    HttpClient httpClient = new HttpClient();
-    GetMethod getMethod = new GetMethod(url.toExternalForm());
+    try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+      HttpGet getMethod = new HttpGet(url.toExternalForm());
+      try (var response = httpClient.execute(getMethod)) {
+        if (200 == response.getStatusLine().getStatusCode()) {
+          BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
-    httpClient.executeMethod(getMethod);
+          String inputLine = "";
+          String content = "";
 
-    if (200 == getMethod.getStatusCode()) {
-      BufferedReader in = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+          while (null != inputLine) {
+            inputLine = in.readLine();
+            if (null != inputLine) {
+              content += inputLine + "  ";
+            }
+          }
 
-      String inputLine = "";
-      String content = "";
+          in.close();
 
-      while (null != inputLine) {
-        inputLine = in.readLine();
-        if (null != inputLine) {
-          content += inputLine + "  ";
+          return content;
         }
       }
-
-      in.close();
-
-      return content;
     }
 
     return null;

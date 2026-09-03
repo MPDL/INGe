@@ -34,9 +34,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -82,11 +82,10 @@ public class LocalUriResolver implements URIResolver {
       if ("ves-mapping.xml".equals(href) || "vocabulary-mappings.xsl".equals(href)) {
         path = TRANS_PATH + href;
       } else if (null != href && href.matches("^https?://.*")) {
-        HttpClient client = new HttpClient();
-        GetMethod getMethod = new GetMethod(href);
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet getMethod = new HttpGet(href);
         //        ProxyHelper.executeMethod(client, getMethod);
-        client.executeMethod(getMethod);
-        return new StreamSource(getMethod.getResponseBodyAsStream());
+        return new StreamSource(client.execute(getMethod).getEntity().getContent());
       } else {
         path = this.base + altBase + "/" + href;
       }
@@ -95,8 +94,6 @@ public class LocalUriResolver implements URIResolver {
     } catch (FileNotFoundException e) {
       // throw new TransformerException("Cannot resolve URI: " + href);
       throw new TransformerException("Cannot resolve URI: " + path, e);
-    } catch (HttpException e) {
-      throw new TransformerException("Cannot connect to URI: " + path, e);
     } catch (IOException e) {
       throw new TransformerException("Cannot get content from URI: " + path, e);
     }

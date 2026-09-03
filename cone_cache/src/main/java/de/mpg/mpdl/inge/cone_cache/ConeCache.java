@@ -6,8 +6,9 @@ import java.util.Set;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -113,22 +114,22 @@ public class ConeCache {
 
   private static Set<String> getData(ConeHandler handler, String queryUrl)
       throws ParserConfigurationException, SAXException, ConeCacheException, IOException {
-    HttpClient client = new HttpClient();
-    GetMethod method = new GetMethod(queryUrl);
-
-    client.executeMethod(method);
-
-    if (200 == method.getStatusCode()) {
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser saxParser = factory.newSAXParser();
-      saxParser.parse(method.getResponseBodyAsStream(), handler);
-      return handler.getResult();
-    } else {
-      if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
-        logger.error("Could not load CONE attributes:" + method.getStatusCode());
-        throw new ConeCacheException("Could not load CONE attributes: " + method.getStatusCode());
-      } else {
-        return null;
+    try (CloseableHttpClient client = HttpClients.createDefault()) {
+      HttpGet method = new HttpGet(queryUrl);
+      try (var response = client.execute(method)) {
+        if (200 == response.getStatusLine().getStatusCode()) {
+          SAXParserFactory factory = SAXParserFactory.newInstance();
+          SAXParser saxParser = factory.newSAXParser();
+          saxParser.parse(response.getEntity().getContent(), handler);
+          return handler.getResult();
+        } else {
+          if ("true".equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE))) {
+            logger.error("Could not load CONE attributes:" + response.getStatusLine().getStatusCode());
+            throw new ConeCacheException("Could not load CONE attributes: " + response.getStatusLine().getStatusCode());
+          } else {
+            return null;
+          }
+        }
       }
     }
   }

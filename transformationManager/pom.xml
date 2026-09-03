@@ -61,7 +61,6 @@
 
 
 	<dependencies>
-
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_logic</artifactId>

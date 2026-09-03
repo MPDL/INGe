@@ -222,12 +222,12 @@
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>artemis-jakarta-client</artifactId>
-				<version>2.43.0</version>
+				<version>2.56.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>artemis-server</artifactId>
-				<version>2.43.0</version>
+				<version>2.56.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -242,7 +242,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-text</artifactId>
-				<version>1.10.0</version>
+				<version>1.15.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
@@ -302,14 +302,14 @@
 			<dependency>
 				<groupId>com.rometools</groupId>
 				<artifactId>rome</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.0</version>
 			</dependency>
 
 			<!-- Commons -->
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
-				<version>1.16.1</version>
+				<version>1.22.1</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-digester</groupId>
@@ -317,42 +317,37 @@
 				<version>2.1</version>
 			</dependency>
 			<dependency>
-				<groupId>commons-httpclient</groupId>
-				<artifactId>commons-httpclient</artifactId>
-				<version>3.1</version>
-			</dependency>
-			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.19.0</version>
+				<version>2.22.0</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-net</groupId>
 				<artifactId>commons-net</artifactId>
-				<version>3.9.0</version>
+				<version>3.13.0</version>
 			</dependency>
 
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>33.5.0-jre</version>
+				<version>33.7.1-jre</version>
             </dependency>
 
 			<!-- CSL -->
 			<dependency>
 				<groupId>org.citationstyles</groupId>
 				<artifactId>styles</artifactId>
-				<version>26.1</version>
+				<version>26.8</version>
 			</dependency>
 			<dependency>
 				<groupId>org.citationstyles</groupId>
 				<artifactId>locales</artifactId>
-				<version>26.1</version>
+				<version>26.8</version>
 			</dependency>
 			<dependency>
 				<groupId>de.undercouch</groupId>
 				<artifactId>citeproc-java</artifactId>
-				<version>3.5.0</version>
+				<version>3.5.2</version>
 			</dependency>
 			<!-- Docx4j -->
 			<dependency>
@@ -369,7 +364,7 @@
 			<dependency>
 				<groupId>org.apache.xmlgraphics</groupId>
 				<artifactId>fop</artifactId>
-				<version>2.10</version>
+				<version>2.11</version>
 			</dependency>
 
 			<!-- MapStruct -->
@@ -380,11 +375,6 @@
 			</dependency>
 
 			<!-- Elastic Search -->
-			<dependency>
-				<groupId>org.elasticsearch.client</groupId>
-				<artifactId>elasticsearch-rest-high-level-client</artifactId>
-				<version>9.2.1</version>
-			</dependency>
 			<dependency>
 				<groupId>co.elastic.clients</groupId>
 				<artifactId>elasticsearch-java</artifactId>
@@ -412,37 +402,42 @@
 			<dependency>
 				<groupId>org.ehcache</groupId>
 				<artifactId>ehcache</artifactId>
-				<version>3.10.9</version>
+				<version>3.12.0</version>
 				<classifier>jakarta</classifier>
 			</dependency>
 			<!--Required for ehcache-->
 			<dependency>
 				<groupId>org.glassfish.jaxb</groupId>
 				<artifactId>jaxb-runtime</artifactId>
-				<version>3.0.2</version>
+				<version>4.0.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jaxb</groupId>
+				<artifactId>jaxb-core</artifactId>
+				<version>4.0.9</version>
 			</dependency>
 			<!-- PostgreSQL -->
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
-				<version>42.5.1</version>
+				<version>42.7.13</version>
 			</dependency>
 
 			<!-- Jackson -->
 			<dependency>
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-core</artifactId>
-            	<version>2.15.4</version>
+	            <version>2.15.4</version>
 			</dependency>
 			<dependency>
             	<groupId>com.fasterxml.jackson.core</groupId>
             	<artifactId>jackson-databind</artifactId>
-            	<version>2.15.4</version>
+	            <version>2.15.4</version>
 			</dependency>
 			<dependency>
     			<groupId>com.fasterxml.jackson.core</groupId>
     			<artifactId>jackson-annotations</artifactId>
-    			<version>2.15.4</version>
+				<version>2.15.4</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.datatype</groupId>
@@ -482,14 +477,9 @@
 
 			<!-- Json -->
 			<dependency>
-				<groupId>com.googlecode.json-simple</groupId>
-				<artifactId>json-simple</artifactId>
-				<version>1.1.1</version>
-			</dependency>
-			<dependency>
 				<groupId>org.json</groupId>
 				<artifactId>json</artifactId>
-				<version>20200518</version>
+				<version>20260814</version>
 			</dependency>
 
 			<!-- Json Web Token -->
@@ -509,7 +499,7 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.13.1</version>
+				<version>4.13.2</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -517,7 +507,7 @@
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>5.14.2</version>
+				<version>5.23.0</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -743,17 +733,12 @@
 			<dependency> <!-- HTML Parser -->
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
-				<version>1.19.1</version>
+				<version>1.23.2</version>
 			</dependency>
 			<dependency> <!-- Marc, MarcXML -->
 				<groupId>org.marc4j</groupId>
 				<artifactId>marc4j</artifactId>
 				<version>2.6.5</version>
-			</dependency>
-			<dependency> <!-- Javascript -->
-				<groupId>org.mozilla</groupId>
-				<artifactId>rhino</artifactId>
-				<version>1.7R4</version>
 			</dependency>
 			<dependency> <!-- Reflections -->
 				<groupId>org.reflections</groupId>
@@ -772,7 +757,7 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j2-impl</artifactId>
-                <version>2.26.1</version>
+				<version>2.26.1</version>
             </dependency>
 		</dependencies>
 
@@ -886,7 +871,7 @@
 				<plugin>
 					<groupId>org.apache.xmlbeans</groupId>
 					<artifactId>xmlbeans</artifactId>
-					<version>5.1.1</version>
+					<version>5.4.0</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -1023,6 +1008,7 @@
 		<inge.pubman.external.organization.id>ou_persistent22</inge.pubman.external.organization.id>
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
+		<inge.pubman.instance.url>http://localhost:8080</inge.pubman.instance.url>
 		<inge.pubman.item.pattern>/view/$1</inge.pubman.item.pattern>
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
 		<inge.pubman.root.organization.name />

@@ -25,7 +25,6 @@
 package de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URLEncoder;
@@ -38,8 +37,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -1280,21 +1280,22 @@ public class Bibtex implements BibtexInterface {
    * @throws Exception
    */
   public static Set<String> loadGroupSet() throws Exception {
-    HttpClient httpClient = new HttpClient();
-    GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "mpis-groups/all?f=options");
-    httpClient.executeMethod(getMethod);
-    InputStream inputStream = getMethod.getResponseBodyAsStream();
-    String line;
     Set<String> result = new HashSet<>();
-    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-    while (null != (line = bufferedReader.readLine())) {
-      // result.add(line.replaceAll("(\\d|_)+\\|", ""));
-      try {
-        result.add(line.substring(line.indexOf("|") + 1));
-      } catch (IndexOutOfBoundsException e) {
+    try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+      HttpGet getMethod = new HttpGet(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "mpis-groups/all?f=options");
+      try (var response = httpClient.execute(getMethod);
+          BufferedReader bufferedReader =
+              new BufferedReader(new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8))) {
+        String line;
+        while (null != (line = bufferedReader.readLine())) {
+          // result.add(line.replaceAll("(\\d|_)+\\|", ""));
+          try {
+            result.add(line.substring(line.indexOf("|") + 1));
+          } catch (IndexOutOfBoundsException e) {
+          }
+        }
       }
     }
-    inputStream.close();
     return result;
   }
 
@@ -1305,21 +1306,22 @@ public class Bibtex implements BibtexInterface {
    * @throws Exception
    */
   public static Set<String> loadProjectSet() throws Exception {
-    HttpClient httpClient = new HttpClient();
-    GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "mpis-projects/all?f=options");
-    httpClient.executeMethod(getMethod);
-    InputStream inputStream = getMethod.getResponseBodyAsStream();
-    String line;
     Set<String> result = new HashSet<>();
-    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-    while (null != (line = bufferedReader.readLine())) {
-      try {
-        result.add(line.substring(line.indexOf("|") + 1));
-      } catch (IndexOutOfBoundsException e) {
+    try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+      HttpGet getMethod = new HttpGet(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "mpis-projects/all?f=options");
+      try (var response = httpClient.execute(getMethod);
+          BufferedReader bufferedReader =
+              new BufferedReader(new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8))) {
+        String line;
+        while (null != (line = bufferedReader.readLine())) {
+          try {
+            result.add(line.substring(line.indexOf("|") + 1));
+          } catch (IndexOutOfBoundsException e) {
+          }
+          // result.add(line.replaceAll("(\\d|_)+\\|", ""));
+        }
       }
-      // result.add(line.replaceAll("(\\d|_)+\\|", ""));
     }
-    inputStream.close();
     return result;
   }
 }

@@ -46,8 +46,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -179,21 +180,22 @@ public class CommonUtils {
     Map<String, String> result = new LinkedHashMap<>();
 
     try {
-      HttpClient httpClient = new HttpClient();
-      GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)
-          + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
-      httpClient.executeMethod(getMethod);
-
-      if (200 == getMethod.getStatusCode()) {
-        String line;
-        BufferedReader reader =
-            new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream(), StandardCharsets.UTF_8));
-        while (null != (line = reader.readLine())) {
-          String[] pieces = line.split("\\|");
-          result.put(pieces[0], pieces[1]);
+      try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+        HttpGet getMethod = new HttpGet(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)
+            + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
+        try (var response = httpClient.execute(getMethod)) {
+          if (200 == response.getStatusLine().getStatusCode()) {
+            String line;
+            BufferedReader reader =
+                new BufferedReader(new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
+            while (null != (line = reader.readLine())) {
+              String[] pieces = line.split("\\|");
+              result.put(pieces[0], pieces[1]);
+            }
+          } else {
+            logger.error("Error while retrieving languages from CoNE. Status code " + response.getStatusLine().getStatusCode());
+          }
         }
-      } else {
-        logger.error("Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
       }
     } catch (Exception e) {
       return new SelectItem[0];
@@ -258,11 +260,14 @@ public class CommonUtils {
         code = code.trim().split(" ")[0];
       }
 
-      HttpClient client = new HttpClient();
-      GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "iso639-3/resource/"
-          + URLEncoder.encode(code, StandardCharsets.UTF_8) + "?format=json&lang=" + locale);
-      client.executeMethod(getMethod);
-      String response = getMethod.getResponseBodyAsString();
+      String response;
+      try (CloseableHttpClient client = HttpClients.createDefault()) {
+        HttpGet getMethod = new HttpGet(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "iso639-3/resource/"
+            + URLEncoder.encode(code, StandardCharsets.UTF_8) + "?format=json&lang=" + locale);
+        try (var httpResponse = client.execute(getMethod)) {
+          response = new String(httpResponse.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8);
+        }
+      }
 
       Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
       Matcher matcher = pattern.matcher(response);

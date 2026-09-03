@@ -33,8 +33,9 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,23 +78,23 @@ public class XsltHelper {
    * @throws Exception
    */
   public static void getJournalsXML() throws Exception {
-    HttpClient client = new HttpClient();
-
     String coneQuery =
         // JUS-Testserver CoNE
         // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
         PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "journals/query?format=json&escidoc:citation-style=*&m=full&n=0";
-    GetMethod getMethod = new GetMethod(coneQuery);
-    client.executeMethod(getMethod);
+    try (CloseableHttpClient client = HttpClients.createDefault()) {
+      HttpGet getMethod = new HttpGet(coneQuery);
+      try (var response = client.execute(getMethod);
+          BufferedReader buffer = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))) {
+        StringBuilder content = new StringBuilder();
+        String line;
+        while (null != (line = buffer.readLine())) {
+          content.append(line);
+        }
 
-    BufferedReader buffer = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
-    StringBuilder content = new StringBuilder();
-    String line;
-    while (null != (line = buffer.readLine())) {
-      content.append(line);
+        citationMap = getCitationStyleMap(content.toString());
+      }
     }
-
-    citationMap = getCitationStyleMap(content.toString());
   }
 
   /**

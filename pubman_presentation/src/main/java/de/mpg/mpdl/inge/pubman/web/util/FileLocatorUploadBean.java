@@ -33,8 +33,9 @@ import java.rmi.AccessException;
 import java.util.List;
 import java.util.Vector;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -160,10 +161,10 @@ public abstract class FileLocatorUploadBean extends FacesBean {
           logger.debug("Source responded with 200.");
 
           // Fetch file
-          GetMethod method = new GetMethod(locator.toString());
-          HttpClient client = new HttpClient();
-          client.executeMethod(method);
-          input = method.getResponseBody();
+          try (CloseableHttpClient client = HttpClients.createDefault();
+              var response = client.execute(new HttpGet(locator.toString()))) {
+            input = response.getEntity().getContent().readAllBytes();
+          }
           httpConn.disconnect();
           break;
       }
