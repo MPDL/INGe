@@ -132,8 +132,7 @@
 				</plugins>
 			</build>
 		</profile>
-
-		
+	</profiles>
 
 	<dependencies>
 		<dependency>
