@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
+import jakarta.annotation.PreDestroy;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.SharedCacheMode;
 
@@ -37,13 +38,20 @@ public class JPAConfiguration {
 
   private static final Logger logger = LogManager.getLogger(JPAConfiguration.class);
 
+  // ✅ Store the CacheManager instance as a field
+  private CacheManager cacheManager;
+
   @Bean
   @Primary
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
-    //Set default class loader for CacheManager to avoid problems with ear classloading.
-    //Caching.setDefaultClassLoader(JPAConfiguration.class.getClassLoader());
-    //Create a ehcache cache manager
-    //defaultCacheManager();
+
+
+
+
+    // Set default class loader for CacheManager to avoid problems with ear classloading.
+    // Caching.setDefaultClassLoader(JPAConfiguration.class.getClassLoader());
+    // Create a ehcache cache manager
+    // defaultCacheManager(); // ✅ Call once during bean creation
 
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(restDataSource());
@@ -86,12 +94,21 @@ public class JPAConfiguration {
 
   @Bean
   public CacheManager defaultCacheManager() throws Exception {
-
-    CachingProvider provider = Caching.getCachingProvider(EhcacheCachingProvider.class.getName());
-    URI ehcacheConfigFileURI = JPAConfiguration.class.getClassLoader().getResource("ehcache.xml").toURI();
-    logger.info("URI for ehcache:" + ehcacheConfigFileURI);
-    CacheManager cacheManager = provider.getCacheManager(ehcacheConfigFileURI, ClassLoading.getDefaultClassLoader());
-
+    if (cacheManager == null) {
+      CachingProvider provider = Caching.getCachingProvider(EhcacheCachingProvider.class.getName());
+      URI ehcacheConfigFileURI = JPAConfiguration.class.getClassLoader().getResource("ehcache.xml").toURI();
+      logger.info("URI for ehcache:" + ehcacheConfigFileURI);
+      cacheManager = provider.getCacheManager(ehcacheConfigFileURI, ClassLoading.getDefaultClassLoader());
+    }
     return cacheManager;
+  }
+
+  // ✅ Properly close the *same* CacheManager instance on shutdown
+  @PreDestroy
+  public void destroy() {
+    if (cacheManager != null && !cacheManager.isClosed()) {
+      logger.info("Closing Ehcache CacheManager...");
+      cacheManager.close();
+    }
   }
 }
