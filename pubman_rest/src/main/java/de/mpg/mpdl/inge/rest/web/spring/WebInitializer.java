@@ -61,6 +61,8 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         org.springdoc.webmvc.ui.SwaggerConfig.class, //
         org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration.class);
 
+    context.registerShutdownHook();
+
     return context;
   }
 }
