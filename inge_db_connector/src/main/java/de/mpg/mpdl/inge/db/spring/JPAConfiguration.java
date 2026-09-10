@@ -38,20 +38,15 @@ public class JPAConfiguration {
 
   private static final Logger logger = LogManager.getLogger(JPAConfiguration.class);
 
-  // ✅ Store the CacheManager instance as a field
   private CacheManager cacheManager;
 
   @Bean
   @Primary
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
-
-
-
-
-    // Set default class loader for CacheManager to avoid problems with ear classloading.
-    // Caching.setDefaultClassLoader(JPAConfiguration.class.getClassLoader());
-    // Create a ehcache cache manager
-    // defaultCacheManager(); // ✅ Call once during bean creation
+    //Set default class loader for CacheManager to avoid problems with ear classloading.
+    //Caching.setDefaultClassLoader(JPAConfiguration.class.getClassLoader());
+    //Create a ehcache cache manager
+    //defaultCacheManager();
 
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(restDataSource());
