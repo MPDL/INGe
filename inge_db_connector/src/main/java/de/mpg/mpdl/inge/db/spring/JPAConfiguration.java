@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.db.spring;
 
 import java.net.URI;
+import java.util.Properties;
 
 import javax.cache.CacheManager;
 import javax.cache.Caching;
@@ -38,7 +39,7 @@ public class JPAConfiguration {
 
   private static final Logger logger = LogManager.getLogger(JPAConfiguration.class);
 
-  private CacheManager cacheManager;
+  //private CacheManager cacheManager;
 
   @Bean
   @Primary
@@ -53,8 +54,12 @@ public class JPAConfiguration {
     em.setPackagesToScan("de.mpg.mpdl.inge.model.db");
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);
+    Properties properties = new Properties();
+    // Tell Hibernate to reuse the Spring-managed CacheManager:
+    properties.put("hibernate.javax.cache.cache_manager", defaultCacheManager());
     // Hibernate Properties are under /src/main/resources
     // em.setJpaProperties(hibernateProperties());
+    em.setJpaProperties(properties);
     em.setSharedCacheMode(SharedCacheMode.ENABLE_SELECTIVE);
 
     return em;
@@ -87,18 +92,20 @@ public class JPAConfiguration {
     return transactionManager;
   }
 
-  @Bean
+
+  @Bean(destroyMethod = "close")
   public CacheManager defaultCacheManager() throws Exception {
-    if (cacheManager == null) {
-      CachingProvider provider = Caching.getCachingProvider(EhcacheCachingProvider.class.getName());
-      URI ehcacheConfigFileURI = JPAConfiguration.class.getClassLoader().getResource("ehcache.xml").toURI();
-      logger.info("URI for ehcache:" + ehcacheConfigFileURI);
-      cacheManager = provider.getCacheManager(ehcacheConfigFileURI, ClassLoading.getDefaultClassLoader());
-    }
-    return cacheManager;
+    CachingProvider provider = Caching.getCachingProvider(EhcacheCachingProvider.class.getName());
+    URI ehcacheConfigFileURI = JPAConfiguration.class.getClassLoader().getResource("ehcache.xml").toURI();
+    logger.info("URI for ehcache:" + ehcacheConfigFileURI);
+    return provider.getCacheManager(ehcacheConfigFileURI, ClassLoading.getDefaultClassLoader());
+
   }
 
+
+
   // ✅ Properly close the *same* CacheManager instance on shutdown
+  /*
   @PreDestroy
   public void destroy() {
     if (cacheManager != null && !cacheManager.isClosed()) {
@@ -106,4 +113,6 @@ public class JPAConfiguration {
       cacheManager.close();
     }
   }
+  
+   */
 }
