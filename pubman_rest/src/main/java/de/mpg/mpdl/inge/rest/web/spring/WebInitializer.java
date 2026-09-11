@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.rest.web.spring;
 
+import de.mpg.mpdl.inge.rest.spring.PubmanRestConfiguration;
 import de.mpg.mpdl.inge.rest.spring.WebConfiguration;
+import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import jakarta.servlet.Filter;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -17,12 +19,14 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class[] {};// {PubmanRestConfiguration.class};
+    // Root context: Core services, DB/JPA, ActiveMQ, ES
+    return new Class[] {AppConfigPubmanLogic.class, PubmanRestConfiguration.class};
   }
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return null;
+    // Web context: Controllers, MVC config, Swagger/SpringDoc
+    return new Class<?>[] {WebConfiguration.class};
   }
 
   @Override
@@ -39,14 +43,18 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     return new Filter[] {encodingFilter, new AuthCookieToHeaderFilter()};
   }
 
+  /*
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
     WebApplicationContext context = getSpringDocContext();
     servletContext.addListener(new CustomContextLoaderListener(context));
-
+  
     super.onStartup(servletContext);
   }
+  
+   */
 
+  /*
   private AnnotationConfigWebApplicationContext getSpringDocContext() {
     AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
     context.register(WebConfiguration.class);
@@ -60,9 +68,11 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         org.springdoc.webmvc.core.configuration.SpringDocWebMvcConfiguration.class, //
         org.springdoc.webmvc.ui.SwaggerConfig.class, //
         org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration.class);
-
+  
     context.registerShutdownHook();
-
+  
     return context;
   }
+  
+   */
 }

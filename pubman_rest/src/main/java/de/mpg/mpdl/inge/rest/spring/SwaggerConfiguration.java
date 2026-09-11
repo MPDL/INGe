@@ -2,7 +2,15 @@ package de.mpg.mpdl.inge.rest.spring;
 
 import java.util.Collections;
 
+import org.springdoc.core.configuration.SpringDocConfiguration;
 import org.springdoc.core.models.GroupedOpenApi;
+import org.springdoc.core.properties.SpringDocConfigProperties;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
+import org.springdoc.core.properties.SwaggerUiOAuthProperties;
+import org.springdoc.webmvc.core.configuration.MultipleOpenApiSupportConfiguration;
+import org.springdoc.webmvc.core.configuration.SpringDocWebMvcConfiguration;
+import org.springdoc.webmvc.ui.SwaggerConfig;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,8 +18,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.context.annotation.Import;
 
 @Configuration
+@Import({SpringDocConfiguration.class, SpringDocConfigProperties.class, SwaggerUiConfigProperties.class, SwaggerUiOAuthProperties.class,
+    MultipleOpenApiSupportConfiguration.class, SpringDocWebMvcConfiguration.class, SwaggerConfig.class, JacksonAutoConfiguration.class})
 public class SwaggerConfiguration {
 
   @Bean
