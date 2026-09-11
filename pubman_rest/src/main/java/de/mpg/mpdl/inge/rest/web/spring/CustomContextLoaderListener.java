@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.spring;
 
+import jakarta.servlet.ServletContextEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -32,6 +33,12 @@ public class CustomContextLoaderListener extends ContextLoaderListener {
     ApplicationContext parentContext = (ApplicationContext) AppConfigPubmanLogic.getRootContextBeanFactory().getBean("ear.context");
     //ApplicationContext parentContext = (ApplicationContext) ((WebApplicationContext) servletContext).getBean("context.ear");
     return parentContext;
+  }
+
+  @Override
+  public void contextDestroyed(ServletContextEvent event) {
+    super.contextDestroyed(event);
+    AppConfigPubmanLogic.closeRootContextBeanFactory();
   }
 
 }

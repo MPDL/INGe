@@ -17,6 +17,7 @@ import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -151,5 +152,13 @@ public class AppConfigPubmanLogic {
     }
 
     return PUBMAN_LOGIC_BEAN_FACTORY;
+  }
+
+  public static synchronized void closeRootContextBeanFactory() {
+    if (PUBMAN_LOGIC_BEAN_FACTORY instanceof ConfigurableApplicationContext cac) {
+      logger.info("Closing PubMan root Spring ApplicationContext and EmbeddedActiveMQ...");
+      cac.close();
+      PUBMAN_LOGIC_BEAN_FACTORY = null;
+    }
   }
 }

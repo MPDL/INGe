@@ -42,4 +42,10 @@ public class CustomContextLoaderListener extends ContextLoaderListener {
     return parentContext;
   }
 
+  @Override
+  public void contextDestroyed(ServletContextEvent event) {
+    super.contextDestroyed(event);
+    AppConfigPubmanLogic.closeRootContextBeanFactory();
+  }
+
 }
