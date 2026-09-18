@@ -1,13 +1,11 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import java.util.Base64;
-
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import co.elastic.clients.elasticsearch.core.IndexResponse;
+import de.mpg.mpdl.inge.es.dao.AttachmentDocument;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -126,29 +124,25 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
   }
 
 
-  public void createFulltext(String itemId, String fileId, byte[] file) throws IngeTechnicalException {
+  public void createFulltext(String itemId, String fileId, AttachmentDocument attachmentDocument) throws IngeTechnicalException {
     try {
-
-      ObjectNode rootObject = this.mapper.createObjectNode();
-      rootObject.putObject("fileData").put("itemId", itemId).put("fileId", fileId).put("data", Base64.getEncoder().encodeToString(file));
-      rootObject.putObject(JOIN_FIELD_NAME).put("name", "file").put("parent", itemId);
-
-
-      IndexResponse indexResponse = this.client.getClient()
-          .index(i -> i.index(indexName).routing(itemId).pipeline("attachment").id(itemId + "__" + fileId).document(rootObject));
-
-
-      /*
-              IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setRouting(itemId)
-          .setPipeline("attachment").setId(itemId + "__" + fileId).setSource(mapper.writeValueAsBytes(rootObject), XContentType.JSON).get();
-      */
-
-
+      this.client.getClient().index(i -> i.index(indexName).routing(itemId).id(itemId + "__" + fileId)
+          .document(createFulltextDocument(itemId, fileId, attachmentDocument)));
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
     }
 
 
+  }
+
+  ObjectNode createFulltextDocument(String itemId, String fileId, AttachmentDocument attachmentDocument) {
+    ObjectNode rootObject = this.mapper.createObjectNode();
+    ObjectNode fileData = rootObject.putObject("fileData");
+    fileData.put("itemId", itemId);
+    fileData.put("fileId", fileId);
+    fileData.set("attachment", this.mapper.valueToTree(attachmentDocument));
+    rootObject.putObject(JOIN_FIELD_NAME).put("name", "file").put("parent", itemId);
+    return rootObject;
   }
 
 

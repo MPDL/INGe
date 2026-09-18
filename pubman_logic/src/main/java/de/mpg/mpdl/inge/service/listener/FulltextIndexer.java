@@ -1,6 +1,6 @@
 package de.mpg.mpdl.inge.service.listener;
 
-import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +10,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import de.mpg.mpdl.inge.es.dao.AttachmentDocument;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -21,6 +22,7 @@ import jakarta.jms.ObjectMessage;
 public class FulltextIndexer {
 
   private static final Logger logger = LogManager.getLogger(FulltextIndexer.class);
+  private final FulltextAttachmentDocumentExtractor fulltextAttachmentDocumentExtractor = new FulltextAttachmentDocumentExtractor();
 
   @Autowired
   PubItemDaoEs pubItemDao;
@@ -45,11 +47,10 @@ public class FulltextIndexer {
             long start = System.currentTimeMillis();
             logger.info("Index fulltext for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId() + " - "
                 + fileVO.getLocalFileIdentifier() + " - " + fileVO.getSize());
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            this.fsi.readFile(fileVO.getLocalFileIdentifier(), bos);
-            bos.flush();
-            bos.close();
-            this.pubItemDao.createFulltext(item.getObjectIdAndVersion(), fileVO.getObjectId(), bos.toByteArray());
+            try (InputStream inputStream = this.fsi.readFile(fileVO.getLocalFileIdentifier())) {
+              AttachmentDocument attachmentDocument = this.fulltextAttachmentDocumentExtractor.extract(fileVO, inputStream);
+              this.pubItemDao.createFulltext(item.getObjectIdAndVersion(), fileVO.getObjectId(), attachmentDocument);
+            }
             long time = System.currentTimeMillis() - start;
             logger.info("Finished fulltext indexing for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId() + " - "
                 + fileVO.getLocalFileIdentifier() + " - " + fileVO.getSize() + " - " + time + " ms");

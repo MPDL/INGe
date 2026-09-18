@@ -49,8 +49,6 @@ public class AppConfigPubmanLogic {
 
   private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
 
-  //private static BeanFactory PUBMAN_LOGIC_BEAN_FACTORY;//XmlBeanFactory(new ClassPathResource(("beanRefContext.xml")));
-
   @Bean
   public PasswordEncoder passwordEncoder() {
     logger.info("Initializing Spring Bean PasswordEncoder");
@@ -144,24 +142,4 @@ public class AppConfigPubmanLogic {
 
     return jmsTemplate;
   }
-
-  /*
-  public static BeanFactory getRootContextBeanFactory() {
-  
-    if (null == PUBMAN_LOGIC_BEAN_FACTORY) {
-      PUBMAN_LOGIC_BEAN_FACTORY = new ClassPathXmlApplicationContext("beanRefContext.xml");
-    }
-  
-    return PUBMAN_LOGIC_BEAN_FACTORY;
-  }
-  
-  public static synchronized void closeRootContextBeanFactory() {
-    if (PUBMAN_LOGIC_BEAN_FACTORY instanceof ConfigurableApplicationContext cac) {
-      logger.info("Closing PubMan root Spring ApplicationContext and EmbeddedActiveMQ...");
-      cac.close();
-      PUBMAN_LOGIC_BEAN_FACTORY = null;
-    }
-  }
-  
-   */
 }

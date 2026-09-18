@@ -45,7 +45,8 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
     this.client = new ElasticsearchClient(b.build());
     initIndices("items", "es_index_items.json");
-    initPipeline("attachment", "es_index_items_pipeline_attachment.json");
+    //Not needed anymorre, because full text extraction is now done within the application and not by ES anymore, due to OOM problems
+    //initPipeline("attachment", "es_index_items_pipeline_attachment.json");
     initIndices("contexts", "es_index_contexts.json");
     initIndices("ous", "es_index_ous.json");
     initIndices("users", "es_index_users.json");
@@ -115,6 +116,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
   }
 
+  /*
   private void initPipeline(String pipelineId, String pipelineFileName) {
     try {
       try (InputStream is =
@@ -125,5 +127,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
       logger.error("Could not create pipeline <" + pipelineId + ">", e);
     }
   }
+  
+   */
 
 }

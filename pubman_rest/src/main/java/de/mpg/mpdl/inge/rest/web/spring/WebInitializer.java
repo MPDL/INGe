@@ -42,37 +42,4 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     return new Filter[] {encodingFilter, new AuthCookieToHeaderFilter()};
   }
-
-  /*
-  @Override
-  public void onStartup(ServletContext servletContext) throws ServletException {
-    WebApplicationContext context = getSpringDocContext();
-    servletContext.addListener(new CustomContextLoaderListener(context));
-  
-    super.onStartup(servletContext);
-  }
-  
-   */
-
-  /*
-  private AnnotationConfigWebApplicationContext getSpringDocContext() {
-    AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-    context.register(WebConfiguration.class);
-    context.register(this.getClass());
-    context.register( //
-        org.springdoc.core.configuration.SpringDocConfiguration.class, //
-        org.springdoc.core.properties.SpringDocConfigProperties.class, //
-        org.springdoc.core.properties.SwaggerUiConfigProperties.class, //
-        org.springdoc.core.properties.SwaggerUiOAuthProperties.class, //
-        org.springdoc.webmvc.core.configuration.MultipleOpenApiSupportConfiguration.class, //
-        org.springdoc.webmvc.core.configuration.SpringDocWebMvcConfiguration.class, //
-        org.springdoc.webmvc.ui.SwaggerConfig.class, //
-        org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration.class);
-  
-    context.registerShutdownHook();
-  
-    return context;
-  }
-  
-   */
 }
