@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.xmltransforming;
+package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.File;
 import java.util.Date;
@@ -32,8 +32,11 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.service.pubman.EmailService;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.activation.FileDataSource;
@@ -50,19 +53,15 @@ import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
 
-/**
- * @author Galina Stancheva (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$ Revised by StG: 24.08.2007
- */
-public class EmailService {
-  private static final Logger logger = LogManager.getLogger(EmailService.class);
+@Service
+@Primary
+public class EmailServiceImpl implements EmailService {
+  private static final Logger logger = LogManager.getLogger(EmailServiceImpl.class);
 
-  private EmailService() {}
-
-  public static String sendMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
-      String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,
-      String subject, String text, String[] attachments) throws TechnicalException {
+  @Override
+  public String sendMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress, String[] recipientsAddresses,
+      String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses, String subject, String text,
+      String[] attachments) throws TechnicalException {
     String status = "not sent";
     try {
       // Setup mail server
@@ -148,7 +147,7 @@ public class EmailService {
     return status;
   }
 
-  private static void addAtachments(String[] attachments, Multipart multipart) throws MessagingException {
+  private void addAtachments(String[] attachments, Multipart multipart) throws MessagingException {
     for (String filename : attachments) {
       MimeBodyPart attachmentBodyPart = new MimeBodyPart();
 
@@ -186,16 +185,17 @@ public class EmailService {
     }
   }
 
-  public static String sendHtmlMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
-      String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,
-      String subject, String text) throws TechnicalException {
+  @Override
+  public String sendHtmlMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress, String[] recipientsAddresses,
+      String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses, String subject, String text)
+      throws TechnicalException {
     String status = "not sent";
     try {
       // Setup mail server
       Properties props = System.getProperties();
       props.setProperty("mail.smtp.host", smtpHost);
       props.setProperty("mail.smtp.auth", withAuth);
-      props.setProperty("mail.smtp.starttls.enable", "true");
+      props.setProperty("mail.smtp.starttls.enable", "false");
 
       // Get a mail session with authentication
       MailAuthenticator authenticator = MailAuthenticator.createMailAuthenticator(usr, pwd);

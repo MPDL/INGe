@@ -1066,6 +1066,19 @@
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
 		<inge.rest.access-control-allowed-origins />
 		<jdk.version>21</jdk.version>
+		<orcid.url>https://sandbox.orcid.org</orcid.url>
+		<orcid.authorize.url>/oauth/authorize</orcid.authorize.url>
+		<orcid.scope>/read-limited%20/person/update%20/activities/update%20/authenticate</orcid.scope>
+		<orcid.response.type>code</orcid.response.type>
+		<orcid.redirect.url.rest>https://qa.pure.mpdl.mpg.de/rest</orcid.redirect.url.rest>
+		<orcid.redirect.url.url>/orcid/createOrcidAuthentication</orcid.redirect.url.url>
+		<orcid.token.url>/oauth/token</orcid.token.url>
+		<orcid.email.subject.for.bibo>Orcid Email Bibo Subject</orcid.email.subject.for.bibo>
+		<orcid.email.subject.for.link>Orcid Email Link Subject</orcid.email.subject.for.link>
+		<orcid.email.text.for.bibo>Orcid Email Bibo Text:</orcid.email.text.for.bibo>
+		<orcid.email.text.for.link>Orcid Email Link Text:</orcid.email.text.for.link>
+		<orcid.email.mailservername>mx04.mpdl.mpg.de</orcid.email.mailservername>
+		<orcid.email.sender.for.bibo>stephan.przibylla@maxit.mpg.de</orcid.email.sender.for.bibo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>

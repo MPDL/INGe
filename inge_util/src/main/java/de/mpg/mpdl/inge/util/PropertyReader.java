@@ -229,6 +229,22 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
 
+  public static final String ORCID_URL = "orcid.url";
+  public static final String ORCID_AUTHORIZE_URL = "orcid.authorize.url";
+  public static final String ORCID_SCOPE = "orcid.scope";
+  public static final String ORCID_RESPONSE_TYPE = "orcid.response.type";
+  public static final String ORCID_REDIRECT_URL_REST = "orcid.redirect.url.rest";
+  public static final String ORCID_REDIRECT_URL_URL = "orcid.redirect.url.url";
+  public static final String ORCID_CLIENT_ID = "orcid.client.id";
+  public static final String ORCID_CLIENT_SECRET = "orcid.client.secret";
+  public static final String ORCID_TOKEN_URL = "orcid.token.url";
+  public static final String ORCID_EMAIL_SUBJECT_FOR_BIBO = "orcid.email.subject.for.bibo";
+  public static final String ORCID_EMAIL_SUBJECT_FOR_LINK = "orcid.email.subject.for.link";
+  public static final String ORCID_EMAIL_TEXT_FOR_BIBO = "orcid.email.text.for.bibo";
+  public static final String ORCID_EMAIL_TEXT_FOR_LINK = "orcid.email.text.for.link";
+  public static final String ORCID_EMAIL_MAILSERVERNAME = "orcid.email.mailservername";
+  public static final String ORCID_EMAIL_SENDER_FOR_BIBO = "orcid.email.sender.for.bibo";
+
   // system properties
   public static final String FILE_ENCODING = "file.encoding";
   public static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
