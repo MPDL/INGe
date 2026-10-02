@@ -1,8 +1,11 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
+import de.mpg.mpdl.inge.inge_validation.OrcidValidatingService;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -10,6 +13,8 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -35,18 +40,24 @@ public class OrcidServiceImpl implements OrcidService {
   private final AuthorizationService authorizationService;
   private final OrcidAuthorizationRepository orcidAuthorizationRepository;
   private final EmailService emailService;
+  private final OrcidValidatingService orcidValidatingService;
 
   public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
-      EmailService emailService) {
+      EmailService emailService, OrcidValidatingService orcidValidatingService) {
     this.authorizationService = authorizationService;
     this.orcidAuthorizationRepository = orcidAuthorizationRepository;
     this.emailService = emailService;
+    this.orcidValidatingService = orcidValidatingService;
   }
 
   @Override
   public OrcidAuthorizationDbVO sendEmailLink(String token, String coneIdAuthor, String orcidAuthor, String nameAuthor, String emailBibo,
-      String emailAuthor) throws AuthenticationException, IngeApplicationException, TechnicalException {
+      String emailAuthor) throws AuthenticationException, IngeApplicationException, TechnicalException, ValidationException {
+
     AccountUserDbVO accountUserDbVO = getUser(token);
+    this.authorizationService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.ORCID_ADMIN.frameworkValue());
+
+    this.orcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor);
 
     OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor);
 
@@ -66,12 +77,12 @@ public class OrcidServiceImpl implements OrcidService {
         emailLink, emailBibo, emailAuthor, redirectUri);
 
     String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_LINK);
-    String text = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_TEXT_FOR_LINK) + "\n" + emailLink;
+    String text = createEmailText(nameAuthor, orcidAuthor, emailLink);
 
     sendEmail(emailBibo, emailBibo, subject, text);
 
     orcidAuthorizationDbVO.setDateEmailSentLink(new Date());
-    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_LINK);
+    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_LINK.toString());
 
     orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
 
@@ -79,11 +90,33 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
-  public OrcidAuthorizationDbVO createOrcidAuthorization(String secret, String code) throws IngeApplicationException, TechnicalException {
-    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidAuthorizationRepository.findBySecret(secret);
+  public OrcidAuthorizationDbVO createOrcidAuthorization(String secret, String code, String errorDescription)
+      throws IngeApplicationException, TechnicalException {
+    String secret_ = secret;
+    String error = null;
+    if (secret != null && secret.contains("?error=")) {
+      int errorIndex = secret.indexOf("?error=");
+      secret_ = secret.substring(0, errorIndex);
+      error = secret.substring(errorIndex + "?error=".length());
+    }
+
+    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidAuthorizationRepository.findBySecret(secret_);
 
     if (orcidAuthorizationDbVO == null) {
-      throw new IngeApplicationException("OrcidAuthorizationDbVO not found for secret: " + secret);
+      throw new IngeApplicationException("OrcidAuthorizationDbVO not found for secret: " + secret_);
+    }
+
+    if (error != null) {
+      orcidAuthorizationDbVO.setDateError(new Date());
+      if (error.equals("access_denied")) {
+        orcidAuthorizationDbVO.setErrorCodes(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString());
+        orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString());
+      } else {
+        orcidAuthorizationDbVO.setErrorCodes(errorDescription);
+        orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.ERROR.toString());
+      }
+      orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
+      return orcidAuthorizationDbVO;
     }
 
     orcidAuthorizationDbVO = updateAuthorizationDbVO(orcidAuthorizationDbVO, code);
@@ -168,7 +201,7 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   public OrcidAuthorizationDbVO finishAuthorizationDbVO(OrcidAuthorizationDbVO orcidAuthorizationDbVO) {
-    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_BIBO);
+    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_BIBO.toString());
     orcidAuthorizationDbVO.setDateEmailSentBibo(new Date());
 
     orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
@@ -180,7 +213,7 @@ public class OrcidServiceImpl implements OrcidService {
 
   public OrcidAuthorizationDbVO updateAuthorizationDbVO(OrcidAuthorizationDbVO orcidAuthorizationDbVO, String code) {
     orcidAuthorizationDbVO.setCodeReceived(code);
-    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.CODE_RECEIVED);
+    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.CODE_RECEIVED.toString());
     orcidAuthorizationDbVO.setDateCodeReceived(new Date());
 
     orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
@@ -199,15 +232,17 @@ public class OrcidServiceImpl implements OrcidService {
     orcidAuthorizationDbVO.setOrcid(orcid);
     orcidAuthorizationDbVO.setTokenType(tokenType);
     orcidAuthorizationDbVO.setExpiresIn(expiresIn);
-    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.TOKEN_RECEIVED);
+    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.TOKEN_RECEIVED.toString());
     orcidAuthorizationDbVO.setDateTokenReceived(new Date());
+    orcidAuthorizationDbVO.setErrorCodes(null);
+    orcidAuthorizationDbVO.setDateError(null);
     orcidAuthorizationDbVO.setVerified(true);
 
     StringBuilder sb = new StringBuilder();
-    if (!orcidAuthorizationDbVO.getNameAuthor().equalsIgnoreCase(name)) {
+    if (orcidAuthorizationDbVO.getNameAuthor() != null && !orcidAuthorizationDbVO.getNameAuthor().equalsIgnoreCase(name)) {
       sb.append(OrcidAuthorizationDbVO.ErrorCode.WARN_DIFFERENT_NAME.toString());
     }
-    if (!orcidAuthorizationDbVO.getOrcidAuthor().equalsIgnoreCase(orcid)) {
+    if (orcidAuthorizationDbVO.getOrcidAuthor() != null && !orcidAuthorizationDbVO.getOrcidAuthor().equalsIgnoreCase(orcid)) {
       if (!sb.isEmpty()) {
         sb.append(" " + OrcidAuthorizationDbVO.ErrorCode.WARN_DIFFERENT_ORCID.toString());
       } else {
@@ -224,6 +259,19 @@ public class OrcidServiceImpl implements OrcidService {
     logger.info("Udated orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
 
     return orcidAuthorizationDbVO;
+  }
+
+  String createEmailText(String nameAuthor, String orcidAuthor, String emailLink) throws TechnicalException {
+    try {
+      String template = ResourceUtil.getResourceAsString("orcid_email.txt", getClass().getClassLoader());
+      template = template.replace("$NAME_AUTHOR", nameAuthor != null ? nameAuthor : "");
+      template = template.replace("$ORCID_AUTHOR", orcidAuthor != null ? orcidAuthor : "");
+      template = template.replace("$EMAIL_LINK", emailLink != null ? emailLink : "");
+      return template;
+    } catch (IOException e) {
+      logger.error("Error reading orcid_email.txt", e);
+      throw new TechnicalException("Error reading orcid_email.txt", e);
+    }
   }
 
   String createEmailLink(String scopeRequested, String redirectUri) {
@@ -274,17 +322,5 @@ public class OrcidServiceImpl implements OrcidService {
 
     this.emailService.sendHtmlMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAdresses, recipientsCCAdresses,
         recipientsBCCAdresses, replyToAdresses, subject, text);
-  }
-
-  public static void main(String[] args) {
-    OrcidServiceImpl orcidService = new OrcidServiceImpl(null, null, null);
-
-    String scopeRequested = PropertyReader.getProperty(PropertyReader.ORCID_SCOPE);
-    String genSecret = orcidService.generateSecret();
-    String redirectUri = PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_REST)
-        + PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_URL) + "?secret=" + genSecret;
-    String emailLink = orcidService.createEmailLink(scopeRequested, redirectUri);
-
-    System.out.println(emailLink);
   }
 }

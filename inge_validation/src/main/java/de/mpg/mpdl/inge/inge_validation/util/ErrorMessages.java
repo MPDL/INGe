@@ -87,6 +87,17 @@ public class ErrorMessages {
   public static final String TITLE_NOT_PROVIDED = "TitleNotProvided";
   public static final String TOTAL_NUMBER_OF_PAGES_NOT_PROVIDED = "TotalNumberOfPagesNotProvided";
   public static final String UNKNOWN_LANGUAGE_CODE = "UnknownLanguageCode";
+  public static final String ORCID_CONE_ID_AUTHOR_NOT_PROVIDED = "OrcidConeIdAuthorNotProvided";
+  public static final String ORCID_NAME_AUTHOR_NOT_PROVIDED = "OrcidNameAuthorNotProvided";
+  public static final String ORCID_AUTHOR_NOT_PROVIDED = "OrcidAuthorNotProvided";
+  public static final String ORCID_INVALID = "OrcidInvalid";
+  public static final String ORCID_EMAIL_BIBO_NOT_PROVIDED = "EmailBiboNotProvided";
+  public static final String ORCID_EMAIL_BIBO_INVALID = "OrcidEmailBiboInvalid";
+  public static final String ORCID_EMAIL_AUTHOR_NOT_PROVIDED = "OrcidEmailAuthorNotProvided";
+  public static final String ORCID_EMAIL_AUTHOR_INVALID = "OrcidEmailAuthorInvalid";
+  public static final String ORCID_CONE_CHECK_NOT_POSSIBLE = "OrcidConeCheckNotPossible";
+  public static final String ORCID_NAME_AUTHOR_NOT_EQUAL_NAME_AUTHOR_CONE = "OrcidNameAuthorNotEqualNameAuthorCone";
+  public static final String ORCID_AUTHOR_NOT_EQUAL_ORCID_AUTHOR_CONE = "OrcidAuthorNotEqualOrcidAuthorCone";
 
   private ErrorMessages() {}
 }

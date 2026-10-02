@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
@@ -28,6 +29,7 @@ public class OrcidRestController {
   private static final String EMAIL_AUTHOR = "emailAuthor";
   private static final String SECRET = "secret";
   private static final String CODE = "code";
+  private static final String ERROR_DESCRIPTION = "error_description";
 
   private final OrcidService orcidService;
 
@@ -43,7 +45,7 @@ public class OrcidRestController {
       @RequestParam(NAME_AUTHOR) String nameAuthor, //
       @RequestParam(EMAIL_BIBO) String emailBibo, //
       @RequestParam(EMAIL_AUTHOR) String emailAuthor) //
-      throws AuthenticationException, IngeApplicationException, AuthorizationException, TechnicalException {
+      throws AuthenticationException, IngeApplicationException, AuthorizationException, TechnicalException, ValidationException {
 
     OrcidAuthorizationDbVO orcidAuthorizationDbVO =
         this.orcidService.sendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor);
@@ -52,13 +54,15 @@ public class OrcidRestController {
   }
 
   @RequestMapping(value = "/createOrcidAuthentication", method = RequestMethod.GET)
-  public ResponseEntity<?> createOrcidAuthentication( //
+  public ResponseEntity<OrcidAuthorizationDbVO> createOrcidAuthentication( //
       @RequestParam(SECRET) String secret, //
-      @RequestParam(CODE) String code) throws TechnicalException, AuthenticationException, IngeApplicationException {
+      @RequestParam(value = CODE, required = false) String code, //
+      @RequestParam(value = ERROR_DESCRIPTION, required = false) String errorDescription) //
+      throws TechnicalException, AuthenticationException, IngeApplicationException {
 
-    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidService.createOrcidAuthorization(secret, code);
+    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidService.createOrcidAuthorization(secret, code, errorDescription);
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
   }
 
 }

@@ -1068,15 +1068,15 @@
 		<jdk.version>21</jdk.version>
 		<orcid.url>https://sandbox.orcid.org</orcid.url>
 		<orcid.authorize.url>/oauth/authorize</orcid.authorize.url>
-		<orcid.scope>/read-limited%20/person/update%20/activities/update%20/authenticate</orcid.scope>
+		<!-- possible values: /read-limited /person/update /activities/update /authenticate -->
+		<orcid.scope>/authenticate /activities/update</orcid.scope>
 		<orcid.response.type>code</orcid.response.type>
 		<orcid.redirect.url.rest>https://qa.pure.mpdl.mpg.de/rest</orcid.redirect.url.rest>
 		<orcid.redirect.url.url>/orcid/createOrcidAuthentication</orcid.redirect.url.url>
 		<orcid.token.url>/oauth/token</orcid.token.url>
 		<orcid.email.subject.for.bibo>Orcid Email Bibo Subject</orcid.email.subject.for.bibo>
-		<orcid.email.subject.for.link>Orcid Email Link Subject</orcid.email.subject.for.link>
+		<orcid.email.subject.for.link>Bitte um ORCID-Freigabe: Automatische Aktualisierung Ihrer Publikationen / Request for ORCID Authorization: Automatic Updates to Your Publications</orcid.email.subject.for.link>
 		<orcid.email.text.for.bibo>Orcid Email Bibo Text:</orcid.email.text.for.bibo>
-		<orcid.email.text.for.link>Orcid Email Link Text:</orcid.email.text.for.link>
 		<orcid.email.mailservername>mx04.mpdl.mpg.de</orcid.email.mailservername>
 		<orcid.email.sender.for.bibo>stephan.przibylla@maxit.mpg.de</orcid.email.sender.for.bibo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

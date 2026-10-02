@@ -96,6 +96,7 @@ public class OrcidServiceTest {
     System.setProperty(PropertyReader.ORCID_URL, "http://localhost:" + serverPort);
     System.setProperty(PropertyReader.ORCID_TOKEN_URL, "/oauth/token");
     System.setProperty(PropertyReader.ORCID_CLIENT_ID, "TEST-CLIENT-ID");
+    System.setProperty(PropertyReader.ORCID_CLIENT_SECRET, "test-secret-123");
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_REST, "http://localhost:" + serverPort + "/rest");
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_URL, "/orcid/createOrcidAuthentication");
     System.setProperty(PropertyReader.ORCID_EMAIL_MAILSERVERNAME, "localhost");
@@ -106,7 +107,7 @@ public class OrcidServiceTest {
     OrcidAuthorizationRepository mockRepository = createMockRepository();
     AuthorizationService mockAuthService = null;
 
-    orcidService = new OrcidServiceImpl(mockAuthService, mockRepository, null);
+    orcidService = new OrcidServiceImpl(mockAuthService, mockRepository, null, null);
   }
 
   private OrcidAuthorizationRepository createMockRepository() {
@@ -134,6 +135,7 @@ public class OrcidServiceTest {
     System.clearProperty(PropertyReader.ORCID_URL);
     System.clearProperty(PropertyReader.ORCID_TOKEN_URL);
     System.clearProperty(PropertyReader.ORCID_CLIENT_ID);
+    System.clearProperty(PropertyReader.ORCID_CLIENT_SECRET);
     System.clearProperty(PropertyReader.ORCID_REDIRECT_URL_REST);
     System.clearProperty(PropertyReader.ORCID_REDIRECT_URL_URL);
     System.clearProperty(PropertyReader.ORCID_EMAIL_MAILSERVERNAME);
@@ -146,6 +148,8 @@ public class OrcidServiceTest {
   public void testRequestTokenAndOrcidSuccess() throws Exception {
     OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
     vo.setSecret("test-secret-123");
+    vo.setNameAuthor("Sofia Garcia");
+    vo.setOrcidAuthor("0000-0001-2345-6789");
     vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-123");
 
     OrcidAuthorizationDbVO result = orcidService.requestTokenAndOrcid(vo, "654321");
@@ -178,6 +182,8 @@ public class OrcidServiceTest {
   public void testRequestTokenAndOrcidSingleParam() throws Exception {
     OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
     vo.setSecret("test-secret-456");
+    vo.setNameAuthor("Sofia Garcia");
+    vo.setOrcidAuthor("0000-0001-2345-6789");
     vo.setCodeReceived("112233");
     vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-456");
 
@@ -208,5 +214,58 @@ public class OrcidServiceTest {
     } catch (Exception e) {
       fail("Unexpected exception: " + e);
     }
+  }
+
+  @Test
+  public void testCreateOrcidAuthorizationAccessDenied() throws Exception {
+    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
+    vo.setSecret("test-secret-denied");
+    vo.setNameAuthor("Sofia Garcia");
+    vo.setOrcidAuthor("0000-0001-2345-6789");
+    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-denied");
+    repoStorage.put("test-secret-denied", vo);
+
+    OrcidAuthorizationDbVO result =
+        orcidService.createOrcidAuthorization("test-secret-denied?error=access_denied", null, "User denied access");
+
+    assertNotNull(result);
+    assertEquals(OrcidAuthorizationDbVO.Status.ACCESS_DENIED, result.getStatus());
+    assertEquals("User denied access", result.getErrorCodes());
+  }
+
+  @Test
+  public void testCreateOrcidAuthorizationOtherError() throws Exception {
+    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
+    vo.setSecret("test-secret-server-error");
+    vo.setNameAuthor("Sofia Garcia");
+    vo.setOrcidAuthor("0000-0001-2345-6789");
+    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-server-error");
+    repoStorage.put("test-secret-server-error", vo);
+
+    OrcidAuthorizationDbVO result =
+        orcidService.createOrcidAuthorization("test-secret-server-error?error=server_error", null, "Internal server error");
+
+    assertNotNull(result);
+    assertEquals(OrcidAuthorizationDbVO.Status.ERROR, result.getStatus());
+    assertEquals("Internal server error", result.getErrorCodes());
+  }
+
+  @Test
+  public void testCreateEmailText() throws Exception {
+    String nameAuthor = "Dr. Max Mustermann";
+    String orcidAuthor = "0000-0002-1825-0097";
+    String emailLink = "https://sandbox.orcid.org/oauth/authorize?test=123";
+
+    String emailText = orcidService.createEmailText(nameAuthor, orcidAuthor, emailLink);
+    System.out.println(emailText);
+
+    assertNotNull(emailText);
+    assertTrue(emailText.contains("Sehr geehrte(r) Dr. Max Mustermann"));
+    assertTrue(emailText.contains("0000-0002-1825-0097"));
+    assertTrue(emailText.contains(
+        "Klicken Sie auf diesen Link: <a href=\"https://sandbox.orcid.org/oauth/authorize?test=123\">https://sandbox.orcid.org/oauth/authorize?test=123</a>"));
+    assertFalse(emailText.contains("$NAME_AUTHOR"));
+    assertFalse(emailText.contains("$ORCID_AUTHOR"));
+    assertFalse(emailText.contains("$EMAIL_LINK"));
   }
 }

@@ -1,0 +1,54 @@
+<p>*See below for the English version*</p>
+<p>Sehr geehrte(r) $NAME_AUTHOR,</p>
+
+<p>um Ihr persönliches ORCID-Profil mit Publikationsdaten anreichern zu können, bitten wir Sie, Ihr Profil mit dem Publikations-Repositorium der MPG, MPG.PuRe (<a href="https://pure.mpg.de">https://pure.mpg.de</a>), zu verknüpfen.</p>
+
+<p>Durch diese einmalige Freigabe bestätigen Sie, dass dies Ihre korrekte ORCID-ID ist:<br/>
+$ORCID_AUTHOR</p>
+
+<p>Darüber hinaus erteilen Sie MPG.PuRe die Berechtigung, Ihre in PuRe veröffentlichten Publikationen regelmäßig automatisch an Ihr ORCID-Profil zu übertragen.<br/>
+Im Unterschied zu manuell hinzugefügten Einträgen werden diese Werke mit einem grünen Häkchen als „validierte Werke“ aus einer vertrauenswürdigen Quelle gekennzeichnet.</p>
+
+<p>So erteilen Sie die Freigabe:</p>
+<ol>
+	<li>Klicken Sie auf diesen Link: <a href="$EMAIL_LINK">$EMAIL_LINK</a></li>
+	<li>Loggen Sie sich in Ihr ORCID-Konto ein.</li>
+	<li>Bestätigen Sie die Autorisierung für MPG.PuRe.</li>
+</ol>
+
+<p>Ihre ORCID-Zugangsdaten, insbesondere Ihr Passwort, werden dabei nicht an MPG.PuRe oder Dritte übermittelt. Sie können diese Berechtigung zudem jederzeit in den Einstellungen Ihres ORCID-Profils widerrufen.</p>
+
+<p>Für Fragen zum Prozess steht Ihnen das PuRe-Support-Team unter <a href="mailto:pure-support@listsrv.mpg.de">pure-support@listsrv.mpg.de</a> gerne zur Verfügung.</p>
+
+<p>Vielen Dank für Ihre Unterstützung!</p>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Ihr MPG.PuRe-Support-Team</p>
+
+
+
+<p>Dear) $NAME_AUTHOR,</p>
+
+<p>In order to enrich your personal ORCID profile with publication data, we kindly ask you to link your profile to the MPG publication repository, MPG.PuRe (<a href="https://pure.mpg.de">https://pure.mpg.de</a>).</p>
+
+<p>By granting this one-time authorization, you confirm that this is your correct ORCID ID:<br/>
+$ORCID_AUTHOR</p>
+
+<p>In addition, you authorize MPG.PuRe to automatically retrieve your publications from PuRe on a regular basis and transfer them to your ORCID profile.<br/>
+Unlike manually added entries, these works will be marked with a green checkmark as “validated works” from a trusted source.</p>
+
+<p>How to grant the authorization:</p>
+<ol>
+	<li>Click this link: <a href="$EMAIL_LINK">$EMAIL_LINK</a></li>
+	<li>Log in to your ORCID account.</li>
+	<li>Confirm the authorization for MPG.PuRe.</li>
+</ol>
+
+<p>Your ORCID login credentials, in particular your password, will not be shared with MPG.PuRe or third parties. You can revoke this authorization at any time in the settings of your ORCID profile.</p>
+
+<p>If you have any questions about the process, the PuRe support team is available to assist you at <a href="mailto:pure-support@listsrv.mpg.de">pure-support@listsrv.mpg.de</a>.</p>
+
+<p>Thank you very much for your support!</p>
+
+<p>Sincerely,</p>
+<p>Your MPG.PuRe-Support-Team</p>

@@ -2,8 +2,6 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,20 +13,25 @@ import java.util.Date;
 @Table(name = "orcid_authorization")
 public class OrcidAuthorizationDbVO {
 
-  public enum ErrorCode {
+  public enum ErrorCode
+  {
     WARN_DIFFERENT_ORCID,
     WARN_DIFFERENT_NAME,
-    ERROR_CONE_ID_ALREADY_EXITS
+    ERROR_CONE_ID_ALREADY_EXITS,
+    ERROR_ACCESS_DENIED
   }
 
-  public enum Status {
+  public enum Status
+  {
     CREATED,
     EMAIL_SENT_LINK,
     CODE_RECEIVED,
     TOKEN_RECEIVED,
     TOKEN_RECEIVED_WITH_WARNING,
     EMAIL_SENT_BIBO,
-    CANCELED
+    CANCELED,
+    ACCESS_DENIED,
+    ERROR
   }
 
   @Id
@@ -36,9 +39,8 @@ public class OrcidAuthorizationDbVO {
   @SequenceGenerator(name = "orcid_id_gen", sequenceName = "orcid_id_seq", allocationSize = 1)
   @Column(name = "id", nullable = false)
   private Integer id;
-  @Enumerated(EnumType.STRING)
   @Column(name = "status")
-  private Status status;
+  private String status;
   @Column(name = "user_id")
   private String userIdBibo;
   @Column(name = "cone_id_author")
@@ -91,10 +93,12 @@ public class OrcidAuthorizationDbVO {
   private String errorCodes;
   @Column(name = "canceled")
   private Boolean canceled;
+  @Column(name = "date_error", columnDefinition = "TIMESTAMP")
+  private Date dateError;
 
-  public OrcidAuthorizationDbVO(String userIdBibo, String coneIdAuthor, String orcidAuthor, String nameAuthor, String secret, String scopeRequested,
-      String emailLink, String emailBibo, String emailAuthor, String redirectUri) {
-    this.status = Status.CREATED;
+  public OrcidAuthorizationDbVO(String userIdBibo, String coneIdAuthor, String orcidAuthor, String nameAuthor, String secret,
+      String scopeRequested, String emailLink, String emailBibo, String emailAuthor, String redirectUri) {
+    this.status = Status.CREATED.toString();
     this.dateCreated = new Date();
     this.userIdBibo = userIdBibo;
     this.coneIdAuthor = coneIdAuthor;
@@ -109,8 +113,7 @@ public class OrcidAuthorizationDbVO {
     this.verified = false;
   }
 
-  public OrcidAuthorizationDbVO() {
-  }
+  public OrcidAuthorizationDbVO() {}
 
   public String getAccessToken() {
     return accessToken;
@@ -120,9 +123,13 @@ public class OrcidAuthorizationDbVO {
     this.accessToken = accessToken;
   }
 
-  public Boolean getCanceled() { return canceled; }
+  public Boolean getCanceled() {
+    return canceled;
+  }
 
-  public void setCanceled(Boolean canceled) { this.canceled = canceled; }
+  public void setCanceled(Boolean canceled) {
+    this.canceled = canceled;
+  }
 
   public String getCodeReceived() {
     return codeReceived;
@@ -140,12 +147,20 @@ public class OrcidAuthorizationDbVO {
     this.coneIdAuthor = coneIdAuthor;
   }
 
+  public Date getDateError() {
+    return dateError;
+  }
+
+  public void setDateError(Date dateError) {
+    this.dateError = dateError;
+  }
+
   public Date getDateCodeReceived() {
     return dateCodeReceived;
   }
 
-  public void setDateCodeReceived(Date date_codeReceived) {
-    this.dateCodeReceived = date_codeReceived;
+  public void setDateCodeReceived(Date dateCodeReceived) {
+    this.dateCodeReceived = dateCodeReceived;
   }
 
   public Date getDateEmailSentBibo() {
@@ -292,11 +307,11 @@ public class OrcidAuthorizationDbVO {
     this.secret = secret;
   }
 
-  public Status getStatus() {
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 

@@ -15,6 +15,7 @@ public class ValidationTools {
 
   public static final String ORCID_HTTPS = "https://orcid.org/";
   public static final String ORCID_REGEX = "^\\d{4}-\\d{4}-\\d{4}-(\\d{3}X|\\d{4})$";
+  public static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
   private ValidationTools() {}
 

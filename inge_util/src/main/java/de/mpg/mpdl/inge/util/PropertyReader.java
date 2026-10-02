@@ -241,7 +241,6 @@ public class PropertyReader {
   public static final String ORCID_EMAIL_SUBJECT_FOR_BIBO = "orcid.email.subject.for.bibo";
   public static final String ORCID_EMAIL_SUBJECT_FOR_LINK = "orcid.email.subject.for.link";
   public static final String ORCID_EMAIL_TEXT_FOR_BIBO = "orcid.email.text.for.bibo";
-  public static final String ORCID_EMAIL_TEXT_FOR_LINK = "orcid.email.text.for.link";
   public static final String ORCID_EMAIL_MAILSERVERNAME = "orcid.email.mailservername";
   public static final String ORCID_EMAIL_SENDER_FOR_BIBO = "orcid.email.sender.for.bibo";
 

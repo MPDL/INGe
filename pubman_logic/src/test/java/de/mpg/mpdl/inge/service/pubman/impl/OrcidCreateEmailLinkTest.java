@@ -36,7 +36,7 @@ public class OrcidCreateEmailLinkTest {
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_URL, TEST_ORCID_REDIRECT_URL_URL);
     System.setProperty(PropertyReader.ORCID_CLIENT_ID, TEST_ORCID_CLIENT_ID);
 
-    orcidService = new OrcidServiceImpl(null, null, null);
+    orcidService = new OrcidServiceImpl(null, null, null, null);
   }
 
   @After
