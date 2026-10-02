@@ -333,7 +333,7 @@ public class AuthorizationService {
     boolean match =
         p.getUserAccount() != null && p.getUserAccount().getGrantList().stream().anyMatch(grant -> rolesList.contains(grant.getRole()));
     if (!match) {
-      throw new AuthenticationException("Authentication as admin user required", PubManException.Reason.PERMISSION_DENIED);
+      throw new AuthenticationException("Another authentication required", PubManException.Reason.PERMISSION_DENIED);
     }
     return p;
   }
