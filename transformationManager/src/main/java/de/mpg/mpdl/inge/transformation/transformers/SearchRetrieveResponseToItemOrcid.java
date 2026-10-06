@@ -135,6 +135,33 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
     EXTERNAL_ID_MAPPING.put("ZDB", "other-id");
   }
 
+  private static final Map<String, String> CONTRIBUTOR_ROLE_MAPPING = new HashMap<>();
+  static {
+    CONTRIBUTOR_ROLE_MAPPING.put("ACTOR", "author");
+    CONTRIBUTOR_ROLE_MAPPING.put("ADVISOR", "co-investigator");
+    CONTRIBUTOR_ROLE_MAPPING.put("APPLICANT", "assignee");
+    CONTRIBUTOR_ROLE_MAPPING.put("ARTIST", "author");
+    CONTRIBUTOR_ROLE_MAPPING.put("AUTHOR", "author");
+    CONTRIBUTOR_ROLE_MAPPING.put("CINEMATOGRAPHER", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("COMMENTATOR", "author");
+    CONTRIBUTOR_ROLE_MAPPING.put("CONTRIBUTOR", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("DEVELOPER", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("DIRECTOR", "editor");
+    CONTRIBUTOR_ROLE_MAPPING.put("EDITOR", "editor");
+    CONTRIBUTOR_ROLE_MAPPING.put("HONOREE", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("ILLUSTRATOR", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("INTERVIEWEE", "author");
+    CONTRIBUTOR_ROLE_MAPPING.put("INTERVIEWER", "author");
+    CONTRIBUTOR_ROLE_MAPPING.put("INVENTOR", "co-inventor");
+    CONTRIBUTOR_ROLE_MAPPING.put("PAINTER", "author");
+    CONTRIBUTOR_ROLE_MAPPING.put("PHOTOGRAPHER", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("PRODUCER", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("REFEREE", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("SOUND_DESIGNER", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("TRANSCRIBER", "support-staff");
+    CONTRIBUTOR_ROLE_MAPPING.put("TRANSLATOR", "chair-or-translator");
+  }
+
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
     try {
@@ -431,11 +458,7 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
         attrs.put("contributor-sequence", idx == 0 ? "first" : "additional");
         String role = "author";
         if (creator.getRole() != null) {
-          if (CreatorVO.CreatorRole.EDITOR.equals(creator.getRole())) {
-            role = "editor";
-          } else if (CreatorVO.CreatorRole.AUTHOR.equals(creator.getRole())) {
-            role = "author";
-          }
+          role = CONTRIBUTOR_ROLE_MAPPING.getOrDefault(creator.getRole().name(), "author");
         }
         attrs.put("contributor-role", role);
         contrib.set("contributor-attributes", attrs);
