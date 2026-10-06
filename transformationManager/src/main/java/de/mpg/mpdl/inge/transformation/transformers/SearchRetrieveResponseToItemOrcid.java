@@ -50,7 +50,13 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
 
   private static final Pattern DATE_PATTERN = Pattern.compile("^(\\d{4})(?:[/-](\\d{1,2}))?(?:[/-](\\d{1,2}))?.*");
 
+  private static final String INVALID_WORKTYPE = "XXX";
+
+  private static final String CITATION_TYPE = "APA";
+  private static final String CITATION_TYPE_ORCID = "formatted-apa";
+
   private static final Map<String, String> GENRE_MAPPING = new HashMap<>();
+
   static {
     GENRE_MAPPING.put("ARTICLE", "journal-article");
     GENRE_MAPPING.put("BLOG_POST", "blog-post");
@@ -84,7 +90,7 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
     GENRE_MAPPING.put("MEETING_ABSTRACT", "conference-output");
     GENRE_MAPPING.put("MONOGRAPH", "book");
     GENRE_MAPPING.put("MULTI_VOLUME", "book");
-    GENRE_MAPPING.put("NEWSPAPER", "other");
+    //    GENRE_MAPPING.put("NEWSPAPER", "other");
     GENRE_MAPPING.put("NEWSPAPER_ARTICLE", "newspaper-article");
     GENRE_MAPPING.put("OPINION", "other");
     GENRE_MAPPING.put("OTHER", "other");
@@ -97,13 +103,14 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
     GENRE_MAPPING.put("REGISTERED_REPORT", "other");
     GENRE_MAPPING.put("REPORT", "report");
     GENRE_MAPPING.put("REVIEW_ARTICLE", "other");
-    GENRE_MAPPING.put("SERIES", "other");
+    //    GENRE_MAPPING.put("SERIES", "other");
     GENRE_MAPPING.put("SOFTWARE", "software");
     GENRE_MAPPING.put("TALK_AT_EVENT", "conference-presentation");
     GENRE_MAPPING.put("THESIS", "dissertation-thesis");
   }
 
   private static final Map<String, String> EXTERNAL_ID_MAPPING = new HashMap<>();
+
   static {
     EXTERNAL_ID_MAPPING.put("ADS", "bibcode");
     EXTERNAL_ID_MAPPING.put("ARXIV", "arxiv");
@@ -135,7 +142,32 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
     EXTERNAL_ID_MAPPING.put("ZDB", "other-id");
   }
 
+  private static final Map<String, String> EXTERNAL_ID_URL_PREFIX = new HashMap<>();
+
+  static {
+    EXTERNAL_ID_URL_PREFIX.put("ADS", "https://ui.adsabs.harvard.edu/abs/");
+    EXTERNAL_ID_URL_PREFIX.put("ARXIV", "https://arxiv.org/abs/");
+    EXTERNAL_ID_URL_PREFIX.put("BIORXIV", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("CHEMRXIV", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("DOI", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("EARTHARXIV", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("EDARXIV", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("ESS_OPEN_ARCHIVE", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("ISI", "https://www.webofscience.com/wos/woscc/full-record/WOS:");
+    EXTERNAL_ID_URL_PREFIX.put("MEDRXIV", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("PMC", "https://www.ncbi.nlm.nih.gov/pmc/articles/");
+    EXTERNAL_ID_URL_PREFIX.put("PMID", "https://pubmed.ncbi.nlm.nih.gov/");
+    EXTERNAL_ID_URL_PREFIX.put("PSYARXIV", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("RESEARCH_SQUARE", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("SOCARXIV", "https://doi.org/");
+    EXTERNAL_ID_URL_PREFIX.put("SSRN", "https://ssrn.com/abstract=");
+    EXTERNAL_ID_URL_PREFIX.put("ZDB", "https://ld.zdb-services.de/resource/");
+    EXTERNAL_ID_URL_PREFIX.put("SOURCE_WORK_ID", "https://pure.mpg.de/view/");
+    EXTERNAL_ID_URL_PREFIX.put("HANDLE", "https://hdl.handle.net/");
+  }
+
   private static final Map<String, String> CONTRIBUTOR_ROLE_MAPPING = new HashMap<>();
+
   static {
     CONTRIBUTOR_ROLE_MAPPING.put("ACTOR", "author");
     CONTRIBUTOR_ROLE_MAPPING.put("ADVISOR", "co-investigator");
@@ -178,12 +210,8 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
             searchResult.getRecords().stream().map(SearchRetrieveRecordVO::getData).filter(Objects::nonNull).collect(Collectors.toList());
 
         List<String> citationList = null;
-        String citStyle = getConfiguration().get("citation");
-        if (citStyle == null || citStyle.trim().isEmpty()) {
-          citStyle = "APA";
-        }
         try {
-          ExportFormatVO exportFormat = new ExportFormatVO(getTargetFormat().getName(), citStyle, getConfiguration().get("csl_id"));
+          ExportFormatVO exportFormat = new ExportFormatVO(getTargetFormat().getName(), CITATION_TYPE, null);
           citationList = CitationStyleExecuterService.getOutput(itemList, exportFormat);
         } catch (Exception e) {
           logger.warn("Could not generate citations: " + e.getMessage());
@@ -197,10 +225,12 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
           }
 
           String citation = (citationList != null && itemIdx < citationList.size()) ? citationList.get(itemIdx) : null;
-          ObjectNode workNode = buildWorkNode(item, citation, citStyle, mapper);
-          ObjectNode itemWrapper = mapper.createObjectNode();
-          itemWrapper.set("work", workNode);
-          bulkArray.add(itemWrapper);
+          ObjectNode workNode = buildWorkNode(item, citation, mapper);
+          if (workNode != null) {
+            ObjectNode itemWrapper = mapper.createObjectNode();
+            itemWrapper.set("work", workNode);
+            bulkArray.add(itemWrapper);
+          }
           itemIdx++;
         }
       }
@@ -216,14 +246,22 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
     }
   }
 
-  private ObjectNode buildWorkNode(ItemVersionVO item, String citation, String citStyle, ObjectMapper mapper) {
+  private ObjectNode buildWorkNode(ItemVersionVO item, String citation, ObjectMapper mapper) {
     ObjectNode work = mapper.createObjectNode();
     MdsPublicationVO metadata = item.getMetadata();
     if (metadata == null) {
-      return work;
+      return null;
     }
 
-    // 1. title
+    // 1. type
+    String genre = metadata.getGenre() != null ? metadata.getGenre().name() : null;
+    String workType = genre != null ? GENRE_MAPPING.getOrDefault(genre, INVALID_WORKTYPE) : INVALID_WORKTYPE;
+    if (INVALID_WORKTYPE.equals(workType)) {
+      return null;
+    }
+    work.put("type", workType);
+
+    // 2. title
     if (metadata.getTitle() != null && !metadata.getTitle().trim().isEmpty()) {
       ObjectNode titleNode = mapper.createObjectNode();
       ObjectNode mainTitle = mapper.createObjectNode();
@@ -253,7 +291,7 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
       work.set("title", titleNode);
     }
 
-    // 2. journal-title
+    // 3. journal-title
     if (metadata.getSources() != null) {
       for (SourceVO src : metadata.getSources()) {
         if (src.getTitle() != null && !src.getTitle().trim().isEmpty()) {
@@ -265,7 +303,7 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
       }
     }
 
-    // 3. short-description
+    // 4. short-description
     if (metadata.getAbstracts() != null) {
       for (AbstractVO abs : metadata.getAbstracts()) {
         if (abs.getValue() != null && !abs.getValue().trim().isEmpty()) {
@@ -275,19 +313,13 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
       }
     }
 
-    // 4. citation
+    // 5. citation
     if (citation != null && !citation.trim().isEmpty()) {
       ObjectNode citNode = mapper.createObjectNode();
-      String citType = "APA".equalsIgnoreCase(citStyle) ? "formatted-apa" : citStyle.toLowerCase();
-      citNode.put("citation-type", citType);
+      citNode.put("citation-type", CITATION_TYPE_ORCID);
       citNode.put("citation-value", citation);
       work.set("citation", citNode);
     }
-
-    // 5. type
-    String genre = metadata.getGenre() != null ? metadata.getGenre().name() : null;
-    String workType = genre != null ? GENRE_MAPPING.getOrDefault(genre, "other") : "other";
-    work.put("type", workType);
 
     // 6. publication-date
     String dateStr = getPublicationDateString(metadata);
@@ -307,20 +339,7 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
         if (id.getId() != null && !id.getId().trim().isEmpty() && id.getType() != null) {
           String orcidType = EXTERNAL_ID_MAPPING.get(id.getType().name());
           if (orcidType != null) {
-            ObjectNode extId = mapper.createObjectNode();
-            extId.put("external-id-type", orcidType);
-            extId.put("external-id-value", id.getId());
-            if ("doi".equalsIgnoreCase(orcidType)) {
-              ObjectNode urlObj = mapper.createObjectNode();
-              urlObj.put("value", id.getId().startsWith("http") ? id.getId() : "https://doi.org/" + id.getId());
-              extId.set("external-id-url", urlObj);
-            } else if ("uri".equalsIgnoreCase(orcidType) && id.getId().startsWith("http")) {
-              ObjectNode urlObj = mapper.createObjectNode();
-              urlObj.put("value", id.getId());
-              extId.set("external-id-url", urlObj);
-            }
-            extId.put("external-id-relationship", "self");
-            extIdArray.add(extId);
+            extIdArray.add(createExternalIdNode(id.getType().name(), orcidType, id.getId().trim(), "self", mapper));
           }
         }
       }
@@ -331,22 +350,14 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
       for (ProjectInfoVO pi : metadata.getProjectInfo()) {
         if (pi.getGrantIdentifier() != null && pi.getGrantIdentifier().getId() != null
             && !pi.getGrantIdentifier().getId().trim().isEmpty()) {
-          ObjectNode extId = mapper.createObjectNode();
-          extId.put("external-id-type", "grant_number");
-          extId.put("external-id-value", pi.getGrantIdentifier().getId());
-          extId.put("external-id-relationship", "self");
-          extIdArray.add(extId);
+          extIdArray.add(createExternalIdNode("GRANT_NUMBER", "grant_number", pi.getGrantIdentifier().getId().trim(), "self", mapper));
         }
       }
     }
 
     // Item-ID (ohne Version!) -> source-work-id (relationship = self)
     if (item.getObjectId() != null && !item.getObjectId().trim().isEmpty()) {
-      ObjectNode extId = mapper.createObjectNode();
-      extId.put("external-id-type", "source-work-id");
-      extId.put("external-id-value", item.getObjectId());
-      extId.put("external-id-relationship", "self");
-      extIdArray.add(extId);
+      extIdArray.add(createExternalIdNode("SOURCE_WORK_ID", "source-work-id", item.getObjectId().trim(), "self", mapper));
     }
 
     // Object handle -> handle (relationship = self)
@@ -357,11 +368,7 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
       objectPid = item.getVersionPid();
     }
     if (objectPid != null && !objectPid.trim().isEmpty()) {
-      ObjectNode extId = mapper.createObjectNode();
-      extId.put("external-id-type", "handle");
-      extId.put("external-id-value", objectPid);
-      extId.put("external-id-relationship", "self");
-      extIdArray.add(extId);
+      extIdArray.add(createExternalIdNode("HANDLE", "handle", objectPid.trim(), "self", mapper));
     }
 
     // Source identifiers (relationship = part-of)
@@ -372,16 +379,7 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
             if (id.getId() != null && !id.getId().trim().isEmpty() && id.getType() != null) {
               String orcidType = EXTERNAL_ID_MAPPING.get(id.getType().name());
               if (orcidType != null) {
-                ObjectNode extId = mapper.createObjectNode();
-                extId.put("external-id-type", orcidType);
-                extId.put("external-id-value", id.getId());
-                if ("doi".equalsIgnoreCase(orcidType)) {
-                  ObjectNode urlObj = mapper.createObjectNode();
-                  urlObj.put("value", id.getId().startsWith("http") ? id.getId() : "https://doi.org/" + id.getId());
-                  extId.set("external-id-url", urlObj);
-                }
-                extId.put("external-id-relationship", "part-of");
-                extIdArray.add(extId);
+                extIdArray.add(createExternalIdNode(id.getType().name(), orcidType, id.getId().trim(), "part-of", mapper));
               }
             }
           }
@@ -534,6 +532,52 @@ public class SearchRetrieveResponseToItemOrcid extends SingleTransformer impleme
         pubDate.set("day", dNode);
       }
       return pubDate;
+    }
+    return null;
+  }
+
+  private ObjectNode createExternalIdNode(String typeName, String orcidType, String idVal, String relationship, ObjectMapper mapper) {
+    ObjectNode extId = mapper.createObjectNode();
+    extId.put("external-id-type", orcidType);
+    extId.put("external-id-value", idVal);
+    String url = resolveExternalIdUrl(typeName, idVal);
+    if (url != null) {
+      ObjectNode urlObj = mapper.createObjectNode();
+      urlObj.put("value", url);
+      extId.set("external-id-url", urlObj);
+    }
+    extId.put("external-id-relationship", relationship);
+    return extId;
+  }
+
+  private String resolveExternalIdUrl(String typeName, String idVal) {
+    if (idVal == null || idVal.trim().isEmpty()) {
+      return null;
+    }
+    String trimmedVal = idVal.trim();
+    if (trimmedVal.startsWith("http://") || trimmedVal.startsWith("https://")) {
+      return trimmedVal;
+    }
+    String prefix = EXTERNAL_ID_URL_PREFIX.get(typeName);
+    if (prefix != null) {
+      if ("ISI".equalsIgnoreCase(typeName) && trimmedVal.toUpperCase().startsWith("WOS:")) {
+        return prefix + trimmedVal.substring(4).trim();
+      }
+      if ("DOI".equalsIgnoreCase(typeName) && trimmedVal.toLowerCase().startsWith("doi:")) {
+        return prefix + trimmedVal.substring(4).trim();
+      }
+      if ("ARXIV".equalsIgnoreCase(typeName) && trimmedVal.toLowerCase().startsWith("arxiv:")) {
+        return prefix + trimmedVal.substring(6).trim();
+      }
+      if ("HANDLE".equalsIgnoreCase(typeName)) {
+        if (trimmedVal.toLowerCase().startsWith("hdl:")) {
+          return prefix + trimmedVal.substring(4).trim();
+        }
+        if (trimmedVal.toLowerCase().startsWith("hdl.handle.net/")) {
+          return "https://" + trimmedVal;
+        }
+      }
+      return prefix + trimmedVal;
     }
     return null;
   }
