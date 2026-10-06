@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.transformation;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
@@ -19,6 +21,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -778,6 +781,40 @@ public class TransformerFactoryTest {
 
     logger.info("\n  -- testSearchResultToCitationPdf" + wr.toString());
 
+  }
+
+  @Test
+  public void testSearchResultToOrcid() throws TransformationException, IOException {
+    assertTrue(TransformerFactory.isTransformationExisting(FORMAT.SEARCH_RESULT_VO, FORMAT.ORCID));
+
+    StringWriter wr = new StringWriter();
+    Transformer t = TransformerFactory.newTransformer(FORMAT.SEARCH_RESULT_VO, FORMAT.ORCID);
+
+    JavaType type = TypeFactory.defaultInstance().constructParametricType(SearchRetrieveResponseVO.class, ItemVersionVO.class);
+    SearchRetrieveResponseVO<ItemVersionVO> sr =
+        MapperFactory.getObjectMapper().readValue(getClass().getClassLoader().getResourceAsStream("sourceFiles/searchResult.json"), type);
+    t.transform(new TransformerVoSource(sr), new TransformerStreamResult(wr));
+
+    String jsonString = wr.toString();
+    assertNotNull(jsonString);
+    assertFalse(jsonString.isEmpty());
+
+    JsonNode root = MapperFactory.getObjectMapper().readTree(jsonString);
+    assertTrue(root.has("bulk"));
+    assertTrue(root.get("bulk").isArray());
+    assertTrue(root.get("bulk").size() > 0);
+
+    JsonNode firstWork = root.get("bulk").get(0).get("work");
+    assertNotNull(firstWork);
+    assertTrue(firstWork.has("title"));
+    assertTrue(firstWork.get("title").has("title"));
+    assertTrue(firstWork.get("title").get("title").has("value"));
+    assertTrue(firstWork.has("type"));
+    assertTrue(firstWork.has("contributors"));
+    assertTrue(firstWork.get("contributors").has("contributor"));
+    assertTrue(firstWork.has("external-ids"));
+
+    logger.info("\n  -- testSearchResultToOrcid\n" + jsonString);
   }
 
 }

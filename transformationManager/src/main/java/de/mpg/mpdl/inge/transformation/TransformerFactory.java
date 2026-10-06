@@ -56,6 +56,7 @@ public class TransformerFactory {
   public static final String MARC_XML = "Marc_Xml";
   public static final String MODS_XML = "Mods_Xml";
   public static final String OAI_DC = "Oai_Dc";
+  public static final String ORCID = "orcid";
   public static final String PDF = "pdf";
   public static final String PEER_TEI_XML = "Peer_TeiI_Xml";
   public static final String PMC_OAIPMH_XML = "Pmc_Oaipmh_Xml";
@@ -111,6 +112,7 @@ public class TransformerFactory {
     MARC_XML(TransformerFactory.MARC_XML, FileFormatVO.FILE_FORMAT.XML), //
     MODS_XML(TransformerFactory.MODS_XML, FileFormatVO.FILE_FORMAT.XML), //
     OAI_DC(TransformerFactory.OAI_DC, FileFormatVO.FILE_FORMAT.XML), //
+    ORCID(TransformerFactory.ORCID, FileFormatVO.FILE_FORMAT.JSON), //
     PEER_TEI_XML(TransformerFactory.PEER_TEI_XML, FileFormatVO.FILE_FORMAT.XML), //
     PDF(TransformerFactory.PDF, FileFormatVO.FILE_FORMAT.PDF), //
     PMC_OAIPMH_XML(TransformerFactory.PMC_OAIPMH_XML, FileFormatVO.FILE_FORMAT.XML), //
