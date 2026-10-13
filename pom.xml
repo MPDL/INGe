@@ -1029,7 +1029,7 @@
 		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
 		<inge.crossref.pid>pure-support@listsrv.mpg.de</inge.crossref.pid>
-		<inge.csl.javascript.engine>auto</inge.csl.javascript.engine>
+		<inge.csl.javascript.engine>graaljs</inge.csl.javascript.engine>
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
