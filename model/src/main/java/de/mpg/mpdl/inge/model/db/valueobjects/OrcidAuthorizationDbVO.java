@@ -5,12 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "orcid_authorization")
+@Table(name = "orcid_authorization", indexes = {
+    @Index(name = "orcid_authorization_idx_cone_id_author", columnList = "cone_id_author", unique = true)
+})
 public class OrcidAuthorizationDbVO {
 
   public enum ErrorCode
@@ -43,7 +46,7 @@ public class OrcidAuthorizationDbVO {
   private String status;
   @Column(name = "user_id")
   private String userIdBibo;
-  @Column(name = "cone_id_author")
+  @Column(name = "cone_id_author", unique = true)
   private String coneIdAuthor;
   @Column(name = "orcid_author")
   private String orcidAuthor;
