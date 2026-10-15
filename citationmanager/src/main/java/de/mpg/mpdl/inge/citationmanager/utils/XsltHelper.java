@@ -92,7 +92,12 @@ public class XsltHelper {
           content.append(line);
         }
 
-        citationMap = getCitationStyleMap(content.toString());
+        Map<Pair, String> newMap = getCitationStyleMap(content.toString());
+        if (newMap != null) {
+          citationMap = newMap;
+        } else {
+          logger.warn("Failed to load citation map from CONE; keeping existing map (if any)");
+        }
       }
     }
   }
