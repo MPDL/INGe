@@ -97,6 +97,8 @@ public class OrcidAuthorizationDbVO {
   private Boolean canceled;
   @Column(name = "date_error", columnDefinition = "TIMESTAMP")
   private Date dateError;
+  @Column(name = "date_last_updated", columnDefinition = "TIMESTAMP")
+  private Date dateLastUpdated;
 
   public OrcidAuthorizationDbVO(String userIdBibo, String coneIdAuthor, String orcidAuthor, String nameAuthor, String secret,
       String scopeRequested, String emailLink, String emailBibo, String emailAuthor, String redirectUri) {
@@ -155,6 +157,14 @@ public class OrcidAuthorizationDbVO {
 
   public void setDateError(Date dateError) {
     this.dateError = dateError;
+  }
+
+  public Date getDateLastUpdated() {
+    return dateLastUpdated;
+  }
+
+  public void setDateLastUpdated(Date dateLastUpdated) {
+    this.dateLastUpdated = dateLastUpdated;
   }
 
   public Date getDateCodeReceived() {

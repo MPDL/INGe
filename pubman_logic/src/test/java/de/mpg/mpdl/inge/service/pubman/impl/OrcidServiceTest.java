@@ -7,8 +7,10 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
+import de.mpg.mpdl.inge.db.repository.OrcidRepository;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.OrcidDbVO;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -134,6 +136,25 @@ public class OrcidServiceTest {
         new Class<?>[] {OrcidAuthorizationRepository.class}, (proxy, method, args) -> {
           if ("findBySecret".equals(method.getName())) {
             return repoStorage.get((String) args[0]);
+          }
+          if ("findByVerifiedTrue".equals(method.getName())) {
+            List<OrcidAuthorizationDbVO> list = new ArrayList<>();
+            for (OrcidAuthorizationDbVO vo : repoStorage.values()) {
+              if (Boolean.TRUE.equals(vo.getVerified())) {
+                list.add(vo);
+              }
+            }
+            return list;
+          }
+          if ("findByVerified".equals(method.getName())) {
+            Boolean flag = (Boolean) args[0];
+            List<OrcidAuthorizationDbVO> list = new ArrayList<>();
+            for (OrcidAuthorizationDbVO vo : repoStorage.values()) {
+              if (flag != null && flag.equals(vo.getVerified())) {
+                list.add(vo);
+              }
+            }
+            return list;
           }
           if ("saveAndFlush".equals(method.getName()) || "save".equals(method.getName())) {
             OrcidAuthorizationDbVO entity = (OrcidAuthorizationDbVO) args[0];
@@ -633,5 +654,70 @@ public class OrcidServiceTest {
     Map<String, ObjectNode> emptyMap = orcidService.extractWorksBySourceWorkId("  ");
     assertNotNull(emptyMap);
     assertTrue(emptyMap.isEmpty());
+  }
+
+  @Test
+  public void testGetVerifiedOrcidAuthorizations() throws Exception {
+    OrcidAuthorizationDbVO vo1 = new OrcidAuthorizationDbVO();
+    vo1.setSecret("secret-1");
+    vo1.setConeIdAuthor("persons96304");
+    vo1.setVerified(true);
+    repoStorage.put("secret-1", vo1);
+
+    OrcidAuthorizationDbVO vo2 = new OrcidAuthorizationDbVO();
+    vo2.setSecret("secret-2");
+    vo2.setConeIdAuthor("persons12345");
+    vo2.setVerified(false);
+    repoStorage.put("secret-2", vo2);
+
+    OrcidAuthorizationDbVO vo3 = new OrcidAuthorizationDbVO();
+    vo3.setSecret("secret-3");
+    vo3.setConeIdAuthor("persons99999");
+    vo3.setVerified(true);
+    repoStorage.put("secret-3", vo3);
+
+    List<String> queriedPairs = new ArrayList<>();
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthorAndItemId".equals(method.getName())
+              || "findByOrcidAuthorizationDbVO_ConeIdAuthorAndItemId".equals(method.getName())) {
+            queriedPairs.add(args[0] + "#" + args[1]);
+            OrcidDbVO orcidVO = new OrcidDbVO("CREATE", (String) args[1]);
+            List<OrcidDbVO> list = new ArrayList<>();
+            list.add(orcidVO);
+            return list;
+          }
+          return null;
+        });
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, mockOrcidRepo);
+
+    Method method = OrcidServiceImpl.class.getDeclaredMethod("getVerifiedOrcidAuthorizations");
+    method.setAccessible(true);
+    method.invoke(customService);
+  }
+
+  @Test
+  public void testOrcidDbVOAndRepositoryQuery() {
+    OrcidAuthorizationDbVO authVO = new OrcidAuthorizationDbVO();
+    authVO.setConeIdAuthor("persons96304");
+
+    OrcidDbVO orcidVO = new OrcidDbVO("CREATE", "item_12345");
+    orcidVO.setOrcidAuthorizationDbVO(authVO);
+    orcidVO.setPutCode("2543541");
+    orcidVO.setResponseCode("201");
+    orcidVO.setDeveloperMessage("Created successfully");
+
+    assertEquals("persons96304", orcidVO.getConeIdAuthor());
+    assertEquals("item_12345", orcidVO.getItemId());
+    assertEquals(authVO, orcidVO.getOrcidAuthorizationDbVO());
+    assertEquals("2543541", orcidVO.getPutCode());
+    assertEquals("201", orcidVO.getResponseCode());
+    assertEquals("Created successfully", orcidVO.getDeveloperMessage());
   }
 }

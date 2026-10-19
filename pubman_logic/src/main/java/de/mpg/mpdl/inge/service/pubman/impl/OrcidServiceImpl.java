@@ -44,6 +44,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
@@ -338,10 +339,11 @@ public class OrcidServiceImpl implements OrcidService {
       throw new IngeApplicationException("coneIdAuthor must not be empty");
     }
 
-    // ACHTUNG: leading slash is required by ElasticSearch!
-    // Orcid works like Cone without leading slash
-    if (!coneIdAuthor.startsWith("/")) {
-      coneIdAuthor = "/" + coneIdAuthor;
+    String normalizedPersonId = coneIdAuthor.trim();
+    if (normalizedPersonId.contains("/persons/resource/")) {
+      normalizedPersonId = normalizedPersonId.substring(normalizedPersonId.indexOf("/persons/resource/"));
+    } else if (!normalizedPersonId.startsWith("/")) {
+      normalizedPersonId = "/" + normalizedPersonId;
     }
 
     ObjectMapper mapper = MapperFactory.getObjectMapper();
@@ -354,7 +356,7 @@ public class OrcidServiceImpl implements OrcidService {
 
     // 1. term: metadata.creators.person.identifier.id
     ObjectNode termObj = mapper.createObjectNode();
-    termObj.putObject("term").put("metadata.creators.person.identifier.id", coneIdAuthor);
+    termObj.putObject("term").put("metadata.creators.person.identifier.id", normalizedPersonId);
     mustArray.add(termObj);
 
     // 2. range: modificationDate (optional)
@@ -382,7 +384,7 @@ public class OrcidServiceImpl implements OrcidService {
     mustArray.add(stateBoolObj);
 
     // size, from
-    rootNode.put("size", 10000);
+    rootNode.put("size", 25);
     rootNode.put("from", 0);
 
     // sort
@@ -586,6 +588,14 @@ public class OrcidServiceImpl implements OrcidService {
       return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
     } catch (Exception e) {
       throw new IngeTechnicalException("Error updating put-codes in ORCID JSON", e);
+    }
+  }
+
+  private void getVerifiedOrcidAuthorizations() throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
+    List<OrcidAuthorizationDbVO> verifiedOrcidAuthorizations = this.orcidAuthorizationRepository.findByVerifiedTrue();
+    for (OrcidAuthorizationDbVO verifiedOrcidAuthorization : verifiedOrcidAuthorizations) {
+      SearchRetrieveResponseVO<ItemVersionVO> searchResult = doOrcidQuery(verifiedOrcidAuthorization.getConeIdAuthor(), verifiedOrcidAuthorization.getDateLastUpdated(), null);
+      String orcidBody = convertToOrcid(searchResult);
     }
   }
 

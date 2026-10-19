@@ -73,6 +73,14 @@ public class OrcidDbVO {
     this.status = status;
   }
 
+  public OrcidAuthorizationDbVO getOrcidAuthorizationDbVO() {
+    return this.orcidAuthorizationDbVO;
+  }
+
+  public void setOrcidAuthorizationDbVO(final OrcidAuthorizationDbVO orcidAuthorizationDbVO) {
+    this.orcidAuthorizationDbVO = orcidAuthorizationDbVO;
+  }
+
   public String getConeIdAuthor() {
     return this.orcidAuthorizationDbVO != null ? this.orcidAuthorizationDbVO.getConeIdAuthor() : null;
   }
