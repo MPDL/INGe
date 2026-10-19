@@ -16,10 +16,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "orcid", indexes = {
-    @Index(name = "orcid_idx_cone_id_author", columnList = "cone_id_author"),
-    @Index(name = "orcid_idx_item_id", columnList = "item_id")
-})
+@Table(name = "orcid", indexes = {@Index(name = "orcid_idx_cone_id_author", columnList = "cone_id_author"),
+    @Index(name = "orcid_idx_item_id", columnList = "item_id")})
 public class OrcidDbVO {
 
   public enum Status

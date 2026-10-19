@@ -39,6 +39,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -48,6 +50,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UtilServiceBean {
+
+  private static final Logger logger = LogManager.getLogger(UtilServiceBean.class);
 
   @Autowired
   private AuthorizationService authorizationService;
@@ -74,8 +78,12 @@ public class UtilServiceBean {
     String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSourceClean);
     SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
 
+    logger.info("searchSourceText: " + searchSourceText);
+    logger.info("srequ: " + srequ);
+
     ResponseBody resp = service.searchDetailed(srequ, scrollTime, token);
     httpResp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+
 
     return new ResponseEntity<>(ElasticSearchGenericDAOImpl.toJson(resp), HttpStatus.OK);
   }

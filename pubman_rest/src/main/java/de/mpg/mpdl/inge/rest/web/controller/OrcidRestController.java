@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -9,7 +10,9 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.Date;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +33,7 @@ public class OrcidRestController {
   private static final String SECRET = "secret";
   private static final String CODE = "code";
   private static final String ERROR_DESCRIPTION = "error_description";
+  private static final String DATE_MODIFIED = "dateModified";
 
   private final OrcidService orcidService;
 
@@ -63,6 +67,18 @@ public class OrcidRestController {
     OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidService.createOrcidAuthorization(secret, code, errorDescription);
 
     return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/doOrcidQueryAndConvert", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> doOrcidQueryAndConvert( //
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
+      @RequestParam(CONE_ID_AUTHOR) String coneIdAuthor, //
+      @RequestParam(value = DATE_MODIFIED, required = false) Date dateModified) //
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    String orcidJson = this.orcidService.doOrcidQueryAndConvert(coneIdAuthor, dateModified, token);
+
+    return new ResponseEntity<>(orcidJson, HttpStatus.OK);
   }
 
 }

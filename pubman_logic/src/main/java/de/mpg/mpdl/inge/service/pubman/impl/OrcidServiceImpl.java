@@ -1,26 +1,48 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.inge_validation.OrcidValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
+import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
+import de.mpg.mpdl.inge.transformation.transformers.SearchRetrieveResponseToItemOrcid;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -28,6 +50,7 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -41,13 +64,21 @@ public class OrcidServiceImpl implements OrcidService {
   private final OrcidAuthorizationRepository orcidAuthorizationRepository;
   private final EmailService emailService;
   private final OrcidValidatingService orcidValidatingService;
+  private final PubItemService pubItemService;
 
+  @Autowired
   public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
-      EmailService emailService, OrcidValidatingService orcidValidatingService) {
+      EmailService emailService, OrcidValidatingService orcidValidatingService, PubItemService pubItemService) {
     this.authorizationService = authorizationService;
     this.orcidAuthorizationRepository = orcidAuthorizationRepository;
     this.emailService = emailService;
     this.orcidValidatingService = orcidValidatingService;
+    this.pubItemService = pubItemService;
+  }
+
+  public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
+      EmailService emailService, OrcidValidatingService orcidValidatingService) {
+    this(authorizationService, orcidAuthorizationRepository, emailService, orcidValidatingService, null);
   }
 
   @Override
@@ -301,6 +332,261 @@ public class OrcidServiceImpl implements OrcidService {
 
   String generateSecret() {
     return UUID.randomUUID().toString();
+  }
+
+  private JsonNode createOrcidQueryJsonNode(String coneIdAuthor, Date dateModified) throws IngeApplicationException {
+    if (coneIdAuthor == null || coneIdAuthor.trim().isEmpty()) {
+      throw new IngeApplicationException("coneIdAuthor must not be empty");
+    }
+
+    String normalizedPersonId = coneIdAuthor.trim();
+    if (normalizedPersonId.contains("/persons/resource/")) {
+      normalizedPersonId = normalizedPersonId.substring(normalizedPersonId.indexOf("/persons/resource/"));
+    }
+
+    ObjectMapper mapper = MapperFactory.getObjectMapper();
+    ObjectNode rootNode = mapper.createObjectNode();
+
+    // query
+    ObjectNode queryNode = rootNode.putObject("query");
+    ObjectNode boolNode = queryNode.putObject("bool");
+    ArrayNode mustArray = boolNode.putArray("must");
+
+    // 1. term: metadata.creators.person.identifier.id
+    ObjectNode termObj = mapper.createObjectNode();
+    termObj.putObject("term").put("metadata.creators.person.identifier.id", normalizedPersonId);
+    mustArray.add(termObj);
+
+    // 2. range: modificationDate (optional)
+    if (dateModified != null) {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+      String formattedDateModified = sdf.format(dateModified);
+      ObjectNode rangeObj = mapper.createObjectNode();
+      rangeObj.putObject("range").putObject("modificationDate").put("gte", formattedDateModified);
+      mustArray.add(rangeObj);
+    }
+
+    // 3. bool: should: bool: must: versionState RELEASED, must_not: publicState WITHDRAWN
+    ObjectNode stateBoolObj = mapper.createObjectNode();
+    ObjectNode stateInnerBool = stateBoolObj.putObject("bool");
+    ArrayNode shouldArray = stateInnerBool.putArray("should");
+    ObjectNode shouldInnerBoolObj = mapper.createObjectNode();
+    ObjectNode shouldInnerBool = shouldInnerBoolObj.putObject("bool");
+    ArrayNode releaseMust = shouldInnerBool.putArray("must");
+    ObjectNode versionStateTerm = mapper.createObjectNode();
+    versionStateTerm.putObject("term").put("versionState", "RELEASED");
+    releaseMust.add(versionStateTerm);
+    ArrayNode withdrawnMustNot = shouldInnerBool.putArray("must_not");
+    ObjectNode publicStateTerm = mapper.createObjectNode();
+    publicStateTerm.putObject("term").put("publicState", "WITHDRAWN");
+    withdrawnMustNot.add(publicStateTerm);
+    shouldArray.add(shouldInnerBoolObj);
+    mustArray.add(stateBoolObj);
+
+    // size, from
+    rootNode.put("size", 25);
+    rootNode.put("from", 0);
+
+    // sort
+    ArrayNode sortArray = rootNode.putArray("sort");
+    ObjectNode sortObj = mapper.createObjectNode();
+    sortObj.putObject("lastModificationDate").put("order", "desc");
+    sortArray.add(sortObj);
+
+    return rootNode;
+  }
+
+  private SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(String coneIdAuthor, Date dateModified, String token)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    JsonNode searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
+
+    try {
+      String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
+      SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
+
+      ResponseBody<ObjectNode> responseBody = this.pubItemService.searchDetailed(srequ, -1, token);
+      if (responseBody != null) {
+        return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse((ResponseBody) responseBody,
+            ItemVersionVO.class);
+      } else {
+        return new SearchRetrieveResponseVO<>();
+      }
+    } catch (IOException e) {
+      throw new IngeTechnicalException("Error creating search request or converting Elasticsearch response", e);
+    }
+  }
+
+  private String convertToOrcid(SearchRetrieveResponseVO<ItemVersionVO> searchResult) throws IngeTechnicalException {
+    try {
+      SearchRetrieveResponseToItemOrcid transformer = new SearchRetrieveResponseToItemOrcid();
+      transformer.setSourceFormat(TransformerFactory.FORMAT.SEARCH_RESULT_VO);
+      transformer.setTargetFormat(TransformerFactory.FORMAT.ORCID);
+      TransformerVoSource source = new TransformerVoSource(searchResult != null ? searchResult : new SearchRetrieveResponseVO<>());
+      StringWriter writer = new StringWriter();
+      TransformerStreamResult result = new TransformerStreamResult(writer);
+      transformer.transform(source, result);
+      return writer.toString();
+    } catch (TransformationException e) {
+      throw new IngeTechnicalException("Error transforming SearchRetrieveResponse to ORCID format", e);
+    }
+  }
+
+  @Override
+  public String doOrcidQueryAndConvert(String coneIdAuthor, Date dateModified, String token)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    SearchRetrieveResponseVO<ItemVersionVO> searchResult = doOrcidQuery(coneIdAuthor, dateModified, token);
+
+    return convertToOrcid(searchResult);
+  }
+
+  public Map<String, ObjectNode> extractWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
+    if (orcidJson == null || orcidJson.trim().isEmpty()) {
+      return new LinkedHashMap<>();
+    }
+    try {
+      JsonNode rootNode = MapperFactory.getObjectMapper().readTree(orcidJson);
+      return extractWorksBySourceWorkId(rootNode);
+    } catch (Exception e) {
+      throw new IngeTechnicalException("Error parsing ORCID JSON string", e);
+    }
+  }
+
+  public Map<String, ObjectNode> extractWorksBySourceWorkId(JsonNode rootNode) {
+    Map<String, ObjectNode> worksBySourceWorkId = new LinkedHashMap<>();
+    if (rootNode == null) {
+      return worksBySourceWorkId;
+    }
+
+    JsonNode bulkNode = rootNode.get("bulk");
+    if (bulkNode != null && bulkNode.isArray()) {
+      for (JsonNode itemWrapper : bulkNode) {
+        JsonNode workNode = itemWrapper.has("work") ? itemWrapper.get("work") : itemWrapper;
+        if (workNode instanceof ObjectNode) {
+          String sourceWorkId = getSourceWorkId(workNode);
+          if (sourceWorkId != null && !sourceWorkId.isEmpty()) {
+            worksBySourceWorkId.put(sourceWorkId, (ObjectNode) workNode);
+          }
+        }
+      }
+    } else if (rootNode.has("work")) {
+      JsonNode workNode = rootNode.get("work");
+      if (workNode instanceof ObjectNode) {
+        String sourceWorkId = getSourceWorkId(workNode);
+        if (sourceWorkId != null && !sourceWorkId.isEmpty()) {
+          worksBySourceWorkId.put(sourceWorkId, (ObjectNode) workNode);
+        }
+      }
+    } else if (rootNode instanceof ObjectNode && rootNode.has("external-ids")) {
+      String sourceWorkId = getSourceWorkId(rootNode);
+      if (sourceWorkId != null && !sourceWorkId.isEmpty()) {
+        worksBySourceWorkId.put(sourceWorkId, (ObjectNode) rootNode);
+      }
+    }
+
+    return worksBySourceWorkId;
+  }
+
+  public Map<String, ObjectNode> getWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
+    return extractWorksBySourceWorkId(orcidJson);
+  }
+
+  public Map<String, ObjectNode> getWorksBySourceWorkId(JsonNode rootNode) {
+    return extractWorksBySourceWorkId(rootNode);
+  }
+
+  public String getSourceWorkId(JsonNode workNode) {
+    if (workNode == null) {
+      return null;
+    }
+    JsonNode extIds = workNode.get("external-ids");
+    if (extIds == null) {
+      return null;
+    }
+    JsonNode extIdList = extIds.get("external-id");
+    if (extIdList == null) {
+      return null;
+    }
+    if (extIdList.isArray()) {
+      for (JsonNode extId : extIdList) {
+        String type = extId.has("external-id-type") ? extId.get("external-id-type").asText() : null;
+        if ("source-work-id".equalsIgnoreCase(type)) {
+          return extId.has("external-id-value") ? extId.get("external-id-value").asText() : null;
+        }
+      }
+    } else if (extIdList.isObject()) {
+      String type = extIdList.has("external-id-type") ? extIdList.get("external-id-type").asText() : null;
+      if ("source-work-id".equalsIgnoreCase(type)) {
+        return extIdList.has("external-id-value") ? extIdList.get("external-id-value").asText() : null;
+      }
+    }
+    return null;
+  }
+
+  public void setPutCode(ObjectNode workNode, Object putCode) {
+    if (workNode == null || putCode == null) {
+      return;
+    }
+    if (putCode instanceof Number) {
+      workNode.put("put-code", ((Number) putCode).longValue());
+    } else if (putCode instanceof String) {
+      String str = ((String) putCode).trim();
+      try {
+        workNode.put("put-code", Long.parseLong(str));
+      } catch (NumberFormatException e) {
+        workNode.put("put-code", str);
+      }
+    } else {
+      workNode.put("put-code", putCode.toString());
+    }
+  }
+
+
+  public String convertWorksToOrcidJson(Map<String, ObjectNode> worksBySourceWorkId) throws IngeTechnicalException {
+    return convertWorksToOrcidJson(worksBySourceWorkId != null ? worksBySourceWorkId.values() : null);
+  }
+
+  public String convertWorksToOrcidJson(Collection<ObjectNode> works) throws IngeTechnicalException {
+    try {
+      ObjectMapper mapper = MapperFactory.getObjectMapper();
+      ObjectNode root = mapper.createObjectNode();
+      ArrayNode bulkArray = root.putArray("bulk");
+      if (works != null) {
+        for (ObjectNode work : works) {
+          if (work != null) {
+            ObjectNode itemWrapper = mapper.createObjectNode();
+            itemWrapper.set("work", work);
+            bulkArray.add(itemWrapper);
+          }
+        }
+      }
+      return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+    } catch (Exception e) {
+      throw new IngeTechnicalException("Error converting works to ORCID JSON string", e);
+    }
+  }
+
+  public String convertWorksToString(Map<String, ObjectNode> worksBySourceWorkId) throws IngeTechnicalException {
+    return convertWorksToOrcidJson(worksBySourceWorkId);
+  }
+
+  public String updatePutCodesInOrcidJson(String orcidJson, Map<String, ?> putCodesBySourceWorkId) throws IngeTechnicalException {
+    if (orcidJson == null || orcidJson.trim().isEmpty() || putCodesBySourceWorkId == null || putCodesBySourceWorkId.isEmpty()) {
+      return orcidJson;
+    }
+    try {
+      ObjectMapper mapper = MapperFactory.getObjectMapper();
+      JsonNode root = mapper.readTree(orcidJson);
+      Map<String, ObjectNode> worksMap = extractWorksBySourceWorkId(root);
+      for (Map.Entry<String, ?> entry : putCodesBySourceWorkId.entrySet()) {
+        ObjectNode workNode = worksMap.get(entry.getKey());
+        if (workNode != null && entry.getValue() != null) {
+          setPutCode(workNode, entry.getValue());
+        }
+      }
+      return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+    } catch (Exception e) {
+      throw new IngeTechnicalException("Error updating put-codes in ORCID JSON", e);
+    }
   }
 
   private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {

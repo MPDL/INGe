@@ -11,9 +11,8 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "orcid_authorization", indexes = {
-    @Index(name = "orcid_authorization_idx_cone_id_author", columnList = "cone_id_author", unique = true)
-})
+@Table(name = "orcid_authorization",
+    indexes = {@Index(name = "orcid_authorization_idx_cone_id_author", columnList = "cone_id_author", unique = true)})
 public class OrcidAuthorizationDbVO {
 
   public enum ErrorCode
