@@ -692,6 +692,18 @@ public class OrcidServiceTest {
 
     PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
         new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            ItemVersionVO itemVO = new ItemVersionVO();
+            itemVO.setObjectId("item_12345");
+            ObjectNode itemNode = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(itemVO);
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(1).successful(1).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(1).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(List.of(co.elastic.clients.elasticsearch.core.search.Hit
+                                .of(hit -> hit.index("items").id("item_12345").source(itemNode))))));
+            return searchResponse;
+          }
           return null;
         });
 
@@ -700,6 +712,9 @@ public class OrcidServiceTest {
     Method method = OrcidServiceImpl.class.getDeclaredMethod("getVerifiedOrcidAuthorizations");
     method.setAccessible(true);
     method.invoke(customService);
+
+    assertFalse(queriedPairs.isEmpty());
+    assertTrue(queriedPairs.contains("persons96304#item_12345") || queriedPairs.contains("/persons96304#item_12345"));
   }
 
   @Test

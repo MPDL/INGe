@@ -7,15 +7,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
+import de.mpg.mpdl.inge.db.repository.OrcidRepository;
 import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.inge_validation.OrcidValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.OrcidDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -65,20 +68,28 @@ public class OrcidServiceImpl implements OrcidService {
   private final EmailService emailService;
   private final OrcidValidatingService orcidValidatingService;
   private final PubItemService pubItemService;
+  private final OrcidRepository orcidRepository;
 
   @Autowired
   public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
-      EmailService emailService, OrcidValidatingService orcidValidatingService, PubItemService pubItemService) {
+      EmailService emailService, OrcidValidatingService orcidValidatingService, PubItemService pubItemService,
+      OrcidRepository orcidRepository) {
     this.authorizationService = authorizationService;
     this.orcidAuthorizationRepository = orcidAuthorizationRepository;
     this.emailService = emailService;
     this.orcidValidatingService = orcidValidatingService;
     this.pubItemService = pubItemService;
+    this.orcidRepository = orcidRepository;
+  }
+
+  public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
+      EmailService emailService, OrcidValidatingService orcidValidatingService, PubItemService pubItemService) {
+    this(authorizationService, orcidAuthorizationRepository, emailService, orcidValidatingService, pubItemService, null);
   }
 
   public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
       EmailService emailService, OrcidValidatingService orcidValidatingService) {
-    this(authorizationService, orcidAuthorizationRepository, emailService, orcidValidatingService, null);
+    this(authorizationService, orcidAuthorizationRepository, emailService, orcidValidatingService, null, null);
   }
 
   @Override
@@ -591,11 +602,23 @@ public class OrcidServiceImpl implements OrcidService {
     }
   }
 
-  private void getVerifiedOrcidAuthorizations() throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
+  private void getVerifiedOrcidAuthorizations()
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
     List<OrcidAuthorizationDbVO> verifiedOrcidAuthorizations = this.orcidAuthorizationRepository.findByVerifiedTrue();
     for (OrcidAuthorizationDbVO verifiedOrcidAuthorization : verifiedOrcidAuthorizations) {
-      SearchRetrieveResponseVO<ItemVersionVO> searchResult = doOrcidQuery(verifiedOrcidAuthorization.getConeIdAuthor(), verifiedOrcidAuthorization.getDateLastUpdated(), null);
-      String orcidBody = convertToOrcid(searchResult);
+      SearchRetrieveResponseVO<ItemVersionVO> searchResult =
+          doOrcidQuery(verifiedOrcidAuthorization.getConeIdAuthor(), verifiedOrcidAuthorization.getDateLastUpdated(), null);
+      if (searchResult != null && searchResult.getRecords() != null) {
+        for (SearchRetrieveRecordVO<ItemVersionVO> record : searchResult.getRecords()) {
+          ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
+          if (itemVersionVO != null && itemVersionVO.getObjectId() != null) {
+            String itemId = itemVersionVO.getObjectId();
+            List<OrcidDbVO> orcidList = this.orcidRepository != null
+                ? this.orcidRepository.findByConeIdAuthorAndItemId(verifiedOrcidAuthorization.getConeIdAuthor(), itemId)
+                : null;
+          }
+        }
+      }
     }
   }
 
