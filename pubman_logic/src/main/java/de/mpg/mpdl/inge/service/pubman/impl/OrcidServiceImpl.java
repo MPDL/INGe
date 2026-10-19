@@ -41,7 +41,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -339,9 +338,10 @@ public class OrcidServiceImpl implements OrcidService {
       throw new IngeApplicationException("coneIdAuthor must not be empty");
     }
 
-    String normalizedPersonId = coneIdAuthor.trim();
-    if (normalizedPersonId.contains("/persons/resource/")) {
-      normalizedPersonId = normalizedPersonId.substring(normalizedPersonId.indexOf("/persons/resource/"));
+    // ACHTUNG: leading slash is required by ElasticSearch!
+    // Orcid works like Cone without leading slash
+    if (!coneIdAuthor.startsWith("/")) {
+      coneIdAuthor = "/" + coneIdAuthor;
     }
 
     ObjectMapper mapper = MapperFactory.getObjectMapper();
@@ -354,15 +354,13 @@ public class OrcidServiceImpl implements OrcidService {
 
     // 1. term: metadata.creators.person.identifier.id
     ObjectNode termObj = mapper.createObjectNode();
-    termObj.putObject("term").put("metadata.creators.person.identifier.id", normalizedPersonId);
+    termObj.putObject("term").put("metadata.creators.person.identifier.id", coneIdAuthor);
     mustArray.add(termObj);
 
     // 2. range: modificationDate (optional)
     if (dateModified != null) {
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-      String formattedDateModified = sdf.format(dateModified);
       ObjectNode rangeObj = mapper.createObjectNode();
-      rangeObj.putObject("range").putObject("modificationDate").put("gte", formattedDateModified);
+      rangeObj.putObject("range").putObject("modificationDate").put("gte", dateModified.getTime());
       mustArray.add(rangeObj);
     }
 
@@ -384,7 +382,7 @@ public class OrcidServiceImpl implements OrcidService {
     mustArray.add(stateBoolObj);
 
     // size, from
-    rootNode.put("size", 25);
+    rootNode.put("size", 10000);
     rootNode.put("from", 0);
 
     // sort
@@ -399,10 +397,12 @@ public class OrcidServiceImpl implements OrcidService {
   private SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(String coneIdAuthor, Date dateModified, String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     JsonNode searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
+    logger.info("Orcid query: " + searchSource);
 
     try {
       String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
       SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
+      logger.info("searchSourceText: " + searchSourceText);
 
       ResponseBody<ObjectNode> responseBody = this.pubItemService.searchDetailed(srequ, -1, token);
       if (responseBody != null) {

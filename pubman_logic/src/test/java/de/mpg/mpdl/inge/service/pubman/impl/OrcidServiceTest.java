@@ -358,8 +358,8 @@ public class OrcidServiceTest {
     // Must 0: term person identifier
     assertEquals(personId, must.get(0).get("term").get("metadata.creators.person.identifier.id").asText());
 
-    // Must 1: range dateModified
-    assertEquals("2026-10-08 08:16:17.055", must.get(1).get("range").get("modificationDate").get("gte").asText());
+    // Must 1: range dateModified (timestamp in ms)
+    assertEquals(dateModified.getTime(), must.get(1).get("range").get("modificationDate").get("gte").asLong());
 
     // Must 2: bool state
     JsonNode should = must.get(2).get("bool").get("should");

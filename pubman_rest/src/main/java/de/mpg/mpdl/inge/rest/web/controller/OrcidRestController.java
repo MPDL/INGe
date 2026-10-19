@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -73,7 +74,7 @@ public class OrcidRestController {
   public ResponseEntity<String> doOrcidQueryAndConvert( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
       @RequestParam(CONE_ID_AUTHOR) String coneIdAuthor, //
-      @RequestParam(value = DATE_MODIFIED, required = false) Date dateModified) //
+      @RequestParam(value = DATE_MODIFIED, required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dateModified) //
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     String orcidJson = this.orcidService.doOrcidQueryAndConvert(coneIdAuthor, dateModified, token);
