@@ -82,4 +82,13 @@ public class OrcidRestController {
     return new ResponseEntity<>(orcidJson, HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/getVerifiedOrcidAuthorizations", method = RequestMethod.GET)
+  public ResponseEntity<Void> getVerifiedOrcidAuthorizations()
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException {
+
+    this.orcidService.getVerifiedOrcidAuthorizations();
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
 }

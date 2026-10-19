@@ -59,6 +59,7 @@ public class OrcidServiceTest {
     String method;
     String acceptHeader;
     String contentTypeHeader;
+    String authorizationHeader;
     String body;
     Map<String, String> formParams = new HashMap<>();
   }
@@ -81,6 +82,7 @@ public class OrcidServiceTest {
         captured.method = exchange.getRequestMethod();
         captured.acceptHeader = exchange.getRequestHeaders().getFirst("Accept");
         captured.contentTypeHeader = exchange.getRequestHeaders().getFirst("Content-Type");
+        captured.authorizationHeader = exchange.getRequestHeaders().getFirst("Authorization");
 
         InputStream is = exchange.getRequestBody();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -101,6 +103,34 @@ public class OrcidServiceTest {
           }
         }
 
+        lastCapturedRequest.set(captured);
+
+        byte[] responseBytes = mockResponseBody.getBytes(StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.sendResponseHeaders(mockResponseStatus, responseBytes.length);
+        OutputStream os = exchange.getResponseBody();
+        os.write(responseBytes);
+        os.close();
+      }
+    });
+
+    mockServer.createContext("/oauth/token/0000-0001-2345-6789/works", new HttpHandler() {
+      @Override
+      public void handle(HttpExchange exchange) throws IOException {
+        CapturedRequest captured = new CapturedRequest();
+        captured.method = exchange.getRequestMethod();
+        captured.acceptHeader = exchange.getRequestHeaders().getFirst("Accept");
+        captured.contentTypeHeader = exchange.getRequestHeaders().getFirst("Content-Type");
+        captured.authorizationHeader = exchange.getRequestHeaders().getFirst("Authorization");
+
+        InputStream is = exchange.getRequestBody();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = is.read(buffer)) != -1) {
+          baos.write(buffer, 0, len);
+        }
+        captured.body = baos.toString(StandardCharsets.UTF_8);
         lastCapturedRequest.set(captured);
 
         byte[] responseBytes = mockResponseBody.getBytes(StandardCharsets.UTF_8);
@@ -679,8 +709,10 @@ public class OrcidServiceTest {
     List<String> queriedPairs = new ArrayList<>();
     OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
         new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
-          if ("findByConeIdAuthorAndItemId".equals(method.getName())
-              || "findByOrcidAuthorizationDbVO_ConeIdAuthorAndItemId".equals(method.getName())) {
+          if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+            queriedPairs.add(args[0] + "#" + args[1]);
+            return new OrcidDbVO("CREATE", (String) args[1]);
+          } else if ("findByOrcidAuthorizationDbVO_ConeIdAuthorAndItemId".equals(method.getName())) {
             queriedPairs.add(args[0] + "#" + args[1]);
             OrcidDbVO orcidVO = new OrcidDbVO("CREATE", (String) args[1]);
             List<OrcidDbVO> list = new ArrayList<>();
@@ -734,5 +766,28 @@ public class OrcidServiceTest {
     assertEquals("2543541", orcidVO.getPutCode());
     assertEquals("201", orcidVO.getResponseCode());
     assertEquals("Created successfully", orcidVO.getDeveloperMessage());
+  }
+
+  @Test
+  public void testCreateWorkHttpErrorOrExecution() {
+    try {
+      orcidService.createWork("0000-0001-2345-6789", "{\"bulk\":[]}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
+    } catch (TechnicalException e) {
+      assertNotNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testCreateWorkSuccessWithBearerToken() throws Exception {
+    org.json.JSONObject result = orcidService.createWork("0000-0001-2345-6789", "{\"bulk\":[]}", "test-bearer-token-123");
+    assertNotNull(result);
+
+    CapturedRequest captured = lastCapturedRequest.get();
+    assertNotNull(captured);
+    assertEquals("POST", captured.method);
+    assertEquals("application/json", captured.acceptHeader);
+    assertEquals("application/json", captured.contentTypeHeader);
+    assertEquals("Bearer test-bearer-token-123", captured.authorizationHeader);
+    assertEquals("{\"bulk\":[]}", captured.body);
   }
 }

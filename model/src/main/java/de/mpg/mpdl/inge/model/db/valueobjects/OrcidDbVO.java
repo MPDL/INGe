@@ -11,13 +11,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.util.Date;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "orcid", indexes = {@Index(name = "orcid_idx_cone_id_author", columnList = "cone_id_author"),
-    @Index(name = "orcid_idx_item_id", columnList = "item_id")})
+@Table(name = "orcid",
+    uniqueConstraints = {@UniqueConstraint(name = "orcid_idx_cone_id_author_item_id", columnNames = {"cone_id_author", "item_id"})},
+    indexes = {@Index(name = "orcid_idx_cone_id_author", columnList = "cone_id_author"),
+        @Index(name = "orcid_idx_item_id", columnList = "item_id")})
 public class OrcidDbVO {
 
   public enum Status

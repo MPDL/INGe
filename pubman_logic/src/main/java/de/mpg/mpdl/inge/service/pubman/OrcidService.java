@@ -20,4 +20,7 @@ public interface OrcidService {
 
   String doOrcidQueryAndConvert(String coneIdAuthor, Date dateModified, String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException;
+
+  void getVerifiedOrcidAuthorizations()
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException;
 }

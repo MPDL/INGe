@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 public interface OrcidRepository extends JpaRepository<OrcidDbVO, Integer> {
 
   @Query("SELECT o FROM OrcidDbVO o WHERE o.orcidAuthorizationDbVO.coneIdAuthor = :coneIdAuthor AND o.itemId = :itemId")
-  List<OrcidDbVO> findByConeIdAuthorAndItemId(@Param("coneIdAuthor") String coneIdAuthor, @Param("itemId") String itemId);
+  OrcidDbVO findByConeIdAuthorAndItemId(@Param("coneIdAuthor") String coneIdAuthor, @Param("itemId") String itemId);
 
   List<OrcidDbVO> findByOrcidAuthorizationDbVO_ConeIdAuthorAndItemId(String coneIdAuthor, String itemId);
 
