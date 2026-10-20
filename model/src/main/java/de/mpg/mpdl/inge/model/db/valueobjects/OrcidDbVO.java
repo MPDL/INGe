@@ -64,7 +64,7 @@ public class OrcidDbVO {
     return this.id;
   }
 
-  public void setId(final Integer id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -72,7 +72,7 @@ public class OrcidDbVO {
     return this.status;
   }
 
-  public void setStatus(final String status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 
@@ -80,7 +80,7 @@ public class OrcidDbVO {
     return this.orcidAuthorizationDbVO;
   }
 
-  public void setOrcidAuthorizationDbVO(final OrcidAuthorizationDbVO orcidAuthorizationDbVO) {
+  public void setOrcidAuthorizationDbVO(OrcidAuthorizationDbVO orcidAuthorizationDbVO) {
     this.orcidAuthorizationDbVO = orcidAuthorizationDbVO;
   }
 
@@ -92,7 +92,7 @@ public class OrcidDbVO {
     return this.itemId;
   }
 
-  public void setItemId(final String itemId) {
+  public void setItemId(String itemId) {
     this.itemId = itemId;
   }
 
@@ -100,7 +100,7 @@ public class OrcidDbVO {
     return this.putCode;
   }
 
-  public void setPutCode(final String putCode) {
+  public void setPutCode(String putCode) {
     this.putCode = putCode;
   }
 
@@ -108,7 +108,7 @@ public class OrcidDbVO {
     return this.responseCode;
   }
 
-  public void setResponseCode(final String responseCode) {
+  public void setResponseCode(String responseCode) {
     this.responseCode = responseCode;
   }
 
@@ -116,7 +116,7 @@ public class OrcidDbVO {
     return this.developerMessage;
   }
 
-  public void setDeveloperMessage(final String developerMessage) {
+  public void setDeveloperMessage(String developerMessage) {
     this.developerMessage = developerMessage;
   }
 
@@ -124,7 +124,7 @@ public class OrcidDbVO {
     return this.date;
   }
 
-  public void setDate(final Date date) {
+  public void setDate(Date date) {
     this.date = date;
   }
 }

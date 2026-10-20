@@ -28,6 +28,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidBulkItem;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
@@ -46,6 +47,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -53,6 +55,7 @@ import java.util.Map;
 import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -233,7 +236,7 @@ public class OrcidServiceImpl implements OrcidService {
 
   public JSONObject createWork(String orcid, String body, String accessToken) throws TechnicalException {
     //    String createUrl = PropertyReader.getProperty(PropertyReader.ORCID_URL) + orcid + "/works";
-    String createUrl = "https://api.sandbox.orcid.org/v3.0/" + orcid + "/works";
+    String createUrl = "https://api.sandbox.orcid.org/v3.0/" + orcid + "/works"; //TODO aus pubman.properties
     logger.info("Creating Orcid work: " + createUrl);
     logger.info("Creating Orcid work body: " + body);
     logger.info("Creating Orcid work access token: " + accessToken);
@@ -269,6 +272,45 @@ public class OrcidServiceImpl implements OrcidService {
     }
   }
 
+  public JSONObject updateWork(String orcid, String body, String accessToken, String putCode) throws TechnicalException {
+    //    String createUrl = PropertyReader.getProperty(PropertyReader.ORCID_URL) + orcid + "/works";
+    String updateUrl = "https://api.sandbox.orcid.org/v3.0/" + orcid + "/works/" + putCode; //TODO aus pubman.properties
+    logger.info("Update Orcid work: " + updateUrl);
+    logger.info("Update Orcid work body: " + body);
+    logger.info("Update Orcid work access token: " + accessToken);
+    logger.info("Update Orcid work putcode: " + putCode);
+
+    try {
+      HttpClient httpClient = HttpClient.newHttpClient();
+      HttpRequest.Builder requestBuilder = HttpRequest.newBuilder().uri(URI.create(updateUrl)).header("Accept", "application/json")
+          .header("Content-Type", "application/json");
+
+      if (accessToken != null && !accessToken.isBlank()) {
+        requestBuilder.header("Authorization", "Bearer " + accessToken);
+      }
+
+      HttpRequest httpRequest =
+          requestBuilder.PUT(HttpRequest.BodyPublishers.ofString(body != null ? body : "", StandardCharsets.UTF_8)).build();
+      logger.info("Update Orcid work request: " + httpRequest);
+
+      HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+
+      if (httpResponse.statusCode() >= 200 && httpResponse.statusCode() < 300) {
+        String responseBody = httpResponse.body();
+        JSONObject jsonObject = new JSONObject(responseBody);
+        return jsonObject;
+      } else {
+        logger.error("Error updating ORCID work: HTTP status {} - response: {}", httpResponse.statusCode(), httpResponse.body());
+        throw new TechnicalException("Error creating ORCID work: HTTP status " + httpResponse.statusCode() + " - " + httpResponse.body());
+      }
+    } catch (TechnicalException e) {
+      throw e;
+    } catch (Exception e) {
+      logger.error("Exception updating ORCID work", e);
+      throw new TechnicalException("Exception updating ORCID work: " + e.getMessage(), e);
+    }
+  }
+
   public OrcidAuthorizationDbVO createOrcidAuthorizationDbVO(String userIdBibo, String coneIdAuthor, String orcidAuthor, String nameAuthor,
       String secret, String scopeRequested, String emailLink, String emailBibo, String emailAuthor, String redirectUri) {
 
@@ -276,7 +318,7 @@ public class OrcidServiceImpl implements OrcidService {
         scopeRequested, emailLink, emailBibo, emailAuthor, redirectUri);
     orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
 
-    logger.info("Created new orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
+    logger.info("Updated new orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
 
     return orcidAuthorizationDbVO;
   }
@@ -641,6 +683,54 @@ public class OrcidServiceImpl implements OrcidService {
     }
   }
 
+  public List<OrcidBulkItem> parseBulkResponse(JSONObject answer) {
+    if (answer == null || !answer.has("bulk")) {
+      return Collections.emptyList();
+    }
+
+    JSONArray bulkArray = answer.optJSONArray("bulk");
+    if (bulkArray == null) {
+      return Collections.emptyList();
+    }
+
+    List<OrcidBulkItem> results = new ArrayList<>(bulkArray.length());
+
+    for (int i = 0; i < bulkArray.length(); i++) {
+      JSONObject node = bulkArray.optJSONObject(i);
+      if (node == null) {
+        continue;
+      }
+
+      if (node.has("work")) {
+        JSONObject workObj = node.optJSONObject("work");
+        if (workObj != null) {
+          OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, i, workObj);
+          if (workObj.has("put-code") && !workObj.isNull("put-code")) {
+            item.setPutCode(workObj.optLong("put-code"));
+          }
+          results.add(item);
+        }
+      } else if (node.has("error")) {
+        JSONObject errorObj = node.optJSONObject("error");
+        if (errorObj != null) {
+          OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.ERROR, i, errorObj);
+          if (errorObj.has("response-code") && !errorObj.isNull("response-code")) {
+            item.setResponseCode(errorObj.optInt("response-code"));
+          }
+          if (errorObj.has("error-code") && !errorObj.isNull("error-code")) {
+            item.setErrorCode(errorObj.optInt("error-code"));
+          }
+          item.setUserMessage(errorObj.optString("user-message", null));
+          item.setDeveloperMessage(errorObj.optString("developer-message", null));
+          item.setMoreInfo(errorObj.optString("more-info", null));
+          results.add(item);
+        }
+      }
+    }
+
+    return results;
+  }
+
   @Override
   public void getVerifiedOrcidAuthorizations()
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException {
@@ -648,6 +738,7 @@ public class OrcidServiceImpl implements OrcidService {
     for (OrcidAuthorizationDbVO verifiedOrcidAuthorization : verifiedOrcidAuthorizations) {
       SearchRetrieveResponseVO<ItemVersionVO> searchResult =
           doOrcidQuery(verifiedOrcidAuthorization.getConeIdAuthor(), verifiedOrcidAuthorization.getDateLastUpdated(), null);
+      // TODO: dateLastUpdated setzen
       SearchRetrieveResponseVO<ItemVersionVO> searchResultNew = new SearchRetrieveResponseVO<>();
       searchResultNew.setRecords(new ArrayList<>());
       SearchRetrieveResponseVO<ItemVersionVO> searchResultUpdate = new SearchRetrieveResponseVO<>();
@@ -672,6 +763,13 @@ public class OrcidServiceImpl implements OrcidService {
         String orcidBodyNew = convertToOrcid(searchResultNew);
         JSONObject answerNew = createWork(verifiedOrcidAuthorization.getOrcid(), orcidBodyNew, verifiedOrcidAuthorization.getAccessToken());
         logger.info("Orcid work created: " + answerNew);
+
+        List<OrcidBulkItem> bulkItemsNew = parseBulkResponse(answerNew);
+
+        extracted(verifiedOrcidAuthorization, searchResultNew, bulkItemsNew, OrcidDbVO.Status.CREATE);
+
+
+
         String orcidBodyUpdate = convertToOrcid(searchResultUpdate);
         Map<String, ObjectNode> updateMap = getWorksBySourceWorkId(orcidBodyUpdate);
         for (Map.Entry<String, String> entry : putCodesByItemId.entrySet()) {
@@ -686,6 +784,48 @@ public class OrcidServiceImpl implements OrcidService {
         JSONObject answerUpdate =
             createWork(verifiedOrcidAuthorization.getOrcid(), orcidBodyUpdate, verifiedOrcidAuthorization.getAccessToken());
         logger.info("Orcid work updated: " + answerUpdate);
+
+        List<OrcidBulkItem> bulkItemsUpdate = parseBulkResponse(answerUpdate);
+
+        extracted(verifiedOrcidAuthorization, searchResultUpdate, bulkItemsUpdate, OrcidDbVO.Status.UPDATE);
+
+      }
+    }
+  }
+
+  private void extracted(OrcidAuthorizationDbVO verifiedOrcidAuthorization, SearchRetrieveResponseVO<ItemVersionVO> searchResult,
+      List<OrcidBulkItem> bulkItems, OrcidDbVO.Status status) {
+    if (searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
+      for (int i = 0; i < searchResult.getRecords().size(); i++) {
+        SearchRetrieveRecordVO<ItemVersionVO> record = searchResult.getRecords().get(i);
+        ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
+        if (itemVersionVO != null && itemVersionVO.getObjectId() != null) {
+          String itemId = itemVersionVO.getObjectId();
+          OrcidBulkItem bulkItem = (bulkItems != null && i < bulkItems.size()) ? bulkItems.get(i) : null;
+          if (bulkItem != null && this.orcidRepository != null) {
+            OrcidDbVO orcidDbVO = this.orcidRepository.findByConeIdAuthorAndItemId(verifiedOrcidAuthorization.getConeIdAuthor(), itemId);
+            if (orcidDbVO == null) {
+              orcidDbVO = new OrcidDbVO();
+              orcidDbVO.setOrcidAuthorizationDbVO(verifiedOrcidAuthorization);
+              orcidDbVO.setItemId(itemId);
+            }
+            orcidDbVO.setStatus(status.toString());
+            orcidDbVO.setDate(new Date());
+
+            if (bulkItem.isWork()) {
+              if (bulkItem.getPutCode() != null) {
+                orcidDbVO.setPutCode(String.valueOf(bulkItem.getPutCode()));
+              }
+            } else if (bulkItem.isError()) {
+              if (bulkItem.getResponseCode() != null) {
+                orcidDbVO.setResponseCode(String.valueOf(bulkItem.getResponseCode()));
+              }
+              orcidDbVO.setDeveloperMessage(bulkItem.getDeveloperMessage());
+            }
+
+            this.orcidRepository.saveAndFlush(orcidDbVO);
+          }
+        }
       }
     }
   }
