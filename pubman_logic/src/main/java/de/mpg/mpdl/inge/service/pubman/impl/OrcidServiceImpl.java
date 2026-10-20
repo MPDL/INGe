@@ -217,12 +217,28 @@ public class OrcidServiceImpl implements OrcidService {
               OrcidHelper.setPutCode(workNode, putCode);
               String singleWorkJson = workNode.toString();
               logger.info("Orcid work body: " + singleWorkJson);
-              JSONObject answerUpdate = OrcidHelper.updateWork(verifiedOrcidAuthorization.getOrcid(), singleWorkJson,
-                  verifiedOrcidAuthorization.getAccessToken(), putCode);
-              logger.info("Orcid work updated: " + answerUpdate);
+              try {
+                JSONObject answerUpdate = OrcidHelper.updateWork(verifiedOrcidAuthorization.getOrcid(), singleWorkJson,
+                    verifiedOrcidAuthorization.getAccessToken(), putCode);
+                logger.info("Orcid work updated: " + answerUpdate);
 
-              OrcidHelper.saveOrcidDbRecord(this.orcidRepository, verifiedOrcidAuthorization, itemId, putCode, answerUpdate,
-                  OrcidDbVO.Status.UPDATE);
+                List<OrcidBulkItem> bulkItems = OrcidHelper.parseBulkResponse(answerUpdate);
+                if (!bulkItems.isEmpty() && bulkItems.get(0).isError()) {
+                  OrcidBulkItem errorItem = bulkItems.get(0);
+                  String devMsg = errorItem.getDeveloperMessage();
+                  String devMsgWithPutCode =
+                      (devMsg != null && !devMsg.isBlank()) ? devMsg + " (putCode: " + putCode + ")" : "putCode: " + putCode;
+                  errorItem.setDeveloperMessage(devMsgWithPutCode);
+
+                  OrcidHelper.saveOrcidDbRecord(this.orcidRepository, verifiedOrcidAuthorization, itemId, putCode, errorItem,
+                      OrcidDbVO.Status.UPDATE);
+                } else {
+                  OrcidHelper.saveOrcidDbRecord(this.orcidRepository, verifiedOrcidAuthorization, itemId, putCode, answerUpdate,
+                      OrcidDbVO.Status.UPDATE);
+                }
+              } catch (Exception e) {
+                logger.error("Error updating ORCID work for item " + itemId + " with putCode " + putCode, e);
+              }
             }
           }
         }

@@ -149,7 +149,9 @@ flowchart TD
    - Da die ORCID-API Updates nicht als Bulk-Payload erlaubt, wird jeder Datensatz einzeln abgearbeitet:
      - Der zugehörige `putCode` wird in den JSON-Knoten eingefügt (`OrcidHelper.setPutCode`).
      - `OrcidHelper.updateWork(...)` führt einen HTTP-PUT gegen `/v3.0/{orcid}/work/{putCode}` aus.
-     - `OrcidHelper.saveOrcidDbRecord(...)` aktualisiert den Status und das Änderungsdatum im `OrcidRepository` mit Status `UPDATE`.
+     - Die Antwort wird mit `OrcidHelper.parseBulkResponse` ausgewertet:
+       - **Erfolgsfall**: `OrcidHelper.saveOrcidDbRecord(...)` aktualisiert den Status `UPDATE` mit dem `putCode`.
+       - **Fehlerfall (z. B. HTTP 404 - Not Found)**: Der Prozess bricht nicht ab. Die `developer-message` wird um den `putCode` ergänzt und im `OrcidDbVO` gespeichert, während der vorhandene `putCode` im Datensatz überschrieben (auf `null` gesetzt) wird, sodass das Werk beim nächsten Lauf als Neuanlage behandelt werden kann.
 
 6. **Abschluss**:
    - Nach Abarbeitung aller Autoren liefert der Controller HTTP 200 OK zurück.

@@ -217,6 +217,22 @@ public final class OrcidHelper {
         String responseBody = httpResponse.body();
         JSONObject jsonObject = (responseBody != null && !responseBody.isBlank()) ? new JSONObject(responseBody) : new JSONObject();
         return jsonObject;
+      } else if (httpResponse.statusCode() == 404) {
+        logger.warn("ORCID work not found (404) for putCode {}: {}", putCode, httpResponse.body());
+        String responseBody = httpResponse.body();
+        JSONObject jsonObject;
+        try {
+          jsonObject = (responseBody != null && !responseBody.isBlank()) ? new JSONObject(responseBody) : new JSONObject();
+        } catch (Exception e) {
+          jsonObject = new JSONObject();
+        }
+        if (!jsonObject.has("response-code")) {
+          jsonObject.put("response-code", 404);
+        }
+        if (!jsonObject.has("developer-message") && responseBody != null && !responseBody.isBlank()) {
+          jsonObject.put("developer-message", responseBody);
+        }
+        return jsonObject;
       } else {
         logger.error("Error updating ORCID work: HTTP status {} - response: {}", httpResponse.statusCode(), httpResponse.body());
         throw new TechnicalException("Error updating ORCID work: HTTP status " + httpResponse.statusCode() + " - " + httpResponse.body());
@@ -563,55 +579,90 @@ public final class OrcidHelper {
   }
 
   public static List<OrcidBulkItem> parseBulkResponse(JSONObject answer) {
-    if (answer == null || !answer.has("bulk")) {
+    if (answer == null) {
       return Collections.emptyList();
     }
 
-    JSONArray bulkArray = answer.optJSONArray("bulk");
-    if (bulkArray == null) {
-      return Collections.emptyList();
-    }
-
-    List<OrcidBulkItem> results = new ArrayList<>(bulkArray.length());
-
-    for (int i = 0; i < bulkArray.length(); i++) {
-      JSONObject node = bulkArray.optJSONObject(i);
-      if (node == null) {
-        continue;
+    if (answer.has("bulk")) {
+      JSONArray bulkArray = answer.optJSONArray("bulk");
+      if (bulkArray == null) {
+        return Collections.emptyList();
       }
 
-      if (node.has("work")) {
-        JSONObject workObj = node.optJSONObject("work");
-        if (workObj != null) {
-          OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, i, workObj);
-          if (workObj.has("put-code") && !workObj.isNull("put-code")) {
-            item.setPutCode(workObj.optLong("put-code"));
-          }
-          results.add(item);
+      List<OrcidBulkItem> results = new ArrayList<>(bulkArray.length());
+
+      for (int i = 0; i < bulkArray.length(); i++) {
+        JSONObject node = bulkArray.optJSONObject(i);
+        if (node == null) {
+          continue;
         }
-      } else if (node.has("error")) {
-        JSONObject errorObj = node.optJSONObject("error");
-        if (errorObj != null) {
-          OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.ERROR, i, errorObj);
-          if (errorObj.has("response-code") && !errorObj.isNull("response-code")) {
-            item.setResponseCode(errorObj.optInt("response-code"));
+
+        if (node.has("work")) {
+          JSONObject workObj = node.optJSONObject("work");
+          if (workObj != null) {
+            OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, i, workObj);
+            if (workObj.has("put-code") && !workObj.isNull("put-code")) {
+              item.setPutCode(workObj.optLong("put-code"));
+            }
+            results.add(item);
           }
-          if (errorObj.has("error-code") && !errorObj.isNull("error-code")) {
-            item.setErrorCode(errorObj.optInt("error-code"));
+        } else if (node.has("error")) {
+          JSONObject errorObj = node.optJSONObject("error");
+          if (errorObj != null) {
+            results.add(parseErrorItem(errorObj, i));
           }
-          item.setUserMessage(errorObj.optString("user-message", null));
-          item.setDeveloperMessage(errorObj.optString("developer-message", null));
-          item.setMoreInfo(errorObj.optString("more-info", null));
-          results.add(item);
         }
+      }
+      return results;
+    }
+
+    if (answer.has("error")) {
+      JSONObject errorObj = answer.optJSONObject("error");
+      if (errorObj != null) {
+        return Collections.singletonList(parseErrorItem(errorObj, 0));
       }
     }
 
-    return results;
+    if (answer.has("response-code") || answer.has("error-code") || answer.has("developer-message") || answer.has("user-message")) {
+      return Collections.singletonList(parseErrorItem(answer, 0));
+    }
+
+    if (answer.has("work")) {
+      JSONObject workObj = answer.optJSONObject("work");
+      if (workObj != null) {
+        OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, 0, workObj);
+        if (workObj.has("put-code") && !workObj.isNull("put-code")) {
+          item.setPutCode(workObj.optLong("put-code"));
+        }
+        return Collections.singletonList(item);
+      }
+    }
+
+    if (answer.has("put-code") && !answer.isNull("put-code")) {
+      OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, 0, answer);
+      item.setPutCode(answer.optLong("put-code"));
+      return Collections.singletonList(item);
+    }
+
+    return Collections.emptyList();
+  }
+
+  private static OrcidBulkItem parseErrorItem(JSONObject errorObj, int index) {
+    OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.ERROR, index, errorObj);
+    if (errorObj.has("response-code") && !errorObj.isNull("response-code")) {
+      item.setResponseCode(errorObj.optInt("response-code"));
+    }
+    if (errorObj.has("error-code") && !errorObj.isNull("error-code")) {
+      item.setErrorCode(errorObj.optInt("error-code"));
+    }
+    item.setUserMessage(errorObj.optString("user-message", null));
+    item.setDeveloperMessage(errorObj.optString("developer-message", null));
+    item.setMoreInfo(errorObj.optString("more-info", null));
+    return item;
   }
 
   public static OrcidDbVO saveOrcidDbRecord(OrcidRepository orcidRepository, OrcidAuthorizationDbVO verifiedOrcidAuthorization,
-      String itemId, String putCode, JSONObject answer, OrcidDbVO.Status status) {
+      String itemId, String putCode, OrcidBulkItem bulkItem, OrcidDbVO.Status status) {
     if (orcidRepository == null || itemId == null) {
       return null;
     }
@@ -629,8 +680,53 @@ public final class OrcidHelper {
 
     if (putCode != null) {
       orcidDbVO.setPutCode(putCode);
+    } else if (bulkItem != null && bulkItem.isWork() && bulkItem.getPutCode() != null) {
+      orcidDbVO.setPutCode(String.valueOf(bulkItem.getPutCode()));
+    } else {
+      orcidDbVO.setPutCode(null);
+    }
+
+    if (bulkItem != null) {
+      if (bulkItem.getResponseCode() != null) {
+        orcidDbVO.setResponseCode(String.valueOf(bulkItem.getResponseCode()));
+      }
+      if (bulkItem.getDeveloperMessage() != null) {
+        orcidDbVO.setDeveloperMessage(bulkItem.getDeveloperMessage());
+      }
+    }
+
+    return orcidRepository.saveAndFlush(orcidDbVO);
+  }
+
+  public static OrcidDbVO saveOrcidDbRecord(OrcidRepository orcidRepository, OrcidAuthorizationDbVO verifiedOrcidAuthorization,
+      String itemId, String putCode, JSONObject answer, OrcidDbVO.Status status) {
+    if (orcidRepository == null || itemId == null) {
+      return null;
+    }
+    List<OrcidBulkItem> items = parseBulkResponse(answer);
+    if (!items.isEmpty()) {
+      OrcidBulkItem item = items.get(0);
+      return saveOrcidDbRecord(orcidRepository, verifiedOrcidAuthorization, itemId, putCode, item, status);
+    }
+
+    String coneIdAuthor = verifiedOrcidAuthorization != null ? verifiedOrcidAuthorization.getConeIdAuthor() : null;
+    OrcidDbVO orcidDbVO = orcidRepository.findByConeIdAuthorAndItemId(coneIdAuthor, itemId);
+    if (orcidDbVO == null) {
+      orcidDbVO = new OrcidDbVO();
+      orcidDbVO.setOrcidAuthorizationDbVO(verifiedOrcidAuthorization);
+      orcidDbVO.setItemId(itemId);
+    }
+    if (status != null) {
+      orcidDbVO.setStatus(status.toString());
+    }
+    orcidDbVO.setDate(new Date());
+
+    if (putCode != null) {
+      orcidDbVO.setPutCode(putCode);
     } else if (answer != null && answer.has("put-code") && !answer.isNull("put-code")) {
       orcidDbVO.setPutCode(String.valueOf(answer.get("put-code")));
+    } else {
+      orcidDbVO.setPutCode(null);
     }
 
     if (answer != null) {

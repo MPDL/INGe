@@ -688,10 +688,82 @@ public class OrcidServiceTest {
   @Test
   public void testUpdateWorkHttpErrorOrExecution() {
     try {
-      OrcidHelper.updateWork("0000-0001-2345-6789", "{}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728", "123456");
+      org.json.JSONObject res = OrcidHelper.updateWork("0000-0001-2345-6789", "{}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728", "123456");
+      assertNotNull(res);
     } catch (TechnicalException e) {
       assertNotNull(e.getMessage());
     }
+  }
+
+  @Test
+  public void testParseBulkResponseSingleError404() {
+    org.json.JSONObject errorObj = new org.json.JSONObject();
+    errorObj.put("response-code", 404);
+    errorObj.put("developer-message", "404 Not Found: The work could not be found for the given put-code.");
+    errorObj.put("error-code", 9016);
+    errorObj.put("user-message", "ORCID could not process the data, because they were invalid.");
+
+    List<OrcidBulkItem> items = OrcidHelper.parseBulkResponse(errorObj);
+    assertNotNull(items);
+    assertEquals(1, items.size());
+
+    OrcidBulkItem item = items.get(0);
+    assertTrue(item.isError());
+    assertEquals(Integer.valueOf(404), item.getResponseCode());
+    assertEquals(Integer.valueOf(9016), item.getErrorCode());
+    assertEquals("404 Not Found: The work could not be found for the given put-code.", item.getDeveloperMessage());
+    assertEquals("ORCID could not process the data, because they were invalid.", item.getUserMessage());
+  }
+
+  @Test
+  public void testSaveOrcidDbRecordUpdate404ErrorOverwritesPutCode() {
+    OrcidAuthorizationDbVO authVO = new OrcidAuthorizationDbVO();
+    authVO.setConeIdAuthor("persons96304");
+
+    OrcidDbVO existingVO = new OrcidDbVO("UPDATE", "item_update_404");
+    existingVO.setId(10);
+    existingVO.setOrcidAuthorizationDbVO(authVO);
+    existingVO.setPutCode("2547851");
+
+    List<OrcidDbVO> savedList = new ArrayList<>();
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+            String itemId = (String) args[1];
+            if ("item_update_404".equals(itemId)) {
+              return existingVO;
+            }
+            return null;
+          } else if ("saveAndFlush".equals(method.getName())) {
+            savedList.add((OrcidDbVO) args[0]);
+            return args[0];
+          }
+          return null;
+        });
+
+    org.json.JSONObject answer404 = new org.json.JSONObject();
+    answer404.put("response-code", 404);
+    answer404.put("developer-message", "404 Not Found: The work could not be found for the given put-code.");
+
+    List<OrcidBulkItem> bulkItems = OrcidHelper.parseBulkResponse(answer404);
+    assertEquals(1, bulkItems.size());
+    OrcidBulkItem errorItem = bulkItems.get(0);
+    assertTrue(errorItem.isError());
+
+    String putCode = "2547851";
+    String devMsg = errorItem.getDeveloperMessage();
+    String devMsgWithPutCode = (devMsg != null && !devMsg.isBlank()) ? devMsg + " (putCode: " + putCode + ")" : "putCode: " + putCode;
+    errorItem.setDeveloperMessage(devMsgWithPutCode);
+
+    OrcidDbVO saved = OrcidHelper.saveOrcidDbRecord(mockOrcidRepo, authVO, "item_update_404", null, errorItem, OrcidDbVO.Status.UPDATE);
+
+    assertNotNull(saved);
+    assertSame(existingVO, saved);
+    assertEquals("UPDATE", saved.getStatus());
+    assertNull(saved.getPutCode());
+    assertEquals("404", saved.getResponseCode());
+    assertEquals("404 Not Found: The work could not be found for the given put-code. (putCode: 2547851)", saved.getDeveloperMessage());
+    assertEquals(1, savedList.size());
   }
 
   @Test
