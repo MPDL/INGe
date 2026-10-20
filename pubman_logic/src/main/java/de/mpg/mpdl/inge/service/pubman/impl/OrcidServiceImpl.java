@@ -525,14 +525,6 @@ public class OrcidServiceImpl implements OrcidService {
     }
   }
 
-  @Override
-  public String doOrcidQueryAndConvert(String coneIdAuthor, Date dateModified, String token)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    SearchRetrieveResponseVO<ItemVersionVO> searchResult = doOrcidQuery(coneIdAuthor, dateModified, token);
-
-    return convertToOrcid(searchResult);
-  }
-
   public Map<String, ObjectNode> extractWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
     if (orcidJson == null || orcidJson.trim().isEmpty()) {
       return new LinkedHashMap<>();

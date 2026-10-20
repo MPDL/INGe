@@ -7,7 +7,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import java.util.Date;
 
 public interface OrcidService {
 
@@ -17,9 +16,6 @@ public interface OrcidService {
 
   OrcidAuthorizationDbVO createOrcidAuthorization(String secret, String code, String errorDescription)
       throws AuthenticationException, IngeApplicationException, TechnicalException;
-
-  String doOrcidQueryAndConvert(String coneIdAuthor, Date dateModified, String token)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException;
 
   void getVerifiedOrcidAuthorizations()
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException;

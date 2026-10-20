@@ -10,10 +10,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,18 +65,6 @@ public class OrcidRestController {
     OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidService.createOrcidAuthorization(secret, code, errorDescription);
 
     return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
-  }
-
-  @RequestMapping(value = "/doOrcidQueryAndConvert", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<String> doOrcidQueryAndConvert( //
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
-      @RequestParam(CONE_ID_AUTHOR) String coneIdAuthor, //
-      @RequestParam(value = DATE_MODIFIED, required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dateModified) //
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-
-    String orcidJson = this.orcidService.doOrcidQueryAndConvert(coneIdAuthor, dateModified, token);
-
-    return new ResponseEntity<>(orcidJson, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/getVerifiedOrcidAuthorizations", method = RequestMethod.GET)
