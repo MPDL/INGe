@@ -659,7 +659,7 @@ public final class OrcidHelper {
   }
 
   public static OrcidDbVO saveOrcidDbRecord(OrcidRepository orcidRepository, OrcidAuthorizationDbVO verifiedOrcidAuthorization,
-      String itemId, String putCode, OrcidResponse bulkItem, OrcidDbVO.Status status) {
+      String itemId, String putCode, OrcidResponse orcidResponse, OrcidDbVO.Status status) {
     if (orcidRepository == null || itemId == null) {
       return null;
     }
@@ -677,18 +677,18 @@ public final class OrcidHelper {
 
     if (putCode != null) {
       orcidDbVO.setPutCode(putCode);
-    } else if (bulkItem != null && bulkItem.isWork() && bulkItem.getPutCode() != null) {
-      orcidDbVO.setPutCode(String.valueOf(bulkItem.getPutCode()));
+    } else if (orcidResponse != null && orcidResponse.isWork() && orcidResponse.getPutCode() != null) {
+      orcidDbVO.setPutCode(String.valueOf(orcidResponse.getPutCode()));
     } else {
       orcidDbVO.setPutCode(null);
     }
 
-    if (bulkItem != null) {
-      if (bulkItem.getResponseCode() != null) {
-        orcidDbVO.setResponseCode(String.valueOf(bulkItem.getResponseCode()));
+    if (orcidResponse != null) {
+      if (orcidResponse.getResponseCode() != null) {
+        orcidDbVO.setResponseCode(String.valueOf(orcidResponse.getResponseCode()));
       }
-      if (bulkItem.getDeveloperMessage() != null) {
-        orcidDbVO.setDeveloperMessage(bulkItem.getDeveloperMessage());
+      if (orcidResponse.getDeveloperMessage() != null) {
+        orcidDbVO.setDeveloperMessage(orcidResponse.getDeveloperMessage());
       }
     }
 

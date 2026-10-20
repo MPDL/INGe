@@ -42,6 +42,8 @@ public class OrcidServiceImpl implements OrcidService {
 
   private static final Logger logger = LogManager.getLogger(OrcidServiceImpl.class);
 
+  private static final int MAX_ITEMS_PER_REQUEST = 100;
+
   private final AuthorizationService authorizationService;
   private final OrcidAuthorizationRepository orcidAuthorizationRepository;
   private final EmailService emailService;
@@ -146,6 +148,8 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
+  // TODO: Fehlerbehandlung, wenn Authorisierung in Orcid zurückgezogen wurde
+  // TODO: Logging
   public void sendItemsToOrcid()
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException {
     List<OrcidAuthorizationDbVO> verifiedOrcidAuthorizations = this.orcidAuthorizationRepository.findByVerifiedTrue();
@@ -182,9 +186,8 @@ public class OrcidServiceImpl implements OrcidService {
 
         if (searchResultNew.getRecords() != null && !searchResultNew.getRecords().isEmpty()) {
           List<SearchRetrieveRecordVO<ItemVersionVO>> allNewRecords = searchResultNew.getRecords();
-          int batchSize = 100;
-          for (int i = 0; i < allNewRecords.size(); i += batchSize) {
-            int toIndex = Math.min(i + batchSize, allNewRecords.size());
+          for (int i = 0; i < allNewRecords.size(); i += MAX_ITEMS_PER_REQUEST) {
+            int toIndex = Math.min(i + MAX_ITEMS_PER_REQUEST, allNewRecords.size());
             List<SearchRetrieveRecordVO<ItemVersionVO>> batchRecords = allNewRecords.subList(i, toIndex);
 
             SearchRetrieveResponseVO<ItemVersionVO> batchSearchNew = new SearchRetrieveResponseVO<>();
