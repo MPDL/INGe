@@ -2,7 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.orcid;
 
 import org.json.JSONObject;
 
-public class OrcidBulkItem {
+public class OrcidResponse {
 
   public enum Type
   {
@@ -20,7 +20,7 @@ public class OrcidBulkItem {
   private String developerMessage;
   private String moreInfo;
 
-  public OrcidBulkItem(Type type, int index, JSONObject rawJson) {
+  public OrcidResponse(Type type, int index, JSONObject rawJson) {
     this.type = type;
     this.index = index;
     this.rawJson = rawJson;

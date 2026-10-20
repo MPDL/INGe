@@ -31,7 +31,6 @@ public class OrcidRestController {
   private static final String SECRET = "secret";
   private static final String CODE = "code";
   private static final String ERROR_DESCRIPTION = "error_description";
-  private static final String DATE_MODIFIED = "dateModified";
 
   private final OrcidService orcidService;
 
@@ -67,11 +66,11 @@ public class OrcidRestController {
     return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/getVerifiedOrcidAuthorizations", method = RequestMethod.GET)
-  public ResponseEntity<Void> getVerifiedOrcidAuthorizations()
+  @RequestMapping(value = "/sendItemsToOrcid", method = RequestMethod.GET)
+  public ResponseEntity<Void> sendItemsToOrcid()
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException {
 
-    this.orcidService.getVerifiedOrcidAuthorizations();
+    this.orcidService.sendItemsToOrcid();
 
     return new ResponseEntity<>(HttpStatus.OK);
   }

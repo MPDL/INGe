@@ -21,7 +21,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.orcid.OrcidBulkItem;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidResponse;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.util.ArrayList;
@@ -59,55 +59,6 @@ public class OrcidServiceImpl implements OrcidService {
     this.orcidValidatingService = orcidValidatingService;
     this.pubItemService = pubItemService;
     this.orcidRepository = orcidRepository;
-  }
-
-  public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
-      EmailService emailService, OrcidValidatingService orcidValidatingService, PubItemService pubItemService) {
-    this(authorizationService, orcidAuthorizationRepository, emailService, orcidValidatingService, pubItemService, null);
-  }
-
-  public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
-      EmailService emailService, OrcidValidatingService orcidValidatingService) {
-    this(authorizationService, orcidAuthorizationRepository, emailService, orcidValidatingService, null, null);
-  }
-
-  @Override
-  public OrcidAuthorizationDbVO sendEmailLink(String token, String coneIdAuthor, String orcidAuthor, String nameAuthor, String emailBibo,
-      String emailAuthor) throws AuthenticationException, IngeApplicationException, TechnicalException, ValidationException {
-
-    AccountUserDbVO accountUserDbVO = getUser(token);
-    this.authorizationService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.ORCID_ADMIN.frameworkValue());
-
-    this.orcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor);
-
-    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor);
-
-    if (orcidAuthorizationDbVO != null) {
-      orcidAuthorizationDbVO.setErrorCodes(OrcidAuthorizationDbVO.ErrorCode.ERROR_CONE_ID_ALREADY_EXITS.toString());
-      return orcidAuthorizationDbVO;
-    }
-
-    String scopeRequested = PropertyReader.getProperty(PropertyReader.ORCID_SCOPE);
-    String genSecret = OrcidHelper.generateSecret();
-    String redirectUri = PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_REST)
-        + PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_URL) + "?secret=" + genSecret;
-    String emailLink = OrcidHelper.createEmailLink(scopeRequested, redirectUri);
-    String userIdBibo = accountUserDbVO != null ? accountUserDbVO.getObjectId() : null;
-
-    orcidAuthorizationDbVO = OrcidHelper.createOrcidAuthorizationDbVO(this.orcidAuthorizationRepository, userIdBibo, coneIdAuthor,
-        orcidAuthor, nameAuthor, genSecret, scopeRequested, emailLink, emailBibo, emailAuthor, redirectUri);
-
-    String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_LINK);
-    String text = OrcidHelper.createEmailText(nameAuthor, orcidAuthor, emailLink);
-
-    OrcidHelper.sendEmail(this.emailService, emailBibo, emailBibo, subject, text);
-
-    orcidAuthorizationDbVO.setDateEmailSentLink(new Date());
-    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_LINK.toString());
-
-    orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
-
-    return orcidAuthorizationDbVO;
   }
 
   @Override
@@ -156,26 +107,70 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
-  public void getVerifiedOrcidAuthorizations()
+  public OrcidAuthorizationDbVO sendEmailLink(String token, String coneIdAuthor, String orcidAuthor, String nameAuthor, String emailBibo,
+      String emailAuthor) throws AuthenticationException, IngeApplicationException, TechnicalException, ValidationException {
+
+    AccountUserDbVO accountUserDbVO = getUser(token);
+    this.authorizationService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.ORCID_ADMIN.frameworkValue());
+
+    this.orcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor);
+
+    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor);
+
+    if (orcidAuthorizationDbVO != null) {
+      orcidAuthorizationDbVO.setErrorCodes(OrcidAuthorizationDbVO.ErrorCode.ERROR_CONE_ID_ALREADY_EXITS.toString());
+      return orcidAuthorizationDbVO;
+    }
+
+    String scopeRequested = PropertyReader.getProperty(PropertyReader.ORCID_SCOPE);
+    String genSecret = OrcidHelper.generateSecret();
+    String redirectUri = PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_REST)
+        + PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_URL) + "?secret=" + genSecret;
+    String emailLink = OrcidHelper.createEmailLink(scopeRequested, redirectUri);
+    String userIdBibo = accountUserDbVO != null ? accountUserDbVO.getObjectId() : null;
+
+    orcidAuthorizationDbVO = OrcidHelper.createOrcidAuthorizationDbVO(this.orcidAuthorizationRepository, userIdBibo, coneIdAuthor,
+        orcidAuthor, nameAuthor, genSecret, scopeRequested, emailLink, emailBibo, emailAuthor, redirectUri);
+
+    String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_LINK);
+    String text = OrcidHelper.createEmailText(nameAuthor, orcidAuthor, emailLink);
+
+    OrcidHelper.sendEmail(this.emailService, emailBibo, emailBibo, subject, text);
+
+    orcidAuthorizationDbVO.setDateEmailSentLink(new Date());
+    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_LINK.toString());
+
+    orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
+
+    return orcidAuthorizationDbVO;
+  }
+
+  @Override
+  public void sendItemsToOrcid()
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException {
     List<OrcidAuthorizationDbVO> verifiedOrcidAuthorizations = this.orcidAuthorizationRepository.findByVerifiedTrue();
+
     for (OrcidAuthorizationDbVO verifiedOrcidAuthorization : verifiedOrcidAuthorizations) {
+
       SearchRetrieveResponseVO<ItemVersionVO> searchResult = OrcidHelper.doOrcidQuery(this.pubItemService,
-          verifiedOrcidAuthorization.getConeIdAuthor(), verifiedOrcidAuthorization.getDateLastUpdated(), null);
+          verifiedOrcidAuthorization.getConeIdAuthor(), verifiedOrcidAuthorization.getDateLastUpdated());
       // TODO: dateLastUpdated setzen
+
       SearchRetrieveResponseVO<ItemVersionVO> searchResultNew = new SearchRetrieveResponseVO<>();
       searchResultNew.setRecords(new ArrayList<>());
       SearchRetrieveResponseVO<ItemVersionVO> searchResultUpdate = new SearchRetrieveResponseVO<>();
       searchResultUpdate.setRecords(new ArrayList<>());
       Map<String, String> putCodesByItemId = new LinkedHashMap<>();
+
       if (searchResult != null && searchResult.getRecords() != null) {
+
         for (SearchRetrieveRecordVO<ItemVersionVO> record : searchResult.getRecords()) {
+
           ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
+
           if (itemVersionVO != null && itemVersionVO.getObjectId() != null) {
             String itemId = itemVersionVO.getObjectId();
-            OrcidDbVO orcidDbVO = this.orcidRepository != null
-                ? this.orcidRepository.findByConeIdAuthorAndItemId(verifiedOrcidAuthorization.getConeIdAuthor(), itemId)
-                : null;
+            OrcidDbVO orcidDbVO = this.orcidRepository.findByConeIdAuthorAndItemId(verifiedOrcidAuthorization.getConeIdAuthor(), itemId);
             if (orcidDbVO == null || orcidDbVO.getPutCode() == null) {
               searchResultNew.getRecords().add(record);
             } else {
@@ -184,6 +179,7 @@ public class OrcidServiceImpl implements OrcidService {
             }
           }
         }
+
         if (searchResultNew.getRecords() != null && !searchResultNew.getRecords().isEmpty()) {
           List<SearchRetrieveRecordVO<ItemVersionVO>> allNewRecords = searchResultNew.getRecords();
           int batchSize = 100;
@@ -191,17 +187,18 @@ public class OrcidServiceImpl implements OrcidService {
             int toIndex = Math.min(i + batchSize, allNewRecords.size());
             List<SearchRetrieveRecordVO<ItemVersionVO>> batchRecords = allNewRecords.subList(i, toIndex);
 
-            SearchRetrieveResponseVO<ItemVersionVO> batchSearchResultNew = new SearchRetrieveResponseVO<>();
-            batchSearchResultNew.setRecords(batchRecords);
+            SearchRetrieveResponseVO<ItemVersionVO> batchSearchNew = new SearchRetrieveResponseVO<>();
+            batchSearchNew.setRecords(batchRecords);
 
-            String orcidBodyNew = OrcidHelper.convertToOrcid(batchSearchResultNew);
-            JSONObject answerNew =
-                OrcidHelper.createWork(verifiedOrcidAuthorization.getOrcid(), orcidBodyNew, verifiedOrcidAuthorization.getAccessToken());
+            String orcidBodyNew = OrcidHelper.convertToOrcid(batchSearchNew);
+
+            JSONObject answerNew = OrcidHelper.createWorksInOrcid(verifiedOrcidAuthorization.getOrcid(), orcidBodyNew,
+                verifiedOrcidAuthorization.getAccessToken());
             logger.info("Orcid work created: " + answerNew);
 
-            List<OrcidBulkItem> bulkItemsNew = OrcidHelper.parseBulkResponse(answerNew);
+            List<OrcidResponse> orcidResponsesNew = OrcidHelper.parseOrcidResponses(answerNew);
 
-            OrcidHelper.saveOrcidDbRecords(this.orcidRepository, verifiedOrcidAuthorization, batchSearchResultNew, bulkItemsNew,
+            OrcidHelper.saveOrcidDbRecords(this.orcidRepository, verifiedOrcidAuthorization, batchSearchNew, orcidResponsesNew,
                 OrcidDbVO.Status.CREATE);
           }
         }
@@ -217,20 +214,21 @@ public class OrcidServiceImpl implements OrcidService {
               OrcidHelper.setPutCode(workNode, putCode);
               String singleWorkJson = workNode.toString();
               logger.info("Orcid work body: " + singleWorkJson);
+
               try {
-                JSONObject answerUpdate = OrcidHelper.updateWork(verifiedOrcidAuthorization.getOrcid(), singleWorkJson,
+                JSONObject answerUpdate = OrcidHelper.updateWorkInOrcid(verifiedOrcidAuthorization.getOrcid(), singleWorkJson,
                     verifiedOrcidAuthorization.getAccessToken(), putCode);
                 logger.info("Orcid work updated: " + answerUpdate);
 
-                List<OrcidBulkItem> bulkItems = OrcidHelper.parseBulkResponse(answerUpdate);
-                if (!bulkItems.isEmpty() && bulkItems.get(0).isError()) {
-                  OrcidBulkItem errorItem = bulkItems.get(0);
-                  String devMsg = errorItem.getDeveloperMessage();
+                List<OrcidResponse> orcidResponses = OrcidHelper.parseOrcidResponses(answerUpdate);
+                if (!orcidResponses.isEmpty() && orcidResponses.get(0).isError()) {
+                  OrcidResponse errorResponse = orcidResponses.get(0);
+                  String devMsg = errorResponse.getDeveloperMessage();
                   String devMsgWithPutCode =
                       (devMsg != null && !devMsg.isBlank()) ? devMsg + " (putCode: " + putCode + ")" : "putCode: " + putCode;
-                  errorItem.setDeveloperMessage(devMsgWithPutCode);
+                  errorResponse.setDeveloperMessage(devMsgWithPutCode);
 
-                  OrcidHelper.saveOrcidDbRecord(this.orcidRepository, verifiedOrcidAuthorization, itemId, putCode, errorItem,
+                  OrcidHelper.saveOrcidDbRecord(this.orcidRepository, verifiedOrcidAuthorization, itemId, putCode, errorResponse,
                       OrcidDbVO.Status.UPDATE);
                 } else {
                   OrcidHelper.saveOrcidDbRecord(this.orcidRepository, verifiedOrcidAuthorization, itemId, putCode, answerUpdate,
@@ -247,9 +245,6 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {
-    if (this.authorizationService == null) {
-      return null;
-    }
     return this.authorizationService.getUserAccountFromToken(token);
   }
 }

@@ -10,13 +10,13 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface OrcidService {
 
+  OrcidAuthorizationDbVO createOrcidAuthorization(String secret, String code, String errorDescription)
+      throws AuthenticationException, IngeApplicationException, TechnicalException;
+
   OrcidAuthorizationDbVO sendEmailLink(String token, String coneIdAuthor, String orcidAuthor, String nameAuthor, String emailBibo,
       String emailAuthor)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, TechnicalException, ValidationException;
 
-  OrcidAuthorizationDbVO createOrcidAuthorization(String secret, String code, String errorDescription)
-      throws AuthenticationException, IngeApplicationException, TechnicalException;
-
-  void getVerifiedOrcidAuthorizations()
+  void sendItemsToOrcid()
       throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException;
 }

@@ -21,7 +21,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.orcid.OrcidBulkItem;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidResponse;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.ByteArrayOutputStream;
@@ -159,7 +159,7 @@ public class OrcidServiceTest {
     this.mockRepository = createMockRepository();
     AuthorizationService mockAuthService = null;
 
-    orcidService = new OrcidServiceImpl(mockAuthService, this.mockRepository, null, null);
+    orcidService = new OrcidServiceImpl(mockAuthService, this.mockRepository, null, null, null, null);
   }
 
   private OrcidAuthorizationRepository createMockRepository() {
@@ -648,7 +648,7 @@ public class OrcidServiceTest {
     OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, mockOrcidRepo);
 
     try {
-      customService.getVerifiedOrcidAuthorizations();
+      customService.sendItemsToOrcid();
     } catch (Exception e) {
       // Network call to sandbox API in createWork may fail in isolated test environment
     }
@@ -679,7 +679,7 @@ public class OrcidServiceTest {
   @Test
   public void testCreateWorkHttpErrorOrExecution() {
     try {
-      OrcidHelper.createWork("0000-0001-2345-6789", "{\"bulk\":[]}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
+      OrcidHelper.createWorksInOrcid("0000-0001-2345-6789", "{\"bulk\":[]}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
     } catch (TechnicalException e) {
       assertNotNull(e.getMessage());
     }
@@ -688,7 +688,8 @@ public class OrcidServiceTest {
   @Test
   public void testUpdateWorkHttpErrorOrExecution() {
     try {
-      org.json.JSONObject res = OrcidHelper.updateWork("0000-0001-2345-6789", "{}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728", "123456");
+      org.json.JSONObject res =
+          OrcidHelper.updateWorkInOrcid("0000-0001-2345-6789", "{}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728", "123456");
       assertNotNull(res);
     } catch (TechnicalException e) {
       assertNotNull(e.getMessage());
@@ -703,11 +704,11 @@ public class OrcidServiceTest {
     errorObj.put("error-code", 9016);
     errorObj.put("user-message", "ORCID could not process the data, because they were invalid.");
 
-    List<OrcidBulkItem> items = OrcidHelper.parseBulkResponse(errorObj);
+    List<OrcidResponse> items = OrcidHelper.parseOrcidResponses(errorObj);
     assertNotNull(items);
     assertEquals(1, items.size());
 
-    OrcidBulkItem item = items.get(0);
+    OrcidResponse item = items.get(0);
     assertTrue(item.isError());
     assertEquals(Integer.valueOf(404), item.getResponseCode());
     assertEquals(Integer.valueOf(9016), item.getErrorCode());
@@ -745,9 +746,9 @@ public class OrcidServiceTest {
     answer404.put("response-code", 404);
     answer404.put("developer-message", "404 Not Found: The work could not be found for the given put-code.");
 
-    List<OrcidBulkItem> bulkItems = OrcidHelper.parseBulkResponse(answer404);
+    List<OrcidResponse> bulkItems = OrcidHelper.parseOrcidResponses(answer404);
     assertEquals(1, bulkItems.size());
-    OrcidBulkItem errorItem = bulkItems.get(0);
+    OrcidResponse errorItem = bulkItems.get(0);
     assertTrue(errorItem.isError());
 
     String putCode = "2547851";
@@ -804,11 +805,11 @@ public class OrcidServiceTest {
 
   @Test
   public void testParseBulkResponseNullAndEmpty() {
-    List<OrcidBulkItem> nullItems = OrcidHelper.parseBulkResponse(null);
+    List<OrcidResponse> nullItems = OrcidHelper.parseOrcidResponses(null);
     assertNotNull(nullItems);
     assertTrue(nullItems.isEmpty());
 
-    List<OrcidBulkItem> emptyItems = OrcidHelper.parseBulkResponse(new org.json.JSONObject("{}"));
+    List<OrcidResponse> emptyItems = OrcidHelper.parseOrcidResponses(new org.json.JSONObject("{}"));
     assertNotNull(emptyItems);
     assertTrue(emptyItems.isEmpty());
   }
@@ -819,7 +820,7 @@ public class OrcidServiceTest {
     authVO.setConeIdAuthor("persons96304");
 
     // WORK item
-    OrcidBulkItem workItem = new OrcidBulkItem(OrcidBulkItem.Type.WORK, 0, new org.json.JSONObject("{\"put-code\": 123456}"));
+    OrcidResponse workItem = new OrcidResponse(OrcidResponse.Type.WORK, 0, new org.json.JSONObject("{\"put-code\": 123456}"));
     workItem.setPutCode(123456L);
 
     OrcidDbVO workDbVO = new OrcidDbVO();
@@ -840,7 +841,7 @@ public class OrcidServiceTest {
     assertNotNull(workDbVO.getDate());
 
     // ERROR item
-    OrcidBulkItem errorItem = new OrcidBulkItem(OrcidBulkItem.Type.ERROR, 1, new org.json.JSONObject());
+    OrcidResponse errorItem = new OrcidResponse(OrcidResponse.Type.ERROR, 1, new org.json.JSONObject());
     errorItem.setResponseCode(409);
     errorItem.setDeveloperMessage("Conflict: already exists");
 
@@ -908,12 +909,12 @@ public class OrcidServiceTest {
 
     searchResult.setRecords(records);
 
-    List<OrcidBulkItem> bulkItems = new ArrayList<>();
-    OrcidBulkItem itemBulk1 = new OrcidBulkItem(OrcidBulkItem.Type.WORK, 0, new org.json.JSONObject());
+    List<OrcidResponse> bulkItems = new ArrayList<>();
+    OrcidResponse itemBulk1 = new OrcidResponse(OrcidResponse.Type.WORK, 0, new org.json.JSONObject());
     itemBulk1.setPutCode(999999L);
     bulkItems.add(itemBulk1);
 
-    OrcidBulkItem itemBulk2 = new OrcidBulkItem(OrcidBulkItem.Type.ERROR, 1, new org.json.JSONObject());
+    OrcidResponse itemBulk2 = new OrcidResponse(OrcidResponse.Type.ERROR, 1, new org.json.JSONObject());
     itemBulk2.setResponseCode(400);
     itemBulk2.setDeveloperMessage("Bad Request");
     bulkItems.add(itemBulk2);
@@ -985,7 +986,7 @@ public class OrcidServiceTest {
     OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, mockOrcidRepo);
 
     try {
-      customService.getVerifiedOrcidAuthorizations();
+      customService.sendItemsToOrcid();
     } catch (Exception e) {
       // Network call to external ORCID in test environment
     }

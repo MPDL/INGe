@@ -155,7 +155,7 @@ public final class OrcidHelper {
     }
   }
 
-  public static JSONObject createWork(String orcid, String body, String accessToken) throws TechnicalException {
+  public static JSONObject createWorksInOrcid(String orcid, String body, String accessToken) throws TechnicalException {
     String createUrl = "https://api.sandbox.orcid.org/v3.0/" + orcid + "/works"; //TODO aus pubman.properties
     logger.info("Creating Orcid work: " + createUrl);
     //    logger.info("Creating Orcid work body: " + body);
@@ -192,7 +192,7 @@ public final class OrcidHelper {
     }
   }
 
-  public static JSONObject updateWork(String orcid, String body, String accessToken, String putCode) throws TechnicalException {
+  public static JSONObject updateWorkInOrcid(String orcid, String body, String accessToken, String putCode) throws TechnicalException {
     String updateUrl = "https://api.sandbox.orcid.org/v3.0/" + orcid + "/work/" + putCode; //TODO aus pubman.properties
     logger.info("Update Orcid work: " + updateUrl);
     logger.info("Update Orcid work body: " + body);
@@ -280,9 +280,7 @@ public final class OrcidHelper {
     orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.CODE_RECEIVED.toString());
     orcidAuthorizationDbVO.setDateCodeReceived(new Date());
 
-    if (orcidAuthorizationRepository != null) {
-      orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
-    }
+    orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
 
     logger.info("Udated orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
 
@@ -321,9 +319,7 @@ public final class OrcidHelper {
       orcidAuthorizationDbVO.setErrorCodes(sb.toString());
     }
 
-    if (orcidAuthorizationRepository != null) {
-      orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
-    }
+    orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
 
     logger.info("Udated orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
 
@@ -392,6 +388,11 @@ public final class OrcidHelper {
     return rootNode;
   }
 
+  public static SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(PubItemService pubItemService, String coneIdAuthor, Date dateModified)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    return doOrcidQuery(pubItemService, coneIdAuthor, dateModified, null);
+  }
+
   public static SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(PubItemService pubItemService, String coneIdAuthor, Date dateModified,
       String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     JsonNode searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
@@ -402,7 +403,7 @@ public final class OrcidHelper {
       SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
       logger.info("searchSourceText: " + searchSourceText);
 
-      ResponseBody<ObjectNode> responseBody = pubItemService != null ? pubItemService.searchDetailed(srequ, -1, token) : null;
+      ResponseBody<ObjectNode> responseBody = pubItemService.searchDetailed(srequ, -1, token);
       if (responseBody != null) {
         return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse((ResponseBody) responseBody,
             ItemVersionVO.class);
@@ -480,10 +481,6 @@ public final class OrcidHelper {
     return extractWorksBySourceWorkId(orcidJson);
   }
 
-  public static Map<String, ObjectNode> getWorksBySourceWorkId(JsonNode rootNode) {
-    return extractWorksBySourceWorkId(rootNode);
-  }
-
   public static String getSourceWorkId(JsonNode workNode) {
     if (workNode == null) {
       return null;
@@ -554,14 +551,11 @@ public final class OrcidHelper {
     }
   }
 
-  public static String convertWorksToString(Map<String, ObjectNode> worksBySourceWorkId) throws IngeTechnicalException {
-    return convertWorksToOrcidJson(worksBySourceWorkId);
-  }
-
   public static String updatePutCodesInOrcidJson(String orcidJson, Map<String, ?> putCodesBySourceWorkId) throws IngeTechnicalException {
     if (orcidJson == null || orcidJson.trim().isEmpty() || putCodesBySourceWorkId == null || putCodesBySourceWorkId.isEmpty()) {
       return orcidJson;
     }
+
     try {
       ObjectMapper mapper = MapperFactory.getObjectMapper();
       JsonNode root = mapper.readTree(orcidJson);
@@ -578,18 +572,18 @@ public final class OrcidHelper {
     }
   }
 
-  public static List<OrcidBulkItem> parseBulkResponse(JSONObject answer) {
-    if (answer == null) {
+  public static List<OrcidResponse> parseOrcidResponses(JSONObject orcidAnswer) {
+    if (orcidAnswer == null) {
       return Collections.emptyList();
     }
 
-    if (answer.has("bulk")) {
-      JSONArray bulkArray = answer.optJSONArray("bulk");
+    if (orcidAnswer.has("bulk")) {
+      JSONArray bulkArray = orcidAnswer.optJSONArray("bulk");
       if (bulkArray == null) {
         return Collections.emptyList();
       }
 
-      List<OrcidBulkItem> results = new ArrayList<>(bulkArray.length());
+      List<OrcidResponse> results = new ArrayList<>(bulkArray.length());
 
       for (int i = 0; i < bulkArray.length(); i++) {
         JSONObject node = bulkArray.optJSONObject(i);
@@ -600,7 +594,7 @@ public final class OrcidHelper {
         if (node.has("work")) {
           JSONObject workObj = node.optJSONObject("work");
           if (workObj != null) {
-            OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, i, workObj);
+            OrcidResponse item = new OrcidResponse(OrcidResponse.Type.WORK, i, workObj);
             if (workObj.has("put-code") && !workObj.isNull("put-code")) {
               item.setPutCode(workObj.optLong("put-code"));
             }
@@ -609,28 +603,30 @@ public final class OrcidHelper {
         } else if (node.has("error")) {
           JSONObject errorObj = node.optJSONObject("error");
           if (errorObj != null) {
-            results.add(parseErrorItem(errorObj, i));
+            results.add(parseOrcidErrorAnswer(errorObj, i));
           }
         }
       }
+
       return results;
     }
 
-    if (answer.has("error")) {
-      JSONObject errorObj = answer.optJSONObject("error");
+    if (orcidAnswer.has("error")) {
+      JSONObject errorObj = orcidAnswer.optJSONObject("error");
       if (errorObj != null) {
-        return Collections.singletonList(parseErrorItem(errorObj, 0));
+        return Collections.singletonList(parseOrcidErrorAnswer(errorObj, 0));
       }
     }
 
-    if (answer.has("response-code") || answer.has("error-code") || answer.has("developer-message") || answer.has("user-message")) {
-      return Collections.singletonList(parseErrorItem(answer, 0));
+    if (orcidAnswer.has("response-code") || orcidAnswer.has("error-code") || orcidAnswer.has("developer-message")
+        || orcidAnswer.has("user-message")) {
+      return Collections.singletonList(parseOrcidErrorAnswer(orcidAnswer, 0));
     }
 
-    if (answer.has("work")) {
-      JSONObject workObj = answer.optJSONObject("work");
+    if (orcidAnswer.has("work")) {
+      JSONObject workObj = orcidAnswer.optJSONObject("work");
       if (workObj != null) {
-        OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, 0, workObj);
+        OrcidResponse item = new OrcidResponse(OrcidResponse.Type.WORK, 0, workObj);
         if (workObj.has("put-code") && !workObj.isNull("put-code")) {
           item.setPutCode(workObj.optLong("put-code"));
         }
@@ -638,31 +634,32 @@ public final class OrcidHelper {
       }
     }
 
-    if (answer.has("put-code") && !answer.isNull("put-code")) {
-      OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.WORK, 0, answer);
-      item.setPutCode(answer.optLong("put-code"));
+    if (orcidAnswer.has("put-code") && !orcidAnswer.isNull("put-code")) {
+      OrcidResponse item = new OrcidResponse(OrcidResponse.Type.WORK, 0, orcidAnswer);
+      item.setPutCode(orcidAnswer.optLong("put-code"));
       return Collections.singletonList(item);
     }
 
     return Collections.emptyList();
   }
 
-  private static OrcidBulkItem parseErrorItem(JSONObject errorObj, int index) {
-    OrcidBulkItem item = new OrcidBulkItem(OrcidBulkItem.Type.ERROR, index, errorObj);
+  private static OrcidResponse parseOrcidErrorAnswer(JSONObject errorObj, int index) {
+    OrcidResponse orcidResponse = new OrcidResponse(OrcidResponse.Type.ERROR, index, errorObj);
     if (errorObj.has("response-code") && !errorObj.isNull("response-code")) {
-      item.setResponseCode(errorObj.optInt("response-code"));
+      orcidResponse.setResponseCode(errorObj.optInt("response-code"));
     }
     if (errorObj.has("error-code") && !errorObj.isNull("error-code")) {
-      item.setErrorCode(errorObj.optInt("error-code"));
+      orcidResponse.setErrorCode(errorObj.optInt("error-code"));
     }
-    item.setUserMessage(errorObj.optString("user-message", null));
-    item.setDeveloperMessage(errorObj.optString("developer-message", null));
-    item.setMoreInfo(errorObj.optString("more-info", null));
-    return item;
+    orcidResponse.setUserMessage(errorObj.optString("user-message", null));
+    orcidResponse.setDeveloperMessage(errorObj.optString("developer-message", null));
+    orcidResponse.setMoreInfo(errorObj.optString("more-info", null));
+
+    return orcidResponse;
   }
 
   public static OrcidDbVO saveOrcidDbRecord(OrcidRepository orcidRepository, OrcidAuthorizationDbVO verifiedOrcidAuthorization,
-      String itemId, String putCode, OrcidBulkItem bulkItem, OrcidDbVO.Status status) {
+      String itemId, String putCode, OrcidResponse bulkItem, OrcidDbVO.Status status) {
     if (orcidRepository == null || itemId == null) {
       return null;
     }
@@ -703,9 +700,9 @@ public final class OrcidHelper {
     if (orcidRepository == null || itemId == null) {
       return null;
     }
-    List<OrcidBulkItem> items = parseBulkResponse(answer);
-    if (!items.isEmpty()) {
-      OrcidBulkItem item = items.get(0);
+    List<OrcidResponse> orcidRespons = parseOrcidResponses(answer);
+    if (!orcidRespons.isEmpty()) {
+      OrcidResponse item = orcidRespons.get(0);
       return saveOrcidDbRecord(orcidRepository, verifiedOrcidAuthorization, itemId, putCode, item, status);
     }
 
@@ -742,15 +739,15 @@ public final class OrcidHelper {
   }
 
   public static void saveOrcidDbRecords(OrcidRepository orcidRepository, OrcidAuthorizationDbVO verifiedOrcidAuthorization,
-      SearchRetrieveResponseVO<ItemVersionVO> searchResult, List<OrcidBulkItem> bulkItems, OrcidDbVO.Status status) {
+      SearchRetrieveResponseVO<ItemVersionVO> searchResult, List<OrcidResponse> orcidResponses, OrcidDbVO.Status status) {
     if (searchResult != null && searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
       for (int i = 0; i < searchResult.getRecords().size(); i++) {
         SearchRetrieveRecordVO<ItemVersionVO> record = searchResult.getRecords().get(i);
         ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
         if (itemVersionVO != null && itemVersionVO.getObjectId() != null) {
           String itemId = itemVersionVO.getObjectId();
-          OrcidBulkItem bulkItem = (bulkItems != null && i < bulkItems.size()) ? bulkItems.get(i) : null;
-          if (bulkItem != null && orcidRepository != null) {
+          OrcidResponse orcidResponse = (orcidResponses != null && i < orcidResponses.size()) ? orcidResponses.get(i) : null;
+          if (orcidResponse != null) {
             OrcidDbVO orcidDbVO = orcidRepository.findByConeIdAuthorAndItemId(verifiedOrcidAuthorization.getConeIdAuthor(), itemId);
             if (orcidDbVO == null) {
               orcidDbVO = new OrcidDbVO();
@@ -760,15 +757,15 @@ public final class OrcidHelper {
             orcidDbVO.setStatus(status.toString());
             orcidDbVO.setDate(new Date());
 
-            if (bulkItem.isWork()) {
-              if (bulkItem.getPutCode() != null) {
-                orcidDbVO.setPutCode(String.valueOf(bulkItem.getPutCode()));
+            if (orcidResponse.isWork()) {
+              if (orcidResponse.getPutCode() != null) {
+                orcidDbVO.setPutCode(String.valueOf(orcidResponse.getPutCode()));
               }
-            } else if (bulkItem.isError()) {
-              if (bulkItem.getResponseCode() != null) {
-                orcidDbVO.setResponseCode(String.valueOf(bulkItem.getResponseCode()));
+            } else if (orcidResponse.isError()) {
+              if (orcidResponse.getResponseCode() != null) {
+                orcidDbVO.setResponseCode(String.valueOf(orcidResponse.getResponseCode()));
               }
-              orcidDbVO.setDeveloperMessage(bulkItem.getDeveloperMessage());
+              orcidDbVO.setDeveloperMessage(orcidResponse.getDeveloperMessage());
             }
 
             orcidRepository.saveAndFlush(orcidDbVO);
