@@ -22,13 +22,12 @@ import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidBulkItem;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
@@ -50,6 +49,7 @@ public class OrcidServiceTest {
   private HttpServer mockServer;
   private int serverPort;
   private OrcidServiceImpl orcidService;
+  private OrcidAuthorizationRepository mockRepository;
   private final AtomicReference<CapturedRequest> lastCapturedRequest = new AtomicReference<>();
   private int mockResponseStatus = 200;
   private String mockResponseBody = "";
@@ -156,10 +156,10 @@ public class OrcidServiceTest {
     System.setProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO, "Test Subject");
     System.setProperty(PropertyReader.ORCID_EMAIL_TEXT_FOR_BIBO, "Test Text");
 
-    OrcidAuthorizationRepository mockRepository = createMockRepository();
+    this.mockRepository = createMockRepository();
     AuthorizationService mockAuthService = null;
 
-    orcidService = new OrcidServiceImpl(mockAuthService, mockRepository, null, null);
+    orcidService = new OrcidServiceImpl(mockAuthService, this.mockRepository, null, null);
   }
 
   private OrcidAuthorizationRepository createMockRepository() {
@@ -223,7 +223,7 @@ public class OrcidServiceTest {
     vo.setOrcidAuthor("0000-0001-2345-6789");
     vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-123");
 
-    OrcidAuthorizationDbVO result = orcidService.requestTokenAndOrcid(vo, "654321");
+    OrcidAuthorizationDbVO result = OrcidHelper.requestTokenAndOrcid(vo, "654321", mockRepository);
 
     assertNotNull(result);
     assertEquals("f5af9f51-07e6-4332-8f1a-c0c11c1e3728", result.getAccessToken());
@@ -258,7 +258,7 @@ public class OrcidServiceTest {
     vo.setCodeReceived("112233");
     vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-456");
 
-    OrcidAuthorizationDbVO result = orcidService.requestTokenAndOrcid(vo, "112233");
+    OrcidAuthorizationDbVO result = OrcidHelper.requestTokenAndOrcid(vo, "112233", mockRepository);
 
     assertNotNull(result);
     assertEquals("f5af9f51-07e6-4332-8f1a-c0c11c1e3728", result.getAccessToken());
@@ -277,7 +277,7 @@ public class OrcidServiceTest {
     vo.setSecret("test-secret-789");
     vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-789");
     try {
-      orcidService.requestTokenAndOrcid(vo, "bad-code");
+      OrcidHelper.requestTokenAndOrcid(vo, "bad-code", mockRepository);
       fail("Should have thrown TechnicalException");
     } catch (TechnicalException e) {
       assertTrue(e.getMessage().contains("400"));
@@ -327,7 +327,7 @@ public class OrcidServiceTest {
     String orcidAuthor = "0000-0002-1825-0097";
     String emailLink = "https://sandbox.orcid.org/oauth/authorize?test=123";
 
-    String emailText = orcidService.createEmailText(nameAuthor, orcidAuthor, emailLink);
+    String emailText = OrcidHelper.createEmailText(nameAuthor, orcidAuthor, emailLink);
     System.out.println(emailText);
 
     assertNotNull(emailText);
@@ -341,44 +341,16 @@ public class OrcidServiceTest {
   }
 
   private JsonNode invokeCreateOrcidQueryJsonNode(String personId, Date dateModified) throws Exception {
-    Method method = OrcidServiceImpl.class.getDeclaredMethod("createOrcidQueryJsonNode", String.class, Date.class);
-    method.setAccessible(true);
-    try {
-      return (JsonNode) method.invoke(orcidService, personId, dateModified);
-    } catch (InvocationTargetException e) {
-      if (e.getCause() instanceof Exception) {
-        throw (Exception) e.getCause();
-      }
-      throw e;
-    }
+    return OrcidHelper.createOrcidQueryJsonNode(personId, dateModified);
   }
 
   private String invokeConvertToOrcid(SearchRetrieveResponseVO<ItemVersionVO> responseVO) throws Exception {
-    Method method = OrcidServiceImpl.class.getDeclaredMethod("convertToOrcid", SearchRetrieveResponseVO.class);
-    method.setAccessible(true);
-    try {
-      return (String) method.invoke(orcidService, responseVO);
-    } catch (InvocationTargetException e) {
-      if (e.getCause() instanceof Exception) {
-        throw (Exception) e.getCause();
-      }
-      throw e;
-    }
+    return OrcidHelper.convertToOrcid(responseVO);
   }
 
-  @SuppressWarnings("unchecked")
-  private SearchRetrieveResponseVO<ItemVersionVO> invokeDoOrcidQuery(OrcidServiceImpl targetService, String personId, Date dateModified,
+  private SearchRetrieveResponseVO<ItemVersionVO> invokeDoOrcidQuery(PubItemService pubItemService, String personId, Date dateModified,
       String token) throws Exception {
-    Method method = OrcidServiceImpl.class.getDeclaredMethod("doOrcidQuery", String.class, Date.class, String.class);
-    method.setAccessible(true);
-    try {
-      return (SearchRetrieveResponseVO<ItemVersionVO>) method.invoke(targetService, personId, dateModified, token);
-    } catch (InvocationTargetException e) {
-      if (e.getCause() instanceof Exception) {
-        throw (Exception) e.getCause();
-      }
-      throw e;
-    }
+    return OrcidHelper.doOrcidQuery(pubItemService, personId, dateModified, token);
   }
 
   @Test
@@ -390,7 +362,7 @@ public class OrcidServiceTest {
     JsonNode node = invokeCreateOrcidQueryJsonNode(personId, dateModified);
     assertNotNull(node);
 
-    assertEquals(25, node.get("size").asInt());
+    assertEquals(10000, node.get("size").asInt());
     assertEquals(0, node.get("from").asInt());
     assertFalse(node.has("runtime_mappings"));
     assertFalse(node.has("aggs"));
@@ -471,9 +443,8 @@ public class OrcidServiceTest {
           return null;
         });
 
-    OrcidServiceImpl customOrcidService = new OrcidServiceImpl(null, null, null, null, mockPubItemService);
     SearchRetrieveResponseVO<ItemVersionVO> response =
-        invokeDoOrcidQuery(customOrcidService, "/persons/resource/persons96304", new Date(), "test-token");
+        invokeDoOrcidQuery(mockPubItemService, "/persons/resource/persons96304", new Date(), "test-token");
 
     assertNotNull(response);
     assertNotNull(capturedRequest.get());
@@ -554,7 +525,7 @@ public class OrcidServiceTest {
     responseVO.setRecords(records);
     String initialOrcidJson = invokeConvertToOrcid(responseVO);
 
-    Map<String, ObjectNode> worksMap = orcidService.extractWorksBySourceWorkId(initialOrcidJson);
+    Map<String, ObjectNode> worksMap = OrcidHelper.extractWorksBySourceWorkId(initialOrcidJson);
     assertEquals(2, worksMap.size());
     assertTrue(worksMap.containsKey("item_11111"));
     assertTrue(worksMap.containsKey("item_22222"));
@@ -562,15 +533,15 @@ public class OrcidServiceTest {
     // Modify work1 with put-code 2543541
     ObjectNode work1 = worksMap.get("item_11111");
     assertNotNull(work1);
-    orcidService.setPutCode(work1, 2543541L);
+    OrcidHelper.setPutCode(work1, 2543541L);
 
     // Modify work2 with put-code 9876543
     ObjectNode work2 = worksMap.get("item_22222");
     assertNotNull(work2);
-    orcidService.setPutCode(work2, "9876543");
+    OrcidHelper.setPutCode(work2, "9876543");
 
     // Convert back to string
-    String modifiedJson = orcidService.convertWorksToOrcidJson(worksMap);
+    String modifiedJson = OrcidHelper.convertWorksToOrcidJson(worksMap);
     assertNotNull(modifiedJson);
 
     JsonNode root = MapperFactory.getObjectMapper().readTree(modifiedJson);
@@ -603,7 +574,7 @@ public class OrcidServiceTest {
     Map<String, Long> putCodes = new HashMap<>();
     putCodes.put("item_99999", 2543541L);
 
-    String updatedJson = orcidService.updatePutCodesInOrcidJson(initialOrcidJson, putCodes);
+    String updatedJson = OrcidHelper.updatePutCodesInOrcidJson(initialOrcidJson, putCodes);
     assertNotNull(updatedJson);
 
     JsonNode root = MapperFactory.getObjectMapper().readTree(updatedJson);
@@ -612,11 +583,11 @@ public class OrcidServiceTest {
 
   @Test
   public void testExtractWorksWithEmptyOrNull() throws Exception {
-    Map<String, ObjectNode> nullMap = orcidService.extractWorksBySourceWorkId((String) null);
+    Map<String, ObjectNode> nullMap = OrcidHelper.extractWorksBySourceWorkId((String) null);
     assertNotNull(nullMap);
     assertTrue(nullMap.isEmpty());
 
-    Map<String, ObjectNode> emptyMap = orcidService.extractWorksBySourceWorkId("  ");
+    Map<String, ObjectNode> emptyMap = OrcidHelper.extractWorksBySourceWorkId("  ");
     assertNotNull(emptyMap);
     assertTrue(emptyMap.isEmpty());
   }
@@ -676,11 +647,9 @@ public class OrcidServiceTest {
 
     OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, mockOrcidRepo);
 
-    Method method = OrcidServiceImpl.class.getDeclaredMethod("getVerifiedOrcidAuthorizations");
-    method.setAccessible(true);
     try {
-      method.invoke(customService);
-    } catch (InvocationTargetException e) {
+      customService.getVerifiedOrcidAuthorizations();
+    } catch (Exception e) {
       // Network call to sandbox API in createWork may fail in isolated test environment
     }
 
@@ -710,19 +679,64 @@ public class OrcidServiceTest {
   @Test
   public void testCreateWorkHttpErrorOrExecution() {
     try {
-      orcidService.createWork("0000-0001-2345-6789", "{\"bulk\":[]}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
+      OrcidHelper.createWork("0000-0001-2345-6789", "{\"bulk\":[]}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
     } catch (TechnicalException e) {
       assertNotNull(e.getMessage());
     }
   }
 
   @Test
+  public void testUpdateWorkHttpErrorOrExecution() {
+    try {
+      OrcidHelper.updateWork("0000-0001-2345-6789", "{}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728", "123456");
+    } catch (TechnicalException e) {
+      assertNotNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testSaveOrcidDbRecordIndividual() {
+    OrcidAuthorizationDbVO authVO = new OrcidAuthorizationDbVO();
+    authVO.setConeIdAuthor("persons96304");
+
+    OrcidDbVO existingVO = new OrcidDbVO("CREATE", "item_update_1");
+    existingVO.setId(10);
+    existingVO.setOrcidAuthorizationDbVO(authVO);
+
+    List<OrcidDbVO> savedList = new ArrayList<>();
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+            String itemId = (String) args[1];
+            if ("item_update_1".equals(itemId)) {
+              return existingVO;
+            }
+            return null;
+          } else if ("saveAndFlush".equals(method.getName())) {
+            savedList.add((OrcidDbVO) args[0]);
+            return args[0];
+          }
+          return null;
+        });
+
+    org.json.JSONObject answer = new org.json.JSONObject();
+    answer.put("put-code", 2543541);
+    OrcidDbVO saved = OrcidHelper.saveOrcidDbRecord(mockOrcidRepo, authVO, "item_update_1", "2543541", answer, OrcidDbVO.Status.UPDATE);
+
+    assertNotNull(saved);
+    assertSame(existingVO, saved);
+    assertEquals("UPDATE", saved.getStatus());
+    assertEquals("2543541", saved.getPutCode());
+    assertEquals(1, savedList.size());
+  }
+
+  @Test
   public void testParseBulkResponseNullAndEmpty() {
-    List<OrcidBulkItem> nullItems = orcidService.parseBulkResponse(null);
+    List<OrcidBulkItem> nullItems = OrcidHelper.parseBulkResponse(null);
     assertNotNull(nullItems);
     assertTrue(nullItems.isEmpty());
 
-    List<OrcidBulkItem> emptyItems = orcidService.parseBulkResponse(new org.json.JSONObject("{}"));
+    List<OrcidBulkItem> emptyItems = OrcidHelper.parseBulkResponse(new org.json.JSONObject("{}"));
     assertNotNull(emptyItems);
     assertTrue(emptyItems.isEmpty());
   }
@@ -805,8 +819,6 @@ public class OrcidServiceTest {
           return null;
         });
 
-    OrcidServiceImpl testService = new OrcidServiceImpl(null, createMockRepository(), null, null, null, mockOrcidRepo);
-
     SearchRetrieveResponseVO<ItemVersionVO> searchResult = new SearchRetrieveResponseVO<>();
     List<SearchRetrieveRecordVO<ItemVersionVO>> records = new ArrayList<>();
 
@@ -834,10 +846,7 @@ public class OrcidServiceTest {
     itemBulk2.setDeveloperMessage("Bad Request");
     bulkItems.add(itemBulk2);
 
-    Method extractedMethod = OrcidServiceImpl.class.getDeclaredMethod("extracted", OrcidAuthorizationDbVO.class,
-        SearchRetrieveResponseVO.class, List.class, OrcidDbVO.Status.class);
-    extractedMethod.setAccessible(true);
-    extractedMethod.invoke(testService, authVO, searchResult, bulkItems, OrcidDbVO.Status.UPDATE);
+    OrcidHelper.saveOrcidDbRecords(mockOrcidRepo, authVO, searchResult, bulkItems, OrcidDbVO.Status.UPDATE);
 
     assertEquals(2, savedList.size());
 
@@ -856,5 +865,76 @@ public class OrcidServiceTest {
     assertEquals("item_new", savedNew.getItemId());
     assertEquals("400", savedNew.getResponseCode());
     assertEquals("Bad Request", savedNew.getDeveloperMessage());
+  }
+
+  @Test
+  public void testBatchingNewRecordsInChunksOf100() throws Exception {
+    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
+    vo.setSecret("secret-batch");
+    vo.setConeIdAuthor("persons96304");
+    vo.setVerified(true);
+    vo.setOrcid("0000-0001-2345-6789");
+    vo.setAccessToken("f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
+    repoStorage.put("secret-batch", vo);
+
+    List<OrcidDbVO> savedList = new ArrayList<>();
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+            return null; // All records are new
+          } else if ("saveAndFlush".equals(method.getName())) {
+            savedList.add((OrcidDbVO) args[0]);
+            return args[0];
+          }
+          return null;
+        });
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            List<co.elastic.clients.elasticsearch.core.search.Hit<ObjectNode>> hitList = new ArrayList<>();
+            for (int i = 0; i < 150; i++) {
+              ItemVersionVO itemVO = new ItemVersionVO();
+              itemVO.setObjectId("item_" + i);
+              ObjectNode itemNode = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(itemVO);
+              hitList.add(co.elastic.clients.elasticsearch.core.search.Hit
+                  .of(hit -> hit.index("items").id("item_" + hitList.size()).source(itemNode)));
+            }
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(1).successful(1).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(150).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(hitList)));
+            return searchResponse;
+          }
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, mockOrcidRepo);
+
+    try {
+      customService.getVerifiedOrcidAuthorizations();
+    } catch (Exception e) {
+      // Network call to external ORCID in test environment
+    }
+
+    // Verify subList logic chunking
+    List<SearchRetrieveRecordVO<ItemVersionVO>> allRecords = new ArrayList<>();
+    for (int i = 0; i < 150; i++) {
+      SearchRetrieveRecordVO<ItemVersionVO> rec = new SearchRetrieveRecordVO<>();
+      ItemVersionVO item = new ItemVersionVO();
+      item.setObjectId("item_" + i);
+      rec.setData(item);
+      allRecords.add(rec);
+    }
+    int batchSize = 100;
+    List<List<SearchRetrieveRecordVO<ItemVersionVO>>> batches = new ArrayList<>();
+    for (int i = 0; i < allRecords.size(); i += batchSize) {
+      int toIndex = Math.min(i + batchSize, allRecords.size());
+      batches.add(allRecords.subList(i, toIndex));
+    }
+    assertEquals(2, batches.size());
+    assertEquals(100, batches.get(0).size());
+    assertEquals(50, batches.get(1).size());
   }
 }

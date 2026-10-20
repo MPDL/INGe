@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.net.URI;
 import java.util.UUID;
@@ -12,11 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test class for testing {@link OrcidServiceImpl#createEmailLink(String, String)}.
+ * Test class for testing {@link OrcidHelper#createEmailLink(String, String)}.
  */
 public class OrcidCreateEmailLinkTest {
-
-  private OrcidServiceImpl orcidService;
 
   private static final String TEST_ORCID_URL = "https://sandbox.orcid.org";
   private static final String TEST_ORCID_AUTHORIZE_URL = "/oauth/authorize";
@@ -35,8 +34,6 @@ public class OrcidCreateEmailLinkTest {
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_REST, TEST_ORCID_REDIRECT_URL_REST);
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_URL, TEST_ORCID_REDIRECT_URL_URL);
     System.setProperty(PropertyReader.ORCID_CLIENT_ID, TEST_ORCID_CLIENT_ID);
-
-    orcidService = new OrcidServiceImpl(null, null, null, null);
   }
 
   @After
@@ -53,11 +50,11 @@ public class OrcidCreateEmailLinkTest {
   @Test
   public void testCreateEmailLinkFlow() {
     String scopeRequested = PropertyReader.getProperty(PropertyReader.ORCID_SCOPE);
-    String genSecret = orcidService.generateSecret();
+    String genSecret = OrcidHelper.generateSecret();
     String redirectUri = PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_REST)
         + PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_URL) + "?secret=" + genSecret;
 
-    String emailLink = orcidService.createEmailLink(scopeRequested, redirectUri);
+    String emailLink = OrcidHelper.createEmailLink(scopeRequested, redirectUri);
     System.out.println(emailLink);
 
     assertNotNull(emailLink);
@@ -84,7 +81,7 @@ public class OrcidCreateEmailLinkTest {
     String scopeWithSpaces = "/read-limited /person/update /activities/update /authenticate";
     String redirectUri = "https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret";
 
-    String emailLink = orcidService.createEmailLink(scopeWithSpaces, redirectUri);
+    String emailLink = OrcidHelper.createEmailLink(scopeWithSpaces, redirectUri);
     System.out.println(emailLink);
 
     assertNotNull(emailLink);
@@ -98,7 +95,7 @@ public class OrcidCreateEmailLinkTest {
 
   @Test
   public void testGenerateSecret() {
-    String secret = orcidService.generateSecret();
+    String secret = OrcidHelper.generateSecret();
     System.out.println(secret);
 
     assertNotNull(secret);
