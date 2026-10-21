@@ -147,7 +147,6 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
-  // TODO: Logging
   public void sendItemsToOrcid() {
     logger.info("ORCID: ### Start sendItemsToOrcid() ###");
 
@@ -173,9 +172,14 @@ public class OrcidServiceImpl implements OrcidService {
     SearchRetrieveResponseVO<ItemVersionVO> searchResult =
         OrcidHelper.doOrcidQuery(this.pubItemService, auth.getConeIdAuthor(), auth.getDateLastUpdated());
 
+    int anzRecords = 0;
+    if (searchResult != null && searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
+      anzRecords = searchResult.getRecords().size();
+    }
+
     logger.info("ORCID: found " + searchResult.getRecords().size() + " records for " + auth.getConeIdAuthor());
 
-    if (searchResult != null && searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
+    if (anzRecords > 0) {
       Map<String, OrcidDbVO> existingOrcidMap = loadExistingOrcidRecords(auth.getConeIdAuthor());
 
       logger.info("ORCID: found " + existingOrcidMap.size() + " existing records for " + auth.getConeIdAuthor());
@@ -319,6 +323,7 @@ public class OrcidServiceImpl implements OrcidService {
         if (is401Error(e)) {
           throw new OrcidAccessDeniedException("401 Unauthorized during ORCID work creation", e);
         }
+        logger.error("ORCID: error creating works in ORCID for author {}", auth.getConeIdAuthor(), e);
       }
     }
   }
@@ -354,7 +359,7 @@ public class OrcidServiceImpl implements OrcidService {
       if (is401Error(e)) {
         throw new OrcidAccessDeniedException("401 Unauthorized during ORCID work update", e);
       }
-      logger.error("Error updating ORCID works for author " + auth.getConeIdAuthor(), e);
+      logger.error("ORCID: error updating ORCID works for author " + auth.getConeIdAuthor(), e);
     }
   }
 
