@@ -34,6 +34,8 @@ public class OrcidCreateEmailLinkTest {
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_REST, TEST_ORCID_REDIRECT_URL_REST);
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_URL, TEST_ORCID_REDIRECT_URL_URL);
     System.setProperty(PropertyReader.ORCID_CLIENT_ID, TEST_ORCID_CLIENT_ID);
+    System.setProperty(PropertyReader.ORCID_MAX_ITEMS_PER_SEARCH, "10000");
+    System.setProperty(PropertyReader.ORCID_MAX_ITEMS_PER_REQUEST, "100");
   }
 
   @After
@@ -45,6 +47,8 @@ public class OrcidCreateEmailLinkTest {
     System.clearProperty(PropertyReader.ORCID_REDIRECT_URL_REST);
     System.clearProperty(PropertyReader.ORCID_REDIRECT_URL_URL);
     System.clearProperty(PropertyReader.ORCID_CLIENT_ID);
+    System.clearProperty(PropertyReader.ORCID_MAX_ITEMS_PER_SEARCH);
+    System.clearProperty(PropertyReader.ORCID_MAX_ITEMS_PER_REQUEST);
   }
 
   @Test

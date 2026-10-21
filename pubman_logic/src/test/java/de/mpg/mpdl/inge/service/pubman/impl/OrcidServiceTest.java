@@ -146,6 +146,7 @@ public class OrcidServiceTest {
     mockServer.start();
 
     System.setProperty(PropertyReader.ORCID_URL, "http://localhost:" + serverPort);
+    System.setProperty(PropertyReader.ORCID_API_URL, "http://localhost:" + serverPort);
     System.setProperty(PropertyReader.ORCID_TOKEN_URL, "/oauth/token");
     System.setProperty(PropertyReader.ORCID_CLIENT_ID, "TEST-CLIENT-ID");
     System.setProperty(PropertyReader.ORCID_CLIENT_SECRET, "test-secret-123");
@@ -155,6 +156,8 @@ public class OrcidServiceTest {
     System.setProperty(PropertyReader.ORCID_EMAIL_SENDER_FOR_BIBO, "test@mpg.de");
     System.setProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO, "Test Subject");
     System.setProperty(PropertyReader.ORCID_EMAIL_TEXT_FOR_BIBO, "Test Text");
+    System.setProperty(PropertyReader.ORCID_MAX_ITEMS_PER_SEARCH, "10000");
+    System.setProperty(PropertyReader.ORCID_MAX_ITEMS_PER_REQUEST, "100");
 
     this.mockRepository = createMockRepository();
     AuthorizationService mockAuthService = null;
@@ -204,6 +207,7 @@ public class OrcidServiceTest {
       mockServer.stop(0);
     }
     System.clearProperty(PropertyReader.ORCID_URL);
+    System.clearProperty(PropertyReader.ORCID_API_URL);
     System.clearProperty(PropertyReader.ORCID_TOKEN_URL);
     System.clearProperty(PropertyReader.ORCID_CLIENT_ID);
     System.clearProperty(PropertyReader.ORCID_CLIENT_SECRET);
@@ -213,6 +217,8 @@ public class OrcidServiceTest {
     System.clearProperty(PropertyReader.ORCID_EMAIL_SENDER_FOR_BIBO);
     System.clearProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO);
     System.clearProperty(PropertyReader.ORCID_EMAIL_TEXT_FOR_BIBO);
+    System.clearProperty(PropertyReader.ORCID_MAX_ITEMS_PER_SEARCH);
+    System.clearProperty(PropertyReader.ORCID_MAX_ITEMS_PER_REQUEST);
   }
 
   @Test
@@ -348,9 +354,9 @@ public class OrcidServiceTest {
     return OrcidHelper.convertToOrcid(responseVO);
   }
 
-  private SearchRetrieveResponseVO<ItemVersionVO> invokeDoOrcidQuery(PubItemService pubItemService, String personId, Date dateModified,
-      String token) throws Exception {
-    return OrcidHelper.doOrcidQuery(pubItemService, personId, dateModified, token);
+  private SearchRetrieveResponseVO<ItemVersionVO> invokeDoOrcidQuery(PubItemService pubItemService, String personId, Date dateModified)
+      throws Exception {
+    return OrcidHelper.doOrcidQuery(pubItemService, personId, dateModified);
   }
 
   @Test
@@ -443,12 +449,11 @@ public class OrcidServiceTest {
           return null;
         });
 
-    SearchRetrieveResponseVO<ItemVersionVO> response =
-        invokeDoOrcidQuery(mockPubItemService, "/persons/resource/persons96304", new Date(), "test-token");
+    SearchRetrieveResponseVO<ItemVersionVO> response = invokeDoOrcidQuery(mockPubItemService, "/persons/resource/persons96304", new Date());
 
     assertNotNull(response);
     assertNotNull(capturedRequest.get());
-    assertEquals("test-token", capturedToken.get());
+    assertNull(capturedToken.get());
   }
 
   @Test
@@ -1193,6 +1198,9 @@ public class OrcidServiceTest {
 
   @Test
   public void testSendItemsToOrcidHandles401InCreateNewWorks() throws Exception {
+    mockResponseStatus = 401;
+    mockResponseBody = "{\"error\":\"invalid_token\",\"error_description\":\"Token not valid\"}";
+
     OrcidAuthorizationDbVO auth = new OrcidAuthorizationDbVO();
     auth.setSecret("secret-401-create");
     auth.setConeIdAuthor("persons_401_create");
@@ -1230,11 +1238,15 @@ public class OrcidServiceTest {
 
     assertEquals(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString(), auth.getStatus());
     assertFalse(auth.getVerified());
-    assertNotNull(auth.getDateLastUpdated());
+    assertNull(auth.getDateLastUpdated());
+    assertNotNull(auth.getDateError());
   }
 
   @Test
   public void testSendItemsToOrcidHandles401InUpdateExistingWorks() throws Exception {
+    mockResponseStatus = 401;
+    mockResponseBody = "{\"error\":\"invalid_token\",\"error_description\":\"Token not valid\"}";
+
     OrcidAuthorizationDbVO auth = new OrcidAuthorizationDbVO();
     auth.setSecret("secret-401-update");
     auth.setConeIdAuthor("persons_401_update");
@@ -1284,6 +1296,7 @@ public class OrcidServiceTest {
 
     assertEquals(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString(), auth.getStatus());
     assertFalse(auth.getVerified());
-    assertNotNull(auth.getDateLastUpdated());
+    assertNull(auth.getDateLastUpdated());
+    assertNotNull(auth.getDateError());
   }
 }

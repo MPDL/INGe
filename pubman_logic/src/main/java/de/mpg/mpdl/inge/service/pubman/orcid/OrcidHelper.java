@@ -160,7 +160,7 @@ public final class OrcidHelper {
 
   public static JSONObject createWorksInOrcid(String orcid, String body, String accessToken) throws TechnicalException {
     String createUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/works";
-    logger.info("ORCID: createUrl: " + createUrl + " with AccessToken " + accessToken);
+    logger.info("ORCID: createUrl: {} with AccessToken {}", createUrl, accessToken);
 
     try {
       HttpClient httpClient = HttpClient.newHttpClient();
@@ -195,7 +195,7 @@ public final class OrcidHelper {
   public static JSONObject updateWorkInOrcid(String orcid, String body, String accessToken, String putCode) throws TechnicalException {
     String updateUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/work/" + putCode;
 
-    logger.info("ORCID: updateUrl: " + updateUrl + " with AccessToken " + accessToken);
+    logger.info("ORCID: updateUrl: {} with AccessToken {}", updateUrl, accessToken);
 
     try {
       HttpClient httpClient = HttpClient.newHttpClient();
@@ -380,7 +380,7 @@ public final class OrcidHelper {
   public static SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(PubItemService pubItemService, String coneIdAuthor, Date dateModified)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     JsonNode searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
-    logger.info("ORCID: query: " + searchSource);
+    logger.info("ORCID: query: {}", searchSource);
 
     try {
       String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
@@ -753,7 +753,7 @@ public final class OrcidHelper {
 
             orcidRepository.saveAndFlush(orcidDbVO);
 
-            logger.info("ORCID: " + orcidDbVO.toInfoString());
+            logger.info("ORCID: {}", orcidDbVO.toInfoString());
           }
         }
       }
