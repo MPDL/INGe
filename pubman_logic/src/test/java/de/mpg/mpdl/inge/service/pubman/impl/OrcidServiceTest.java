@@ -17,7 +17,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -613,15 +612,6 @@ public class OrcidServiceTest {
     assertEquals("2543541", orcidVO.getPutCode());
     assertEquals("201", orcidVO.getResponseCode());
     assertEquals("Created successfully", orcidVO.getDeveloperMessage());
-  }
-
-  @Test
-  public void testCreateWorkHttpErrorOrExecution() {
-    try {
-      OrcidHelper.createWorksInOrcid("0000-0001-2345-6789", "{\"bulk\":[]}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
-    } catch (TechnicalException e) {
-      assertNotNull(e.getMessage());
-    }
   }
 
   @Test

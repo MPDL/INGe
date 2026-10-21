@@ -12,8 +12,6 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -27,11 +25,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -96,40 +89,6 @@ public final class OrcidHelper {
     } catch (IOException e) {
       logger.error("Error reading orcid_email.txt", e);
       throw new TechnicalException("Error reading orcid_email.txt", e);
-    }
-  }
-
-  public static JSONObject createWorksInOrcid(String orcid, String body, String accessToken) throws TechnicalException {
-    String createUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/works";
-    logger.info("ORCID: createUrl: {}", createUrl);
-
-    try {
-      HttpClient httpClient = HttpClient.newHttpClient();
-      HttpRequest.Builder requestBuilder = HttpRequest.newBuilder().uri(URI.create(createUrl))
-          .header("Accept", "application/vnd.orcid+json").header("Content-Type", "application/json");
-
-      if (accessToken != null && !accessToken.isBlank()) {
-        requestBuilder.header("Authorization", "Bearer " + accessToken);
-      }
-
-      HttpRequest httpRequest =
-          requestBuilder.POST(HttpRequest.BodyPublishers.ofString(body != null ? body : "", StandardCharsets.UTF_8)).build();
-
-      HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-
-      if (httpResponse.statusCode() >= 200 && httpResponse.statusCode() < 300) {
-        String responseBody = httpResponse.body();
-        JSONObject jsonObject = new JSONObject(responseBody);
-        return jsonObject;
-      } else {
-        logger.error("ORCID: error creating ORCID work: HTTP status {} - response: {}", httpResponse.statusCode(), httpResponse.body());
-        throw new TechnicalException("Error creating ORCID work: HTTP status " + httpResponse.statusCode() + " - " + httpResponse.body());
-      }
-    } catch (TechnicalException e) {
-      throw e;
-    } catch (Exception e) {
-      logger.error("ORCID: Exception creating ORCID work", e);
-      throw new TechnicalException("Exception creating ORCID work: " + e.getMessage(), e);
     }
   }
 
@@ -282,9 +241,9 @@ public final class OrcidHelper {
     // sort
     JSONArray sortArray = new JSONArray();
     JSONObject sortObj = new JSONObject();
-    JSONObject lastModObj = new JSONObject();
-    lastModObj.put("order", "desc");
-    sortObj.put("lastModificationDate", lastModObj);
+    JSONObject modDateObj = new JSONObject();
+    modDateObj.put("order", "desc");
+    sortObj.put("modificationDate", modDateObj);
     sortArray.put(sortObj);
     rootNode.put("sort", sortArray);
 
@@ -292,7 +251,7 @@ public final class OrcidHelper {
   }
 
   public static SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(PubItemService pubItemService, String coneIdAuthor, Date dateModified)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws IngeTechnicalException, IngeApplicationException {
     JSONObject searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
     logger.info("ORCID: query: {}", searchSource);
 
