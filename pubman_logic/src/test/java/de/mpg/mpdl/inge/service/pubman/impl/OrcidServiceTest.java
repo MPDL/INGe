@@ -150,7 +150,7 @@ public class OrcidServiceTest {
     System.setProperty(PropertyReader.ORCID_CLIENT_ID, "TEST-CLIENT-ID");
     System.setProperty(PropertyReader.ORCID_CLIENT_SECRET, "test-secret-123");
     System.setProperty(PropertyReader.ORCID_REDIRECT_URL_REST, "http://localhost:" + serverPort + "/rest");
-    System.setProperty(PropertyReader.ORCID_REDIRECT_URL_URL, "/orcid/createOrcidAuthentication");
+    System.setProperty(PropertyReader.ORCID_REDIRECT_URL_URL, "/orcid/getOrcidAuthentication");
     System.setProperty(PropertyReader.ORCID_EMAIL_MAILSERVERNAME, "localhost");
     System.setProperty(PropertyReader.ORCID_EMAIL_SENDER_FOR_BIBO, "test@mpg.de");
     System.setProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO, "Test Subject");
@@ -221,7 +221,7 @@ public class OrcidServiceTest {
     vo.setSecret("test-secret-123");
     vo.setNameAuthor("Sofia Garcia");
     vo.setOrcidAuthor("0000-0001-2345-6789");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-123");
+    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-123");
 
     OrcidAuthorizationDbVO result = OrcidHelper.requestTokenAndOrcid(vo, "654321", mockRepository);
 
@@ -245,7 +245,7 @@ public class OrcidServiceTest {
     assertEquals("test-secret-123", captured.formParams.get("client_secret"));
     assertEquals("authorization_code", captured.formParams.get("grant_type"));
     assertEquals("654321", captured.formParams.get("code"));
-    assertEquals("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-123",
+    assertEquals("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-123",
         captured.formParams.get("redirect_uri"));
   }
 
@@ -256,7 +256,7 @@ public class OrcidServiceTest {
     vo.setNameAuthor("Sofia Garcia");
     vo.setOrcidAuthor("0000-0001-2345-6789");
     vo.setCodeReceived("112233");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-456");
+    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-456");
 
     OrcidAuthorizationDbVO result = OrcidHelper.requestTokenAndOrcid(vo, "112233", mockRepository);
 
@@ -275,7 +275,7 @@ public class OrcidServiceTest {
 
     OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
     vo.setSecret("test-secret-789");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-789");
+    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-789");
     try {
       OrcidHelper.requestTokenAndOrcid(vo, "bad-code", mockRepository);
       fail("Should have thrown TechnicalException");
@@ -293,7 +293,7 @@ public class OrcidServiceTest {
     vo.setSecret("test-secret-denied");
     vo.setNameAuthor("Sofia Garcia");
     vo.setOrcidAuthor("0000-0001-2345-6789");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-denied");
+    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-denied");
     repoStorage.put("test-secret-denied", vo);
 
     OrcidAuthorizationDbVO result =
@@ -310,7 +310,7 @@ public class OrcidServiceTest {
     vo.setSecret("test-secret-server-error");
     vo.setNameAuthor("Sofia Garcia");
     vo.setOrcidAuthor("0000-0001-2345-6789");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret-server-error");
+    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-server-error");
     repoStorage.put("test-secret-server-error", vo);
 
     OrcidAuthorizationDbVO result =
@@ -1189,5 +1189,101 @@ public class OrcidServiceTest {
 
     assertNull(auth1.getDateLastUpdated());
     assertNotNull(auth2.getDateLastUpdated());
+  }
+
+  @Test
+  public void testSendItemsToOrcidHandles401InCreateNewWorks() throws Exception {
+    OrcidAuthorizationDbVO auth = new OrcidAuthorizationDbVO();
+    auth.setSecret("secret-401-create");
+    auth.setConeIdAuthor("persons_401_create");
+    auth.setOrcid("0000-0002-1825-0097");
+    auth.setAccessToken("invalid-token-401");
+    auth.setVerified(true);
+    auth.setStatus(OrcidAuthorizationDbVO.Status.TOKEN_RECEIVED.toString());
+    auth.setDateLastUpdated(null);
+    repoStorage.put("secret-401-create", auth);
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            ItemVersionVO item = new ItemVersionVO();
+            item.setObjectId("item_401_new");
+            MdsPublicationVO metadata = new MdsPublicationVO();
+            metadata.setGenre(MdsPublicationVO.Genre.ARTICLE);
+            metadata.setTitle("Test Publication New");
+            item.setMetadata(metadata);
+            ObjectNode itemNode = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(item);
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(1).successful(1).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(1).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(List.of(co.elastic.clients.elasticsearch.core.search.Hit
+                                .of(hit -> hit.index("items").id("item_401_new").source(itemNode))))));
+            return searchResponse;
+          }
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, null);
+
+    customService.sendItemsToOrcid();
+
+    assertEquals(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString(), auth.getStatus());
+    assertFalse(auth.getVerified());
+    assertNotNull(auth.getDateLastUpdated());
+  }
+
+  @Test
+  public void testSendItemsToOrcidHandles401InUpdateExistingWorks() throws Exception {
+    OrcidAuthorizationDbVO auth = new OrcidAuthorizationDbVO();
+    auth.setSecret("secret-401-update");
+    auth.setConeIdAuthor("persons_401_update");
+    auth.setOrcid("0000-0002-1825-0097");
+    auth.setAccessToken("invalid-token-401");
+    auth.setVerified(true);
+    auth.setStatus(OrcidAuthorizationDbVO.Status.TOKEN_RECEIVED.toString());
+    auth.setDateLastUpdated(null);
+    repoStorage.put("secret-401-update", auth);
+
+    OrcidDbVO existingVO = new OrcidDbVO("CREATE", "item_401_update");
+    existingVO.setOrcidAuthorizationDbVO(auth);
+    existingVO.setPutCode("12345");
+
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthor".equals(method.getName())) {
+            return List.of(existingVO);
+          }
+          return null;
+        });
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            ItemVersionVO item = new ItemVersionVO();
+            item.setObjectId("item_401_update");
+            MdsPublicationVO metadata = new MdsPublicationVO();
+            metadata.setGenre(MdsPublicationVO.Genre.ARTICLE);
+            metadata.setTitle("Test Publication Update");
+            item.setMetadata(metadata);
+            ObjectNode itemNode = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(item);
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(1).successful(1).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(1).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(List.of(co.elastic.clients.elasticsearch.core.search.Hit
+                                .of(hit -> hit.index("items").id("item_401_update").source(itemNode))))));
+            return searchResponse;
+          }
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, mockOrcidRepo);
+
+    customService.sendItemsToOrcid();
+
+    assertEquals(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString(), auth.getStatus());
+    assertFalse(auth.getVerified());
+    assertNotNull(auth.getDateLastUpdated());
   }
 }

@@ -22,7 +22,7 @@ public class OrcidCreateEmailLinkTest {
   private static final String TEST_ORCID_SCOPE = "/read-limited%20/person/update%20/activities/update%20/authenticate";
   private static final String TEST_ORCID_RESPONSE_TYPE = "code";
   private static final String TEST_ORCID_REDIRECT_URL_REST = "https://qa.pure.mpdl.mpg.de/rest";
-  private static final String TEST_ORCID_REDIRECT_URL_URL = "/orcid/createOrcidAuthentication";
+  private static final String TEST_ORCID_REDIRECT_URL_URL = "/orcid/getOrcidAuthentication";
   private static final String TEST_ORCID_CLIENT_ID = "APP-Z8FEHSJVQHMWCTA3";
 
   @Before
@@ -79,7 +79,7 @@ public class OrcidCreateEmailLinkTest {
   @Test
   public void testCreateEmailLinkWithUnencodedScope() {
     String scopeWithSpaces = "/read-limited /person/update /activities/update /authenticate";
-    String redirectUri = "https://qa.pure.mpdl.mpg.de/rest/orcid/createOrcidAuthentication?secret=test-secret";
+    String redirectUri = "https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret";
 
     String emailLink = OrcidHelper.createEmailLink(scopeWithSpaces, redirectUri);
     System.out.println(emailLink);

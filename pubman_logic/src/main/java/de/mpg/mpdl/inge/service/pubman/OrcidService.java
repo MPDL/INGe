@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.service.pubman;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -17,6 +16,5 @@ public interface OrcidService {
       String emailAuthor)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, TechnicalException, ValidationException;
 
-  void sendItemsToOrcid()
-      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException;
+  void sendItemsToOrcid();
 }

@@ -1,6 +1,6 @@
 # Ablauf und Diagramme für `createAndSendEmailLink`
 
-Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufrufe der REST-Methode `createAndSendEmailLink` (`POST /orcid/sendEmailLink`) in `OrcidRestController` bzw. `OrcidServiceImpl`.
+Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufrufe der REST-Methode `createAndSendEmailLink` (`POST /orcid/createAndSendEmailLink`) in `OrcidRestController` bzw. `OrcidServiceImpl.createAndSendEmailLink`.
 
 ---
 
@@ -18,8 +18,8 @@ sequenceDiagram
     participant Helper as OrcidHelper
     participant Email as EmailService
 
-    Client->>Controller: POST /orcid/sendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)
-    Controller->>Service: sendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)
+    Client->>Controller: POST /orcid/createAndSendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)
+    Controller->>Service: createAndSendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)
 
     rect rgb(240, 240, 240)
         Note over Service,Auth: 1. Authentifizierung & Rollenprüfung
@@ -38,8 +38,9 @@ sequenceDiagram
         Service->>Repo: findByConeIdAuthor(coneIdAuthor)
         alt Datensatz existiert bereits
             Repo-->>Service: orcidAuthorizationDbVO
-            Service-->>Controller: orcidAuthorizationDbVO (ErrorCode: ERROR_CONE_ID_ALREADY_EXITS)
-            Controller-->>Client: 200 OK (mit Fehlercode)
+            Note over Service: ErrorCode setzen: ERROR_CONE_ID_ALREADY_EXITS
+            Service-->>Controller: orcidAuthorizationDbVO (mit ErrorCode)
+            Controller-->>Client: 200 OK (orcidAuthorizationDbVO mit ErrorCode)
         else Datensatz ist neu
             Repo-->>Service: null
         end
@@ -80,14 +81,14 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A([Start: POST /orcid/sendEmailLink]) --> B[OrcidRestController.sendEmailLink]
+    A([Start: POST /orcid/createAndSendEmailLink]) --> B[OrcidRestController.createAndSendEmailLink]
     B --> C["1. AuthorizationService.getUserAccountFromToken(token)<br/>+ checkLoginRequiredWithRole('ORCID_ADMIN')"]
     C --> D[2. OrcidValidatingService.validate]
     D --> E[3. OrcidAuthorizationRepository.findByConeIdAuthor]
     
     E --> F{Datensatz existiert bereits?}
     F -- Ja --> G[Setze ErrorCode: ERROR_CONE_ID_ALREADY_EXITS]
-    G --> RetConflict([Return: orcidAuthorizationDbVO mit ErrorCode])
+    G --> RetConflict([Return: 200 OK mit orcidAuthorizationDbVO & ErrorCode])
 
     F -- Nein --> H["4. Secret & Redirect-URL erzeugen<br/>↳ OrcidHelper.generateSecret()<br/>↳ OrcidHelper.createEmailLink(...)"]
     H --> I["5. Datensatz anlegen<br/>↳ OrcidHelper.createOrcidAuthorizationDbVO(...)<br/>↳ Repo.saveAndFlush(...)"]
@@ -101,8 +102,8 @@ flowchart TD
 ## 3. Schritt-für-Schritt-Übersicht
 
 1. **Controller-Einstieg & Authentifizierung**:
-   - `OrcidRestController.sendEmailLink(...)` nimmt den HTTP-POST-Request entgegen.
-   - `AuthorizationService.getUserAccountFromToken(token)` ermittelt den eingeloggten Bibo-Benutzer (`userIdBibo`).
+   - `OrcidRestController.createAndSendEmailLink(...)` nimmt den HTTP-POST-Request (`/orcid/createAndSendEmailLink`) entgegen.
+   - `AuthorizationService.getUserAccountFromToken(token)` ermittelt den eingeloggten Bibliotheks-Benutzer (`userIdBibo`).
    - `AuthorizationService.checkLoginRequiredWithRole(...)` verifiziert, dass der Aufrufer über die Rolle `ORCID_ADMIN` verfügt.
 
 2. **Validierung der Eingabedaten**:
@@ -110,17 +111,17 @@ flowchart TD
 
 3. **Dublettenprüfung**:
    - `OrcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor)` prüft, ob bereits eine Autorisierung für die CoNE-ID vorliegt.
-   - Falls vorhanden, wird `ERROR_CONE_ID_ALREADY_EXITS` gesetzt und der Datensatz direkt zurückgegeben.
+   - Falls vorhanden, wird `ERROR_CONE_ID_ALREADY_EXITS` gesetzt und der Datensatz direkt mit HTTP 200 OK zurückgegeben.
 
 4. **Secret- und Link-Generierung**:
    - `OrcidHelper.generateSecret()` erzeugt einen kryptografischen Einmalschlüssel (`secret`).
    - Die Redirect-URI mit dem Geheimschlüssel wird aufgebaut und via `OrcidHelper.createEmailLink(...)` in die OAuth-Autorisierungs-URL von ORCID eingebettet.
-   - `OrcidHelper.createOrcidAuthorizationDbVO(...)` instanziiert den Datensatz und speichert ihn in der Datenbank.
+   - `OrcidHelper.createOrcidAuthorizationDbVO(...)` instanziiert den Datensatz (Status `INITIALIZED`) und speichert ihn in der Datenbank via `OrcidAuthorizationRepository.saveAndFlush(...)`.
 
 5. **Versand der Autorisierungs-E-Mail**:
-   - Aus den Konfigurations-Properties werden Betreff und Vorlage geladen.
+   - Aus den Konfigurations-Properties werden Betreff (`ORCID_EMAIL_SUBJECT_FOR_LINK`) und E-Mail-Vorlage (`orcid_email.txt`) geladen.
    - `OrcidHelper.createEmailText(...)` bereitet den E-Mail-Inhalt mit dem generierten OAuth-Link auf.
-   - `OrcidHelper.sendEmail(emailService, ...)` stößt den Versand an die Bibliotheks-/Autoren-Adresse an.
+   - `OrcidHelper.sendEmail(emailService, ...)` stößt den Versand an die Bibliotheksadresse (`emailBibo`) an.
 
 6. **Status-Aktualisierung & Rückgabe**:
    - Das Datum `dateEmailSentLink` und der Status `EMAIL_SENT_LINK` werden gesetzt.

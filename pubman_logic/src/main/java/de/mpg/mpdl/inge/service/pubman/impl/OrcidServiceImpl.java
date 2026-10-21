@@ -9,14 +9,12 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
@@ -42,7 +40,7 @@ public class OrcidServiceImpl implements OrcidService {
 
   private static final Logger logger = LogManager.getLogger(OrcidServiceImpl.class);
 
-  private static final int MAX_ITEMS_PER_REQUEST = 100;
+  private static final int MAX_ITEMS_PER_REQUEST = Integer.parseInt(PropertyReader.getProperty(PropertyReader.ORCID_MAX_ITEMS_PER_REQUEST));
 
   private final AuthorizationService authorizationService;
   private final OrcidAuthorizationRepository orcidAuthorizationRepository;
@@ -101,7 +99,7 @@ public class OrcidServiceImpl implements OrcidService {
     String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO);
     String text = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_TEXT_FOR_BIBO);
 
-    OrcidHelper.sendEmail(this.emailService, emailSender, emailBibo, subject, text);
+    OrcidHelper.sendEmail(this.emailService, emailSender, emailBibo, null, subject, text);
 
     orcidAuthorizationDbVO = OrcidHelper.finishAuthorizationDbVO(orcidAuthorizationDbVO, this.orcidAuthorizationRepository);
 
@@ -138,7 +136,7 @@ public class OrcidServiceImpl implements OrcidService {
     String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_LINK);
     String text = OrcidHelper.createEmailText(nameAuthor, orcidAuthor, emailLink);
 
-    OrcidHelper.sendEmail(this.emailService, emailBibo, emailBibo, subject, text);
+    OrcidHelper.sendEmail(this.emailService, emailAuthor, emailBibo, emailBibo, subject, text);
 
     orcidAuthorizationDbVO.setDateEmailSentLink(new Date());
     orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_LINK.toString());
@@ -149,11 +147,8 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
-  // TODO: Fehlerbehandlung, wenn Authorisierung in Orcid zurückgezogen wurde
   // TODO: Logging
-  // TODO: Konstanten aus pubman.properties
-  public void sendItemsToOrcid()
-      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException {
+  public void sendItemsToOrcid() {
     List<OrcidAuthorizationDbVO> verifiedOrcidAuthorizations = this.orcidAuthorizationRepository.findByVerifiedTrue();
 
     for (OrcidAuthorizationDbVO verifiedOrcidAuthorization : verifiedOrcidAuthorizations) {
@@ -178,19 +173,65 @@ public class OrcidServiceImpl implements OrcidService {
       boolean hasNew = !categorized.newRecords.isEmpty();
       boolean hasUpdate = !categorized.updateRecords.isEmpty();
 
-      if (hasNew) {
-        createNewWorks(auth, categorized.newRecords);
-      }
+      try {
+        if (hasNew) {
+          createNewWorks(auth, categorized.newRecords);
+        }
 
-      if (hasUpdate) {
-        updateExistingWorks(auth, categorized.updateRecords, existingOrcidMap);
-      }
+        if (hasUpdate) {
+          updateExistingWorks(auth, categorized.updateRecords, existingOrcidMap);
+        }
 
-      if (hasNew || hasUpdate) {
-        auth.setDateLastUpdated(dateLastUpdated);
-        this.orcidAuthorizationRepository.saveAndFlush(auth);
+        if (hasNew || hasUpdate) {
+          auth.setDateLastUpdated(dateLastUpdated);
+          auth.setStatus(OrcidAuthorizationDbVO.Status.UPDATED.toString());
+          this.orcidAuthorizationRepository.saveAndFlush(auth);
+        }
+      } catch (OrcidAccessDeniedException e) {
+        logger.warn("ORCID access denied (401) for author {}: {}", auth.getConeIdAuthor(), e.getMessage());
+        handleAccessDenied(auth);
       }
     }
+  }
+
+  private void handleAccessDenied(OrcidAuthorizationDbVO auth) {
+    auth.setStatus(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString());
+    auth.setVerified(false);
+    auth.setDateError(new Date());
+    this.orcidAuthorizationRepository.saveAndFlush(auth);
+  }
+
+  private static boolean is401Error(Throwable e) {
+    Throwable current = e;
+    while (current != null) {
+      String msg = current.getMessage();
+      if (msg != null && (msg.contains("401") || msg.toLowerCase().contains("unauthorized") || msg.contains("invalid_token"))) {
+        return true;
+      }
+      current = current.getCause();
+    }
+    return false;
+  }
+
+  private static boolean contains401Error(List<OrcidResponse> responses) {
+    if (responses == null) {
+      return false;
+    }
+    for (OrcidResponse resp : responses) {
+      if (resp != null && resp.isError()) {
+        if (resp.getResponseCode() != null && resp.getResponseCode() == 401) {
+          return true;
+        }
+        if (resp.getUserMessage() != null && resp.getUserMessage().contains("401")) {
+          return true;
+        }
+        if (resp.getDeveloperMessage() != null && (resp.getDeveloperMessage().contains("401")
+            || resp.getDeveloperMessage().toLowerCase().contains("unauthorized") || resp.getDeveloperMessage().contains("invalid_token"))) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   private Map<String, OrcidDbVO> loadExistingOrcidRecords(String coneIdAuthor) {
@@ -232,7 +273,8 @@ public class OrcidServiceImpl implements OrcidService {
     return new ItemCategorization(newRecords, updateRecords);
   }
 
-  private void createNewWorks(OrcidAuthorizationDbVO auth, List<SearchRetrieveRecordVO<ItemVersionVO>> newRecords) {
+  private void createNewWorks(OrcidAuthorizationDbVO auth, List<SearchRetrieveRecordVO<ItemVersionVO>> newRecords)
+      throws OrcidAccessDeniedException {
 
     for (int i = 0; i < newRecords.size(); i += MAX_ITEMS_PER_REQUEST) {
       int toIndex = Math.min(i + MAX_ITEMS_PER_REQUEST, newRecords.size());
@@ -248,41 +290,59 @@ public class OrcidServiceImpl implements OrcidService {
         logger.info("Orcid work created: " + answerNew);
 
         List<OrcidResponse> orcidResponsesNew = OrcidHelper.parseOrcidResponses(answerNew);
+        if (contains401Error(orcidResponsesNew)) {
+          throw new OrcidAccessDeniedException("401 Unauthorized in ORCID response", null);
+        }
 
         OrcidHelper.saveOrcidDbRecords(this.orcidRepository, auth, batchSearchNew, orcidResponsesNew, OrcidDbVO.Status.CREATE);
+      } catch (OrcidAccessDeniedException e) {
+        throw e;
       } catch (Exception e) {
+        if (is401Error(e)) {
+          throw new OrcidAccessDeniedException("401 Unauthorized during ORCID work creation", e);
+        }
         logger.error("Error creating ORCID works for author " + auth.getConeIdAuthor(), e);
       }
     }
   }
 
   private void updateExistingWorks(OrcidAuthorizationDbVO auth, List<SearchRetrieveRecordVO<ItemVersionVO>> updateRecords,
-      Map<String, OrcidDbVO> existingOrcidMap) throws Exception {
+      Map<String, OrcidDbVO> existingOrcidMap) throws OrcidAccessDeniedException {
 
     SearchRetrieveResponseVO<ItemVersionVO> searchResultUpdate = new SearchRetrieveResponseVO<>();
     searchResultUpdate.setRecords(updateRecords);
 
-    String orcidBodyUpdate = OrcidHelper.convertToOrcid(searchResultUpdate);
-    Map<String, ObjectNode> updateMap = OrcidHelper.getWorksBySourceWorkId(orcidBodyUpdate);
+    try {
+      String orcidBodyUpdate = OrcidHelper.convertToOrcid(searchResultUpdate);
+      Map<String, ObjectNode> updateMap = OrcidHelper.getWorksBySourceWorkId(orcidBodyUpdate);
 
-    for (SearchRetrieveRecordVO<ItemVersionVO> record : updateRecords) {
-      ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
-      if (itemVersionVO == null || itemVersionVO.getObjectId() == null) {
-        continue;
+      for (SearchRetrieveRecordVO<ItemVersionVO> record : updateRecords) {
+        ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
+        if (itemVersionVO == null || itemVersionVO.getObjectId() == null) {
+          continue;
+        }
+
+        String itemId = itemVersionVO.getObjectId();
+        OrcidDbVO orcidDbVO = existingOrcidMap.get(itemId);
+        String putCode = orcidDbVO != null ? orcidDbVO.getPutCode() : null;
+
+        ObjectNode workNode = updateMap.get(itemId);
+        if (workNode != null && putCode != null) {
+          updateSingleWork(auth, itemId, putCode, workNode);
+        }
       }
-
-      String itemId = itemVersionVO.getObjectId();
-      OrcidDbVO orcidDbVO = existingOrcidMap.get(itemId);
-      String putCode = orcidDbVO != null ? orcidDbVO.getPutCode() : null;
-
-      ObjectNode workNode = updateMap.get(itemId);
-      if (workNode != null && putCode != null) {
-        updateSingleWork(auth, itemId, putCode, workNode);
+    } catch (OrcidAccessDeniedException e) {
+      throw e;
+    } catch (Exception e) {
+      if (is401Error(e)) {
+        throw new OrcidAccessDeniedException("401 Unauthorized during ORCID work update", e);
       }
+      logger.error("Error updating ORCID works for author " + auth.getConeIdAuthor(), e);
     }
   }
 
-  private void updateSingleWork(OrcidAuthorizationDbVO auth, String itemId, String putCode, ObjectNode workNode) {
+  private void updateSingleWork(OrcidAuthorizationDbVO auth, String itemId, String putCode, ObjectNode workNode)
+      throws OrcidAccessDeniedException {
     OrcidHelper.setPutCode(workNode, putCode);
     String singleWorkJson = workNode.toString();
     logger.info("Orcid work body: " + singleWorkJson);
@@ -292,6 +352,9 @@ public class OrcidServiceImpl implements OrcidService {
       logger.info("Orcid work updated: " + answerUpdate);
 
       List<OrcidResponse> orcidResponses = OrcidHelper.parseOrcidResponses(answerUpdate);
+      if (contains401Error(orcidResponses)) {
+        throw new OrcidAccessDeniedException("401 Unauthorized in ORCID response", null);
+      }
       if (!orcidResponses.isEmpty() && orcidResponses.get(0).isError()) {
         OrcidResponse errorResponse = orcidResponses.get(0);
         String devMsg = errorResponse.getDeveloperMessage();
@@ -302,8 +365,19 @@ public class OrcidServiceImpl implements OrcidService {
       } else {
         OrcidHelper.saveOrcidDbRecord(this.orcidRepository, auth, itemId, putCode, answerUpdate, OrcidDbVO.Status.UPDATE);
       }
+    } catch (OrcidAccessDeniedException e) {
+      throw e;
     } catch (Exception e) {
+      if (is401Error(e)) {
+        throw new OrcidAccessDeniedException("401 Unauthorized during ORCID work update", e);
+      }
       logger.error("Error updating ORCID work for item " + itemId + " with putCode " + putCode, e);
+    }
+  }
+
+  private static class OrcidAccessDeniedException extends Exception {
+    public OrcidAccessDeniedException(String message, Throwable cause) {
+      super(message, cause);
     }
   }
 

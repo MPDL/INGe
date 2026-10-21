@@ -31,8 +31,8 @@ public class OrcidAuthorizationDbVO {
     TOKEN_RECEIVED,
     TOKEN_RECEIVED_WITH_WARNING,
     EMAIL_SENT_BIBO,
-    CANCELED,
     ACCESS_DENIED,
+    UPDATED,
     ERROR
   }
 
@@ -93,8 +93,6 @@ public class OrcidAuthorizationDbVO {
   private Date dateEmailSentBibo;
   @Column(name = "error_codes")
   private String errorCodes;
-  @Column(name = "canceled")
-  private Boolean canceled;
   @Column(name = "date_error", columnDefinition = "TIMESTAMP")
   private Date dateError;
   @Column(name = "date_last_updated", columnDefinition = "TIMESTAMP")
@@ -125,14 +123,6 @@ public class OrcidAuthorizationDbVO {
 
   public void setAccessToken(String accessToken) {
     this.accessToken = accessToken;
-  }
-
-  public Boolean getCanceled() {
-    return canceled;
-  }
-
-  public void setCanceled(Boolean canceled) {
-    this.canceled = canceled;
   }
 
   public String getCodeReceived() {

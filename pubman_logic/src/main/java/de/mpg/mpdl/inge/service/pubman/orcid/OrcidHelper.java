@@ -55,6 +55,9 @@ public final class OrcidHelper {
 
   private static final Logger logger = LogManager.getLogger(OrcidHelper.class);
 
+  private static final int MAX_ITEMS_PER_SEARCH = Integer.parseInt(PropertyReader.getProperty(PropertyReader.ORCID_MAX_ITEMS_PER_SEARCH));
+
+
   private OrcidHelper() {
     // Utility class
   }
@@ -156,7 +159,7 @@ public final class OrcidHelper {
   }
 
   public static JSONObject createWorksInOrcid(String orcid, String body, String accessToken) throws TechnicalException {
-    String createUrl = "https://api.sandbox.orcid.org/v3.0/" + orcid + "/works"; //TODO aus pubman.properties
+    String createUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/works";
     logger.info("Creating Orcid work: " + createUrl);
     //    logger.info("Creating Orcid work body: " + body);
     logger.info("Creating Orcid work access token: " + accessToken);
@@ -193,7 +196,7 @@ public final class OrcidHelper {
   }
 
   public static JSONObject updateWorkInOrcid(String orcid, String body, String accessToken, String putCode) throws TechnicalException {
-    String updateUrl = "https://api.sandbox.orcid.org/v3.0/" + orcid + "/work/" + putCode; //TODO aus pubman.properties
+    String updateUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/work/" + putCode;
     logger.info("Update Orcid work: " + updateUrl);
     logger.info("Update Orcid work body: " + body);
     logger.info("Update Orcid work access token: " + accessToken);
@@ -376,7 +379,7 @@ public final class OrcidHelper {
     mustArray.add(stateBoolObj);
 
     // size, from
-    rootNode.put("size", 10000); // TODO: eventuell über eine Scroll Anfrage
+    rootNode.put("size", MAX_ITEMS_PER_SEARCH); // TODO: eventuell über eine Scroll Anfrage
     rootNode.put("from", 0);
 
     // sort
@@ -775,8 +778,8 @@ public final class OrcidHelper {
     }
   }
 
-  public static void sendEmail(EmailService emailService, String recipientAddress, String senderAddress, String subject, String text)
-      throws TechnicalException {
+  public static void sendEmail(EmailService emailService, String recipientAddress, String senderAddress, String replyToAddress,
+      String subject, String text) throws TechnicalException {
     if (emailService == null) {
       return;
     }
@@ -788,7 +791,7 @@ public final class OrcidHelper {
     String[] recipientsAddresses = new String[] {recipientAddress};
     String[] recipientsCCAddresses = null;
     String[] recipientsBCCAddresses = null;
-    String[] replyToAddresses = null;
+    String[] replyToAddresses = (replyToAddress != null ? new String[] {replyToAddress} : null);
 
     emailService.sendHtmlMail(smtpHost, withAuth, usr, pwd, sender, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses,
         replyToAddresses, subject, text);

@@ -230,6 +230,7 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
 
   public static final String ORCID_URL = "orcid.url";
+  public static final String ORCID_API_URL = "orcid.api.url";
   public static final String ORCID_AUTHORIZE_URL = "orcid.authorize.url";
   public static final String ORCID_SCOPE = "orcid.scope";
   public static final String ORCID_RESPONSE_TYPE = "orcid.response.type";
@@ -243,6 +244,9 @@ public class PropertyReader {
   public static final String ORCID_EMAIL_TEXT_FOR_BIBO = "orcid.email.text.for.bibo";
   public static final String ORCID_EMAIL_MAILSERVERNAME = "orcid.email.mailservername";
   public static final String ORCID_EMAIL_SENDER_FOR_BIBO = "orcid.email.sender.for.bibo";
+  public static final String ORCID_MAX_ITEMS_PER_REQUEST = "orcid.max.items.per.request";
+  public static final String ORCID_MAX_ITEMS_PER_SEARCH = "orcid.max.items.per.search";
+
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";

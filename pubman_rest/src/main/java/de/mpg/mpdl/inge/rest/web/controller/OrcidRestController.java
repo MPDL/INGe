@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.rest.web.controller;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -67,8 +66,7 @@ public class OrcidRestController {
   }
 
   @RequestMapping(value = "/sendItemsToOrcid", method = RequestMethod.GET)
-  public ResponseEntity<Void> sendItemsToOrcid()
-      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException, TechnicalException {
+  public ResponseEntity<Void> sendItemsToOrcid() {
 
     this.orcidService.sendItemsToOrcid();
 
