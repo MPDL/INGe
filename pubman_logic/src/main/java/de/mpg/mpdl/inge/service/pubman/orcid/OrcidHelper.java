@@ -52,6 +52,9 @@ public final class OrcidHelper {
 
   private static final int MAX_ITEMS_PER_SEARCH = Integer.parseInt(PropertyReader.getProperty(PropertyReader.ORCID_MAX_ITEMS_PER_SEARCH));
 
+  public record ItemCategorization(List<SearchRetrieveRecordVO<ItemVersionVO>> newRecords,
+      List<SearchRetrieveRecordVO<ItemVersionVO>> updateRecords) {}
+
 
   private OrcidHelper() {
     // Utility class
@@ -838,5 +841,63 @@ public final class OrcidHelper {
 
     emailService.sendHtmlMail(smtpHost, withAuth, usr, pwd, sender, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses,
         replyToAddresses, subject, text);
+  }
+
+  public static boolean is401Error(Throwable e) {
+    Throwable current = e;
+    while (current != null) {
+      String msg = current.getMessage();
+      if (msg != null && (msg.contains("401") || msg.toLowerCase().contains("unauthorized") || msg.contains("invalid_token"))) {
+        return true;
+      }
+      current = current.getCause();
+    }
+    return false;
+  }
+
+  public static boolean contains401Error(List<OrcidResponse> responses) {
+    if (responses == null) {
+      return false;
+    }
+    for (OrcidResponse resp : responses) {
+      if (resp != null && resp.isError()) {
+        if (resp.getResponseCode() != null && resp.getResponseCode() == 401) {
+          return true;
+        }
+        if (resp.getUserMessage() != null && resp.getUserMessage().contains("401")) {
+          return true;
+        }
+        if (resp.getDeveloperMessage() != null && (resp.getDeveloperMessage().contains("401")
+            || resp.getDeveloperMessage().toLowerCase().contains("unauthorized") || resp.getDeveloperMessage().contains("invalid_token"))) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public static ItemCategorization categorizeRecords(List<SearchRetrieveRecordVO<ItemVersionVO>> records,
+      Map<String, OrcidDbVO> existingOrcidMap) {
+
+    List<SearchRetrieveRecordVO<ItemVersionVO>> newRecords = new ArrayList<>();
+    List<SearchRetrieveRecordVO<ItemVersionVO>> updateRecords = new ArrayList<>();
+
+    if (records != null) {
+      for (SearchRetrieveRecordVO<ItemVersionVO> record : records) {
+        ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
+
+        if (itemVersionVO != null && itemVersionVO.getObjectId() != null) {
+          String itemId = itemVersionVO.getObjectId();
+          OrcidDbVO orcidDbVO = existingOrcidMap != null ? existingOrcidMap.get(itemId) : null;
+          if (orcidDbVO == null || orcidDbVO.getPutCode() == null) {
+            newRecords.add(record);
+          } else {
+            updateRecords.add(record);
+          }
+        }
+      }
+    }
+
+    return new ItemCategorization(newRecords, updateRecords);
   }
 }

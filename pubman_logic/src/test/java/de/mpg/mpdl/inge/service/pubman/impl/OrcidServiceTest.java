@@ -164,7 +164,7 @@ public class OrcidServiceTest {
     this.mockRepository = createMockRepository();
     AuthorizationService mockAuthService = null;
 
-    orcidService = new OrcidServiceImpl(mockAuthService, this.mockRepository, null, null, null, null);
+    orcidService = new OrcidServiceImpl(mockAuthService, this.mockRepository, null, null, (PubItemService) null, (OrcidRepository) null);
   }
 
   private OrcidAuthorizationRepository createMockRepository() {
@@ -1401,5 +1401,111 @@ public class OrcidServiceTest {
     assertFalse(auth.getVerified());
     assertNull(auth.getDateLastUpdated());
     assertNotNull(auth.getDateError());
+  }
+
+  @Test
+  public void testOrcidHelperIs401Error() {
+    assertTrue(OrcidHelper.is401Error(new RuntimeException("HTTP 401 Unauthorized")));
+    assertTrue(OrcidHelper.is401Error(new RuntimeException(new Exception("invalid_token in token service"))));
+    assertTrue(OrcidHelper.is401Error(new RuntimeException("Unauthorized request")));
+    assertFalse(OrcidHelper.is401Error(new RuntimeException("HTTP 500 Internal Server Error")));
+    assertFalse(OrcidHelper.is401Error(null));
+  }
+
+  @Test
+  public void testOrcidHelperContains401Error() {
+    assertFalse(OrcidHelper.contains401Error(null));
+    assertFalse(OrcidHelper.contains401Error(List.of()));
+
+    OrcidResponse normalResponse = new OrcidResponse(OrcidResponse.Type.WORK, 0, new JSONObject());
+    normalResponse.setResponseCode(200);
+    assertFalse(OrcidHelper.contains401Error(List.of(normalResponse)));
+
+    OrcidResponse error401 = new OrcidResponse(OrcidResponse.Type.ERROR, 0, new JSONObject());
+    error401.setResponseCode(401);
+    error401.setUserMessage("error 401");
+    assertTrue(OrcidHelper.contains401Error(List.of(error401)));
+
+    OrcidResponse errorDevMsg = new OrcidResponse(OrcidResponse.Type.ERROR, 0, new JSONObject());
+    errorDevMsg.setDeveloperMessage("invalid_token expired");
+    assertTrue(OrcidHelper.contains401Error(List.of(errorDevMsg)));
+  }
+
+  @Test
+  public void testOrcidHelperCategorizeRecords() {
+    ItemVersionVO item1 = new ItemVersionVO();
+    item1.setObjectId("item_1");
+    SearchRetrieveRecordVO<ItemVersionVO> rec1 = new SearchRetrieveRecordVO<>();
+    rec1.setData(item1);
+
+    ItemVersionVO item2 = new ItemVersionVO();
+    item2.setObjectId("item_2");
+    SearchRetrieveRecordVO<ItemVersionVO> rec2 = new SearchRetrieveRecordVO<>();
+    rec2.setData(item2);
+
+    ItemVersionVO item3 = new ItemVersionVO();
+    item3.setObjectId("item_3");
+    SearchRetrieveRecordVO<ItemVersionVO> rec3 = new SearchRetrieveRecordVO<>();
+    rec3.setData(item3);
+
+    Map<String, OrcidDbVO> map = new HashMap<>();
+    OrcidDbVO vo1 = new OrcidDbVO("CREATE", "item_1");
+    vo1.setPutCode("put123");
+    map.put("item_1", vo1);
+
+    OrcidDbVO vo2 = new OrcidDbVO("CREATE", "item_2");
+    vo2.setPutCode(null); // has no putCode -> newRecord
+    map.put("item_2", vo2);
+
+    OrcidHelper.ItemCategorization result = OrcidHelper.categorizeRecords(List.of(rec1, rec2, rec3), map);
+    assertNotNull(result);
+    assertEquals(2, result.newRecords().size());
+    assertTrue(result.newRecords().contains(rec2));
+    assertTrue(result.newRecords().contains(rec3));
+    assertEquals(1, result.updateRecords().size());
+    assertTrue(result.updateRecords().contains(rec1));
+  }
+
+  @Test
+  public void testOrcidRestClientDirect() throws Exception {
+    OrcidRestClientImpl restClient = new OrcidRestClientImpl();
+
+    mockResponseStatus = 200;
+    mockResponseBody = "{\"bulk\":[{\"work\":{\"put-code\":999}}]}";
+
+    JSONObject createResult = restClient.createWorksInOrcid("0000-0002-1825-0097", "{\"bulk\":[]}", "token123");
+    assertNotNull(createResult);
+    assertTrue(createResult.has("bulk"));
+
+    mockResponseStatus = 200;
+    mockResponseBody = "{\"put-code\":999}";
+    JSONObject updateResult = restClient.updateWorkInOrcid("0000-0002-1825-0097", "{}", "token123", "999");
+    assertNotNull(updateResult);
+    assertEquals(999, updateResult.getInt("put-code"));
+  }
+
+  @Test
+  public void testOrcidSyncServiceDirect() throws Exception {
+    OrcidAuthorizationDbVO auth = new OrcidAuthorizationDbVO();
+    auth.setSecret("secret-direct-sync");
+    auth.setConeIdAuthor("persons_direct_sync");
+    auth.setOrcid("0000-0002-1825-0097");
+    auth.setAccessToken("token123");
+    auth.setVerified(true);
+    auth.setStatus(OrcidAuthorizationDbVO.Status.TOKEN_RECEIVED.toString());
+    repoStorage.put("secret-direct-sync", auth);
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            return co.elastic.clients.elasticsearch.core.SearchResponse
+                .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(1).successful(1).skipped(0).failed(0)).hits(h -> h
+                    .total(t -> t.value(0).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq)).hits(List.of())));
+          }
+          return null;
+        });
+
+    OrcidSyncServiceImpl syncService = new OrcidSyncServiceImpl(createMockRepository(), null, mockPubItemService);
+    syncService.sendItemsToOrcid();
   }
 }
