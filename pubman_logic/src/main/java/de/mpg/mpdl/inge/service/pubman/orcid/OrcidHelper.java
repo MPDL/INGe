@@ -2,10 +2,6 @@ package de.mpg.mpdl.inge.service.pubman.orcid;
 
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.ResponseBody;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
 import de.mpg.mpdl.inge.db.repository.OrcidRepository;
 import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
@@ -13,7 +9,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -315,7 +310,7 @@ public final class OrcidHelper {
     return orcidAuthorizationDbVO;
   }
 
-  public static JsonNode createOrcidQueryJsonNode(String coneIdAuthor, Date dateModified) throws IngeApplicationException {
+  public static JSONObject createOrcidQueryJsonNode(String coneIdAuthor, Date dateModified) throws IngeApplicationException {
     if (coneIdAuthor == null || coneIdAuthor.trim().isEmpty()) {
       throw new IngeApplicationException("coneIdAuthor must not be empty");
     }
@@ -327,73 +322,96 @@ public final class OrcidHelper {
       normalizedPersonId = "/" + normalizedPersonId;
     }
 
-    ObjectMapper mapper = MapperFactory.getObjectMapper();
-    ObjectNode rootNode = mapper.createObjectNode();
+    JSONObject rootNode = new JSONObject();
 
     // query
-    ObjectNode queryNode = rootNode.putObject("query");
-    ObjectNode boolNode = queryNode.putObject("bool");
-    ArrayNode mustArray = boolNode.putArray("must");
+    JSONObject queryNode = new JSONObject();
+    JSONObject boolNode = new JSONObject();
+    JSONArray mustArray = new JSONArray();
+    queryNode.put("bool", boolNode);
+    boolNode.put("must", mustArray);
+    rootNode.put("query", queryNode);
 
     // 1. term: metadata.creators.person.identifier.id
-    ObjectNode termObj = mapper.createObjectNode();
-    termObj.putObject("term").put("metadata.creators.person.identifier.id", normalizedPersonId);
-    mustArray.add(termObj);
+    JSONObject termObj = new JSONObject();
+    JSONObject termInner = new JSONObject();
+    termInner.put("metadata.creators.person.identifier.id", normalizedPersonId);
+    termObj.put("term", termInner);
+    mustArray.put(termObj);
 
     // 2. range: modificationDate (optional)
     if (dateModified != null) {
-      ObjectNode rangeObj = mapper.createObjectNode();
-      rangeObj.putObject("range").putObject("modificationDate").put("gte", dateModified.getTime());
-      mustArray.add(rangeObj);
+      JSONObject rangeObj = new JSONObject();
+      JSONObject rangeInner = new JSONObject();
+      JSONObject modDateObj = new JSONObject();
+      modDateObj.put("gte", dateModified.getTime());
+      rangeInner.put("modificationDate", modDateObj);
+      rangeObj.put("range", rangeInner);
+      mustArray.put(rangeObj);
     }
 
     // 3. bool: should: bool: must: versionState RELEASED, must_not: publicState WITHDRAWN
-    ObjectNode stateBoolObj = mapper.createObjectNode();
-    ObjectNode stateInnerBool = stateBoolObj.putObject("bool");
-    ArrayNode shouldArray = stateInnerBool.putArray("should");
-    ObjectNode shouldInnerBoolObj = mapper.createObjectNode();
-    ObjectNode shouldInnerBool = shouldInnerBoolObj.putObject("bool");
-    ArrayNode releaseMust = shouldInnerBool.putArray("must");
-    ObjectNode versionStateTerm = mapper.createObjectNode();
-    versionStateTerm.putObject("term").put("versionState", "RELEASED");
-    releaseMust.add(versionStateTerm);
-    ArrayNode withdrawnMustNot = shouldInnerBool.putArray("must_not");
-    ObjectNode publicStateTerm = mapper.createObjectNode();
-    publicStateTerm.putObject("term").put("publicState", "WITHDRAWN");
-    withdrawnMustNot.add(publicStateTerm);
-    shouldArray.add(shouldInnerBoolObj);
-    mustArray.add(stateBoolObj);
+    JSONObject stateBoolObj = new JSONObject();
+    JSONObject stateInnerBool = new JSONObject();
+    JSONArray shouldArray = new JSONArray();
+    stateInnerBool.put("should", shouldArray);
+    stateBoolObj.put("bool", stateInnerBool);
+
+    JSONObject shouldInnerBoolObj = new JSONObject();
+    JSONObject shouldInnerBool = new JSONObject();
+    JSONArray releaseMust = new JSONArray();
+    JSONObject versionStateTerm = new JSONObject();
+    JSONObject versionStateInner = new JSONObject();
+    versionStateInner.put("versionState", "RELEASED");
+    versionStateTerm.put("term", versionStateInner);
+    releaseMust.put(versionStateTerm);
+
+    JSONArray withdrawnMustNot = new JSONArray();
+    JSONObject publicStateTerm = new JSONObject();
+    JSONObject publicStateInner = new JSONObject();
+    publicStateInner.put("publicState", "WITHDRAWN");
+    publicStateTerm.put("term", publicStateInner);
+    withdrawnMustNot.put(publicStateTerm);
+
+    shouldInnerBool.put("must", releaseMust);
+    shouldInnerBool.put("must_not", withdrawnMustNot);
+    shouldInnerBoolObj.put("bool", shouldInnerBool);
+    shouldArray.put(shouldInnerBoolObj);
+    mustArray.put(stateBoolObj);
 
     // size, from
     rootNode.put("size", MAX_ITEMS_PER_SEARCH); // TODO: eventuell über eine Scroll Anfrage
     rootNode.put("from", 0);
 
     // sort
-    ArrayNode sortArray = rootNode.putArray("sort");
-    ObjectNode sortObj = mapper.createObjectNode();
-    sortObj.putObject("lastModificationDate").put("order", "desc");
-    sortArray.add(sortObj);
+    JSONArray sortArray = new JSONArray();
+    JSONObject sortObj = new JSONObject();
+    JSONObject lastModObj = new JSONObject();
+    lastModObj.put("order", "desc");
+    sortObj.put("lastModificationDate", lastModObj);
+    sortArray.put(sortObj);
+    rootNode.put("sort", sortArray);
 
     return rootNode;
   }
 
   public static SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(PubItemService pubItemService, String coneIdAuthor, Date dateModified)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    JsonNode searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
+    JSONObject searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
     logger.info("ORCID: query: {}", searchSource);
 
     try {
-      String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
+      String searchSourceText = searchSource.toString();
       SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
 
-      ResponseBody<ObjectNode> responseBody = pubItemService.searchDetailed(srequ, -1, null);
+      ResponseBody<?> responseBody = pubItemService.searchDetailed(srequ, -1, null);
       if (responseBody != null) {
         return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse((ResponseBody) responseBody,
             ItemVersionVO.class);
       } else {
         return new SearchRetrieveResponseVO<>();
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new IngeTechnicalException("Error creating search request or converting Elasticsearch response", e);
     }
   }
@@ -413,86 +431,91 @@ public final class OrcidHelper {
     }
   }
 
-  public static Map<String, ObjectNode> extractWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
+  public static Map<String, JSONObject> extractWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
     if (orcidJson == null || orcidJson.trim().isEmpty()) {
       return new LinkedHashMap<>();
     }
     try {
-      JsonNode rootNode = MapperFactory.getObjectMapper().readTree(orcidJson);
+      JSONObject rootNode = new JSONObject(orcidJson);
       return extractWorksBySourceWorkId(rootNode);
     } catch (Exception e) {
       throw new IngeTechnicalException("Error parsing ORCID JSON string", e);
     }
   }
 
-  public static Map<String, ObjectNode> extractWorksBySourceWorkId(JsonNode rootNode) {
-    Map<String, ObjectNode> worksBySourceWorkId = new LinkedHashMap<>();
+  public static Map<String, JSONObject> extractWorksBySourceWorkId(JSONObject rootNode) {
+    Map<String, JSONObject> worksBySourceWorkId = new LinkedHashMap<>();
     if (rootNode == null) {
       return worksBySourceWorkId;
     }
 
-    JsonNode bulkNode = rootNode.get("bulk");
-    if (bulkNode != null && bulkNode.isArray()) {
-      for (JsonNode itemWrapper : bulkNode) {
-        JsonNode workNode = itemWrapper.has("work") ? itemWrapper.get("work") : itemWrapper;
-        if (workNode instanceof ObjectNode) {
-          String sourceWorkId = getSourceWorkId(workNode);
-          if (sourceWorkId != null && !sourceWorkId.isEmpty()) {
-            worksBySourceWorkId.put(sourceWorkId, (ObjectNode) workNode);
+    if (rootNode.has("bulk")) {
+      JSONArray bulkArray = rootNode.optJSONArray("bulk");
+      if (bulkArray != null) {
+        for (int i = 0; i < bulkArray.length(); i++) {
+          JSONObject itemWrapper = bulkArray.optJSONObject(i);
+          if (itemWrapper != null) {
+            JSONObject workNode = itemWrapper.has("work") ? itemWrapper.optJSONObject("work") : itemWrapper;
+            if (workNode != null) {
+              String sourceWorkId = getSourceWorkId(workNode);
+              if (sourceWorkId != null && !sourceWorkId.isEmpty()) {
+                worksBySourceWorkId.put(sourceWorkId, workNode);
+              }
+            }
           }
         }
       }
     } else if (rootNode.has("work")) {
-      JsonNode workNode = rootNode.get("work");
-      if (workNode instanceof ObjectNode) {
+      JSONObject workNode = rootNode.optJSONObject("work");
+      if (workNode != null) {
         String sourceWorkId = getSourceWorkId(workNode);
         if (sourceWorkId != null && !sourceWorkId.isEmpty()) {
-          worksBySourceWorkId.put(sourceWorkId, (ObjectNode) workNode);
+          worksBySourceWorkId.put(sourceWorkId, workNode);
         }
       }
-    } else if (rootNode instanceof ObjectNode && rootNode.has("external-ids")) {
+    } else if (rootNode.has("external-ids")) {
       String sourceWorkId = getSourceWorkId(rootNode);
       if (sourceWorkId != null && !sourceWorkId.isEmpty()) {
-        worksBySourceWorkId.put(sourceWorkId, (ObjectNode) rootNode);
+        worksBySourceWorkId.put(sourceWorkId, rootNode);
       }
     }
 
     return worksBySourceWorkId;
   }
 
-  public static Map<String, ObjectNode> getWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
+  public static Map<String, JSONObject> getWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
     return extractWorksBySourceWorkId(orcidJson);
   }
 
-  public static String getSourceWorkId(JsonNode workNode) {
+  public static String getSourceWorkId(JSONObject workNode) {
     if (workNode == null) {
       return null;
     }
-    JsonNode extIds = workNode.get("external-ids");
+    JSONObject extIds = workNode.optJSONObject("external-ids");
     if (extIds == null) {
       return null;
     }
-    JsonNode extIdList = extIds.get("external-id");
-    if (extIdList == null) {
-      return null;
-    }
-    if (extIdList.isArray()) {
-      for (JsonNode extId : extIdList) {
-        String type = extId.has("external-id-type") ? extId.get("external-id-type").asText() : null;
-        if ("source-work-id".equalsIgnoreCase(type)) {
-          return extId.has("external-id-value") ? extId.get("external-id-value").asText() : null;
+    Object extIdObj = extIds.opt("external-id");
+    if (extIdObj instanceof JSONArray extIdList) {
+      for (int i = 0; i < extIdList.length(); i++) {
+        JSONObject extId = extIdList.optJSONObject(i);
+        if (extId != null) {
+          String type = extId.optString("external-id-type", null);
+          if ("source-work-id".equalsIgnoreCase(type)) {
+            return extId.optString("external-id-value", null);
+          }
         }
       }
-    } else if (extIdList.isObject()) {
-      String type = extIdList.has("external-id-type") ? extIdList.get("external-id-type").asText() : null;
+    } else if (extIdObj instanceof JSONObject extId) {
+      String type = extId.optString("external-id-type", null);
       if ("source-work-id".equalsIgnoreCase(type)) {
-        return extIdList.has("external-id-value") ? extIdList.get("external-id-value").asText() : null;
+        return extId.optString("external-id-value", null);
       }
     }
     return null;
   }
 
-  public static void setPutCode(ObjectNode workNode, Object putCode) {
+  public static void setPutCode(JSONObject workNode, Object putCode) {
     if (workNode == null || putCode == null) {
       return;
     }
@@ -510,25 +533,25 @@ public final class OrcidHelper {
     }
   }
 
-  public static String convertWorksToOrcidJson(Map<String, ObjectNode> worksBySourceWorkId) throws IngeTechnicalException {
+  public static String convertWorksToOrcidJson(Map<String, JSONObject> worksBySourceWorkId) throws IngeTechnicalException {
     return convertWorksToOrcidJson(worksBySourceWorkId != null ? worksBySourceWorkId.values() : null);
   }
 
-  public static String convertWorksToOrcidJson(Collection<ObjectNode> works) throws IngeTechnicalException {
+  public static String convertWorksToOrcidJson(Collection<JSONObject> works) throws IngeTechnicalException {
     try {
-      ObjectMapper mapper = MapperFactory.getObjectMapper();
-      ObjectNode root = mapper.createObjectNode();
-      ArrayNode bulkArray = root.putArray("bulk");
+      JSONObject root = new JSONObject();
+      JSONArray bulkArray = new JSONArray();
       if (works != null) {
-        for (ObjectNode work : works) {
+        for (JSONObject work : works) {
           if (work != null) {
-            ObjectNode itemWrapper = mapper.createObjectNode();
-            itemWrapper.set("work", work);
-            bulkArray.add(itemWrapper);
+            JSONObject itemWrapper = new JSONObject();
+            itemWrapper.put("work", work);
+            bulkArray.put(itemWrapper);
           }
         }
       }
-      return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+      root.put("bulk", bulkArray);
+      return root.toString(2);
     } catch (Exception e) {
       throw new IngeTechnicalException("Error converting works to ORCID JSON string", e);
     }
@@ -540,16 +563,15 @@ public final class OrcidHelper {
     }
 
     try {
-      ObjectMapper mapper = MapperFactory.getObjectMapper();
-      JsonNode root = mapper.readTree(orcidJson);
-      Map<String, ObjectNode> worksMap = extractWorksBySourceWorkId(root);
+      JSONObject root = new JSONObject(orcidJson);
+      Map<String, JSONObject> worksMap = extractWorksBySourceWorkId(root);
       for (Map.Entry<String, ?> entry : putCodesBySourceWorkId.entrySet()) {
-        ObjectNode workNode = worksMap.get(entry.getKey());
+        JSONObject workNode = worksMap.get(entry.getKey());
         if (workNode != null && entry.getValue() != null) {
           setPutCode(workNode, entry.getValue());
         }
       }
-      return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+      return root.toString(2);
     } catch (Exception e) {
       throw new IngeTechnicalException("Error updating put-codes in ORCID JSON", e);
     }

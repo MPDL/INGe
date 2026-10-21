@@ -21,8 +21,8 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.orcid.OrcidResponse;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidResponse;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -346,7 +348,7 @@ public class OrcidServiceTest {
     assertFalse(emailText.contains("$EMAIL_LINK"));
   }
 
-  private JsonNode invokeCreateOrcidQueryJsonNode(String personId, Date dateModified) throws Exception {
+  private JSONObject invokeCreateOrcidQueryJsonNode(String personId, Date dateModified) throws Exception {
     return OrcidHelper.createOrcidQueryJsonNode(personId, dateModified);
   }
 
@@ -365,63 +367,62 @@ public class OrcidServiceTest {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     Date dateModified = sdf.parse("2026-10-08 08:16:17.055");
 
-    JsonNode node = invokeCreateOrcidQueryJsonNode(personId, dateModified);
+    JSONObject node = invokeCreateOrcidQueryJsonNode(personId, dateModified);
     assertNotNull(node);
 
-    assertEquals(10000, node.get("size").asInt());
-    assertEquals(0, node.get("from").asInt());
+    assertEquals(10000, node.getInt("size"));
+    assertEquals(0, node.getInt("from"));
     assertFalse(node.has("runtime_mappings"));
     assertFalse(node.has("aggs"));
 
     // Check sort
-    JsonNode sort = node.get("sort");
+    JSONArray sort = node.getJSONArray("sort");
     assertNotNull(sort);
-    assertTrue(sort.isArray());
-    assertEquals("desc", sort.get(0).get("lastModificationDate").get("order").asText());
+    assertEquals("desc", sort.getJSONObject(0).getJSONObject("lastModificationDate").getString("order"));
 
     // Check query
-    JsonNode must = node.get("query").get("bool").get("must");
+    JSONArray must = node.getJSONObject("query").getJSONObject("bool").getJSONArray("must");
     assertNotNull(must);
-    assertTrue(must.isArray());
-    assertEquals(3, must.size());
+    assertEquals(3, must.length());
 
     // Must 0: term person identifier
-    assertEquals(personId, must.get(0).get("term").get("metadata.creators.person.identifier.id").asText());
+    assertEquals(personId, must.getJSONObject(0).getJSONObject("term").getString("metadata.creators.person.identifier.id"));
 
     // Must 1: range dateModified (timestamp in ms)
-    assertEquals(dateModified.getTime(), must.get(1).get("range").get("modificationDate").get("gte").asLong());
+    assertEquals(dateModified.getTime(), must.getJSONObject(1).getJSONObject("range").getJSONObject("modificationDate").getLong("gte"));
 
     // Must 2: bool state
-    JsonNode should = must.get(2).get("bool").get("should");
+    JSONArray should = must.getJSONObject(2).getJSONObject("bool").getJSONArray("should");
     assertNotNull(should);
-    JsonNode innerMust = should.get(0).get("bool").get("must");
-    assertEquals("RELEASED", innerMust.get(0).get("term").get("versionState").asText());
-    JsonNode innerMustNot = should.get(0).get("bool").get("must_not");
-    assertEquals("WITHDRAWN", innerMustNot.get(0).get("term").get("publicState").asText());
+    JSONArray innerMust = should.getJSONObject(0).getJSONObject("bool").getJSONArray("must");
+    assertEquals("RELEASED", innerMust.getJSONObject(0).getJSONObject("term").getString("versionState"));
+    JSONArray innerMustNot = should.getJSONObject(0).getJSONObject("bool").getJSONArray("must_not");
+    assertEquals("WITHDRAWN", innerMustNot.getJSONObject(0).getJSONObject("term").getString("publicState"));
   }
 
   @Test
   public void testCreateOrcidQueryJsonNodeWithoutDateModified() throws Exception {
     String personId = "/persons/resource/persons96304";
 
-    JsonNode node = invokeCreateOrcidQueryJsonNode(personId, null);
+    JSONObject node = invokeCreateOrcidQueryJsonNode(personId, null);
     assertNotNull(node);
 
-    JsonNode must = node.get("query").get("bool").get("must");
-    assertEquals(2, must.size());
-    assertEquals(personId, must.get(0).get("term").get("metadata.creators.person.identifier.id").asText());
-    assertTrue(must.get(1).has("bool"));
+    JSONArray must = node.getJSONObject("query").getJSONObject("bool").getJSONArray("must");
+    assertEquals(2, must.length());
+    assertEquals(personId, must.getJSONObject(0).getJSONObject("term").getString("metadata.creators.person.identifier.id"));
+    assertTrue(must.getJSONObject(1).has("bool"));
   }
 
   @Test
   public void testCreateOrcidQueryJsonNodeWithFullConeUrl() throws Exception {
     String fullUrl = "https://qa.pure.mpdl.mpg.de/cone/persons/resource/persons96304";
 
-    JsonNode node = invokeCreateOrcidQueryJsonNode(fullUrl, null);
+    JSONObject node = invokeCreateOrcidQueryJsonNode(fullUrl, null);
     assertNotNull(node);
 
-    JsonNode must = node.get("query").get("bool").get("must");
-    assertEquals("/persons/resource/persons96304", must.get(0).get("term").get("metadata.creators.person.identifier.id").asText());
+    JSONArray must = node.getJSONObject("query").getJSONObject("bool").getJSONArray("must");
+    assertEquals("/persons/resource/persons96304",
+        must.getJSONObject(0).getJSONObject("term").getString("metadata.creators.person.identifier.id"));
   }
 
   @Test(expected = IngeApplicationException.class)
@@ -530,18 +531,18 @@ public class OrcidServiceTest {
     responseVO.setRecords(records);
     String initialOrcidJson = invokeConvertToOrcid(responseVO);
 
-    Map<String, ObjectNode> worksMap = OrcidHelper.extractWorksBySourceWorkId(initialOrcidJson);
+    Map<String, JSONObject> worksMap = OrcidHelper.extractWorksBySourceWorkId(initialOrcidJson);
     assertEquals(2, worksMap.size());
     assertTrue(worksMap.containsKey("item_11111"));
     assertTrue(worksMap.containsKey("item_22222"));
 
     // Modify work1 with put-code 2543541
-    ObjectNode work1 = worksMap.get("item_11111");
+    JSONObject work1 = worksMap.get("item_11111");
     assertNotNull(work1);
     OrcidHelper.setPutCode(work1, 2543541L);
 
     // Modify work2 with put-code 9876543
-    ObjectNode work2 = worksMap.get("item_22222");
+    JSONObject work2 = worksMap.get("item_22222");
     assertNotNull(work2);
     OrcidHelper.setPutCode(work2, "9876543");
 
@@ -549,13 +550,13 @@ public class OrcidServiceTest {
     String modifiedJson = OrcidHelper.convertWorksToOrcidJson(worksMap);
     assertNotNull(modifiedJson);
 
-    JsonNode root = MapperFactory.getObjectMapper().readTree(modifiedJson);
+    JSONObject root = new JSONObject(modifiedJson);
     assertTrue(root.has("bulk"));
-    JsonNode bulk = root.get("bulk");
-    assertEquals(2, bulk.size());
+    JSONArray bulk = root.getJSONArray("bulk");
+    assertEquals(2, bulk.length());
 
-    assertEquals(2543541L, bulk.get(0).get("work").get("put-code").asLong());
-    assertEquals(9876543L, bulk.get(1).get("work").get("put-code").asLong());
+    assertEquals(2543541L, bulk.getJSONObject(0).getJSONObject("work").getLong("put-code"));
+    assertEquals(9876543L, bulk.getJSONObject(1).getJSONObject("work").getLong("put-code"));
   }
 
   @Test
@@ -582,17 +583,17 @@ public class OrcidServiceTest {
     String updatedJson = OrcidHelper.updatePutCodesInOrcidJson(initialOrcidJson, putCodes);
     assertNotNull(updatedJson);
 
-    JsonNode root = MapperFactory.getObjectMapper().readTree(updatedJson);
-    assertEquals(2543541L, root.get("bulk").get(0).get("work").get("put-code").asLong());
+    JSONObject root = new JSONObject(updatedJson);
+    assertEquals(2543541L, root.getJSONArray("bulk").getJSONObject(0).getJSONObject("work").getLong("put-code"));
   }
 
   @Test
   public void testExtractWorksWithEmptyOrNull() throws Exception {
-    Map<String, ObjectNode> nullMap = OrcidHelper.extractWorksBySourceWorkId((String) null);
+    Map<String, JSONObject> nullMap = OrcidHelper.extractWorksBySourceWorkId((String) null);
     assertNotNull(nullMap);
     assertTrue(nullMap.isEmpty());
 
-    Map<String, ObjectNode> emptyMap = OrcidHelper.extractWorksBySourceWorkId("  ");
+    Map<String, JSONObject> emptyMap = OrcidHelper.extractWorksBySourceWorkId("  ");
     assertNotNull(emptyMap);
     assertTrue(emptyMap.isEmpty());
   }

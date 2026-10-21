@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
 import de.mpg.mpdl.inge.db.repository.OrcidRepository;
 import de.mpg.mpdl.inge.inge_validation.OrcidValidatingService;
@@ -337,7 +336,7 @@ public class OrcidServiceImpl implements OrcidService {
 
     try {
       String orcidBodyUpdate = OrcidHelper.convertToOrcid(searchResultUpdate);
-      Map<String, ObjectNode> updateMap = OrcidHelper.getWorksBySourceWorkId(orcidBodyUpdate);
+      Map<String, JSONObject> updateMap = OrcidHelper.getWorksBySourceWorkId(orcidBodyUpdate);
 
       for (SearchRetrieveRecordVO<ItemVersionVO> record : updateRecords) {
         ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
@@ -349,7 +348,7 @@ public class OrcidServiceImpl implements OrcidService {
         OrcidDbVO orcidDbVO = existingOrcidMap.get(itemId);
         String putCode = orcidDbVO != null ? orcidDbVO.getPutCode() : null;
 
-        ObjectNode workNode = updateMap.get(itemId);
+        JSONObject workNode = updateMap.get(itemId);
         if (workNode != null && putCode != null) {
           updateSingleWork(auth, itemId, putCode, workNode, existingOrcidMap);
         }
@@ -364,7 +363,7 @@ public class OrcidServiceImpl implements OrcidService {
     }
   }
 
-  private void updateSingleWork(OrcidAuthorizationDbVO auth, String itemId, String putCode, ObjectNode workNode,
+  private void updateSingleWork(OrcidAuthorizationDbVO auth, String itemId, String putCode, JSONObject workNode,
       Map<String, OrcidDbVO> existingOrcidMap) throws OrcidAccessDeniedException {
     OrcidHelper.setPutCode(workNode, putCode);
     String singleWorkJson = workNode.toString();
