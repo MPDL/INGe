@@ -1,6 +1,6 @@
-# Ablauf und Diagramme für `sendEmailLink`
+# Ablauf und Diagramme für `createAndSendEmailLink`
 
-Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufrufe der REST-Methode `sendEmailLink` (`POST /orcid/sendEmailLink`) in `OrcidRestController` bzw. `OrcidServiceImpl`.
+Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufrufe der REST-Methode `createAndSendEmailLink` (`POST /orcid/sendEmailLink`) in `OrcidRestController` bzw. `OrcidServiceImpl`.
 
 ---
 

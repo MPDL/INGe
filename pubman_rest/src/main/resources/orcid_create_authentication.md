@@ -1,6 +1,6 @@
-# Ablauf und Diagramme für `createOrcidAuthentication`
+# Ablauf und Diagramme für `getOrcidAuthentication`
 
-Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufrufe der REST-Methode `createOrcidAuthentication` (`GET /orcid/createOrcidAuthentication`) in `OrcidRestController` bzw. `OrcidServiceImpl.createOrcidAuthorization`.
+Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufrufe der REST-Methode `getOrcidAuthentication` (`GET /orcid/createOrcidAuthentication`) in `OrcidRestController` bzw. `OrcidServiceImpl.createOrcidAuthorization`.
 
 ---
 

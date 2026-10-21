@@ -21,12 +21,12 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.orcid.OrcidResponse;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidResponse;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
@@ -64,7 +64,7 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
-  public OrcidAuthorizationDbVO createOrcidAuthorization(String secret, String code, String errorDescription)
+  public OrcidAuthorizationDbVO getOrcidAuthorization(String secret, String code, String errorDescription)
       throws IngeApplicationException, TechnicalException {
     String secret_ = secret;
     String error = null;
@@ -109,8 +109,9 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
-  public OrcidAuthorizationDbVO sendEmailLink(String token, String coneIdAuthor, String orcidAuthor, String nameAuthor, String emailBibo,
-      String emailAuthor) throws AuthenticationException, IngeApplicationException, TechnicalException, ValidationException {
+  public OrcidAuthorizationDbVO createAndSendEmailLink(String token, String coneIdAuthor, String orcidAuthor, String nameAuthor,
+      String emailBibo, String emailAuthor)
+      throws AuthenticationException, IngeApplicationException, TechnicalException, ValidationException {
 
     AccountUserDbVO accountUserDbVO = getUser(token);
     this.authorizationService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.ORCID_ADMIN.frameworkValue());
@@ -156,30 +157,38 @@ public class OrcidServiceImpl implements OrcidService {
 
     for (OrcidAuthorizationDbVO verifiedOrcidAuthorization : verifiedOrcidAuthorizations) {
 
+      Date dateLastUpdated = new Date();
+
       SearchRetrieveResponseVO<ItemVersionVO> searchResult = OrcidHelper.doOrcidQuery(this.pubItemService,
           verifiedOrcidAuthorization.getConeIdAuthor(), verifiedOrcidAuthorization.getDateLastUpdated());
-      // TODO: dateLastUpdated setzen
 
       SearchRetrieveResponseVO<ItemVersionVO> searchResultNew = new SearchRetrieveResponseVO<>();
       searchResultNew.setRecords(new ArrayList<>());
       SearchRetrieveResponseVO<ItemVersionVO> searchResultUpdate = new SearchRetrieveResponseVO<>();
       searchResultUpdate.setRecords(new ArrayList<>());
-      Map<String, String> putCodesByItemId = new LinkedHashMap<>();
 
-      if (searchResult != null && searchResult.getRecords() != null) {
+      if (searchResult != null && searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
+
+        List<OrcidDbVO> existingOrcidRecords = this.orcidRepository.findByConeIdAuthor(verifiedOrcidAuthorization.getConeIdAuthor());
+        Map<String, OrcidDbVO> existingOrcidMap = new HashMap<>();
+        if (existingOrcidRecords != null) {
+          for (OrcidDbVO orcidDbVO : existingOrcidRecords) {
+            if (orcidDbVO != null && orcidDbVO.getItemId() != null) {
+              existingOrcidMap.put(orcidDbVO.getItemId(), orcidDbVO);
+            }
+          }
+        }
 
         for (SearchRetrieveRecordVO<ItemVersionVO> record : searchResult.getRecords()) {
-
           ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
 
           if (itemVersionVO != null && itemVersionVO.getObjectId() != null) {
             String itemId = itemVersionVO.getObjectId();
-            OrcidDbVO orcidDbVO = this.orcidRepository.findByConeIdAuthorAndItemId(verifiedOrcidAuthorization.getConeIdAuthor(), itemId);
+            OrcidDbVO orcidDbVO = existingOrcidMap.get(itemId);
             if (orcidDbVO == null || orcidDbVO.getPutCode() == null) {
               searchResultNew.getRecords().add(record);
             } else {
               searchResultUpdate.getRecords().add(record);
-              putCodesByItemId.put(itemId, orcidDbVO.getPutCode());
             }
           }
         }
@@ -209,11 +218,18 @@ public class OrcidServiceImpl implements OrcidService {
         if (searchResultUpdate.getRecords() != null && !searchResultUpdate.getRecords().isEmpty()) {
           String orcidBodyUpdate = OrcidHelper.convertToOrcid(searchResultUpdate);
           Map<String, ObjectNode> updateMap = OrcidHelper.getWorksBySourceWorkId(orcidBodyUpdate);
-          for (Map.Entry<String, String> entry : putCodesByItemId.entrySet()) {
-            String itemId = entry.getKey();
-            String putCode = entry.getValue();
+          for (SearchRetrieveRecordVO<ItemVersionVO> record : searchResultUpdate.getRecords()) {
+            ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
+            if (itemVersionVO == null || itemVersionVO.getObjectId() == null) {
+              continue;
+            }
+
+            String itemId = itemVersionVO.getObjectId();
+            OrcidDbVO orcidDbVO = existingOrcidMap.get(itemId);
+            String putCode = orcidDbVO != null ? orcidDbVO.getPutCode() : null;
+
             com.fasterxml.jackson.databind.node.ObjectNode workNode = updateMap.get(itemId);
-            if (workNode != null) {
+            if (workNode != null && putCode != null) {
               OrcidHelper.setPutCode(workNode, putCode);
               String singleWorkJson = workNode.toString();
               logger.info("Orcid work body: " + singleWorkJson);
@@ -243,6 +259,8 @@ public class OrcidServiceImpl implements OrcidService {
             }
           }
         }
+        verifiedOrcidAuthorization.setDateLastUpdated(dateLastUpdated);
+        this.orcidAuthorizationRepository.saveAndFlush(verifiedOrcidAuthorization);
       }
     }
   }

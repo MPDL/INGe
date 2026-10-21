@@ -297,7 +297,7 @@ public class OrcidServiceTest {
     repoStorage.put("test-secret-denied", vo);
 
     OrcidAuthorizationDbVO result =
-        orcidService.createOrcidAuthorization("test-secret-denied?error=access_denied", null, "User denied access");
+        orcidService.getOrcidAuthorization("test-secret-denied?error=access_denied", null, "User denied access");
 
     assertNotNull(result);
     assertEquals(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString(), result.getStatus());
@@ -314,7 +314,7 @@ public class OrcidServiceTest {
     repoStorage.put("test-secret-server-error", vo);
 
     OrcidAuthorizationDbVO result =
-        orcidService.createOrcidAuthorization("test-secret-server-error?error=server_error", null, "Internal server error");
+        orcidService.getOrcidAuthorization("test-secret-server-error?error=server_error", null, "Internal server error");
 
     assertNotNull(result);
     assertEquals(OrcidAuthorizationDbVO.Status.ERROR.toString(), result.getStatus());
@@ -615,7 +615,11 @@ public class OrcidServiceTest {
     List<String> queriedPairs = new ArrayList<>();
     OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
         new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
-          if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+          if ("findByConeIdAuthor".equals(method.getName())) {
+            queriedPairs.add((String) args[0]);
+            OrcidDbVO orcidVO = new OrcidDbVO("CREATE", "item_12345");
+            return List.of(orcidVO);
+          } else if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
             queriedPairs.add(args[0] + "#" + args[1]);
             return new OrcidDbVO("CREATE", (String) args[1]);
           } else if ("findByOrcidAuthorizationDbVO_ConeIdAuthorAndItemId".equals(method.getName())) {
@@ -654,7 +658,8 @@ public class OrcidServiceTest {
     }
 
     assertFalse(queriedPairs.isEmpty());
-    assertTrue(queriedPairs.get(0).contains("item_12345"));
+    assertTrue(queriedPairs.contains("persons96304") || queriedPairs.contains("persons99999"));
+    assertFalse(queriedPairs.contains("persons12345"));
   }
 
   @Test
@@ -1009,5 +1014,102 @@ public class OrcidServiceTest {
     assertEquals(2, batches.size());
     assertEquals(100, batches.get(0).size());
     assertEquals(50, batches.get(1).size());
+  }
+
+  @Test
+  public void testSendItemsToOrcidUpdatesDateLastUpdated() throws Exception {
+    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
+    vo.setSecret("secret-date-update");
+    vo.setConeIdAuthor("persons96304");
+    vo.setVerified(true);
+    vo.setDateLastUpdated(null);
+    repoStorage.put("secret-date-update", vo);
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(0).successful(0).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(0).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(List.of())));
+            return searchResponse;
+          }
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, null);
+
+    assertNull(vo.getDateLastUpdated());
+    long before = System.currentTimeMillis();
+    customService.sendItemsToOrcid();
+    assertNotNull(vo.getDateLastUpdated());
+    assertTrue(vo.getDateLastUpdated().getTime() >= before - 1000);
+  }
+
+  @Test
+  public void testSendItemsToOrcidUsesBatchFindByConeIdAuthor() throws Exception {
+    OrcidAuthorizationDbVO authVO = new OrcidAuthorizationDbVO();
+    authVO.setSecret("secret-batch-lookup");
+    authVO.setConeIdAuthor("persons96304");
+    authVO.setVerified(true);
+    authVO.setOrcid("0000-0001-2345-6789");
+    authVO.setAccessToken("token-123");
+    repoStorage.put("secret-batch-lookup", authVO);
+
+    OrcidDbVO existingVO = new OrcidDbVO("CREATE", "item_existing");
+    existingVO.setOrcidAuthorizationDbVO(authVO);
+    existingVO.setPutCode("987654");
+
+    java.util.concurrent.atomic.AtomicInteger findByAuthorCount = new java.util.concurrent.atomic.AtomicInteger();
+    java.util.concurrent.atomic.AtomicInteger findByItemCount = new java.util.concurrent.atomic.AtomicInteger();
+
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthor".equals(method.getName())) {
+            findByAuthorCount.incrementAndGet();
+            return List.of(existingVO);
+          } else if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+            findByItemCount.incrementAndGet();
+            return null;
+          }
+          return null;
+        });
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            ItemVersionVO item1 = new ItemVersionVO();
+            item1.setObjectId("item_existing");
+            ItemVersionVO item2 = new ItemVersionVO();
+            item2.setObjectId("item_brand_new");
+
+            ObjectNode node1 = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(item1);
+            ObjectNode node2 = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(item2);
+
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(2).successful(2).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(2).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(List.of(
+                                co.elastic.clients.elasticsearch.core.search.Hit
+                                    .of(hit -> hit.index("items").id("item_existing").source(node1)),
+                                co.elastic.clients.elasticsearch.core.search.Hit
+                                    .of(hit -> hit.index("items").id("item_brand_new").source(node2))))));
+            return searchResponse;
+          }
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, mockOrcidRepo);
+
+    try {
+      customService.sendItemsToOrcid();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    assertEquals(1, findByAuthorCount.get());
+    assertEquals(0, findByItemCount.get());
   }
 }

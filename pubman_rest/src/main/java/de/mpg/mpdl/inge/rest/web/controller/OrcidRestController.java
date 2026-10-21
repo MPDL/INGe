@@ -38,8 +38,8 @@ public class OrcidRestController {
     this.orcidService = orcidService;
   }
 
-  @RequestMapping(value = "/sendEmailLink", method = RequestMethod.POST)
-  public ResponseEntity<OrcidAuthorizationDbVO> sendEmailLink( //
+  @RequestMapping(value = "/createAndSendEmailLink", method = RequestMethod.POST)
+  public ResponseEntity<OrcidAuthorizationDbVO> createAndSendEmailLink( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(CONE_ID_AUTHOR) String coneIdAuthor, //
       @RequestParam(ORCID_AUTHOR) String orcidAuthor, //
@@ -49,19 +49,19 @@ public class OrcidRestController {
       throws AuthenticationException, IngeApplicationException, AuthorizationException, TechnicalException, ValidationException {
 
     OrcidAuthorizationDbVO orcidAuthorizationDbVO =
-        this.orcidService.sendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor);
+        this.orcidService.createAndSendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor);
 
     return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/createOrcidAuthentication", method = RequestMethod.GET)
-  public ResponseEntity<OrcidAuthorizationDbVO> createOrcidAuthentication( //
+  @RequestMapping(value = "/getOrcidAuthentication", method = RequestMethod.GET)
+  public ResponseEntity<OrcidAuthorizationDbVO> getOrcidAuthentication( //
       @RequestParam(SECRET) String secret, //
       @RequestParam(value = CODE, required = false) String code, //
       @RequestParam(value = ERROR_DESCRIPTION, required = false) String errorDescription) //
       throws TechnicalException, AuthenticationException, IngeApplicationException {
 
-    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidService.createOrcidAuthorization(secret, code, errorDescription);
+    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidService.getOrcidAuthorization(secret, code, errorDescription);
 
     return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
   }
