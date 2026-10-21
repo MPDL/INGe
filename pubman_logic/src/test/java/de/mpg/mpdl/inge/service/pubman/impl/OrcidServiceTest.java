@@ -1028,6 +1028,41 @@ public class OrcidServiceTest {
     PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
         new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
           if ("searchDetailed".equals(method.getName())) {
+            ItemVersionVO item = new ItemVersionVO();
+            item.setObjectId("item_date_update");
+            ObjectNode itemNode = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(item);
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(1).successful(1).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(1).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(List.of(co.elastic.clients.elasticsearch.core.search.Hit
+                                .of(hit -> hit.index("items").id("item_date_update").source(itemNode))))));
+            return searchResponse;
+          }
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, null);
+
+    assertNull(vo.getDateLastUpdated());
+    long before = System.currentTimeMillis();
+    customService.sendItemsToOrcid();
+    assertNotNull(vo.getDateLastUpdated());
+    assertTrue(vo.getDateLastUpdated().getTime() >= before - 1000);
+  }
+
+  @Test
+  public void testSendItemsToOrcidDoesNotUpdateDateLastUpdatedWhenNoRecords() throws Exception {
+    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
+    vo.setSecret("secret-date-no-update");
+    vo.setConeIdAuthor("persons96304");
+    vo.setVerified(true);
+    vo.setDateLastUpdated(null);
+    repoStorage.put("secret-date-no-update", vo);
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
             co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
                 co.elastic.clients.elasticsearch.core.SearchResponse
                     .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(0).successful(0).skipped(0).failed(0))
@@ -1041,10 +1076,8 @@ public class OrcidServiceTest {
     OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, null);
 
     assertNull(vo.getDateLastUpdated());
-    long before = System.currentTimeMillis();
     customService.sendItemsToOrcid();
-    assertNotNull(vo.getDateLastUpdated());
-    assertTrue(vo.getDateLastUpdated().getTime() >= before - 1000);
+    assertNull(vo.getDateLastUpdated());
   }
 
   @Test
@@ -1111,5 +1144,50 @@ public class OrcidServiceTest {
 
     assertEquals(1, findByAuthorCount.get());
     assertEquals(0, findByItemCount.get());
+  }
+
+  @Test
+  public void testSendItemsToOrcidIsolatesAuthorFailure() throws Exception {
+    OrcidAuthorizationDbVO auth1 = new OrcidAuthorizationDbVO();
+    auth1.setSecret("secret-fail");
+    auth1.setConeIdAuthor("persons_fail");
+    auth1.setVerified(true);
+    auth1.setDateLastUpdated(null);
+    repoStorage.put("secret-fail", auth1);
+
+    OrcidAuthorizationDbVO auth2 = new OrcidAuthorizationDbVO();
+    auth2.setSecret("secret-success");
+    auth2.setConeIdAuthor("persons_success");
+    auth2.setVerified(true);
+    auth2.setDateLastUpdated(null);
+    repoStorage.put("secret-success", auth2);
+
+    PubItemService mockPubItemService = (PubItemService) Proxy.newProxyInstance(PubItemService.class.getClassLoader(),
+        new Class<?>[] {PubItemService.class}, (proxy, method, args) -> {
+          if ("searchDetailed".equals(method.getName())) {
+            co.elastic.clients.elasticsearch.core.SearchRequest request = (co.elastic.clients.elasticsearch.core.SearchRequest) args[0];
+            if (request != null && request.toString().contains("persons_fail")) {
+              throw new RuntimeException("Simulated failure for author 1");
+            }
+            ItemVersionVO itemSuccess = new ItemVersionVO();
+            itemSuccess.setObjectId("item_success");
+            ObjectNode itemNode = (ObjectNode) MapperFactory.getObjectMapper().valueToTree(itemSuccess);
+            co.elastic.clients.elasticsearch.core.SearchResponse<ObjectNode> searchResponse =
+                co.elastic.clients.elasticsearch.core.SearchResponse
+                    .of(sr -> sr.took(1).timedOut(false).shards(s -> s.total(1).successful(1).skipped(0).failed(0))
+                        .hits(h -> h.total(t -> t.value(1).relation(co.elastic.clients.elasticsearch.core.search.TotalHitsRelation.Eq))
+                            .hits(List.of(co.elastic.clients.elasticsearch.core.search.Hit
+                                .of(hit -> hit.index("items").id("item_success").source(itemNode))))));
+            return searchResponse;
+          }
+          return null;
+        });
+
+    OrcidServiceImpl customService = new OrcidServiceImpl(null, createMockRepository(), null, null, mockPubItemService, null);
+
+    customService.sendItemsToOrcid();
+
+    assertNull(auth1.getDateLastUpdated());
+    assertNotNull(auth2.getDateLastUpdated());
   }
 }
