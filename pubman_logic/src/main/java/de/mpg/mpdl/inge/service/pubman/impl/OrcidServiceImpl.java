@@ -46,10 +46,11 @@ public class OrcidServiceImpl implements OrcidService {
     this.orcidAuthorizationRepository = orcidAuthorizationRepository;
     this.emailService = emailService;
     this.orcidValidatingService = orcidValidatingService;
-    this.orcidRestClient = orcidRestClient != null ? orcidRestClient : new OrcidRestClientImpl();
+    this.orcidRestClient = orcidRestClient;
     this.orcidSyncService = orcidSyncService;
   }
 
+  // only for tests
   public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
       EmailService emailService, OrcidValidatingService orcidValidatingService, PubItemService pubItemService,
       OrcidRepository orcidRepository) {
