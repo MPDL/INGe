@@ -160,9 +160,7 @@ public final class OrcidHelper {
 
   public static JSONObject createWorksInOrcid(String orcid, String body, String accessToken) throws TechnicalException {
     String createUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/works";
-    logger.info("Creating Orcid work: " + createUrl);
-    //    logger.info("Creating Orcid work body: " + body);
-    logger.info("Creating Orcid work access token: " + accessToken);
+    logger.info("ORCID: createUrl: " + createUrl + " with AccessToken " + accessToken);
 
     try {
       HttpClient httpClient = HttpClient.newHttpClient();
@@ -175,7 +173,6 @@ public final class OrcidHelper {
 
       HttpRequest httpRequest =
           requestBuilder.POST(HttpRequest.BodyPublishers.ofString(body != null ? body : "", StandardCharsets.UTF_8)).build();
-      logger.info("Creating Orcid work request: " + httpRequest);
 
       HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
 
@@ -184,23 +181,21 @@ public final class OrcidHelper {
         JSONObject jsonObject = new JSONObject(responseBody);
         return jsonObject;
       } else {
-        logger.error("Error creating ORCID work: HTTP status {} - response: {}", httpResponse.statusCode(), httpResponse.body());
+        logger.error("ORCID: error creating ORCID work: HTTP status {} - response: {}", httpResponse.statusCode(), httpResponse.body());
         throw new TechnicalException("Error creating ORCID work: HTTP status " + httpResponse.statusCode() + " - " + httpResponse.body());
       }
     } catch (TechnicalException e) {
       throw e;
     } catch (Exception e) {
-      logger.error("Exception creating ORCID work", e);
+      logger.error("ORCID: Exception creating ORCID work", e);
       throw new TechnicalException("Exception creating ORCID work: " + e.getMessage(), e);
     }
   }
 
   public static JSONObject updateWorkInOrcid(String orcid, String body, String accessToken, String putCode) throws TechnicalException {
     String updateUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/work/" + putCode;
-    logger.info("Update Orcid work: " + updateUrl);
-    logger.info("Update Orcid work body: " + body);
-    logger.info("Update Orcid work access token: " + accessToken);
-    logger.info("Update Orcid work putcode: " + putCode);
+
+    logger.info("ORCID: updateUrl: " + updateUrl + " with AccessToken " + accessToken);
 
     try {
       HttpClient httpClient = HttpClient.newHttpClient();
@@ -212,7 +207,6 @@ public final class OrcidHelper {
 
       HttpRequest httpRequest =
           requestBuilder.PUT(HttpRequest.BodyPublishers.ofString(body != null ? body : "", StandardCharsets.UTF_8)).build();
-      logger.info("Update Orcid work request: " + httpRequest);
 
       HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
 
@@ -221,7 +215,7 @@ public final class OrcidHelper {
         JSONObject jsonObject = (responseBody != null && !responseBody.isBlank()) ? new JSONObject(responseBody) : new JSONObject();
         return jsonObject;
       } else if (httpResponse.statusCode() == 404) {
-        logger.warn("ORCID work not found (404) for putCode {}: {}", putCode, httpResponse.body());
+        logger.warn("ORCID: work not found (404) for putCode {}: {}", putCode, httpResponse.body());
         String responseBody = httpResponse.body();
         JSONObject jsonObject;
         try {
@@ -237,13 +231,13 @@ public final class OrcidHelper {
         }
         return jsonObject;
       } else {
-        logger.error("Error updating ORCID work: HTTP status {} - response: {}", httpResponse.statusCode(), httpResponse.body());
+        logger.error("ORCID: error updating ORCID work: HTTP status {} - response: {}", httpResponse.statusCode(), httpResponse.body());
         throw new TechnicalException("Error updating ORCID work: HTTP status " + httpResponse.statusCode() + " - " + httpResponse.body());
       }
     } catch (TechnicalException e) {
       throw e;
     } catch (Exception e) {
-      logger.error("Exception updating ORCID work", e);
+      logger.error("ORCID: exception updating ORCID work", e);
       throw new TechnicalException("Exception updating ORCID work: " + e.getMessage(), e);
     }
   }
@@ -258,8 +252,6 @@ public final class OrcidHelper {
       orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
     }
 
-    logger.info("Updated new orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
-
     return orcidAuthorizationDbVO;
   }
 
@@ -272,8 +264,6 @@ public final class OrcidHelper {
       orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
     }
 
-    logger.info("Finished orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
-
     return orcidAuthorizationDbVO;
   }
 
@@ -284,8 +274,6 @@ public final class OrcidHelper {
     orcidAuthorizationDbVO.setDateCodeReceived(new Date());
 
     orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
-
-    logger.info("Udated orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
 
     return orcidAuthorizationDbVO;
   }
@@ -323,8 +311,6 @@ public final class OrcidHelper {
     }
 
     orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
-
-    logger.info("Udated orcidAuthorizationDbVO: " + orcidAuthorizationDbVO);
 
     return orcidAuthorizationDbVO;
   }
@@ -393,20 +379,14 @@ public final class OrcidHelper {
 
   public static SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(PubItemService pubItemService, String coneIdAuthor, Date dateModified)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    return doOrcidQuery(pubItemService, coneIdAuthor, dateModified, null);
-  }
-
-  public static SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(PubItemService pubItemService, String coneIdAuthor, Date dateModified,
-      String token) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     JsonNode searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
-    logger.info("Orcid query: " + searchSource);
+    logger.info("ORCID: query: " + searchSource);
 
     try {
       String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
       SearchRequest srequ = SearchRequest.of(sr -> sr.withJson(new StringReader(searchSourceText)));
-      logger.info("searchSourceText: " + searchSourceText);
 
-      ResponseBody<ObjectNode> responseBody = pubItemService.searchDetailed(srequ, -1, token);
+      ResponseBody<ObjectNode> responseBody = pubItemService.searchDetailed(srequ, -1, null);
       if (responseBody != null) {
         return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse((ResponseBody) responseBody,
             ItemVersionVO.class);
@@ -772,6 +752,8 @@ public final class OrcidHelper {
             }
 
             orcidRepository.saveAndFlush(orcidDbVO);
+
+            logger.info("ORCID: " + orcidDbVO.toInfoString());
           }
         }
       }

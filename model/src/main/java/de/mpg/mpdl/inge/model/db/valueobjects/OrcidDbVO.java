@@ -127,4 +127,9 @@ public class OrcidDbVO {
   public void setDate(Date date) {
     this.date = date;
   }
+
+  public String toInfoString() {
+    return "OrcidDbVO{" + "itemId='" + itemId + '\'' + ", putCode='" + putCode + '\'' + ", responseCode='" + responseCode + '\''
+        + ", developerMessage='" + developerMessage + '}';
+  }
 }
