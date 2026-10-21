@@ -177,7 +177,7 @@ public class OrcidServiceImpl implements OrcidService {
       anzRecords = searchResult.getRecords().size();
     }
 
-    logger.info("ORCID: found {} records for {}", searchResult.getRecords().size(), auth.getConeIdAuthor());
+    logger.info("ORCID: found {} records for {}", anzRecords, auth.getConeIdAuthor());
 
     if (anzRecords > 0) {
       Map<String, OrcidDbVO> existingOrcidMap = loadExistingOrcidRecords(auth.getConeIdAuthor());
@@ -194,7 +194,7 @@ public class OrcidServiceImpl implements OrcidService {
 
       try {
         if (hasNew) {
-          createNewWorks(auth, categorized.newRecords);
+          createNewWorks(auth, categorized.newRecords, existingOrcidMap);
         }
 
         if (hasUpdate) {
@@ -294,8 +294,8 @@ public class OrcidServiceImpl implements OrcidService {
     return new ItemCategorization(newRecords, updateRecords);
   }
 
-  private void createNewWorks(OrcidAuthorizationDbVO auth, List<SearchRetrieveRecordVO<ItemVersionVO>> newRecords)
-      throws OrcidAccessDeniedException {
+  private void createNewWorks(OrcidAuthorizationDbVO auth, List<SearchRetrieveRecordVO<ItemVersionVO>> newRecords,
+      Map<String, OrcidDbVO> existingOrcidMap) throws OrcidAccessDeniedException {
 
     for (int i = 0; i < newRecords.size(); i += MAX_ITEMS_PER_REQUEST) {
       int toIndex = Math.min(i + MAX_ITEMS_PER_REQUEST, newRecords.size());
@@ -316,7 +316,8 @@ public class OrcidServiceImpl implements OrcidService {
           throw new OrcidAccessDeniedException("401 Unauthorized in ORCID response", null);
         }
 
-        OrcidHelper.saveOrcidDbRecords(this.orcidRepository, auth, batchSearchNew, orcidResponsesNew, OrcidDbVO.Status.CREATE);
+        OrcidHelper.saveOrcidDbRecords(this.orcidRepository, auth, batchSearchNew, orcidResponsesNew, OrcidDbVO.Status.CREATE,
+            existingOrcidMap);
       } catch (OrcidAccessDeniedException e) {
         throw e;
       } catch (Exception e) {
@@ -350,7 +351,7 @@ public class OrcidServiceImpl implements OrcidService {
 
         ObjectNode workNode = updateMap.get(itemId);
         if (workNode != null && putCode != null) {
-          updateSingleWork(auth, itemId, putCode, workNode);
+          updateSingleWork(auth, itemId, putCode, workNode, existingOrcidMap);
         }
       }
     } catch (OrcidAccessDeniedException e) {
@@ -363,8 +364,8 @@ public class OrcidServiceImpl implements OrcidService {
     }
   }
 
-  private void updateSingleWork(OrcidAuthorizationDbVO auth, String itemId, String putCode, ObjectNode workNode)
-      throws OrcidAccessDeniedException {
+  private void updateSingleWork(OrcidAuthorizationDbVO auth, String itemId, String putCode, ObjectNode workNode,
+      Map<String, OrcidDbVO> existingOrcidMap) throws OrcidAccessDeniedException {
     OrcidHelper.setPutCode(workNode, putCode);
     String singleWorkJson = workNode.toString();
 
@@ -381,13 +382,13 @@ public class OrcidServiceImpl implements OrcidService {
         String devMsgWithPutCode = (devMsg != null && !devMsg.isBlank()) ? devMsg + " (putCode: " + putCode + ")" : "putCode: " + putCode;
         errorResponse.setDeveloperMessage(devMsgWithPutCode);
 
-        OrcidDbVO orcidDbVO =
-            OrcidHelper.saveOrcidDbRecord(this.orcidRepository, auth, itemId, putCode, errorResponse, OrcidDbVO.Status.UPDATE);
+        OrcidDbVO orcidDbVO = OrcidHelper.saveOrcidDbRecord(this.orcidRepository, auth, itemId, putCode, errorResponse,
+            OrcidDbVO.Status.UPDATE, existingOrcidMap);
 
         logger.info("ORCID: saved orcidDbVO: {}", orcidDbVO.toInfoString());
       } else {
-        OrcidDbVO orcidDbVO =
-            OrcidHelper.saveOrcidDbRecord(this.orcidRepository, auth, itemId, putCode, answerUpdate, OrcidDbVO.Status.UPDATE);
+        OrcidDbVO orcidDbVO = OrcidHelper.saveOrcidDbRecord(this.orcidRepository, auth, itemId, putCode, answerUpdate,
+            OrcidDbVO.Status.UPDATE, existingOrcidMap);
 
         logger.info("ORCID: saved orcidDbVO: {}", orcidDbVO.toInfoString());
       }

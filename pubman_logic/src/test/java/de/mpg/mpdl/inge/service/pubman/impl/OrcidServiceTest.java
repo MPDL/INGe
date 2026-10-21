@@ -951,6 +951,108 @@ public class OrcidServiceTest {
   }
 
   @Test
+  public void testSaveOrcidDbRecordUsesExistingOrcidMapWithoutRepoQuery() {
+    OrcidAuthorizationDbVO authVO = new OrcidAuthorizationDbVO();
+    authVO.setConeIdAuthor("persons96304");
+
+    OrcidDbVO existingVO = new OrcidDbVO("CREATE", "item_map_1");
+    existingVO.setId(100);
+    existingVO.setOrcidAuthorizationDbVO(authVO);
+
+    Map<String, OrcidDbVO> existingOrcidMap = new HashMap<>();
+    existingOrcidMap.put("item_map_1", existingVO);
+
+    List<OrcidDbVO> savedList = new ArrayList<>();
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+            fail("findByConeIdAuthorAndItemId should not be called when existingOrcidMap is provided");
+            return null;
+          } else if ("saveAndFlush".equals(method.getName())) {
+            savedList.add((OrcidDbVO) args[0]);
+            return args[0];
+          }
+          return null;
+        });
+
+    OrcidResponse workItem = new OrcidResponse(OrcidResponse.Type.WORK, 0, new org.json.JSONObject());
+    workItem.setPutCode(1234567L);
+
+    OrcidDbVO saved =
+        OrcidHelper.saveOrcidDbRecord(mockOrcidRepo, authVO, "item_map_1", null, workItem, OrcidDbVO.Status.UPDATE, existingOrcidMap);
+
+    assertNotNull(saved);
+    assertSame(existingVO, saved);
+    assertEquals("UPDATE", saved.getStatus());
+    assertEquals("1234567", saved.getPutCode());
+    assertEquals(1, savedList.size());
+    assertSame(saved, existingOrcidMap.get("item_map_1"));
+  }
+
+  @Test
+  public void testSaveOrcidDbRecordsUsesExistingOrcidMapWithoutRepoQuery() {
+    OrcidAuthorizationDbVO authVO = new OrcidAuthorizationDbVO();
+    authVO.setConeIdAuthor("persons96304");
+
+    OrcidDbVO existingVO = new OrcidDbVO("CREATE", "item_map_existing");
+    existingVO.setId(200);
+    existingVO.setOrcidAuthorizationDbVO(authVO);
+
+    Map<String, OrcidDbVO> existingOrcidMap = new HashMap<>();
+    existingOrcidMap.put("item_map_existing", existingVO);
+
+    List<OrcidDbVO> savedList = new ArrayList<>();
+    OrcidRepository mockOrcidRepo = (OrcidRepository) Proxy.newProxyInstance(OrcidRepository.class.getClassLoader(),
+        new Class<?>[] {OrcidRepository.class}, (proxy, method, args) -> {
+          if ("findByConeIdAuthorAndItemId".equals(method.getName())) {
+            fail("findByConeIdAuthorAndItemId should not be called when existingOrcidMap is provided");
+            return null;
+          } else if ("saveAndFlush".equals(method.getName())) {
+            savedList.add((OrcidDbVO) args[0]);
+            return args[0];
+          }
+          return null;
+        });
+
+    SearchRetrieveResponseVO<ItemVersionVO> searchResult = new SearchRetrieveResponseVO<>();
+    List<SearchRetrieveRecordVO<ItemVersionVO>> records = new ArrayList<>();
+
+    SearchRetrieveRecordVO<ItemVersionVO> rec1 = new SearchRetrieveRecordVO<>();
+    ItemVersionVO item1 = new ItemVersionVO();
+    item1.setObjectId("item_map_existing");
+    rec1.setData(item1);
+    records.add(rec1);
+
+    SearchRetrieveRecordVO<ItemVersionVO> rec2 = new SearchRetrieveRecordVO<>();
+    ItemVersionVO item2 = new ItemVersionVO();
+    item2.setObjectId("item_map_new");
+    rec2.setData(item2);
+    records.add(rec2);
+
+    searchResult.setRecords(records);
+
+    List<OrcidResponse> bulkItems = new ArrayList<>();
+    OrcidResponse itemBulk1 = new OrcidResponse(OrcidResponse.Type.WORK, 0, new org.json.JSONObject());
+    itemBulk1.setPutCode(111111L);
+    bulkItems.add(itemBulk1);
+
+    OrcidResponse itemBulk2 = new OrcidResponse(OrcidResponse.Type.WORK, 1, new org.json.JSONObject());
+    itemBulk2.setPutCode(222222L);
+    bulkItems.add(itemBulk2);
+
+    OrcidHelper.saveOrcidDbRecords(mockOrcidRepo, authVO, searchResult, bulkItems, OrcidDbVO.Status.CREATE, existingOrcidMap);
+
+    assertEquals(2, savedList.size());
+    assertSame(existingVO, savedList.get(0));
+    assertEquals("111111", savedList.get(0).getPutCode());
+
+    OrcidDbVO savedNew = savedList.get(1);
+    assertEquals("item_map_new", savedNew.getItemId());
+    assertEquals("222222", savedNew.getPutCode());
+    assertSame(savedNew, existingOrcidMap.get("item_map_new"));
+  }
+
+  @Test
   public void testBatchingNewRecordsInChunksOf100() throws Exception {
     OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
     vo.setSecret("secret-batch");
