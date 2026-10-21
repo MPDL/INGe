@@ -65,7 +65,7 @@ public class OrcidRestController {
     return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/sendItemsToOrcid", method = RequestMethod.GET)
+  @RequestMapping(value = "/sendItemsToOrcid", method = RequestMethod.POST)
   public ResponseEntity<Void> sendItemsToOrcid() {
 
     this.orcidService.sendItemsToOrcid();
