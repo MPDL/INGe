@@ -95,7 +95,7 @@ public class OrcidRestClientImpl implements OrcidRestClient {
   @Override
   public JSONObject createWorksInOrcid(String orcid, String body, String accessToken) throws TechnicalException {
     String createUrl = PropertyReader.getProperty(PropertyReader.ORCID_API_URL) + "/" + orcid + "/works";
-    logger.info("ORCID: createUrl: {} with AccessToken {}", createUrl, accessToken);
+    logger.info("ORCID: createUrl: {}", createUrl);
 
     try {
       HttpRequest.Builder requestBuilder = HttpRequest.newBuilder().uri(URI.create(createUrl))

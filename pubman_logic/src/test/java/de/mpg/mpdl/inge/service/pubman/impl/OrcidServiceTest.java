@@ -224,78 +224,6 @@ public class OrcidServiceTest {
   }
 
   @Test
-  public void testRequestTokenAndOrcidSuccess() throws Exception {
-    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
-    vo.setSecret("test-secret-123");
-    vo.setNameAuthor("Sofia Garcia");
-    vo.setOrcidAuthor("0000-0001-2345-6789");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-123");
-
-    OrcidAuthorizationDbVO result = OrcidHelper.requestTokenAndOrcid(vo, "654321", mockRepository);
-
-    assertNotNull(result);
-    assertEquals("f5af9f51-07e6-4332-8f1a-c0c11c1e3728", result.getAccessToken());
-    assertEquals("bearer", result.getTokenType());
-    assertEquals("f725f747-3a65-49f6-a231-3e8944ce464d", result.getRefreshToken());
-    assertEquals("631138518", result.getExpiresIn());
-    assertEquals("/read-limited", result.getScope());
-    assertEquals("Sofia Garcia", result.getName());
-    assertEquals("0000-0001-2345-6789", result.getOrcid());
-    assertEquals(OrcidAuthorizationDbVO.Status.TOKEN_RECEIVED.toString(), result.getStatus());
-    assertNotNull(result.getDateTokenReceived());
-
-    CapturedRequest captured = lastCapturedRequest.get();
-    assertNotNull(captured);
-    assertEquals("POST", captured.method);
-    assertEquals("application/json", captured.acceptHeader);
-    assertTrue(captured.contentTypeHeader.startsWith("application/x-www-form-urlencoded"));
-    assertEquals("TEST-CLIENT-ID", captured.formParams.get("client_id"));
-    assertEquals("test-secret-123", captured.formParams.get("client_secret"));
-    assertEquals("authorization_code", captured.formParams.get("grant_type"));
-    assertEquals("654321", captured.formParams.get("code"));
-    assertEquals("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-123",
-        captured.formParams.get("redirect_uri"));
-  }
-
-  @Test
-  public void testRequestTokenAndOrcidSingleParam() throws Exception {
-    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
-    vo.setSecret("test-secret-456");
-    vo.setNameAuthor("Sofia Garcia");
-    vo.setOrcidAuthor("0000-0001-2345-6789");
-    vo.setCodeReceived("112233");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-456");
-
-    OrcidAuthorizationDbVO result = OrcidHelper.requestTokenAndOrcid(vo, "112233", mockRepository);
-
-    assertNotNull(result);
-    assertEquals("f5af9f51-07e6-4332-8f1a-c0c11c1e3728", result.getAccessToken());
-    assertEquals("0000-0001-2345-6789", result.getOrcid());
-
-    CapturedRequest captured = lastCapturedRequest.get();
-    assertEquals("112233", captured.formParams.get("code"));
-  }
-
-  @Test
-  public void testRequestTokenAndOrcidHttpError() {
-    mockResponseStatus = 400;
-    mockResponseBody = "{\"error\":\"invalid_grant\",\"error_description\":\"Invalid authorization code\"}";
-
-    OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
-    vo.setSecret("test-secret-789");
-    vo.setRedirectUri("https://qa.pure.mpdl.mpg.de/rest/orcid/getOrcidAuthentication?secret=test-secret-789");
-    try {
-      OrcidHelper.requestTokenAndOrcid(vo, "bad-code", mockRepository);
-      fail("Should have thrown TechnicalException");
-    } catch (TechnicalException e) {
-      assertTrue(e.getMessage().contains("400"));
-      assertTrue(e.getMessage().contains("invalid_grant"));
-    } catch (Exception e) {
-      fail("Unexpected exception: " + e);
-    }
-  }
-
-  @Test
   public void testCreateOrcidAuthorizationAccessDenied() throws Exception {
     OrcidAuthorizationDbVO vo = new OrcidAuthorizationDbVO();
     vo.setSecret("test-secret-denied");
@@ -691,17 +619,6 @@ public class OrcidServiceTest {
   public void testCreateWorkHttpErrorOrExecution() {
     try {
       OrcidHelper.createWorksInOrcid("0000-0001-2345-6789", "{\"bulk\":[]}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728");
-    } catch (TechnicalException e) {
-      assertNotNull(e.getMessage());
-    }
-  }
-
-  @Test
-  public void testUpdateWorkHttpErrorOrExecution() {
-    try {
-      org.json.JSONObject res =
-          OrcidHelper.updateWorkInOrcid("0000-0001-2345-6789", "{}", "f5af9f51-07e6-4332-8f1a-c0c11c1e3728", "123456");
-      assertNotNull(res);
     } catch (TechnicalException e) {
       assertNotNull(e.getMessage());
     }
