@@ -4,7 +4,23 @@ Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufr
 
 ---
 
-## 1. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
+## 1. REST-Schnittstellen-Spezifikation
+
+- **Endpunkt**: `POST /orcid/createAndSendEmailLink`
+- **Controller**: `de.mpg.mpdl.inge.rest.web.controller.OrcidRestController`
+- **HTTP-Header**:
+  - `Authorization` (`token`): Token zur Authentifizierung des Aufrufers.
+- **Request-Parameter**:
+  - `coneIdAuthor` (`String`, required): CoNE-ID des Autors.
+  - `orcidAuthor` (`String`, required): ORCID-iD des Autors.
+  - `nameAuthor` (`String`, required): Name des Autors.
+  - `emailBibo` (`String`, required): E-Mail-Adresse der zuständigen Bibliothek / des Administrators.
+  - `emailAuthor` (`String`, required): E-Mail-Adresse des Autors.
+- **Response**: `ResponseEntity<OrcidAuthorizationDbVO>` (HTTP `200 OK`)
+
+---
+
+## 2. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
 
 ```mermaid
 sequenceDiagram
@@ -49,11 +65,11 @@ sequenceDiagram
     rect rgb(235, 255, 235)
         Note over Service,Helper: 4. Autorisierungs-Link & Secret generieren
         Service->>Helper: generateSecret()
-        Helper-->>Service: genSecret
+        Helper-->>Service: genSecret (UUID)
         Service->>Helper: createEmailLink(scopeRequested, redirectUri)
         Helper-->>Service: emailLink
         Service->>Helper: createOrcidAuthorizationDbVO(repo, userIdBibo, coneId, orcid, name, secret, scope, emailLink, emailBibo, emailAuthor, redirectUri)
-        Helper->>Repo: saveAndFlush(vo)
+        Helper->>Repo: saveAndFlush(vo) (Status: INITIALIZED)
         Helper-->>Service: orcidAuthorizationDbVO
     end
 
@@ -61,13 +77,14 @@ sequenceDiagram
         Note over Service,Email: 5. Einladungs-E-Mail versenden
         Service->>Helper: createEmailText(nameAuthor, orcidAuthor, emailLink)
         Helper-->>Service: emailText
-        Service->>Helper: sendEmail(emailService, emailBibo, emailBibo, subject, text)
-        Helper->>Email: sendEmail(sender, recipient, subject, text)
+        Service->>Helper: sendEmail(emailService, emailAuthor, emailBibo, emailBibo, subject, text)
+        Helper->>Email: sendEmail(recipientAddress, senderAddress, replyToAddress, subject, text)
     end
 
     rect rgb(245, 235, 255)
         Note over Service,Repo: 6. Status erfassen & persistieren
-        Service->>Repo: saveAndFlush(orcidAuthorizationDbVO) (Status: EMAIL_SENT_LINK, dateEmailSentLink)
+        Note over Service: Status: EMAIL_SENT_LINK, dateEmailSentLink: now
+        Service->>Repo: saveAndFlush(orcidAuthorizationDbVO)
         Repo-->>Service: orcidAuthorizationDbVO
     end
 
@@ -77,21 +94,21 @@ sequenceDiagram
 
 ---
 
-## 2. Flussdiagramm (Entscheidungs- und Kontrollfluss)
+## 3. Flussdiagramm (Entscheidungs- und Kontrollfluss)
 
 ```mermaid
 flowchart TD
     A([Start: POST /orcid/createAndSendEmailLink]) --> B[OrcidRestController.createAndSendEmailLink]
-    B --> C["1. AuthorizationService.getUserAccountFromToken(token)<br/>+ checkLoginRequiredWithRole('ORCID_ADMIN')"]
-    C --> D[2. OrcidValidatingService.validate]
-    D --> E[3. OrcidAuthorizationRepository.findByConeIdAuthor]
+    B --> C["1. Authentifizierung & Autorisierung<br/>↳ AuthorizationService.getUserAccountFromToken(token)<br/>↳ AuthorizationService.checkLoginRequiredWithRole('ORCID_ADMIN')"]
+    C --> D["2. Validierung<br/>↳ OrcidValidatingService.validate(...)"]
+    D --> E["3. Dublettenprüfung<br/>↳ OrcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor)"]
     
     E --> F{Datensatz existiert bereits?}
     F -- Ja --> G[Setze ErrorCode: ERROR_CONE_ID_ALREADY_EXITS]
     G --> RetConflict([Return: 200 OK mit orcidAuthorizationDbVO & ErrorCode])
 
-    F -- Nein --> H["4. Secret & Redirect-URL erzeugen<br/>↳ OrcidHelper.generateSecret()<br/>↳ OrcidHelper.createEmailLink(...)"]
-    H --> I["5. Datensatz anlegen<br/>↳ OrcidHelper.createOrcidAuthorizationDbVO(...)<br/>↳ Repo.saveAndFlush(...)"]
+    F -- Nein --> H["4. Secret & OAuth Redirect-URL erzeugen<br/>↳ OrcidHelper.generateSecret()<br/>↳ OrcidHelper.createEmailLink(...)"]
+    H --> I["5. Datensatz anlegen & persistieren<br/>↳ OrcidHelper.createOrcidAuthorizationDbVO(...)<br/>↳ Status: INITIALIZED<br/>↳ Repo.saveAndFlush(...)"]
     I --> J["6. E-Mail generieren & senden<br/>↳ OrcidHelper.createEmailText(...)<br/>↳ OrcidHelper.sendEmail(...)<br/>↳ EmailService.sendEmail(...)"]
     J --> K["7. Status aktualisieren<br/>↳ Status: EMAIL_SENT_LINK<br/>↳ dateEmailSentLink setzen<br/>↳ Repo.saveAndFlush(...)"]
     K --> RetSuccess([Return: 200 OK mit orcidAuthorizationDbVO])
@@ -99,30 +116,30 @@ flowchart TD
 
 ---
 
-## 3. Schritt-für-Schritt-Übersicht
+## 4. Schritt-für-Schritt-Übersicht
 
 1. **Controller-Einstieg & Authentifizierung**:
    - `OrcidRestController.createAndSendEmailLink(...)` nimmt den HTTP-POST-Request (`/orcid/createAndSendEmailLink`) entgegen.
-   - `AuthorizationService.getUserAccountFromToken(token)` ermittelt den eingeloggten Bibliotheks-Benutzer (`userIdBibo`).
-   - `AuthorizationService.checkLoginRequiredWithRole(...)` verifiziert, dass der Aufrufer über die Rolle `ORCID_ADMIN` verfügt.
+   - `AuthorizationService.getUserAccountFromToken(token)` ermittelt das Benutzerkonto des Aufrufers (`AccountUserDbVO` / `userIdBibo`).
+   - `AuthorizationService.checkLoginRequiredWithRole(...)` stellt sicher, dass der Aufrufer über die administrative Rolle `ORCID_ADMIN` verfügt.
 
-2. **Validierung der Eingabedaten**:
-   - `OrcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)` prüft Format und Konsistenz der übergebenen Autoren- und E-Mail-Daten.
+2. **Validierung der Eingabeparameter**:
+   - `OrcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)` prüft Format und Vollständigkeit der übergebenen Autoren- und E-Mail-Daten.
 
 3. **Dublettenprüfung**:
-   - `OrcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor)` prüft, ob bereits eine Autorisierung für die CoNE-ID vorliegt.
-   - Falls vorhanden, wird `ERROR_CONE_ID_ALREADY_EXITS` gesetzt und der Datensatz direkt mit HTTP 200 OK zurückgegeben.
+   - `OrcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor)` prüft, ob für den angegebenen CoNE-Autor bereits ein Autorisierungsdatensatz vorliegt.
+   - Falls ein Datensatz bereits existiert, wird der Fehlercode `ERROR_CONE_ID_ALREADY_EXITS` gesetzt und der Datensatz direkt mit HTTP `200 OK` zurückgegeben.
 
 4. **Secret- und Link-Generierung**:
-   - `OrcidHelper.generateSecret()` erzeugt einen kryptografischen Einmalschlüssel (`secret`).
+   - `OrcidHelper.generateSecret()` erzeugt ein kryptografisches Einmal-Token (`secret`, UUID).
    - Die Redirect-URI mit dem Geheimschlüssel wird aufgebaut und via `OrcidHelper.createEmailLink(...)` in die OAuth-Autorisierungs-URL von ORCID eingebettet.
-   - `OrcidHelper.createOrcidAuthorizationDbVO(...)` instanziiert den Datensatz (Status `INITIALIZED`) und speichert ihn in der Datenbank via `OrcidAuthorizationRepository.saveAndFlush(...)`.
+   - `OrcidHelper.createOrcidAuthorizationDbVO(...)` instanziiert das `OrcidAuthorizationDbVO` mit dem Initialstatus `INITIALIZED` und persistiert es via `OrcidAuthorizationRepository.saveAndFlush(...)`.
 
-5. **Versand der Autorisierungs-E-Mail**:
-   - Aus den Konfigurations-Properties werden Betreff (`ORCID_EMAIL_SUBJECT_FOR_LINK`) und E-Mail-Vorlage (`orcid_email.txt`) geladen.
-   - `OrcidHelper.createEmailText(...)` bereitet den E-Mail-Inhalt mit dem generierten OAuth-Link auf.
-   - `OrcidHelper.sendEmail(emailService, ...)` stößt den Versand an die Bibliotheksadresse (`emailBibo`) an.
+5. **Versand der Einladungs-E-Mail**:
+   - Betreff (`ORCID_EMAIL_SUBJECT_FOR_LINK`) und E-Mail-Vorlage (`orcid_email.txt`) werden geladen.
+   - `OrcidHelper.createEmailText(...)` ersetzt die Platzhalter (`$NAME_AUTHOR`, `$ORCID_AUTHOR`, `$EMAIL_LINK`).
+   - `OrcidHelper.sendEmail(emailService, emailAuthor, emailBibo, emailBibo, subject, text)` stößt den E-Mail-Versand via `EmailService` an (Absender: `emailAuthor`, Empfänger/Reply-To: `emailBibo`).
 
 6. **Status-Aktualisierung & Rückgabe**:
    - Das Datum `dateEmailSentLink` und der Status `EMAIL_SENT_LINK` werden gesetzt.
-   - Der Datensatz wird via `OrcidAuthorizationRepository.saveAndFlush(...)` final persistiert und als HTTP 200 OK zurückgegeben.
+   - Der Datensatz wird via `OrcidAuthorizationRepository.saveAndFlush(...)` aktualisiert und mit HTTP `200 OK` zurückgegeben.
