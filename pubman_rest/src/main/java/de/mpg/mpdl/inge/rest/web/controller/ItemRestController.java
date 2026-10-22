@@ -196,11 +196,6 @@ public class ItemRestController {
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse = this.pubItemService.search(srRequest, token);
 
-    logger.info("FILTER");
-    logger.info("query: " + query);
-    logger.info("srRequest: " + srRequest);
-    logger.info("token: " + token);
-
     return new ResponseEntity<>(srResponse, HttpStatus.OK);
   }
 
@@ -237,8 +232,6 @@ public class ItemRestController {
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "size", defaultValue = "10") int limit, @RequestParam(value = "from", defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-
-    logger.info("getALL");
 
     Query matchAllQuery = new MatchAllQuery.Builder().build()._toQuery();
     //QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
@@ -306,7 +299,7 @@ public class ItemRestController {
       try (OutputStream output = response.getOutputStream()) {
         fileVOWrapper.readFile(output);
       }
-      
+
        */
     } catch (IOException e) {
       logger.error("could not read file [" + componentId + "]");
@@ -424,23 +417,7 @@ public class ItemRestController {
 
     checkCslConeId(cslConeId);
 
-    logger.info("SEARCH");
-    if (query != null) {
-      logger.info(query.toPrettyString());
-    }
-
     SearchRetrieveRequestVO srRequest = this.utilServiceBean.query2VO(query);
-
-    if (srRequest != null) {
-      logger.info(srRequest);
-    }
-
-    logger.info("format: " + format);
-    logger.info("citation: " + citation);
-    logger.info("cslConeID: " + cslConeId);
-    logger.info("scroll: " + scroll);
-    logger.info("token: " + token);
-    logger.info("response: " + response);
 
     return this.utilServiceBean.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
   }
@@ -455,11 +432,6 @@ public class ItemRestController {
       HttpServletResponse httpResponse)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
-    logger.info("SEARCH_DETAILED");
-    logger.info("searchSource: " + searchSource.toPrettyString());
-    logger.info("scrollTimeValue: " + scrollTimeValue);
-    logger.info("token: " + token);
-
     return UtilServiceBean.searchDetailed(this.pubItemService, searchSource, scrollTimeValue, token, httpResponse);
   }
 
@@ -471,8 +443,6 @@ public class ItemRestController {
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scrollId") String scrollId, //
       HttpServletResponse response) throws IngeTechnicalException, IOException {
-
-    logger.info("SEARCH_SCROLL");
 
     checkCslConeId(cslConeId);
 

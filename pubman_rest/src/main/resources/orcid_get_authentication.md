@@ -25,10 +25,10 @@ sequenceDiagram
     participant Controller as OrcidRestController
     participant Service as OrcidServiceImpl
     participant Repo as OrcidAuthorizationRepository
-    participant Helper as OrcidHelper
+    participant AuthService as OrcidAuthorizationService
     participant RestClient as OrcidRestClientImpl
     participant OrcidAPI as Externe ORCID Token-API
-    participant Email as EmailService
+    participant EmailService as OrcidEmailService
 
     Client->>Controller: GET /orcid/getOrcidAuthentication(secret, code, error_description)
     Controller->>Service: getOrcidAuthorization(secret, code, errorDescription)
@@ -52,11 +52,11 @@ sequenceDiagram
         Controller-->>Client: 200 OK (Fehlerstatus)
     else Regulärer Autorisierungsablauf (Erfolgsfall mit Code)
         rect rgb(235, 245, 255)
-            Note over Service,Helper: 2. Zwischenstatus 'CODE_RECEIVED' erfassen
-            Service->>Helper: updateAuthorizationDbVO(vo, code, repo)
-            Note over Helper: Status: CODE_RECEIVED, dateCodeReceived: now
-            Helper->>Repo: saveAndFlush(vo)
-            Helper-->>Service: vo
+            Note over Service,AuthService: 2. Zwischenstatus 'CODE_RECEIVED' erfassen
+            Service->>AuthService: updateAuthorizationDbVO(vo, code)
+            Note over AuthService: Status: CODE_RECEIVED, dateCodeReceived: now
+            AuthService->>Repo: saveAndFlush(vo)
+            AuthService-->>Service: vo
         end
 
         rect rgb(235, 255, 235)
@@ -64,24 +64,22 @@ sequenceDiagram
             Service->>RestClient: requestTokenAndOrcid(vo, code, repo)
             RestClient->>OrcidAPI: POST /oauth/token (client_id, client_secret, code, redirect_uri)
             OrcidAPI-->>RestClient: JSON (access_token, refresh_token, orcid, name, scope, ...)
-            RestClient->>Helper: updateAuthorizationDbVO(vo, access_token, refresh_token, scope, name, orcid, token_type, expires_in, repo)
-            Note over Helper: Status: TOKEN_RECEIVED, verified: true, dateTokenReceived: now
-            Helper->>Repo: saveAndFlush(vo)
+            Note over RestClient: Status: TOKEN_RECEIVED, verified: true, dateTokenReceived: now
+            RestClient->>Repo: saveAndFlush(vo)
             RestClient-->>Service: vo
         end
 
         rect rgb(255, 250, 235)
-            Note over Service,Email: 4. Benachrichtigungs-E-Mail versenden
-            Service->>Helper: sendEmail(emailService, emailSender, emailBibo, null, subject, text)
-            Helper->>Email: sendEmail(recipientAddress, senderAddress, replyToAddress, subject, text)
+            Note over Service,EmailService: 4. Benachrichtigungs-E-Mail versenden
+            Service->>EmailService: sendEmail(emailSender, emailBibo, null, subject, text)
         end
 
         rect rgb(245, 235, 255)
-            Note over Service,Repo: 5. Autorisierung abschließen
-            Service->>Helper: finishAuthorizationDbVO(vo, repo)
-            Note over Helper: Status: EMAIL_SENT_BIBO, dateEmailSentBibo: now
-            Helper->>Repo: saveAndFlush(vo)
-            Helper-->>Service: vo
+            Note over Service,AuthService: 5. Autorisierung abschließen
+            Service->>AuthService: finishAuthorizationDbVO(vo)
+            Note over AuthService: Status: EMAIL_SENT_BIBO, dateEmailSentBibo: now
+            AuthService->>Repo: saveAndFlush(vo)
+            AuthService-->>Service: vo
         end
 
         Service-->>Controller: orcidAuthorizationDbVO
@@ -108,10 +106,10 @@ flowchart TD
     I --> J[OrcidAuthorizationRepository.saveAndFlush]
     J --> RetErr([Return: 200 OK mit Fehlerstatus])
     
-    H -- Nein: Code vorhanden --> K["1. OrcidHelper.updateAuthorizationDbVO(vo, code, repo)<br/>↳ Repo.saveAndFlush (Status: CODE_RECEIVED)"]
-    K --> L["2. OrcidRestClient.requestTokenAndOrcid(vo, code, repo)<br/>↳ HTTP POST Token-Request an ORCID API<br/>↳ OrcidHelper.updateAuthorizationDbVO(vo, tokenData, repo)<br/>↳ Abgleich von Name/ORCID (Warn-Codes)<br/>↳ Repo.saveAndFlush (Status: TOKEN_RECEIVED, verified: true)"]
-    L --> M["3. OrcidHelper.sendEmail(emailService, sender, emailBibo, null, subject, text)<br/>↳ EmailService.sendEmail(...)"]
-    M --> N["4. OrcidHelper.finishAuthorizationDbVO(vo, repo)<br/>↳ Repo.saveAndFlush (Status: EMAIL_SENT_BIBO)"]
+    H -- Nein: Code vorhanden --> K["1. OrcidAuthorizationService.updateAuthorizationDbVO(vo, code)<br/>↳ Repo.saveAndFlush (Status: CODE_RECEIVED)"]
+    K --> L["2. OrcidRestClient.requestTokenAndOrcid(vo, code, repo)<br/>↳ HTTP POST Token-Request an ORCID API<br/>↳ Abgleich von Name/ORCID (Warn-Codes)<br/>↳ Repo.saveAndFlush (Status: TOKEN_RECEIVED, verified: true)"]
+    L --> M["3. OrcidEmailService.sendEmail(emailSender, emailBibo, null, subject, text)"]
+    M --> N["4. OrcidAuthorizationService.finishAuthorizationDbVO(vo)<br/>↳ Repo.saveAndFlush (Status: EMAIL_SENT_BIBO)"]
     N --> RetSuccess([Return: 200 OK mit orcidAuthorizationDbVO])
 ```
 
@@ -129,7 +127,7 @@ flowchart TD
    - Der Status wird entsprechend auf `ACCESS_DENIED` oder `ERROR` gesetzt, `errorCodes` werden hinterlegt und der Datensatz wird in der Datenbank via `saveAndFlush(...)` persistiert und als HTTP `200 OK` zurückgegeben.
 
 3. **Empfang des Authorization Codes**:
-   - `OrcidHelper.updateAuthorizationDbVO(vo, code, repo)` setzt `codeReceived`, das Datum `dateCodeReceived` und den Status `CODE_RECEIVED` und speichert diesen Zwischenstand in der Datenbank.
+   - `OrcidAuthorizationService.updateAuthorizationDbVO(vo, code)` setzt `codeReceived`, das Datum `dateCodeReceived` und den Status `CODE_RECEIVED` und speichert diesen Zwischenstand via `OrcidAuthorizationRepository.saveAndFlush(...)` in der Datenbank.
 
 4. **Token- und Profilabruf bei ORCID via `OrcidRestClient`**:
    - `OrcidRestClientImpl.requestTokenAndOrcid(vo, code, repo)` sendet einen HTTP-POST-Request an den Token-Endpunkt von ORCID (`/oauth/token`) mit `client_id`, `client_secret`, `grant_type=authorization_code`, `code` und `redirect_uri`.
@@ -139,8 +137,8 @@ flowchart TD
 
 5. **Benachrichtigung der Bibliothek**:
    - E-Mail-Absender (`ORCID_EMAIL_SENDER_FOR_BIBO`), Betreff (`ORCID_EMAIL_SUBJECT_FOR_BIBO`) und Bestätigungstext (`ORCID_EMAIL_TEXT_FOR_BIBO`) werden aus den Properties geladen.
-   - `OrcidHelper.sendEmail(...)` versendet die Erfolgsbenachrichtigung via `EmailService` an die hinterlegte Bibliotheksadresse (`emailBibo`).
+   - `OrcidEmailService.sendEmail(...)` versendet die Erfolgsbenachrichtigung an die hinterlegte Bibliotheksadresse (`emailBibo`).
 
 6. **Abschluss & Rückgabe**:
-   - `OrcidHelper.finishAuthorizationDbVO(vo, repo)` setzt den Status auf `EMAIL_SENT_BIBO` sowie den Zeitstempel `dateEmailSentBibo`.
-   - Der finale Datensatz wird via `saveAndFlush(...)` persistiert und über den Controller als HTTP `200 OK` zurückgegeben.
+   - `OrcidAuthorizationService.finishAuthorizationDbVO(vo)` setzt den Status auf `EMAIL_SENT_BIBO` sowie den Zeitstempel `dateEmailSentBibo` und persistiert den Datensatz via `OrcidAuthorizationRepository.saveAndFlush(...)`.
+   - Der finale Datensatz wird über den Controller als HTTP `200 OK` zurückgegeben.
