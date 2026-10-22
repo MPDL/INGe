@@ -2,9 +2,11 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
 import de.mpg.mpdl.inge.model.db.valueobjects.OrcidAuthorizationDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidResponse;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidRestClient;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidTransformationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -13,11 +15,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,14 +32,18 @@ public class OrcidRestClientImpl implements OrcidRestClient {
   private static final Logger logger = LogManager.getLogger(OrcidRestClientImpl.class);
 
   private final HttpClient httpClient;
+  private final OrcidTransformationService orcidTransformationService;
 
-  public OrcidRestClientImpl() {
-    this(HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(30)).followRedirects(HttpClient.Redirect.NORMAL).build());
+  @Autowired
+  public OrcidRestClientImpl(OrcidTransformationService orcidTransformationService) {
+    this(HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(30)).followRedirects(HttpClient.Redirect.NORMAL).build(),
+        orcidTransformationService);
   }
 
-  public OrcidRestClientImpl(HttpClient httpClient) {
+  public OrcidRestClientImpl(HttpClient httpClient, OrcidTransformationService orcidTransformationService) {
     this.httpClient = httpClient != null ? httpClient
         : HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(30)).followRedirects(HttpClient.Redirect.NORMAL).build();
+    this.orcidTransformationService = orcidTransformationService;
   }
 
   @Override
@@ -73,10 +83,10 @@ public class OrcidRestClientImpl implements OrcidRestClient {
       if (httpResponse.statusCode() >= 200 && httpResponse.statusCode() < 300) {
         String responseBody = httpResponse.body();
         JSONObject jsonObject = new JSONObject(responseBody);
-        orcidAuthorizationDbVO = OrcidHelper.updateAuthorizationDbVO(orcidAuthorizationDbVO, jsonObject.getString("access_token"),
-            jsonObject.getString("refresh_token"), jsonObject.getString("scope"), jsonObject.getString("name"),
-            jsonObject.getString("orcid"), jsonObject.getString("token_type"), String.valueOf(jsonObject.get("expires_in")),
-            orcidAuthorizationRepository);
+        orcidAuthorizationDbVO =
+            updateAuthorizationDbVO(orcidAuthorizationDbVO, jsonObject.getString("access_token"), jsonObject.getString("refresh_token"),
+                jsonObject.getString("scope"), jsonObject.getString("name"), jsonObject.getString("orcid"),
+                jsonObject.getString("token_type"), String.valueOf(jsonObject.get("expires_in")), orcidAuthorizationRepository);
 
         return orcidAuthorizationDbVO;
       } else {
@@ -90,6 +100,45 @@ public class OrcidRestClientImpl implements OrcidRestClient {
       logger.error("Exception requesting ORCID token", e);
       throw new TechnicalException("Exception requesting ORCID token: " + e.getMessage(), e);
     }
+  }
+
+  private OrcidAuthorizationDbVO updateAuthorizationDbVO(OrcidAuthorizationDbVO orcidAuthorizationDbVO, String accessToken,
+      String refreshToken, String scope, String name, String orcid, String tokenType, String expiresIn,
+      OrcidAuthorizationRepository orcidAuthorizationRepository) {
+    orcidAuthorizationDbVO.setAccessToken(accessToken);
+    orcidAuthorizationDbVO.setRefreshToken(refreshToken);
+    orcidAuthorizationDbVO.setScope(scope);
+    orcidAuthorizationDbVO.setName(name);
+    orcidAuthorizationDbVO.setOrcid(orcid);
+    orcidAuthorizationDbVO.setTokenType(tokenType);
+    orcidAuthorizationDbVO.setExpiresIn(expiresIn);
+    orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.TOKEN_RECEIVED.toString());
+    orcidAuthorizationDbVO.setDateTokenReceived(new Date());
+    orcidAuthorizationDbVO.setErrorCodes(null);
+    orcidAuthorizationDbVO.setDateError(null);
+    orcidAuthorizationDbVO.setVerified(true);
+
+    StringBuilder sb = new StringBuilder();
+    if (orcidAuthorizationDbVO.getNameAuthor() != null && !orcidAuthorizationDbVO.getNameAuthor().equalsIgnoreCase(name)) {
+      sb.append(OrcidAuthorizationDbVO.ErrorCode.WARN_DIFFERENT_NAME.toString());
+    }
+    if (orcidAuthorizationDbVO.getOrcidAuthor() != null && !orcidAuthorizationDbVO.getOrcidAuthor().equalsIgnoreCase(orcid)) {
+      if (!sb.isEmpty()) {
+        sb.append(" " + OrcidAuthorizationDbVO.ErrorCode.WARN_DIFFERENT_ORCID.toString());
+      } else {
+        sb.append(OrcidAuthorizationDbVO.ErrorCode.WARN_DIFFERENT_ORCID.toString());
+      }
+    }
+
+    if (!sb.isEmpty()) {
+      orcidAuthorizationDbVO.setErrorCodes(sb.toString());
+    }
+
+    if (orcidAuthorizationRepository != null) {
+      orcidAuthorizationDbVO = orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
+    }
+
+    return orcidAuthorizationDbVO;
   }
 
   @Override
@@ -173,4 +222,63 @@ public class OrcidRestClientImpl implements OrcidRestClient {
       throw new TechnicalException("Exception updating ORCID work: " + e.getMessage(), e);
     }
   }
+
+  @Override
+  public List<OrcidResponse> parseOrcidResponses(JSONObject orcidAnswer) {
+    if (this.orcidTransformationService != null) {
+      return this.orcidTransformationService.parseOrcidResponses(orcidAnswer);
+    }
+    return Collections.emptyList();
+  }
+
+  @Override
+  public boolean is401Error(Throwable e) {
+    Throwable current = e;
+    while (current != null) {
+      String msg = current.getMessage();
+      if (msg != null && (msg.contains("401") || msg.toLowerCase().contains("unauthorized") || msg.contains("invalid_token"))) {
+        return true;
+      }
+      current = current.getCause();
+    }
+    return false;
+  }
+
+  @Override
+  public boolean contains401Error(List<OrcidResponse> responses) {
+    if (responses == null) {
+      return false;
+    }
+    for (OrcidResponse resp : responses) {
+      if (resp != null && resp.isError()) {
+        if (resp.getResponseCode() != null && resp.getResponseCode() == 401) {
+          return true;
+        }
+        if (resp.getUserMessage() != null && resp.getUserMessage().contains("401")) {
+          return true;
+        }
+        if (resp.getDeveloperMessage() != null && (resp.getDeveloperMessage().contains("401")
+            || resp.getDeveloperMessage().toLowerCase().contains("unauthorized") || resp.getDeveloperMessage().contains("invalid_token"))) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public Map<String, JSONObject> getWorksBySourceWorkId(String orcidJson) throws IngeTechnicalException {
+    if (this.orcidTransformationService != null) {
+      return this.orcidTransformationService.getWorksBySourceWorkId(orcidJson);
+    }
+    return new LinkedHashMap<>();
+  }
+
+  @Override
+  public void setPutCode(JSONObject workNode, Object putCode) {
+    if (this.orcidTransformationService != null) {
+      this.orcidTransformationService.setPutCode(workNode, putCode);
+    }
+  }
+
 }

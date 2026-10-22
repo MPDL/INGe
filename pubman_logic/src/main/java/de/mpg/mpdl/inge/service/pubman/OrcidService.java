@@ -17,4 +17,5 @@ public interface OrcidService {
       throws AuthenticationException, IngeApplicationException, AuthorizationException, TechnicalException, ValidationException;
 
   void sendItemsToOrcid();
+
 }

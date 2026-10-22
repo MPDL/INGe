@@ -26,15 +26,6 @@
 
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Properties;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.pubman.EmailService;
 import jakarta.activation.DataHandler;
@@ -52,6 +43,13 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
+import java.io.File;
+import java.util.Date;
+import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 @Service
 @Primary

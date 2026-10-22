@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository;
-import de.mpg.mpdl.inge.db.repository.OrcidRepository;
 import de.mpg.mpdl.inge.inge_validation.OrcidValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -11,10 +10,9 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.EmailService;
 import de.mpg.mpdl.inge.service.pubman.OrcidService;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.orcid.OrcidHelper;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidAuthorizationService;
+import de.mpg.mpdl.inge.service.pubman.orcid.OrcidEmailService;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidRestClient;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidSyncService;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -33,33 +31,23 @@ public class OrcidServiceImpl implements OrcidService {
 
   private final AuthorizationService authorizationService;
   private final OrcidAuthorizationRepository orcidAuthorizationRepository;
-  private final EmailService emailService;
+  private final OrcidEmailService orcidEmailService;
   private final OrcidValidatingService orcidValidatingService;
   private final OrcidSyncService orcidSyncService;
   private final OrcidRestClient orcidRestClient;
+  private final OrcidAuthorizationService orcidAuthorizationService;
 
   @Autowired
   public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
-      EmailService emailService, OrcidValidatingService orcidValidatingService, OrcidSyncService orcidSyncService,
-      OrcidRestClient orcidRestClient) {
+      OrcidValidatingService orcidValidatingService, OrcidSyncService orcidSyncService, OrcidRestClient orcidRestClient,
+      OrcidAuthorizationService orcidAuthorizationService, OrcidEmailService orcidEmailService) {
     this.authorizationService = authorizationService;
     this.orcidAuthorizationRepository = orcidAuthorizationRepository;
-    this.emailService = emailService;
     this.orcidValidatingService = orcidValidatingService;
     this.orcidRestClient = orcidRestClient;
     this.orcidSyncService = orcidSyncService;
-  }
-
-  // only for tests
-  public OrcidServiceImpl(AuthorizationService authorizationService, OrcidAuthorizationRepository orcidAuthorizationRepository,
-      EmailService emailService, OrcidValidatingService orcidValidatingService, PubItemService pubItemService,
-      OrcidRepository orcidRepository) {
-    this.authorizationService = authorizationService;
-    this.orcidAuthorizationRepository = orcidAuthorizationRepository;
-    this.emailService = emailService;
-    this.orcidValidatingService = orcidValidatingService;
-    this.orcidRestClient = new OrcidRestClientImpl();
-    this.orcidSyncService = new OrcidSyncServiceImpl(orcidAuthorizationRepository, orcidRepository, pubItemService, this.orcidRestClient);
+    this.orcidAuthorizationService = orcidAuthorizationService;
+    this.orcidEmailService = orcidEmailService;
   }
 
   @Override
@@ -92,7 +80,7 @@ public class OrcidServiceImpl implements OrcidService {
       return orcidAuthorizationDbVO;
     }
 
-    orcidAuthorizationDbVO = OrcidHelper.updateAuthorizationDbVO(orcidAuthorizationDbVO, code, this.orcidAuthorizationRepository);
+    orcidAuthorizationDbVO = this.orcidAuthorizationService.updateAuthorizationDbVO(orcidAuthorizationDbVO, code);
     orcidAuthorizationDbVO = this.orcidRestClient.requestTokenAndOrcid(orcidAuthorizationDbVO, code, this.orcidAuthorizationRepository);
 
     String emailBibo = orcidAuthorizationDbVO.getEmailBibo();
@@ -100,9 +88,9 @@ public class OrcidServiceImpl implements OrcidService {
     String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO);
     String text = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_TEXT_FOR_BIBO);
 
-    OrcidHelper.sendEmail(this.emailService, emailSender, emailBibo, null, subject, text);
+    this.orcidEmailService.sendEmail(emailSender, emailBibo, null, subject, text);
 
-    orcidAuthorizationDbVO = OrcidHelper.finishAuthorizationDbVO(orcidAuthorizationDbVO, this.orcidAuthorizationRepository);
+    orcidAuthorizationDbVO = this.orcidAuthorizationService.finishAuthorizationDbVO(orcidAuthorizationDbVO);
 
     return orcidAuthorizationDbVO;
   }
@@ -112,7 +100,7 @@ public class OrcidServiceImpl implements OrcidService {
       String emailBibo, String emailAuthor)
       throws AuthenticationException, IngeApplicationException, TechnicalException, ValidationException {
 
-    AccountUserDbVO accountUserDbVO = getUser(token);
+    AccountUserDbVO accountUserDbVO = this.authorizationService.getUserAccountFromToken(token);
     this.authorizationService.checkLoginRequiredWithRole(token, GrantVO.PredefinedRoles.ORCID_ADMIN.frameworkValue());
 
     this.orcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor);
@@ -125,19 +113,18 @@ public class OrcidServiceImpl implements OrcidService {
     }
 
     String scopeRequested = PropertyReader.getProperty(PropertyReader.ORCID_SCOPE);
-    String genSecret = OrcidHelper.generateSecret();
+    String secret = this.orcidAuthorizationService.generateSecret();
     String redirectUri = PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_REST)
-        + PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_URL) + "?secret=" + genSecret;
-    String emailLink = OrcidHelper.createEmailLink(scopeRequested, redirectUri);
+        + PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_URL) + "?secret=" + secret;
+    String emailLink = this.orcidAuthorizationService.createEmailLink(scopeRequested, redirectUri);
     String userIdBibo = accountUserDbVO != null ? accountUserDbVO.getObjectId() : null;
 
-    orcidAuthorizationDbVO = OrcidHelper.createOrcidAuthorizationDbVO(this.orcidAuthorizationRepository, userIdBibo, coneIdAuthor,
-        orcidAuthor, nameAuthor, genSecret, scopeRequested, emailLink, emailBibo, emailAuthor, redirectUri);
+    orcidAuthorizationDbVO = this.orcidAuthorizationService.createOrcidAuthorizationDbVO(userIdBibo, coneIdAuthor, orcidAuthor, nameAuthor,
+        secret, scopeRequested, emailLink, emailBibo, emailAuthor, redirectUri);
 
     String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_LINK);
-    String text = OrcidHelper.createEmailText(nameAuthor, orcidAuthor, emailLink);
-
-    OrcidHelper.sendEmail(this.emailService, emailAuthor, emailBibo, emailBibo, subject, text);
+    String text = this.orcidEmailService.createOrcidEmailText(nameAuthor, orcidAuthor, emailLink);
+    this.orcidEmailService.sendEmail(emailAuthor, emailBibo, emailBibo, subject, text);
 
     orcidAuthorizationDbVO.setDateEmailSentLink(new Date());
     orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_LINK.toString());
@@ -152,7 +139,4 @@ public class OrcidServiceImpl implements OrcidService {
     this.orcidSyncService.sendItemsToOrcid();
   }
 
-  private AccountUserDbVO getUser(String token) throws AuthenticationException, IngeApplicationException {
-    return this.authorizationService.getUserAccountFromToken(token);
-  }
 }
