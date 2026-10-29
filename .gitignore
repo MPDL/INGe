@@ -25,3 +25,17 @@ reindex_util/dependency-reduced-pom.xml
 
 # Continue-Plugin
 .continue/*
+
+#Coding Agents
+AGENTS.md
+TODO.md
+
+.pi/*
+.opencode/*
+.github/skills/*
+.github/agents/*
+.github/prompts/*
+.github/workflows/copilot-setup-steps.yml
+openspec/*
+docs/*
+
