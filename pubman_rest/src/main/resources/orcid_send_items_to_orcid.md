@@ -13,7 +13,26 @@ Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufr
 
 ---
 
-## 2. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
+## 2. Verwendete Services und Komponenten
+
+| Service / Komponente | Voll qualifizierter Klassenname / Interface | Beschreibung & Rolle im Ablauf | Aufgerufene Methoden |
+| :--- | :--- | :--- | :--- |
+| **`OrcidRestController`** | `de.mpg.mpdl.inge.rest.web.controller.OrcidRestController` | REST-Controller-Endpunkt für administrative Synchronisationsaufrufe; nimmt HTTP-POST-Requests entgegen und gibt HTTP 200 OK zurück. | `sendItemsToOrcid()` |
+| **`OrcidService` / `OrcidServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.OrcidService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidServiceImpl` | Zentraler Einstiegsdienst; delegiert die Synchronisation an den spezialisierten Synchronisierungsdienst `OrcidSyncService`. | `sendItemsToOrcid()` |
+| **`OrcidSyncService` / `OrcidSyncServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidSyncService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidSyncServiceImpl` | Hauptkomponente der Synchronisation; steuert die Iteration über verifizierte Autoren, Abfrage, Kategorisierung, Batch-Neuanlage, Einzelaktualisierung und Persistierung der Synchronisationszustände. | `sendItemsToOrcid()`,<br/>`saveOrcidDbRecords(...)` |
+| **`OrcidAuthorizationRepository`** | `de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository` | Spring-Data-JPA-Repository für DB-Zugriffe auf `OrcidAuthorizationDbVO`; lädt aktive Autorisierungen und aktualisiert Zeitstempel / Fehlerstatus (z. B. `ACCESS_DENIED`). | `findByVerifiedTrue()`,<br/>`saveAndFlush(auth)` |
+| **`OrcidRepository`** | `de.mpg.mpdl.inge.db.repository.OrcidRepository` | Spring-Data-JPA-Repository für DB-Zugriffe auf `OrcidDbVO`; lädt und speichert Zuordnungen zwischen CoNE-Autoren, Publikationen (`itemId`), `putCode`s und ORCID-Sync-Status (`CREATE`/`UPDATE`). | `findByConeIdAuthor(coneIdAuthor)`,<br/>`findByConeIdAuthorAndItemId(...)`,<br/>`saveAndFlush(orcidDbVO)` |
+| **`OrcidQueryService` / `OrcidQueryServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidQueryService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidQueryServiceImpl` | Baut die Elasticsearch-Query (JSON) für geänderte und freigegebene Publikationen eines Autors und ruft den Suchservice auf. | `doOrcidQuery(coneIdAuthor, dateLastUpdated)`,<br/>`createOrcidQueryJsonNode(...)` |
+| **`PubItemService` / `PubItemServiceDbImpl`** | `de.mpg.mpdl.inge.service.pubman.PubItemService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl` | Schnittstelle zur Suche von Publikationen im Elasticsearch-Index. | `searchDetailed(srequ, -1, null)` |
+| **`OrcidTransformationService` / `OrcidTransformationServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidTransformationService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidTransformationServiceImpl` | Konvertiert PubMan-Suchergebnisse ins ORCID-JSON-Format, extrahiert Einzelwerke und `source-work-id`s, setzt `putCode`s und parst API-Antworten in `OrcidResponse`-Objekte. | `convertToOrcid(searchResult)`,<br/>`parseOrcidResponses(orcidAnswer)`,<br/>`getWorksBySourceWorkId(orcidBody)`,<br/>`setPutCode(workNode, putCode)`,<br/>`getSourceWorkId(workNode)` |
+| **`OrcidRestClient` / `OrcidRestClientImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidRestClient`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidRestClientImpl` | HTTP-Client zur Kommunikation mit der ORCID-v3.0-API; führt Bulk-POST- (`/v3.0/{orcid}/works`) und Einzel-PUT-Requests (`/v3.0/{orcid}/work/{putCode}`) mit Bearer-Token durch und erkennt 401-Fehler. | `createWorksInOrcid(orcid, body, token)`,<br/>`updateWorkInOrcid(orcid, json, token, putCode)`,<br/>`getWorksBySourceWorkId(...)`,<br/>`setPutCode(...)`,<br/>`parseOrcidResponses(...)` |
+| **`SearchRetrieveResponseToItemOrcid`** *(Transformer)* | `de.mpg.mpdl.inge.transformation.transformers.SearchRetrieveResponseToItemOrcid` | Führt die Transformation von `SearchRetrieveResponseVO<ItemVersionVO>` in das ORCID-XML/JSON-Format durch. | `transform(source, result)` |
+| **`ElasticSearchGenericDAOImpl`** *(Hilfsklasse / DAO)* | `de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl` | Hilfsmethode zur Konvertierung der Elasticsearch-`ResponseBody` in ein typsicheres `SearchRetrieveResponseVO<ItemVersionVO>`. | `getSearchRetrieveResponseFromElasticSearchResponse(...)` |
+| **`PropertyReader`** *(Hilfsklasse)* | `de.mpg.mpdl.inge.util.PropertyReader` | Liest Konfigurationsparameter (z. B. `ORCID_MAX_ITEMS_PER_REQUEST`, `ORCID_MAX_ITEMS_PER_SEARCH`, `ORCID_WORK_URL`, `ORCID_WORKS_URL`). | `getProperty(...)` |
+
+---
+
+## 3. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
 
 ```mermaid
 sequenceDiagram
@@ -131,7 +150,7 @@ sequenceDiagram
 
 ---
 
-## 3. Flussdiagramm (Entscheidungs- und Kontrollfluss)
+## 4. Flussdiagramm (Entscheidungs- und Kontrollfluss)
 
 ```mermaid
 flowchart TD
@@ -173,7 +192,7 @@ flowchart TD
 
 ---
 
-## 4. Schritt-für-Schritt-Übersicht
+## 5. Schritt-für-Schritt-Übersicht
 
 1. **Controller-Einstieg & Delegation**:
    - `OrcidRestController.sendItemsToOrcid()` nimmt den POST-Request (`POST /orcid/sendItemsToOrcid`) entgegen.

@@ -20,7 +20,24 @@ Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufr
 
 ---
 
-## 2. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
+## 2. Verwendete Services und Komponenten
+
+| Service / Komponente | Voll qualifizierter Klassenname / Interface | Beschreibung & Rolle im Ablauf | Aufgerufene Methoden |
+| :--- | :--- | :--- | :--- |
+| **`OrcidRestController`** | `de.mpg.mpdl.inge.rest.web.controller.OrcidRestController` | REST-Controller-Endpunkt für ORCID-Operationen; nimmt HTTP-POST-Requests entgegen und gibt die Response zurück. | `createAndSendEmailLink(...)` |
+| **`OrcidService` / `OrcidServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.OrcidService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidServiceImpl` | Zentraler Orchestrierungsdienst; koordiniert Authentifizierung, Validierung, Dublettenprüfung, Erstellung der Autorisierungsdaten und E-Mail-Versand. | `createAndSendEmailLink(...)` |
+| **`AuthorizationService`** | `de.mpg.mpdl.inge.service.aa.AuthorizationService` | Authentifizierung und Autorisierung des Aufrufers; prüft Token und Benutzerrolle (`ORCID_ADMIN`). | `getUserAccountFromToken(token)`,<br/>`checkLoginRequiredWithRole(token, role)` |
+| **`OrcidValidatingService`** | `de.mpg.mpdl.inge.inge_validation.OrcidValidatingService` | Validiert Eingabeparameter (`coneIdAuthor`, `orcidAuthor`, `nameAuthor`, `emailBibo`, `emailAuthor`) über `FluentValidator` und spezifische Validatoren. | `validate(...)` |
+| **`OrcidAuthorizationRepository`** | `de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository` | Spring-Data-JPA-Repository für DB-Zugriffe auf `OrcidAuthorizationDbVO`; prüft vorhandene Datensätze und persistiert Änderungen. | `findByConeIdAuthor(coneIdAuthor)`,<br/>`saveAndFlush(vo)` |
+| **`OrcidAuthorizationService` / `OrcidAuthorizationServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidAuthorizationService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidAuthorizationServiceImpl` | Domänenservice zur Generierung des OAuth-Secrets, Zusammenbau des ORCID-OAuth-Autorisierungslinks und Instanziierung des initialen DB-VOs. | `generateSecret()`,<br/>`createEmailLink(scope, redirectUri)`,<br/>`createOrcidAuthorizationDbVO(...)` |
+| **`OrcidEmailService` / `OrcidEmailServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidEmailService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidEmailServiceImpl` | ORCID-spezifischer E-Mail-Dienst; lädt Template (`orcid_email.txt`), ersetzt Platzhalter und steuert den Mailversand. | `createOrcidEmailText(...)`,<br/>`sendEmail(...)` |
+| **`EmailService`** | `de.mpg.mpdl.inge.service.pubman.EmailService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.EmailServiceImpl` | Allgemeiner E-Mail-Versandservice der Anwendung; versendet die formatierte HTML-Mail über SMTP. | `sendHtmlMail(...)` |
+| **`PropertyReader`** *(Hilfsklasse)* | `de.mpg.mpdl.inge.util.PropertyReader` | Liest Konfigurationsparameter (ORCID-URLs, Scopes, Betreffzeilen, SMTP-Host). | `getProperty(...)` |
+| **`ResourceUtil`** *(Hilfsklasse)* | `de.mpg.mpdl.inge.util.ResourceUtil` | Liest Template-Dateien aus dem Classpath. | `getResourceAsString(...)` |
+
+---
+
+## 3. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
 
 ```mermaid
 sequenceDiagram
@@ -32,7 +49,8 @@ sequenceDiagram
     participant Validator as OrcidValidatingService
     participant Repo as OrcidAuthorizationRepository
     participant AuthService as OrcidAuthorizationService
-    participant EmailService as OrcidEmailService
+    participant OrcidEmail as OrcidEmailService
+    participant Mailer as EmailService
 
     Client->>Controller: POST /orcid/createAndSendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)
     Controller->>Service: createAndSendEmailLink(token, coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)
@@ -74,10 +92,11 @@ sequenceDiagram
     end
 
     rect rgb(255, 250, 235)
-        Note over Service,EmailService: 5. Einladungs-E-Mail versenden
-        Service->>EmailService: createOrcidEmailText(nameAuthor, orcidAuthor, emailLink)
-        EmailService-->>Service: text
-        Service->>EmailService: sendEmail(emailAuthor, emailBibo, emailBibo, subject, text)
+        Note over Service,Mailer: 5. Einladungs-E-Mail generieren & versenden
+        Service->>OrcidEmail: createOrcidEmailText(nameAuthor, orcidAuthor, emailLink)
+        OrcidEmail-->>Service: text
+        Service->>OrcidEmail: sendEmail(emailAuthor, emailBibo, emailBibo, subject, text)
+        OrcidEmail->>Mailer: sendHtmlMail(smtpHost, ..., emailAuthor, subject, text)
     end
 
     rect rgb(245, 235, 255)
@@ -93,7 +112,7 @@ sequenceDiagram
 
 ---
 
-## 3. Flussdiagramm (Entscheidungs- und Kontrollfluss)
+## 4. Flussdiagramm (Entscheidungs- und Kontrollfluss)
 
 ```mermaid
 flowchart TD
@@ -107,15 +126,15 @@ flowchart TD
     G --> RetConflict([Return: 200 OK mit orcidAuthorizationDbVO & ErrorCode])
 
     F -- Nein --> H["4. Secret & OAuth Redirect-URL erzeugen<br/>↳ OrcidAuthorizationService.generateSecret()<br/>↳ OrcidAuthorizationService.createEmailLink(...)"]
-    H --> I["5. Datensatz anlegen & persistieren<br/>↳ OrcidAuthorizationService.createOrcidAuthorizationDbVO(...)<br/>↳ Repo.saveAndFlush(...)"]
-    I --> J["6. E-Mail generieren & senden<br/>↳ OrcidEmailService.createOrcidEmailText(...)<br/>↳ OrcidEmailService.sendEmail(...)"]
-    J --> K["7. Status aktualisieren<br/>↳ Status: EMAIL_SENT_LINK<br/>↳ dateEmailSentLink setzen<br/>↳ Repo.saveAndFlush(...)"]
+    H --> I["5. Datensatz anlegen & persistieren<br/>↳ OrcidAuthorizationService.createOrcidAuthorizationDbVO(...)<br/>↳ OrcidAuthorizationRepository.saveAndFlush(...)"]
+    I --> J["6. E-Mail generieren & senden<br/>↳ OrcidEmailService.createOrcidEmailText(...)<br/>↳ OrcidEmailService.sendEmail(...)<br/>↳ EmailService.sendHtmlMail(...)"]
+    J --> K["7. Status aktualisieren<br/>↳ Status: EMAIL_SENT_LINK<br/>↳ dateEmailSentLink setzen<br/>↳ OrcidAuthorizationRepository.saveAndFlush(...)"]
     K --> RetSuccess([Return: 200 OK mit orcidAuthorizationDbVO])
 ```
 
 ---
 
-## 4. Schritt-für-Schritt-Übersicht
+## 5. Schritt-für-Schritt-Übersicht
 
 1. **Controller-Einstieg & Authentifizierung**:
    - `OrcidRestController.createAndSendEmailLink(...)` nimmt den HTTP-POST-Request (`/orcid/createAndSendEmailLink`) entgegen.
@@ -123,7 +142,7 @@ flowchart TD
    - `AuthorizationService.checkLoginRequiredWithRole(...)` stellt sicher, dass der Aufrufer über die administrative Rolle `ORCID_ADMIN` verfügt.
 
 2. **Validierung der Eingabeparameter**:
-   - `OrcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)` prüft Format und Vollständigkeit der übergebenen Autoren- und E-Mail-Daten.
+   - `OrcidValidatingService.validate(coneIdAuthor, orcidAuthor, nameAuthor, emailBibo, emailAuthor)` prüft Format und Vollständigkeit der übergebenen Autoren- und E-Mail-Daten mittels FluentValidator und spezifischer Validatoren (`ConeIdAuthorValidator`, `OrcidValidator`, `NameAuthorValidator`, `EmailBiboValidator`, `EmailAuthorValidator`, `ConeCheckValidator`).
 
 3. **Dublettenprüfung**:
    - `OrcidAuthorizationRepository.findByConeIdAuthor(coneIdAuthor)` prüft, ob für den angegebenen CoNE-Autor bereits ein Autorisierungsdatensatz vorliegt.
@@ -137,7 +156,7 @@ flowchart TD
 5. **Versand der Einladungs-E-Mail**:
    - Betreff (`ORCID_EMAIL_SUBJECT_FOR_LINK`) und E-Mail-Vorlage (`orcid_email.txt`) werden geladen.
    - `OrcidEmailService.createOrcidEmailText(...)` ersetzt die Platzhalter (`$NAME_AUTHOR`, `$ORCID_AUTHOR`, `$EMAIL_LINK`).
-   - `OrcidEmailService.sendEmail(emailAuthor, emailBibo, emailBibo, subject, text)` stößt den E-Mail-Versand an (Empfänger: `emailAuthor`, Absender/Reply-To: `emailBibo`).
+   - `OrcidEmailService.sendEmail(emailAuthor, emailBibo, emailBibo, subject, text)` stößt den E-Mail-Versand an (Empfänger: `emailAuthor`, Absender/Reply-To: `emailBibo`) und delegiert an `EmailService.sendHtmlMail(...)`.
 
 6. **Status-Aktualisierung & Rückgabe**:
    - Das Datum `dateEmailSentLink` und der Status `EMAIL_SENT_LINK` werden gesetzt.

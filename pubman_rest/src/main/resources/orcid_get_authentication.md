@@ -16,7 +16,22 @@ Dieses Dokument visualisiert den Ablauf, die Schnittstellen und die Methodenaufr
 
 ---
 
-## 2. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
+## 2. Verwendete Services und Komponenten
+
+| Service / Komponente | Voll qualifizierter Klassenname / Interface | Beschreibung & Rolle im Ablauf | Aufgerufene Methoden |
+| :--- | :--- | :--- | :--- |
+| **`OrcidRestController`** | `de.mpg.mpdl.inge.rest.web.controller.OrcidRestController` | REST-Controller-Endpunkt für den OAuth-Callback von ORCID; nimmt HTTP-GET-Requests entgegen und gibt die Response zurück. | `getOrcidAuthentication(...)` |
+| **`OrcidService` / `OrcidServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.OrcidService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidServiceImpl` | Zentraler Orchestrierungsdienst; koordiniert Fehlerbehandlung, Statusübergänge, Token-Abruf über REST-Client, Bibo-Benachrichtigung und Abschluss des Vorgangs. | `getOrcidAuthorization(...)` |
+| **`OrcidAuthorizationRepository`** | `de.mpg.mpdl.inge.db.repository.OrcidAuthorizationRepository` | Spring-Data-JPA-Repository für DB-Zugriffe auf `OrcidAuthorizationDbVO`; sucht Autorisierungen anhand des Secrets und persistiert Statusänderungen. | `findBySecret(secret_)`,<br/>`saveAndFlush(vo)` |
+| **`OrcidAuthorizationService` / `OrcidAuthorizationServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidAuthorizationService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidAuthorizationServiceImpl` | Domänenservice für Statusfortschritte; dokumentiert den Empfang des Codes (`CODE_RECEIVED`) und den Abschluss des Ablaufs (`EMAIL_SENT_BIBO`). | `updateAuthorizationDbVO(vo, code)`,<br/>`finishAuthorizationDbVO(vo)` |
+| **`OrcidRestClient` / `OrcidRestClientImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidRestClient`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidRestClientImpl` | REST-Client für die externe ORCID-API; tauscht den Authorization Code via HTTP-POST (`/oauth/token`) gegen Access- und Refresh-Tokens ein und aktualisiert das VO (`TOKEN_RECEIVED`, `verified = true`). | `requestTokenAndOrcid(vo, code, repo)` |
+| **`OrcidEmailService` / `OrcidEmailServiceImpl`** | `de.mpg.mpdl.inge.service.pubman.orcid.OrcidEmailService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.OrcidEmailServiceImpl` | ORCID-spezifischer E-Mail-Dienst; steuert den Versand der Bestätigungs-E-Mail an die Bibliothek (`emailBibo`). | `sendEmail(...)` |
+| **`EmailService`** | `de.mpg.mpdl.inge.service.pubman.EmailService`<br/>`de.mpg.mpdl.inge.service.pubman.impl.EmailServiceImpl` | Allgemeiner E-Mail-Versandservice der Anwendung; versendet die formatierte HTML-Mail über SMTP. | `sendHtmlMail(...)` |
+| **`PropertyReader`** *(Hilfsklasse)* | `de.mpg.mpdl.inge.util.PropertyReader` | Liest Konfigurationsparameter (ORCID-URLs, Client-Credentials, Mailserver-Host, Bibo-Mailtexte, -Absender und -Betreffs). | `getProperty(...)` |
+
+---
+
+## 3. Sequenzdiagramm (Methoden-Aufrufreihenfolge)
 
 ```mermaid
 sequenceDiagram
@@ -28,7 +43,8 @@ sequenceDiagram
     participant AuthService as OrcidAuthorizationService
     participant RestClient as OrcidRestClientImpl
     participant OrcidAPI as Externe ORCID Token-API
-    participant EmailService as OrcidEmailService
+    participant OrcidEmail as OrcidEmailService
+    participant Mailer as EmailService
 
     Client->>Controller: GET /orcid/getOrcidAuthentication(secret, code, error_description)
     Controller->>Service: getOrcidAuthorization(secret, code, errorDescription)
@@ -70,8 +86,9 @@ sequenceDiagram
         end
 
         rect rgb(255, 250, 235)
-            Note over Service,EmailService: 4. Benachrichtigungs-E-Mail versenden
-            Service->>EmailService: sendEmail(emailSender, emailBibo, null, subject, text)
+            Note over Service,Mailer: 4. Benachrichtigungs-E-Mail versenden
+            Service->>OrcidEmail: sendEmail(emailSender, emailBibo, null, subject, text)
+            OrcidEmail->>Mailer: sendHtmlMail(smtpHost, ..., emailBibo, subject, text)
         end
 
         rect rgb(245, 235, 255)
@@ -89,7 +106,7 @@ sequenceDiagram
 
 ---
 
-## 3. Flussdiagramm (Entscheidungs- und Kontrollfluss)
+## 4. Flussdiagramm (Entscheidungs- und Kontrollfluss)
 
 ```mermaid
 flowchart TD
@@ -106,16 +123,16 @@ flowchart TD
     I --> J[OrcidAuthorizationRepository.saveAndFlush]
     J --> RetErr([Return: 200 OK mit Fehlerstatus])
     
-    H -- Nein: Code vorhanden --> K["1. OrcidAuthorizationService.updateAuthorizationDbVO(vo, code)<br/>↳ Repo.saveAndFlush (Status: CODE_RECEIVED)"]
-    K --> L["2. OrcidRestClient.requestTokenAndOrcid(vo, code, repo)<br/>↳ HTTP POST Token-Request an ORCID API<br/>↳ Abgleich von Name/ORCID (Warn-Codes)<br/>↳ Repo.saveAndFlush (Status: TOKEN_RECEIVED, verified: true)"]
-    L --> M["3. OrcidEmailService.sendEmail(emailSender, emailBibo, null, subject, text)"]
-    M --> N["4. OrcidAuthorizationService.finishAuthorizationDbVO(vo)<br/>↳ Repo.saveAndFlush (Status: EMAIL_SENT_BIBO)"]
+    H -- Nein: Code vorhanden --> K["1. OrcidAuthorizationService.updateAuthorizationDbVO(vo, code)<br/>↳ OrcidAuthorizationRepository.saveAndFlush (Status: CODE_RECEIVED)"]
+    K --> L["2. OrcidRestClient.requestTokenAndOrcid(vo, code, repo)<br/>↳ HTTP POST Token-Request an ORCID API<br/>↳ Abgleich von Name/ORCID (Warn-Codes)<br/>↳ OrcidAuthorizationRepository.saveAndFlush (Status: TOKEN_RECEIVED, verified: true)"]
+    L --> M["3. OrcidEmailService.sendEmail(emailSender, emailBibo, null, subject, text)<br/>↳ EmailService.sendHtmlMail(...)"]
+    M --> N["4. OrcidAuthorizationService.finishAuthorizationDbVO(vo)<br/>↳ OrcidAuthorizationRepository.saveAndFlush (Status: EMAIL_SENT_BIBO)"]
     N --> RetSuccess([Return: 200 OK mit orcidAuthorizationDbVO])
 ```
 
 ---
 
-## 4. Schritt-für-Schritt-Übersicht
+## 5. Schritt-für-Schritt-Übersicht
 
 1. **Controller-Einstieg & Lookup**:
    - `OrcidRestController.getOrcidAuthentication(...)` empfängt den Callback-Request von ORCID mit den Parametern `secret`, optional `code` und optional `error_description`.
@@ -137,7 +154,7 @@ flowchart TD
 
 5. **Benachrichtigung der Bibliothek**:
    - E-Mail-Absender (`ORCID_EMAIL_SENDER_FOR_BIBO`), Betreff (`ORCID_EMAIL_SUBJECT_FOR_BIBO`) und Bestätigungstext (`ORCID_EMAIL_TEXT_FOR_BIBO`) werden aus den Properties geladen.
-   - `OrcidEmailService.sendEmail(...)` versendet die Erfolgsbenachrichtigung an die hinterlegte Bibliotheksadresse (`emailBibo`).
+   - `OrcidEmailService.sendEmail(...)` versendet die Erfolgsbenachrichtigung an die hinterlegte Bibliotheksadresse (`emailBibo`) und delegiert an `EmailService.sendHtmlMail(...)`.
 
 6. **Abschluss & Rückgabe**:
    - `OrcidAuthorizationService.finishAuthorizationDbVO(vo)` setzt den Status auf `EMAIL_SENT_BIBO` sowie den Zeitstempel `dateEmailSentBibo` und persistiert den Datensatz via `OrcidAuthorizationRepository.saveAndFlush(...)`.
