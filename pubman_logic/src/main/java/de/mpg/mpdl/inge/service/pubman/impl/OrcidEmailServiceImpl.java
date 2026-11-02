@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrcidEmailServiceImpl implements OrcidEmailService {
   private static final Logger logger = LogManager.getLogger(OrcidEmailServiceImpl.class);
+  public static final String ORCID_EMAIL_AUTHOR_TEXT = "orcid_email_author.txt";
+  public static final String ORCID_EMAIL_BIBO_TEXT = "orcid_email_bibo.txt";
+  public static final String ORCID_EMAIL_CONSENT_AUTHOR_TEXT = "orcid_email_consent_author.txt";
+  public static final String ORCID_EMAIL_CONSENT_BIBO_TEXT = "orcid_email_consent_bibo.txt";
+  public static final String ORCID_EMAIL_NO_CONSENT_AUTHOR_TEXT = "orcid_email_no_consent_author.txt";
+  public static final String ORCID_EMAIL_NO_CONSENT_BIBO_TEXT = "orcid_email_no_consent_bibo.txt";
 
   private final EmailService emailService;
 
@@ -23,16 +29,76 @@ public class OrcidEmailServiceImpl implements OrcidEmailService {
   }
 
   @Override
-  public String createOrcidEmailText(String nameAuthor, String orcidAuthor, String emailLink) throws TechnicalException {
+  public String createOrcidEmailAuthorText(String nameAuthor, String orcidAuthor, String emailLink) throws TechnicalException {
     try {
-      String template = ResourceUtil.getResourceAsString("orcid_email.txt", OrcidEmailServiceImpl.class.getClassLoader());
+      String template = ResourceUtil.getResourceAsString(ORCID_EMAIL_AUTHOR_TEXT, OrcidEmailServiceImpl.class.getClassLoader());
       template = template.replace("$NAME_AUTHOR", nameAuthor != null ? nameAuthor : "");
       template = template.replace("$ORCID_AUTHOR", orcidAuthor != null ? orcidAuthor : "");
       template = template.replace("$EMAIL_LINK", emailLink != null ? emailLink : "");
       return template;
     } catch (IOException e) {
-      logger.error("Error reading orcid_email.txt", e);
-      throw new TechnicalException("Error reading orcid_email.txt", e);
+      logger.error("Error reading " + ORCID_EMAIL_AUTHOR_TEXT, e);
+      throw new TechnicalException("Error reading " + ORCID_EMAIL_AUTHOR_TEXT, e);
+    }
+  }
+
+  @Override
+  public String createOrcidEmailBiboText() throws TechnicalException {
+    try {
+      String template = ResourceUtil.getResourceAsString(ORCID_EMAIL_BIBO_TEXT, OrcidEmailServiceImpl.class.getClassLoader());
+      return template;
+    } catch (IOException e) {
+      logger.error("Error reading " + ORCID_EMAIL_BIBO_TEXT, e);
+      throw new TechnicalException("Error reading " + ORCID_EMAIL_BIBO_TEXT, e);
+    }
+  }
+
+  @Override
+  public String createOrcidEmailConsentAuthorText(String nameAuthor) throws TechnicalException {
+    try {
+      String template = ResourceUtil.getResourceAsString(ORCID_EMAIL_CONSENT_AUTHOR_TEXT, OrcidEmailServiceImpl.class.getClassLoader());
+      template = template.replace("$NAME_AUTHOR", nameAuthor != null ? nameAuthor : "");
+      return template;
+    } catch (IOException e) {
+      logger.error("Error reading " + ORCID_EMAIL_CONSENT_AUTHOR_TEXT, e);
+      throw new TechnicalException("Error reading " + ORCID_EMAIL_CONSENT_AUTHOR_TEXT, e);
+    }
+  }
+
+  @Override
+  public String createOrcidEmailConsentBiboText(String nameAuthor) throws TechnicalException {
+    try {
+      String template = ResourceUtil.getResourceAsString(ORCID_EMAIL_CONSENT_BIBO_TEXT, OrcidEmailServiceImpl.class.getClassLoader());
+      template = template.replace("$NAME_AUTHOR", nameAuthor != null ? nameAuthor : "");
+      return template;
+    } catch (IOException e) {
+      logger.error("Error reading " + ORCID_EMAIL_CONSENT_BIBO_TEXT, e);
+      throw new TechnicalException("Error reading " + ORCID_EMAIL_CONSENT_BIBO_TEXT, e);
+    }
+  }
+
+  @Override
+  public String createOrcidEmailNoConsentAuthorText(String nameAuthor, String orcidAuthor, String emailLink) throws TechnicalException {
+    try {
+      String template = ResourceUtil.getResourceAsString(ORCID_EMAIL_NO_CONSENT_AUTHOR_TEXT, OrcidEmailServiceImpl.class.getClassLoader());
+      template = template.replace("$NAME_AUTHOR", nameAuthor != null ? nameAuthor : "");
+      template = template.replace("$EMAIL_LINK", emailLink != null ? emailLink : "");
+      return template;
+    } catch (IOException e) {
+      logger.error("Error reading " + ORCID_EMAIL_NO_CONSENT_AUTHOR_TEXT, e);
+      throw new TechnicalException("Error reading " + ORCID_EMAIL_NO_CONSENT_AUTHOR_TEXT, e);
+    }
+  }
+
+  @Override
+  public String createOrcidEmailNoConsentBiboText(String nameAuthor) throws TechnicalException {
+    try {
+      String template = ResourceUtil.getResourceAsString(ORCID_EMAIL_NO_CONSENT_BIBO_TEXT, OrcidEmailServiceImpl.class.getClassLoader());
+      template = template.replace("$NAME_AUTHOR", nameAuthor != null ? nameAuthor : "");
+      return template;
+    } catch (IOException e) {
+      logger.error("Error reading " + ORCID_EMAIL_NO_CONSENT_BIBO_TEXT, e);
+      throw new TechnicalException("Error reading " + ORCID_EMAIL_NO_CONSENT_BIBO_TEXT, e);
     }
   }
 

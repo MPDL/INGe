@@ -72,6 +72,17 @@ public class OrcidServiceImpl implements OrcidService {
       if (error.equals("access_denied")) {
         orcidAuthorizationDbVO.setErrorCodes(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString());
         orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.ACCESS_DENIED.toString());
+        String emailAuthor = orcidAuthorizationDbVO.getEmailAuthor();
+        String emailSender = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SENDER);
+        String subjectAuthor = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_NO_CONSENT_FOR_AUTHOR);
+        String textAuthor = this.orcidEmailService.createOrcidEmailNoConsentAuthorText(orcidAuthorizationDbVO.getNameAuthor(),
+            orcidAuthorizationDbVO.getOrcidAuthor(), orcidAuthorizationDbVO.getEmailLink());
+        this.orcidEmailService.sendEmail(emailAuthor, emailSender, null, subjectAuthor, textAuthor);
+
+        String emailBibo = orcidAuthorizationDbVO.getEmailBibo();
+        String subjectBibo = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_NO_CONSENT_FOR_BIBO);
+        String textBibo = this.orcidEmailService.createOrcidEmailNoConsentBiboText(orcidAuthorizationDbVO.getNameAuthor());
+        this.orcidEmailService.sendEmail(emailBibo, emailSender, null, subjectBibo, textBibo);
       } else {
         orcidAuthorizationDbVO.setErrorCodes(errorDescription);
         orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.ERROR.toString());
@@ -83,12 +94,16 @@ public class OrcidServiceImpl implements OrcidService {
     orcidAuthorizationDbVO = this.orcidAuthorizationService.updateAuthorizationDbVO(orcidAuthorizationDbVO, code);
     orcidAuthorizationDbVO = this.orcidRestClient.requestTokenAndOrcid(orcidAuthorizationDbVO, code, this.orcidAuthorizationRepository);
 
-    String emailBibo = orcidAuthorizationDbVO.getEmailBibo();
-    String emailSender = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SENDER_FOR_BIBO);
-    String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO);
-    String text = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_TEXT_FOR_BIBO);
+    String emailAuthor = orcidAuthorizationDbVO.getEmailAuthor();
+    String emailSender = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SENDER);
+    String subjectAuthor = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_CONSENT_FOR_AUTHOR);
+    String textAuthor = this.orcidEmailService.createOrcidEmailConsentAuthorText(orcidAuthorizationDbVO.getName());
+    this.orcidEmailService.sendEmail(emailAuthor, emailSender, null, subjectAuthor, textAuthor);
 
-    this.orcidEmailService.sendEmail(emailSender, emailBibo, null, subject, text);
+    String emailBibo = orcidAuthorizationDbVO.getEmailBibo();
+    String subjectBibo = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_CONSENT_FOR_BIBO);
+    String textBibo = this.orcidEmailService.createOrcidEmailConsentBiboText(orcidAuthorizationDbVO.getName());
+    this.orcidEmailService.sendEmail(emailBibo, emailSender, null, subjectBibo, textBibo);
 
     orcidAuthorizationDbVO = this.orcidAuthorizationService.finishAuthorizationDbVO(orcidAuthorizationDbVO);
 
@@ -117,19 +132,22 @@ public class OrcidServiceImpl implements OrcidService {
     String redirectUri = PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_REST)
         + PropertyReader.getProperty(PropertyReader.ORCID_REDIRECT_URL_URL) + "?secret=" + secret;
     String emailLink = this.orcidAuthorizationService.createEmailLink(scopeRequested, redirectUri);
-    String userIdBibo = accountUserDbVO != null ? accountUserDbVO.getObjectId() : null;
+    String userIdBibo = accountUserDbVO.getObjectId();
 
     orcidAuthorizationDbVO = this.orcidAuthorizationService.createOrcidAuthorizationDbVO(userIdBibo, coneIdAuthor, orcidAuthor, nameAuthor,
         secret, scopeRequested, emailLink, emailBibo, emailAuthor, redirectUri);
-
-    String subject = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_LINK);
-    String text = this.orcidEmailService.createOrcidEmailText(nameAuthor, orcidAuthor, emailLink);
-    this.orcidEmailService.sendEmail(emailAuthor, emailBibo, emailBibo, subject, text);
-
     orcidAuthorizationDbVO.setDateEmailSentLink(new Date());
     orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.EMAIL_SENT_LINK.toString());
-
     orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
+
+    String subjectAuthor = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_AUTHOR);
+    String textAuthor = this.orcidEmailService.createOrcidEmailAuthorText(nameAuthor, orcidAuthor, emailLink);
+    this.orcidEmailService.sendEmail(emailAuthor, emailBibo, emailBibo, subjectAuthor, textAuthor);
+
+    String emailSender = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SENDER);
+    String subjectBibo = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_FOR_BIBO);
+    String textBibo = this.orcidEmailService.createOrcidEmailBiboText();
+    this.orcidEmailService.sendEmail(emailBibo, emailSender, null, subjectBibo, textBibo);
 
     return orcidAuthorizationDbVO;
   }

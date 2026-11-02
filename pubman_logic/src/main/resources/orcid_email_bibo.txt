@@ -1,0 +1,19 @@
+<p>*See below for the English version*</p>
+
+<p>Eine Email mit einem Freigabe-Link für die Verknüpfung von ORCID-Profilen mit MPG-PuRe ist an die von Ihnen angegebene Adresse gesendet worden.</p>
+
+<p>Sie erhalten eine gesonderte Mitteilung, sobald die entsprechende Freigabe erteilt oder abgelehnt worden ist.</p>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Ihr MPG.PuRe-Support-Team</p>
+
+<br>
+***
+<br>
+
+<p>An email containing an approval link for linking ORCID profiles to MPG-PuRe has been sent to the address you provided.</p>
+
+<p>You will receive a separate notification as soon as the relevant approval has been granted or denied.</p>
+
+<p>Sincerely,</p>
+<p>Your MPG.PuRe-Support-Team</p>

@@ -153,7 +153,7 @@ flowchart TD
    - Eventuelle Abweichungen zwischen dem registrierten Namen bzw. ORCID und den Rückgabewerten werden als Warn-Codes (`WARN_DIFFERENT_NAME`, `WARN_DIFFERENT_ORCID`) erfasst.
 
 5. **Benachrichtigung der Bibliothek**:
-   - E-Mail-Absender (`ORCID_EMAIL_SENDER_FOR_BIBO`), Betreff (`ORCID_EMAIL_SUBJECT_FOR_BIBO`) und Bestätigungstext (`ORCID_EMAIL_TEXT_FOR_BIBO`) werden aus den Properties geladen.
+   - E-Mail-Absender (`ORCID_EMAIL_SENDER`), Betreff (`ORCID_EMAIL_SUBJECT_FOR_BIBO`) und Bestätigungstext (`ORCID_EMAIL_TEXT_FOR_BIBO`) werden aus den Properties geladen.
    - `OrcidEmailService.sendEmail(...)` versendet die Erfolgsbenachrichtigung an die hinterlegte Bibliotheksadresse (`emailBibo`) und delegiert an `EmailService.sendHtmlMail(...)`.
 
 6. **Abschluss & Rückgabe**:

@@ -29,9 +29,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -229,24 +230,26 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
 
-  public static final String ORCID_URL = "orcid.url";
   public static final String ORCID_API_URL = "orcid.api.url";
   public static final String ORCID_AUTHORIZE_URL = "orcid.authorize.url";
-  public static final String ORCID_SCOPE = "orcid.scope";
-  public static final String ORCID_RESPONSE_TYPE = "orcid.response.type";
-  public static final String ORCID_REDIRECT_URL_REST = "orcid.redirect.url.rest";
-  public static final String ORCID_REDIRECT_URL_URL = "orcid.redirect.url.url";
   public static final String ORCID_CLIENT_ID = "orcid.client.id";
   public static final String ORCID_CLIENT_SECRET = "orcid.client.secret";
-  public static final String ORCID_TOKEN_URL = "orcid.token.url";
-  public static final String ORCID_EMAIL_SUBJECT_FOR_BIBO = "orcid.email.subject.for.bibo";
-  public static final String ORCID_EMAIL_SUBJECT_FOR_LINK = "orcid.email.subject.for.link";
-  public static final String ORCID_EMAIL_TEXT_FOR_BIBO = "orcid.email.text.for.bibo";
   public static final String ORCID_EMAIL_MAILSERVERNAME = "orcid.email.mailservername";
-  public static final String ORCID_EMAIL_SENDER_FOR_BIBO = "orcid.email.sender.for.bibo";
+  public static final String ORCID_EMAIL_SENDER = "orcid.email.sender";
+  public static final String ORCID_EMAIL_SUBJECT_CONSENT_FOR_AUTHOR = "orcid.email.subject.consent.for.author";
+  public static final String ORCID_EMAIL_SUBJECT_CONSENT_FOR_BIBO = "orcid.email.subject.consent.for.bibo";
+  public static final String ORCID_EMAIL_SUBJECT_FOR_AUTHOR = "orcid.email.subject.for.author";
+  public static final String ORCID_EMAIL_SUBJECT_FOR_BIBO = "orcid.email.subject.for.bibo";
+  public static final String ORCID_EMAIL_SUBJECT_NO_CONSENT_FOR_AUTHOR = "orcid.email.subject.no.consent.for.author";
+  public static final String ORCID_EMAIL_SUBJECT_NO_CONSENT_FOR_BIBO = "orcid.email.subject.no.consent.for.bibo";
   public static final String ORCID_MAX_ITEMS_PER_REQUEST = "orcid.max.items.per.request";
   public static final String ORCID_MAX_ITEMS_PER_SEARCH = "orcid.max.items.per.search";
-
+  public static final String ORCID_REDIRECT_URL_REST = "orcid.redirect.url.rest";
+  public static final String ORCID_REDIRECT_URL_URL = "orcid.redirect.url.url";
+  public static final String ORCID_RESPONSE_TYPE = "orcid.response.type";
+  public static final String ORCID_SCOPE = "orcid.scope";
+  public static final String ORCID_TOKEN_URL = "orcid.token.url";
+  public static final String ORCID_URL = "orcid.url";
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";
@@ -331,10 +334,9 @@ public class PropertyReader {
     if (null != solution) {
       logger.info("Solution URI is <" + solution + ">");
 
-      try {
-        InputStream in = getInputStream("solution.properties");
-        solProperties.load(in);
-        in.close();
+      try (InputStream in = getInputStream("solution.properties");
+          InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
+        solProperties.load(reader);
 
         String appname = solProperties.getProperty("appname");
         propertiesFile = appname + ".properties";
@@ -349,11 +351,10 @@ public class PropertyReader {
     }
 
     properties = new Properties();
-    try {
-      InputStream instream = getInputStream(propertiesFile);
-      properties.load(instream);
+    try (InputStream instream = getInputStream(propertiesFile);
+        InputStreamReader reader = new InputStreamReader(instream, StandardCharsets.UTF_8)) {
+      properties.load(reader);
       properties.putAll(solProperties);
-      instream.close();
     } catch (IOException e) {
       logger.fatal("Got no properties to load...<" + propertiesFile + ">", e);
       throw new ExceptionInInitializerError(e);

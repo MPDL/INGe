@@ -1,0 +1,19 @@
+<p>*See below for the English version*</p>
+
+<p>$NAME_AUTHOR hat der Verknüpfung des ORCID-Profils mit MPG.PuRe nicht zugestimmt. Eine Übertragung von Publiaktionsdaten aus PuRe in die "Werke" des Profils ist daher nicht möglich.</p>
+
+<p>Sollte dennoch in Zukunft eine automatische Anreicherung mit Publikationsdaten gewünscht werden, kann dafür der bereits versendete Aktivierungslink erneut verwendet werden.<br>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Ihr MPG.PuRe-Support-Team</p>
+
+<br>
+***
+<br>
+
+<p>$NAME_AUTHOR has not consented to linking their ORCID profile to MPG.PuRe. Therefore, it is not possible to transfer publication data from PuRe to the “Works” section of the profile.</p>
+
+<p>If, however, automatic enrichment with publication data is desired in the future, the activation link that has already been sent can be used again for this purpose.</p>
+
+<p>Sincerely,</p>
+<p>Your MPG.PuRe-Support-Team</p>

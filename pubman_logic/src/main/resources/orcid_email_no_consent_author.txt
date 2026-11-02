@@ -1,0 +1,23 @@
+<p>*See below for the English version*</p>
+<p>Sehr geehrte(r) $NAME_AUTHOR,</p>
+
+<p>Sie haben der Verknüpfung Ihres ORCID-Profils mit MPG.PuRe nicht zugestimmt. Eine Übertragung von Publiaktionsdaten aus PuRe in die "Werke" Ihres Profils ist daher nicht möglich.</p>
+
+<p>Sollten Sie sich in Zukunft dennoch dafür entscheiden, eine automatische Anreicherung mit Publikationsdaten einzurichten, können Sie dies jederzeit über den bereits versendeten Aktivierunglink tun:<br>
+<a href="$EMAIL_LINK">$EMAIL_LINK</a></p>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Ihr MPG.PuRe-Support-Team</p>
+
+<br>
+***
+<br>
+
+<p>Dear $NAME_AUTHOR,</p>
+
+<p>You have not consented to linking your ORCID profile to MPG.PuRe. Therefore, it is not possible to transfer publication data from PuRe to the “Works” section of your profile.</p>
+
+<p>If you decide in the future to set up automatic enrichment with publication data, you can do so at any time using the activation link that has already been sent to you: <a href="$EMAIL_LINK">$EMAIL_LINK</a></p>
+
+<p>Sincerely,</p>
+<p>Your MPG.PuRe-Support-Team</p>

@@ -299,7 +299,7 @@ public class ItemRestController {
       try (OutputStream output = response.getOutputStream()) {
         fileVOWrapper.readFile(output);
       }
-
+      
        */
     } catch (IOException e) {
       logger.error("could not read file [" + componentId + "]");

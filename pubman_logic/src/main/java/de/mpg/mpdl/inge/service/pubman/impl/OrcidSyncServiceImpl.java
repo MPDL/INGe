@@ -143,13 +143,11 @@ public class OrcidSyncServiceImpl implements OrcidSyncService {
 
   private Map<String, OrcidDbVO> loadExistingOrcidRecords(String coneIdAuthor) {
     Map<String, OrcidDbVO> existingOrcidMap = new HashMap<>();
-    if (this.orcidRepository != null) {
-      List<OrcidDbVO> existingOrcidRecords = this.orcidRepository.findByConeIdAuthor(coneIdAuthor);
-      if (existingOrcidRecords != null) {
-        for (OrcidDbVO orcidDbVO : existingOrcidRecords) {
-          if (orcidDbVO != null && orcidDbVO.getItemId() != null) {
-            existingOrcidMap.put(orcidDbVO.getItemId(), orcidDbVO);
-          }
+    List<OrcidDbVO> existingOrcidRecords = this.orcidRepository.findByConeIdAuthor(coneIdAuthor);
+    if (existingOrcidRecords != null) {
+      for (OrcidDbVO orcidDbVO : existingOrcidRecords) {
+        if (orcidDbVO != null && orcidDbVO.getItemId() != null) {
+          existingOrcidMap.put(orcidDbVO.getItemId(), orcidDbVO);
         }
       }
     }
@@ -300,24 +298,13 @@ public class OrcidSyncServiceImpl implements OrcidSyncService {
   @Override
   public OrcidDbVO saveOrcidDbRecord(OrcidAuthorizationDbVO verifiedOrcidAuthorization, String itemId, String putCode,
       OrcidResponse orcidResponse, OrcidDbVO.Status status, Map<String, OrcidDbVO> existingOrcidMap) {
-    if (this.orcidRepository == null || itemId == null) {
-      return null;
-    }
-    OrcidDbVO orcidDbVO = null;
-    if (existingOrcidMap != null) {
-      orcidDbVO = existingOrcidMap.get(itemId);
-    } else {
-      String coneIdAuthor = verifiedOrcidAuthorization != null ? verifiedOrcidAuthorization.getConeIdAuthor() : null;
-      orcidDbVO = this.orcidRepository.findByConeIdAuthorAndItemId(coneIdAuthor, itemId);
-    }
+    OrcidDbVO orcidDbVO = existingOrcidMap.get(itemId);
     if (orcidDbVO == null) {
       orcidDbVO = new OrcidDbVO();
       orcidDbVO.setOrcidAuthorizationDbVO(verifiedOrcidAuthorization);
       orcidDbVO.setItemId(itemId);
     }
-    if (status != null) {
-      orcidDbVO.setStatus(status.toString());
-    }
+    orcidDbVO.setStatus(status.toString());
     orcidDbVO.setDate(new Date());
 
     if (putCode != null) {
@@ -338,9 +325,7 @@ public class OrcidSyncServiceImpl implements OrcidSyncService {
     }
 
     OrcidDbVO saved = this.orcidRepository.saveAndFlush(orcidDbVO);
-    if (existingOrcidMap != null) {
-      existingOrcidMap.put(itemId, saved);
-    }
+
     return saved;
   }
 
@@ -353,21 +338,13 @@ public class OrcidSyncServiceImpl implements OrcidSyncService {
       return saveOrcidDbRecord(verifiedOrcidAuthorization, itemId, putCode, item, status, existingOrcidMap);
     }
 
-    OrcidDbVO orcidDbVO = null;
-    if (existingOrcidMap != null) {
-      orcidDbVO = existingOrcidMap.get(itemId);
-    } else {
-      String coneIdAuthor = verifiedOrcidAuthorization != null ? verifiedOrcidAuthorization.getConeIdAuthor() : null;
-      orcidDbVO = this.orcidRepository.findByConeIdAuthorAndItemId(coneIdAuthor, itemId);
-    }
+    OrcidDbVO orcidDbVO = orcidDbVO = existingOrcidMap.get(itemId);
     if (orcidDbVO == null) {
       orcidDbVO = new OrcidDbVO();
       orcidDbVO.setOrcidAuthorizationDbVO(verifiedOrcidAuthorization);
       orcidDbVO.setItemId(itemId);
     }
-    if (status != null) {
-      orcidDbVO.setStatus(status.toString());
-    }
+    orcidDbVO.setStatus(status.toString());
     orcidDbVO.setDate(new Date());
 
     if (putCode != null) {
@@ -388,19 +365,15 @@ public class OrcidSyncServiceImpl implements OrcidSyncService {
     }
 
     OrcidDbVO saved = this.orcidRepository.saveAndFlush(orcidDbVO);
-    if (existingOrcidMap != null) {
-      existingOrcidMap.put(itemId, saved);
-    }
     return saved;
   }
 
   @Override
   public void saveOrcidDbRecords(OrcidAuthorizationDbVO verifiedOrcidAuthorization, SearchRetrieveResponseVO<ItemVersionVO> searchResult,
       List<OrcidResponse> orcidResponses, OrcidDbVO.Status status, Map<String, OrcidDbVO> existingOrcidMap) {
-    if (this.orcidRepository == null) {
-      return;
-    }
     if (searchResult != null && searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
+      List<OrcidDbVO> recordsToSave = new ArrayList<>();
+
       for (int i = 0; i < searchResult.getRecords().size(); i++) {
         SearchRetrieveRecordVO<ItemVersionVO> record = searchResult.getRecords().get(i);
         ItemVersionVO itemVersionVO = record != null ? record.getData() : null;
@@ -408,12 +381,7 @@ public class OrcidSyncServiceImpl implements OrcidSyncService {
           String itemId = itemVersionVO.getObjectId();
           OrcidResponse orcidResponse = (orcidResponses != null && i < orcidResponses.size()) ? orcidResponses.get(i) : null;
           if (orcidResponse != null) {
-            OrcidDbVO orcidDbVO = null;
-            if (existingOrcidMap != null) {
-              orcidDbVO = existingOrcidMap.get(itemId);
-            } else {
-              orcidDbVO = this.orcidRepository.findByConeIdAuthorAndItemId(verifiedOrcidAuthorization.getConeIdAuthor(), itemId);
-            }
+            OrcidDbVO orcidDbVO = existingOrcidMap.get(itemId);
             if (orcidDbVO == null) {
               orcidDbVO = new OrcidDbVO();
               orcidDbVO.setOrcidAuthorizationDbVO(verifiedOrcidAuthorization);
@@ -433,13 +401,15 @@ public class OrcidSyncServiceImpl implements OrcidSyncService {
               orcidDbVO.setDeveloperMessage(orcidResponse.getDeveloperMessage());
             }
 
-            OrcidDbVO saved = this.orcidRepository.saveAndFlush(orcidDbVO);
-            if (existingOrcidMap != null) {
-              existingOrcidMap.put(itemId, saved);
-            }
-
-            logger.info("ORCID: {}", saved.toInfoString());
+            recordsToSave.add(orcidDbVO);
           }
+        }
+      }
+
+      if (!recordsToSave.isEmpty()) {
+        List<OrcidDbVO> savedRecords = this.orcidRepository.saveAllAndFlush(recordsToSave);
+        for (OrcidDbVO saved : savedRecords) {
+          logger.info("ORCID: {}", saved.toInfoString());
         }
       }
     }

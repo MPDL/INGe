@@ -1,0 +1,29 @@
+<p>*See below for the English version*</p>
+
+<p>$NAME_AUTHOR hat der Verknüpfung des ORCID-Profils mit MPG.PuRe zugestimmt.<br>
+Sollten in PuRe bereits entsprechende Publikationsdaten vorhanden sein, werden diese nun als "Werke" automatisch in das Profil importiert.</p>
+
+<p>Alle künftig in PuRe neu erfassten Daten werden ebenfalls automatisiert übertragen. Bereits importierte Publikationen, die in PuRe nachträglich verändert oder korrigiert werden, werden in dem ORCID-Profil entsprechend aktualisiert.</p>
+
+<p>Importierte Werke, die im ORCID-Profil manuell aus der Publikationsliste gelöscht werden, werden nicht erneut aus PuRe übertragen.</p>
+
+<p>Falls Autoren die Synchronisierung von Daten aus PuRe beenden möchten, können sie die erteilte Berechtigung jederzeit in den Einstellungen ihres ORCID-Profils widerrufen.</p>
+
+<p>Mit freundlichen Grüßen</p>
+<p>Ihr MPG.PuRe-Support-Team</p>
+
+<br>
+***
+<br>
+
+<p>$NAME_AUTHOR has consented to linking the ORCID profile with MPG.PuRe.<br>
+If corresponding publication data already exists in PuRe, it will now be automatically imported into the profile as “works.”</p>
+
+<p>All data newly entered into PuRe in the future will also be transferred automatically. Publications that have already been imported and are subsequently modified or corrected in PuRe will be updated accordingly in the ORCID profile.</p>
+
+<p>Imported works that are manually deleted from the publication list in the ORCID profile will not be transferred from PuRe again.</p>
+
+<p>Falls Autoren die Synchronisierung von Daten aus PuRe beenden möchten, können sie die erteilte Berechtigung jederzeit in den Einstellungen ihres ORCID-Profils widerrufen.</p>
+
+<p>Sincerely,</p>
+<p>Your MPG.PuRe-Support-Team</p>
