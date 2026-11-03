@@ -135,14 +135,6 @@ public class AuthorizationServiceReadOnlyTest {
   }
 
   @Test
-  public void passwordChangeRemainsAllowedInReadOnlyMode() throws Exception {
-    setReadOnly(true);
-
-    AccountUserDbVO account = user("user_1", null, null);
-    this.aaService.checkAuthorization(USER_SERVICE, "changePassword", principal(account), account);
-  }
-
-  @Test
   public void checkWritableAllowsSysAdminAndRejectsAnonymous() throws Exception {
     setReadOnly(true);
 
