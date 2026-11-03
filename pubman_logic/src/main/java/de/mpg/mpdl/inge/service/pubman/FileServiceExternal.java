@@ -34,7 +34,7 @@ public interface FileServiceExternal {
    * @throws IOException
    */
   StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException;
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException;
 
 
 

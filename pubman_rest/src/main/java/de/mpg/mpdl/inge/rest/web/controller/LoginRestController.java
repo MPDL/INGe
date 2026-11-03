@@ -5,6 +5,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.rest.web.model.IpAccountUserDbVO;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -34,10 +35,13 @@ public class LoginRestController {
 
   private final IpListProvider ipListProvider;
 
+  private final AuthorizationService authorizationService;
+
   @Autowired
-  public LoginRestController(UserAccountService userSvc, IpListProvider ipListProvider) {
+  public LoginRestController(UserAccountService userSvc, IpListProvider ipListProvider, AuthorizationService authorizationService) {
     this.userSvc = userSvc;
     this.ipListProvider = ipListProvider;
+    this.authorizationService = authorizationService;
   }
 
   @RequestMapping(path = "changepassword", method = POST, produces = APPLICATION_JSON_VALUE)
@@ -88,6 +92,7 @@ public class LoginRestController {
       HttpServletRequest request) throws AuthenticationException {
     AccountUserDbVO user = this.userSvc.get(token);
     IpAccountUserDbVO ipAccountUserDbVO = new IpAccountUserDbVO(user);
+    ipAccountUserDbVO.setReadOnlyMode(this.authorizationService.isReadOnlyMode());
 
     //Return info on IP and matches IP Ranges, also for anonymous users
     //A token should always be set and contains the IP adress, because either the client sends an Authorization header, or an anonymous token is set by AuthCookieToHeaderFilter

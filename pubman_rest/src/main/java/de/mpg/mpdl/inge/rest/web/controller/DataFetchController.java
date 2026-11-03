@@ -20,6 +20,7 @@ import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.FileService;
@@ -86,7 +87,7 @@ public class DataFetchController {
   public ResponseEntity<ItemVersionVO> getArxiv( //
       @RequestHeader(AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, //
       @RequestParam(IDENTIFIER) String identifier)
-      throws AuthenticationException, IngeApplicationException, IngeTechnicalException, NotFoundException {
+      throws AuthenticationException, IngeApplicationException, IngeTechnicalException, NotFoundException, AuthorizationException {
 
     DataSourceVO dataSourceVO = getDataSource(ARXIV);
     AccountUserDbVO accountUserDbVO = this.utilServiceBean.checkUser(token);
@@ -146,7 +147,8 @@ public class DataFetchController {
     return itemVersionVO;
   }
 
-  private List<FileDbVO> getFiles(DataSourceVO dataSourceVO, String identifier, String token, String source) throws IngeTechnicalException {
+  private List<FileDbVO> getFiles(DataSourceVO dataSourceVO, String identifier, String token, String source)
+      throws IngeTechnicalException, AuthorizationException {
 
     List<FileDbVO> fileVOs = new ArrayList<>();
     List<FullTextVO> ftFormats = dataSourceVO.getFtFormats();
@@ -173,6 +175,8 @@ public class DataFetchController {
     try {
       StagedFileDbVO stagedFile = this.fileService.createStageFile(in, fileName, token);
       fileId = String.valueOf(stagedFile.getId());
+    } catch (AuthorizationException e) {
+      throw e;
     } catch (Exception e) {
       logger.error("Could not upload staged file [" + fileId + "]", e);
       throw new IngeTechnicalException("Could not upload staged file [" + fileId + "]", e);

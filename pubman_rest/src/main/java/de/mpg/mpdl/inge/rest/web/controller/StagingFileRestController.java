@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -52,7 +53,8 @@ public class StagingFileRestController {
   @RequestBody(content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE, schema = @Schema(format = "binary")))
   @ResponseStatus(HttpStatus.CREATED)
   public String createStageComponent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
-      @PathVariable String componentName, HttpServletRequest request) throws IngeTechnicalException, AuthenticationException {
+      @PathVariable String componentName, HttpServletRequest request)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException {
     int stagedFileId;
     try {
       stagedFileId = this.fileService.createStageFile(request.getInputStream(), componentName, token).getId();

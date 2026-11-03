@@ -7,6 +7,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 /**
@@ -19,7 +20,7 @@ public interface FileService extends FileServiceExternal {
   //  void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException;
 
   void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
-      throws IngeTechnicalException, IngeApplicationException;
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException;
 
   //  void indexFile(InputStream fileInputStream);
 

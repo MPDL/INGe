@@ -64,6 +64,7 @@ public class ImportServiceImpl implements ImportService {
   public void deleteImportLog(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
+    this.authorizationService.checkWritable(accountUserDbVO);
 
     ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, false);
     if (null == importLogDbVO) {
@@ -83,6 +84,7 @@ public class ImportServiceImpl implements ImportService {
   public void deleteImportedItems(Integer importLogId, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException {
     AccountUserDbVO accountUserDbVO = getUser(token);
+    this.authorizationService.checkWritable(accountUserDbVO);
 
     ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, false);
     if (null == importLogDbVO) {
@@ -109,6 +111,7 @@ public class ImportServiceImpl implements ImportService {
       InputStream fileStream, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
     AccountUserDbVO accountUserDbVO = getUser(token);
+    this.authorizationService.checkWritable(accountUserDbVO);
 
     if (null == importName || importName.trim().isEmpty()) {
       throw new IngeApplicationException("The import name must not be empty");
@@ -313,6 +316,7 @@ public class ImportServiceImpl implements ImportService {
   public void submitImportedItems(Integer importLogId, ImportLog.SubmitModus submitModus, String token)
       throws AuthenticationException, IngeApplicationException, AuthorizationException, IngeTechnicalException {
     AccountUserDbVO accountUserDbVO = getUser(token);
+    this.authorizationService.checkWritable(accountUserDbVO);
 
     ImportLogDbVO importLogDbVO = this.importCommonService.getImportLog(importLogId, accountUserDbVO, false);
     if (null == importLogDbVO) {

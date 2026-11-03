@@ -19,6 +19,8 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -62,6 +64,12 @@ import org.springframework.stereotype.Service;
 public class AuthorizationService {
 
   private static final Logger logger = LogManager.getLogger(AuthorizationService.class);
+
+  /**
+   * Methods that remain allowed while the system is in global read-only maintenance mode. Password
+   * changes stay governed by the existing {@code aa.json} rules.
+   */
+  private static final Set<String> READ_ONLY_ALLOWED_METHODS = Set.of("get", "readFile", "getAll");
 
   private final Map<String, Object> aaMap;
 
@@ -339,6 +347,58 @@ public class AuthorizationService {
   }
 
   /**
+   * Returns whether the system is currently in global read-only maintenance mode.
+   *
+   * <p>
+   * The value is read from the properties on every call, so it can be toggled at runtime through
+   * the existing property refresh endpoint.
+   * </p>
+   */
+  public boolean isReadOnlyMode() {
+    return Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_READONLY_MODE, "false"));
+  }
+
+  public boolean isSysAdmin(Principal principal) {
+    return null != principal && isSysAdmin(principal.getUserAccount());
+  }
+
+  public boolean isSysAdmin(AccountUserDbVO userAccount) {
+    return null != userAccount && null != userAccount.getGrantList() && GrantUtil.hasRole(userAccount, GrantVO.PredefinedRoles.SYSADMIN);
+  }
+
+  /**
+   * Rejects write operations while the system is in read-only maintenance mode. SYSADMIN is never
+   * restricted.
+   */
+  public void checkWritable(Principal principal) throws AuthorizationException {
+    if (!isReadOnlyMode() || isSysAdmin(principal)) {
+      return;
+    }
+
+    throw new AuthorizationException("The system is in read-only maintenance mode; changes are not allowed.",
+        PubManException.Reason.READ_ONLY);
+  }
+
+  /** @see #checkWritable(Principal) */
+  public void checkWritable(AccountUserDbVO userAccount) throws AuthorizationException {
+    if (!isReadOnlyMode() || isSysAdmin(userAccount)) {
+      return;
+    }
+
+    throw new AuthorizationException("The system is in read-only maintenance mode; changes are not allowed.",
+        PubManException.Reason.READ_ONLY);
+  }
+
+  private Principal getPrincipal(List<String> order, Object[] objects) {
+    int index = order.indexOf("user");
+    if (index < 0 || null == objects || index >= objects.length) {
+      return null;
+    }
+
+    return (Principal) objects[index];
+  }
+
+  /**
    * Authorizes one service invocation.
    *
    * <p>
@@ -359,6 +419,10 @@ public class AuthorizationService {
       throw new AuthorizationException("No rules for service " + serviceName + ", method " + methodName,
           PubManException.Reason.PERMISSION_DENIED);
     } else {
+      if (!READ_ONLY_ALLOWED_METHODS.contains(methodName)) {
+        checkWritable(getPrincipal(order, objects));
+      }
+
       Exception lastExceptionOfAll = null;
       for (Map<String, Object> rules : allowedMap) {
         Exception lastExceptionOfRule = null;
