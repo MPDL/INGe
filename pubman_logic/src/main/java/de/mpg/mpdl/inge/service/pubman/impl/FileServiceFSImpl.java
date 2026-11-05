@@ -179,9 +179,10 @@ public class FileServiceFSImpl implements FileService {
   @Override
   //  @Transactional(rollbackFor = Throwable.class)
   public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException {
 
     Principal user = this.aaService.checkLoginRequired(authenticationToken);
+    this.aaService.checkWritable(user);
     if (null == fileName || fileName.trim().isEmpty()) {
       throw new IngeTechnicalException("No filename defined.");
     }
@@ -223,7 +224,7 @@ public class FileServiceFSImpl implements FileService {
   @Override
   //  @Transactional(rollbackFor = Throwable.class)
   public void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
-      throws IngeTechnicalException, IngeApplicationException {
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException {
 
     if (null == fileVO.getContent() || fileVO.getContent().trim().isEmpty()) {
       throw new IngeApplicationException("A file content containing the id of the staged file has to be provided");
@@ -343,6 +344,8 @@ public class FileServiceFSImpl implements FileService {
       String msg = "Staged file does not exist.";
       logger.error(msg);
       throw new IngeTechnicalException(msg, e);
+    } catch (AuthorizationException e) {
+      throw e;
     } catch (Exception e) {
 
       logger.error("Error while creating file", e);

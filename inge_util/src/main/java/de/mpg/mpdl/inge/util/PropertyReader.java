@@ -150,6 +150,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
   public static final String INGE_PUBMAN_STYLESHEET_URL = "inge.pubman.stylesheet.url";
+  public static final String INGE_READONLY_MODE = "inge.readonly.mode";
   public static final String INGE_REST_ACCESS_CONTROL_ALLOWED_ORIGINS = "inge.rest.access-control-allowed-origins";
   public static final String INGE_REST_API_DESCRIPTION = "inge.rest.api.description";
   public static final String INGE_REST_DEVELOPMENT_ADMIN_PASSWORD = "inge.rest.development.admin.password";

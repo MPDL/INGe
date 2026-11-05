@@ -11,6 +11,7 @@ public class PubManException extends Exception {
         LOGIN_USER_BLOCKED,
         PASSWORD_PATTERN_INVALID,
         PERMISSION_DENIED,
+        READ_ONLY,
 
         ITEM_NOT_FOUND,
         CONTEXT_NOT_FOUND,

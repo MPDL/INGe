@@ -1076,7 +1076,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, Principal principal, VersionableId itemId)
-      throws IngeApplicationException, IngeTechnicalException {
+      throws IngeApplicationException, IngeTechnicalException, AuthorizationException {
 
     List<FileDbVO> updatedFileList = new ArrayList<>();
 

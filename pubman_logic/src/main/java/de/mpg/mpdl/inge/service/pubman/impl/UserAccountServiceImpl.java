@@ -176,6 +176,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   @Override
   public void delete(String userId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException {
+    // Check before removing the login record, which is a write of its own.
+    this.aaService.checkWritable(this.aaService.checkLoginRequired(authenticationToken));
+
     AccountUserDbVO accountUserDbVO = this.userAccountRepository.findById(userId).orElse(null);
 
     try {
