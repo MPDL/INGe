@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface OrcidService {
 
-  OrcidAuthorizationDbVO getOrcidAuthorization(String secret, String code, String errorDescription)
+  String getOrcidAuthorization(String secret, String code, String errorDescription)
       throws AuthenticationException, IngeApplicationException, TechnicalException;
 
   OrcidAuthorizationDbVO createAndSendEmailLink(String token, String coneIdAuthor, String orcidAuthor, String nameAuthor, String emailBibo,

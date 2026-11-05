@@ -16,6 +16,8 @@ import de.mpg.mpdl.inge.service.pubman.orcid.OrcidEmailService;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidRestClient;
 import de.mpg.mpdl.inge.service.pubman.orcid.OrcidSyncService;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
+import java.io.IOException;
 import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +30,10 @@ import org.springframework.stereotype.Service;
 public class OrcidServiceImpl implements OrcidService {
 
   private static final Logger logger = LogManager.getLogger(OrcidServiceImpl.class);
+
+  private static final String CONSENT_AUTHOR_TEXT = "consent_author.txt";
+  private static final String NO_CONSENT_AUTHOR_TEXT = "no_consent_author.txt";
+  private static final String ERROR_AUTHOR_TEXT = "error_author.txt";
 
   private final AuthorizationService authorizationService;
   private final OrcidAuthorizationRepository orcidAuthorizationRepository;
@@ -51,7 +57,7 @@ public class OrcidServiceImpl implements OrcidService {
   }
 
   @Override
-  public OrcidAuthorizationDbVO getOrcidAuthorization(String secret, String code, String errorDescription)
+  public String getOrcidAuthorization(String secret, String code, String errorDescription)
       throws IngeApplicationException, TechnicalException {
     String secret_ = secret;
     String error = null;
@@ -67,6 +73,7 @@ public class OrcidServiceImpl implements OrcidService {
       throw new IngeApplicationException("OrcidAuthorizationDbVO not found for secret: " + secret_);
     }
 
+    String answer;
     if (error != null) {
       orcidAuthorizationDbVO.setDateError(new Date());
       if (error.equals("access_denied")) {
@@ -83,12 +90,14 @@ public class OrcidServiceImpl implements OrcidService {
         String subjectBibo = PropertyReader.getProperty(PropertyReader.ORCID_EMAIL_SUBJECT_NO_CONSENT_FOR_BIBO);
         String textBibo = this.orcidEmailService.createOrcidEmailNoConsentBiboText(orcidAuthorizationDbVO.getNameAuthor());
         this.orcidEmailService.sendEmail(emailBibo, emailSender, null, subjectBibo, textBibo);
+        answer = createAnswer(NO_CONSENT_AUTHOR_TEXT);
       } else {
         orcidAuthorizationDbVO.setErrorCodes(errorDescription);
         orcidAuthorizationDbVO.setStatus(OrcidAuthorizationDbVO.Status.ERROR.toString());
+        answer = createAnswer(ERROR_AUTHOR_TEXT);
       }
-      orcidAuthorizationDbVO = this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
-      return orcidAuthorizationDbVO;
+      this.orcidAuthorizationRepository.saveAndFlush(orcidAuthorizationDbVO);
+      return answer;
     }
 
     orcidAuthorizationDbVO = this.orcidAuthorizationService.updateAuthorizationDbVO(orcidAuthorizationDbVO, code);
@@ -105,9 +114,21 @@ public class OrcidServiceImpl implements OrcidService {
     String textBibo = this.orcidEmailService.createOrcidEmailConsentBiboText(orcidAuthorizationDbVO.getName());
     this.orcidEmailService.sendEmail(emailBibo, emailSender, null, subjectBibo, textBibo);
 
-    orcidAuthorizationDbVO = this.orcidAuthorizationService.finishAuthorizationDbVO(orcidAuthorizationDbVO);
+    this.orcidAuthorizationService.finishAuthorizationDbVO(orcidAuthorizationDbVO);
 
-    return orcidAuthorizationDbVO;
+    return createAnswer(CONSENT_AUTHOR_TEXT);
+  }
+
+  private String createAnswer(String textFile) throws TechnicalException {
+
+    try {
+      String template = ResourceUtil.getResourceAsString(textFile, OrcidEmailServiceImpl.class.getClassLoader());
+      return template;
+    } catch (IOException e) {
+      logger.error("Error reading " + textFile, e);
+      throw new TechnicalException("Error reading " + textFile, e);
+    }
+
   }
 
   @Override

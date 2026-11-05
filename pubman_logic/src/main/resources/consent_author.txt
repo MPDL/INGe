@@ -1,0 +1,18 @@
+<p>*See below for the English version*</p>
+<p><b>Sie haben der Verknüpfung Ihres ORCID-Profils mit MPG.PuRe zugestimmt.</b><br>
+
+<p>Sie erhalten in Kürze eine Email zur Bestätigung.
+
+<p>Mit freundlichen Grüßen</p>
+<p>Ihr MPG.PuRe-Support-Team</p>
+
+<br>
+***
+<br>
+
+<p><b>You have agreed to link your ORCID profile to MPG.PuRe.</b><br>
+
+<p><b>You will receive a confirmation email shortly.</b>
+
+<p>Sincerely,</p>
+<p>Your MPG.PuRe-Support-Team</p>

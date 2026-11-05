@@ -54,15 +54,15 @@ public class OrcidRestController {
   }
 
   @RequestMapping(value = "/getOrcidAuthentication", method = RequestMethod.GET)
-  public ResponseEntity<OrcidAuthorizationDbVO> getOrcidAuthentication( //
+  public ResponseEntity<String> getOrcidAuthentication( //
       @RequestParam(SECRET) String secret, //
       @RequestParam(value = CODE, required = false) String code, //
       @RequestParam(value = ERROR_DESCRIPTION, required = false) String errorDescription) //
       throws TechnicalException, AuthenticationException, IngeApplicationException {
 
-    OrcidAuthorizationDbVO orcidAuthorizationDbVO = this.orcidService.getOrcidAuthorization(secret, code, errorDescription);
+    String answer = this.orcidService.getOrcidAuthorization(secret, code, errorDescription);
 
-    return new ResponseEntity<>(orcidAuthorizationDbVO, HttpStatus.OK);
+    return new ResponseEntity<>(answer, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/sendItemsToOrcid", method = RequestMethod.POST)
