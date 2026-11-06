@@ -112,10 +112,6 @@ public class OrcidQueryServiceImpl implements OrcidQueryService {
   @Override
   public SearchRetrieveResponseVO<ItemVersionVO> doOrcidQuery(String coneIdAuthor, Date dateModified)
       throws IngeTechnicalException, IngeApplicationException {
-    if (this.pubItemService == null) {
-      logger.warn("ORCID: pubItemService is null, returning empty SearchRetrieveResponseVO");
-      return new SearchRetrieveResponseVO<>();
-    }
     JSONObject searchSource = createOrcidQueryJsonNode(coneIdAuthor, dateModified);
     logger.info("ORCID: query: {}", searchSource);
 
